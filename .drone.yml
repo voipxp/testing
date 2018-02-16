@@ -2,8 +2,8 @@ pipeline:
   build:
     image: node
     commands:
+      - yarn
       - yarn run lint
-      - yarn run build
   docker:
     image: plugins/docker
     repo: quay.io/parkbench/odin-web
