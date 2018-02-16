@@ -3,9 +3,19 @@ root /app/html
 errors stderr
 log stdout
 cors
+
+#### FASTCGI (default) ####
 fastcgi / 127.0.0.1:9000 php {
   root /var/www/html/public
 }
 rewrite {
   to {path} {path}/ /index.php?{query}
 }
+
+#### BASIC PROXY ###
+#proxy /api 127.0.0.1 {
+#  transparent
+#}
+#proxy /ui 127.0.0.1 {
+#  transparent
+#}

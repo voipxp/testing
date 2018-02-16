@@ -6,10 +6,12 @@
     "build": "NODE_ENV=production gulp",
     "fix": "eslint --fix 'src/**/*.js'",
     "lint": "eslint 'src/**/*.js'",
-    "dev": "lite-server --baseDir='dist'"
+    "serve": "live-server dist",
+    "watch": "gulp watch"
   },
   "devDependencies": {
     "del": "^3.0.0",
+    "dotenv": "^5.0.0",
     "eslint": "^4.15.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.4.0",
@@ -24,6 +26,7 @@
     "gulp-replace": "^0.6.1",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^3.0.0",
+    "live-server": "^1.2.0",
     "prettier": "^1.10.1",
     "run-sequence": "^2.2.1",
     "stream-series": "^0.1.1"
@@ -41,13 +44,11 @@
     "angular-truncate-2": "0.4.2",
     "angularFileInput": "https://github.com/odra/angular-file-input.git",
     "animate.css": "^3.5.2",
-    "browser-sync": "^2.23.6",
     "buffer-to-vinyl": "^1.1.0",
     "bulma": "^0.6.2",
     "bulma-extensions": "^0.5.2",
     "checklist-model": "^0.11.0",
     "clipboard": "^1.7.1",
-    "dotenv": "^5.0.0",
     "font-awesome": "^4.7.0",
     "gulp-ng-config": "^1.5.0",
     "localforage": "^1.5.5",

@@ -15,7 +15,7 @@ FROM alpine:3.7
 COPY --from=caddy /install/caddy /usr/local/bin/caddy
 COPY --from=build /app/dist /app/html
 RUN apk add --no-cache ca-certificates
-ADD Caddyfile /app/etc/Caddyfile
+ADD Caddyfile.example /app/etc/Caddyfile
 WORKDIR /app
 ENV CADDYPATH /app/ssl
 VOLUME /app/etc /app/ssl

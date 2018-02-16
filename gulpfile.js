@@ -1,5 +1,4 @@
 require('dotenv').config()
-const browserSync = require('browser-sync').create()
 const annotate = require('gulp-ng-annotate')
 const concat = require('gulp-concat')
 const cssnano = require('gulp-cssnano')
@@ -17,7 +16,7 @@ const buffer = require('buffer-to-vinyl')
 const ngConfig = require('gulp-ng-config')
 
 const prod = process.env.NODE_ENV === 'production'
-const dest = process.env.APP_PATH || 'dist'
+const dest = process.env.APP_DIST || 'dist'
 const base = process.env.API_BASE || ''
 
 console.log('BASE', base)
@@ -159,13 +158,8 @@ gulp.task('default', () => {
 })
 
 gulp.task('watch', ['default'], () => {
-  browserSync.init({ server: './dist' })
-  gulp.watch(['src/**/*.css'], ['app.css']).on('change', browserSync.reload)
-  gulp.watch(['src/**/*.js'], ['app.js']).on('change', browserSync.reload)
-  gulp
-    .watch(['src/app/layout/index.html'], ['app.html'])
-    .on('change', browserSync.reload)
-  gulp
-    .watch(['src/**/*.html', '!src/app/layout/index.html'], ['app.tpl'])
-    .on('change', browserSync.reload)
+  gulp.watch(['src/**/*.css'], ['app.css'])
+  gulp.watch(['src/**/*.js'], ['app.js'])
+  gulp.watch(['src/app/layout/index.html'], ['app.html'])
+  gulp.watch(['src/**/*.html', '!src/app/layout/index.html'], ['app.tpl'])
 })
