@@ -1,0 +1,53 @@
+<pbs-form-field label="{{ $ctrl.label }} Audio Selection">
+  <div class="select">
+    <select ng-model="$ctrl.service.audioMessageSource"
+      ng-options="opt for opt in $ctrl.options.audioMessageSource"></select>
+  </div>
+</pbs-form-field>
+<pbs-form-field label="Audio URLs"
+  ng-show="$ctrl.isUrl()">
+  <div class="field has-addons">
+    <p class="control is-expanded">
+      <input type="url"
+        class="input"
+        placeholder="URL"
+        ng-model="$ctrl.newUrl">
+    </p>
+    <p class="control">
+      <a class="button"
+        ng-click="$ctrl.addUrl()"
+        ng-disabled="!$ctrl.newUrl"
+        title="Add a URL">
+        <span class="icon">
+          <i class="fa fa-plus"></i>
+        </span>
+      </a>
+    </p>
+  </div>
+  <table pbs-table>
+    <tr ng-repeat="url in $ctrl.service.audioUrlList">
+      <td>{{ url }}
+        <pbs-button-compact-delete class="is-pulled-right"
+          ng-click="$ctrl.removeUrl($index)"></pbs-button-compact-delete>
+      </td>
+    </tr>
+  </table>
+</pbs-form-field>
+
+<pbs-form-field label="{{ $ctrl.label }} Audio Files"
+  ng-show="$ctrl.isFile()">
+  <div class="margin-bottom"
+    ng-show="$ctrl.canAddFile()">
+    <pbs-input-file on-upload="$ctrl.addFile(file)"
+      mode="data-url"
+      require></pbs-input-file>
+  </div>
+  <table pbs-table>
+    <tr ng-repeat="file in $ctrl.service.audioFileList">
+      <td>{{ file.description }}
+        <pbs-button-compact-delete class="is-pulled-right"
+          ng-click="$ctrl.removeFile($index)"></pbs-button-compact-delete>
+      </td>
+    </tr>
+  </table>
+</pbs-form-field>

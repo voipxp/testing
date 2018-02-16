@@ -1,0 +1,127 @@
+<pbs-modal id="{{ $ctrl.modalId }}"
+  title="Create Device">
+  <div ng-show="!$ctrl.device">
+    <pbs-table-search ng-model="$ctrl.filter"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Device Type</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="1">
+            No Device Type Found
+            <span ng-if="$ctrl.filter">
+              for {{ $ctrl.filter }}
+            </span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-click="$ctrl.select(device)"
+          ng-repeat="device in $ctrl.devices | filter:$ctrl.filter | orderBy:'deviceType' as results track by device.deviceType">
+          <td>{{ device.deviceType }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <form novalidate
+    name="deviceCreateForm"
+    ng-show="$ctrl.device">
+    <pbs-form-section title="{{ $ctrl.device.deviceType }}">
+      <a ng-click="$ctrl.device = null"
+        href="">(Edit)</a>
+    </pbs-form-section>
+
+    <pbs-tabs no-hash="true">
+      <pbs-tab label="Required">
+        <pbs-form-field label="Device Name">
+          <bulk-tag-input ng-model="$ctrl.device.deviceName"
+            is-required="true"></bulk-tag-input>
+        </pbs-form-field>
+        <pbs-form-field label="Credentials">
+          <label class="radio">
+            <input type="radio"
+              ng-model="$ctrl.device.useCustomUserNamePassword"
+              ng-value="false"> Use Identity/Device Profile Type Credentials
+          </label>
+          <br>
+          <label class="radio">
+            <input type="radio"
+              ng-model="$ctrl.device.useCustomUserNamePassword"
+              ng-value="true"> Use Custom Credentials
+          </label>
+        </pbs-form-field>
+        <pbs-form-field label="Username"
+          ng-show="$ctrl.device.useCustomUserNamePassword">
+          <bulk-tag-input ng-model="$ctrl.device.accessDeviceCredentials.userName"
+            is-required="$ctrl.device.useCustomUserNamePassword"></bulk-tag-input>
+        </pbs-form-field>
+        <pbs-form-field label="Password"
+          ng-show="$ctrl.device.useCustomUserNamePassword">
+          <bulk-tag-input ng-model="$ctrl.device.accessDeviceCredentials.password"
+            is-required="$ctrl.device.useCustomUserNamePassword"></bulk-tag-input>
+        </pbs-form-field>
+        <pbs-form-field label="Password Again"
+          ng-show="$ctrl.device.useCustomUserNamePassword">
+          <bulk-tag-input ng-model="$ctrl.device.accessDeviceCredentials.password2"
+            is-required="$ctrl.device.useCustomUserNamePassword"></bulk-tag-input>
+        </pbs-form-field>
+      </pbs-tab>
+
+      <pbs-tab label="Optional">
+        <pbs-form-field label="Protocol"
+          ng-show="$ctrl.device.protocolChoice">
+          <div class="select">
+            <select ng-model="$ctrl.device.protocol"
+              ng-options="protocol for protocol in $ctrl.device.protocolChoice"></select>
+          </div>
+        </pbs-form-field>
+        <pbs-form-field label="Host Name/IP Address">
+          <input type="text"
+            ng-model="$ctrl.device.netAddress"
+            class="input">
+        </pbs-form-field>
+        <pbs-form-field label="Port">
+          <input type="text"
+            ng-model="$ctrl.device.port"
+            class="input">
+        </pbs-form-field>
+        <pbs-form-field label="Transport">
+          <div class="select">
+            <select ng-model="$ctrl.device.transportProtocol"
+              ng-options="v for v in ['UDP', 'TCP', 'Undefined']"></select>
+          </div>
+        </pbs-form-field>
+        <pbs-form-field label="MAC Address">
+          <input type="text"
+            ng-model="$ctrl.device.macAddress"
+            class="input">
+        </pbs-form-field>
+        <pbs-form-field label="Serial Number">
+          <input type="text"
+            ng-model="$ctrl.device.serialNumber"
+            class="input">
+        </pbs-form-field>
+        <pbs-form-field label="Description">
+          <bulk-tag-input ng-model="$ctrl.device.description"></bulk-tag-input>
+        </pbs-form-field>
+        <pbs-form-field label="Outbound Proxy Server">
+          <input type="text"
+            ng-model="$ctrl.device.outboundProxyServerNetAddress"
+            class="input">
+        </pbs-form-field>
+        <pbs-form-field label="STUN Server">
+          <input type="text"
+            ng-model="$ctrl.device.stunServerNetAddress"
+            class="input">
+        </pbs-form-field>
+        <pbs-form-field label="Physical Location">
+          <bulk-tag-input ng-model="$ctrl.device.physicalLocation"></bulk-tag-input>
+        </pbs-form-field>
+      </pbs-tab>
+    </pbs-tabs>
+  </form>
+</pbs-modal>

@@ -1,0 +1,58 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="{{ $ctrl.title }}">
+    <pbs-columns>
+      <pbs-column>
+        <pbs-table-search ng-model="$ctrl.search"
+          style="margin-bottom: 0"></pbs-table-search>
+      </pbs-column>
+      <pbs-column class="is-narrow">
+        <div class="buttons has-addons">
+          <span class="button"
+            ng-class="{'is-success': !$ctrl.filter}"
+            ng-click="$ctrl.filter = null">All</span>
+          <span class="button"
+            ng-class="{'is-success': $ctrl.filter === 'assigned'}"
+            ng-click="$ctrl.filter = 'assigned'">Assigned</span>
+          <span class="button"
+            ng-class="{'is-success': $ctrl.filter === 'unassigned'}"
+            ng-click="$ctrl.filter = 'unassigned'">Unassigned</span>
+        </div>
+      </pbs-column>
+    </pbs-columns>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th class="has-text-centered">Assigned</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="100">No Services Found
+            <strong ng-if="$ctrl.search">for {{ $ctrl.search }}</strong>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr ng-repeat="service in $ctrl.services | filter:$ctrl.filterService | filter:$ctrl.search | orderBy:'serviceName' as results track by service.serviceName">
+          <td>{{ service.serviceName }}</td>
+          <td>
+            <input type="checkbox"
+              ng-model="service.assigned"
+              ng-change="$ctrl.toggle(service)"
+              pbs-input-switch="centered"
+              ng-disabled="service.isLoading">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="userServicesEditModal"
+  title="Edit Services">
+  <pbs-form>
+    <pbs-form-field label="Assigned">
+      <pbs-input-checkbox label="Service Assigned"
+        ng-model="$ctrl.editService.assigned"></pbs-input-checkbox>
+  </pbs-form>
+</pbs-modal>

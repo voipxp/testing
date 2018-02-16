@@ -1,0 +1,13 @@
+<pbs-form-field label="Do you want to assign passcodes?">
+  <label class="radio">
+    <input type="radio"
+      ng-value="null"
+      ng-model="$ctrl.passcode"> Leave Blank
+  </label>
+  <br>
+  <label class="radio">
+    <input type="radio"
+      ng-value="$ctrl.templates.passcode"
+      ng-model="$ctrl.passcode"> Auto-Generate Passcodes
+  </label>
+</pbs-form-field>

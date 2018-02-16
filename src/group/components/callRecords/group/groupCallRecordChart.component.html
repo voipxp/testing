@@ -1,0 +1,42 @@
+<pbs-spinner loading="$ctrl.loading">
+  <div class="box">
+    <div class="has-text-centered">
+      <p class="subtitle">
+        <a href=""
+          ng-click="$ctrl.open()">{{ $ctrl.label }}</a>
+      </p>
+    </div>
+    <pbs-columns class="margin-top">
+      <pbs-column>
+        <p class="subtitle has-text-centered">
+          <span class="thin">Total Calls</span>
+          <br>
+          <strong>{{ $ctrl.stats.total }}</strong>
+        </p>
+      </pbs-column>
+      <pbs-column>
+        <p class="subtitle has-text-centered">
+          <span class="thin">Placed</span>
+          <br>
+          <strong>{{ $ctrl.stats.placedTotal }}</strong>
+        </p>
+      </pbs-column>
+      <pbs-column>
+        <p class="subtitle has-text-centered">
+          <span class="thin">Received</span>
+          <br>
+          <strong>{{ $ctrl.stats.receivedTotal }}</strong>
+        </p>
+      </pbs-column>
+    </pbs-columns>
+    <div class="margin-top">
+      <canvas class="chart chart-doughnut"
+        chart-data="$ctrl.data"
+        chart-labels="$ctrl.labels"
+        chart-options="$ctrl.options"
+        chart-colors="$ctrl.colors"
+        ng-if="$ctrl.data">
+      </canvas>
+    </div>
+  </div>
+</pbs-spinner>

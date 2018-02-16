@@ -1,0 +1,33 @@
+<!-- set rrule COUNT or UNTIL -->
+<div class="field margin-top">
+  <label class="label">Ends</label>
+  <div class="field has-addons">
+    <div class="control">
+      <div class="select">
+        <select ng-options="opt for opt in ['After', 'On']"
+          ng-model="endsPattern"
+          ng-change="$ctrl.update(endsPattern)">
+          <option value="">Never</option>
+        </select>
+      </div>
+    </div>
+    <div class="control is-expanded"
+      ng-if="endsPattern === 'After'">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.rrule.count"
+        required>
+    </div>
+    <div class="control is-expanded"
+      ng-if="endsPattern === 'On'">
+      <pbs-input-datetime ng-model="$ctrl.rrule.until"
+        is-date="true"
+        ng-required="true">
+      </pbs-input-datetime>
+    </div>
+    <div class="control"
+      ng-if="endsPattern === 'After'">
+      <a class="button is-static">Occurences</a>
+    </div>
+  </div>
+</div>

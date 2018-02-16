@@ -1,0 +1,109 @@
+<div class="has-text-centered"
+  ng-show="vm.isLoading">
+  <span class="loader huge"></span>
+</div>
+<div ng-show="!vm.isLoading">
+  <div class="margin-top margin-bottom underline">
+    <div class="columns">
+      <div class="column is-narrow">
+        <p class="big-text">
+          <span class="mid-margin-right">Assigned Users</span>
+          (
+          <a href=""
+            ng-click="vm.addUsers()">
+            <span class="icon">
+              <i class="fa fa-plus"></i>
+            </span>
+          </a>
+          )
+        </p>
+      </div>
+      <div class="column has-text-right">
+        <input type="search"
+          placeholder="search"
+          class="input"
+          ng-model="vm.searchUser">
+      </div>
+    </div>
+  </div>
+  <table pbs-table>
+    <thead>
+      <tr>
+        <th class="hide-on-mobile">User ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone Number</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr ng-if="userResults.length === 0">
+        <td colspan="5">No Users Found
+          <span ng-if="vm.searchUser">for {{ vm.searchUser }}</span>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr ng-repeat="user in vm.assignedUsers | filter:vm.searchUser as userResults track by user.userId">
+        <td>{{ user.userId }}</td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.phoneNumber }}</td>
+        <td class="action">
+          <pbs-button-compact-delete ng-click="vm.removeUser(user)"></pbs-button-compact-delete>
+          <pbs-button-compact-edit ng-click="vm.openUser(user)"></pbs-button-compact-edit>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<pbs-modal id="add-trunk-users"
+  title="Add Users">
+  <div class="margin-top margin-bottom underline">
+    <div class="columns">
+      <div class="column is-narrow">
+        <p class="big-text">
+          <span class="mid-margin-right">Available Users</span>
+        </p>
+      </div>
+      <div class="column has-text-right">
+        <input type="search"
+          placeholder="search"
+          class="input"
+          ng-model="vm.searchAvailableUsers">
+      </div>
+    </div>
+  </div>
+  <p class="big-text">Select the users to add and click save.</p>
+  <table pbs-table>
+    <thead>
+      <tr>
+        <th class="hide-on-mobile">User ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone</th>
+        <th class="action">&nbsp;</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr ng-if="availableUsersResults.length === 0">
+        <td colspan="5">No Available Users
+          <span ng-if="vm.searchAvailableTrunk">for {{ vm.searchAvailableUsers }}</span>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr class="hover"
+        ng-repeat="user in vm.availableUsers | filter:vm.searchAvailableUsers as availableUsersResults"
+        ng-click="vm.toggleSelectedUser(user)">
+        <td>{{ user.userId }}</td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.phoneNumber }}</td>
+        <td class="action">
+          <pbs-check-box checked="vm.isSelectedUser(user)"></pbs-check-box>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-modal>

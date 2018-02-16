@@ -1,0 +1,62 @@
+<pbs-spinner loading="$ctrl.parent.loading">
+  <pbs-block title="Unreachable Destination"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="$ctrl.parent.module">
+      <pbs-button-compact-edit title="Edit Unreachable Destination"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Unreachable Destination Action">
+        {{ $ctrl.parent.trunk.unreachableDestinationAction || 'None' }}
+        <span ng-show="$ctrl.parent.trunk.unreachableDestinationAction === 'Forward'">
+          to
+          <strong>{{ $ctrl.parent.trunk.unreachableDestinationForwardAddress }}</strong>
+        </span>
+        <span ng-show="$ctrl.parent.trunk.unreachableDestinationAction === 'Reroute'">
+          to
+          <strong>{{ $ctrl.parent.trunk.unreachableDestinationRerouteTrunkGroupKey.name }}</strong>
+        </span>
+      </pbs-list-item>
+      <pbs-list-item label="Unreachable Destination Timeout">
+        {{ $ctrl.parent.trunk.invitationTimeout }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupTrunkGroupCallUnreachableDestination"
+  title="Edit Unreachable Destination">
+  <form novalidate>
+    <pbs-form-field label="Actions">
+      <div class="select">
+        <select class=""
+          ng-model="$ctrl.editTrunk.unreachableDestinationAction"
+          ng-options="opt as opt for opt in $ctrl.options.unreachableDestinationAction">
+          <option value="">None</option>
+        </select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Forward To"
+      ng-show="$ctrl.editTrunk.unreachableDestinationAction === 'Forward'">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editTrunk.unreachableDestinationForwardAddress"
+        ng-required="$ctrl.editTrunk.unreachableDestinationAction === 'Forward'">
+    </pbs-form-field>
+    <pbs-form-field label="Reroute To"
+      ng-show="$ctrl.editTrunk.unreachableDestinationAction === 'Reroute'">
+      <div class="select">
+        <select ng-model="$ctrl.editTrunk.unreachableDestinationRerouteTrunkGroupKey"
+          ng-options="trunk as trunk.name for trunk in $ctrl.parent.trunks track by trunk.name"
+          ng-required="$ctrl.editTrunk.unreachableDestinationAction === 'Reroute'"></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Invitation Timeout">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.invitationTimeout"
+        min="{{ $ctrl.options.invitationTimeout.min }}"
+        max="{{ $ctrl.options.invitationTimeout.max }}">
+    </pbs-form-field>
+  </form>
+</pbs-modal>

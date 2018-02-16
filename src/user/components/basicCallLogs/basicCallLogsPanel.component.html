@@ -1,0 +1,37 @@
+<pbs-spinner loading="$ctrl.loading">
+  <nav class="panel">
+    <p class="panel-heading">Recent Calls</p>
+    <p class="panel-tabs">
+      <a ng-class="{'is-active': $ctrl.tab === 'placed'}"
+        ng-click="$ctrl.tab = 'placed'">Placed</a>
+      <a ng-class="{'is-active': $ctrl.tab === 'received'}"
+        ng-click="$ctrl.tab = 'received'">Received</a>
+      <a ng-class="{'is-active': $ctrl.tab === 'missed'}"
+        ng-click="$ctrl.tab = 'missed'">Missed</a>
+    </p>
+    <div class="panel-block">
+      <p class="control has-icons-left">
+        <input class="input is-small"
+          type="search"
+          placeholder="search"
+          ng-model="$ctrl.search">
+        <span class="icon is-small is-left">
+          <i class="fa fa-search"></i>
+        </span>
+      </p>
+    </div>
+    <a class="panel-block"
+      ng-click="$ctrl.open()"
+      ng-repeat="item in $ctrl.calls[$ctrl.tab] | filter:$ctrl.search | limitTo:$ctrl.limitTo as results">
+      {{ item.phoneNumber }}
+      <small style="margin-left: auto">{{ item.time | pbsDate:'relative' }}</small>
+    </a>
+    <div class="panel-block"
+      ng-show="!results || results.length < 1">
+      Nothing Found
+      <span ng-show="$ctrl.search"> for
+        <strong>{{ $ctrl.search }}</strong>
+      </span>
+    </div>
+  </nav>
+</pbs-spinner>

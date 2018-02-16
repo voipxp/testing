@@ -1,0 +1,99 @@
+<pbs-modal id="createGroupModal"
+  title="New Group">
+  <form>
+    <pbs-tabs>
+      <pbs-tab label="Required">
+        <pbs-form-field label="Group ID">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.groupId"
+            required>
+        </pbs-form-field>
+        <pbs-form-field label="Group Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.groupName"
+            required>
+        </pbs-form-field>
+        <pbs-form-field label="Default Domain">
+          <div class="select">
+            <select ng-model="$ctrl.group.defaultDomain"
+              ng-options="domain as domain for domain in $ctrl.domains.domains"
+              required></select>
+          </div>
+        </pbs-form-field>
+        <pbs-form-field label="User Limit">
+          <input type="number"
+            class="input"
+            ng-model="$ctrl.group.userLimit"
+            min="1"
+            required>
+        </pbs-form-field>
+      </pbs-tab>
+      <pbs-tab label="Optional">
+        <pbs-form-field label="Group CLID Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.callingLineIdName">
+        </pbs-form-field>
+        <pbs-form-field label="Location Dialing Code">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.locationDialingCode">
+        </pbs-form-field>
+        <pbs-form-field label="Timezone">
+          <div class="select">
+            <select ng-model="$ctrl.group.timeZone"
+              ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones"></select>
+          </div>
+        </pbs-form-field>
+        <pbs-form-field label="Contact Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.contact.contactName">
+        </pbs-form-field>
+        <pbs-form-field label="Contact Email">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.contact.contactEmail">
+        </pbs-form-field>
+        <pbs-form-field label="Contact Number">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.contact.contactNumber">
+        </pbs-form-field>
+        <pbs-form-field label="Address Line 1">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.address.addressLine1">
+        </pbs-form-field>
+        <pbs-form-field label="Address Line 2">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.address.addressLine2">
+        </pbs-form-field>
+        <pbs-form-field label="City">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.address.city">
+        </pbs-form-field>
+        <pbs-form-field label="State/Province">
+          <div class="select">
+            <select ng-model="$ctrl.group.address.stateOrProvince"
+              ng-options="state.key as state.displayName for state in $ctrl.states"></select>
+          </div>
+        </pbs-form-field>
+        <pbs-form-field label="Postal Code">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.address.zipOrPostalCode">
+        </pbs-form-field>
+        <pbs-form-field label="Country">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.address.country">
+        </pbs-form-field>
+      </pbs-tab>
+    </pbs-tabs>
+  </form>
+</pbs-modal>

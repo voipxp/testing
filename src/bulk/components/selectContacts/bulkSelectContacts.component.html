@@ -1,0 +1,20 @@
+<pbs-block title="User Contact Information">
+  <p class="subtitle underline">Contact Information</p>
+  <pbs-form>
+    <pbs-form-field label="Mobile Number">
+      <bulk-tag-input ng-model="$ctrl.mobilePhoneNumber"></bulk-tag-input>
+    </pbs-form-field>
+    <pbs-form-field label="Pager Number">
+      <bulk-tag-input ng-model="$ctrl.pagerPhoneNumber"></bulk-tag-input>
+    </pbs-form-field>
+    <pbs-form-field label="Email Address">
+      <bulk-tag-input ng-model="$ctrl.emailAddress"></bulk-tag-input>
+    </pbs-form-field>
+    <pbs-form-field label="Social ID">
+      <bulk-tag-input ng-model="$ctrl.yahooId"></bulk-tag-input>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-block>
+<div class="large-margin-top has-text-right">
+  <pbs-button-next ng-click="$ctrl.complete()"></pbs-button-next>
+</div>

@@ -1,0 +1,41 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId">
+  <pbs-breadcrumb title="'Announcements'"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Announcements">
+    <pbs-block-buttons>
+      <pbs-button-compact-add title="Add Announcement"
+        ng-click="$ctrl.add()"></pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Size</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="5">No Announcements Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-click="$ctrl.open(announcement)"
+          ng-repeat="announcement in $ctrl.repository.announcements | filter:$ctrl.search | orderBy:'name' as results track by announcement.name">
+          <td>{{ announcement.name }}</td>
+          <td>{{ announcement.mediaType }}</td>
+          <td>{{ announcement.fileSize }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<announcement-create service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onUpdate($event)"></announcement-create>

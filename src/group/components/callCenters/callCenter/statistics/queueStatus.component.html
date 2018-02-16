@@ -1,0 +1,57 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Status">
+    <pbs-block-buttons>
+      <pbs-button-compact-refresh title="Refresh"
+        ng-click="$ctrl.refresh()">
+      </pbs-button-compact-refresh>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Current Calls in Queue">
+        {{ $ctrl.status.numberOfCallsQueuedNow || 0 }}
+      </pbs-list-item>
+      <pbs-list-item label="Agents Currently Staffed">
+        <a href=""
+          ng-click="$ctrl.viewAgents()">{{ (ctrl.status.agentsCurrentlyStaffed && ctrl.status.agentsCurrentlyStaffed.length) || 0 }} Agents</a>
+      </pbs-list-item>
+    </pbs-list>
+    <h4 class="subtitle">
+      Queue and Agent Statistics
+    </h4>
+    <group-call-center-statistics service-user-id="$ctrl.serviceUserId"></group-call-center-statistics>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="groupCallCenterQueueStatusViewAgents"
+  title="Currently Staffed Agents">
+  <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+  <table pbs-table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Number</th>
+        <th>Extension</th>
+        <th>Department</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr ng-if="results.length === 0">
+        <td colspan="7">No Agents Found
+          <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr ng-repeat="agent in $ctrl.status.agentsCurrentlyStaffed | filter:$ctrl.search as results track by agent.userId">
+        <td>{{ agent.userId }}</td>
+        <td>{{ agent.lastName }}</td>
+        <td>{{ agent.firstName }}</td>
+        <td>{{ agent.phoneNumber }}</td>
+        <td>{{ agent.extension }}</td>
+        <td>{{ agent.department }}</td>
+        <td>{{ agent.emailAddress }}</td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-modal>

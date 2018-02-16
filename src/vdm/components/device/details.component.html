@@ -1,0 +1,26 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Actions">
+    <div class="buttons is-centered">
+      <span class="button"
+        ng-click="$ctrl.assign()">Reassign Template</span>
+      <span class="button"
+        ng-click="$ctrl.rebuild()">Rebuild Configuration</span>
+      <span class="button"
+        ng-click="$ctrl.reset()">Reset Device</span>
+    </div>
+  </pbs-block>
+  <pbs-block title="Details"
+    class="margin-top">
+    <pbs-list>
+      <pbs-list-item label="Device Name">
+        {{ $ctrl.device.deviceName }}
+      </pbs-list-item>
+      <pbs-list-item label="Device Type">
+        {{ $ctrl.device.deviceType }}
+      </pbs-list-item>
+      <pbs-list-item label="Status">
+        {{ $ctrl.device.status }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>

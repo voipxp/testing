@@ -1,0 +1,30 @@
+<pbs-modal id="{{ $ctrl.modalId }}"
+  title="Edit Announcement">
+  <pbs-form>
+    <pbs-form-field label="File Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editAnnouncement.newName">
+    </pbs-form-field>
+    <pbs-form-field label="Upload File">
+      <pbs-input-file on-upload="$ctrl.upload(file)"
+        mode="data-url"
+        require></pbs-input-file>
+    </pbs-form-field>
+    <pbs-form-field label="Media Type"
+      ng-show="$ctrl.editAnnouncement.content">
+      <div class="select">
+        <select ng-model="$ctrl.editAnnouncement.mediaType"
+          ng-options="type for type in $ctrl.options.mediaTypes"
+          required></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Description"
+      ng-show="$ctrl.editAnnouncement.content">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editAnnouncement.description"
+        required>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

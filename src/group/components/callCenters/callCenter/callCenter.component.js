@@ -1,0 +1,117 @@
+;(function() {
+  angular.module('odin.group').component('groupCallCenter', {
+    templateUrl:
+      'group/components/callCenters/callCenter/callCenter.component.html',
+    controller: Controller,
+    bindings: { module: '<' }
+  })
+
+  function Controller(
+    $routeParams,
+    Route,
+    Alert,
+    GroupCallCenterService,
+    UserServiceService
+  ) {
+    var ctrl = this
+    ctrl.serviceProviderId = $routeParams.serviceProviderId
+    ctrl.groupId = $routeParams.groupId
+    ctrl.serviceUserId = $routeParams.serviceUserId
+    ctrl.$onInit = activate
+    ctrl.update = update
+    ctrl.updateProfile = updateProfile
+    ctrl.destroy = destroy
+    ctrl.hasPermission = hasPermission
+    ctrl.assigned = assigned
+    ctrl._assigned
+
+    function activate() {
+      ctrl.loading = true
+      loadAssigned(ctrl.serviceUserId)
+        .then(loadCallCenter())
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          ctrl.loading = false
+        })
+    }
+
+    function loadCallCenter() {
+      return GroupCallCenterService.show(ctrl.serviceUserId).then(function(
+        data
+      ) {
+        ctrl.center = data
+        console.log('center', data)
+        return data
+      })
+    }
+
+    function update(center, callback) {
+      Alert.spinner.open()
+      GroupCallCenterService.update(ctrl.serviceUserId, center)
+        .then(loadCallCenter)
+        .then(function() {
+          Alert.notify.success('Call Center Updated')
+          if (_.isFunction(callback)) {
+            callback()
+          }
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    }
+
+    function destroy(callback) {
+      Alert.spinner.open()
+      GroupCallCenterService.destroy(ctrl.serviceUserId)
+        .then(function() {
+          Alert.notify.success('Call Center Removed')
+          if (_.isFunction(callback)) {
+            callback()
+          }
+          Route.open('callCenter', ctrl.serviceProviderId, ctrl.groupId)()
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    }
+
+    function updateProfile(event) {
+      var editCenter = angular.copy(ctrl.center)
+      editCenter.serviceInstanceProfile = event.profile
+      update(editCenter, event.callback)
+    }
+
+    function hasPermission(attribute) {
+      return GroupCallCenterService.hasPermission(ctrl.center, attribute)
+    }
+
+    function loadAssigned(userId) {
+      return UserServiceService.assigned(userId)
+        .then(mapServices)
+        .then(function(data) {
+          console.log('ctrl._assigned', data)
+          ctrl._assigned = data
+        })
+    }
+
+    function mapServices(assigned) {
+      var services = {}
+      assigned.userServices.forEach(function(service) {
+        services[service.serviceName] = true
+      })
+      return services
+    }
+
+    function assigned(name) {
+      return !!ctrl._assigned[name]
+    }
+  }
+})()

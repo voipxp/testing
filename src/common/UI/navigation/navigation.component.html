@@ -1,0 +1,28 @@
+<nav class="breadcrumb"
+  aria-label="breadcrumbs">
+  <ul>
+    <li>
+      <a href=""
+        ng-click="$ctrl.dashboard()">Dashboard</a>
+    </li>
+    <pbs-breadcrumb ng-show="$ctrl.serviceProviderId && $ctrl.has('Provisioning')"
+      title="'Service Providers'"
+      ng-click="$ctrl.openServiceProvider()"></pbs-breadcrumb>
+    <pbs-breadcrumb ng-show="$ctrl.serviceProviderId && $ctrl.has('Service Provider')"
+      title="$ctrl.serviceProviderId"
+      ng-click="$ctrl.openServiceProvider($ctrl.serviceProviderId)"></pbs-breadcrumb>
+    <pbs-breadcrumb ng-show="$ctrl.groupId && $ctrl.has('Service Provider')"
+      title="'Groups'"
+      ng-click="$ctrl.openGroup()"></pbs-breadcrumb>
+    <pbs-breadcrumb ng-show="$ctrl.groupId && $ctrl.has('Group')"
+      title="$ctrl.groupId"
+      ng-click="$ctrl.openGroup($ctrl.groupId)"></pbs-breadcrumb>
+    <pbs-breadcrumb ng-show="$ctrl.userId && $ctrl.has('Group')"
+      title="'Users'"
+      ng-click="$ctrl.openUser()"></pbs-breadcrumb>
+    <pbs-breadcrumb ng-show="$ctrl.userId"
+      title="$ctrl.userId"
+      ng-click="$ctrl.openUser($ctrl.userId)"></pbs-breadcrumb>
+    <span ng-transclude-replace></span>
+  </ul>
+</nav>

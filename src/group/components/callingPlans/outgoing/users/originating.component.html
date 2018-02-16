@@ -1,0 +1,201 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Originating">
+    <pbs-columns>
+      <pbs-column>
+        <pbs-table-search ng-model="$ctrl.search"
+          style="margin-bottom: 0"></pbs-table-search>
+      </pbs-column>
+      <pbs-column class="is-narrow">
+        <div class="buttons has-addons">
+          <span class="button"
+            ng-class="{'is-success': !$ctrl.filter}"
+            ng-click="$ctrl.filter = null">All</span>
+          <span class="button"
+            ng-class="{'is-success': $ctrl.filter.useCustomSettings === true}"
+            ng-click="$ctrl.filter.useCustomSettings = true">Custom</span>
+          <span class="button"
+            ng-class="{'is-success': $ctrl.filter.useCustomSettings === false}"
+            ng-click="$ctrl.filter.useCustomSettings = false">Default</span>
+        </div>
+      </pbs-column>
+    </pbs-columns>
+    <table pbs-table
+      class="margin-bottom">
+      <thead>
+        <tr>
+          <th>UserId</th>
+          <th>Custom</th>
+          <th>Casual</th>
+          <th>Chargeable DA</th>
+          <th>Group</th>
+          <th>International</th>
+          <th>Local</th>
+          <th>Operator Assisted</th>
+          <th>Premium Services I</th>
+          <th>Premium Services II</th>
+          <th>Special Services I</th>
+          <th>Special Services II</th>
+          <th>Toll</th>
+          <th>Toll Free</th>
+          <th>Unknown</th>
+          <th>URL Dialing</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="99">No User Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr>
+          <th>Group Default</th>
+          <th></th>
+          <th>{{ $ctrl.groupPlan.permissions.casual }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.chargeableDirectoryAssisted }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.group }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.international }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.local }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.operatorAssisted }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.premiumServicesI }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.premiumServicesII }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.specialServicesI }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.specialServicesII }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.toll }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.tollFree }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.unknown }}</th>
+          <th>{{ $ctrl.groupPlan.permissions.urlDialing }}</th>
+        </tr>
+        <tr class="hover"
+          ng-click="$ctrl.edit(plan)"
+          ng-repeat="plan in results = ($ctrl.userPlans | filter:$ctrl.filter | filter:$ctrl.search) | paginate:$ctrl.pager">
+          <td>{{ plan.userId }}</td>
+          <td>
+            <pbs-check-box checked="plan.useCustomSettings"></pbs-check-box>
+          </td>
+          <td>{{ plan.userPermissions.casual }}</td>
+          <td>{{ plan.userPermissions.chargeableDirectoryAssisted }}</td>
+          <td>{{ plan.userPermissions.group }}</td>
+          <td>{{ plan.userPermissions.international }}</td>
+          <td>{{ plan.userPermissions.local }}</td>
+          <td>{{ plan.userPermissions.operatorAssisted }}</td>
+          <td>{{ plan.userPermissions.premiumServicesI }}</td>
+          <td>{{ plan.userPermissions.premiumServicesII }}</td>
+          <td>{{ plan.userPermissions.specialServicesI }}</td>
+          <td>{{ plan.userPermissions.specialServicesII }}</td>
+          <td>{{ plan.userPermissions.toll }}</td>
+          <td>{{ plan.userPermissions.tollFree }}</td>
+          <td>{{ plan.userPermissions.unknown }}</td>
+          <td>{{ plan.userPermissions.urlDialing }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <pbs-pagination items="results.length"
+      limit="25"
+      on-update="$ctrl.onPagination($event)"></pbs-pagination>
+  </pbs-block>
+
+</pbs-spinner>
+
+<pbs-modal id="editUserOutgoingCallingPlanOriginating"
+  title="Originating - {{ $ctrl.editPlan.userId }}">
+  <pbs-form>
+    <pbs-form-section>Custom Settings</pbs-form-section>
+    <input type="checkbox"
+      ng-model="$ctrl.editPlan.useCustomSettings"
+      label="Use Custom Settings"
+      pbs-input-checkradio>
+
+    <div ng-show="$ctrl.editPlan.useCustomSettings">
+      <pbs-form-section>Permissions</pbs-form-section>
+
+      <pbs-form-field-horizontal label="Casual">
+        <select ng-model="$ctrl.editPlan.userPermissions.casual"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Chargeable Directory Assisted">
+        <select ng-model="$ctrl.editPlan.userPermissions.chargeableDirectoryAssisted"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Group">
+        <select ng-model="$ctrl.editPlan.userPermissions.group"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="International">
+        <select ng-model="$ctrl.editPlan.userPermissions.international"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Local">
+        <select ng-model="$ctrl.editPlan.userPermissions.local"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Operator Assisted">
+        <select ng-model="$ctrl.editPlan.userPermissions.operatorAssisted"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Premium Services I">
+        <select ng-model="$ctrl.editPlan.userPermissions.premiumServicesI"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Premium Services II">
+        <select ng-model="$ctrl.editPlan.userPermissions.premiumServicesII"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Special Services I">
+        <select ng-model="$ctrl.editPlan.userPermissions.specialServicesI"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Special Services II">
+        <select ng-model="$ctrl.editPlan.userPermissions.specialServicesII"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Toll">
+        <select ng-model="$ctrl.editPlan.userPermissions.toll"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Toll Free">
+        <div class="select">
+          <select ng-model="$ctrl.editPlan.userPermissions.tollFree"
+            ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+            pbs-input-select>
+          </select>
+        </div>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Unknown">
+        <select ng-model="$ctrl.editPlan.userPermissions.unknown"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="URL Dialing">
+        <select ng-model="$ctrl.editPlan.userPermissions.urlDialing"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
+          pbs-input-select>
+        </select>
+      </pbs-form-field-horizontal>
+    </div>
+  </pbs-form>
+</pbs-modal>

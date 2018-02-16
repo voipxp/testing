@@ -1,0 +1,72 @@
+<pbs-block title="User Number">
+  <pbs-block-buttons>
+    <pbs-button-compact-add ng-click="$ctrl.createNumbers()"></pbs-button-compact-add>
+  </pbs-block-buttons>
+  <pbs-spinner loading="$ctrl.loading">
+    <pbs-form-field label="Do you want to assign phone numbers?">
+      <div class="control">
+        <label class="radio">
+          <input type="radio"
+            value="skip"
+            ng-model="$ctrl.phoneNumberAction"
+            ng-click="$ctrl.clearNumbers()"> Leave Blank
+        </label>
+        <br>
+        <label class="radio">
+          <input type="radio"
+            value="select"
+            ng-model="$ctrl.phoneNumberAction"
+            ng-click="$ctrl.selectNumbers()"> Select From Available Phone Numbers
+          <small ng-show="$ctrl.phoneNumbers.length > 0">
+            ( {{ $ctrl.phoneNumbers.length }} Phone Numbers Selected )
+          </small>
+        </label>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Do you want to set Extensions?">
+      <label class="radio">
+        <input type="radio"
+          ng-value="undefined"
+          ng-model="$ctrl.extension"> Leave Blank
+      </label>
+      <br>
+      <label class="radio"
+        ng-repeat="extension in $ctrl.extensions">
+        <input type="radio"
+          ng-value="extension.template"
+          ng-model="$ctrl.extension"> Last {{ extension.length }} Digits of Phone Number
+        <strong ng-show="extension.default">(default)</strong>
+      </label>
+    </pbs-form-field>
+
+    <pbs-form-field label="Do you want to set Calling Line ID?">
+      <label class="radio">
+        <input type="radio"
+          ng-value="undefined"
+          ng-model="$ctrl.callingLineIdPhoneNumber"> Leave Blank
+      </label>
+      <br>
+      <label class="radio">
+        <input type="radio"
+          ng-value="$ctrl.templates.callingLineIdPhoneNumber"
+          ng-model="$ctrl.callingLineIdPhoneNumber"> Set to Phone Number
+      </label>
+    </pbs-form-field>
+
+    <div class="margin-top has-text-right">
+      <pbs-button-next ng-click="$ctrl.complete()"
+        ng-disabled="!$ctrl.canComplete()"></pbs-button-next>
+    </div>
+  </pbs-spinner>
+</pbs-block>
+
+<bulk-select-existing-numbers service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  phone-numbers="$ctrl.phoneNumbers"
+  user-count="$ctrl.userCount"
+  on-update="$ctrl.onUpdateNumbers($event)"></bulk-select-existing-numbers>
+<bulk-create-numbers service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-count="$ctrl.userCount"
+  on-update="$ctrl.onUpdateNumbers($event)"></bulk-create-numbers>

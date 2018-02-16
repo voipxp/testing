@@ -1,0 +1,98 @@
+<pbs-spinner loading="$ctrl.parent.loading">
+  <pbs-block title="Stateful Rerouting"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="$ctrl.parent.module">
+      <pbs-button-compact-edit title="Edit Stateful Rerouting"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Trunk Group State">
+        {{ $ctrl.parent.trunk.trunkGroupState }}
+      </pbs-list-item>
+      <pbs-list-item label="Stateful Rerouting Enabled">
+        <pbs-check-box checked="$ctrl.parent.trunk.statefulReroutingEnabled"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Send Continuous Options Message">
+        <pbs-check-box checked="$ctrl.parent.trunk.sendContinuousOptionsMessage"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Continuous Options Interval">
+        every {{ $ctrl.parent.trunk.continuousOptionsSendingIntervalSeconds }} seconds
+      </pbs-list-item>
+      <pbs-list-item label="Failure Options Interval">
+        every {{ $ctrl.parent.trunk.failureOptionsSendingIntervalSeconds }} seconds
+      </pbs-list-item>
+      <pbs-list-item label="Failure Threshold Counter">
+        {{ $ctrl.parent.trunk.failureThresholdCounter }}
+      </pbs-list-item>
+      <pbs-list-item label="Success Threshold Counter">
+        {{ $ctrl.parent.trunk.successThresholdCounter }}
+      </pbs-list-item>
+      <pbs-list-item label="Invite Failure Threshold Counter">
+        {{ $ctrl.parent.trunk.inviteFailureThresholdCounter }}
+      </pbs-list-item>
+      <pbs-list-item label="Invite Failure Threshold Seconds">
+        {{ $ctrl.parent.trunk.inviteFailureThresholdWindowSeconds }} seconds
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupTrunkGroupCallStatefulRerouting"
+  title="Edit Stateful Rerouting">
+  <form novalidate>
+    <pbs-form-field label="Enabled">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editTrunk.statefulReroutingEnabled"> Enable Stateful Trunk Group Rerouting
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Continous Options">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editTrunk.sendContinuousOptionsMessage"> Send Continuous Options Message
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Continous Interval Seconds">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.continuousOptionsSendingIntervalSeconds"
+        min="{{ $ctrl.options.continuousOptionsSendingIntervalSeconds.min }}"
+        max="{{ $ctrl.options.continuousOptionsSendingIntervalSeconds.max }}">
+    </pbs-form-field>
+    <pbs-form-field label="Failure Interval Seconds">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.failureOptionsSendingIntervalSeconds"
+        min="{{ $ctrl.options.failureOptionsSendingIntervalSeconds.min }}"
+        max="{{ $ctrl.options.failureOptionsSendingIntervalSeconds.max }}">
+    </pbs-form-field>
+    <pbs-form-field label="Failure Counter">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.failureThresholdCounter"
+        min="{{ $ctrl.options.failureThresholdCounter.min }}"
+        max="{{ $ctrl.options.failureThresholdCounter.max }}">
+    </pbs-form-field>
+    <pbs-form-field label="Success Counter">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.successThresholdCounter"
+        min="{{ $ctrl.options.successThresholdCounter.min }}"
+        max="{{ $ctrl.options.successThresholdCounter.max }}">
+    </pbs-form-field>
+    <pbs-form-field label="Invite Failure Counter">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.inviteFailureThresholdCounter"
+        min="{{ $ctrl.options.inviteFailureThresholdCounter.min }}"
+        max="{{ $ctrl.options.inviteFailureThresholdCounter.max }}">
+    </pbs-form-field>
+    <pbs-form-field label="Invite Failure Window">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.inviteFailureThresholdWindowSeconds"
+        min="{{ $ctrl.options.inviteFailureThresholdWindowSeconds.min }}"
+        max="{{ $ctrl.options.inviteFailureThresholdWindowSeconds.max }}">
+    </pbs-form-field>
+  </form>
+</pbs-modal>

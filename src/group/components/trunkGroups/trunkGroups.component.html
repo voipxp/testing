@@ -1,0 +1,35 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Trunk Groups"
+    class="margin-top">
+    <pbs-block-buttons>
+      <pbs-button-compact-add title="New Trunk Group"
+        ng-click="$ctrl.add()"
+        if-module-create="$ctrl.module">
+      </pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Trunk Group</th>
+          <th>Device Name</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="2">No Trunk Groups Found
+            <span ng-if="search">for {{ search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-repeat="trunk in $ctrl.trunks | filter:search as results track by trunk.name"
+          ng-click="$ctrl.open(trunk)">
+          <td>{{ trunk.name }}</td>
+          <td>{{ trunk.deviceName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>

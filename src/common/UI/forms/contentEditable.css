@@ -1,0 +1,8 @@
+[contenteditable]:hover {
+  cursor: pointer;
+}
+
+[contenteditable]:focus {
+  border: 1px solid black;
+  cursor: text;
+}

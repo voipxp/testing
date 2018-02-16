@@ -1,0 +1,42 @@
+<pbs-navigation>
+  <pbs-breadcrumb title="'Bulk'"
+    href="'#!/bulk'"></pbs-breadcrumb>
+  <pbs-breadcrumb title="'CSV Files'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Bulk Import CSV"
+    class="large-margin-bottom">
+    <pbs-form-field label="{{ $ctrl.editField.label }}">
+      <pbs-input-file on-upload="$ctrl.upload(file)"
+        mode="text"></pbs-input-file>
+    </pbs-form-field>
+  </pbs-block>
+  <pbs-block title="Bulk Download CSV Templates">
+    <pbs-table-search ng-model="search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-show="results.length < 1">
+          <td colspan="2">No Services Found
+            <span ng-show="search">for
+              <strong>{{ search }}</strong>
+            </span>
+          </td>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-click="$ctrl.download(service)"
+          ng-repeat="service in $ctrl.services | filter:search as results">
+          <td>{{ service.name }}</td>
+          <td>{{ service.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>

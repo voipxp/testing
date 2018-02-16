@@ -1,0 +1,31 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId">
+  <pbs-breadcrumb module="$ctrl.module"
+    ng-click="$ctrl.open()"></pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.serviceUserId"
+    ng-click="$ctrl.open($ctrl.serviceUserId)"></pbs-breadcrumb>
+  <pbs-breadcrumb ng-click="$ctrl.open($ctrl.serviceUserId, 'submenus')"
+    title="'Submenus'"></pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.submenuId"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+
+<pbs-tabs>
+  <pbs-tab label="Details">
+    <group-auto-attendant-submenu-details></group-auto-attendant-submenu-details>
+  </pbs-tab>
+  <pbs-tab label="Audio">
+    <group-auto-attendant-submenu-audio></group-auto-attendant-submenu-audio>
+  </pbs-tab>
+  <pbs-tab label="Keys">
+    <group-auto-attendant-submenu-keys></group-auto-attendant-submenu-keys>
+  </pbs-tab>
+  <pbs-tab label="Usage"
+    delay="true">
+    <group-auto-attendant-submenu-usage service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      service-user-id="$ctrl.serviceUserId"
+      submenu-id="$ctrl.submenuId"></group-auto-attendant-submenu-usage>
+  </pbs-tab>
+</pbs-tabs>

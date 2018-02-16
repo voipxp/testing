@@ -1,0 +1,61 @@
+<group-call-center-navigation module="$ctrl.module"></group-call-center-navigation>
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons ng-if="$ctrl.canCreate">
+      <pbs-button-compact-add title="New Call Center"
+        ng-click="$ctrl.add()">
+      </pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Phone</th>
+          <th>Extension</th>
+          <th>Department</th>
+          <th>Policy</th>
+          <th>Video</th>
+          <th class="has-text-centered">Active</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="9">No Call Centers Found
+            <span ng-if="search">for {{ search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-repeat="center in $ctrl.centers | filter:search as results track by center.serviceUserId"
+          ng-click="$ctrl.open(center)">
+          <td>{{ center.serviceUserId }}</td>
+          <td>{{ center.name }}</td>
+          <td>{{ center.type }}</td>
+          <td>{{ center.phoneNumber }}</td>
+          <td>{{ center.extension }}</td>
+          <td>{{ center.department }}</td>
+          <td>{{ center.policy }}</td>
+          <td>
+            <pbs-check-box checked="center.video"></pbs-check-box>
+          </td>
+          <td no-parent-click>
+            <input type="checkbox"
+              ng-model="center.isActive"
+              ng-click="$ctrl.toggle(center)"
+              pbs-input-switch="centered"
+              ng-disabled="center.isLoading">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<group-call-center-create service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-save="$ctrl.onSave(center)">
+</group-call-center-create>

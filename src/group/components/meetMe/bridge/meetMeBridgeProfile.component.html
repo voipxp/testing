@@ -1,0 +1,6 @@
+<service-instance-profile service-provider-id="$ctrl.parent.serviceProviderId"
+  group-id="$ctrl.parent.groupId"
+  service-user-id="$ctrl.parent.serviceUserId"
+  profile="$ctrl.parent.bridge.serviceInstanceProfile"
+  on-update="$ctrl.update($event)"
+  read-only="!$ctrl.parent.module.permissions.update"></service-instance-profile>

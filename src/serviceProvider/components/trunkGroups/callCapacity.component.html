@@ -1,0 +1,43 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Call Capacity">
+    <pbs-block-buttons ng-if="$ctrl.isAdmin">
+      <pbs-button-compact-edit title="Edit Call Capacity"
+        ng-click="$ctrl.edit()"
+        if-module-update="$ctrl.module">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Max Active Calls">{{ $ctrl.displayMax('maxActiveCalls') }}</pbs-list-item>
+      <pbs-list-item label="Max Bursting Calls">{{ $ctrl.displayMax('burstingMaxActiveCalls') }}</pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editServiceProviderTrunkGroupsCallCapacity"
+  title="Edit Trunk Group Call Capacity">
+  <form novalidate>
+    <pbs-form-field label="Max Active Calls">
+      <input class="input"
+        type="number"
+        ng-model="$ctrl.editSettings.maxActiveCalls"
+        min="-1">
+      <small ng-show="$ctrl.editSettings.maxActiveCalls === -1">
+        <strong>Unlimited</strong>
+      </small>
+      <small ng-show="$ctrl.editSettings.maxActiveCalls !== -1">
+        Set to -1 for Unlimited
+      </small>
+    </pbs-form-field>
+    <pbs-form-field label="Max Bursting Calls">
+      <input class="input"
+        type="number"
+        ng-model="$ctrl.editSettings.burstingMaxActiveCalls"
+        min="-1">
+      <small ng-show="$ctrl.editSettings.burstingMaxActiveCalls === -1">
+        <strong>Unlimited</strong>
+      </small>
+      <small ng-show="$ctrl.editSettings.burstingMaxActiveCalls !== -1">
+        Set to -1 for Unlimited
+      </small>
+    </pbs-form-field>
+  </form>
+</pbs-modal>

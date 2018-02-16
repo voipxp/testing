@@ -1,0 +1,22 @@
+<bulk-task-header task="$ctrl.task"></bulk-task-header>
+<pbs-wizard on-ready="$ctrl.wizardReady($event)"
+  on-complete="$ctrl.wizardComplete($event)">
+  <pbs-wizard-step label="Endpoints">
+    <bulk-select-shared-call-appearance-endpoints endpoints="$ctrl.data.endpoints"
+      on-update="$ctrl.onUpdate($event)"></bulk-select-shared-call-appearance-endpoints>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Services">
+    <bulk-select-shared-call-appearance-services service-provider-id="$ctrl.data.serviceProviderId"
+      group-id="$ctrl.data.groupId"
+      services="$ctrl.data.services"
+      user-count="$ctrl.data.users.length"
+      endpoint-count="$ctrl.data.endpoints.length"
+      on-update="$ctrl.onUpdate($event)">
+    </bulk-select-shared-call-appearance-services>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Settings">
+    <bulk-select-shared-call-appearance-settings settings="$ctrl.data.settings"
+      on-update="$ctrl.onUpdate($event)">
+    </bulk-select-shared-call-appearance-settings>
+  </pbs-wizard-step>
+</pbs-wizard>

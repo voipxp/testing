@@ -1,0 +1,42 @@
+<pbs-spinner loading="$ctrl.loading">
+  <nav class="panel"
+    ng-if="$ctrl.showQuick">
+    <p class="panel-heading">Feature Quick Set</p>
+    <div class="panel-block"
+      ng-if="$ctrl.has('Call Forwarding Always')">
+      <user-call-forwarding-always-quick-set service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"></user-call-forwarding-always-quick-set>
+    </div>
+    <div class="panel-block"
+      ng-if="$ctrl.has('Call Forwarding Busy')">
+      <user-call-forwarding-busy-quick-set service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"></user-call-forwarding-busy-quick-set>
+    </div>
+    <div class="panel-block"
+      ng-if="$ctrl.has('Call Forwarding No Answer')">
+      <user-call-forwarding-no-answer-quick-set service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"></user-call-forwarding-no-answer-quick-set>
+    </div>
+    <div class="panel-block"
+      ng-if="$ctrl.has('Do Not Disturb')">
+      <user-do-not-disturb-quick-set service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"></user-do-not-disturb-quick-set>
+    </div>
+    <div class="panel-block"
+      ng-if="$ctrl.has('Remote Office')">
+      <user-remote-office-quick-set service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"></user-remote-office-quick-set>
+    </div>
+  </nav>
+  <div ng-class="{'margin-top': $ctrl.showQuick }"
+    ng-if="$ctrl.has('BroadWorks Anywhere')">
+    <user-broadworks-anywhere-quick-set service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      user-id="$ctrl.userId"></user-broadworks-anywhere-quick-set>
+  </div>
+</pbs-spinner>

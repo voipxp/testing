@@ -1,0 +1,39 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit title="Edit Directed Call Pickup With Barge In"
+        ng-click="$ctrl.edit()"></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Barge In Warning Tone">
+        <pbs-check-box checked="$ctrl.settings.enableBargeInWarningTone"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Automatic Target Selection">
+        <pbs-check-box checked="$ctrl.settings.enableAutomaticTargetSelection"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserDirectedCallPickupWithBargeIn"
+  title="Edit Directed Call Pickup With Barge In">
+  <pbs-form>
+    <pbs-form-field label="Settings">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editSettings.enableBargeInWarningTone"> Barge In Warning Tone
+      </label>
+      <br>
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editSettings.enableAutomaticTargetSelection"> Automatic Target Selection
+      </label>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

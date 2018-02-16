@@ -1,0 +1,58 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Forced Fowarding"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="'Call Center'">
+      <pbs-button-compact-edit title="Edit Forced Forwarding"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Forced Forwarding Enabled">
+        <pbs-check-box checked="$ctrl.service.enabled"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Forward Calls To">
+        {{ $ctrl.service.forwardToPhoneNumber }}
+      </pbs-list-item>
+      <pbs-list-item label="Enable Feature Access Codes">
+        <pbs-check-box checked="$ctrl.service.allowEnableViaFAC"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Announcement Before Forwarding">
+        <pbs-check-box checked="$ctrl.service.playAnnouncementBeforeForwarding"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+    <group-call-center-audio-settings-view service="$ctrl.service">
+    </group-call-center-audio-settings-view>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupCallCenterForcedForwarding"
+  title="Edit Forced Forwarding">
+  <pbs-form-field label="Enabled">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.enabled"> Forced Forwarding Enabled
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Forward To"
+    ng-show="$ctrl.editService.enabled">
+    <input type="text"
+      class="input"
+      ng-model="$ctrl.editService.forwardToPhoneNumber">
+  </pbs-form-field>
+
+  <pbs-form-field label="Enable FAC">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.allowEnableViaFAC"> Allow feature access codes to configure forced forwarding
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Announcement Before Forwarding">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.playAnnouncementBeforeForwarding"> Play announcment before forwarding
+    </label>
+  </pbs-form-field>
+  <group-call-center-audio-settings-edit service="$ctrl.editService">
+  </group-call-center-audio-settings-edit>
+</pbs-modal>

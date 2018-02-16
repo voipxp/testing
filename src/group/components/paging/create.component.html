@@ -1,0 +1,136 @@
+<pbs-block title="Create Paging Group">
+  <pbs-block-buttons>
+    <pbs-button-compact-cancel title="Cancel"
+      ng-click="$ctrl.cancel()">
+    </pbs-button-compact-cancel>
+  </pbs-block-buttons>
+  <form name="createGroupPagingGroup">
+    <pbs-tabs>
+      <pbs-tab label="Details">
+        <pbs-form-field label="Service User ID*">
+          <input type="text"
+            class="input"
+            placeholder="username"
+            ng-model="$ctrl.group.serviceUserIdPrefix"
+            required>
+        </pbs-form-field>
+        <pbs-form-field label="Service User Domain*">
+          <div class="select">
+            <select ng-model="$ctrl.group.serviceUserIdSuffix"
+              ng-options="domain as domain for domain in $ctrl.domains.domains"
+              required></select>
+          </div>
+        </pbs-form-field>
+        <pbs-form-field label="Service Profile Name*">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.serviceInstanceProfile.name"
+            required>
+        </pbs-form-field>
+        <pbs-form-field label="CLID Last Name*">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.serviceInstanceProfile.callingLineIdLastName"
+            required>
+        </pbs-form-field>
+        <pbs-form-field label="CLID First Name*">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.serviceInstanceProfile.callingLineIdFirstName"
+            required>
+        </pbs-form-field>
+        <pbs-form-field label="Confirmation Timeout">
+          <input type="number"
+            class="input"
+            ng-model="$ctrl.group.confirmationToneTimeoutSeconds"
+            min="1"
+            max="20"
+            required>
+          <small>(Confirmation Tone Timeout in seconds)</small>
+        </pbs-form-field>
+        <pbs-form-field label="CLID To Deliver">
+          <label class="radio">
+            <input type="radio"
+              ng-model="$ctrl.group.deliverOriginatorCLIDInstead"
+              ng-change="$ctrl.setDeliveryCLID()"
+              ng-value="false"> Paging Group CLID
+          </label>
+          <br>
+          <label class="radio">
+            <input type="radio"
+              ng-model="$ctrl.group.deliverOriginatorCLIDInstead"
+              ng-change="$ctrl.setDeliveryCLID()"
+              ng-value="true"> Originator CLID
+          </label>
+        </pbs-form-field>
+        <pbs-form-field label="Originator CLID Prefix"
+          ng-show="$ctrl.group.deliverOriginatorCLIDInstead">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.originatorCLIDPrefix"
+            ng-minlength="1"
+            ng-maxlength="30">
+        </pbs-form-field>
+      </pbs-tab>
+
+      <pbs-tab label="Profile">
+        <pbs-form-field label="Phone Number">
+          <div class="select">
+            <select ng-model="$ctrl.group.serviceInstanceProfile.phoneNumber"
+              ng-options="number.min as number.min for number in $ctrl.numbers"
+              ng-change="$ctrl.setExtension()">
+              <option value="">-- None --</option>
+            </select>
+          </div>
+        </pbs-form-field>
+        <pbs-form-field label="Extension">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.serviceInstanceProfile.extension">
+        </pbs-form-field>
+        <pbs-form-field label="Password">
+          <input type="password"
+            class="input"
+            ng-model="$ctrl.group.serviceInstanceProfile.password">
+        </pbs-form-field>
+        <pbs-form-field label="Repeat Password"
+          ng-show="$ctrl.group.serviceInstanceProfile.password">
+          <input type="password"
+            class="input"
+            ng-model="$ctrl.group.serviceInstanceProfile.password2">
+        </pbs-form-field>
+        <pbs-form-field label="Public User Identity">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.serviceInstanceProfile.publicUserIdentity">
+        </pbs-form-field>
+        <pbs-form-field label="Alias">
+          <alias-list profile="$ctrl.group.serviceInstanceProfile"></alias-list>
+        </pbs-form-field>
+        <pbs-form-field label="Department Name">
+          <div class="select">
+            <select ng-model="$ctrl.group.serviceInstanceProfile.department"
+              ng-options="department as department.name for department in $ctrl.departments track by department.name"></select>
+          </div>
+        </pbs-form-field>
+        <pbs-form-field label="Language">
+          <div class="select">
+            <select ng-model="$ctrl.group.serviceInstanceProfile.language"
+              ng-options="language.language as language.language for language in $ctrl.languages.languages track by language.language"></select>
+          </div>
+        </pbs-form-field>
+        <pbs-form-field label="Timezone">
+          <div class="select">
+            <select ng-model="$ctrl.group.serviceInstanceProfile.timeZone"
+              ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones track by timezone.key"></select>
+          </div>
+        </pbs-form-field>
+      </pbs-tab>
+    </pbs-tabs>
+  </form>
+  <div class="margin-top has-text-right">
+    <pbs-button-cancel ng-click="$ctrl.cancel()"></pbs-button-cancel>
+    <pbs-button-save ng-click="$ctrl.create()"
+      ng-disabled="createGroupPagingGroup.$invalid"></pbs-button-save>
+  </div>
+</pbs-block>

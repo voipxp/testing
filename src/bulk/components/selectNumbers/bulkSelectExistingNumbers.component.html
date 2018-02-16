@@ -1,0 +1,47 @@
+<pbs-modal id="{{ $ctrl.modalId }}"
+  title="Select Existing Phone Numbers">
+  <!-- hack to disable save button -->
+  <form novalidate
+    autocomplete="off"
+    style="display: none">
+    <input type="number"
+      ng-model="$ctrl.selectedCount"
+      min="{{ $ctrl.userCount }}">
+  </form>
+  <pbs-columns>
+    <pbs-column>
+      <pbs-subtitle>
+        Available ({{ $ctrl.availableNumbers.length }})
+        <a href=""
+          ng-href=""
+          class="is-pulled-right"
+          ng-click="$ctrl.autoFill()">AutoFill</a>
+      </pbs-subtitle>
+      <table pbs-table>
+        <tr class="hover"
+          ng-repeat="number in $ctrl.availableNumbers | orderBy:'toString()' track by $index"
+          ng-click="$ctrl.add(number)">
+          <td>{{ number }}</td>
+        </tr>
+        <tr ng-show="$ctrl.availableNumbers.length < 1">
+          <td>No Numbers Available</td>
+        </tr>
+      </table>
+    </pbs-column>
+    <pbs-column>
+      <pbs-subtitle>
+        Selected ({{ $ctrl.selectedCount }}/{{ $ctrl.userCount }})
+      </pbs-subtitle>
+      <table pbs-table>
+        <tr class="hover"
+          ng-repeat="number in $ctrl.selectedNumbers | orderBy:'toString()' track by $index"
+          ng-click="$ctrl.remove(number)">
+          <td>{{ number }}</td>
+        </tr>
+        <tr ng-show="$ctrl.selectedNumbers.length < 1">
+          <td>No Numbers Selected</td>
+        </tr>
+      </table>
+    </pbs-column>
+  </pbs-columns>
+</pbs-modal>

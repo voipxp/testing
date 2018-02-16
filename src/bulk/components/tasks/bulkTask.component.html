@@ -1,0 +1,111 @@
+<pbs-navigation>
+  <pbs-breadcrumb title="'Bulk'"
+    href="'#!/bulk'"></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Tasks'"
+    href="'#!/bulk/tasks'"></pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.id"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-block title="Task Details">
+  <pbs-spinner loading="$ctrl.loading">
+    <pbs-list>
+      <pbs-list-item label="Description">{{ $ctrl.task.description }}</pbs-list-item>
+      <pbs-list-item label="User">{{ $ctrl.task.userId }}</pbs-list-item>
+      <pbs-list-item label="Task Status">{{ $ctrl.task.status | capitalize }}</pbs-list-item>
+      <pbs-list-item label="Error">{{ $ctrl.task.error }}</pbs-list-item>
+      <pbs-list-item label="Job Status">
+        Pending: {{ $ctrl.summary.pending }}, Completed: {{ $ctrl.summary.completed }}, Failed: {{ $ctrl.summary.failed }}
+        <p ng-show="$ctrl.task.status === 'completed' && $ctrl.summary.failed > 0">
+          <a href=""
+            ng-click="$ctrl.retryJobs()">Edit and Retry Failed Users</a>
+        </p>
+        <p ng-show="$ctrl.task.status === 'failed'">
+          <a href=""
+            ng-click="$ctrl.retryTask()">Retry Entire Task</a>
+        </p>
+      </pbs-list-item>
+      <pbs-list-item label="Updated">{{ $ctrl.task.updatedAt | date:'medium' }}</pbs-list-item>
+    </pbs-list>
+  </pbs-spinner>
+</pbs-block>
+<pbs-block title="Job Details"
+  class="margin-top">
+  <pbs-block-buttons>
+    <pbs-button-compact-download title="Download"
+      ng-click="$ctrl.download()"></pbs-button-compact-download>
+  </pbs-block-buttons>
+  <pbs-spinner loading="$ctrl.loading">
+    <div class="field is-grouped"
+      style="margin-bottom: 1.5rem">
+      <p class="control">
+        <label class="radio">
+          <input type="radio"
+            ng-model="$ctrl.searchStatus"
+            value=""> All
+        </label>
+      </p>
+      <p class="control">
+        <label class="radio">
+          <input type="radio"
+            ng-model="$ctrl.searchStatus"
+            value="pending"> Pending
+        </label>
+      </p>
+      <p class="control">
+        <label class="radio">
+          <input type="radio"
+            ng-model="$ctrl.searchStatus"
+            value="completed"> Completed &nbsp;
+        </label>
+      </p>
+      <p class="control">
+        <label class="radio">
+          <input type="radio"
+            ng-model="$ctrl.searchStatus"
+            value="failed"> Failed &nbsp;
+        </label>
+      </p>
+      <p class="control is-expanded">
+        <input type="search"
+          placeholder="Search"
+          class="input"
+          ng-model="search">
+      </p>
+    </div>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Error</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="4">
+            No
+            <strong ng-show="$ctrl.searchStatus">{{ $ctrl.searchStatus | capitalize }}</strong> User Found
+            <span ng-show="search">for
+              <strong>{{ search }}</strong>
+            </span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr ng-class="{hover: $ctrl.canOpen(job)}"
+          ng-click="$ctrl.open(job)"
+          ng-repeat="job in $ctrl.task.data | filter:$ctrl.filterStatus | filter:search as results">
+          <td>{{ job.userId }}</td>
+          <td>{{ job.task }} </td>
+          <td>
+            <span ng-show="job.status !== 'pending'">{{ job.status | capitalize }}</span>
+            <span ng-show="job.status === 'pending'"
+              class="loader"></span>
+          </td>
+          <td>{{ job.error }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-spinner>
+</pbs-block>

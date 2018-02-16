@@ -1,0 +1,122 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="DNIS: {{ $ctrl.dnisId }}"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="'Call Center'">
+      <pbs-button-compact-edit title="Edit DNIS"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Name">
+        {{ $ctrl.dnisId }}
+      </pbs-list-item>
+      <pbs-list-item label="Phone Number">
+        {{ $ctrl.service.dnisPhoneNumber }}
+      </pbs-list-item>
+      <pbs-list-item label="Extension">
+        {{ $ctrl.service.extension }}
+      </pbs-list-item>
+      <pbs-list-item label="Priority">
+        {{ $ctrl.service.priority }}
+      </pbs-list-item>
+      <pbs-list-item label="CLID">
+        {{ $ctrl.service.callingLineIdPhoneNumber }}
+      </pbs-list-item>
+      <pbs-list-item label="Use Custom CLID Settings">
+        <pbs-check-box checked="$ctrl.service.useCustomCLIDSettings"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="CLID Last Name"
+        ng-show="$ctrl.service.useCustomCLIDSettings">
+        {{ $ctrl.service.callingLineIdLastName }}
+      </pbs-list-item>
+      <pbs-list-item label="CLID First Name"
+        ng-show="$ctrl.service.useCustomCLIDSettings">
+        {{ $ctrl.service.callingLineIdFirstName }}
+      </pbs-list-item>
+      <pbs-list-item label="Use Custom CLID Announcement Settings">
+        <pbs-check-box checked="$ctrl.service.useCustomDnisAnnouncementSettings"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Allow Outgoing Call Center Call">
+        <pbs-check-box checked="$ctrl.service.allowOutgoingACDCall"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupCallCenterDnisInstance"
+  title="Edit DNIS Instance">
+
+  <form>
+    <pbs-form-field label="Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editService.newDNISName"
+        ng-init="$ctrl.editService.newDNSISName = $ctrl.editService.name">
+    </pbs-form-field>
+
+    <pbs-form-field label="Priority">
+      <div class="select">
+        <select ng-model="$ctrl.editService.priority"
+          ng-options="opt for opt in $ctrl.options.priority">
+        </select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Phone Number">
+      <div class="select">
+        <select ng-model="$ctrl.editService.dnisPhoneNumber"
+          ng-options="number.min as number.min for number in $ctrl.numbers"
+          ng-change="$ctrl.setExtension()">
+          <option value="">-- None --</option>
+        </select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Extension">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editService.extension">
+    </pbs-form-field>
+
+    <pbs-form-field label="CLID">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editService.callingLineIdPhoneNumber">
+    </pbs-form-field>
+
+    <pbs-form-field label="Custom CLID">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editService.useCustomCLIDSettings"> Use Custom CLID Settings
+      </label>
+    </pbs-form-field>
+
+    <pbs-form-field label="CLID Last Name"
+      ng-show="$ctrl.editService.useCustomCLIDSettings">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editService.callingLineIdLastName">
+    </pbs-form-field>
+
+
+    <pbs-form-field class="CLID First Name"
+      ng-show="$ctrl.editService.useCustomCLIDSettings">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editService.callingLineIdFirstName">
+    </pbs-form-field>
+
+    <pbs-form-field label="CLID Announcement">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editService.useCustomDnisAnnouncementSettings"> Use Custom CLID Announcement Settings
+      </label>
+    </pbs-form-field>
+
+    <pbs-form-field label="Outgoing Calls">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editService.allowOutgoingACDCall"> Allow Outgoing Call Center Call
+      </label>
+    </pbs-form-field>
+  </form>
+</pbs-modal>

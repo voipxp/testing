@@ -1,0 +1,91 @@
+<pbs-block title="Endpoint Configuration">
+  <p class="subtitle underline">Click to Configure Each Endpoint Below</p>
+  <table pbs-table>
+    <thead>
+      <tr>
+        <th>Device Type</th>
+        <th>Device Name</th>
+        <th>Line Port</th>
+        <th class="action">Ready</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr ng-if="$ctrl.endpoints.length < 1">
+        <td colspan="3">No Endpoints Selected</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr class="hover"
+        ng-repeat="endpoint in $ctrl.endpoints track by $index"
+        ng-click="$ctrl.edit(endpoint)">
+        <td>{{ endpoint.accessDevice.deviceType }}</td>
+        <td>{{ endpoint.accessDevice.deviceName }}</td>
+        <td>{{ endpoint.linePort }}</td>
+        <td class="action">
+          <pbs-check-box checked="endpoint.accessDevice.deviceType && endpoint.accessDevice.deviceName && endpoint.linePort"></pbs-check-box>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="large-margin-top has-text-right">
+    <pbs-button-next ng-click="$ctrl.next()"
+      ng-disabled="!$ctrl.canComplete()"></pbs-button-next>
+  </div>
+</pbs-block>
+
+<pbs-modal id="userSharedCallAppearanceEndpointModal"
+  title="{{ $ctrl.editEndpoint.accessDevice.deviceType }}">
+  <pbs-form>
+    <pbs-form-section title="Device Details"></pbs-form-section>
+    <pbs-form-field label="Device Name">
+      <bulk-tag-input ng-model="$ctrl.editEndpoint.accessDevice.deviceName"
+        is-required="true"></bulk-tag-input>
+    </pbs-form-field>
+    <pbs-form-field label="Credentials">
+      <label class="radio">
+        <input type="radio"
+          ng-model="$ctrl.editEndpoint.accessDevice.useCustomUserNamePassword"
+          ng-value="false"> Use Identity/Device Profile Type Credentials
+      </label>
+      <br>
+      <label class="radio">
+        <input type="radio"
+          ng-model="$ctrl.editEndpoint.accessDevice.useCustomUserNamePassword"
+          ng-value="true"> Use Custom Credentials
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Username"
+      ng-show="$ctrl.editEndpoint.accessDevice.useCustomUserNamePassword">
+      <bulk-tag-input ng-model="$ctrl.editEndpoint.accessDevice.accessDeviceCredentials.userName"
+        is-required="$ctrl.editEndpoint.accessDevice.useCustomUserNamePassword"></bulk-tag-input>
+    </pbs-form-field>
+    <pbs-form-field label="Password"
+      ng-show="$ctrl.editEndpoint.accessDevice.useCustomUserNamePassword">
+      <bulk-tag-input ng-model="$ctrl.editEndpoint.accessDevice.accessDeviceCredentials.password"
+        is-required="$ctrl.editEndpoint.accessDevice.useCustomUserNamePassword"></bulk-tag-input>
+    </pbs-form-field>
+    <pbs-form-field label="Password Again"
+      ng-show="$ctrl.editEndpoint.accessDevice.useCustomUserNamePassword">
+      <bulk-tag-input ng-model="$ctrl.editEndpoint.accessDevice.accessDeviceCredentials.password2"
+        is-required="$ctrl.editEndpoint.accessDevice.useCustomUserNamePassword"></bulk-tag-input>
+    </pbs-form-field>
+    <pbs-form-section title="Endpoint Details"
+      class="large-margin-top"></pbs-form-section>
+    <pbs-form-field label="Line Port">
+      <bulk-tag-input ng-model="$ctrl.editEndpoint.linePort"
+        is-required="true"></bulk-tag-input>
+    </pbs-form-field>
+    <pbs-form-field label="Enabled">
+      <pbs-input-checkbox label="Enable this location"
+        ng-model="$ctrl.editEndpoint.isActive"></pbs-input-checkbox>
+    </pbs-form-field>
+    <pbs-form-field label="Allow Origination">
+      <pbs-input-checkbox label="Allow Origination From This Location"
+        ng-model="$ctrl.editEndpoint.allowOrigination"></pbs-input-checkbox>
+    </pbs-form-field>
+    <pbs-form-field label="Allow Termination">
+      <pbs-input-checkbox label="Allow Termination To This Location"
+        ng-model="$ctrl.editEndpoint.allowTermination"></pbs-input-checkbox>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

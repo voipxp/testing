@@ -1,0 +1,39 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit title="Edit Call Waiting"
+        ng-click="$ctrl.edit()"></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Is Active">
+        <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Disable Calling Line Id Delivery">
+        <pbs-check-box checked="$ctrl.settings.disableCallingLineIdDelivery"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserCallWaiting"
+  title="Edit Settings">
+  <pbs-form>
+    <pbs-form-field label="Settings">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editSettings.isActive"> Is Active
+      </label>
+      <br>
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editSettings.disableCallingLineIdDelivery"> Disable Calling Line Id Delivery
+      </label>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

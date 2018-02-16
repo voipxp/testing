@@ -1,0 +1,91 @@
+<bulk-task-header task="$ctrl.task"></bulk-task-header>
+<pbs-wizard on-ready="$ctrl.wizardReady($event)"
+  on-complete="$ctrl.wizardComplete($event)">
+  <pbs-wizard-step label="Service Provider">
+    <bulk-select-service-provider-id on-update="$ctrl.onUpdateServiceProviderId($event)">
+    </bulk-select-service-provider-id>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Group">
+    <bulk-select-group-id service-provider-id="$ctrl.data.serviceProviderId"
+      on-update="$ctrl.onUpdateGroupId($event)">
+    </bulk-select-group-id>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="User Count">
+    <bulk-select-user-count service-provider-id="$ctrl.data.serviceProviderId"
+      group-id="$ctrl.data.groupId"
+      user-count="$ctrl.data.userCount"
+      on-update="$ctrl.onUpdate($event)">
+    </bulk-select-user-count>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="User ID">
+    <bulk-select-user-id service-provider-id="$ctrl.data.serviceProviderId"
+      group-id="$ctrl.data.groupId"
+      user-id="$ctrl.data.userId"
+      domain="$ctrl.data.domain"
+      user-count="$ctrl.data.userCount"
+      on-update="$ctrl.onUpdate($event)">
+    </bulk-select-user-id>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Passwords">
+    <bulk-select-passwords password="$ctrl.data.password"
+      on-update="$ctrl.onUpdate($event)">
+    </bulk-select-passwords>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Names">
+    <bulk-select-names first-name="$ctrl.data.firstName"
+      last-name="$ctrl.data.lastName"
+      calling-line-id-first-name="$ctrl.data.callingLineIdFirstName"
+      calling-line-id-last-name="$ctrl.data.callingLineIdLastName"
+      on-update="$ctrl.onUpdate($event)">
+    </bulk-select-names>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Numbers">
+    <bulk-select-numbers service-provider-id="$ctrl.data.serviceProviderId"
+      group-id="$ctrl.data.groupId"
+      user-count="$ctrl.data.userCount"
+      phone-numbers="$ctrl.data.phoneNumbers"
+      extension="$ctrl.data.extension"
+      calling-line-id-phone-number="$ctrl.data.callingLineIdPhoneNumber"
+      on-update="$ctrl.onUpdate($event)">
+    </bulk-select-numbers>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Device">
+    <bulk-select-device service-provider-id="$ctrl.data.serviceProviderId"
+      group-id="$ctrl.data.groupId"
+      endpoint-type="$ctrl.data.endpointType"
+      access-device-endpoint="$ctrl.data.accessDeviceEndpoint"
+      trunk-addressing="$ctrl.data.trunkAddressing"
+      on-update="$ctrl.onUpdate($event)">
+    </bulk-select-device>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Department">
+    <bulk-select-department service-provider-id="$ctrl.data.serviceProviderId"
+      group-id="$ctrl.data.groupId"
+      department="$ctrl.data.department"
+      on-update="$ctrl.onUpdate($event)">
+    </bulk-select-department>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Details">
+    <bulk-select-details service-provider-id="$ctrl.data.serviceProviderId"
+      group-id="$ctrl.data.groupId"
+      time-zone="$ctrl.data.timeZone"
+      language="$ctrl.data.language"
+      network-class-of-service="$ctrl.data.networkClassOfService"
+      on-update="$ctrl.onUpdate($event)">
+    </bulk-select-details>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Contacts">
+    <bulk-select-contacts on-update="$ctrl.onUpdate($event)"
+      mobile-phone-number="$ctrl.data.mobilePhoneNumber"
+      pager-phone-number="$ctrl.data.pagerPhoneNumber"
+      email-address="$ctrl.data.emailAddress"
+      yahoo-id="$ctrl.data.yahooId">
+    </bulk-select-contacts>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Address">
+    <bulk-select-address address-location="$ctrl.data.addressLocation"
+      address="$ctrl.data.address"
+      on-update="$ctrl.onUpdate($event)">
+    </bulk-select-address>
+  </pbs-wizard-step>
+</pbs-wizard>

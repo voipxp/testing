@@ -1,0 +1,51 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Portal Passcode"
+    class="margin-top">
+    <pbs-block-buttons ng-if="!$ctrl.readOnly">
+      <pbs-button-compact-edit title="Edit Portal Passcode"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Login Enabled">
+        <pbs-check-box checked="!$ctrl.passcode.isLoginDisabled"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Expiration Days">
+        <span ng-show="$ctrl.passcode.expirationDays === -1">Does Not Expire</span>
+        <span ng-show="$ctrl.passcode.expirationDays !== -1">{{ $ctrl.passcode.expirationDays }}</span>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserPortalPasscode"
+  title="Edit Portal Passcode">
+  <form>
+    <pbs-form-field label="Current Passcode"
+      ng-if="$ctrl.isUser()">
+      <input type="password"
+        class="input"
+        ng-model="$ctrl.editPasscode.oldPasscode"
+        minlength="1"
+        maxlength="30"
+        ng-required="$ctrl.isUser()">
+    </pbs-form-field>
+
+    <pbs-form-field label="New Passcode">
+      <input type="password"
+        class="input"
+        ng-model="$ctrl.editPasscode.newPasscode"
+        minlength="1"
+        maxlength="30"
+        required>
+    </pbs-form-field>
+
+    <pbs-form-field label="New Passcode Again">
+      <input type="password"
+        class="input"
+        ng-model="$ctrl.editPasscode.newPasscode2"
+        minlength="1"
+        maxlength="30"
+        required>
+    </pbs-form-field>
+  </form>
+</pbs-modal>

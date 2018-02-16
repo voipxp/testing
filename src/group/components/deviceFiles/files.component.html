@@ -1,0 +1,34 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="{{ $ctrl.deviceName }} Files">
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <th>File Format</th>
+        <th>Is Authenticated</th>
+      </thead>
+      <tfoot>
+        <tr ng-show="results.length < 1">
+          <td colspan="99">No Files Found
+            <span ng-show="$ctrl.search">for
+              <strong>{{ $ctrl.search }}</strong>
+            </span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-repeat='file in $ctrl.files as results track by file.fileFormat'
+          ng-click="$ctrl.open(file)">
+          <td>{{ file.fileFormat }}</td>
+          <td>
+            <pbs-check-box checked="file.isAuthenticated"></pbs-check-box>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<group-device-file-update service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  device-name="$ctrl.deviceName"
+  on-update="$ctrl.onUpdate($event)"></group-device-file-update>

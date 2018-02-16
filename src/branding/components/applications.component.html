@@ -1,0 +1,65 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Applications">
+    <pbs-block-buttons>
+      <pbs-button-compact-add ng-click="$ctrl.edit()"></pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>URL</th>
+          <th>Description</th>
+          <th>New Window</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length === 0">
+          <td colspan="4">No Applications Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-repeat="application in $ctrl.applications | filter:$ctrl.search as results track by application.id"
+          ng-click="$ctrl.edit(application)">
+          <td>{{ application.name }}</td>
+          <td>{{ application.url }}</td>
+          <td>{{ application.description }}</td>
+          <td>
+            <pbs-check-box checked="application.window"></pbs-check-box>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editBrandingApplication"
+  title="Edit Application">
+  <pbs-form>
+    <pbs-form-field label="Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editApplication.name"
+        placeholder="name"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="URL">
+      <input type="url"
+        class="input"
+        ng-model="$ctrl.editApplication.url"
+        placeholder="http://example.com"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Description">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editApplication.description">
+    </pbs-form-field>
+    <pbs-form-field label="Window Behavior">
+      <pbs-input-checkbox label="Open in New Window"
+        ng-model="$ctrl.editApplication.window"></pbs-input-checkbox>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

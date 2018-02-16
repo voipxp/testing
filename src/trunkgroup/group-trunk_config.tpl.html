@@ -1,0 +1,67 @@
+<pbs-spinner loading="vm.loading">
+
+  <form name="trunkConfigurationForm"
+    novalidate>
+    <pbs-form-field label="Trunk State">
+      <p>{{ vm.trunk.trunkGroupState }}</p>
+    </pbs-form-field>
+    <pbs-form-field label="Trunk Name">
+      <p ng-if="vm.isDisabled.newName">{{ vm.trunk.newName }}</p>
+      <input ng-if="!vm.isDisabled.newName"
+        type="text"
+        class="input"
+        ng-model="vm.trunk.newName"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Group ID"
+      ng-show="vm.groupId">
+      <p ng-show="vm.groupId">{{ vm.groupId }}</p>
+    </pbs-form-field>
+
+    <pbs-form-field label="User Name"
+      ng-if="!vm.canChangeAuthentication()">
+      <p>{{ vm.trunk.sipAuthenticationUserName || "&nbsp;"}}</p>
+    </pbs-form-field>
+    <pbs-form-field label="Pilot User">
+      <p ng-if="vm.isDisabled.pilotUserId">{{ vm.trunk.pilotUserId || "&nbsp;"}}</p>
+      <div class="select"
+        ng-if="!vm.isDisabled.pilotUserId">
+        <select ng-model="vm.trunk.pilotUserId"
+          ng-options="user.userId as (user.phoneNumber || user.userId) for user in vm.availableUsers"></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Department">
+      <div class="select">
+        <select ng-model="vm.trunk.department"
+          ng-options="department.name for department in vm.departments track by department.name">
+        </select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Max Active Calls">
+      <p ng-if="vm.isDisabled.maxActiveCalls">{{ vm.trunk.maxActiveCalls }}</p>
+      <input ng-if="!vm.isDisabled.maxActiveCalls"
+        type="number"
+        class="input"
+        ng-model="vm.trunk.maxActiveCalls"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Max Incoming Calls">
+      <input type="number"
+        class="input"
+        ng-model="vm.trunk.maxIncomingCalls"
+        min="1"
+        max="{{vm.trunk.maxActiveCalls}}">
+    </pbs-form-field>
+    <pbs-form-field label="Max Outgoing Calls">
+      <input type="number"
+        class="input"
+        ng-model="vm.trunk.maxOutgoingCalls"
+        min="1"
+        max="{{vm.trunk.maxActiveCalls}}">
+    </pbs-form-field>
+  </form>
+  <div class="margin-top has-text-right">
+    <pbs-button-save ng-click="vm.updateTrunk()"
+      ng-disabled="trunkConfigurationForm.$invalid"></pbs-button-save>
+  </div>
+</pbs-spinner>

@@ -1,0 +1,25 @@
+;(function() {
+  angular.module('odin.bulk').component('bulkSelectPasswords', {
+    templateUrl:
+      'bulk/components/selectPasswords/bulkSelectPasswords.component.html',
+    controller: Controller,
+    bindings: { password: '<', onUpdate: '&' }
+  })
+
+  function Controller(Alert, EventEmitter) {
+    var ctrl = this
+    ctrl.complete = complete
+    ctrl.$onInit = onInit
+    ctrl.templates = { password: '{{ generatePassword }}' }
+
+    function onInit() {
+      if (ctrl.password === undefined) {
+        ctrl.password = ctrl.templates.password
+      }
+    }
+
+    function complete() {
+      ctrl.onUpdate(EventEmitter({ password: ctrl.password }))
+    }
+  }
+})()

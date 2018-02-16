@@ -1,0 +1,24 @@
+<div style="margin-bottom: 1rem"
+  ng-if="$ctrl.users.length > 0">
+  <div class="dropdown is-hoverable">
+    <div class="dropdown-trigger">
+      <button class="button"
+        ng-click="$ctrl.open()">
+        <span>{{ $ctrl.users.length }} Users Selected</span>
+        <span class="icon is-small">
+          <i class="fa fa-pencil"></i>
+        </span>
+      </button>
+    </div>
+    <div class="dropdown-menu">
+      <div class="dropdown-content">
+        <div class="dropdown-item">
+          <ul>
+            <li ng-repeat="user in $ctrl.users"
+              style="width: 300px">{{ user.userId }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<pbs-block title="Call Whisper Message"
+  class="margin-top">
+  <pbs-block-buttons ng-if="$ctrl.canUpdate">
+    <pbs-button-compact-edit title="Edit Call Whisper"
+      ng-click="$ctrl.edit('CallWhisperMessage')">
+    </pbs-button-compact-edit>
+  </pbs-block-buttons>
+  <pbs-list>
+    <pbs-list-item label="Call Whisper Message Enabled">
+      <pbs-check-box checked="$ctrl.announcements.callWhisperMessage.enabled"></pbs-check-box>
+    </pbs-list-item>
+  </pbs-list>
+  <group-call-center-audio-settings-view service="$ctrl.announcements.callWhisperMessage">
+  </group-call-center-audio-settings-view>
+</pbs-block>
+<pbs-modal id="editGroupCallCenterAnnouncementsCallWhisperMessage"
+  title="{{ $ctrl.modalTitle }}">
+  <pbs-form-field label="Enabled">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editAnnouncements.callWhisperMessage.enabled"> Play Call Whisper Message
+    </label>
+  </pbs-form-field>
+  <group-call-center-audio-settings-edit service="$ctrl.editAnnouncements.callWhisperMessage">
+  </group-call-center-audio-settings-edit>
+  </fieldset>
+</pbs-modal>

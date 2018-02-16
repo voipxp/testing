@@ -1,0 +1,31 @@
+<pbs-spinner loading="$ctrl.parent.loading">
+  <pbs-block title="Details">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit if-module-update="'VDM'"
+        label="Edit Template"
+        ng-click="$ctrl.edit()"></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Name">
+        {{ $ctrl.template.name }}
+      </pbs-list-item>
+      <pbs-list-item label="Device Type">
+        {{ $ctrl.template.deviceType }}
+      </pbs-list-item>
+      <pbs-list-item label="Device Template">
+        {{ $ctrl.template.deviceTemplate }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+  <pbs-modal id="editVdmTemplateModal"
+    title="Edit Template">
+    <pbs-form>
+      <pbs-form-field label="Name">
+        <input type="text"
+          class="input"
+          ng-model="$ctrl.editTemplate.name"
+          required>
+      </pbs-form-field>
+    </pbs-form>
+  </pbs-modal>
+</pbs-spinner>

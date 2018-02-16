@@ -1,0 +1,31 @@
+<pbs-block title="Call Policies"
+  class="margin-top">
+  <pbs-block-buttons ng-if="!$ctrl.readOnly">
+    <pbs-button-compact-edit title="Edit Call Policies"
+      ng-click="$ctrl.edit()">
+    </pbs-button-compact-edit>
+  </pbs-block-buttons>
+  <pbs-list>
+    <pbs-list-item label="Redirected CLID Privacy">{{ $ctrl.policies.redirectedCallsCOLPPrivacy }}</pbs-list-item>
+    <pbs-list-item label="Forwarded Calls Response">{{ $ctrl.policies.callBeingForwardedResponseCallType }}</pbs-list-item>
+    <pbs-list-item ng-if="false"
+      label="CLID For Redirected Calls">{{ $ctrl.policies.callingLineIdentityForRedirectedCalls }}</pbs-list-item>
+  </pbs-list>
+</pbs-block>
+<pbs-modal id="editUserCallPolicies"
+  title="Edit Call Policies">
+  <form>
+    <pbs-form-field label="CLID Privacy">
+      <div class="select">
+        <select ng-model="$ctrl.editPolicies.redirectedCallsCOLPPrivacy"
+          ng-options="type for type in $ctrl.options.redirectedCallsCOLPPrivacy"></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Forwarded Calls">
+      <div class="select">
+        <select ng-model="$ctrl.editPolicies.callBeingForwardedResponseCallType"
+          ng-options="type for type in $ctrl.options.callBeingForwardedResponseCallType"></select>
+      </div>
+    </pbs-form-field>
+  </form>
+</pbs-modal>

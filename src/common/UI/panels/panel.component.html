@@ -1,0 +1,30 @@
+<nav class="panel">
+  <p class="panel-heading">
+    <span ng-transclude="buttons"
+      class="is-pulled-right"></span>
+    {{ $ctrl.title }}
+  </p>
+  <div class="panel-block">
+    <p class="control has-icons-left">
+      <input class="input is-small"
+        type="search"
+        placeholder="search"
+        ng-model="$ctrl.search">
+      <span class="icon is-small is-left">
+        <i class="fa fa-search"></i>
+      </span>
+    </p>
+  </div>
+  <a class="panel-block"
+    ng-click="$ctrl.select(item)"
+    ng-repeat="item in $ctrl.items | filter:$ctrl.filter | filter:$ctrl.search | orderBy:$ctrl.itemKey | limitTo:$ctrl.limitTo as results">
+    {{ $ctrl.itemName(item) }}
+  </a>
+  <a class="panel-block"
+    ng-show="results.length < 1">
+    Nothing Found
+    <span ng-show="$ctrl.search"> for
+      <strong>{{ $ctrl.search }}</strong>
+    </span>
+  </a>
+</nav>

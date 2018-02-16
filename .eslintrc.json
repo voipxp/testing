@@ -1,0 +1,38 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-console": 0,
+    "no-extra-semi": 0
+  },
+  "globals": {
+    "console": true,
+    "angular": true,
+    "dotize": true,
+    "_": true,
+    "moment": true,
+    "$": true,
+    "Blob": true,
+    "Sugar": true,
+    "Mustache": true,
+    "localforage": true,
+    "localStorage": true,
+    "window": true,
+    "document": true,
+    "ExtendEditor": true,
+    "rrulestr": true,
+    "RRule": true,
+    "atob": true
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  }
+}

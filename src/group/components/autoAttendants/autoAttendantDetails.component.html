@@ -1,0 +1,86 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Details"
+    class="margin-top">
+    <pbs-block-buttons ng-if="$ctrl.canUpdate">
+      <pbs-button-compact-edit title="Edit Details"
+        ng-click="$ctrl.edit()"></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="ID">
+        {{ $ctrl.autoAttendant.serviceUserId }}
+      </pbs-list-item>
+      <pbs-list-item label="Type">
+        {{ $ctrl.autoAttendant.type }}
+      </pbs-list-item>
+      <pbs-list-item label="First Digit Timeout Seconds"
+        ng-if="$ctrl.hasAnnouncements">
+        {{ $ctrl.autoAttendant.firstDigitTimeoutSeconds }}
+      </pbs-list-item>
+      <pbs-list-item label="Scope of Extension Dialog">
+        {{ $ctrl.autoAttendant.extensionDialingScope }}
+      </pbs-list-item>
+      <pbs-list-item label="Scope of Name Dialing">
+        {{ $ctrl.autoAttendant.nameDialingScope }}
+      </pbs-list-item>
+      <pbs-list-item label="Name Dialing Entries">
+        {{ $ctrl.autoAttendant.nameDialingEntries }}
+      </pbs-list-item>
+      <pbs-list-item label="Business Schedule">
+        {{ $ctrl.autoAttendant.businessHours.name || '24/7' }}
+      </pbs-list-item>
+      <pbs-list-item label="Holiday Schedule">
+        {{ $ctrl.autoAttendant.holidaySchedule.name || 'None' }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="autoAttendantDetails"
+  title="Edit Details">
+  <pbs-form>
+    <pbs-form-field label="Timeout"
+      ng-if="$ctrl.hasAnnouncements">
+      <input type="number"
+        class="input"
+        min="1"
+        max="60"
+        ng-model="$ctrl.editAutoAttendant.firstDigitTimeoutSeconds">&nbsp; First Digit Timeout Seconds
+    </pbs-form-field>
+    <pbs-form-field label="Extension Dialing">
+      <div class="select">
+        <select ng-model="$ctrl.editAutoAttendant.extensionDialingScope"
+          ng-options="scope for scope in $ctrl.options.dialingScopes"
+          required></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Name Dialing">
+      <div class="select">
+        <select ng-model="$ctrl.editAutoAttendant.nameDialingScope"
+          ng-options="scope for scope in $ctrl.options.dialingScopes"
+          required></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Dialing Entries">
+      <div class="select">
+        <select ng-model="$ctrl.editAutoAttendant.nameDialingEntries"
+          ng-options="entry for entry in $ctrl.options.dialingEntries"
+          required></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Business Schedule">
+      <div class="select">
+        <select ng-model="$ctrl.editAutoAttendant.businessHours"
+          ng-options="schedule as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Time'} track by schedule.name">
+          <option value="">-- 24x7 --</option>
+        </select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Holiday Schedule">
+      <div class="select">
+        <select ng-model="$ctrl.editAutoAttendant.holidaySchedule"
+          ng-options="schedule as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Holiday'} track by schedule.name">
+          <option value="">-- None --</option>
+        </select>
+      </div>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

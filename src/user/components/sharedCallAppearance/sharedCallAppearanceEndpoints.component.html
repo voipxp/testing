@@ -1,0 +1,138 @@
+<pbs-spinner loading="$ctrl.parent.loading">
+  <pbs-block title="Endpoints"
+    class="margin-top">
+    <pbs-block-buttons>
+      <pbs-button-compact-add label="Add an Endpoint"
+        ng-click="$ctrl.add()"></pbs-button-compact-add>
+    </pbs-block-buttons>
+    <table class="margin-top"
+      pbs-table>
+      <thead>
+        <tr>
+          <th>Device Type</th>
+          <th>Device Name</th>
+          <th>Device Level</th>
+          <th>Line Port</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="100">No Endpoints Found</td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-repeat="endpoint in $ctrl.sharedCallAppearance.endpoints | orderBy:'deviceName' as results track by endpoint.linePort"
+      
+          ng-click="$ctrl.edit(endpoint)">
+          <td>{{ endpoint.deviceType }}</td>
+          <td>{{ endpoint.deviceName }}</td>
+          <td>{{ endpoint.deviceLevel }}</td>
+          <td>{{ endpoint.linePort }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="userSharedCallAppearanceEndpointEditModal"
+  title="Edit Endpoint">
+  <pbs-form>
+    <pbs-form-field label="Device">
+      <div class="field has-addons">
+        <p class="control is-expanded">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editEndpoint.deviceName"
+            placeholder="No Device Selected"
+            readonly
+            ng-click="$ctrl.createDevice()">
+        </p>
+        <p class="control">
+          <a class="button"
+            ng-click="$ctrl.updateDevice($ctrl.editEndpoint)"
+            title="Add a Device">
+            <span class="icon">
+              <i class="fa fa-plus"></i>
+            </span>
+          </a>
+        </p>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Line/Port">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editEndpoint.linePort"
+        disabled>
+    </pbs-form-field>
+    <pbs-form-field label="Settings">
+      <pbs-input-checkbox label="Enable This Location"
+        ng-model="$ctrl.editEndpoint.isActive"></pbs-input-checkbox>
+      <br>
+      <pbs-input-checkbox label="Allow Origination From This Location"
+        ng-model="$ctrl.editEndpoint.allowOrigination"></pbs-input-checkbox>
+      <br>
+      <pbs-input-checkbox label="Allow Termination To This Location"
+        ng-model="$ctrl.editEndpoint.allowTermination"></pbs-input-checkbox>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+<pbs-modal id="userSharedCallAppearanceEndpointCreateModal"
+  validate>
+  <pbs-form>
+    <pbs-form-field label="Device">
+      <div class="field has-addons">
+        <p class="control is-expanded">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.newEndpoint.deviceName"
+            placeholder="No Device Selected"
+            readonly>
+        </p>
+        <p class="control">
+          <a class="button"
+            ng-click="$ctrl.selectDevice()"
+            title="Select a Device">
+            <span class="icon">
+              <i class="fa fa-list"></i>
+            </span>
+          </a>
+        </p>
+        <p class="control">
+          <a class="button"
+            ng-click="$ctrl.createDevice()"
+            title="Add a Device">
+            <span class="icon">
+              <i class="fa fa-plus"></i>
+            </span>
+          </a>
+        </p>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Line Port">
+      <select-user-id service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.newEndpoint.linePort"
+        required="true"
+        on-update="$ctrl.onSetLinePort($event)"></select-user-id>
+    </pbs-form-field>
+    <pbs-form-field label="Settings">
+      <pbs-input-checkbox label="Enable this location"
+        ng-model="$ctrl.newEndpoint.isActive"></pbs-input-checkbox>
+      <br>
+      <pbs-input-checkbox label="Allow Origination From This Location"
+        ng-model="$ctrl.newEndpoint.allowOrigination"></pbs-input-checkbox>
+      <br>
+      <pbs-input-checkbox label="Allow Termination To This Location"
+        ng-model="$ctrl.newEndpoint.allowTermination"></pbs-input-checkbox>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+<device-select service-provider-id="$ctrl.parent.serviceProviderId"
+  group-id="$ctrl.parent.groupId"
+  on-update="$ctrl.onSelectDevice($event)"></device-select>
+<device-create service-provider-id="$ctrl.parent.serviceProviderId"
+  group-id="$ctrl.parent.groupId"
+  on-update="$ctrl.onSelectDevice($event)"></device-create>
+<device-update service-provider-id="$ctrl.parent.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onUpdateDevice($event)"></device-update>

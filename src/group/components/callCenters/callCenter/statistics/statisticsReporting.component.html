@@ -1,0 +1,64 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Reporting"
+    class="margin-top">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit title="Edit Reporting"
+        ng-click="$ctrl.edit()"
+        ng-if="$ctrl.canUpdate">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Generate Daily Reports">
+        <pbs-check-box checked="$ctrl.settings.generateDailyReport"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Statistics Source">
+        {{ $ctrl.settings.statisticsSource }}
+      </pbs-list-item>
+      <pbs-list-item label="Collection Period">
+        {{ $ctrl.settings.collectionPeriodMinutes }} minutes
+      </pbs-list-item>
+      <pbs-list-item label="Reporting Email 1">
+        {{ $ctrl.settings.reportingEmailAddress1 }}
+      </pbs-list-item>
+      <pbs-list-item label="Reporting Email 2">
+        {{ $ctrl.settings.reportingEmailAddress2 }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupCallCenterStatisticsReporting"
+  title="Edit Call Center Statistics Reporting">
+  <pbs-form-field label="Daily Report">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editSettings.generateDailyReport"> Generate Daily Report
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Statistics Source">
+    <div class="select">
+      <select ng-model="$ctrl.editSettings.statisticsSource"
+        ng-options="opt for opt in $ctrl.options.statisticsSource"></select>
+    </div>
+  </pbs-form-field>
+
+  <pbs-form-field label="Collection Period Minutes">
+    <div class="select">
+      <select ng-model="$ctrl.editSettings.collectionPeriodMinutes"
+        ng-options="opt for opt in $ctrl.options.collectionPeriodMinutes"></select>
+    </div>
+  </pbs-form-field>
+
+  <pbs-form-field label="Reporting Email 1">
+    <input type="text"
+      class="input"
+      ng-model="$ctrl.editSettings.reportingEmailAddress1">
+  </pbs-form-field>
+
+  <pbs-form-field label="Reporting Email 2">
+    <input type="text"
+      class="input"
+      ng-model="$ctrl.editSettings.reportingEmailAddress2">
+  </pbs-form-field>
+
+</pbs-modal>

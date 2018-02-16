@@ -1,0 +1,39 @@
+<pbs-spinner loading="vm.loading">
+  <pbs-form-field label="Actions">
+    <label class="radio">
+      <input type="radio"
+        ng-model="vm.trunk.callForwardingAlwaysAction"
+        ng-value="''"> None
+    </label>
+    <br>
+    <label class="radio">
+      <input type="radio"
+        ng-model="vm.trunk.callForwardingAlwaysAction"
+        value="Forward"
+        ng-change="vm.updateConfirm('callForwardingAlwaysAction', 'Forward')"> Forward To: &nbsp;
+    </label>
+  </pbs-form-field>
+  <pbs-form-field label="Forward To">
+    <input type="text"
+      class="input"
+      ng-model="vm.trunk.callForwardingAlwaysForwardAddress">
+    <br>
+    <label type="radio">
+      <input type="radio"
+        ng-model="vm.trunk.callForwardingAlwaysAction"
+        value="Reroute"
+        ng-change="vm.updateConfirm('callForwardingAlwaysAction', 'Reroute')"
+        ng-disabled="vm.availableTrunks.length === 0"> Reroute To: &nbsp;
+    </label>
+    <br>
+    <div class="select">
+      <select ng-model="vm.trunk.callForwardingAlwaysRerouteTrunkGroupKey"
+        ng-options="trunk.name for trunk in vm.availableTrunks track by trunk.name"
+        ng-disabled="vm.trunk.callForwardingAlwaysAction !== 'Reroute'">
+      </select>
+    </div>
+  </pbs-form-field>
+  <div class="margin-top has-text-right">
+    <pbs-button-save ng-click="vm.updateTrunk()"></pbs-button-save>
+  </div>
+</pbs-spinner>

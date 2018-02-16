@@ -1,0 +1,93 @@
+<pbs-spinner loading="$ctrl.parent.loading">
+  <pbs-block title="{{ $ctrl.parent.submenuId }} Audio">
+    <pbs-block-buttons ng-if="$ctrl.parent.module.permissions.update">
+      <pbs-button-compact-edit ng-click="$ctrl.edit()"></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Announcement Type">
+        {{ $ctrl.parent.menu.announcementSelection }}
+      </pbs-list-item>
+      <pbs-list-item label="Audio File Name"
+        ng-show="$ctrl.parent.menu.announcementSelection === 'Personal'">
+        {{ $ctrl.parent.menu.audioFile.name }}
+      </pbs-list-item>
+      <pbs-list-item label="Audio File Type"
+        ng-show="$ctrl.parent.menu.announcementSelection === 'Personal'">
+        {{ $ctrl.parent.menu.audioFile.mediaType }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editAutoAttendantSubmenuAudioModal"
+  title="Edit Audio Settings">
+  <pbs-form>
+    <pbs-form-field label="Announcement Type">
+      <select ng-model="$ctrl.editMenu.announcementSelection"
+        ng-options="selection for selection in $ctrl.options.announcementSelections"
+        pbs-input-select></select>
+    </pbs-form-field>
+    <pbs-form-field label="Audio File"
+      ng-show="$ctrl.editMenu.announcementSelection === 'Personal'">
+      <div ng-if="!$ctrl.hasRepository">
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <input type="text"
+              class="input"
+              ng-model="$ctrl.editMenu.audioFile.name"
+              ng-required="$ctrl.editMenu.announcementSelection === 'Personal'"
+              readonly
+              placeholder="No Audio File Selected">
+          </p>
+          <p class="control">
+            <a class="button"
+              ng-click="$ctrl.selectAudioFile()"
+              title="Upload an Audio File">
+              <span class="icon">
+                <i class="fa fa-plus"></i>
+              </span>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div ng-if="$ctrl.hasRepository">
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <input type="text"
+              class="input"
+              ng-model="$ctrl.editMenu.audioFile.name"
+              ng-required="$ctrl.editMenu.announcementSelection === 'Personal'"
+              readonly
+              placeholder="No Announcement Selected">
+          </p>
+          <p class="control">
+            <a class="button"
+              ng-click="$ctrl.createAnnouncement()"
+              title="Create an Announcement">
+              <span class="icon">
+                <i class="fa fa-plus"></i>
+              </span>
+            </a>
+          </p>
+          <p class="control">
+            <a class="button"
+              ng-click="$ctrl.selectAnnouncement()"
+              title="Select an Announcement">
+              <span class="icon">
+                <i class="fa fa-list"></i>
+              </span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+
+<audio-file-create ng-if="!$ctrl.hasRepository"
+  on-update="$ctrl.onSelectAudio($event)"></audio-file-create>
+<announcement-create ng-if="$ctrl.hasRepository"
+  user-id="$ctrl.autoAttendant.serviceUserId"
+  on-update="$ctrl.onSelectAudio($event)"></announcement-create>
+<announcement-select ng-if="$ctrl.hasRepository"
+  user-id="$ctrl.autoAttendant.serviceUserId"
+  on-update="$ctrl.onSelectAudio($event)"></announcement-select>

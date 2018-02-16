@@ -1,0 +1,23 @@
+/* NOTIFICATIONS */
+.notification.ng-leave {
+  animation-name: bounceOutRight;
+  animation-duration: 500ms;
+}
+.notification.ng-enter {
+  animation-name: bounceInRight;
+  animation-duration: 500ms;
+}
+
+pbs-notifications {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  width: 400px;
+  margin: 0;
+  padding: 0;
+  z-index: 60;
+}
+
+pbs-notifications .notification:not(:last-child) {
+  margin-bottom: .5rem;
+}

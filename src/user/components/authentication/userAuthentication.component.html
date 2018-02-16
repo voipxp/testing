@@ -1,0 +1,42 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit title="Edit Authentication"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Username">
+        {{$ctrl.settings.userName}}
+      </pbs-list-item>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserAuthentication"
+  title="Edit Authentication">
+  <pbs-form>
+    <pbs-form-field label="Username">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.userName">
+    </pbs-form-field>
+    <pbs-form-field label="New Password">
+      <input type="password"
+        class="input"
+        ng-model="$ctrl.editSettings.newPassword">
+    </pbs-form-field>
+    <pbs-form-field label="Repeat Password">
+      <input type="password"
+        class="input"
+        ng-model="$ctrl.editSettings.newPasswordCheck">
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

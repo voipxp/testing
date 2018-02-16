@@ -1,0 +1,122 @@
+<pbs-modal id="editOutgoingCallingPlanOriginating"
+  title="Outgoing Calling Plan Originating">
+  <form novalidate
+    autocomplete="off">
+    <pbs-form-field label="Custom Settings">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.plan.useCustomSettings"> Use Custom Settings
+      </label>
+    </pbs-form-field>
+
+    <pbs-form-field label="Group"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.group"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Local"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.local"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Toll Free"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.tollFree"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Toll"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.toll"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="International"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.international"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Operator Assisted"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.operatorAssisted"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Chargeable Directory Assisted"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="selected">
+        <select ng-model="$ctrl.plan.userPermissions.chargeableDirectoryAssisted"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Special Services I"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.specialServicesI"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Special Services II"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.specialServicesII"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Premium Services I"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.premiumServicesI"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Premium Services II"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.premiumServicesII"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Casual"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.casual"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="URL Dialing"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.urlDialing"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Unknown"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <div class="select">
+        <select ng-model="$ctrl.plan.userPermissions.unknown"
+          ng-options="opt for opt in $ctrl.options.userPermissions"></select>
+      </div>
+    </pbs-form-field>
+  </form>
+</pbs-modal>

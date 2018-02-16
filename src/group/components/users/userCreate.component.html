@@ -1,0 +1,95 @@
+<pbs-modal id="createUserModal"
+  title="New User">
+  <form novalidate
+    name="createUserForm">
+    <pbs-tabs no-hash="true">
+      <pbs-tab label="Required">
+        <pbs-form-field label="User ID">
+          <select-user-id service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            user-id="$ctrl.user.userId"
+            on-update="$ctrl.setUserId($event)"
+            required="true"></select-user-id>
+        </pbs-form-field>
+        <pbs-form-field label="Last Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.user.lastName"
+            ng-change="$ctrl.setCLID()"
+            required>
+        </pbs-form-field>
+        <pbs-form-field label="First Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.user.firstName"
+            ng-change="$ctrl.setCLID()"
+            required>
+        </pbs-form-field>
+        <pbs-form-field label="CLID Last Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.user.callingLineIdLastName"
+            required>
+        </pbs-form-field>
+        <pbs-form-field label="CLID First Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.user.callingLineIdFirstName"
+            required>
+        </pbs-form-field>
+        <pbs-form-field label="Password">
+          <input type="password"
+            class="input"
+            ng-model="$ctrl.user.password"
+            ng-minlength="6"
+            ng-maxlength="60">
+        </pbs-form-field>
+        <pbs-form-field label="Password Again">
+          <input type="password"
+            class="input"
+            ng-model="$ctrl.user.password2"
+            ng-minlength="6"
+            ng-maxlength="60">
+        </pbs-form-field>
+      </pbs-tab>
+
+      <pbs-tab label="Optional">
+        <pbs-form-field label="Department">
+          <select-department service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            ng-model="$ctrl.user.department">
+          </select-department>
+        </pbs-form-field>
+        <pbs-form-field label="Timezone">
+          <select-timezone ng-model="$ctrl.user.timeZone"></select-timezone>
+        </pbs-form-field>
+        <pbs-form-field label="Language">
+          <select-language ng-model="$ctrl.user.language"></select-language>
+        </pbs-form-field>
+        <pbs-form-field label="Title">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.user.title">
+        </pbs-form-field>
+        <pbs-form-field label="Email Address">
+          <input type="email"
+            class="input"
+            ng-model="$ctrl.user.emailAddress">
+        </pbs-form-field>
+        <pbs-form-field label="Pager Number">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.user.pagerPhoneNumber">
+        </pbs-form-field>
+        <pbs-form-field label="Mobile Number">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.user.mobilePhoneNumber">
+        </pbs-form-field>
+        <pbs-form-field label="Aliases">
+          <alias-list profile="$ctrl.user"></alias-list>
+        </pbs-form-field>
+      </pbs-tab>
+    </pbs-tabs>
+  </form>
+</pbs-modal>

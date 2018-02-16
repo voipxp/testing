@@ -1,0 +1,6 @@
+* > h4.subtitle:not(:last-child) {
+  margin-bottom: .5rem;
+}
+* > h4.subtitle:not(:first-child) {
+  margin-top: 1.5rem;
+}

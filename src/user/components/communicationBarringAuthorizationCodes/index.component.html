@@ -1,0 +1,11 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+
+<user-communication-barring-authorization-codes class="margin-top"
+  user-id="$ctrl.userId"
+  read-only="$ctrl.readOnly">
+</user-communication-barring-authorization-codes>

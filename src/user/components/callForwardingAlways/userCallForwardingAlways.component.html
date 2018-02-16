@@ -1,0 +1,44 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit title="Edit Call Forwarding Always"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Forward to Phone Number">
+        {{$ctrl.settings.forwardToPhoneNumber}}
+      </pbs-list-item>
+      <pbs-list-item label="Is Active">
+        <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Is Ring Splash Active">
+        <pbs-check-box checked="$ctrl.settings.isRingSplashActive"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserCallForwardingAlways"
+  title="Edit Settings">
+  <pbs-form>
+    <pbs-form-field label="General Settings">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editSettings.isActive"> Is Active
+      </label>
+      <br>
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editSettings.isRingSplashActive"> Is Ring Splash Active
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Forward To">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.forwardToPhoneNumber"
+        min="{{ $ctrl.options.outgoingDNorSIPURI.minimum }}"
+        max="{{ $ctrl.options.outgoingDNorSIPURI.maximum }}">
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

@@ -1,0 +1,9 @@
+<pbs-form-field label="Call Forward Busy">
+  <input type="checkbox"
+    label="N/A"
+    ng-label="$ctrl.settings.forwardToPhoneNumber"
+    ng-model="$ctrl.settings.isActive"
+    ng-click="$ctrl.toggle()"
+    ng-disabled="$ctrl.loading"
+    pbs-input-switch>
+</pbs-form-field>

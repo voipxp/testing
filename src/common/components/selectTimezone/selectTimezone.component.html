@@ -1,0 +1,9 @@
+<div class="select is-fullwidth"
+  ng-class="{'is-loading': $ctrl.loading}">
+  <select ng-model="$ctrl.ngModel"
+    ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones"
+    ng-required="$ctrl.ngRequired">
+    <option ng-if="!$ctrl.ngRequired"
+      value="">None</option>
+  </select>
+</div>

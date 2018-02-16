@@ -1,0 +1,9 @@
+<div class="select is-fullwidth"
+  ng-class="{'is-loading': $ctrl.loading}">
+  <select ng-model="$ctrl.ngModel"
+    ng-options="language.language as language.language for language in $ctrl.languages.languages"
+    ng-required="$ctrl.ngRequired">
+    <option ng-if="!$ctrl.ngRequired"
+      value="">None</option>
+  </select>
+</div>

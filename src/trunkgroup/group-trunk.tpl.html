@@ -1,0 +1,30 @@
+<h4 class="underline thin">
+  <span ng-show="!vm.returnTo">
+    <a href=""
+      ng-click="vm.openTrunkGroups()">Trunk Groups</a> |
+  </span>
+  <span ng-show="vm.returnTo">
+    <a href=""
+      ng-click="vm.openEnterpriseTrunks()">Enterprise Trunks</a> |
+    <a href=""
+      ng-click="vm.openEnterpriseTrunk()">{{ vm.returnTo }}</a> |
+  </span>
+  {{ vm.trunkName }}
+</h4>
+<pbs-tabs>
+  <pbs-tab label="Configuration">
+    <div ng-include="'trunkgroup/group-trunk_config.tpl.html'"></div>
+  </pbs-tab>
+  <pbs-tab label="Authentication">
+    <div ng-include="'trunkgroup/group-trunk_authentication.tpl.html'"></div>
+  </pbs-tab>
+  <pbs-tab label="Unreachable">
+    <div ng-include="'trunkgroup/group-trunk_unreachable.tpl.html'"></div>
+  </pbs-tab>
+  <pbs-tab label="Call Forward">
+    <div ng-include="'trunkgroup/group-trunk_callforward.tpl.html'"></div>
+  </pbs-tab>
+  <pbs-tab label="Stateful Routing">
+    <div ng-include="'trunkgroup/group-trunk_routing.tpl.html'"></div>
+  </pbs-tab>
+</pbs-tabs>

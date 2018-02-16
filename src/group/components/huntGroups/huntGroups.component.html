@@ -1,0 +1,56 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons>
+      <pbs-button-compact-add title="Add Hunt Groups"
+        ng-click="$ctrl.add()"
+        if-module-create="$ctrl.module">
+      </pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Number</th>
+          <th>Extension</th>
+          <th>Department</th>
+          <th class="has-text-centered">Active</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length === 0">
+          <td colspan="6">No Hunt Groups Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-click="$ctrl.open(huntGroup)"
+          ng-repeat="huntGroup in $ctrl.huntGroups | filter:$ctrl.search | orderBy:'name' as results track by huntGroup.serviceUserId">
+          <td>{{ huntGroup.serviceUserId }}</td>
+          <td>{{ huntGroup.name }}</td>
+          <td>{{ huntGroup.phoneNumber }}</td>
+          <td>{{ huntGroup.extension }}</td>
+          <td>{{ huntGroup.department }}</td>
+          <td no-parent-click>
+            <input type="checkbox"
+              ng-model="huntGroup.isActive"
+              ng-click="$ctrl.toggle(huntGroup)"
+              pbs-input-switch="centered"
+              ng-disabled="huntGroup.isLoading">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<group-hunt-group-create service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onCreate($event)"></group-hunt-group-create>

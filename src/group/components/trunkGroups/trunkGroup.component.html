@@ -1,0 +1,26 @@
+<group-trunk-group-navigation module="$ctrl.module"></group-trunk-group-navigation>
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-tabs size="large">
+  <pbs-tab label="Profile">
+    <group-trunk-group-profile></group-trunk-group-profile>
+  </pbs-tab>
+  <pbs-tab label="Users">
+    <group-trunk-group-users service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"></group-trunk-group-users>
+  </pbs-tab>
+  <pbs-tab label="Hosted Users">
+    <group-trunk-group-hosted-users trunk="$ctrl.trunk"></group-trunk-group-hosted-users>
+  </pbs-tab>
+  <pbs-tab label="Call Forward">
+    <group-trunk-group-call-forward-always></group-trunk-group-call-forward-always>
+  </pbs-tab>
+  <pbs-tab label="Unreachable">
+    <group-trunk-group-unreachable-destination></group-trunk-group-unreachable-destination>
+  </pbs-tab>
+  <pbs-tab label="Stateful Rerouting">
+    <group-trunk-group-stateful-rerouting></group-trunk-group-stateful-rerouting>
+  </pbs-tab>
+  <pbs-tab label="Call Capacity">
+    <group-trunk-group-capacity-management></group-trunk-group-capacity-management>
+  </pbs-tab>
+</pbs-tabs>

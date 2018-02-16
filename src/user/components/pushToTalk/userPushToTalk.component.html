@@ -1,0 +1,102 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit title="Edit Push To Talk"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Auto Answer">
+        <pbs-check-box checked="$ctrl.settings.allowAutoAnswer"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Outgoing Connection">
+        {{$ctrl.settings.outgoingConnectionSelection}}
+      </pbs-list-item>
+      <pbs-list-item label="Access List">
+        {{$ctrl.settings.accessListSelection}}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+  <pbs-block title="Push To Talk Users"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit title="Edit Monitored Users"
+        ng-click="$ctrl.editUsers()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>User Id</th>
+          <th>Phone Number</th>
+          <th>Extension</th>
+          <th>Department</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hover"
+          ng-click="$ctrl.editUsers()"
+          ng-repeat="user in $ctrl.users| filter:$ctrl.search as results track by user.userId">
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.userId }}</td>
+          <td>{{ user.phoneNumber }}</td>
+          <td>{{ user.extension }}</td>
+          <td>{{ user.department }}</td>
+          <td>{{ user.emailAddress }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr ng-if="results.length === 0">
+          <td colspan="99">No Monitored Users Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}
+            </span>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserPushToTalk"
+  title="Edit Settings">
+  <pbs-form>
+    <pbs-form-field label="Auto Answer">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editSettings.allowAutoAnswer"> Auto Anser
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Outgoing Connection">
+      <div class="select">
+        <select ng-model="$ctrl.editSettings.outgoingConnectionSelection"
+          ng-options="x for x in $ctrl.options.outgoingConnectionSelection">
+        </select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Access List">
+      <div class="select">
+        <select ng-model="$ctrl.editSettings.accessListSelection"
+          ng-options="x for x in $ctrl.options.accessListSelection">
+        </select>
+      </div>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+<pbs-modal id="editUserPushToTalkUsers"
+  title="Edit Users">
+  <select-users available="$ctrl.availableUsers"
+    selected="$ctrl.assignedUsers"
+    sort="true"></select-users>
+</pbs-modal>

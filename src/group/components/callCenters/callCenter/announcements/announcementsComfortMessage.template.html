@@ -1,0 +1,36 @@
+<pbs-block title="Comfort Message"
+  class="margin-top">
+  <pbs-block-buttons ng-if="$ctrl.canUpdate">
+    <pbs-button-compact-edit title="Edit Comfort Message"
+      ng-click="$ctrl.edit('ComfortMessage')">
+    </pbs-button-compact-edit>
+  </pbs-block-buttons>
+  <pbs-list>
+    <pbs-list-item label="Comfort Message Enabled">
+      <pbs-check-box checked="$ctrl.announcements.comfortMessage.enabled"></pbs-check-box>
+    </pbs-list-item>
+    <pbs-list-item label="Time Between Messages">
+      {{ $ctrl.announcements.comfortMessage.timeBetweenComfortMessagesSeconds }} Seconds
+    </pbs-list-item>
+  </pbs-list>
+  <group-call-center-audio-settings-view service="$ctrl.announcements.comfortMessage">
+  </group-call-center-audio-settings-view>
+</pbs-block>
+<pbs-modal id="editGroupCallCenterAnnouncementsComfortMessage"
+  title="{{ $ctrl.modalTitle }}">
+
+  <pbs-form-field label="Enabled">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editAnnouncements.comfortMessage.enabled"> Play Comfort Message
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Time Between Seconds">
+    <input type="number"
+      class="input"
+      ng-model="$ctrl.editAnnouncements.comfortMessage.timeBetweenComfortMessagesSeconds">
+  </pbs-form-field>
+  <group-call-center-audio-settings-edit service="$ctrl.editAnnouncements.comfortMessage">
+  </group-call-center-audio-settings-edit>
+</pbs-modal>

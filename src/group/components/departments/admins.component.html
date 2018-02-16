@@ -1,0 +1,119 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Administrators">
+    <pbs-block-buttons>
+      <pbs-button-compact-add ng-click="$ctrl.add()"
+        title="Add Administrator">
+      </pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table class="hover"
+      pbs-table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="100">No Admins Found
+            <strong ng-if="$ctrl.search">for {{ $ctrl.search }}</strong>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr ng-repeat="admin in $ctrl.admins | filter:$ctrl.search | orderBy:'administratorID' as results track by admin.administratorID"
+      
+          ng-click="$ctrl.edit(admin)">
+          <td>{{ admin.administratorID }}</td>
+          <td>{{ admin.firstName }}</td>
+          <td>{{ admin.lastName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="groupDepartmentAdminCreateModal"
+  title="Add Administrator">
+  <pbs-form>
+    <pbs-form-field label="User ID">
+      <select-user-id service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.newAdmin.userId"
+        on-update="$ctrl.setUserId($event)"
+        required="true"></select-user-id>
+    </pbs-form-field>
+    <pbs-form-field label="Password">
+      <input type="password"
+        class="input"
+        ng-model="$ctrl.newAdmin.password"
+        ng-minlength="6"
+        ng-maxlength="60"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Password Again">
+      <input type="password"
+        class="input"
+        ng-model="$ctrl.newAdmin.password2"
+        ng-minlength="6"
+        ng-maxlength="60"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Last Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.newAdmin.lastName">
+    </pbs-form-field>
+    <pbs-form-field label="First Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.newAdmin.firstName">
+    </pbs-form-field>
+    <pbs-form-field label="Language">
+      <div class="select">
+        <select ng-model="$ctrl.newAdmin.language"
+          ng-options="language.language as language.language for language in $ctrl.languages.languages"></select>
+      </div>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+<pbs-modal id="groupDepartmentAdminEditModal"
+  title="Edit Administrator">
+  <pbs-form>
+    <pbs-form-field label="User ID">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editAdmin.administratorID"
+        disabled>
+    </pbs-form-field>
+    <pbs-form-field label="Password">
+      <input type="password"
+        class="input"
+        ng-model="$ctrl.editAdmin.password"
+        ng-minlength="6"
+        ng-maxlength="60">
+    </pbs-form-field>
+    <pbs-form-field label="Password Again">
+      <input type="password"
+        class="input"
+        ng-model="$ctrl.editAdmin.password2"
+        ng-minlength="6"
+        ng-maxlength="60">
+    </pbs-form-field>
+    <pbs-form-field label="Last Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editAdmin.lastName">
+    </pbs-form-field>
+    <pbs-form-field label="First Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editAdmin.firstName">
+    </pbs-form-field>
+    <pbs-form-field label="Language">
+      <select ng-model="$ctrl.editAdmin.language"
+        ng-options="language.language as language.language for language in $ctrl.languages.languages"></select>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

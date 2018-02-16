@@ -1,0 +1,81 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-add ng-show="$ctrl.isAllowed"
+        ng-click="$ctrl.addAlternateEntry()"
+        title="Add New Alternate Number">
+      </pbs-button-compact-add>
+    </pbs-block-buttons>
+    <table pbs-table>
+      <thead>
+        <th>Alternate Number Id</th>
+        <th>Phone Number</th>
+        <th>Extension</th>
+        <th>Ring Pattern</th>
+      </thead>
+      <tfoot>
+        <tr ng-if="!$ctrl.alternateNumbers || $ctrl.alternateNumbers.length < 1">
+          <td colspan="4">No Entries Found</td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-repeat='alternateNumber in $ctrl.alternateNumbers.alternateEntries as results'
+          ng-click="$ctrl.editAlternateEntry(alternateNumber)">
+          <td>{{ alternateNumber.entry }}
+          </td>
+          <td>
+            {{$ctrl.alternateNumbers.alternateEntries[$index].phoneNumber}}
+          </td>
+          <td>
+            {{$ctrl.alternateNumbers.alternateEntries[$index].extension}}
+          </td>
+          <td>
+            {{$ctrl.alternateNumbers.alternateEntries[$index].ringPattern}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+
+<pbs-modal id="edit-alternateNumberEntry"
+  title="Edit Alternate Number">
+  <pbs-form-field label="Alternate Number Id">
+    <div class="select">
+      <select ng-model="$ctrl.alternateNumber.entry"
+        ng-options="entry as entry for entry in $ctrl.alternateNumberRangeEntry"
+        ng-change="">
+      </select>
+    </div>
+  </pbs-form-field>
+  <pbs-form-field label="Phone Number">
+    <div class="select">
+      <select ng-model="$ctrl.alternateNumber.phoneNumber"
+        ng-options="number.min as number.min for number in $ctrl.availableNumbers"
+        ng-change="$ctrl.setExtension()">
+        <option value="">-- None --</option>
+      </select>
+    </div>
+  </pbs-form-field>
+  <pbs-form-field label="Extension">
+    <input type="text"
+      class="input"
+      ng-model="$ctrl.alternateNumber.extension">
+  </pbs-form-field>
+  <pbs-form-field label="Ring Pattern">
+    <div class="select">
+      <select name="ringPattern"
+        ng-model="$ctrl.alternateNumber.ringPattern">
+        <option ng-repeat="ringPattern in $ctrl.ringPatterns"
+          value="{{ringPattern}}">{{ringPattern}}</option>
+      </select>
+    </div>
+  </pbs-form-field>
+</pbs-modal>

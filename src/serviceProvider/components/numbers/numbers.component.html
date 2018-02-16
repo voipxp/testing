@@ -1,0 +1,104 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId">
+  <pbs-breadcrumb title="'Numbers'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Numbers">
+    <pbs-block-buttons style="font-size: 14px; font-weight: normal;">
+      <label class="radio">
+        <input type="radio"
+          ng-model="$ctrl.search.status"
+          value="all"> All &nbsp;
+      </label>
+      <label class="radio">
+        <input type="radio"
+          ng-model="$ctrl.search.status"
+          value="available"> Available &nbsp;
+      </label>
+      <label class="radio"
+        style="margin-right: 5px;">
+        <input type="radio"
+          ng-model="$ctrl.search.status"
+          value="assigned"> Assigned &nbsp;
+      </label>
+      <pbs-button-compact-add ng-click="$ctrl.add()"
+        title="Add Numbers">
+      </pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search.dn"></pbs-table-search>
+    <table class="hover"
+      pbs-table>
+      <thead>
+        <tr>
+          <th>Start</th>
+          <th>End</th>
+          <th>GroupId</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="100">No Numbers Found
+            <strong ng-if="$ctrl.search.dn">for {{ $ctrl.search.dn }}</strong>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr ng-repeat="number in $ctrl.numbers | filter:$ctrl.search.dn | filter:$ctrl.filterStatus | orderBy:'min' as results track by number.min"
+      
+          ng-click="$ctrl.edit(number)">
+          <td>{{ number.min }}</td>
+          <td>{{ number.max }}</td>
+          <td>{{ number.groupId }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="serviceProviderNumbersCreateModal"
+  title="Add Numbers">
+  <pbs-form>
+    <pbs-form-field label="Min">
+      <input type="tel"
+        class="input"
+        ng-model="$ctrl.newNumber.min"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Max">
+      <input type="tel"
+        class="input"
+        ng-model="$ctrl.newNumber.max">
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+<pbs-modal id="serviceProviderNumbersEditModal"
+  title="Edit Numbers">
+  <pbs-table-search ng-model="$ctrl.search.selectedDN"></pbs-table-search>
+  <table pbs-table>
+    <thead>
+      <tr>
+        <th>DN</th>
+        <th>GroupId</th>
+        <th class="action">&nbsp;</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr ng-if="selectedResults.length < 1">
+        <td colspan="100">No Numbers Found
+          <strong ng-if="$ctrl.search.selectedDN">for {{ $ctrl.search.selectedDN }}</strong>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr ng-repeat="number in $ctrl.selectedNumbers | filter:$ctrl.search.selectedDN | orderBy:'min' as selectedResults track by number.min">
+        <td>{{ number.min }}</td>
+        <td>{{ number.groupId }}</td>
+        <td class="hover has-text-centered"
+          ng-click="$ctrl.remove(number)">
+          <span class="icon">
+            <i class="fa fa-trash"></i>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-modal>

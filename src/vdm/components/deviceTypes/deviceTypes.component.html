@@ -1,0 +1,70 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Device Types">
+    <pbs-block-buttons>
+      <pbs-button-compact-add if-module-create="$ctrl.module"
+        ng-click="$ctrl.add()"
+        title="Add Device Mapping">
+      </pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <th>Device Type</th>
+        <th>Template</th>
+      </thead>
+      <tfoot>
+        <tr ng-show="results.length < 1">
+          <td colspan="99">No Device Types Found
+            <span ng-show="$ctrl.search">for
+              <strong>{{ $ctrl.search }}</strong>
+              </strong>
+            </span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-repeat='device in $ctrl.devices as results track by device.id'
+          ng-click="$ctrl.edit(device)">
+          <td>{{ device.deviceType }}</td>
+          <td>{{ device.deviceTemplate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editVdmDeviceTypeModal"
+  title="Device Mapping">
+  <pbs-form>
+    <pbs-form-field label="Device Type">
+      <div class="field has-addons">
+        <p class="control is-expanded">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editDevice.deviceType"
+            placeholder="No Device Selected"
+            readonly
+            required>
+        </p>
+        <p class="control"
+          ng-if="!$ctrl.editDevice.id">
+          <a class="button"
+            ng-click="$ctrl.selectDevice()"
+            title="Select a Device">
+            <span class="icon">
+              <i class="fa fa-list"></i>
+            </span>
+          </a>
+        </p>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Device Template">
+      <div class="select">
+        <select ng-model="$ctrl.editDevice.deviceTemplate"
+          ng-options="template for template in $ctrl.options.templates"
+          required></select>
+      </div>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+<vdm-create-device on-update="$ctrl.onSelectDevice($event)"></vdm-create-device>

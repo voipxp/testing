@@ -1,0 +1,122 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons if-module-create="$ctrl.module">
+      <pbs-button-compact-add ng-click="$ctrl.addSelectCallRejectionCriteria($ctrl.selectiveCallRejectionCriteria)"
+        title="Add New Selective Call Rejection">
+      </pbs-button-compact-add>
+    </pbs-block-buttons>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Active</th>
+          <th>Description</th>
+          <th>Reject Call</th>
+          <th>Time</th>
+          <th>Holiday</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="$ctrl.selectiveCallRejection.length < 1">
+          <td colspan="6">No Selective Call Rejection Found
+            <span ng-if="$ctrl.selectiveCallRejection">for {{ $ctrl.userId }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-repeat="sca in $ctrl.selectiveCallRejection"
+          ng-click="$ctrl.editSelectCallRejectionCriteria(sca)">
+          <td class="action">
+            <pbs-check-box checked="sca.isActive"></pbs-check-box>
+          </td>
+          <td>{{ sca.criteriaName }}</td>
+          <td class="action">
+            <pbs-check-box checked="sca.blacklisted"></pbs-check-box>
+          </td>
+          <td>{{ sca.timeSchedule }}</td>
+          <td>{{ sca.holidaySchedule }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<!-- Edit Selective Call Rejection Criteria  -->
+<pbs-modal id="edit-selectiveCallRejectionCriteria"
+  title="Edit Settings">
+  <pbs-spinner loading="$ctrl.loadingCriteria">
+    <pbs-form-field label="General Settings">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.selectiveCallRejectionCriteria.isActive"> Is Active
+      </label>
+      <br>
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.selectiveCallRejectionCriteria.blacklisted"> Reject Call
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Description">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.selectiveCallRejectionCriteria.criteriaName">
+    </pbs-form-field>
+    <pbs-form-field label="Time Schedule">
+      <div class="select">
+        <select name="timeSchedule"
+          id="timeSchedule"
+          ng-model="$ctrl.selectiveCallRejectionCriteria.timeSchedule.name">
+          <option value="">Every Day All Day</option>
+          <option ng-repeat="option in $ctrl.userTimeSchedules"
+            value="{{option.name}}">{{option.name}} ({{option.level}})</option>
+        </select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Holiday Schedule">
+      <div class="select">
+        <select name="holidaySchedule"
+          id="holidaySchedule"
+          ng-model="$ctrl.selectiveCallRejectionCriteria.holidaySchedule.name">
+          <option value="">None</option>
+          <option ng-repeat="option in $ctrl.holidaySchedules"
+            value="{{option.name}}">{{option.name}} ({{option.level}})</option>
+        </select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Calls From">
+      <div class="select">
+        <select name="fromDnCriteriaSelection"
+          id="fromDnCriteriaSelection"
+          ng-model="$ctrl.selectiveCallRejectionCriteria.fromDnCriteria.fromDnCriteriaSelection">
+          <option ng-repeat="option in $ctrl.fromDnCriteriaSelections"
+            value="{{option}}">{{option}}</option>
+        </select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Anonymous Callers">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.selectiveCallRejectionCriteria.fromDnCriteria.includeAnonymousCallers"> Any Private Number
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Unavailable Callers">
+      <input type="checkbox"
+        ng-model="$ctrl.selectiveCallRejectionCriteria.fromDnCriteria.includeUnavailableCallers"> Any Anavailable Number
+    </pbs-form-field>
+    <pbs-form-field label="Specific Numbers">
+      <input ng-repeat="value in [1,2,3,4,5,6,7,8,9,10,11,12] track by $index"
+        style="margin-bottom: .5em"
+        type="text"
+        class="input"
+        ng-model="$ctrl.selectiveCallRejectionCriteria.fromDnCriteria.phoneNumbers[$index]">
+    </pbs-form-field>
+  </pbs-spinner>
+</pbs-modal>

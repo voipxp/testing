@@ -1,0 +1,59 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Comfort Message Bypass"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="'Call Center'">
+      <pbs-button-compact-edit title="Edit Comfort Message Bypass"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Enabled">
+        <pbs-check-box checked="$ctrl.service.enabled"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Bypass When Estimated Wait Time">
+        is {{ $ctrl.service.callWaitingAgeThresholdSeconds }} seconds or less
+      </pbs-list-item>
+      <pbs-list-item label="Play Announcement After Ringing">
+        <pbs-check-box checked="$ctrl.service.playAnnouncementAfterRinging"></pbs-check-box>
+        <span ng-show="$ctrl.service.playAnnouncementAfterRinging">
+          for {{ $ctrl.service.ringTimeBeforePlayingAnnouncementSeconds }} seconds
+        </span>
+      </pbs-list-item>
+    </pbs-list>
+    <group-call-center-audio-settings-view service="$ctrl.service">
+    </group-call-center-audio-settings-view>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupCallCenterComfortMessageBypass"
+  title="Edit Comfort Message Bypass">
+
+  <pbs-form-field label="Enabled">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.enabled"> Comfort Message Bypass Enabled
+    </label>
+  </pbs-form-field>
+
+
+  <pbs-form-field label="Bypass Wait Time Seconds">
+    <input type="number"
+      class="input"
+      ng-model="$ctrl.editService.callWaitingAgeThresholdSeconds">
+  </pbs-form-field>
+
+  <pbs-form-field label="Play Announcement">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.playAnnouncementAfterRinging"> Play announcement after ringing
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Ringing Seconds before Playing Announcement"
+    ng-show="$ctrl.editService.playAnnouncementAfterRinging">
+    <input type="number"
+      class="input"
+      ng-model="$ctrl.editService.ringTimeBeforePlayingAnnouncementSeconds">
+  </pbs-form-field>
+  <group-call-center-audio-settings-edit service="$ctrl.editService">
+  </group-call-center-audio-settings-edit>
+</pbs-modal>

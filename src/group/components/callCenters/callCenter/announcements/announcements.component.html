@@ -1,0 +1,8 @@
+<pbs-spinner loading="$ctrl.loading">
+  <div ng-include="'group/components/callCenters/callCenter/announcements/announcementsEntranceMessage.template.html'"></div>
+  <div ng-include="'group/components/callCenters/callCenter/announcements/announcementsEstimatedWaitMessage.template.html'"></div>
+  <div ng-include="'group/components/callCenters/callCenter/announcements/announcementsComfortMessage.template.html'"></div>
+  <div ng-include="'group/components/callCenters/callCenter/announcements/announcementsMusicOnHoldMessage.template.html'"></div>
+  <div ng-if="$ctrl.callCenterType === 'Premium'"
+    ng-include="'group/components/callCenters/callCenter/announcements/announcementsCallWhisperMessage.template.html'"></div>
+</pbs-spinner>

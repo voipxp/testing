@@ -1,0 +1,108 @@
+<pbs-modal id="createServicePack-Modal"
+  title="New Service Pack">
+  <pbs-form>
+    <pbs-form-field label="Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.servicePack.servicePackName"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Description">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.servicePack.servicePackDescription">
+    </pbs-form-field>
+    <pbs-form-field label="Available For Use">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.servicePack.isAvailableForUse"> Available For Use
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Limit">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.servicePack.servicePackQuantity"
+        min="{{ $ctrl.minAllowed() }}"
+        max="{{ $ctrl.maxAllowed() }}"
+        required>
+      <span class="is-pulled-right"
+        ng-show="$ctrl.minAllowed() < 0">
+        <small ng-show="$ctrl.servicePack.servicePackQuantity === -1">
+          <strong>Unlimited</strong>
+        </small>
+        <small ng-show="$ctrl.servicePack.servicePackQuantity !== -1">
+          Set to -1 for Unlimited
+        </small>
+      </span>
+      <small>Max Available: {{ $ctrl.maxAllowedDescription() }} </small>
+    </pbs-form-field>
+    <pbs-form-field label="Services">
+      <div class="has-text-centered">
+        <pbs-button-search title="Select Services"
+          text="Select Services"
+          ng-click="$ctrl.selectServices()">
+        </pbs-button-search>
+      </div>
+      <ul class="list margin-top"
+        ng-show="$ctrl.servicePack.userServices.length > 0">
+        <li ng-repeat="service in $ctrl.servicePack.userServices | orderBy:'serviceName'">
+          {{ service.serviceName }}
+          <span class="is-pulled-right">
+            {{ service.available === -1 ? 'Unlimited' : service.available + ' Available'}}
+          </span>
+        </li>
+      </ul>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+<pbs-modal id="serviceProviderSelectServices"
+  title="Select Services">
+  <pbs-columns>
+    <pbs-column>
+      <h4 class="underline thin">Available ({{ $ctrl.available.length }})</h4>
+      <pbs-table-search ng-model="$ctrl.filterAvailable"></pbs-table-search>
+      <table pbs-table>
+        <tfoot>
+          <tr ng-if="availableResults.length < 1">
+            <td colspan="1">No Services Available
+              <span ng-if="$ctrl.filterAvailable">for
+                <strong>{{ $ctrl.filterAvailable }}</strong>
+              </span>
+            </td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr class="hover"
+            ng-repeat="service in $ctrl.available | filter:$ctrl.filterAvailable | orderBy:'serviceName' as availableResults track by service.serviceName"
+        
+            ng-click="$ctrl.add(service)">
+            <td>{{ service.serviceName }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </pbs-column>
+    <pbs-column>
+      <h4 class="underline thin">Selected ({{ $ctrl.editServicePack.userServices.length }})</h4>
+      <pbs-table-search ng-model="$ctrl.filterSelected"></pbs-table-search>
+      <table pbs-table>
+        <tfoot>
+          <tr ng-if="selectedResults.length < 1">
+            <td colspan="1">No Services Selected
+              <span ng-if="$ctrl.filterSelected">for
+                <strong>{{ $ctrl.filterSelected }}</strong>
+              </span>
+            </td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr class="hover"
+            ng-repeat="service in $ctrl.editServicePack.userServices | filter:$ctrl.filterSelected | orderBy:'serviceName' as selectedResults track by service.serviceName"
+        
+            ng-click="$ctrl.remove(service)">
+            <td>{{ service.serviceName }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </pbs-column>
+  </pbs-columns>
+</pbs-modal>

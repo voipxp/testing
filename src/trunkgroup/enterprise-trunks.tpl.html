@@ -1,0 +1,30 @@
+<h4 class="underline thin">Enterprise Trunks</h4>
+<pbs-spinner loading="vm.loading">
+  <pbs-table-search ng-model="vm.search"></pbs-table-search>
+  <table pbs-table>
+    <thead>
+      <tr>
+        <th>Enterprise Trunk</th>
+        <th>Routing Type</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr ng-if="results.length === 0">
+        <td colspan="3">No Enterprise Trunk Found
+          <span ng-if="vm.search">for {{ vm.search }}</span>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr ng-repeat="trunk in vm.trunks | filter:vm.search as results track by trunk.enterpriseTrunk">
+        <td>{{ trunk.enterpriseTrunk }}</td>
+        <td>{{ trunk.routingType }}</td>
+        <td class="action">
+          <pbs-button-compact-edit ng-click="vm.openEnterpriseTrunk(trunk)"
+            title="Manage Trunk"></pbs-button-compact-edit>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-spinner>

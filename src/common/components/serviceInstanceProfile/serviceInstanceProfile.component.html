@@ -1,0 +1,115 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Service Instance Profile">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit title="Edit Profile"
+        ng-click="$ctrl.edit()"
+        ng-if="!$ctrl.readOnly">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Service Name">
+        {{ $ctrl.profile.name }}
+      </pbs-list-item>
+      <pbs-list-item label="CLID First Name">
+        {{ $ctrl.profile.callingLineIdFirstName }}
+      </pbs-list-item>
+      <pbs-list-item label="CLID Last Name">
+        {{ $ctrl.profile.callingLineIdLastName }}
+      </pbs-list-item>
+      <pbs-list-item label="Phone Number">
+        {{ $ctrl.profile.phoneNumber }}
+      </pbs-list-item>
+      <pbs-list-item label="Extension">
+        {{ $ctrl.profile.extension }}
+      </pbs-list-item>
+      <pbs-list-item label="Aliases">
+        {{ $ctrl.profile.aliases.join(', ') }}
+      </pbs-list-item>
+      <pbs-list-item label="Department">
+        {{ $ctrl.profile.department.name }}
+      </pbs-list-item>
+      <pbs-list-item label="Language">
+        {{ $ctrl.profile.language }}
+      </pbs-list-item>
+      <pbs-list-item label="Time Zone">
+        {{ $ctrl.profile.timeZoneDisplayName }}
+      </pbs-list-item>
+      <pbs-list-item label="Public Identity">
+        {{ $ctrl.profile.publicUserIdentity }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editServiceInstanceProfile"
+  title="Edit Profile: {{ $ctrl.serviceUserId }}">
+  <pbs-form>
+    <pbs-form-field label="Service Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editProfile.name"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="CLID Last Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editProfile.callingLineIdLastName"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="CLID First Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editProfile.callingLineIdFirstName"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Phone Number">
+      <select-phone-number service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        phone-number="$ctrl.editProfile.phoneNumber"
+        on-update="$ctrl.selectNumber($event)"></select-phone-number>
+    </pbs-form-field>
+    <pbs-form-field label="Extension">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editProfile.extension">
+    </pbs-form-field>
+    <pbs-form-field label="Password">
+      <input type="password"
+        class="input"
+        ng-model="$ctrl.editProfile.password">
+    </pbs-form-field>
+    <pbs-form-field label="Repeat Password"
+      ng-show="$ctrl.editProfile.password">
+      <input type="password"
+        class="input"
+        ng-model="$ctrl.editProfile.password2">
+    </pbs-form-field>
+    <pbs-form-field label="Public Identity">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editProfile.publicUserIdentity">
+    </pbs-form-field>
+    <pbs-form-field label="Department">
+      <div class="select">
+        <select ng-model="$ctrl.editProfile.department"
+          ng-options="department as department.name for department in $ctrl.departments track by department.name">
+          <option value="">-- None --</option>
+        </select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Language">
+      <div class="select">
+        <select ng-model="$ctrl.editProfile.language"
+          ng-options="language.language as language.language for language in $ctrl.languages.languages"></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Time Zone">
+      <div class="select">
+        <select ng-model="$ctrl.editProfile.timeZone"
+          ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones"></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Alias">
+      <alias-list profile="$ctrl.editProfile"></alias-list>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

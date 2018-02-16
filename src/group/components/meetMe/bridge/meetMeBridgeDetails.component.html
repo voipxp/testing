@@ -1,0 +1,149 @@
+<pbs-block title="Details"
+  class="margin-top">
+  <pbs-block-buttons if-module-update="$ctrl.parent.module">
+    <pbs-button-compact-edit title="Edit Details"
+      ng-click="$ctrl.edit()">
+    </pbs-button-compact-edit>
+  </pbs-block-buttons>
+  <pbs-list>
+    <pbs-list-item label="ID">
+      {{ $ctrl.parent.serviceUserId }}
+    </pbs-list-item>
+    <pbs-list-item label="Allocated Ports">
+      {{ $ctrl.parent.bridge.allocatedPorts }}
+    </pbs-list-item>
+    <pbs-list-item label="Security PIN Length">
+      {{ $ctrl.parent.bridge.securityPinLength }}
+    </pbs-list-item>
+    <pbs-list-item label="Operator Number">
+      {{ $ctrl.parent.bridge.operatorNumber }}
+    </pbs-list-item>
+    <pbs-list-item label="Individual Out Dial">
+      <pbs-check-box checked="$ctrl.parent.bridge.allowIndividualOutDial"></pbs-check-box>
+    </pbs-list-item>
+    <pbs-list-item label="Scheduled Conference Limit">
+      {{ $ctrl.parent.bridge.maxScheduledConferenceDurationMinutes.hours }} hours {{ $ctrl.parent.bridge.maxScheduledConferenceDurationMinutes.minutes
+      }} minutes
+    </pbs-list-item>
+    <pbs-list-item label="Conference Limit Enabled">
+      <pbs-check-box checked="$ctrl.parent.bridge.enableMaxConferenceDuration"></pbs-check-box>
+    </pbs-list-item>
+    <pbs-list-item label="Conference Limit"
+      ng-show="$ctrl.parent.bridge.enableMaxConferenceDuration">
+      {{ $ctrl.parent.bridge.maxConferenceDurationMinutes.hours }} hours {{ $ctrl.parent.bridge.maxConferenceDurationMinutes.minutes
+      }} minutes
+    </pbs-list-item>
+    <pbs-list-item label="Play Warning Prompt">
+      <pbs-check-box checked="$ctrl.parent.bridge.playWarningPrompt"></pbs-check-box>
+    </pbs-list-item>
+    <pbs-list-item label="End Warning Minutes"
+      ng-show="$ctrl.parent.bridge.playWarningPrompt">
+      {{ $ctrl.parent.bridge.conferenceEndWarningPromptMinutes }} minutes
+    </pbs-list-item>
+  </pbs-list>
+</pbs-block>
+<user-portal-passcode class="margin-top"
+  user-id="$ctrl.parent.serviceUserId"
+  read-only="!$ctrl.parent.module.permissions.update"></user-portal-passcode>
+<user-voice-portal class="margin-top"
+  user-id="$ctrl.parent.serviceUserId"
+  read-only="!$ctrl.parent.module.permissions.update"></user-voice-portal>
+<pbs-modal id="editBridgeDetails"
+  title="Edit Bridge Details">
+  <form novalidate
+    autocomplete="off">
+    <pbs-form-field label="Allocated Ports">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.bridge.allocatedPorts"
+        max="{{ $ctrl.ports.availablePorts === -1 ? '999999' : $ctrl.ports.availablePorts }}"
+        min="-1">
+      <small ng-show="$ctrl.ports.availablePorts">(max: {{ $ctrl.ports.availablePorts === -1 ? 'Unlimited' : $ctrl.ports.availablePorts }})</small>
+    </pbs-form-field>
+
+    <pbs-form-field label="Security PIN Length">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.bridge.securityPinLength"
+        min="4"
+        max="12">
+    </pbs-form-field>
+
+    <pbs-form-field label="Operator Number">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.bridge.operatorNumber">
+    </pbs-form-field>
+
+    <pbs-form-field label="Individual Out Dial">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.bridge.allowIndividualOutDial"> Allow Individual Out Dial
+      </label>
+    </pbs-form-field>
+
+    <pbs-form-field label="Warning Prompt">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.bridge.playWarningPrompt"> Play Conference End Warning Prompt
+      </label>
+    </pbs-form-field>
+
+    <pbs-form-field label="End Prompt Minutes"
+      ng-show="$ctrl.bridge.playWarningPrompt">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.bridge.conferenceEndWarningPromptMinutes"
+        min="1"
+        max="15">
+    </pbs-form-field>
+
+    <pbs-form-field label="Max Scheduled Hours">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.bridge.maxScheduledConferenceDurationMinutes.hours"
+        string-to-number
+        min="0"
+        max="23">
+    </pbs-form-field>
+
+    <pbs-form-field label="Max Scheduled Minutes">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.bridge.maxScheduledConferenceDurationMinutes.minutes"
+        string-to-number
+        min="0"
+        max="45"
+        step="15">
+    </pbs-form-field>
+
+    <pbs-form-field label="Set Max Duration">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.bridge.enableMaxConferenceDuration"> Enable Max Conference Duration
+      </label>
+    </pbs-form-field>
+
+    <pbs-form-field label="Max Duration Hours"
+      ng-show="$ctrl.bridge.enableMaxConferenceDuration">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.bridge.maxConferenceDurationMinutes.hours"
+        string-to-number
+        min="0"
+        max="23">
+    </pbs-form-field>
+
+    <pbs-form-field label="Max Duration Minutes"
+      ng-show="$ctrl.bridge.enableMaxConferenceDuration">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.bridge.maxConferenceDurationMinutes.minutes"
+        string-to-number
+        min="0"
+        max="45"
+        step="15">
+    </pbs-form-field>
+
+  </form>
+</pbs-modal>

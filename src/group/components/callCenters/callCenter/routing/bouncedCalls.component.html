@@ -1,0 +1,103 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Bounced Calls"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="'Call Center'">
+      <pbs-button-compact-edit title="Edit Bounced Calls"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Enabled">
+        <pbs-check-box checked="$ctrl.service.isActive"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Number of Rings">
+        {{ $ctrl.service.numberOfRingsBeforeBouncingCall }}
+      </pbs-list-item>
+      <pbs-list-item label="Enable Transfer">
+        <pbs-check-box checked="$ctrl.service.enableTransfer"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Transfer Calls To"
+        ng-show="$ctrl.service.enableTransfer">
+        {{ $ctrl.service.transferPhoneNumber }}
+      </pbs-list-item>
+      <pbs-list-item label="Bounce if Unavailable">
+        <pbs-check-box checked="$ctrl.service.bounceCallWhenAgentUnavailable"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Alert Agent if on Hold">
+        <pbs-check-box checked="$ctrl.service.alertCallCenterCallOnHold"></pbs-check-box>
+        <span ng-show="$ctrl.service.alertCallCenterCallOnHold">
+          for {{ $ctrl.service.alertCallCenterCallOnHoldSeconds }} seconds
+        </span>
+      </pbs-list-item>
+      <pbs-list-item label="Bounce if on Hold">
+        <pbs-check-box checked="$ctrl.service.bounceCallCenterCallOnHold"></pbs-check-box>
+        <span ng-show="$ctrl.service.bounceCallCenterCallOnHold">
+          for {{ $ctrl.service.bounceCallCenterCallOnHoldSeconds }} seconds
+        </span>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupCallCenterBouncedCalls"
+  title="Edit Bounced Calls">
+  <pbs-form-field label="Enabled">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.isActive"> Bounce Calls Enabled
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Rings before bouncing call">
+    <input type="number"
+      class="input"
+      ng-model="$ctrl.editService.numberOfRingsBeforeBouncingCall">
+  </pbs-form-field>
+
+  <pbs-form-field label="Transfer Calls">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.enableTransfer"> Enable Transfer
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Transfer To"
+    ng-show="$ctrl.editService.enableTransfer">
+    <input type="text"
+      class="input"
+      ng-model="$ctrl.editService.transferPhoneNumber">
+  </pbs-form-field>
+
+  <pbs-form-field label="Bounce Unavailable">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.bounceCallWhenAgentUnavailable"> Bounce calls when Agent unavailable
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Alert Holds">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.alertCallCenterCallOnHold"> Alert Agent when on hold
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Seconds before Alerting">
+    <input type="number"
+      class="input"
+      ng-model="$ctrl.editService.alertCallCenterCallOnHoldSeconds">
+  </pbs-form-field>
+
+  <pbs-form-field label="Bounce Holds">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.bounceCallCenterCallOnHold"> Bounce call when on hold
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Seconds before Bouncing"
+    ng-show="$ctrl.editService.bounceCallCenterCallOnHold">
+    <input type="number"
+      class="input"
+      ng-model="$ctrl.editService.bounceCallCenterCallOnHoldSeconds">
+  </pbs-form-field>
+</pbs-modal>

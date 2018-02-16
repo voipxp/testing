@@ -1,0 +1,9 @@
+<pbs-form-field label="Automatic Hold Retrieve">
+  <input type="checkbox"
+    label="N/A"
+    ng-label="$ctrl.settings.recallTimerSeconds"
+    ng-model="$ctrl.settings.isActive"
+    ng-click="$ctrl.toggle()"
+    ng-disabled="$ctrl.loading"
+    pbs-input-switch>
+</pbs-form-field>

@@ -1,0 +1,28 @@
+<pbs-block title="Options">
+  <table pbs-table>
+    <thead>
+      <th>Option</th>
+      <th class="has-text-centered">Value</th>
+    </thead>
+    <tbody>
+      <tr class="hover"
+        ng-click="$ctrl.edit()">
+        <td>Handset can edit soft-keys</td>
+        <td class="has-text-centered">
+          <pbs-check-box checked="$ctrl.options.value === '1'"></pbs-check-box>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-block>
+<pbs-modal id="vdmTemplateTagOptionsModal"
+  title="Edit Options">
+  <pbs-form-item label="Options">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editOptions.value"
+        ng-true-value="'1'"
+        ng-false-value="'0'"> Allow Editing of soft-keys on Handset?
+    </label>
+  </pbs-form-item>
+</pbs-modal>

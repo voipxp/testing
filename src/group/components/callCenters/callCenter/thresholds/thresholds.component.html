@@ -1,0 +1,267 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Thresholds"
+    class="margin-top">
+    <pbs-block-buttons ng-if="$ctrl.canUpdate">
+      <pbs-button-compact-edit title="Edit Thresholds"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Thresholds Enabled">
+        <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Notification Email Enabled">
+        <pbs-check-box checked="$ctrl.settings.enableNotificationEmail"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Notification Email Addresss"
+        ng-show="$ctrl.settings.isActive && $ctrl.settings.enableNotificationEmail">
+        {{ $ctrl.settings.notificationEmailAddresses.join(', ') }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+  <table pbs-table
+    class="margin-top">
+    <thead>
+      <tr>
+        <th>Statistic</th>
+        <th>Yellow Threshold</th>
+        <th>Red Threshold</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Current Calls In Queue</td>
+        <td>{{ $ctrl.settings.thresholdCurrentCallsInQueueYellow }}</td>
+        <td>{{ $ctrl.settings.thresholdCurrentCallsInQueueRed }}</td>
+      </tr>
+      <tr>
+        <td>Longest Waiting Call
+          <small>(seconds)</small>
+        </td>
+        <td>{{ $ctrl.settings.thresholdCurrentLongestWaitingCallYellow }}</td>
+        <td>{{ $ctrl.settings.thresholdCurrentLongestWaitingCallRed }}</td>
+      </tr>
+      <tr>
+        <td>Average Estimated Wait Time
+          <small>(seconds)</small>
+        </td>
+        <td>{{ $ctrl.settings.thresholdAverageEstimatedWaitTimeYellow }}</td>
+        <td>{{ $ctrl.settings.thresholdAverageEstimatedWaitTimeRed }}</td>
+      </tr>
+      <tr>
+        <td>Average Handling Time
+          <small>(seconds)</small>
+        </td>
+        <td>{{ $ctrl.settings.thresholdAverageHandlingTimeYellow }}</td>
+        <td>{{ $ctrl.settings.thresholdAverageHandlingTimeRed }}</td>
+      </tr>
+      <tr>
+        <td>Average Speed of Answer
+          <small>(seconds)</small>
+        </td>
+        <td>{{ $ctrl.settings.thresholdAverageSpeedOfAnswerYellow }}</td>
+        <td>{{ $ctrl.settings.thresholdAverageSpeedOfAnswerRed }}</td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-spinner>
+<pbs-modal id="editGroupCallCenterThresholds"
+  title="Edit Call Center Thresholds">
+
+  <pbs-form-field label="Thresholds Enabled">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editSettings.isActive"> Enable Thresholds
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Notification Emails"
+    ng-show="$ctrl.editSettings.isActive">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editSettings.enableNotificationEmail"> Enable Notification Emails
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Notification Emails"
+    ng-show="$ctrl.editSettings.isActive && $ctrl.editSettings.enableNotificationEmail">
+
+    <div class="field has-addons">
+      <p class="control is-expanded">
+        <input type="text"
+          class="input"
+          ng-model="$ctrl.newEmail"
+          placeholder="New Email">
+      </p>
+      <p class="control">
+        <a class="button"
+          ng-click="$ctrl.addEmail()"
+          ng-disabled="!$ctrl.newEmail || $ctrl.newEmail.length < 1"
+          title="Add an Email">
+          <span class="icon">
+            <i class="fa fa-plus"></i>
+          </span>
+        </a>
+      </p>
+    </div>
+    <table pbs-table>
+      <tr ng-repeat="email in $ctrl.editSettings.notificationEmailAddresses">
+        <td>{{ email }}
+          <pbs-button-compact-delete class="is-pulled-right"
+            ng-click="$ctrl.removeEmail($index)"></pbs-button-compact-delete>
+        </td>
+      </tr>
+    </table>
+  </pbs-form-field>
+
+  <pbs-form-field label="Current Calls in Queue"
+    ng-show="$ctrl.editSettings.isActive">
+    <div class="field has-addons">
+      <p class="control">
+        <a class="button is-static"
+          style="width: 75px">Yellow</a>
+      </p>
+      <p class="control is-expanded">
+        <input type="number"
+          class="input"
+          min="{{ $ctrl.options.thresholdCurrentCallsInQueue.min }}"
+          max="{{ $ctrl.options.thresholdCurrentCallsInQueue.max }}"
+          ng-model="$ctrl.editSettings.thresholdCurrentCallsInQueueYellow">
+      </p>
+    </div>
+    <div class="field has-addons">
+      <p class="control">
+        <a class="button is-static"
+          style="width: 75px">Red</a>
+      </p>
+      <p class="control is-expanded">
+        <input type="number"
+          class="input"
+          min="{{ $ctrl.options.thresholdCurrentCallsInQueue.min }}"
+          max="{{ $ctrl.options.thresholdCurrentCallsInQueue.max }}"
+          ng-model="$ctrl.editSettings.thresholdCurrentCallsInQueueRed">
+      </p>
+    </div>
+  </pbs-form-field>
+
+  <pbs-form-field label="Longest Waiting Call Seconds"
+    ng-show="$ctrl.editSettings.isActive">
+    <div class="field has-addons">
+      <p class="control">
+        <a class="button is-static"
+          style="width: 75px">Yellow</a>
+      </p>
+      <p class="control is-expanded">
+        <input type="number"
+          class="input"
+          min="{{ $ctrl.options.thresholdCurrentLongestWaitingCall.min }}"
+          max="{{ $ctrl.options.thresholdCurrentLongestWaitingCall.max }}"
+          ng-model="$ctrl.editSettings.thresholdCurrentLongestWaitingCallYellow">
+      </p>
+    </div>
+    <div class="field has-addons">
+      <p class="control">
+        <a class="button is-static"
+          style="width: 75px">Red</a>
+      </p>
+      <p class="control is-expanded">
+        <input type="number"
+          class="input"
+          min="{{ $ctrl.options.thresholdCurrentLongestWaitingCall.min }}"
+          max="{{ $ctrl.options.thresholdCurrentLongestWaitingCall.max }}"
+          ng-model="$ctrl.editSettings.thresholdCurrentLongestWaitingCallRed">
+      </p>
+    </div>
+  </pbs-form-field>
+
+  <pbs-form-field label="Estimated Wait Time Seconds"
+    ng-show="$ctrl.editSettings.isActive">
+    <div class="field has-addons">
+      <p class="control">
+        <a class="button is-static"
+          style="width: 75px">Yellow</a>
+      </p>
+      <p class="control is-expanded">
+        <input type="number"
+          class="input"
+          min="{{ $ctrl.options.thresholdAverageEstimatedWaitTime.min }}"
+          max="{{ $ctrl.options.thresholdAverageEstimatedWaitTime.max }}"
+          ng-model="$ctrl.editSettings.thresholdAverageEstimatedWaitTimeYellow">
+      </p>
+    </div>
+    <div class="field has-addons">
+      <p class="control">
+        <a class="button is-static"
+          style="width: 75px">Red</a>
+      </p>
+      <p class="control is-expanded">
+        <input type="number"
+          class="input"
+          min="{{ $ctrl.options.thresholdAverageEstimatedWaitTime.min }}"
+          max="{{ $ctrl.options.thresholdAverageEstimatedWaitTime.max }}"
+          ng-model="$ctrl.editSettings.thresholdAverageEstimatedWaitTimeRed">
+      </p>
+    </div>
+  </pbs-form-field>
+
+  <pbs-form-field label="Avg Handling Time Seconds"
+    ng-show="$ctrl.editSettings.isActive">
+    <div class="field has-addons">
+      <p class="control">
+        <a class="button is-static"
+          style="width: 75px">Yellow</a>
+      </p>
+      <p class="control is-expanded">
+        <input type="number"
+          class="input"
+          min="{{ $ctrl.options.thresholdAverageHandlingTime.min }}"
+          max="{{ $ctrl.options.thresholdAverageHandlingTime.max }}"
+          ng-model="$ctrl.editSettings.thresholdAverageHandlingTimeYellow">
+      </p>
+    </div>
+    <div class="field has-addons">
+      <p class="control">
+        <a class="button is-static"
+          style="width: 75px">Red</a>
+      </p>
+      <p class="control is-expanded">
+        <input type="number"
+          class="input"
+          min="{{ $ctrl.options.thresholdAverageHandlingTime.min }}"
+          max="{{ $ctrl.options.thresholdAverageHandlingTime.max }}"
+          ng-model="$ctrl.editSettings.thresholdAverageHandlingTimeRed">
+      </p>
+    </div>
+  </pbs-form-field>
+
+  <pbs-form-field label="Avg Speed of Answer"
+    ng-show="$ctrl.editSettings.isActive">
+    <div class="field has-addons">
+      <p class="control">
+        <a class="button is-static"
+          style="width: 75px">Yellow</a>
+      </p>
+      <p class="control is-expanded">
+        <input type="number"
+          class="input"
+          min="{{ $ctrl.options.thresholdAverageSpeedOfAnswer.min }}"
+          max="{{ $ctrl.options.thresholdAverageSpeedOfAnswer.max }}"
+          ng-model="$ctrl.editSettings.thresholdAverageSpeedOfAnswerYellow">
+      </p>
+    </div>
+    <div class="field has-addons">
+      <p class="control">
+        <a class="button is-static"
+          style="width: 75px">Red</a>
+      </p>
+      <p class="control is-expanded">
+        <input type="number"
+          class="input"
+          min="{{ $ctrl.options.thresholdAverageSpeedOfAnswer.min }}"
+          max="{{ $ctrl.options.thresholdAverageSpeedOfAnswer.max }}"
+          ng-model="$ctrl.editSettings.thresholdAverageSpeedOfAnswerRed">
+      </p>
+    </div>
+  </pbs-form-field>
+
+</pbs-modal>

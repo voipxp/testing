@@ -1,0 +1,55 @@
+<nav class="navbar is-link"
+  role="navigation"
+  aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item"
+      href="/">
+      <img src="<!-- #api -->/ui/images/imageIcon.png?size=50x51"
+        alt="ODiN API">
+    </a>
+    <button class="button navbar-burger is-link"
+      ng-click="$ctrl.burger()"
+      ng-show="$ctrl.session.userId">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+  <div class="navbar-menu"
+    ng-class="{'is-active': $ctrl.showMenu}"
+    ng-show="$ctrl.session.userId">
+    <div class="navbar-start">
+      <div class="navbar-item">{{ $root.pageTitle }}</div>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable"
+        ng-show="$ctrl.applications.length > 0">
+        <a class="navbar-link">Applications</a>
+        <div class="navbar-dropdown is-boxed">
+          <a class="navbar-item"
+            ng-repeat="application in $ctrl.applications track by application.id"
+            href=""
+            ng-click="$ctrl.open(application)">
+            {{ application.name }}
+          </a>
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">My Account</a>
+        <div class="navbar-dropdown is-boxed">
+          <a class="navbar-item "
+            href="#!/account">
+            Settings
+          </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item "
+            href=""
+            ng-click="$ctrl.logout()">
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</nav>

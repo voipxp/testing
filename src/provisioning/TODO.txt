@@ -1,0 +1,3 @@
+- Check for spinners on all pages
+- Upgrade all Users
+- Review each component

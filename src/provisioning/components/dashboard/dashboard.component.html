@@ -1,0 +1,17 @@
+<pbs-navigation></pbs-navigation>
+
+<div class="tile is-ancestor">
+  <div class="tile is-parent">
+    <div class="tile is-child">
+      <pbs-dashboard-cards title="Provisioning"
+        cards="$ctrl.cards"
+        search="$ctrl.search"
+        filter="{active: true}"></pbs-dashboard-cards>
+    </div>
+  </div>
+  <div class="tile is-parent">
+    <div class="tile is-child">
+      <service-providers-panel limit-to="10"></service-providers-panel>
+    </div>
+  </div>
+</div>

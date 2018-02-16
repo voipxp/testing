@@ -1,0 +1,21 @@
+<pbs-block title="User Details">
+  <pbs-spinner loading="$ctrl.loading">
+    <div class="large-margin-bottom">
+      <p class="subtitle underline">Set a Time Zone for all users?</p>
+      <select-timezone ng-model="$ctrl.timeZone"></select-timezone>
+    </div>
+    <div class="large-margin-bottom">
+      <p class="subtitle underline">Set a Language for all users?</p>
+      <select-language ng-model="$ctrl.language"></select-language>
+    </div>
+    <div class="large-margin-bottom">
+      <p class="subtitle underline">Set a Network Class of Service for all users?</p>
+      <select-network-class-of-service service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        ng-model="$ctrl.networkClassOfService"></select-network-class-of-service>
+    </div>
+    <div class="large-margin-top has-text-right">
+      <pbs-button-next ng-click="$ctrl.complete()"></pbs-button-next>
+    </div>
+  </pbs-spinner>
+</pbs-block>

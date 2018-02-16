@@ -1,0 +1,77 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit title="Edit Call Transfer"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Call Transfer Recall">
+        <pbs-check-box checked="$ctrl.settings.isRecallActive"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Number of rings before recall">
+        {{$ctrl.settings.recallNumberOfRings}}
+      </pbs-list-item>
+      <pbs-list-item label="Enable Busy On Camp">
+        <pbs-check-box checked="$ctrl.settings.enableBusyCampOn"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Enable Busy On Camp Seconds">
+        {{$ctrl.settings.busyCampOnSeconds}}
+      </pbs-list-item>
+      <pbs-list-item label="Use Diversion Inhibitor for Blind Transfer">
+        <pbs-check-box checked="$ctrl.settings.useDiversionInhibitorForBlindTransfer"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Use Diversion Inhibitor for Consultative Calls">
+        <pbs-check-box checked="$ctrl.settings.useDiversionInhibitorForConsultativeCalls"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserCallTransfer"
+  title="Edit Settings">
+  <pbs-form>
+    <pbs-form-field label="General Settings">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editSettings.isRecallActive"> Is Active
+      </label>
+      <br>
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editSettings.useDiversionInhibitorForBlindTransfer"> Blind Transfer
+      </label>
+      <br>
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editSettings.useDiversionInhibitorForConsultativeCalls"> Consultative Calls
+      </label>
+      <br>
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editSettings.enableBusyCampOn"> Enable Busy On Camp
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Number Of Rings">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editSettings.recallNumberOfRings"
+        min="{{$ctrl.options.minRecallNumberOfRings}}"
+        max="{{$ctrl.options.maxRecallNumberOfRings}}">
+    </pbs-form-field>
+    <pbs-form-field label="Enable Busy On Camp Seconds">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editSettings.busyCampOnSeconds"
+        min="{{$ctrl.options.minBusyCampOnSeconds}}"
+        max="{{$ctrl.options.maxBusyCampOnSeconds}}">
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

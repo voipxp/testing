@@ -1,0 +1,53 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit title="Edit Call Forwarding No Answer"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Forward to Phone Number">
+        {{$ctrl.settings.forwardToPhoneNumber}}
+      </pbs-list-item>
+      <pbs-list-item label="Is Active">
+        <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Number of Rings">
+        {{$ctrl.settings.numberOfRings}}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserCallForwardingNoAnswer"
+  title="Edit Settings">
+  <pbs-form>
+    <pbs-form-field label="General Settings">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editSettings.isActive"> Is Active
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Forward To">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.forwardToPhoneNumber"
+        min="{{ $ctrl.options.outgoingDNorSIPURI.minimum }}"
+        max="{{ $ctrl.options.outgoingDNorSIPURI.maximum }}">
+    </pbs-form-field>
+    <pbs-form-field label="Number Of Rings">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editSettings.numberOfRings"
+        min="{{ $ctrl.options.numberOfRings.minimum }}"
+        max="{{ $ctrl.options.numberOfRings.maximum }}">
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

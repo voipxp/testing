@@ -1,0 +1,79 @@
+<pbs-spinner loading="vm.loading">
+  <form name="statefulRoutingForm">
+    <pbs-form-field label="Rerouting Enabled">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="vm.trunk.statefulReroutingEnabled"
+          ng-true-value="'true'"
+          ng-false-value="'false'"> Rerouting Enabled
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Continuous Options"
+      ng-show="vm.trunk.statefulReroutingEnabled !== 'false'">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="vm.trunk.sendContinuousOptionsMessage"
+          ng-true-value="'true'"
+          ng-false-value="'false'">
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Continuous Interval"
+      ng-show="vm.trunk.statefulReroutingEnabled !== 'false'">
+      <input type="number"
+        class="input"
+        ng-model="vm.trunk.continuousOptionsSendingIntervalSeconds"
+        min="30"
+        max="86400"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Failure Interval"
+      ng-show="vm.trunk.statefulReroutingEnabled !== 'false'">
+      <input type="number"
+        class="input"
+        ng-model="vm.trunk.failureOptionsSendingIntervalSeconds"
+        min="10"
+        max="86400"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Failure Threshold"
+      ng-show="vm.trunk.statefulReroutingEnabled !== 'false'">
+      <input type="number"
+        class="input"
+        ng-model="vm.trunk.failureThresholdCounter"
+        min="1"
+        max="60"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Success Threshold"
+      ng-show="vm.trunk.statefulReroutingEnabled !== 'false'">
+      <input type="number"
+        class="input"
+        ng-model="vm.trunk.successThresholdCounter"
+        min="1"
+        max="60"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Invite Failure Threshold"
+      ng-show="vm.trunk.statefulReroutingEnabled !== 'false'">
+      <input type="number"
+        class="input"
+        ng-model="vm.trunk.inviteFailureThresholdCounter"
+        min="1"
+        max="60"
+        required>
+    </pbs-form-field>
+    <pbs-form-field label="Invite Failure Window"
+      ng-show="vm.trunk.statefulReroutingEnabled !== 'false'">
+      <input type="number"
+        class="input"
+        ng-model="vm.trunk.inviteFailureThresholdWindowSeconds"
+        min="30"
+        max="240"
+        required>
+    </pbs-form-field>
+  </form>
+  <div class="margin-top has-text-right">
+    <pbs-button-save ng-click="vm.updateTrunk()"
+      ng-disabled="statefulRoutingForm.$invalid"></pbs-button-save>
+  </div>
+</pbs-spinner>

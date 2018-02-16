@@ -1,0 +1,34 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId">
+  <pbs-breadcrumb module="$ctrl.module"
+    ng-click="$ctrl.open($ctrl.groupId)">
+  </pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.serviceUserId"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-tabs delay="true">
+  <pbs-tab label="Details">
+    <meet-me-bridge-details></meet-me-bridge-details>
+  </pbs-tab>
+  <pbs-tab label="Profile">
+    <meet-me-bridge-profile></meet-me-bridge-profile>
+  </pbs-tab>
+  <pbs-tab label="Advanced">
+    <user-call-policies class="margin-top"
+      user-id="$ctrl.serviceUserId"
+      read-only="!$ctrl.module.permissions.update"></user-call-policies>
+    <user-communication-barring-authorization-codes class="margin-top"
+      user-id="$ctrl.serviceUserId"
+      read-only="!$ctrl.module.permissions.update"></user-communication-barring-authorization-codes>
+  </pbs-tab>
+  <pbs-tab label="Users">
+    <meet-me-bridge-users></meet-me-bridge-users>
+  </pbs-tab>
+  <pbs-tab label="Calling Plans"
+    ng-if="$ctrl.module.permissions.update">
+    <meet-me-calling-plans user-id="$ctrl.serviceUserId"></meet-me-calling-plans>
+  </pbs-tab>
+  <pbs-tab label="Utilities">
+    <user-feature-access-codes user-id="$ctrl.serviceUserId"></user-feature-access-codes>
+  </pbs-tab>
+</pbs-tabs>

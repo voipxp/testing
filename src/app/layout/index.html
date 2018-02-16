@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"
+  id="pbs-app"
+  ng-strict-di>
+
+<head>
+  <meta charset="utf-8">
+  <title ng-bind="$root.pageTitle">loading...</title>
+  <meta name="description"
+    content="ODiN">
+  <meta http-equiv="X-UA-Compatible"
+    content="IE=edge">
+  <meta id="viewport"
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable"
+    content="yes">
+  <meta name="apple-mobile-web-app-capable"
+    content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent" />
+  <meta name="apple-mobile-web-app-title"
+    content="{{ $root.pageTitle }}">
+
+  <!-- https://gist.github.com/tfausak/2222823 -->
+  <!-- ICONS -->
+  <!-- iPad retina icon -->
+  <link href="<!-- #api -->/ui/images/imageIcon.png?size=152x152"
+    sizes="152x152"
+    rel="apple-touch-icon">
+
+  <!-- iPad retina icon (iOS < 7) -->
+  <link href="<!-- #api -->/ui/images/imageIcon.png?size=144x144"
+    sizes="144x144"
+    rel="apple-touch-icon">
+
+  <!-- iPad non-retina icon -->
+  <link href="<!-- #api -->/ui/images/imageIcon.png?size=76x76"
+    sizes="76x76"
+    rel="apple-touch-icon">
+
+  <!-- iPad non-retina icon (iOS < 7) -->
+  <link href="<!-- #api -->/ui/images/imageIcon.png?size=72x72"
+    sizes="72x72"
+    rel="apple-touch-icon">
+
+  <!-- iPhone 6 Plus icon -->
+  <link href="<!-- #api -->/ui/images/imageIcon.png?size=180x180"
+    sizes="120x120"
+    rel="apple-touch-icon">
+
+  <!-- iPhone retina icon (iOS < 7) -->
+  <link href="<!-- #api -->/ui/images/imageIcon.png?size=114x114"
+    sizes="114x114"
+    rel="apple-touch-icon">
+
+  <!-- iPhone non-retina icon (iOS < 7) -->
+  <link href="<!-- #api -->/ui/images/imageIcon.png?size=57x57"
+    sizes="57x57"
+    rel="apple-touch-icon">
+
+  <!-- favicon -->
+  <link rel="shortcut icon"
+    href="<!-- #api -->/ui/images/imageIcon.png?size=16x16">
+  <link rel="shortcut icon"
+    href="<!-- #api -->/ui/images/imageIcon.png?size=32x32">
+
+  <!-- Template CSS -->
+  <link rel="stylesheet"
+    href="<!-- #api -->/ui/styles/style.css">
+
+  <!-- angular -->
+  <link rel="stylesheet"
+    href="vendor.css?v=<!-- #ts -->">
+  <link rel="stylesheet"
+    href="app.css?v=<!-- #ts -->">
+
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+  </script>
+</head>
+
+<body>
+  <pbs-notifications></pbs-notifications>
+
+  <pbs-navbar></pbs-navbar>
+
+  <pbs-app></pbs-app>
+
+  <pbs-confirm-modal></pbs-confirm-modal>
+  <pbs-spinner-modal></pbs-spinner-modal>
+
+  <pbs-footer></pbs-footer>
+
+  <!-- angular -->
+  <script src="vendor.js?v=<!-- #ts -->"></script>
+  <script src="app.js?v=<!-- #ts -->"></script>
+  <script src="app.tpl.js?v=<!-- #ts -->"></script>
+</body>
+
+</html>

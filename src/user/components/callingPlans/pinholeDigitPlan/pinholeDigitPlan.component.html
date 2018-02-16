@@ -1,0 +1,17 @@
+<user-calling-plans-nav calling-plan="Outgoing Pinhole Digit Plan"></user-calling-plans-nav>
+<pbs-tabs delay="true">
+  <pbs-tab label="Originating">
+    <user-outgoing-calling-plan-pinhole-digit-plan-originating user-id="$ctrl.userId">
+    </user-outgoing-calling-plan-pinhole-digit-plan-originating>
+  </pbs-tab>
+
+  <pbs-tab label="Initiating Forwards">
+    <user-outgoing-calling-plan-pinhole-digit-plan-redirecting user-id="$ctrl.userId">
+    </user-outgoing-calling-plan-pinhole-digit-plan-redirecting>
+  </pbs-tab>
+
+  <pbs-tab label="Call Me Now">
+    <user-outgoing-calling-plan-pinhole-digit-plan-call-me-now user-id="$ctrl.userId">
+    </user-outgoing-calling-plan-pinhole-digit-plan-call-me-now>
+  </pbs-tab>
+</pbs-tabs>

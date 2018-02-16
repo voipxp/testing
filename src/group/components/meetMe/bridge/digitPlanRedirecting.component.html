@@ -1,0 +1,20 @@
+<pbs-modal id="editOutgoingCallingPlanDigitPlanRedirecting"
+  title="Outgoing Digit Plan - Redirecting">
+  <form novalidate
+    autocomplete="off">
+    <pbs-form-field label="Custom Settings">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.plan.useCustomSettings"> Use Custom Settings
+      </label>
+    </pbs-form-field>
+
+    <pbs-form-field label="{{ digit.digitPatternName }}"
+      ng-repeat="digit in $ctrl.plan.userPermissions track by digit.digitPatternName">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="digit.permission"> {{ digit.digitPatternName }}
+      </label>
+    </pbs-form-field>
+  </form>
+</pbs-modal>

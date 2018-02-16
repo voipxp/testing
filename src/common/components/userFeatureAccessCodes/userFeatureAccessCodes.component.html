@@ -1,0 +1,24 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+  <table pbs-table>
+    <thead>
+      <tr>
+        <th>User Feature Access Code</th>
+        <th>Main Code</th>
+        <th>Alternate Code</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr ng-if="results.length === 0">
+        <td colspan="5">No Feature Access Codes Found</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr ng-repeat="code in $ctrl.accessCodes | filter:$ctrl.search as results track by code.featureAccessCodeName">
+        <td>{{ code.featureAccessCodeName }}</td>
+        <td>{{ code.mainCode }}</td>
+        <td>{{ code.alternateCode }}</td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-spinner>

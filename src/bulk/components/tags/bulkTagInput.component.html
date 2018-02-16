@@ -1,0 +1,52 @@
+<div class="field has-addons"
+  style="margin-bottom: 0">
+  <p class="control">
+    <a class="button"
+      ng-click="$ctrl.open()">
+      <span class="icon is-small">
+        <i class="fa fa-tag"></i>
+      </span>
+    </a>
+  </p>
+  <p class="control is-expanded">
+    <input type="text"
+      class="input"
+      ng-model="$ctrl.ngModel"
+      ng-model-options="{ debounce: 100 }"
+      ng-change="$ctrl.onChange"
+      on-update="$ctrl.onUpdate($event)"
+      is-required="$ctrl.isRequired"
+      tag-required="$ctrl.tagRequired"
+      tag-view="$ctrl.tagView"
+      tag-validation>
+  </p>
+  <span ng-transclude-replace></span>
+</div>
+
+<pbs-modal id="{{ $ctrl.modalId }}"
+  title="Tags">
+  <div class="box">
+    <p>
+      You may use
+      <strong>tags</strong> to dynamically construct your user IDs.
+    </p>
+  </div>
+  <table pbs-table>
+    <thead>
+      <tr>
+        <th>Tag</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="tag in $ctrl.tags"
+        ng-show="$ctrl.show(tag)"
+        ng-click="$ctrl.select(tag)"
+        pbs-clipboard
+        clipboard-text="tag.tag">
+        <td>{{ tag.tag }}</td>
+        <td>{{ tag.example }}</td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-modal>

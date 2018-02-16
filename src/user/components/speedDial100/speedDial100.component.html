@@ -1,0 +1,59 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-block module="$ctrl.module">
+  <pbs-block-buttons>
+    <pbs-button-compact-add if-module-create="$ctrl.module"
+      ng-click="$ctrl.addSpeedDialEntry()"
+      title="Add New Speed Dial 100 Number">
+    </pbs-button-compact-add>
+  </pbs-block-buttons>
+  <table pbs-table>
+    <thead>
+      <th>Speed Dial Code</th>
+      <th>Phone Number</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+      <tr class="hover"
+        ng-repeat='speedDialCode in $ctrl.speedDialNumbers.speedDialEntry'
+        ng-click="$ctrl.editSpeedDialCode(speedDialCode)">
+        <td>{{speedDialCode.speedCode}}</td>
+        <td>{{speedDialCode.phoneNumber}}</td>
+        <td>{{speedDialCode.description}}</td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-block>
+<pbs-modal id="edit-speedDialEntryEntry"
+  title="Edit Settings">
+  <pbs-spinner loading="$ctrl.loadingEntry">
+    <pbs-form-field label="Speed Dial Code">
+      <div class="select"
+        ng-show="$ctrl.isAdd">
+        <select ng-model="$ctrl.speedDialCode.speedCode"
+          ng-options="speedCode as speedCode for speedCode in $ctrl.speedCodesEntry">
+        </select>
+      </div>
+      <input ng-show="!$ctrl.isAdd"
+        type="text"
+        class="input"
+        ng-model="$ctrl.speedDialCode.speedCode"
+        disabled>
+    </pbs-form-field>
+    <pbs-form-field label="Phone Number / SIP-UIR">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.speedDialCode.phoneNumber">
+    </pbs-form-field>
+    <pbs-form-field label="Description">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.speedDialCode.description">
+    </pbs-form-field>
+  </pbs-spinner>
+</pbs-modal>

@@ -1,0 +1,21 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId">
+  <pbs-breadcrumb title="'Departments'"
+    ng-click="$ctrl.goBack()"></pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.name"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-tabs delay="true">
+  <pbs-tab label="Details">
+    <group-department-details service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      name="$ctrl.name">
+    </group-department-details>
+  </pbs-tab>
+  <pbs-tab label="Admins">
+    <group-department-admins service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      name="$ctrl.name">
+    </group-department-admins>
+  </pbs-tab>
+</pbs-tabs>

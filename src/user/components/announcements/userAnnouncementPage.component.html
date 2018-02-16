@@ -1,0 +1,11 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb title="'Announcements'"
+    ng-click="$ctrl.open()"></pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.name + ' (' + $ctrl.mediaType + ')'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<user-announcement user-id="$ctrl.userId"
+  name="$ctrl.name"
+  media-type="$ctrl.mediaType"></user-announcement>

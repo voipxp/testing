@@ -1,0 +1,99 @@
+<pbs-form-section title="General Settings"></pbs-form-section>
+<input type="checkbox"
+  ng-model="$ctrl.huntGroup.allowCallWaitingForAgents"
+  label="Allow Call Waiting on Agents"
+  pbs-input-checkradio>
+<input type="checkbox"
+  ng-model="$ctrl.huntGroup.allowMembersToControlGroupBusy"
+  label="Allow Members to Control Busy"
+  pbs-input-checkradio
+  ng-if="$ctrl.hasVersion20">
+<input type="checkbox"
+  ng-model="$ctrl.huntGroup.enableGroupBusy"
+  label="Enable Group Busy"
+  pbs-input-checkradio
+  ng-if="$ctrl.hasVersion20">
+<div ng-if="$ctrl.hasVersion20"
+  ng-show="$ctrl.huntGroup.enableGroupBusy">
+  <input type="checkbox"
+    ng-model="$ctrl.huntGroup.applyGroupBusyWhenTerminatingToAgent"
+    label="Apply Group Busy When Terminating Call to Agent"
+    pbs-input-checkradio>
+</div>
+<pbs-form-field-horizontal label="Group Policy">
+  <select ng-model="$ctrl.huntGroup.policy"
+    ng-options="opt for opt in $ctrl.options.policy"
+    required
+    full-width
+    pbs-input-select>
+  </select>
+</pbs-form-field-horizontal>
+<pbs-form-field-horizontal label="Network Class of Service"
+  ng-if="$ctrl.hasVersion20">
+  <select-network-class-of-service service-provider-id="$ctrl.serviceProviderId"
+    group-id="$ctrl.groupId"
+    ng-model="$ctrl.huntGroup.networkClassOfService"></select-network-class-of-service>
+</pbs-form-field-horizontal>
+
+<pbs-form-section title="No Answer Settings"></pbs-form-section>
+<input type="checkbox"
+  ng-model="$ctrl.huntGroup.huntAfterNoAnswer"
+  label="Skip on No Answer"
+  pbs-input-checkradio>
+<pbs-form-field-horizontal label="Skip After Rings"
+  ng-show="$ctrl.huntGroup.huntAfterNoAnswer">
+  <input type="number"
+    class="input"
+    ng-model="$ctrl.huntGroup.noAnswerNumberOfRings">
+</pbs-form-field-horizontal>
+<input type="checkbox"
+  ng-model="$ctrl.huntGroup.forwardAfterTimeout"
+  label="Forward After Timeout"
+  pbs-input-checkradio>
+<pbs-form-field-horizontal label="Forward After Seconds"
+  ng-show="$ctrl.huntGroup.forwardAfterTimeout">
+  <input type="number"
+    class="input"
+    ng-model="$ctrl.huntGroup.forwardTimeoutSeconds">
+</pbs-form-field-horizontal>
+<pbs-form-field-horizontal label="Forward To"
+  ng-show="$ctrl.huntGroup.forwardAfterTimeout">
+  <input type="text"
+    class="input"
+    ng-model="$ctrl.huntGroup.forwardToPhoneNumber">
+</pbs-form-field-horizontal>
+
+<pbs-form-section title="Not Reachable Settings"></pbs-form-section>
+<input type="checkbox"
+  ng-model="$ctrl.huntGroup.enableNotReachableForwarding"
+  label="Enable Call Forwarding Not Reachable"
+  pbs-input-checkradio>
+<pbs-form-field-horizontal label="Forward To"
+  ng-show="$ctrl.huntGroup.enableNotReachableForwarding">
+  <input type="text"
+    class="input"
+    ng-model="$ctrl.huntGroup.notReachableForwardToPhoneNumber">
+</pbs-form-field-horizontal>
+
+<input type="checkbox"
+  ng-model="$ctrl.huntGroup.makeBusyWhenNotReachable"
+  label="Make busy when all agents are not reachable"
+  pbs-input-checkradio>
+
+<pbs-subtitle>Calling Line ID Settings</pbs-subtitle>
+<input type="radio"
+  ng-model="$ctrl.huntGroup.useSystemHuntGroupCLIDSetting"
+  ng-value="true"
+  label="Use the system default CLID configuration"
+  pbs-input-radio>
+<input type="radio"
+  ng-model="$ctrl.huntGroup.useSystemHuntGroupCLIDSetting"
+  label="Customize the CLID for this Hunt Group"
+  ng-value="false"
+  pbs-input-radio>
+<div ng-show="!$ctrl.huntGroup.useSystemHuntGroupCLIDSetting">
+  <input type="checkbox"
+    ng-model="$ctrl.huntGroup.includeHuntGroupNameInCLID"
+    label="Include Huntgroup Name in CLID"
+    pbs-input-checkradio>
+</div>

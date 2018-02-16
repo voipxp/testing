@@ -1,0 +1,103 @@
+;(function() {
+  angular.module('odin.app').factory('Route', Route)
+
+  function Route(APP, $location, Session) {
+    return {
+      api: api,
+      ui: ui,
+      path: path,
+      open: open,
+      login: login,
+      dashboard: dashboard
+    }
+    function encoded(prefixes, args) {
+      var components = args.map(function(arg) {
+        if (arg) return encodeURISegment(arg)
+      })
+      return _.compact(prefixes.concat(components)).join('/')
+    }
+    function decoded(prefixes, args) {
+      return _.compact(prefixes.concat(args)).join('/')
+    }
+    function encodeURISegment(val) {
+      return encodeURIQuery(val, true)
+        .replace(/%26/gi, '&')
+        .replace(/%3D/gi, '=')
+        .replace(/%2B/gi, '+')
+    }
+    function encodeURIQuery(val, pctEncodeSpaces) {
+      return encodeURIComponent(val)
+        .replace(/%40/gi, '@')
+        .replace(/%3A/gi, ':')
+        .replace(/%24/g, '$')
+        .replace(/%2C/gi, ',')
+        .replace(/%3B/gi, ';')
+        .replace(/%20/g, pctEncodeSpaces ? '%20' : '+')
+    }
+    function api() {
+      var prefixes = Array.prototype.slice.call(arguments)
+      prefixes[0] = prefixes[0] && prefixes[0].replace(/^\//, '')
+      prefixes.unshift(APP.apiURL)
+      return function generateURL() {
+        return encoded(prefixes, Array.prototype.slice.call(arguments))
+      }
+    }
+    function ui() {
+      var prefixes = Array.prototype.slice.call(arguments)
+      prefixes[0] = prefixes[0] && prefixes[0].replace(/^\//, '')
+      prefixes.unshift(APP.uiURL)
+      return function generateURL() {
+        return encoded(prefixes, Array.prototype.slice.call(arguments))
+      }
+    }
+    function path() {
+      var prefixes = Array.prototype.slice.call(arguments)
+      prefixes[0] = prefixes[0] && prefixes[0].replace(/^([^/])/, '/$1')
+      return function generateURL() {
+        return encoded(prefixes, Array.prototype.slice.call(arguments))
+      }
+    }
+    function open() {
+      var prefixes = Array.prototype.slice.call(arguments)
+      prefixes[0] = prefixes[0] && prefixes[0].replace(/^([^/])/, '/$1')
+      return function generateURL() {
+        return $location.path(
+          decoded(prefixes, Array.prototype.slice.call(arguments))
+        )
+      }
+    }
+    // redirect to login
+    function login() {
+      return $location.path(APP.loginURL)
+    }
+    // redirect the user based on loginType
+    function dashboard() {
+      var serviceProviderId = Session.data('serviceProviderId')
+      var groupId = Session.data('groupId')
+      var userId = Session.data('userId')
+      var loginType = Session.data('loginType')
+      if (!loginType) return login()
+      var route
+      switch (loginType) {
+        case 'System':
+          route = open('system')
+          break
+        case 'Provisioning':
+          route = open('provisioning')
+          break
+        case 'Service Provider':
+          route = open('serviceProviders', serviceProviderId)
+          break
+        case 'Group':
+          route = open('groups', serviceProviderId, groupId)
+          break
+        case 'User':
+          route = open('users', serviceProviderId, groupId, userId)
+          break
+        default:
+          route = open(APP.loginURL)
+      }
+      return route().hash(null)
+    }
+  }
+})()

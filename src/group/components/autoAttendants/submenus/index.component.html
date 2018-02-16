@@ -1,0 +1,15 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId">
+  <pbs-breadcrumb module="$ctrl.module"
+    ng-click="$ctrl.open()"></pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.serviceUserId"
+    ng-click="$ctrl.open($ctrl.serviceUserId)"></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Submenus'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+
+<group-auto-attendant-submenus service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  service-user-id="$ctrl.serviceUserId"
+  module="$ctrl.module"></group-auto-attendant-submenus>

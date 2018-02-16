@@ -1,0 +1,19 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-panel title="Users"
+    items="$ctrl.users"
+    item-key="userId"
+    limit-to="$ctrl.limitTo"
+    on-select="$ctrl.open($event)">
+    <pbs-panel-buttons>
+      <pbs-button-compact-add title="Add User"
+        ng-click="$ctrl.add()"
+        if-module-create="'Provisioning'"></pbs-button-compact-add>
+      <pbs-button-compact-select ng-click="$ctrl.bulk()"
+        title="Add Users in Bulk"
+        if-module-create="'Provisioning'"></pbs-button-compact-select>
+    </pbs-panel-buttons>
+  </pbs-panel>
+</pbs-spinner>
+<user-create service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onCreate($event)"></user-create>

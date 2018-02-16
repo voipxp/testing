@@ -1,0 +1,35 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Redirected">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit ng-click="$ctrl.edit()"></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-section>Custom Settings</pbs-list-section>
+      <pbs-list-item label="Use Custom Settings">
+        <pbs-check-box checked="$ctrl.plan.useCustomSettings"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-section>Permissions</pbs-list-section>
+      <pbs-list-item label="Outside Group">
+        <pbs-check-box checked="$ctrl.plan.userPermissions.outsideGroup"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserOutgoingCallingPlanRedirected"
+  title="Redirected">
+  <pbs-form>
+    <pbs-form-section>Custom Settings</pbs-form-section>
+    <input type="checkbox"
+      ng-model="$ctrl.editPlan.useCustomSettings"
+      label="Use Custom Settings"
+      pbs-input-checkradio>
+
+    <div ng-show="$ctrl.editPlan.useCustomSettings">
+      <pbs-form-section>Permissions</pbs-form-section>
+      <input type="checkbox"
+        ng-model="$ctrl.editPlan.userPermissions.outsideGroup"
+        label="Outside Group"
+        pbs-input-checkradio>
+    </div>
+  </pbs-form>
+</pbs-modal>

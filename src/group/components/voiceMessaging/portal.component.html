@@ -1,0 +1,89 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Voice Portal Settings"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit title="Edit Voice Portal"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Service User ID">
+        {{ $ctrl.settings.serviceUserId }}
+      </pbs-list-item>
+      <pbs-list-item label="Voice Portal Enabled">
+        <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Enable Extended Scope">
+        <pbs-check-box checked="$ctrl.settings.enableExtendedScope"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Identification by Phone or Aliases">
+        <pbs-check-box checked="$ctrl.settings.allowIdentificationByPhoneNumberOrVoiceMailAliasesOnLogin"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Use Voice Portal Wizard">
+        <pbs-check-box checked="$ctrl.settings.useVoicePortalWizard"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="External Routing Scope">
+        {{ $ctrl.settings.voicePortalExternalRoutingScope }}
+      </pbs-list-item>
+      <pbs-list-item label="Use External Routing">
+        <pbs-check-box checked="$ctrl.settings.useExternalRouting"></pbs-check-box>
+        <span ng-show="$ctrl.settings.useExternalRouting">
+          Address: {{ $ctrl.settings.externalRoutingAddress }}
+        </span>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+  <service-instance-profile service-provider-id="$ctrl.serviceProviderId"
+    group-id="$ctrl.groupId"
+    service-user-id="$ctrl.settings.serviceUserId"
+    profile="$ctrl.settings.serviceInstanceProfile"
+    on-update="$ctrl.updateProfile($event)"
+    ng-if="$ctrl.settings.isActive"
+    class="large-margin-top"
+    style="display: block"></service-instance-profile>
+</pbs-spinner>
+<pbs-modal id="editGroupVoiceMessagingPortal"
+  title="Edit Group Voice Portal">
+  <pbs-form-field label="Enabled">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editSettings.isActive"> Enable Voice Portal
+    </label>
+  </pbs-form-field>
+  <pbs-form-field label="Extended Scope">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editSettings.enableExtendedScope"> Enable Extended Scope
+    </label>
+  </pbs-form-field>
+  <pbs-form-field label="Login Identification">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editSettings.allowIdentificationByPhoneNumberOrVoiceMailAliasesOnLogin"> Allow Phone or Aliases on Login (in addition to Extensions)
+    </label>
+  </pbs-form-field>
+  <pbs-form-field label="Voice Portal Wizard">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editSettings.useVoicePortalWizard"> Use Voice Portal Wizard
+    </label>
+  </pbs-form-field>
+  <pbs-form-field label="External Routing Scope">
+    <div class="select">
+      <select ng-model="$ctrl.editSettings.voicePortalExternalRoutingScope"
+        ng-options="opt for opt in $ctrl.options.voicePortalExternalRoutingScope"></select>
+    </div>
+  </pbs-form-field>
+  <pbs-form-field label="Use External Routing">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editSettings.useExternalRouting"> Use External Routing Address
+    </label>
+  </pbs-form-field>
+  <pbs-form-field label="Routing Address"
+    ng-show="$ctrl.editSettings.useExternalRouting">
+    <input type="text"
+      class="input"
+      ng-model="$ctrl.editSettings.externalRoutingAddress">
+  </pbs-form-field>
+</pbs-modal>

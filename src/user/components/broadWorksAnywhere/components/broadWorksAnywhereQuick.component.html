@@ -1,0 +1,18 @@
+<pbs-spinner loading="$ctrl.loading">
+  <nav class="panel">
+    <p class="panel-heading">Anywhere Mobile Quick Set</p>
+    <div class="panel-block"
+      ng-repeat="number in $ctrl.settings.phoneNumbers | orderBy:'phoneNumnber' track by number.phoneNumber">
+      <input type="checkbox"
+        label="{{ number.phoneNumber }}"
+        ng-model="number.isActive"
+        ng-click="$ctrl.toggle(number)"
+        ng-disabled="$ctrl.loadingNumber[number.phoneNumber]"
+        pbs-input-switch>
+    </div>
+    <a class="panel-block"
+      ng-if="$ctrl.settings.phoneNumbers.length < 1">
+      <p ng-click="$ctrl.open()">Setup Numbers</p>
+    </a>
+  </nav>
+</pbs-spinner>

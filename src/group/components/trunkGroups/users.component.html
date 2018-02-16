@@ -1,0 +1,69 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Users">
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th class="action">Pilot User</th>
+          <th>User ID</th>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Number</th>
+          <th>Extension</th>
+          <th>Department</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length === 0">
+          <td colspan="7">No Users Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-click="$ctrl.edit(user)"
+          ng-repeat="user in $ctrl.users | filter:$ctrl.search | orderBy:'userId' as results track by user.userId">
+          <td class="action">
+            <pbs-check-box checked="$ctrl.isPilotUser(user)"></pbs-check-box>
+          </td>
+          <td>{{ user.userId }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.phoneNumber }}</td>
+          <td>{{ user.extension }}</td>
+          <td>{{ user.department }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="groupTrunkGroupUsersModal"
+  title="Edit User">
+  <pbs-form>
+    <pbs-form-field label="User ID">
+      <p>{{ $ctrl.editUser.userId }}</p>
+    </pbs-form-field>
+    <pbs-form-field label="Pilot User">
+      <pbs-check-box checked="$ctrl.isPilotUser($ctrl.editUser)"></pbs-check-box>
+      Is Pilot User
+      <span class="is-pulled-right">
+        <pbs-button-compact-add title="Set as Pilot User"
+          ng-show="!$ctrl.editUser.isPilotUser"
+          ng-click="$ctrl.togglePilot($ctrl.editUser)">
+        </pbs-button-compact-add>
+        <pbs-button-compact-remove title="Unset as Pilot User"
+          ng-show="$ctrl.editUser.isPilotUser"
+          ng-click="$ctrl.togglePilot($ctrl.editUser)">
+        </pbs-button-compact-remove>
+      </span>
+    </pbs-form-field>
+    <pbs-form-field label="Trunk Group">
+      {{ $ctrl.parent.trunkName }}
+      <pbs-button-compact-cancel label="Remove from Trunk Group"
+        class="is-pulled-right"
+        ng-click="$ctrl.remove($ctrl.editUser)">
+      </pbs-button-compact-cancel>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

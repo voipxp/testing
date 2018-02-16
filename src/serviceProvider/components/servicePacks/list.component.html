@@ -1,0 +1,23 @@
+<pbs-table-search ng-model="$ctrl.filter"></pbs-table-search>
+<table pbs-table>
+  <thead>
+    <tr>
+      <th>Service Pack</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr ng-if="listResults.length < 1">
+      <td colspan="1">No Service Packs Found
+        <span ng-if="$ctrl.filter">for {{ $ctrl.filter }}</span>
+      </td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr class="hover"
+      ng-repeat="servicePack in $ctrl.parent.servicePacks | filter:$ctrl.filter | orderBy:'servicePackName' as listResults track by servicePack.servicePackName"
+  
+      ng-click="$ctrl.parent.open(servicePack.servicePackName)">
+      <td>{{ servicePack.servicePackName }}</td>
+    </tr>
+  </tbody>
+</table>

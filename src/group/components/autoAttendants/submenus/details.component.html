@@ -1,0 +1,31 @@
+<pbs-spinner loading="$ctrl.parent.loading">
+  <pbs-block title="Details">
+    <pbs-block-buttons if-module-update="$ctrl.parent.module">
+      <pbs-button-compact-edit ng-click="$ctrl.edit()"
+        title="Edit Submenu"></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Submenu ID">
+        {{ $ctrl.parent.menu.submenuId }}
+      </pbs-list-item>
+      <pbs-list-item label="First Level Extension Dialing">
+        <pbs-check-box checked="$ctrl.parent.menu.enableLevelExtensionDialing"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+
+<pbs-modal id="editAutoAttendantSubmenuProfileModal">
+  <pbs-form>
+    <pbs-form-field label="Submenu ID">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editMenu.newSubmenuId"
+        required>
+    </pbs-form-field>
+    <input type="checkbox"
+      ng-model="$ctrl.editMenu.enableLevelExtensionDialing"
+      label="Enable Level Extension Dialing"
+      pbs-input-checkradio>
+  </pbs-form>
+</pbs-modal>

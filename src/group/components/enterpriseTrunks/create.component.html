@@ -1,0 +1,65 @@
+<pbs-modal id="editGroupEnterpriseTrunkCreate"
+  title="Add Enterprise Trunk">
+  <form novalidate>
+
+    <pbs-form-field label="Trunk Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.trunk.enterpriseTrunkName"
+        required>
+    </pbs-form-field>
+
+    <pbs-form-field label="Max Reroute Attempts">
+      <input class="input"
+        type="number"
+        min="1"
+        max="10"
+        ng-model="$ctrl.trunk.maximumRerouteAttempts"
+        required>
+    </pbs-form-field>
+
+    <pbs-form-field label="Exhaustion Action">
+      <div class="select">
+        <select ng-model="$ctrl.trunk.routeExhaustionAction"
+          ng-options="opt as opt for opt in $ctrl.options.routeExhaustionAction"
+          required></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Forward To"
+      ng-show="$ctrl.trunk.routeExhaustionAction === 'Forward'">
+      <input class="input"
+        type="text"
+        ng-model="$ctrl.trunk.routeExhaustionForwardAddress">
+    </pbs-form-field>
+
+    <pbs-form-field label="Routing Type">
+      <div class="select">
+        <select ng-model="$ctrl.routingType"
+          ng-options="opt as opt for opt in $ctrl.routingTypes"
+          ng-change="$ctrl.changeRouting()"
+          required></select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Max Reroutes in Priority"
+      ng-show="$ctrl.trunk.priorityWeightedRouting">
+      <input class="input"
+        type="number"
+        min="1"
+        max="10"
+        ng-model="$ctrl.trunk.priorityWeightedRouting.maximumRerouteAttemptsWithinPriority"
+        ng-required="$ctrl.trunk.priorityWeightedRouting">
+    </pbs-form-field>
+
+    <pbs-form-field label="Ordering Algorithm"
+      ng-show="$ctrl.trunk.orderedRouting">
+      <div class="select">
+        <select class=""
+          ng-model="$ctrl.trunk.orderedRouting.orderingAlgorithm"
+          ng-options="opt as opt for opt in $ctrl.options.orderingAlgorithm"
+          ng-required="$ctrl.trunk.orderedRouting"></select>
+      </div>
+    </pbs-form-field>
+  </form>
+</pbs-modal>

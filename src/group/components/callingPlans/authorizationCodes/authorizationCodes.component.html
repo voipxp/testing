@@ -1,0 +1,35 @@
+<group-calling-plans-nav calling-plan="Authorization Codes"></group-calling-plans-nav>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Authorization Codes">
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Department</th>
+          <th>Codes</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="2">No Departments Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-repeat="department in $ctrl.plan.departments | filter:$ctrl.search as results track by department.departmentName"
+      
+          ng-click="$ctrl.edit(department)">
+          <td>{{ $ctrl.departmentName(department) }}</td>
+          <td>
+            {{ $ctrl.codeList(department) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<group-outgoing-calling-plan-department-authorization-codes service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-save="$ctrl.updated(department, didChange)"></group-outgoing-calling-plan-department-authorization-codes>

@@ -1,0 +1,83 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Redirected">
+    <pbs-columns>
+      <pbs-column>
+        <pbs-table-search ng-model="$ctrl.search"
+          style="margin-bottom: 0"></pbs-table-search>
+      </pbs-column>
+      <pbs-column class="is-narrow">
+        <div class="buttons has-addons">
+          <span class="button"
+            ng-class="{'is-success': !$ctrl.filter}"
+            ng-click="$ctrl.filter = null">All</span>
+          <span class="button"
+            ng-class="{'is-success': $ctrl.filter.useCustomSettings === true}"
+            ng-click="$ctrl.filter.useCustomSettings = true">Custom</span>
+          <span class="button"
+            ng-class="{'is-success': $ctrl.filter.useCustomSettings === false}"
+            ng-click="$ctrl.filter.useCustomSettings = false">Default</span>
+        </div>
+      </pbs-column>
+    </pbs-columns>
+    <table pbs-table
+      class="margin-bottom">
+      <thead>
+        <tr>
+          <th>UserId</th>
+          <th>Custom</th>
+          <th>Outside Group</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="99">No User Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr>
+          <th>Group Default</th>
+          <th></th>
+          <th>
+            <pbs-check-box checked="$ctrl.groupPlan.permissions.outsideGroup"></pbs-check-box>
+          </th>
+        </tr>
+        <tr class="hover"
+          ng-click="$ctrl.edit(plan)"
+          ng-repeat="plan in results = ($ctrl.userPlans | filter:$ctrl.filter | filter:$ctrl.search) | paginate:$ctrl.pager">
+          <td>{{ plan.userId }}</td>
+          <td>
+            <pbs-check-box checked="plan.useCustomSettings"></pbs-check-box>
+          </td>
+          <td>
+            <pbs-check-box checked="plan.userPermissions.outsideGroup"></pbs-check-box>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pbs-pagination items="results.length"
+      limit="25"
+      on-update="$ctrl.onPagination($event)"></pbs-pagination>
+  </pbs-block>
+
+</pbs-spinner>
+
+<pbs-modal id="editUserOutgoingCallingPlanRedirected"
+  title="Redirected - {{ $ctrl.editPlan.userId }}">
+  <pbs-form>
+    <pbs-form-section>Custom Settings</pbs-form-section>
+    <input type="checkbox"
+      ng-model="$ctrl.editPlan.useCustomSettings"
+      label="Use Custom Settings"
+      pbs-input-checkradio>
+
+    <div ng-show="$ctrl.editPlan.useCustomSettings">
+      <pbs-form-section>Permissions</pbs-form-section>
+      <input type="checkbox"
+        ng-model="$ctrl.editPlan.userPermissions.outsideGroup"
+        label="Outside Group"
+        pbs-input-checkradio>
+    </div>
+  </pbs-form>
+</pbs-modal>

@@ -1,0 +1,11 @@
+0.0.0.0
+root /app/html
+errors stderr
+log stdout
+cors
+fastcgi / 127.0.0.1:9000 php {
+  root /var/www/html/public
+}
+rewrite {
+  to {path} {path}/ /index.php?{query}
+}

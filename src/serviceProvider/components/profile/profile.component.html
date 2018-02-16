@@ -1,0 +1,133 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId">
+  <pbs-breadcrumb title="'Profile'"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Details">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit title="Edit Service Provider"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Service Provider ID">
+        {{ $ctrl.serviceProviderId }}
+      </pbs-list-item>
+      <pbs-list-item label="Service Provider Name">
+        {{ $ctrl.serviceProvider.serviceProviderName }}
+      </pbs-list-item>
+      <pbs-list-item label="Is Enterprise">
+        <pbs-check-box checked="$ctrl.serviceProvider.isEnterprise"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Custom Routing Profile"
+        ng-show="!$ctrl.serviceProvider.isEnterprise">
+        <pbs-check-box checked="$ctrl.serviceProvider.useCustomRoutingProfile">
+        </pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Default Domain">
+        {{ $ctrl.serviceProvider.defaultDomain }}
+      </pbs-list-item>
+      <pbs-list-item label="Support Email">
+        {{ $ctrl.serviceProvider.supportEmail }}
+      </pbs-list-item>
+      <pbs-list-item label="Contact">
+        {{ $ctrl.contactSummary() }}
+      </pbs-list-item>
+      <pbs-list-item label="Address">
+        {{ $ctrl.addressSummary() }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+
+<pbs-modal id="editServiceProviderDetails"
+  title="Edit Details">
+  <form novalidate
+    name="editServiceProviderDetailsForm">
+    <pbs-tabs no-hash="true">
+      <pbs-tab label="Required">
+        <pbs-form-field label="Service Provider Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editServiceProvider.serviceProviderName"
+            required>
+        </pbs-form-field>
+        <pbs-form-field label="Default Domain">
+          <div class="select">
+            <select ng-model="$ctrl.editServiceProvider.defaultDomain"
+              ng-options="domain as domain for domain in $ctrl.domains.domains"
+              required></select>
+          </div>
+        </pbs-form-field>
+        <pbs-form-field label="Provider Type">
+          <label class="radio">
+            <input type="radio"
+              ng-model="$ctrl.editServiceProvider.isEnterprise"
+              ng-value="false"
+              ng-change="$ctrl.selectType()"> Service Provider
+          </label>
+          <br>
+          <label class="radio">
+            <input type="radio"
+              ng-model="$ctrl.editServiceProvider.isEnterprise"
+              ng-value="true"
+              ng-change="$ctrl.selectType()"> Enterprise
+          </label>
+        </pbs-form-field>
+      </pbs-tab>
+
+      <pbs-tab label="Optional">
+        <pbs-form-field label="Support Email">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editServiceProvider.supportEmail">
+        </pbs-form-field>
+        <pbs-form-field label="Contact Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editServiceProvider.contact.contactName">
+        </pbs-form-field>
+        <pbs-form-field label="Contact Email">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editServiceProvider.contact.contactEmail">
+        </pbs-form-field>
+        <pbs-form-field label="Contact Number">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editServiceProvider.contact.contactNumber">
+        </pbs-form-field>
+        <pbs-form-field label="Address 1">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editServiceProvider.address.addressLine1">
+        </pbs-form-field>
+        <pbs-form-field label="Address Line 2">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editServiceProvider.address.addressLine2">
+        </pbs-form-field>
+        <pbs-form-field label="City">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editServiceProvider.address.city">
+        </pbs-form-field>
+        <pbs-form-field label="State/Province">
+          <div class="select">
+            <select ng-model="$ctrl.editServiceProvider.address.stateOrProvince"
+              ng-options="state.key as state.displayName for state in $ctrl.states"></select>
+          </div>
+        </pbs-form-field>
+        <pbs-form-field label="Postal Code">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editServiceProvider.address.zipOrPostalCode">
+        </pbs-form-field>
+        <pbs-form-field label="Country">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editServiceProvider.address.country">
+        </pbs-form-field>
+      </pbs-tab>
+    </pbs-tabs>
+  </form>
+</pbs-modal>

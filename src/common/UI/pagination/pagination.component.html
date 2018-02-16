@@ -1,0 +1,19 @@
+<nav class="pagination is-left"
+  ng-show="$ctrl.items > $ctrl.limit">
+  <p>Page: {{ $ctrl.page }} / {{ $ctrl.pages }}</p>
+  <a class="pagination-previous"
+    ng-click="$ctrl.previous()"
+    ng-disabled="$ctrl.page === 1">
+    <span class="icon">
+      <i class="fa fa-chevron-left"></i>
+    </span>
+  </a>
+  <a class="pagination-next"
+    ng-click="$ctrl.next()"
+    ng-disabled="$ctrl.page === $ctrl.pages">
+    <span class="icon">
+      <i class="fa fa-chevron-right"></i>
+    </span>
+  </a>
+  <ul class="pagination-list"></ul>
+</nav>

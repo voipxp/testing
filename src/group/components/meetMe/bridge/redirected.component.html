@@ -1,0 +1,19 @@
+<pbs-modal id="editOutgoingCallingPlanRedirected"
+  title="Outgoing Calling Plan - Redirected">
+  <form novalidate
+    autocomplete="off">
+    <pbs-form-field label="Settings">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.plan.useCustomSettings"> Use Custom Settings
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Custom Settings"
+      ng-show="$ctrl.plan.useCustomSettings">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.plan.userPermissions.outsideGroup"> Outside Group
+      </label>
+    </pbs-form-field>
+  </form>
+</pbs-modal>

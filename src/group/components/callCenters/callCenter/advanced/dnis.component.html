@@ -1,0 +1,215 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="DNIS Settings"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="'Call Center'">
+      <pbs-button-compact-edit title="Edit DNIS"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Display DNIS Number">
+        <pbs-check-box checked="$ctrl.service.displayDNISNumber"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Display DNIS Name">
+        <pbs-check-box checked="$ctrl.service.displayDNISName"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Promote Calls from 1 to 0">
+        <pbs-check-box checked="$ctrl.service.promoteCallsFromPriority1to0"></pbs-check-box>
+        <span ng-show="$ctrl.service.promoteCallsFromPriority1to0">
+          after {{ $ctrl.service.promoteCallsFromPriority1to0Seconds }} seconds
+        </span>
+      </pbs-list-item>
+      <pbs-list-item label="Promote Calls from 2 to 1">
+        <pbs-check-box checked="$ctrl.service.promoteCallsFromPriority2to1"></pbs-check-box>
+        <span ng-show="$ctrl.service.promoteCallsFromPriority2to1">
+          after {{ $ctrl.service.promoteCallsFromPriority2to1 }} seconds
+        </span>
+      </pbs-list-item>
+      <pbs-list-item label="Promote Calls from 3 to 2">
+        <pbs-check-box checked="$ctrl.service.promoteCallsFromPriority3to2"></pbs-check-box>
+        <span ng-show="$ctrl.service.promoteCallsFromPriority3to2">
+          after {{ $ctrl.service.promoteCallsFromPriority3to2 }} seconds
+        </span>
+      </pbs-list-item>
+    </pbs-list>
+    <pbs-block title="DNIS">
+      <pbs-block-buttons if-module-update="'Call Center'">
+        <pbs-button-compact-add ng-click="$ctrl.add()"></pbs-button-compact-add>
+      </pbs-block-buttons>
+      <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+      <table pbs-table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Extension</th>
+            <th>Priority</th>
+            <th>Primary</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr ng-if="results.length === 0">
+            <td colspan="5">No DNIS Found
+              <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+            </td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr class="hover"
+            ng-click="$ctrl.open(dnis)"
+            ng-repeat="dnis in $ctrl.service.instances | filter:$ctrl.search | orderBy:'priority' as results track by dnis.name">
+            <td>{{ dnis.name }}</td>
+            <td>{{ dnis.phoneNumber }}</td>
+            <td>{{ dnis.extension }}</td>
+            <td>{{ dnis.priority }}</td>
+            <td class="action">
+              <pbs-check-box checked="dnis.isPrimaryDNIS"></pbs-check-box>
+          </tr>
+        </tbody>
+      </table>
+    </pbs-block>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupCallCenterDNIS"
+  title="Edit DNIS">
+  <pbs-form-field label="DNIS Number">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.displayDNISNumber"> Display DNIS Number to agent
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="DNIS Name">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.displayDNISName"> Display DNIS Name to agent
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Promote 1 to 0">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.promoteCallsFromPriority1to0"> Automatically Promote calls with Priority 1 to 0
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Promote 1 to 0 seconds"
+    ng-show="$ctrl.editService.promoteCallsFromPriority1to0">
+    <input type="number"
+      min="$ctrl.options.promoteCallsFromPriority.min"
+      max="$ctrl.options.promoteCallsFromPriority.max"
+      class="input"
+      ng-model="$ctrl.editService.promoteCallsFromPriority1to0Seconds">
+  </pbs-form-field>
+
+  <pbs-form-field label="Promote 2 to 1">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.promoteCallsFromPriority2to1"> Automatically Promote calls with Priority 2 to 1
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Promote 2 to 1 seconds"
+    ng-show="$ctrl.editService.promoteCallsFromPriority2to1">
+    <input type="number"
+      min="$ctrl.options.promoteCallsFromPriority.min"
+      max="$ctrl.options.promoteCallsFromPriority.max"
+      class="input"
+      ng-model="$ctrl.editService.promoteCallsFromPriority2to1Seconds">
+  </pbs-form-field>
+
+  <pbs-form-field label="Promote 3 to 2">
+    <label class="checkbox">
+      <input type="checkbox"
+        ng-model="$ctrl.editService.promoteCallsFromPriority3to2"> Automatically Promote calls with Priority 3 to 2
+    </label>
+  </pbs-form-field>
+
+  <pbs-form-field label="Promote 3 to 2 seconds"
+    ng-show="$ctrl.editService.promoteCallsFromPriority3to2">
+    <input type="number"
+      min="$ctrl.options.promoteCallsFromPriority.min"
+      max="$ctrl.options.promoteCallsFromPriority.max"
+      class="input"
+      ng-model="$ctrl.editService.promoteCallsFromPriority3to2Seconds">
+  </pbs-form-field>
+</pbs-modal>
+
+
+<pbs-modal id="newGroupCallCenterDnisInstance"
+  title="Add DNIS">
+  <form novalidate>
+    <pbs-form-field label="Name*">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.newService.name"
+        required>
+    </pbs-form-field>
+
+    <pbs-form-field label="Priority*">
+      <div class="select">
+        <select ng-model="$ctrl.newService.priority"
+          ng-options="opt for opt in $ctrl.instanceOptions.priority"
+          required>
+        </select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Phone Number">
+      <div class="select">
+        <select ng-model="$ctrl.newService.dnisPhoneNumber"
+          ng-options="number.min as number.min for number in $ctrl.numbers"
+          ng-change="$ctrl.setExtension()">
+          <option value="">-- None --</option>
+        </select>
+      </div>
+    </pbs-form-field>
+
+    <pbs-form-field label="Extension">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.newService.extension">
+    </pbs-form-field>
+
+    <pbs-form-field label="CLID">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.newService.callingLineIdPhoneNumber">
+    </pbs-form-field>
+
+    <pbs-form-field label="Custom CLID">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.newService.useCustomCLIDSettings"> Use Custom CLID Settings
+      </label>
+    </pbs-form-field>
+
+    <pbs-form-field label="CLID Last Name"
+      ng-show="$ctrl.newService.useCustomCLIDSettings">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.newService.callingLineIdLastName">
+    </pbs-form-field>
+
+    <pbs-form-field label="CLID First Name"
+      ng-show="$ctrl.newService.useCustomCLIDSettings">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.newService.callingLineIdFirstName">
+    </pbs-form-field>
+
+    <pbs-form-field label="CLID Announcement">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.newService.useCustomDnisAnnouncementSettings"> Use Custom CLID Announcement Settings
+      </label>
+    </pbs-form-field>
+
+    <pbs-form-field label="Outgoing Calls">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.newService.allowOutgoingACDCall"> Allow Outgoing Call Center Call
+      </label>
+    </pbs-form-field>
+  </form>
+</pbs-modal>

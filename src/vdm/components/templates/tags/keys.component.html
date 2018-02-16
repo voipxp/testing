@@ -1,0 +1,80 @@
+<pbs-block title="{{ $ctrl.pattern.label }}">
+  <pbs-columns ng-repeat="row in $ctrl.pattern.rows">
+    <pbs-column ng-repeat="column in row">
+      <div class="box hover"
+        ng-if="column"
+        ng-click="$ctrl.edit(column)">
+        {{ $ctrl.keys[column].label || 'Key ' + column }}
+        <span class="is-pulled-right icon"
+          ng-show="$ctrl.keys[column].locked">
+          <i class="fa fa-lock"></i>
+        </span>
+      </div>
+    </pbs-column>
+  </pbs-columns>
+</pbs-block>
+<pbs-modal id="{{ $ctrl.modalId }}"
+  title="Edit Key {{ $ctrl.editKey.id }}">
+  <pbs-form>
+    <pbs-form-field label="Options"
+      ng-if="$ctrl.isAdmin()">
+      <label class="checkbox">
+        <input type="checkbox"
+          ng-model="$ctrl.editKey.locked"> Lock Type From Group Editing
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Type">
+      <div class="control"
+        ng-class="{'has-icons-left': $ctrl.editKey.locked}">
+        <div class="select">
+          <select ng-model="$ctrl.editKey.type"
+            ng-options="key as value for (key, value) in $ctrl.options.types"
+            ng-change="$ctrl.editType($ctrl.editKey)"
+            ng-disabled="$ctrl.editKey.locked && !$ctrl.isAdmin()">
+          </select>
+          <div class="icon is-small is-left"
+            ng-if="$ctrl.editKey.locked">
+            <i class="fa fa-lock"></i>
+          </div>
+        </div>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Label"
+      ng-show="$ctrl.showLabel($ctrl.editKey.type)">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editKey.label">
+    </pbs-form-field>
+    <pbs-form-field label="Value"
+      ng-show="$ctrl.showValue($ctrl.editKey.type)">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editKey.value">
+    </pbs-form-field>
+    <pbs-form-field label="Line"
+      ng-show="$ctrl.showLine($ctrl.editKey.type)">
+      <div class="select">
+        <select ng-model="$ctrl.editKey.line"
+          ng-options="opt.id as opt.label for opt in $ctrl.options.lines">
+          <option value="">-- None --</option>
+        </select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Multicast Group"
+      ng-show="$ctrl.showMulticast($ctrl.editKey.type)">
+      <div class="select">
+        <select ng-model="$ctrl.editKey.value"
+          ng-options="opt.ip as opt.label for opt in $ctrl.options.multicast"
+          ng-change="$ctrl.editMulticast($ctrl.editKey)">
+          <option value="">-- None --</option>
+        </select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="Extension"
+      ng-show="$ctrl.showExtension($ctrl.editKey.type)">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editKey.extension">
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

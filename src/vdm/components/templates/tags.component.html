@@ -1,0 +1,23 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-menu>
+    <pbs-menu-item label="Options">
+      <vdm-template-tag-options tags="$ctrl.tags"></vdm-template-tag-options>
+    </pbs-menu-item>
+    <pbs-menu-item label="Accounts">
+      <vdm-template-tag-accounts tags="$ctrl.tags"
+        device-template="$ctrl.template.deviceTemplate"></vdm-template-tag-accounts>
+    </pbs-menu-item>
+    <pbs-menu-item label="Multicast">
+      <vdm-template-tag-multicast tags="$ctrl.tags"></vdm-template-tag-multicast>
+    </pbs-menu-item>
+    <pbs-menu-item label="LDAP">
+      <vdm-template-tag-ldap tags="$ctrl.tags"></vdm-template-tag-ldap>
+    </pbs-menu-item>
+    <pbs-menu-item ng-repeat="pattern in $ctrl.keyPattern"
+      label="{{ pattern.label }}">
+      <vdm-template-tag-keys tags="$ctrl.tags"
+        device-template="$ctrl.template.deviceTemplate"
+        pattern="pattern"></vdm-template-tag-keys>
+    </pbs-menu-item>
+  </pbs-menu>
+</pbs-spinner>

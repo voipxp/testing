@@ -1,0 +1,31 @@
+<pbs-form-field label="Require Authentication">
+  <p ng-if="vm.isDisabled.requireAuthentication">{{ vm.trunk.requireAuthentication }}</p>
+  <input ng-if="!vm.isDisabled.requireAuthentication"
+    type="checkbox"
+    ng-model="vm.trunk.requireAuthentication"
+    ng-true-value="'true'"
+    ng-false-value="'false'">
+</pbs-form-field>
+<pbs-form-field label="User Name"
+  ng-show="vm.trunk.requireAuthentication === 'true'">
+  <p ng-if="vm.isDisabled.sipAuthenticationUserName">{{ vm.trunk.sipAuthenticationUserName }}</p>
+  <input ng-if="!vm.isDisabled.sipAuthenticationUserName"
+    type="text"
+    class="input"
+    ng-model="vm.trunk.sipAuthenticationUserName">
+</pbs-form-field>
+<pbs-form-field label="Password"
+  ng-show="vm.trunk.requireAuthentication === 'true' && !vm.isDisabled.sipAuthenticationPassword">
+  <input type="password"
+    class="input"
+    ng-model="vm.trunk.sipAuthenticationPassword">
+</pbs-form-field>
+<pbs-form-field label="Password Again"
+  ng-show="vm.trunk.requireAuthentication === 'true' && !vm.isDisabled.sipAuthenticationPassword">
+  <input type="password"
+    class="input"
+    ng-model="vm.sipAuthenticationPasswordCheck">
+</pbs-form-field>
+<div class="margin-top has-text-right">
+  <pbs-button-save ng-click="vm.updateAuthentication()"></pbs-button-save>
+</div>

@@ -1,0 +1,34 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit title="Edit Settings"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Notify Email Address">
+        {{$ctrl.settings.callNotifyEmailAddress}}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+  <user-call-notify-criteria class="margin-top"></user-call-notify-criteria>
+</pbs-spinner>
+
+<pbs-modal id="editUserCallNotify"
+  title="Edit Settings">
+  <pbs-form>
+    <pbs-form-field label="Notify Email Address">
+      <input type="email"
+        class="input"
+        ng-model="$ctrl.editSettings.callNotifyEmailAddress">
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
