@@ -1,10 +1,12 @@
+# DEFAULTS
 0.0.0.0
 root /app/html
 errors stderr
 log stdout
 cors
+gzip
 
-#### FASTCGI (default) ####
+# FASTCGI (default)
 fastcgi / 127.0.0.1:9000 php {
   root /var/www/html/public
 }
@@ -12,10 +14,11 @@ rewrite {
   to {path} {path}/ /index.php?{query}
 }
 
-#### BASIC PROXY ###
-#proxy /api 127.0.0.1 {
-#  transparent
-#}
-#proxy /ui 127.0.0.1 {
-#  transparent
-#}
+# BASIC PROXY EXAMPLE
+#
+# proxy /api 127.0.0.1 {
+#   transparent
+# }
+# proxy /ui 127.0.0.1 {
+#   transparent
+# }
