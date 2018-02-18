@@ -68,6 +68,10 @@ gulp.task('app.html', () => {
     .pipe(gulp.dest(dest))
 })
 
+gulp.task('app.assets', () => {
+  return gulp.src('assets/*').pipe(gulp.dest(dest))
+})
+
 gulp.task('vendor.css', () => {
   let css = gulp.src([
     'node_modules/angular-color-picker/angular-color-picker.css',
@@ -150,6 +154,7 @@ gulp.task('default', () => {
     'app.js',
     'app.tpl',
     'app.html',
+    'app.assets',
     'vendor.css',
     'vendor.js',
     'vendor.fonts',
