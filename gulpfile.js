@@ -19,8 +19,6 @@ const prod = process.env.NODE_ENV === 'production'
 const dest = process.env.APP_DIST || 'dist'
 const base = process.env.API_BASE || ''
 
-console.log('BASE', base)
-
 const Config = {
   APP: {
     apiURL: `${base}/api/v1`,
