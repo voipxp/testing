@@ -52,10 +52,6 @@
           path: route('serviceProviders')
         },
         {
-          name: 'Queues',
-          path: route('queues')
-        },
-        {
           module: 'VDM',
           path: route('vdm')
         }
