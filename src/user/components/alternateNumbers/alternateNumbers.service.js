@@ -12,10 +12,7 @@
         'Long-Long',
         'Short-Short-Long',
         'Short-Long-Short'
-      ],
-      alternateNumberRange: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      minAlternateNumbers: 1,
-      maxAlternateNumbers: 10
+      ]
     }
     return service
 
@@ -27,8 +24,6 @@
 
     function update(userId, obj) {
       return $http.put(url(userId), obj).then(function(response) {
-        console.log('obj.update : ' + userId + ' ' + JSON.stringify(obj))
-        console.log('AlternateNumbersService.update : ' + response.data)
         return response.data
       })
     }
