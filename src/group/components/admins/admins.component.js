@@ -8,6 +8,7 @@
     Alert,
     GroupAdminService,
     GroupAdminPolicyService,
+    GroupDepartmentAdminService,
     $routeParams,
     $q
   ) {
@@ -41,8 +42,20 @@
       )
     }
 
-    function loadAdminPolicies(administratorID) {
-      return GroupAdminPolicyService.show(administratorID)
+    function loadAdminPolicies(admin) {
+      Alert.spinner.open()
+      var promise = admin.department
+        ? $q.resolve()
+        : GroupAdminPolicyService.show(admin.administratorID)
+      return promise
+        .then(function(data) {
+          ctrl.editPolicies = data
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+          return $q.reject(error)
+        })
+        .finally(Alert.spinner.close)
     }
 
     function setNewUserId(event) {
@@ -50,6 +63,7 @@
     }
 
     function add() {
+      ctrl.newAdminType = 'group'
       ctrl.newAdmin = {}
       Alert.modal.open('create-GroupAdmin', function(close) {
         create(ctrl.newAdmin, close)
@@ -58,33 +72,21 @@
 
     function edit(admin) {
       ctrl.editAdmin = angular.copy(admin)
-      Alert.spinner.open()
-      loadAdminPolicies(admin.administratorID)
-        .then(function(policies) {
-          ctrl.editPolicies = policies
-          Alert.modal.open(
-            'update-GroupAdmin',
-            function onSave(close) {
-              update(
-                ctrl.editAdmin,
-                admin.administratorID,
-                ctrl.editPolicies,
-                close
-              )
-            },
-            function onDelete(close) {
-              Alert.confirm
-                .open('Are you sure you want to delete this Admin?')
-                .then(function() {
-                  remove(ctrl.editAdmin, close)
-                })
-            }
-          )
-        })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(Alert.spinner.close)
+      loadAdminPolicies(admin).then(function() {
+        Alert.modal.open(
+          'update-GroupAdmin',
+          function onSave(close) {
+            update(ctrl.editAdmin, ctrl.editPolicies, close)
+          },
+          function onDelete(close) {
+            Alert.confirm
+              .open('Are you sure you want to delete this Admin?')
+              .then(function() {
+                remove(ctrl.editAdmin, close)
+              })
+          }
+        )
+      })
     }
 
     function create(admin, callback) {
@@ -93,26 +95,39 @@
         return
       }
       Alert.spinner.open()
-      GroupAdminService.store(ctrl.serviceProviderId, ctrl.groupId, admin)
+      var promise
+      if (ctrl.newAdminType === 'department') {
+        promise = GroupDepartmentAdminService.store(
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          admin.department.name,
+          admin
+        )
+      } else {
+        promise = GroupAdminService.store(
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          admin
+        )
+      }
+      promise
         .then(loadAdmins)
         .then(function() {
           Alert.notify.success('Admin created')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
-    function update(admin, adminId, policies, callback) {
+    function update(admin, policies, callback) {
+      if (admin.password && admin.password !== admin.password2) {
+        Alert.notify.warning('Passwords do not match')
+        return
+      }
       Alert.spinner.open()
       return $q
-        .all([updateAdmin(admin), updatePolicies(adminId, policies)])
+        .all([updateAdmin(admin), updatePolicies(admin, policies)])
         .then(loadAdmins)
         .then(function() {
           callback()
@@ -126,37 +141,54 @@
         })
     }
 
-    function updatePolicies(adminId, policies) {
-      return GroupAdminPolicyService.update(adminId, policies)
+    function updatePolicies(admin, policies) {
+      if (admin.department) return $q.resolve()
+      return GroupAdminPolicyService.update(admin.administratorID, policies)
     }
 
     function updateAdmin(admin) {
-      if (admin.password && admin.password !== admin.password2) {
-        return $q.reject('Passwords do not match')
+      if (admin.department) {
+        return GroupDepartmentAdminService.update(
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          admin.department.name,
+          admin
+        )
+      } else {
+        return GroupAdminService.update(
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          admin
+        )
       }
-      return GroupAdminService.update(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        admin
-      )
     }
 
     function remove(admin, callback) {
       Alert.spinner.open()
-      GroupAdminService.destroy(ctrl.serviceProviderId, ctrl.groupId, admin)
+      var promise
+      if (admin.department) {
+        promise = GroupDepartmentAdminService.destroy(
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          admin.department.name,
+          admin
+        )
+      } else {
+        promise = GroupAdminService.destroy(
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          admin
+        )
+      }
+
+      promise
         .then(loadAdmins)
         .then(function() {
           Alert.notify.success('Admin removed')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()
