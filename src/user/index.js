@@ -238,6 +238,15 @@
           module: module('Calling Number Delivery')
         }
       })
+      .when(path('collaborate'), {
+        template:
+          '<user-collaborate module="$resolve.module"></user-collaborate>',
+        resolve: {
+          acl: acl('User'),
+          module: module('Collaborate - Audio')
+        }
+      })
+
       .when(path('communicationBarringAuthorizationCodes'), {
         template:
           '<user-communication-barring-authorization-codes-index module="$resolve.module"></user-communication-barring-authorization-codes-index>',

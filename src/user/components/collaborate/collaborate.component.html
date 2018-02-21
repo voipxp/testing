@@ -1,0 +1,119 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+                group-id="$ctrl.groupId"
+                user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Bridge Information">
+    <pbs-list>
+      <pbs-list-item label="Bridge ID">
+        {{$ctrl.bridge.bridgeId}}
+      </pbs-list-item>
+      <pbs-list-item label="Bridge Name">
+        {{$ctrl.bridge.bridgeName}}
+      </pbs-list-item>
+      <pbs-list-item label="Support Outdial">
+        <pbs-check-box checked="$ctrl.bridge.supportOutDial"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Max Collaborate Room Participants">
+        {{$ctrl.bridge.maxCollaborateRoomParticipants}}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+  <pbs-block title="Collaborate Instant Room">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit title="Edit Instant Room"
+                               ng-click="$ctrl.editModelInstantRoom()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="When attendees join/leave">
+        {{$ctrl.instantRoom.attendeeNotification}}
+      </pbs-list-item>
+      <pbs-list-item label="End room session when owner departs">
+        <pbs-check-box checked="$ctrl.instantRoom.endCollaborateRoomSessionOnOwnerExit"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Owner required to start room session">
+        <pbs-check-box checked="$ctrl.instantRoom.ownerRequired"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Room Type</th>
+          <th>Name</th>
+          <th>Room Id</th>
+          <th>Notification</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr class="hover"
+          ng-click="$ctrl.openMyRoom(collaborate)">
+        <td>My Room</td>
+        <td>{{ $ctrl.myRoom.roomName }}</td>
+        <td>{{ $ctrl.myRoom.roomId }}</td>
+        <td>{{ $ctrl.myRoom.attendeeNotification }}</td>
+      </tr>
+
+        <tr class="hover"
+          ng-click="$ctrl.open(collaborate)"
+          ng-repeat="collaborate in $ctrl.listCollaborate.collaborateBridgeTable | filter:$ctrl.search | orderBy:'name' as results track by collaborate.serviceUserId">
+          <td>{{ collaborate.name }}</td>
+          <td>{{ collaborate.participants }}</td>
+          <td>{{ collaborate.phoneNumber }}</td>
+          <td>{{ collaborate.extension }}</td>
+          <td>{{ collaborate.department }}</td>
+          <td>{{ collaborate.isDefault }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserCollaborateInstantRoom"
+           title="Edit Settings">
+  <form name="editUserCollaborateInstantRoomForm">
+    <pbs-form-field label="Notification">
+      <div class="select">
+        <select ng-model="$ctrl.editInstantRoom.attendeeNotification"
+                ng-options="opt as opt for opt in $ctrl.instantRoomOptions.attendeeNotification"></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="End room session when owner departs">
+      <label class="checkbox">
+        <input type="checkbox" ng-model="$ctrl.editInstantRoom.endCollaborateRoomSessionOnOwnerExit">
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Owner required to start room session">
+      <label class="checkbox">
+        <input type="checkbox" ng-model="$ctrl.editInstantRoom.ownerRequired">
+      </label>
+    </pbs-form-field>
+  </form>
+</pbs-modal>
+
+<pbs-modal id="editUserCollaborateMyRoom"
+           title="Edit Settings">
+  <form name="editUserCollaborateMyRoomForm">
+    <pbs-form-field label="Room Type">My Room</pbs-form-field>
+    <pbs-form-field label="Room ID">{{$ctrl.editMyRoom.roomId}}</pbs-form-field>
+    <pbs-form-field label="Forward To Specified #">
+      <input type="text" class="input" ng-model="$ctrl.editMyRoom.roomName">
+    </pbs-form-field>
+    <pbs-form-field label="Notification">
+      <div class="select">
+        <select ng-model="$ctrl.editMyRoom.attendeeNotification"
+                ng-options="opt as opt for opt in $ctrl.instantRoomOptions.attendeeNotification"></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="End room session when owner departs">
+      <label class="checkbox">
+        <input type="checkbox" ng-model="$ctrl.editMyRoom.endCollaborateRoomSessionOnOwnerExit">
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Owner required to start room session">
+      <label class="checkbox">
+        <input type="checkbox" ng-model="$ctrl.editMyRoom.ownerRequired">
+      </label>
+    </pbs-form-field>
+  </form>
+</pbs-modal>

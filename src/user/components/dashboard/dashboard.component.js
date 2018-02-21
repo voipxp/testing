@@ -261,6 +261,12 @@
         },
         {
           type: 'service',
+          service: 'Collaborate - Audio',
+          path: route('collaborate')
+        },
+
+        {
+          type: 'service',
           service: 'Connected Line Identification Restriction',
           path: route('connectedLineIdentificationRestriction')
         },
