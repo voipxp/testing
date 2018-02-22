@@ -435,14 +435,10 @@
           module: module('Provisioning')
         }
       })
-      .when(path('number'), {
-        template: '<user-number module="$resolve.module"></user-number>',
-        resolve: { acl: acl('Group') }
-      })
-      .when(path('device'), {
-        template: '<user-device module="$resolve.module"></user-device>',
+      .when(path('addresses'), {
+        template: '<user-addresses></user-addresses>',
         resolve: {
-          acl: acl('Group'),
+          acl: acl('User'),
           module: module('Provisioning')
         }
       })

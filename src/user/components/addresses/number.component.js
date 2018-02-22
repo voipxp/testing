@@ -1,12 +1,21 @@
 ;(function() {
   angular.module('odin.user').component('userNumber', {
-    templateUrl: 'user/components/number/number.component.html',
-    controller: Controller
+    templateUrl: 'user/components/addresses/number.component.html',
+    controller: Controller,
+    bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller(Alert, UserNumberService, UserService, $routeParams, $q) {
+  function Controller(
+    Alert,
+    UserNumberService,
+    UserService,
+    $routeParams,
+    $q,
+    ACL
+  ) {
     var ctrl = this
     ctrl.edit = edit
+    ctrl.canEdit = ACL.has('Group')
     ctrl.selectPhoneNumber = selectPhoneNumber
     ctrl.selectCLIDPhoneNumber = selectCLIDPhoneNumber
     ctrl.isActivated = isActivated

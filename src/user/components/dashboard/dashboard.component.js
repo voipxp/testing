@@ -92,20 +92,13 @@
         },
         {
           type: 'provisioning',
-          name: 'User Number',
-          path: route('number'),
+          name: 'Addresses',
+          path: route('addresses'),
           admin: true
         },
         {
           type: 'provisioning',
-          name: 'User Device',
-          path: route('device'),
-          admin: true,
-          module: 'Provisioning'
-        },
-        {
-          type: 'provisioning',
-          name: 'User Profile',
+          name: 'Profile',
           path: route('profile'),
           admin: true
         },

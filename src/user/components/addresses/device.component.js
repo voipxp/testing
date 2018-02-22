@@ -1,23 +1,13 @@
 ;(function() {
   angular.module('odin.user').component('userDevice', {
-    templateUrl: 'user/components/device/device.component.html',
-    controller: Controller
+    templateUrl: 'user/components/addresses/device.component.html',
+    controller: Controller,
+    bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller(
-    Alert,
-    $scope,
-    UserService,
-    GroupDeviceService,
-    $timeout,
-    $routeParams
-  ) {
+  function Controller(Alert, $scope, UserService, ACL, Module) {
     var ctrl = this
     ctrl.$onInit = onInit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
 
     ctrl.select = select
 
@@ -43,6 +33,7 @@
 
     function onInit() {
       ctrl.loading = true
+      ctrl.canEdit = ACL.has('Group') && Module.update('Provisioning')
       loadUser()
         .catch(function(error) {
           Alert.notify.danger(error)
