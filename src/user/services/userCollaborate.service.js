@@ -25,12 +25,10 @@
     }
     return service
 
-
     function bridge(userId) {
       return $http.get(url(userId) + '/bridge').then(function(response) {
         return response.data
       })
-
     }
     function show(userId) {
       return $http.get(url(userId) + '/myroom').then(function(response) {
