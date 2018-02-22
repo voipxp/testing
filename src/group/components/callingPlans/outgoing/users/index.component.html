@@ -6,7 +6,7 @@
     ng-click="$ctrl.open('outgoing')"></pbs-breadcrumb>
   <pbs-breadcrumb title="'Users'"></pbs-breadcrumb>
 </pbs-navigation>
-<pbs-tabs>
+<pbs-tabs delay="true">
   <pbs-tab label="Originating">
     <group-outgoing-calling-plan-originating-users service-provider-id="$ctrl.serviceProviderId"
       group-id="$ctrl.groupId">
@@ -22,7 +22,8 @@
       group-id="$ctrl.groupId">
     </group-outgoing-calling-plan-redirected-users>
   </pbs-tab>
-  <pbs-tab label="Call Me Now">
+  <pbs-tab label="Call Me Now"
+    ng-if="$ctrl.hasCallMeNow">
     <group-outgoing-calling-plan-call-me-now-users service-provider-id="$ctrl.serviceProviderId"
       group-id="$ctrl.groupId">
     </group-outgoing-calling-plan-call-me-now-users>
