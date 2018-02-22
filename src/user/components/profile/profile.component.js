@@ -22,7 +22,23 @@
 
     ctrl.password = password
 
-    ctrl.neverExpires = 2147483647
+    var neverExpires = [2147483647, -2147483648]
+
+    ctrl.passwordNeverExpires = function() {
+      return _.includes(neverExpires, ctrl.user.passwordExpiresDays)
+    }
+
+    ctrl.passwordExpiresToday = function() {
+      return ctrl.user.passwordExpiresDays === 0
+    }
+
+    ctrl.passwordExpiring = function() {
+      return !ctrl.passwordNeverExpires() && ctrl.user.passwordExpiresDays < 0
+    }
+
+    ctrl.passwordExpired = function() {
+      return !ctrl.passwordNeverExpires() && ctrl.user.passwordExpiresDays > 0
+    }
 
     function onInit() {
       ctrl.loading = true

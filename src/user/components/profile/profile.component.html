@@ -7,19 +7,19 @@
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Expiration (days)">
-        <span ng-show="$ctrl.user.passwordExpiresDays === $ctrl.neverExpires">
+        <span ng-show="$ctrl.passwordNeverExpires()">
           Password
           <strong>never</strong> expires
         </span>
-        <span ng-show="$ctrl.user.passwordExpiresDays === 0">
+        <span ng-show="$ctrl.passwordExpiresToday()">
           Password expires
           <strong>today</strong>
         </span>
-        <span ng-show="$ctrl.user.passwordExpiresDays < 0">
+        <span ng-show="$ctrl.passwordExpiring()">
           Password
           <strong>expired</strong> {{ $ctrl.user.passwordExpiresDays }} days ago
         </span>
-        <span ng-show="$ctrl.user.passwordExpiresDays > 0 && $ctrl.user.passwordExpiresDays !== $ctrl.neverExpires">
+        <span ng-show="$ctrl.passwordExpired()">
           Password expires in
           <strong>{{ $ctrl.user.passwordExpiresDays }}</strong> days
         </span>
