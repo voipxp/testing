@@ -8,6 +8,7 @@
 
     var service = {
       bridge: bridge,
+      regenerate: regenerate,
       show: show,
       update: update
     }
@@ -40,6 +41,13 @@
       return $http.put(url(userId) + '/myroom', obj).then(function(response) {
         return response.data
       })
+    }
+    function regenerate(userId, roomId) {
+      return $http
+        .put(url(userId) + '/regenerate/' + roomId)
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()

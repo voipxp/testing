@@ -101,7 +101,13 @@
            title="Edit Settings">
   <form name="editUserCollaborateMyRoomForm">
     <pbs-form-field label="Room Type">My Room</pbs-form-field>
-    <pbs-form-field label="Room ID">{{$ctrl.editMyRoom.roomId}}</pbs-form-field>
+    <pbs-form-field label="Room ID">{{$ctrl.editMyRoom.roomId}}
+      <pbs-block-buttons>
+        <pbs-button-compact-refresh title="Regenerate RoomID"
+                                    ng-click="$ctrl.regenerateMyRoomId($ctrl.editMyRoom.roomId)">
+        </pbs-button-compact-refresh>
+      </pbs-block-buttons>
+    </pbs-form-field>
     <pbs-form-field label="Room Name">
       <input type="text" class="input" ng-model="$ctrl.editMyRoom.roomName">
     </pbs-form-field>
@@ -128,7 +134,13 @@
            title="Edit Settings">
   <form name="editUserCollaborateProjectRoomForm">
     <pbs-form-field label="Room Type">{{$ctrl.editProjectRoom.roomType}}</pbs-form-field>
-    <pbs-form-field label="Room ID">{{$ctrl.editProjectRoom.roomId}}</pbs-form-field>
+    <pbs-form-field label="Room ID">{{$ctrl.editProjectRoom.roomId}}
+      <pbs-block-buttons>
+        <pbs-button-compact-refresh title="Regenerate RoomID"
+                                 ng-click="$ctrl.regenerateRoomId($ctrl.editProjectRoom.roomId)">
+        </pbs-button-compact-refresh>
+      </pbs-block-buttons>
+    </pbs-form-field>
     <pbs-form-field label="Room Name">
       <input type="text" class="input" ng-model="$ctrl.editProjectRoom.roomName">
     </pbs-form-field>

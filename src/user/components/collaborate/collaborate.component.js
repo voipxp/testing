@@ -25,7 +25,8 @@
     ctrl.openProjectRoom = openProjectRoom
     ctrl.addProjectRoom = addProjectRoom
     ctrl.instantRoomOptions = UserCollaborateInstantRoomService.options
-
+    ctrl.regenerateRoomId = regenerateRoomId
+    ctrl.regenerateMyRoomId = regenerateMyRoomId
     function onInit() {
       ctrl.loading = true
       return $q
@@ -219,6 +220,35 @@
           Alert.notify.danger('Project Room Removed')
           callback()
         })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    }
+    function regenerateMyRoomId(roomId) {
+      console.log(roomId, ctrl.editProjectRoom)
+      Alert.spinner.open()
+      UserCollaborateService.regenerate(ctrl.userId, roomId)
+        .then(function(response) {
+          ctrl.editMyRoom.roomId = response.roomId
+          Alert.notify.success('Project MyRoomId modified')
+        })
+        .then(loadProjectRoomList)
+        .then(loadInstantRoom)
+        .then(loadCollaborate)
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    }
+
+    function regenerateRoomId(roomId) {
+      console.log(roomId, ctrl.editProjectRoom)
+      Alert.spinner.open()
+      UserCollaborateService.regenerate(ctrl.userId, roomId)
+        .then(function(response) {
+          ctrl.editProjectRoom.roomId = response.roomId
+          Alert.notify.success('Project RoomId modified')
+        })
+        .then(loadProjectRoomList)
+        .then(loadInstantRoom)
+        .then(loadCollaborate)
         .catch(Alert.notify.danger)
         .finally(Alert.spinner.close)
     }
