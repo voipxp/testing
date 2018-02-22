@@ -23,6 +23,7 @@
     .directive('pbsButtonCompactRight', pbsButtonCompact('fa-chevron-right'))
     .directive('pbsButtonCompactLock', pbsButtonCompact('fa-lock'))
     .directive('pbsButtonCompactUsers', pbsButtonCompact('fa-users'))
+    .directive('pbsButtonCompactClone', pbsButtonCompact('fa-clone'))
 
   function pbsButtonCompact(icon) {
     button.$inject = []

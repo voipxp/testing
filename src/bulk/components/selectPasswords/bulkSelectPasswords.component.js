@@ -10,16 +10,24 @@
     var ctrl = this
     ctrl.complete = complete
     ctrl.$onInit = onInit
-    ctrl.templates = { password: '{{ generatePassword }}' }
+    ctrl.templates = {
+      password: '{{ generatePassword }}',
+      passcode: '{{ generatePasscode }}'
+    }
 
     function onInit() {
       if (ctrl.password === undefined) {
         ctrl.password = ctrl.templates.password
       }
+      if (ctrl.passcode === undefined) {
+        ctrl.passcode = null
+      }
     }
 
     function complete() {
-      ctrl.onUpdate(EventEmitter({ password: ctrl.password }))
+      ctrl.onUpdate(
+        EventEmitter({ password: ctrl.password, passcode: ctrl.passcode })
+      )
     }
   }
 })()

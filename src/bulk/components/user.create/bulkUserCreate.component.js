@@ -50,6 +50,7 @@
           callingLineIdFirstName: ctrl.data.callingLineIdFirstName,
           callingLineIdLastName: ctrl.data.callingLineIdLastName,
           password: ctrl.data.password,
+          passcode: ctrl.data.passcode,
           phoneNumber: _.get(ctrl.data, 'phoneNumbers.' + i),
           extension: ctrl.data.extension,
           callingLineIdPhoneNumber: ctrl.data.callingLineIdPhoneNumber,
