@@ -37,6 +37,16 @@
         <pbs-check-box checked="$ctrl.instantRoom.ownerRequired"></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
+  </pbs-block>
+  <pbs-block title="Rooms">
+  <pbs-block-buttons>
+      <pbs-block-buttons>
+        <pbs-button-compact-add ng-click="$ctrl.addProjectRoom()"
+                                title="Add New Project Room">
+        </pbs-button-compact-add>
+      </pbs-block-buttons>
+    </pbs-block-buttons>
+
     <table pbs-table>
       <thead>
         <tr>
@@ -48,7 +58,7 @@
       </thead>
       <tbody>
       <tr class="hover"
-          ng-click="$ctrl.openMyRoom(collaborate)">
+          ng-click="$ctrl.openMyRoom($ctrl.myRoom)">
         <td>My Room</td>
         <td>{{ $ctrl.myRoom.roomName }}</td>
         <td>{{ $ctrl.myRoom.roomId }}</td>
@@ -56,14 +66,13 @@
       </tr>
 
         <tr class="hover"
-          ng-click="$ctrl.open(collaborate)"
-          ng-repeat="collaborate in $ctrl.listCollaborate.collaborateBridgeTable | filter:$ctrl.search | orderBy:'name' as results track by collaborate.serviceUserId">
-          <td>{{ collaborate.name }}</td>
-          <td>{{ collaborate.participants }}</td>
-          <td>{{ collaborate.phoneNumber }}</td>
-          <td>{{ collaborate.extension }}</td>
-          <td>{{ collaborate.department }}</td>
-          <td>{{ collaborate.isDefault }}</td>
+          ng-click="$ctrl.openProjectRoom(projectRoom)"
+          ng-repeat="projectRoom in $ctrl.projectRooms.rooms | filter:$ctrl.search | orderBy:'name' as results track by projectRoom.roomId"
+          ng-if="projectRoom.roomType == 'Project Room'">
+          <td>{{ projectRoom.roomType }}</td>
+          <td>{{ projectRoom.name }}</td>
+          <td>{{ projectRoom.roomId }}</td>
+          <td>{{ projectRoom.attendeeNotification }}</td>
         </tr>
       </tbody>
     </table>
@@ -96,7 +105,7 @@
   <form name="editUserCollaborateMyRoomForm">
     <pbs-form-field label="Room Type">My Room</pbs-form-field>
     <pbs-form-field label="Room ID">{{$ctrl.editMyRoom.roomId}}</pbs-form-field>
-    <pbs-form-field label="Forward To Specified #">
+    <pbs-form-field label="Room Name">
       <input type="text" class="input" ng-model="$ctrl.editMyRoom.roomName">
     </pbs-form-field>
     <pbs-form-field label="Notification">
@@ -113,6 +122,33 @@
     <pbs-form-field label="Owner required to start room session">
       <label class="checkbox">
         <input type="checkbox" ng-model="$ctrl.editMyRoom.ownerRequired">
+      </label>
+    </pbs-form-field>
+  </form>
+</pbs-modal>
+
+<pbs-modal id="editUserCollaborateProjectRoom"
+           title="Edit Settings">
+  <form name="editUserCollaborateProjectRoomForm">
+    <pbs-form-field label="Room Type">{{$ctrl.editProjectRoom.roomType}}</pbs-form-field>
+    <pbs-form-field label="Room ID">{{$ctrl.editProjectRoom.roomId}}</pbs-form-field>
+    <pbs-form-field label="Room Name">
+      <input type="text" class="input" ng-model="$ctrl.editProjectRoom.roomName">
+    </pbs-form-field>
+    <pbs-form-field label="Notification">
+      <div class="select">
+        <select ng-model="$ctrl.editProjectRoom.attendeeNotification"
+                ng-options="opt as opt for opt in $ctrl.instantRoomOptions.attendeeNotification"></select>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field label="End room session when owner departs">
+      <label class="checkbox">
+        <input type="checkbox" ng-model="$ctrl.editProjectRoom.endCollaborateRoomSessionOnOwnerExit">
+      </label>
+    </pbs-form-field>
+    <pbs-form-field label="Owner required to start room session">
+      <label class="checkbox">
+        <input type="checkbox" ng-model="$ctrl.editProjectRoom.ownerRequired">
       </label>
     </pbs-form-field>
   </form>

@@ -11,6 +11,7 @@
     Alert,
     UserCollaborateService,
     UserCollaborateInstantRoomService,
+    UserCollaborateProjectRoomService,
     Route
   ) {
     var ctrl = this
@@ -19,18 +20,21 @@
     ctrl.groupId = $routeParams.groupId
     ctrl.userId = $routeParams.userId
     ctrl.open = open
-    ctrl.add = add
     ctrl.editModelInstantRoom = editModelInstantRoom
     ctrl.openMyRoom = openMyRoom
-
-    ctrl.onCreate = onCreate
+    ctrl.openProjectRoom = openProjectRoom
+    ctrl.addProjectRoom = addProjectRoom
     ctrl.instantRoomOptions = UserCollaborateInstantRoomService.options
 
     function onInit() {
       ctrl.loading = true
-      console.log('ctrl.instantRoomOptions', ctrl.instantRoomOptions)
       return $q
-        .all([loadCollaborate(), loadBridge(), loadInstantRoom()])
+        .all([
+          loadCollaborate(),
+          loadBridge(),
+          loadInstantRoom(),
+          loadProjectRoomList()
+        ])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
@@ -38,25 +42,36 @@
           ctrl.loading = false
         })
     }
+    function loadProjectRoomList() {
+      return UserCollaborateProjectRoomService.index(ctrl.userId).then(function(
+        data
+      ) {
+        ctrl.projectRooms = data
+      })
+    }
     function loadInstantRoom() {
       return UserCollaborateInstantRoomService.show(ctrl.userId).then(function(
         data
       ) {
         ctrl.instantRoom = data
-        console.log('instant room', data)
       })
     }
 
     function loadBridge() {
       return UserCollaborateService.bridge(ctrl.userId).then(function(data) {
         ctrl.bridge = data
-        console.log('bridge', data)
       })
+    }
+    function loadProjectRoom(roomId) {
+      return UserCollaborateProjectRoomService.show(ctrl.userId, roomId).then(
+        function(data) {
+          ctrl.projectRoom = data
+        }
+      )
     }
     function loadCollaborate() {
       return UserCollaborateService.show(ctrl.userId).then(function(data) {
         ctrl.myRoom = data
-        console.log('myRoom', data)
       })
     }
 
@@ -79,6 +94,38 @@
           Alert.notify.danger(error)
         })
     }
+    function addProjectRoom() {
+      ctrl.editProjectRoom = {}
+      Alert.modal.open('editUserCollaborateProjectRoom', function(close) {
+        createProjectRoom(close)
+      })
+    }
+    function openProjectRoom(projectRoom) {
+      loadProjectRoom(projectRoom.roomId)
+        .then(function() {
+          ctrl.editProjectRoom = angular.copy(ctrl.projectRoom)
+          ctrl.editProjectRoom.roomId = projectRoom.roomId
+          ctrl.editProjectRoom.roomType = projectRoom.roomType
+          ctrl.editProjectRoom.roomName = projectRoom.name
+          ctrl.showOptional = false
+          Alert.modal.open(
+            'editUserCollaborateProjectRoom',
+            function(close) {
+              updateProjectRoom(projectRoom, close)
+            },
+            function(close) {
+              Alert.confirm
+                .open('Are you sure you want to delete this Criteria?')
+                .then(function() {
+                  destroy(ctrl.editProjectRoom, close)
+                })
+            }
+          )
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+    }
 
     function editModelInstantRoom() {
       ctrl.editInstantRoom = angular.copy(ctrl.instantRoom)
@@ -91,6 +138,42 @@
         })
         .catch(function(error) {
           Alert.notify.danger(error)
+        })
+    }
+    function createProjectRoom(callback) {
+      UserCollaborateProjectRoomService.store(ctrl.userId, ctrl.editProjectRoom)
+        .then(loadProjectRoomList)
+        .then(function() {
+          Alert.notify.success('Project Room Created')
+          if (_.isFunction(callback)) {
+            callback()
+          }
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    }
+    function updateProjectRoom(settings, callback) {
+      UserCollaborateProjectRoomService.update(
+        ctrl.userId,
+        ctrl.editProjectRoom.roomId,
+        ctrl.editProjectRoom
+      )
+        .then(loadProjectRoomList)
+        .then(function() {
+          Alert.notify.success('Project Room Updated')
+          if (_.isFunction(callback)) {
+            callback()
+          }
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
         })
     }
     function updateMyRoom(settings, callback) {
@@ -128,9 +211,16 @@
           Alert.spinner.close()
         })
     }
-
-    function add() {}
-
-    function onCreate() {}
+    function destroy(criteria, callback) {
+      Alert.spinner.open()
+      UserCollaborateProjectRoomService.destroy(ctrl.userId, criteria.roomId)
+        .then(loadProjectRoomList)
+        .then(function() {
+          Alert.notify.danger('Project Room Removed')
+          callback()
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    }
   }
 })()
