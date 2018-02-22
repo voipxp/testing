@@ -63,7 +63,6 @@
 
     function setDefaultDomain() {
       ctrl.suffix = ctrl.suffix || _.get(ctrl, 'domains.default')
-      update()
     }
 
     function sendUpdate(userId) {
