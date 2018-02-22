@@ -10,11 +10,9 @@
     UserService,
     $routeParams,
     $q,
-    SystemStateService,
-    SystemLanguageService,
-    SystemTimeZoneService,
     Session,
-    Auth
+    Auth,
+    ACL
   ) {
     var ctrl = this
     ctrl.update = update
@@ -29,14 +27,9 @@
     function onInit() {
       ctrl.loading = true
       return $q
-        .all([
-          Session.load(),
-          loadUser(),
-          loadStates(),
-          loadTimeZones(),
-          loadLanguages()
-        ])
+        .all([Session.load(), loadUser()])
         .then(function() {
+          ctrl.isAdmin = ACL.has('Group')
           ctrl.isCurrentUser = ctrl.userId === Session.data('userId')
         })
         .catch(function(error) {
@@ -51,28 +44,6 @@
       return UserService.show(ctrl.userId).then(function(data) {
         ctrl.user = data
         console.log('user', data)
-      })
-    }
-
-    function loadStates() {
-      return SystemStateService.index().then(function(data) {
-        ctrl.states = data
-        return data
-      })
-    }
-
-    function loadTimeZones() {
-      return SystemTimeZoneService.index().then(function(data) {
-        ctrl.timezones = data
-        return data
-      })
-    }
-
-    function loadLanguages() {
-      return SystemLanguageService.index().then(function(data) {
-        console.log('languages', data)
-        ctrl.languages = data
-        return data
       })
     }
 
