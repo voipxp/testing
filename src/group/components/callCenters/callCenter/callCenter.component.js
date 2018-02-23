@@ -23,11 +23,13 @@
     ctrl.destroy = destroy
     ctrl.hasPermission = hasPermission
     ctrl.assigned = assigned
+    ctrl.hasIncoming = hasIncoming
+    ctrl.loadAssigned = loadAssigned
     ctrl._assigned
 
     function activate() {
       ctrl.loading = true
-      loadAssigned(ctrl.serviceUserId)
+      loadAssigned()
         .then(loadCallCenter())
         .catch(function(error) {
           Alert.notify.danger(error)
@@ -93,8 +95,8 @@
       return GroupCallCenterService.hasPermission(ctrl.center, attribute)
     }
 
-    function loadAssigned(userId) {
-      return UserServiceService.assigned(userId)
+    function loadAssigned() {
+      return UserServiceService.assigned(ctrl.serviceUserId)
         .then(mapServices)
         .then(function(data) {
           console.log('ctrl._assigned', data)
@@ -112,6 +114,17 @@
 
     function assigned(name) {
       return !!ctrl._assigned[name]
+    }
+
+    function hasIncoming() {
+      var services = [
+        'Call Forwarding Always',
+        'Call Forwarding Busy',
+        'Calling Name Retrieval',
+        'Call Forwarding Selective',
+        'Priority Alert'
+      ]
+      return _.find(services, assigned)
     }
   }
 })()

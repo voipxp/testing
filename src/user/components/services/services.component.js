@@ -2,10 +2,10 @@
   angular.module('odin.user').component('userServices', {
     templateUrl: 'user/components/services/services.component.html',
     controller: Controller,
-    bindings: { serviceType: '@', userId: '<' }
+    bindings: { serviceType: '@', userId: '<', onUpdate: '&' }
   })
 
-  function Controller(Alert, UserServiceService, $filter) {
+  function Controller(Alert, UserServiceService, $filter, EventEmitter) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.toggle = toggle
@@ -50,6 +50,7 @@
             ? Alert.notify.success
             : Alert.notify.warning
           action(service.serviceName + ' ' + message)
+          sendUpdate(singleService)
         })
         .catch(function(error) {
           console.log('error', error.data)
@@ -59,6 +60,10 @@
         .finally(function() {
           service.isLoading = false
         })
+    }
+
+    function sendUpdate(service) {
+      ctrl.onUpdate(EventEmitter({ userId: ctrl.userId, service: service }))
     }
   }
 })()

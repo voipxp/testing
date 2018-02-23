@@ -25,7 +25,8 @@
 
   <pbs-tab label="User Services">
     <user-services service-type="userServices"
-      user-id="$ctrl.serviceUserId">
+      user-id="$ctrl.serviceUserId"
+      on-update="$ctrl.loadServices()">
     </user-services>
   </pbs-tab>
 

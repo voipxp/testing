@@ -26,6 +26,7 @@
     ctrl.updateProfile = updateProfile
     ctrl.update = update
     ctrl.destroy = destroy
+    ctrl.loadServices = loadServices
 
     function onInit() {
       ctrl.loading = true

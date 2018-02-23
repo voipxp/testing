@@ -58,6 +58,12 @@
   <pbs-tab label="Announcements"
     ng-if="$ctrl.hasAnnouncements"
     read-only=!$ctrl.module.permissions.update>
-    <user-announcements user-id="$ctrl.autoAttendant.serviceUserId"></user-announcements>
+    <user-announcements user-id="$ctrl.serviceUserId"></user-announcements>
+  </pbs-tab>
+  <pbs-tab label="User Services">
+    <user-services service-type="userServices"
+      user-id="$ctrl.serviceUserId"
+      on-update="">
+    </user-services>
   </pbs-tab>
 </pbs-tabs>

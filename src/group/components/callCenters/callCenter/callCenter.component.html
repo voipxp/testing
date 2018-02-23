@@ -48,9 +48,29 @@
       ng-if="$ctrl.hasPermission('enableReporting')">
       <group-call-center-thresholds service-user-id="$ctrl.serviceUserId"></group-call-center-thresholds>
     </pbs-tab>
-    <pbs-tab label="Call Forwarding Busy"
-      ng-if="$ctrl.assigned('Call Forwarding Busy')">
-      <user-call-forwarding-busy user-id="$ctrl.serviceUserId"></user-call-forwarding-busy>
+    <pbs-tab label="User Services">
+      <user-services service-type="userServices"
+        user-id="$ctrl.serviceUserId"
+        on-update="$ctrl.loadAssigned()">
+      </user-services>
+    </pbs-tab>
+    <pbs-tab label="Incoming Calls"
+      ng-if="$ctrl.hasIncoming()">
+      <user-call-forwarding-always user-id="$ctrl.serviceUserId"
+        ng-if="$ctrl.assigned('Call Forwarding Always')">
+      </user-call-forwarding-always>
+      <user-call-forwarding-busy user-id="$ctrl.serviceUserId"
+        ng-if="$ctrl.assigned('Call Forwarding Busy')">
+      </user-call-forwarding-busy>
+      <user-calling-name-retrieval user-id="$ctrl.serviceUserId"
+        ng-if="$ctrl.assigned('Calling Name Retrieval')">
+      </user-calling-name-retrieval>
+      <user-call-forwarding-selective user-id="$ctrl.serviceUserId"
+        ng-if="$ctrl.assigned('Call Forwarding Selective')">
+      </user-call-forwarding-selective>
+      <user-priority-alert user-id="$ctrl.serviceUserId"
+        ng-if="$ctrl.assigned('Priority Alert')">
+      </user-priority-alert>
     </pbs-tab>
     <pbs-tab label="Calling Plans">
       <user-incoming-calling-plan user-id="$ctrl.serviceUserId"
