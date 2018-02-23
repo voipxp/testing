@@ -13,39 +13,24 @@
     UserCallForwardingSelectiveCriteriaService,
     ACL,
     $scope,
-    UserScheduleService,
-    UserHolidayScheduleService,
     Module
   ) {
     var ctrl = this
-    ctrl.options = UserCallForwardingSelectiveService.options
-    ctrl.criteriaOptions = UserCallForwardingSelectiveCriteriaService.options
 
-    ctrl.users = []
-    ctrl.domains = []
-    ctrl.hasPermission = ACL.has
-    ctrl.criteria = []
-    ctrl.criteriaName
-    ctrl.schedules = []
-    ctrl.editCriteria = []
-
-    ctrl.eCriteria = eCriteria
-    ctrl.edit = edit
     ctrl.$onInit = onInit
-    ctrl.addCriteria = addCriteria
+    ctrl.checkForActive = checkForActive
+    ctrl.hasActiveCriteria = hasActiveCriteria
+    ctrl.options = UserCallForwardingSelectiveCriteriaService.options
+    ctrl.edit = edit
+    ctrl.toggle = toggle
+    ctrl.toggleCriteria = toggleCriteria
+    ctrl.reload = loadSettings
 
     function onInit() {
       ctrl.loading = true
       $q
-        .all([
-          loadModule(),
-          loadSettings(),
-          loadUserSchedules(),
-          loadHolidaySchedules()
-        ])
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+        .all([loadModule(), loadSettings()])
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
@@ -57,12 +42,22 @@
       })
     }
 
+    function hasActiveCriteria() {
+      return _.find(ctrl.settings.criteria, { isActive: true })
+    }
+
+    function checkForActive() {
+      if (ctrl.editSettings.isActive && !hasActiveCriteria()) {
+        Alert.notify.warning('An Active Criteria is Required To Enable')
+        ctrl.editSettings.isActive = false
+      }
+    }
+
     function loadSettings() {
       return UserCallForwardingSelectiveService.show(ctrl.userId).then(function(
         data
       ) {
         ctrl.settings = data
-        console.log('ctrl.settings', ctrl.settings)
       })
     }
 
@@ -73,246 +68,60 @@
       })
     }
 
-    function eCriteria(criteriaName, isActive) {
-      if (!ctrl.module.permissions.update) return
-      loadCriteria(criteriaName).then(function(criteria) {
-        // ctrl.criteriaName = criteriaName;
-        // ctrl.criteriaIsActive = isActive;
-        ctrl.editCriteria = criteria
-        ctrl.editCriteria.isActive = isActive
-        ctrl.editCriteria.name = criteriaName
-        ctrl.criteria = angular.copy(criteria)
-        if (typeof ctrl.editCriteria.timeSchedule === 'undefined') {
-          ctrl.editCriteria.timeSchedule = {}
-          ctrl.editCriteria.timeSchedule.name = ''
-        }
-        if (ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers === 'true')
-          ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers = true
-        else ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers = false
-
-        if (
-          ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers === 'true'
-        )
-          ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers = true
-        else ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers = false
-
-        Alert.modal.open(
-          'editUserCallForwardingSelectiveCriteria',
-          function onSave(close) {
-            updateCriteria(criteriaName, ctrl.editCriteria, close)
-          },
-          function onDelete(close) {
-            destroyCriteria(ctrl.userId, criteriaName, close)
-          }
-        )
-      })
-    }
-
-    function loadCriteria(criteriaName) {
-      Alert.spinner.open()
-      return UserCallForwardingSelectiveCriteriaService.show(
-        ctrl.userId,
-        criteriaName
-      )
-        .then(function(data) {
-          ctrl.criteria = data
-          console.log('ctrl.criteria', ctrl.criteria)
-          return data
-        })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-          return $q.reject(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
-    }
     function update(settings, callback) {
       Alert.spinner.open()
-      UserCallForwardingSelectiveService.update(ctrl.userId, settings)
+      return UserCallForwardingSelectiveService.update(ctrl.userId, settings)
         .then(loadSettings)
         .then(function() {
           Alert.notify.success('Settings Updated')
-          if (_.isFunction(callback)) callback()
+          callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
-    function updateCriteria(criteriaName, settings, callback) {
-      Alert.spinner.open()
-      console.log('criteriaName', criteriaName, ctrl.criteriaName)
-      console.log('edit(criteriaName) ctrl.editCriteria', ctrl.editCriteria)
-      ctrl.editCriteria.newCriteriaName = ctrl.editCriteria.name
-
-      if (typeof settings.timeSchedule !== 'undefined') {
-        settings.timeSchedule = ctrl.schedules.find(function(o) {
-          return o.name == settings.timeSchedule.name
-        })
-      } else {
-        console.log('create blank json object for settings.timeSchedule')
-        settings.timeSchedule = {}
-      }
-
-      if (typeof settings.holidaySchedule !== 'undefined') {
-        settings.holidaySchedule = ctrl.holidaySchedules.find(function(o) {
-          return o.name == settings.holidaySchedule.name
-        })
-      } else {
-        settings.holidaySchedule = {}
-        settings.holidayScheduleName = null
-      }
-      var p = false
-      var obj = {
-        criteria: []
-      }
-      obj.criteria.push({
-        criteriaName: ctrl.editCriteria.name,
-        isActive: ctrl.editCriteria.isActive
-      })
-      console.log('obj.criteria', obj.criteria)
-      if (
-        typeof settings.fromDnCriteria.phoneNumbers == 'undefined' &&
-        settings.fromDnCriteria.phoneNumbers == null
-      ) {
-        delete settings.fromDnCriteria.phoneNumbers
-      } else {
-        for (var i = 0; i < settings.fromDnCriteria.phoneNumbers.length; i++) {
-          if (
-            settings.fromDnCriteria.phoneNumbers != 'undefined' &&
-            settings.fromDnCriteria.phoneNumbers != null &&
-            settings.fromDnCriteria.phoneNumbers[i].length > 0
-          ) {
-            p = true
-            break
-          }
-        }
-      }
-      if (p == false) {
-        settings.fromDnCriteria.phoneNumbers = []
-      }
-
-      UserCallForwardingSelectiveCriteriaService.update(
+    // toggle isActive on settings
+    // then reload
+    function toggle() {
+      var isActive = ctrl.settings.isActive
+      if (isActive && !hasActiveCriteria()) return
+      ctrl.settings.isLoading = true
+      return UserCallForwardingSelectiveService.update(
         ctrl.userId,
-        criteriaName,
-        settings
+        ctrl.settings
       )
-        .then(UserCallForwardingSelectiveService.update(ctrl.userId, obj))
-        .then(loadSettings)
         .then(function() {
-          Alert.notify.success('Settings Updated')
-          if (_.isFunction(callback)) callback()
+          var message = isActive ? 'Activated' : 'Deactivated'
+          var action = isActive ? Alert.notify.success : Alert.notify.warning
+          action('Call Forwarding Selective ' + message)
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(loadSettings)
     }
 
-    function loadHolidaySchedules() {
-      return UserHolidayScheduleService.index(ctrl.userId).then(function(data) {
-        ctrl.holidaySchedules = data
-        return data
+    // toggle isActive on a criteria
+    // then reload settings
+    function toggleCriteria(criteria) {
+      var editSettings = angular.copy(ctrl.settings)
+      var original = _.find(editSettings.criteria, {
+        criteriaName: criteria.criteriaName
       })
-    }
-    function loadUserSchedules() {
-      return UserScheduleService.index(ctrl.userId).then(function(data) {
-        ctrl.schedules = data
-        console.log('ctrl.schedules:', ctrl.schedules)
-        return data
-      })
-    }
-
-    function addCriteria() {
-      ctrl.editCriteria = {}
-      Alert.modal.open(
-        'editUserCallForwardingSelectiveCriteria',
-        function onSave(close) {
-          console.log('ctrl.editCriteria.name', ctrl.editCriteria.name)
-          console.log('ctrl.editCriteria', ctrl.editCriteria)
-          ctrl.editCriteria.criteriaName = ctrl.criteriaName
-          // ctrl.editCriteria.newCriteriaName = ctrl.criteriaName
-          // ctrl.editSettings.phoneNumber.phoneNumber = ctrl.editSettings.phoneNumber.newPhoneNumber
-          doAddCriteria(ctrl.editCriteria, close)
-        }
-      )
-    }
-
-    function doAddCriteria(settings, callback) {
-      ctrl.editCriteria = angular.copy(settings)
-
-      // settings.editCriteria.newCriteriaName = settings.criteriaName
-      // settings.phoneNumber.phoneNumber = settings.phoneNumber.newPhoneNumber
-      console.log('doAddCriteria', settings)
-      if (typeof settings.timeSchedule !== 'undefined') {
-        settings.timeSchedule = ctrl.schedules.find(function(o) {
-          return o.name == settings.timeSchedule.name
-        })
+      original.isActive = !original.isActive
+      var active = _.find(editSettings.criteria, { isActive: true })
+      if (!active) {
+        editSettings.isActive = false
       }
-      if (typeof settings.holidaySchedule !== 'undefined') {
-        settings.holidaySchedule = ctrl.holidaySchedules.find(function(o) {
-          return o.name == settings.holidaySchedule.name
-        })
-      }
-      var obj = {
-        criteria: []
-      }
-      obj.criteria.push({
-        criteriaName: ctrl.editCriteria.name,
-        isActive: ctrl.editCriteria.isActive
-      })
-      console.log('obj.criteria', obj.criteria)
-
-      ctrl.editCriteria.criteriaName = settings.name
-      console.log('settings', settings)
-      console.log('ctrl.editCriteria', ctrl.editCriteria)
-
-      Alert.spinner.open()
-      UserCallForwardingSelectiveCriteriaService.create(
+      return UserCallForwardingSelectiveService.update(
         ctrl.userId,
-        ctrl.editCriteria
+        editSettings
       )
-        // .then(UserCallForwardingSelectiveService.update(ctrl.userId,obj))
         .then(loadSettings)
         .then(function() {
-          Alert.notify.success('Settings Added')
-          if (_.isFunction(callback)) callback()
-        })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
-    }
-
-    function destroyCriteria(userId, criteriaName, callback) {
-      Alert.confirm
-        .open('Are you sure you want to delete this criteria?')
-        .then(function() {
-          doDestroyPhoneNumber(userId, criteriaName, callback)
-        })
-    }
-
-    function doDestroyPhoneNumber(userId, criteriaName, callback) {
-      Alert.spinner.open()
-      UserCallForwardingSelectiveCriteriaService.destroy(userId, criteriaName)
-        .then(loadSettings)
-        .then(function() {
-          Alert.notify.success('Criteria Deleted')
-          if (_.isFunction(callback)) callback()
-        })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
+          var message = criteria.isActive ? 'Activated' : 'Deactivated'
+          var action = criteria.isActive
+            ? Alert.notify.success
+            : Alert.notify.warning
+          action(criteria.criteriaName + ' ' + message)
         })
     }
   }

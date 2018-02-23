@@ -7,7 +7,6 @@
     )
 
   function UserCallForwardingSelectiveCriteriaService($http, Route) {
-    var url = Route.api('/services/users/callforwardingselective')
     var service = {
       index: index,
       create: create,
@@ -25,32 +24,40 @@
     }
     return service
 
-    function index(id) {
-      return $http.get(url(id, 'criteria')).then(function(response) {
+    function url(userId, criteriaName) {
+      return Route.api('/services/users/callforwardingselective')(
+        userId,
+        'criteria',
+        criteriaName
+      )
+    }
+
+    function index(userId) {
+      return $http.get(url(userId)).then(function(response) {
         return response.data
       })
     }
 
-    function create(id, obj) {
-      return $http.post(url(id, 'criteria'), obj).then(function(response) {
+    function create(userId, obj) {
+      return $http.post(url(userId), obj).then(function(response) {
         return response.data
       })
     }
 
-    function show(id, name) {
-      return $http.get(url(id, 'criteria', name)).then(function(response) {
+    function show(userId, name) {
+      return $http.get(url(userId, name)).then(function(response) {
         return response.data
       })
     }
 
-    function update(id, name, obj) {
-      return $http.put(url(id, 'criteria', name), obj).then(function(response) {
+    function update(userId, name, obj) {
+      return $http.put(url(userId, name), obj).then(function(response) {
         return response.data
       })
     }
 
-    function destroy(id, name) {
-      return $http.delete(url(id, 'criteria', name)).then(function(response) {
+    function destroy(userId, name) {
+      return $http.delete(url(userId, name)).then(function(response) {
         return response.data
       })
     }

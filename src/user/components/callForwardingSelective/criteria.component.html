@@ -1,0 +1,137 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Call Forwarding Selective Criteria"
+    class="margin-top">
+    <pbs-block-buttons>
+      <pbs-block-buttons>
+        <pbs-button-compact-add if-module-update="$ctrl.module"
+          ng-click="$ctrl.add()"
+          title="Add New Criteria">
+        </pbs-button-compact-add>
+      </pbs-block-buttons>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Forward</th>
+          <th>Calls From</th>
+          <th>Forward To</th>
+          <th class="has-text-centered">Is Active</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="99">No Criteria Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-repeat="criteria in $ctrl.criterias | filter:$ctrl.search as results track by criteria.criteriaName"
+          ng-click="$ctrl.edit(criteria)">
+          <td>{{ criteria.criteriaName }}</td>
+          <td>
+            <pbs-check-box checked="criteria.forwardToNumberSelection === 'Do not forward'"></pbs-check-box>
+          </td>
+          <td>{{ criteria.callsFrom.join(', ') }}</td>
+          <td>{{ criteria.forwardTo }}</td>
+          <td no-parent-click>
+            <input type="checkbox"
+              ng-model="criteria.isActive"
+              ng-change="$ctrl.toggle(criteria)"
+              pbs-input-switch="centered"
+              ng-disabled="criteria.isLoading">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+
+<pbs-modal id="editUserCallForwardingSelectiveCriteria"
+  title="Edit Criteria">
+  <pbs-form>
+
+    <pbs-form-section>General Settings</pbs-form-section>
+
+    <pbs-form-field-horizontal label="Description">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editCriteria.newCriteriaName"
+        required>
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal label="Forward To">
+      <select ng-model="$ctrl.editCriteria.forwardToNumberSelection"
+        ng-options="x for x in $ctrl.options.forwardToNumberSelection"
+        required
+        pbs-input-select>
+      </select>
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal label="Forward To Specified"
+      ng-show="$ctrl.editCriteria.forwardToNumberSelection === 'Forward To Specified Number'">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editCriteria.forwardToPhoneNumber">
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal label="Time Schedule">
+      <select-user-schedule user-id="$ctrl.userId"
+        type="Time"
+        ng-model="$ctrl.editCriteria.timeSchedule">
+      </select-user-schedule>
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal label="Holiday Schedule">
+      <select-user-schedule user-id="$ctrl.userId"
+        type="Holiday"
+        ng-model="$ctrl.editCriteria.holidaySchedule">
+      </select-user-schedule>
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal label="Calls From">
+      <select ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
+        ng-options="x for x in $ctrl.options.fromDnCriteriaSelection"
+        required
+        pbs-input-select>
+      </select>
+    </pbs-form-field-horizontal>
+
+    <div ng-show="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection === 'Specified Only'">
+
+      <pbs-form-section>Allow From</pbs-form-section>
+
+      <input type="checkbox"
+        label="Any Private Number"
+        pbs-input-checkradio
+        ng-model="$ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers">
+
+      <input type="checkbox"
+        label="Any Unavailable Number"
+        pbs-input-checkradio
+        ng-model="$ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers">
+
+      <pbs-form-section>Allow From Specific Numbers</pbs-form-section>
+
+      <div class="columns">
+        <div class="column">
+          <input class="input"
+            style="margin-bottom: 1rem"
+            ng-repeat="idx in [0,1,2,3,4,5] track by $index"
+            type="text"
+            ng-model="$ctrl.editCriteria.fromDnCriteria.phoneNumbers[idx]">
+        </div>
+        <div class="column">
+          <input class="input"
+            style="margin-bottom: 1rem"
+            ng-repeat="idx in [6,7,8,9,10,11] track by $index"
+            type="text"
+            ng-model="$ctrl.editCriteria.fromDnCriteria.phoneNumbers[idx]">
+        </div>
+      </div>
+    </div>
+  </pbs-form>
+</pbs-modal>

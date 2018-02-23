@@ -8,156 +8,42 @@
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Active">
-        <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
+        <input type="checkbox"
+          ng-model="$ctrl.settings.isActive"
+          ng-change="$ctrl.toggle()"
+          pbs-input-switch
+          ng-disabled="$ctrl.settings.isLoading || !$ctrl.hasActiveCriteria()">
       </pbs-list-item>
-      <pbs-list-item label="Play Ring Reminder">
-        <pbs-check-box checked="$ctrl.settings.playRingReminder"></pbs-check-box>
-      </pbs-list-item>
-      <pbs-list-item label="Forward To PhoneNumber">
+      <pbs-list-item label="Default Forward To Phone Number">
         {{$ctrl.settings.defaultForwardToPhoneNumber}}
+      </pbs-list-item>
+      <pbs-list-item label="Play Ring Reminder When Forwarded">
+        <pbs-check-box checked="$ctrl.settings.playRingReminder"></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
-
-  <pbs-block title="Call Forwarding Selective Criteria"
-    class="margin-top">
-    <pbs-block-buttons>
-      <pbs-block-buttons>
-        <pbs-button-compact-add if-module-update="$ctrl.module"
-          ng-click="$ctrl.addCriteria($ctrl.userId)"
-          title="Add New Criteria">
-        </pbs-button-compact-add>
-      </pbs-block-buttons>
-    </pbs-block-buttons>
-    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
-    <table pbs-table>
-      <thead>
-        <tr>
-          <th>Active</th>
-          <th>Name</th>
-          <th>Time Schedule</th>
-          <th>Holiday Schedule</th>
-          <th>Blacklisted</th>
-          <th>Forward To</th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr ng-if="results.length < 1">
-          <td colspan="99">No Call Forwarding Selective Criteria Found
-            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
-          </td>
-        </tr>
-      </tfoot>
-      <tbody>
-        <tr class="hover"
-          ng-repeat="criteria in $ctrl.settings.criteria | filter:$ctrl.search as results track by criteria.criteriaName"
-          ng-click="$ctrl.eCriteria(criteria.criteriaName,criteria.isActive)">
-          <td>
-            <pbs-check-box checked="criteria.isActive"></pbs-check-box>
-          </td>
-          <td>{{ criteria.criteriaName }}</td>
-          <td>{{ criteria.timeSchedule }}</td>
-          <td>{{ criteria.holidaySchedule }}</td>
-          <td>
-            <pbs-check-box checked="criteria.blacklisted">
-          </td>
-          <td>{{ criteria.forwardTo }}</td>
-        </tr>
-      </tbody>
-
-    </table>
-  </pbs-block>
 </pbs-spinner>
+
+<user-call-forwarding-selective-criteria user-id="$ctrl.userId"
+  on-update="$ctrl.onCriteriaUpdate($event)"></user-call-forwarding-selective-criteria>
+
 <pbs-modal id="editUserCallForwardingSelective"
   title="Edit Settings">
   <pbs-form>
-    <pbs-form-field label="General Settings">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.isActive"> Is Active
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.playRingReminder">
-        </input>
-        Play Ring Reminder
-      </label>
-    </pbs-form-field>
-    <pbs-form-field label="Forward To">
+    <input type="checkbox"
+      ng-model="$ctrl.editSettings.isActive"
+      label="Activate Call Forwarding Selective"
+      ng-click="$ctrl.checkForActive()"
+      pbs-input-checkradio>
+    <input type="checkbox"
+      ng-model="$ctrl.editSettings.playRingReminder"
+      label="Play Ring Reminder When Call is Forwarded"
+      pbs-input-checkradio>
+    <pbs-form-field-horizontal label="Default Forward To">
       <input type="text"
         class="input"
         ng-model="$ctrl.editSettings.defaultForwardToPhoneNumber"
         required>
-    </pbs-form-field>
-  </pbs-form>
-</pbs-modal>
-
-<pbs-modal id="editUserCallForwardingSelectiveCriteria"
-  title="Edit Criteria">
-  <pbs-form>
-    <pbs-form-field label="Active">
-      <pbs-input-checkbox label="Enable Call Forwarding Selective"
-        ng-model="$ctrl.editCriteria.isActive"></pbs-input-checkbox>
-    </pbs-form-field>
-    <pbs-form-field label="Description">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.editCriteria.name"
-        required>
-    </pbs-form-field>
-    <pbs-form-field label="Foward To">
-      <select ng-model="$ctrl.editCriteria.forwardToNumberSelection"
-        ng-options="x for x in $ctrl.criteriaOptions.forwardToNumberSelection"
-        required>
-      </select>
-    </pbs-form-field>
-    <pbs-form-field label="Forward To Specified #">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.editCriteria.forwardToPhoneNumber"
-        >
-    </pbs-form-field>
-    <pbs-form-field label="Time Schedule">
-      <div class="select">
-        <select ng-model="$ctrl.editCriteria.timeSchedule.name"
-          ng-options="schedule.name as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Time'}">
-          <option value="">All Day Every Day</option>
-        </select>
-      </div>
-    </pbs-form-field>
-    <pbs-form-field label="Holiday Schedule">
-      <div class="select">
-        <select ng-model="$ctrl.editCriteria.holidaySchedule.name"
-          ng-options="schedule.name as schedule.name for schedule in $ctrl.holidaySchedules">
-          <option value="">None</option>
-        </select>
-      </div>
-    </pbs-form-field>
-    <pbs-form-field label="Calls From">
-      <div class="select">
-        <select ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
-          ng-options="x for x in $ctrl.criteriaOptions.fromDnCriteriaSelection"
-          required>
-        </select>
-      </div>
-    </pbs-form-field>
-    <pbs-form-field label="Anonymous Callers">
-      <pbs-input-checkbox label="Any Private Number"
-        ng-model="$ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers">
-      </pbs-input-checkbox>
-    </pbs-form-field>
-    <pbs-form-field label="Unavailable Callers">
-      <pbs-input-checkbox label="Any Unavailable Number"
-        ng-model="$ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers">
-      </pbs-input-checkbox>
-    </pbs-form-field>
-    <pbs-form-field label="Specific Numbers">
-      <input class="input"
-        style="margin-bottom: 1rem"
-        ng-repeat="value in [1,2,3,4,5,6,7,8,9,10,11,12] track by $index"
-        type="text"
-        ng-model="$ctrl.editCriteria.fromDnCriteria.phoneNumbers[$index]">
-    </pbs-form-field>
+    </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>
