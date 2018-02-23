@@ -40,10 +40,10 @@
         'agentStateAfterCall'
       ],
       premium: [
-        'routingType',
         'forceDeliveryOfCalls',
         'forceDeliveryWaitTimeSeconds',
-        'callDispositionCodes'
+        'callDispositionCodes',
+        'routingType'
       ]
     }
 

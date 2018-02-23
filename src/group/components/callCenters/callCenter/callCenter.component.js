@@ -30,7 +30,7 @@
     function activate() {
       ctrl.loading = true
       loadAssigned()
-        .then(loadCallCenter())
+        .then(loadCallCenter)
         .catch(function(error) {
           Alert.notify.danger(error)
         })

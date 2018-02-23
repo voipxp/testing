@@ -78,17 +78,21 @@
       </user-incoming-calling-plan>
     </pbs-tab>
     <pbs-tab label="Routing"
-      ng-if="$ctrl.hasPermission('routingType')">
-      <group-call-center-forced-forwarding service-user-id="$ctrl.serviceUserId">
+      ng-if="$ctrl.center.type !== 'Basic'">
+      <group-call-center-forced-forwarding service-user-id="$ctrl.serviceUserId"
+        ng-if="$ctrl.center.type === 'Premium'">
       </group-call-center-forced-forwarding>
-      <group-call-center-holiday-service service-user-id="$ctrl.serviceUserId">
+      <group-call-center-holiday-service service-user-id="$ctrl.serviceUserId"
+        ng-if="$ctrl.center.type === 'Premium'">
       </group-call-center-holiday-service>
-      <group-call-center-night-service service-user-id="$ctrl.serviceUserId">
+      <group-call-center-night-service service-user-id="$ctrl.serviceUserId"
+        ng-if="$ctrl.center.type === 'Premium'">
       </group-call-center-night-service>
+      <group-call-center-comfort-message-bypass service-user-id="$ctrl.serviceUserId"
+        ng-if="$ctrl.center.type === 'Premium'">
+      </group-call-center-comfort-message-bypass>
       <group-call-center-bounced-calls service-user-id="$ctrl.serviceUserId">
       </group-call-center-bounced-calls>
-      <group-call-center-comfort-message-bypass service-user-id="$ctrl.serviceUserId">
-      </group-call-center-comfort-message-bypass>
       <group-call-center-overflow service-user-id="$ctrl.serviceUserId">
       </group-call-center-overflow>
       <group-call-center-stranded-call service-user-id="$ctrl.serviceUserId">
