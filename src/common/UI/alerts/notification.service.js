@@ -15,14 +15,13 @@
     }
     return service
 
-    function add(type, message) {
+    function add(type, message, timeout) {
+      timeout = timeout || ALERT_TIMEOUT
       var notification = { type: type, message: parse(message) }
       notifications.push(notification)
-      if (type !== 'is-danger') {
-        notification.timeout = $timeout(function() {
-          remove(notification)
-        }, ALERT_TIMEOUT)
-      }
+      notification.timeout = $timeout(function() {
+        remove(notification)
+      }, timeout)
     }
 
     function remove(notification) {
@@ -51,7 +50,7 @@
     }
 
     function danger(message) {
-      add('is-danger', message)
+      add('is-danger', message, 15000)
     }
 
     function parse(message) {
