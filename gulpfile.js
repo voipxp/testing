@@ -67,7 +67,7 @@ gulp.task('app.html', () => {
 })
 
 gulp.task('app.assets', () => {
-  return gulp.src('assets/*').pipe(gulp.dest(dest))
+  return gulp.src('assets/**/*').pipe(gulp.dest(dest))
 })
 
 gulp.task('vendor.css', () => {

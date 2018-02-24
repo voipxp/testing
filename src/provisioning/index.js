@@ -22,5 +22,11 @@
           },
           reloadOnSearch: false
         })
+        .when('/queue', {
+          template: '<pbs-horizon></pbs-horizon>',
+          resolve: {
+            acl: acl
+          }
+        })
     })
 })()
