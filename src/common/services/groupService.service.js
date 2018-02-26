@@ -3,10 +3,18 @@
     .module('odin.common')
     .factory('GroupServiceService', GroupServiceService)
 
-  function GroupServiceService($http, Route, CacheFactory) {
+  function GroupServiceService($http, Route, CacheFactory, $rootScope) {
     var service = { show: show, available: available, update: update }
     var cache = CacheFactory('GroupServiceService')
+
+    $rootScope.$on('ServiceProviderServiceService:updated', clearCache)
+    $rootScope.$on('BrandingModuleService:updated', clearCache)
+
     return service
+
+    function clearCache() {
+      cache.removeAll()
+    }
 
     function url(serviceProviderId, groupId, extra) {
       return Route.api(
@@ -46,6 +54,7 @@
         .put(url(serviceProviderId, groupId), service)
         .then(function(response) {
           cache.removeAll()
+          $rootScope.$emit('GroupServiceService:updated')
           return response.data
         })
     }

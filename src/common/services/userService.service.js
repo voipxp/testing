@@ -16,6 +16,8 @@
     $rootScope.$on('GroupViewablePackService:updated', clearCache)
     $rootScope.$on('UserViewablePackService:updated', clearCache)
     $rootScope.$on('BrandingModuleService:updated', clearCache)
+    $rootScope.$on('GroupServiceService:updated', clearCache)
+    $rootScope.$on('ServiceProviderServiceService:updated', clearCache)
 
     return service
 
@@ -52,7 +54,7 @@
     function update(userId, service) {
       return $http.put(url(userId), service).then(function(response) {
         cache.removeAll()
-        $rootScope.$broadcast('UserService:updated:' + userId)
+        $rootScope.$broadcast('UserServiceService:updated')
         return response.data
       })
     }

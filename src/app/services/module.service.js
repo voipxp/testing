@@ -44,9 +44,13 @@ Filter
     var cache = CacheFactory('Module')
     var _modules = {}
 
-    $rootScope.$on('BrandingHostnameService:updated', cache.removeAll)
-    $rootScope.$on('BrandingModuleService:updated', cache.removeAll)
+    $rootScope.$on('BrandingHostnameService:updated', clearCache)
+    $rootScope.$on('BrandingModuleService:updated', clearCache)
     return service
+
+    function clearCache() {
+      cache.removeAll()
+    }
 
     function load() {
       return $http.get(route(), { cache: cache }).then(function(response) {

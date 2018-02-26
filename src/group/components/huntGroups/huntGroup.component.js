@@ -109,6 +109,6 @@
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')()
     }
 
-    $rootScope.$on('UserService:updated:' + ctrl.serviceUserId, loadServices)
+    $rootScope.$on('UserServiceService:updated', loadServices)
   }
 })()
