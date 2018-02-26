@@ -20,7 +20,7 @@
         ctrl.password = ctrl.templates.password
       }
       if (ctrl.passcode === undefined) {
-        ctrl.passcode = null
+        ctrl.passcode = ctrl.templates.passcode
       }
     }
 
