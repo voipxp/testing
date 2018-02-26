@@ -310,6 +310,14 @@
         },
         {
           type: 'service',
+          name: 'Meet-Me Conferencing',
+          path: route('meetMe'),
+          admin: false,
+          module: 'Meet-Me Conferencing'
+        },
+
+        {
+          type: 'service',
           service: 'Music On Hold User',
           path: route('musicOnHold')
         },

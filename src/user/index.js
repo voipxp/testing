@@ -246,6 +246,14 @@
           module: module('Collaborate - Audio')
         }
       })
+      .when(path('meetMe'), {
+        template:
+          '<user-meet-me-conferenceing-conferences module="$resolve.module"></user-meet-me-conferenceing-conferences>',
+        resolve: {
+          acl: acl('User'),
+          module: module('Meet-Me Conferencing')
+        }
+      })
 
       .when(path('communicationBarringAuthorizationCodes'), {
         template:
