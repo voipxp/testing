@@ -4,6 +4,7 @@
     <p>
       <strong>{{ $ctrl.template.pageFooterTitle }}</strong>
       <span ng-bind-html="$ctrl.template.pageCopyright"></span>
+      <small ng-show="$ctrl.session.version">({{ $ctrl.session.version }})</small>
     </p>
   </div>
 </footer>
