@@ -91,6 +91,11 @@
                 ng-options="opt as opt for opt in $ctrl.conferenceOptions.attendeeNotification"></select>
       </div>
     </pbs-form-field>
+    <pbs-form-field label="Delegate Users">
+      <select-users available="$ctrl.availableUsers"
+                    selected="$ctrl.assignedUsers"
+      ></select-users>
+    </pbs-form-field>
     <pbs-form-field label="Conference #">{{$ctrl.groupBridge.serviceInstanceProfile.phoneNumber}}</pbs-form-field>
     <pbs-form-field label="Conference Id">{{$ctrl.editConference.conferenceId}}</pbs-form-field>
     <pbs-form-field label="Moderator Pin">{{$ctrl.editConference.moderatorPin}}</pbs-form-field>

@@ -102,10 +102,8 @@
     }
 
     function onUpdateProfile(event) {
-      console.log('update collaborate')
       var collaborate = angular.copy(ctrl.collaborate)
       collaborate.serviceInstanceProfile = event.profile
-      console.log(event.profile, collaborate.serviceInstanceProfile)
       update(collaborate, event.callback)
     }
 
@@ -119,9 +117,6 @@
         .then(function() {
           ctrl.showOptional = false
           var collaborate = angular.copy(ctrl.collaborate)
-          console.log('edit.collaborate', collaborate)
-          console.log('ctrl.edit.collaborate', ctrl.collaborate)
-
           Alert.modal.open('editGroupCollaborate', function(close) {
             update(ctrl.collaborate, close)
           })

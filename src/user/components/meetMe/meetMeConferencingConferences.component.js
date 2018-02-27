@@ -11,6 +11,7 @@
     $q,
     UserMeetMeConferencingConferencesService,
     GroupMeetMeConferencingBridgeService,
+    UserMeetMeConferencingDelegatesService,
     $routeParams
   ) {
     var ctrl = this
@@ -22,6 +23,8 @@
     ctrl.edit = edit
     ctrl.add = add
     ctrl.conferenceOptions = UserMeetMeConferencingConferencesService.options
+    ctrl.availableUsers = []
+    ctrl.assignedUsers = []
 
     function onInit() {
       ctrl.loading = true
@@ -54,10 +57,6 @@
       return UserMeetMeConferencingConferencesService.index(ctrl.userId).then(
         function(data) {
           ctrl.meetMeConferencingConferences = data
-          // console.log(
-          //   'ctrl.meetMeConferencingConferences',
-          //   ctrl.meetMeConferencingConferences
-          // )
           return ctrl.meetMeConferencingConferences
         }
       )
@@ -90,6 +89,30 @@
         })
     }
 
+    function loadAvailableDelegates(bridgeId, conferenceId) {
+      return UserMeetMeConferencingDelegatesService.index(
+        ctrl.userId,
+        bridgeId,
+        conferenceId
+      ).then(function(data) {
+        console.log('loadAvailableDelegates.data.users', data.users)
+        ctrl.availableUsers = data.users
+        console.log('ctrl.availableUsers', ctrl.availableUsers)
+        return ctrl.availableUsers
+      })
+    }
+    function loadAssignedDelegates(bridgeId, conferenceId) {
+      return UserMeetMeConferencingDelegatesService.users(
+        ctrl.userId,
+        bridgeId,
+        conferenceId
+      ).then(function(data) {
+        console.log('loadAssignedDelegates.data.users', data.users)
+        ctrl.assignedUsers = data.users
+        console.log('ctrl.assignedUsers', ctrl.assignedUsers)
+        return ctrl.assignedUsers
+      })
+    }
     function edit(meetMe) {
       // console.log('edit.meeteMe', meetMe)
       getGroupConference(meetMe.bridgeId)
@@ -97,6 +120,8 @@
           // console.log('edit.groupBridge', groupBridge)
           ctrl.groupBridge = groupBridge
         })
+        .then(loadAvailableDelegates(meetMe.bridgeId, meetMe.conferenceId))
+        .then(loadAssignedDelegates(meetMe.bridgeId, meetMe.conferenceId))
         .catch(function(error) {
           Alert.notify.danger(error)
         })
@@ -126,8 +151,6 @@
         })
     }
     function destroy(criteria, callback) {
-      // console.log('criteria', criteria)
-      // console.log('ctrl.editConference', ctrl.editConference)
       Alert.spinner.open()
       UserMeetMeConferencingConferencesService.destroy(
         ctrl.userId,
@@ -142,15 +165,25 @@
         .catch(Alert.notify.danger)
         .finally(Alert.spinner.close)
     }
-
+    function saveDelegates() {
+      console.log('ctrl.assignedUsers', ctrl.assignedUsers)
+      return UserMeetMeConferencingDelegatesService.update(
+        ctrl.userId,
+        ctrl.editConference.bridgeId,
+        ctrl.editConference.conferenceId,
+        { users: ctrl.assignedUsers }
+      ).then(function(data) {
+        console.log(data)
+      })
+    }
     function updateConference(settings, callback) {
-      // console.log('updateConference.settings', settings)
       UserMeetMeConferencingConferencesService.update(
         ctrl.userId,
         ctrl.conferenceId,
         ctrl.groupBridge.serviceUserId,
         ctrl.editConference
       )
+        .then(saveDelegates)
         .then(loadMeetMeConferencingConferencesList)
         .then(function() {
           Alert.notify.success('Conference Updated')
@@ -178,6 +211,10 @@
         conferenceId,
         bridgeId
       ).then(function(data) {
+        var users = ctrl.availableUsers
+        ctrl.availableUsers = _.filter(users, function(users) {
+          return !_.find(ctrl.assignedUsers, { userId: users.userId })
+        })
         return data
       })
     }
