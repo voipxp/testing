@@ -3,7 +3,7 @@
 
   function pbsCheckBox() {
     var template =
-      '<span class="icon"><i class="fa" ng-class="class()"></i></span>'
+      '<span class="icon"><i class="fas" ng-class="class()"></i></span>'
 
     return {
       restrict: 'E',

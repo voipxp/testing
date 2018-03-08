@@ -52,10 +52,10 @@
           ng-show="!$ctrl.editUser.isPilotUser"
           ng-click="$ctrl.togglePilot($ctrl.editUser)">
         </pbs-button-compact-add>
-        <pbs-button-compact-remove title="Unset as Pilot User"
+        <pbs-button-compact-delete title="Unset as Pilot User"
           ng-show="$ctrl.editUser.isPilotUser"
           ng-click="$ctrl.togglePilot($ctrl.editUser)">
-        </pbs-button-compact-remove>
+        </pbs-button-compact-delete>
       </span>
     </pbs-form-field>
     <pbs-form-field label="Trunk Group">

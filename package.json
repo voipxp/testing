@@ -49,7 +49,6 @@
     "bulma-extensions": "^0.5.2",
     "checklist-model": "^0.11.0",
     "clipboard": "^1.7.1",
-    "font-awesome": "^4.7.0",
     "gulp-ng-config": "^1.5.0",
     "localforage": "^1.5.5",
     "lodash": "^4.17.2",

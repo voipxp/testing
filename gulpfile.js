@@ -73,7 +73,6 @@ gulp.task('app.assets', () => {
 gulp.task('vendor.css', () => {
   let css = gulp.src([
     'node_modules/angular-color-picker/angular-color-picker.css',
-    'node_modules/font-awesome/css/font-awesome.css',
     'node_modules/animate.css/animate.css'
   ])
   let scss = gulp
@@ -92,12 +91,6 @@ gulp.task('vendor.css', () => {
       )
     )
     .pipe(gulp.dest(dest))
-})
-
-gulp.task('vendor.fonts', () => {
-  return gulp
-    .src(['node_modules/font-awesome/fonts/*'])
-    .pipe(gulp.dest(`${dest}/fonts`))
 })
 
 gulp.task('vendor.js', () => {
@@ -155,7 +148,6 @@ gulp.task('default', () => {
     'app.assets',
     'vendor.css',
     'vendor.js',
-    'vendor.fonts',
     'vendor.debug'
   ])
 })

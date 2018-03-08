@@ -4,7 +4,7 @@
   function pbsButtonBack($window) {
     var template =
       '<a class="button is-outlined is-link" ng-click="go()" style="display: inline-block; vertical-align: middle" ng-show="returnTo">' +
-      '  <span class="icon"><i class="fa fa-chevron-left"></i></span>' +
+      '  <span class="icon"><i class="fas fa-chevron-left"></i></span>' +
       '</a>'
     return {
       restrict: 'E',

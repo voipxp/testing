@@ -6,18 +6,17 @@
     .directive('pbsButtonCompactCheck', pbsButtonCompact('fa-check'))
     .directive('pbsButtonCompactCancel', pbsButtonCompact('fa-times'))
     .directive('pbsButtonCompactDelete', pbsButtonCompact('fa-trash'))
-    .directive('pbsButtonCompactRemove', pbsButtonCompact('fa-trash'))
-    .directive('pbsButtonCompactEdit', pbsButtonCompact('fa-pencil'))
+    .directive('pbsButtonCompactEdit', pbsButtonCompact('fa-cog'))
     .directive('pbsButtonCompactSearch', pbsButtonCompact('fa-search'))
     .directive('pbsButtonCompactSelect', pbsButtonCompact('fa-user-plus'))
     .directive('pbsButtonCompactTarget', pbsButtonCompact('fa-bullseye'))
     .directive('pbsButtonCompactDownload', pbsButtonCompact('fa-download'))
     .directive('pbsButtonCompactUpload', pbsButtonCompact('fa-upload'))
     .directive('pbsButtonCompactInfo', pbsButtonCompact('fa-info'))
-    .directive('pbsButtonCompactRefresh', pbsButtonCompact('fa-refresh'))
+    .directive('pbsButtonCompactRefresh', pbsButtonCompact('fa-sync'))
     .directive('pbsButtonCompactList', pbsButtonCompact('fa-list'))
     .directive('pbsButtonCompactDevice', pbsButtonCompact('fa-phone'))
-    .directive('pbsButtonCompactOpen', pbsButtonCompact('fa-external-link'))
+    .directive('pbsButtonCompactOpen', pbsButtonCompact('fa-external-link-alt'))
     .directive('pbsButtonCompactTag', pbsButtonCompact('fa-tag'))
     .directive('pbsButtonCompactLeft', pbsButtonCompact('fa-chevron-left'))
     .directive('pbsButtonCompactRight', pbsButtonCompact('fa-chevron-right'))
@@ -32,7 +31,7 @@
     function button() {
       var template =
         '<button class="button is-link is-small">' +
-        '  <span class="icon"><i class="fa"></i></span>' +
+        '  <span class="icon"><i class="fas"></i></span>' +
         '</button>'
       var directive = {
         restrict: 'E',

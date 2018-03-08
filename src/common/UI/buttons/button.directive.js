@@ -19,7 +19,7 @@
     )
     .directive('pbsButtonSave', pbsButton('fa-check', 'is-success', 'Save'))
     .directive('pbsButtonUpload', pbsButton('fa-upload', 'is-link', 'Upload'))
-    .directive('pbsButtonConfig', pbsButton('fa-pencil', 'is-link', 'Config'))
+    .directive('pbsButtonConfig', pbsButton('fa-cog', 'is-link', 'Config'))
     .directive('pbsButtonInfo', pbsButton('fa-info', 'is-info', 'Info'))
     .directive('pbsButtonSearch', pbsButton('fa-search', 'is-info', 'Search'))
 
@@ -30,7 +30,7 @@
       var template =
         '<a class="button" ng-class="buttonColor">' +
         '  <span class="icon">' +
-        '    <i class="fa" ng-class="iconClass"></i>' +
+        '    <i class="fas" ng-class="iconClass"></i>' +
         '  </span>' +
         '  <span ng-bind="buttonText"></span>' +
         '</a>'
