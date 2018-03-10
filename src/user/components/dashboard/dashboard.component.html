@@ -4,41 +4,32 @@
 </pbs-navigation>
 
 <pbs-spinner loading="$ctrl.loading">
-
-  <div class="tile is-ancestor">
-    <div class="tile is-parent"
+  <div class="columns">
+    <div class="column"
       ng-if="$ctrl.isAdmin">
-      <div class="tile is-child">
-        <pbs-dashboard-cards title="Provisioning"
-          cards="$ctrl.cards"
-          search="$ctrl.search"
-          filter="{type: 'provisioning', active: true}"></pbs-dashboard-cards>
-      </div>
+      <pbs-dashboard-cards title="Provisioning"
+        cards="$ctrl.cards"
+        search="$ctrl.search"
+        filter="{type: 'provisioning', active: true}"></pbs-dashboard-cards>
     </div>
-    <div class="tile is-parent"
+    <div class="column"
       ng-if="$ctrl.showQuick">
-      <div class="tile is-child">
-        <user-quick-set service-provider-id="$ctrl.serviceProviderId"
-          group-id="$ctrl.groupId"
-          user-id="$ctrl.userId"></user-quick-set>
-      </div>
+      <user-quick-set service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"></user-quick-set>
     </div>
-    <div class="tile is-parent"
+    <div class="column"
       ng-if="$ctrl.showCalls">
-      <div class="tile is-child">
-        <user-basic-call-logs-panel service-provider-id="$ctrl.serviceProviderId"
-          group-id="$ctrl.groupId"
-          user-id="$ctrl.userId"
-          limit-to="5"></user-basic-call-logs-panel>
-      </div>
+      <user-basic-call-logs-panel service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"
+        limit-to="5"></user-basic-call-logs-panel>
     </div>
-    <div class="tile is-parent">
-      <div class="tile is-child">
-        <pbs-dashboard-cards title="Services"
-          cards="$ctrl.cards"
-          search="$ctrl.search"
-          filter="{type: 'service', active: true}"></pbs-dashboard-cards>
-      </div>
+    <div class="column">
+      <pbs-dashboard-cards title="Services"
+        cards="$ctrl.cards"
+        search="$ctrl.search"
+        filter="{type: 'service', active: true}"></pbs-dashboard-cards>
     </div>
   </div>
 </pbs-spinner>

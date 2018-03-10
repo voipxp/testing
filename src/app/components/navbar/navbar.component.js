@@ -10,6 +10,7 @@
     ctrl.logout = logout
     ctrl.burger = burger
     ctrl.open = open
+    ctrl.search = search
 
     function onInit() {
       return $q.all([loadSession(), loadApplications()])
@@ -39,6 +40,12 @@
 
     function burger() {
       ctrl.showMenu = !ctrl.showMenu
+    }
+
+    function search(type) {
+      if (type === 'users') {
+        $rootScope.$emit('userSearch:load')
+      }
     }
 
     $rootScope.$on('Session:updated', loadSession)

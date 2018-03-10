@@ -116,7 +116,7 @@
       loadCollaborate()
         .then(function() {
           ctrl.showOptional = false
-          var collaborate = angular.copy(ctrl.collaborate)
+          // var collaborate = angular.copy(ctrl.collaborate)
           Alert.modal.open('editGroupCollaborate', function(close) {
             update(ctrl.collaborate, close)
           })

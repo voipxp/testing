@@ -482,9 +482,9 @@ builtin-modules@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-1.1.1.tgz#270f076c5a72c02f5b65a47df94c5fe3a278892f"
 
-bulma-extensions@^0.5.2:
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/bulma-extensions/-/bulma-extensions-0.5.9.tgz#04d803105b1e324de218bd72251a35696ba3c37e"
+bulma-extensions@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/bulma-extensions/-/bulma-extensions-1.0.5.tgz#319855f46e271c144d0f8655f284fdeb5d526345"
 
 bulma@^0.6.2:
   version "0.6.2"

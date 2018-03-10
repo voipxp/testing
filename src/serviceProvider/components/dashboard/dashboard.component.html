@@ -2,36 +2,26 @@
 </pbs-navigation>
 
 <pbs-spinner loading="$ctrl.loading">
-
-  <div class="tile is-ancestor">
-    <div class="tile is-parent"
+  <div class="columns">
+    <div class="column"
       ng-if="$ctrl.isAdmin">
-      <div class="tile is-child">
-        <pbs-dashboard-cards title="Provisioning"
-          cards="$ctrl.cards"
-          filter="{type: 'provisioning', active: true}"></pbs-dashboard-cards>
-      </div>
+      <pbs-dashboard-cards title="Provisioning"
+        cards="$ctrl.cards"
+        filter="{type: 'provisioning', active: true}"></pbs-dashboard-cards>
     </div>
-    <div class="tile is-parent">
-      <div class="tile is-child">
-        <pbs-dashboard-cards title="Services"
-          cards="$ctrl.cards"
-          filter="{type: 'service', active: true}"></pbs-dashboard-cards>
-      </div>
+    <div class="column">
+      <pbs-dashboard-cards title="Services"
+        cards="$ctrl.cards"
+        filter="{type: 'service', active: true}"></pbs-dashboard-cards>
     </div>
-    <div class="tile is-parent">
-      <div class="tile is-child">
-        <pbs-dashboard-cards title="Management"
-          cards="$ctrl.cards"
-          filter="{type: 'management', active: true}"></pbs-dashboard-cards>
-      </div>
+    <div class="column">
+      <pbs-dashboard-cards title="Management"
+        cards="$ctrl.cards"
+        filter="{type: 'management', active: true}"></pbs-dashboard-cards>
     </div>
-    <div class="tile is-parent">
-      <div class="tile is-child">
-        <service-provider-groups-panel service-provider-id="$ctrl.serviceProviderId"
-          limit-to="10"></service-provider-groups-panel>
-      </div>
+    <div class="column">
+      <service-provider-groups-panel service-provider-id="$ctrl.serviceProviderId"
+        limit-to="10"></service-provider-groups-panel>
     </div>
   </div>
-
 </pbs-spinner>
