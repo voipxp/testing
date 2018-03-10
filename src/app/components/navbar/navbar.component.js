@@ -4,7 +4,15 @@
     controller: Controller
   })
 
-  function Controller(Session, Route, Application, $rootScope, $q, $window) {
+  function Controller(
+    Session,
+    Route,
+    Application,
+    $rootScope,
+    $q,
+    $window,
+    ACL
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.logout = logout
@@ -32,6 +40,7 @@
 
     function loadSession() {
       ctrl.session = Session.data()
+      ctrl.showSearch = ACL.has('Service Provider')
     }
 
     function logout() {
