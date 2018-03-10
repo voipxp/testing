@@ -25,7 +25,6 @@
 
     function onInit() {
       ctrl.modalId = HashService.guid()
-      ctrl.type = 'userId'
     }
 
     function doCheck() {
@@ -61,6 +60,7 @@
     $rootScope.$on('userSearch:load', function() {
       ctrl.filter = null
       ctrl.users = null
+      ctrl.type = 'userId'
       Alert.modal.open(ctrl.modalId)
     })
   }
