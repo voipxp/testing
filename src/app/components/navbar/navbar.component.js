@@ -54,6 +54,8 @@
     function search(type) {
       if (type === 'users') {
         $rootScope.$emit('userSearch:load')
+      } else if (type === 'groups') {
+        $rootScope.$emit('groupSearch:load')
       }
     }
 

@@ -1,16 +1,12 @@
 <pbs-modal id="{{ $ctrl.modalId }}"
-  title="User Search">
+  title="Group Search">
   <form ng-submit="$ctrl.search()">
     <div class="field has-addons">
       <p class="control">
         <span class="select">
           <select ng-model="$ctrl.type">
-            <option value="userId">ID</option>
-            <option value="lastName">Last Name</option>
-            <option value="dn">Phone</option>
-            <option value="emailAddress">Email</option>
-            <option value="extension">Extension</option>
-            <!-- <option value="macAddress">MAC</option> -->
+            <option value="groupId">ID</option>
+            <option value="groupName">Name</option>
           </select>
         </span>
       </p>
@@ -18,7 +14,7 @@
         ng-class="{'is-loading': $ctrl.isLoading}">
         <input class="input"
           type="search"
-          placeholder="User search"
+          placeholder="Group search"
           ng-model="$ctrl.filter"
           ng-disabled="$ctrl.isLoading">
       </p>
@@ -39,33 +35,27 @@
     <strong>*name*</strong> (contains name),
   </div>
   <table pbs-table
-    ng-show="$ctrl.users"
+    ng-show="$ctrl.groups"
     class="large-margin-top">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Last</th>
-        <th>First</th>
-        <th>Phone</th>
-        <th>Ext</th>
+        <th>Name</th>
       </tr>
     </thead>
     <tfoot>
       <tr ng-if="results.length < 1">
-        <td colspan="100">No Users Found
+        <td colspan="100">No Groups Found
           <strong ng-if="$ctrl.filter">for {{ $ctrl.filter}}</strong>
         </td>
       </tr>
     </tfoot>
     <tbody>
       <tr class="hover"
-        ng-click="$ctrl.select(user)"
-        ng-repeat="user in results = ($ctrl.users | orderBy:'userId') | paginate:$ctrl.pager track by user.userId">
-        <td>{{ user.userIdShort || user.userId }}</td>
-        <td>{{ user.lastName }}</td>
-        <td>{{ user.firstName }}</td>
-        <td>{{ user.phoneNumber }}</td>
-        <td>{{ user.extension }}</td>
+        ng-click="$ctrl.select(group)"
+        ng-repeat="group in results = ($ctrl.groups | orderBy:'groupId') | paginate:$ctrl.pager track by group.groupId">
+        <td>{{ group.groupId }}</td>
+        <td>{{ group.groupName }}</td>
       </tr>
     </tbody>
   </table>

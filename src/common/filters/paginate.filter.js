@@ -8,7 +8,7 @@
 
   function Paginate(limitToFilter) {
     return function(item, pager) {
-      return limitToFilter(item, pager.limit, pager.offset)
+      return limitToFilter(item, pager && pager.limit, pager && pager.offset)
     }
   }
 })()
