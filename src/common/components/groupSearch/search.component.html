@@ -41,6 +41,7 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Service Provider</th>
       </tr>
     </thead>
     <tfoot>
@@ -56,6 +57,7 @@
         ng-repeat="group in results = ($ctrl.groups | orderBy:'groupId') | paginate:$ctrl.pager track by group.groupId">
         <td>{{ group.groupId }}</td>
         <td>{{ group.groupName }}</td>
+        <td>{{ group.serviceProviderId }}</td>
       </tr>
     </tbody>
   </table>
