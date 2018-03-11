@@ -10,7 +10,7 @@
             <option value="dn">Phone</option>
             <option value="emailAddress">Email</option>
             <option value="extension">Extension</option>
-            <!-- <option value="macAddress">MAC</option> -->
+            <option value="macAddress">MAC</option>
           </select>
         </span>
       </p>
@@ -35,8 +35,8 @@
   <div style="margin: 5px 0 0 5px">
     Examples:
     <strong>name</strong> (equals name),
-    <strong>name*</strong> (starts with name)
-    <strong>*name*</strong> (contains name),
+    <strong>name*</strong> (starts with name),
+    <strong>*name*</strong> (contains name)
   </div>
   <table pbs-table
     ng-show="$ctrl.users"
@@ -53,7 +53,9 @@
     <tfoot>
       <tr ng-if="results.length < 1">
         <td colspan="100">No Users Found
-          <strong ng-if="$ctrl.filter">for {{ $ctrl.filter}}</strong>
+          <span ng-if="$ctrl.filter">for
+            <strong>{{ $ctrl.type }}: {{ $ctrl.filter}}</strong>
+          </span>
         </td>
       </tr>
     </tfoot>

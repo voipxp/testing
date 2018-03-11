@@ -34,6 +34,10 @@
     }
 
     function search() {
+      if (ctrl.type === 'macAddress' && /\*/.test(ctrl.filter)) {
+        Alert.notify.warning('MAC search cannot contain wildcards')
+        return
+      }
       ctrl.isLoading = true
       var params = {
         serviceProviderId: ctrl.serviceProviderId,
