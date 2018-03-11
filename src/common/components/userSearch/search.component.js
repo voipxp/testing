@@ -10,7 +10,9 @@
     UserSearchService,
     HashService,
     Route,
-    $rootScope
+    $rootScope,
+    ACL,
+    Session
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -25,6 +27,9 @@
 
     function onInit() {
       ctrl.modalId = HashService.guid()
+      Session.load().then(function() {
+        ctrl.isProvisioning = ACL.has('Provisioning')
+      })
     }
 
     function doCheck() {
