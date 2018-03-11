@@ -69,5 +69,7 @@
   </div>
 </nav>
 
-<user-search service-provider-id="$ctrl.session.serviceProviderId"></user-search>
-<group-search service-provider-id="$ctrl.session.serviceProviderId"></group-search>
+<user-search ng-if="$ctrl.showSearch"
+  service-provider-id="$ctrl.session.serviceProviderId"></user-search>
+<group-search ng-if="$ctrl.showSearch"
+  service-provider-id="$ctrl.session.serviceProviderId"></group-search>
