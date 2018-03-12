@@ -7,6 +7,7 @@
           <select ng-model="$ctrl.type">
             <option value="userId">ID</option>
             <option value="lastName">Last Name</option>
+            <option value="firstName">First Name</option>
             <option value="dn">Phone</option>
             <option value="emailAddress">Email</option>
             <option value="extension">Extension</option>
@@ -49,6 +50,8 @@
         <th>First</th>
         <th>Phone</th>
         <th>Ext</th>
+        <th>Service Provider</th>
+        <th>Group</th>
       </tr>
     </thead>
     <tfoot>
@@ -69,6 +72,8 @@
         <td>{{ user.firstName }}</td>
         <td>{{ user.phoneNumber }}</td>
         <td>{{ user.extension }}</td>
+        <td>{{ user.serviceProviderId }}</td>
+        <td>{{ user.groupId }}</td>
       </tr>
     </tbody>
   </table>
