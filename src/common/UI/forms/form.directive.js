@@ -37,8 +37,8 @@
 
   function pbsFormFieldHorizontal() {
     var template =
-      '<div class="columns">' +
-      '  <div class="column">' +
+      '<div class="columns is-1">' +
+      '  <div class="column is-two-fifths">' +
       '    <pbs-button-static class="is-fullwidth">{{ label }}</pbs-button-static>' +
       '  </div>' +
       '  <div class="column" ng-transclude></div>' +

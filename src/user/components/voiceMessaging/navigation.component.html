@@ -14,6 +14,10 @@
     <user-voice-portal user-id="$ctrl.userId"
       read-only="!$ctrl.module.permissions.update"></user-voice-portal>
   </pbs-tab>
+  <pbs-tab label="Greetings">
+    <user-voice-messaging-greetings user-id="$ctrl.userId"
+      read-only="!$ctrl.module.permissions.update"></user-voice-messaging-greetings>
+  </pbs-tab>
   <pbs-tab label="Advanced">
     <user-voice-messaging-advanced user-id="$ctrl.userId"
       read-only="!$ctrl.module.permissions.update"></user-voice-messaging-advanced>
