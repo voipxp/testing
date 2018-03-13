@@ -40,15 +40,6 @@
     }
 
     function update(settings, callback) {
-      console.log('updating', settings)
-      // this is how you nullify a noansweralternategreeting
-      // with an empty name
-      for (var i = 1; i < 4; i++) {
-        var obj = settings['noAnswerAlternateGreeting0' + i]
-        if (obj && !obj.name) {
-          delete obj.audio
-        }
-      }
       Alert.spinner.open()
       return UserVoiceMessagingGreetingService.update(ctrl.userId, settings)
         .then(loadSettings)
