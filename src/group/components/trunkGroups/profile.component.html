@@ -20,11 +20,12 @@
       <pbs-list-item label="Access Device">
         {{ $ctrl.parent.trunk.accessDevice.deviceName }}
       </pbs-list-item>
-      <pbs-list-item label="Require Authentication">
+      <pbs-list-item label="Require Authentication"
+        ng-show="$ctrl.authentication.read">
         <pbs-check-box checked="$ctrl.parent.trunk.requireAuthentication"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Authentication Username"
-        ng-show="$ctrl.parent.trunk.requireAuthentication">
+        ng-show="$ctrl.authentication.read && $ctrl.parent.trunk.requireAuthentication">
         {{ $ctrl.parent.trunk.sipAuthenticationUserName }}
       </pbs-list-item>
       <pbs-list-item label="Trunk Group Identity">
@@ -104,13 +105,17 @@
           ng-options="department as department.name for department in $ctrl.departments track by department.name"></select>
       </div>
     </pbs-form-field>
-    <pbs-form-field label="Authentication">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.requireAuthentication"> Require Authentication
+    <pbs-form-section ng-if="$ctrl.authentication.update">Authentication</pbs-form-section>
+    <pbs-form-field label="Authentication"
+      ng-if="$ctrl.authentication.update">
+      <input type="checkbox"
+        label="Require Authentication"
+        ng-model="$ctrl.editTrunk.requireAuthentication"
+        pbs-input-checkradio>
       </label>
     </pbs-form-field>
     <pbs-form-field label="SIP User Name"
+      ng-if="$ctrl.authentication.update"
       ng-show="$ctrl.editTrunk.requireAuthentication">
       <input type="text"
         class="input"
@@ -118,6 +123,7 @@
         ng-required="$ctrl.editTrunk.requireAuthentication">
     </pbs-form-field>
     <pbs-form-field label="SIP Password"
+      ng-if="$ctrl.authentication.update"
       ng-show="$ctrl.editTrunk.requireAuthentication">
       <input type="password"
         class="input"
@@ -125,6 +131,7 @@
         ng-required="$ctrl.editTrunk.requireAuthentication">
     </pbs-form-field>
     <pbs-form-field label="SIP Password"
+      ng-if="$ctrl.authentication.update"
       ng-show="$ctrl.editTrunk.requireAuthentication">
       <input type="password"
         class="input"
@@ -142,10 +149,10 @@
         ng-model="$ctrl.editTrunk.otgDtgIdentity">
     </pbs-form-field>
     <pbs-form-field label="Prefix">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.prefixEnabled"> Prefix Enabled
-      </label>
+      <input type="checkbox"
+        ng-model="$ctrl.editTrunk.prefixEnabled"
+        label="Prefix Enabled"
+        pbs-input-checkradio>
     </pbs-form-field>
     <pbs-form-field label="Prefix"
       ng-show="$ctrl.editTrunk.prefixEnabled">
@@ -154,56 +161,48 @@
         ng-model="$ctrl.editTrunk.prefix">
     </pbs-form-field>
     <pbs-form-field label="Call Settings">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.allowTerminationToTrunkGroupIdentity"> Allow calls to trunk group with Trunk Identity
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.allowTerminationToDtgIdentity"> Allow calls to trunk group with DTG Identity
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.includeTrunkGroupIdentity"> Include Trunk Identity for Calls to Trunk Group
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.includeDtgIdentity"> Include DTG Identity for Calls to Trunk Group
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.includeTrunkGroupIdentityForNetworkCalls"> Include Trunk Identity for Calls from Trunk Group
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.includeOtgIdentityForNetworkCalls"> Include OTG Identity for Calls from Trunk Group
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.enableNetworkAddressIdentity"> Enable Network Address Identity
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.allowUnscreenedCalls"> Allow Unscreened Calls
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.allowUnscreenedEmergencyCalls"> Allow Unscreened Emergency Calls
-      </label>
+      <input type="checkbox"
+        ng-model="$ctrl.editTrunk.allowTerminationToTrunkGroupIdentity"
+        label="Allow calls to trunk group with Trunk Identity"
+        pbs-input-checkradio>
+      <input type="checkbox"
+        ng-model="$ctrl.editTrunk.allowTerminationToDtgIdentity"
+        label="Allow calls to trunk group with DTG Identity"
+        pbs-input-checkradio>
+      <input type="checkbox"
+        ng-model="$ctrl.editTrunk.includeTrunkGroupIdentity"
+        label="Include Trunk Identity for Calls to Trunk Group"
+        pbs-input-checkradio>
+      <input type="checkbox"
+        ng-model="$ctrl.editTrunk.includeDtgIdentity"
+        label="Include DTG Identity for Calls to Trunk Group"
+        pbs-input-checkradio>
+      <input type="checkbox"
+        ng-model="$ctrl.editTrunk.includeTrunkGroupIdentityForNetworkCalls"
+        label="Include Trunk Identity for Calls from Trunk Group"
+        pbs-input-checkradio>
+      <input type="checkbox"
+        ng-model="$ctrl.editTrunk.includeOtgIdentityForNetworkCalls"
+        label="Include OTG Identity for Calls from Trunk Group"
+        pbs-input-checkradio>
+      <input type="checkbox"
+        ng-model="$ctrl.editTrunk.enableNetworkAddressIdentity"
+        label="Enable Network Address Identity"
+        pbs-input-checkradio>
+      <input type="checkbox"
+        ng-model="$ctrl.editTrunk.allowUnscreenedCalls"
+        label="Allow Unscreened Calls"
+        pbs-input-checkradio>
+      <input type="checkbox"
+        ng-model="$ctrl.editTrunk.allowUnscreenedEmergencyCalls"
+        label="Allow Unscreened Emergency Calls"
+        pbs-input-checkradio>
     </pbs-form-field>
     <pbs-form-field label="Peering Domain">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.routeToPeeringDomain"> Route to Peering Domain
-      </label>
+      <input type="checkbox"
+        ng-model="$ctrl.editTrunk.routeToPeeringDomain"
+        label="Route to Peering Domain"
+        pbs-input-checkradio>
     </pbs-form-field>
     <pbs-form-field label="Peering Domain"
       ng-show="$ctrl.editTrunk.routeToPeeringDomain">
@@ -225,10 +224,10 @@
       </div>
     </pbs-form-field>
     <pbs-form-field label="CL Asserted ID Policy">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.useSystemCallingLineAssertedIdentityPolicy"> Use System Calling Line Asserted Identity Policy
-      </label>
+      <input type="checkbox"
+        ng-model="$ctrl.editTrunk.useSystemCallingLineAssertedIdentityPolicy"
+        label="Use System Calling Line Asserted Identity Policy"
+        pbs-input-checkradio>
     </pbs-form-field>
     <pbs-form-field label="CL Asserted ID Policy"
       ng-show="!$ctrl.editTrunk.useSystemCallingLineAssertedIdentityPolicy">

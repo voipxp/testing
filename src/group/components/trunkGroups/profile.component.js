@@ -5,10 +5,22 @@
     require: { parent: '^groupTrunkGroup' }
   })
 
-  function Controller(Alert, GroupTrunkGroupService, GroupDepartmentService) {
+  function Controller(
+    Alert,
+    GroupTrunkGroupService,
+    GroupDepartmentService,
+    Module
+  ) {
     var ctrl = this
     ctrl.options = GroupTrunkGroupService.options
     ctrl.edit = edit
+    ctrl.$onInit = onInit
+
+    function onInit() {
+      return Module.show('Trunk Group - Authentication').then(function(data) {
+        ctrl.authentication = data.permissions
+      })
+    }
 
     function edit() {
       var onDelete

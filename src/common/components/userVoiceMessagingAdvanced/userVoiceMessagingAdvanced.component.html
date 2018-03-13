@@ -4,7 +4,7 @@
     <pbs-block-buttons>
       <pbs-button-compact-edit title="Edit Advanced Voice Messaging"
         ng-click="$ctrl.edit()"
-        ng-if="!$ctrl.readOnly">
+        ng-if="$ctrl.module.permissions.update && !$ctrl.readOnly">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>

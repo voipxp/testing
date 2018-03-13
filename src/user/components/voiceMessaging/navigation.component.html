@@ -18,7 +18,8 @@
     <user-voice-messaging-greetings user-id="$ctrl.userId"
       read-only="!$ctrl.module.permissions.update"></user-voice-messaging-greetings>
   </pbs-tab>
-  <pbs-tab label="Advanced">
+  <pbs-tab label="Advanced"
+    ng-if="$ctrl.advanced.read">
     <user-voice-messaging-advanced user-id="$ctrl.userId"
       read-only="!$ctrl.module.permissions.update"></user-voice-messaging-advanced>
   </pbs-tab>

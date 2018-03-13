@@ -139,6 +139,10 @@
     Template.load()
   }
 
+  function clearCache(CacheFactory) {
+    CacheFactory.clearAll()
+  }
+
   // bootstrap angular application
   function bootstrap() {
     angular
@@ -150,6 +154,7 @@
       .config(authInterceptorConfig)
       .config(jwtInterceptorConfig)
       .config(routeConfig)
+      .run(clearCache)
       .run(loaders)
       .run(addTemplateListener)
 

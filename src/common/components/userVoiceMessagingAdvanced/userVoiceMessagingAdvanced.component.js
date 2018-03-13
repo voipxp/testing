@@ -6,24 +6,34 @@
     bindings: { userId: '=', readOnly: '<' }
   })
 
-  function Controller(Alert, UserVoiceMessagingAdvancedService) {
+  function Controller(Alert, UserVoiceMessagingAdvancedService, $q, Module) {
     var ctrl = this
 
     ctrl.options = UserVoiceMessagingAdvancedService.options
     ctrl.messaging = {}
     ctrl.edit = edit
     ctrl.update = update
-    ctrl.$onInit = activate
+    ctrl.$onInit = onInit
 
-    function activate() {
+    function onInit() {
       ctrl.loading = true
-      return loadVoiceMessaging()
+      return $q
+        .all([loadVoiceMessaging(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Voice Messaging User - Advanced').then(function(
+        data
+      ) {
+        ctrl.module = data
+        console.log('module', data)
+      })
     }
 
     function loadVoiceMessaging() {
