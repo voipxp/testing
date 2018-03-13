@@ -26,6 +26,16 @@
       <pbs-list-item label="Personal Greeting">
         {{ $ctrl.settings.busyPersonalAudio.name }}
       </pbs-list-item>
+      <pbs-list-section>Extended Away Settings</pbs-list-section>
+      <pbs-list-item label="Extended Away Enabled">
+        <pbs-check-box checked="$ctrl.settings.extendedAwayEnabled"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Extended Away Disable Message Deposit">
+        <pbs-check-box checked="$ctrl.settings.extendedAwayDisableMessageDeposit"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Extended Away Greeting">
+        {{ $ctrl.settings.extendedAwayAudio.name }}
+      </pbs-list-item>
       <pbs-list-section>No Answer Settings</pbs-list-section>
       <pbs-list-item label="Rings before Greeting">
         {{ $ctrl.settings.noAnswerNumberOfRings }}
@@ -83,6 +93,19 @@
     <pbs-form-field-horizontal label="Personal Greeting">
       <select-audio-file user-id="$ctrl.userId"
         audio-file="$ctrl.editSettings.busyPersonalAudio"></select-audio-file>
+    </pbs-form-field-horizontal>
+    <pbs-form-section>Extended Away Settings</pbs-form-section>
+    <input type="checkbox"
+      ng-model="$ctrl.editSettings.extendedAwayEnabled"
+      label="Extended Away Enabled"
+      pbs-input-checkradio>
+    <input type="checkbox"
+      ng-model="$ctrl.editSettings.extendedAwayDisableMessageDeposit"
+      label="Extended Away Disable Message Deposit"
+      pbs-input-checkradio>
+    <pbs-form-field-horizontal label="Extended Away Greeting">
+      <select-audio-file user-id="$ctrl.userId"
+        audio-file="$ctrl.editSettings.extendedAwayAudio"></select-audio-file>
     </pbs-form-field-horizontal>
     <pbs-form-section>No Answer Settings</pbs-form-section>
     <pbs-form-field-horizontal label="Rings before Greeting">
