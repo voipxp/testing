@@ -446,8 +446,7 @@
       .when(path('addresses'), {
         template: '<user-addresses></user-addresses>',
         resolve: {
-          acl: acl('User'),
-          module: module('Provisioning')
+          acl: acl('Group')
         }
       })
       .when(path('sharedCallAppearanceAdmin'), {
