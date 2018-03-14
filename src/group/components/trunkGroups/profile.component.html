@@ -92,9 +92,10 @@
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editGroupTrunkGroupProfile"
-  title="Edit Profile">
+  title="Edit Profile {{ $ctrl.editTrunk.name }}">
   <form novalidate>
-    <pbs-form-field label="Trunk Name">
+    <pbs-form-field label="Trunk Name"
+      ng-if="$ctrl.authentication.update">
       <input type="text"
         class="input"
         ng-model="$ctrl.editTrunk.newName">
