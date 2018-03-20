@@ -31,5 +31,15 @@
         resolve: { acl: acl },
         reloadOnSearch: false
       })
+      .when('/system/networkClassOfServices', {
+        template:
+          '<system-network-class-of-services></system-network-class-of-services>',
+        resolve: { acl: acl }
+      })
+      .when('/system/networkClassOfServices/:name', {
+        template:
+          '<system-network-class-of-service></system-network-class-of-service>',
+        resolve: { acl: acl }
+      })
   })
 })()

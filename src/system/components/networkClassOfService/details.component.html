@@ -1,0 +1,83 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Details">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit title="Edit Details"
+        ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-section>Details</pbs-list-section>
+      <pbs-list-item label="Name">
+        {{ $ctrl.service.name }}
+      </pbs-list-item>
+      <pbs-list-item label="Description">
+        {{ $ctrl.service.description }}
+      </pbs-list-item>
+      <pbs-list-item label="Network Translation Index">
+        {{ $ctrl.service.networkTranslationIndex }}
+      </pbs-list-item>
+      <pbs-list-section>Communication Barring Profiles</pbs-list-section>
+      <pbs-list-item label="Profile {{ i }}"
+        ng-show="$ctrl.service['communicationBarringProfile' + i].name"
+        ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]">
+        {{ $ctrl.service["communicationBarringProfile" + i].name || 'None' }}
+        <span class="is-pulled-right"
+          ng-show="$ctrl.service['communicationBarringProfile' + i].isPrimary">
+          <i class="fas fa-check has-text-success"></i>
+        </span>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="systemNetworkClassOfServiceEditModal"
+  title="Edit Details">
+  <form>
+    <pbs-form-section>Details</pbs-form-section>
+    <pbs-form-field-horizontal label="Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editService.newName"
+        required>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Description">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editService.description">
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Network Translation Index">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editService.networkTranslationIndex">
+    </pbs-form-field-horizontal>
+    <pbs-form-section>Communication Barring Profiles</pbs-form-section>
+    <div class="field has-addons"
+      ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]">
+      <p class="control">
+        <a class="button is-static"
+          style="width: 150px">Profile {{ i }}</a>
+      </p>
+      <p class="control is-expanded">
+        <select ng-model="$ctrl.editService['communicationBarringProfile' + i].name"
+          ng-options="profile.name as profile.name for profile in $ctrl.profiles"
+          pbs-input-select
+          is-fullwidth>
+          <option value="">-- None --</option>
+        </select>
+      </p>
+      <p class="control">
+        <button class="button"
+          style="width: 50px"
+          ng-click="$ctrl.setPrimary(i)"
+          ng-disabled="$ctrl.editService['communicationBarringProfile' + i].isPrimary || !$ctrl.editService['communicationBarringProfile' + i].name">
+          <span class="icon">
+            <i class="fas"
+              ng-class="{
+            'fa-check has-text-success': $ctrl.editService['communicationBarringProfile' + i].isPrimary,
+            'fa-times': !$ctrl.editService['communicationBarringProfile' + i].isPrimary
+          }"></i>
+          </span>
+        </button>
+      </p>
+    </div>
+  </form>
+</pbs-modal>

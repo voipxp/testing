@@ -36,7 +36,11 @@
         name: 'Collaborate',
         path: route('system', 'collaborate')
       },
-
+      {
+        type: 'services',
+        name: 'Network Class of Services',
+        path: route('system', 'networkClassOfServices')
+      },
       {
         type: 'provisioning',
         name: 'Service Providers',
