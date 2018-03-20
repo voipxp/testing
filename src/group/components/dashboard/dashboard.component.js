@@ -112,6 +112,11 @@
           path: route('vdm')
         },
         {
+          type: 'management',
+          name: 'Network Class of Service',
+          path: route('networkclassofservices')
+        },
+        {
           type: 'service',
           service: 'Auto Attendant',
           path: route('autoAttendants')

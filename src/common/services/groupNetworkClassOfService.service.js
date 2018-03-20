@@ -1,29 +1,50 @@
 ;(function() {
   angular
     .module('odin.common')
-    .factory(
-      'GroupNetworkClassOfServiceService',
-      GroupNetworkClassOfServiceService
-    )
+    .factory('GroupNetworkClassOfServiceService', Service)
 
-  function GroupNetworkClassOfServiceService($http, CacheFactory, Route) {
+  function Service($http, CacheFactory, Route) {
     var cache = CacheFactory('GroupNetworkClassOfServiceService')
-    var service = { index: index }
+    var url = Route.api('services', 'groups', 'networkclassofservices')
+    var service = { show: show, select: select, update: update }
     return service
 
-    function url(serviceProviderId, groupId) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId
-      )('networkclassofservices')
+    function show(serviceProviderId, groupId) {
+      return $http
+        .get(url(), {
+          cache: cache,
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId
+          }
+        })
+        .then(function(response) {
+          return response.data
+        })
     }
 
-    function index(serviceProviderId, groupId) {
+    function select(serviceProviderId, groupId, name) {
       return $http
-        .get(url(serviceProviderId, groupId), { cache: cache })
+        .post(url(), {
+          serviceProviderId: serviceProviderId,
+          groupId: groupId,
+          name: name
+        })
         .then(function(response) {
+          cache.removeAll()
+          return response.data
+        })
+    }
+
+    function update(serviceProviderId, groupId, services) {
+      return $http
+        .put(url(), {
+          serviceProviderId: serviceProviderId,
+          groupId: groupId,
+          services: services
+        })
+        .then(function(response) {
+          cache.removeAll()
           return response.data
         })
     }

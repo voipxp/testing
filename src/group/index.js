@@ -506,5 +506,12 @@
           acl: acl('Service Provider')
         }
       })
+      .when(path('networkclassofservices'), {
+        template:
+          '<group-network-class-of-services></group-network-class-of-services>',
+        resolve: {
+          acl: acl('Group')
+        }
+      })
   })
 })()

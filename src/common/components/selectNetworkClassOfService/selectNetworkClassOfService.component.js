@@ -25,11 +25,11 @@
     }
 
     function loadNetworkClasses() {
-      return GroupNetworkClassOfServiceService.index(
+      return GroupNetworkClassOfServiceService.show(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        ctrl.services = data
+        ctrl.services = data.services
         return data
       })
     }
