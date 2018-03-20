@@ -5,10 +5,16 @@
     bindings: { available: '=', selected: '=', property: '@', default: '@' }
   })
 
-  function Controller(Alert) {
+  function Controller() {
     var ctrl = this
     ctrl.add = add
     ctrl.remove = remove
+
+    ctrl.$onInit = function() {
+      ctrl.orderBy = ctrl.default
+        ? ['-' + ctrl.default, ctrl.property]
+        : ctrl.property
+    }
 
     function add(thing) {
       _.remove(ctrl.available, thing)
@@ -16,10 +22,7 @@
     }
 
     function remove(thing) {
-      if (ctrl.default && thing[ctrl.default]) {
-        Alert.notify.warning('You cannot remove the default')
-        return
-      }
+      if (ctrl.default && thing[ctrl.default]) return
       _.remove(ctrl.selected, thing)
       ctrl.available.push(thing)
     }

@@ -10,7 +10,7 @@
       'serviceproviders',
       'networkclassofservices'
     )
-    var service = { show: show, select: select }
+    var service = { show: show, select: select, update: update }
     return service
 
     function show(serviceProviderId) {
@@ -29,6 +29,18 @@
         .post(url(), {
           serviceProviderId: serviceProviderId,
           name: name
+        })
+        .then(function(response) {
+          cache.removeAll()
+          return response.data
+        })
+    }
+
+    function update(serviceProviderId, services) {
+      return $http
+        .put(url(), {
+          serviceProviderId: serviceProviderId,
+          services: services
         })
         .then(function(response) {
           cache.removeAll()

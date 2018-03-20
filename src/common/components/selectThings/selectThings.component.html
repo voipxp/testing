@@ -25,9 +25,9 @@
     </h4>
     <pbs-table-search ng-model="$ctrl.searchSelected"></pbs-table-search>
     <table pbs-table>
-      <tr class="hover"
+      <tr ng-class="{hover: !$ctrl.default || !thing[$ctrl.default]}"
         ng-click="$ctrl.remove(thing)"
-        ng-repeat="thing in $ctrl.selected | filter:$ctrl.searchSelected | orderBy:$ctrl.property as selectedResults">
+        ng-repeat="thing in $ctrl.selected | filter:$ctrl.searchSelected | orderBy:$ctrl.orderBy as selectedResults">
         <td>
           {{ thing[$ctrl.property] }}
           <span class="is-pulled-right"

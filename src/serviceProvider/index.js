@@ -125,5 +125,12 @@
             acl: acl('Provisioning')
           }
         })
+        .when(path('networkClassOfServices'), {
+          template:
+            '<service-provider-network-class-of-services></service-provider-network-class-of-services>',
+          resolve: {
+            acl: acl('Service Provider')
+          }
+        })
     })
 })()

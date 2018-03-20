@@ -64,6 +64,11 @@
         },
         {
           type: 'management',
+          name: 'Network Class of Service',
+          path: route('networkClassOfServices')
+        },
+        {
+          type: 'management',
           name: 'Bulk Provisioning',
           module: 'Provisioning',
           path: '/bulk'
