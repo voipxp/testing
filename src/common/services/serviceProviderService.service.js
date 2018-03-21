@@ -39,6 +39,7 @@
       return $http
         .get(url(serviceProviderId, 'assignable'), { cache: cache })
         .then(function(response) {
+          $rootScope.$emit('ServiceProviderServiceService:updated')
           return response.data
         })
     }
