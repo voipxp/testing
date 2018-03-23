@@ -8,6 +8,7 @@
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.add = add
+    ctrl.clone = clone
     ctrl.onCreate = onCreate
     ctrl.open = open
     ctrl.onPagination = onPagination
@@ -34,6 +35,10 @@
         console.log('groups', ctrl.groups)
         return data
       })
+    }
+
+    function clone() {
+      $scope.$broadcast('groupClone:load')
     }
 
     function add() {

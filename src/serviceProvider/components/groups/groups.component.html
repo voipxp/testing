@@ -1,6 +1,9 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Groups">
     <pbs-block-buttons>
+      <pbs-button-compact-clone ng-click="$ctrl.clone()"
+        title="Clone Group">
+      </pbs-button-compact-clone>
       <pbs-button-compact-add ng-click="$ctrl.add()"
         title="Add Group"></pbs-button-compact-add>
     </pbs-block-buttons>
@@ -38,3 +41,6 @@
 <group-create service-provider-id="$ctrl.serviceProviderId"
   on-update="$ctrl.onCreate($event)">
 </group-create>
+<group-clone service-provider-id="$ctrl.serviceProviderId"
+             on-update="$ctrl.onCreate($event)">
+</group-clone>
