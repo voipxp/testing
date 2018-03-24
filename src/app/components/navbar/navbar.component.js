@@ -53,7 +53,9 @@
 
     function search(type) {
       if (type === 'users') {
-        $rootScope.$emit('userSearch:load')
+        $rootScope.$emit('userSearch:load', {
+          serviceProviderId: ctrl.session.serviceProviderId
+        })
       } else if (type === 'groups') {
         $rootScope.$emit('groupSearch:load')
       }

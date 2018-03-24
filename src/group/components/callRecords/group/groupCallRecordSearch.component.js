@@ -13,7 +13,6 @@
     ctrl.groupId = $routeParams.groupId
     ctrl.edit = edit
     ctrl.back = back
-    ctrl.newSearch = search
 
     function onInit() {
       var startTime = Sugar.Date.create($routeParams.startTime)
@@ -40,10 +39,6 @@
     }
 
     function edit() {
-      $scope.$broadcast('groupCallRecordSearchModal:load')
-    }
-
-    function search() {
       $scope.$broadcast('groupCallRecordSearchModal:load')
     }
 

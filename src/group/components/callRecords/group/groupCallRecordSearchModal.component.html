@@ -1,27 +1,21 @@
 <pbs-modal id="{{ $ctrl.modalId }}"
   title="Search Call Records">
-  <pbs-form label="Call Record Search">
-    <input type="hidden"
-      ng-model="$ctrl.search.start"
-      required>
-    <input type="hidden"
-      ng-model="$ctrl.search.end"
-      required>
-    <pbs-form-field label="Start Time">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.input.start"
-        ng-change="$ctrl.parse('start')">
-      <span ng-show="$ctrl.search.start">{{ $ctrl.search.start | date:'medium' }}</span>
-      <small ng-show="!$ctrl.search.start">Eg: yesterday 9am, Aug 1 9am</small>
-    </pbs-form-field>
-    <pbs-form-field label="End Time">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.input.end"
-        ng-change="$ctrl.parse('end')">
-      <span ng-show="$ctrl.search.end">{{ $ctrl.search.end | date:'medium' }}</span>
-      <small ng-show="!$ctrl.search.end">Eg: yesterday 5pm, Aug 1 5pm, now</small>
-    </pbs-form-field>
+  <pbs-form>
+    <pbs-columns>
+      <pbs-column>
+        <pbs-form-field label="Start Time">
+          <pbs-input-datetime ng-model="$ctrl.search.start"
+            ng-required="true">
+          </pbs-input-datetime>
+        </pbs-form-field>
+      </pbs-column>
+      <pbs-column>
+        <pbs-form-field label="End Time">
+          <pbs-input-datetime ng-model="$ctrl.search.end"
+            ng-required="true">
+          </pbs-input-datetime>
+        </pbs-form-field>
+      </pbs-column>
+    </pbs-columns>
   </pbs-form>
 </pbs-modal>

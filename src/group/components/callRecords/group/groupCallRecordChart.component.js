@@ -45,23 +45,24 @@
     }
 
     function loadStats() {
-      return GroupCallRecordsService.get(
+      return GroupCallRecordsService.stats(
         ctrl.serviceProviderId,
         ctrl.groupId,
         ctrl.startTime,
-        ctrl.endTime,
-        'stats'
+        ctrl.endTime
       ).then(function(data) {
         ctrl.options = { legend: { display: true, position: 'right' } }
-        ctrl.stats = data || {
-          placedAnswered: 0,
-          placedMissed: 0,
-          placedTotal: 0,
-          receivedAnswered: 0,
-          receivedMissed: 0,
-          receivedTotal: 0,
-          total: 0
-        }
+        ctrl.stats = !_.isEmpty(data)
+          ? data
+          : {
+              placedAnswered: 0,
+              placedMissed: 0,
+              placedTotal: 0,
+              receivedAnswered: 0,
+              receivedMissed: 0,
+              receivedTotal: 0,
+              total: 0
+            }
         ctrl.colors = ['#97BBCD', '#DCDCDC', '#46BFBD', '#949FB1']
         ctrl.labels = [
           generateLabel(

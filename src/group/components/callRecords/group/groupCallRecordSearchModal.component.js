@@ -10,7 +10,6 @@
     var ctrl = this
 
     ctrl.$onInit = onInit
-    ctrl.parse = parse
 
     function onInit() {
       ctrl.modalId = HashService.guid()
@@ -27,25 +26,6 @@
         )
         close()
       })
-    }
-
-    function parse(type) {
-      if (type !== 'start' && type !== 'end') return
-      if (!ctrl.input[type]) {
-        ctrl.search[type] = null
-        return
-      }
-      var params = {}
-      var opts = { past: true, params: params }
-      var parsed = Sugar.Date.create(ctrl.input[type], opts)
-      if (!Sugar.Date.isValid(parsed)) {
-        ctrl.search[type] = null
-        return
-      }
-      if (type === 'end' && !params.hour) {
-        parsed = Sugar.Date.endOfDay(parsed)
-      }
-      ctrl.search[type] = parsed
     }
 
     $scope.$on('groupCallRecordSearchModal:load', open)

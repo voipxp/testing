@@ -4,25 +4,62 @@
       <pbs-button-compact-download ng-click="$ctrl.download()">
       </pbs-button-compact-download>
     </pbs-block-buttons>
-    <div class="columns">
-      <div class="column is-narrow">
-        <div class="select">
-          <select ng-model="$ctrl.filter"
-            ng-options="f | humanize for f in $ctrl.filters"
-            ng-change="$ctrl.setFilter($ctrl.filter)"></select>
+    <div class="buttons has-addons is-centered">
+      <button class="button"
+        ng-click="$ctrl.toggleFilter(filter)"
+        ng-repeat="filter in $ctrl.filters">
+        <pbs-check-box checked="filter.show"></pbs-check-box>
+        <span>{{ filter.name }}</span>
+      </button>
+    </div>
+    <div class="columns"
+      style="margin-bottom: -.25rem">
+      <div class="column">
+        <div class="field has-addons">
+          <p class="control">
+            <pbs-button-static>UserID</pbs-button-static>
+          </p>
+          <p class="control is-expanded">
+            <input type="search"
+              placeholder="Search by User"
+              class="input margin-bottom"
+              ng-model="$ctrl.searchUserId"
+              readonly
+              ng-click="$ctrl.searchUser()">
+          </p>
+          <p class="control"
+            ng-if="$ctrl.searchUserId">
+            <button class="button"
+              ng-click="$ctrl.onSelectUser()">
+              <span class="icon">
+                <i class="fas fa-times"></i>
+              </span>
+            </button>
+          </p>
+          <p class="control">
+            <button class="button"
+              ng-click="$ctrl.searchUser()">
+              <span class="icon">
+                <i class="fas fa-search"></i>
+              </span>
+            </button>
+          </p>
         </div>
       </div>
       <div class="column">
-        <input type="search"
-          placeholder="Search"
-          class="input margin-bottom"
-          ng-model="$ctrl.search"
-          ng-model-options="{debounce: 250}">
+        <div class="fields has-addons">
+          <input type="search"
+            class="input"
+            ng-model="$ctrl.search"
+            placeholder="Filter Results">
+        </div>
       </div>
     </div>
     <table pbs-table>
       <thead>
         <tr>
+          <th>Enterprise</th>
+          <th>Group</th>
           <th>User ID</th>
           <th>Department</th>
           <th>Direction</th>
@@ -48,9 +85,11 @@
       </tfoot>
       <tbody>
         <tr ng-repeat="detail in results = ($ctrl.details | filter:$ctrl.search) | paginate:$ctrl.pager">
+          <td>{{ detail.serviceProviderId }}</td>
+          <td>{{ detail.groupId }}</td>
           <td>{{ detail.userIdSub }}</td>
           <td>{{ detail.department }}</td>
-          <td>{{ detail.direction }}</td>
+          <td>{{ detail.direction | humanize }}</td>
           <td>{{ detail.calledNumber }}</td>
           <td>{{ detail.callingNumber }}</td>
           <td>{{ detail.otherPartyName }}</td>

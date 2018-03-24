@@ -1,8 +1,7 @@
 ;(function() {
   angular.module('odin.common').component('userSearch', {
     templateUrl: 'common/components/userSearch/search.component.html',
-    controller: Controller,
-    bindings: { serviceProviderId: '<', groupId: '<' }
+    controller: Controller
   })
 
   function Controller(
@@ -49,6 +48,7 @@
         groupId: ctrl.groupId
       }
       params[ctrl.type] = ctrl.filter
+      console.log('userSearch', params)
       UserSearchService.index(params)
         .then(function(data) {
           ctrl.users = data
@@ -63,10 +63,17 @@
       Alert.modal.close(ctrl.modalId)
       ctrl.filter = null
       ctrl.users = null
-      Route.open('users')(user.serviceProviderId, user.groupId, user.userId)
+      if (_.isFunction(ctrl.onSelect)) {
+        ctrl.onSelect(user)
+      } else {
+        Route.open('users')(user.serviceProviderId, user.groupId, user.userId)
+      }
     }
 
-    $rootScope.$on('userSearch:load', function() {
+    $rootScope.$on('userSearch:load', function(event, data) {
+      ctrl.onSelect = data.onSelect
+      ctrl.serviceProviderId = data.serviceProviderId
+      ctrl.groupId = data.groupId
       ctrl.filter = null
       ctrl.users = null
       ctrl.type = 'userId'
