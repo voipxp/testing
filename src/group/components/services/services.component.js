@@ -102,7 +102,7 @@
       ctrl.spTable = false
       ctrl.groupTable = true
       loadGroups(serviceProviderId).then(function() {
-         // console.log(response)
+        // console.log(response)
       })
     }
     function selectGroup(groupId) {
@@ -110,7 +110,7 @@
       ctrl.spTable = false
       ctrl.groupTable = false
       ctrl.cloneServices = ''
-      loadCloneServicePacks().then(function(o) {
+      loadCloneServicePacks().then(function() {
         // console.log(response)
       })
     }

@@ -3,14 +3,8 @@
     .module('odin.common')
     .factory('ReplicateGroupServiceService', ReplicateGroupServiceService)
 
-  function ReplicateGroupServiceService(
-    $http,
-    Route,
-    CacheFactory,
-    $rootScope
-  ) {
+  function ReplicateGroupServiceService($http, Route, $rootScope) {
     var service = { store: store }
-    var cache = CacheFactory('ReplicateGroupServiceService')
     return service
 
     function url(fromServiceProviderId, fromGroupId) {
