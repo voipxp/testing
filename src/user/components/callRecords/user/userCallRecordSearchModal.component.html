@@ -1,0 +1,21 @@
+<pbs-modal id="{{ $ctrl.modalId }}"
+  title="Search Call Records">
+  <pbs-form>
+    <pbs-columns>
+      <pbs-column>
+        <pbs-form-field label="Start Time">
+          <pbs-input-datetime ng-model="$ctrl.search.start"
+            ng-required="true">
+          </pbs-input-datetime>
+        </pbs-form-field>
+      </pbs-column>
+      <pbs-column>
+        <pbs-form-field label="End Time">
+          <pbs-input-datetime ng-model="$ctrl.search.end"
+            ng-required="true">
+          </pbs-input-datetime>
+        </pbs-form-field>
+      </pbs-column>
+    </pbs-columns>
+  </pbs-form>
+</pbs-modal>

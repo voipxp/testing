@@ -102,6 +102,23 @@
           module: module('Basic Call Logs')
         }
       })
+      .when(path('premiumCallRecords'), {
+        template:
+          '<user-call-record-dashboard module="$resolve.module"></user-call-record-dashboard>',
+        resolve: {
+          acl: acl('User'),
+          module: module('Premium Call Records')
+        }
+      })
+      .when(path('premiumCallRecords/:startTime/:endTime'), {
+        template:
+          '<user-call-record-search module="$resolve.module"></user-call-record-search>',
+        resolve: {
+          acl: acl('User'),
+          module: module('Premium Call Records')
+        },
+        reloadOnSearch: false
+      })
       .when(path('broadWorksAnywhere'), {
         template:
           '<user-broad-works-anywhere module="$resolve.module"></user-broad-works-anywhere>',

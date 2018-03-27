@@ -5,7 +5,15 @@
 
   function UserCallRecordsService($http, Route, $location, UtilityService) {
     var url = Route.api('/callrecords/users')
-    var service = { hourly: hourly, daily: daily, detail: detail, get: get }
+    var service = {
+      hourly: hourly,
+      daily: daily,
+      detail: detail,
+      details: details,
+      stats: stats,
+      get: get,
+      open: open
+    }
 
     service.options = { reportType: ['Hourly', 'Daily'] }
 
@@ -23,6 +31,14 @@
       return get(userIds, startTime, endTime, 'detail')
     }
 
+    function details(userIds, startTime, endTime) {
+      return get(userIds, startTime, endTime, 'details')
+    }
+
+    function stats(userIds, startTime, endTime) {
+      return get(userIds, startTime, endTime, 'stats')
+    }
+
     function get(userIds, startTime, endTime, reportType) {
       userIds = UtilityService.castArray(userIds)
       return $http
@@ -36,6 +52,14 @@
         .then(function(response) {
           return response.data
         })
+    }
+
+    function open(serviceProviderId, groupId, userId, startTime, endTime) {
+      Route.open('users', serviceProviderId, groupId, userId)(
+        'premiumCallRecords',
+        startTime,
+        endTime
+      ).hash(null)
     }
   }
 })()

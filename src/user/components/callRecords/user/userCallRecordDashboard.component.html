@@ -1,0 +1,50 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-module-description module="$ctrl.module"></pbs-module-description>
+<pbs-block title="Call Record Dashboard">
+  <pbs-block-buttons>
+    <pbs-button-compact-search ng-click="$ctrl.search()"></pbs-button-compact-search>
+  </pbs-block-buttons>
+  <pbs-columns>
+    <pbs-column>
+      <user-call-record-chart service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"
+        start-time="$ctrl.today.start"
+        end-time="$ctrl.today.end"
+        label="$ctrl.today.label"></user-call-record-chart>
+    </pbs-column>
+    <pbs-column>
+      <user-call-record-chart service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"
+        start-time="$ctrl.yesterday.start"
+        end-time="$ctrl.yesterday.end"
+        label="$ctrl.yesterday.label"></user-call-record-chart>
+    </pbs-column>
+  </pbs-columns>
+  <pbs-columns>
+    <pbs-column>
+      <user-call-record-chart service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"
+        start-time="$ctrl.week.start"
+        end-time="$ctrl.week.end"
+        label="$ctrl.week.label"></user-call-record-chart>
+    </pbs-column>
+    <pbs-column>
+      <user-call-record-chart service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"
+        start-time="$ctrl.month.start"
+        end-time="$ctrl.month.end"
+        label="$ctrl.month.label"></user-call-record-chart>
+    </pbs-column>
+  </pbs-columns>
+</pbs-block>
+<user-call-record-search-modal service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId"></user-call-record-search-modal>

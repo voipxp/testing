@@ -179,6 +179,11 @@
         },
         {
           type: 'service',
+          module: 'Premium Call Records',
+          path: route('premiumCallRecords')
+        },
+        {
+          type: 'service',
           service: 'BroadWorks Anywhere',
           path: route('broadWorksAnywhere')
         },
