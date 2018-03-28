@@ -5,9 +5,13 @@
     limit-to="$ctrl.limitTo"
     on-select="$ctrl.open($event)">
     <pbs-panel-buttons>
+      <pbs-button-compact-clone title="Clone Service Provider"
+        ng-click="$ctrl.clone()">
+      </pbs-button-compact-clone>
       <pbs-button-compact-add title="Add Service Provider"
-        ng-click="$ctrl.add()">
+        ng-click="$ctrl.add()"></pbs-button-compact-add>
     </pbs-panel-buttons>
   </pbs-panel>
 </pbs-spinner>
 <service-provider-create on-create="$ctrl.onCreate($event)"></service-provider-create>
+<service-provider-clone on-create="$ctrl.onCreate($event)"></service-provider-clone>

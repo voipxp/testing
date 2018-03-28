@@ -13,6 +13,7 @@
     ctrl.onCreate = onCreate
     ctrl.open = open
     ctrl.onPagination = onPagination
+    ctrl.clone = clone
 
     function onInit() {
       ctrl.loading = true
@@ -42,6 +43,10 @@
 
     function onCreate(event) {
       open({ item: event.serviceProvider })
+    }
+
+    function clone() {
+      $scope.$broadcast('serviceProviderClone:load')
     }
 
     function open(event) {

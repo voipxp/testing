@@ -3,7 +3,7 @@
     .module('odin.common')
     .factory('ServiceProviderService', ServiceProviderService)
 
-  function ServiceProviderService($http, Route, CacheFactory) {
+  function ServiceProviderService($http, Route, $rootScope, CacheFactory) {
     var url = Route.api('serviceproviders')
     var service = {
       index: index,
@@ -13,7 +13,14 @@
       destroy: destroy
     }
     var cache = CacheFactory('ServiceProviderService')
+
+    $rootScope.$on('ServiceProviderService:updated', clearCache)
+
     return service
+
+    function clearCache() {
+      cache.removeAll()
+    }
 
     function index() {
       return $http.get(url(), { cache: cache }).then(function(response) {
@@ -23,7 +30,7 @@
 
     function store(serviceProvider) {
       return $http.post(url(), serviceProvider).then(function(response) {
-        cache.removeAll()
+        clearCache()
         return response.data
       })
     }
@@ -40,14 +47,14 @@
       return $http
         .put(url(serviceProviderId), serviceProvider)
         .then(function(response) {
-          cache.removeAll()
+          clearCache()
           return response.data
         })
     }
 
     function destroy(serviceProviderId) {
       return $http.delete(url(serviceProviderId)).then(function(response) {
-        cache.removeAll()
+        clearCache()
         return response.data
       })
     }
