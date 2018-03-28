@@ -2,15 +2,15 @@
   angular.module('odin.common').factory('CloneGroupService', CloneGroupService)
 
   function CloneGroupService($http, Route) {
-    var service = { store: store }
+    var service = { all: all }
     return service
 
-    function url() {
-      return Route.api('/replicate/groups/all')()
+    function url(serviceProviderId, groupId, path) {
+      return Route.api('/clone/groups')(serviceProviderId, groupId, path)
     }
 
-    function store(obj) {
-      return $http.post(url(), obj).then(function(response) {
+    function all(serviceProviderId, groupId, obj) {
+      return $http.put(url(groupId), obj).then(function(response) {
         return response.data
       })
     }

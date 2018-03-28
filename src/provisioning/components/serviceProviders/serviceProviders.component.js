@@ -16,6 +16,8 @@
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
+    ctrl.clone = clone
+    ctrl.onClone = onClone
     ctrl.add = add
     ctrl.onCreate = onCreate
     ctrl.open = open
@@ -45,6 +47,14 @@
 
     function add() {
       $scope.$broadcast('serviceProviderCreate:load')
+    }
+
+    function clone() {
+      $scope.$broadcast('serviceProviderClone:load')
+    }
+
+    function onClone(event) {
+      open(event.serviceProvider)
     }
 
     function onCreate(event) {

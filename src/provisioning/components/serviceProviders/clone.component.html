@@ -1,0 +1,41 @@
+<pbs-modal id="cloneServiceProviderModal"
+  title="Clone Service Provider">
+  <pbs-form>
+    <pbs-form-field-horizontal label="Clone From">
+      <div class="field has-addons">
+        <p class="control is-expanded">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.serviceProviderId"
+            placeholder="No Service Provider Selected"
+            readonly
+            ng-click="$ctrl.select()"
+            required>
+        </p>
+        <p class="control">
+          <a class="button"
+            ng-click="$ctrl.select()"
+            title="Select a Service Provider">
+            <span class="icon">
+              <i class="fas fa-search"></i>
+            </span>
+          </a>
+        </p>
+      </div>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal ng-show="$ctrl.serviceProviderId"
+      label="Service Provider ID">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.serviceProvider.serviceProviderId"
+        required>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal ng-show="$ctrl.serviceProviderId"
+      label="Service Provider Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.serviceProvider.serviceProviderName"
+        required>
+    </pbs-form-field-horizontal>
+</pbs-modal>
+<select-service-provider on-update="$ctrl.onSelect($event)"></select-service-provider>
