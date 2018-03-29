@@ -1,5 +1,5 @@
 ;(function() {
-  angular.module('odin.provisioning').component('groupCreate', {
+  angular.module('odin.serviceProvider').component('groupCreate', {
     templateUrl: 'serviceProvider/components/groups/create.component.html',
     controller: Controller,
     bindings: {

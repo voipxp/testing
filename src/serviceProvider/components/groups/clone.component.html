@@ -1,120 +1,172 @@
 <pbs-modal id="cloneGroupModal"
-           title="Clone a Group">
-  <form>
+  title="Clone Group">
+  <pbs-form>
     <pbs-tabs>
-      <pbs-tab label="Required">
-        <!--<pbs-form-section>-->
-          <!--Service Provider Id {{$ctrl.serviceProviderId}}-->
-        <!--</pbs-form-section>-->
-        <pbs-form-field-horizontal label="Service Provider Id">
-          {{$ctrl.clone.serviceProviderId}}
-        </pbs-form-field-horizontal>
-        <pbs-form-field-horizontal label="Group Id">
-          <div class="select">
-            <select ng-model="$ctrl.clone.groupId"
-                    ng-change="$ctrl.show()"
-                    ng-options="group.groupId as group.groupName for group in $ctrl.groups" required></select>
+      <pbs-tab label="Details">
+        <pbs-form-section>Required Fields</pbs-form-section>
+        <pbs-form-field-horizontal label="Clone Service Provider"
+          ng-if="$ctrl.isProvisioning">
+          <div class="field has-addons">
+            <p class="control is-expanded">
+              <input type="text"
+                class="input"
+                ng-model="$ctrl.fromServiceProviderId"
+                placeholder="No Service Provider Selected"
+                readonly
+                ng-click="$ctrl.selectServiceProvider()"
+                required>
+            </p>
+            <p class="control">
+              <a class="button"
+                ng-click="$ctrl.selectServiceProvider()"
+                title="Select a Service Provider">
+                <span class="icon">
+                  <i class="fas fa-search"></i>
+                </span>
+              </a>
+            </p>
           </div>
         </pbs-form-field-horizontal>
-        <pbs-form-field-horizontal label="New Service Provider Id">
-          <input type="text"
-                 class="input"
-                 ng-model="$ctrl.clone.newServiceProviderId"
-                 required>
+        <pbs-form-field-horizontal label="Clone Group">
+          <div class="field has-addons">
+            <p class="control is-expanded">
+              <input type="text"
+                class="input"
+                ng-model="$ctrl.fromGroupId"
+                placeholder="No Group Selected"
+                readonly
+                ng-click="$ctrl.selectGroup()"
+                required>
+            </p>
+            <p class="control">
+              <a class="button"
+                ng-click="$ctrl.selectGroup()"
+                title="Select a Group">
+                <span class="icon">
+                  <i class="fas fa-search"></i>
+                </span>
+              </a>
+            </p>
+          </div>
         </pbs-form-field-horizontal>
-        <pbs-form-field-horizontal label="New Group Id">
+        <pbs-form-field-horizontal label="Group ID">
           <input type="text"
-                 class="input"
-                 ng-model="$ctrl.clone.newGroupId"
-                 required>
+            class="input"
+            ng-model="$ctrl.group.groupId"
+            required>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Group Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.groupName"
+            required>
+        </pbs-form-field-horizontal>
+        <pbs-form-section>Clone Options</pbs-form-section>
+        <input type="checkbox"
+          label="Feature Access Code"
+          ng-model="$ctrl.options.featureAccessCode"
+          pbs-input-checkradio>
+        <input type="checkbox"
+          ng-model="$ctrl.options.callProcessingPolicy"
+          label="Call Processing Policy"
+          pbs-input-checkradio>
+        <input type="checkbox"
+          label="Network Class of Service"
+          ng-model="$ctrl.options.networkClassOfService"
+          pbs-input-checkradio>
+        <input type="checkbox"
+          label="Extension Length"
+          ng-model="$ctrl.options.extensionLength"
+          pbs-input-checkradio>
+        <input type="checkbox"
+          label="Services"
+          ng-model="$ctrl.options.services"
+          pbs-input-checkradio>
+        <input type="checkbox"
+          label="Group Policy"
+          ng-model="$ctrl.options.policy"
+          pbs-input-checkradio>
+        <input type="checkbox"
+          label="Schedule"
+          ng-model="$ctrl.options.schedule"
+          pbs-input-checkradio>
+        <input type="checkbox"
+          label="Outgoing Calling Plan"
+          ng-model="$ctrl.options.outgoingCallingPlan"
+          pbs-input-checkradio>
+      </pbs-tab>
+      <pbs-tab label="Options">
+        <pbs-form-field-horizontal label="Default Domain">
+          <select-service-provider-domain ng-model="$ctrl.group.defaultDomain"
+            service-provider-id="$ctrl.serviceProviderId"></select-service-provider-domain>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="User Limit">
           <input type="number"
-                 class="input"
-                 ng-model="$ctrl.clone.userLimit"
-                 min="1"
-                 required>
+            class="input"
+            ng-model="$ctrl.group.userLimit"
+            min="1">
         </pbs-form-field-horizontal>
-
-        <pbs-form-section>clone options</pbs-form-section>
-        <input type="checkbox" ng-model="$ctrl.clone.serviceProviderNetworkClassOfService" label="Service Provider Network Class Of Service" pbs-input-checkradio>
-        <input type="checkbox" ng-model="$ctrl.clone.enterpriseVoiceVpn" label="Enterprise Voice Vpn" pbs-input-checkradio>
-        <input type="checkbox" ng-model="$ctrl.clone.serviceProviderCallProcessingPolicy" label="SP Call Processing Policy" pbs-input-checkradio>
-        <input type="checkbox" ng-model="$ctrl.clone.groupExtensionLength" label="Group Extension Length" pbs-input-checkradio>
-        <input type="checkbox" ng-model="$ctrl.clone.groupCallProcessingPolicy" label="Group Call Processing Policy" pbs-input-checkradio>
-        <input type="checkbox" ng-model="$ctrl.clone.groupFeatureAccessCode" label="Group Feature Access Code" pbs-input-checkradio>
-        <input type="checkbox" ng-model="$ctrl.clone.groupNetworkClassOfService" label="Group Network Class Of Service" pbs-input-checkradio>
-        <input type="checkbox" ng-model="$ctrl.clone.groupPolicy" label="Group Policy" pbs-input-checkradio>
-        <input type="checkbox" ng-model="$ctrl.clone.groupSchedule" label="Group Schedule" pbs-input-checkradio>
-        <input type="checkbox" ng-model="$ctrl.clone.groupOutgoingCallingPlanOriginating" label="Group Outgoing Calling Plan Originating" pbs-input-checkradio>
-        <input type="checkbox" ng-model="$ctrl.clone.groupOutgoingCallingPlanRedirecting" label="Group Outgoing Calling Plan Redirecting" pbs-input-checkradio>
-        <input type="checkbox" ng-model="$ctrl.clone.groupOutgoingCallingPlanRedirected" label="Group Outgoing Calling Plan Redirected" pbs-input-checkradio>
-
+        <pbs-form-field-horizontal label="Group CLID Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.callingLineIdName">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Location Dialing Code">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.locationDialingCode">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Timezone">
+          <select-timezone ng-model="$ctrl.group.timeZone"></select-timezone>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Contact Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.contact.contactName">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Contact Email">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.contact.contactEmail">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Contact Number">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.contact.contactNumber">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Address 1">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.address.addressLine1">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Address Line 2">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.address.addressLine2">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="City">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.address.city">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="State/Province">
+          <select-state ng-model="$ctrl.group.address.stateOrProvince"></select-state>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Postal Code">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.address.zipOrPostalCode">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Country">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.group.address.country">
+        </pbs-form-field-horizontal>
       </pbs-tab>
-      <!--<pbs-tab label="Optional">-->
-        <!--<pbs-form-field label="Group CLID Name">-->
-          <!--<input type="text"-->
-                 <!--class="input"-->
-                 <!--ng-model="$ctrl.to.callingLineIdName">-->
-        <!--</pbs-form-field>-->
-        <!--<pbs-form-field label="Location Dialing Code">-->
-          <!--<input type="text"-->
-                 <!--class="input"-->
-                 <!--ng-model="$ctrl.group.locationDialingCode">-->
-        <!--</pbs-form-field>-->
-        <!--<pbs-form-field label="Timezone">-->
-          <!--<div class="select">-->
-            <!--<select ng-model="$ctrl.group.timeZone"-->
-                    <!--ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones"></select>-->
-          <!--</div>-->
-        <!--</pbs-form-field>-->
-        <!--<pbs-form-field label="Contact Name">-->
-          <!--<input type="text"-->
-                 <!--class="input"-->
-                 <!--ng-model="$ctrl.group.contact.contactName">-->
-        <!--</pbs-form-field>-->
-        <!--<pbs-form-field label="Contact Email">-->
-          <!--<input type="text"-->
-                 <!--class="input"-->
-                 <!--ng-model="$ctrl.group.contact.contactEmail">-->
-        <!--</pbs-form-field>-->
-        <!--<pbs-form-field label="Contact Number">-->
-          <!--<input type="text"-->
-                 <!--class="input"-->
-                 <!--ng-model="$ctrl.group.contact.contactNumber">-->
-        <!--</pbs-form-field>-->
-        <!--<pbs-form-field label="Address Line 1">-->
-          <!--<input type="text"-->
-                 <!--class="input"-->
-                 <!--ng-model="$ctrl.group.address.addressLine1">-->
-        <!--</pbs-form-field>-->
-        <!--<pbs-form-field label="Address Line 2">-->
-          <!--<input type="text"-->
-                 <!--class="input"-->
-                 <!--ng-model="$ctrl.group.address.addressLine2">-->
-        <!--</pbs-form-field>-->
-        <!--<pbs-form-field label="City">-->
-          <!--<input type="text"-->
-                 <!--class="input"-->
-                 <!--ng-model="$ctrl.group.address.city">-->
-        <!--</pbs-form-field>-->
-        <!--<pbs-form-field label="State/Province">-->
-          <!--<div class="select">-->
-            <!--<select ng-model="$ctrl.group.address.stateOrProvince"-->
-                    <!--ng-options="state.key as state.displayName for state in $ctrl.states"></select>-->
-          <!--</div>-->
-        <!--</pbs-form-field>-->
-        <!--<pbs-form-field label="Postal Code">-->
-          <!--<input type="text"-->
-                 <!--class="input"-->
-                 <!--ng-model="$ctrl.group.address.zipOrPostalCode">-->
-        <!--</pbs-form-field>-->
-        <!--<pbs-form-field label="Country">-->
-          <!--<input type="text"-->
-                 <!--class="input"-->
-                 <!--ng-model="$ctrl.group.address.country">-->
-        <!--</pbs-form-field>-->
-      <!--</pbs-tab>-->
     </pbs-tabs>
-  </form>
+
+  </pbs-form>
 </pbs-modal>
+<select-service-provider on-update="$ctrl.onSelectServiceProvider($event)"></select-service-provider>
+<select-group service-provider-id="$ctrl.serviceProviderId"
+  on-update="$ctrl.onSelectGroup($event)"></select-group>

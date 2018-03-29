@@ -1,41 +1,123 @@
 <pbs-modal id="cloneServiceProviderModal"
   title="Clone Service Provider">
   <pbs-form>
-    <pbs-form-field-horizontal label="Clone From">
-      <div class="field has-addons">
-        <p class="control is-expanded">
+    <pbs-tabs>
+      <pbs-tab label="Details">
+        <pbs-form-section>Required Fields</pbs-form-section>
+        <pbs-form-field-horizontal label="Clone Service Provider">
+          <div class="field has-addons">
+            <p class="control is-expanded">
+              <input type="text"
+                class="input"
+                ng-model="$ctrl.serviceProviderId"
+                placeholder="No Service Provider Selected"
+                readonly
+                ng-click="$ctrl.select()"
+                required>
+            </p>
+            <p class="control">
+              <a class="button"
+                ng-click="$ctrl.select()"
+                title="Select a Service Provider">
+                <span class="icon">
+                  <i class="fas fa-search"></i>
+                </span>
+              </a>
+            </p>
+          </div>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="New Service Provider ID">
           <input type="text"
             class="input"
-            ng-model="$ctrl.serviceProviderId"
-            placeholder="No Service Provider Selected"
-            readonly
-            ng-click="$ctrl.select()"
+            ng-model="$ctrl.serviceProvider.serviceProviderId"
             required>
-        </p>
-        <p class="control">
-          <a class="button"
-            ng-click="$ctrl.select()"
-            title="Select a Service Provider">
-            <span class="icon">
-              <i class="fas fa-search"></i>
-            </span>
-          </a>
-        </p>
-      </div>
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal ng-show="$ctrl.serviceProviderId"
-      label="Service Provider ID">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.serviceProvider.serviceProviderId"
-        required>
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal ng-show="$ctrl.serviceProviderId"
-      label="Service Provider Name">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.serviceProvider.serviceProviderName"
-        required>
-    </pbs-form-field-horizontal>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="New Service Provider Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.serviceProvider.serviceProviderName"
+            required>
+        </pbs-form-field-horizontal>
+        <pbs-form-section>Clone Options</pbs-form-section>
+        <input type="checkbox"
+          label="Services"
+          ng-model="$ctrl.options.services"
+          ng-click="$ctrl.click('services')"
+          pbs-input-checkradio>
+        <input type="checkbox"
+          label="Service Packs"
+          ng-model="$ctrl.options.servicePacks"
+          ng-click="$ctrl.click('servicePacks')"
+          pbs-input-checkradio>
+        <input type="checkbox"
+          label="Network Class of Service"
+          ng-model="$ctrl.options.servicePacks"
+          ng-show="$ctrl.isSystem"
+          pbs-input-checkradio>
+        <input type="checkbox"
+          label="Enterprise Voice VPN"
+          ng-model="$ctrl.options.enterpriseVoiceVPN"
+          pbs-input-checkradio>
+        <input type="checkbox"
+          ng-model="$ctrl.options.callProcessingPolicy"
+          label="Call Processing Policy"
+          pbs-input-checkradio>
+      </pbs-tab>
+      <pbs-tab label="Options">
+        <pbs-form-field-horizontal label="Default Domain">
+          <select-domain ng-model="$ctrl.serviceProvider.defaultDomain"></select-domain>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Support Email">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.serviceProvider.supportEmail">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Contact Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.serviceProvider.contact.contactName">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Contact Email">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.serviceProvider.contact.contactEmail">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Contact Number">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.serviceProvider.contact.contactNumber">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Address 1">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.serviceProvider.address.addressLine1">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Address Line 2">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.serviceProvider.address.addressLine2">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="City">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.serviceProvider.address.city">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="State/Province">
+          <select-state ng-model="$ctrl.serviceProvider.address.stateOrProvince"></select-state>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Postal Code">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.serviceProvider.address.zipOrPostalCode">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Country">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.serviceProvider.address.country">
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+    </pbs-tabs>
+
+  </pbs-form>
 </pbs-modal>
 <select-service-provider on-update="$ctrl.onSelect($event)"></select-service-provider>

@@ -43,8 +43,8 @@
     }
 
     function selectType() {
-      if (ctrl.editServiceProvider.isEnterprise) {
-        ctrl.editServiceProvider.useCustomRoutingProfile = false
+      if (ctrl.serviceProvider.isEnterprise) {
+        ctrl.serviceProvider.useCustomRoutingProfile = false
       }
     }
 

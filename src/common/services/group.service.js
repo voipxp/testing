@@ -1,7 +1,7 @@
 ;(function() {
   angular.module('odin.common').factory('GroupService', GroupService)
 
-  function GroupService($http, Route, CacheFactory) {
+  function GroupService($http, Route, CacheFactory, $rootScope) {
     var service = {
       index: index,
       store: store,
@@ -10,7 +10,14 @@
       destroy: destroy
     }
     var cache = CacheFactory('GroupService')
+
+    $rootScope.$on('GroupService:updated', clearCache)
+
     return service
+
+    function clearCache() {
+      cache.removeAll()
+    }
 
     function url(serviceProviderId, groupId) {
       return Route.api(
@@ -31,7 +38,7 @@
 
     function store(serviceProviderId, group) {
       return $http.post(url(serviceProviderId), group).then(function(response) {
-        cache.removeAll()
+        clearCache()
         return response.data
       })
     }
@@ -48,7 +55,7 @@
       return $http
         .put(url(serviceProviderId, group.groupId), group)
         .then(function(response) {
-          cache.removeAll()
+          clearCache()
           return response.data
         })
     }
@@ -57,7 +64,7 @@
       return $http
         .delete(url(serviceProviderId, groupId))
         .then(function(response) {
-          cache.removeAll()
+          clearCache()
           return response.data
         })
     }

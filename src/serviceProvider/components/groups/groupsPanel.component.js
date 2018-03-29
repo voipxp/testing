@@ -43,6 +43,7 @@
     function clone() {
       $scope.$broadcast('groupClone:load')
     }
+
     function add() {
       $scope.$broadcast('groupCreate:load')
     }

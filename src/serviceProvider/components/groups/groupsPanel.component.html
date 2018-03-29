@@ -5,10 +5,9 @@
     limit-to="$ctrl.limitTo"
     on-select="$ctrl.open($event)">
     <pbs-panel-buttons>
-      <pbs-button-compact-clone title="Clone Group" ng-click="$ctrl.clone()">
+      <pbs-button-compact-clone title="Clone Group"
+        ng-click="$ctrl.clone()">
       </pbs-button-compact-clone>
-    </pbs-panel-buttons>
-    <pbs-panel-buttons>
       <pbs-button-compact-add title="Add Group"
         ng-click="$ctrl.add()">
       </pbs-button-compact-add>
@@ -19,5 +18,5 @@
   on-update="$ctrl.onCreate($event)">
 </group-create>
 <group-clone service-provider-id="$ctrl.serviceProviderId"
-              on-update="$ctrl.onCreate($event)">
+  on-update="$ctrl.onCreate($event)">
 </group-clone>

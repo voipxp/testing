@@ -1,7 +1,7 @@
 ;(function() {
   angular.module('odin.common').factory('CloneGroupService', CloneGroupService)
 
-  function CloneGroupService($http, Route) {
+  function CloneGroupService($http, Route, $rootScope) {
     var service = { all: all }
     return service
 
@@ -10,9 +10,12 @@
     }
 
     function all(serviceProviderId, groupId, obj) {
-      return $http.put(url(groupId), obj).then(function(response) {
-        return response.data
-      })
+      return $http
+        .put(url(serviceProviderId, groupId), obj)
+        .then(function(response) {
+          $rootScope.$emit('GroupService:updated')
+          return response.data
+        })
     }
   }
 })()

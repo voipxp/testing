@@ -10,11 +10,13 @@
     EventEmitter,
     CloneServiceProviderService,
     $scope,
-    Alert
+    Alert,
+    ACL
   ) {
     var ctrl = this
     ctrl.select = select
     ctrl.onSelect = onSelect
+    ctrl.click = click
 
     function select() {
       $scope.$broadcast('selectServiceProvider:load')
@@ -26,16 +28,43 @@
     }
 
     function load() {
+      ctrl.isSystem = ACL.has('System')
       ctrl.serviceProviderId = null
       ctrl.serviceProvider = {}
+      ctrl.options = {
+        services: true,
+        servicePacks: true,
+        networkClassOfService: true,
+        enterpriseVoiceVPN: true,
+        callProcessingPolicy: true
+      }
       Alert.modal.open('cloneServiceProviderModal', function(close) {
-        create(ctrl.serviceProvider, close)
+        create(ctrl.serviceProvider, ctrl.options, close)
       })
     }
 
-    function create(serviceProvider, callback) {
+    function click(type) {
+      if (type === 'services') {
+        if (!ctrl.options['services']) {
+          ctrl.options['servicePacks'] = false
+        }
+      } else if (type === 'servicePacks') {
+        if (ctrl.options['servicePacks']) {
+          ctrl.options['services'] = true
+        }
+      } else if (type === 'isEnterprise') {
+        if (ctrl.serviceProvider.isEnterprise) {
+          ctrl.serviceProvider.useCustomRoutingProfile = false
+        }
+      }
+    }
+
+    function create(serviceProvider, options, callback) {
       Alert.spinner.open()
-      CloneServiceProviderService.all(ctrl.serviceProviderId, serviceProvider)
+      CloneServiceProviderService.all(ctrl.serviceProviderId, {
+        data: serviceProvider,
+        options: options
+      })
         .then(function() {
           Alert.notify.success('Service Provider Cloned')
           callback()
