@@ -27,7 +27,6 @@
         ctrl.fromGroupId = null
       }
       ctrl.fromServiceProviderId = event.serviceProviderId
-      selectGroup()
     }
 
     function onSelectGroup(event) {

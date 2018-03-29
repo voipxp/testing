@@ -49,13 +49,13 @@
             </p>
           </div>
         </pbs-form-field-horizontal>
-        <pbs-form-field-horizontal label="Group ID">
+        <pbs-form-field-horizontal label="New Group ID">
           <input type="text"
             class="input"
             ng-model="$ctrl.group.groupId"
             required>
         </pbs-form-field-horizontal>
-        <pbs-form-field-horizontal label="Group Name">
+        <pbs-form-field-horizontal label="New Group Name">
           <input type="text"
             class="input"
             ng-model="$ctrl.group.groupName"
@@ -168,5 +168,5 @@
   </pbs-form>
 </pbs-modal>
 <select-service-provider on-update="$ctrl.onSelectServiceProvider($event)"></select-service-provider>
-<select-group service-provider-id="$ctrl.serviceProviderId"
+<select-group service-provider-id="$ctrl.fromServiceProviderId"
   on-update="$ctrl.onSelectGroup($event)"></select-group>
