@@ -2,16 +2,10 @@
   group-id="$ctrl.groupId">
   <pbs-breadcrumb title="$ctrl.title"></pbs-breadcrumb>
 </pbs-navigation>
+
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="{{ $ctrl.title }}">
-      <pbs-block-buttons>
-        <pbs-button-compact-clone title="Reconcile Service Pack"
-                                 ng-if="$ctrl.hasPermission('Provisioning')"
-                                 ng-click="$ctrl.clone()"
-                                 ng-class="{disabled: $ctrl.state === 'list'}">
-        </pbs-button-compact-clone>
-      </pbs-block-buttons>
-      <pbs-table-search ng-model="$ctrl.filter"></pbs-table-search>
+    <pbs-table-search ng-model="$ctrl.filter"></pbs-table-search>
     <table pbs-table>
       <thead>
         <tr>
@@ -78,106 +72,5 @@
         </small>
       </span>
     </pbs-form-field>
-  </pbs-form>
-</pbs-modal>
-<pbs-modal id="cloneServicePackModal"
-           title="Reconcile Service Packs">
-  <pbs-form>
-    <pbs-form-field label="Service Provider">
-      <!--<input type="search" placeholder="search" class="pbs-table-search input"  ng-model="$ctrl.search" onchange="$ctrl.showServiceProviderTable()">-->
-      <pbs-table-search ng-model="$ctrl.cloneServiceProviderId" ng-click="$ctrl.showServiceProviderTable()" required></pbs-table-search>
-      <table pbs-table ng-show="$ctrl.spTable">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>ID</th>
-          <th class="action">Enterprise</th>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr ng-if="results.length < 1">
-          <td colspan="99">No Service Providers Found
-            <span ng-if="search">for {{ search }}</span>
-          </td>
-        </tr>
-        </tfoot>
-        <tbody>
-        <tr class="hover"
-            ng-click="$ctrl.selectServiceProvider(serviceProvider.serviceProviderId)"
-            ng-repeat="serviceProvider in $ctrl.serviceProviders | filter:$ctrl.cloneServiceProviderId | orderBy:'serviceProviderId' as results track by serviceProvider.serviceProviderId">
-          <td>{{ serviceProvider.serviceProviderName }}</td>
-          <td>{{ serviceProvider.serviceProviderId }}</td>
-          <td class="action">
-            <pbs-check-box checked="serviceProvider.isEnterprise"></pbs-check-box>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </pbs-form-field>
-    <pbs-form-field label="Group">
-      <pbs-table-search ng-model="$ctrl.cloneGroupId" ng-click="$ctrl.showGroupTable()" required></pbs-table-search>
-      <table pbs-table ng-show="$ctrl.groupTable">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>ID</th>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr ng-if="results.length < 1">
-          <td colspan="99">No Groups Found Found
-            <span ng-if="search">for {{ search }}</span>
-          </td>
-        </tr>
-        </tfoot>
-        <tbody>
-        <tr class="hover"
-            ng-click="$ctrl.selectGroup(group.groupId)"
-            ng-repeat="group in $ctrl.groups | filter:$ctrl.cloneGroupId | orderBy:'groupId' as results2 track by group.groupId">
-          <td>{{ group.groupId }}</td>
-          <td>{{ group.groupName }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </pbs-form-field>
-      <table pbs-table>
-        <thead>
-        <tr>
-          <th>Service</th>
-          <th class="action">Allowed</th>
-          <th class="action">Limit</th>
-          <th class="action">Allocated</th>
-          <th class="action">Authorized</th>
-          <th class="action"
-              ng-show="$ctrl.isGroupServices()">Assigned</th>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr ng-if="results.length < 1">
-          <td colspan="100">No Service Found
-            <strong ng-if="$ctrl.filter">for {{ $ctrl.filter }}</strong>
-          </td>
-        </tr>
-        </tfoot>
-        <tbody>
-        <tr
-            ng-repeat="service in $ctrl.cloneServices | filter:$ctrl.filter | orderBy:'serviceName' as results track by service.serviceName"
-
-            >
-          <td>{{ service.serviceName }}</td>
-          <td class="action">{{ $ctrl.quantity(service.allowed )}}</td>
-          <td class="action">{{ $ctrl.quantity(service.quantity) }}</td>
-          <td class="action">{{ $ctrl.quantity(service.usage) }}</td>
-          <td class="action">
-            <pbs-check-box checked="service.authorized"></pbs-check-box>
-          </td>
-          <td class="action"
-              ng-show="$ctrl.isGroupServices()">
-            <pbs-check-box checked="service.assigned"></pbs-check-box>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-
   </pbs-form>
 </pbs-modal>
