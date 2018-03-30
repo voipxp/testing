@@ -9,7 +9,7 @@
 
     $rootScope.$on('ServiceProviderServiceService:updated', clearCache)
     $rootScope.$on('BrandingModuleService:updated', clearCache)
-    $rootScope.$on('ReplicateGroupServiceService:store', clearCache)
+    $rootScope.$on('GroupServiceService:updated', clearCache)
 
     return service
 
