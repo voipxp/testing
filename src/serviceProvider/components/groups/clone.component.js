@@ -27,6 +27,13 @@
         ctrl.fromGroupId = null
       }
       ctrl.fromServiceProviderId = event.serviceProviderId
+      if (ctrl.fromServiceProviderId === ctrl.serviceProviderId) {
+        ctrl.canCloneNetworkClassOfService = true
+        ctrl.options.networkClassOfService = true
+      } else {
+        ctrl.canCloneNetworkClassOfService = ctrl.isSystem
+        ctrl.options.networkClassOfService = ctrl.isSystem
+      }
     }
 
     function onSelectGroup(event) {
@@ -35,6 +42,7 @@
     }
 
     function load() {
+      ctrl.isSystem = ACL.has('System')
       ctrl.isProvisioning = ACL.has('Provisioning')
       if (!ctrl.isProvisioning) {
         ctrl.fromServiceProviderId = ctrl.serviceProviderId
@@ -44,7 +52,7 @@
       ctrl.options = {
         featureAccessCode: true,
         callProcessingPolicy: true,
-        networkClassOfService: true,
+        networkClassOfService: false,
         extensionLength: true,
         services: true,
         policy: true,

@@ -73,6 +73,7 @@
         <input type="checkbox"
           label="Network Class of Service"
           ng-model="$ctrl.options.networkClassOfService"
+          ng-if="$ctrl.canCloneNetworkClassOfService"
           pbs-input-checkradio>
         <input type="checkbox"
           label="Extension Length"
