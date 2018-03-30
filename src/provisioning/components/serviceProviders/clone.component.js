@@ -34,7 +34,7 @@
       ctrl.options = {
         services: true,
         servicePacks: true,
-        networkClassOfService: true,
+        networkClassOfService: ctrl.isSystem,
         enterpriseVoiceVPN: true,
         callProcessingPolicy: true
       }
