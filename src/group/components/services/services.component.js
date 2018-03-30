@@ -21,6 +21,7 @@
     }
 
     function onInit() {
+      ctrl.filter = {}
       ctrl.title = $filter('humanize')(ctrl.serviceType)
       ctrl.loading = true
       return loadServices()

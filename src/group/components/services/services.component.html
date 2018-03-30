@@ -5,7 +5,25 @@
 
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="{{ $ctrl.title }}">
-    <pbs-table-search ng-model="$ctrl.filter"></pbs-table-search>
+    <pbs-columns>
+      <pbs-column>
+        <pbs-table-search ng-model="$ctrl.search"
+          style="margin-bottom: 0"></pbs-table-search>
+      </pbs-column>
+      <pbs-column class="is-narrow">
+        <div class="buttons has-addons">
+          <span class="button"
+            ng-class="{'is-success': $ctrl.filter.authorized === undefined}"
+            ng-click="$ctrl.filter = {}">All</span>
+          <span class="button"
+            ng-class="{'is-success': $ctrl.filter.authorized === true}"
+            ng-click="$ctrl.filter.authorized = true">Authorized</span>
+          <span class="button"
+            ng-class="{'is-success': $ctrl.filter.authorized === false}"
+            ng-click="$ctrl.filter.authorized = false">Unauthorized</span>
+        </div>
+      </pbs-column>
+    </pbs-columns>
     <table pbs-table>
       <thead>
         <tr>
@@ -21,15 +39,16 @@
       <tfoot>
         <tr ng-if="results.length < 1">
           <td colspan="100">No Service Found
-            <strong ng-if="$ctrl.filter">for {{ $ctrl.filter }}</strong>
+            <span ng-if="$ctrl.search">for
+              <strong>{{ $ctrl.search }}</strong>
+            </span>
           </td>
         </tr>
       </tfoot>
       <tbody>
         <tr class="hover"
-          ng-repeat="service in $ctrl.services | filter:$ctrl.filter | orderBy:'serviceName' as results track by service.serviceName"
-      
-          ng-click="$ctrl.edit(service)">
+          ng-click="$ctrl.edit(service)"
+          ng-repeat="service in $ctrl.services | filter:$ctrl.search | filter:$ctrl.filter | orderBy:'serviceName' as results track by service.serviceName">
           <td>{{ service.serviceName }}</td>
           <td class="action">{{ $ctrl.quantity(service.allowed )}}</td>
           <td class="action">{{ $ctrl.quantity(service.quantity) }}</td>
