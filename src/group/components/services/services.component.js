@@ -5,7 +5,14 @@
     bindings: { serviceType: '@' }
   })
 
-  function Controller(Alert, GroupServiceService, $routeParams, $filter) {
+  function Controller(
+    Alert,
+    GroupServiceService,
+    $routeParams,
+    $filter,
+    $scope,
+    ACL
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
@@ -15,12 +22,15 @@
     ctrl.isServicePackServices = isServicePackServices
     ctrl.isGroupServices = isGroupServices
     ctrl.isUserServices = isUserServices
+    ctrl.clone = clone
+    ctrl.onClone = onInit
 
     ctrl.quantity = function(value) {
       return value === -1 ? 'Unlimited' : value
     }
 
     function onInit() {
+      ctrl.canClone = ACL.has('Service Provider')
       ctrl.filter = {}
       ctrl.title = $filter('humanize')(ctrl.serviceType)
       ctrl.loading = true
@@ -38,6 +48,7 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
+        console.log('loadServices')
         ctrl.services = filterServices(data[ctrl.serviceType])
       })
     }
@@ -74,6 +85,10 @@
           runUpdate()
         }
       })
+    }
+
+    function clone() {
+      $scope.$broadcast('groupCloneServices:load')
     }
 
     function update(service, callback) {

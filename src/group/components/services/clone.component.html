@@ -1,0 +1,53 @@
+<pbs-modal id="cloneGroupServicesModal"
+  title="Clone Group Services">
+  <pbs-form>
+    <pbs-form-field-horizontal label="Clone Service Provider"
+      ng-if="$ctrl.isProvisioning">
+      <div class="field has-addons">
+        <p class="control is-expanded">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.fromServiceProviderId"
+            placeholder="No Service Provider Selected"
+            readonly
+            ng-click="$ctrl.selectServiceProvider()"
+            required>
+        </p>
+        <p class="control">
+          <a class="button"
+            ng-click="$ctrl.selectServiceProvider()"
+            title="Select a Service Provider">
+            <span class="icon">
+              <i class="fas fa-search"></i>
+            </span>
+          </a>
+        </p>
+      </div>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Clone Group">
+      <div class="field has-addons">
+        <p class="control is-expanded">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.fromGroupId"
+            placeholder="No Group Selected"
+            readonly
+            ng-click="$ctrl.selectGroup()"
+            required>
+        </p>
+        <p class="control">
+          <a class="button"
+            ng-click="$ctrl.selectGroup()"
+            title="Select a Group">
+            <span class="icon">
+              <i class="fas fa-search"></i>
+            </span>
+          </a>
+        </p>
+      </div>
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>
+<select-service-provider on-update="$ctrl.onSelectServiceProvider($event)"></select-service-provider>
+<select-group service-provider-id="$ctrl.fromServiceProviderId"
+  on-update="$ctrl.onSelectGroup($event)"></select-group>

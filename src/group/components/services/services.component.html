@@ -2,9 +2,11 @@
   group-id="$ctrl.groupId">
   <pbs-breadcrumb title="$ctrl.title"></pbs-breadcrumb>
 </pbs-navigation>
-
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="{{ $ctrl.title }}">
+    <pbs-block-buttons ng-if="$ctrl.canClone">
+      <pbs-button-compact-clone ng-click="$ctrl.clone()"></pbs-button-compact-clone>
+    </pbs-block-buttons>
     <pbs-columns>
       <pbs-column>
         <pbs-table-search ng-model="$ctrl.search"
@@ -93,3 +95,6 @@
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>
+<group-clone-services service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onClone()"></group-clone-services>
