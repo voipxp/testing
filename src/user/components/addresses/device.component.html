@@ -7,6 +7,10 @@
       <pbs-button-compact-device ng-click="$ctrl.updateDevice()"
         title="Edit Device Settings"
         ng-show="$ctrl.user.endpointType === 'accessDeviceEndpoint'">></pbs-button-compact-device>
+      <device-reset-button service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        device="$ctrl.user.accessDeviceEndpoint.accessDevice"
+        ng-if="$ctrl.user.endpointType === 'accessDeviceEndpoint'"></device-reset-button>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Endpoint Type">
@@ -54,13 +58,13 @@
 <pbs-modal id="userDeviceSelectModal"
   title="Select Device">
   <pbs-form>
-    <pbs-form-field label="Endpoint Type">
+    <pbs-form-field-horizontal label="Endpoint Type">
       <div class="select">
         <select ng-model="$ctrl.editUser.endpointType"
           ng-options="key as value for (key, value) in $ctrl.endpointTypes"></select>
       </div>
-    </pbs-form-field>
-    <pbs-form-field label="Device"
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Device"
       ng-show="$ctrl.editUser.endpointType === 'accessDeviceEndpoint'">
       <div class="field has-addons">
         <p class="control is-expanded">
@@ -90,8 +94,8 @@
           </a>
         </p>
       </div>
-    </pbs-form-field>
-    <pbs-form-field label="Line Port"
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Line Port"
       ng-if="$ctrl.editUser.endpointType === 'accessDeviceEndpoint'">
       <select-user-id service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
@@ -99,8 +103,8 @@
         on-update="$ctrl.onSetLinePort($event)"
         required="$ctrl.editUser.endpointType === 'accessDeviceEndpoint'">
       </select-user-id>
-    </pbs-form-field>
-    <pbs-form-field label="Trunk Group"
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Trunk Group"
       ng-show="$ctrl.editUser.endpointType === 'trunkAddressing'">
       <div class="field has-addons">
         <p class="control is-expanded">
@@ -131,8 +135,8 @@
           </a>
         </p>
       </div>
-    </pbs-form-field>
-    <pbs-form-field label="Line Port"
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Line Port"
       ng-show="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.name">
       <select-user-id service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
@@ -140,8 +144,8 @@
         on-update="$ctrl.onSetTrunkLinePort($event)"
         required="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.name">
       </select-user-id>
-    </pbs-form-field>
-    <pbs-form-field label="Enterprise Trunk"
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Enterprise Trunk"
       ng-show="$ctrl.editUser.endpointType === 'trunkAddressing'">
       <div class="field has-addons">
         <p class="control is-expanded">
@@ -172,7 +176,7 @@
           </a>
         </p>
       </div>
-    </pbs-form-field>
+    </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>
 <device-update service-provider-id="$ctrl.serviceProviderId"

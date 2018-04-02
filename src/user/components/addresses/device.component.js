@@ -5,7 +5,7 @@
     bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller(Alert, $scope, UserService, ACL, Module) {
+  function Controller(Alert, $scope, UserService, ACL, Module, $q) {
     var ctrl = this
     ctrl.$onInit = onInit
 
@@ -33,8 +33,11 @@
 
     function onInit() {
       ctrl.loading = true
-      ctrl.canEdit = ACL.has('Group') && Module.update('Provisioning')
-      loadUser()
+      $q
+        .all([Module.load(), loadUser()])
+        .then(function() {
+          ctrl.canEdit = ACL.has('Group') && Module.update('Provisioning')
+        })
         .catch(function(error) {
           Alert.notify.danger(error)
         })
