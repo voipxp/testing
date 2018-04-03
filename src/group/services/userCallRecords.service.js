@@ -55,11 +55,13 @@
     }
 
     function open(serviceProviderId, groupId, userId, startTime, endTime) {
-      Route.open('users', serviceProviderId, groupId, userId)(
-        'premiumCallRecords',
-        startTime.toJSON(),
-        endTime.toJSON()
-      ).hash(null)
+      Route.open(
+        'users',
+        serviceProviderId,
+        groupId,
+        userId,
+        'premiumCallRecords'
+      )(startTime && startTime.toJSON(), endTime && endTime.toJSON()).hash(null)
     }
   }
 })()

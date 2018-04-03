@@ -68,11 +68,9 @@
     }
 
     function open(serviceProviderId, groupId, startTime, endTime) {
-      Route.open('groups', serviceProviderId, groupId)(
-        'callRecords',
-        'group',
-        startTime.toJSON(),
-        endTime.toJSON()
+      Route.open('groups', serviceProviderId, groupId, 'callRecords', 'group')(
+        startTime && startTime.toJSON(),
+        endTime && endTime.toJSON()
       ).hash(null)
     }
   }
