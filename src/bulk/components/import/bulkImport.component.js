@@ -67,7 +67,7 @@
 
     function download() {
       var now = new Date()
-      var filename = ctrl.task + '.' + now.toISOString() + '.csv'
+      var filename = ctrl.task + '.' + now.toJSON() + '.csv'
       CsvService.export(ctrl.users)
         .then(function(data) {
           DownloadService.download(data, filename)

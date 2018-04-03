@@ -60,7 +60,7 @@
     function get(serviceProviderId, groupId, startTime, endTime, reportType) {
       return $http
         .get(url(serviceProviderId, groupId, reportType.toLowerCase()), {
-          params: { startTime: startTime, endTime: endTime }
+          params: { startTime: startTime.toJSON(), endTime: endTime.toJSON() }
         })
         .then(function(response) {
           return response.data
@@ -71,8 +71,8 @@
       Route.open('groups', serviceProviderId, groupId)(
         'callRecords',
         'group',
-        startTime,
-        endTime
+        startTime.toJSON(),
+        endTime.toJSON()
       ).hash(null)
     }
   }

@@ -105,8 +105,8 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         ctrl.userId,
-        ctrl.startTime.toISOString(),
-        ctrl.endTime.toISOString()
+        ctrl.startTime,
+        ctrl.endTime
       )
     }
   }

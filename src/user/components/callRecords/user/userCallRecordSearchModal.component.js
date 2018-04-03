@@ -22,8 +22,8 @@
           ctrl.serviceProviderId,
           ctrl.groupId,
           ctrl.userId,
-          ctrl.search.start.toISOString(),
-          ctrl.search.end.toISOString()
+          ctrl.search.start,
+          ctrl.search.end
         )
         close()
       })

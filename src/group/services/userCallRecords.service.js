@@ -44,8 +44,8 @@
       return $http
         .get(url(reportType.toLowerCase()), {
           params: {
-            startTime: startTime,
-            endTime: endTime,
+            startTime: startTime.toJSON(),
+            endTime: endTime.toJSON(),
             userIds: userIds.join(',')
           }
         })
@@ -57,8 +57,8 @@
     function open(serviceProviderId, groupId, userId, startTime, endTime) {
       Route.open('users', serviceProviderId, groupId, userId)(
         'premiumCallRecords',
-        startTime,
-        endTime
+        startTime.toJSON(),
+        endTime.toJSON()
       ).hash(null)
     }
   }

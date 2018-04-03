@@ -21,8 +21,8 @@
         GroupCallRecordsService.open(
           ctrl.serviceProviderId,
           ctrl.groupId,
-          ctrl.search.start.toISOString(),
-          ctrl.search.end.toISOString()
+          ctrl.search.start,
+          ctrl.search.end
         )
         close()
       })

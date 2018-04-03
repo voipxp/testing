@@ -104,8 +104,8 @@
       GroupCallRecordsService.open(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        ctrl.startTime.toISOString(),
-        ctrl.endTime.toISOString()
+        ctrl.startTime,
+        ctrl.endTime
       )
     }
   }
