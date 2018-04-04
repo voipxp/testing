@@ -16,8 +16,8 @@ WORKDIR /app
 COPY --from=caddy /install/caddy /usr/local/bin/caddy
 COPY --from=build /app/dist /app/html/app
 RUN apk add --no-cache ca-certificates
-RUN \
-  echo "0.0.0.0" > /app/etc/Caddyfile \
+RUN mkdir /app/etc \
+  && echo "0.0.0.0" > /app/etc/Caddyfile \
   && echo "root /app/html" >> /app/etc/Caddyfile \
   && echo "errors stderr" >> /app/etc/Caddyfile \
   && echo "log stdout" >> /app/etc/Caddyfile \
