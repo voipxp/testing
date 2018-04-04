@@ -2,7 +2,7 @@
   angular.module('odin.app').factory('Template', Template)
 
   function Template($http, Route, $rootScope) {
-    var url = Route.ui('templates')
+    var url = Route.api('ui', 'templates')
     var _data = {}
     var service = { load: load, data: data }
     $rootScope.$on('BrandingTemplateService:updated', load)

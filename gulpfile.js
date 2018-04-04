@@ -22,7 +22,6 @@ const base = process.env.API_BASE || ''
 const Config = {
   APP: {
     apiURL: `${base}/api/v1`,
-    uiURL: `${base}/ui`,
     loginURL: '/login',
     sessionKey: 'odin:session'
   }
@@ -51,7 +50,7 @@ gulp.task('app.js', () => {
 gulp.task('app.tpl', () => {
   return gulp
     .src(['src/**/*.html'])
-    .pipe(replace('<!-- #api -->', base))
+    .pipe(replace('<!-- #api -->', Config.APP.apiURL))
     .pipe(htmlmin())
     .pipe(templates('app.tpl.js', { module: 'odin.app' }))
     .pipe(gulpIf(prod, uglify()))
@@ -62,7 +61,7 @@ gulp.task('app.html', () => {
   return gulp
     .src('src/app/layout/index.html')
     .pipe(replace('<!-- #ts -->', Date.now()))
-    .pipe(replace('<!-- #api -->', base))
+    .pipe(replace('<!-- #api -->', Config.APP.apiURL))
     .pipe(gulp.dest(dest))
 })
 

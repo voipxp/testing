@@ -40,7 +40,7 @@ Filter
       update: update,
       delete: destroy
     }
-    var route = Route.ui('modules')
+    var route = Route.api('ui', 'modules')
     var cache = CacheFactory('Module')
     var _modules = {}
 

@@ -4,7 +4,6 @@
   function Route(APP, $location, Session) {
     return {
       api: api,
-      ui: ui,
       path: path,
       open: open,
       login: login,
@@ -38,14 +37,6 @@
       var prefixes = Array.prototype.slice.call(arguments)
       prefixes[0] = prefixes[0] && prefixes[0].replace(/^\//, '')
       prefixes.unshift(APP.apiURL)
-      return function generateURL() {
-        return encoded(prefixes, Array.prototype.slice.call(arguments))
-      }
-    }
-    function ui() {
-      var prefixes = Array.prototype.slice.call(arguments)
-      prefixes[0] = prefixes[0] && prefixes[0].replace(/^\//, '')
-      prefixes.unshift(APP.uiURL)
       return function generateURL() {
         return encoded(prefixes, Array.prototype.slice.call(arguments))
       }
