@@ -12,11 +12,21 @@ RUN cd /app; yarn; yarn run build
 
 # FINAL STAGE
 FROM alpine:3.7
-COPY --from=caddy /install/caddy /usr/local/bin/caddy
-COPY --from=build /app/dist /app/html
-RUN apk add --no-cache ca-certificates
-ADD Caddyfile.example /app/etc/Caddyfile
 WORKDIR /app
+COPY --from=caddy /install/caddy /usr/local/bin/caddy
+COPY --from=build /app/dist /app/html/app
+RUN apk add --no-cache ca-certificates
+RUN \
+  echo "0.0.0.0" > /app/etc/Caddyfile \
+  && echo "root /app/html" >> /app/etc/Caddyfile \
+  && echo "errors stderr" >> /app/etc/Caddyfile \
+  && echo "log stdout" >> /app/etc/Caddyfile \
+  && echo "gzip" >> /app/etc/Caddyfile \
+  && echo "cors" >> /app/etc/Caddyfile \
+  && echo "proxy / api {" >> /app/etc/Caddyfile \
+  && echo "  transparent" >> /app/etc/Caddyfile \
+  && echo "  except /app" >> /app/etc/Caddyfile \
+  && echo "}" >> /app/etc/Caddyfile
 ENV CADDYPATH /app/ssl
 VOLUME /app/etc /app/ssl
 EXPOSE 80 443 2015
