@@ -181,7 +181,6 @@ waitTime
         true
       )
         .then(function(data) {
-          console.log('data', data)
           sendFile(data.data)
         })
         .catch(Alert.notify.danger)
