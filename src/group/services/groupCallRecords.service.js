@@ -33,8 +33,15 @@
       return route(serviceProviderId, groupId, type)
     }
 
-    function detail(serviceProviderId, groupId, startTime, endTime) {
-      return get(serviceProviderId, groupId, startTime, endTime, 'detail')
+    function detail(serviceProviderId, groupId, startTime, endTime, bypass) {
+      return get(
+        serviceProviderId,
+        groupId,
+        startTime,
+        endTime,
+        'detail',
+        bypass
+      )
     }
 
     function received(serviceProviderId, groupId, startTime, endTime) {
@@ -57,10 +64,21 @@
       return get(serviceProviderId, groupId, startTime, endTime, 'stats')
     }
 
-    function get(serviceProviderId, groupId, startTime, endTime, reportType) {
+    function get(
+      serviceProviderId,
+      groupId,
+      startTime,
+      endTime,
+      reportType,
+      bypass
+    ) {
+      var params = { startTime: startTime.toJSON(), endTime: endTime.toJSON() }
+      if (bypass) {
+        params['limit'] = false
+      }
       return $http
         .get(url(serviceProviderId, groupId, reportType.toLowerCase()), {
-          params: { startTime: startTime.toJSON(), endTime: endTime.toJSON() }
+          params: params
         })
         .then(function(response) {
           return response.data

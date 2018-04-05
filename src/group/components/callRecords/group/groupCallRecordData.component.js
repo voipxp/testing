@@ -155,22 +155,44 @@ waitTime
         .then(warnLimit)
     }
 
+    function incomplete() {
+      return ctrl.records.count < ctrl.records.total
+    }
+
     function warnLimit() {
-      if (ctrl.records.count < ctrl.records.total) {
+      if (incomplete()) {
         Alert.notify.danger(
           'Results are limited to ' +
             ctrl.records.count +
             ' records. ' +
-            'Please decrease the date range to see all the results.'
+            'Please download the CSV file to see all the results.'
         )
       }
     }
 
     function download() {
+      if (!incomplete()) return sendFile(ctrl.records.data)
+      Alert.spinner.open()
+      GroupCallRecordsService.detail(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        ctrl.startTime,
+        ctrl.endTime,
+        true
+      )
+        .then(function(data) {
+          console.log('data', data)
+          sendFile(data.data)
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    }
+
+    function sendFile(data) {
       var filename = ['odin', ctrl.groupId, ctrl.label].join('_')
       filename = filename + '.csv'
       var options = { delimiter: ',', newline: '\r\n', quotes: true }
-      var filtered = _.map(ctrl.details, function(callRecord) {
+      var filtered = _.map(data, function(callRecord) {
         return _.pick(callRecord, viewableFields)
       })
       var csv = Papa.unparse(filtered, options)
