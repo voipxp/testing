@@ -1,5 +1,10 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="{{ $ctrl.deviceType }} Files">
+    <pbs-block-buttons>
+      <group-device-type-reset-button service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        device-type="$ctrl.deviceType"></group-device-type-reset-button>
+    </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>
       <thead>

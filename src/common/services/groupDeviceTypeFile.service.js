@@ -5,16 +5,17 @@
     var service = { index: index, show: show, update: update }
     return service
 
-    function url(serviceProviderId, groupId, deviceType) {
-      return Route.api(
+    function url(serviceProviderId, groupId, deviceType, fileFormat) {
+      return Route.api()(
         'serviceproviders',
         serviceProviderId,
         'groups',
         groupId,
         'devicetypes',
         deviceType,
-        'files'
-      )()
+        'files',
+        fileFormat
+      )
     }
 
     function index(serviceProviderId, groupId, deviceType) {

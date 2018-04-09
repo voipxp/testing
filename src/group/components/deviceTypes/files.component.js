@@ -24,7 +24,6 @@
     }
 
     function open(file) {
-      console.log('open', file)
       $scope.$broadcast('groupDeviceTypeFileUpdate:load', file)
     }
 

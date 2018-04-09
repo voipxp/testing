@@ -1,5 +1,5 @@
 ;(function() {
-  angular.module('odin.group').component('groupDeviceTypeFile', {
+  angular.module('odin.group').component('groupDeviceTypeFileUpdate', {
     templateUrl: 'group/components/deviceTypes/file.component.html',
     controller: Controller,
     bindings: {

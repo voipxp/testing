@@ -1,41 +1,19 @@
 ;(function() {
-  angular.module('odin.group').component('groupDeviceTypeDetails', {
-    templateUrl: 'group/components/deviceTypes/details.component.html',
+  angular.module('odin.group').component('groupDeviceTypeResetButton', {
+    templateUrl: 'group/components/deviceTypes/reset.component.html',
     bindings: {
       serviceProviderId: '<',
       groupId: '<',
-      deviceType: '<',
-      onUpdate: '&'
+      deviceType: '<'
     },
     controller: Controller
   })
 
-  function Controller(Alert, GroupDeviceTypeService, EventEmitter) {
+  function Controller(Alert, GroupDeviceTypeService) {
     var ctrl = this
-    ctrl.$onInit = onInit
     ctrl.rebuild = rebuild
     ctrl.reset = reset
     ctrl.both = both
-
-    function onInit() {
-      ctrl.loading = true
-      loadDevice()
-        .catch(Alert.notify.danger)
-        .finally(function() {
-          ctrl.loading = false
-        })
-    }
-
-    function loadDevice() {
-      return GroupDeviceTypeService.show(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.deviceType
-      ).then(function(data) {
-        ctrl.device = data
-        ctrl.onUpdate(EventEmitter({ device: data }))
-      })
-    }
 
     function rebuild() {
       confirm('Rebuild')

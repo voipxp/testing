@@ -7,10 +7,26 @@
 
 <pbs-tabs delay="true">
   <pbs-tab label="Details">
-    <group-device-type-details service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-      device-type="$ctrl.deviceType"
-      on-update="$ctrl.onLoad($event)"></group-device-type-details>
+    <pbs-spinner loading="$ctrl.loading">
+      <pbs-block title="{{ $ctrl.device.deviceType }}">
+        <pbs-block-buttons>
+          <group-device-type-reset-button service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            device-type="$ctrl.deviceType"></group-device-type-reset-button>
+        </pbs-block-buttons>
+        <pbs-list>
+          <pbs-list-item label="Configuration Type">
+            {{ $ctrl.device.configurationType || 'None' }}
+          </pbs-list-item>
+          <pbs-list-item label="Supports Enhanced Configuration">
+            <pbs-check-box checked="$ctrl.device.supportsEnhancedConfiguration"></pbs-check-box>
+          </pbs-list-item>
+          <pbs-list-item label="Supports Reset">
+            <pbs-check-box checked="$ctrl.device.supportsReset"></pbs-check-box>
+          </pbs-list-item>
+        </pbs-list>
+      </pbs-block>
+    </pbs-spinner>
   </pbs-tab>
   <pbs-tab label="Files"
     ng-if="$ctrl.device.supportsEnhancedConfiguration">

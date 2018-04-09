@@ -2,6 +2,11 @@
   <pbs-block title="{{ $ctrl.deviceType }} Tags">
     <pbs-block-buttons>
       <pbs-button-compact-add ng-click="$ctrl.add()"></pbs-button-compact-add>
+      <pbs-block-buttons>
+        <group-device-type-reset-button service-provider-id="$ctrl.serviceProviderId"
+          group-id="$ctrl.groupId"
+          device-type="$ctrl.deviceType"></group-device-type-reset-button>
+      </pbs-block-buttons>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>
