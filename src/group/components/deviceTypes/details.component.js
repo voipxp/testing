@@ -1,30 +1,40 @@
 ;(function() {
-  angular.module('odin.common').component('deviceResetButton', {
-    templateUrl: 'common/components/deviceReset/resetButton.component.html',
-    controller: Controller,
+  angular.module('odin.group').component('groupDeviceTypeDetails', {
+    templateUrl: 'group/components/deviceTypes/details.component.html',
     bindings: {
       serviceProviderId: '<',
       groupId: '<',
-      device: '<',
+      deviceType: '<',
       onUpdate: '&'
-    }
+    },
+    controller: Controller
   })
 
-  function Controller(
-    Alert,
-    GroupDeviceService,
-    HashService,
-    $scope,
-    EventEmitter
-  ) {
+  function Controller(Alert, GroupDeviceTypeService, EventEmitter) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.reset = reset
     ctrl.rebuild = rebuild
+    ctrl.reset = reset
     ctrl.both = both
 
     function onInit() {
-      ctrl.modalId = HashService.guid()
+      ctrl.loading = true
+      loadDevice()
+        .catch(Alert.notify.danger)
+        .finally(function() {
+          ctrl.loading = false
+        })
+    }
+
+    function loadDevice() {
+      return GroupDeviceTypeService.show(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        ctrl.deviceType
+      ).then(function(data) {
+        ctrl.device = data
+        ctrl.onUpdate(EventEmitter({ device: data }))
+      })
     }
 
     function rebuild() {
@@ -69,30 +79,29 @@
 
     function confirm(type) {
       return Alert.confirm.open(
-        'Are you sure you want to ' + type + ' this device?'
-      )
-    }
-
-    function rebuildDevice() {
-      return GroupDeviceService.rebuild(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.device
-      )
-    }
-
-    function resetDevice() {
-      return GroupDeviceService.reset(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.device
+        'Are you sure you want to ' + type + ' this device type?'
       )
     }
 
     function sendUpdate(message) {
       Alert.notify.success(message + ' command sent to device')
-      ctrl.onUpdate(EventEmitter({ device: ctrl.device }))
       ctrl.isActive = false
+    }
+
+    function rebuildDevice() {
+      return GroupDeviceTypeService.rebuild(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        ctrl.deviceType
+      )
+    }
+
+    function resetDevice() {
+      return GroupDeviceTypeService.reset(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        ctrl.deviceType
+      )
     }
   }
 })()

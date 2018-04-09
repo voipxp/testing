@@ -44,6 +44,18 @@
           acl: acl('Group')
         }
       })
+      .when(path('deviceTypes'), {
+        template: '<group-device-types></group-device-types>',
+        resolve: {
+          acl: acl('Group')
+        }
+      })
+      .when(path('deviceTypes/:deviceType'), {
+        template: '<group-device-type></group-device-type>',
+        resolve: {
+          acl: acl('Group')
+        }
+      })
       .when(path('directory'), {
         template: '<group-phone-directory></group-phone-directory>',
         resolve: {

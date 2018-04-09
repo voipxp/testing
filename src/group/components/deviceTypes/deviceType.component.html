@@ -1,0 +1,27 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId">
+  <pbs-breadcrumb title="'Device Configuration'"
+    ng-click="$ctrl.back()"></pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.deviceType"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-tabs delay="true">
+  <pbs-tab label="Details">
+    <group-device-type-details service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      device-type="$ctrl.deviceType"
+      on-update="$ctrl.onLoad($event)"></group-device-type-details>
+  </pbs-tab>
+  <pbs-tab label="Files"
+    ng-if="$ctrl.device.supportsEnhancedConfiguration">
+    <group-device-type-files service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      device-type="$ctrl.deviceType"></group-device-type-files>
+  </pbs-tab>
+  <pbs-tab label="Tags"
+    ng-if="$ctrl.device.supportsEnhancedConfiguration">
+    <group-device-type-tags service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      device-type="$ctrl.deviceType"></group-device-type-tags>
+  </pbs-tab>
+</pbs-tabs>

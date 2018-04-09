@@ -13,8 +13,7 @@
   function Controller(
     Alert,
     GroupDeviceService,
-    VdmGroupTemplateDeviceService,
-    GroupDeviceConfigService
+    VdmGroupTemplateDeviceService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -60,7 +59,7 @@
     }
 
     function rebuild() {
-      return GroupDeviceConfigService.rebuild(
+      return GroupDeviceService.rebuild(
         ctrl.serviceProviderId,
         ctrl.groupId,
         ctrl.device
@@ -68,7 +67,7 @@
     }
 
     function reset() {
-      return GroupDeviceConfigService.reset(
+      return GroupDeviceService.reset(
         ctrl.serviceProviderId,
         ctrl.groupId,
         ctrl.device

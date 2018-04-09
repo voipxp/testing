@@ -213,6 +213,12 @@
         },
         {
           type: 'provisioning',
+          name: 'Device Configuration',
+          path: route('deviceTypes'),
+          admin: true
+        },
+        {
+          type: 'provisioning',
           name: 'User Services',
           path: route('services', 'user'),
           admin: true

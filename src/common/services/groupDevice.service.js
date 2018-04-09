@@ -10,11 +10,13 @@
       store: store,
       update: update,
       show: show,
-      destroy: destroy
+      destroy: destroy,
+      rebuild: rebuild,
+      reset: reset
     }
     return service
 
-    function url(serviceProviderId, groupId, device) {
+    function url(serviceProviderId, groupId, device, command) {
       var deviceId = (device && device.deviceName) || device
       return Route.api(
         'serviceproviders',
@@ -22,7 +24,7 @@
         'groups',
         groupId,
         'devices'
-      )(deviceId)
+      )(deviceId, command)
     }
 
     function index(serviceProviderId, groupId, filter, params) {
@@ -66,6 +68,22 @@
         .delete(url(serviceProviderId, groupId, device))
         .then(function(response) {
           cache.removeAll()
+          return response.data
+        })
+    }
+
+    function rebuild(serviceProviderId, groupId, device) {
+      return $http
+        .post(url(serviceProviderId, groupId, device, 'rebuild'))
+        .then(function(response) {
+          return response.data
+        })
+    }
+
+    function reset(serviceProviderId, groupId, device) {
+      return $http
+        .post(url(serviceProviderId, groupId, device, 'reset'))
+        .then(function(response) {
           return response.data
         })
     }

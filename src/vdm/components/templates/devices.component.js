@@ -9,7 +9,7 @@
     Alert,
     Route,
     VdmGroupTemplateDeviceService,
-    GroupDeviceConfigService
+    GroupDeviceService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -58,7 +58,7 @@
     }
 
     function rebuild(device) {
-      return GroupDeviceConfigService.rebuild(
+      return GroupDeviceService.rebuild(
         ctrl.serviceProviderId,
         ctrl.groupId,
         device
@@ -66,7 +66,7 @@
     }
 
     function reset(device) {
-      return GroupDeviceConfigService.reset(
+      return GroupDeviceService.reset(
         ctrl.serviceProviderId,
         ctrl.groupId,
         device
