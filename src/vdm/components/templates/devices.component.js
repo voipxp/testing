@@ -14,8 +14,7 @@
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.assign = assign
-    ctrl.rebuild = rebuild
-    ctrl.reset = reset
+    ctrl.rebuildReset = rebuildReset
     ctrl.edit = edit
 
     function onInit() {
@@ -59,39 +58,36 @@
     }
 
     function rebuild(device) {
-      Alert.confirm
-        .open('Are you sure you want to Rebuild this device config?')
-        .then(function() {
-          Alert.spinner.open()
-          GroupDeviceConfigService.rebuild(
-            ctrl.serviceProviderId,
-            ctrl.groupId,
-            device
-          )
-            .then(function() {
-              Alert.notify.success('Rebuild Command Sent')
-            })
-            .catch(Alert.notify.danger)
-            .finally(Alert.spinner.close)
-        })
+      return GroupDeviceConfigService.rebuild(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        device
+      )
     }
 
     function reset(device) {
+      return GroupDeviceConfigService.reset(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        device
+      )
+    }
+
+    function rebuildReset(device) {
       Alert.confirm
-        .open('Are you sure you want to Reset this device?')
+        .open('Are you sure you want to rebuild and reset this device?')
         .then(function() {
           Alert.spinner.open()
-          GroupDeviceConfigService.reset(
-            ctrl.serviceProviderId,
-            ctrl.groupId,
-            device
-          )
-            .then(function() {
-              Alert.notify.success('Reset Command Sent')
-            })
-            .catch(Alert.notify.danger)
-            .finally(Alert.spinner.close)
+          return rebuild(device)
         })
+        .then(function() {
+          return reset(device)
+        })
+        .then(function() {
+          Alert.notify.success('Rebuild and Reset Commands Sent to Device')
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function edit(device) {
