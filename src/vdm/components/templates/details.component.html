@@ -6,21 +6,18 @@
         ng-click="$ctrl.edit()"></pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
-      <pbs-list-item label="Name">
+      <pbs-list-item label="Template Name">
         {{ $ctrl.template.name }}
       </pbs-list-item>
       <pbs-list-item label="Device Type">
         {{ $ctrl.template.deviceType }}
-      </pbs-list-item>
-      <pbs-list-item label="Device Template">
-        {{ $ctrl.template.deviceTemplate }}
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
   <pbs-modal id="editVdmTemplateModal"
     title="Edit Template">
     <pbs-form>
-      <pbs-form-field label="Name">
+      <pbs-form-field label="Template Name">
         <input type="text"
           class="input"
           ng-model="$ctrl.editTemplate.name"

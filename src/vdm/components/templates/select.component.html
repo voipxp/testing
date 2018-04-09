@@ -3,9 +3,8 @@
   <pbs-table-search ng-model="search"></pbs-table-search>
   <table pbs-table>
     <thead>
-      <th>Name</th>
+      <th>Template Name</th>
       <th>Device Type</th>
-      <th>Template</th>
     </thead>
     <tfoot>
       <tr ng-show="results.length < 1">
@@ -23,7 +22,6 @@
         ng-click="$ctrl.select(template)">
         <td>{{ template.name }}</td>
         <td>{{ template.deviceType }}</td>
-        <td>{{ template.deviceTemplate }}</td>
       </tr>
     </tbody>
   </table>
