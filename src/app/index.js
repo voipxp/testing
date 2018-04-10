@@ -123,6 +123,10 @@
       .when('/login', {
         template: '<pbs-login></pbs-login>'
       })
+      .when('/sso', {
+        template: '<pbs-sso></pbs-sso>',
+        reloadOnSearch: false
+      })
       .otherwise({
         redirectTo: '/notfound'
       })
