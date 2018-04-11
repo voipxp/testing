@@ -62,6 +62,12 @@
           acl: acl('Group')
         }
       })
+      .when(path('phoneList'), {
+        template: '<group-phone-list></group-phone-list>',
+        resolve: {
+          acl: acl('Group')
+        }
+      })
       .when(path('users'), {
         template: '<group-users></group-users>',
         resolve: {

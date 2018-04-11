@@ -76,6 +76,11 @@
         },
         {
           type: 'management',
+          name: 'Common Phone List',
+          path: route('phoneList')
+        },
+        {
+          type: 'management',
           name: 'Custom Directory',
           path: route('customContactDirectories')
         },
