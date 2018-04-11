@@ -61,11 +61,10 @@
       ctrl.users = null
       console.log('selected', user)
       Alert.notify.warning('NOT IMPLEMENTED YET')
-      return
-      if (_.isFunction(ctrl.onSelect)) {
-        return ctrl.onSelect(user)
-      }
-      Route.open('users')(user.serviceProviderId, user.groupId, user.userId)
+      // if (_.isFunction(ctrl.onSelect)) {
+      //   return ctrl.onSelect(user)
+      // }
+      // Route.open('users')(user.serviceProviderId, user.groupId, user.userId)
     }
 
     $rootScope.$on('serviceSearch:load', function(event, data) {
