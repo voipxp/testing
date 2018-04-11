@@ -1,0 +1,79 @@
+<pbs-modal id="{{ $ctrl.modalId }}"
+  title="User Search">
+  <form ng-submit="$ctrl.search()">
+    <div class="field has-addons">
+      <p class="control">
+        <span class="select">
+          <select ng-model="$ctrl.type">
+            <option value="userId">ID</option>
+            <option value="lastName">Name</option>
+            <option value="dn">Phone</option>
+            <option value="extension">Extension</option>
+          </select>
+        </span>
+      </p>
+      <p class="control is-expanded"
+        ng-class="{'is-loading': $ctrl.isLoading}">
+        <input class="input"
+          type="search"
+          placeholder="User search"
+          ng-model="$ctrl.filter"
+          ng-disabled="$ctrl.isLoading">
+      </p>
+      <p class="control">
+        <button class="button"
+          type="submit">
+          <span class="icon">
+            <i class="fas fa-search"></i>
+          </span>
+        </button>
+      </p>
+    </div>
+  </form>
+  <div style="margin: 5px 0 0 5px">
+    Examples:
+    <strong>name</strong> (equals name),
+    <strong>name*</strong> (starts with name),
+    <strong>*name*</strong> (contains name)
+  </div>
+  <table pbs-table
+    ng-show="$ctrl.users"
+    class="large-margin-top">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Ext</th>
+        <th>Service Type</th>
+        <th>Service Provider</th>
+        <th>Group</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr ng-if="results.length < 1">
+        <td colspan="100">No Users Found
+          <span ng-if="$ctrl.filter">for
+            <strong>{{ $ctrl.type }}: {{ $ctrl.filter}}</strong>
+          </span>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr class="hover"
+        ng-click="$ctrl.select(user)"
+        ng-repeat="user in results = ($ctrl.users | orderBy:['serviceType', 'userId']) | paginate:$ctrl.pager track by user.userId">
+        <td>{{ user.userIdShort || user.userId }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.phoneNumber }}</td>
+        <td>{{ user.extension }}</td>
+        <td>{{ user.serviceType }}</td>
+        <td>{{ user.serviceProviderId }}</td>
+        <td>{{ user.groupId }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <pbs-pagination items="results.length"
+    limit="25"
+    on-update="$ctrl.onPagination($event)"></pbs-pagination>
+</pbs-modal>

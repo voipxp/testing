@@ -48,6 +48,11 @@
             ng-click="$ctrl.search('groups')">
             Groups
           </a>
+          <a class="navbar-item"
+            href=""
+            ng-click="$ctrl.search('services')">
+            Services
+          </a>
         </div>
       </div>
       <div class="navbar-item has-dropdown is-hoverable">
@@ -72,3 +77,4 @@
 <user-search ng-if="$ctrl.showSearch"></user-search>
 <group-search ng-if="$ctrl.showSearch"
   service-provider-id="$ctrl.session.serviceProviderId"></group-search>
+<service-search ng-if="$ctrl.showSearch"></service-search>

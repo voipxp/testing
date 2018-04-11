@@ -56,6 +56,10 @@
         $rootScope.$emit('userSearch:load', {
           serviceProviderId: ctrl.session.serviceProviderId
         })
+      } else if (type === 'services') {
+        $rootScope.$emit('serviceSearch:load', {
+          serviceProviderId: ctrl.session.serviceProviderId
+        })
       } else if (type === 'groups') {
         $rootScope.$emit('groupSearch:load')
       }
