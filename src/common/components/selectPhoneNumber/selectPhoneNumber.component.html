@@ -23,7 +23,13 @@
   <table pbs-table>
     <tr class="hover"
       ng-click="$ctrl.select(null)">
-      <td>--NONE--</td>
+      <td>
+        --NONE--
+        <span ng-if="!$ctrl.phoneNumber"
+          class="icon is-pulled-right">
+          <i class="fas fa-check"></i>
+        </span>
+      </td>
     </tr>
     <tr class="hover"
       ng-repeat="num in $ctrl.numbers | filter:$ctrl.search | orderBy:'min' as results track by num.min"

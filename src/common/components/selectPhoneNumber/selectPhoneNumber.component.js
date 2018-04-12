@@ -44,8 +44,9 @@
     }
 
     function select(phoneNumber) {
-      console.log('select', phoneNumber)
-      phoneNumber.isSelected = true
+      if (phoneNumber) {
+        phoneNumber.isSelected = true
+      }
       Alert.modal.close(ctrl.modalId)
       ctrl.onUpdate(EventEmitter({ phoneNumber: phoneNumber }))
     }
@@ -57,9 +58,11 @@
         'available'
       ).then(function(data) {
         ctrl.numbers = NumberService.expand(data)
-        var myNumber = _.find(ctrl.numbers, { min: ctrl.phoneNumber })
-        if (!myNumber) {
-          ctrl.numbers.push({ min: ctrl.phoneNumber })
+        if (ctrl.phoneNumber) {
+          var myNumber = _.find(ctrl.numbers, { min: ctrl.phoneNumber })
+          if (!myNumber) {
+            ctrl.numbers.push({ min: ctrl.phoneNumber })
+          }
         }
         return ctrl.numbers
       })
