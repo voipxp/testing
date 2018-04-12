@@ -1,44 +1,46 @@
 <pbs-modal id="{{ $ctrl.modalId }}"
   title="User Search">
   <form ng-submit="$ctrl.search()">
-    <div class="field has-addons">
-      <p class="control">
-        <span class="select">
-          <select ng-model="$ctrl.type">
-            <option value="userId">ID</option>
-            <option value="lastName">Name</option>
-            <option value="dn">Phone</option>
-            <option value="extension">Extension</option>
-          </select>
-        </span>
-      </p>
-      <p class="control is-expanded"
-        ng-class="{'is-loading': $ctrl.isLoading}">
-        <input class="input"
-          type="search"
-          placeholder="User search"
-          ng-model="$ctrl.filter"
-          ng-disabled="$ctrl.isLoading">
-      </p>
-      <p class="control">
-        <button class="button"
-          type="submit">
-          <span class="icon">
-            <i class="fas fa-search"></i>
-          </span>
-        </button>
-      </p>
+    <pbs-form-field-horizontal label="Service Type">
+      <select ng-model="$ctrl.serviceType"
+        ng-options="opt for opt in $ctrl.serviceTypes"
+        pbs-input-select>
+      </select>
+    </pbs-form-field-horizontal>
+    <div class="columns is-1">
+      <div class="column is-two-fifths has-text-centered">
+        <select ng-model="$ctrl.type"
+          ng-options="t.key as t.name for t in $ctrl.types"
+          pbs-input-select>
+        </select>
+      </div>
+      <div class="column">
+        <div class="field has-addons">
+          <p class="control is-expanded"
+            ng-class="{'is-loading': $ctrl.isLoading}">
+            <input class="input"
+              type="search"
+              placeholder="*name*"
+              ng-model="$ctrl.filter"
+              ng-disabled="$ctrl.isLoading">
+          </p>
+          <p class="control">
+            <button class="button"
+              type="submit"
+              ng-disabled="!$ctrl.filter">
+              <span class="icon">
+                <i class="fas fa-search"></i>
+              </span>
+            </button>
+          </p>
+        </div>
+      </div>
     </div>
   </form>
-  <div style="margin: 5px 0 0 5px">
-    Examples:
-    <strong>name</strong> (equals name),
-    <strong>name*</strong> (starts with name),
-    <strong>*name*</strong> (contains name)
-  </div>
+  <pbs-subtitle class="large-margin-top"
+    ng-show="$ctrl.users">Search Results</pbs-subtitle>
   <table pbs-table
-    ng-show="$ctrl.users"
-    class="large-margin-top">
+    ng-show="$ctrl.users">
     <thead>
       <tr>
         <th>ID</th>
@@ -62,7 +64,7 @@
     <tbody>
       <tr class="hover"
         ng-click="$ctrl.select(user)"
-        ng-repeat="user in results = ($ctrl.users | orderBy:['serviceType', 'userId']) | paginate:$ctrl.pager track by user.userId">
+        ng-repeat="user in results = ($ctrl.users | orderBy:'name') | paginate:$ctrl.pager track by user.userId">
         <td>{{ user.userIdShort || user.userId }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.phoneNumber }}</td>

@@ -20,6 +20,22 @@
     ctrl.onPagination = onPagination
     ctrl.select = select
 
+    ctrl.types = [
+      { key: 'userId', name: 'User ID' },
+      { key: 'lastName', name: 'Name' },
+      { key: 'dn', name: 'Phone Number' },
+      { key: 'extension', name: 'Extension' }
+    ]
+
+    ctrl.serviceTypes = [
+      'Auto Attendant',
+      'Call Center',
+      'Collaborate Bridge',
+      'Group Paging',
+      'Hunt Group',
+      'Meet-Me Conference Bridge'
+    ]
+
     function onPagination(event) {
       ctrl.pager = event.pager
     }
@@ -38,12 +54,14 @@
     }
 
     function search() {
+      if (!ctrl.filter) return
       ctrl.isLoading = true
       var params = {
         serviceProviderId: ctrl.serviceProviderId,
         groupId: ctrl.groupId
       }
       params[ctrl.type] = ctrl.filter
+      params.serviceType = ctrl.serviceType
       UserServiceSearchService.index(params)
         .then(function(data) {
           console.log('data', data)
@@ -73,6 +91,7 @@
       ctrl.groupId = data.groupId
       ctrl.filter = null
       ctrl.users = null
+      ctrl.serviceType = ctrl.serviceTypes[0]
       ctrl.type = 'lastName'
       Alert.modal.open(ctrl.modalId)
     })
