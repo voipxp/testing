@@ -3,7 +3,7 @@
   <form ng-submit="$ctrl.search()">
     <pbs-form-field-horizontal label="Service Type">
       <select ng-model="$ctrl.serviceType"
-        ng-options="opt for opt in $ctrl.serviceTypes"
+        ng-options="opt.name as opt.name for opt in $ctrl.serviceTypes"
         pbs-input-select>
       </select>
     </pbs-form-field-horizontal>

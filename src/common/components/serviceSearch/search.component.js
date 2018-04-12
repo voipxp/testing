@@ -28,12 +28,12 @@
     ]
 
     ctrl.serviceTypes = [
-      'Auto Attendant',
-      'Call Center',
-      'Collaborate Bridge',
-      'Group Paging',
-      'Hunt Group',
-      'Meet-Me Conference Bridge'
+      { name: 'Auto Attendant', path: 'autoAttendants' },
+      { name: 'Call Center', path: 'callCenters' },
+      { name: 'Collaborate Bridge', path: 'collaborate' },
+      { name: 'Group Paging', path: 'paging' },
+      { name: 'Hunt Group', path: 'huntGroups' },
+      { name: 'Meet-Me Conference Bridge', path: 'meetMe' }
     ]
 
     function onPagination(event) {
@@ -44,6 +44,9 @@
       ctrl.modalId = HashService.guid()
       Session.load().then(function() {
         ctrl.isProvisioning = ACL.has('Provisioning')
+        if (!ACL.hasVersion('20')) {
+          _.remove(ctrl.serviceTypes, { name: 'Collaborate Bridge' })
+        }
       })
     }
 
@@ -77,12 +80,20 @@
       Alert.modal.close(ctrl.modalId)
       ctrl.filter = null
       ctrl.users = null
-      console.log('selected', user)
-      Alert.notify.warning('NOT IMPLEMENTED YET')
-      // if (_.isFunction(ctrl.onSelect)) {
-      //   return ctrl.onSelect(user)
-      // }
-      // Route.open('users')(user.serviceProviderId, user.groupId, user.userId)
+      return _.isFunction(ctrl.onSelect) ? ctrl.onSelect(user) : route(user)
+    }
+
+    function route(user) {
+      var url = Route.open('groups', user.serviceProviderId, user.groupId)
+      var service = _.find(ctrl.serviceTypes, function(type) {
+        var regexp = new RegExp(type.name)
+        return regexp.test(user.serviceType)
+      })
+      if (!service) {
+        Alert.notify.danger('Service Type unknown: ' + user.serviceType)
+      } else {
+        url(service.path, user.userId)
+      }
     }
 
     $rootScope.$on('serviceSearch:load', function(event, data) {
@@ -91,7 +102,7 @@
       ctrl.groupId = data.groupId
       ctrl.filter = null
       ctrl.users = null
-      ctrl.serviceType = ctrl.serviceTypes[0]
+      ctrl.serviceType = ctrl.serviceTypes[0].name
       ctrl.type = 'lastName'
       Alert.modal.open(ctrl.modalId)
     })
