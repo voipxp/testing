@@ -122,6 +122,12 @@
           path: route('networkclassofservices')
         },
         {
+          type: 'management',
+          name: 'Call Processing Policy',
+          path: route('callprocessingpolicy')
+        },
+
+        {
           type: 'service',
           service: 'Auto Attendant',
           path: route('autoAttendants')

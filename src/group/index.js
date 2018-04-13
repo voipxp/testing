@@ -531,5 +531,13 @@
           acl: acl('Group')
         }
       })
+      .when(path('callprocessingpolicy'), {
+        template:
+          '<group-call-processing-policy></group-call-processing-policy>',
+        resolve: {
+          acl: acl('Group')
+        }
+      })
+
   })
 })()
