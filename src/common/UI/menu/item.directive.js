@@ -30,7 +30,7 @@
         // if delay is implicitly set to true then hide
         if (ctrl.delay === true) return false
         // if parent.delay is not set to true then show
-        return ctrl.item.delay !== true
+        return ctrl.menu.delay !== true
       }
     }
   })

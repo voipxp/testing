@@ -1,8 +1,10 @@
 ;(function() {
   var template =
     '<div>' +
-    '  <div class="box" ng-if="$ctrl.loading">' +
-    '    <div class="spinner"></div>' +
+    '  <div class="card" ng-if="$ctrl.loading">' +
+    '    <div class="card-content">' +
+    '      <div class="spinner"></div>' +
+    '    </div>' +
     '  </div>' +
     '  <div ng-transclude ng-if="!$ctrl.loading"></div>' +
     '</div>'

@@ -3,14 +3,12 @@
     templateUrl:
       'user/components/callRecords/user/userCallRecordDashboard.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller($routeParams, $scope) {
+  function Controller($scope, Module) {
     var ctrl = this
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
+    ctrl.$onInit = onInit
     ctrl.search = search
 
     ctrl.today = {
@@ -35,6 +33,13 @@
       label: 'Last 30',
       start: dayBegin('29 days ago'),
       end: dayEnd('today')
+    }
+
+    function onInit() {
+      return Module.show('Premium Call Records').then(function(data) {
+        ctrl.module = data
+        console.log('module', data)
+      })
     }
 
     function search() {

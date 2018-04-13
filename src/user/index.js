@@ -104,7 +104,7 @@
       })
       .when(path('premiumCallRecords'), {
         template:
-          '<user-call-record-dashboard module="$resolve.module"></user-call-record-dashboard>',
+          '<user-call-record-index module="$resolve.module"></user-call-record-index>',
         resolve: {
           acl: acl('User'),
           module: module('Premium Call Records')

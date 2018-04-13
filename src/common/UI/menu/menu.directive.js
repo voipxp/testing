@@ -1,9 +1,9 @@
 ;(function() {
   var template =
-    '<div class="columns">' +
+    '<div class="columns pbs-menu-container">' +
     '  <div class="column is-one-quarter pbs-menu-nav">' +
     '    <aside class="menu">' +
-    '      <ul class="menu-list">' +
+    '      <ul class="menu-list pbs-menu-list">' +
     '        <li ng-repeat="item in $ctrl.items">' +
     '          <a ng-bind="item.label" ' +
     '             ng-class="{\'is-active\': item.selected}"' +
