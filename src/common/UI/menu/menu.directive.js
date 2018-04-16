@@ -19,7 +19,7 @@
     template: template,
     transclude: true,
     bindings: { delay: '<' },
-    controller: function() {
+    controller: function($timeout, $location) {
       var ctrl = this
       ctrl.$onInit = onInit
       ctrl.$postLink = postLink
@@ -42,8 +42,12 @@
       }
 
       function postLink() {
-        var firstItem = ctrl.items[0]
-        select(firstItem)
+        var hash = $location.hash()
+        var item = _.find(ctrl.items, { label: hash }) || ctrl.items[0]
+        $location.hash(null)
+        $timeout(function() {
+          select(item)
+        }, 1)
       }
     }
   })

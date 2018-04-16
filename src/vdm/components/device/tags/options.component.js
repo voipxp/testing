@@ -24,7 +24,6 @@
       ctrl.editOptions = angular.copy(ctrl.options)
       console.log('options', ctrl.options)
       Alert.modal.open('vdmTemplateTagOptionsModal', function(close) {
-        console.log('WTF', ctrl.editOptions)
         // bail if already set
         if (ctrl.editOptions.value === ctrl.options.value) return close()
         ctrl.parent.update(ctrl.editOptions, close)

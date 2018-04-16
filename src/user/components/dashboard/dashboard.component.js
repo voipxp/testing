@@ -173,12 +173,12 @@
           path: route('bargeInExempt')
         },
         {
-          type: 'service',
+          type: 'callRecords',
           service: 'Basic Call Logs',
           path: route('basicCallLogs')
         },
         {
-          type: 'service',
+          type: 'callRecords',
           module: 'Premium Call Records',
           path: route('premiumCallRecords')
         },

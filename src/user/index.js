@@ -13,7 +13,6 @@
   }
   function path() {
     var prefixes = Array.prototype.slice.call(arguments)
-
     prefixes.unshift('/users/:serviceProviderId/:groupId/:userId')
     return prefixes.join('/')
   }
@@ -116,8 +115,7 @@
         resolve: {
           acl: acl('User'),
           module: module('Premium Call Records')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('broadWorksAnywhere'), {
         template:
@@ -512,8 +510,7 @@
         resolve: {
           acl: acl('Group'),
           module: module('Provisioning')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('callingPlans/codes'), {
         template:
@@ -529,8 +526,7 @@
         resolve: {
           acl: acl('Group'),
           module: module('Provisioning')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('callingPlans/pinholeDigitPlan'), {
         template:
@@ -538,8 +534,7 @@
         resolve: {
           acl: acl('Group'),
           module: module('Provisioning')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('callingPlans/transfer'), {
         template:

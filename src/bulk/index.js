@@ -49,8 +49,7 @@
         })
         .when('/bulk/user.create', {
           template: '<bulk-user-create></bulk-user-create>',
-          resolve: { acl: acl, module: module('Provisioning') },
-          reloadOnSearch: false
+          resolve: { acl: acl, module: module('Provisioning') }
         })
         .when('/bulk/user.delete', {
           template:

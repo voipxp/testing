@@ -90,7 +90,6 @@
     }
 
     function contactSummary() {
-      console.log('WTF', ctrl.group)
       var contact = ctrl.group.contact || {}
       return _.compact([
         contact.contactName,

@@ -1,4 +1,6 @@
 ;(function() {
+  angular.module('odin.group', []).config(routeConfig)
+
   function acl(type) {
     return function(ACL) {
       'ngInject'
@@ -17,8 +19,7 @@
     return prefixes.join('/')
   }
 
-  angular.module('odin.group', [])
-  angular.module('odin.group').config(function routeConfig($routeProvider) {
+  function routeConfig($routeProvider) {
     $routeProvider
       .when(path(), {
         template: '<group-dashboard></group-dashboard>',
@@ -117,16 +118,14 @@
           '<group-outgoing-calling-plan-digit-plan></group-outgoing-calling-plan-digit-plan>',
         resolve: {
           acl: acl('Group')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('callingPlans/pinholeDigitPlan'), {
         template:
           '<group-outgoing-calling-plan-pinhole-digit-plan></group-outgoing-calling-plan-pinhole-digit-plan>',
         resolve: {
           acl: acl('Group')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('callingPlans/codes'), {
         template:
@@ -166,8 +165,7 @@
         template: '<group-collaborate-instance></group-collaborate-instance>',
         resolve: {
           acl: acl('Group')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('anonymousCallRejection'), {
         template:
@@ -320,8 +318,7 @@
         resolve: {
           acl: acl('Group'),
           module: module('Trunk Group')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('trunkGroups'), {
         template:
@@ -337,8 +334,7 @@
         resolve: {
           acl: acl('Group'),
           module: module('Trunk Group')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('paging'), {
         template:
@@ -354,8 +350,7 @@
         resolve: {
           acl: acl('Group'),
           module: module('Group Paging')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('huntGroups'), {
         template:
@@ -385,8 +380,7 @@
         resolve: {
           acl: acl('Group'),
           module: module('Meet-Me Conferencing')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('musicOnHold'), {
         template:
@@ -402,8 +396,7 @@
         resolve: {
           acl: acl('Group'),
           module: module('Music On Hold')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('voiceMessaging'), {
         template:
@@ -419,8 +412,7 @@
         resolve: {
           acl: acl('Group'),
           module: module('Auto Attendant Report')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('callRecords/group'), {
         template:
@@ -436,8 +428,7 @@
         resolve: {
           acl: acl('Group'),
           module: module('Premium Call Records')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('reports/users'), {
         template: '<users-report module="$resolve.module"></users-report>',
@@ -460,8 +451,7 @@
         resolve: {
           acl: acl('Group'),
           module: module('Call Center')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('callCenters/:serviceUserId/:dnisId'), {
         template:
@@ -469,8 +459,7 @@
         resolve: {
           acl: acl('Group'),
           module: module('Call Center')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(path('schedules'), {
         template: '<group-schedules></group-schedules>',
@@ -538,6 +527,5 @@
           acl: acl('Group')
         }
       })
-
-  })
+  }
 })()

@@ -13,8 +13,7 @@
       })
       .when('/branding/:hostnameId', {
         template: '<branding-hostname></branding-hostname>',
-        resolve: { acl: acl },
-        reloadOnSearch: false
+        resolve: { acl: acl }
       })
   })
 })()

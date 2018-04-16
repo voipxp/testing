@@ -21,32 +21,28 @@
         resolve: {
           acl: acl('Provisioning'),
           module: module('VDM')
-        },
-        reloadOnSearch: false
+        }
       })
       .when('/vdm/templates/:id', {
         template: '<vdm-template module="$resolve.module"></vdm-template>',
         resolve: {
           acl: acl('Provisioning'),
           module: module('VDM')
-        },
-        reloadOnSearch: false
+        }
       })
       .when('/groups/:serviceProviderId/:groupId/vdm', {
         template: '<vdm-dashboard module="$resolve.module"></vdm-dashboard>',
         resolve: {
           acl: acl('Group'),
           module: module('VDM')
-        },
-        reloadOnSearch: false
+        }
       })
       .when('/groups/:serviceProviderId/:groupId/vdm/templates/:id', {
         template: '<vdm-template module="$resolve.module"></vdm-template>',
         resolve: {
           acl: acl('Group'),
           module: module('VDM')
-        },
-        reloadOnSearch: false
+        }
       })
       .when(
         '/groups/:serviceProviderId/:groupId/vdm/templates/:templateId/:deviceName',
@@ -55,8 +51,7 @@
           resolve: {
             acl: acl('Group'),
             module: module('VDM')
-          },
-          reloadOnSearch: false
+          }
         }
       )
   })

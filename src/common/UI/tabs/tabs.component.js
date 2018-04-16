@@ -13,7 +13,7 @@
     template: template,
     transclude: true,
     bindings: { delay: '<', class: '@' },
-    controller: function($timeout) {
+    controller: function($timeout, $location) {
       var ctrl = this
       ctrl.$onInit = onInit
       ctrl.add = add
@@ -40,9 +40,11 @@
       }
 
       ctrl.$postLink = function() {
+        var hash = $location.hash()
+        var item = _.find(ctrl.tabs, { label: hash }) || ctrl.tabs[0]
+        $location.hash(null)
         $timeout(function() {
-          var firstTab = ctrl.tabs[0]
-          select(firstTab)
+          select(item)
         }, 1)
       }
     }

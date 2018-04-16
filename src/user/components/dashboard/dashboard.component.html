@@ -23,7 +23,13 @@
       <user-basic-call-logs-panel service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
         user-id="$ctrl.userId"
-        limit-to="5"></user-basic-call-logs-panel>
+        limit-to="5"
+        class="margin-bottom"
+        style="display: block"></user-basic-call-logs-panel>
+      <pbs-dashboard-cards title="Call Records"
+        cards="$ctrl.cards"
+        search="$ctrl.search"
+        filter="{type: 'callRecords', active: true}"></pbs-dashboard-cards>
     </div>
     <div class="column">
       <pbs-dashboard-cards title="Services"

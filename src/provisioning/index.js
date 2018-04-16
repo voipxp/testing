@@ -11,22 +11,15 @@
       $routeProvider
         .when('/provisioning', {
           template: '<provisioning-dashboard></provisioning-dashboard>',
-          resolve: {
-            acl: acl
-          }
+          resolve: { acl: acl }
         })
         .when('/serviceProviders', {
           template: '<service-providers-index></service-providers-index>',
-          resolve: {
-            acl: acl
-          },
-          reloadOnSearch: false
+          resolve: { acl: acl }
         })
         .when('/queue', {
           template: '<pbs-horizon></pbs-horizon>',
-          resolve: {
-            acl: acl
-          }
+          resolve: { acl: acl }
         })
     })
 })()

@@ -68,8 +68,7 @@
           resolve: {
             acl: acl('Service Provider'),
             module: module('Trunk Group')
-          },
-          reloadOnSearch: false
+          }
         })
         .when(path('meetMe'), {
           template:

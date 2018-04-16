@@ -13,23 +13,19 @@
       })
       .when('/system/devices', {
         template: '<system-devices></system-devices>',
-        resolve: { acl: acl },
-        reloadOnSearch: false
+        resolve: { acl: acl }
       })
       .when('/system/licensing', {
         template: '<system-licensing></system-licensing>',
-        resolve: { acl: acl },
-        reloadOnSearch: false
+        resolve: { acl: acl }
       })
       .when('/system/dn', {
         template: '<system-dn></system-dn>',
-        resolve: { acl: acl },
-        reloadOnSearch: false
+        resolve: { acl: acl }
       })
       .when('/system/collaborate', {
         template: '<system-collaborate></system-collaborate>',
-        resolve: { acl: acl },
-        reloadOnSearch: false
+        resolve: { acl: acl }
       })
       .when('/system/networkClassOfServices', {
         template:

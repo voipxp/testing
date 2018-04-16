@@ -124,8 +124,7 @@
         template: '<pbs-login></pbs-login>'
       })
       .when('/sso', {
-        template: '<pbs-sso></pbs-sso>',
-        reloadOnSearch: false
+        template: '<pbs-sso></pbs-sso>'
       })
       .otherwise({
         redirectTo: '/notfound'
@@ -136,6 +135,13 @@
   function addTemplateListener($rootScope, Template) {
     $rootScope.$on('Template:updated', function() {
       $rootScope.pageTitle = Template.data('pageTitle') || 'ODiN'
+    })
+  }
+
+  // set all routes to reloadOnsearch = false
+  function routeCustomConfig($route) {
+    _.forOwn($route.routes, function(value, key) {
+      $route.routes[key].reloadOnSearch = false
     })
   }
 
@@ -161,6 +167,7 @@
       .run(clearCache)
       .run(loaders)
       .run(addTemplateListener)
+      .run(routeCustomConfig)
 
     angular.element(document.getElementById(moduleID)).ready(function() {
       angular.bootstrap(document, [moduleName])
