@@ -1,19 +1,20 @@
 ;(function() {
   var wizardTemplate =
-    '' +
-    '<div class="pbs-wizard">' +
-    '  <div class="pbs-wizard__menu">' +
-    '    <ul class="pbs-wizard__list">' +
-    '      <li ng-repeat="step in $ctrl.steps">' +
-    '        <a href="" ng-class="{active: step.selected, complete: step.complete}" ng-click="$ctrl.select($index)">' +
-    '        {{ step.label }} ' +
-    '          <pbs-check-box class="is-pulled-right" checked="step.complete" ng-show="step.complete">' +
-    '          </pbs-check-box>' +
-    '        </a>' +
-    '      </li>' +
-    '    </ul>' +
+    '<div class="columns pbs-menu-container">' +
+    '  <div class="column is-one-quarter pbs-menu-nav">' +
+    '    <aside class="menu">' +
+    '      <ul class="menu-list pbs-menu-list pbs-wizard-list">' +
+    '        <li ng-repeat="step in $ctrl.steps">' +
+    '          <a ng-click="$ctrl.select($index)"' +
+    '             ng-class="{\'is-active\': step.selected, disabled: !step.complete}">' +
+    '             {{ step.label }}' +
+    '            <pbs-check-box class="is-pulled-right" checked="step.complete" ng-show="step.complete"></pbs-check-box>' +
+    '          </a>' +
+    '        </li>' +
+    '      </ul>' +
+    '    </aside>' +
     '  </div>' +
-    '  <div class="pbs-wizard__content" ng-transclude></div>' +
+    '  <div class="column pbs-menu-content" ng-transclude></div>' +
     '</div>'
 
   angular.module('odin.common').component('pbsWizard', {
