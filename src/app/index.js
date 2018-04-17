@@ -9,9 +9,9 @@
     'angular-jwt',
     'chart.js',
     'odin.config',
+    'odin.common',
     'odin.branding',
     'odin.bulk',
-    'odin.common',
     'odin.events',
     'odin.group',
     'odin.provisioning',
@@ -138,13 +138,6 @@
     })
   }
 
-  // set all routes to reloadOnsearch = false
-  function routeCustomConfig($route) {
-    _.forOwn($route.routes, function(value, key) {
-      $route.routes[key].reloadOnSearch = false
-    })
-  }
-
   function loaders(Template) {
     Template.load()
   }
@@ -167,7 +160,6 @@
       .run(clearCache)
       .run(loaders)
       .run(addTemplateListener)
-      .run(routeCustomConfig)
 
     angular.element(document.getElementById(moduleID)).ready(function() {
       angular.bootstrap(document, [moduleName])

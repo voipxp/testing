@@ -1,25 +1,24 @@
 ;(function() {
-  function acl(ACL) {
-    return ACL.allow('Provisioning')
-  }
-
-  angular.module('odin.provisioning', ['angularFileInput'])
-
+  var routes = [
+    {
+      path: 'provisioning',
+      component: 'provisioningDashboard',
+      acl: 'Provisioning'
+    },
+    {
+      path: 'serviceProviders',
+      component: 'serviceProvidersIndex',
+      acl: 'Provisioning'
+    },
+    {
+      path: 'queue',
+      component: 'pbsHorizon',
+      acl: 'Provisioning'
+    }
+  ]
   angular
-    .module('odin.provisioning')
-    .config(function routeConfig($routeProvider) {
-      $routeProvider
-        .when('/provisioning', {
-          template: '<provisioning-dashboard></provisioning-dashboard>',
-          resolve: { acl: acl }
-        })
-        .when('/serviceProviders', {
-          template: '<service-providers-index></service-providers-index>',
-          resolve: { acl: acl }
-        })
-        .when('/queue', {
-          template: '<pbs-horizon></pbs-horizon>',
-          resolve: { acl: acl }
-        })
+    .module('odin.provisioning', ['angularFileInput'])
+    .config(function(PbsRouteProvider) {
+      PbsRouteProvider.set('/', routes)
     })
 })()

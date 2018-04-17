@@ -1,19 +1,19 @@
 ;(function() {
-  function acl(ACL) {
-    return ACL.allow('Provisioning')
-  }
-
-  angular.module('odin.branding', ['mp.colorPicker', 'truncate'])
-
-  angular.module('odin.branding').config(function routeConfig($routeProvider) {
-    $routeProvider
-      .when('/branding', {
-        template: '<branding-hostnames></branding-hostnames>',
-        resolve: { acl: acl }
-      })
-      .when('/branding/:hostnameId', {
-        template: '<branding-hostname></branding-hostname>',
-        resolve: { acl: acl }
-      })
-  })
+  var routes = [
+    {
+      path: null,
+      component: 'brandingHostnames',
+      acl: 'Provisioning'
+    },
+    {
+      path: ':hostnameId',
+      component: 'brandingHostname',
+      acl: 'Provisioning'
+    }
+  ]
+  angular
+    .module('odin.branding', ['mp.colorPicker', 'truncate'])
+    .config(function(PbsRouteProvider) {
+      PbsRouteProvider.set('/branding', routes)
+    })
 })()

@@ -1,41 +1,43 @@
 ;(function() {
-  function acl(ACL) {
-    return ACL.allow('System')
-  }
+  var routes = [
+    {
+      path: null,
+      component: 'systemDashboard',
+      acl: 'System'
+    },
+    {
+      path: 'devices',
+      component: 'systemDevices',
+      acl: 'System'
+    },
+    {
+      path: 'licensing',
+      component: 'systemLicensing',
+      acl: 'System'
+    },
+    {
+      path: 'dn',
+      component: 'systemDn',
+      acl: 'System'
+    },
+    {
+      path: 'collaborate',
+      component: 'systemCollaborate',
+      acl: 'System'
+    },
+    {
+      path: 'networkClassOfServices',
+      component: 'systemNetworkClassOfServices',
+      acl: 'System'
+    },
+    {
+      path: 'networkClassOfServices/:name',
+      component: 'systemNetworkClassOfService',
+      acl: 'System'
+    }
+  ]
 
-  angular.module('odin.system', [])
-
-  angular.module('odin.system').config(function routeConfig($routeProvider) {
-    $routeProvider
-      .when('/system', {
-        template: '<system-dashboard></system-dashboard>',
-        resolve: { acl: acl }
-      })
-      .when('/system/devices', {
-        template: '<system-devices></system-devices>',
-        resolve: { acl: acl }
-      })
-      .when('/system/licensing', {
-        template: '<system-licensing></system-licensing>',
-        resolve: { acl: acl }
-      })
-      .when('/system/dn', {
-        template: '<system-dn></system-dn>',
-        resolve: { acl: acl }
-      })
-      .when('/system/collaborate', {
-        template: '<system-collaborate></system-collaborate>',
-        resolve: { acl: acl }
-      })
-      .when('/system/networkClassOfServices', {
-        template:
-          '<system-network-class-of-services></system-network-class-of-services>',
-        resolve: { acl: acl }
-      })
-      .when('/system/networkClassOfServices/:name', {
-        template:
-          '<system-network-class-of-service></system-network-class-of-service>',
-        resolve: { acl: acl }
-      })
+  angular.module('odin.system', []).config(function(PbsRouteProvider) {
+    PbsRouteProvider.set('/system', routes)
   })
 })()

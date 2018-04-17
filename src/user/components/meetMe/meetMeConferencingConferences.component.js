@@ -1,5 +1,5 @@
 ;(function() {
-  angular.module('odin.user').component('userMeetMeConferenceingConferences', {
+  angular.module('odin.user').component('userMeetMeConferencingConferences', {
     templateUrl:
       'user/components/meetMe/meetMeConferencingConferences.component.html',
     controller: Controller,

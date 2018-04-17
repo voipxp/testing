@@ -1,14 +1,14 @@
 ;(function() {
-  angular.module('odin.settings', ['checklist-model'])
-
-  angular.module('odin.settings').config(function routeConfig($routeProvider) {
-    $routeProvider.when('/settings', {
-      template: '<odin-settings></odin-settings>',
-      resolve: {
-        _acl: function(ACL) {
-          return ACL.allow('Provisioning')
-        }
-      }
+  var routes = [
+    {
+      path: null,
+      component: 'odinSettings',
+      acl: 'Provisioning'
+    }
+  ]
+  angular
+    .module('odin.settings', ['checklist-model'])
+    .config(function(PbsRouteProvider) {
+      PbsRouteProvider.set('/settings', routes)
     })
-  })
 })()
