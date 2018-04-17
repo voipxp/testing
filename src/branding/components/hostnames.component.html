@@ -6,6 +6,8 @@
     <pbs-block-buttons>
       <pbs-button-compact-add ng-click="$ctrl.add()"
         title="Add Hostname"></pbs-button-compact-add>
+      <pbs-button-compact-clone ng-click="$ctrl.copy()"
+        title="Clone Hostname"></pbs-button-compact-clone>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>
@@ -42,4 +44,22 @@
         required>
     </pbs-form-field>
   </form>
+</pbs-modal>
+<pbs-modal id="cloneHostnameModal"
+  title="Clone Hostname"
+  save-text="Clone">
+
+  <pbs-form-field-horizontal label="Clone From">
+    <select ng-model="$ctrl.clone.from"
+      ng-options="hostname.id as hostname.hostname for hostname in $ctrl.hostnames"
+      required
+      pbs-input-select></select>
+  </pbs-form-field-horizontal>
+
+  <pbs-form-field-horizontal label="New Hostname">
+    <input type="text"
+      class="input"
+      ng-model="$ctrl.clone.to"
+      required>
+  </pbs-form-field-horizontal>
 </pbs-modal>

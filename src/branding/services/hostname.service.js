@@ -9,7 +9,8 @@
       store: store,
       show: show,
       update: update,
-      destroy: destroy
+      destroy: destroy,
+      clone: clone
     }
 
     var url = Route.api('branding')
@@ -44,6 +45,13 @@
 
     function destroy(hostname) {
       return $http.delete(url(hostname.id)).then(function(response) {
+        $rootScope.$emit('BrandingHostnameService:updated')
+        return response.data
+      })
+    }
+
+    function clone(hostnameId, newHostname) {
+      return $http.post(url(hostnameId, newHostname)).then(function(response) {
         $rootScope.$emit('BrandingHostnameService:updated')
         return response.data
       })

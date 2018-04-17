@@ -9,6 +9,7 @@
     ctrl.$onInit = onInit
     ctrl.open = open
     ctrl.add = add
+    ctrl.copy = copy
     ctrl.onSave = create
 
     function onInit() {
@@ -34,6 +35,28 @@
       Alert.modal.open('newHostnameModal', function(close) {
         return create(ctrl.newHostname, close)
       })
+    }
+
+    function copy() {
+      ctrl.clone = {}
+      Alert.modal.open('cloneHostnameModal', function(close) {
+        return clone(ctrl.clone.from, ctrl.clone.to, close)
+      })
+    }
+
+    function clone(from, to, callback) {
+      Alert.spinner.open()
+      BrandingHostnameService.clone(from, to)
+        .then(function(data) {
+          console.log('data', data)
+          return loadHostnames().then(function() {
+            Alert.notify.success('Hostname Cloned')
+            callback()
+            open(data)
+          })
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function create(hostname, callback) {
