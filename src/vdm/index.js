@@ -1,32 +1,32 @@
 ;(function() {
   var routes = [
     {
-      path: null,
+      path: '/vdm',
       component: 'vdmDashboard',
       acl: 'Provisioning',
       module: 'VDM'
     },
     {
-      path: 'templates/:id',
+      path: '/vdm/templates/:id',
       component: 'vdmTemplate',
       acl: 'Provisioning',
       module: 'VDM'
     },
     {
-      path: 'groups/:serviceProviderId/:groupId/vdm',
+      path: '/groups/:serviceProviderId/:groupId/vdm',
       component: 'vdmDashboard',
       acl: 'Group',
       module: 'VDM'
     },
     {
-      path: 'groups/:serviceProviderId/:groupId/vdm/templates/:id',
+      path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id',
       component: 'vdmTemplate',
       acl: 'Group',
       module: 'VDM'
     },
     {
       path:
-        'groups/:serviceProviderId/:groupId/vdm/templates/:templateId/:deviceName',
+        '/groups/:serviceProviderId/:groupId/vdm/templates/:templateId/:deviceName',
       component: 'vdmDevice',
       acl: 'Group',
       module: 'VDM'
@@ -34,6 +34,6 @@
   ]
 
   angular.module('odin.vdm', []).config(function(PbsRouteProvider) {
-    PbsRouteProvider.set('/vdm', routes)
+    PbsRouteProvider.set(null, routes)
   })
 })()
