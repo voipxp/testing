@@ -10,12 +10,12 @@
     <div class="column">
       <pbs-dashboard-cards title="Provisioning"
         cards="$ctrl.cards"
-        filter="{type: 'provisioning'}"></pbs-dashboard-cards>
+        filter="{type: 'provisioning', active: true}"></pbs-dashboard-cards>
     </div>
     <div class="column">
       <pbs-dashboard-cards title="Services"
         cards="$ctrl.cards"
-        filter="{type: 'services'}"></pbs-dashboard-cards>
+        filter="{type: 'services', active: true}"></pbs-dashboard-cards>
     </div>
   </div>
 </pbs-spinner>
