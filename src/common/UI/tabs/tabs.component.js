@@ -40,11 +40,11 @@
       }
 
       ctrl.$postLink = function() {
-        var hash = $location.hash()
-        var item = _.find(ctrl.tabs, { label: hash }) || ctrl.tabs[0]
-        $location.hash(null)
+        var search = $location.search().tab
+        var tab = _.find(ctrl.tabs, { label: search }) || ctrl.tabs[0]
+        $location.search({})
         $timeout(function() {
-          select(item)
+          select(tab)
         }, 1)
       }
     }

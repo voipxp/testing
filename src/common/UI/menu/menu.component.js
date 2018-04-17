@@ -42,9 +42,9 @@
       }
 
       function postLink() {
-        var hash = $location.hash()
-        var item = _.find(ctrl.items, { label: hash }) || ctrl.items[0]
-        $location.hash(null)
+        var search = $location.search().menu
+        var item = _.find(ctrl.items, { label: search }) || ctrl.items[0]
+        $location.search({})
         $timeout(function() {
           select(item)
         }, 1)
