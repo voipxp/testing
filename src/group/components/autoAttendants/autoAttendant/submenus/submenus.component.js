@@ -63,7 +63,6 @@
         ctrl.groupId,
         'autoAttendants',
         ctrl.serviceUserId,
-        'submenus',
         menu.submenuId
       )()
     }
