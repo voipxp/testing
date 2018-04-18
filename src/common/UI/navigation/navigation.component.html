@@ -25,4 +25,38 @@
       ng-click="$ctrl.openUser($ctrl.userId)"></pbs-breadcrumb>
     <span ng-transclude-replace></span>
   </ul>
+  <button class="button is-small is-pulled-right"
+    ng-click="$ctrl.showHelp = true"
+    ng-show="$ctrl.module">
+    <span class="icon">
+      <i class="fas fa-info"></i>
+    </span>
+  </button>
 </nav>
+
+<div class="quickview"
+  ng-class="{'is-active': $ctrl.showHelp}">
+  <header class="quickview-header">
+    <p class="title">Quick Help</p>
+  </header>
+  <div class="quickview-body">
+    <div class="quickview-block">
+      <p class="subtitle">{{ $ctrl.module.alias }}
+        <button class="button is-small is-pulled-right"
+          ng-click="$ctrl.showHelp = false">
+          <span class="icon">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+      </p>
+      <p>{{ $ctrl.module.description }}</p>
+      <div class="large-margin-top"
+        ng-show="$ctrl.module.url">
+        <a href=""
+          ng-href="{{ $ctrl.module.url }}"
+          target="_blank"
+          rel="noreferrer noopener">More Information</a>
+      </div>
+    </div>
+  </div>
+</div>

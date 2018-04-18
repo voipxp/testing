@@ -8,6 +8,10 @@
   animation-duration: 500ms;
 }
 
+.quickview-block {
+  padding: 1rem;
+}
+
 pbs-notifications {
   position: fixed;
   top: 5px;

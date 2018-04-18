@@ -18,9 +18,10 @@ IDEA
     bindings: {
       serviceProviderId: '<',
       groupId: '<',
-      userId: '<'
+      userId: '<',
+      module: '<'
     },
-    controller: function($location, Session, ACL, Route) {
+    controller: function($location, Session, ACL, Route, $window) {
       this.$onInit = function() {
         this.session = Session.data()
         this.returnTo = $location.search().returnTo
@@ -43,6 +44,10 @@ IDEA
         } else {
           Route.open('groups', this.serviceProviderId, this.groupId)('users')
         }
+      }
+      this.openLink = function() {
+        if (!this.module.url) return
+        $window.open(this.module.url, '_blank', 'noopener')
       }
     }
   })
