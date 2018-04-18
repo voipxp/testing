@@ -1,7 +1,7 @@
 ;(function() {
   angular.module('odin.group').component('autoAttendantAudio', {
     templateUrl:
-      'group/components/autoAttendants/autoAttendantAudio.component.html',
+      'group/components/autoAttendants/autoAttendant/audio.component.html',
     controller: Controller,
     require: { parent: '^^autoAttendant' },
     bindings: {

@@ -1,7 +1,7 @@
 ;(function() {
   angular.module('odin.group').component('autoAttendantCreate', {
     templateUrl:
-      'group/components/autoAttendants/autoAttendantCreate.component.html',
+      'group/components/autoAttendants/autoAttendant/create.component.html',
     controller: Controller,
     bindings: {
       groupId: '<',

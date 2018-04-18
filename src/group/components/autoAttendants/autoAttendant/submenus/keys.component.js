@@ -1,6 +1,7 @@
 ;(function() {
   angular.module('odin.group').component('groupAutoAttendantSubmenuKeys', {
-    templateUrl: 'group/components/autoAttendants/submenus/keys.component.html',
+    templateUrl:
+      'group/components/autoAttendants/autoAttendant/submenus/keys.component.html',
     controller: Controller,
     require: { parent: '^^groupAutoAttendantSubmenu' }
   })

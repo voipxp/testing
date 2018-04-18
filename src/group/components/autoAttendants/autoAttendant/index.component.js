@@ -1,6 +1,7 @@
 ;(function() {
   angular.module('odin.group').component('autoAttendant', {
-    templateUrl: 'group/components/autoAttendants/autoAttendant.component.html',
+    templateUrl:
+      'group/components/autoAttendants/autoAttendant/index.component.html',
     controller: Controller,
     bindings: { module: '<' }
   })

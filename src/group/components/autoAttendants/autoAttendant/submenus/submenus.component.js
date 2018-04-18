@@ -1,7 +1,7 @@
 ;(function() {
   angular.module('odin.group').component('groupAutoAttendantSubmenus', {
     templateUrl:
-      'group/components/autoAttendants/submenus/submenus.component.html',
+      'group/components/autoAttendants/autoAttendant/submenus/submenus.component.html',
     controller: Controller,
     bindings: {
       module: '<',

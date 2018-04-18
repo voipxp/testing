@@ -1,7 +1,7 @@
 ;(function() {
-  angular.module('odin.group').component('autoAttendantDetails', {
+  angular.module('odin.group').component('autoAttendantSettings', {
     templateUrl:
-      'group/components/autoAttendants/autoAttendantDetails.component.html',
+      'group/components/autoAttendants/autoAttendant/settings.component.html',
     controller: Controller,
     require: { parent: '^^autoAttendant' },
     bindings: {
