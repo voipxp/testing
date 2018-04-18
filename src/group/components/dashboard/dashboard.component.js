@@ -10,8 +10,7 @@
     $routeParams,
     Route,
     $location,
-    ACL,
-    $route
+    ACL
   ) {
     var ctrl = this
 
@@ -22,7 +21,6 @@
     ctrl.isAdmin = ACL.has('Service Provider')
 
     function onInit() {
-      console.log($route.routes)
       ctrl.loading = true
       $location.hash(null)
       return GroupDashboardService.load(ctrl.serviceProviderId, ctrl.groupId)
