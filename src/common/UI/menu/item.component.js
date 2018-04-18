@@ -7,7 +7,7 @@
   angular.module('odin.common').component('pbsMenuItem', {
     template: template,
     bindings: { label: '@', delay: '<' },
-    require: { menu: '^^pbsMenu' },
+    require: { section: '^pbsMenuSection' },
     transclude: true,
     controller: function() {
       var ctrl = this
@@ -19,7 +19,7 @@
           label: ctrl.label,
           selected: false
         }
-        ctrl.menu.add(ctrl.item)
+        ctrl.section.add(ctrl.item)
       }
 
       function shouldLoad() {
@@ -29,8 +29,10 @@
         if (ctrl.delay === false) return true
         // if delay is implicitly set to true then hide
         if (ctrl.delay === true) return false
-        // if parent.delay is not set to true then show
-        return ctrl.menu.delay !== true
+        // if section is set to true then hide
+        if (ctrl.section.delay === true) return false
+        // if menu delay is not set to true then show
+        if (ctrl.section.menu.delay === true) return false
       }
     }
   })

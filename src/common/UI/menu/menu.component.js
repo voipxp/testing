@@ -1,10 +1,16 @@
 ;(function() {
   var template =
-    '<div class="columns pbs-menu-container">' +
+    '<div class="columns">' +
     '  <div class="column is-one-quarter pbs-menu-nav">' +
-    '    <aside class="menu">' +
-    '      <ul class="menu-list pbs-menu-list">' +
-    '        <li ng-repeat="item in $ctrl.items">' +
+    '    <aside class="menu pbs-menu-container">' +
+    '      <p class="menu-label"' +
+    '         ng-repeat-start="section in $ctrl.sections"' +
+    '         ng-show="section.label"' +
+    '         ng-bind="section.label">' +
+    '      </p>' +
+    '      <ul class="menu-list pbs-menu-list"' +
+    '          ng-repeat-end>' +
+    '        <li ng-repeat="item in section.items">' +
     '          <a ng-bind="item.label" ' +
     '             ng-class="{\'is-active\': item.selected}"' +
     '             ng-click="$ctrl.select(item)"></a>' +
@@ -19,7 +25,7 @@
     template: template,
     transclude: true,
     bindings: { delay: '<' },
-    controller: function($timeout, $location) {
+    controller: function($timeout) {
       var ctrl = this
       ctrl.$onInit = onInit
       ctrl.$postLink = postLink
@@ -27,27 +33,27 @@
       ctrl.select = select
 
       function onInit() {
-        ctrl.items = []
+        ctrl.sections = []
       }
 
-      function add(item) {
-        ctrl.items.push(item)
+      function add(section) {
+        ctrl.sections.push(section)
       }
 
       function select(item) {
-        ctrl.items.forEach(function(_item) {
-          _item.selected = false
+        ctrl.sections.forEach(function(section) {
+          section.items.forEach(function(_item) {
+            _item.selected = false
+          })
         })
-        item.selected = true
+        $timeout(function() {
+          item.selected = true
+        }, 1)
       }
 
       function postLink() {
-        var search = $location.search().menu
-        var item = _.find(ctrl.items, { label: search }) || ctrl.items[0]
-        $location.search({})
-        $timeout(function() {
-          select(item)
-        }, 1)
+        var item = _.get(ctrl.sections, '0.items.0')
+        select(item)
       }
     }
   })

@@ -11,14 +11,15 @@
     }
   })
 
-  function Controller(Alert, GroupAutoAttendantSubmenuService, Route) {
+  function Controller(Alert, GroupAutoAttendantSubmenuService) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.open = open
     ctrl.add = add
+    ctrl.onDestroy = onDestroy
 
     function onInit() {
       ctrl.loading = true
+      ctrl.submenuId = null
       return loadSubmenus()
         .catch(Alert.notify.danger)
         .finally(function() {
@@ -36,7 +37,10 @@
     }
 
     function add() {
-      ctrl.newMenu = { announcementSelection: 'Default' }
+      ctrl.newMenu = {
+        announcementSelection: 'Default',
+        enableLevelExtensionDialing: false
+      }
       Alert.modal.open('createAutoAttendantSubmenuProfileModal', function(
         close
       ) {
@@ -50,21 +54,15 @@
         .then(function() {
           Alert.notify.success('Submenu Created')
           callback()
-          open(menu)
+          ctrl.submenuId = menu.submenuId
         })
         .catch(Alert.notify.danger)
         .finally(Alert.spinner.close)
     }
 
-    function open(menu) {
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'autoAttendants',
-        ctrl.serviceUserId,
-        menu.submenuId
-      )()
+    function onDestroy() {
+      ctrl.submenuId = null
+      loadSubmenus()
     }
   }
 })()

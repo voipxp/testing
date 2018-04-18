@@ -3,23 +3,19 @@
     templateUrl:
       'group/components/autoAttendants/autoAttendant/submenus/submenu.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: {
+      module: '<',
+      serviceProviderId: '<',
+      groupId: '<',
+      serviceUserId: '<',
+      submenuId: '<',
+      onDestroy: '&'
+    }
   })
 
-  function Controller(
-    $routeParams,
-    Alert,
-    GroupAutoAttendantSubmenuService,
-    Route,
-    $q
-  ) {
+  function Controller(Alert, GroupAutoAttendantSubmenuService, Route, $q) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.serviceUserId = $routeParams.serviceUserId
-    ctrl.submenuId = $routeParams.submenuId
-    ctrl.open = open
     ctrl.update = update
     ctrl.destroy = destroy
 
@@ -55,19 +51,15 @@
 
     function update(menu, callback) {
       Alert.spinner.open()
-      var renamed = menu.newSubmenuId && menu.newSubmenuId !== ctrl.submenuId
       GroupAutoAttendantSubmenuService.update(
         ctrl.serviceUserId,
         ctrl.submenuId,
         menu
       )
-        .then(function() {
-          if (!renamed) return loadSubmenu()
-        })
+        .then(loadSubmenu)
         .then(function() {
           Alert.notify.success('Submenu Updated')
           callback()
-          if (renamed) open(ctrl.serviceUserId, 'submenus', menu.newSubmenuId)
         })
         .catch(Alert.notify.danger)
         .finally(Alert.spinner.close)
@@ -81,20 +73,11 @@
       )
         .then(function() {
           Alert.notify.warning('Submenu Removed')
+          ctrl.onDestroy()
           callback()
-          open(ctrl.serviceUserId, 'submenus')
         })
         .catch(Alert.notify.danger)
         .finally(Alert.spinner.close)
-    }
-
-    function open(serviceUserId, menu, id) {
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'autoAttendants'
-      )(serviceUserId, menu, id)
     }
   }
 })()
