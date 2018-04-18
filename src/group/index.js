@@ -305,7 +305,7 @@
     },
     {
       path: 'callRecords/group',
-      component: 'groupCallRecordDashboard',
+      component: 'groupCallRecordIndex',
       acl: 'Group',
       module: 'Premium Call Records'
     },

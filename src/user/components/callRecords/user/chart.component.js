@@ -15,20 +15,18 @@
 
 ;(function() {
   angular.module('odin.user').component('userCallRecordChart', {
-    templateUrl:
-      'user/components/callRecords/user/userCallRecordChart.component.html',
+    templateUrl: 'user/components/callRecords/user/chart.component.html',
     controller: Controller,
     bindings: {
-      serviceProviderId: '<',
-      groupId: '<',
       userId: '<',
       label: '<',
       startTime: '<',
-      endTime: '<'
+      endTime: '<',
+      onClick: '&'
     }
   })
 
-  function Controller(Alert, UserCallRecordsService) {
+  function Controller(Alert, UserCallRecordsService, EventEmitter) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.open = open
@@ -52,7 +50,7 @@
         ctrl.endTime
       ).then(function(data) {
         ctrl.options = { legend: { display: true, position: 'right' } }
-        ctrl.stats = !_.isEmpty(data)
+        ctrl.stats = _.get(data, 'total')
           ? data
           : {
               placedAnswered: 0,
@@ -101,12 +99,11 @@
     }
 
     function open() {
-      UserCallRecordsService.open(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.userId,
-        ctrl.startTime,
-        ctrl.endTime
+      ctrl.onClick(
+        EventEmitter({
+          startTime: ctrl.startTime,
+          endTime: ctrl.endTime
+        })
       )
     }
   }

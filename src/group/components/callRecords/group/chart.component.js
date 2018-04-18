@@ -15,19 +15,19 @@
 
 ;(function() {
   angular.module('odin.group').component('groupCallRecordChart', {
-    templateUrl:
-      'group/components/callRecords/group/groupCallRecordChart.component.html',
+    templateUrl: 'group/components/callRecords/group/chart.component.html',
     controller: Controller,
     bindings: {
       serviceProviderId: '<',
       groupId: '<',
       label: '<',
       startTime: '<',
-      endTime: '<'
+      endTime: '<',
+      onClick: '&'
     }
   })
 
-  function Controller(Alert, GroupCallRecordsService) {
+  function Controller(Alert, GroupCallRecordsService, EventEmitter) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.open = open
@@ -52,7 +52,7 @@
         ctrl.endTime
       ).then(function(data) {
         ctrl.options = { legend: { display: true, position: 'right' } }
-        ctrl.stats = !_.isEmpty(data)
+        ctrl.stats = _.get(data, 'total')
           ? data
           : {
               placedAnswered: 0,
@@ -101,11 +101,11 @@
     }
 
     function open() {
-      GroupCallRecordsService.open(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.startTime,
-        ctrl.endTime
+      ctrl.onClick(
+        EventEmitter({
+          startTime: ctrl.startTime,
+          endTime: ctrl.endTime
+        })
       )
     }
   }

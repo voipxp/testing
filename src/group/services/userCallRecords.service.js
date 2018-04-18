@@ -11,8 +11,7 @@
       detail: detail,
       details: details,
       stats: stats,
-      get: get,
-      open: open
+      get: get
     }
 
     service.options = { reportType: ['Hourly', 'Daily'] }
@@ -52,16 +51,6 @@
         .then(function(response) {
           return response.data
         })
-    }
-
-    function open(serviceProviderId, groupId, userId, startTime, endTime) {
-      Route.open(
-        'users',
-        serviceProviderId,
-        groupId,
-        userId,
-        'premiumCallRecords'
-      )(startTime && startTime.toJSON(), endTime && endTime.toJSON()).hash(null)
     }
   }
 })()

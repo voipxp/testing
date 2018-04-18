@@ -29,8 +29,7 @@ waitTime
 
 ;(function() {
   angular.module('odin.user').component('userCallRecordData', {
-    templateUrl:
-      'user/components/callRecords/user/userCallRecordData.component.html',
+    templateUrl: 'user/components/callRecords/user/data.component.html',
     controller: Controller,
     bindings: {
       userId: '<',

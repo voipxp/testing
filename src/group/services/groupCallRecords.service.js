@@ -12,7 +12,6 @@
       missed: missed,
       usersummary: usersummary,
       stats: stats,
-      open: open,
       get: get
     }
 
@@ -83,13 +82,6 @@
         .then(function(response) {
           return response.data
         })
-    }
-
-    function open(serviceProviderId, groupId, startTime, endTime) {
-      Route.open('groups', serviceProviderId, groupId, 'callRecords', 'group')(
-        startTime && startTime.toJSON(),
-        endTime && endTime.toJSON()
-      ).hash(null)
     }
   }
 })()

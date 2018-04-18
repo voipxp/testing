@@ -29,8 +29,7 @@ waitTime
 
 ;(function() {
   angular.module('odin.group').component('groupCallRecordData', {
-    templateUrl:
-      'group/components/callRecords/group/groupCallRecordData.component.html',
+    templateUrl: 'group/components/callRecords/group/data.component.html',
     controller: Controller,
     bindings: {
       serviceProviderId: '<',
