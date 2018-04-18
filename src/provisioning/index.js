@@ -19,6 +19,6 @@
   angular
     .module('odin.provisioning', ['angularFileInput'])
     .config(function(PbsRouteProvider) {
-      PbsRouteProvider.set(null, routes)
+      PbsRouteProvider.set(routes)
     })
 })()

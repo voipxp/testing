@@ -7,6 +7,6 @@
     }
   ]
   angular.module('odin.events', []).config(function(PbsRouteProvider) {
-    PbsRouteProvider.set('/events', routes)
+    PbsRouteProvider.set(routes, '/events')
   })
 })()

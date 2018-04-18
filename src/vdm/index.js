@@ -34,6 +34,6 @@
   ]
 
   angular.module('odin.vdm', []).config(function(PbsRouteProvider) {
-    PbsRouteProvider.set(null, routes)
+    PbsRouteProvider.set(routes)
   })
 })()

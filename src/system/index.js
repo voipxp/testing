@@ -38,6 +38,6 @@
   ]
 
   angular.module('odin.system', []).config(function(PbsRouteProvider) {
-    PbsRouteProvider.set('/system', routes)
+    PbsRouteProvider.set(routes, '/system')
   })
 })()

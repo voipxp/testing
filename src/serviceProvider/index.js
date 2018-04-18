@@ -92,6 +92,6 @@
   ]
 
   angular.module('odin.serviceProvider', []).config(function(PbsRouteProvider) {
-    PbsRouteProvider.set('/serviceProviders/:serviceProviderId', routes)
+    PbsRouteProvider.set(routes, '/serviceProviders/:serviceProviderId')
   })
 })()

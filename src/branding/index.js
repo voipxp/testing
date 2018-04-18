@@ -14,6 +14,6 @@
   angular
     .module('odin.branding', ['mp.colorPicker', 'truncate'])
     .config(function(PbsRouteProvider) {
-      PbsRouteProvider.set('/branding', routes)
+      PbsRouteProvider.set(routes, '/branding')
     })
 })()

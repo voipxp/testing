@@ -7,6 +7,6 @@
     }
   ]
   angular.module('odin.tasks', []).config(function(PbsRouteProvider) {
-    PbsRouteProvider.set('/tasks', routes)
+    PbsRouteProvider.set(routes, '/tasks')
   })
 })()

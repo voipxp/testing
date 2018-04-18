@@ -9,6 +9,6 @@
   angular
     .module('odin.settings', ['checklist-model'])
     .config(function(PbsRouteProvider) {
-      PbsRouteProvider.set('/settings', routes)
+      PbsRouteProvider.set(routes, '/settings')
     })
 })()

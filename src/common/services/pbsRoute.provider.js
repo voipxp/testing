@@ -14,7 +14,11 @@
       }
     }
     function getPath(prefix, path) {
-      return _.compact([prefix, path]).join('/')
+      var route = _.compact([prefix, path]).join('/')
+      if (!_.startsWith('/')) {
+        route = '/' + route
+      }
+      return route
     }
     function getConfig(route) {
       // parse the template from the component
@@ -45,7 +49,8 @@
 
       return config
     }
-    function set(prefix, routes) {
+    function set(routes, prefix) {
+      routes = _.flatten([routes])
       routes.forEach(function(route) {
         $routeProvider.when(getPath(prefix, route.path), getConfig(route))
       })

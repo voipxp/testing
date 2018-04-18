@@ -402,6 +402,6 @@
   ]
 
   angular.module('odin.group', []).config(function(PbsRouteProvider) {
-    PbsRouteProvider.set('/groups/:serviceProviderId/:groupId', routes)
+    PbsRouteProvider.set(routes, '/groups/:serviceProviderId/:groupId')
   })
 })()
