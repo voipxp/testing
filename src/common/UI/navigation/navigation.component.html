@@ -27,7 +27,7 @@
   </ul>
   <button class="button is-small is-pulled-right"
     ng-click="$ctrl.showHelp = true"
-    ng-show="$ctrl.module">
+    ng-show="$ctrl.module.description || $ctrl.module.url">
     <span class="icon">
       <i class="fas fa-info"></i>
     </span>
