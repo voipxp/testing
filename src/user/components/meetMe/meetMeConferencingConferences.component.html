@@ -1,10 +1,10 @@
 <pbs-navigation service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
-  user-id="$ctrl.userId">
+  user-id="$ctrl.userId"
+  module="$ctrl.module">
   <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
 </pbs-navigation>
 
-<pbs-module-description module="$ctrl.module"></pbs-module-description>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block module="$ctrl.module">
     <pbs-block-buttons if-module-create="$ctrl.module">
@@ -48,53 +48,63 @@
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editConference"
-           title="Edit Conference Settings">
+  title="Edit Conference Settings">
   <form name="editConferenceForm">
     <pbs-form-field label="Bridge Name">{{$ctrl.editConference.bridgeName}}</pbs-form-field>
     <pbs-form-field label="Title">
-      <input type="text" class="input" ng-model="$ctrl.editConference.title">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editConference.title">
     </pbs-form-field>
     <pbs-form-field label="Account Code">
-      <input type="text" class="input" ng-model="$ctrl.editConference.accountCode">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editConference.accountCode">
     </pbs-form-field>
     <pbs-form-field label="Estimated Participants">
-      <input type="text" class="input" ng-model="$ctrl.editConference.estimatedParticipants">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editConference.estimatedParticipants">
     </pbs-form-field>
     <pbs-form-field label="Mute All Attendees On Entry">
       <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.editConference.muteAllAttendeesOnEntry">
+        <input type="checkbox"
+          ng-model="$ctrl.editConference.muteAllAttendeesOnEntry">
       </label>
     </pbs-form-field>
     <pbs-form-field label="End Conference On Moderator Exit">
       <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.editConference.endConferenceOnModeratorExit">
+        <input type="checkbox"
+          ng-model="$ctrl.editConference.endConferenceOnModeratorExit">
       </label>
     </pbs-form-field>
     <pbs-form-field label="Moderator Required">
       <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.editConference.moderatorRequired">
+        <input type="checkbox"
+          ng-model="$ctrl.editConference.moderatorRequired">
       </label>
     </pbs-form-field>
     <pbs-form-field label="Security Pin Required">
       <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.editConference.requireSecurityPin">
+        <input type="checkbox"
+          ng-model="$ctrl.editConference.requireSecurityPin">
       </label>
     </pbs-form-field>
     <pbs-form-field label="Allow Unique Identifier">
       <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.editConference.allowUniqueIdentifier">
+        <input type="checkbox"
+          ng-model="$ctrl.editConference.allowUniqueIdentifier">
       </label>
     </pbs-form-field>
     <pbs-form-field label="Notification">
       <div class="select">
         <select ng-model="$ctrl.editConference.attendeeNotification"
-                ng-options="opt as opt for opt in $ctrl.conferenceOptions.attendeeNotification"></select>
+          ng-options="opt as opt for opt in $ctrl.conferenceOptions.attendeeNotification"></select>
       </div>
     </pbs-form-field>
     <pbs-form-field label="Delegate Users">
       <select-users available="$ctrl.availableUsers"
-                    selected="$ctrl.assignedUsers"
-      ></select-users>
+        selected="$ctrl.assignedUsers"></select-users>
     </pbs-form-field>
     <pbs-form-field label="Conference #">{{$ctrl.groupBridge.serviceInstanceProfile.phoneNumber}}</pbs-form-field>
     <pbs-form-field label="Conference Id">{{$ctrl.editConference.conferenceId}}</pbs-form-field>
@@ -105,52 +115,63 @@
 </pbs-modal>
 
 <pbs-modal id="addConference"
-           title="Add Conference">
+  title="Add Conference">
   <form name="addConferenceForm">
     <pbs-form-field label="Bridge">
       <div class="select">
         <select ng-model="$ctrl.editConference.bridgeId"
-                ng-options="opt.bridgeId as opt.bridgeId for opt in $ctrl.meetMeConferencingBridges"></select>
+          ng-options="opt.bridgeId as opt.bridgeId for opt in $ctrl.meetMeConferencingBridges"></select>
       </div>
     </pbs-form-field>
     <pbs-form-field label="Title">
-      <input type="text" class="input" ng-model="$ctrl.editConference.title">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editConference.title">
     </pbs-form-field>
     <pbs-form-field label="Account Code">
-      <input type="text" class="input" ng-model="$ctrl.editConference.accountCode">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editConference.accountCode">
     </pbs-form-field>
     <pbs-form-field label="Estimated Participants">
-      <input type="text" class="input" ng-model="$ctrl.editConference.estimatedParticipants">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editConference.estimatedParticipants">
     </pbs-form-field>
     <pbs-form-field label="Mute All Attendees On Entry">
       <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.editConference.muteAllAttendeesOnEntry">
+        <input type="checkbox"
+          ng-model="$ctrl.editConference.muteAllAttendeesOnEntry">
       </label>
     </pbs-form-field>
     <pbs-form-field label="End Conference On Moderator Exit">
       <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.editConference.endConferenceOnModeratorExit">
+        <input type="checkbox"
+          ng-model="$ctrl.editConference.endConferenceOnModeratorExit">
       </label>
     </pbs-form-field>
     <pbs-form-field label="Moderator Required">
       <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.editConference.moderatorRequired">
+        <input type="checkbox"
+          ng-model="$ctrl.editConference.moderatorRequired">
       </label>
     </pbs-form-field>
     <pbs-form-field label="Security Pin Required">
       <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.editConference.requireSecurityPin">
+        <input type="checkbox"
+          ng-model="$ctrl.editConference.requireSecurityPin">
       </label>
     </pbs-form-field>
     <pbs-form-field label="Allow Unique Identifier">
       <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.editConference.allowUniqueIdentifier">
+        <input type="checkbox"
+          ng-model="$ctrl.editConference.allowUniqueIdentifier">
       </label>
     </pbs-form-field>
     <pbs-form-field label="Notification">
       <div class="select">
         <select ng-model="$ctrl.editConference.attendeeNotification"
-                ng-options="opt as opt for opt in $ctrl.conferenceOptions.attendeeNotification"></select>
+          ng-options="opt as opt for opt in $ctrl.conferenceOptions.attendeeNotification"></select>
       </div>
     </pbs-form-field>
   </form>

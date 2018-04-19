@@ -1,14 +1,16 @@
 <pbs-navigation service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId" service-userId="$ctrl.serviceUserId">
+  group-id="$ctrl.groupId"
+  service-userId="$ctrl.serviceUserId"
+  module="$ctrl.module">
   <pbs-breadcrumb title="'Collaborate'"></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.serviceUserId"></pbs-breadcrumb>
 </pbs-navigation>
-<pbs-module-description module="$ctrl.module"></pbs-module-description>
 <pbs-tabs delay="true">
   <pbs-tab label="Details">
     <pbs-block title="Details">
       <pbs-block-buttons>
-        <pbs-button-compact-edit title="Edit Details" ng-click="$ctrl.edit()">
+        <pbs-button-compact-edit title="Edit Details"
+          ng-click="$ctrl.edit()">
         </pbs-button-compact-edit>
       </pbs-block-buttons>
       <pbs-list>
@@ -43,29 +45,29 @@
       <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
       <table pbs-table>
         <thead>
-        <tr>
-          <th>User ID</th>
-          <th>Last Name</th>
-          <th>First Name</th>
-          <th>Number</th>
-          <th>Department</th>
-        </tr>
+          <tr>
+            <th>User ID</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Number</th>
+            <th>Department</th>
+          </tr>
         </thead>
         <tfoot>
-        <tr ng-if="results.length === 0">
-          <td colspan="5">No Users Found
-            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
-          </td>
-        </tr>
+          <tr ng-if="results.length === 0">
+            <td colspan="5">No Users Found
+              <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+            </td>
+          </tr>
         </tfoot>
         <tbody>
-        <tr ng-repeat="user in $ctrl.assignedUsers | filter:$ctrl.search as results track by user.userId">
-          <td>{{ user.userId }}</td>
-          <td>{{ user.lastName }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.phoneNumber }}</td>
-          <td>{{ user.department }}</td>
-        </tr>
+          <tr ng-repeat="user in $ctrl.assignedUsers | filter:$ctrl.search as results track by user.userId">
+            <td>{{ user.userId }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.phoneNumber }}</td>
+            <td>{{ user.department }}</td>
+          </tr>
         </tbody>
       </table>
     </pbs-block>
@@ -74,35 +76,34 @@
 </pbs-tabs>
 
 <pbs-modal id="editGroupCollaborate"
-           title="Edit Group Collaborate">
+  title="Edit Group Collaborate">
   <form name="editGroupCollaborateForm">
     <pbs-form-field label="Max Room Participants">
       <input type="number"
-             class="input"
-             ng-model="$ctrl.collaborate.maxCollaborateRoomParticipants"
-             min="$ctrl.options.roomMaximumParticipantsMin"
-             max="$ctrl.options.roomMaximumParticipantsMax"
-      >
+        class="input"
+        ng-model="$ctrl.collaborate.maxCollaborateRoomParticipants"
+        min="$ctrl.options.roomMaximumParticipantsMin"
+        max="$ctrl.options.roomMaximumParticipantsMax">
     </pbs-form-field>
     <pbs-form-field label="Support Outdial">
       <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.collaborate.supportOutdial">
+        <input type="checkbox"
+          ng-model="$ctrl.collaborate.supportOutdial">
       </label>
     </pbs-form-field>
     <pbs-form-field label="Allocated Ports*">
       <input type="number"
-             class="input"
-             ng-model="$ctrl.collaborate.maximumBridgeParticipants">
+        class="input"
+        ng-model="$ctrl.collaborate.maximumBridgeParticipants">
     </pbs-form-field>
   </form>
 </pbs-modal>
 <pbs-modal id="editGroupCollaborateUsers"
-           title="Edit Group Collaborate Users">
+  title="Edit Group Collaborate Users">
   <form name="editGroupCollaborateUsersForm">
     <pbs-form-field label="Available Users">
       <select-users available="$ctrl.availableUsers"
-                    selected="$ctrl.assignedUsers"
-                    ></select-users>
+        selected="$ctrl.assignedUsers"></select-users>
     </pbs-form-field>
   </form>
 </pbs-modal>
