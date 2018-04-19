@@ -124,7 +124,7 @@
         {
           type: 'management',
           name: 'Call Processing Policy',
-          path: route('callprocessingpolicy')
+          path: route('callProcessingPolicy')
         },
 
         {
