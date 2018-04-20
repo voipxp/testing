@@ -23,6 +23,10 @@
       var ctrl = this
       ctrl.select = select
       ctrl.itemName = itemName
+      ctrl.onPagination = onPagination
+      function onPagination(event) {
+        ctrl.pager = event.pager
+      }
       function itemName(item) {
         return _.get(item, ctrl.itemKey)
       }

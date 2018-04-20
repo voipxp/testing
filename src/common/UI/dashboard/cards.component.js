@@ -1,7 +1,7 @@
 ;(function() {
   angular.module('odin.common').component('pbsDashboardCards', {
     templateUrl: 'common/UI/dashboard/cards.component.html',
-    bindings: { cards: '<', title: '@', filter: '<' },
+    bindings: { cards: '<', title: '@', filter: '<', limitTo: '<' },
     controller: function($location, Alert) {
       this.open = function(event) {
         var card = event.item

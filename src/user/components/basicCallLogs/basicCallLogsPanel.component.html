@@ -22,7 +22,8 @@
     </div>
     <a class="panel-block"
       ng-click="$ctrl.open()"
-      ng-repeat="item in $ctrl.calls[$ctrl.tab] | filter:$ctrl.search | limitTo:$ctrl.limitTo as results">
+      ng-repeat="item in results = ($ctrl.calls[$ctrl.tab] | filter:$ctrl.search) | paginate:$ctrl.pager">
+      <!-- ng-repeat="item in $ctrl.calls[$ctrl.tab] | filter:$ctrl.search | limitTo:$ctrl.limitTo as results"> -->
       {{ item.phoneNumber }}
       <small style="margin-left: auto">{{ item.time | pbsDate:'relative' }}</small>
     </a>
@@ -32,6 +33,12 @@
       <span ng-show="$ctrl.search"> for
         <strong>{{ $ctrl.search }}</strong>
       </span>
+    </div>
+    <div ng-if="results.length > $ctrl.limitTo">
+      <pbs-pagination position="right"
+        items="results.length"
+        limit="$ctrl.limitTo"
+        on-update="$ctrl.onPagination($event)"></pbs-pagination>
     </div>
   </nav>
 </pbs-spinner>

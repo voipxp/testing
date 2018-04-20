@@ -51,10 +51,12 @@
     }
 
     function clone(hostnameId, newHostname) {
-      return $http.post(url(hostnameId, newHostname)).then(function(response) {
-        $rootScope.$emit('BrandingHostnameService:updated')
-        return response.data
-      })
+      return $http
+        .post(url(hostnameId, 'clone', newHostname))
+        .then(function(response) {
+          $rootScope.$emit('BrandingHostnameService:updated')
+          return response.data
+        })
     }
   }
 })()

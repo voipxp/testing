@@ -42,7 +42,7 @@
     },
     {
       path: 'users',
-      template: 'groupUsers',
+      component: 'groupUsers',
       acl: 'Group'
     },
     {

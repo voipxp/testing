@@ -1,19 +1,19 @@
-<nav class="pagination is-left margin-top"
+<div class="buttons has-addons"
+  ng-class="$ctrl.positionClass"
   ng-show="$ctrl.items > $ctrl.limit">
-  <p>Page: {{ $ctrl.page }} / {{ $ctrl.pages }}</p>
-  <a class="pagination-previous"
+  <button class="button is-small"
     ng-click="$ctrl.previous()"
     ng-disabled="$ctrl.page === 1">
     <span class="icon">
       <i class="fas fa-chevron-left"></i>
     </span>
-  </a>
-  <a class="pagination-next"
+  </button>
+  <span class="button is-small is-static">{{ $ctrl.page }}/{{ $ctrl.pages }}</span>
+  <button class="button is-small"
     ng-click="$ctrl.next()"
     ng-disabled="$ctrl.page === $ctrl.pages">
-    <span class="icon">
+    <span class="icon is-small">
       <i class="fas fa-chevron-right"></i>
     </span>
-  </a>
-  <ul class="pagination-list"></ul>
-</nav>
+  </button>
+</div>

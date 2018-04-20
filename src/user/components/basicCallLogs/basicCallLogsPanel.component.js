@@ -16,6 +16,11 @@
 
     ctrl.$onInit = onInit
     ctrl.open = open
+    ctrl.onPagination = onPagination
+
+    function onPagination(event) {
+      ctrl.pager = event.pager
+    }
 
     function onInit() {
       ctrl.loading = true

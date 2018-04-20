@@ -33,15 +33,24 @@
 ;(function() {
   angular.module('odin.common').component('pbsPagination', {
     templateUrl: 'common/UI/pagination/pagination.component.html',
-    bindings: { items: '<', limit: '<', onUpdate: '&' },
+    bindings: { items: '<', limit: '<', onUpdate: '&', position: '@' },
     controller: Controller
   })
 
   function Controller(EventEmitter) {
     var ctrl = this
+    ctrl.$onInit = onInit
     ctrl.$onChanges = onChanges
     ctrl.previous = previous
     ctrl.next = next
+
+    function onInit() {
+      if (ctrl.position === 'right') {
+        ctrl.positionClass = 'is-right'
+      } else if (ctrl.position === 'center') {
+        ctrl.positionClass = 'is-centered'
+      }
+    }
 
     function offset() {
       return (ctrl.page - 1) * ctrl.limit

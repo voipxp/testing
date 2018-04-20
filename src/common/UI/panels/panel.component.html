@@ -17,7 +17,7 @@
   </div>
   <a class="panel-block"
     ng-click="$ctrl.select(item)"
-    ng-repeat="item in $ctrl.items | filter:$ctrl.filter | filter:$ctrl.search | orderBy:$ctrl.itemKey | limitTo:$ctrl.limitTo as results">
+    ng-repeat="item in results = ($ctrl.items | filter:$ctrl.filter | filter:$ctrl.search | orderBy:$ctrl.itemKey) | paginate:$ctrl.pager">
     {{ $ctrl.itemName(item) }}
   </a>
   <a class="panel-block"
@@ -27,4 +27,10 @@
       <strong>{{ $ctrl.search }}</strong>
     </span>
   </a>
+  <div ng-if="results.length > $ctrl.limitTo">
+    <pbs-pagination position="right"
+      items="results.length"
+      limit="$ctrl.limitTo"
+      on-update="$ctrl.onPagination($event)"></pbs-pagination>
+  </div>
 </nav>
