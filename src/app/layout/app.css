@@ -33,27 +33,22 @@
 }
 
 .small-margin-top {
-  display: block;
   margin-top: .5rem;
 }
 
 .margin-top {
-  display: block;
   margin-top: 1rem;
 }
 
 .large-margin-top {
-  display: block;
   margin-top: 2rem;
 }
 
 .margin-bottom {
-  display: block;
   margin-bottom: 1rem;
 }
 
 .large-margin-bottom {
-  display: block;
   margin-bottom: 2rem;
 }
 
