@@ -12,7 +12,7 @@
     },
     {
       path: 'groups',
-      component: 'serviceProviderGroups',
+      component: 'serviceProviderGroupsIndex',
       acl: 'Service Provider'
     },
     {
