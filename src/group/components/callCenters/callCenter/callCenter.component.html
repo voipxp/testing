@@ -1,121 +1,84 @@
 <group-call-center-navigation module="$ctrl.module"></group-call-center-navigation>
-<pbs-spinner loading="$ctrl.loading">
-  <pbs-tabs delay="true">
-    <pbs-tab label="Details">
-      <group-call-center-details></group-call-center-details>
-    </pbs-tab>
-    <pbs-tab label="Profile">
-      <service-instance-profile service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
-        service-user-id="$ctrl.serviceUserId"
-        profile="$ctrl.center.serviceInstanceProfile"
-        on-update="$ctrl.updateProfile($event)"
-        read-only="!$ctrl.module.permissions.update"></service-instance-profile>
-    </pbs-tab>
-    <pbs-tab label="Agents">
-      <group-call-center-agents service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
-        service-user-id="$ctrl.serviceUserId"
-        call-center-type="$ctrl.center.type"></group-call-center-agents>
-    </pbs-tab>
-    <pbs-tab label="Supervisors">
-      <group-call-center-supervisors service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
-        service-user-id="$ctrl.serviceUserId"></group-call-center-supervisors>
-    </pbs-tab>
-    <pbs-tab label="Portal">
-      <user-portal-passcode class="margin-top"
-        user-id="$ctrl.serviceUserId"
-        read-only="!$ctrl.module.permissions.update"></user-portal-passcode>
-      <user-voice-portal class="margin-top"
-        user-id="$ctrl.serviceUserId"
-        read-only="!$ctrl.module.permissions.update"></user-voice-portal>
-    </pbs-tab>
-    <pbs-tab label="Announcements">
-      <group-call-center-announcements service-user-id="$ctrl.serviceUserId"
-        call-center-type="$ctrl.center.type"></group-call-center-announcements>
-    </pbs-tab>
-    <pbs-tab label="Statistics">
-      <group-call-center-queue-status service-user-id="$ctrl.serviceUserId"></group-call-center-queue-status>
-      <group-call-center-statistics-reporting ng-if="$ctrl.hasPermission('enableReporting')"
-        service-user-id="$ctrl.serviceUserId"></group-call-center-statistics-reporting>
-    </pbs-tab>
-    <pbs-tab label="Utilities">
-      <user-feature-access-codes user-id="$ctrl.serviceUserId"></user-feature-access-codes>
-    </pbs-tab>
-    <pbs-tab label="Thresholds"
-      ng-if="$ctrl.hasPermission('enableReporting')">
-      <group-call-center-thresholds service-user-id="$ctrl.serviceUserId"></group-call-center-thresholds>
-    </pbs-tab>
-    <pbs-tab label="User Services">
-      <user-services service-type="userServices"
-        user-id="$ctrl.serviceUserId"
-        on-update="$ctrl.loadAssigned()">
-      </user-services>
-    </pbs-tab>
-    <pbs-tab label="Incoming Calls"
-      ng-if="$ctrl.hasIncoming()">
-      <user-call-forwarding-always user-id="$ctrl.serviceUserId"
-        ng-if="$ctrl.assigned('Call Forwarding Always')">
-      </user-call-forwarding-always>
-      <user-call-forwarding-busy user-id="$ctrl.serviceUserId"
-        ng-if="$ctrl.assigned('Call Forwarding Busy')">
-      </user-call-forwarding-busy>
-      <user-calling-name-retrieval user-id="$ctrl.serviceUserId"
-        ng-if="$ctrl.assigned('Calling Name Retrieval')">
-      </user-calling-name-retrieval>
-      <user-call-forwarding-selective user-id="$ctrl.serviceUserId"
-        ng-if="$ctrl.assigned('Call Forwarding Selective')">
-      </user-call-forwarding-selective>
-      <user-priority-alert user-id="$ctrl.serviceUserId"
-        ng-if="$ctrl.assigned('Priority Alert')">
-      </user-priority-alert>
-    </pbs-tab>
-    <pbs-tab label="Calling Plans">
-      <user-incoming-calling-plan user-id="$ctrl.serviceUserId"
-        read-only="!$ctrl.module.permissions.update">
-      </user-incoming-calling-plan>
-    </pbs-tab>
-    <pbs-tab label="Routing"
-      ng-if="$ctrl.center.type !== 'Basic'">
-      <group-call-center-forced-forwarding service-user-id="$ctrl.serviceUserId"
-        ng-if="$ctrl.center.type === 'Premium'">
-      </group-call-center-forced-forwarding>
-      <group-call-center-holiday-service service-user-id="$ctrl.serviceUserId"
-        ng-if="$ctrl.center.type === 'Premium'">
-      </group-call-center-holiday-service>
-      <group-call-center-night-service service-user-id="$ctrl.serviceUserId"
-        ng-if="$ctrl.center.type === 'Premium'">
-      </group-call-center-night-service>
-      <group-call-center-comfort-message-bypass service-user-id="$ctrl.serviceUserId"
-        ng-if="$ctrl.center.type === 'Premium'">
-      </group-call-center-comfort-message-bypass>
-      <group-call-center-bounced-calls service-user-id="$ctrl.serviceUserId">
-      </group-call-center-bounced-calls>
-      <group-call-center-overflow service-user-id="$ctrl.serviceUserId">
-      </group-call-center-overflow>
-      <group-call-center-stranded-call service-user-id="$ctrl.serviceUserId">
-      </group-call-center-stranded-call>
-      <group-call-center-stranded-call-unavailable service-user-id="$ctrl.serviceUserId">
-      </group-call-center-stranded-call-unavailable>
-    </pbs-tab>
-    <pbs-tab label="Advanced"
-      ng-if="$ctrl.hasPermission('routingType')">
-      <group-call-center-dnis service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
-        service-user-id="$ctrl.serviceUserId">
-      </group-call-center-dnis>
-      <group-call-center-queue-status-notification service-user-id="$ctrl.serviceUserId">
-      </group-call-center-queue-status-notification>
-      <group-call-center-distinctive-ringing service-user-id="$ctrl.serviceUserId">
-      </group-call-center-distinctive-ringing>
-      <group-call-center-queue-disposition-codes service-user-id="$ctrl.serviceUserId"
-        ng-if="$ctrl.hasPermission('callDispositionCodes')">
-      </group-call-center-queue-disposition-codes>
-      <user-call-policies user-id="$ctrl.serviceUserId"
-        read-only="!$ctrl.module.permissions.update">
-      </user-call-policies>
-      <!-- user-call-control-applications component is available if this is used -->
-    </pbs-tab>
-  </pbs-tabs>
-</pbs-spinner>
+
+<virtual-user-menu service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.serviceUserId"
+  module="$ctrl.module">
+  <pbs-menu-item label="Details">
+    <group-call-center-details></group-call-center-details>
+  </pbs-menu-item>
+  <pbs-menu-item label="Profile">
+    <service-instance-profile service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      service-user-id="$ctrl.serviceUserId"
+      profile="$ctrl.center.serviceInstanceProfile"
+      on-update="$ctrl.updateProfile($event)"
+      read-only="!$ctrl.module.permissions.update"></service-instance-profile>
+  </pbs-menu-item>
+  <pbs-menu-item label="Agents">
+    <group-call-center-agents service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      service-user-id="$ctrl.serviceUserId"
+      call-center-type="$ctrl.center.type"></group-call-center-agents>
+  </pbs-menu-item>
+  <pbs-menu-item label="Supervisors">
+    <group-call-center-supervisors service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      service-user-id="$ctrl.serviceUserId"></group-call-center-supervisors>
+  </pbs-menu-item>
+  <pbs-menu-item label="Announcements">
+    <group-call-center-announcements service-user-id="$ctrl.serviceUserId"
+      call-center-type="$ctrl.center.type"></group-call-center-announcements>
+  </pbs-menu-item>
+  <pbs-menu-item label="Statistics">
+    <group-call-center-queue-status pbs-margin-bottom
+      service-user-id="$ctrl.serviceUserId"></group-call-center-queue-status>
+    <group-call-center-statistics-reporting ng-if="$ctrl.hasPermission('enableReporting')"
+      service-user-id="$ctrl.serviceUserId"></group-call-center-statistics-reporting>
+  </pbs-menu-item>
+  <pbs-menu-item label="Thresholds"
+    ng-if="$ctrl.hasPermission('enableReporting')">
+    <group-call-center-thresholds service-user-id="$ctrl.serviceUserId"></group-call-center-thresholds>
+  </pbs-menu-item>
+  <pbs-menu-item label="Routing"
+    ng-if="$ctrl.center.type !== 'Basic'">
+    <group-call-center-forced-forwarding service-user-id="$ctrl.serviceUserId"
+      ng-if="$ctrl.center.type === 'Premium'"
+      pbs-margin-bottom></group-call-center-forced-forwarding>
+    <group-call-center-holiday-service service-user-id="$ctrl.serviceUserId"
+      ng-if="$ctrl.center.type === 'Premium'"
+      pbs-margin-bottom></group-call-center-holiday-service>
+    <group-call-center-night-service service-user-id="$ctrl.serviceUserId"
+      ng-if="$ctrl.center.type === 'Premium'"
+      pbs-margin-bottom></group-call-center-night-service>
+    <group-call-center-comfort-message-bypass service-user-id="$ctrl.serviceUserId"
+      ng-if="$ctrl.center.type === 'Premium'"
+      pbs-margin-bottom></group-call-center-comfort-message-bypass>
+    <group-call-center-bounced-calls service-user-id="$ctrl.serviceUserId"
+      pbs-margin-bottom></group-call-center-bounced-calls>
+    <group-call-center-overflow service-user-id="$ctrl.serviceUserId"
+      pbs-margin-bottom></group-call-center-overflow>
+    <group-call-center-stranded-call service-user-id="$ctrl.serviceUserId"
+      pbs-margin-bottom></group-call-center-stranded-call>
+    <group-call-center-stranded-call-unavailable service-user-id="$ctrl.serviceUserId"
+      pbs-margin-bottom></group-call-center-stranded-call-unavailable>
+  </pbs-menu-item>
+  <pbs-menu-item label="Advanced"
+    ng-if="$ctrl.hasPermission('routingType')">
+    <group-call-center-dnis service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      service-user-id="$ctrl.serviceUserId">
+    </group-call-center-dnis>
+    <group-call-center-queue-status-notification service-user-id="$ctrl.serviceUserId">
+    </group-call-center-queue-status-notification>
+    <group-call-center-distinctive-ringing service-user-id="$ctrl.serviceUserId">
+    </group-call-center-distinctive-ringing>
+    <group-call-center-queue-disposition-codes service-user-id="$ctrl.serviceUserId"
+      ng-if="$ctrl.hasPermission('callDispositionCodes')">
+    </group-call-center-queue-disposition-codes>
+    <user-call-policies user-id="$ctrl.serviceUserId"
+      read-only="!$ctrl.module.permissions.update">
+    </user-call-policies>
+    <!-- user-call-control-applications component is available if this is used -->
+  </pbs-menu-item>
+</virtual-user-menu>

@@ -1,5 +1,5 @@
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Originating">
+  <pbs-block title="Pinhole Digit Plan Originating">
     <pbs-block-buttons>
       <pbs-button-compact-edit title="Edit Plan"
         ng-click="$ctrl.edit()"></pbs-button-compact-edit>
@@ -10,7 +10,7 @@
         <pbs-check-box checked="$ctrl.plan.useCustomSettings"></pbs-check-box>
       </pbs-list-item>
 
-      <pbs-list-section>Digit Patterns</pbs-list-section>
+      <pbs-list-section ng-show="$ctrl.plan.userPermissions.length > 0">Digit Patterns</pbs-list-section>
       <pbs-list-item ng-repeat="pattern in $ctrl.plan.userPermissions"
         label="{{ pattern.digitPatternName }}">
         {{ pattern.permission }}

@@ -20,12 +20,17 @@
 
     function Permission(userId, _assigned, _viewable) {
       var service = {
+        assigned: assigned,
         create: create,
         read: read,
         update: update,
         destroy: destroy
       }
       return service
+
+      function assigned(name) {
+        return has(name)
+      }
 
       function create(name) {
         return has(name) && Module.create(name)

@@ -1,29 +1,27 @@
-<user-calling-plans-nav calling-plan="Transfer Numbers"></user-calling-plans-nav>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Transfer Numbers">
-    <pbs-block title="Originating">
-      <pbs-block-buttons>
-        <pbs-button-compact-edit title="Edit Plan"
-          ng-click="$ctrl.edit()"></pbs-button-compact-edit>
-      </pbs-block-buttons>
-      <pbs-list>
-        <pbs-list-section>Custom Settings</pbs-list-section>
-        <pbs-list-item label="Use Custom Settings">
-          <pbs-check-box checked="$ctrl.plan.useCustomSettings"></pbs-check-box>
-        </pbs-list-item>
+    <pbs-block-buttons>
+      <pbs-button-compact-edit title="Edit Plan"
+        ng-click="$ctrl.edit()"></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-section>Custom Settings</pbs-list-section>
+      <pbs-list-item label="Use Custom Settings">
+        <pbs-check-box checked="$ctrl.plan.useCustomSettings"></pbs-check-box>
+      </pbs-list-item>
 
-        <pbs-list-section>Transfer Numbers</pbs-list-section>
-        <pbs-list-item label="Transer Number 1">
-          {{ $ctrl.plan.userNumbers.phoneNumber01 }}
-        </pbs-list-item>
-        <pbs-list-item label="Transer Number 2">
-          {{ $ctrl.plan.userNumbers.phoneNumber02 }}
-        </pbs-list-item>
-        <pbs-list-item label="Transer Number 3">
-          {{ $ctrl.plan.userNumbers.phoneNumber03 }}
-        </pbs-list-item>
-      </pbs-list>
-    </pbs-block>
+      <pbs-list-section>Transfer Numbers</pbs-list-section>
+      <pbs-list-item label="Transer Number 1">
+        {{ $ctrl.plan.userNumbers.phoneNumber01 }}
+      </pbs-list-item>
+      <pbs-list-item label="Transer Number 2">
+        {{ $ctrl.plan.userNumbers.phoneNumber02 }}
+      </pbs-list-item>
+      <pbs-list-item label="Transer Number 3">
+        {{ $ctrl.plan.userNumbers.phoneNumber03 }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editUserOutgoingCallingPlanTransferNumber"
   title="Edit Transfer Number">

@@ -1,9 +1,9 @@
 ;(function() {
   angular
-    .module('odin.group')
+    .module('odin.user')
     .component('userCommunicationBarringAuthorizationCodes', {
       templateUrl:
-        'group/components/meetMe/bridge/userCommunicationBarringAuthorizationCodes.component.html',
+        'user/components/communicationBarringAuthorizationCodes/codes.component.html',
       controller: Controller,
       bindings: { userId: '=', readOnly: '<' }
     })

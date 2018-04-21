@@ -1,7 +1,6 @@
 ;(function() {
   angular.module('odin.group').component('meetMeBridgeUsers', {
-    templateUrl:
-      'group/components/meetMe/bridge/meetMeBridgeUsers.component.html',
+    templateUrl: 'group/components/meetMe/bridge/users.component.html',
     controller: Controller,
     require: { parent: '^meetMeBridge' }
   })

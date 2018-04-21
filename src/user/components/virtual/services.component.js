@@ -1,7 +1,6 @@
 ;(function() {
-  angular.module('odin.group').component('virtualUserServices', {
-    templateUrl:
-      'group/components/autoAttendants/autoAttendant/services.component.html',
+  angular.module('odin.user').component('virtualUserServices', {
+    templateUrl: 'user/components/virtual/services.component.html',
     controller: Controller,
     bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })

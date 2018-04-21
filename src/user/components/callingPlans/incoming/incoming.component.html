@@ -21,7 +21,7 @@
       <pbs-list-item label="Allow Collect Calls">
         <pbs-check-box checked="$ctrl.plan.userPermissions.allowCollectCalls"></pbs-check-box>
       </pbs-list-item>
-      <pbs-list-section>Digit Patterns</pbs-list-section>
+      <pbs-list-section ng-show="$ctrl.plan.userPermissions.digitPatterns.length > 0">Digit Patterns</pbs-list-section>
       <pbs-list-item label="{{ pattern.digitPatternName }}"
         ng-repeat="pattern in $ctrl.plan.userPermissions.digitPatterns track by pattern.digitPatternName">
         <pbs-check-box checked="pattern.allow"></pbs-check-box>

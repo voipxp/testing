@@ -4,7 +4,8 @@
     .component('userOutgoingCallingPlanTransferNumbers', {
       templateUrl:
         'user/components/callingPlans/transferNumbers/transferNumbers.component.html',
-      controller: Controller
+      controller: Controller,
+      bindings: { userId: '<' }
     })
 
   function Controller(
@@ -13,9 +14,6 @@
     UserOutgoingCallingPlanTransferNumbersService
   ) {
     var ctrl = this
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
     ctrl.$onInit = onInit
     ctrl.edit = edit
 

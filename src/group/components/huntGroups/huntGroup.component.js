@@ -10,10 +10,8 @@
     GroupHuntGroupService,
     Route,
     $routeParams,
-    UserServiceService,
-    $filter,
-    $q,
-    $rootScope
+    UserPermissionService,
+    $q
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -26,12 +24,14 @@
     ctrl.updateProfile = updateProfile
     ctrl.update = update
     ctrl.destroy = destroy
-    ctrl.loadServices = loadServices
 
     function onInit() {
       ctrl.loading = true
       return $q
-        .all([loadHuntGroup(), loadServices()])
+        .all([loadHuntGroup(), UserPermissionService.load(ctrl.serviceUserId)])
+        .then(function(data) {
+          return loadPermissions(data[1])
+        })
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
@@ -47,31 +47,11 @@
       })
     }
 
-    function loadServices() {
-      ctrl.userServices = {}
-      return UserServiceService.assigned(ctrl.serviceUserId).then(function(
-        data
-      ) {
-        data.userServices.forEach(function(service) {
-          ctrl.userServices[service.serviceName] = true
-        })
-        initializeServices(ctrl.userServices)
-        return ctrl.userServices
-      })
-    }
-
-    function initializeServices(assigned) {
-      var incomingServices = [
-        'Call Forwarding Always',
-        'Call Forwarding Busy',
-        'Call Forwarding Selective',
-        'Calling Name Retrieval',
-        'Priority Alert'
-      ]
-      ctrl.hasVoiceMessaging = assigned['Voice Messaging User']
-      ctrl.hasIncomingServices = _.find(incomingServices, function(service) {
-        return assigned[service]
-      })
+    function loadPermissions(permission) {
+      if (permission.read('Premium Call Records')) {
+        ctrl.showPremium = true
+      }
+      ctrl.showReporting = ctrl.showPremium
     }
 
     function updateProfile(event) {
@@ -108,7 +88,5 @@
     function back() {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')()
     }
-
-    $rootScope.$on('UserServiceService:updated', loadServices)
   }
 })()

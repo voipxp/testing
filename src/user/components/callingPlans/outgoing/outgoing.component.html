@@ -1,0 +1,19 @@
+<pbs-tabs delay="true">
+  <pbs-tab label="Originating">
+    <user-outgoing-calling-plan-originating user-id="$ctrl.userId">
+    </user-outgoing-calling-plan-originating>
+  </pbs-tab>
+  <pbs-tab label="Initiating Forwards">
+    <user-outgoing-calling-plan-redirecting user-id="$ctrl.userId">
+    </user-outgoing-calling-plan-redirecting>
+  </pbs-tab>
+  <pbs-tab label="Being Forwarded">
+    <user-outgoing-calling-plan-redirected user-id="$ctrl.userId">
+    </user-outgoing-calling-plan-redirected>
+  </pbs-tab>
+  <pbs-tab label="Call Me Now"
+    ng-if="$ctrl.showCallMeNow">
+    <user-outgoing-calling-plan-call-me-now user-id="$ctrl.userId">
+    </user-outgoing-calling-plan-call-me-now>
+  </pbs-tab>
+</pbs-tabs>

@@ -4,22 +4,20 @@
     .component('userOutgoingCallingPlanAuthorizationCodes', {
       templateUrl:
         'user/components/callingPlans/authorizationCodes/authorizationCodes.component.html',
-      controller: Controller
+      controller: Controller,
+      bindings: { userId: '<' }
     })
 
   function Controller(
     Alert,
     UserOutgoingCallingPlanAuthorizationCodeService,
-    $q,
-    $routeParams
+    $q
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.add = add
     ctrl.toggle = toggle
     ctrl.remove = remove
-
-    ctrl.userId = $routeParams.userId
 
     function onInit() {
       ctrl.loading = true

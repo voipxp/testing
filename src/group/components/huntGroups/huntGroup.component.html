@@ -4,40 +4,25 @@
     ng-click="$ctrl.back()"></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.serviceUserId"></pbs-breadcrumb>
 </pbs-navigation>
-<pbs-tabs delay="true">
-  <pbs-tab label="Settings">
-    <group-hunt-group-settings></group-hunt-group-settings>
-  </pbs-tab>
 
-  <pbs-tab label="Profile">
+<virtual-user-menu service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.serviceUserId"
+  module="$ctrl.module">
+  <pbs-menu-item label="Settings">
+    <group-hunt-group-settings></group-hunt-group-settings>
+  </pbs-menu-item>
+
+  <pbs-menu-item label="Profile">
     <service-instance-profile service-provider-id="$ctrl.serviceProviderId"
       group-id="$ctrl.groupId"
       service-user-id="$ctrl.serviceUserId"
       profile="$ctrl.huntGroup.serviceInstanceProfile"
       on-update="$ctrl.updateProfile($event)"
       read-only="!$ctrl.module.permissions.update"></service-instance-profile>
-  </pbs-tab>
+  </pbs-menu-item>
 
-  <pbs-tab label="Agents">
+  <pbs-menu-item label="Agents">
     <group-hunt-group-agents></group-hunt-group-agents>
-  </pbs-tab>
-
-  <pbs-tab label="Assign Services">
-    <user-services service-type="userServices"
-      user-id="$ctrl.serviceUserId"
-      on-update="$ctrl.loadServices()">
-    </user-services>
-  </pbs-tab>
-
-  <pbs-tab label="Incoming Calls"
-    ng-if="$ctrl.hasIncomingServices">
-    <group-hunt-group-incoming service-user-id="$ctrl.serviceUserId"></group-hunt-group-incoming>
-  </pbs-tab>
-
-  <pbs-tab label="Messaging"
-    ng-if="$ctrl.hasVoiceMessaging">
-    <user-voice-messaging user-id="$ctrl.serviceUserId"
-      read-only="!$ctrl.module.permissions.update"></user-voice-messaging>
-  </pbs-tab>
-
-</pbs-tabs>
+  </pbs-menu-item>
+</virtual-user-menu>

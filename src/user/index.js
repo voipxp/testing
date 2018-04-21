@@ -374,31 +374,31 @@
     },
     {
       path: 'callingPlans/outgoing',
-      component: 'userOutgoingCallingPlan',
+      component: 'userOutgoingCallingPlanIndex',
       acl: 'Group',
       module: 'Provisioning'
     },
     {
       path: 'callingPlans/codes',
-      component: 'userOutgoingCallingPlanAuthorizationCodes',
+      component: 'userOutgoingCallingPlanAuthorizationCodesIndex',
       acl: 'Group',
       module: 'Provisioning'
     },
     {
       path: 'callingPlans/digitPlan',
-      component: 'userOutgoingCallingPlanDigitPlan',
+      component: 'userOutgoingCallingPlanDigitPlanIndex',
       acl: 'Group',
       module: 'Provisioning'
     },
     {
       path: 'callingPlans/pinholeDigitPlan',
-      component: 'userOutgoingCallingPlanPinholeDigitPlan',
+      component: 'userOutgoingCallingPlanPinholeDigitPlanIndex',
       acl: 'Group',
       module: 'Provisioning'
     },
     {
       path: 'callingPlans/transfer',
-      component: 'userOutgoingCallingPlanTransferNumbers',
+      component: 'userOutgoingCallingPlanTransferNumbersIndex',
       acl: 'Group',
       module: 'Provisioning'
     },

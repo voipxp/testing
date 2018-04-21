@@ -17,24 +17,28 @@
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
     ctrl.serviceUserId = $routeParams.serviceUserId
-
+    ctrl.onUpdateProfile = onUpdateProfile
     ctrl.update = update
     ctrl.remove = remove
     ctrl.bridge = {}
     ctrl.open = open
 
-    ctrl.$onInit = activate
+    ctrl.$onInit = onInit
 
     ctrl.loginType = Session.data('loginType')
 
-    function activate() {
-      Alert.spinner.open()
+    function onUpdateProfile(event) {
+      var bridge = angular.copy(ctrl.bridge)
+      bridge.serviceInstanceProfile = event.profile
+      update(bridge, event.callback)
+    }
+
+    function onInit() {
+      ctrl.loading = true
       return loadBridge()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
         .finally(function() {
-          Alert.spinner.close()
+          ctrl.loading = false
         })
     }
 

@@ -25,7 +25,7 @@
     template: template,
     transclude: true,
     bindings: { delay: '<' },
-    controller: function($timeout) {
+    controller: function($timeout, $window) {
       var ctrl = this
       ctrl.$onInit = onInit
       ctrl.$postLink = postLink
@@ -48,6 +48,7 @@
         })
         $timeout(function() {
           item.selected = true
+          $window.scrollTo(0, 0)
         }, 1)
       }
 

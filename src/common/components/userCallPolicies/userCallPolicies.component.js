@@ -14,9 +14,12 @@
 
     function activate() {
       ctrl.passcode = {}
-      loadPolicies().catch(function(error) {
-        Alert.notify.danger(error)
-      })
+      ctrl.loading = true
+      loadPolicies()
+        .catch(Alert.notify.danger)
+        .finally(function() {
+          ctrl.loading = false
+        })
     }
 
     function loadPolicies() {

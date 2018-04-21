@@ -5,88 +5,58 @@
     ng-click="$ctrl.back()"></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.serviceUserId"></pbs-breadcrumb>
 </pbs-navigation>
-<pbs-menu>
-  <pbs-menu-section label="{{ $ctrl.module.alias }}">
-    <pbs-menu-item label="Settings">
-      <auto-attendant-settings module="$ctrl.module"
-        auto-attendant="$ctrl.autoAttendant"
-        loading="$ctrl.loading"></auto-attendant-settings>
-    </pbs-menu-item>
-    <pbs-menu-item label="Profile">
-      <service-instance-profile profile="$ctrl.autoAttendant.serviceInstanceProfile"
-        service-provider-id="$ctrl.autoAttendant.serviceProviderId"
-        group-id="$ctrl.autoAttendant.groupId"
-        service-user-id="$ctrl.autoAttendant.serviceUserId"
-        on-update="$ctrl.onUpdateProfile($event)"
-        loading="$ctrl.loading"
-        read-only="!$ctrl.module.permissions.update"></service-instance-profile>
-    </pbs-menu-item>
-    <pbs-menu-item label="Business Hour Menu">
-      <auto-attendant-audio loading="$ctrl.loading"
-        auto-attendant="$ctrl.autoAttendant"
-        menu="businessHoursMenu"></auto-attendant-audio>
-      <div class="margin-top"></div>
-      <auto-attendant-keys loading="$ctrl.loading"
-        auto-attendant="$ctrl.autoAttendant"
-        menu="businessHoursMenu"></auto-attendant-keys>
-    </pbs-menu-item>
-    <pbs-menu-item label="After Hour Menu">
-      <auto-attendant-audio loading="$ctrl.loading"
-        auto-attendant="$ctrl.autoAttendant"
-        menu="afterHoursMenu"></auto-attendant-audio>
-      <div class="margin-top"></div>
-      <auto-attendant-keys loading="$ctrl.loading"
-        auto-attendant="$ctrl.autoAttendant"
-        menu="afterHoursMenu"></auto-attendant-keys>
-    </pbs-menu-item>
-    <pbs-menu-item label="Holiday Menu"
-      ng-if="$ctrl.isStandard()">
-      <auto-attendant-audio loading="$ctrl.loading"
-        auto-attendant="$ctrl.autoAttendant"
-        menu="holidayMenu"></auto-attendant-audio>
-      <div class="margin-top"></div>
-      <auto-attendant-keys loading="$ctrl.loading"
-        auto-attendant="$ctrl.autoAttendant"
-        menu="holidayMenu"></auto-attendant-keys>
-    </pbs-menu-item>
-    <pbs-menu-item label="Submenus"
-      ng-if="$ctrl.isStandard()">
-      <group-auto-attendant-submenus service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
-        service-user-id="$ctrl.serviceUserId"
-        module="$ctrl.module"></group-auto-attendant-submenus>
-    </pbs-menu-item>
-    <pbs-menu-item label="Announcements"
-      ng-if="$ctrl.hasAnnouncements"
-      read-only=!$ctrl.module.permissions.update>
-      <user-announcements user-id="$ctrl.serviceUserId"></user-announcements>
-    </pbs-menu-item>
-  </pbs-menu-section>
-  <pbs-menu-section label="Call Records"
-    ng-if="$ctrl.showCalls">
-    <pbs-menu-item label="Basic Call Logs"
-      ng-if="$ctrl.showBasic">
-      <user-basic-call-logs service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
-        user-id="$ctrl.serviceUserId"></user-basic-call-logs>
-    </pbs-menu-item>
-    <pbs-menu-item label="Premium Call Records"
-      ng-if="$ctrl.showPremium">
-      <user-call-record-dashboard service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
-        user-id="$ctrl.serviceUserId"></user-call-record-dashboard>
-    </pbs-menu-item>
-  </pbs-menu-section>
-  <pbs-menu-section label="Provisioning">
-    <pbs-menu-item label="Assign Services">
-      <user-services service-type="userServices"
-        user-id="$ctrl.serviceUserId">
-      </user-services>
-    </pbs-menu-item>
-    <pbs-menu-item label="Configure Services">
-      <virtual-user-services service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
-        user-id="$ctrl.serviceUserId"></virtual-user-services>
-    </pbs-menu-item>
-  </pbs-menu-section>
-</pbs-menu>
+
+<virtual-user-menu service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.serviceUserId"
+  module="$ctrl.module">
+  <pbs-menu-item label="Settings">
+    <auto-attendant-settings module="$ctrl.module"
+      auto-attendant="$ctrl.autoAttendant"
+      loading="$ctrl.loading"></auto-attendant-settings>
+  </pbs-menu-item>
+  <pbs-menu-item label="Profile">
+    <service-instance-profile profile="$ctrl.autoAttendant.serviceInstanceProfile"
+      service-provider-id="$ctrl.autoAttendant.serviceProviderId"
+      group-id="$ctrl.autoAttendant.groupId"
+      service-user-id="$ctrl.autoAttendant.serviceUserId"
+      on-update="$ctrl.onUpdateProfile($event)"
+      loading="$ctrl.loading"
+      read-only="!$ctrl.module.permissions.update"></service-instance-profile>
+  </pbs-menu-item>
+  <pbs-menu-item label="Business Hour Menu">
+    <auto-attendant-audio loading="$ctrl.loading"
+      auto-attendant="$ctrl.autoAttendant"
+      menu="businessHoursMenu"></auto-attendant-audio>
+    <div class="margin-top"></div>
+    <auto-attendant-keys loading="$ctrl.loading"
+      auto-attendant="$ctrl.autoAttendant"
+      menu="businessHoursMenu"></auto-attendant-keys>
+  </pbs-menu-item>
+  <pbs-menu-item label="After Hour Menu">
+    <auto-attendant-audio loading="$ctrl.loading"
+      auto-attendant="$ctrl.autoAttendant"
+      menu="afterHoursMenu"></auto-attendant-audio>
+    <div class="margin-top"></div>
+    <auto-attendant-keys loading="$ctrl.loading"
+      auto-attendant="$ctrl.autoAttendant"
+      menu="afterHoursMenu"></auto-attendant-keys>
+  </pbs-menu-item>
+  <pbs-menu-item label="Holiday Menu"
+    ng-if="$ctrl.isStandard()">
+    <auto-attendant-audio loading="$ctrl.loading"
+      auto-attendant="$ctrl.autoAttendant"
+      menu="holidayMenu"></auto-attendant-audio>
+    <div class="margin-top"></div>
+    <auto-attendant-keys loading="$ctrl.loading"
+      auto-attendant="$ctrl.autoAttendant"
+      menu="holidayMenu"></auto-attendant-keys>
+  </pbs-menu-item>
+  <pbs-menu-item label="Submenus"
+    ng-if="$ctrl.isStandard()">
+    <group-auto-attendant-submenus service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      service-user-id="$ctrl.serviceUserId"
+      module="$ctrl.module"></group-auto-attendant-submenus>
+  </pbs-menu-item>
+</virtual-user-menu>

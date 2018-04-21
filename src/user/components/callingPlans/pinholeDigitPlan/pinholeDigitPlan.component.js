@@ -4,13 +4,20 @@
     .component('userOutgoingCallingPlanPinholeDigitPlan', {
       templateUrl:
         'user/components/callingPlans/pinholeDigitPlan/pinholeDigitPlan.component.html',
-      controller: Controller
+      controller: Controller,
+      bindings: { userId: '<' }
     })
 
-  function Controller($routeParams) {
+  function Controller(Alert, UserPermissionService) {
     var ctrl = this
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
+    ctrl.$onInit = onInit
+
+    function onInit() {
+      UserPermissionService.load(ctrl.userId)
+        .then(function(permissions) {
+          ctrl.showCallMeNow = permissions.assigned('Call Me Now')
+        })
+        .catch(Alert.notify.danger)
+    }
   }
 })()

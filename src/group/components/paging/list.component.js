@@ -13,13 +13,11 @@
 
     function activate() {
       ctrl.open = ctrl.parent.open
-      Alert.spinner.open()
+      ctrl.loading = true
       return loadInstances()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
         .finally(function() {
-          Alert.spinner.close()
+          ctrl.loading = false
         })
     }
 

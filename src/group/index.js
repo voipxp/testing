@@ -208,7 +208,7 @@
       module: 'Call Pickup'
     },
     {
-      path: 'callPack',
+      path: 'callPark',
       component: 'groupCallPark',
       acl: 'Group',
       module: 'Call Park'

@@ -6,16 +6,7 @@
     bindings: { module: '<' }
   })
 
-  function Controller(
-    $routeParams,
-    Alert,
-    GroupAutoAttendantService,
-    UserPermissionService,
-    Module,
-    Route,
-    ACL,
-    $q
-  ) {
+  function Controller($routeParams, Alert, GroupAutoAttendantService, Route) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceUserId = $routeParams.serviceUserId
@@ -29,15 +20,7 @@
 
     function onInit() {
       ctrl.loading = true
-      ctrl.hasAnnouncements = ACL.hasVersion('20')
-      return $q
-        .all([
-          loadAutoAttendant(),
-          UserPermissionService.load(ctrl.serviceUserId)
-        ])
-        .then(function(data) {
-          return loadPermissions(data[1])
-        })
+      return loadAutoAttendant()
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
@@ -46,16 +29,6 @@
 
     function isStandard() {
       return _.get(ctrl, 'autoAttendant.type') === 'Standard'
-    }
-
-    function loadPermissions(permission) {
-      if (permission.read('Basic Call Logs')) {
-        ctrl.showBasic = true
-      }
-      if (permission.read('Premium Call Records')) {
-        ctrl.showPremium = true
-      }
-      ctrl.showCalls = ctrl.showBasic || ctrl.showPremium
     }
 
     function loadAutoAttendant() {

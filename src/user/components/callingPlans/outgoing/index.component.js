@@ -1,5 +1,5 @@
 ;(function() {
-  angular.module('odin.user').component('userOutgoingCallingPlan', {
+  angular.module('odin.user').component('userOutgoingCallingPlanIndex', {
     templateUrl: 'user/components/callingPlans/outgoing/index.component.html',
     controller: Controller
   })

@@ -12,12 +12,15 @@
   function Controller(Alert, GroupPagingGroupOriginatorService, Module) {
     var ctrl = this
     ctrl.edit = edit
-    ctrl.$onInit = activate
+    ctrl.$onInit = onInit
 
-    function activate() {
-      loadAssigned().catch(function(error) {
-        Alert.notify.danger(error)
-      })
+    function onInit() {
+      ctrl.loading = true
+      loadAssigned()
+        .catch(Alert.notify.danger)
+        .finally(function() {
+          ctrl.loading = false
+        })
     }
 
     function loadAssigned() {
