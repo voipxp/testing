@@ -12,7 +12,7 @@
     </pbs-menu-item>
     <pbs-menu-item label="Auto Attendant Report"
       ng-if="$ctrl.showAutoAttendant">
-      <p>WIP</p>
+      <user-auto-attendant-call-records user-id="$ctrl.userId"></user-auto-attendant-call-records>
     </pbs-menu-item>
   </pbs-menu-section>
   <pbs-menu-section label="Provisioning">
@@ -45,19 +45,24 @@
     <pbs-menu-item label="Incoming Calling Plan">
       <user-incoming-calling-plan user-id="$ctrl.userId"></user-incoming-calling-plan>
     </pbs-menu-item>
-    <pbs-menu-item label="Outgoing Calling Plan">
+    <pbs-menu-item label="Outgoing Calling Plan"
+      ng-if="$ctrl.showCallingPlan">
       <user-outgoing-calling-plan user-id="$ctrl.userId"></user-outgoing-calling-plan>
     </pbs-menu-item>
-    <pbs-menu-item label="Authorization Codes">
+    <pbs-menu-item label="Authorization Codes"
+      ng-if="$ctrl.showCallingPlan">
       <user-outgoing-calling-plan-authorization-codes user-id="$ctrl.userId"></user-outgoing-calling-plan-authorization-codes>
     </pbs-menu-item>
-    <pbs-menu-item label="Digit Plan">
+    <pbs-menu-item label="Digit Plan"
+      ng-if="$ctrl.showCallingPlan">
       <user-outgoing-calling-plan-digit-plan user-id="$ctrl.userId"></user-outgoing-calling-plan-digit-plan>
     </pbs-menu-item>
-    <pbs-menu-item label="Pinhole Digit Plan">
+    <pbs-menu-item label="Pinhole Digit Plan"
+      ng-if="$ctrl.showCallingPlan">
       <user-outgoing-calling-plan-pinhole-digit-plan user-id="$ctrl.userId"></user-outgoing-calling-plan-pinhole-digit-plan>
     </pbs-menu-item>
-    <pbs-menu-item label="Transfer Numbers">
+    <pbs-menu-item label="Transfer Numbers"
+      ng-if="$ctrl.showCallingPlan">
       <user-outgoing-calling-plan-transfer-numbers user-id="$ctrl.userId"></user-outgoing-calling-plan-transfer-numbers>
     </pbs-menu-item>
   </pbs-menu-section>

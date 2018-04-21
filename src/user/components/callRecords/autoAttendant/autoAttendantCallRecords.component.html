@@ -1,87 +1,65 @@
-<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId">
-  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
-</pbs-navigation>
-<div class="box">
-  <pbs-button-compact-search ng-click="$ctrl.openSearch()"
-    class="is-pulled-right"></pbs-button-compact-search>
-  <h3 class="subtitle has-text-centered">
-    {{ $ctrl.search.reportType || 'Auto Attendant' }} Report
-    <br>
-    <span style="font-size: 85%">
-      {{ $ctrl.search.startTime | pbsDate:'{long}' }} - {{ $ctrl.search.endTime | pbsDate:'{long}' }}
+<div class="card"
+  style="margin-bottom: 1rem">
+  <header class="card-header">
+    <p class="card-header-title"
+      style="font-weight: normal">
+      {{ $ctrl.search.reportType }} > {{ $ctrl.search.label }}
+    </p>
+    <span class="card-header-icon">
+      <div class="buttons">
+        <pbs-button-compact-search ng-click="$ctrl.edit()"></pbs-button-compact-search>
+      </div>
     </span>
-  </h3>
+  </header>
 </div>
-<div class="box"
-  ng-show="$ctrl.callRecords.length < 1">
-  <p>No Call Records Found for selected Date Range</p>
-</div>
-<pbs-tabs size="large"
-  ng-show="$ctrl.callRecords.length > 0">
-  <pbs-tab label="Call Volume">
-    <auto-attendant-call-records-report call-records="$ctrl.callRecords"
-      parameters="$ctrl.search"
-      report-title="Call Volume"
-      report-property="totalCalls">
-    </auto-attendant-call-records-report>
-  </pbs-tab>
-  <pbs-tab label="Call Time">
-    <auto-attendant-call-records-report call-records="$ctrl.callRecords"
-      parameters="$ctrl.search"
-      report-title="Call Time"
-      report-property="totalSeconds"
-      report-format="time">
-    </auto-attendant-call-records-report>
-  </pbs-tab>
-  <pbs-tab label="Raw Data">
-    <auto-attendant-call-records-data call-records="$ctrl.callRecords"
-      parameters="$ctrl.search">
-    </auto-attendant-call-records-data>
-  </pbs-tab>
-</pbs-tabs>
+
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-tabs size="large">
+    <pbs-tab label="Call Volume">
+      <auto-attendant-call-records-report call-records="$ctrl.callRecords"
+        parameters="$ctrl.search"
+        report-title="Call Volume"
+        report-property="totalCalls">
+      </auto-attendant-call-records-report>
+    </pbs-tab>
+    <pbs-tab label="Call Time">
+      <auto-attendant-call-records-report call-records="$ctrl.callRecords"
+        parameters="$ctrl.search"
+        report-title="Call Time"
+        report-property="totalSeconds"
+        report-format="time">
+      </auto-attendant-call-records-report>
+    </pbs-tab>
+    <pbs-tab label="Raw Data">
+      <auto-attendant-call-records-data call-records="$ctrl.callRecords"
+        parameters="$ctrl.search"
+        style="display: block">
+      </auto-attendant-call-records-data>
+    </pbs-tab>
+  </pbs-tabs>
+</pbs-spinner>
+
 <pbs-modal id="autoAttendantCallRecordsSearch"
-  title="Auto Attendant Report">
-  <pbs-form label="Call Records Search">
-    <input type="hidden"
-      ng-model="$ctrl.editSearch.startTime"
-      required>
-    <input type="hidden"
-      ng-model="$ctrl.editSearch.endTime"
-      required>
-    <pbs-form-field label="Auto Attendant">
-      <div class="select">
-        <select class=""
-          ng-model="$ctrl.editSearch.serviceUserId"
-          ng-options="aa.serviceUserId as aa.name for aa in $ctrl.autoAttendants"
-          required>
-        </select>
-      </div>
-    </pbs-form-field>
-    <pbs-form-field label="Report Type">
-      <div class="select">
-        <select class=""
-          ng-model="$ctrl.editSearch.reportType"
-          ng-options="opt as opt for opt in $ctrl.options.reportType"
-          required>
-        </select>
-      </div>
-    </pbs-form-field>
-    <pbs-form-field label="Start Time">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.input.startTime"
-        ng-change="$ctrl.parseDate('startTime')">
-      <span ng-show="$ctrl.editSearch.startTime">{{ $ctrl.editSearch.startTime | date:'medium' }}</span>
-      <small ng-show="!$ctrl.editSearch.startTime">Eg: yesterday 9am, Aug 1 9am</small>
-    </pbs-form-field>
-    <pbs-form-field label="End Time">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.input.endTime"
-        ng-change="$ctrl.parseDate('endTime')">
-      <span ng-show="$ctrl.editSearch.endTime">{{ $ctrl.editSearch.endTime | date:'medium' }}</span>
-      <small ng-show="!$ctrl.editSearch.endTime">Eg: yesterday 5pm, Aug 1 5pm, now</small>
-    </pbs-form-field>
+  title="Search Call Records">
+  <pbs-form>
+    <pbs-form-field-horizontal label="Report Type">
+      <select class=""
+        ng-model="$ctrl.editSearch.reportType"
+        ng-options="opt as opt for opt in $ctrl.options.reportType"
+        required
+        pbs-input-select
+        full-width>
+      </select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Start Time">
+      <pbs-input-datetime ng-model="$ctrl.editSearch.startTime"
+        ng-required="true">
+      </pbs-input-datetime>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="End Time">
+      <pbs-input-datetime ng-model="$ctrl.editSearch.endTime"
+        ng-required="true">
+      </pbs-input-datetime>
+    </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

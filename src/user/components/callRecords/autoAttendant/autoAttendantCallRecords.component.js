@@ -13,49 +13,42 @@
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.parseDate = parseDate
-    ctrl.search = {}
-    ctrl.editSearch = {}
-    ctrl.input = {}
-    ctrl.openSearch = openSearch
+    ctrl.edit = edit
     ctrl.options = UserCallRecordsService.options
 
-    function onInit() {
-      ctrl.callRecords = []
+    ctrl.default = {
+      label: 'Today',
+      startTime: dayBegin('today'),
+      endTime: dayEnd('today'),
+      reportType: 'Hourly'
     }
 
-}
+    function onInit() {
+      ctrl.search = angular.copy(ctrl.default)
+      loadCallRecords(ctrl.search)
+    }
 
-    function openSearch() {
+    function dayBegin(when) {
+      return Sugar.Date.beginningOfDay(Sugar.Date.create(when))
+    }
+
+    function dayEnd(when) {
+      return Sugar.Date.endOfDay(Sugar.Date.create(when))
+    }
+
+    function edit() {
       ctrl.editSearch = angular.copy(ctrl.search)
       Alert.modal.open('autoAttendantCallRecordsSearch', function(close) {
+        ctrl.editSearch.label = [
+          Sugar.Date.format(ctrl.editSearch.startTime, '{long}'),
+          Sugar.Date.format(ctrl.editSearch.endTime, '{long}')
+        ].join(' - ')
         loadCallRecords(ctrl.editSearch, close)
       })
     }
 
-    function parseDate(dateType) {
-      if (dateType !== 'startTime' && dateType !== 'endTime') return
-      if (!ctrl.input[dateType]) {
-        ctrl.editSearch[dateType] = null
-      } else {
-        var params = {}
-        var parsedDate = Sugar.Date.create(ctrl.input[dateType], {
-          past: true,
-          params: params
-        })
-        if (Sugar.Date.isValid(parsedDate)) {
-          if (dateType === 'endTime' && !params.hour) {
-            parsedDate = Sugar.Date.endOfDay(parsedDate)
-          }
-          ctrl.editSearch[dateType] = parsedDate
-          // console.log('parsed', ctrl.editSearch[dateType]);
-        } else {
-          ctrl.editSearch[dateType] = null
-        }
-      }
-    }
-
     function loadCallRecords(search, callback) {
+      ctrl.loading = true
       return UserCallRecordsService.get(
         ctrl.userId,
         search.startTime,
@@ -67,10 +60,14 @@
           ctrl.search = angular.copy(search)
           ctrl.callRecords = data
           console.log('callRecords', data)
+          if (_.isFunction(callback)) {
             callback()
+          }
         })
         .catch(Alert.notify.danger)
-        .finally(Alert.spinner.close)
+        .finally(function() {
+          ctrl.loading = false
+        })
     }
   }
 })()

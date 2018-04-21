@@ -18,7 +18,7 @@
     '      </ul>' +
     '    </aside>' +
     '  </div>' +
-    '  <div class="column pbs-menu-content" ng-transclude></div>' +
+    '  <div class="column is-three-quarters pbs-menu-content" ng-transclude></div>' +
     '</div>'
 
   angular.module('odin.common').component('pbsMenu', {
