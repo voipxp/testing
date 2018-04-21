@@ -82,6 +82,8 @@
               return isAssigned(service) && isViewable(service)
             }
           )
+        } else if (name === 'Premium Call Records') {
+          return true
         } else {
           return isAssigned(name) && isViewable(name)
         }

@@ -3,7 +3,7 @@
     templateUrl:
       'user/components/sequentialRing/userSequentialRing.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
   function Controller(
@@ -15,16 +15,11 @@
     $scope,
     UserScheduleService,
     UserHolidayScheduleService,
-    $routeParams
+    Module
   ) {
     var ctrl = this
     ctrl.options = UserSequentialRingService.options
     ctrl.criteriaOptions = UserSequentialRingServiceCriteria.options
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     ctrl.users = []
     ctrl.domains = []
     ctrl.hasPermission = ACL.has
@@ -41,13 +36,24 @@
     function onInit() {
       ctrl.loading = true
       $q
-        .all([loadSettings(), loadUserSchedules(), loadHolidaySchedules()])
+        .all([
+          loadSettings(),
+          loadUserSchedules(),
+          loadHolidaySchedules(),
+          loadModule()
+        ])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Sequential Ring').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

@@ -3,37 +3,32 @@
     templateUrl:
       'user/components/alternateNumbers/alternateNumbers.component.html',
     controller: AlternateNumbers,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
-  function AlternateNumbers(
-    Alert,
-    $q,
-    AlternateNumbersService,
-    Session,
-    GroupNumberService,
-    $routeParams
-  ) {
+  function AlternateNumbers(Alert, AlternateNumbersService, Module, $q) {
     var ctrl = this
     ctrl.$onInit = onInit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
     ctrl.options = AlternateNumbersService.options
     ctrl.selectNumber = selectNumber
-
     ctrl.editSettings = edit
     ctrl.editAlternateEntry = editAlternateEntry
 
     function onInit() {
-      ctrl.canEdit = ctrl.module.permissions.update
       ctrl.loading = true
-      return loadSettings()
+      return $q
+        .all([loadSettings(), loadModule()])
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Alternate Numbers').then(function(data) {
+        ctrl.module = data
+        ctrl.canEdit = ctrl.module.permissions.update
+      })
     }
 
     function loadSettings() {

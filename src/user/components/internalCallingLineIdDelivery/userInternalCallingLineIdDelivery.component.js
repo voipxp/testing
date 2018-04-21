@@ -3,34 +3,38 @@
     templateUrl:
       'user/components/internalCallingLineIdDelivery/userInternalCallingLineIdDelivery.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
   function Controller(
     Alert,
     UserInternalCallingLineIdDeliveryService,
-    $routeParams
+    $q,
+    Module
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
-    ctrl.callTransfer = {}
     ctrl.options = UserInternalCallingLineIdDeliveryService.options
 
     function onInit() {
       ctrl.loading = true
-      loadSettings()
+      $q
+        .all([loadSettings(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Internal Calling Line ID Delivery').then(function(
+        data
+      ) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

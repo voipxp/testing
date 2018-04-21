@@ -3,31 +3,37 @@
     templateUrl:
       'user/components/callingLineIdDeliveryBlocking/userCallingLineIdDeliveryBlocking.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
   function Controller(
     Alert,
     UserCallingLineIdDeliveryBlockingService,
-    $routeParams
+    Module,
+    $q
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
 
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     function onInit() {
       ctrl.loading = true
-      loadSettings()
+      $q
+        .all([loadSettings(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Calling Line ID Delivery Blocking').then(function(
+        data
+      ) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

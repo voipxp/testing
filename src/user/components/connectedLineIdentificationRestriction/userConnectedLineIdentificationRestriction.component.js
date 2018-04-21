@@ -5,33 +5,38 @@
       templateUrl:
         'user/components/connectedLineIdentificationRestriction/userConnectedLineIdentificationRestriction.component.html',
       controller: Controller,
-      bindings: { module: '<' }
+      bindings: { userId: '<' }
     })
 
   function Controller(
     Alert,
     UserConnectedLineIdentificationRestrictionService,
-    $routeParams
+    $q,
+    Module
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     ctrl.options = UserConnectedLineIdentificationRestrictionService.options
 
     function onInit() {
       ctrl.loading = true
-      loadSettings()
+      $q
+        .all([loadSettings(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Connected Line Identification Restriction').then(
+        function(data) {
+          ctrl.module = data
+        }
+      )
     }
 
     function loadSettings() {

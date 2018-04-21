@@ -40,7 +40,7 @@
     }
 
     function loadModule() {
-      return Module.show('Automatic Hold Retrieve').then(function(data) {
+      return Module.show('Automatic Hold/Retrieve').then(function(data) {
         ctrl.module = data
       })
     }

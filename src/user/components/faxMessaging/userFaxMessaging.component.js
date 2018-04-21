@@ -2,7 +2,7 @@
   angular.module('odin.user').component('userFaxMessaging', {
     templateUrl: 'user/components/faxMessaging/userFaxMessaging.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
   function Controller(
@@ -13,7 +13,7 @@
     $q,
     GroupNumberService,
     GroupDomainService,
-    $routeParams
+    Module
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -25,13 +25,10 @@
     ctrl.shitsplit = shitsplit
     ctrl.domains = []
 
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     function onInit() {
       ctrl.loading = true
-      return loadSettings()
+      return $q
+        .all([loadSettings(), loadModule()])
         .then(function() {
           return $q.all([loadDomains(), loadAvailableNumbers()])
         })
@@ -42,6 +39,12 @@
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Fax Messaging').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

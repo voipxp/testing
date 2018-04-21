@@ -3,26 +3,29 @@
     templateUrl:
       'user/components/broadWorksAnywhere/components/broadWorksAnywhere.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
-  function Controller(Alert, $routeParams, UserBroadWorksAnywhereService, ACL) {
+  function Controller(Alert, UserBroadWorksAnywhereService, ACL, Module, $q) {
     var ctrl = this
     ctrl.$onInit = onInit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
     ctrl.edit = edit
     ctrl.reload = loadSettings
 
     function onInit() {
       ctrl.loading = true
-      loadSettings()
+      $q
+        .all([loadSettings(), loadModule()])
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('BroadWorks Anywhere').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

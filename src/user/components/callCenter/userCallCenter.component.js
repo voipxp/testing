@@ -2,7 +2,7 @@
   angular.module('odin.user').component('userCallCenter', {
     templateUrl: 'user/components/callCenter/userCallCenter.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
   function Controller(
@@ -13,8 +13,8 @@
     EnterpriseCallCenterThresholdProfileService,
     UserCallCenterDnisService,
     Session,
-    $routeParams,
-    UserService
+    UserService,
+    Module
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -24,22 +24,30 @@
     ctrl.canEditSkillLevel = canEditSkillLevel
     ctrl.isAdmin = isAdmin
     ctrl.options = UserCallCenterSettingsService.options
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
     ctrl.isEnterprise = false
 
     function onInit() {
       ctrl.loading = true
       $q
-        .all([loadUser(), loadSettings(), loadProfiles(), loadDNIS()])
+        .all([
+          loadUser(),
+          loadSettings(),
+          loadProfiles(),
+          loadDNIS(),
+          loadModule()
+        ])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Call Center').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadUser() {

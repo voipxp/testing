@@ -1,21 +1,12 @@
-<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
-  user-id="$ctrl.userId"
-  module="$ctrl.module">
-  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
-</pbs-navigation>
-
 <pbs-spinner loading="$ctrl.loading">
   <pbs-tabs>
     <pbs-tab label="Details">
-      <pbs-block module="$ctrl.module"
-        class="margin-top">
+      <pbs-block module="$ctrl.module">
         <pbs-block-buttons if-module-update="$ctrl.module">
           <pbs-button-compact-edit title="Settings"
             ng-click="$ctrl.edit()">
           </pbs-button-compact-edit>
         </pbs-block-buttons>
-
         <pbs-list>
           <pbs-list-item label="Alert All Locations For Click To Dial Calls">
             <pbs-check-box checked="$ctrl.settings.alertAllLocationsForClickToDialCalls"></pbs-check-box>
@@ -26,12 +17,14 @@
         </pbs-list>
       </pbs-block>
       <user-broad-works-anywhere-numbers user-id="$ctrl.userId"
-        numbers="$ctrl.settings.phoneNumbers"></user-broad-works-anywhere-numbers>
+        numbers="$ctrl.settings.phoneNumbers"
+        pbs-margin-top></user-broad-works-anywhere-numbers>
     </pbs-tab>
     <pbs-tab label="Criteria">
       <user-broad-works-anywhere-criteria user-id="$ctrl.userId"
         number="number"
-        ng-repeat="number in $ctrl.settings.phoneNumbers"></user-broad-works-anywhere-criteria>
+        ng-repeat="number in $ctrl.settings.phoneNumbers"
+        pbs-margin-top></user-broad-works-anywhere-criteria>
     </pbs-tab>
   </pbs-tabs>
 </pbs-spinner>

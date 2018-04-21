@@ -127,7 +127,7 @@
         template: '<pbs-sso></pbs-sso>'
       })
       .otherwise({
-        redirectTo: '/notfound'
+        templateUrl: 'app/layout/notfound.tpl.html'
       })
   }
 

@@ -12,7 +12,7 @@
     },
     {
       path: 'alternateNumbers',
-      component: 'userAlternateNumbers',
+      component: 'userAlternateNumbersIndex',
       acl: 'User',
       module: 'Alternate Numbers'
     },
@@ -28,19 +28,19 @@
     },
     {
       path: 'anonymousCallRejection',
-      component: 'userAnonymousCallRejection',
+      component: 'userAnonymousCallRejectionIndex',
       acl: 'User',
       module: 'Anonymous Call Rejection'
     },
     {
       path: 'authentication',
-      component: 'userAuthentication',
+      component: 'userAuthenticationIndex',
       acl: 'User',
       module: 'Authentication'
     },
     {
       path: 'automaticCallback',
-      component: 'userAutomaticCallback',
+      component: 'userAutomaticCallbackIndex',
       acl: 'User',
       module: 'Automatic Callback'
     },
@@ -52,13 +52,13 @@
     },
     {
       path: 'bargeInExempt',
-      component: 'userBargeInExempt',
+      component: 'userBargeInExemptIndex',
       acl: 'User',
       module: 'Barge-in Exempt'
     },
     {
       path: 'basicCallLogs',
-      component: 'userBasicCallLogs',
+      component: 'userBasicCallLogsIndex',
       acl: 'User',
       module: 'Basic Call Logs'
     },
@@ -76,25 +76,25 @@
     },
     {
       path: 'broadWorksAnywhere',
-      component: 'userBroadWorksAnywhere',
+      component: 'userBroadWorksAnywhereIndex',
       acl: 'User',
       module: 'BroadWorks Anywhere'
     },
     {
       path: 'broadWorksMobility',
-      component: 'userBroadWorksMobility',
+      component: 'userBroadWorksMobilityIndex',
       acl: 'User',
       module: 'BroadWorks Mobility'
     },
     {
       path: 'busyLampField',
-      component: 'userBusyLampField',
+      component: 'userBusyLampFieldIndex',
       acl: 'User',
       module: 'Busy Lamp Field'
     },
     {
       path: 'callCenter',
-      component: 'userCallCenter',
+      component: 'userCallCenterIndex',
       acl: 'User',
       module: 'Call Center'
     },
@@ -112,13 +112,13 @@
     },
     {
       path: 'callForwardingNoAnswer',
-      component: 'userCallForwardingNoAnswer',
+      component: 'userCallForwardingNoAnswerIndex',
       acl: 'User',
       module: 'Call Forwarding No Answer'
     },
     {
       path: 'callForwardingNotReachable',
-      component: 'userCallForwardingNotReachable',
+      component: 'userCallForwardingNotReachableIndex',
       acl: 'User',
       module: 'Call Forwarding Not Reachable'
     },
@@ -130,61 +130,61 @@
     },
     {
       path: 'callNotify',
-      component: 'userCallNotify',
+      component: 'userCallNotifyIndex',
       acl: 'User',
       module: 'Call Notify'
     },
     {
       path: 'callRecording',
-      component: 'userCallRecording',
+      component: 'userCallRecordingIndex',
       acl: 'User',
       module: 'Call Recording'
     },
     {
       path: 'callTransfer',
-      component: 'userCallTranser',
+      component: 'userCallTransferIndex',
       acl: 'User',
       module: 'Call Transfer'
     },
     {
       path: 'callWaiting',
-      component: 'userCallWaiting',
+      component: 'userCallWaitingIndex',
       acl: 'User',
       module: 'Call Waiting'
     },
     {
       path: 'callingLineIdDeliveryBlocking',
-      component: 'userCallingLineIdDeliveryBlocking',
+      component: 'userCallingLineIdDeliveryBlockingIndex',
       acl: 'User',
       module: 'Calling Line ID Delivery Blocking'
     },
     {
       path: 'callingNameDelivery',
-      component: 'userCallingNameDelivery',
+      component: 'userCallingNameDeliveryIndex',
       acl: 'User',
       module: 'Calling Name Delivery'
     },
     {
       path: 'callingNameRetrieval',
-      component: 'userCallingNameRetrieval',
+      component: 'userCallingNameRetrievalIndex',
       acl: 'User',
       module: 'Calling Name Retrieval'
     },
     {
       path: 'callingNumberDelivery',
-      component: 'userCallingNumberDelivery',
+      component: 'userCallingNumberDeliveryIndex',
       acl: 'User',
       module: 'Calling Number Delivery'
     },
     {
       path: 'collaborate',
-      component: 'userCollaborate',
+      component: 'userCollaborateIndex',
       acl: 'User',
       module: 'Collaborate - Audio'
     },
     {
       path: 'meetMe',
-      component: 'userMeetMeConferencingConferences',
+      component: 'userMeetMeConferencingConferencesIndex',
       acl: 'User',
       module: 'Meet-Me Conferencing'
     },
@@ -196,13 +196,13 @@
     },
     {
       path: 'connectedLineIdentificationRestriction',
-      component: 'userConnectedLineIdentificationRestriction',
+      component: 'userConnectedLineIdentificationRestrictionIndex',
       acl: 'User',
       module: 'Connected Line Identification Restriction'
     },
     {
       path: 'directedCallPickupWithBargeIn',
-      component: 'userDirectedCallPickupWithBargeIn',
+      component: 'userDirectedCallPickupWithBargeInIndex',
       acl: 'User',
       module: 'Directed Call Pickup with Barge-in'
     },
@@ -213,49 +213,49 @@
     },
     {
       path: 'doNotDisturb',
-      component: 'userDoNotDisturb',
+      component: 'userDoNotDisturbIndex',
       acl: 'User',
       module: 'Do Not Disturb'
     },
     {
       path: 'externalCallingLineIdDelivery',
-      component: 'userExternalCallingLineIdDelivery',
+      component: 'userExternalCallingLineIdDeliveryIndex',
       acl: 'User',
       module: 'External Calling Line ID Delivery'
     },
     {
       path: 'faxMessaging',
-      component: 'userFaxMessaging',
+      component: 'userFaxMessagingIndex',
       acl: 'User',
       module: 'Fax Messaging'
     },
     {
       path: 'hotelingGuest',
-      component: 'userHotelingGuest',
+      component: 'userHotelingGuestIndex',
       acl: 'User',
       module: 'Hoteling Guest'
     },
     {
       path: 'hotelingHost',
-      component: 'userHotelingHost',
+      component: 'userHotelingHostIndex',
       acl: 'User',
       module: 'Hoteling Host'
     },
     {
       path: 'internalCallingLineIdDelivery',
-      component: 'userInternalCallingLineIdDelivery',
+      component: 'userInternalCallingLineIdDeliveryIndex',
       acl: 'User',
       module: 'Internal Calling Line ID Delivery'
     },
     {
       path: 'musicOnHold',
-      component: 'userMusicOnHold',
+      component: 'userMusicOnHoldIndex',
       acl: 'User',
       module: 'Music On Hold User'
     },
     {
       path: 'outlookIntegration',
-      component: 'userOutlookIntegration',
+      component: 'userOutlookIntegrationIndex',
       acl: 'User',
       module: 'Outlook Integration'
     },
@@ -267,55 +267,55 @@
     },
     {
       path: 'pushToTalk',
-      component: 'userPushToTalk',
+      component: 'userPushToTalkIndex',
       acl: 'User',
-      module: 'Push To Talk'
+      module: 'Push to Talk'
     },
     {
       path: 'remoteOffice',
-      component: 'userRemoteOffice',
+      component: 'userRemoteOfficeIndex',
       acl: 'User',
       module: 'Remote Office'
     },
     {
       path: 'selectiveCallAcceptance',
-      component: 'userSelectiveCallAcceptance',
+      component: 'userSelectiveCallAcceptanceIndex',
       acl: 'User',
       module: 'Selective Call Acceptance'
     },
     {
       path: 'selectiveCallRejection',
-      component: 'userSelectiveCallRejection',
+      component: 'userSelectiveCallRejectionIndex',
       acl: 'User',
       module: 'Selective Call Rejection'
     },
     {
       path: 'sharedCallAppearance',
-      component: 'userSharedCallAppearance',
+      component: 'userSharedCallAppearanceIndex',
       acl: 'User',
       module: 'Shared Call Appearance'
     },
     {
       path: 'sequentialRing',
-      component: 'userSequentialRing',
+      component: 'userSequentialRingIndex',
       acl: 'User',
       module: 'Sequential Ring'
     },
     {
       path: 'simultaneousRingPersonal',
-      component: 'userSimultaneousRingPersonal',
+      component: 'userSimultaneousRingPersonalIndex',
       acl: 'User',
       module: 'Simultaneous Ring Personal'
     },
     {
       path: 'speedDial100',
-      component: 'userSpeedDial100',
+      component: 'userSpeedDial100Index',
       acl: 'User',
       module: 'Speed Dial 100'
     },
     {
       path: 'voiceMessaging',
-      component: 'userVoiceMessagingNavigation',
+      component: 'userVoiceMessagingIndex',
       acl: 'User',
       module: 'Voice Messaging User'
     },
@@ -338,7 +338,7 @@
     },
     {
       path: 'sharedCallAppearanceAdmin',
-      component: 'userSharedCallAppearanceAdmin',
+      component: 'userSharedCallAppearanceAdminIndex',
       acl: 'Group',
       module: 'Provisioning'
     },
@@ -379,8 +379,8 @@
       module: 'Provisioning'
     },
     {
-      path: 'callingPlans/code',
-      component: 'userOutgoingCallingPlanAuthorizationCode',
+      path: 'callingPlans/codes',
+      component: 'userOutgoingCallingPlanAuthorizationCodes',
       acl: 'Group',
       module: 'Provisioning'
     },

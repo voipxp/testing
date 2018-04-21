@@ -2,29 +2,31 @@
   angular.module('odin.user').component('userMusicOnHold', {
     templateUrl: 'user/components/musicOnHold/userMusicOnHold.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
-  function Controller(Alert, UserMusicOnHoldService, $routeParams) {
+  function Controller(Alert, UserMusicOnHoldService, $q, Module) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     ctrl.options = UserMusicOnHoldService.options
 
     function onInit() {
       ctrl.loading = true
-      loadSettings()
+      $q
+        .all([loadSettings(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Music On Hold User').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

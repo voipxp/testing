@@ -3,23 +3,18 @@
     templateUrl:
       'user/components/busyLampField/userBusyLampField.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
   function Controller(
     $location,
-    $routeParams,
     $q,
     Alert,
     UserBusyLampFieldService,
-    ACL
+    ACL,
+    Module
   ) {
     var ctrl = this
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     ctrl.options = UserBusyLampFieldService.options
     ctrl.hasPermission = ACL.has
     ctrl.edit = edit
@@ -29,13 +24,20 @@
 
     function onInit() {
       ctrl.loading = true
-      loadSettings()
+      $q
+        .all([loadSettings(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Busy Lamp Field').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

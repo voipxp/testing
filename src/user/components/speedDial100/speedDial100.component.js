@@ -2,22 +2,15 @@
   angular.module('odin.user').component('userSpeedDial100', {
     templateUrl: 'user/components/speedDial100/speedDial100.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
-  function Controller(Alert, SpeedDial100Service, Session, $q, $routeParams) {
+  function Controller(Alert, SpeedDial100Service, Session, $q, Module) {
     var ctrl = this
     ctrl.$onInit = onInit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     ctrl.saveAlternateNumbers = saveAlternateNumbers
-
     ctrl.speedCodes = SpeedDial100Service.options.speedCodes
     ctrl.speedCodesEntry = []
-
     ctrl.speedDialNumbers = {}
     ctrl.speedDialCode = {}
     ctrl.speedDialCodeOrig = {}
@@ -29,16 +22,19 @@
     ctrl.isAdd = false
 
     function onInit() {
-      console.log(ctrl.speedCodes)
-      Alert.spinner.open()
-      return loadSpeedDialNumbers()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+      ctrl.loading = true
+      return $q
+        .all([loadSpeedDialNumbers(), loadModule()])
+        .catch(Alert.notify.danger)
         .finally(function() {
-          console.log(' ctrl.fromDnCriteriaMax : ' + ctrl.fromDnCriteriaMax)
-          Alert.spinner.close()
+          ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Speed Dial 100').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function editSpeedDialCode(speedDialCode) {

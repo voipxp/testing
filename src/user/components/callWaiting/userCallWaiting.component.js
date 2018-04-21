@@ -2,28 +2,28 @@
   angular.module('odin.user').component('userCallWaiting', {
     templateUrl: 'user/components/callWaiting/userCallWaiting.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
-  function Controller(Alert, UserCallWaitingService, $routeParams) {
+  function Controller(Alert, UserCallWaitingService, $q, Module) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
 
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     function onInit() {
-      Alert.spinner.open()
-      loadSettings()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+      ctrl.loading = true
+      $q
+        .all([loadSettings(), loadModule()])
+        .catch(Alert.notify.danger)
         .finally(function() {
-          Alert.spinner.close()
-          ctrl.loaded = true
+          ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Call Waiting').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

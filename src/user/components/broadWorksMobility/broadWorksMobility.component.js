@@ -3,40 +3,39 @@
     templateUrl:
       'user/components/broadWorksMobility/broadWorksMobility.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
   function Controller(
     $location,
-    $routeParams,
     $q,
     Alert,
     UserBroadWorksMobilityService,
-    ACL
+    ACL,
+    Module
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     ctrl.options = UserBroadWorksMobilityService.options
     ctrl.hasPermission = ACL.has
-    console.log('ctrl.options.phonesToRing', ctrl.options.phonesToRing)
-    console.log('ctrl.options.userSettingLevel', ctrl.options.userSettingLevel)
 
     function onInit() {
-      ctrl.userId = $routeParams.userId
       ctrl.loading = true
-      loadSettings()
+      $q
+        .all([loadSettings(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('BroadWorks Mobility').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

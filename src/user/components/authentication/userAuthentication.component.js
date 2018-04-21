@@ -3,29 +3,31 @@
     templateUrl:
       'user/components/authentication/userAuthentication.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
-  function Controller(Alert, UserAuthenticationService, $routeParams) {
+  function Controller(Alert, UserAuthenticationService, Module, $q) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     ctrl.options = UserAuthenticationService.options
 
     function onInit() {
       ctrl.loading = true
-      return loadSettings()
+      return $q
+        .all([loadSettings(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Authentication').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

@@ -2,17 +2,10 @@
   angular.module('odin.user').component('userPushToTalk', {
     templateUrl: 'user/components/pushToTalk/userPushToTalk.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
-  function Controller(
-    Alert,
-    UserPushToTalkService,
-    ACL,
-    $scope,
-    $q,
-    $routeParams
-  ) {
+  function Controller(Alert, UserPushToTalkService, ACL, $q, Module) {
     var ctrl = this
     ctrl.options = UserPushToTalkService.options
     ctrl.users = []
@@ -24,19 +17,22 @@
     ctrl.editUsers = editUsers
     ctrl.$onInit = onInit
 
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     function onInit() {
       ctrl.loading = true
-      loadSettings()
+      $q
+        .all([loadSettings(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Push To Talk').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

@@ -2,30 +2,33 @@
   angular.module('odin.user').component('userCallNotify', {
     templateUrl: 'user/components/callNotify/callNotify.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
-  function Controller($routeParams, Alert, UserCallNotifyService) {
+  function Controller(Alert, UserCallNotifyService, Module, $q) {
     var ctrl = this
 
     ctrl.$onInit = onInit
     ctrl.edit = edit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
     ctrl.activate = activate
     ctrl.reload = loadSettings
 
     function onInit() {
       ctrl.loading = true
-      return loadSettings()
+      return $q
+        .all([loadSettings(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Call Notify').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

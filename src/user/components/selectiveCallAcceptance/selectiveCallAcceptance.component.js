@@ -3,7 +3,7 @@
     templateUrl:
       'user/components/selectiveCallAcceptance/selectiveCallAcceptance.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
   function Controller(
@@ -12,18 +12,12 @@
     SelectiveCallAcceptanceService,
     UserScheduleService,
     UserHolidayScheduleService,
-    $routeParams
+    Module
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     ctrl.userTimeSchedules = []
     ctrl.holidaySchedules = []
-
     ctrl.selectiveCallAcceptanceCriteria = {}
     ctrl.editSelectCallAcceptanceCriteria = editSelectCallAcceptanceCriteria
     ctrl.save = save
@@ -42,7 +36,8 @@
         .all([
           loadSelectiveCallAcceptanceList(),
           loadUserSchedules(),
-          loadHolidaySchedules()
+          loadHolidaySchedules(),
+          loadModule()
         ])
         .catch(function(error) {
           Alert.notify.danger(error)
@@ -52,6 +47,12 @@
           ctrl.loading = false
           // list()
         })
+    }
+
+    function loadModule() {
+      return Module.show('Selective Call Acceptance').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSelectiveCallAcceptanceList() {

@@ -2,28 +2,31 @@
   angular.module('odin.user').component('userRemoteOffice', {
     templateUrl: 'user/components/remoteOffice/userRemoteOffice.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
-  function Controller(Alert, UserRemoteOfficeService, $routeParams) {
+  function Controller(Alert, UserRemoteOfficeService, $q, Module) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
     ctrl.options = UserRemoteOfficeService.options
 
     function onInit() {
       ctrl.loading = true
-      loadSettings()
+      $q
+        .all([loadSettings(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Remote Office').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

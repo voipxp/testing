@@ -1,13 +1,5 @@
-<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
-  user-id="$ctrl.userId"
-  module="$ctrl.module">
-  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
-</pbs-navigation>
-
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block module="$ctrl.module"
-    class="margin-top">
+  <pbs-block module="$ctrl.module">
     <pbs-block-buttons if-module-update="$ctrl.module">
       <pbs-button-compact-edit title="Edit Settings"
         ng-click="$ctrl.edit()">
@@ -19,7 +11,7 @@
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
-  <user-call-notify-criteria class="margin-top"></user-call-notify-criteria>
+  <user-call-notify-criteria pbs-margin-top></user-call-notify-criteria>
 </pbs-spinner>
 
 <pbs-modal id="editUserCallNotify"

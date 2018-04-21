@@ -62,8 +62,16 @@
       <user-announcements user-id="$ctrl.serviceUserId"></user-announcements>
     </pbs-menu-item>
   </pbs-menu-section>
-  <pbs-menu-section label="Reporting">
-    <pbs-menu-item label="Premium Call Records">
+  <pbs-menu-section label="Call Records"
+    ng-if="$ctrl.showCalls">
+    <pbs-menu-item label="Basic Call Logs"
+      ng-if="$ctrl.showBasic">
+      <user-basic-call-logs service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.serviceUserId"></user-basic-call-logs>
+    </pbs-menu-item>
+    <pbs-menu-item label="Premium Call Records"
+      ng-if="$ctrl.showPremium">
       <user-call-record-dashboard service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
         user-id="$ctrl.serviceUserId"></user-call-record-dashboard>
@@ -72,9 +80,13 @@
   <pbs-menu-section label="Provisioning">
     <pbs-menu-item label="Assign Services">
       <user-services service-type="userServices"
-        user-id="$ctrl.serviceUserId"
-        on-update="">
+        user-id="$ctrl.serviceUserId">
       </user-services>
+    </pbs-menu-item>
+    <pbs-menu-item label="Configure Services">
+      <virtual-user-services service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.serviceUserId"></virtual-user-services>
     </pbs-menu-item>
   </pbs-menu-section>
 </pbs-menu>

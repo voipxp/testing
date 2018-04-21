@@ -2,11 +2,10 @@
   angular.module('odin.user').component('userCollaborate', {
     templateUrl: 'user/components/collaborate/collaborate.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
   function Controller(
-    $routeParams,
     $q,
     Alert,
     UserCollaborateService,
@@ -16,9 +15,6 @@
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
     ctrl.open = open
     ctrl.editModelInstantRoom = editModelInstantRoom
     ctrl.openMyRoom = openMyRoom

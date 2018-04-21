@@ -3,27 +3,31 @@
     templateUrl:
       'user/components/sharedCallAppearance/sharedCallAppearance.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller($routeParams, Alert, UserSharedCallAppereanceService) {
+  function Controller(Alert, UserSharedCallAppereanceService, Module, $q) {
     var ctrl = this
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
     ctrl.$onInit = activate
     ctrl.update = update
     ctrl.edit = edit
 
     function activate() {
       ctrl.loading = true
-      return loadInstance()
+      return $q
+        .all([loadInstance(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Shared Call Appearance').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function edit() {

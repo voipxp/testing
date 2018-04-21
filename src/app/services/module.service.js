@@ -121,6 +121,7 @@ Filter
     function allow(name) {
       return load().then(function() {
         if (read(name)) return get(name)
+        console.log('FAILED MODULE CHECK', name)
         $location.path('/notfound')
         return $q.reject()
       })

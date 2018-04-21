@@ -2,24 +2,28 @@
   angular.module('odin.user').component('userBasicCallLogs', {
     templateUrl: 'user/components/basicCallLogs/basicCallLogs.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller(Alert, $routeParams, UserBasicCallLogService) {
+  function Controller(Alert, UserBasicCallLogService, Module, $q) {
     var ctrl = this
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
     ctrl.$onInit = onInit
 
     function onInit() {
       ctrl.loading = true
       ctrl.tab = 'placed'
-      loadLogs()
+      $q
+        .all([loadLogs(), loadModule()])
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Basic Call Logs').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadLogs() {

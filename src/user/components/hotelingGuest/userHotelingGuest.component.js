@@ -3,17 +3,13 @@
     templateUrl:
       'user/components/hotelingGuest/userHotelingGuest.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
-  function Controller($q, Alert, UserHotelingGuestService, $routeParams) {
+  function Controller($q, Alert, UserHotelingGuestService, Module) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
 
     ctrl.availableUsers = {}
     ctrl.options = UserHotelingGuestService.options
@@ -21,7 +17,7 @@
     function onInit() {
       ctrl.loading = true
       $q
-        .all([loadSettings(), loadAvailableUsers()])
+        .all([loadSettings(), loadAvailableUsers(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
@@ -44,6 +40,12 @@
           }
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Hoteling Guest').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

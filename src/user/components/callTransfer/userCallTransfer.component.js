@@ -2,18 +2,13 @@
   angular.module('odin.user').component('userCallTransfer', {
     templateUrl: 'user/components/callTransfer/userCallTransfer.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
-  function Controller(Alert, UserCallTransferService, $routeParams) {
+  function Controller(Alert, UserCallTransferService, $q, Module) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
-
     ctrl.callTransfer = {}
     ctrl.options = UserCallTransferService.options
     ctrl.recallNumberOfRings =
@@ -25,13 +20,20 @@
 
     function onInit() {
       ctrl.loading = true
-      loadSettings()
+      $q
+        .all([loadSettings(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Call Transfer').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {

@@ -3,26 +3,30 @@
     templateUrl:
       'user/components/automaticCallback/automaticCallback.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: { userId: '<' }
   })
 
-  function Controller(Alert, UserAutomaticCallbackService, $routeParams) {
+  function Controller(Alert, UserAutomaticCallbackService, Module, $q) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
 
     function onInit() {
       ctrl.loading = true
-      loadSettings()
+      $q
+        .all([loadSettings(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadModule() {
+      return Module.show('Automatic Callback').then(function(data) {
+        ctrl.module = data
+      })
     }
 
     function loadSettings() {
