@@ -5,7 +5,7 @@
     bindings: { serviceProviderId: '<', groupId: '<' }
   })
 
-  function Controller(Alert) {
+  function Controller(Alert, $timeout) {
     var ctrl = this
     ctrl.edit = edit
     ctrl.select = select
@@ -36,7 +36,7 @@
     }
 
     function edit() {
-      ctrl.editSearch = {}
+      ctrl.editSearch = angular.copy(ctrl.search)
       Alert.modal.open('callRecordSearchModal', function(close) {
         select(ctrl.editSearch) && close()
       })
@@ -50,14 +50,17 @@
         Alert.notify.warning('Start or End Time is Invalid')
         return false
       }
-      ctrl.search = {
-        startTime: Sugar.Date.create(search.startTime),
-        endTime: Sugar.Date.create(search.endTime),
-        label: [
-          Sugar.Date.format(search.startTime, '{long}'),
-          Sugar.Date.format(search.endTime, '{long}')
-        ].join(' - ')
-      }
+      ctrl.search = {}
+      $timeout(function() {
+        ctrl.search = {
+          startTime: Sugar.Date.create(search.startTime),
+          endTime: Sugar.Date.create(search.endTime),
+          label: [
+            Sugar.Date.format(search.startTime, '{long}'),
+            Sugar.Date.format(search.endTime, '{long}')
+          ].join(' - ')
+        }
+      }, 1)
       return true
     }
 
