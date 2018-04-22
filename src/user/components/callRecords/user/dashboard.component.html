@@ -15,7 +15,7 @@
   </header>
 </div>
 
-<div ng-show="!$ctrl.search.label">
+<div ng-if="!$ctrl.search.label">
   <pbs-columns>
     <pbs-column>
       <user-call-record-chart user-id="$ctrl.userId"
