@@ -36,7 +36,8 @@
     <pbs-menu-item label="Call Policies">
       <user-call-policies user-id="$ctrl.userId"></user-call-policies>
     </pbs-menu-item>
-    <pbs-menu-item label="Comm Barring Auth Codes">
+    <pbs-menu-item label="Comm Barring Auth Codes"
+      ng-if="$ctrl.isMeetMe">
       <user-communication-barring-authorization-codes class="margin-top"
         user-id="$ctrl.userId"></user-communication-barring-authorization-codes>
     </pbs-menu-item>
@@ -46,23 +47,23 @@
       <user-incoming-calling-plan user-id="$ctrl.userId"></user-incoming-calling-plan>
     </pbs-menu-item>
     <pbs-menu-item label="Outgoing Calling Plan"
-      ng-if="$ctrl.showCallingPlan">
+      ng-if="$ctrl.isMeetMe">
       <user-outgoing-calling-plan user-id="$ctrl.userId"></user-outgoing-calling-plan>
     </pbs-menu-item>
     <pbs-menu-item label="Authorization Codes"
-      ng-if="$ctrl.showCallingPlan">
+      ng-if="$ctrl.isMeetMe">
       <user-outgoing-calling-plan-authorization-codes user-id="$ctrl.userId"></user-outgoing-calling-plan-authorization-codes>
     </pbs-menu-item>
     <pbs-menu-item label="Digit Plan"
-      ng-if="$ctrl.showCallingPlan">
+      ng-if="$ctrl.isMeetMe">
       <user-outgoing-calling-plan-digit-plan user-id="$ctrl.userId"></user-outgoing-calling-plan-digit-plan>
     </pbs-menu-item>
     <pbs-menu-item label="Pinhole Digit Plan"
-      ng-if="$ctrl.showCallingPlan">
+      ng-if="$ctrl.isMeetMe">
       <user-outgoing-calling-plan-pinhole-digit-plan user-id="$ctrl.userId"></user-outgoing-calling-plan-pinhole-digit-plan>
     </pbs-menu-item>
     <pbs-menu-item label="Transfer Numbers"
-      ng-if="$ctrl.showCallingPlan">
+      ng-if="$ctrl.isMeetMe">
       <user-outgoing-calling-plan-transfer-numbers user-id="$ctrl.userId"></user-outgoing-calling-plan-transfer-numbers>
     </pbs-menu-item>
   </pbs-menu-section>

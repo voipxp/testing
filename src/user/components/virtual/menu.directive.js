@@ -34,7 +34,7 @@
 
       function loadPermissions() {
         if (ctrl.module.name === 'Meet-Me Conferencing') {
-          ctrl.showCallingPlan = true
+          ctrl.isMeetMe = true
         }
         if (ctrl.module.name === 'Auto Attendant') {
           ctrl.showAutoAttendant = Module.read('Auto Attendant Report')
