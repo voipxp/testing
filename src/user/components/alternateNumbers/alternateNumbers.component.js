@@ -3,7 +3,7 @@
     templateUrl:
       'user/components/alternateNumbers/alternateNumbers.component.html',
     controller: AlternateNumbers,
-    bindings: { userId: '<' }
+    bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
   function AlternateNumbers(Alert, AlternateNumbersService, Module, $q) {

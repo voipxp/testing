@@ -10,7 +10,6 @@
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
-
   <pbs-block title="Alternate Entries"
     class="margin-top">
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
@@ -30,8 +29,8 @@
       </tfoot>
       <tbody>
         <tr ng-class="{hover: $ctrl.canEdit}"
-          ng-repeat="entry in $ctrl.settings.alternateEntries | filter:$ctrl.search as results"
-          ng-click="$ctrl.editAlternateEntry(entry)">
+          ng-click="$ctrl.editAlternateEntry(entry)"
+          ng-repeat="entry in $ctrl.settings.alternateEntries | filter:$ctrl.search as results">
           <td>{{ entry.alternateEntryId }}</td>
           <td>{{ entry.phoneNumber }}</td>
           <td>{{ entry.extension }}</td>
@@ -41,14 +40,12 @@
     </table>
   </pbs-block>
 </pbs-spinner>
-
 <pbs-modal id="userAlternateNumbersEditModal">
   <input type="checkbox"
     label="Distinctive Ring Enabled"
     ng-model="$ctrl.editSettings.distinctiveRing"
     pbs-input-checkradio>
 </pbs-modal>
-
 <pbs-modal id="userAlternateNumbersEditEntryModal"
   title="Edit Alternate Entry: {{ $ctrl.editEntry.alternateEntryId }}">
   <pbs-form-field-horizontal label="Phone Number">
