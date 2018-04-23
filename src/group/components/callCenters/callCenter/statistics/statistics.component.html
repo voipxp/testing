@@ -1,40 +1,17 @@
 <pbs-columns>
   <pbs-column>
-    <p class="button-height block-label">
-      <label class="label">Start Date/Time</label>
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.start"
-        ng-change="$ctrl.parseDate('start')">
-      <span ng-show="$ctrl.search.start">
-        {{ $ctrl.search.start | date:'medium' }}
-      </span>
-      <small ng-show="!$ctrl.search.start">
-        (Example: yesterday 6pm, Aug 1 4AM)
-      </small>
-    </p>
+    <pbs-form-field label="Start Time">
+      <pbs-input-datetime ng-model="$ctrl.search.start"></pbs-input-datetime>
+    </pbs-form-field>
   </pbs-column>
   <pbs-column>
-    <p class="button-height block-label">
-      <label class="label">End Date/Time</label>
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.end"
-        ng-change="$ctrl.parseDate('end')">
-      <span ng-show="$ctrl.search.end">
-        {{ $ctrl.search.end | date:'medium' }}
-      </span>
-      <small ng-show="!$ctrl.search.end">
-        (Example: Aug 1 8:30PM, now)
-      </small>
-    </p>
+    <pbs-form-field label="End Time">
+      <pbs-input-datetime ng-model="$ctrl.search.end"></pbs-input-datetime>
   </pbs-column>
   <pbs-column class="is-narrow has-text-right">
-    <p class="button-height block-label">
-      <label class="label">&nbsp;</label>
-      <pbs-button-compact-search ng-click="$ctrl.view()"
-        ng-disabled="!$ctrl.search.start"></pbs-button-compact-search>
-    </p>
+    <pbs-button-compact-search style="margin-top: 2.25rem; display: block"
+      ng-click="$ctrl.view()"
+      ng-disabled="!$ctrl.search.start"></pbs-button-compact-search>
   </pbs-column>
 </pbs-columns>
 <pbs-modal id="groupCallCenterStatistics"

@@ -1,6 +1,5 @@
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Call Disposition Settings"
-    class="margin-top">
+  <pbs-block title="Call Disposition Settings">
     <pbs-block-buttons if-module-update="'Call Center'">
       <pbs-button-compact-edit title="Edit Call Disposition Settings"
         ng-click="$ctrl.edit()">
@@ -23,40 +22,42 @@
         </span>
       </pbs-list-item>
     </pbs-list>
-    <pbs-block title="Codes">
-      <pbs-block-buttons if-module-update="'Call Center'">
-        <pbs-button-compact-add ng-click="$ctrl.addCode()"></pbs-button-compact-add>
-      </pbs-block-buttons>
-      <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
-      <table pbs-table>
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Level</th>
-            <th>Description</th>
-            <th class="action">isActive</th>
-          </tr>
-        </thead>
-        <tfoot>
-          <tr ng-if="results.length === 0">
-            <td colspan="5">No Disposition Codes Found
-              <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
-            </td>
-          </tr>
-        </tfoot>
-        <tbody>
-          <tr class="hover"
-            ng-click="$ctrl.editCode(code)"
-            ng-repeat="code in $ctrl.codes | filter:$ctrl.search | orderBy:'code' as results track by code.code">
-            <td>{{ code.code }}</td>
-            <td>{{ code.level }}</td>
-            <td>{{ code.description }}</td>
-            <td class="action">
-              <pbs-check-box checked="code.isActive"></pbs-check-box>
-          </tr>
-        </tbody>
-      </table>
-    </pbs-block>
+  </pbs-block>
+  <pbs-block title="Call Disposition Codes"
+    class="margin-top">
+    <pbs-block-buttons if-module-update="'Call Center'">
+      <pbs-button-compact-add ng-click="$ctrl.addCode()"></pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Level</th>
+          <th>Description</th>
+          <th class="action">isActive</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length === 0">
+          <td colspan="5">No Disposition Codes Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-click="$ctrl.editCode(code)"
+          ng-repeat="code in $ctrl.codes | filter:$ctrl.search | orderBy:'code' as results track by code.code">
+          <td>{{ code.code }}</td>
+          <td>{{ code.level }}</td>
+          <td>{{ code.description }}</td>
+          <td class="action">
+            <pbs-check-box checked="code.isActive"></pbs-check-box>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editGroupCallCenterDispositionCodeSettings"
@@ -67,9 +68,7 @@
         <input type="checkbox"
           ng-model="$ctrl.editSettings.enableCallDispositionCodes"> Call Disposition Codes Enabled
       </label>
-
     </pbs-form-field>
-
     <pbs-form-field label="Organization Codes"
       ng-show="$ctrl.editSettings.enableCallDispositionCodes">
       <label class="checkbox">
@@ -77,7 +76,6 @@
           ng-model="$ctrl.editSettings.includeOrganizationCodes"> Use enterprise codes in addition to call center codes
       </label>
     </pbs-form-field>
-
     <pbs-form-field label="Force Use"
       ng-show="$ctrl.editSettings.enableCallDispositionCodes">
       <label class="checkbox">
@@ -85,7 +83,6 @@
           ng-model="$ctrl.editSettings.forceUseOfCallDispositionCodes"> Force use of call disposition codes
       </label>
     </pbs-form-field>
-
     <pbs-form-field label="Default Code"
       ng-show="$ctrl.editSettings.enableCallDispositionCodes">
       <div class="select">
@@ -100,14 +97,12 @@
 </pbs-modal>
 <pbs-modal id="editGroupCallCenterQueueDispositionCode"
   title="Edit Disposition Code">
-
   <pbs-form-field label="Enabled">
     <label class="checkbox">
       <input type="checkbox"
         ng-model="$ctrl.selectedCode.isActive"> Enable Disposition Code
     </label>
   </pbs-form-field>
-
   <pbs-form-field label="Description">
     <input type="text"
       class="input"
@@ -117,20 +112,17 @@
 <pbs-modal id="createGroupCallCenterQueueDispositionCode"
   title="Add Queue Disposition Code">
   <form novalidate>
-
     <pbs-form-field label="Code">
       <input type="text"
         class="input"
         ng-model="$ctrl.newCode.code"
         required>
     </pbs-form-field>
-
     <pbs-form-field label="Description">
       <input type="text"
         class="input"
         ng-model="$ctrl.newCode.description">
     </pbs-form-field>
-
     <pbs-form-field label="Enabled">
       <label class="checkbox">
         <input type="checkbox"

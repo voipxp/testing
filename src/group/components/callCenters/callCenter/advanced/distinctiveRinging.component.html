@@ -1,6 +1,5 @@
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Distinctive Ringing"
-    class="margin-top">
+  <pbs-block title="Distinctive Ringing">
     <pbs-block-buttons if-module-update="'Call Center'">
       <pbs-button-compact-edit title="Edit Distinctive Ringing"
         ng-click="$ctrl.edit()">
@@ -27,7 +26,6 @@
         ng-model="$ctrl.editService.distinctiveRingingCallCenterCalls"> Distinctive Ringing Enabled
     </label>
   </pbs-form-field>
-
   <pbs-form-field label="Ring Pattern"
     ng-show="$ctrl.editService.distinctiveRingingCallCenterCalls">
     <div class="select">
@@ -36,7 +34,6 @@
       </select>
     </div>
   </pbs-form-field>
-
   <pbs-form-field label="Forced Deliver"
     ng-show="$ctrl.editService.distinctiveRingingCallCenterCalls">
     <div class="select">

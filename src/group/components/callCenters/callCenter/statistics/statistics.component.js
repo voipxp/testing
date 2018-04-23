@@ -10,7 +10,6 @@
     var ctrl = this
     ctrl.$onInit = activate
     ctrl.view = view
-    ctrl.parseDate = parseDate
 
     function activate() {
       ctrl.search = {}
@@ -37,20 +36,6 @@
         .finally(function() {
           Alert.spinner.close()
         })
-    }
-
-    function parseDate(type) {
-      if (type !== 'start' && type !== 'end') return
-      if (!ctrl[type]) {
-        ctrl.search[type] = null
-      } else {
-        var parsedDate = Sugar.Date.create(ctrl[type], { past: true })
-        if (Sugar.Date.isValid(parsedDate)) {
-          ctrl.search[type] = parsedDate
-        } else {
-          ctrl.search[type] = null
-        }
-      }
     }
 
     function loadStatistics() {

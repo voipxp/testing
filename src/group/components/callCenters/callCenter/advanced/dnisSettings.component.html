@@ -44,7 +44,6 @@
 </pbs-spinner>
 <pbs-modal id="editGroupCallCenterDnisInstance"
   title="Edit DNIS Instance">
-
   <form>
     <pbs-form-field label="Name">
       <input type="text"
@@ -52,7 +51,6 @@
         ng-model="$ctrl.editService.newDNISName"
         ng-init="$ctrl.editService.newDNSISName = $ctrl.editService.name">
     </pbs-form-field>
-
     <pbs-form-field label="Priority">
       <div class="select">
         <select ng-model="$ctrl.editService.priority"
@@ -60,7 +58,6 @@
         </select>
       </div>
     </pbs-form-field>
-
     <pbs-form-field label="Phone Number">
       <div class="select">
         <select ng-model="$ctrl.editService.dnisPhoneNumber"
@@ -70,48 +67,40 @@
         </select>
       </div>
     </pbs-form-field>
-
     <pbs-form-field label="Extension">
       <input type="text"
         class="input"
         ng-model="$ctrl.editService.extension">
     </pbs-form-field>
-
     <pbs-form-field label="CLID">
       <input type="text"
         class="input"
         ng-model="$ctrl.editService.callingLineIdPhoneNumber">
     </pbs-form-field>
-
     <pbs-form-field label="Custom CLID">
       <label class="checkbox">
         <input type="checkbox"
           ng-model="$ctrl.editService.useCustomCLIDSettings"> Use Custom CLID Settings
       </label>
     </pbs-form-field>
-
     <pbs-form-field label="CLID Last Name"
       ng-show="$ctrl.editService.useCustomCLIDSettings">
       <input type="text"
         class="input"
         ng-model="$ctrl.editService.callingLineIdLastName">
     </pbs-form-field>
-
-
     <pbs-form-field class="CLID First Name"
       ng-show="$ctrl.editService.useCustomCLIDSettings">
       <input type="text"
         class="input"
         ng-model="$ctrl.editService.callingLineIdFirstName">
     </pbs-form-field>
-
     <pbs-form-field label="CLID Announcement">
       <label class="checkbox">
         <input type="checkbox"
           ng-model="$ctrl.editService.useCustomDnisAnnouncementSettings"> Use Custom CLID Announcement Settings
       </label>
     </pbs-form-field>
-
     <pbs-form-field label="Outgoing Calls">
       <label class="checkbox">
         <input type="checkbox"

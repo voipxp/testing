@@ -1,6 +1,5 @@
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Queue Status Notification"
-    class="margin-top">
+  <pbs-block title="Queue Status Notification">
     <pbs-block-buttons>
       <pbs-button-compact-edit title="Edit Queue Status Notification"
         ng-click="$ctrl.edit()"
@@ -34,14 +33,12 @@
         ng-model="$ctrl.editService.enableQueueStatusNotification"> Queue Status Notification Enabled
     </label>
   </pbs-form-field>
-
   <pbs-form-field label="Queue Depth">
     <label class="checkbox">
       <input type="checkbox"
         ng-model="$ctrl.editService.enableQueueDepthThreshold"> Enable Queue Depth Threshold
     </label>
   </pbs-form-field>
-
   <pbs-form-field label="Number of Calls in Queue"
     ng-show="$ctrl.editService.enableQueueDepthThreshold">
     <input type="number"
@@ -50,14 +47,12 @@
       class="input"
       ng-model="$ctrl.editService.numberOfCallsThreshold">
   </pbs-form-field>
-
   <pbs-form-field label="Waiting Time">
     <label class="checkbox">
       <input type="checkbox"
         ng-model="$ctrl.editService.enableWaitingTimeThreshold"> Enable Waiting Time Threshold
     </label>
   </pbs-form-field>
-
   <pbs-form-field label="Waiting Time Seconds"
     ng-show="$ctrl.editService.enableWaitingTimeThreshold">
     <input type="number"
@@ -66,5 +61,4 @@
       class="input"
       ng-model="$ctrl.editService.waitingTimeOfCallsThreshold">
   </pbs-form-field>
-
 </pbs-modal>
