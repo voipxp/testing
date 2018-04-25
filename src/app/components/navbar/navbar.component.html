@@ -1,6 +1,7 @@
 <nav class="navbar is-link"
   role="navigation"
-  aria-label="main navigation">
+  aria-label="main navigation"
+  ng-if="$ctrl.session.userId">
   <div class="navbar-brand">
     <a class="navbar-item"
       href="/">
@@ -8,16 +9,14 @@
         alt="ODiN API">
     </a>
     <button class="button navbar-burger is-link"
-      ng-click="$ctrl.burger()"
-      ng-show="$ctrl.session.userId">
+      ng-click="$ctrl.burger()">
       <span></span>
       <span></span>
       <span></span>
     </button>
   </div>
   <div class="navbar-menu"
-    ng-class="{'is-active': $ctrl.showMenu}"
-    ng-show="$ctrl.session.userId">
+    ng-class="{'is-active': $ctrl.showMenu}">
     <div class="navbar-start">
       <div class="navbar-item">{{ $root.pageTitle }}</div>
     </div>
