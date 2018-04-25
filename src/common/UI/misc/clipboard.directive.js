@@ -11,7 +11,7 @@
         element.addClass('hover')
         element.attr('title', 'Copy To Clipboard')
 
-        var clipboard = new window.Clipboard(element[0], {
+        var clipboard = new window.ClipboardJS(element[0], {
           text: function() {
             return scope.clipboardText || element.data('clipboard-text')
           }

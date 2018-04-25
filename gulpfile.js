@@ -156,9 +156,12 @@ gulp.task(
 gulp.task(
   'watch',
   gulp.series('default', () => {
-    gulp.watch(['src/**/*.css'], ['app.css'])
-    gulp.watch(['src/**/*.js'], ['app.js'])
-    gulp.watch(['src/app/layout/index.html'], ['app.html'])
-    gulp.watch(['src/**/*.html', '!src/app/layout/index.html'], ['app.tpl'])
+    gulp.watch(['src/**/*.css'], gulp.series('app.css'))
+    gulp.watch(['src/**/*.js'], gulp.series('app.js'))
+    gulp.watch(['src/app/layout/index.html'], gulp.series('app.html'))
+    gulp.watch(
+      ['src/**/*.html', '!src/app/layout/index.html'],
+      gulp.series('app.tpl')
+    )
   })
 )
