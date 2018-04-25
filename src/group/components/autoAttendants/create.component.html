@@ -1,0 +1,128 @@
+<pbs-modal id="{{ $ctrl.modalId }}"
+  title="New Auto Attendant">
+  <pbs-form>
+    <pbs-tabs no-hash="true">
+      <pbs-tab label="Required">
+        <pbs-form-field-horizontal label="Type">
+          <select ng-model="$ctrl.autoAttendant.type"
+            ng-options="scope for scope in $ctrl.options.types"
+            required
+            pbs-input-select
+            is-fullwidth></select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Service ID">
+          <select-user-id service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            user-id="$ctrl.autoAttendant.serviceUserId"
+            on-update="$ctrl.onSelectUserId($event)"
+            required="true"></select-user-id>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Timeout"
+          ng-if="$ctrl.hasAnnouncements">
+          <input type="number"
+            class="input"
+            min="1"
+            max="60"
+            ng-model="$ctrl.autoAttendant.firstDigitTimeoutSeconds">&nbsp; First Digit Timeout Seconds
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Service Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.autoAttendant.serviceInstanceProfile.name"
+            required>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="CLID Last Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.autoAttendant.serviceInstanceProfile.callingLineIdLastName"
+            required>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="CLID First Name">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.autoAttendant.serviceInstanceProfile.callingLineIdFirstName"
+            required>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Extension Dialing">
+          <select ng-model="$ctrl.autoAttendant.extensionDialingScope"
+            ng-options="scope for scope in $ctrl.options.dialingScopes"
+            required
+            pbs-input-select
+            is-fullwidth></select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Name Dialing">
+          <select ng-model="$ctrl.autoAttendant.nameDialingScope"
+            ng-options="scope for scope in $ctrl.options.dialingScopes"
+            required
+            pbs-input-select
+            is-fullwidth></select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Name Dialing Entries">
+          <select ng-model="$ctrl.autoAttendant.nameDialingEntries"
+            ng-options="entry for entry in $ctrl.options.dialingEntries"
+            required
+            pbs-input-select
+            is-fullwidth></select>
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+
+      <pbs-tab label="Optional">
+        <pbs-form-field-horizontal label="Business Schedule">
+          <select-group-schedule service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            type="Time"
+            ng-model="$ctrl.autoAttendant.businessHours">
+          </select-group-schedule>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Holiday Schedule">
+          <select-group-schedule service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            type="Holiday"
+            ng-model="$ctrl.autoAttendant.holidaySchedule">
+          </select-group-schedule>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Phone Number">
+          <select-phone-number service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            phone-number="$ctrl.autoAttendant.serviceInstanceProfile.phoneNumber"
+            on-update="$ctrl.onSelectPhone($event)"></select-phone-number>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Extension">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.autoAttendant.serviceInstanceProfile.extension">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Password">
+          <input type="password"
+            class="input"
+            ng-model="$ctrl.autoAttendant.serviceInstanceProfile.password">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Repeat Password">
+          <input type="password"
+            class="input"
+            ng-model="$ctrl.autoAttendant.serviceInstanceProfile.password2">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Department">
+          <select-department service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            ng-model="$ctrl.autoAttendant.serviceInstanceProfile.department">
+          </select-department>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Language">
+          <select-language ng-model="$ctrl.autoAttendant.serviceInstanceProfile.language"></select-language>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Timezone">
+          <select-timezone ng-model="$ctrl.autoAttendant.serviceInstanceProfile.timeZone"></select-timezone>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Public User Identity">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.autoAttendant.serviceInstanceProfile.publicUserIdentity">
+        </pbs-form-field-horizontal>
+        <pbs-form-field label="Aliases">
+          <alias-list profile="$ctrl.autoAttendant"></alias-list>
+        </pbs-form-field>
+      </pbs-tab>
+    </pbs-tabs>
+  </pbs-form>
+</pbs-modal>

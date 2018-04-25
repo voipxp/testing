@@ -1,7 +1,6 @@
 ;(function() {
   angular.module('odin.common').component('selectUserSchedule', {
-    templateUrl:
-      'common/components/selectUserSchedule/userSchedule.component.html',
+    templateUrl: 'common/components/selectSchedule/userSchedule.component.html',
     controller: Controller,
     bindings: { userId: '<', ngRequired: '<', ngModel: '=', type: '@' }
   })
@@ -12,14 +11,14 @@
 
     function onInit() {
       ctrl.loading = true
-      loadUserSchedules()
+      loadSchedules()
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
     }
 
-    function loadUserSchedules() {
+    function loadSchedules() {
       return UserScheduleService.index(ctrl.userId).then(function(data) {
         ctrl.schedules = data
       })

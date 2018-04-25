@@ -22,6 +22,7 @@
     ctrl.add = add
     ctrl.onCreate = onCreate
     ctrl.toggle = toggle
+    ctrl.clone = clone
 
     function onInit() {
       ctrl.loading = true
@@ -72,7 +73,14 @@
       $scope.$broadcast('autoAttendantCreate:load')
     }
 
+    function clone() {
+      console.log('CLONE')
+      $scope.$broadcast('groupCloneAutoAttendant:load')
+    }
+
     function onCreate(event) {
+      console.log('onCreate', event)
+      return
       open(event.autoAttendant)
     }
   }
