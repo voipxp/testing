@@ -9,7 +9,6 @@ const htmlmin = require('gulp-htmlmin')
 const sass = require('gulp-sass')
 const series = require('stream-series')
 const replace = require('gulp-replace')
-const sequence = require('run-sequence')
 const templates = require('gulp-angular-templatecache')
 const uglify = require('gulp-uglify')
 const buffer = require('buffer-to-vinyl')
@@ -52,7 +51,12 @@ gulp.task('app.tpl', () => {
     .src(['src/**/*.html'])
     .pipe(replace('<!-- #api -->', Config.APP.apiURL))
     .pipe(htmlmin())
-    .pipe(templates('app.tpl.js', { module: 'odin.app' }))
+    .pipe(
+      templates('app.tpl.js', {
+        module: 'odin.app',
+        transformUrl: url => url.replace(/^\//, '')
+      })
+    )
     .pipe(gulpIf(prod, uglify()))
     .pipe(gulp.dest(dest))
 })
