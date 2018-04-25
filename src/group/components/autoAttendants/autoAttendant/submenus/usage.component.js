@@ -11,10 +11,9 @@
     }
   })
 
-  function Controller(Alert, GroupAutoAttendantSubmenuService, Route) {
+  function Controller(Alert, GroupAutoAttendantSubmenuService) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.open = open
 
     function onInit() {
       ctrl.loading = true
@@ -33,17 +32,6 @@
         ctrl.usage = data
         console.log('usage', data)
       })
-    }
-
-    function open(usage) {
-      var route = Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'autoAttendants',
-        ctrl.serviceUserId
-      )
-      usage.submenuId ? route('submenus', usage.submenuId) : route()
     }
   }
 })()

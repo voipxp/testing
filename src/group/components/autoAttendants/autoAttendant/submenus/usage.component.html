@@ -16,9 +16,7 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover"
-          ng-click="$ctrl.open(usage)"
-          ng-repeat="usage in $ctrl.usage | filter:$ctrl.search as results">
+        <tr ng-repeat="usage in $ctrl.usage | filter:$ctrl.search as results">
           <td>{{ usage.type }}</td>
           <td>{{ usage.submenuId }}</td>
         </tr>
