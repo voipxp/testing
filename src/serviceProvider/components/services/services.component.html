@@ -39,21 +39,12 @@
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editServiceProviderService"
-  title="Edit {{ $ctrl.editServices.serviceName }}">
-  <pbs-form legend="{{ $ctrl.editService.serviceName }}">
-    <pbs-form-field label="Authorized">
-      <pbs-input-checkbox label="Service Authorized"
-        ng-model="$ctrl.editService.authorized"></pbs-input-checkbox>
-    </pbs-form-field>
-    <pbs-form-field label="Limit">
-      <input type="number"
-        class="input"
-        ng-model="$ctrl.editService.quantity"
-        min="-1">
-      <small ng-show="$ctrl.editService.quantity !== -1">Set -1 for Unlimited</small>
-      <small ng-show="$ctrl.editService.quantity === -1">
-        <strong>Unlimited</strong>
-      </small>
-    </pbs-form-field>
+  title="{{ $ctrl.editServices.serviceName }}">
+  <pbs-form-section>Authorization</pbs-form-section>
+  <input type="checkbox"
+    label="Service Authorized"
+    ng-model="$ctrl.editService.authorized"
+    pbs-input-checkradio>
+  <service-licensing service="$ctrl.editService"></service-licensing>
   </pbs-form>
 </pbs-modal>

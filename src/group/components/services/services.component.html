@@ -68,31 +68,19 @@
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editGroupService"
-  title="Edit Service">
-  <pbs-form legend="{{ $ctrl.editService.serviceName }}">
-    <pbs-form-field label="Authorized">
-      <pbs-input-checkbox label="Service Authorized"
-        ng-model="$ctrl.editService.authorized"></pbs-input-checkbox>
-    </pbs-form-field>
-    <pbs-form-field label="Assigned"
-      ng-show="$ctrl.isGroupServices()">
-      <pbs-input-checkbox label="Service Assigned"
-        ng-model="$ctrl.editService.assigned"></pbs-input-checkbox>
-    </pbs-form-field>
-    <pbs-form-field label="Limit">
-      <small>Allowed: {{ $ctrl.quantity($ctrl.editService.allowed) }}</small>
-      <input type="number"
-        class="input"
-        ng-model="$ctrl.editService.quantity"
-        min="{{ $ctrl.editService.allowed === -1 ? -1 : 1 }}"
-        max="{{ $ctrl.editService.allowed === -1 ? 999999 : $ctrl.editService.allowed }}">
-      <span ng-show="$ctrl.editService.allowed === -1">
-        <small ng-show="$ctrl.editService.quantity !== -1">Set -1 for Unlimited</small>
-        <small ng-show="$ctrl.editService.quantity === -1">
-          <strong>Unlimited</strong>
-        </small>
-      </span>
-    </pbs-form-field>
+  title="{{ $ctrl.editService.serviceName }}">
+  <pbs-form>
+    <pbs-form-section>Authorization</pbs-form-section>
+    <input type="checkbox"
+      label="Service Authorized"
+      ng-model="$ctrl.editService.authorized"
+      pbs-input-checkradio>
+    <input type="checkbox"
+      label="Service Assigned"
+      ng-if="$ctrl.isGroupServices()"
+      ng-model="$ctrl.editService.assigned"
+      pbs-input-checkradio>
+    <service-licensing service="$ctrl.editService"></service-licensing>
   </pbs-form>
 </pbs-modal>
 <group-clone-services service-provider-id="$ctrl.serviceProviderId"

@@ -26,6 +26,7 @@
       ctrl.servicePack = {
         isAvailableForUse: false,
         servicePackQuantity: -1,
+        allowedQuantity: -1,
         userServices: []
       }
       ctrl.filterAvailable = ''

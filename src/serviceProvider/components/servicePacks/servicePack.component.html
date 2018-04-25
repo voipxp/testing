@@ -66,38 +66,22 @@
 <pbs-modal id="editServicePack"
   title="Edit Service Pack">
   <pbs-form>
-    <pbs-form-field label="Name">
+    <pbs-form-section>Settings</pbs-form-section>
+    <pbs-form-field-horizontal label="Name">
       <input type="text"
         class="input"
         ng-model="$ctrl.editServicePack.newServicePackName">
-    </pbs-form-field>
-    <pbs-form-field label="Description">
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Description">
       <input type="text"
         class="input"
         ng-model="$ctrl.editServicePack.servicePackDescription">
-    </pbs-form-field>
-    <pbs-form-field label="Available For Use">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editServicePack.isAvailableForUse"> Available For Use
-      </label>
-    </pbs-form-field>
-    <pbs-form-field label="Limit">
-      <small>Available: {{ $ctrl.quantity($ctrl.servicePack.allowedQuantity) }}</small>
-      <input type="number"
-        class="input"
-        ng-model="$ctrl.editServicePack.servicePackQuantity"
-        min="{{ $ctrl.isUnlimited() ? -1 : 1 }}"
-        max="{{ $ctrl.isUnlimited() ? 999999 : $ctrl.servicePack.allowedQuantity }}"
-        required>
-      <span ng-show="$ctrl.isUnlimited()">
-        <small ng-show="$ctrl.editServicePack.servicePackQuantity === -1">
-          <strong>Unlimited</strong>
-        </small>
-        <small ng-show="$ctrl.editServicePack.servicePackQuantity !== -1">
-          Set to -1 for Unlimited
-        </small>
-      </span>
-    </pbs-form-field>
+    </pbs-form-field-horizontal>
+    <pbs-form-section>Availability</pbs-form-section>
+    <input type="checkbox"
+      ng-model="$ctrl.editServicePack.isAvailableForUse"
+      label="Available For Use"
+      pbs-input-checkradio>
+    <service-pack-licensing service="$ctrl.editServicePack"></service-pack-licensing>
   </pbs-form>
 </pbs-modal>
