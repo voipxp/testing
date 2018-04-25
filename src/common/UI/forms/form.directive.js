@@ -56,7 +56,7 @@
 
   function pbsFormSection() {
     var template =
-      '<h4 class="subtitle">{{ title }}<span ng-transclude></span></h4>'
+      '<h4 class="subtitle" style="margin-top: .5rem">{{ title }}<span ng-transclude></span></h4>'
     return {
       restrict: 'E',
       template: template,
