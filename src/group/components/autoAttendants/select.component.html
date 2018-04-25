@@ -1,5 +1,5 @@
 <pbs-modal id="{{ $ctrl.modalId }}"
-  title="Select Auto Attendant">
+  title="Select {{ $ctrl.module.alias }}">
   <pbs-spinner loading="$ctrl.loading">
     <pbs-table-search ng-model="search"></pbs-table-search>
     <table pbs-table>
@@ -14,7 +14,7 @@
       </thead>
       <tfoot>
         <tr ng-if="results.length < 1">
-          <td colspan="99">No Auto Attendant Found
+          <td colspan="99">No {{ $ctrl.module.alias }} Found
             <span ng-if="search">for {{ search }}</span>
           </td>
         </tr>

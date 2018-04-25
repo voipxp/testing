@@ -2,7 +2,11 @@
   angular.module('odin.group').component('autoAttendantClone', {
     templateUrl: 'group/components/autoAttendants/clone.component.html',
     controller: Controller,
-    bindings: { serviceProviderId: '<', groupId: '<', onUpdate: '&' }
+    bindings: {
+      serviceProviderId: '<',
+      groupId: '<',
+      onUpdate: '&'
+    }
   })
 
   function Controller(
@@ -11,9 +15,11 @@
     GroupAutoAttendantService,
     $scope,
     Alert,
-    ACL
+    ACL,
+    Module
   ) {
     var ctrl = this
+    ctrl.$onInit = onInit
     ctrl.selectServiceProvider = selectServiceProvider
     ctrl.selectGroup = selectGroup
     ctrl.onSelectServiceProvider = onSelectServiceProvider
@@ -22,6 +28,12 @@
     ctrl.onSelectAutoAttendant = onSelectAutoAttendant
     ctrl.onSelectUserId = onSelectUserId
     ctrl.onSelectPhone = onSelectPhone
+
+    function onInit() {
+      Module.show('Auto Attendant').then(function(module) {
+        ctrl.module = module
+      })
+    }
 
     function selectServiceProvider() {
       $scope.$broadcast('selectServiceProvider:load')

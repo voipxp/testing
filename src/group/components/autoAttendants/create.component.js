@@ -16,7 +16,8 @@
     EventEmitter,
     GroupAutoAttendantService,
     $q,
-    ACL
+    ACL,
+    Module
   ) {
     var ctrl = this
 
@@ -28,6 +29,9 @@
     ctrl.hasAnnouncements = ACL.hasVersion('20')
 
     function onInit() {
+      Module.show('Auto Attendant').then(function(module) {
+        ctrl.module = module
+      })
       ctrl.modalId = HashService.guid()
     }
 

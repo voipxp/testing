@@ -10,13 +10,17 @@
     GroupAutoAttendantService,
     EventEmitter,
     HashService,
-    $scope
+    $scope,
+    Module
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.select = select
 
     function onInit() {
+      Module.show('Auto Attendant').then(function(module) {
+        ctrl.module = module
+      })
       ctrl.modalId = HashService.guid()
     }
 
