@@ -79,8 +79,6 @@
     }
 
     function onCreate(event) {
-      console.log('onCreate', event)
-      return
       open(event.autoAttendant)
     }
   }

@@ -72,12 +72,8 @@
     function load() {
       ctrl.isProvisioning = ACL.has('Provisioning')
       ctrl.isServiceProvider = ACL.has('Service Provider')
-      if (!ctrl.isProvisioning) {
-        ctrl.fromServiceProviderId = ctrl.serviceProviderId
-      }
-      if (!ctrl.isServiceProvider) {
-        ctrl.fromGroupId = ctrl.groupId
-      }
+      ctrl.fromServiceProviderId = ctrl.serviceProviderId
+      ctrl.fromGroupId = ctrl.groupId
       ctrl.fromAutoAttendantId = null
       ctrl.autoAttendant = {
         serviceProviderId: ctrl.serviceProviderId,
@@ -110,7 +106,7 @@
       })
         .then(function() {
           Alert.notify.success('Auto Attendant Cloned')
-          // callback()
+          callback()
           sendUpdate(autoAttendant)
         })
         .catch(Alert.notify.danger)

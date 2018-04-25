@@ -72,7 +72,7 @@
           if (_.isFunction(callback)) {
             callback()
           }
-          back()
+          return back()
         })
         .catch(function(error) {
           Alert.notify.danger(error)
