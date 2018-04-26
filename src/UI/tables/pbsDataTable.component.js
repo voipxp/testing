@@ -1,15 +1,19 @@
 ;(function() {
-  angular.module('odin.sandbox').component('pbsDataTable', {
-    templateUrl: 'sandbox/tables/pbsDataTable.component.html',
+  angular.module('odin.UI').component('pbsDataTable', {
+    templateUrl: 'UI/tables/pbsDataTable.component.html',
     controller: Controller,
     bindings: {
       orderBy: '@',
       columns: '<',
       items: '<',
       limitTo: '<',
-      showSelect: '<',
+      showSelect: '=',
       onClick: '&?',
-      onSelect: '&?'
+      onSelect: '&?',
+      isBordered: '<',
+      isNarrow: '<',
+      isCompact: '<',
+      isStriped: '<'
     }
   })
 
@@ -19,6 +23,7 @@
     ctrl.onPagination = onPagination
     ctrl.click = click
     ctrl.select = select
+    ctrl.sendSelect = sendSelect
     ctrl.toggleAll = toggleAll
     ctrl.sort = sort
     ctrl.selected = []
@@ -45,12 +50,10 @@
     function toggleAll() {
       console.log('toggleAll', ctrl.selectAll)
       ctrl.selected = ctrl.selectAll ? angular.copy(ctrl.items) : []
-      sendSelect()
     }
 
     function select() {
       ctrl.selectAll = ctrl.selected.length === ctrl.items.length
-      sendSelect()
     }
 
     function sort(key) {
@@ -67,6 +70,7 @@
       if (_.isFunction(ctrl.onSelect)) {
         ctrl.onSelect(EventEmitter(ctrl.selected))
       }
+      ctrl.showSelect = false
     }
   }
 })()

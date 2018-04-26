@@ -21,7 +21,7 @@
     'odin.tasks',
     'odin.user',
     'odin.vdm',
-    'odin.sandbox'
+    'odin.UI'
   ])
 
   function locationConfig($locationProvider) {
