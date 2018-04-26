@@ -20,7 +20,8 @@
     'odin.system',
     'odin.tasks',
     'odin.user',
-    'odin.vdm'
+    'odin.vdm',
+    'odin.sandbox'
   ])
 
   function locationConfig($locationProvider) {
@@ -138,8 +139,8 @@
     })
   }
 
-  function loaders(Template) {
-    Template.load()
+  function loaders($q, Module, Template) {
+    return $q.all([Template.load(), Module.load()])
   }
 
   function clearCache(CacheFactory) {

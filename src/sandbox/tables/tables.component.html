@@ -1,0 +1,28 @@
+<pbs-block title="Testing Tables">
+  <pbs-block-buttons>
+    <pbs-button-compact-edit ng-click="$ctrl.showSelect = true"
+      ng-show="!$ctrl.showSelect"></pbs-button-compact-edit>
+    <pbs-button-compact-check ng-click="$ctrl.showSelect = false"
+      ng-show="$ctrl.showSelect"></pbs-button-compact-check>
+  </pbs-block-buttons>
+  <pbs-form>
+    <pbs-columns>
+      <pbs-column>
+        <p>Selected:
+          <span ng-repeat="item in $ctrl.selected">{{ item.userId }} &nbsp;</span>
+        </p>
+      </pbs-column>
+      <pbs-column>
+        <p>Clicked: {{ $ctrl.clicked.userId }}</p>
+      </pbs-column>
+    </pbs-columns>
+  </pbs-form>
+
+  <pbs-data-table pbs-margin-top
+    order-by="userId"
+    columns="$ctrl.columns"
+    items="$ctrl.items"
+    show-select="$ctrl.showSelect"
+    on-select="$ctrl.onSelect($event)"
+    on-click="$ctrl.onClick($event)"></pbs-data-table>
+</pbs-block>
