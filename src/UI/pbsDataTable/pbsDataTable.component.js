@@ -1,6 +1,6 @@
 ;(function() {
   angular.module('odin.UI').component('pbsDataTable', {
-    templateUrl: 'UI/tables/pbsDataTable.component.html',
+    templateUrl: 'UI/pbsDataTable/pbsDataTable.component.html',
     controller: Controller,
     bindings: {
       orderBy: '@',

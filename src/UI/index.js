@@ -1,11 +1,14 @@
 ;(function() {
   var routes = [
     {
-      path: 'UI/tables',
-      component: 'pbsDataTableExample'
+      component: 'pbsDoc'
+    },
+    {
+      path: 'pbsDataTable',
+      component: 'pbsDataTableDoc'
     }
   ]
   angular.module('odin.UI', ['hc.marked']).config(function(PbsRouteProvider) {
-    PbsRouteProvider.set(routes)
+    PbsRouteProvider.set(routes, 'UI')
   })
 })()

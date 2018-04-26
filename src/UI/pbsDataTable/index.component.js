@@ -1,6 +1,6 @@
 ;(function() {
-  angular.module('odin.UI').component('pbsDataTableExample', {
-    templateUrl: 'UI/tables/example.component.html',
+  angular.module('odin.UI').component('pbsDataTableDoc', {
+    templateUrl: 'UI/pbsDataTable/index.component.html',
     controller: Controller
   })
 
