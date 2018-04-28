@@ -7,10 +7,8 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Bulk Import CSV"
     class="large-margin-bottom">
-    <pbs-form-field label="{{ $ctrl.editField.label }}">
-      <pbs-input-file on-upload="$ctrl.upload(file)"
-        mode="text"></pbs-input-file>
-    </pbs-form-field>
+    <pbs-input-file on-upload="$ctrl.upload(file)"
+      mode="text"></pbs-input-file>
   </pbs-block>
   <pbs-block title="Bulk Download CSV Templates">
     <pbs-table-search ng-model="search"></pbs-table-search>

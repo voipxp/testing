@@ -15,19 +15,19 @@
 <pbs-modal id="groupDepartmentCreateModal"
   title="Create a Department">
   <pbs-form>
-    <pbs-form-field label="Name">
+    <pbs-form-field-horizontal label="Name">
       <input type="text"
         class="input"
         ng-model="$ctrl.newDepartment.name"
         required>
-    </pbs-form-field>
-    <pbs-form-field label="Parent">
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Parent">
       <div class="select">
         <select ng-model="$ctrl.newDepartment.parentDepartment"
           ng-options="department as department.fullPathName for department in $ctrl.parents">
           <option value="">-- No Parent --</option>
         </select>
       </div>
-    </pbs-form-field>
+    </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>
