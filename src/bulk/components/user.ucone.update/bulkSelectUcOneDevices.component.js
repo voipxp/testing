@@ -40,6 +40,7 @@
 
     function loadDevices() {
       return UcOneService.devices().then(function(data) {
+        console.log('devices', data)
         ctrl.deviceTypes = data
       })
     }

@@ -11,18 +11,20 @@
   <pbs-wizard-step label="User ID">
     <pbs-block title="User ID"
       class="large-margin-bottom">
-      <p class="subtitle underline">Would you like to change the UserID?</p>
-      <label class="radio is-stacked">
+      <pbs-form>
+        <pbs-form-section>Would you like to change the UserID?</pbs-form-section>
         <input type="radio"
           ng-value="false"
           ng-model="$ctrl.changeUserId"
-          ng-click="$ctrl.data.userId = null"> Keep the current User IDs
-      </label>
-      <label class="radio is-stacked">
+          ng-click="$ctrl.data.userId = null"
+          label="Keep the current User IDs"
+          pbs-input-checkradio>
         <input type="radio"
           ng-value="true"
-          ng-model="$ctrl.changeUserId"> Change the User IDs
-      </label>
+          ng-model="$ctrl.changeUserId"
+          label="Change the User IDs"
+          pbs-input-checkradio>
+      </pbs-form>
       <div class="has-text-right large-margin-top">
         <pbs-button-next ng-show="!$ctrl.changeUserId"
           ng-click="$ctrl.next()"></pbs-button-next>

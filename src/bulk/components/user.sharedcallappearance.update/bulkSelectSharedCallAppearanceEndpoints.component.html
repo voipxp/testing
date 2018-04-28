@@ -33,8 +33,8 @@
 <pbs-modal id="userSharedCallAppearanceEndpointModal"
   title="{{ $ctrl.modalTitle }}">
   <pbs-form>
-    <pbs-form-section title="Endpoint Details"></pbs-form-section>
-    <pbs-form-field label="Device">
+    <pbs-form-section>Endpoint Details</pbs-form-section>
+    <pbs-form-field-horizontal label="Device">
       <div class="field has-addons">
         <p class="control is-expanded">
           <input type="text"
@@ -55,23 +55,24 @@
           </a>
         </p>
       </div>
-    </pbs-form-field>
-    <pbs-form-field label="Line Port">
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Line Port">
       <bulk-tag-input ng-model="$ctrl.editEndpoint.linePort"
         is-required="true"></bulk-tag-input>
-    </pbs-form-field>
-    <pbs-form-field label="Enabled">
-      <pbs-input-checkbox label="Enable this location"
-        ng-model="$ctrl.editEndpoint.isActive"></pbs-input-checkbox>
-    </pbs-form-field>
-    <pbs-form-field label="Allow Origination">
-      <pbs-input-checkbox label="Allow Origination From This Location"
-        ng-model="$ctrl.editEndpoint.allowOrigination"></pbs-input-checkbox>
-    </pbs-form-field>
-    <pbs-form-field label="Allow Termination">
-      <pbs-input-checkbox label="Allow Termination To This Location"
-        ng-model="$ctrl.editEndpoint.allowTermination"></pbs-input-checkbox>
-    </pbs-form-field>
+    </pbs-form-field-horizontal>
+    <pbs-form-section>Options</pbs-form-section>
+    <input type="checkbox"
+      label="Enable this location"
+      ng-model="$ctrl.editEndpoint.isActive"
+      pbs-input-checkradio>
+    <input type="checkbox"
+      label="Allow Origination From This Location"
+      ng-model="$ctrl.editEndpoint.allowOrigination"
+      pbs-input-checkradio>
+    <input type="checkbox"
+      label="Allow Termination To This Location"
+      ng-model="$ctrl.editEndpoint.allowTermination"
+      pbs-input-checkradio>
   </pbs-form>
 </pbs-modal>
 

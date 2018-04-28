@@ -1,13 +1,14 @@
 <pbs-block title="User Count">
   <pbs-spinner loading="$ctrl.loading">
-    <form name="selectUserCountForm">
-      <pbs-form-field label="Number of Users (max: {{ $ctrl.max }})">
-        <input class="input"
-          type="number"
-          min="1"
-          max="{{ $ctrl.max }}"
-          ng-model="$ctrl.userCount"
-          required>
+    <form name="selectUserCountForm"
+      novalidate>
+      <pbs-form-section>Number of Users (max: {{ $ctrl.max }})</pbs-form-section>
+      <input class="input"
+        type="number"
+        min="1"
+        max="{{ $ctrl.max }}"
+        ng-model="$ctrl.userCount"
+        required>
       </pbs-form-field>
       <div class="has-text-right margin-top">
         <pbs-button-next text="next"

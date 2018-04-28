@@ -101,6 +101,7 @@
 
     function onUpdateServiceProviderId(event) {
       console.log('onUpdateServiceProviderId', event)
+      if (!ctrl.data) return
       ctrl.data.serviceProviderId = event.serviceProviderId
       ctrl.data.groupId = null
       ctrl.data.users = []
@@ -109,6 +110,7 @@
 
     function onUpdateGroupId(event) {
       console.log('onUpdateGroupId', event)
+      if (!ctrl.data) return
       ctrl.data.groupId = event.groupId
       ctrl.data.users = []
       next()

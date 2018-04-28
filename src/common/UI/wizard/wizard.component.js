@@ -6,9 +6,9 @@
     '      <ul class="menu-list pbs-menu-list">' +
     '        <li ng-repeat="step in $ctrl.steps">' +
     '          <a ng-click="$ctrl.select($index)"' +
-    '             ng-class="{\'is-active\': step.selected, disabled: !step.complete}">' +
-    '             {{ step.label }}' +
-    '            <pbs-check-box class="is-pulled-right" checked="step.complete" ng-show="step.complete"></pbs-check-box>' +
+    '            ng-class="{\'is-active\': step.selected, disabled: !step.complete}">' +
+    '            <pbs-check-box checked="step.complete" ng-show="step.complete"></pbs-check-box>' +
+    '            {{ step.label }}' +
     '          </a>' +
     '        </li>' +
     '      </ul>' +

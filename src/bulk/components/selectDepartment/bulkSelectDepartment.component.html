@@ -2,20 +2,15 @@
   <pbs-block-buttons>
     <pbs-button-compact-add ng-click="$ctrl.add()"></pbs-button-compact-add>
   </pbs-block-buttons>
-  <pbs-spinner loading="$ctrl.loading">
-    <div>
-      <p class="subtitle underline">Would you like to assign all users to a Department?</p>
-      <div class="select">
-        <select ng-model="$ctrl.department"
-          ng-options="department as department.name for department in $ctrl.departments track by department.name">
-          <option value="">-- None --</option>
-        </select>
-      </div>
-    </div>
-    <div class="large-margin-top has-text-right">
-      <pbs-button-next ng-click="$ctrl.complete()"></pbs-button-next>
-    </div>
-  </pbs-spinner>
+  <div>
+    <pbs-form-section>Would you like to assign all users to a Department?</pbs-form-section>
+    <select-department service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      ng-model="$ctrl.department">
+  </div>
+  <div class="large-margin-top has-text-right">
+    <pbs-button-next ng-click="$ctrl.complete()"></pbs-button-next>
+  </div>
 </pbs-block>
 <pbs-modal id="groupDepartmentCreateModal"
   title="Create a Department">
