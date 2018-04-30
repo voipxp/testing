@@ -8,6 +8,7 @@
   function Controller(
     Alert,
     UserService,
+    PasswordService,
     $routeParams,
     $q,
     Session,
@@ -19,6 +20,7 @@
     ctrl.$onInit = onInit
     ctrl.addressSummary = addressSummary
     ctrl.edit = edit
+    ctrl.generatePassword = generatePassword
 
     ctrl.password = password
 
@@ -85,6 +87,7 @@
     }
 
     function changePassword(user, callback) {
+      ctrl.showPassword = ''
       Alert.spinner.open()
       return UserService.update(ctrl.userId, user)
         .then(function() {
@@ -129,6 +132,14 @@
         .finally(function() {
           Alert.spinner.close()
         })
+    }
+    function generatePassword() {
+      console.log('generatePassword')
+      ctrl.editUser = {}
+      ctrl.editUser.newPassword = PasswordService.generate()
+      ctrl.editUser.newPassword2 = ctrl.editUser.newPassword
+      ctrl.showPassword = ctrl.editUser.newPassword
+      console.log('ctrl.editUser.newPassword', ctrl.editUser.newPassword)
     }
 
     function addressSummary() {

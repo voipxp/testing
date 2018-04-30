@@ -20,7 +20,7 @@
         special:
           (rules.restrictMinNonAlphanumericCharacters &&
             parseInt(rules.minNonAlphanumericCharacters, 10)) ||
-          0,
+          1,
         length: parseInt(rules.minLength, 10) || 8
       }
       var digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
