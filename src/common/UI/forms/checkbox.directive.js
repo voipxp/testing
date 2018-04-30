@@ -64,16 +64,15 @@
         var div = angular.element(document.createElement('div'))
         div.addClass('field')
 
-        var p = angular.element(document.createElement('p'))
-        p.addClass('control')
-
         element.wrap(div)
-        element.wrap(p)
 
         // add label
         var label = angular.element(document.createElement('label'))
         label.attr('for', id)
         label.html(attr.label)
+        if (!attr.label) {
+          label.css({ paddingLeft: '1rem' })
+        }
         element.after(label)
 
         // remove outline on focus

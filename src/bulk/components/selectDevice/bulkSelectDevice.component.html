@@ -1,25 +1,25 @@
 <pbs-block title="User Device">
-  <div>
-    <p class="subtitle underline">What type of device endpoint do you want?</p>
-    <label class="radio is-stacked">
-      <input type="radio"
-        value="none"
-        ng-model="$ctrl.endpointType"
-        ng-click="$ctrl.updateEndpoint()"> None
-    </label>
-    <label class="radio is-stacked">
-      <input type="radio"
-        value="accessDeviceEndpoint"
-        ng-model="$ctrl.endpointType"
-        ng-click="$ctrl.updateEndpoint()"> Hosted User
-    </label>
-    <label class="radio is-stacked">
-      <input type="radio"
-        value="trunkAddressing"
-        ng-model="$ctrl.endpointType"
-        ng-click="$ctrl.updateEndpoint()"> Trunking
-    </label>
-  </div>
+  <pbs-form>
+    <pbs-form-section>What type of device endpoint do you want?</pbs-form-section>
+    <input type="radio"
+      value="none"
+      ng-model="$ctrl.endpointType"
+      ng-click="$ctrl.updateEndpoint()"
+      label="None"
+      pbs-input-checkradio>
+    <input type="radio"
+      value="accessDeviceEndpoint"
+      ng-model="$ctrl.endpointType"
+      ng-click="$ctrl.updateEndpoint()"
+      label="Hosted User"
+      pbs-input-checkradio>
+    <input type="radio"
+      value="trunkAddressing"
+      ng-model="$ctrl.endpointType"
+      ng-click="$ctrl.updateEndpoint()"
+      label="Trunking"
+      pbs-input-checkradio>
+  </pbs-form>
   <bulk-select-access-device-endpoint style="display: block"
     class="large-margin-top"
     ng-show="$ctrl.endpointType === 'accessDeviceEndpoint'"

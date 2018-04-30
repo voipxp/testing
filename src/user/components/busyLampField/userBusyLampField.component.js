@@ -3,7 +3,7 @@
     templateUrl:
       'user/components/busyLampField/userBusyLampField.component.html',
     controller: Controller,
-    bindings: { userId: '<' }
+    bindings: { userId: '<', serviceProviderId: '<', groupId: '<' }
   })
 
   function Controller(
@@ -71,9 +71,6 @@
     }
 
     function update(settings, callback) {
-      if (ACL.is('User')) {
-        delete settings.listURI
-      }
       Alert.spinner.open()
       UserBusyLampFieldService.update(ctrl.userId, settings)
         .then(loadSettings)

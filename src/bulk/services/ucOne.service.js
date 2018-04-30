@@ -56,7 +56,10 @@ Services
       endpoints.forEach(function(endpoint) {
         var deviceType = _.get(endpoint, 'accessDevice.deviceType')
         if (deviceType) {
-          required.push(deviceServiceMap[deviceType])
+          var service = deviceServiceMap[deviceType]
+          if (service) {
+            required.push(deviceServiceMap[deviceType])
+          }
         }
       })
       return _.uniq(_.flatten(required))

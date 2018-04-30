@@ -1,5 +1,12 @@
 <nav class="breadcrumb"
   aria-label="breadcrumbs">
+  <button class="button is-small is-pulled-right"
+    ng-click="$ctrl.showHelp = true"
+    ng-show="$ctrl.module.description || $ctrl.module.url">
+    <span class="icon">
+      <i class="fas fa-info"></i>
+    </span>
+  </button>
   <ul>
     <li>
       <a href=""
@@ -25,14 +32,6 @@
       ng-click="$ctrl.openUser($ctrl.userId)"></pbs-breadcrumb>
     <span ng-transclude-replace></span>
   </ul>
-  <button class="button is-small is-pulled-right"
-    style="margin-top: 8px"
-    ng-click="$ctrl.showHelp = true"
-    ng-show="$ctrl.module.description || $ctrl.module.url">
-    <span class="icon">
-      <i class="fas fa-info"></i>
-    </span>
-  </button>
 </nav>
 
 <div class="quickview"

@@ -42,7 +42,6 @@
       ctrl.$postLink = function() {
         var search = $location.search().tab
         var tab = _.find(ctrl.tabs, { label: search }) || ctrl.tabs[0]
-        $location.search({})
         $timeout(function() {
           select(tab)
         }, 1)

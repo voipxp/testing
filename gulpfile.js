@@ -1,15 +1,14 @@
 require('dotenv').config()
+const gulp = require('gulp')
 const annotate = require('gulp-ng-annotate')
 const concat = require('gulp-concat')
 const cssnano = require('gulp-cssnano')
 const del = require('del')
-const gulp = require('gulp')
 const gulpIf = require('gulp-if')
 const htmlmin = require('gulp-htmlmin')
 const sass = require('gulp-sass')
 const series = require('stream-series')
 const replace = require('gulp-replace')
-const sequence = require('run-sequence')
 const templates = require('gulp-angular-templatecache')
 const uglify = require('gulp-uglify')
 const buffer = require('buffer-to-vinyl')
@@ -52,7 +51,12 @@ gulp.task('app.tpl', () => {
     .src(['src/**/*.html'])
     .pipe(replace('<!-- #api -->', Config.APP.apiURL))
     .pipe(htmlmin())
-    .pipe(templates('app.tpl.js', { module: 'odin.app' }))
+    .pipe(
+      templates('app.tpl.js', {
+        module: 'odin.app',
+        transformUrl: url => url.replace(/^\//, '')
+      })
+    )
     .pipe(gulpIf(prod, uglify()))
     .pipe(gulp.dest(dest))
 })
@@ -99,7 +103,6 @@ gulp.task('vendor.js', () => {
       'node_modules/angular-animate/angular-animate.min.js',
       'node_modules/angular-route/angular-route.min.js',
       'node_modules/angular-sanitize/angular-sanitize.min.js',
-      'node_modules/ngUpload/ng-upload.min.js',
       'node_modules/angular-color-picker/angular-color-picker.js',
       'node_modules/angular-jwt/dist/angular-jwt.min.js',
       'node_modules/angular-truncate-2/dist/angular-truncate-2.min.js',
@@ -116,6 +119,8 @@ gulp.task('vendor.js', () => {
       'node_modules/rrule/lib/rrule.js',
       'node_modules/rrule/lib/nlp.js',
       'node_modules/checklist-model/checklist-model.js',
+      'node_modules/marked/marked.min.js',
+      'node_modules/angular-marked/dist/angular-marked.min.js',
       'node_modules/angular-papaparse/dist/js/angular-PapaParse.js'
     ])
     .pipe(concat('vendor.js'))
@@ -129,7 +134,6 @@ gulp.task('vendor.debug', () => {
       'node_modules/angular-animate/angular-animate.min.js.map',
       'node_modules/angular-route/angular-route.min.js.map',
       'node_modules/angular-sanitize/angular-sanitize.min.js.map',
-      'node_modules/ngUpload/ng-upload.min.js.map',
       'node_modules/angular-cache/dist/angular-cache.min.map',
       'node_modules/angular-chart.js/dist/angular-chart.min.js.map'
     ])
@@ -138,22 +142,32 @@ gulp.task('vendor.debug', () => {
 
 gulp.task('clean', () => del(['dist/**/*']))
 
-gulp.task('default', () => {
-  sequence('clean', [
-    'app.css',
-    'app.js',
-    'app.tpl',
-    'app.html',
-    'app.assets',
-    'vendor.css',
-    'vendor.js',
-    'vendor.debug'
-  ])
-})
+gulp.task(
+  'default',
+  gulp.series(
+    'clean',
+    gulp.parallel(
+      'app.css',
+      'app.js',
+      'app.tpl',
+      'app.html',
+      'app.assets',
+      'vendor.css',
+      'vendor.js',
+      'vendor.debug'
+    )
+  )
+)
 
-gulp.task('watch', ['default'], () => {
-  gulp.watch(['src/**/*.css'], ['app.css'])
-  gulp.watch(['src/**/*.js'], ['app.js'])
-  gulp.watch(['src/app/layout/index.html'], ['app.html'])
-  gulp.watch(['src/**/*.html', '!src/app/layout/index.html'], ['app.tpl'])
-})
+gulp.task(
+  'watch',
+  gulp.series('default', () => {
+    gulp.watch(['src/**/*.css'], gulp.series('app.css'))
+    gulp.watch(['src/**/*.js'], gulp.series('app.js'))
+    gulp.watch(['src/app/layout/index.html'], gulp.series('app.html'))
+    gulp.watch(
+      ['src/**/*.html', '!src/app/layout/index.html'],
+      gulp.series('app.tpl')
+    )
+  })
+)

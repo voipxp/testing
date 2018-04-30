@@ -1,6 +1,6 @@
-<p class="subtitle underline">Trunk Addressing</p>
 <pbs-form>
-  <pbs-form-field label="Enterprise Trunk">
+  <pbs-form-section>Trunk Addressing</pbs-form-section>
+  <pbs-form-field-horizontal label="Enterprise Trunk">
     <div class="field has-addons">
       <p class="control is-expanded">
         <input type="text"
@@ -30,8 +30,8 @@
         </a>
       </p>
     </div>
-  </pbs-form-field>
-  <pbs-form-field label="Trunk Group">
+  </pbs-form-field-horizontal>
+  <pbs-form-field-horizontal label="Trunk Group">
     <div class="field has-addons">
       <p class="control is-expanded">
         <input type="text"
@@ -61,12 +61,12 @@
         </a>
       </p>
     </div>
-  </pbs-form-field>
-  <pbs-form-field label="Trunk Group Line Port"
+  </pbs-form-field-horizontal>
+  <pbs-form-field-horizontal label="Trunk Group Line Port"
     ng-show="$ctrl.trunkAddressing.trunkGroupDeviceEndpoint.name">
     <bulk-tag-input ng-model="$ctrl.trunkAddressing.trunkGroupDeviceEndpoint.linePort"
       is-required="$ctrl.trunkAddressing.trunkGroupDeviceEndpoint.name"></bulk-tag-input>
-  </pbs-form-field>
+  </pbs-form-field-horizontal>
 </pbs-form>
 <select-trunk-group service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"

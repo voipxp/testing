@@ -10,20 +10,20 @@
           ({{ $ctrl.services[type].length }} Selected)
         </span>
       </p>
-      <label class="radio is-stacked">
-        <input type="radio"
-          value="skip"
-          ng-model="$ctrl.actions[type]"
-          ng-click="$ctrl.clear(type)"> Skip {{ description }}
-      </label>
-      <label class="radio is-stacked"
-        ng-repeat="action in ['add', 'remove', 'replace']">
-        <input type="radio"
-          ng-value="action"
-          ng-change="$ctrl.clear(type)"
-          ng-model="$ctrl.actions[type]"
-          ng-click="$ctrl.select(type, action)"> {{ action | capitalize }} {{ description }}
-      </label>
+      <input type="radio"
+        value="skip"
+        ng-model="$ctrl.actions[type]"
+        ng-click="$ctrl.clear(type)"
+        label="Skip {{ description }}"
+        pbs-input-checkradio>
+      <input type="radio"
+        ng-repeat="action in ['add', 'remove', 'replace']"
+        ng-value="action"
+        ng-change="$ctrl.clear(type)"
+        ng-model="$ctrl.actions[type]"
+        ng-click="$ctrl.select(type, action)"
+        label="{{ action | capitalize }} {{ description }}"
+        pbs-input-checkradio>
     </div>
     <div class="has-text-right">
       <pbs-button-next ng-disabled="!$ctrl.canComplete()"

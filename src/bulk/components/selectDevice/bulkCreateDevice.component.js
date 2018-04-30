@@ -46,17 +46,17 @@
     }
 
     function select(device) {
+      console.log('select', device)
       ctrl.device = BulkCreateDeviceService.generate(device)
+      console.log('ctrl.device', ctrl.device)
     }
 
     function create(device, callback) {
       var password1 = _.get(ctrl.device, 'accessDeviceCredentials.password')
       var password2 = _.get(ctrl.device, 'accessDeviceCredentials.password2')
-      if (password1) {
-        if (password1 !== password2) {
-          Alert.notify.danger('Passwords Do Not Match')
-          return
-        }
+      if (password1 && password1 !== password2) {
+        Alert.notify.danger('Passwords Do Not Match')
+        return
       }
       sendUpdate(device)
       if (_.isFunction(callback)) callback()

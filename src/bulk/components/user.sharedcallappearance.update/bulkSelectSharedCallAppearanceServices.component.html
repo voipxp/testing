@@ -2,27 +2,27 @@
   <pbs-spinner loading="$ctrl.loading">
     <div ng-repeat="(type, description) in $ctrl.serviceTypes"
       class="large-margin-bottom">
-      <p class="subtitle underline">
+      <pbs-form-section>
         Add {{ description }}
         <span class="is-pulled-right"
           ng-show="$ctrl.services[type].length > 0">
           ({{ $ctrl.services[type].length }} Selected)
         </span>
-      </p>
-      <label class="radio is-stacked">
-        <input type="radio"
-          value="skip"
-          ng-model="$ctrl.actions[type]"
-          ng-click="$ctrl.clear(type)"> Skip {{ description }}
-      </label>
-      <label class="radio is-stacked"
-        ng-repeat="action in ['add']">
-        <input type="radio"
-          ng-value="action"
-          ng-change="$ctrl.clear(type)"
-          ng-model="$ctrl.actions[type]"
-          ng-click="$ctrl.select(type, action)"> {{ action | capitalize }} {{ description }}
-      </label>
+      </pbs-form-section>
+      <input type="radio"
+        value="skip"
+        ng-model="$ctrl.actions[type]"
+        ng-click="$ctrl.clear(type)"
+        label="Skip {{ description }}"
+        pbs-input-checkradio>
+      <input type="radio"
+        ng-repeat="action in ['add']"
+        ng-value="action"
+        ng-change="$ctrl.clear(type)"
+        ng-model="$ctrl.actions[type]"
+        ng-click="$ctrl.select(type, action)"
+        label="{{ action | capitalize }} {{ description }}"
+        pbs-input-checkradio>
     </div>
     <p class="subtitle">Required Licenses: {{ $ctrl.maxEndpoints || 0 }} / {{ $ctrl.endpointCount || 0 }}</p>
     <div class="large-margin-top has-text-right">

@@ -80,12 +80,14 @@
     function loadRequiredServices() {
       var services = UcOneService.services(ctrl.endpoints)
       ctrl.requiredServices = services.map(function(service) {
+        console.log('service', service)
         return {
           serviceName: service,
           alias: aliasMap[service] || service,
           selected: false
         }
       })
+      console.log('required', ctrl.requiredServices)
     }
 
     // build a list of all user services

@@ -6,7 +6,7 @@
       ng-model="$ctrl.number.max"
       ng-pattern="$ctrl.validateNumber"
       required>
-    <pbs-form-field label="Start Number">
+    <pbs-form-field-horizontal label="Start Number">
       <input type="tel"
         class="input"
         ng-pattern="$ctrl.validateNumber"
@@ -14,13 +14,13 @@
         ng-model-options="{ debounce: 100 }"
         ng-change="$ctrl.generateRange()"
         required>
-    </pbs-form-field>
-    <pbs-form-field label="End Number">
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="End Number">
       <input type="tel"
         class="input"
         ng-model="$ctrl.number.max"
         readonly
         required>
-    </pbs-form-field>
+    </pbs-form-field-horizontal>
   </form>
 </pbs-modal>

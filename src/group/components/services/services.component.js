@@ -24,6 +24,7 @@
     ctrl.isUserServices = isUserServices
     ctrl.clone = clone
     ctrl.onClone = onInit
+    ctrl.toggleUnlimited = toggleUnlimited
 
     ctrl.quantity = function(value) {
       return value === -1 ? 'Unlimited' : value
@@ -71,8 +72,12 @@
     }
 
     function edit(service) {
-      console.log('editService', service)
       ctrl.editService = angular.copy(service)
+      // fix when a service has been limited but was set at -1 prior
+      if (service.allowed !== -1 && service.quantity === -1) {
+        ctrl.editService.quantity = service.allowed
+      }
+      ctrl.editService.isUnlimited = ctrl.editService.quantity === -1
       Alert.modal.open('editGroupService', function onSave(close) {
         var runUpdate = function() {
           update(ctrl.editService, close)
@@ -85,6 +90,10 @@
           runUpdate()
         }
       })
+    }
+
+    function toggleUnlimited(service) {
+      service.quantity = service.isUnlimited ? -1 : 1
     }
 
     function clone() {

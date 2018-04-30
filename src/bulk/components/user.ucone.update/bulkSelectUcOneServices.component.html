@@ -1,5 +1,29 @@
 <pbs-block title="Select Services">
-  <p class="subtitle underline">The following services are required.</p>
+  <div ng-repeat="(type, description) in $ctrl.serviceTypes">
+    <pbs-form-section>Add {{ description }}
+      <span class="is-pulled-right"
+        ng-show="$ctrl.services[type].length > 0">
+        ({{ $ctrl.services[type].length }} Selected)
+      </span>
+    </pbs-form-section>
+    <input type="radio"
+      value="skip"
+      ng-model="$ctrl.actions[type]"
+      ng-click="$ctrl.clear(type)"
+      label="Skip {{ description }}"
+      pbs-input-checkradio>
+    <input type="radio"
+      ng-repeat="action in ['add']"
+      ng-value="action"
+      ng-change="$ctrl.clear(type)"
+      ng-model="$ctrl.actions[type]"
+      ng-click="$ctrl.select(type, action)"
+      label="{{ action | capitalize }} {{ description }}"
+      pbs-input-checkradio>
+    <div class="margin-bottom"></div>
+  </div>
+
+  <pbs-form-section>The following services are required</pbs-form-section>
   <table pbs-table>
     <tbody>
       <tr ng-repeat="service in $ctrl.requiredServices | orderBy:['alias','serviceName'] track by service.serviceName">
@@ -11,30 +35,7 @@
       </tr>
     </tbody>
   </table>
-  <div ng-repeat="(type, description) in $ctrl.serviceTypes"
-    class="large-margin-top">
-    <p class="subtitle underline">
-      Add {{ description }}
-      <span class="is-pulled-right"
-        ng-show="$ctrl.services[type].length > 0">
-        ({{ $ctrl.services[type].length }} Selected)
-      </span>
-    </p>
-    <label class="radio is-stacked">
-      <input type="radio"
-        value="skip"
-        ng-model="$ctrl.actions[type]"
-        ng-click="$ctrl.clear(type)"> Skip {{ description }}
-    </label>
-    <label class="radio is-stacked"
-      ng-repeat="action in ['add']">
-      <input type="radio"
-        ng-value="action"
-        ng-change="$ctrl.clear(type)"
-        ng-model="$ctrl.actions[type]"
-        ng-click="$ctrl.select(type, action)"> {{ action | capitalize }} {{ description }}
-    </label>
-  </div>
+
   <div class="large-margin-top has-text-right">
     <pbs-button-next ng-click="$ctrl.next()"
       ng-disabled="!$ctrl.canComplete()"></pbs-button-next>

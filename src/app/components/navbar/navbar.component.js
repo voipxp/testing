@@ -39,8 +39,10 @@
     }
 
     function loadSession() {
-      ctrl.session = Session.data()
-      ctrl.showSearch = ACL.has('Service Provider')
+      Session.load().then(function(session) {
+        ctrl.session = session
+        ctrl.showSearch = ACL.has('Service Provider')
+      })
     }
 
     function logout() {
