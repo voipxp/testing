@@ -86,6 +86,13 @@
 <pbs-modal id="editUserPassword"
   title="Edit Password">
   <pbs-form>
+    <pbs-form-field-horizontal label="Generate Random Password">
+      <pbs-button-compact-refresh title="Generate Password"
+                                  ng-click="$ctrl.generatePassword()">
+      </pbs-button-compact-refresh>
+      {{$ctrl.showPassword}}
+    </pbs-form-field-horizontal>
+
     <pbs-form-field-horizontal label="Current Password"
       ng-if="$ctrl.isCurrentUser">
       <input type="password"

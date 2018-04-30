@@ -20,6 +20,13 @@
 <pbs-modal id="editUserPortalPasscode"
   title="Edit Portal Passcode">
   <form>
+    <pbs-form-field label="Generate Random Passcode">
+        <pbs-button-compact-refresh title="Generate PassCode"
+                                    ng-click="$ctrl.generatePasscode()">
+        </pbs-button-compact-refresh>
+      {{$ctrl.showPasscode}}
+    </pbs-form-field>
+
     <pbs-form-field label="Current Passcode"
       ng-if="$ctrl.isUser()">
       <input type="password"
