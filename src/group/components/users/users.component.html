@@ -12,42 +12,34 @@
       <pbs-button-compact-bulk ng-click="$ctrl.bulk()"
         title="Add Users in Bulk"
         if-module-create="'Provisioning'"></pbs-button-compact-bulk>
+      <pbs-dropdown-button title="Edit Users in Bulk"
+        items="['Edit CLID Number']"
+        if-module-update="'Provisioning'"
+        on-select="$ctrl.edit($event)"></pbs-dropdown-button>
     </pbs-block-buttons>
-    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
-    <table pbs-table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Last Name</th>
-          <th>First Name</th>
-          <th>Phone</th>
-          <th>Ext</th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr ng-if="results.length < 1">
-          <td colspan="100">No Users Found
-            <strong ng-if="$ctrl.search">for {{ $ctrl.search }}</strong>
-          </td>
-        </tr>
-      </tfoot>
-      <tbody>
-        <tr class="hover"
-          ng-click="$ctrl.open(user)"
-          ng-repeat="user in results = ($ctrl.users | filter:$ctrl.search | orderBy:'userId') | paginate:$ctrl.pager track by user.userId">
-          <td>{{ user.userId }}</td>
-          <td>{{ user.lastName }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.phoneNumber }}</td>
-          <td>{{ user.extension }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <pbs-pagination items="results.length"
-      limit="25"
-      on-update="$ctrl.onPagination($event)"></pbs-pagination>
+
+    <pbs-data-table order-by="userId"
+      columns="$ctrl.columns"
+      items="$ctrl.users"
+      show-select="$ctrl.showSelect"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-select="$ctrl.onSelect($event)"
+      on-click="$ctrl.onClick($event)"></pbs-data-table>
   </pbs-block>
 </pbs-spinner>
 <user-create service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
   on-update="$ctrl.onCreate($event)"></user-create>
+<pbs-modal id="bulkEditUserCLID"
+  title="CLID: Edit {{ $ctrl.editCount }} Users">
+  <pbs-form>
+    <pbs-form-field-horizontal label="Calling Line Id Phone Number">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.callingLineIdPhoneNumber">
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>

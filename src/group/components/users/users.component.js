@@ -16,15 +16,40 @@
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.open = open
     ctrl.add = add
     ctrl.bulk = bulk
     ctrl.onCreate = onCreate
-    ctrl.onPagination = onPagination
+    ctrl.edit = edit
+    ctrl.onClick = onClick
+    ctrl.onSelect = onSelect
 
-    function onPagination(event) {
-      ctrl.pager = event.pager
-    }
+    ctrl.columns = [
+      {
+        key: 'userId',
+        label: 'User ID'
+      },
+      {
+        key: 'firstName',
+        label: 'First Name'
+      },
+      {
+        key: 'lastName',
+        label: 'Last Name'
+      },
+      {
+        key: 'phoneNumber',
+        label: 'Phone Number'
+      },
+      {
+        key: 'extension',
+        label: 'Extension'
+      },
+      {
+        key: 'callingLineIdPhoneNumber',
+        label: 'CLID',
+        hidden: true
+      }
+    ]
 
     function onInit() {
       ctrl.loading = true
@@ -37,13 +62,14 @@
         })
     }
 
-    function loadUsers() {
-      return UserService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-        function(data) {
-          ctrl.users = data
-          return data
-        }
-      )
+    function loadUsers(extended) {
+      return UserService.index(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        extended
+      ).then(function(data) {
+        ctrl.users = data
+      })
     }
 
     function add() {
@@ -59,12 +85,51 @@
       })
     }
 
+    function open(user) {
+      Route.open('users')(ctrl.serviceProviderId, ctrl.groupId, user.userId)
+    }
+
     function onCreate(event) {
       open(event.user)
     }
 
-    function open(user) {
-      Route.open('users')(ctrl.serviceProviderId, ctrl.groupId, user.userId)
+    function onClick(event) {
+      open(event)
+    }
+
+    function edit() {
+      Alert.spinner.open()
+      loadUsers(true)
+        .then(function() {
+          var column = _.find(ctrl.columns, { key: 'callingLineIdPhoneNumber' })
+          column.hidden = false
+          ctrl.showSelect = true
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    }
+
+    function onSelect(users) {
+      ctrl.editSettings = { callingLineIdPhoneNumber: null }
+      ctrl.editCount = users.length
+      console.log('onSelect', users)
+      Alert.modal.open('bulkEditUserCLID', function(close) {
+        bulkUpdate(users, ctrl.editSettings, close)
+      })
+    }
+
+    function bulkUpdate(users, data, callback) {
+      Alert.spinner.open()
+      UserService.bulk({ users: users, data: data })
+        .then(function() {
+          return loadUsers(true)
+        })
+        .then(function() {
+          Alert.notify.success('Users Updated')
+          callback()
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()

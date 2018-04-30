@@ -24,6 +24,7 @@
     .directive('pbsButtonCompactUsers', pbsButtonCompact('fa-users'))
     .directive('pbsButtonCompactClone', pbsButtonCompact('fa-clone'))
     .directive('pbsButtonCompactBulk', pbsButtonCompact('fa-sitemap'))
+    .directive('pbsButtonCompactCogs', pbsButtonCompact('fa-cogs'))
 
   function pbsButtonCompact(icon) {
     button.$inject = []

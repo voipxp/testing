@@ -5,10 +5,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Call Forwarding Always Users">
     <pbs-block-buttons>
-      <pbs-button-compact-bulk ng-click="$ctrl.showSelect = true"
-        ng-show="!$ctrl.showSelect"></pbs-button-compact-bulk>
-      <pbs-button-compact-cancel ng-click="$ctrl.showSelect = false"
-        ng-show="$ctrl.showSelect"></pbs-button-compact-bulk>
+      <pbs-button-compact-cogs ng-click="$ctrl.showSelect = !$ctrl.showSelect"></pbs-button-compact-cogs>
     </pbs-block-buttons>
     <pbs-data-table order-by="user.userId"
       columns="$ctrl.columns"

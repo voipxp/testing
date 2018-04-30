@@ -263,6 +263,30 @@
           name: 'Call Forwarding Always',
           service: 'Call Forwarding Always',
           path: route('callForwardingAlways')
+        },
+        {
+          type: 'user',
+          name: 'Call Forwarding Busy',
+          service: 'Call Forwarding Busy',
+          path: route('callForwardingBusy')
+        },
+        {
+          type: 'user',
+          name: 'Call Forwarding No Answer',
+          service: 'Call Forwarding No Answer',
+          path: route('callForwardingNoAnswer')
+        },
+        {
+          type: 'user',
+          name: 'Call Forwarding Not Reachable',
+          service: 'Call Forwarding Not Reachable',
+          path: route('callForwardingNotReachable')
+        },
+        {
+          type: 'user',
+          name: 'Calling Line ID Delivery Blocking',
+          service: 'Calling Line ID Delivery Blocking',
+          path: route('callingLineIdDeliveryBlocking')
         }
       ]
     }

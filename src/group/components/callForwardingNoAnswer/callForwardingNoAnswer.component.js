@@ -10,23 +10,53 @@
     $routeParams,
     Alert,
     GroupCallForwardingNoAnswerService,
-    UserServiceService,
-    Route
+    UserCallForwardingNoAnswerService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.open = open
-    ctrl.toggle = toggle
+    ctrl.onClick = onClick
+    ctrl.onSelect = onSelect
+    ctrl.options = UserCallForwardingNoAnswerService.options
+
+    ctrl.columns = [
+      {
+        key: 'user.userId',
+        label: 'User ID'
+      },
+      {
+        key: 'user.firstName',
+        label: 'First Name'
+      },
+      {
+        key: 'user.lastName',
+        label: 'Last Name'
+      },
+      {
+        key: 'user.phoneNumber',
+        label: 'Phone Number'
+      },
+      {
+        key: 'data.isActive',
+        label: 'Active',
+        type: 'boolean',
+        align: 'centered'
+      },
+      {
+        key: 'data.forwardToPhoneNumber',
+        label: 'Forward To'
+      },
+      {
+        key: 'data.numberOfRings',
+        label: 'Number Rings'
+      }
+    ]
 
     function onInit() {
       ctrl.loading = true
       return load()
-        .catch(function(error) {
-          console.log('error', error)
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
@@ -37,39 +67,52 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        ctrl.users = data
+        ctrl.users = _.filter(data, function(item) {
+          return _.get(item, 'service.assigned')
+        })
+        console.log('users', ctrl.users)
       })
     }
 
-    function open(user) {
-      Route.open(
-        'users',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        user.profile.userId
-      )('callForwardingNoAnswer')
+    function onClick(event) {
+      ctrl.editSettings = event.data
+      ctrl.editTitle = event.user.userId
+      Alert.modal.open('editUserCallForwardingNoAnswer', function(close) {
+        update(event.user.userId, ctrl.editSettings, close)
+      })
     }
 
-    function toggle(user) {
-      var singleService = {}
-      singleService['userServices'] = [user.service]
-      UserServiceService.update(user.profile.userId, singleService)
+    function onSelect(event) {
+      var users = _.map(event, 'user')
+      ctrl.editSettings = {}
+      ctrl.editTitle = users.length + ' Users'
+      Alert.modal.open('editUserCallForwardingNoAnswer', function(close) {
+        bulk({ data: ctrl.editSettings, users: users }, close)
+      })
+    }
+
+    function update(userId, settings, callback) {
+      Alert.spinner.open()
+      UserCallForwardingNoAnswerService.update(userId, settings)
         .then(load)
         .then(function() {
-          load()
-          var message = user.service.assigned ? 'Assigned' : 'Unassigned'
-          var action = user.service.assigned
-            ? Alert.notify.success
-            : Alert.notify.warning
-          action(
-            user.profile.userId + ' ' + user.service.serviceName + ' ' + message
-          )
+          Alert.notify.success('User Settings Updated')
+          callback()
         })
-        .catch(function(error) {
-          console.log('error', error.data)
-          Alert.notify.danger(error)
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    }
+
+    function bulk(data, callback) {
+      Alert.spinner.open()
+      UserCallForwardingNoAnswerService.bulk(data)
+        .then(load)
+        .then(function() {
+          Alert.notify.success('Bulk Settings Updated')
+          callback()
         })
-        .finally(function() {})
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()

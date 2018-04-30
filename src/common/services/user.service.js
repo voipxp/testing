@@ -7,17 +7,22 @@
       store: store,
       show: show,
       update: update,
-      destroy: destroy
+      destroy: destroy,
+      bulk: bulk
     }
     var cache = CacheFactory('UserService')
     var url = Route.api('users')
 
     return service
 
-    function index(serviceProviderId, groupId) {
+    function index(serviceProviderId, groupId, extended) {
       return $http
         .get(url(), {
-          params: { serviceProviderId: serviceProviderId, groupId: groupId },
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            extended: extended
+          },
           cache: cache
         })
         .then(function(response) {
@@ -45,6 +50,17 @@
         cache.removeAll()
         return response.data
       })
+    }
+
+    function bulk(data) {
+      return $http
+        .put(url(), data)
+        .then(function(response) {
+          return response.data
+        })
+        .finally(function() {
+          cache.removeAll()
+        })
     }
 
     function destroy(userId) {

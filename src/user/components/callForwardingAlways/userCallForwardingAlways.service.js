@@ -1,9 +1,9 @@
 ;(function() {
   angular
     .module('odin.user')
-    .factory('UserCallForwardingAlwaysService', UserCallForwardingAlwaysService)
+    .factory('UserCallForwardingAlwaysService', Service)
 
-  function UserCallForwardingAlwaysService($http, Route, CacheFactory) {
+  function Service($http, Route, CacheFactory) {
     var url = Route.api('/services/users/callforwardingalways')
     var service = { show: show, update: update, bulk: bulk }
     service.options = {

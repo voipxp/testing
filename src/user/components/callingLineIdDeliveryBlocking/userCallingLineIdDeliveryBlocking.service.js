@@ -1,13 +1,14 @@
 ;(function() {
   angular
     .module('odin.user')
-    .factory('UserCallingLineIdDeliveryBlockingService', Controller)
+    .factory('UserCallingLineIdDeliveryBlockingService', Service)
 
-  function Controller($http, Route) {
+  function Service($http, Route) {
     var url = Route.api('/services/users/callinglineiddeliveryblocking')
     var service = {
       show: show,
-      update: update
+      update: update,
+      bulk: bulk
     }
 
     return service
@@ -20,6 +21,12 @@
 
     function update(userId, obj) {
       return $http.put(url(userId), obj).then(function(response) {
+        return response.data
+      })
+    }
+
+    function bulk(data) {
+      return $http.put(url(), data).then(function(response) {
         return response.data
       })
     }

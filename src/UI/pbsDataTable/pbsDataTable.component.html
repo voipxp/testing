@@ -45,6 +45,7 @@
             pbs-input-checkradio>
         </th>
         <th ng-repeat="column in $ctrl.columns"
+          ng-show="!column.hidden"
           ng-class="{
           'has-text-centered': column.align === 'centered',
           'has-text-right': column.align === 'right'
@@ -81,6 +82,7 @@
             pbs-input-checkradio>
         </td>
         <td ng-repeat="column in $ctrl.columns"
+          ng-show="!column.hidden"
           ng-switch="column.type"
           ng-class="{
           'has-text-centered': column.align === 'centered',

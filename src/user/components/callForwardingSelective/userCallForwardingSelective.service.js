@@ -1,12 +1,9 @@
 ;(function() {
   angular
     .module('odin.user')
-    .factory(
-      'UserCallForwardingSelectiveService',
-      UserCallForwardingSelectiveService
-    )
+    .factory('UserCallForwardingSelectiveService', Service)
 
-  function UserCallForwardingSelectiveService($http, Route) {
+  function Service($http, Route) {
     var url = Route.api('/services/users/callforwardingselective')
     var service = { show: show, update: update, index: index }
     service.options = {}
