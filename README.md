@@ -26,15 +26,15 @@ By default the path to the API is local eg: /api/v1/status.  If you are running 
 API_BASE=http://127.0.0.1:9000/api/v1/status.
 ```
 
-### NPM Commands
-Some helpful npm commands.
+### Yarn Commands
+Some helpful yarn commands.
 
 ```
-> npm run lint   # lint all the js files
-> npm run fix    # fix all the js files
-> npm run build  # build a production dist
-> npm run watch  # watch src files and rebuild on changes
-> npm run serve  # serve a live version of dist with hot-reload
+> yarn run lint   # lint all the js files
+> yarn run fix    # fix all the js files
+> yarn run build  # build a production dist
+> yarn run watch  # watch src files and rebuild on changes
+> yarn run serve  # serve a live version of dist with hot-reload
 ```
 
 ### Environmental Variables
