@@ -7,6 +7,8 @@
   function Controller() {
     var ctrl = this
 
+    ctrl.filter = {}
+
     ctrl.onSelect = function(event) {
       ctrl.selected = event
     }

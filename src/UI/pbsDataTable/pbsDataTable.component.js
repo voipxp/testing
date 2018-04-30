@@ -7,6 +7,7 @@
       columns: '<',
       items: '<',
       limitTo: '<',
+      filter: '<',
       showSelect: '=',
       onClick: '&?',
       onSelect: '&?',
@@ -27,6 +28,7 @@
     ctrl.toggleAll = toggleAll
     ctrl.sort = sort
     ctrl.selected = []
+    ctrl.getValue = getValue
 
     function onInit() {
       ctrl.order = {
@@ -34,7 +36,6 @@
         reverse: false
       }
       ctrl.canClick = _.isFunction(ctrl.onClick)
-      console.log('canClick', ctrl.canClick)
     }
 
     function onPagination(event) {
@@ -47,8 +48,11 @@
       }
     }
 
+    function getValue(item, key) {
+      return _.get(item, key)
+    }
+
     function toggleAll() {
-      console.log('toggleAll', ctrl.selectAll)
       ctrl.selected = ctrl.selectAll ? angular.copy(ctrl.items) : []
     }
 
@@ -66,11 +70,17 @@
       console.log('order', ctrl.order)
     }
 
+    function cancel() {
+      ctrl.selected = []
+      ctrl.selectAll = false
+      ctrl.showSelect = false
+    }
+
     function sendSelect() {
-      if (_.isFunction(ctrl.onSelect)) {
+      if (_.isFunction(ctrl.onSelect) && ctrl.selected.length > 0) {
         ctrl.onSelect(EventEmitter(ctrl.selected))
       }
-      ctrl.showSelect = false
+      cancel()
     }
   }
 })()

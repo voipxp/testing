@@ -43,6 +43,18 @@
                 ng-model="$ctrl.limitTo">
             </p>
           </div>
+          <pbs-form-section>Filters</pbs-form-section>
+          <div class="buttons has-addons">
+            <button class="button"
+              ng-click="$ctrl.filter.isActive = undefined"
+              ng-class="{'is-primary': $ctrl.filter.isActive === undefined}">All</button>
+            <button class="button"
+              ng-click="$ctrl.filter.isActive = true"
+              ng-class="{'is-primary': $ctrl.filter.isActive === true}">On</button>
+            <button class="button"
+              ng-click="$ctrl.filter.isActive = false"
+              ng-class="{'is-primary': $ctrl.filter.isActive === false}">Off</button>
+          </div>
         </pbs-column>
         <pbs-column>
           <pbs-form-section>Callbacks</pbs-form-section>
@@ -66,6 +78,7 @@
       <pbs-data-table order-by="userId"
         columns="$ctrl.columns"
         items="$ctrl.items"
+        filter="$ctrl.filter"
         show-select="$ctrl.showSelect"
         is-narrow="$ctrl.isNarrow"
         is-compact="$ctrl.isCompact"
@@ -90,6 +103,7 @@
 <pbs-data-table order-by="userId"
   columns="$ctrl.columns"
   items="$ctrl.items"
+  filter="$ctrl.filter"
   show-select="$ctrl.showSelect"
   is-narrow="$ctrl.isNarrow"
   is-compact="$ctrl.isCompact"
