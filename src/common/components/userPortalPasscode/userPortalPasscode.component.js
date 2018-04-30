@@ -6,7 +6,13 @@
     bindings: { userId: '=', readOnly: '<' }
   })
 
-  function Controller(Alert, UserPortalPasscodeService, PasscodeService, $scope, Session) {
+  function Controller(
+    Alert,
+    UserPortalPasscodeService,
+    PasscodeService,
+    $scope,
+    Session
+  ) {
     var ctrl = this
     ctrl.edit = edit
     ctrl.generatePasscode = generatePasscode
