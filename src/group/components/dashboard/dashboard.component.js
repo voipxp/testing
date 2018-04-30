@@ -257,6 +257,12 @@
           name: 'Outgoing Calling Plans',
           module: 'Group Calling Plans',
           path: route('callingPlans', 'outgoing', 'users')
+        },
+        {
+          type: 'user',
+          name: 'Call Forwarding Always',
+          module: 'Call Forwarding Always',
+          path: route('callForwardingAlways')
         }
       ]
     }
