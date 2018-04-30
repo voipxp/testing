@@ -261,7 +261,7 @@
         {
           type: 'user',
           name: 'Call Forwarding Always',
-          module: 'Call Forwarding Always',
+          service: 'Call Forwarding Always',
           path: route('callForwardingAlways')
         }
       ]
