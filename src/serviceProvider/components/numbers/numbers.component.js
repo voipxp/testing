@@ -16,8 +16,6 @@
     ctrl.add = add
     ctrl.edit = edit
     ctrl.remove = remove
-    ctrl.filterStatus = filterStatus
-    ctrl.search = {}
 
     function onInit() {
       ctrl.loading = true
@@ -33,9 +31,7 @@
     function loadNumbers() {
       return ServiceProviderNumberService.index(ctrl.serviceProviderId).then(
         function(data) {
-          console.log('numbers', data)
           ctrl.numbers = data
-          return data
         }
       )
     }
@@ -48,16 +44,14 @@
     }
 
     function edit(number) {
-      ctrl.selectedNumbers = NumberService.expand(number)
-      Alert.modal.open(
-        'serviceProviderNumbersEditModal',
-        function onSave(close) {
-          close()
-        },
-        function onDelete(close) {
-          remove(number, close)
-        }
-      )
+      if (number.groupId) return
+      ctrl.editNumbers = {
+        unassign: [],
+        assigned: NumberService.expand(number)
+      }
+      Alert.modal.open('serviceProviderNumbersEditModal', function(close) {
+        remove(ctrl.editNumbers.unassign, close)
+      })
     }
 
     function create(number, callback) {
@@ -68,47 +62,20 @@
           Alert.notify.success('Number Added')
           callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
-    function remove(number, callback) {
-      var numberType = number.max ? 'range of numbers' : 'number'
-      Alert.confirm
-        .open('Are you sure you want to delete this ' + numberType + '?')
+    function remove(numbers, callback) {
+      Alert.spinner.open()
+      ServiceProviderNumberService.destroy(ctrl.serviceProviderId, numbers)
+        .then(loadNumbers)
         .then(function() {
-          Alert.spinner.open()
-          ServiceProviderNumberService.destroy(ctrl.serviceProviderId, [number])
-            .then(loadNumbers)
-            .then(function() {
-              _.remove(ctrl.selectedNumbers, number)
-              Alert.notify.success('Number Removed')
-              if (_.isFunction(callback)) {
-                callback()
-              }
-            })
-            .catch(function(error) {
-              Alert.notify.danger(error)
-            })
-            .finally(function() {
-              Alert.spinner.close()
-            })
+          Alert.notify.success('Number Removed')
+          callback()
         })
-    }
-
-    function filterStatus(item) {
-      ctrl.search.status = ctrl.search.status || 'all'
-      if (ctrl.search.status === 'available') {
-        return !item.groupId
-      } else if (ctrl.search.status === 'assigned') {
-        return item.groupId
-      } else {
-        return true
-      }
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()
