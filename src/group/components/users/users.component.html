@@ -12,10 +12,10 @@
       <pbs-button-compact-bulk ng-click="$ctrl.bulk()"
         title="Add Users in Bulk"
         if-module-create="'Provisioning'"></pbs-button-compact-bulk>
-      <pbs-dropdown-button title="Edit Users in Bulk"
+      <pbs-button-dropdown title="Edit Users in Bulk"
         items="['Edit CLID Number']"
         if-module-update="'Provisioning'"
-        on-select="$ctrl.edit($event)"></pbs-dropdown-button>
+        on-select="$ctrl.edit($event)"></pbs-button-dropdown>
     </pbs-block-buttons>
 
     <pbs-data-table order-by="userId"

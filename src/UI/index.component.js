@@ -42,6 +42,10 @@
       {
         component: 'pbsDataTable',
         description: 'Data Table Component'
+      },
+      {
+        component: 'pbsButtonDropdown',
+        description: 'Compact Button Dropdown'
       }
     ]
   }

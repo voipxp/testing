@@ -1,6 +1,6 @@
 ;(function() {
-  angular.module('odin.UI').component('pbsDropdownButton', {
-    templateUrl: 'UI/pbsDropdownButton/pbsDropdownButton.component.html',
+  angular.module('odin.UI').component('pbsButtonDropdown', {
+    templateUrl: 'UI/pbsDropdownButton/pbsButtonDropdown.component.html',
     bindings: {
       icon: '@',
       items: '<',
@@ -12,8 +12,9 @@
   function Controller(EventEmitter) {
     var ctrl = this
 
-    ctrl.$onInit = function() {
-      ctrl.icon = ctrl.icon || 'fa-cogs'
+    ctrl.$onChanges = function(change) {
+      if (!change.icon) return
+      ctrl.icon = change.icon.currentValue || 'fa-cogs'
     }
 
     ctrl.select = function(item) {

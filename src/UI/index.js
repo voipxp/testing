@@ -6,6 +6,10 @@
     {
       path: 'pbsDataTable',
       component: 'pbsDataTableDoc'
+    },
+    {
+      path: 'pbsButtonDropdown',
+      component: 'pbsButtonDropdownDoc'
     }
   ]
   angular.module('odin.UI', ['hc.marked']).config(function(PbsRouteProvider) {
