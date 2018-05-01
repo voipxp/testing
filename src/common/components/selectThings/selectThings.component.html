@@ -1,7 +1,11 @@
 <pbs-columns>
   <pbs-column>
     <h4 style="margin-bottom: 1rem">
-      Available ({{ $ctrl.available.length }})
+      {{ $ctrl.availableTitle || 'Available' }} ({{ $ctrl.available.length }})
+      <small>
+        <a href=""
+          ng-click="$ctrl.addAll()">Select All</a>
+      </small>
     </h4>
     <pbs-table-search ng-model="$ctrl.searchAvailable"></pbs-table-search>
     <table pbs-table>
@@ -21,7 +25,11 @@
   </pbs-column>
   <pbs-column>
     <h4 style="margin-bottom: 1rem">
-      Selected ({{ $ctrl.selected.length || 0 }})
+      {{ $ctrl.selectedTitle || 'Selected' }} ({{ $ctrl.selected.length || 0 }})
+      <small>
+        <a href=""
+          ng-click="$ctrl.removeAll()">Select All</a>
+      </small>
     </h4>
     <pbs-table-search ng-model="$ctrl.searchSelected"></pbs-table-search>
     <table pbs-table>

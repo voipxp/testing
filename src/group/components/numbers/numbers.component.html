@@ -5,35 +5,37 @@
 
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Numbers">
-    <pbs-block-buttons style="font-size: 14px; font-weight: normal;">
-      <label class="radio">
-        <input type="radio"
-          ng-model="$ctrl.status"
-          value="all"> All &nbsp;
-      </label>
-      <label class="radio">
-        <input type="radio"
-          ng-model="$ctrl.status"
-          value="assigned"> Assigned &nbsp;
-      </label>
-      <label class="radio"
-        style="margin-right: 5px;">
-        <input type="radio"
-          ng-model="$ctrl.status"
-          value="activated"> Activated &nbsp;
-      </label>
-      <pbs-button-compact-add ng-click="$ctrl.assign()"
+    <pbs-block-buttons>
+      <pbs-button-compact-add ng-click="$ctrl.add()"
         title="Assign Numbers">
       </pbs-button-compact-add>
     </pbs-block-buttons>
-    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <pbs-columns>
+      <pbs-column>
+        <pbs-table-search ng-model="$ctrl.search"
+          style="margin-bottom: 0"></pbs-table-search>
+      </pbs-column>
+      <pbs-column class="is-narrow">
+        <div class="buttons has-addons">
+          <span class="button"
+            ng-class="{'is-success': $ctrl.filter.assigned === undefined}"
+            ng-click="$ctrl.filter = {}">All</span>
+          <span class="button"
+            ng-class="{'is-success': $ctrl.filter.assigned === true}"
+            ng-click="$ctrl.filter.assigned = true">Assigned</span>
+          <span class="button"
+            ng-class="{'is-success': $ctrl.filter.assigned === false}"
+            ng-click="$ctrl.filter.assigned = false">Unassigned</span>
+        </div>
+      </pbs-column>
+    </pbs-columns>
     <table pbs-table>
       <thead>
         <tr>
-          <th>Start</th>
-          <th>End</th>
-          <th class="action">Assigned</th>
-          <th class="action">Activated</th>
+          <th>Range Start</th>
+          <th>Range End</th>
+          <th class="has-text-centered">Assigned</th>
+          <th class="has-text-centered">Activated</th>
         </tr>
       </thead>
       <tfoot>
@@ -44,60 +46,43 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover"
-          ng-repeat="number in $ctrl.numbers | filter:$ctrl.search | filter:$ctrl.filterStatus | orderBy:'min' as results track by number.min"
-      
-          ng-click="$ctrl.edit(number)">
+        <tr ng-class="{hover: !number.assigned}"
+          ng-click="$ctrl.edit(number)"
+          ng-repeat="number in $ctrl.numbers | filter:$ctrl.search | filter:$ctrl.filter | orderBy:'min' as results track by number.min">
           <td>{{ number.min }}</td>
           <td>{{ number.max }}</td>
-          <td class="action">
+          <td class="has-text-centered">
             <pbs-check-box checked="number.assigned"></pbs-check-box>
           </td>
-          <td class="action">
-            <pbs-check-box checked="number.activated"></pbs-check-box>
+          <td no-parent-click>
+            <input type="checkbox"
+              ng-model="number.activated"
+              ng-click="$ctrl.toggle(number)"
+              pbs-input-switch="centered"
+              ng-disabled="number.isLoading">
           </td>
         </tr>
       </tbody>
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="edit-groupNumbers"
-  title="{{ $ctrl.modalTitle }}">
-  <pbs-form>
-    <p class="subtitle">Assigned:
-      <pbs-check-box checked="$ctrl.editNumber.assigned"></pbs-check-box>
-    </p>
-    <pbs-form-field label="Activated">
-      <pbs-input-checkbox label="Activate Number"
-        ng-model="$ctrl.editNumber.activated"></pbs-input-checkbox>
-    </pbs-form-field>
-  </pbs-form>
+
+<pbs-modal id="groupNumbersEditModal"
+  title="Edit Numbers">
+  <select-things property="min"
+    selected="$ctrl.editNumbers.assigned"
+    available="$ctrl.editNumbers.unassign"
+    selected-title="Assigned"
+    available-title="Unassign">
+  </select-things>
 </pbs-modal>
-<pbs-modal id="assign-GroupNumbers"
+
+<pbs-modal id="groupNumbersAddModal"
   title="Assign Numbers">
-  <table pbs-table>
-    <thead>
-      <tr>
-        <th>Range Start</th>
-        <th>Range End</th>
-        <th class="action">&nbsp;</th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr ng-if="availableResults.length < 1">
-        <td colspan="100">No Available Numbers Found</td>
-      </tr>
-    </tfoot>
-    <tbody>
-      <tr class="hover"
-        ng-repeat="number in $ctrl.availableNumbers | orderBy:'min' as availableResults track by number.min "
-        ng-click="$ctrl.toggle(number)">
-        <td>{{ number.min }}</td>
-        <td>{{ number.max }}</td>
-        <td class="action">
-          <pbs-check-box checked="number.groupId"></pbs-check-box>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <select-things property="min"
+    selected="$ctrl.addNumbers.assign"
+    available="$ctrl.addNumbers.unassigned"
+    selected-title="Assign"
+    available-title="Unassigned">
+  </select-things>
 </pbs-modal>
