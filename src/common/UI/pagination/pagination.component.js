@@ -43,6 +43,8 @@
     ctrl.$onChanges = onChanges
     ctrl.previous = previous
     ctrl.next = next
+    ctrl.first = first
+    ctrl.last = last
 
     function onInit() {
       if (ctrl.position === 'right') {
@@ -76,6 +78,16 @@
     function next() {
       if (ctrl.page === ctrl.pages) return
       ctrl.page++
+      sendUpdate()
+    }
+
+    function first() {
+      ctrl.page = 1
+      sendUpdate()
+    }
+
+    function last() {
+      ctrl.page = ctrl.pages
       sendUpdate()
     }
 

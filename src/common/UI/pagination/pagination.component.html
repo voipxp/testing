@@ -2,10 +2,17 @@
   ng-class="$ctrl.positionClass"
   ng-show="$ctrl.items > $ctrl.limit">
   <button class="button is-small"
+    ng-click="$ctrl.first()"
+    ng-disabled="$ctrl.page === 1">
+    <span class="icon">
+      <i class="fas fa-angle-double-left"></i>
+    </span>
+  </button>
+  <button class="button is-small"
     ng-click="$ctrl.previous()"
     ng-disabled="$ctrl.page === 1">
     <span class="icon">
-      <i class="fas fa-chevron-left"></i>
+      <i class="fas fa-angle-left"></i>
     </span>
   </button>
   <span class="button is-small is-static">{{ $ctrl.page }}/{{ $ctrl.pages }}</span>
@@ -13,7 +20,14 @@
     ng-click="$ctrl.next()"
     ng-disabled="$ctrl.page === $ctrl.pages">
     <span class="icon is-small">
-      <i class="fas fa-chevron-right"></i>
+      <i class="fas fa-angle-right"></i>
+    </span>
+  </button>
+  <button class="button is-small"
+    ng-click="$ctrl.last()"
+    ng-disabled="$ctrl.page === $ctrl.pages">
+    <span class="icon is-small">
+      <i class="fas fa-angle-double-right"></i>
     </span>
   </button>
 </div>
