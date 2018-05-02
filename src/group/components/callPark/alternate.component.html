@@ -11,22 +11,22 @@
     </p>
     <p class="control"
       ng-show="$ctrl.settings.recallAlternateUserId && $ctrl.settings.recallTo === 'Parking User Only'">
-      <a class="button"
+      <button class="button"
         ng-click="$ctrl.settings.recallAlternateUserId = null"
         title="Remove User">
         <span class="icon">
           <i class="fas fa-trash"></i>
         </span>
-      </a>
+      </button>
     </p>
     <p class="control">
-      <a class="button"
+      <button class="button"
         ng-click="$ctrl.select()"
         title="Select a User">
         <span class="icon">
           <i class="fas fa-list"></i>
         </span>
-      </a>
+      </button>
     </p>
   </div>
 </pbs-form-field>

@@ -28,12 +28,12 @@
     return button
     function button() {
       var template =
-        '<a class="button" ng-class="buttonColor">' +
+        '<button class="button" ng-class="buttonColor">' +
         '  <span class="icon">' +
         '    <i class="fas" ng-class="iconClass"></i>' +
         '  </span>' +
         '  <span ng-bind="buttonText"></span>' +
-        '</a>'
+        '</button>'
       var directive = {
         restrict: 'E',
         link: linkFunc,

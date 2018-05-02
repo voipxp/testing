@@ -7,15 +7,15 @@
       </pbs-column>
       <pbs-column class="is-narrow">
         <div class="buttons has-addons">
-          <span class="button"
+          <button class="button"
             ng-class="{'is-success': !$ctrl.filter}"
-            ng-click="$ctrl.filter = null">All</span>
-          <span class="button"
+            ng-click="$ctrl.filter = null">All</button>
+          <button class="button"
             ng-class="{'is-success': $ctrl.filter === 'assigned'}"
-            ng-click="$ctrl.filter = 'assigned'">Assigned</span>
-          <span class="button"
+            ng-click="$ctrl.filter = 'assigned'">Assigned</button>
+          <button class="button"
             ng-class="{'is-success': $ctrl.filter === 'unassigned'}"
-            ng-click="$ctrl.filter = 'unassigned'">Unassigned</span>
+            ng-click="$ctrl.filter = 'unassigned'">Unassigned</button>
         </div>
       </pbs-column>
     </pbs-columns>

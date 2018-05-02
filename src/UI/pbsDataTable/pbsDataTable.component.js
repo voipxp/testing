@@ -5,20 +5,22 @@
     bindings: {
       orderBy: '@',
       columns: '<',
-      items: '<',
-      limitTo: '<',
       filter: '<',
-      showSelect: '=',
-      onClick: '&?',
-      onSelect: '&?',
+      hideSearch: '<',
+      items: '<',
       isBordered: '<',
       isNarrow: '<',
       isCompact: '<',
-      isStriped: '<'
+      isStriped: '<',
+      limitTo: '<',
+      search: '=',
+      showSelect: '=',
+      onClick: '&?',
+      onSelect: '&?'
     }
   })
 
-  function Controller(EventEmitter) {
+  function Controller(EventEmitter, $filter) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.onPagination = onPagination
@@ -28,6 +30,7 @@
     ctrl.toggleAll = toggleAll
     ctrl.sort = sort
     ctrl.selected = []
+    ctrl.cancel = cancel
     ctrl.getValue = getValue
 
     function onInit() {
@@ -52,12 +55,17 @@
       return _.get(item, key)
     }
 
+    function filteredItems() {
+      var search = $filter('filter')(ctrl.items, ctrl.search)
+      return $filter('filter')(search, ctrl.filter)
+    }
+
     function toggleAll() {
-      ctrl.selected = ctrl.selectAll ? angular.copy(ctrl.items) : []
+      ctrl.selected = ctrl.selectAll ? filteredItems() : []
     }
 
     function select() {
-      ctrl.selectAll = ctrl.selected.length === ctrl.items.length
+      ctrl.selectAll = ctrl.selected.length === filteredItems().length
     }
 
     function sort(key) {
@@ -67,7 +75,6 @@
         ctrl.order.key = key
         ctrl.order.reverse = false
       }
-      console.log('order', ctrl.order)
     }
 
     function cancel() {

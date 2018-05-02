@@ -1,9 +1,10 @@
 <div class="field"
-  ng-show="!$ctrl.showSelect">
+  ng-if="!$ctrl.hideSearch">
   <p class="control has-icons-right">
     <input class="input"
       type="search"
       ng-model="$ctrl.search"
+      ng-change="$ctrl.select()"
       placeholder="Search">
     <span class="icon is-small is-right">
       <i class="fas fa-search"></i>
@@ -12,6 +13,14 @@
 </div>
 <div class="field has-addons"
   ng-show="$ctrl.showSelect">
+  <p class="control">
+    <button class="button"
+      ng-click="$ctrl.cancel()">
+      <span class="icon">
+        <i class="fas fa-times"></i>
+      </span>
+    </button>
+  </p>
   <p class="control is-expanded">
     <a class="button is-static is-fullwidth">
       Items Selected:&nbsp;

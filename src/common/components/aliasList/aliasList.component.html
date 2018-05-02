@@ -6,14 +6,14 @@
       placeholder="New Alias">
   </p>
   <p class="control">
-    <a class="button"
+    <button class="button"
       ng-click="$ctrl.add()"
       ng-disabled="!$ctrl.newAlias || $ctrl.newAlias.length < 10"
       title="Add an Alias">
       <span class="icon">
         <i class="fas fa-plus"></i>
       </span>
-    </a>
+    </button>
   </p>
 </div>
 <table pbs-table>

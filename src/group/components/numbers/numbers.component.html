@@ -4,11 +4,14 @@
 </pbs-navigation>
 
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Numbers">
+  <pbs-block title="{{ $ctrl.showSelect ? $ctrl.action : 'Numbers' }}">
     <pbs-block-buttons>
       <pbs-button-compact-add ng-click="$ctrl.add()"
         title="Assign Numbers">
       </pbs-button-compact-add>
+      <pbs-button-dropdown title="Edit Numbers"
+        items="['Delete Numbers', 'Activate Numbers', 'Deactivate Numbers']"
+        on-select="$ctrl.edit($event)"></pbs-button-dropdown>
     </pbs-block-buttons>
     <pbs-columns>
       <pbs-column>
@@ -16,54 +19,40 @@
           style="margin-bottom: 0"></pbs-table-search>
       </pbs-column>
       <pbs-column class="is-narrow">
-        <div class="buttons has-addons">
-          <span class="button"
-            ng-class="{'is-success': $ctrl.filter.assigned === undefined}"
-            ng-click="$ctrl.filter = {}">All</span>
-          <span class="button"
-            ng-class="{'is-success': $ctrl.filter.assigned === true}"
-            ng-click="$ctrl.filter.assigned = true">Assigned</span>
-          <span class="button"
-            ng-class="{'is-success': $ctrl.filter.assigned === false}"
-            ng-click="$ctrl.filter.assigned = false">Unassigned</span>
+        <div class="buttons has-addons is-centered">
+          <button class="button"
+            ng-class="{'is-link': $ctrl.filter.assigned === true}"
+            ng-click="$ctrl.toggleFilter('assigned')"
+            ng-disabled="$ctrl.showSelect">Assigned</button>
+          <button class="button"
+            ng-class="{'is-link': $ctrl.filter.assigned === false}"
+            ng-click="$ctrl.toggleFilter('unassigned')"
+            ng-disabled="$ctrl.showSelect">Unassigned</button>
+          <button class="button"
+            ng-class="{'is-link': $ctrl.filter.activated === true}"
+            ng-click="$ctrl.toggleFilter('activated')"
+            ng-disabled="$ctrl.showSelect">Activated</button>
+          <button class="button"
+            ng-class="{'is-link': $ctrl.filter.activated === false}"
+            ng-click="$ctrl.toggleFilter('deactivated')"
+            ng-disabled="$ctrl.showSelect">Deactivated</button>
         </div>
       </pbs-column>
     </pbs-columns>
-    <table pbs-table>
-      <thead>
-        <tr>
-          <th>Range Start</th>
-          <th>Range End</th>
-          <th class="has-text-centered">Assigned</th>
-          <th class="has-text-centered">Activated</th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr ng-if="results.length < 1">
-          <td colspan="100">No Numbers Found
-            <strong ng-if="$ctrl.search">for {{ $ctrl.search }}</strong>
-          </td>
-        </tr>
-      </tfoot>
-      <tbody>
-        <tr ng-class="{hover: !number.assigned}"
-          ng-click="$ctrl.edit(number)"
-          ng-repeat="number in $ctrl.numbers | filter:$ctrl.search | filter:$ctrl.filter | orderBy:'min' as results track by number.min">
-          <td>{{ number.min }}</td>
-          <td>{{ number.max }}</td>
-          <td class="has-text-centered">
-            <pbs-check-box checked="number.assigned"></pbs-check-box>
-          </td>
-          <td no-parent-click>
-            <input type="checkbox"
-              ng-model="number.activated"
-              ng-click="$ctrl.toggle(number)"
-              pbs-input-switch="centered"
-              ng-disabled="number.isLoading">
-          </td>
-        </tr>
-      </tbody>
-    </table>
+
+    <pbs-data-table order-by="min"
+      filter="$ctrl.filter"
+      search="$ctrl.search"
+      columns="$ctrl.columns"
+      items="$ctrl.numbers"
+      show-select="$ctrl.showSelect"
+      hide-search="true"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-select="$ctrl.onSelect($event)"
+      on-click="$ctrl.onClick($event)"></pbs-data-table>
   </pbs-block>
 </pbs-spinner>
 
