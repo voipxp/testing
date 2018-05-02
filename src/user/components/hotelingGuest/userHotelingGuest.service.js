@@ -5,7 +5,7 @@
 
   function UserHotelingGuestService($http, Route) {
     var url = Route.api('/services/users/hotelingguest')
-    var service = { show: show, update: update, index: index }
+    var service = { show: show, update: update, index: index, bulk: bulk }
     service.options = {
       minAssociationLimitHours: 1,
       maxAssociationLimitHours: 999
@@ -27,10 +27,13 @@
     }
 
     function update(userId, obj) {
-      console.log('UserHotelingGuestService.update')
-      console.log(obj)
       return $http.put(url(userId), obj).then(function(response) {
-        console.log(response.data)
+        return response.data
+      })
+    }
+
+    function bulk(data) {
+      return $http.put(url(), data).then(function(response) {
         return response.data
       })
     }

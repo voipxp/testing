@@ -1,7 +1,6 @@
 ;(function() {
-  angular.module('odin.group').component('groupCallForwardingNotReachable', {
-    templateUrl:
-      'group/components/callForwardingNotReachable/callForwardingNotReachable.component.html',
+  angular.module('odin.group').component('groupHotelingHost', {
+    templateUrl: 'group/components/hotelingHost/hotelingHost.component.html',
     controller: Controller,
     bindings: { module: '<' }
   })
@@ -9,8 +8,8 @@
   function Controller(
     $routeParams,
     Alert,
-    GroupCallForwardingNotReachableService,
-    UserCallForwardingNotReachableService
+    GroupHotelingHostService,
+    UserHotelingHostService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -18,7 +17,7 @@
     ctrl.groupId = $routeParams.groupId
     ctrl.onClick = onClick
     ctrl.onSelect = onSelect
-    ctrl.options = UserCallForwardingNotReachableService.options
+    ctrl.options = UserHotelingHostService.options
 
     ctrl.columns = [
       {
@@ -44,8 +43,18 @@
         align: 'centered'
       },
       {
-        key: 'data.forwardToPhoneNumber',
-        label: 'Forward To'
+        key: 'data.enableAssociationLimit',
+        label: 'Enable Limit',
+        type: 'boolean',
+        align: 'centered'
+      },
+      {
+        key: 'data.associationLimitHours',
+        label: 'Limit Hours'
+      },
+      {
+        key: 'data.accessLevel',
+        label: 'Access Level'
       }
     ]
 
@@ -59,21 +68,21 @@
     }
 
     function load() {
-      return GroupCallForwardingNotReachableService.users(
+      return GroupHotelingHostService.users(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
         ctrl.users = _.filter(data, function(item) {
           return _.get(item, 'service.assigned')
         })
-        console.log('users', ctrl.users)
+        console.log(ctrl.users)
       })
     }
 
     function onClick(event) {
       ctrl.editSettings = angular.copy(event.data)
       ctrl.editTitle = event.user.userId
-      Alert.modal.open('editUserCallForwardingNotReachable', function(close) {
+      Alert.modal.open('editUserHotelingHost', function(close) {
         update(event.user.userId, ctrl.editSettings, close)
       })
     }
@@ -82,14 +91,14 @@
       var users = _.map(event, 'user')
       ctrl.editSettings = {}
       ctrl.editTitle = users.length + ' Users'
-      Alert.modal.open('editUserCallForwardingNotReachable', function(close) {
+      Alert.modal.open('editUserHotelingHost', function(close) {
         bulk({ data: ctrl.editSettings, users: users }, close)
       })
     }
 
     function update(userId, settings, callback) {
       Alert.spinner.open()
-      UserCallForwardingNotReachableService.update(userId, settings)
+      UserHotelingHostService.update(userId, settings)
         .then(load)
         .then(function() {
           Alert.notify.success('User Settings Updated')
@@ -101,7 +110,7 @@
 
     function bulk(data, callback) {
       Alert.spinner.open()
-      UserCallForwardingNotReachableService.bulk(data)
+      UserHotelingHostService.bulk(data)
         .then(load)
         .then(function() {
           Alert.notify.success('Bulk Settings Updated')

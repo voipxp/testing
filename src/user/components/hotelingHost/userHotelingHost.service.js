@@ -5,7 +5,7 @@
 
   function UserHotelingHostService($http, Route) {
     var url = Route.api('/services/users/hotelinghost')
-    var service = { show: show, update: update, index: index }
+    var service = { show: show, update: update, index: index, bulk: bulk }
     service.options = {
       accessLevels: ['Enterprise', 'Group'],
       minAssociationLimitHours: 1,
@@ -27,6 +27,12 @@
 
     function update(userId, obj) {
       return $http.put(url(userId), obj).then(function(response) {
+        return response.data
+      })
+    }
+
+    function bulk(data) {
+      return $http.put(url(), data).then(function(response) {
         return response.data
       })
     }

@@ -43,6 +43,7 @@
     "angular-route": "^1.6.8",
     "angular-sanitize": "^1.6.8",
     "angular-truncate-2": "0.4.2",
+    "angular-ui-indeterminate": "^1.0.0",
     "angularFileInput": "git+https://github.com/odra/angular-file-input.git",
     "animate.css": "^3.5.2",
     "buffer-to-vinyl": "^1.1.0",

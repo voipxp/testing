@@ -75,6 +75,11 @@
         }
         element.after(label)
 
+        // set indeterminate value
+        scope.$watch(attr.ngModel, function(newVal) {
+          element[0].indeterminate = newVal === undefined
+        })
+
         // remove outline on focus
         element.on('click', function() {
           element[0].blur()

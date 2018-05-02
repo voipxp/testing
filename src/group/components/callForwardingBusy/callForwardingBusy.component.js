@@ -71,7 +71,7 @@
     }
 
     function onClick(event) {
-      ctrl.editSettings = event.data
+      ctrl.editSettings = angular.copy(event.data)
       ctrl.editTitle = event.user.userId
       Alert.modal.open('editUserCallForwardingBusy', function(close) {
         update(event.user.userId, ctrl.editSettings, close)

@@ -38,6 +38,7 @@
         key: ctrl.orderBy || _.get(ctrl.columns, '0.key'),
         reverse: false
       }
+      ctrl.selectAll = false
       ctrl.canClick = _.isFunction(ctrl.onClick)
     }
 

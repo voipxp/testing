@@ -4,9 +4,7 @@
   function Service($http, Route) {
     var url = Route.api('/services/users/callrecording/users')
 
-    var service = {
-      users: users
-    }
+    var service = { users: users }
 
     return service
 

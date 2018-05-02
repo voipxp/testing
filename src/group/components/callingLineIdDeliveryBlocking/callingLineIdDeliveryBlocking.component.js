@@ -66,7 +66,7 @@
     }
 
     function onClick(event) {
-      ctrl.editSettings = event.data
+      ctrl.editSettings = angular.copy(event.data)
       ctrl.editTitle = event.user.userId
       Alert.modal.open('editUserCallingLineIdDeliveryBlocking', function(
         close

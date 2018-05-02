@@ -152,6 +152,26 @@
       acl: 'Group'
     },
     {
+      path: 'callRecording',
+      component: 'groupCallRecording',
+      acl: 'Group'
+    },
+    {
+      path: 'hotelingGuest',
+      component: 'groupHotelingGuest',
+      acl: 'Group'
+    },
+    {
+      path: 'hotelingHost',
+      component: 'groupHotelingHost',
+      acl: 'Group'
+    },
+    {
+      path: 'voiceMessagingUser',
+      component: 'groupVoiceMessagingUser',
+      acl: 'Group'
+    },
+    {
       path: 'departments',
       component: 'groupDepartments',
       acl: 'Group'

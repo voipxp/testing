@@ -287,6 +287,30 @@
           name: 'Calling Line ID Delivery Blocking',
           service: 'Calling Line ID Delivery Blocking',
           path: route('callingLineIdDeliveryBlocking')
+        },
+        {
+          type: 'user',
+          name: 'Call Recording',
+          service: 'Call Recording',
+          path: route('callRecording')
+        },
+        {
+          type: 'user',
+          name: 'Hoteling Guest',
+          service: 'Hoteling Guest',
+          path: route('hotelingGuest')
+        },
+        {
+          type: 'user',
+          name: 'Hoteling Host',
+          service: 'Hoteling Host',
+          path: route('hotelingHost')
+        },
+        {
+          type: 'user',
+          name: 'Voice Messaging',
+          service: 'Voice Messaging User',
+          path: route('voiceMessagingUser')
         }
       ]
     }

@@ -1,0 +1,32 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId">
+  <pbs-breadcrumb title="'Call Recording'"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Call Recording Users">
+    <pbs-block-buttons>
+      <pbs-button-compact-cogs ng-click="$ctrl.showSelect = !$ctrl.showSelect"></pbs-button-compact-cogs>
+    </pbs-block-buttons>
+    <pbs-data-table order-by="user.userId"
+      columns="$ctrl.columns"
+      items="$ctrl.users"
+      show-select="$ctrl.showSelect"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-select="$ctrl.onSelect($event)"
+      on-click="$ctrl.onClick($event)"></pbs-data-table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserCallRecording"
+  title="Edit {{ $ctrl.editTitle }}">
+  <pbs-form>
+    <pbs-form-field-horizontal label="Recording Option">
+      <select ng-model="$ctrl.editSettings.recordingOption"
+        ng-options="opt for opt in $ctrl.options.recordingOptions"
+        pbs-input-select
+        required></select>
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>
