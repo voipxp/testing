@@ -130,10 +130,6 @@ angular-truncate-2@0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/angular-truncate-2/-/angular-truncate-2-0.4.2.tgz#89b3957f8668702d53d0d26130f015ef0886bf74"
 
-angular-ui-indeterminate@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/angular-ui-indeterminate/-/angular-ui-indeterminate-1.0.0.tgz#51784a60eb80aee8251e9fc9ec30fbe105125514"
-
 angular@1.x, angular@^1.6.8:
   version "1.6.10"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.6.10.tgz#eed3080a34d29d0f681ff119b18ce294e3f74826"
