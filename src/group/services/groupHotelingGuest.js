@@ -1,7 +1,5 @@
 ;(function() {
-  angular
-    .module('odin.group')
-    .factory('GroupHotelingGuestService', Service)
+  angular.module('odin.group').factory('GroupHotelingGuestService', Service)
 
   function Service($http, Route) {
     var url = Route.api('/services/users/hotelingguest/users')

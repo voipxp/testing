@@ -1,7 +1,5 @@
 ;(function() {
-  angular
-    .module('odin.group')
-    .factory('GroupCallRecordingService', Service)
+  angular.module('odin.group').factory('GroupCallRecordingService', Service)
 
   function Service($http, Route) {
     var url = Route.api('/services/users/callrecording/users')
