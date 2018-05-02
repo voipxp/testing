@@ -8,13 +8,13 @@
       <pbs-column class="is-narrow">
         <div class="buttons has-addons">
           <button class="button"
-            ng-class="{'is-success': !$ctrl.filter}"
+            ng-class="{'is-link': !$ctrl.filter}"
             ng-click="$ctrl.filter = null">All</button>
           <button class="button"
-            ng-class="{'is-success': $ctrl.filter === 'assigned'}"
+            ng-class="{'is-link': $ctrl.filter === 'assigned'}"
             ng-click="$ctrl.filter = 'assigned'">Assigned</button>
           <button class="button"
-            ng-class="{'is-success': $ctrl.filter === 'unassigned'}"
+            ng-class="{'is-link': $ctrl.filter === 'unassigned'}"
             ng-click="$ctrl.filter = 'unassigned'">Unassigned</button>
         </div>
       </pbs-column>

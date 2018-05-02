@@ -17,13 +17,13 @@
       <pbs-column class="is-narrow">
         <div class="buttons has-addons">
           <button class="button"
-            ng-class="{'is-success': $ctrl.filter.groupId === undefined}"
+            ng-class="{'is-link': $ctrl.filter.groupId === undefined}"
             ng-click="$ctrl.filter = {}">All</button>
           <button class="button"
-            ng-class="{'is-success': $ctrl.filter.groupId === '!!'}"
+            ng-class="{'is-link': $ctrl.filter.groupId === '!!'}"
             ng-click="$ctrl.filter.groupId = '!!'">Assigned</button>
           <button class="button"
-            ng-class="{'is-success': $ctrl.filter.groupId === '!'}"
+            ng-class="{'is-link': $ctrl.filter.groupId === '!'}"
             ng-click="$ctrl.filter.groupId = '!'">Unassigned</button>
         </div>
       </pbs-column>

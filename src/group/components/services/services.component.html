@@ -15,13 +15,13 @@
       <pbs-column class="is-narrow">
         <div class="buttons has-addons">
           <button class="button"
-            ng-class="{'is-success': $ctrl.filter.authorized === undefined}"
+            ng-class="{'is-link': $ctrl.filter.authorized === undefined}"
             ng-click="$ctrl.filter = {}">All</button>
           <button class="button"
-            ng-class="{'is-success': $ctrl.filter.authorized === true}"
+            ng-class="{'is-link': $ctrl.filter.authorized === true}"
             ng-click="$ctrl.filter.authorized = true">Authorized</button>
           <button class="button"
-            ng-class="{'is-success': $ctrl.filter.authorized === false}"
+            ng-class="{'is-link': $ctrl.filter.authorized === false}"
             ng-click="$ctrl.filter.authorized = false">Unauthorized</button>
         </div>
       </pbs-column>

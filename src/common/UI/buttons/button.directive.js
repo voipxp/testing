@@ -4,15 +4,15 @@
     .directive('pbsButton', pbsButton())
     .directive(
       'pbsButtonNext',
-      pbsButton('fa-chevron-right', 'is-success', 'Next')
+      pbsButton('fa-chevron-right', 'is-link', 'Next')
     )
     .directive(
       'pbsButtonPrevious',
-      pbsButton('fa-chevron-left', 'is-success', 'Previous')
+      pbsButton('fa-chevron-left', 'is-link', 'Previous')
     )
     .directive('pbsButtonCancel', pbsButton('fa-times', '', 'Cancel'))
     .directive('pbsButtonDelete', pbsButton('fa-trash', 'is-danger', 'Delete'))
-    .directive('pbsButtonAdd', pbsButton('fa-plus', 'is-success', 'Add'))
+    .directive('pbsButtonAdd', pbsButton('fa-plus', 'is-link', 'Add'))
     .directive(
       'pbsButtonDownload',
       pbsButton('fa-download', 'is-link', 'Download')

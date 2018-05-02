@@ -8,13 +8,13 @@
       <pbs-column class="is-narrow">
         <div class="buttons has-addons">
           <button class="button"
-            ng-class="{'is-success': !$ctrl.filter}"
+            ng-class="{'is-link': !$ctrl.filter}"
             ng-click="$ctrl.filter = null">All</button>
           <button class="button"
-            ng-class="{'is-success': $ctrl.filter.useCustomSettings === true}"
+            ng-class="{'is-link': $ctrl.filter.useCustomSettings === true}"
             ng-click="$ctrl.filter.useCustomSettings = true">Custom</button>
           <button class="button"
-            ng-class="{'is-success': $ctrl.filter.useCustomSettings === false}"
+            ng-class="{'is-link': $ctrl.filter.useCustomSettings === false}"
             ng-click="$ctrl.filter.useCustomSettings = false">Default</button>
         </div>
       </pbs-column>
