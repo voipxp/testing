@@ -21,7 +21,7 @@
       </tfoot>
       <tbody>
         <tr class="hover"
-          ng-repeat="device in $ctrl.devices | orderBy:device as results"
+          ng-repeat="device in $ctrl.devices | filter:$ctrl.search | orderBy:device as results"
           ng-click="$ctrl.open(device)">
           <td>{{ device }}</td>
         </tr>
