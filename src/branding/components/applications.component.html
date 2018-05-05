@@ -38,28 +38,33 @@
 <pbs-modal id="editBrandingApplication"
   title="Edit Application">
   <pbs-form>
-    <pbs-form-field label="Name">
+    <pbs-form-field-horizontal label="Name">
       <input type="text"
         class="input"
         ng-model="$ctrl.editApplication.name"
         placeholder="name"
         required>
-    </pbs-form-field>
-    <pbs-form-field label="URL">
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="URL">
       <input type="url"
         class="input"
         ng-model="$ctrl.editApplication.url"
         placeholder="http://example.com"
         required>
-    </pbs-form-field>
-    <pbs-form-field label="Description">
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Description">
       <input type="text"
         class="input"
         ng-model="$ctrl.editApplication.description">
-    </pbs-form-field>
-    <pbs-form-field label="Window Behavior">
-      <pbs-input-checkbox label="Open in New Window"
-        ng-model="$ctrl.editApplication.window"></pbs-input-checkbox>
-    </pbs-form-field>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Partner Integration">
+      <select ng-model="$ctrl.editApplication.partner"
+        ng-options="opt.key as opt.name for opt in $ctrl.partners"
+        pbs-input-select></select>
+    </pbs-form-field-horizontal>
+    <input type="checkbox"
+      label="Open in New Window"
+      ng-model="$ctrl.editApplication.window"
+      pbs-input-checkradio>
   </pbs-form>
 </pbs-modal>

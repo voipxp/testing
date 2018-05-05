@@ -9,6 +9,12 @@
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
+    ctrl.partners = [
+      {
+        key: 'emu',
+        name: 'BroadSource Group'
+      }
+    ]
 
     function onInit() {
       ctrl.loading = true

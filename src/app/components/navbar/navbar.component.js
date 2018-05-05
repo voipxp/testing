@@ -11,7 +11,9 @@
     $rootScope,
     $q,
     $window,
-    ACL
+    ACL,
+    Alert,
+    SsoService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -31,11 +33,34 @@
     }
 
     function open(application) {
-      if (application.window) {
-        $window.open(application.url, '_blank', 'noopener')
-      } else {
-        $window.open(application.url, '_self')
-      }
+      getToken(application.partner)
+        .then(function(token) {
+          var url = appendToken(application.url, token)
+          console.log('URL', url)
+          if (application.window) {
+            $window.open(url, '_blank', 'noopener')
+          } else {
+            $window.open(url, '_self')
+          }
+        })
+        .catch(Alert.notify.danger)
+    }
+
+    function appendToken(url, token) {
+      if (!token) return url
+      var split = url.split('?')
+      return url + (split[1] ? '&' : '?') + 'token=' + token
+    }
+
+    function getToken(partner) {
+      if (!partner) return $q.resolve()
+      Alert.spinner.open()
+      return SsoService.show(partner)
+        .then(function(data) {
+          console.log('data', data)
+          return data.token
+        })
+        .finally(Alert.spinner.close)
     }
 
     function loadSession() {
