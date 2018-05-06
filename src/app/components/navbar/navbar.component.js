@@ -52,6 +52,7 @@
     }
 
     function open(application) {
+      Alert.spinner.open()
       getToken(application.partner)
         .then(function(token) {
           var url = appendToken(application.url, token)
@@ -62,6 +63,7 @@
           }
         })
         .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function appendToken(url, token) {
