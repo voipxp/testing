@@ -7,8 +7,8 @@ table.pbs-table td, table.pbs-table th {
 }
 
 table.hover tbody>tr:hover,
-table tr.hover:hover,
-table tr td.hover:hover {
+tr.hover:hover,
+td.hover:hover {
   cursor: pointer;
   background-color: hsl(217, 71%, 53%) !important;
   color: #fff;
