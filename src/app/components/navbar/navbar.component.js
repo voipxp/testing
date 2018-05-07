@@ -25,7 +25,8 @@
     var tokens = {}
 
     function onInit() {
-      return loadSession().then(loadApplications)
+      loadSession()
+      loadApplications()
     }
 
     function loadApplications() {
@@ -37,16 +38,11 @@
 
     // try to preload the tokens for faster links
     function loadTokens(applications) {
+      if (!ctrl.session || !ctrl.session.userId) return $q.when(true)
       var partners = _.compact(_.uniq(_.map(applications, 'partner')))
       return partners.reduce(function(promise, partner) {
         return promise.then(function() {
           return getToken(partner)
-            .then(function(token) {
-              tokens[partner] = token
-            })
-            .catch(function() {
-              tokens[partner] = null
-            })
         })
       }, $q.when(true))
     }
@@ -75,16 +71,20 @@
     function getToken(partner) {
       if (!partner) return $q.resolve()
       if (tokens[partner]) return $q.when(tokens[partner])
-      return SsoService.show(partner).then(function(data) {
-        return data.token
-      })
+      return SsoService.show(partner)
+        .then(function(data) {
+          tokens[partner] = data.token
+          return data.token
+        })
+        .catch(function(error) {
+          console.log('ssoError', error)
+          tokens[partner] = null
+        })
     }
 
     function loadSession() {
-      return Session.load().then(function(session) {
-        ctrl.session = session
-        ctrl.showSearch = ACL.has('Service Provider')
-      })
+      ctrl.session = Session.data()
+      ctrl.showSearch = ACL.has('Service Provider')
     }
 
     function logout() {
@@ -109,7 +109,7 @@
       }
     }
 
-    $rootScope.$on('Session:updated', loadSession)
+    $rootScope.$on('Session:updated', onInit)
     $rootScope.$on('BrandingApplicationService:updated', loadApplications)
   }
 })()
