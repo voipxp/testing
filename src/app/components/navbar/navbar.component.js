@@ -30,21 +30,9 @@
     }
 
     function loadApplications() {
-      Application.index().then(function(data) {
+      return Application.index().then(function(data) {
         ctrl.applications = data
-        return loadTokens(data)
       })
-    }
-
-    // try to preload the tokens for faster links
-    function loadTokens(applications) {
-      if (!ctrl.session || !ctrl.session.userId) return $q.when(true)
-      var partners = _.compact(_.uniq(_.map(applications, 'partner')))
-      return partners.reduce(function(promise, partner) {
-        return promise.then(function() {
-          return getToken(partner)
-        })
-      }, $q.when(true))
     }
 
     function open(application) {
@@ -109,7 +97,7 @@
       }
     }
 
-    $rootScope.$on('Session:updated', onInit)
+    $rootScope.$on('Session:updated', loadSession)
     $rootScope.$on('BrandingApplicationService:updated', loadApplications)
   }
 })()
