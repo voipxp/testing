@@ -25,7 +25,7 @@
     var tokens = {}
 
     function onInit() {
-      return $q.all([loadSession(), loadApplications()])
+      return loadSession().then(loadApplications)
     }
 
     function loadApplications() {
@@ -81,7 +81,7 @@
     }
 
     function loadSession() {
-      Session.load().then(function(session) {
+      return Session.load().then(function(session) {
         ctrl.session = session
         ctrl.showSearch = ACL.has('Service Provider')
       })
