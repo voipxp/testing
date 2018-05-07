@@ -140,7 +140,7 @@
     }
 
     function onSelect(users) {
-      ctrl.editPlan = { useCustomSettings: false }
+      ctrl.editPlan = {}
       ctrl.editTitle = users.length + ' Users'
       Alert.modal.open('editUserOutgoingCallingPlanOriginating', function(
         close

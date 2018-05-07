@@ -1,12 +1,9 @@
 ;(function() {
   angular
     .module('odin.common')
-    .factory(
-      'UserOutgoingCallingPlanOriginatingService',
-      UserOutgoingCallingPlanOriginatingService
-    )
+    .factory('UserOutgoingCallingPlanOriginatingService', Service)
 
-  function UserOutgoingCallingPlanOriginatingService($http, Route) {
+  function Service($http, Route) {
     var service = { show: show, update: update, bulk: bulk }
     service.options = {
       userPermissions: [

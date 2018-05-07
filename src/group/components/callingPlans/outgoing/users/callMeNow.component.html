@@ -1,5 +1,8 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Call Me Now">
+    <pbs-block-buttons>
+      <pbs-button-compact-cogs ng-click="$ctrl.showSelect = !$ctrl.showSelect"></pbs-button-compact-cogs>
+    </pbs-block-buttons>
     <pbs-columns>
       <pbs-column>
         <pbs-table-search ng-model="$ctrl.search"
@@ -19,139 +22,19 @@
         </div>
       </pbs-column>
     </pbs-columns>
-    <table pbs-table
-      class="margin-bottom">
-      <thead>
-        <tr>
-          <th>UserId</th>
-          <th>Custom</th>
-          <th>Casual</th>
-          <th>Chargeable DA</th>
-          <th>Group</th>
-          <th>International</th>
-          <th>Local</th>
-          <th>Operator Assisted</th>
-          <th>Premium Services I</th>
-          <th>Premium Services II</th>
-          <th>Special Services I</th>
-          <th>Special Services II</th>
-          <th>Toll</th>
-          <th>Toll Free</th>
-          <th>Unknown</th>
-          <th>URL Dialing</th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr ng-if="results.length < 1">
-          <td colspan="99">No User Found
-            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
-          </td>
-        </tr>
-      </tfoot>
-      <tbody>
-        <tr>
-          <th>Group Default</th>
-          <th></th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.casual"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.chargeableDirectoryAssisted"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.group"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.international"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.local"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.operatorAssisted"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.premiumServicesI"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.premiumServicesII"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.specialServicesI"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.specialServicesII"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.toll"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.tollFree"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.unknown"></pbs-check-box>
-          </th>
-          <th>
-            <pbs-check-box checked="$ctrl.groupPlan.permissions.urlDialing"></pbs-check-box>
-          </th>
-        </tr>
-        <tr class="hover"
-          ng-click="$ctrl.edit(plan)"
-          ng-repeat="plan in results = ($ctrl.userPlans | filter:$ctrl.filter | filter:$ctrl.search) | paginate:$ctrl.pager">
-          <td>{{ plan.userId }}</td>
-          <td>
-            <pbs-check-box checked="plan.useCustomSettings"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.casual"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.chargeableDirectoryAssisted"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.group"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.international"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.local"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.operatorAssisted"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.premiumServicesI"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.premiumServicesII"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.specialServicesI"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.specialServicesII"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.toll"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.tollFree"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.unknown"></pbs-check-box>
-          </td>
-          <td>
-            <pbs-check-box checked="plan.userPermissions.urlDialing"></pbs-check-box>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <pbs-pagination items="results.length"
-      limit="25"
-      on-update="$ctrl.onPagination($event)"></pbs-pagination>
+    <pbs-data-table columns="$ctrl.columns"
+      items="$ctrl.userPlans"
+      search="$ctrl.search"
+      filter="$ctrl.filter"
+      show-select="$ctrl.showSelect"
+      hide-search="true"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-select="$ctrl.onSelect($event)"
+      on-click="$ctrl.onClick($event)"></pbs-data-table>
   </pbs-block>
-
 </pbs-spinner>
 
 <pbs-modal id="editUserOutgoingCallingPlanCallMeNow"
