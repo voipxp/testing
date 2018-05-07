@@ -20,7 +20,8 @@
         group-id="$ctrl.groupId"
         device-name="$ctrl.deviceName"></vdm-device-tags>
     </pbs-tab>
-    <pbs-tab label="Files">
+    <pbs-tab label="Files"
+      ng-if="$ctrl.customConfig">
       <group-device-files service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
         device-name="$ctrl.deviceName"></group-device-files>

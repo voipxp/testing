@@ -10,7 +10,9 @@
     Route,
     $routeParams,
     $location,
-    VdmGroupTemplateService
+    VdmGroupTemplateService,
+    Module,
+    $q
   ) {
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -24,7 +26,8 @@
       ctrl.templateName = $location.search().name
       $location.search({})
       ctrl.loading = true
-      loadTemplate()
+      $q
+        .all([loadTemplate(), loadPermissions()])
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
@@ -38,6 +41,12 @@
         ctrl.templateId
       ).then(function(data) {
         ctrl.template = data
+      })
+    }
+
+    function loadPermissions() {
+      return Module.load().then(function() {
+        ctrl.customConfig = Module.read('VDM - Custom Config')
       })
     }
 
