@@ -125,7 +125,8 @@
         template: '<pbs-login></pbs-login>'
       })
       .when('/sso', {
-        template: '<pbs-sso></pbs-sso>'
+        template: '<pbs-sso></pbs-sso>',
+        reloadOnSearch: false
       })
       .otherwise({
         templateUrl: 'app/layout/notfound.tpl.html'
