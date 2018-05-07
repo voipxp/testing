@@ -1,5 +1,8 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Originating">
+    <pbs-block-buttons>
+      <pbs-button-compact-cogs ng-click="$ctrl.showSelect = !$ctrl.showSelect"></pbs-button-compact-cogs>
+    </pbs-block-buttons>
     <pbs-columns>
       <pbs-column>
         <pbs-table-search ng-model="$ctrl.search"
@@ -19,87 +22,23 @@
         </div>
       </pbs-column>
     </pbs-columns>
-    <table pbs-table
-      class="margin-bottom">
-      <thead>
-        <tr>
-          <th>UserId</th>
-          <th>Custom</th>
-          <th>Casual</th>
-          <th>Chargeable DA</th>
-          <th>Group</th>
-          <th>International</th>
-          <th>Local</th>
-          <th>Operator Assisted</th>
-          <th>Premium Services I</th>
-          <th>Premium Services II</th>
-          <th>Special Services I</th>
-          <th>Special Services II</th>
-          <th>Toll</th>
-          <th>Toll Free</th>
-          <th>Unknown</th>
-          <th>URL Dialing</th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr ng-if="results.length < 1">
-          <td colspan="99">No User Found
-            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
-          </td>
-        </tr>
-      </tfoot>
-      <tbody>
-        <tr>
-          <th>Group Default</th>
-          <th></th>
-          <th>{{ $ctrl.groupPlan.permissions.casual }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.chargeableDirectoryAssisted }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.group }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.international }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.local }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.operatorAssisted }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.premiumServicesI }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.premiumServicesII }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.specialServicesI }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.specialServicesII }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.toll }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.tollFree }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.unknown }}</th>
-          <th>{{ $ctrl.groupPlan.permissions.urlDialing }}</th>
-        </tr>
-        <tr class="hover"
-          ng-click="$ctrl.edit(plan)"
-          ng-repeat="plan in results = ($ctrl.userPlans | filter:$ctrl.filter | filter:$ctrl.search) | paginate:$ctrl.pager">
-          <td>{{ plan.userId }}</td>
-          <td>
-            <pbs-check-box checked="plan.useCustomSettings"></pbs-check-box>
-          </td>
-          <td>{{ plan.userPermissions.casual }}</td>
-          <td>{{ plan.userPermissions.chargeableDirectoryAssisted }}</td>
-          <td>{{ plan.userPermissions.group }}</td>
-          <td>{{ plan.userPermissions.international }}</td>
-          <td>{{ plan.userPermissions.local }}</td>
-          <td>{{ plan.userPermissions.operatorAssisted }}</td>
-          <td>{{ plan.userPermissions.premiumServicesI }}</td>
-          <td>{{ plan.userPermissions.premiumServicesII }}</td>
-          <td>{{ plan.userPermissions.specialServicesI }}</td>
-          <td>{{ plan.userPermissions.specialServicesII }}</td>
-          <td>{{ plan.userPermissions.toll }}</td>
-          <td>{{ plan.userPermissions.tollFree }}</td>
-          <td>{{ plan.userPermissions.unknown }}</td>
-          <td>{{ plan.userPermissions.urlDialing }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <pbs-pagination items="results.length"
-      limit="25"
-      on-update="$ctrl.onPagination($event)"></pbs-pagination>
+    <pbs-data-table columns="$ctrl.columns"
+      items="$ctrl.userPlans"
+      search="$ctrl.search"
+      filter="$ctrl.filter"
+      show-select="$ctrl.showSelect"
+      hide-search="true"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-select="$ctrl.onSelect($event)"
+      on-click="$ctrl.onClick($event)"></pbs-data-table>
   </pbs-block>
-
 </pbs-spinner>
 
 <pbs-modal id="editUserOutgoingCallingPlanOriginating"
-  title="Originating - {{ $ctrl.editPlan.userId }}">
+  title="Edit Originating {{ $ctrl.editTitle }}">
   <pbs-form>
     <pbs-form-section>Custom Settings</pbs-form-section>
     <input type="checkbox"

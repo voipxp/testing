@@ -7,7 +7,7 @@
     )
 
   function UserOutgoingCallingPlanOriginatingService($http, Route) {
-    var service = { show: show, update: update }
+    var service = { show: show, update: update, bulk: bulk }
     service.options = {
       userPermissions: [
         'Disallow',
@@ -32,6 +32,13 @@
 
     function update(userId, obj) {
       return $http.put(url(userId), obj).then(function(response) {
+        return response.data
+      })
+    }
+
+    function bulk(data) {
+      var route = Route.api('callingplans', 'users', 'outgoing', 'originating')
+      return $http.put(route(), data).then(function(response) {
         return response.data
       })
     }
