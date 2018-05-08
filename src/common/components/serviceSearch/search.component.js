@@ -9,9 +9,7 @@
     UserServiceSearchService,
     HashService,
     Route,
-    $rootScope,
-    ACL,
-    Session
+    $rootScope
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -27,14 +25,26 @@
       { key: 'extension', name: 'Extension' }
     ]
 
-    ctrl.serviceTypes = [
-      { name: 'Auto Attendant', path: 'autoAttendants' },
-      { name: 'Call Center', path: 'callCenters' },
-      { name: 'Collaborate Bridge', path: 'collaborate' },
-      { name: 'Group Paging', path: 'paging' },
-      { name: 'Hunt Group', path: 'huntGroups' },
-      { name: 'Meet-Me Conference Bridge', path: 'meetMe' }
-    ]
+    ctrl.serviceTypes = {
+      'Auto Attendant': 'autoAttendants',
+      'Auto Attendant - Standard': 'autoAttendants',
+      'Auto Attendant - Video': 'autoAttendants',
+      'BroadWorks Anywhere Portal': null,
+      'Call Center': 'callCenters',
+      'Call Center - Basic': 'callCenters',
+      'Call Center - Standard': 'callCenters',
+      'Call Center - Premium': 'callCenters',
+      'Collaborate Bridge': 'collaborate',
+      'Find-me/Follow-me': null,
+      'Flexible Seating Host': null,
+      'Group Paging': 'paging',
+      'Hunt Group': 'huntGroups',
+      'Instant Group Call': null,
+      'Instant Conference Bridge': null,
+      'Meet-Me Conference Bridge': 'meetMe',
+      'Route Point': null,
+      VoiceXML: null
+    }
 
     function onPagination(event) {
       ctrl.pager = event.pager
@@ -42,12 +52,6 @@
 
     function onInit() {
       ctrl.modalId = HashService.guid()
-      Session.load().then(function() {
-        ctrl.isProvisioning = ACL.has('Provisioning')
-        if (!ACL.hasVersion('20')) {
-          _.remove(ctrl.serviceTypes, { name: 'Collaborate Bridge' })
-        }
-      })
     }
 
     function doCheck() {
@@ -85,15 +89,9 @@
 
     function route(user) {
       var url = Route.open('groups', user.serviceProviderId, user.groupId)
-      var service = _.find(ctrl.serviceTypes, function(type) {
-        var regexp = new RegExp(type.name)
-        return regexp.test(user.serviceType)
-      })
-      if (!service) {
-        Alert.notify.danger('Service Type unknown: ' + user.serviceType)
-      } else {
-        url(service.path, user.userId)
-      }
+      var path = ctrl.serviceTypes[user.serviceType]
+      if (!path) return
+      url(path, user.userId)
     }
 
     $rootScope.$on('serviceSearch:load', function(event, data) {
@@ -102,7 +100,6 @@
       ctrl.groupId = data.groupId
       ctrl.filter = null
       ctrl.users = null
-      ctrl.serviceType = ctrl.serviceTypes[0].name
       ctrl.type = 'lastName'
       Alert.modal.open(ctrl.modalId)
     })

@@ -1,12 +1,6 @@
 <pbs-modal id="{{ $ctrl.modalId }}"
   title="User Search">
   <form ng-submit="$ctrl.search()">
-    <pbs-form-field-horizontal label="Service Type">
-      <select ng-model="$ctrl.serviceType"
-        ng-options="opt.name as opt.name for opt in $ctrl.serviceTypes"
-        pbs-input-select>
-      </select>
-    </pbs-form-field-horizontal>
     <div class="columns is-1">
       <div class="column is-two-fifths has-text-centered">
         <select ng-model="$ctrl.type"
@@ -62,7 +56,7 @@
       </tr>
     </tfoot>
     <tbody>
-      <tr class="hover"
+      <tr ng-class="{hover: $ctrl.serviceTypes[user.serviceType]}"
         ng-click="$ctrl.select(user)"
         ng-repeat="user in results = ($ctrl.users | orderBy:'name') | paginate:$ctrl.pager track by user.userId">
         <td>{{ user.userIdShort || user.userId }}</td>
