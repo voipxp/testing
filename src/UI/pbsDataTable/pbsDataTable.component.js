@@ -13,7 +13,7 @@
       isCompact: '<',
       isStriped: '<',
       limitTo: '<',
-      search: '=',
+      search: '=?',
       showSelect: '=',
       onClick: '&?',
       onSelect: '&?'
