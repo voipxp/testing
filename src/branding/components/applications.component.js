@@ -5,20 +5,21 @@
     bindings: { hostnameId: '<' }
   })
 
-  function Controller($routeParams, BrandingApplicationService, Alert) {
+  function Controller(
+    $routeParams,
+    BrandingApplicationService,
+    SettingService,
+    Alert,
+    $q
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
-    ctrl.partners = [
-      {
-        key: 'emu',
-        name: 'BroadSource Group'
-      }
-    ]
 
     function onInit() {
       ctrl.loading = true
-      return loadApplications()
+      return $q
+        .all([loadApplications(), loadPartners()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
@@ -33,6 +34,12 @@
       ) {
         ctrl.applications = data
         console.log('applications', data)
+      })
+    }
+
+    function loadPartners() {
+      return SettingService.show('partners').then(function(data) {
+        ctrl.partners = data || []
       })
     }
 

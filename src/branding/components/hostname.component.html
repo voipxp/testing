@@ -3,7 +3,7 @@
     ng-click="$ctrl.back()"></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.hostname"></pbs-breadcrumb>
 </pbs-navigation>
-<pbs-tabs>
+<pbs-tabs delay="true">
   <pbs-tab label="Details">
     <branding-details hostname-id="$ctrl.hostnameId"
       on-update="$ctrl.onUpdate($event)"></branding-details>

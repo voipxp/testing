@@ -10,7 +10,9 @@
           <th>Name</th>
           <th>URL</th>
           <th>Description</th>
-          <th>New Window</th>
+          <th class="has-text-centered">New Window</th>
+          <th class="has-text-centered"
+            ng-show="$ctrl.partners.length > 0">SSO</th>
         </tr>
       </thead>
       <tfoot>
@@ -27,8 +29,12 @@
           <td>{{ application.name }}</td>
           <td>{{ application.url }}</td>
           <td>{{ application.description }}</td>
-          <td>
+          <td class="has-text-centered">
             <pbs-check-box checked="application.window"></pbs-check-box>
+          </td>
+          <td class="has-text-centered"
+            ng-show="$ctrl.partners.length > 0">
+            <pbs-check-box checked="application.partner"></pbs-check-box>
           </td>
         </tr>
       </tbody>
@@ -57,7 +63,8 @@
         class="input"
         ng-model="$ctrl.editApplication.description">
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="Partner Integration">
+    <pbs-form-field-horizontal ng-if="$ctrl.partners.length > 0"
+      label="SSO Integration">
       <select ng-model="$ctrl.editApplication.partner"
         ng-options="opt.key as opt.name for opt in $ctrl.partners"
         pbs-input-select></select>
