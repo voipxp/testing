@@ -138,7 +138,7 @@
       return _.map(services, function(service) {
         return {
           serviceName: service.serviceName,
-          assigned: service.assigned
+          assigned: String(service.assigned)
         }
       })
     }
