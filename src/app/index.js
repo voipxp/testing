@@ -32,17 +32,6 @@
     $httpProvider.useApplyAsync(true)
   }
 
-  function xmlHttpInterceptorConfig($httpProvider) {
-    $httpProvider.interceptors.push(function() {
-      return {
-        request: function(config) {
-          config.headers['x-requested-with'] = 'XMLHttpRequest'
-          return config
-        }
-      }
-    })
-  }
-
   // Make the delete headers correct
   function deleteHttpConfig($httpProvider) {
     $httpProvider.defaults.headers.delete = {
@@ -155,7 +144,6 @@
       .config(locationConfig)
       .config(httpSyncConfig)
       .config(deleteHttpConfig)
-      .config(xmlHttpInterceptorConfig)
       .config(authInterceptorConfig)
       .config(jwtInterceptorConfig)
       .config(routeConfig)
