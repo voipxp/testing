@@ -1,8 +1,7 @@
 ;(function() {
   angular.module('odin.common').component('groupSearch', {
     templateUrl: 'common/components/groupSearch/search.component.html',
-    controller: Controller,
-    bindings: { serviceProviderId: '<' }
+    controller: Controller
   })
 
   function Controller(
@@ -57,10 +56,11 @@
       )
     }
 
-    $rootScope.$on('groupSearch:load', function() {
+    $rootScope.$on('groupSearch:load', function(event, data) {
+      ctrl.serviceProviderId = data.serviceProviderId
       ctrl.filter = null
       ctrl.groups = null
-      ctrl.type = 'groupId'
+      ctrl.type = 'groupName'
       Alert.modal.open(ctrl.modalId)
     })
   }

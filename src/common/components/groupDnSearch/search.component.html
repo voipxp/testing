@@ -1,21 +1,38 @@
 <pbs-modal id="{{ $ctrl.modalId }}"
-           title="User Search">
+           title="Phone Number Search">
   <form ng-submit="$ctrl.search()">
+    <div class="field has-addons"
+         ng-if="$ctrl.isProvisioning">
+      <p class="control"
+         style="width: 175px">
+        <a class="button is-static is-fullwidth">Service Provider</a>
+      </p>
+      <p class="control is-expanded">
+        <input type="text"
+               class="input"
+               ng-model="$ctrl.serviceProviderId"
+               placeholder="Not Selected"
+               readonly
+               ng-click="$ctrl.selectServiceProvider()"
+               required>
+      </p>
+      <p class="control">
+        <a class="button"
+           ng-click="$ctrl.selectServiceProvider()"
+           title="Select a Service Provider">
+          <span class="icon">
+            <i class="fas fa-list"></i>
+          </span>
+        </a>
+      </p>
+    </div>
     <div class="field has-addons">
       <p class="control"
          style="width: 175px">
         <select ng-model="$ctrl.type"
+                ng-options="t.key as t.name for t in $ctrl.types"
                 pbs-input-select
-                ng-disabled="$ctrl.isLoading">
-          <option value="dn">Phone Number</option>
-          <option value="extension">Extension</option>
-          <option value="lastName">Last Name</option>
-          <option value="firstName">First Name</option>
-          <option value="emailAddress">Email</option>
-          <option value="macAddress"
-                  ng-if="$ctrl.isProvisioning">MAC</option>
-          <option value="userId">ID</option>
-        </select>
+                ng-disabled="$ctrl.isLoading"></select>
       </p>
       <p class="control is-expanded"
          ng-class="{'is-loading': $ctrl.isLoading}">
@@ -27,8 +44,7 @@
       </p>
       <p class="control">
         <button class="button"
-                type="submit"
-                ng-disabled="!$ctrl.filter || $ctrl.isLoading">
+                type="submit">
           <span class="icon">
             <i class="fas fa-search"></i>
           </span>
@@ -42,11 +58,12 @@
          class="large-margin-top">
     <thead>
       <tr>
+        <th>Phone</th>
         <th>ID</th>
         <th>Last</th>
         <th>First</th>
-        <th>Phone</th>
         <th>Ext</th>
+        <th>User Type</th>
         <th>Service Provider</th>
         <th>Group</th>
       </tr>
@@ -61,14 +78,15 @@
       </tr>
     </tfoot>
     <tbody>
-      <tr class="hover"
+      <tr ng-class="{hover: $ctrl.userTypes[user.userType]}"
           ng-click="$ctrl.select(user)"
-          ng-repeat="user in results = ($ctrl.users | orderBy:'userId') | paginate:$ctrl.pager track by user.userId">
+          ng-repeat="user in results = ($ctrl.users | orderBy:'phoneNumbers') | paginate:$ctrl.pager track by user.phoneNumbers">
+        <td>{{ user.phoneNumbers }}</td>
         <td>{{ user.userIdShort || user.userId }}</td>
         <td>{{ user.lastName }}</td>
         <td>{{ user.firstName }}</td>
-        <td>{{ user.phoneNumber }}</td>
         <td>{{ user.extension }}</td>
+        <td>{{ user.userType }}</td>
         <td>{{ user.serviceProviderId }}</td>
         <td>{{ user.groupId }}</td>
       </tr>
@@ -78,3 +96,5 @@
                   limit="25"
                   on-update="$ctrl.onPagination($event)"></pbs-pagination>
 </pbs-modal>
+
+<select-service-provider on-update="$ctrl.onSelectServiceProvider($event)"></select-service-provider>

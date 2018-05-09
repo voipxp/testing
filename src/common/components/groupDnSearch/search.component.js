@@ -1,15 +1,20 @@
 ;(function() {
-  angular.module('odin.common').component('serviceSearch', {
-    templateUrl: 'common/components/serviceSearch/search.component.html',
+  angular.module('odin.common').component('groupDnSearch', {
+    templateUrl: 'common/components/groupDnSearch/search.component.html',
     controller: Controller
   })
 
   function Controller(
     Alert,
-    UserServiceSearchService,
+    GroupDnSearchService,
     HashService,
     Route,
-    $rootScope
+    $rootScope,
+    ACL,
+    Session,
+    NumberService,
+    $scope,
+    $routeParams
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -17,33 +22,32 @@
     ctrl.search = search
     ctrl.onPagination = onPagination
     ctrl.select = select
+    ctrl.selectServiceProvider = selectServiceProvider
+    ctrl.onSelectServiceProvider = onSelectServiceProvider
 
     ctrl.types = [
       { key: 'dn', name: 'Phone Number' },
       { key: 'extension', name: 'Extension' },
-      { key: 'lastName', name: 'Name' },
+      { key: 'lastName', name: 'Last Name' },
+      { key: 'firstName', name: 'First Name' },
       { key: 'userId', name: 'User ID' }
     ]
 
-    ctrl.serviceTypes = {
+    ctrl.userTypes = {
+      Normal: 'users',
       'Auto Attendant': 'autoAttendants',
-      'Auto Attendant - Standard': 'autoAttendants',
-      'Auto Attendant - Video': 'autoAttendants',
-      'BroadWorks Anywhere Portal': null,
+      'BroadWorks Anywhere': null,
       'Call Center': 'callCenters',
-      'Call Center - Basic': 'callCenters',
-      'Call Center - Standard': 'callCenters',
-      'Call Center - Premium': 'callCenters',
       'Collaborate Bridge': 'collaborate',
       'Find-me/Follow-me': null,
       'Flexible Seating Host': null,
       'Group Paging': 'paging',
       'Hunt Group': 'huntGroups',
       'Instant Group Call': null,
-      'Instant Conference Bridge': null,
-      'Meet-Me Conference Bridge': 'meetMe',
+      'Meet-Me Conferencing': 'meetMe',
+      'Music On Hold': null,
       'Route Point': null,
-      VoiceXML: null
+      'Voice Messaging': null
     }
 
     function onPagination(event) {
@@ -52,6 +56,7 @@
 
     function onInit() {
       ctrl.modalId = HashService.guid()
+      ctrl.isProvisioning = ACL.has('Provisioning')
     }
 
     function doCheck() {
@@ -60,17 +65,29 @@
       }
     }
 
+    function selectServiceProvider() {
+      $scope.$broadcast('selectServiceProvider:load')
+    }
+
+    function onSelectServiceProvider(event) {
+      ctrl.serviceProviderId = event.serviceProviderId
+    }
+
     function search() {
-      if (!ctrl.filter) return
       ctrl.isLoading = true
       var params = {
         serviceProviderId: ctrl.serviceProviderId,
         groupId: ctrl.groupId
       }
       params[ctrl.type] = ctrl.filter
-      UserServiceSearchService.index(params)
+      console.log('groupDnSearch', params)
+      ctrl.users = null
+      GroupDnSearchService.index(params)
         .then(function(data) {
-          console.log('data', data)
+          console.log('DATA', data)
+          data.forEach(function(user) {
+            user.dns = _.map(NumberService.expand(user.dns), 'min')
+          })
           ctrl.users = data
         })
         .catch(Alert.notify.danger)
@@ -87,15 +104,20 @@
     }
 
     function route(user) {
-      var url = Route.open('groups', user.serviceProviderId, user.groupId)
-      var path = ctrl.serviceTypes[user.serviceType]
-      if (!path) return
-      url(path, user.userId)
+      console.log('route', user)
+      if (user.userType === 'Normal') {
+        Route.open('users')(user.serviceProviderId, user.groupId, user.userId)
+      } else {
+        var url = Route.open('groups')
+        var path = ctrl.userTypes[user.userType]
+        path && url(user.serviceProviderId, user.groupId, path, user.userId)
+      }
     }
 
-    $rootScope.$on('serviceSearch:load', function(event, data) {
+    $rootScope.$on('groupDnSearch:load', function(event, data) {
       ctrl.onSelect = data.onSelect
-      ctrl.serviceProviderId = data.serviceProviderId
+      ctrl.serviceProviderId =
+        data.serviceProviderId || $routeParams.serviceProviderId
       ctrl.groupId = data.groupId
       ctrl.filter = null
       ctrl.users = null

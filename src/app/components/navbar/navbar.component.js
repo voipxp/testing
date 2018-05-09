@@ -72,7 +72,8 @@
 
     function loadSession() {
       ctrl.session = Session.data()
-      ctrl.showSearch = ACL.has('Service Provider')
+      ctrl.isGroup = ACL.has('Group')
+      ctrl.isServiceProvider = ACL.has('Service Provider')
     }
 
     function logout() {
@@ -86,14 +87,23 @@
     function search(type) {
       if (type === 'users') {
         $rootScope.$emit('userSearch:load', {
-          serviceProviderId: ctrl.session.serviceProviderId
+          serviceProviderId: ctrl.session.serviceProviderId,
+          groupId: ctrl.session.groupId
         })
       } else if (type === 'services') {
         $rootScope.$emit('serviceSearch:load', {
-          serviceProviderId: ctrl.session.serviceProviderId
+          serviceProviderId: ctrl.session.serviceProviderId,
+          groupId: ctrl.session.groupId
+        })
+      } else if (type === 'dn') {
+        $rootScope.$emit('groupDnSearch:load', {
+          serviceProviderId: ctrl.session.serviceProviderId,
+          groupId: ctrl.session.groupId
         })
       } else if (type === 'groups') {
-        $rootScope.$emit('groupSearch:load')
+        $rootScope.$emit('groupSearch:load', {
+          serviceProviderId: ctrl.session.serviceProviderId
+        })
       }
     }
 
