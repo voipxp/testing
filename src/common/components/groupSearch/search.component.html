@@ -5,11 +5,9 @@
       <p class="control"
          style="width: 175px">
         <select ng-model="$ctrl.type"
+                ng-options="t.key as t.name for t in $ctrl.types"
                 pbs-input-select
-                ng-disabled="$ctrl.isLoading">
-          <option value="groupName">Name</option>
-          <option value="groupId">ID</option>
-        </select>
+                ng-disabled="$ctrl.isLoading"></select>
       </p>
       <p class="control is-expanded"
          ng-class="{'is-loading': $ctrl.isLoading}">

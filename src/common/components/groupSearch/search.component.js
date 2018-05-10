@@ -18,6 +18,11 @@
     ctrl.onPagination = onPagination
     ctrl.select = select
 
+    ctrl.types = [
+      { key: 'groupName', name: 'Group Name' },
+      { key: 'groupId', name: 'Group ID' }
+    ]
+
     function onPagination(event) {
       ctrl.pager = event.pager
     }

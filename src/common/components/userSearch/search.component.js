@@ -20,6 +20,15 @@
     ctrl.onPagination = onPagination
     ctrl.select = select
 
+    ctrl.types = [
+      { key: 'dn', name: 'Phone Number' },
+      { key: 'extension', name: 'Extension' },
+      { key: 'lastName', name: 'Last Name' },
+      { key: 'firstName', name: 'First Name' },
+      { key: 'emailAddress', name: 'Email Address' },
+      { key: 'userId', name: 'User ID' }
+    ]
+
     function onPagination(event) {
       ctrl.pager = event.pager
     }
@@ -28,6 +37,9 @@
       ctrl.modalId = HashService.guid()
       Session.load().then(function() {
         ctrl.isProvisioning = ACL.has('Provisioning')
+        if (ctrl.isProvisioning) {
+          ctrl.types.push({ key: 'macAddress', name: 'MAC Address' })
+        }
       })
     }
 
