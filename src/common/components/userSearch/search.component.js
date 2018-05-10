@@ -76,7 +76,7 @@
       ctrl.groupId = data.groupId
       ctrl.filter = null
       ctrl.users = null
-      ctrl.type = 'dn'
+      ctrl.type = 'lastName'
       Alert.modal.open(ctrl.modalId)
     })
   }
