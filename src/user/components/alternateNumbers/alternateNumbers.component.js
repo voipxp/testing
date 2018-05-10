@@ -11,7 +11,7 @@
     ctrl.$onInit = onInit
     ctrl.options = AlternateNumbersService.options
     ctrl.selectNumber = selectNumber
-    ctrl.editSettings = edit
+    ctrl.edit = edit
     ctrl.editAlternateEntry = editAlternateEntry
 
     function onInit() {
@@ -43,6 +43,7 @@
     }
 
     function edit() {
+      console.log('edit')
       ctrl.editSettings = angular.copy(ctrl.settings)
       delete ctrl.editSettings.alternateEntries
       Alert.modal.open('userAlternateNumbersEditModal', function(close) {

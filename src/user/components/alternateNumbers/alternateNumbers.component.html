@@ -2,7 +2,7 @@
   <pbs-block title="Settings">
     <pbs-block-buttons if-module-update="$ctrl.module">
       <pbs-button-compact-edit label="Edit Settings"
-        ng-click="$ctrl.edit()"></pbs-button-compact-edit>
+                               ng-click="$ctrl.edit()"></pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Distinctive Ring Enabled">
@@ -11,7 +11,7 @@
     </pbs-list>
   </pbs-block>
   <pbs-block title="Alternate Entries"
-    class="margin-top">
+             class="margin-top">
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>
       <thead>
@@ -29,8 +29,8 @@
       </tfoot>
       <tbody>
         <tr ng-class="{hover: $ctrl.canEdit}"
-          ng-click="$ctrl.editAlternateEntry(entry)"
-          ng-repeat="entry in $ctrl.settings.alternateEntries | filter:$ctrl.search as results">
+            ng-click="$ctrl.editAlternateEntry(entry)"
+            ng-repeat="entry in $ctrl.settings.alternateEntries | filter:$ctrl.search as results">
           <td>{{ entry.alternateEntryId }}</td>
           <td>{{ entry.phoneNumber }}</td>
           <td>{{ entry.extension }}</td>
@@ -42,29 +42,29 @@
 </pbs-spinner>
 <pbs-modal id="userAlternateNumbersEditModal">
   <input type="checkbox"
-    label="Distinctive Ring Enabled"
-    ng-model="$ctrl.editSettings.distinctiveRing"
-    pbs-input-checkradio>
+         label="Distinctive Ring Enabled"
+         ng-model="$ctrl.editSettings.distinctiveRing"
+         pbs-input-checkradio>
 </pbs-modal>
 <pbs-modal id="userAlternateNumbersEditEntryModal"
-  title="Edit Alternate Entry: {{ $ctrl.editEntry.alternateEntryId }}">
+           title="Edit Alternate Entry: {{ $ctrl.editEntry.alternateEntryId }}">
   <pbs-form-field-horizontal label="Phone Number">
     <select-phone-number service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-      phone-number="$ctrl.editEntry.phoneNumber"
-      on-update="$ctrl.selectNumber($event)"></select-phone-number>
+                         group-id="$ctrl.groupId"
+                         phone-number="$ctrl.editEntry.phoneNumber"
+                         on-update="$ctrl.selectNumber($event)"></select-phone-number>
   </pbs-form-field-horizontal>
   <pbs-form-field-horizontal label="Extension">
     <input type="text"
-      class="input"
-      ng-model="$ctrl.editEntry.extension">
+           class="input"
+           ng-model="$ctrl.editEntry.extension">
   </pbs-form-field-horizontal>
   <pbs-form-field-horizontal label="Ring Pattern"
-    class="margin-top">
+                             class="margin-top">
     <select name="ringPattern"
-      ng-model="$ctrl.editEntry.ringPattern"
-      ng-options="opt for opt in $ctrl.options.ringPatterns"
-      pbs-input-select>
+            ng-model="$ctrl.editEntry.ringPattern"
+            ng-options="opt for opt in $ctrl.options.ringPatterns"
+            pbs-input-select>
     </select>
   </pbs-form-field-horizontal>
 </pbs-modal>
