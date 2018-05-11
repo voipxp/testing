@@ -187,7 +187,7 @@
       acl: 'Group'
     },
     {
-      path: 'customContactDirectory',
+      path: 'customContactDirectories',
       component: 'groupCustomContactDirectories',
       acl: 'Group'
     },
