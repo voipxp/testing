@@ -46,6 +46,9 @@
       )
     }
 
-    $scope.$on('selectServiceProvider:load', open)
+    $scope.$on('selectServiceProvider:load', function(event, data) {
+      ctrl.filter = data
+      open()
+    })
   }
 })()

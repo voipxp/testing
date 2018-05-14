@@ -5,7 +5,14 @@
     bindings: { serviceProviderId: '<', onUpdate: '&' }
   })
 
-  function Controller(EventEmitter, CloneGroupService, $scope, Alert, ACL) {
+  function Controller(
+    EventEmitter,
+    ServiceProviderService,
+    CloneGroupService,
+    $scope,
+    Alert,
+    ACL
+  ) {
     var ctrl = this
     ctrl.selectServiceProvider = selectServiceProvider
     ctrl.selectGroup = selectGroup
@@ -13,7 +20,14 @@
     ctrl.onSelectGroup = onSelectGroup
 
     function selectServiceProvider() {
-      $scope.$broadcast('selectServiceProvider:load')
+      Alert.spinner.open()
+      ServiceProviderService.show(ctrl.serviceProviderId)
+        .then(function(serviceProvider) {
+          $scope.$broadcast('selectServiceProvider:load', {
+            isEnterprise: serviceProvider.isEnterprise
+          })
+        })
+        .finally(Alert.spinner.close)
     }
 
     function selectGroup() {
