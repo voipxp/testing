@@ -111,13 +111,11 @@
 
     function open(job) {
       if (!canOpen(job)) return
-      var thisUrl = '/app/#!/bulk/tasks/' + ctrl.id
-      var provUrl = Route.path('users')(
+      Route.open('users')(
         job.serviceProviderId,
         job.groupId,
         job.newUserId || job.userId
       )
-      $location.path(provUrl).search({ returnTo: thisUrl })
     }
 
     function status(job) {
