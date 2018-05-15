@@ -68,8 +68,12 @@
           <th>Answer Time</th>
           <th>Release Time</th>
           <th>Call Duration</th>
+          <th>Total Duration</th>
           <th>Account Code</th>
           <th>Authorization Code</th>
+          <th>Answer Indicator</th>
+          <th>Related Call Id Reason</th>
+
         </tr>
       </thead>
       <tfoot>
@@ -92,9 +96,12 @@
           <td>{{ detail.startTime | pbsDate:'{long}' }}</td>
           <td>{{ detail.answerTime | pbsDate:'{long}' }}</td>
           <td>{{ detail.releaseTime | pbsDate:'{long}' }}</td>
+          <td>{{ detail.placedTime }}</td>
           <td>{{ detail.totalTime }}</td>
           <td>{{ detail.accountCode }}</td>
           <td>{{ detail.authorizationCode }}</td>
+          <td>{{ detail.answerIndicator }}</td>
+          <td>{{ detail.relatedCallIdReason }}</td>
         </tr>
       </tbody>
     </table>
