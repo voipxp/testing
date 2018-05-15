@@ -30,7 +30,7 @@
     }
 
     function loadModule() {
-      return Module.show('Push To Talk').then(function(data) {
+      return Module.show('Push to Talk').then(function(data) {
         ctrl.module = data
       })
     }
