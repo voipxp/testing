@@ -1,10 +1,10 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Voice Messaging"
-    class="margin-top">
+             class="margin-top">
     <pbs-block-buttons>
       <pbs-button-compact-edit title="Edit Voice Messaging"
-        ng-click="$ctrl.edit()"
-        ng-if="!$ctrl.readOnly">
+                               ng-click="$ctrl.edit()"
+                               ng-if="!$ctrl.readOnly">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -24,21 +24,21 @@
         <pbs-check-box checked="$ctrl.messaging.sendVoiceMessageNotifyEmail"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Notification Email"
-        ng-show="$ctrl.messaging.sendVoiceMessageNotifyEmail">
+                     ng-show="$ctrl.messaging.sendVoiceMessageNotifyEmail">
         {{ $ctrl.messaging.voiceMessageNotifyEmailAddress }}
       </pbs-list-item>
       <pbs-list-item label="Carbon Copy Voice Message">
         <pbs-check-box checked="$ctrl.messaging.sendCarbonCopyVoiceMessage"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Carbon Copy Email To"
-        ng-show="$ctrl.messaging.sendCarbonCopyVoiceMessage">
+                     ng-show="$ctrl.messaging.sendCarbonCopyVoiceMessage">
         {{ $ctrl.messaging.voiceMessageCarbonCopyEmailAddress }}
       </pbs-list-item>
       <pbs-list-item label="Transfer On 0">
         <pbs-check-box checked="$ctrl.messaging.transferOnZeroToPhoneNumber"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Transfer On 0 To"
-        ng-show="$ctrl.messaging.transferOnZeroToPhoneNumber">
+                     ng-show="$ctrl.messaging.transferOnZeroToPhoneNumber">
         {{ $ctrl.messaging.transferPhoneNumber }}
       </pbs-list-item>
       <pbs-list-item label="Always Redirect to Voice Mail">
@@ -50,79 +50,81 @@
       <pbs-list-item label="No Answer to Voice Mail">
         <pbs-check-box checked="$ctrl.messaging.noAnswerRedirectToVoiceMail"></pbs-check-box>
       </pbs-list-item>
-      <pbs-list-item label="Out of Primary Zone to Voice Mail">
+      <pbs-list-item label="Out of Primary Zone to Voice Mail"
+                     ng-if="false">
         <pbs-check-box checked="$ctrl.messaging.outOfPrimaryZoneRedirectToVoiceMail"></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editUserVoiceMessaging"
-  title="Edit Voice Messaging">
+           title="Edit Voice Messaging">
   <form>
     <input type="checkbox"
-      ng-model="$ctrl.editMessaging.isActive"
-      label="Enabled"
-      pbs-input-checkradio>
+           ng-model="$ctrl.editMessaging.isActive"
+           label="Enabled"
+           pbs-input-checkradio>
     <input type="checkbox"
-      ng-model="$ctrl.editMessaging.usePhoneMessageWaitingIndicator"
-      label="Enable Phone Message Waiting Indicator"
-      pbs-input-checkradio>
+           ng-model="$ctrl.editMessaging.usePhoneMessageWaitingIndicator"
+           label="Enable Phone Message Waiting Indicator"
+           pbs-input-checkradio>
     <input type="checkbox"
-      ng-model="$ctrl.editMessaging.sendVoiceMessageNotifyEmail"
-      label="Send Voice Message Notification Email"
-      pbs-input-checkradio>
+           ng-model="$ctrl.editMessaging.sendVoiceMessageNotifyEmail"
+           label="Send Voice Message Notification Email"
+           pbs-input-checkradio>
     <input type="checkbox"
-      ng-model="$ctrl.editMessaging.sendCarbonCopyVoiceMessage"
-      label="Send Carbon Copy Voice Message"
-      pbs-input-checkradio>
+           ng-model="$ctrl.editMessaging.sendCarbonCopyVoiceMessage"
+           label="Send Carbon Copy Voice Message"
+           pbs-input-checkradio>
     <input type="checkbox"
-      ng-model="$ctrl.editMessaging.transferOnZeroToPhoneNumber"
-      label="Transfer on Zero"
-      pbs-input-checkradio>
+           ng-model="$ctrl.editMessaging.transferOnZeroToPhoneNumber"
+           label="Transfer on Zero"
+           pbs-input-checkradio>
     <input type="checkbox"
-      ng-model="$ctrl.editMessaging.alwaysRedirectToVoiceMail"
-      label="Always Redirect to Voicemail"
-      pbs-input-checkradio>
+           ng-model="$ctrl.editMessaging.alwaysRedirectToVoiceMail"
+           label="Always Redirect to Voicemail"
+           pbs-input-checkradio>
     <input type="checkbox"
-      ng-model="$ctrl.editMessaging.busyRedirectToVoiceMail"
-      label="Redirect Busy to Voicemail"
-      pbs-input-checkradio>
+           ng-model="$ctrl.editMessaging.busyRedirectToVoiceMail"
+           label="Redirect Busy to Voicemail"
+           pbs-input-checkradio>
     <input type="checkbox"
-      ng-model="$ctrl.editMessaging.noAnswerRedirectToVoiceMail"
-      label="Redirect No Answer to Voicemail"
-      pbs-input-checkradio>
+           ng-model="$ctrl.editMessaging.noAnswerRedirectToVoiceMail"
+           label="Redirect No Answer to Voicemail"
+           pbs-input-checkradio>
     <input type="checkbox"
-      ng-model="$ctrl.editMessaging.outOfPrimaryZoneRedirectToVoiceMail"
-      label="Redirect Out of Primary Zone to Voicemail"
-      pbs-input-checkradio>
+           ng-model="$ctrl.editMessaging.outOfPrimaryZoneRedirectToVoiceMail"
+           label="Redirect Out of Primary Zone to Voicemail"
+           pbs-input-checkradio
+           ng-if="false">
     <pbs-form-field-horizontal label="Processing">
       <select ng-model="$ctrl.editMessaging.processing"
-        ng-options="opt for opt in $ctrl.options.processing"
-        pbs-input-select>
+              ng-options="opt for opt in $ctrl.options.processing"
+              pbs-input-select>
       </select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Delivery Email">
       <input type="text"
-        class="input"
-        ng-model="$ctrl.editMessaging.voiceMessageDeliveryEmailAddress">
+             class="input"
+             ng-model="$ctrl.editMessaging.voiceMessageDeliveryEmailAddress">
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Email Notification To"
-      ng-show="$ctrl.editMessaging.sendVoiceMessageNotifyEmail">
+                               ng-show="$ctrl.editMessaging.sendVoiceMessageNotifyEmail">
       <input type="text"
-        class="input"
-        ng-model="$ctrl.editMessaging.voiceMessageNotifyEmailAddress">
+             class="input"
+             ng-model="$ctrl.editMessaging.voiceMessageNotifyEmailAddress">
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Carbon Copy To"
-      ng-show="$ctrl.editMessaging.sendCarbonCopyVoiceMessage">
+                               ng-show="$ctrl.editMessaging.sendCarbonCopyVoiceMessage">
       <input type="text"
-        class="input"
-        ng-model="$ctrl.editMessaging.voiceMessageCarbonCopyEmailAddress">
+             class="input"
+             ng-model="$ctrl.editMessaging.voiceMessageCarbonCopyEmailAddress">
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Transfer To"
-      ng-show="$ctrl.editMessaging.transferOnZeroToPhoneNumber">
+                               ng-show="$ctrl.editMessaging.transferOnZeroToPhoneNumber">
       <input type="text"
-        class="input"
-        ng-model="$ctrl.editMessaging.transferPhoneNumber">
+             class="input"
+             ng-model="$ctrl.editMessaging.transferPhoneNumber">
     </pbs-form-field-horizontal>
   </form>
 </pbs-modal>
