@@ -7,6 +7,8 @@
       serviceProviderId: '<',
       groupId: '<',
       phoneNumber: '<',
+      showAll: '<',
+      allowManual: '<',
       onUpdate: '&'
     }
   })
@@ -23,9 +25,14 @@
     ctrl.$onInit = onInit
     ctrl.edit = edit
     ctrl.select = select
+    ctrl.updated = updated
 
     function onInit() {
       ctrl.modalId = HashService.guid()
+    }
+
+    function updated() {
+      sendUpdate(ctrl.phoneNumber)
     }
 
     function edit() {
@@ -48,6 +55,10 @@
         phoneNumber.isSelected = true
       }
       Alert.modal.close(ctrl.modalId)
+      sendUpdate(phoneNumber)
+    }
+
+    function sendUpdate(phoneNumber) {
       ctrl.onUpdate(EventEmitter({ phoneNumber: phoneNumber }))
     }
 
@@ -55,7 +66,7 @@
       return GroupNumberService.index(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'available'
+        ctrl.showAll ? 'summary' : 'available'
       ).then(function(data) {
         ctrl.numbers = NumberService.expand(data)
         if (ctrl.phoneNumber) {

@@ -1,5 +1,5 @@
 <pbs-navigation service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId">
+                group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Profile'"></pbs-breadcrumb>
 </pbs-navigation>
 
@@ -7,7 +7,7 @@
   <pbs-block title="Profile">
     <pbs-block-buttons>
       <pbs-button-compact-edit title="Edit Group"
-        ng-click="$ctrl.edit()">
+                               ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -45,94 +45,95 @@
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editGroupDetailsModal"
-  title="Edit Group">
+           title="Edit Group">
   <form novalidate
-    name="editGroupDetailsForm">
+        name="editGroupDetailsForm">
     <pbs-tabs>
       <pbs-tab label="Required">
         <pbs-form-field label="Group Name">
           <input type="text"
-            class="input"
-            ng-model="$ctrl.editGroup.groupName"
-            required>
+                 class="input"
+                 ng-model="$ctrl.editGroup.groupName"
+                 required>
         </pbs-form-field>
         <pbs-form-field label="Default Domain">
           <select-group-domain ng-model="$ctrl.editGroup.defaultDomain"
-            service-provider-id="$ctrl.serviceProviderId"
-            group-id="$ctrl.groupId"></select-group-domain>
+                               service-provider-id="$ctrl.serviceProviderId"
+                               group-id="$ctrl.groupId"></select-group-domain>
         </pbs-form-field>
         <pbs-form-field label="User Limit">
           <input type="number"
-            class="input"
-            ng-model="$ctrl.editGroup.userLimit"
-            min="1"
-            required>
+                 class="input"
+                 ng-model="$ctrl.editGroup.userLimit"
+                 min="1"
+                 required>
         </pbs-form-field>
       </pbs-tab>
 
       <pbs-tab label="Optional">
         <pbs-form-field label="CLID Name">
           <input type="text"
-            class="input"
-            ng-model="$ctrl.editGroup.callingLineIdName">
+                 class="input"
+                 ng-model="$ctrl.editGroup.callingLineIdName">
         </pbs-form-field>
         <pbs-form-field label="CLID Number">
           <select-phone-number service-provider-id="$ctrl.serviceProviderId"
-            group-id="$ctrl.groupId"
-            phone-number="$ctrl.editGroup.callingLineIdPhoneNumber"
-            on-update="$ctrl.selectPhoneNumber($event)">
+                               group-id="$ctrl.groupId"
+                               phone-number="$ctrl.editGroup.callingLineIdPhoneNumber"
+                               show-all="true"
+                               on-update="$ctrl.selectPhoneNumber($event)">
           </select-phone-number>
         </pbs-form-field>
         <pbs-form-field label="Location Dialing Code">
           <input type="text"
-            class="input"
-            ng-model="$ctrl.editGroup.locationDialingCode">
+                 class="input"
+                 ng-model="$ctrl.editGroup.locationDialingCode">
         </pbs-form-field>
         <pbs-form-field label="Timezone">
           <select-timezone ng-model="$ctrl.editGroup.timeZone"></select-timezone>
         </pbs-form-field>
         <pbs-form-field label="Contact Name">
           <input type="text"
-            class="input"
-            ng-model="$ctrl.editGroup.contact.contactName">
+                 class="input"
+                 ng-model="$ctrl.editGroup.contact.contactName">
         </pbs-form-field>
         <pbs-form-field label="Contact Email">
           <input type="text"
-            class="input"
-            ng-model="$ctrl.editGroup.contact.contactEmail">
+                 class="input"
+                 ng-model="$ctrl.editGroup.contact.contactEmail">
         </pbs-form-field>
         <pbs-form-field label="Contact Number">
           <input type="text"
-            class="input"
-            ng-model="$ctrl.editGroup.contact.contactNumber">
+                 class="input"
+                 ng-model="$ctrl.editGroup.contact.contactNumber">
         </pbs-form-field>
         <pbs-form-field label="Address Line 1">
           <input type="text"
-            class="input"
-            ng-model="$ctrl.editGroup.address.addressLine1">
+                 class="input"
+                 ng-model="$ctrl.editGroup.address.addressLine1">
         </pbs-form-field>
         <pbs-form-field label="Address Line 2">
           <input type="text"
-            class="input"
-            ng-model="$ctrl.editGroup.address.addressLine2">
+                 class="input"
+                 ng-model="$ctrl.editGroup.address.addressLine2">
         </pbs-form-field>
         <pbs-form-field label="City">
           <input type="text"
-            class="input"
-            ng-model="$ctrl.editGroup.address.city">
+                 class="input"
+                 ng-model="$ctrl.editGroup.address.city">
         </pbs-form-field>
         <pbs-form-field label="State/Province">
           <select-state ng-model="$ctrl.editGroup.address.stateOrProvince"></select-state>
         </pbs-form-field>
         <pbs-form-field label="Postal Code">
           <input type="text"
-            class="input"
-            ng-model="$ctrl.editGroup.address.zipOrPostalCode">
+                 class="input"
+                 ng-model="$ctrl.editGroup.address.zipOrPostalCode">
         </pbs-form-field>
         <pbs-form-field label="Country">
           <input type="text"
-            class="input"
-            ng-model="$ctrl.editGroup.address.country">
+                 class="input"
+                 ng-model="$ctrl.editGroup.address.country">
         </pbs-form-field>
       </pbs-tab>
     </pbs-tabs>
