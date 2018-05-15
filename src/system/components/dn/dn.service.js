@@ -3,11 +3,17 @@
 
   function SystemDnService($http, Route) {
     var url = Route.api('/system/dns')
-    var service = { summary: summary, utilization: utilization }
+    var service = { summary: summary, utilization: utilization, show: show }
     return service
 
     function summary() {
       return $http.get(url('summary')).then(function(response) {
+        return response.data
+      })
+    }
+
+    function show(phoneNumber) {
+      return $http.get(url(phoneNumber)).then(function(response) {
         return response.data
       })
     }

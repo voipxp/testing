@@ -13,8 +13,7 @@
     ACL,
     Session,
     NumberService,
-    $scope,
-    $routeParams
+    $scope
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -74,14 +73,20 @@
     }
 
     function search() {
-      ctrl.isLoading = true
       var params = {
         serviceProviderId: ctrl.serviceProviderId,
         groupId: ctrl.groupId
       }
       params[ctrl.type] = ctrl.filter
+      if (!ctrl.serviceProviderId && !params.dn) {
+        Alert.notify.warning(
+          'You must select a Service Provider for non Phone Number searches'
+        )
+        return
+      }
       console.log('groupDnSearch', params)
       ctrl.users = null
+      ctrl.isLoading = true
       GroupDnSearchService.index(params)
         .then(function(data) {
           console.log('DATA', data)
@@ -116,8 +121,7 @@
 
     $rootScope.$on('groupDnSearch:load', function(event, data) {
       ctrl.onSelect = data.onSelect
-      ctrl.serviceProviderId =
-        data.serviceProviderId || $routeParams.serviceProviderId
+      ctrl.serviceProviderId = data.serviceProviderId
       ctrl.groupId = data.groupId
       ctrl.filter = null
       ctrl.users = null
