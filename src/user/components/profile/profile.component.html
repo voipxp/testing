@@ -86,13 +86,6 @@
 <pbs-modal id="editUserPassword"
   title="Edit Password">
   <pbs-form>
-    <pbs-form-field-horizontal label="Generate Random Password">
-      <pbs-button-compact-refresh title="Generate Password"
-                                  ng-click="$ctrl.generatePassword()">
-      </pbs-button-compact-refresh>
-      {{$ctrl.showPassword}}
-    </pbs-form-field-horizontal>
-
     <pbs-form-field-horizontal label="Current Password"
       ng-if="$ctrl.isCurrentUser">
       <input type="password"
@@ -102,21 +95,14 @@
         ng-maxlength="60"
         ng-required="$ctrl.isCurrentUser">
     </pbs-form-field-horizontal>
+
     <pbs-form-field-horizontal label="New Password">
-      <input type="password"
-        class="input"
-        ng-model="$ctrl.editUser.newPassword"
+      <pbs-input-password ng-model="$ctrl.editUser.newPassword"
         ng-minlength="6"
         ng-maxlength="60"
-        required>
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="Repeat Password">
-      <input type="password"
-        class="input"
-        ng-model="$ctrl.editUser.newPassword2"
-        ng-minlength="6"
-        ng-maxlength="60"
-        required>
+        ng-required="true"
+        service-provider-id="$ctrl.editUser.serviceProviderId"
+        group-id="$ctrl.editUser.groupId"></pbs-input-password>
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

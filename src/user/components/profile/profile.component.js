@@ -75,10 +75,6 @@
     function password() {
       ctrl.editUser = angular.copy(ctrl.user)
       Alert.modal.open('editUserPassword', function(close) {
-        if (ctrl.editUser.newPassword !== ctrl.editUser.newPassword2) {
-          Alert.notify.danger('Passwords do not match')
-          return
-        }
         if (!ctrl.isCurrentUser) {
           delete ctrl.editUser.oldPassword
         }
@@ -133,6 +129,7 @@
           Alert.spinner.close()
         })
     }
+
     function generatePassword() {
       console.log('generatePassword')
       ctrl.editUser = {}
