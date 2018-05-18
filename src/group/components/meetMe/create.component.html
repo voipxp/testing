@@ -1,47 +1,43 @@
-<pbs-block title="Create Bridge">
-  <pbs-block-buttons>
-    <pbs-button-compact-cancel title="Cancel"
-      ng-click="$ctrl.cancel()">
-    </pbs-button-compact-cancel>
-  </pbs-block-buttons>
+<pbs-modal id="{{ $ctrl.modalId }}"
+  title="New Bridge">
   <form name="createMeetMeForm"
     novalidate
     autocomplete="off">
     <pbs-tabs>
       <pbs-tab label="Details">
-        <pbs-form-field label="Service User ID*">
+        <pbs-form-field-horizontal label="Service User ID*">
           <input type="text"
             class="input"
             placeholder="username"
             ng-model="$ctrl.bridge.serviceUserIdPrefix"
             required>
-        </pbs-form-field>
-        <pbs-form-field label="Service User Domain*">
-          <div class="select">
-            <select ng-model="$ctrl.bridge.serviceUserIdSuffix"
-              ng-options="domain as domain for domain in $ctrl.domains.domains"
-              required></select>
-          </div>
-        </pbs-form-field>
-        <pbs-form-field label="Service Profile Name*">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Service User Domain*">
+          <select ng-model="$ctrl.bridge.serviceUserIdSuffix"
+            ng-options="domain as domain for domain in $ctrl.domains.domains"
+            required
+            pbs-input-select
+            is-fullwidth></select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Service Profile Name*">
           <input type="text"
             class="input"
             ng-model="$ctrl.bridge.serviceInstanceProfile.name"
             required>
-        </pbs-form-field>
-        <pbs-form-field label="CLID Last Name*">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="CLID Last Name*">
           <input type="text"
             class="input"
             ng-model="$ctrl.bridge.serviceInstanceProfile.callingLineIdLastName"
             required>
-        </pbs-form-field>
-        <pbs-form-field label="CLID First Name*">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="CLID First Name*">
           <input type="text"
             class="input"
             ng-model="$ctrl.bridge.serviceInstanceProfile.callingLineIdFirstName"
             required>
-        </pbs-form-field>
-        <pbs-form-field label="Allocated Ports*">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Allocated Ports*">
           <input type="number"
             class="input"
             ng-model="$ctrl.bridge.allocatedPorts"
@@ -51,49 +47,49 @@
           <small ng-show="$ctrl.ports.allocatedPorts">(max: {{ ($ctrl.ports.allocatedPorts === -1) ? 'Unlimited' : $ctrl.ports.allocatedPorts }})</small>
           <strong class="is-pulled-right"
             ng-show="$ctrl.bridge.allocatedPorts === -1">Unlimited</strong>
-        </pbs-form-field>
-        <pbs-form-field label="Security PIN Length*">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Security PIN Length*">
           <input type="number"
             class="input"
             ng-model="$ctrl.bridge.securityPinLength"
             min="4"
             max="12"
             required>
-        </pbs-form-field>
-        <pbs-form-field label="Operator Number">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Operator Number">
           <input type="text"
             class="input"
             ng-model="$ctrl.bridge.operatorNumber">
-        </pbs-form-field>
-        <pbs-form-field label="Individual Out Dial">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Individual Out Dial">
           <label class="checkbox">
             <input type="checkbox"
               ng-model="$ctrl.bridge.allowIndividualOutDial"> Allow Individual Out Dial
           </label>
-        </pbs-form-field>
-        <pbs-form-field label="Warning Prompt">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Warning Prompt">
           <label class="checkbox">
             <input type="checkbox"
               ng-model="$ctrl.bridge.playWarningPrompt"> Play Conference End Warning Prompt
           </label>
-        </pbs-form-field>
-        <pbs-form-field label="End Prompt Minutes"
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="End Prompt Minutes"
           ng-show="$ctrl.bridge.playWarningPrompt">
           <input type="number"
             class="input"
             ng-model="$ctrl.bridge.conferenceEndWarningPromptMinutes"
             min="1"
             max="15">
-        </pbs-form-field>
-        <pbs-form-field label="Max Scheduled Hours">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Max Scheduled Hours">
           <input type="number"
             class="input"
             ng-model="$ctrl.bridge.maxScheduledConferenceDurationMinutes.hours"
             string-to-number
             min="0"
             max="23">
-        </pbs-form-field>
-        <pbs-form-field label="Max Scheduled Minutes">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Max Scheduled Minutes">
           <input type="number"
             class="input"
             ng-model="$ctrl.bridge.maxScheduledConferenceDurationMinutes.minutes"
@@ -101,14 +97,14 @@
             min="0"
             max="45"
             step="15">
-        </pbs-form-field>
-        <pbs-form-field label="Set Max Duration">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Set Max Duration">
           <label class="checkbox">
             <input type="checkbox"
               ng-model="$ctrl.bridge.enableMaxConferenceDuration"> Enable Max Conference Duration
           </label>
-        </pbs-form-field>
-        <pbs-form-field label="Max Duration Hours"
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Max Duration Hours"
           ng-show="$ctrl.bridge.enableMaxConferenceDuration">
           <input type="number"
             class="input"
@@ -116,8 +112,8 @@
             string-to-number
             min="0"
             max="23">
-        </pbs-form-field>
-        <pbs-form-field label="Max Duration Minutes"
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Max Duration Minutes"
           ng-show="$ctrl.bridge.enableMaxConferenceDuration">
           <input type="number"
             class="input"
@@ -126,61 +122,58 @@
             min="0"
             max="45"
             step="15">
-        </pbs-form-field>
+        </pbs-form-field-horizontal>
       </pbs-tab>
 
       <pbs-tab label="Profile">
-        <pbs-form-field label="Phone Number">
-          <div class="select">
-            <select ng-model="$ctrl.bridge.serviceInstanceProfile.phoneNumber"
-              ng-options="number.min as number.min for number in $ctrl.numbers"
-              ng-change="$ctrl.setExtension()">
-              <option value="">-- None --</option>
-            </select>
-          </div>
-        </pbs-form-field>
-        <pbs-form-field label="Extension">
+        <pbs-form-field-horizontal label="Phone Number">
+          <select ng-model="$ctrl.bridge.serviceInstanceProfile.phoneNumber"
+            ng-options="number.min as number.min for number in $ctrl.numbers"
+            ng-change="$ctrl.setExtension()"
+            pbs-input-select
+            is-fullwidth>
+            <option value="">-- None --</option>
+          </select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Extension">
           <input type="text"
             class="input"
             ng-model="$ctrl.bridge.serviceInstanceProfile.extension">
-        </pbs-form-field>
-        <pbs-form-field label="Password">
-          <input type="password"
-            class="input"
-            ng-model="$ctrl.bridge.serviceInstanceProfile.password">
-        </pbs-form-field>
-        <pbs-form-field label="Repeat Password"
-          ng-show="$ctrl.bridge.serviceInstanceProfile.password">
-          <input type="password"
-            class="input"
-            ng-model="$ctrl.bridge.serviceInstanceProfile.password2">
-        </pbs-form-field>
-        <pbs-form-field label="Public User Identity">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Password">
+          <pbs-input-password ng-model="$ctrl.bridge.serviceInstanceProfile.password"
+            ng-minlength="6"
+            ng-maxlength="60"
+            service-provider-id="$ctrl.parent.serviceProviderId"
+            group-id="$ctrl.parent.groupId"></pbs-input-password>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Public User Identity">
           <input type="text"
             class="input"
             ng-model="$ctrl.bridge.serviceInstanceProfile.publicUserIdentity">
-        </pbs-form-field>
-        <pbs-form-field label="Alias">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Department Name">
+          <select ng-model="$ctrl.bridge.serviceInstanceProfile.department"
+            ng-options="department as department.name for department in $ctrl.departments track by department.name"
+            pbs-input-select
+            is-fullwidth></select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Language">
+          <select ng-model="$ctrl.bridge.serviceInstanceProfile.language"
+            ng-options="language.language as language.language for language in $ctrl.languages.languages track by language.language"
+        
+            pbs-input-select
+            is-fullwidth></select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Timezone">
+          <select ng-model="$ctrl.bridge.serviceInstanceProfile.timeZone"
+            ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones track by timezone.key"
+            pbs-input-select
+            is-fullwidth></select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Alias">
           <alias-list profile="$ctrl.bridge.serviceInstanceProfile"></alias-list>
-        </pbs-form-field>
-        <pbs-form-field label="Department Name">
-          <div class="select">
-            <select ng-model="$ctrl.bridge.serviceInstanceProfile.department"
-              ng-options="department as department.name for department in $ctrl.departments track by department.name"></select>
-          </div>
-        </pbs-form-field>
-        <pbs-form-field label="Language">
-          <div class="select">
-            <select ng-model="$ctrl.bridge.serviceInstanceProfile.language"
-              ng-options="language.language as language.language for language in $ctrl.languages.languages track by language.language"></select>
-          </div>
-        </pbs-form-field>
-        <pbs-form-field label="Timezone">
-          <div class="select">
-            <select ng-model="$ctrl.bridge.serviceInstanceProfile.timeZone"
-              ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones track by timezone.key"></select>
-          </div>
-        </pbs-form-field>
+        </pbs-form-field-horizontal>
       </pbs-tab>
 
       <pbs-tab label="Users">
@@ -189,10 +182,4 @@
       </pbs-tab>
     </pbs-tabs>
   </form>
-
-  <div class="margin-top has-text-right">
-    <pbs-button-cancel ng-click="$ctrl.cancel()"></pbs-button-cancel>
-    <pbs-button-save ng-click="$ctrl.create()"
-      ng-disabled="createMeetMeForm.$invalid"></pbs-button-save>
-  </div>
-</pbs-block>
+</pbs-modal>

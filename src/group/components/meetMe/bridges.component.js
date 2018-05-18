@@ -5,7 +5,7 @@
     require: { parent: '^groupMeetMe' }
   })
 
-  function Controller(Alert, GroupMeetMeConferencingBridgeService) {
+  function Controller(Alert, GroupMeetMeConferencingBridgeService, $scope) {
     var ctrl = this
 
     ctrl.$onInit = activate
@@ -34,7 +34,7 @@
     }
 
     function add() {
-      ctrl.parent.state = 'add'
+      $scope.$broadcast('groupMeetMeCreate:load')
     }
   }
 })()

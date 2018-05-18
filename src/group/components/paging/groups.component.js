@@ -11,10 +11,6 @@
     ctrl.groupId = $routeParams.groupId
     ctrl.open = open
 
-    ctrl.$onInit = function() {
-      ctrl.state = 'list'
-    }
-
     function open(serviceUserId) {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId)(
         'paging',

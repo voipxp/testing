@@ -16,13 +16,16 @@
     GroupMeetMeConferencingPortService,
     GroupDepartmentService,
     SystemLanguageService,
-    SystemTimeZoneService
+    SystemTimeZoneService,
+    HashService
   ) {
     var ctrl = this
-
-    ctrl.create = create
-    ctrl.cancel = cancel
+    ctrl.$onInit = onInit
     ctrl.setExtension = setExtension
+
+    function onInit() {
+      ctrl.modalId = HashService.guid()
+    }
 
     function activate() {
       Alert.spinner.open()
@@ -37,13 +40,13 @@
           loadNumbers()
         ])
         .then(initBridge)
-        .catch(function(error) {
-          Alert.notify.danger(error)
-          cancel()
+        .then(function() {
+          Alert.modal.open(ctrl.modalId, function(close) {
+            create(ctrl.bridge, close)
+          })
         })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function initBridge() {
@@ -140,40 +143,22 @@
       ctrl.bridge.serviceInstanceProfile.extension = ext
     }
 
-    function cancel() {
-      ctrl.bridge = {}
-      ctrl.parent.state = 'list'
-    }
-
-    function create() {
-      if (
-        ctrl.bridge.serviceInstanceProfile.password &&
-        ctrl.bridge.serviceInstanceProfile.password !==
-          ctrl.bridge.serviceInstanceProfile.password2
-      ) {
-        Alert.notify.danger('Profile Passwords Do Not Match')
-        return
-      }
-      ctrl.bridge.serviceProviderId = ctrl.parent.serviceProviderId
-      ctrl.bridge.groupId = ctrl.parent.groupId
-      ctrl.bridge.serviceUserId =
-        ctrl.bridge.serviceUserIdPrefix + '@' + ctrl.bridge.serviceUserIdSuffix
+    function create(bridge, callback) {
+      bridge.serviceProviderId = ctrl.parent.serviceProviderId
+      bridge.groupId = ctrl.parent.groupId
+      bridge.serviceUserId =
+        bridge.serviceUserIdPrefix + '@' + bridge.serviceUserIdSuffix
       Alert.spinner.open()
-      GroupMeetMeConferencingBridgeService.store(ctrl.bridge)
+      GroupMeetMeConferencingBridgeService.store(bridge)
         .then(function() {
-          Alert.spinner.close()
+          Alert.notify.success('Bridge Created')
+          callback()
           ctrl.parent.open(ctrl.parent.groupId, ctrl.bridge.serviceUserId)
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
-    $scope.$watch('$ctrl.parent.state', function(newVal) {
-      if (newVal === 'add') activate()
-    })
+    $scope.$on('groupMeetMeCreate:load', activate)
   }
 })()

@@ -51,13 +51,6 @@
     }
 
     function create(autoAttendant, callback) {
-      if (
-        _.get(autoAttendant, 'serviceInstanceProfile.password') !==
-        _.get(autoAttendant, 'serviceInstanceProfile.password2')
-      ) {
-        Alert.notify.danger('Passwords do not match')
-        return
-      }
       Alert.spinner.open()
       GroupAutoAttendantService.store(autoAttendant)
         .then(function() {

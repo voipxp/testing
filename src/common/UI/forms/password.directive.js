@@ -3,10 +3,11 @@
 
   function pbsInputPassword(PasswordService, GroupPasswordService, Alert, $q) {
     var template =
-      '<div>' +
+      '<div ng-form name="passwordForm">' +
       '  <div class="field has-addons">' +
-      '    <div class="control is-expanded">' +
+      '    <div class="control is-expanded has-icons-right">' +
       '      <input class="input"' +
+      '         name="password1"' +
       '         type="{{ inputType }}"' +
       '         placeholder="Password"' +
       '         ng-model="ngModel"' +
@@ -15,6 +16,10 @@
       '         ng-maxlength="ngMaxlength"' +
       '         ng-disabled="isLoading"' +
       '         ng-change="onChange()">' +
+      '       <span class="icon is-small is-right">' +
+      '         <i class="fas"' +
+      "            ng-class=\"{'fa-exclamation-triangle': passwordForm.password1.$invalid, 'fa-check': passwordForm.password1.$valid }\"></i>" +
+      '       </span>' +
       '    </div>' +
       '    <div class="control">' +
       '      <div class="button is-link"' +
@@ -26,9 +31,10 @@
       '    </div>' +
       '  </div>' +
       '  <div class="field has-addons">' +
-      '    <div class="control is-expanded">' +
+      '    <div class="control is-expanded has-icons-right">' +
       '      <input class="input"' +
       '        type="{{ inputType }}"' +
+      '        name="password2"' +
       '        placeholder="Repeat Password"' +
       '        ng-model="password2"' +
       '        ng-required="ngModel"' +
@@ -36,6 +42,10 @@
       '        ng-maxlength="ngMaxlength"' +
       '        ng-disabled="isLoading"' +
       '        ng-pattern="pattern">' +
+      '       <span class="icon is-small is-right">' +
+      '         <i class="fas"' +
+      "            ng-class=\"{'fa-exclamation-triangle': passwordForm.password2.$invalid, 'fa-check': passwordForm.password2.$valid }\"></i>" +
+      '       </span>' +
       '     </div>' +
       '     <div class="control">' +
       '      <div class="button is-link"' +

@@ -2,178 +2,173 @@
   title="New Call Center">
   <form>
     <div ng-show="!$ctrl.center.type">
-      <pbs-form-field label="Call Center Type">
-        <div class="select">
-          <select ng-model="$ctrl.center.type"
-            ng-options="opt for opt in $ctrl.options.type"
-            required></select>
-        </div>
-      </pbs-form-field>
+      <pbs-form-field-horizontal label="Call Center Type">
+        <select ng-model="$ctrl.center.type"
+          ng-options="opt for opt in $ctrl.options.type"
+          required
+          pbs-input-select
+          is-fullwidth></select>
+      </pbs-form-field-horizontal>
     </div>
 
 
     <div ng-show="$ctrl.center.type">
-      <pbs-form-field label="Service User ID*">
+      <pbs-form-field-horizontal label="Service User ID*">
         <input type="text"
           class="input"
           placeholder="username"
           ng-model="$ctrl.center.serviceUserIdPrefix"
           required>
-      </pbs-form-field>
-      <pbs-form-field label="Service User Domain*">
-        <div class="select">
-          <select ng-model="$ctrl.center.serviceUserIdSuffix"
-            ng-options="domain as domain for domain in $ctrl.domains.domains"
-            required></select>
-        </div>
-      </pbs-form-field>
-      <pbs-form-field label="Profile Name*">
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Service User Domain*">
+        <select ng-model="$ctrl.center.serviceUserIdSuffix"
+          ng-options="domain as domain for domain in $ctrl.domains.domains"
+          required
+          pbs-input-select
+          is-fullwidth></select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Profile Name*">
         <input type="text"
           class="input"
           ng-model="$ctrl.center.serviceInstanceProfile.name"
           required>
-      </pbs-form-field>
-      <pbs-form-field label="CLID Last Name*">
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="CLID Last Name*">
         <input type="text"
           class="input"
           ng-model="$ctrl.center.serviceInstanceProfile.callingLineIdLastName"
           required>
-      </pbs-form-field>
-      <pbs-form-field label="CLID First Name*">
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="CLID First Name*">
         <input type="text"
           class="input"
           ng-model="$ctrl.center.serviceInstanceProfile.callingLineIdFirstName"
           required>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Password*">
-        <input type="password"
-          class="input"
-          ng-model="$ctrl.center.serviceInstanceProfile.password">
-      </pbs-form-field>
+      <pbs-form-field-horizontal label="Password*">
+        <pbs-input-password ng-model="$ctrl.center.serviceInstanceProfile.password"
+          ng-minlength="6"
+          ng-maxlength="60"
+          service-provider-id="$ctrl.serviceProviderId"
+          group-id="$ctrl.groupId"></pbs-input-password>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Repeat Password*"
-        ng-show="$ctrl.center.serviceInstanceProfile.password">
-        <input type="password"
-          class="input"
-          ng-model="$ctrl.center.serviceInstanceProfile.password2">
-      </pbs-form-field>
+      <pbs-form-field-horizontal label="Group Policy*">
+        <select ng-model="$ctrl.center.policy"
+          ng-options="opt for opt in $ctrl.options.policy"
+          required
+          pbs-input-select
+          is-fullwidth></select>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Group Policy*">
-        <div class="select">
-          <select ng-model="$ctrl.center.policy"
-            ng-options="opt for opt in $ctrl.options.policy"
-            required></select>
-        </div>
-      </pbs-form-field>
-
-      <pbs-form-field label="Routing Type"
+      <pbs-form-field-horizontal label="Routing Type"
         ng-if="$ctrl.hasPermission('routingType')">
-        <div class="select">
-          <select ng-model="$ctrl.center.routingType"
-            ng-options="opt for opt in $ctrl.options.routingType"></select>
-        </div>
-      </pbs-form-field>
+        <select ng-model="$ctrl.center.routingType"
+          ng-options="opt for opt in $ctrl.options.routingType"
+          pbs-input-select
+          is-fullwidth></select>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Queue Length">
+      <pbs-form-field-horizontal label="Queue Length">
         <input type="number"
           class="input"
           ng-model="$ctrl.center.queueLength"
           min="{{ $ctrl.options.queueLength.min }}"
           max="{{ $ctrl.options.queueLength.max }}"
           required>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Escape Digit*">
+      <pbs-form-field-horizontal label="Escape Digit*">
         <input type="text"
           class="input"
           ng-model="$ctrl.center.escapeDigit"
           ng-minlength="$ctrl.options.escapeDigit.minLength"
           ng-maxlength="$ctrl.options.escapeDigit.maxLength"
           required>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="External Codec">
-        <div class="select">
-          <select ng-model="$ctrl.center.externalPreferredAudioCodec"
-            ng-options="opt for opt in $ctrl.options.audioFileCodec"></select>
-        </div>
-      </pbs-form-field>
+      <pbs-form-field-horizontal label="External Codec">
+        <select ng-model="$ctrl.center.externalPreferredAudioCodec"
+          ng-options="opt for opt in $ctrl.options.audioFileCodec"
+          pbs-input-select
+          is-fullwidth></select>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Internal Codec">
-        <div class="select">
-          <select ng-model="$ctrl.center.internalPreferredAudioCodec"
-            ng-options="opt for opt in $ctrl.options.audioFileCodec"></select>
-        </div>
-      </pbs-form-field>
+      <pbs-form-field-horizontal label="Internal Codec">
+        <select ng-model="$ctrl.center.internalPreferredAudioCodec"
+          ng-options="opt for opt in $ctrl.options.audioFileCodec"
+          pbs-input-select
+          is-fullwidth></select>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Play Rining">
+      <pbs-form-field-horizontal label="Play Rining">
         <label class="checkbox">
           <input type="checkbox"
             ng-model="$ctrl.center.playRingingWhenOfferingCall"> Play Ringing When Offering Call
         </label>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Reset Call Statistics">
+      <pbs-form-field-horizontal label="Reset Call Statistics">
         <label class="checkbox">
           <input type="checkbox"
             ng-model="$ctrl.center.resetCallStatisticsUponEntryInQueue"> Reset Call Statistics on Entry In Queue
         </label>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Enable Video Support">
+      <pbs-form-field-horizontal label="Enable Video Support">
         <label class="checkbox">
           <input type="checkbox"
             ng-model="$ctrl.center.enableVideo"> Enable Video Support
         </label>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Escape Digit Enabled">
+      <pbs-form-field-horizontal label="Escape Digit Enabled">
         <label class="checkbox">
           <input type="checkbox"
             ng-model="$ctrl.center.allowCallerToDialEscapeDigit"> Escape Digit Enabled
         </label>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Enable Reporting"
+      <pbs-form-field-horizontal label="Enable Reporting"
         ng-if="$ctrl.hasPermission('enableReporting')">
         <label class="checkbox">
           <input type="checkbox"
             ng-model="$ctrl.center.enableReporting"> Enable Reporting
         </label>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Allow Agent Logoff">
+      <pbs-form-field-horizontal label="Allow Agent Logoff">
         <label class="checkbox">
           <input type="checkbox"
             ng-model="$ctrl.center.allowAgentLogoff"> Allow Agent Logoff
         </label>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Allow Call Waiting">
+      <pbs-form-field-horizontal label="Allow Call Waiting">
         <label class="checkbox">
           <input type="checkbox"
             ng-model="$ctrl.center.allowCallWaitingForAgents"> Allow Call Waiting For Agents
         </label>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Agents in Wrap-up"
+      <pbs-form-field-horizontal label="Agents in Wrap-up"
         ng-if="$ctrl.hasPermission('allowCallsToAgentsInWrapUp')">
         <label class="checkbox">
           <input type="checkbox"
             ng-model="$ctrl.center.allowCallsToAgentsInWrapUp"> Enable Calls To Agents in Wrap-up
         </label>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Override Wrap-up Time"
+      <pbs-form-field-horizontal label="Override Wrap-up Time"
         ng-if="$ctrl.hasPermission('overrideAgentWrapUpTime')">
         <label class="checkbox">
           <input type="checkbox"
             ng-model="$ctrl.center.overrideAgentWrapUpTime"> Override Agent Wrap-up Time
         </label>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Wrap-up Seconds"
+      <pbs-form-field-horizontal label="Wrap-up Seconds"
         ng-if="$ctrl.hasPermission('wrapUpSeconds')"
         ng-show="$ctrl.center.overrideAgentWrapUpTime">
         <input type="number"
@@ -181,34 +176,34 @@
           ng-model="$ctrl.center.wrapUpSeconds"
           min="{{ $ctrl.options.wrapUpSeconds.min }}"
           max="{{ $ctrl.options.wrapUpSeconds.max }}">
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Set Agent State"
+      <pbs-form-field-horizontal label="Set Agent State"
         ng-if="$ctrl.hasPermission('enableAutomaticStateChangeForAgents')">
         <label class="checkbox">
           <input type="checkbox"
             ng-model="$ctrl.center.enableAutomaticStateChangeForAgents"> Set Agent State After Call
         </label>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Agent State"
+      <pbs-form-field-horizontal label="Agent State"
         ng-if="$ctrl.hasPermission('agentStateAfterCall')"
         ng-show="$ctrl.center.enableAutomaticStateChangeForAgents">
-        <div class="select">
-          <select ng-model="$ctrl.center.agentStateAfterCall"
-            ng-options="opt for opt in $ctrl.options.agentStateAfterCall"></select>
-        </div>
-      </pbs-form-field>
+        <select ng-model="$ctrl.center.agentStateAfterCall"
+          ng-options="opt for opt in $ctrl.options.agentStateAfterCall"
+          pbs-input-select
+          is-fullwidth></select>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Force Delivery of Calls"
+      <pbs-form-field-horizontal label="Force Delivery of Calls"
         ng-if="$ctrl.hasPermission('forceDeliveryOfCalls')">
         <label class="checkbox">
           <input type="checkbox"
             ng-model="$ctrl.center.forceDeliveryOfCalls"> Force Delivery of Calls
         </label>
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
 
-      <pbs-form-field label="Force Delivery Seconds"
+      <pbs-form-field-horizontal label="Force Delivery Seconds"
         ng-if="$ctrl.hasPermission('forceDeliveryWaitTimeSeconds')"
         ng-show="$ctrl.center.forceDeliveryOfCalls">
         <input type="number"
@@ -216,7 +211,7 @@
           ng-model="$ctrl.center.forceDeliveryWaitTimeSeconds"
           min="{{ $ctrl.options.forceDeliveryWaitTimeSeconds.min }}"
           max="{{ $ctrl.options.forceDeliveryWaitTimeSeconds.max }}">
-      </pbs-form-field>
+      </pbs-form-field-horizontal>
     </div>
   </form>
 </pbs-modal>

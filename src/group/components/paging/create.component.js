@@ -15,13 +15,17 @@
     SystemTimeZoneService,
     GroupDomainService,
     UserNumberService,
-    $scope
+    $scope,
+    HashService
   ) {
     var ctrl = this
-    ctrl.cancel = cancel
+    ctrl.$onInit = onInit
     ctrl.setExtension = setExtension
     ctrl.setDeliveryCLID = setDeliveryCLID
-    ctrl.create = create
+
+    function onInit() {
+      ctrl.modalId = HashService.guid()
+    }
 
     function activate() {
       Alert.spinner.open()
@@ -33,15 +37,14 @@
           loadDomains(),
           loadNumbers()
         ])
+        .then(initGroup)
         .then(function() {
-          initGroup()
+          Alert.modal.open(ctrl.modalId, function(close) {
+            create(ctrl.group, close)
+          })
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function loadDepartments() {
@@ -116,40 +119,22 @@
       }
     }
 
-    function cancel() {
-      ctrl.group = {}
-      ctrl.parent.state = 'list'
-    }
-
-    function create() {
-      if (
-        ctrl.group.serviceInstanceProfile.password &&
-        ctrl.group.serviceInstanceProfile.password !==
-          ctrl.group.serviceInstanceProfile.password2
-      ) {
-        Alert.notify.danger('Profile Passwords Do Not Match')
-        return
-      }
-      ctrl.group.serviceProviderId = ctrl.parent.serviceProviderId
-      ctrl.group.groupId = ctrl.parent.groupId
-      ctrl.group.serviceUserId =
-        ctrl.group.serviceUserIdPrefix + '@' + ctrl.group.serviceUserIdSuffix
+    function create(group, callback) {
+      group.serviceProviderId = ctrl.parent.serviceProviderId
+      group.groupId = ctrl.parent.groupId
+      group.serviceUserId =
+        group.serviceUserIdPrefix + '@' + group.serviceUserIdSuffix
       Alert.spinner.open()
-      GroupPagingGroupService.store(ctrl.group)
+      GroupPagingGroupService.store(group)
         .then(function() {
-          Alert.spinner.close()
+          Alert.notify.success('Group Created')
+          callback()
           ctrl.parent.open(ctrl.group.serviceUserIdPrefix)
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
-    $scope.$watch('$ctrl.parent.state', function(newVal) {
-      if (newVal === 'add') activate()
-    })
+    $scope.$on('groupPagingGroupCreate:load', activate)
   }
 })()

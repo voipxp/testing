@@ -67,14 +67,6 @@
     }
 
     function create(center, callback) {
-      if (
-        center.serviceInstanceProfile.password &&
-        center.serviceInstanceProfile.password !==
-          center.serviceInstanceProfile.password2
-      ) {
-        Alert.notify.danger('Profile Passwords Do Not Match')
-        return
-      }
       center.serviceProviderId = ctrl.serviceProviderId
       center.groupId = ctrl.groupId
       center.serviceUserId =

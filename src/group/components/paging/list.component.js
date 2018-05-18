@@ -5,7 +5,7 @@
     require: { parent: '^groupPagingGroups' }
   })
 
-  function Controller(Alert, $q, GroupPagingGroupService) {
+  function Controller(Alert, $q, GroupPagingGroupService, $scope) {
     var ctrl = this
     ctrl.$onInit = activate
     ctrl.add = add
@@ -33,7 +33,7 @@
     }
 
     function add() {
-      ctrl.parent.state = 'add'
+      $scope.$broadcast('groupPagingGroupCreate:load')
     }
 
     function toggle(service) {

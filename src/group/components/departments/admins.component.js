@@ -96,10 +96,6 @@
     }
 
     function create(admin, callback) {
-      if (admin.password && admin.password !== admin.password2) {
-        Alert.notify.danger('Passwords do not match')
-        return
-      }
       Alert.spinner.open()
       GroupDepartmentAdminService.store(
         ctrl.serviceProviderId,
