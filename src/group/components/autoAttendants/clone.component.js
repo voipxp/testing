@@ -104,13 +104,6 @@
 
     function create(autoAttendant, options, callback) {
       console.log('create', autoAttendant)
-      if (
-        _.get(autoAttendant, 'serviceInstanceProfile.password') !==
-        _.get(autoAttendant, 'serviceInstanceProfile.password2')
-      ) {
-        Alert.notify.danger('Passwords do not match')
-        return
-      }
       Alert.spinner.open()
       CloneGroupServiceService.autoAttendant(ctrl.fromAutoAttendantId, {
         data: autoAttendant,
