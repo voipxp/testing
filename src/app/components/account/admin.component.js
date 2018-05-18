@@ -21,11 +21,7 @@
     function edit() {
       ctrl.oldPassword = ctrl.newPassword1 = ctrl.newPassword2 = null
       Alert.modal.open('changeMyPassword', function(close) {
-        if (ctrl.newPassword1 !== ctrl.newPassword2) {
-          Alert.notify.danger("Passwords Don't Match")
-          return
-        }
-        changePassword(ctrl.oldPassword, ctrl.newPassword1, close)
+        changePassword(ctrl.oldPassword, ctrl.newPassword, close)
       })
     }
 

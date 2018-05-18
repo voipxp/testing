@@ -44,14 +44,13 @@
 <pbs-modal id="create-GroupAdmin"
   title="Add Administrator">
   <pbs-form>
-    <pbs-form-field label="User ID">
+    <pbs-form-field-horizontal label="User ID">
       <select-user-id service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
         user-id="$ctrl.newAdmin.userId"
         required="true"
         on-update="$ctrl.setNewUserId($event)"></select-user-id>
-    </pbs-form-field>
-    <br>
+    </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Type">
       <select ng-model="$ctrl.newAdminType"
         pbs-input-select>
@@ -77,22 +76,13 @@
         class="input"
         ng-model="$ctrl.newAdmin.firstName">
     </pbs-form-field-horizontal>
-
     <pbs-form-field-horizontal label="Password">
-      <input type="password"
-        class="input"
-        ng-model="$ctrl.newAdmin.password"
+      <pbs-input-password ng-model="$ctrl.newAdmin.password"
         ng-minlength="6"
         ng-maxlength="60"
-        required>
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="Password Again">
-      <input type="password"
-        class="input"
-        ng-model="$ctrl.newAdmin.password2"
-        ng-minlength="6"
-        ng-maxlength="60"
-        required>
+        ng-required="true"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"></pbs-input-password>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Language">
       <select-language ng-model="$ctrl.newAdmin.language"></select-language>
@@ -116,18 +106,12 @@
             ng-model="$ctrl.editAdmin.firstName">
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="New Password">
-          <input type="password"
-            class="input"
-            ng-model="$ctrl.editAdmin.password"
+          <pbs-input-password ng-model="$ctrl.editAdmin.password"
             ng-minlength="6"
-            ng-maxlength="60">
-        </pbs-form-field-horizontal>
-        <pbs-form-field-horizontal label="New Password Again">
-          <input type="password"
-            class="input"
-            ng-model="$ctrl.editAdmin.password2"
-            ng-minlength="6"
-            ng-maxlength="60">
+            ng-maxlength="60"
+            ng-required="true"
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"></pbs-input-password>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Language">
           <select-language ng-model="$ctrl.editAdmin.language"></select-language>

@@ -90,10 +90,6 @@
     }
 
     function create(admin, callback) {
-      if (admin.password && admin.password !== admin.password2) {
-        Alert.notify.danger('Passwords do not match')
-        return
-      }
       Alert.spinner.open()
       var promise
       if (ctrl.newAdminType === 'department') {
@@ -121,10 +117,6 @@
     }
 
     function update(admin, policies, callback) {
-      if (admin.password && admin.password !== admin.password2) {
-        Alert.notify.warning('Passwords do not match')
-        return
-      }
       Alert.spinner.open()
       return $q
         .all([updateAdmin(admin), updatePolicies(admin, policies)])

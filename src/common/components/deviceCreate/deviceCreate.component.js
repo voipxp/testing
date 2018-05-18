@@ -64,12 +64,6 @@
     }
 
     function create(device, callback) {
-      var password1 = _.get(ctrl.device, 'accessDeviceCredentials.password')
-      var password2 = _.get(ctrl.device, 'accessDeviceCredentials.password2')
-      if (password1 && password1 !== password2) {
-        Alert.notify.danger('Passwords Do Not Match')
-        return
-      }
       Alert.spinner.open()
       var action
       if (ctrl.serviceProviderId && ctrl.groupId) {
