@@ -39,7 +39,6 @@
     vm.groupId = $location.search().groupId || null
     vm.returnTo = $location.search().returnTo || null
     vm.departments = []
-    vm.changePassword = changePassword
     vm.availableTrunks = []
     vm.updateTrunk = updateTrunk
     vm.updateConfirm = updateConfirm
@@ -169,12 +168,6 @@
           name: trunk.name
         }
       })
-    }
-
-    function changePassword() {
-      if (vm.password1 !== vm.password2) {
-        Alert.notify.success('Passwords do not match')
-      }
     }
 
     function updateConfirm(propertyName, changeType) {

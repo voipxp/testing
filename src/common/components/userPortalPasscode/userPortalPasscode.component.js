@@ -3,7 +3,12 @@
     templateUrl:
       'common/components/userPortalPasscode/userPortalPasscode.component.html',
     controller: Controller,
-    bindings: { userId: '=', readOnly: '<' }
+    bindings: {
+      userId: '<',
+      serviceProviderId: '<',
+      groupId: '<',
+      readOnly: '<'
+    }
   })
 
   function Controller(
@@ -15,7 +20,6 @@
   ) {
     var ctrl = this
     ctrl.edit = edit
-    ctrl.generatePasscode = generatePasscode
     ctrl.$onInit = activate
 
     ctrl.isUser = function() {
@@ -67,16 +71,8 @@
           Alert.spinner.close()
         })
     }
-    function generatePasscode() {
-      ctrl.editPasscode = {}
-      ctrl.editPasscode.newPasscode = PasscodeService.generate()
-      ctrl.editPasscode.newPasscode2 = ctrl.editPasscode.newPasscode
-      ctrl.showPasscode = ctrl.editPasscode.newPasscode
-      console.log(ctrl.editPasscode.newPasscode)
-    }
 
     function edit() {
-      ctrl.showPasscode = ''
       if ($scope.editUserPortalPasscodeForm) {
         $scope.editUserPortalPasscodeForm.$setPristine()
       }

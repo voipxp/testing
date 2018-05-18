@@ -3,7 +3,7 @@
     templateUrl:
       'user/components/authentication/userAuthentication.component.html',
     controller: Controller,
-    bindings: { userId: '<' }
+    bindings: { userId: '<', serviceProviderId: '<', groupId: '<' }
   })
 
   function Controller(Alert, UserAuthenticationService, Module, $q) {
@@ -45,13 +45,8 @@
     }
 
     function update(settings, callback) {
-      if (!settings.newPassword && !settings.newPasswordCheck) {
+      if (!settings.newPassword) {
         delete settings.newPassword
-      } else {
-        if (settings.newPassword !== settings.newPasswordCheck) {
-          Alert.notify.danger('passwords do not match.')
-          return
-        }
       }
       Alert.spinner.open()
       UserAuthenticationService.update(ctrl.userId, settings)

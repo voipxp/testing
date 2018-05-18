@@ -101,10 +101,6 @@
     }
 
     function create(admin, callback) {
-      if (admin.password && admin.password !== admin.password2) {
-        Alert.notify.danger('Passwords do not match')
-        return
-      }
       Alert.spinner.open()
       ServiceProviderAdminService.store(ctrl.serviceProviderId, admin)
         .then(loadAdmins)
@@ -139,10 +135,6 @@
     }
 
     function update(admin, callback) {
-      if (admin.password && admin.password !== admin.password2) {
-        Alert.notify.danger('Passwords do not match')
-        return
-      }
       Alert.spinner.open()
       ServiceProviderAdminService.update(ctrl.serviceProviderId, admin)
         .then(loadAdmins)

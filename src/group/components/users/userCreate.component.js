@@ -38,10 +38,6 @@
     }
 
     function create(user, callback) {
-      if (ctrl.user.password !== ctrl.user.password2) {
-        Alert.notify.danger('Passwords do not match')
-        return
-      }
       ctrl.user.serviceProviderId = ctrl.serviceProviderId
       ctrl.user.groupId = ctrl.groupId
       if (ctrl.user.department && ctrl.user.department.name) {

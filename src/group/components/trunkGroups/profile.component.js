@@ -49,13 +49,6 @@
     }
 
     function update(trunk, callback) {
-      if (
-        trunk.requireAuthentication &&
-        trunk.sipAuthenticationPassword !== trunk.sipAuthenticationPassword2
-      ) {
-        Alert.notify.success('Passwords Do Not Match')
-        return
-      }
       ctrl.parent.update(ctrl.editTrunk, callback)
     }
 

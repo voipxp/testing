@@ -16,15 +16,9 @@
 </pbs-form-field>
 <pbs-form-field label="Password"
   ng-show="vm.trunk.requireAuthentication === 'true' && !vm.isDisabled.sipAuthenticationPassword">
-  <input type="password"
-    class="input"
-    ng-model="vm.trunk.sipAuthenticationPassword">
-</pbs-form-field>
-<pbs-form-field label="Password Again"
-  ng-show="vm.trunk.requireAuthentication === 'true' && !vm.isDisabled.sipAuthenticationPassword">
-  <input type="password"
-    class="input"
-    ng-model="vm.sipAuthenticationPasswordCheck">
+  <pbs-input-password ng-model="vm.trunk.sipAuthenticationPassword"
+    ng-minlength="6"
+    ng-maxlength="60"></pbs-input-password>
 </pbs-form-field>
 <div class="margin-top has-text-right">
   <pbs-button-save ng-click="vm.updateAuthentication()"></pbs-button-save>

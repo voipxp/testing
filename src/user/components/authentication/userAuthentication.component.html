@@ -20,14 +20,11 @@
         ng-model="$ctrl.editSettings.userName">
     </pbs-form-field>
     <pbs-form-field label="New Password">
-      <input type="password"
-        class="input"
-        ng-model="$ctrl.editSettings.newPassword">
-    </pbs-form-field>
-    <pbs-form-field label="Repeat Password">
-      <input type="password"
-        class="input"
-        ng-model="$ctrl.editSettings.newPasswordCheck">
+      <pbs-input-password ng-model="$ctrl.editSettings.newPassword"
+        ng-minlength="6"
+        ng-maxlength="60"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"></pbs-input-password>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

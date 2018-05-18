@@ -2,7 +2,7 @@
   angular.module('odin.user').component('userVoiceMessagingDashboard', {
     templateUrl: 'user/components/voiceMessaging/dashboard.component.html',
     controller: Controller,
-    bindings: { userId: '<' }
+    bindings: { userId: '<', serviceProviderId: '<', groupId: '<' }
   })
 
   function Controller(Module, $q) {

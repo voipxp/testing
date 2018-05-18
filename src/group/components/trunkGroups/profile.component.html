@@ -105,7 +105,6 @@
           ng-options="department as department.name for department in $ctrl.departments track by department.name"></select>
       </div>
     </pbs-form-field>
-    <pbs-form-section ng-if="$ctrl.authentication.update">Authentication</pbs-form-section>
     <pbs-form-field label="Authentication"
       ng-if="$ctrl.authentication.update">
       <input type="checkbox"
@@ -125,18 +124,12 @@
     <pbs-form-field label="SIP Password"
       ng-if="$ctrl.authentication.update"
       ng-show="$ctrl.editTrunk.requireAuthentication">
-      <input type="password"
-        class="input"
-        ng-model="$ctrl.editTrunk.sipAuthenticationPassword"
-        ng-required="$ctrl.editTrunk.requireAuthentication">
-    </pbs-form-field>
-    <pbs-form-field label="SIP Password"
-      ng-if="$ctrl.authentication.update"
-      ng-show="$ctrl.editTrunk.requireAuthentication">
-      <input type="password"
-        class="input"
-        ng-model="$ctrl.editTrunk.sipAuthenticationPassword2"
-        ng-required="$ctrl.editTrunk.requireAuthentication">
+      <pbs-input-password ng-model="$ctrl.editTrunk.sipAuthenticationPassword"
+        ng-required="$ctrl.editTrunk.requireAuthentication"
+        ng-minlength="6"
+        ng-maxlength="60"
+        service-provider-id="$ctrl.parent.serviceProviderId"
+        group-id="$ctrl.parent.groupId"></pbs-input-password>
     </pbs-form-field>
     <pbs-form-field label="Trunk Group Identity">
       <input type="text"
