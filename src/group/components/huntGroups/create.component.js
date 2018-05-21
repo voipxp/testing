@@ -64,10 +64,6 @@
     }
 
     function create(huntGroup, callback) {
-      if (huntGroup.password && huntGroup.password !== huntGroup.password2) {
-        Alert.notify.danger('Passwords do not match')
-        return
-      }
       Alert.spinner.open()
       huntGroup.serviceProviderId = ctrl.serviceProviderId
       huntGroup.groupId = ctrl.groupId

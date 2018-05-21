@@ -47,14 +47,6 @@
     }
 
     function update(passcode, callback) {
-      if (!passcode.newPasscode) {
-        Alert.notify.danger('New Passcode is Required')
-        return
-      }
-      if (passcode.newPasscode !== passcode.newPasscode2) {
-        Alert.notify.danger('Passcodes Do Not Match')
-        return
-      }
       Alert.spinner.open()
       UserPortalPasscodeService.update(ctrl.userId, passcode)
         .then(function() {

@@ -187,17 +187,6 @@
     }
 
     function updateAuthentication() {
-      if (vm.trunk.sipAuthenticationPassword) {
-        if (
-          vm.trunk.sipAuthenticationPassword !==
-          vm.sipAuthenticationPasswordCheck
-        ) {
-          Alert.notify.danger(
-            'Password and Password Confirmation do not match.'
-          )
-          return
-        }
-      }
       Alert.confirm
         .open('Are you sure you want to change your Authentication?')
         .then(function() {

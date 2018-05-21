@@ -41,14 +41,6 @@
     }
 
     function update(autoAttendant, callback) {
-      if (
-        autoAttendant.password &&
-        autoAttendant.password !== autoAttendant.password2
-      ) {
-        Alert.notify.danger('Passwords do not match')
-        return
-      }
-      console.log('update', autoAttendant)
       Alert.spinner.open()
       return GroupAutoAttendantService.update(autoAttendant)
         .then(loadAutoAttendant)
