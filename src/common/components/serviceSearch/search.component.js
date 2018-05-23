@@ -67,7 +67,7 @@
         serviceProviderId: ctrl.serviceProviderId,
         groupId: ctrl.groupId
       }
-      params[ctrl.type] = ctrl.filter
+      params[ctrl.type] = '*' + ctrl.filter + '*'
       UserServiceSearchService.index(params)
         .then(function(data) {
           console.log('data', data)

@@ -40,7 +40,7 @@
     function search() {
       ctrl.isLoading = true
       var params = { serviceProviderId: ctrl.serviceProviderId }
-      params[ctrl.type] = ctrl.filter
+      params[ctrl.type] = '*' + ctrl.filter + '*'
       GroupSearchService.index(params)
         .then(function(data) {
           ctrl.groups = data

@@ -77,14 +77,14 @@
         serviceProviderId: ctrl.serviceProviderId,
         groupId: ctrl.groupId
       }
-      params[ctrl.type] = ctrl.filter
       if (!ctrl.serviceProviderId && !params.dn) {
         Alert.notify.warning(
           'You must select a Service Provider for non Phone Number searches'
         )
         return
       }
-      console.log('groupDnSearch', params)
+      params[ctrl.type] =
+        ctrl.type === 'dn' ? ctrl.filter : '*' + ctrl.filter + '*'
       ctrl.users = null
       ctrl.isLoading = true
       GroupDnSearchService.index(params)

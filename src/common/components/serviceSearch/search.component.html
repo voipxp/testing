@@ -1,26 +1,27 @@
 <pbs-modal id="{{ $ctrl.modalId }}"
-           title="Service Search">
+  title="Service Search">
   <form ng-submit="$ctrl.search()">
     <div class="field has-addons">
       <p class="control"
-         style="width: 175px">
+        style="width: 175px">
         <select ng-model="$ctrl.type"
-                ng-options="t.key as t.name for t in $ctrl.types"
-                pbs-input-select
-                ng-disabled="$ctrl.isLoading">
+          ng-options="t.key as t.name for t in $ctrl.types"
+          pbs-input-select
+          ng-disabled="$ctrl.isLoading">
       </p>
       <p class="control is-expanded"
-         ng-class="{'is-loading': $ctrl.isLoading}">
+        ng-class="{'is-loading': $ctrl.isLoading}">
         <input class="input"
-               type="search"
-               placeholder="*name*"
-               ng-model="$ctrl.filter"
-               ng-disabled="$ctrl.isLoading">
+          type="search"
+          placeholder="*name*"
+          ng-model="$ctrl.filter"
+          ng-disabled="$ctrl.isLoading"
+          autofocus>
       </p>
       <p class="control">
         <button class="button"
-                type="submit"
-                ng-disabled="!$ctrl.filter || $ctrl.isLoading">
+          type="submit"
+          ng-disabled="!$ctrl.filter || $ctrl.isLoading">
           <span class="icon">
             <i class="fas fa-search"></i>
           </span>
@@ -29,9 +30,9 @@
     </div>
   </form>
   <pbs-subtitle class="large-margin-top"
-                ng-show="$ctrl.users">Search Results</pbs-subtitle>
+    ng-show="$ctrl.users">Search Results</pbs-subtitle>
   <table pbs-table
-         ng-show="$ctrl.users">
+    ng-show="$ctrl.users">
     <thead>
       <tr>
         <th>ID</th>
@@ -54,8 +55,8 @@
     </tfoot>
     <tbody>
       <tr ng-class="{hover: $ctrl.serviceTypes[user.serviceType]}"
-          ng-click="$ctrl.select(user)"
-          ng-repeat="user in results = ($ctrl.users | orderBy:'name') | paginate:$ctrl.pager">
+        ng-click="$ctrl.select(user)"
+        ng-repeat="user in results = ($ctrl.users | orderBy:'name') | paginate:$ctrl.pager">
         <td>{{ user.userIdShort || user.userId }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.phoneNumber }}</td>
@@ -67,6 +68,6 @@
     </tbody>
   </table>
   <pbs-pagination items="results.length"
-                  limit="25"
-                  on-update="$ctrl.onPagination($event)"></pbs-pagination>
+    limit="25"
+    on-update="$ctrl.onPagination($event)"></pbs-pagination>
 </pbs-modal>

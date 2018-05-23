@@ -1,26 +1,27 @@
 <pbs-modal id="{{ $ctrl.modalId }}"
-           title="Group Search">
+  title="Group Search">
   <form ng-submit="$ctrl.search()">
     <div class="field has-addons">
       <p class="control"
-         style="width: 175px">
+        style="width: 175px">
         <select ng-model="$ctrl.type"
-                ng-options="t.key as t.name for t in $ctrl.types"
-                pbs-input-select
-                ng-disabled="$ctrl.isLoading"></select>
+          ng-options="t.key as t.name for t in $ctrl.types"
+          pbs-input-select
+          ng-disabled="$ctrl.isLoading"></select>
       </p>
       <p class="control is-expanded"
-         ng-class="{'is-loading': $ctrl.isLoading}">
+        ng-class="{'is-loading': $ctrl.isLoading}">
         <input class="input"
-               type="search"
-               placeholder="*search*"
-               ng-model="$ctrl.filter"
-               ng-disabled="$ctrl.isLoading">
+          type="search"
+          placeholder="search"
+          ng-model="$ctrl.filter"
+          ng-disabled="$ctrl.isLoading"
+          autofocus>
       </p>
       <p class="control">
         <button class="button"
-                type="submit"
-                ng-disabled="!$ctrl.filter || $ctrl.isLoading">
+          type="submit"
+          ng-disabled="!$ctrl.filter || $ctrl.isLoading">
           <span class="icon">
             <i class="fas fa-search"></i>
           </span>
@@ -30,8 +31,8 @@
   </form>
 
   <table pbs-table
-         ng-show="$ctrl.groups"
-         class="large-margin-top">
+    ng-show="$ctrl.groups"
+    class="large-margin-top">
     <thead>
       <tr>
         <th>ID</th>
@@ -48,8 +49,8 @@
     </tfoot>
     <tbody>
       <tr class="hover"
-          ng-click="$ctrl.select(group)"
-          ng-repeat="group in results = ($ctrl.groups | orderBy:'groupId') | paginate:$ctrl.pager track by group.groupId">
+        ng-click="$ctrl.select(group)"
+        ng-repeat="group in results = ($ctrl.groups | orderBy:'groupId') | paginate:$ctrl.pager track by group.groupId">
         <td>{{ group.groupId }}</td>
         <td>{{ group.groupName }}</td>
         <td>{{ group.serviceProviderId }}</td>
@@ -57,6 +58,6 @@
     </tbody>
   </table>
   <pbs-pagination items="results.length"
-                  limit="25"
-                  on-update="$ctrl.onPagination($event)"></pbs-pagination>
+    limit="25"
+    on-update="$ctrl.onPagination($event)"></pbs-pagination>
 </pbs-modal>

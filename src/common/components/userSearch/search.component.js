@@ -51,16 +51,15 @@
 
     function search() {
       if (ctrl.type === 'macAddress' && /\*/.test(ctrl.filter)) {
-        Alert.notify.warning('MAC search cannot contain wildcards')
-        return
+        ctrl.filter = ctrl.filter.replace(/\*/g, '')
       }
       ctrl.isLoading = true
       var params = {
         serviceProviderId: ctrl.serviceProviderId,
         groupId: ctrl.groupId
       }
-      params[ctrl.type] = ctrl.filter
-      console.log('userSearch', params)
+      params[ctrl.type] =
+        ctrl.type === 'macAddress' ? ctrl.filter : '*' + ctrl.filter + '*'
       UserSearchService.index(params)
         .then(function(data) {
           ctrl.users = data
