@@ -10,7 +10,9 @@
       store: store,
       show: show,
       update: update,
-      destroy: destroy
+      destroy: destroy,
+      users: users,
+      bulk: bulk
     }
     return service
 
@@ -71,6 +73,32 @@
         .delete(url(serviceProviderId, groupId, pack.id))
         .then(function(response) {
           $rootScope.$emit('GroupViewablePackService:updated')
+          return response.data
+        })
+    }
+
+    function bulkUrl(serviceProviderId, groupId) {
+      return Route.api()(
+        'serviceproviders',
+        serviceProviderId,
+        'groups',
+        groupId,
+        'viewablepacksbulk'
+      )
+    }
+
+    function users(serviceProviderId, groupId) {
+      return $http
+        .get(bulkUrl(serviceProviderId, groupId))
+        .then(function(response) {
+          return response.data
+        })
+    }
+
+    function bulk(serviceProviderId, groupId, data) {
+      return $http
+        .put(bulkUrl(serviceProviderId, groupId), data)
+        .then(function(response) {
           return response.data
         })
     }

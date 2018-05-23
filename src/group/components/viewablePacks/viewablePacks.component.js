@@ -8,18 +8,49 @@
     }
   })
 
-  function Controller($routeParams, Alert, GroupViewablePackService, $q) {
+  function Controller(
+    $routeParams,
+    Alert,
+    GroupViewablePackService,
+    UserViewablePackService,
+    $q
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
     ctrl.addService = addService
     ctrl.removeService = removeService
     ctrl.addAllServices = addAllServices
+    ctrl.onClick = onClick
+    ctrl.onSelect = onSelect
+
+    ctrl.columns = [
+      {
+        key: 'userId',
+        label: 'User ID'
+      },
+      {
+        key: 'firstName',
+        label: 'First Name'
+      },
+      {
+        key: 'lastName',
+        label: 'Last Name'
+      },
+      {
+        key: 'phoneNumber',
+        label: 'Phone Number'
+      },
+      {
+        key: 'virtualPackName',
+        label: 'Virtual Pack'
+      }
+    ]
 
     function onInit() {
       ctrl.loading = true
       $q
-        .all([loadViewablePacks(), loadViewableServices()])
+        .all([loadViewablePacks(), loadViewableServices(), loadUsers()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
@@ -46,6 +77,34 @@
       ).then(function(data) {
         ctrl.services = data
         return data
+      })
+    }
+
+    function loadUsers() {
+      return GroupViewablePackService.users(
+        ctrl.serviceProviderId,
+        ctrl.groupId
+      ).then(function(data) {
+        console.log('users', data)
+        ctrl.users = data
+        return data
+      })
+    }
+
+    function onClick(event) {
+      ctrl.selectedUser = event
+      ctrl.editTitle = event.userId
+      Alert.modal.open('editUserVirtualPack', function(close) {
+        updateUser(ctrl.selectedUser, close)
+      })
+    }
+
+    function onSelect(event) {
+      console.log('onSelect', event)
+      ctrl.selectedUser = {}
+      ctrl.editTitle = event.length + ' Users'
+      Alert.modal.open('editUserVirtualPack', function(close) {
+        updateBulk(ctrl.selectedUser, event, close)
       })
     }
 
@@ -175,6 +234,33 @@
     function removeService(service) {
       _.remove(ctrl.editPack.services, { id: service.id })
       ctrl.editServices.push(service)
+    }
+
+    function updateUser(user, callback) {
+      Alert.spinner.open()
+      UserViewablePackService.update(user.userId, user.virtualPackId)
+        .then(loadUsers)
+        .then(function() {
+          Alert.notify.success('Virtual Pack Updated')
+          callback()
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    }
+
+    function updateBulk(pack, users, callback) {
+      Alert.spinner.open()
+      GroupViewablePackService.bulk(ctrl.serviceProviderId, ctrl.groupId, {
+        virtualPackId: pack.virtualPackId,
+        users: users
+      })
+        .then(loadUsers)
+        .then(function() {
+          Alert.notify.success('Virtual Packs Updated')
+          callback()
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()
