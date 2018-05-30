@@ -77,6 +77,12 @@
               return isAssigned(service)
             }
           )
+        } else if (name === 'Auto Attendant') {
+          return _.find([
+            'Auto Attendant',
+            'Auto Attendant - Standard',
+            'Auto Attendant - Video'
+          ])
         } else {
           return isAssigned(name)
         }
