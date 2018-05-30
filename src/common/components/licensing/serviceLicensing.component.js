@@ -21,18 +21,18 @@
     }
 
     function hasUnlimited() {
-      var amount = ctrl.service.allowed || ctrl.service.allocated
-      return amount === -1
+      if (_.isUndefined(ctrl.service.allowed)) return true
+      return ctrl.service.allowed === -1
     }
 
     function available() {
-      var amount = ctrl.service.allowed || ctrl.service.allocated
-      return amount === -1 ? 'Unlimited' : amount
+      if (_.isUndefined(ctrl.service.allowed)) return 'Unlimited'
+      return ctrl.service.allowed === -1 ? 'Unlimited' : ctrl.service.allowed
     }
 
     function max() {
-      var amount = ctrl.service.allowed || ctrl.service.allocated
-      return amount === -1 ? 99999 : amount
+      if (_.isUndefined(ctrl.service.allowed)) return 99999
+      return ctrl.service.allowed === -1 ? 99999 : ctrl.service.allowed
     }
   }
 })()

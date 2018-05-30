@@ -49,7 +49,6 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('loadServices')
         ctrl.services = filterServices(data[ctrl.serviceType])
       })
     }
