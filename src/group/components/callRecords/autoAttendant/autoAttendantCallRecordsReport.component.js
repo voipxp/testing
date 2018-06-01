@@ -64,7 +64,11 @@
       })
       var data = ctrl.releaseTimes.map(function(releaseTime) {
         var matches = _.filter(ctrl.callRecords, { releaseTime: releaseTime })
-        var results = _.sum(_.map(matches, ctrl.reportProperty))
+        var results = _.sum(
+          _.map(matches, function(match) {
+            return parseInt(match[ctrl.reportProperty], 10) || 0
+          })
+        )
         return chartFormat(results)
       })
       ctrl.chartPerTime = { series: [series], labels: labels, data: [data] }
@@ -77,7 +81,11 @@
         var matches = _.filter(ctrl.callRecords, {
           otherPartyName: otherPartyName
         })
-        var results = _.sum(_.map(matches, ctrl.reportProperty))
+        var results = _.sum(
+          _.map(matches, function(match) {
+            return parseInt(match[ctrl.reportProperty], 10) || 0
+          })
+        )
         return chartFormat(results)
       })
       ctrl.chartPerOption = { series: [series], labels: labels, data: [data] }
@@ -142,7 +150,11 @@
         return _.includes(results, callRecord.otherPartyName)
       })
       var matches = _.filter(callRecords, { releaseTime: releaseTime })
-      var newResults = _.sum(_.map(matches, ctrl.reportProperty))
+      var newResults = _.sum(
+        _.map(matches, function(match) {
+          return parseInt(match[ctrl.reportProperty], 10) || 0
+        })
+      )
       return tableFormat(newResults)
     }
 
@@ -150,7 +162,11 @@
       var callRecords = _.filter(ctrl.callRecords, function(callRecord) {
         return _.includes(results, callRecord.otherPartyName)
       })
-      var newResults = _.sum(_.map(callRecords, ctrl.reportProperty))
+      var newResults = _.sum(
+        _.map(callRecords, function(record) {
+          return parseInt(record[ctrl.reportProperty], 10) || 0
+        })
+      )
       return tableFormat(newResults)
     }
 
@@ -158,7 +174,11 @@
       var callRecords = _.filter(ctrl.callRecords, {
         otherPartyName: otherPartyName
       })
-      var results = _.sum(_.map(callRecords, ctrl.reportProperty))
+      var results = _.sum(
+        _.map(callRecords, function(record) {
+          return parseInt(record[ctrl.reportProperty], 10) || 0
+        })
+      )
       return tableFormat(results)
     }
 
