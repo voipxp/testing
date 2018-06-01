@@ -43,13 +43,7 @@
 <pbs-modal id="autoAttendantCallRecordsSearch"
   title="Auto Attendant Report">
   <pbs-form label="Call Records Search">
-    <input type="hidden"
-      ng-model="$ctrl.editSearch.startTime"
-      required>
-    <input type="hidden"
-      ng-model="$ctrl.editSearch.endTime"
-      required>
-    <pbs-form-field label="Auto Attendant">
+    <pbs-form-field-horizontal label="Auto Attendant">
       <div class="select">
         <select class=""
           ng-model="$ctrl.editSearch.serviceUserId"
@@ -57,31 +51,24 @@
           required>
         </select>
       </div>
-    </pbs-form-field>
-    <pbs-form-field label="Report Type">
-      <div class="select">
-        <select class=""
-          ng-model="$ctrl.editSearch.reportType"
-          ng-options="opt as opt for opt in $ctrl.options.reportType"
-          required>
-        </select>
-      </div>
-    </pbs-form-field>
-    <pbs-form-field label="Start Time">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.input.startTime"
-        ng-change="$ctrl.parseDate('startTime')">
-      <span ng-show="$ctrl.editSearch.startTime">{{ $ctrl.editSearch.startTime | date:'medium' }}</span>
-      <small ng-show="!$ctrl.editSearch.startTime">Eg: yesterday 9am, Aug 1 9am</small>
-    </pbs-form-field>
-    <pbs-form-field label="End Time">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.input.endTime"
-        ng-change="$ctrl.parseDate('endTime')">
-      <span ng-show="$ctrl.editSearch.endTime">{{ $ctrl.editSearch.endTime | date:'medium' }}</span>
-      <small ng-show="!$ctrl.editSearch.endTime">Eg: yesterday 5pm, Aug 1 5pm, now</small>
-    </pbs-form-field>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Report Type">
+      <select class=""
+        ng-model="$ctrl.editSearch.reportType"
+        ng-options="opt as opt for opt in $ctrl.options.reportType"
+        required
+        pbs-input-select
+        full-width>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Start Time">
+      <pbs-input-datetime ng-model="$ctrl.editSearch.startTime"
+        ng-required="true">
+      </pbs-input-datetime>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="End Time">
+      <pbs-input-datetime ng-model="$ctrl.editSearch.endTime"
+        ng-required="true">
+      </pbs-input-datetime>
+    </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

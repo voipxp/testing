@@ -17,12 +17,17 @@
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.parseDate = parseDate
     ctrl.search = {}
     ctrl.editSearch = {}
     ctrl.input = {}
     ctrl.openSearch = openSearch
     ctrl.options = UserCallRecordsService.options
+
+    ctrl.search = {
+      startTime: dayBegin('today'),
+      endTime: dayEnd('today'),
+      reportType: 'Hourly'
+    }
 
     function onInit() {
       ctrl.callRecords = []
@@ -39,6 +44,16 @@
         })
     }
 
+    function dayBegin(when) {
+      return Sugar.Date.beginningOfDay(Sugar.Date.create(when))
+    }
+
+    function dayEnd(when) {
+      var time = Sugar.Date.endOfDay(Sugar.Date.create(when))
+      time.setSeconds(59, 0)
+      return time
+    }
+
     function loadAutoAttendants() {
       return GroupAutoAttendantService.index(
         ctrl.serviceProviderId,
@@ -46,7 +61,6 @@
       ).then(function(data) {
         ctrl.autoAttendants = data
         ctrl.search.serviceUserId = data[0] && data[0].serviceUserId
-        console.log('attendants', data)
         return data
       })
     }
@@ -56,28 +70,6 @@
       Alert.modal.open('autoAttendantCallRecordsSearch', function(close) {
         loadCallRecords(ctrl.editSearch, close)
       })
-    }
-
-    function parseDate(dateType) {
-      if (dateType !== 'startTime' && dateType !== 'endTime') return
-      if (!ctrl.input[dateType]) {
-        ctrl.editSearch[dateType] = null
-      } else {
-        var params = {}
-        var parsedDate = Sugar.Date.create(ctrl.input[dateType], {
-          past: true,
-          params: params
-        })
-        if (Sugar.Date.isValid(parsedDate)) {
-          if (dateType === 'endTime' && !params.hour) {
-            parsedDate = Sugar.Date.endOfDay(parsedDate)
-          }
-          ctrl.editSearch[dateType] = parsedDate
-          // console.log('parsed', ctrl.editSearch[dateType]);
-        } else {
-          ctrl.editSearch[dateType] = null
-        }
-      }
     }
 
     function loadCallRecords(search, callback) {
@@ -92,7 +84,6 @@
           // reset parameters to pass through to components
           ctrl.search = angular.copy(search)
           ctrl.callRecords = data
-          console.log('callRecords', data)
           if (_.isFunction(callback)) {
             callback()
           }

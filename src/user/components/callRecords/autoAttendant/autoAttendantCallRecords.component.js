@@ -33,7 +33,9 @@
     }
 
     function dayEnd(when) {
-      return Sugar.Date.endOfDay(Sugar.Date.create(when))
+      var time = Sugar.Date.endOfDay(Sugar.Date.create(when))
+      time.setSeconds(59, 0)
+      return time
     }
 
     function edit() {
@@ -59,7 +61,6 @@
           // reset parameters to pass through to components
           ctrl.search = angular.copy(search)
           ctrl.callRecords = data
-          console.log('callRecords', data)
           if (_.isFunction(callback)) {
             callback()
           }
