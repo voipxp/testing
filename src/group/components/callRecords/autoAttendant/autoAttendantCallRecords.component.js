@@ -11,7 +11,8 @@
     Route,
     Alert,
     GroupAutoAttendantService,
-    UserCallRecordsService
+    UserCallRecordsService,
+    DateService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -24,8 +25,8 @@
     ctrl.options = UserCallRecordsService.options
 
     ctrl.search = {
-      startTime: dayBegin('today'),
-      endTime: dayEnd('today'),
+      startTime: DateService.dayBegin('today'),
+      endTime: DateService.dayEnd('today'),
       reportType: 'Hourly'
     }
 
@@ -42,16 +43,6 @@
         .finally(function() {
           Alert.spinner.close()
         })
-    }
-
-    function dayBegin(when) {
-      return Sugar.Date.beginningOfDay(Sugar.Date.create(when))
-    }
-
-    function dayEnd(when) {
-      var time = Sugar.Date.endOfDay(Sugar.Date.create(when))
-      time.setSeconds(59, 0)
-      return time
     }
 
     function loadAutoAttendants() {

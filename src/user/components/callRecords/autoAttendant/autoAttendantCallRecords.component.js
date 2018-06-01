@@ -9,7 +9,8 @@
   function Controller(
     Alert,
     GroupAutoAttendantService,
-    UserCallRecordsService
+    UserCallRecordsService,
+    DateService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -18,24 +19,14 @@
 
     ctrl.default = {
       label: 'Today',
-      startTime: dayBegin('today'),
-      endTime: dayEnd('today'),
+      startTime: DateService.dayBegin('today'),
+      endTime: DateService.dayEnd('today'),
       reportType: 'Hourly'
     }
 
     function onInit() {
       ctrl.search = angular.copy(ctrl.default)
       loadCallRecords(ctrl.search)
-    }
-
-    function dayBegin(when) {
-      return Sugar.Date.beginningOfDay(Sugar.Date.create(when))
-    }
-
-    function dayEnd(when) {
-      var time = Sugar.Date.endOfDay(Sugar.Date.create(when))
-      time.setSeconds(59, 0)
-      return time
     }
 
     function edit() {
