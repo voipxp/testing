@@ -1,28 +1,30 @@
 <user-calling-plans-nav></user-calling-plans-nav>
 
-<pbs-block title="User Calling Plans">
-  <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
-  <table pbs-table>
-    <thead>
-      <tr>
-        <th>Plan</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr ng-if="results.length === 0">
-        <td colspan="4">No Calling Plans Found
-          <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
-        </td>
-      </tr>
-    </tfoot>
-    <tbody>
-      <tr class="hover"
-        ng-repeat="plan in $ctrl.plans | filter:$ctrl.search as results track by plan.name"
-        ng-click="$ctrl.open(plan)">
-        <td>{{ plan.name }}</td>
-        <td>{{ plan.description }}</td>
-      </tr>
-    </tbody>
-  </table>
-</pbs-block>
+<pbs-spinner loading="$ctrl.isLoading">
+  <pbs-block title="User Calling Plans">
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Plan</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length === 0">
+          <td colspan="4">No Calling Plans Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr class="hover"
+          ng-repeat="plan in $ctrl.plans | filter:{ isActive: true } | filter:$ctrl.search as results track by plan.name"
+          ng-click="$ctrl.open(plan)">
+          <td>{{ plan.name }}</td>
+          <td>{{ plan.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>

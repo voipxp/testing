@@ -255,7 +255,7 @@
         {
           type: 'user',
           name: 'Outgoing Calling Plans',
-          module: 'Group Calling Plans',
+          service: 'Outgoing Calling Plan',
           path: route('callingPlans', 'outgoing', 'users')
         },
         {

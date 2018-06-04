@@ -78,11 +78,27 @@
             }
           )
         } else if (name === 'Auto Attendant') {
-          return _.find([
-            'Auto Attendant',
-            'Auto Attendant - Standard',
-            'Auto Attendant - Video'
-          ])
+          return _.find(
+            [
+              'Auto Attendant',
+              'Auto Attendant - Standard',
+              'Auto Attendant - Video'
+            ],
+            function(service) {
+              return isAssigned(service)
+            }
+          )
+        } else if (name === 'Group Calling Plans') {
+          return _.find(
+            [
+              'Outgoing Calling Plan',
+              'Enhanced Outgoing Calling Plan',
+              'Incoming Calling Plan'
+            ],
+            function(service) {
+              return isAssigned(service)
+            }
+          )
         } else {
           return isAssigned(name)
         }
