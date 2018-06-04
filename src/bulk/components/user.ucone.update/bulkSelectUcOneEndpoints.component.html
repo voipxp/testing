@@ -63,11 +63,6 @@
       <bulk-tag-input ng-model="$ctrl.editEndpoint.accessDevice.accessDeviceCredentials.password"
         is-required="$ctrl.editEndpoint.accessDevice.useCustomUserNamePassword"></bulk-tag-input>
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="Password Again"
-      ng-show="$ctrl.editEndpoint.accessDevice.useCustomUserNamePassword">
-      <bulk-tag-input ng-model="$ctrl.editEndpoint.accessDevice.accessDeviceCredentials.password2"
-        is-required="$ctrl.editEndpoint.accessDevice.useCustomUserNamePassword"></bulk-tag-input>
-    </pbs-form-field-horizontal>
     <pbs-form-section>Endpoint Details</pbs-form-section>
     <pbs-form-field-horizontal label="Line Port">
       <bulk-tag-input ng-model="$ctrl.editEndpoint.linePort"
