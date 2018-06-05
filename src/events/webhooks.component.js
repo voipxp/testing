@@ -13,7 +13,7 @@ TODO:
     controller: Controller
   })
 
-  function Controller(WebhookService, Alert) {
+  function Controller(WebhookService, EventService, Alert) {
     var ctrl = this
     ctrl.onClick = onClick
     ctrl.refresh = onInit
@@ -76,9 +76,17 @@ TODO:
     }
 
     function onClick(webhook) {
-      console.log('onClick', webhook)
-      ctrl.webhook = webhook
-      Alert.modal.open('showOdinWebhook')
+      Alert.spinner.open()
+      EventService.show(webhook.eventId)
+        .then(function(event) {
+          ctrl.selectedEvent = event
+          ctrl.selectedWebhooks = _.filter(ctrl.webhooks, {
+            eventId: webhook.eventId
+          })
+          Alert.modal.open('showOdinWebhook')
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()

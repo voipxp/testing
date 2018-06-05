@@ -21,6 +21,16 @@
 </pbs-spinner>
 
 <pbs-modal id="showOdinWebhook"
-  title="{{ 'Webhook ' + $ctrl.webhook.id }}">
-  <pre class="prettyprint">{{ $ctrl.webhook | json }}</pre>
+  title="Webhooks: Event {{ $ctrl.selectedEvent.id }} ({{ $ctrl.selectedEvent.type }})">
+  <pbs-data-table columns="$ctrl.columns"
+    order-reverse="true"
+    items="$ctrl.selectedWebhooks"
+    is-compact="true"
+    is-bordered="true"
+    is-striped="true"
+    limit-to="50"></pbs-data-table>
+
+  <h4 class="margin-top subtitle">Related Event Data</h4>
+  <pre class="prettyprint">{{ $ctrl.selectedEvent | json }}</pre>
+  </pbs-block>
 </pbs-modal>
