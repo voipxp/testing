@@ -9,6 +9,7 @@
     GroupAdminService,
     GroupAdminPolicyService,
     GroupDepartmentAdminService,
+    GroupPolicyService,
     $routeParams,
     $q
   ) {
@@ -25,7 +26,12 @@
 
     function onInit() {
       ctrl.loading = true
-      return loadAdmins()
+      return $q
+        .all([loadAdmins(), GroupPolicyService.load()])
+        .then(function() {
+          ctrl.canCreate = GroupPolicyService.adminCreate()
+          ctrl.canUpdate = GroupPolicyService.adminUpdate()
+        })
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
@@ -63,6 +69,7 @@
     }
 
     function add() {
+      if (!ctrl.canCreate) return
       ctrl.newAdminType = 'group'
       ctrl.newAdmin = {}
       Alert.modal.open('create-GroupAdmin', function(close) {
@@ -71,6 +78,7 @@
     }
 
     function edit(admin) {
+      if (!ctrl.canUpdate) return
       ctrl.editAdmin = angular.copy(admin)
       loadAdminPolicies(admin).then(function() {
         Alert.modal.open(

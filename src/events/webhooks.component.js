@@ -1,3 +1,12 @@
+/*
+TODO:
+  group events by event_id
+
+  add filter options by status
+
+  click on webhook, shows modal with all the related webhooks as well as the event
+  maybe go to new page if needed
+*/
 ;(function() {
   angular.module('odin.events').component('odinWebhooks', {
     templateUrl: 'events/webhooks.component.html',

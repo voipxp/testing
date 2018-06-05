@@ -109,7 +109,8 @@
         {
           type: 'management',
           name: 'Administrators',
-          path: route('admins')
+          path: route('admins'),
+          policy: 'adminRead'
         },
         {
           type: 'management',
