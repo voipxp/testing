@@ -1,0 +1,26 @@
+<pbs-navigation>
+  <pbs-breadcrumb title="'Webhooks'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Recent Webhooks ({{ $ctrl.recent }})">
+    <pbs-block-buttons>
+      <pbs-button-compact-refresh title="Refresh"
+        ng-click="$ctrl.refresh()">
+      </pbs-button-compact-refresh>
+    </pbs-block-buttons>
+    <pbs-data-table columns="$ctrl.columns"
+      order-reverse="true"
+      items="$ctrl.webhooks"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="50"
+      on-click="$ctrl.onClick($event)"></pbs-data-table>
+  </pbs-block>
+</pbs-spinner>
+
+<pbs-modal id="showOdinWebhook"
+  title="{{ 'Webhook ' + $ctrl.webhook.id }}">
+  <pre class="prettyprint">{{ $ctrl.webhook | json }}</pre>
+</pbs-modal>

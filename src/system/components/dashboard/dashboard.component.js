@@ -77,6 +77,11 @@
         },
         {
           type: 'provisioning',
+          name: 'Webhook History',
+          path: route('webhooks')
+        },
+        {
+          type: 'provisioning',
           name: 'Settings',
           path: route('settings')
         },

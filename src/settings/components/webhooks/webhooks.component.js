@@ -1,5 +1,5 @@
 ;(function() {
-  angular.module('odin.settings').component('odinWebhooks', {
+  angular.module('odin.settings').component('odinSettingsWebhooks', {
     templateUrl: 'settings/components/webhooks/webhooks.component.html',
     controller: Controller
   })

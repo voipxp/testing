@@ -44,6 +44,10 @@
           path: route('events')
         },
         {
+          name: 'Webhook History',
+          path: route('webhooks')
+        },
+        {
           name: 'Settings',
           path: route('settings')
         },

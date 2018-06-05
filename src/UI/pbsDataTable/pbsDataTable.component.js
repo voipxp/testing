@@ -4,6 +4,7 @@
     controller: Controller,
     bindings: {
       orderBy: '@',
+      orderReverse: '<',
       columns: '<',
       filter: '<',
       hideSearch: '<',
@@ -36,7 +37,7 @@
     function onInit() {
       ctrl.order = {
         key: ctrl.orderBy || _.get(ctrl.columns, '0.key'),
-        reverse: false
+        reverse: ctrl.orderReverse
       }
       ctrl.selectAll = false
       ctrl.canClick = _.isFunction(ctrl.onClick)
