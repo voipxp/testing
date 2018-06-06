@@ -15,6 +15,7 @@
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.Route = Route
+    ctrl.selectCurrentUsers = selectCurrentUsers
     ctrl.select = select
     ctrl.upload = upload
 
@@ -53,6 +54,10 @@
         .finally(function() {
           ctrl.loadingTasks = false
         })
+    }
+
+    function selectCurrentUsers() {
+      loadUsers(ctrl.data)
     }
 
     function select(task) {

@@ -1,10 +1,10 @@
 ;(function() {
   angular.module('odin.bulk').component('bulkSelectedUsers', {
     templateUrl: 'bulk/components/selectedUsers/selectedUsers.component.html',
-    bindings: { users: '<', task: '<' },
+    bindings: { task: '<' },
     controller: Controller
   })
-  function Controller(Route, BulkUsersService) {
+  function Controller(BulkUsersService, $location) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.open = open
@@ -16,7 +16,7 @@
     }
 
     function open() {
-      Route.open('bulk/users')().search({ next: ctrl.next })
+      $location.path('bulk/users').search({ next: ctrl.task })
     }
   }
 })()

@@ -41,7 +41,8 @@
         })
         .when('/bulk/users', {
           template: '<bulk-users></bulk-users>',
-          resolve: { acl: acl, module: module('Provisioning') }
+          resolve: { acl: acl, module: module('Provisioning') },
+          reloadOnSearch: false
         })
         .when('/bulk/import', {
           template: '<bulk-import></bulk-import>',

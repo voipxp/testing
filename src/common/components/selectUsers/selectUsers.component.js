@@ -11,9 +11,27 @@
     ctrl.remove = remove
     ctrl.up = up
     ctrl.down = down
+    ctrl.addAll = addAll
+    ctrl.removeAll = removeAll
 
     ctrl.$onInit = function() {
       ctrl.orderBy = ctrl.sort ? null : 'userId'
+    }
+
+    function addAll() {
+      for (var i = 0; i < ctrl.available.length; i++) {
+        ctrl.selected.push(ctrl.available[i])
+        ctrl.available.splice(i, 1)
+        i--
+      }
+    }
+
+    function removeAll() {
+      for (var i = 0; i < ctrl.selected.length; i++) {
+        ctrl.available.push(ctrl.selected[i])
+        ctrl.selected.splice(i, 1)
+        i--
+      }
     }
 
     function up(user, event) {

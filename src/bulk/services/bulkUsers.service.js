@@ -24,7 +24,7 @@
         if (next) {
           path += '/' + next
         }
-        return $location.path(path)
+        return $location.path(path).search({})
       })
     }
 

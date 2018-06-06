@@ -4,20 +4,18 @@
     controller: Controller
   })
 
-  function Controller(Route, BulkTaskService) {
+  function Controller(BulkTaskService, $location) {
     var ctrl = this
     ctrl.open = open
     ctrl.openCsv = openCsv
     ctrl.services = BulkTaskService.index
 
-    var route = Route.open('bulk')
-
     function open(service) {
-      route(service.task)
+      $location.path('bulk/users').search({ next: service.task })
     }
 
     function openCsv() {
-      route('csv')
+      $location.path('bulk/csv')
     }
   }
 })()

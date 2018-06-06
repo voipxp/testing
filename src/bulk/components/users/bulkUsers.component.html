@@ -9,22 +9,46 @@
   <pbs-breadcrumb ng-show="$ctrl.runWizard"
     title="'Wizard'"></pbs-breadcrumb>
 </pbs-navigation>
+
 <pbs-block title="Select Users"
   ng-show="!$ctrl.runWizard">
-  <pbs-columns>
-    <pbs-column>
-      <p class="subtitle">Run Wizard</p>
-      <button class="button is-info"
+  <pbs-spinner loading="$ctrl.loading"></pbs-spinner>
+  <div class="columns">
+    <div class="column"
+      ng-if="$ctrl.data.users.length > 0">
+      <div class="dropdown is-hoverable"
+        style="width: 100%">
+        <div class="dropdown-trigger"
+          style="width: 100%">
+          <button class="button is-fullwidth"
+            ng-click="$ctrl.selectCurrentUsers()">
+            Currently Selected Users: {{ $ctrl.data.users.length }}
+          </button>
+        </div>
+        <div class="dropdown-menu">
+          <div class="dropdown-content">
+            <div class="dropdown-item">
+              <ul style="width: 100%">
+                <li ng-repeat="user in $ctrl.data.users">{{ user.userId }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <button class="button is-info is-fullwidth"
         ng-click="$ctrl.runWizard = true">Run User Wizard</button>
-    </pbs-column>
-    <pbs-column>
-      <p class="subtitle">Upload CSV</p>
+    </div>
+    <div class="column">
       <pbs-input-file on-upload="$ctrl.upload(file)"
         mode="text"></pbs-input-file>
-    </pbs-column>
-  </pbs-columns>
-  <br>
-  <pbs-spinner loading="$ctrl.loadingTasks">
+    </div>
+  </div>
+  </pbs-spinner>
+
+  <pbs-spinner class="margin-top"
+    loading="$ctrl.loadingTasks">
     <p class="subtitle">
       Select from Recent Tasks
     </p>
