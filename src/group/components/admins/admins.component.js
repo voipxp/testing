@@ -21,8 +21,29 @@
     ctrl.setNewUserId = setNewUserId
 
     ctrl.add = add
-    ctrl.edit = edit
+    ctrl.onClick = onClick
+    ctrl.onSelect = onSelect
+    ctrl.toggleSelect = toggleSelect
     ctrl.policies = GroupAdminPolicyService.options.policies
+
+    ctrl.columns = [
+      {
+        key: 'administratorID',
+        label: 'ID'
+      },
+      {
+        key: 'firstName',
+        label: 'First Name'
+      },
+      {
+        key: 'lastName',
+        label: 'Last Name'
+      },
+      {
+        key: 'department.fullPathName',
+        label: 'Department'
+      }
+    ]
 
     function onInit() {
       ctrl.loading = true
@@ -77,7 +98,7 @@
       })
     }
 
-    function edit(admin) {
+    function onClick(admin) {
       if (!ctrl.canUpdate) return
       ctrl.editAdmin = angular.copy(admin)
       loadAdminPolicies(admin).then(function() {
@@ -94,6 +115,26 @@
               })
           }
         )
+      })
+    }
+
+    function toggleSelect() {
+      if (ctrl.showSelect) {
+        ctrl.showSelect = false
+        ctrl.selectFilter = {}
+      } else {
+        ctrl.selectFilter = { department: null }
+        ctrl.showSelect = true
+      }
+    }
+
+    function onSelect(event) {
+      ctrl.selectFilter = {}
+      if (!ctrl.canUpdate) return
+      ctrl.selected = event.length
+      ctrl.editPolicies = {}
+      Alert.modal.open('update-GroupAdminBulk', function(close) {
+        bulkUpdate(event, ctrl.editPolicies, close)
       })
     }
 
@@ -139,6 +180,17 @@
         .finally(function() {
           Alert.spinner.close()
         })
+    }
+
+    function bulkUpdate(admins, policy, callback) {
+      Alert.spinner.open()
+      GroupAdminPolicyService.bulk({ users: admins, data: policy })
+        .then(function() {
+          Alert.notify.success('Admin Policies Updated')
+          callback()
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function updatePolicies(admin, policies) {

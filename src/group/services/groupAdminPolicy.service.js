@@ -8,7 +8,8 @@
 
     var service = {
       show: show,
-      update: update
+      update: update,
+      bulk: bulk
     }
     service.options = {
       policies: {
@@ -53,6 +54,12 @@
 
     function update(userId, obj) {
       return $http.put(url(userId) + '/policies', obj).then(function(response) {
+        return response.data
+      })
+    }
+
+    function bulk(data) {
+      return $http.post(url('policies', 'bulk'), data).then(function(response) {
         return response.data
       })
     }
