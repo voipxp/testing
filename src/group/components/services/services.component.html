@@ -6,8 +6,7 @@
   <pbs-block title="{{ $ctrl.title }}">
     <pbs-block-buttons ng-if="$ctrl.canClone">
       <pbs-button-compact-clone ng-click="$ctrl.clone()"></pbs-button-compact-clone>
-      <pbs-button-compact-cogs ng-if="$ctrl.isGroupServices()"
-        ng-click="$ctrl.showSelect = !$ctrl.showSelect"></pbs-button-compact-cogs>
+      <pbs-button-compact-cogs ng-click="$ctrl.showSelect = !$ctrl.showSelect"></pbs-button-compact-cogs>
     </pbs-block-buttons>
     <pbs-columns>
       <pbs-column>
@@ -28,8 +27,7 @@
         </div>
       </pbs-column>
     </pbs-columns>
-    <pbs-data-table order-by="user.userId"
-      columns="$ctrl.columns"
+    <pbs-data-table columns="$ctrl.columns"
       items="$ctrl.services"
       hide-search="true"
       search="$ctrl.search"

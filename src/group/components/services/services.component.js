@@ -119,7 +119,7 @@
 
     function onSelect(event) {
       ctrl.editService = { assigned: true, authorized: true, quantity: -1 }
-      ctrl.selectedServices = event.length
+      ctrl.editService.name = 'Edit ' + event.length + ' Services'
       Alert.modal.open('editGroupService', function onSave(close) {
         var services = {}
         services[ctrl.serviceType] = event.map(function(service) {
