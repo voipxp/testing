@@ -15,10 +15,11 @@
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.edit = edit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
 
+    ctrl.onClick = onClick
+    ctrl.onSelect = onSelect
     ctrl.isServicePackServices = isServicePackServices
     ctrl.isGroupServices = isGroupServices
     ctrl.isUserServices = isUserServices
@@ -30,12 +31,29 @@
       return value === -1 ? 'Unlimited' : value
     }
 
+    ctrl.columns = [
+      { key: 'serviceName', label: 'Service' },
+      { key: 'allowedView', label: 'Allowed' },
+      { key: 'quantityView', label: 'Limit' },
+      { key: 'usageView', label: 'Allocated' },
+      { key: 'authorized', label: 'Authorized', type: 'boolean' }
+    ]
+
     function onInit() {
       ctrl.canClone = ACL.has('Service Provider')
       ctrl.filter = {}
       ctrl.title = $filter('humanize')(ctrl.serviceType)
       ctrl.loading = true
       return loadServices()
+        .then(function() {
+          if (isGroupServices()) {
+            ctrl.columns.push({
+              key: 'assigned',
+              label: 'Assigned',
+              type: 'boolean'
+            })
+          }
+        })
         .catch(function(error) {
           Alert.notify.danger(error)
         })
@@ -49,7 +67,13 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        ctrl.services = filterServices(data[ctrl.serviceType])
+        var services = filterServices(data[ctrl.serviceType])
+        services.forEach(function(service) {
+          service.allowedView = ctrl.quantity(service.allowed)
+          service.quantityView = ctrl.quantity(service.quantity)
+          service.usageView = ctrl.quantity(service.usage)
+        })
+        ctrl.services = services
       })
     }
 
@@ -70,7 +94,7 @@
       return ctrl.serviceType === 'userServices'
     }
 
-    function edit(service) {
+    function onClick(service) {
       ctrl.editService = angular.copy(service)
       // fix when a service has been limited but was set at -1 prior
       if (service.allowed !== -1 && service.quantity === -1) {
@@ -79,7 +103,9 @@
       ctrl.editService.isUnlimited = ctrl.editService.quantity === -1
       Alert.modal.open('editGroupService', function onSave(close) {
         var runUpdate = function() {
-          update(ctrl.editService, close)
+          var singleService = {}
+          singleService[ctrl.serviceType] = [service]
+          update(singleService, close)
         }
         if (!ctrl.editService.authorized && service.authorized) {
           Alert.confirm
@@ -88,6 +114,23 @@
         } else {
           runUpdate()
         }
+      })
+    }
+
+    function onSelect(event) {
+      ctrl.editService = { assigned: true, authorized: true, quantity: -1 }
+      ctrl.selectedServices = event.length
+      Alert.modal.open('editGroupService', function onSave(close) {
+        var services = {}
+        services[ctrl.serviceType] = event.map(function(service) {
+          return {
+            serviceName: service.serviceName,
+            assigned: ctrl.editService.assigned,
+            authorized: ctrl.editService.authorized,
+            quantity: ctrl.editService.quantity
+          }
+        })
+        update(services, close)
       })
     }
 
@@ -101,31 +144,14 @@
 
     function update(service, callback) {
       Alert.spinner.open()
-
-      // format as an array to fit API requirements
-      var singleService = {}
-      singleService[ctrl.serviceType] = [service]
-
-      // Update service
-      GroupServiceService.update(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        singleService
-      )
+      GroupServiceService.update(ctrl.serviceProviderId, ctrl.groupId, service)
         .then(loadServices)
         .then(function() {
           Alert.notify.success('Service Updated')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          callback()
         })
-        .catch(function(error) {
-          console.log('error', error.data)
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()

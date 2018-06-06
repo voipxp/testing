@@ -19,6 +19,8 @@
     ctrl.selectServices = selectServices
     ctrl.add = add
     ctrl.remove = remove
+    ctrl.addAll = addAll
+    ctrl.removeAll = removeAll
     ctrl.create = create
     var unlimited = 999999
 
@@ -96,9 +98,25 @@
       ctrl.editServicePack.userServices.push(service)
     }
 
+    function addAll() {
+      for (var i = 0; i < ctrl.available.length; i++) {
+        ctrl.editServicePack.userServices.push(ctrl.available[i])
+        ctrl.available.splice(i, 1)
+        i--
+      }
+    }
+
     function remove(service) {
       _.remove(ctrl.editServicePack.userServices, service)
       ctrl.available.push(service)
+    }
+
+    function removeAll() {
+      for (var i = 0; i < ctrl.editServicePack.userServices.length; i++) {
+        ctrl.available.push(ctrl.editServicePack.userServices[i])
+        ctrl.editServicePack.userServices.splice(i, 1)
+        i--
+      }
     }
 
     function setAvailable() {

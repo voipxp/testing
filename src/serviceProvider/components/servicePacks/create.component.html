@@ -47,7 +47,13 @@
   title="Select Services">
   <pbs-columns>
     <pbs-column>
-      <h4 class="underline thin">Available ({{ $ctrl.available.length }})</h4>
+      <h4 class="underline thin">Available ({{ $ctrl.available.length }})
+        <small>
+          <a href=""
+            class="is-pulled-right"
+            ng-click="$ctrl.addAll()">Select All</a>
+        </small>
+      </h4>
       <pbs-table-search ng-model="$ctrl.filterAvailable"></pbs-table-search>
       <table pbs-table>
         <tfoot>
@@ -70,7 +76,13 @@
       </table>
     </pbs-column>
     <pbs-column>
-      <h4 class="underline thin">Selected ({{ $ctrl.editServicePack.userServices.length }})</h4>
+      <h4 class="underline thin">Selected ({{ $ctrl.editServicePack.userServices.length }})
+        <small>
+          <a href=""
+            class="is-pulled-right"
+            ng-click="$ctrl.removeAll()">Select All</a>
+        </small>
+      </h4>
       <pbs-table-search ng-model="$ctrl.filterSelected"></pbs-table-search>
       <table pbs-table>
         <tfoot>
