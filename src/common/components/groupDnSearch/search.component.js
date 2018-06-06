@@ -77,19 +77,18 @@
         serviceProviderId: ctrl.serviceProviderId,
         groupId: ctrl.groupId
       }
+      params[ctrl.type] =
+        ctrl.type === 'dn' ? ctrl.filter : '*' + ctrl.filter + '*'
       if (!ctrl.serviceProviderId && !params.dn) {
         Alert.notify.warning(
           'You must select a Service Provider for non Phone Number searches'
         )
         return
       }
-      params[ctrl.type] =
-        ctrl.type === 'dn' ? ctrl.filter : '*' + ctrl.filter + '*'
       ctrl.users = null
       ctrl.isLoading = true
       GroupDnSearchService.index(params)
         .then(function(data) {
-          console.log('DATA', data)
           data.forEach(function(user) {
             user.dns = _.map(NumberService.expand(user.dns), 'min')
           })
