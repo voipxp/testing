@@ -57,4 +57,11 @@
       </form>
     </div>
   </div>
+  <div class="hero-foot">
+    <div class="message"
+      ng-if="$ctrl.loginMessage">
+      <div class="message-body"
+        ng-bind-html="$ctrl.loginMessage"></div>
+    </div>
+  </div>
 </section>

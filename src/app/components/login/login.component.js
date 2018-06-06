@@ -4,11 +4,18 @@
     controller: Controller
   })
 
-  function Controller(Auth, Session, Module, Route, Alert) {
+  function Controller(Auth, Session, Module, Route, Alert, Template) {
     var ctrl = this
+    ctrl.$onInit = onInit
     ctrl.login = login
     ctrl.canSubmit = canSubmit
     ctrl.submit = submit
+
+    function onInit() {
+      Template.load().then(function() {
+        ctrl.loginMessage = Template.data('pageLoginMessage')
+      })
+    }
 
     function canSubmit() {
       if (ctrl.needsChange) {

@@ -19,7 +19,8 @@
       { key: 'pageTitle', label: 'Page Title' },
       { key: 'pageCopyright', label: 'Copyright' },
       { key: 'pageFooterTitle', label: 'Footer Text' },
-      { key: 'pageGoogleUA', label: 'Google UA' }
+      { key: 'pageGoogleUA', label: 'Google UA' },
+      { key: 'pageLoginMessage', label: 'Login Message' }
     ]
     ctrl.fields.images = [
       { key: 'imageLoginLogo', label: 'Login Logo' },

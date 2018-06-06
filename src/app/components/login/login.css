@@ -14,3 +14,13 @@ pbs-login .box {
 pbs-login button {
   width: 100%;
 }
+
+pbs-login .hero-foot .message {
+  border-radius: 0;
+}
+
+pbs-login .hero-foot .message-body {
+  text-align: center;
+  padding: .75rem;
+  border: none;
+}
