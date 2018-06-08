@@ -30,23 +30,23 @@
     <thead>
       <tr ng-if="results.length > 0">
         <th>Option</th>
-        <th ng-repeat="releaseTime in $ctrl.releaseTimes">
-          {{ releaseTime | pbsDate:$ctrl.dateFormat }}
+        <th ng-repeat="callTime in $ctrl.callTimes">
+          {{ callTime | pbsDate:$ctrl.dateFormat }}
         </th>
         <th>Total</th>
       </tr>
     </thead>
     <tfoot>
       <tr ng-if="results.length < 1">
-        <td colspan="{{ $ctrl.releaseTimes.length + 1 }}">
+        <td colspan="{{ $ctrl.callTimes.length + 1 }}">
           No Records Found
           <strong ng-if="$ctrl.recordSearch">for {{ $ctrl.recordSearch }}</strong>
         </td>
       </tr>
       <tr ng-if="results.length > 0">
         <th>Total</th>
-        <th ng-repeat="releaseTime in $ctrl.releaseTimes">
-          {{ $ctrl.totalForReleaseTimeAndResults(releaseTime, results) }}
+        <th ng-repeat="callTime in $ctrl.callTimes">
+          {{ $ctrl.totalForCallTimeAndResults(callTime, results) }}
         </th>
         <th>
           {{ $ctrl.grandTotalForResults(results) }}
@@ -56,8 +56,8 @@
     <tbody>
       <tr ng-repeat="otherPartyName in $ctrl.otherPartyNames | filter:$ctrl.recordSearch as results">
         <th>{{ otherPartyName }}</th>
-        <td ng-repeat="releaseTime in $ctrl.releaseTimes">
-          {{ ::$ctrl.totalForReleaseTimeAndOtherParty(releaseTime, otherPartyName) }}
+        <td ng-repeat="callTime in $ctrl.callTimes">
+          {{ ::$ctrl.totalForCallTimeAndOtherParty(callTime, otherPartyName) }}
         </td>
         <th>
           {{ ::$ctrl.grandTotalForOtherPartyName(otherPartyName) }}

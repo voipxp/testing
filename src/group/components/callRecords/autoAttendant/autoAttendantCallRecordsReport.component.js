@@ -15,8 +15,8 @@
   function Controller(Alert, $filter, Papa, DownloadService) {
     var ctrl = this
     ctrl.$onChanges = onChanges
-    ctrl.totalForReleaseTimeAndResults = totalForReleaseTimeAndResults
-    ctrl.totalForReleaseTimeAndOtherParty = totalForReleaseTimeAndOtherParty
+    ctrl.totalForCallTimeAndResults = totalForCallTimeAndResults
+    ctrl.totalForCallTimeAndOtherParty = totalForCallTimeAndOtherParty
     ctrl.grandTotalForResults = grandTotalForResults
     ctrl.grandTotalForOtherPartyName = grandTotalForOtherPartyName
     ctrl.downloadCsv = downloadCsv
@@ -41,7 +41,7 @@
       ctrl.otherPartyNames = _.uniq(
         _.map(ctrl.callRecords, 'otherPartyName')
       ).sort()
-      ctrl.releaseTimes = _.uniq(_.map(ctrl.callRecords, 'releaseTime')).sort()
+      ctrl.callTimes = _.uniq(_.map(ctrl.callRecords, 'callTime')).sort()
     }
 
     function initiateDateFormat() {
@@ -58,12 +58,12 @@
 
     function initiatePerTimeChart() {
       var series = seriesFormat()
-      var labels = ctrl.releaseTimes.map(function(releaseTime) {
-        var date = Sugar.Date.create(releaseTime)
+      var labels = ctrl.callTimes.map(function(callTime) {
+        var date = Sugar.Date.create(callTime)
         return Sugar.Date.format(date, ctrl.dateFormat)
       })
-      var data = ctrl.releaseTimes.map(function(releaseTime) {
-        var matches = _.filter(ctrl.callRecords, { releaseTime: releaseTime })
+      var data = ctrl.callTimes.map(function(callTime) {
+        var matches = _.filter(ctrl.callRecords, { callTime: callTime })
         var results = _.sum(
           _.map(matches, function(match) {
             return parseInt(match[ctrl.reportProperty], 10) || 0
@@ -115,11 +115,11 @@
 
       // generate CSV file
       var rows = []
-      rows.push(['otherPartyName'].concat(ctrl.releaseTimes))
+      rows.push(['otherPartyName'].concat(ctrl.callTimes))
       ctrl.otherPartyNames.forEach(function(otherPartyName) {
         var row = [otherPartyName].concat(
-          ctrl.releaseTimes.map(function(releaseTime) {
-            return totalForReleaseTimeAndOtherParty(releaseTime, otherPartyName)
+          ctrl.callTimes.map(function(callTime) {
+            return totalForCallTimeAndOtherParty(callTime, otherPartyName)
           })
         )
         rows.push(row)
@@ -136,20 +136,20 @@
       DownloadService.download(csv, filename)
     }
 
-    function totalForReleaseTimeAndOtherParty(releaseTime, otherPartyName) {
+    function totalForCallTimeAndOtherParty(callTime, otherPartyName) {
       var record = _.find(ctrl.callRecords, {
-        releaseTime: releaseTime,
+        callTime: callTime,
         otherPartyName: otherPartyName
       })
       var results = (record && record[ctrl.reportProperty]) || 0
       return tableFormat(results)
     }
 
-    function totalForReleaseTimeAndResults(releaseTime, results) {
+    function totalForCallTimeAndResults(callTime, results) {
       var callRecords = _.filter(ctrl.callRecords, function(callRecord) {
         return _.includes(results, callRecord.otherPartyName)
       })
-      var matches = _.filter(callRecords, { releaseTime: releaseTime })
+      var matches = _.filter(callRecords, { callTime: callTime })
       var newResults = _.sum(
         _.map(matches, function(match) {
           return parseInt(match[ctrl.reportProperty], 10) || 0

@@ -13,17 +13,22 @@
     var ctrl = this
     ctrl.$onChanges = onChanges
     ctrl.downloadCsv = downloadCsv
+    ctrl.onPagination = onPagination
 
     var viewableFields = [
       'userId',
       'department',
-      'releaseTime',
+      'callTime',
       'calledNumber',
       'otherPartyName',
       'placedSeconds',
       'waitSeconds',
       'totalSeconds'
     ]
+
+    function onPagination(event) {
+      ctrl.pager = event.pager
+    }
 
     function onChanges(changes) {
       if (changes.callRecords) {

@@ -104,7 +104,7 @@
       Alert.modal.open('editGroupService', function onSave(close) {
         var runUpdate = function() {
           var singleService = {}
-          singleService[ctrl.serviceType] = [service]
+          singleService[ctrl.serviceType] = [ctrl.editService]
           update(singleService, close)
         }
         if (!ctrl.editService.authorized && service.authorized) {
@@ -143,6 +143,7 @@
     }
 
     function update(service, callback) {
+      console.log('UPDATE', service)
       Alert.spinner.open()
       GroupServiceService.update(ctrl.serviceProviderId, ctrl.groupId, service)
         .then(loadServices)
