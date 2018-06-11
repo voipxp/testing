@@ -183,7 +183,7 @@
         action = activateNumbers
       } else if (ctrl.action === 'Deactivate Numbers') {
         ctrl.editTitle = {
-          available: 'Keep Activated',
+          available: 'Activated',
           selected: 'To Deactivate'
         }
         action = deactivateNumbers
