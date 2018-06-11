@@ -16,17 +16,26 @@
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
     ctrl.add = add
-    ctrl.edit = edit
     ctrl.filter = {}
     ctrl.toggleFilter = toggleFilter
+    ctrl.select = select
     ctrl.onSelect = onSelect
+    ctrl.onClick = onClick
 
-    ctrl.actions = ['Delete Numbers', 'Activate Numbers', 'Deactivate Numbers']
+    ctrl.actions = [
+      'Unassign Numbers',
+      'Activate Numbers',
+      'Deactivate Numbers'
+    ]
 
     ctrl.columns = [
       {
         key: 'min',
-        label: 'Number'
+        label: 'Range Start'
+      },
+      {
+        key: 'max',
+        label: 'Range End'
       },
       {
         key: 'assigned',
@@ -57,7 +66,10 @@
         ctrl.groupId
       ).then(function(data) {
         console.log('numbers', data)
-        ctrl.numbers = NumberService.expand(data)
+        ctrl.numbers = _.map(data, function(number) {
+          number.expanded = _.map(NumberService.expand(number), 'min')
+          return number
+        })
       })
     }
 
@@ -66,7 +78,10 @@
         ctrl.serviceProviderId,
         'available'
       ).then(function(data) {
-        return NumberService.expand(data)
+        return _.map(data, function(number) {
+          number.expanded = _.map(NumberService.expand(number), 'min')
+          return number
+        })
       })
     }
 
@@ -88,6 +103,17 @@
       }
     }
 
+    function onClick(number) {
+      ctrl.editNumbers = {
+        unassign: [],
+        assigned: NumberService.expand(number)
+      }
+      Alert.modal.open('groupNumbersEditModal', function(close) {
+        if (ctrl.editNumbers.unassign.length < 1) return close()
+        return unassignNumbers(ctrl.editNumbers.unassign)
+      })
+    }
+
     function add() {
       Alert.spinner.open()
       loadAvailableNumbers()
@@ -104,9 +130,9 @@
         .finally(Alert.spinner.close)
     }
 
-    function edit(event) {
+    function select(event) {
       ctrl.action = event
-      if (event === 'Delete Numbers') {
+      if (event === 'Unassign Numbers') {
         ctrl.filter = { assigned: false }
       } else if (event === 'Activate Numbers') {
         ctrl.filter = { activated: false }
@@ -119,7 +145,7 @@
     }
 
     function onSelect(numbers) {
-      if (ctrl.action === 'Delete Numbers') {
+      if (ctrl.action === 'Unassign Numbers') {
         unassignNumbers(numbers)
       } else if (ctrl.action === 'Activate Numbers') {
         activateNumbers(numbers)
@@ -183,7 +209,9 @@
 
     function unassignNumbers(numbers) {
       var message =
-        'Are you sure you want to Delete these ' + numbers.length + ' numbers?'
+        'Are you sure you want to Unassign these ' +
+        numbers.length +
+        ' numbers?'
       Alert.confirm.open(message).then(function() {
         Alert.spinner.open()
         GroupNumberService.unassign(
@@ -194,7 +222,7 @@
           .then(loadNumbers)
           .then(function() {
             ctrl.filter = {}
-            Alert.notify.success('Numbers Deleted')
+            Alert.notify.success('Numbers Unassigned')
           })
           .catch(Alert.notify.danger)
           .finally(Alert.spinner.close)

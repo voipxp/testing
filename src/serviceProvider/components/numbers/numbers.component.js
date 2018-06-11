@@ -32,7 +32,7 @@
       return ServiceProviderNumberService.index(ctrl.serviceProviderId).then(
         function(data) {
           ctrl.numbers = _.map(data, function(number) {
-            number.numbers = _.map(NumberService.expand(number), 'min')
+            number.expanded = _.map(NumberService.expand(number), 'min')
             return number
           })
         }
@@ -53,6 +53,7 @@
         assigned: NumberService.expand(number)
       }
       Alert.modal.open('serviceProviderNumbersEditModal', function(close) {
+        if (ctrl.editNumbers.unassign.length < 1) return close()
         remove(ctrl.editNumbers.unassign, close)
       })
     }
