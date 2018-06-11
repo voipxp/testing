@@ -1,0 +1,62 @@
+<pbs-columns>
+  <pbs-column>
+    <h4 style="margin-bottom: 1rem">
+      {{ $ctrl.availableTitle || 'Available' }} ({{ $ctrl.available.length || 0 }})
+      <small>
+        <a href=""
+          class="is-pulled-right"
+          ng-click="$ctrl.addAll()">Add All</a>
+      </small>
+    </h4>
+    <pbs-table-search ng-model="$ctrl.searchAvailable"></pbs-table-search>
+    <table pbs-table>
+      <tr class="hover"
+        ng-click="$ctrl.add(number)"
+        ng-repeat="number in $ctrl.available | filter:$ctrl.searchAvailable | orderBy:'min' as availableResults track by number.min">
+        <td>
+          <div class="columns is-gapless">
+            <div class="column">{{ number.min }}</div>
+            <div class="column has-text-right">{{ number.max }}</div>
+          </div>
+        </td>
+      </tr>
+      <tr ng-show="availableResults.length < 1">
+        <td>No Numbers Available
+          <span ng-show="$ctrl.searchAvailable">for
+            <strong>{{ $ctrl.searchAvailable }}</strong>
+          </span>
+        </td>
+      </tr>
+    </table>
+  </pbs-column>
+  <pbs-column>
+    <h4 style="margin-bottom: 1rem">
+      {{ $ctrl.selectedTitle || 'Selected' }} ({{ $ctrl.selected.length || 0 }})
+      <small>
+        <a href=""
+          class="is-pulled-right"
+          ng-click="$ctrl.removeAll()">Remove All</a>
+      </small>
+    </h4>
+    <pbs-table-search ng-model="$ctrl.searchSelected"></pbs-table-search>
+    <table pbs-table>
+      <tr class="hover"
+        ng-click="$ctrl.remove(number)"
+        ng-repeat="number in $ctrl.selected | filter:$ctrl.searchSelected | orderBy:'min' as selectedResults track by number.min">
+        <td>
+          <div class="columns is-gapless">
+            <div class="column">{{ number.min }}</div>
+            <div class="column has-text-right">{{ number.max }}</div>
+          </div>
+        </td>
+      </tr>
+      <tr ng-show="selectedResults.length < 1">
+        <td>No Numbers Selected
+          <span ng-show="$ctrl.searchSelected">for
+            <strong>{{ $ctrl.searchSelected }}</strong>
+          </span>
+        </td>
+      </tr>
+    </table>
+  </pbs-column>
+</pbs-columns>

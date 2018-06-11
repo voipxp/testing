@@ -49,12 +49,12 @@
     function edit(number) {
       if (number.groupId) return
       ctrl.editNumbers = {
-        unassign: [],
-        assigned: NumberService.expand(number)
+        available: [],
+        selected: NumberService.expand(number)
       }
       Alert.modal.open('serviceProviderNumbersEditModal', function(close) {
-        if (ctrl.editNumbers.unassign.length < 1) return close()
-        remove(ctrl.editNumbers.unassign, close)
+        if (ctrl.editNumbers.available.length < 1) return close()
+        remove(ctrl.editNumbers.available, close)
       })
     }
 

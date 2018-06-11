@@ -57,21 +57,10 @@
 </pbs-spinner>
 
 <pbs-modal id="groupNumbersEditModal"
-  title="Edit Numbers">
-  <select-things property="min"
-    selected="$ctrl.editNumbers.assigned"
-    available="$ctrl.editNumbers.unassign"
-    selected-title="Assigned"
-    available-title="Unassign">
-  </select-things>
-</pbs-modal>
-
-<pbs-modal id="groupNumbersAddModal"
-  title="Assign Numbers">
-  <select-things property="min"
-    selected="$ctrl.addNumbers.assign"
-    available="$ctrl.addNumbers.unassigned"
-    selected-title="Assign"
-    available-title="Unassigned">
-  </select-things>
+  title="{{ $ctrl.action }}">
+  <select-numbers selected="$ctrl.editNumbers.selected"
+    available="$ctrl.editNumbers.available"
+    selected-title="$ctrl.editTitle.selected"
+    available-title="$ctrl.editTitle.available">
+  </select-numbers>
 </pbs-modal>

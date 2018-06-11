@@ -72,11 +72,10 @@
   </pbs-form>
 </pbs-modal>
 <pbs-modal id="serviceProviderNumbersEditModal"
-  title="Edit Numbers">
-  <select-things property="min"
-    selected="$ctrl.editNumbers.assigned"
-    available="$ctrl.editNumbers.unassign"
-    selected-title="Assigned"
-    available-title="Unassign">
-  </select-things>
+  title="Edit Number Assignment">
+  <select-numbers selected="$ctrl.editNumbers.selected"
+    available="$ctrl.editNumbers.available"
+    selected-title="'Assigned'"
+    available-title="'Unassigned'">
+  </select-numbers>
 </pbs-modal>
