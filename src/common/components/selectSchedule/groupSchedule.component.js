@@ -15,7 +15,6 @@
   function Controller(Alert, GroupScheduleService) {
     var ctrl = this
     ctrl.$onInit = onInit
-    console.log(ctrl)
 
     function onInit() {
       ctrl.loading = true
