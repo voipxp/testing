@@ -418,7 +418,14 @@
       path: 'callProcessingPolicy',
       component: 'groupCallProcessingPolicy',
       acl: 'Group'
-    }
+    },
+    {
+      path: 'intercept',
+      component: 'groupIntercept',
+      acl: 'Group',
+      module: 'Intercept Group'
+    },
+
   ]
 
   angular.module('odin.group', []).config(function(PbsRouteProvider) {

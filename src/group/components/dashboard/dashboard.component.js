@@ -127,6 +127,11 @@
           name: 'Call Processing Policy',
           path: route('callProcessingPolicy')
         },
+        {
+          type: 'management',
+          name: 'Intercept Group',
+          path: route('intercept')
+        },
 
         {
           type: 'service',
