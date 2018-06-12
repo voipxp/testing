@@ -424,8 +424,7 @@
       component: 'groupIntercept',
       acl: 'Group',
       module: 'Intercept Group'
-    },
-
+    }
   ]
 
   angular.module('odin.group', []).config(function(PbsRouteProvider) {
