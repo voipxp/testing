@@ -424,6 +424,12 @@
       component: 'groupIntercept',
       acl: 'Group',
       module: 'Intercept Group'
+    },
+    {
+      path: 'nightForwarding',
+      component: 'groupNightForwarding',
+      acl: 'Group',
+      module: 'Group Night Forwarding'
     }
   ]
 

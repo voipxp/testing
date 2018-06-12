@@ -171,6 +171,11 @@
         },
         {
           type: 'service',
+          service: 'Group Night Forwarding',
+          path: route('nightForwarding')
+        },
+        {
+          type: 'service',
           service: 'Trunk Group',
           name: 'Enterprise Trunk',
           path: route('enterpriseTrunks'),
