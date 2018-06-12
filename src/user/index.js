@@ -406,6 +406,12 @@
       path: 'viewablePack',
       component: 'userViewablePack',
       acl: 'Group'
+    },
+    {
+      path: 'userNightForwarding',
+      component: 'userNightForwardingIndex',
+      acl: 'User',
+      module: 'Group Night Forwarding'
     }
   ]
 

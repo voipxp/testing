@@ -333,6 +333,12 @@
         },
         {
           type: 'service',
+          service: 'Group Night Forwarding',
+          path: route('userNightForwarding')
+        },
+
+        {
+          type: 'service',
           service: 'Priority Alert',
           path: route('priorityAlert')
         },
