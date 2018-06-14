@@ -130,7 +130,8 @@
         {
           type: 'management',
           name: 'Intercept Group',
-          path: route('intercept')
+          path: route('intercept'),
+          service: 'Intercept Group'
         },
 
         {
