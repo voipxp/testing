@@ -176,6 +176,12 @@
         },
         {
           type: 'service',
+          service: 'Virtual On-Net Enterprise Extensions',
+          path: route('virtualOnNetEnterpriseExtensions')
+        },
+
+        {
+          type: 'service',
           service: 'Trunk Group',
           name: 'Enterprise Trunk',
           path: route('enterpriseTrunks'),

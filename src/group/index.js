@@ -430,6 +430,12 @@
       component: 'groupNightForwarding',
       acl: 'Group',
       module: 'Group Night Forwarding'
+    },
+    {
+      path: 'virtualOnNetEnterpriseExtensions',
+      component: 'groupVirtualOnNetEnterpriseExtensions',
+      acl: 'Group',
+      module: 'Virtual On-Net Enterprise Extensions'
     }
   ]
 
