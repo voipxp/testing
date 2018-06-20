@@ -45,7 +45,7 @@
         })
         .then(function(data) {
           data.forEach(function(task) {
-            task.userList = _.map(task.data, 'userId').join('<br>')
+            task.userList = _.map(task.data, 'userId').join(', ')
           })
         })
         .catch(function(error) {

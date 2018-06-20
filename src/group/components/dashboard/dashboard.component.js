@@ -130,7 +130,8 @@
         {
           type: 'management',
           name: 'Intercept Group',
-          path: route('intercept')
+          path: route('intercept'),
+          service: 'Intercept Group'
         },
 
         {
@@ -174,6 +175,12 @@
           service: 'Group Night Forwarding',
           path: route('nightForwarding')
         },
+        {
+          type: 'service',
+          service: 'Virtual On-Net Enterprise Extensions',
+          path: route('virtualOnNetEnterpriseExtensions')
+        },
+
         {
           type: 'service',
           service: 'Trunk Group',

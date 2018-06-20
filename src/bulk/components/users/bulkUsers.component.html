@@ -74,7 +74,7 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover with-tooltip"
+        <tr class="hover with-tooltip is-tooltip-multiline"
           ng-repeat="task in $ctrl.tasks | filter:search as results track by task.id"
           ng-click="$ctrl.select(task)"
           title="{{ task.userList }}">
