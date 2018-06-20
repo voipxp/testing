@@ -13,7 +13,6 @@
     ctrl.options = UserCallPoliciesService.options
 
     function activate() {
-      ctrl.passcode = {}
       ctrl.loading = true
       loadPolicies()
         .catch(Alert.notify.danger)

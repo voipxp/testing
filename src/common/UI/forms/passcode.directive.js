@@ -112,7 +112,6 @@
         }
 
         function loadPasscodeRules() {
-          console.log('LOAD', scope.serviceProviderId, scope.groupId)
           var defaultRules = {}
           return loadGroupPasscodeRules(
             scope.serviceProviderId,
