@@ -326,6 +326,12 @@
       module: 'Provisioning'
     },
     {
+      path: 'passwords',
+      component: 'userPasswordsIndex',
+      acl: 'Group',
+      module: 'Provisioning'
+    },
+    {
       path: 'delete',
       component: 'userDelete',
       acl: 'Group',

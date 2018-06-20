@@ -1,7 +1,8 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Portal Passcode"
-    class="margin-top">
-    <pbs-block-buttons ng-if="!$ctrl.readOnly">
+    class="margin-top"
+    ng-if="$ctrl.hasService">
+    <pbs-block-buttons if-module-update="'Voice Messaging User'">
       <pbs-button-compact-edit title="Edit Portal Passcode"
         ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
@@ -17,7 +18,8 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="editUserPortalPasscode"
+<pbs-modal ng-if="$ctrl.hasService"
+  id="editUserPortalPasscode"
   title="Edit Portal Passcode">
   <form>
     <pbs-form-field label="Current Passcode"

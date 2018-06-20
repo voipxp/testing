@@ -78,6 +78,13 @@
         },
         {
           type: 'provisioning',
+          name: 'Passwords',
+          path: route('passwords'),
+          admin: true,
+          module: 'Provisioning'
+        },
+        {
+          type: 'provisioning',
           name: 'Calling Plans',
           path: route('callingPlans'),
           admin: true,

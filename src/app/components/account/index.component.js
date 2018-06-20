@@ -11,6 +11,8 @@
       Session.load().then(function() {
         ctrl.userId = Session.data('userId')
         ctrl.loginType = Session.data('loginType')
+        ctrl.serviceProviderId = Session.data('serviceProviderId')
+        ctrl.groupId = Session.data('groupId')
       })
     }
   }

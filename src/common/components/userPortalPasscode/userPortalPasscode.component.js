@@ -6,17 +6,17 @@
     bindings: {
       userId: '<',
       serviceProviderId: '<',
-      groupId: '<',
-      readOnly: '<'
+      groupId: '<'
     }
   })
 
   function Controller(
     Alert,
     UserPortalPasscodeService,
-    PasscodeService,
     $scope,
-    Session
+    Session,
+    Module,
+    UserPermissionService
   ) {
     var ctrl = this
     ctrl.edit = edit
@@ -29,10 +29,12 @@
     function activate() {
       ctrl.passcode = {}
       ctrl.loading = true
-      loadPasscode()
-        .catch(function(error) {
-          Alert.notify.danger(error)
+      return UserPermissionService.load(ctrl.userId)
+        .then(function(permission) {
+          ctrl.hasService = permission.read('Voice Messaging User')
+          if (ctrl.hasService) return loadPasscode()
         })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
@@ -52,16 +54,10 @@
         .then(function() {
           ctrl.editPasscode = {}
           Alert.notify.success('Passcode Updated')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function edit() {
