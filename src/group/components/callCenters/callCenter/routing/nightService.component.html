@@ -29,72 +29,70 @@
         {{ $ctrl.service.announcementMode }}
       </pbs-list-item>
     </pbs-list>
+
     <group-call-center-audio-settings-view service="$ctrl.service.normalMode"
-      label="Normal">
-    </group-call-center-audio-settings-view>
+      label="Normal"
+      user-id="$ctrl.serviceUserId"></group-call-center-audio-settings-view>
+
     <group-call-center-audio-settings-view service="$ctrl.service.manualMode"
-      label="Manual">
-    </group-call-center-audio-settings-view>
+      label="Manual"
+      user-id="$ctrl.serviceUserId"></group-call-center-audio-settings-view>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editGroupCallCenterNightService"
   title="Edit Night Service">
-  <pbs-form-field label="Action">
-    <div class="select">
-      <select ng-model="$ctrl.editService.action"
-        ng-options="opt for opt in $ctrl.options.action"></select>
-    </div>
-  </pbs-form-field>
 
-  <pbs-form-field label="Transfer To"
+  <pbs-form-section>Settings</pbs-form-section>
+  <input type="checkbox"
+    ng-model="$ctrl.editService.forceNightService"
+    label="Force night service now regardless of business hours schedule"
+    pbs-input-checkradio>
+
+  <input type="checkbox"
+    ng-model="$ctrl.editService.allowManualOverrideViaFAC"
+    label="Allow feature access codes to manually override night service"
+    pbs-input-checkradio>
+
+  <input type="checkbox"
+    ng-model="$ctrl.editService.playAnnouncementBeforeAction"
+    label="Play announcment before night service action"
+    pbs-input-checkradio>
+
+  <pbs-form-field-horizontal label="Action">
+    <select ng-model="$ctrl.editService.action"
+      ng-options="opt for opt in $ctrl.options.action"
+      pbs-input-select></select>
+  </pbs-form-field-horizontal>
+
+  <pbs-form-field-horizontal label="Transfer To"
     ng-show="$ctrl.editService.action === 'Transfer'">
     <input type="text"
       class="input"
       ng-model="$ctrl.editService.transferPhoneNumber">
-  </pbs-form-field>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Force Night Service">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editService.forceNightService"> Force night service now regardless of business hours schedule
-    </label>
-  </pbs-form-field>
+  <pbs-form-field-horizontal label="Business Hours">
+    <select ng-model="$ctrl.editService.businessHours"
+      pbs-input-select
+      ng-options="schedule as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Time'} track by schedule.name">
+      <option value="">All Day Every Day</option>
+    </select>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Business Hours">
-    <div class="select">
-      <select ng-model="$ctrl.editService.businessHours"
-        ng-options="schedule as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Time'} track by schedule.name">
-        <option value="">All Day Every Day</option>
-      </select>
-    </div>
-  </pbs-form-field>
-
-  <pbs-form-field label="Override FAC">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editService.allowManualOverrideViaFAC"> Allow feature access codes to manually override night service
-    </label>
-  </pbs-form-field>
-
-  <pbs-form-field label="Announcement Before Night Service">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editService.playAnnouncementBeforeAction"> Play announcment before night service action
-    </label>
-  </pbs-form-field>
-
-  <pbs-form-field label="Announcement Mode">
-    <div class="select">
-      <select ng-model="$ctrl.editService.announcementMode"
-        ng-options="opt for opt in $ctrl.options.announcementMode">
-      </select>
-    </div>
-  </pbs-form-field>
+  <pbs-form-field-horizontal label="Announcement Mode">
+    <select ng-model="$ctrl.editService.announcementMode"
+      ng-options="opt for opt in $ctrl.options.announcementMode"
+      pbs-input-select>
+    </select>
+  </pbs-form-field-horizontal>
 
   <group-call-center-audio-settings-edit service="$ctrl.editService.normalMode"
-    label="Normal">
-  </group-call-center-audio-settings-edit>
+    user-id="$ctrl.serviceUserId"
+    label="Normal"></group-call-center-audio-settings-edit>
+
   <group-call-center-audio-settings-edit service="$ctrl.editService.manualMode"
-    label="Manual">
-  </group-call-center-audio-settings-edit>
+    user-id="$ctrl.serviceUserId"
+    label="Manual"
+    style="display: block"
+    class="large-margin-top"></group-call-center-audio-settings-edit>
 </pbs-modal>

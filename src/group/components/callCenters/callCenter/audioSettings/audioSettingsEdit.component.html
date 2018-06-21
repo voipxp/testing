@@ -1,4 +1,4 @@
-<pbs-form-section>Audio Selection</pbs-form-section>
+<pbs-form-section>Audio Selection {{ $ctrl.label }}</pbs-form-section>
 
 <select ng-model="$ctrl.service.audioMessageSource"
   ng-options="opt for opt in $ctrl.options.audioMessageSource"
@@ -6,7 +6,7 @@
 
 <div class="margin-top"
   ng-show="$ctrl.isUrl()">
-  <pbs-form-section>{{ $ctrl.label }} Audio URLs</pbs-form-section>
+  <pbs-form-section>Audio URLs {{ $ctrl.label }} </pbs-form-section>
   <div class="field has-addons"
     ng-show="$ctrl.isUrl()">
     <p class="control is-expanded">
@@ -38,7 +38,7 @@
 
 <div class="margin-top"
   ng-show="$ctrl.isFile()">
-  <pbs-form-section>{{ $ctrl.label }} Audio Files</pbs-form-section>
+  <pbs-form-section>Audio Files {{ $ctrl.label }} </pbs-form-section>
   <div class="margin-bottom">
     <button class="button is-fullwidth"
       ng-if="!$ctrl.hasRepository"

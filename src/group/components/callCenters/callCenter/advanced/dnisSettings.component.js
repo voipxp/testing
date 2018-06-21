@@ -7,51 +7,28 @@
       serviceUserId: '<',
       dnisId: '<',
       serviceProviderId: '<',
-      groupId: '<'
+      groupId: '<',
+      onUpdate: '&',
+      onDelete: '&'
     }
   })
 
-  function Controller(
-    $routeParams,
-    Route,
-    $location,
-    Alert,
-    GroupCallCenterDnisInstanceService,
-    $q,
-    GroupNumberService
-  ) {
+  function Controller(Alert, GroupCallCenterDnisInstanceService, EventEmitter) {
     var ctrl = this
 
     ctrl.$onInit = onInit
-    ctrl.$onChanges = onChanges
     ctrl.edit = edit
+    ctrl.selectNumber = selectNumber
     ctrl.setExtension = setExtension
     ctrl.options = GroupCallCenterDnisInstanceService.options
 
     function onInit() {
       ctrl.loading = true
       loadDnis()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
-    }
-
-    function onChanges(changes) {
-      if (changes.serviceUserId) {
-        ctrl.serviceUserId = changes.serviceUserId.currentValue
-      }
-      if (changes.dnisId) {
-        ctrl.dnisId = changes.dnisId.currentValue
-      }
-      if (changes.serviceProviderId) {
-        ctrl.serviceProviderId = changes.serviceProviderId.currentValue
-      }
-      if (changes.groupId) {
-        ctrl.groupId = changes.groupId.currentValue
-      }
     }
 
     function loadDnis() {
@@ -60,55 +37,32 @@
         ctrl.dnisId
       ).then(function(data) {
         ctrl.service = data
-        console.log('dnis', data)
+        ctrl.service.name = ctrl.dnisId
         return data
       })
     }
 
-    function loadNumbers() {
-      if (ctrl.numbers) {
-        return $q.when(ctrl.numbers)
-      }
-      Alert.spinner.open()
-      return loadAvailableNumbers()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-          return $q.reject(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
-    }
-
-    function loadAvailableNumbers() {
-      return GroupNumberService.index(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'available'
-      ).then(function(data) {
-        ctrl.numbers = data
-        ctrl.numbers.unshift({ min: ctrl.service.dnisPhoneNumber })
-      })
+    function selectNumber(event) {
+      ctrl.editService.dnisPhoneNumber = event.phoneNumber
+      setExtension()
     }
 
     function edit() {
-      ctrl.changeName = false
-      loadNumbers().then(function() {
-        ctrl.editService = angular.copy(ctrl.service)
-        Alert.modal.open(
-          'editGroupCallCenterDnisInstance',
-          function onSave(close) {
-            update(ctrl.editService, close)
-          },
-          function onDelete(close) {
-            Alert.confirm
-              .open('Are you sure you want to delete this DNIS?')
-              .then(function() {
-                destroy(ctrl.editService, close)
-              })
-          }
-        )
-      })
+      ctrl.editService = angular.copy(ctrl.service)
+      ctrl.editService.newDNISName = ctrl.service.name
+      Alert.modal.open(
+        'editGroupCallCenterDnisInstance',
+        function(close) {
+          update(ctrl.editService, close)
+        },
+        function(close) {
+          Alert.confirm
+            .open('Are you sure you want to delete this DNIS?')
+            .then(function() {
+              destroy(ctrl.editService, close)
+            })
+        }
+      )
     }
 
     function update(dnis, callback) {
@@ -121,24 +75,17 @@
         .then(loadDnis)
         .then(function() {
           Alert.notify.success('DNIS Instance Updated')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          callback()
+          ctrl.onUpdate(EventEmitter({ dnis: dnis }))
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function setExtension() {
-      if (!ctrl.editService.dnisPhoneNumber) {
-        ctrl.editService.extension = null
-      } else {
-        ctrl.editService.extension = ctrl.editService.dnisPhoneNumber.slice(-4)
-      }
+      ctrl.editService.extension = ctrl.editService.dnisPhoneNumber
+        ? ctrl.editService.dnisPhoneNumber.slice(-4)
+        : null
     }
 
     function destroy(dnis, callback) {
@@ -149,22 +96,11 @@
       )
         .then(function() {
           Alert.notify.success('DNIS Instance Removed')
-          if (_.isFunction(callback)) {
-            callback()
-          }
-          $location.hash('Advanced')
-          Route.open(
-            'callCenter',
-            ctrl.serviceProviderId,
-            ctrl.groupId
-          )(ctrl.serviceUserId)
+          callback()
+          ctrl.onDelete(EventEmitter({ dnis: dnis }))
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()

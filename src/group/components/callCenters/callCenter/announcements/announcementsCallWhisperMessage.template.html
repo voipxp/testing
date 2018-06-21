@@ -9,9 +9,9 @@
       <pbs-check-box checked="$ctrl.announcements.callWhisperMessage.enabled"></pbs-check-box>
     </pbs-list-item>
   </pbs-list>
+
   <group-call-center-audio-settings-view user-id="$ctrl.serviceUserId"
-    service="$ctrl.announcements.callWhisperMessage">
-  </group-call-center-audio-settings-view>
+    service="$ctrl.announcements.callWhisperMessage"></group-call-center-audio-settings-view>
 </pbs-block>
 <pbs-modal id="editGroupCallCenterAnnouncementsCallWhisperMessage"
   title="{{ $ctrl.modalTitle }}">
@@ -22,6 +22,5 @@
     pbs-input-checkradio>
 
   <group-call-center-audio-settings-edit user-id="$ctrl.serviceUserId"
-    service="$ctrl.editAnnouncements.callWhisperMessage">
-  </group-call-center-audio-settings-edit>
+    service="$ctrl.editAnnouncements.callWhisperMessage"></group-call-center-audio-settings-edit>
 </pbs-modal>

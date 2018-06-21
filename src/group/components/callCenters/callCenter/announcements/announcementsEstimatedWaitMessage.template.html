@@ -59,6 +59,21 @@
     label="Play Updated Estimated Wait Message"
     pbs-input-checkradio>
 
+  <div class="field"
+    ng-if="$ctrl.editAnnouncements.estimatedWaitMessage.operatingMode === 'Position'">
+    <input type="checkbox"
+      ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.playPositionHighVolume"
+      label="Play Position High Volume Message"
+      pbs-input-checkradio>
+  </div>
+
+  <div class="field"
+    ng-if="$ctrl.editAnnouncements.estimatedWaitMessage.operatingMode === 'Time'">
+    <input type="checkbox"
+      ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.playTimeHighVolume"
+      label="Play Time High Volume Message"
+      pbs-input-checkradio>
+  </div>
 
   <pbs-form-field-horizontal label="Seconds Between Update Messages"
     ng-show="$ctrl.editAnnouncements.estimatedWaitMessage.playUpdatedEWM">
@@ -84,13 +99,6 @@
       max="{{ $ctrl.options.maximumPositions.max }}">
   </pbs-form-field-horizontal>
 
-  <div ng-if="$ctrl.editAnnouncements.estimatedWaitMessage.operatingMode === 'Position'">
-    <input type="checkbox"
-      ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.playPositionHighVolume"
-      label="Play Position High Volume Message"
-      pbs-input-checkradio>
-  </div>
-
   <pbs-form-field-horizontal label="Play Message at Minutes or Lower"
     ng-show="$ctrl.editAnnouncements.estimatedWaitMessage.operatingMode === 'Time'">
     <input type="number"
@@ -109,10 +117,4 @@
       max="{{ $ctrl.options.maximumPositions.max }}">
   </pbs-form-field-horizontal>
 
-  <div ng-if="$ctrl.editAnnouncements.estimatedWaitMessage.operatingMode === 'Time'">
-    <input type="checkbox"
-      ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.playTimeHighVolume"
-      label="Play Time High Volume Message"
-      pbs-input-checkradio>
-  </div>
 </pbs-modal>

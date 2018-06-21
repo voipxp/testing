@@ -91,120 +91,121 @@
 <pbs-modal id="editGroupCallCenterDetails"
   title="Edit Call Center Details">
 
-  <pbs-form-field label="Route Type"
+  <pbs-form-field-horizontal label="Route Type"
     ng-if="$ctrl.hasPermission('routingType')">
-    <div class="select">
-      <select ng-model="$ctrl.editCenter.routingType"
-        ng-options="opt for opt in $ctrl.options.routingType"></select>
-    </div>
-  </pbs-form-field>
+    <select ng-model="$ctrl.editCenter.routingType"
+      ng-options="opt for opt in $ctrl.options.routingType"
+      pbs-input-select></select>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Group Policy">
-    <div class="select">
-      <select ng-model="$ctrl.editCenter.policy"
-        ng-options="opt for opt in $ctrl.options.policy"></select>
-    </div>
-  </pbs-form-field>
+  <pbs-form-field-horizontal label="Group Policy">
+    <select ng-model="$ctrl.editCenter.policy"
+      ng-options="opt for opt in $ctrl.options.policy"
+      pbs-input-select></select>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="External Codec">
-    <div class="select">
-      <select ng-model="$ctrl.editCenter.externalPreferredAudioCodec"
-        ng-options="opt for opt in $ctrl.options.audioFileCodec"></select>
-    </div>
-  </pbs-form-field>
+  <pbs-form-field-horizontal label="External Codec">
+    <select ng-model="$ctrl.editCenter.externalPreferredAudioCodec"
+      ng-options="opt for opt in $ctrl.options.audioFileCodec"
+      pbs-input-select></select>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Internal Codec">
-    <div class="select">
-      <select ng-model="$ctrl.editCenter.internalPreferredAudioCodec"
-        ng-options="opt for opt in $ctrl.options.audioFileCodec"></select>
-    </div>
-  </pbs-form-field>
+  <pbs-form-field-horizontal label="Internal Codec">
+    <select ng-model="$ctrl.editCenter.internalPreferredAudioCodec"
+      ng-options="opt for opt in $ctrl.options.audioFileCodec"
+      pbs-input-select></select>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Queue Length">
+  <pbs-form-field-horizontal label="Queue Length">
     <input type="number"
       class="input"
       ng-model="$ctrl.editCenter.queueLength"
       min="{{ $ctrl.options.queueLength.min }}"
       max="{{ $ctrl.options.queueLength.max }}">
-  </pbs-form-field>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Play Ringing">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editCenter.playRingingWhenOfferingCall"> Play Ringing When Offering Call
-    </label>
-  </pbs-form-field>
+  <pbs-form-section>Settings</pbs-form-section>
+  <input type="checkbox"
+    ng-model="$ctrl.editCenter.playRingingWhenOfferingCall"
+    label="Play Ringing When Offering Call"
+    pbs-input-checkradio>
 
-  <pbs-form-field label="Reset Call Statistics">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editCenter.resetCallStatisticsUponEntryInQueue"> Reset Call Statistics on Entry In Queue
-    </label>
-  </pbs-form-field>
+  <input type="checkbox"
+    ng-model="$ctrl.editCenter.resetCallStatisticsUponEntryInQueue"
+    label="Reset Call Statistics on Entry In Queue"
+    pbs-input-checkradio>
 
-  <pbs-form-field label="Enable Video Support">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editCenter.enableVideo"> Enable Video Support
-    </label>
-  </pbs-form-field>
+  <input type="checkbox"
+    ng-model="$ctrl.editCenter.enableVideo"
+    label="Enable Video Support"
+    pbs-input-checkradio>
 
-  <pbs-form-field label="Escape Digit Enabled">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editCenter.allowCallerToDialEscapeDigit"> Escape Digit Enabled
-    </label>
-  </pbs-form-field>
+  <div class="field"
+    ng-if="$ctrl.hasPermission('enableReporting')">
+    <input type="checkbox"
+      ng-model="$ctrl.editCenter.enableReporting"
+      label="Enable Reporting"
+      pbs-input-checkradio>
+  </div>
 
-  <pbs-form-field label="Escape Digit"
+  <input type="checkbox"
+    ng-model="$ctrl.editCenter.allowAgentLogoff"
+    label="Allow Agent Logoff"
+    pbs-input-checkradio>
+
+  <input type="checkbox"
+    ng-model="$ctrl.editCenter.allowCallWaitingForAgents"
+    label="Allow Call Waiting For Agents"
+    pbs-input-checkradio>
+
+  <div class="field"
+    ng-if="$ctrl.hasPermission('allowCallsToAgentsInWrapUp')">
+    <input type="checkbox"
+      ng-model="$ctrl.editCenter.allowCallsToAgentsInWrapUp"
+      label="Enable Calls To Agents in Wrap-up"
+      pbs-input-checkradio>
+  </div>
+
+  <input type="checkbox"
+    ng-model="$ctrl.editCenter.allowCallerToDialEscapeDigit"
+    label="Escape Digit Enabled"
+    pbs-input-checkradio>
+
+
+  <div class="field"
+    ng-if="$ctrl.hasPermission('overrideAgentWrapUpTime')">
+    <input type="checkbox"
+      ng-model="$ctrl.editCenter.overrideAgentWrapUpTime"
+      label="Override Agent Wrap-up Time"
+      pbs-input-checkradio>
+  </div>
+
+  <div class="field"
+    ng-if="$ctrl.hasPermission('enableAutomaticStateChangeForAgents')">
+    <input type="checkbox"
+      ng-model="$ctrl.editCenter.enableAutomaticStateChangeForAgents"
+      label="Set Agent State After Call"
+      pbs-input-checkradio>
+  </div>
+
+  <div class="field"
+    ng-if="$ctrl.hasPermission('forceDeliveryOfCalls')">
+    <input type="checkbox"
+      ng-model="$ctrl.editCenter.forceDeliveryOfCalls"
+      label="Force Delivery of Calls"
+      pbs-input-checkradio>
+  </div>
+
+  <pbs-form-field-horizontal label="Escape Digit"
     ng-show="$ctrl.editCenter.allowCallerToDialEscapeDigit">
     <input type="text"
       class="input"
       ng-model="$ctrl.editCenter.escapeDigit"
       ng-minlength="$ctrl.options.escapeDigit.minLength"
       ng-maxlength="$ctrl.options.escapeDigit.maxLength">
-  </pbs-form-field>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Enable Reporting"
-    ng-if="$ctrl.hasPermission('enableReporting')">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editCenter.enableReporting"> Enable Reporting
-    </label>
-  </pbs-form-field>
-
-  <pbs-form-field label="Allow Agent Logoff">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editCenter.allowAgentLogoff"> Allow Agent Logoff
-    </label>
-  </pbs-form-field>
-
-  <pbs-form-field label="Allow Call Waiting">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editCenter.allowCallWaitingForAgents"> Allow Call Waiting For Agents
-    </label>
-  </pbs-form-field>
-
-  <pbs-form-field label="Agents in Wrap-up"
-    ng-if="$ctrl.hasPermission('allowCallsToAgentsInWrapUp')">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editCenter.allowCallsToAgentsInWrapUp"> Enable Calls To Agents in Wrap-up
-    </label>
-  </pbs-form-field>
-
-  <pbs-form-field label="Override Wrap-up Time"
-    ng-if="$ctrl.hasPermission('overrideAgentWrapUpTime')">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editCenter.overrideAgentWrapUpTime"> Override Agent Wrap-up Time
-    </label>
-    </div>
-  </pbs-form-field>
-
-  <pbs-form-field label="Wrap up Seconds"
+  <pbs-form-field-horizontal label="Wrap Up Seconds"
     ng-if="$ctrl.hasPermission('wrapUpSeconds')"
     ng-show="$ctrl.editCenter.overrideAgentWrapUpTime">
     <input type="number"
@@ -212,34 +213,17 @@
       ng-model="$ctrl.editCenter.wrapUpSeconds"
       min="{{ $ctrl.options.wrapUpSeconds.min }}"
       max="{{ $ctrl.options.wrapUpSeconds.max }}">
-  </pbs-form-field>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Set Agent State"
-    ng-if="$ctrl.hasPermission('enableAutomaticStateChangeForAgents')">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editCenter.enableAutomaticStateChangeForAgents"> Set Agent State After Call
-    </label>
-  </pbs-form-field>
-
-  <pbs-form-field label="Agent State"
+  <pbs-form-field-horizontal label="Agent State"
     ng-if="$ctrl.hasPermission('agentStateAfterCall')"
     ng-show="$ctrl.editCenter.enableAutomaticStateChangeForAgents">
-    <div class="select">
-      <select ng-model="$ctrl.editCenter.agentStateAfterCall"
-        ng-options="opt for opt in $ctrl.options.agentStateAfterCall"></select>
-    </div>
-  </pbs-form-field>
+    <select ng-model="$ctrl.editCenter.agentStateAfterCall"
+      ng-options="opt for opt in $ctrl.options.agentStateAfterCall"
+      pbs-input-select></select>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Force Delivery"
-    ng-if="$ctrl.hasPermission('forceDeliveryOfCalls')">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editCenter.forceDeliveryOfCalls"> Force Delivery of Calls
-    </label>
-  </pbs-form-field>
-
-  <pbs-form-field label="Force Delivery Seconds"
+  <pbs-form-field-horizontal label="Force Delivery Seconds"
     ng-if="$ctrl.hasPermission('forceDeliveryWaitTimeSeconds')"
     ng-show="$ctrl.editCenter.forceDeliveryOfCalls">
     <input type="number"
@@ -247,6 +231,6 @@
       ng-model="$ctrl.editCenter.forceDeliveryWaitTimeSeconds"
       min="{{ $ctrl.options.forceDeliveryWaitTimeSeconds.min }}"
       max="{{ $ctrl.options.forceDeliveryWaitTimeSeconds.max }}">
-  </pbs-form-field>
+  </pbs-form-field-horizontal>
 
 </pbs-modal>

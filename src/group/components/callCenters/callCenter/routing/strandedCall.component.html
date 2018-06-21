@@ -14,25 +14,26 @@
         {{ $ctrl.service.transferPhoneNumber }}
       </pbs-list-item>
     </pbs-list>
-    <group-call-center-audio-settings-view service="$ctrl.service">
-    </group-call-center-audio-settings-view>
+
+    <group-call-center-audio-settings-view service="$ctrl.service"
+      user-id="$ctrl.serviceUserId"></group-call-center-audio-settings-view>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editGroupCallCenterStrandedCall"
   title="Edit Stranded Call">
-  <pbs-form-field label="Action">
-    <div class="select">
-      <select ng-model="$ctrl.editService.action"
-        ng-options="opt.key as opt.description for opt in $ctrl.options.action"></select>
-    </div>
-  </pbs-form-field>
+  <pbs-form-field-horizontal label="Action">
+    <select ng-model="$ctrl.editService.action"
+      ng-options="opt.key as opt.description for opt in $ctrl.options.action"
+      pbs-input-select></select>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Transfer To"
+  <pbs-form-field-horizontal label="Transfer To"
     ng-show="$ctrl.editService.action === 'Transfer'">
     <input type="text"
       class="input"
       ng-model="$ctrl.editService.transferPhoneNumber">
-  </pbs-form-field>
-  <group-call-center-audio-settings-edit service="$ctrl.editService">
-  </group-call-center-audio-settings-edit>
+  </pbs-form-field-horizontal>
+
+  <group-call-center-audio-settings-edit service="$ctrl.editService"
+    user-id="$ctrl.serviceUserId"></group-call-center-audio-settings-edit>
 </pbs-modal>

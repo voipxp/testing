@@ -21,42 +21,40 @@
         </li>
       </pbs-list-item>
     </pbs-list>
-    <group-call-center-audio-settings-view service="$ctrl.service">
-    </group-call-center-audio-settings-view>
+
+    <group-call-center-audio-settings-view service="$ctrl.service"
+      user-id="$ctrl.serviceUserId"></group-call-center-audio-settings-view>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editGroupCallCenterHolidayService"
   title="Edit Holiday Service">
-  <pbs-form-field label="Action">
-    <div class="select">
-      <select ng-model="$ctrl.editService.action"
-        ng-options="opt for opt in $ctrl.options.action"></select>
-    </div>
-  </pbs-form-field>
+  <pbs-form-section>Settings</pbs-form-section>
+  <input type="checkbox"
+    ng-model="$ctrl.editService.playAnnouncementBeforeAction"
+    label="Play announcment before action"
+    pbs-input-checkradio>
 
-  <pbs-form-field label="Transfer To"
+  <pbs-form-field-horizontal label="Action">
+    <select ng-model="$ctrl.editService.action"
+      ng-options="opt for opt in $ctrl.options.action"
+      pbs-input-select></select>
+  </pbs-form-field-horizontal>
+
+  <pbs-form-field-horizontal label="Transfer To"
     ng-show="$ctrl.editService.action === 'Transfer'">
     <input type="text"
       class="input"
       ng-model="$ctrl.editService.transferPhoneNumber">
-  </pbs-form-field>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Holiday Schedule">
-    <div class="select">
-      <select ng-model="$ctrl.editService.holidaySchedule"
-        ng-options="schedule as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Holiday'} track by schedule.name">
-        <option value="">--NONE--</option>
-      </select>
-    </div>
-  </pbs-form-field>
+  <pbs-form-field-horizontal label="Holiday Schedule">
+    <select ng-model="$ctrl.editService.holidaySchedule"
+      pbs-input-select
+      ng-options="schedule as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Holiday'} track by schedule.name">
+      <option value="">--NONE--</option>
+    </select>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Announcement Before">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editService.playAnnouncementBeforeAction"> Play announcment before action
-    </label>
-  </pbs-form-field>
-
-  <group-call-center-audio-settings-edit service="$ctrl.editService">
-  </group-call-center-audio-settings-edit>
+  <group-call-center-audio-settings-edit service="$ctrl.editService"
+    user-id="$ctrl.serviceUserId"></group-call-center-audio-settings-edit>
 </pbs-modal>

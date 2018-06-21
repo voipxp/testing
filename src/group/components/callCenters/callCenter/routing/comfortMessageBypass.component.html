@@ -19,40 +19,38 @@
         </span>
       </pbs-list-item>
     </pbs-list>
-    <group-call-center-audio-settings-view service="$ctrl.service">
-    </group-call-center-audio-settings-view>
+
+    <group-call-center-audio-settings-view service="$ctrl.service"
+      user-id="$ctrl.serviceUserId"></group-call-center-audio-settings-view>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editGroupCallCenterComfortMessageBypass"
   title="Edit Comfort Message Bypass">
 
-  <pbs-form-field label="Enabled">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editService.enabled"> Comfort Message Bypass Enabled
-    </label>
-  </pbs-form-field>
+  <pbs-form-section>Settings</pbs-form-section>
+  <input type="checkbox"
+    ng-model="$ctrl.editService.enabled"
+    label="Comfort Message Bypass Enabled"
+    pbs-input-checkradio>
 
+  <input type="checkbox"
+    ng-model="$ctrl.editService.playAnnouncementAfterRinging"
+    label="Play announcement after ringing"
+    pbs-input-checkradio>
 
-  <pbs-form-field label="Bypass Wait Time Seconds">
+  <pbs-form-field-horizontal label="Bypass Wait Time Seconds">
     <input type="number"
       class="input"
       ng-model="$ctrl.editService.callWaitingAgeThresholdSeconds">
-  </pbs-form-field>
+  </pbs-form-field-horizontal>
 
-  <pbs-form-field label="Play Announcement">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editService.playAnnouncementAfterRinging"> Play announcement after ringing
-    </label>
-  </pbs-form-field>
-
-  <pbs-form-field label="Ringing Seconds before Playing Announcement"
+  <pbs-form-field-horizontal label="Seconds Before Announcement"
     ng-show="$ctrl.editService.playAnnouncementAfterRinging">
     <input type="number"
       class="input"
       ng-model="$ctrl.editService.ringTimeBeforePlayingAnnouncementSeconds">
-  </pbs-form-field>
-  <group-call-center-audio-settings-edit service="$ctrl.editService">
-  </group-call-center-audio-settings-edit>
+  </pbs-form-field-horizontal>
+
+  <group-call-center-audio-settings-edit service="$ctrl.editService"
+    user-id="$ctrl.serviceUserId"></group-call-center-audio-settings-edit>
 </pbs-modal>

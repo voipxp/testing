@@ -7,6 +7,10 @@
   }
 }
 
+.modal-card-body {
+  position: relative;
+}
+
 /* MODAL CARDS */
 .modal.ng-enter {
   animation-name: fadeIn;

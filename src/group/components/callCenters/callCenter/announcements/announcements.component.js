@@ -74,7 +74,7 @@
     function edit(section) {
       ctrl.editAnnouncements = angular.copy(ctrl.announcements)
       var modalId = 'editGroupCallCenterAnnouncements' + section
-      ctrl.modalTitle = 'Edit Call Center ' + $filter('humanize')(section)
+      ctrl.modalTitle = 'Edit ' + $filter('humanize')(section)
       Alert.modal.open(modalId, function onSave(close) {
         update(ctrl.editAnnouncements, close)
       })

@@ -14,14 +14,18 @@
     ctrl.returnTo = $location.search().returnTo
     ctrl.open = open
 
+    // TODO
+    // Make this display inline
     function open(obj) {
       var id = (obj && obj.serviceUserId) || obj
-      var hash = id ? 'Advanced' : null
-      $location.hash(hash)
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId)(
+      var menu = id ? 'Advanced' : null
+      Route.open()(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
         'callCenters',
         id
-      ).hash(hash)
+      ).search({ menu: menu })
     }
   }
 })()

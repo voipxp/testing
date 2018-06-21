@@ -27,7 +27,12 @@
         allowCallWaitingForAgents: false,
         playRingingWhenOfferingCall: false,
         externalPreferredAudioCodec: 'None',
-        internalPreferredAudioCodec: 'None'
+        internalPreferredAudioCodec: 'None',
+        enableReporting: false,
+        allowCallsToAgentsInWrapUp: false,
+        overrideAgentWrapUpTime: false,
+        enableAutomaticStateChangeForAgents: false,
+        forceDeliveryOfCalls: false
       }
       if ($scope.addGroupCallCenterDetailsForm) {
         $scope.addGroupCallCenterDetailsForm.$setPristine()

@@ -3,14 +3,17 @@
     templateUrl:
       'group/components/callCenters/callCenter/advanced/dnisInstance.component.html',
     controller: Controller,
-    bindings: { module: '<' }
+    bindings: {
+      serviceProviderId: '<',
+      groupId: '<',
+      serviceUserId: '<',
+      dnisId: '<'
+    }
   })
 
-  function Controller($routeParams) {
-    var ctrl = this
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.serviceUserId = $routeParams.serviceUserId
-    ctrl.dnisId = $routeParams.dnisId
+  function Controller() {
+    this.$onInit = function() {
+      console.log('DNIS', this)
+    }
   }
 })()

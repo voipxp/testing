@@ -8,10 +8,10 @@
       <pbs-check-box checked="$ctrl.announcements.musicOnHoldMessage.enabled"></pbs-check-box>
     </pbs-list-item>
   </pbs-list>
+
   <group-call-center-audio-settings-view user-id="$ctrl.serviceUserId"
     service="$ctrl.announcements.musicOnHoldMessage"
-    external="true">
-  </group-call-center-audio-settings-view>
+    external="true"></group-call-center-audio-settings-view>
 </pbs-block>
 <pbs-modal id="editGroupCallCenterAnnouncementsMusicOnHoldMessage"
   title="{{ $ctrl.modalTitle }}">
@@ -23,6 +23,5 @@
 
   <group-call-center-audio-settings-edit user-id="$ctrl.serviceUserId"
     service="$ctrl.editAnnouncements.musicOnHoldMessage"
-    external="true">
-  </group-call-center-audio-settings-edit>
+    external="true"></group-call-center-audio-settings-edit>
 </pbs-modal>
