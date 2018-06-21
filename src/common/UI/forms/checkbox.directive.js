@@ -17,6 +17,10 @@
     }
   }
 
+  // NEW
+  // class="pretty p-icon p-pulse p-bigger p-curve"
+  // https://lokesh-coder.github.io/pretty-checkbox/
+
   //
   // THIS IS READY TO GO TO REPLACE THE DIRECTIVE
   // WITH CHECKRADIO
