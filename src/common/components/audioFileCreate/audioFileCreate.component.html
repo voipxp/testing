@@ -1,22 +1,21 @@
 <pbs-modal id="{{ $ctrl.modalId }}"
   title="New Audio File">
   <pbs-form>
-    <pbs-form-field label="Upload File">
+    <pbs-form-field-horizontal label="Upload File">
       <pbs-input-file on-upload="$ctrl.onUpload(file)"
         mode="data-url"></pbs-input-file>
-    </pbs-form-field>
-    <pbs-form-field label="Audio File Type">
-      <div class="select">
-        <select ng-model="$ctrl.audioFile.mediaType"
-          ng-options="type for type in $ctrl.options.mediaTypes"
-          required></select>
-      </div>
-    </pbs-form-field>
-    <pbs-form-field label="Audio File Description">
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Audio File Type">
+      <select ng-model="$ctrl.audioFile.mediaType"
+        ng-options="type for type in $ctrl.options.mediaTypes"
+        required
+        pbs-input-select></select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Audio File Description">
       <input type="text"
         class="input"
         ng-model="$ctrl.audioFile.name"
         required>
-    </pbs-form-field>
+    </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>
