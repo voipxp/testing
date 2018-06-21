@@ -93,7 +93,8 @@
         {
           type: 'management',
           name: 'Comm Barring Auth Codes',
-          path: route('groupCommunicationBarringAuthorizationCodes')
+          path: route('groupCommunicationBarringAuthorizationCodes'),
+          module: 'Communication Barring User-Control'
         },
         {
           type: 'management',

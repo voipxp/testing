@@ -4,10 +4,15 @@
     controller: Controller
   })
 
-  function Controller($routeParams) {
+  function Controller($routeParams, Module) {
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
     ctrl.userId = $routeParams.userId
+    ctrl.$onInit = function() {
+      Module.show('Provisioning').then(function(module) {
+        ctrl.hasProvisioning = module.permissions.update
+      })
+    }
   }
 })()
