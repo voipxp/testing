@@ -64,7 +64,6 @@
     }
 
     function upload(file) {
-      ctrl.editAnnouncement.name = file.name
       ctrl.editAnnouncement.content = file.content
       ctrl.editAnnouncement.mediaType = UtilityService.getMediaType(
         file.mimetype

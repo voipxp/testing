@@ -8,19 +8,21 @@
       <pbs-check-box checked="$ctrl.announcements.musicOnHoldMessage.enabled"></pbs-check-box>
     </pbs-list-item>
   </pbs-list>
-  <group-call-center-audio-settings-view service="$ctrl.announcements.musicOnHoldMessage"
+  <group-call-center-audio-settings-view user-id="$ctrl.serviceUserId"
+    service="$ctrl.announcements.musicOnHoldMessage"
     external="true">
   </group-call-center-audio-settings-view>
 </pbs-block>
 <pbs-modal id="editGroupCallCenterAnnouncementsMusicOnHoldMessage"
   title="{{ $ctrl.modalTitle }}">
-  <pbs-form-field label="Enabled">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editAnnouncements.musicOnHoldMessage.enabled"> Play Music on Hold
-    </label>
-  </pbs-form-field>
-  <group-call-center-audio-settings-edit service="$ctrl.editAnnouncements.musicOnHoldMessage"
+  <pbs-form-section>Settings</pbs-form-section>
+  <input type="checkbox"
+    ng-model="$ctrl.editAnnouncements.musicOnHoldMessage.enabled"
+    label="Play Music on Hold"
+    pbs-input-checkradio>
+
+  <group-call-center-audio-settings-edit user-id="$ctrl.serviceUserId"
+    service="$ctrl.editAnnouncements.musicOnHoldMessage"
     external="true">
   </group-call-center-audio-settings-edit>
 </pbs-modal>

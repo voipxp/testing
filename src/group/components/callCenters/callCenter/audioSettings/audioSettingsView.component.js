@@ -3,7 +3,7 @@
     templateUrl:
       'group/components/callCenters/callCenter/audioSettings/audioSettingsView.component.html',
     controller: Controller,
-    bindings: { service: '=', external: '@', label: '@' }
+    bindings: { userId: '<', service: '=', external: '@', label: '@' }
   })
 
   function Controller() {
@@ -17,6 +17,7 @@
 
     function onInit() {
       ctrl.service = ctrl.service || {}
+      console.log('service', ctrl.service)
     }
 
     function isFile() {

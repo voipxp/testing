@@ -3,10 +3,10 @@
     templateUrl:
       'group/components/callCenters/callCenter/audioSettings/audioSettingsEdit.component.html',
     controller: Controller,
-    bindings: { service: '=', external: '@', label: '@' }
+    bindings: { userId: '<', service: '=', external: '@', label: '@' }
   })
 
-  function Controller(UtilityService) {
+  function Controller(UtilityService, ACL, $scope) {
     var ctrl = this
     ctrl.$onInit = onInit
 
@@ -22,8 +22,14 @@
 
     ctrl.addUrl = addUrl
     ctrl.removeUrl = removeUrl
-    ctrl.addFile = addFile
     ctrl.removeFile = removeFile
+
+    ctrl.selectAudioFile = selectAudioFile
+    ctrl.selectAnnouncement = selectAnnouncement
+    ctrl.createAnnouncement = createAnnouncement
+    ctrl.onSelectAudio = onSelectAudio
+
+    ctrl.hasRepository = ACL.hasVersion('20')
 
     function onInit() {
       if (ctrl.external) {
@@ -77,17 +83,27 @@
       ctrl.service.audioUrlList.splice(index, 1)
     }
 
-    function addFile(file) {
-      ctrl.service.audioFileList = ctrl.service.audioFileList || []
-      var bwFile = {}
-      bwFile.content = file.content
-      bwFile.mediaType = UtilityService.getMediaType(file.mimetype)
-      bwFile.description = file.name
-      ctrl.service.audioFileList.push(bwFile)
-    }
-
     function removeFile(index) {
       ctrl.service.audioFileList.splice(index, 1)
+    }
+
+    function selectAudioFile() {
+      $scope.$broadcast('audioFileCreate:load')
+    }
+
+    function selectAnnouncement() {
+      $scope.$broadcast('announcementSelect:load')
+    }
+
+    function createAnnouncement() {
+      $scope.$broadcast('announcementCreate:load')
+    }
+
+    function onSelectAudio(event) {
+      ctrl.service.audioFileList = ctrl.service.audioFileList || []
+      var file = event.audioFile || event.announcement
+      file.level = 'User'
+      ctrl.service.audioFileList.push(file)
     }
   }
 })()

@@ -6,24 +6,23 @@
     bindings: {
       userId: '<',
       name: '<',
-      mediaType: '<'
+      mediaType: '<',
+      onUpdate: '&',
+      onDelete: '&'
     }
   })
 
-  function Controller(Alert, UserAnnouncementService, Route, $scope) {
+  function Controller(Alert, UserAnnouncementService, EventEmitter, $scope) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.open = open
     ctrl.edit = edit
-    ctrl.onUpdate = onUpdate
-    ctrl.onDelete = onDelete
+    ctrl.onUpdateAnnouncement = onUpdateAnnouncement
+    ctrl.onDeleteAnnouncement = onDeleteAnnouncement
 
     function onInit() {
       ctrl.loading = true
       return loadAnnouncement()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
@@ -40,22 +39,12 @@
       })
     }
 
-    function open(announcement) {
-      var name = _.get(announcement, 'newName')
-      var mediaType = _.get(announcement, 'mediaType')
-      return Route.open('announcements', 'users', ctrl.userId)(name, mediaType)
+    function onUpdateAnnouncement(event) {
+      ctrl.onUpdate(EventEmitter(event))
     }
 
-    function onUpdate(event) {
-      if (event.announcement.newName === ctrl.announcement.name) {
-        onInit()
-      } else {
-        open(event.announcement)
-      }
-    }
-
-    function onDelete() {
-      open()
+    function onDeleteAnnouncement(event) {
+      ctrl.onDelete(EventEmitter(event))
     }
 
     function edit() {

@@ -1,12 +1,14 @@
-<pbs-form-field label="{{ $ctrl.label }} Audio Selection">
-  <div class="select">
-    <select ng-model="$ctrl.service.audioMessageSource"
-      ng-options="opt for opt in $ctrl.options.audioMessageSource"></select>
-  </div>
-</pbs-form-field>
-<pbs-form-field label="Audio URLs"
+<pbs-form-section>Audio Selection</pbs-form-section>
+
+<select ng-model="$ctrl.service.audioMessageSource"
+  ng-options="opt for opt in $ctrl.options.audioMessageSource"
+  pbs-input-select></select>
+
+<div class="margin-top"
   ng-show="$ctrl.isUrl()">
-  <div class="field has-addons">
+  <pbs-form-section>{{ $ctrl.label }} Audio URLs</pbs-form-section>
+  <div class="field has-addons"
+    ng-show="$ctrl.isUrl()">
     <p class="control is-expanded">
       <input type="url"
         class="input"
@@ -32,22 +34,59 @@
       </td>
     </tr>
   </table>
-</pbs-form-field>
+</div>
 
-<pbs-form-field label="{{ $ctrl.label }} Audio Files"
+<div class="margin-top"
   ng-show="$ctrl.isFile()">
-  <div class="margin-bottom"
-    ng-show="$ctrl.canAddFile()">
-    <pbs-input-file on-upload="$ctrl.addFile(file)"
-      mode="data-url"
-      require></pbs-input-file>
+  <pbs-form-section>{{ $ctrl.label }} Audio Files</pbs-form-section>
+  <div class="margin-bottom">
+    <button class="button is-fullwidth"
+      ng-if="!$ctrl.hasRepository"
+      ng-click="$ctrl.selectAudioFile()"
+      ng-disabled="!$ctrl.canAddFile()">
+      <span class="icon">
+        <i class="fas fa-plus"></i>
+      </span>
+      <span>Upload Announcement</span>
+    </button>
+    <div class="columns"
+      ng-if="$ctrl.hasRepository">
+      <div class="column">
+        <button class="button is-fullwidth"
+          ng-click="$ctrl.selectAnnouncement()"
+          ng-disabled="!$ctrl.canAddFile()">
+          <span class="icon">
+            <i class="fas fa-list"></i>
+          </span>
+          <span>Select Announcement</span>
+      </div>
+      <div class="column">
+        <button class="button is-fullwidth"
+          ng-click="$ctrl.createAnnouncement()"
+          ng-disabled="!$ctrl.canAddFile()">
+          <span class="icon">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span>Create Announcement</span>
+        </button>
+      </div>
+    </div>
   </div>
   <table pbs-table>
     <tr ng-repeat="file in $ctrl.service.audioFileList">
-      <td>{{ file.description }}
+      <td>{{ file.name }}
         <pbs-button-compact-delete class="is-pulled-right"
           ng-click="$ctrl.removeFile($index)"></pbs-button-compact-delete>
       </td>
     </tr>
   </table>
-</pbs-form-field>
+</div>
+
+<audio-file-create ng-if="!$ctrl.hasRepository"
+  on-update="$ctrl.onSelectAudio($event)"></audio-file-create>
+<announcement-create ng-if="$ctrl.hasRepository"
+  user-id="$ctrl.userId"
+  on-update="$ctrl.onSelectAudio($event)"></announcement-create>
+<announcement-select ng-if="$ctrl.hasRepository"
+  user-id="$ctrl.userId"
+  on-update="$ctrl.onSelectAudio($event)"></announcement-select>

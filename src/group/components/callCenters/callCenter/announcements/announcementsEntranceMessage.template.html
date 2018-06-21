@@ -12,25 +12,25 @@
       <pbs-check-box checked="$ctrl.announcements.entranceMessage.mandatory"></pbs-check-box>
     </pbs-list-item>
   </pbs-list>
-  <group-call-center-audio-settings-view service="$ctrl.announcements.entranceMessage">
+  <group-call-center-audio-settings-view service="$ctrl.announcements.entranceMessage"
+    user-id="$ctrl.serviceUserId">
   </group-call-center-audio-settings-view>
 </pbs-block>
 <pbs-modal id="editGroupCallCenterAnnouncementsEntranceMessage"
   title="{{ $ctrl.modalTitle }}">
 
-  <pbs-form-field label="Entrance Message">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editAnnouncements.entranceMessage.enabled"> Play Entrance Message
-    </label>
-  </pbs-form-field>
+  <pbs-form-section>Settings</pbs-form-section>
+  <input type="checkbox"
+    ng-model="$ctrl.editAnnouncements.entranceMessage.enabled"
+    label="Play Entrance Message"
+    pbs-input-checkradio>
 
-  <pbs-form-field label="Mandatory Entrance Message">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editAnnouncements.entranceMessage.mandatory"> Entrance Message is Mandatory When Played
-    </label>
-  </pbs-form-field>
-  <group-call-center-audio-settings-edit service="$ctrl.editAnnouncements.entranceMessage">
-  </group-call-center-audio-settings-edit>
+  <input type="checkbox"
+    ng-model="$ctrl.editAnnouncements.entranceMessage.mandatory"
+    label="Entrance Message is Mandatory When Played"
+    pbs-input-checkradio>
+
+  <group-call-center-audio-settings-edit service="$ctrl.editAnnouncements.entranceMessage"
+    user-id="$ctrl.serviceUserId"></group-call-center-audio-settings-edit>
+
 </pbs-modal>

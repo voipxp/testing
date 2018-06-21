@@ -9,18 +9,19 @@
       <pbs-check-box checked="$ctrl.announcements.callWhisperMessage.enabled"></pbs-check-box>
     </pbs-list-item>
   </pbs-list>
-  <group-call-center-audio-settings-view service="$ctrl.announcements.callWhisperMessage">
+  <group-call-center-audio-settings-view user-id="$ctrl.serviceUserId"
+    service="$ctrl.announcements.callWhisperMessage">
   </group-call-center-audio-settings-view>
 </pbs-block>
 <pbs-modal id="editGroupCallCenterAnnouncementsCallWhisperMessage"
   title="{{ $ctrl.modalTitle }}">
-  <pbs-form-field label="Enabled">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editAnnouncements.callWhisperMessage.enabled"> Play Call Whisper Message
-    </label>
-  </pbs-form-field>
-  <group-call-center-audio-settings-edit service="$ctrl.editAnnouncements.callWhisperMessage">
+  <pbs-form-section>Settings</pbs-form-section>
+  <input type="checkbox"
+    ng-model="$ctrl.editAnnouncements.callWhisperMessage.enabled"
+    label="Play Call Whisper Message"
+    pbs-input-checkradio>
+
+  <group-call-center-audio-settings-edit user-id="$ctrl.serviceUserId"
+    service="$ctrl.editAnnouncements.callWhisperMessage">
   </group-call-center-audio-settings-edit>
-  </fieldset>
 </pbs-modal>

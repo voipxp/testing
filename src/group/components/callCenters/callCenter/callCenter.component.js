@@ -72,10 +72,8 @@
       GroupCallCenterService.destroy(ctrl.serviceUserId)
         .then(function() {
           Alert.notify.success('Call Center Removed')
-          if (_.isFunction(callback)) {
-            callback()
-          }
-          Route.open('callCenter', ctrl.serviceProviderId, ctrl.groupId)()
+          callback()
+          Route.open()('groups', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
         })
         .catch(function(error) {
           Alert.notify.danger(error)

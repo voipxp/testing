@@ -92,16 +92,10 @@
       Method.then(loadAnnouncements)
         .then(function() {
           Alert.notify.success('Announcements Updated')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()

@@ -4,30 +4,25 @@
       'user/components/announcements/userAnnouncements.component.html',
     controller: Controller,
     bindings: {
-      userId: '<'
+      userId: '<',
+      serviceProviderId: '<',
+      groupId: '<'
     }
   })
 
-  function Controller(
-    Alert,
-    UserAnnouncementService,
-    $scope,
-    Route,
-    $location
-  ) {
+  function Controller(Alert, UserAnnouncementService, $scope, $timeout) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.add = add
     ctrl.open = open
     ctrl.onUpdate = onUpdate
+    ctrl.onDelete = onDelete
 
     function onInit() {
       ctrl.repository = { announcements: [] }
       ctrl.loading = true
       return loadAnnouncements()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
@@ -40,20 +35,29 @@
       })
     }
 
-    function onUpdate() {
+    function onUpdate(event) {
+      ctrl.selectedAnnouncement = null
+      var announcement = event.announcement
+      $timeout(function() {
+        if (announcement.name !== announcement.newName) {
+          ctrl.selectedAnnouncement = {
+            name: announcement.newName,
+            mediaType: announcement.mediaType,
+            level: announcement.level
+          }
+        } else {
+          ctrl.selectedAnnouncement = announcement
+        }
+      }, 1)
+    }
+
+    function onDelete() {
+      ctrl.selectedAnnouncement = null
       onInit()
     }
 
     function open(announcement) {
-      var search = {}
-      if (!$location.path().match(/^\/announcements/)) {
-        search.returnTo = $location.absUrl()
-      }
-      Route.open('users', ctrl.serviceProviderId, ctrl.groupId, ctrl.userId)(
-        'announcements',
-        announcement.name,
-        announcement.mediaType
-      ).search(search)
+      ctrl.selectedAnnouncement = announcement
     }
 
     function add() {

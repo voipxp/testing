@@ -12,7 +12,7 @@
   <pbs-list-item label="{{ $ctrl.label }} Audio Files"
     ng-show="$ctrl.isFile()">
     <span ng-repeat="file in $ctrl.service.audioFileList">
-      {{ file.description }}
+      {{ file.name }}
       <br>
     </span>
   </pbs-list-item>
