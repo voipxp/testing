@@ -2,7 +2,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block module="$ctrl.module">
     <pbs-block-buttons ng-if="$ctrl.canCreate">
-      <pbs-button-compact-add title="New Call Center"
+      <pbs-button-compact-add title="New"
         ng-click="$ctrl.add()">
       </pbs-button-compact-add>
     </pbs-block-buttons>
@@ -23,7 +23,7 @@
       </thead>
       <tfoot>
         <tr ng-if="results.length < 1">
-          <td colspan="9">No Call Centers Found
+          <td colspan="9">Nothing Found
             <span ng-if="search">for {{ search }}</span>
           </td>
         </tr>

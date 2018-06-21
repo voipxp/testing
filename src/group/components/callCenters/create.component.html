@@ -1,8 +1,8 @@
 <pbs-modal id="addGroupCallCenterDetails"
-  title="New Call Center">
+  title="New">
   <form>
     <div ng-show="!$ctrl.center.type">
-      <pbs-form-field-horizontal label="Call Center Type">
+      <pbs-form-field-horizontal label="Type">
         <select ng-model="$ctrl.center.type"
           ng-options="opt for opt in $ctrl.options.type"
           required
