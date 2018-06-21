@@ -7,6 +7,14 @@
   }
 }
 
+.modal {
+  flex-direction: column;
+}
+
+.modal-card {
+  -ms-overflow-y: visible;
+}
+
 .modal-card-body {
   position: relative;
 }
