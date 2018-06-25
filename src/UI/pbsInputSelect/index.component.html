@@ -1,0 +1,49 @@
+<pbs-doc-nav component="pbsInputSelect"></pbs-doc-nav>
+
+<div class="box">
+  <pbs-columns>
+    <pbs-column>
+      <pbs-form-section>Example</pbs-form-section>
+      <pbs-input-select ng-model="$ctrl.item"
+        ng-options="opt for opt in $ctrl.options"
+        loading="$ctrl.loading">
+        <option value="">-- None --</option>
+      </pbs-input-select>
+      <pbs-form-section>Value</pbs-form-section>
+      <p>{{ $ctrl.item }}</p>
+    </pbs-column>
+    <pbs-column>
+      <pbs-form-section>Options</pbs-form-section>
+      <dl>
+        <dt>loading</dt>
+        <dd>Adds loading spinner while true</dd>
+      </dl>
+    </pbs-column>
+  </pbs-columns>
+</div>
+<div class="box content">
+  <marked src="'pbsInputSelect.md'"></marked>
+</div>
+
+<script type="text/ng-template"
+  id="pbsInputSelect.md">
+## HTML
+```
+<pbs-input-select ng-model="$ctrl.item"
+  ng-options="opt for opt in $ctrl.options"
+  loading="$ctrl.loading">
+  <option value="">-- None --</option>
+</pbs-input-select>
+```
+
+## JS
+```
+ctrl.$onInit = function() {
+  ctrl.loading = true
+  $timeout(function() {
+    ctrl.options = ['option 1', 'option 2']
+    ctrl.loading = false
+  }, 3000)
+}
+```
+</script>

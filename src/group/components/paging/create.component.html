@@ -11,11 +11,9 @@
             required>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Service User Domain*">
-          <select ng-model="$ctrl.group.serviceUserIdSuffix"
+          <pbs-input-select ng-model="$ctrl.group.serviceUserIdSuffix"
             ng-options="domain as domain for domain in $ctrl.domains.domains"
-            required
-            pbs-input-select
-            is-fullwidth></select>
+            required></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Service Profile Name*">
           <input type="text"
@@ -45,19 +43,14 @@
           <small>(Confirmation Tone Timeout in seconds)</small>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="CLID To Deliver">
-          <label class="radio">
-            <input type="radio"
-              ng-model="$ctrl.group.deliverOriginatorCLIDInstead"
-              ng-change="$ctrl.setDeliveryCLID()"
-              ng-value="false"> Paging Group CLID
-          </label>
-          <br>
-          <label class="radio">
-            <input type="radio"
-              ng-model="$ctrl.group.deliverOriginatorCLIDInstead"
-              ng-change="$ctrl.setDeliveryCLID()"
-              ng-value="true"> Originator CLID
-          </label>
+          <pbs-input-radio ng-model="$ctrl.group.deliverOriginatorCLIDInstead"
+            ng-change="$ctrl.setDeliveryCLID()"
+            ng-value="false"
+            label="Paging Group CLID"></pbs-input-radio>
+          <pbs-input-radio ng-model="$ctrl.group.deliverOriginatorCLIDInstead"
+            ng-change="$ctrl.setDeliveryCLID()"
+            ng-value="true"
+            label="Originator CLID"></pbs-input-radio>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Originator CLID Prefix"
           ng-show="$ctrl.group.deliverOriginatorCLIDInstead">
@@ -71,13 +64,11 @@
 
       <pbs-tab label="Profile">
         <pbs-form-field-horizontal label="Phone Number">
-          <select ng-model="$ctrl.group.serviceInstanceProfile.phoneNumber"
+          <pbs-input-select ng-model="$ctrl.group.serviceInstanceProfile.phoneNumber"
             ng-options="number.min as number.min for number in $ctrl.numbers"
-            ng-change="$ctrl.setExtension()"
-            pbs-input-select
-            is-fullwidth>
+            ng-change="$ctrl.setExtension()">
             <option value="">-- None --</option>
-          </select>
+          </pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Extension">
           <input type="text"
@@ -100,23 +91,16 @@
           <alias-list profile="$ctrl.group.serviceInstanceProfile"></alias-list>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Department Name">
-          <select ng-model="$ctrl.group.serviceInstanceProfile.department"
-            ng-options="department as department.name for department in $ctrl.departments track by department.name"
-            pbs-input-select
-            is-fullwidth></select>
+          <pbs-input-select ng-model="$ctrl.group.serviceInstanceProfile.department"
+            ng-options="department as department.name for department in $ctrl.departments track by department.name"></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Language">
-          <select ng-model="$ctrl.group.serviceInstanceProfile.language"
-            ng-options="language.language as language.language for language in $ctrl.languages.languages track by language.language"
-        
-            pbs-input-select
-            is-fullwidth></select>
+          <pbs-input-select ng-model="$ctrl.group.serviceInstanceProfile.language"
+            ng-options="language.language as language.language for language in $ctrl.languages.languages track by language.language"></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Timezone">
-          <select ng-model="$ctrl.group.serviceInstanceProfile.timeZone"
-            ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones track by timezone.key"
-            pbs-input-select
-            is-fullwidth></select>
+          <pbs-input-select ng-model="$ctrl.group.serviceInstanceProfile.timeZone"
+            ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones track by timezone.key"></pbs-input-select>
         </pbs-form-field-horizontal>
       </pbs-tab>
     </pbs-tabs>

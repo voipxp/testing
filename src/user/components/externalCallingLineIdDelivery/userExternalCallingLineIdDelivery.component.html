@@ -14,12 +14,6 @@
 </pbs-spinner>
 <pbs-modal id="editUserExternalCallingLineIdDelivery"
   title="Edit Settings">
-  <pbs-form>
-    <pbs-form-field label="Settings">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.isActive"> Is Active
-      </label>
-    </pbs-form-field>
-  </pbs-form>
+  <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
+    label="Is Active"></pbs-input-checkbox>
 </pbs-modal>

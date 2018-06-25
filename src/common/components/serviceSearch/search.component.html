@@ -4,10 +4,9 @@
     <div class="field has-addons">
       <p class="control"
         style="width: 175px">
-        <select ng-model="$ctrl.type"
+        <pbs-input-select ng-model="$ctrl.type"
           ng-options="t.key as t.name for t in $ctrl.types"
-          pbs-input-select
-          ng-disabled="$ctrl.isLoading">
+          ng-disabled="$ctrl.isLoading"></pbs-input-select>
       </p>
       <p class="control is-expanded"
         ng-class="{'is-loading': $ctrl.isLoading}">

@@ -19,17 +19,13 @@
   title="Redirected">
   <pbs-form>
     <pbs-form-section>Custom Settings</pbs-form-section>
-    <input type="checkbox"
-      ng-model="$ctrl.editPlan.useCustomSettings"
-      label="Use Custom Settings"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editPlan.useCustomSettings"
+      label="Use Custom Settings"></pbs-input-checkbox>
 
     <div ng-show="$ctrl.editPlan.useCustomSettings">
       <pbs-form-section>Permissions</pbs-form-section>
-      <input type="checkbox"
-        ng-model="$ctrl.editPlan.userPermissions.outsideGroup"
-        label="Outside Group"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.outsideGroup"
+        label="Outside Group"></pbs-input-checkbox>
     </div>
   </pbs-form>
 </pbs-modal>

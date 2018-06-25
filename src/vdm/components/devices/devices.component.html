@@ -39,9 +39,7 @@
 <pbs-modal id="editVdmDevicesAssignModal"
   title="Assign {{ $ctrl.editDevice.deviceName }}">
   <pbs-form-field-horizontal label="Template">
-    <select ng-model="$ctrl.editDevice.template"
-      ng-options="opt.name for opt in $ctrl.availableTemplates track by opt.id"
-      pbs-input-select>
-    </select>
+    <pbs-input-select ng-model="$ctrl.editDevice.template"
+      ng-options="opt.name for opt in $ctrl.availableTemplates track by opt.id"></pbs-input-select>
   </pbs-form-field-horizontal>
 </pbs-modal>

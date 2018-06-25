@@ -51,10 +51,8 @@
         ng-model="$ctrl.editService.newDNISName">
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Priority">
-      <select ng-model="$ctrl.editService.priority"
-        ng-options="opt for opt in $ctrl.options.priority"
-        pbs-input-select>
-      </select>
+      <pbs-input-select ng-model="$ctrl.editService.priority"
+        ng-options="opt for opt in $ctrl.options.priority"></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Phone Number">
       <select-phone-number service-provider-id="$ctrl.serviceProviderId"
@@ -72,18 +70,12 @@
         class="input"
         ng-model="$ctrl.editService.callingLineIdPhoneNumber">
     </pbs-form-field-horizontal>
-    <input type="checkbox"
-      ng-model="$ctrl.editService.useCustomDnisAnnouncementSettings"
-      label="Use Custom CLID Announcement Settings"
-      pbs-input-checkradio>
-    <input type="checkbox"
-      ng-model="$ctrl.editService.allowOutgoingACDCall"
-      label="Allow Outgoing Call Center Call"
-      pbs-input-checkradio>
-    <input type="checkbox"
-      ng-model="$ctrl.editService.useCustomCLIDSettings"
-      label="Use Custom CLID Settings"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editService.useCustomDnisAnnouncementSettings"
+      label="Use Custom CLID Announcement Settings"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editService.allowOutgoingACDCall"
+      label="Allow Outgoing Call Center Call"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editService.useCustomCLIDSettings"
+      label="Use Custom CLID Settings"></pbs-input-checkbox>
     <pbs-form-field-horizontal label="CLID Last Name"
       ng-show="$ctrl.editService.useCustomCLIDSettings">
       <input type="text"

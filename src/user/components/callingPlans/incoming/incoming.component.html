@@ -33,33 +33,23 @@
   title="Edit Incoming Calling Plan">
   <pbs-form>
     <pbs-form-section>Custom Settings</pbs-form-section>
-    <input type="checkbox"
-      label="Use Custom Settings"
-      ng-model="$ctrl.editPlan.useCustomSettings"
-      pbs-input-checkradio>
+    <pbs-input-checkbox label="Use Custom Settings"
+      ng-model="$ctrl.editPlan.useCustomSettings"></pbs-input-checkbox>
 
     <div ng-show="$ctrl.editPlan.useCustomSettings">
       <pbs-form-section>Permissions</pbs-form-section>
-      <input type="checkbox"
-        ng-model="$ctrl.editPlan.userPermissions.allowFromWithinGroup"
-        label="Allow Inside Calls"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editPlan.userPermissions.allowCollectCalls"
-        label="Allow Collect Calls"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.allowFromWithinGroup"
+        label="Allow Inside Calls"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.allowCollectCalls"
+        label="Allow Collect Calls"></pbs-input-checkbox>
       <pbs-form-field label="Allow Outside Calls">
-        <div class="select">
-          <select ng-model="$ctrl.editPlan.userPermissions.allowFromOutsideGroup"
-            ng-options="opt for opt in $ctrl.options.allowFromOutsideGroup"></select>
-        </div>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.allowFromOutsideGroup"
+          ng-options="opt for opt in $ctrl.options.allowFromOutsideGroup"></pbs-input-select>
       </pbs-form-field>
       <pbs-form-section>Digit Patterns</pbs-form-section>
-      <input type="checkbox"
+      <pbs-input-checkbox label="Allow {{ pattern.digitPatternName }}"
         ng-repeat="pattern in $ctrl.editPlan.userPermissions.digitPatterns track by pattern.digitPatternName"
-        label="Allow {{ pattern.digitPatternName }}"
-        ng-model="pattern.allow"
-        pbs-input-checkradio>
+        ng-model="pattern.allow"></pbs-input-checkbox>
     </div>
   </pbs-form>
 </pbs-modal>

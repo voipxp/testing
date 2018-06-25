@@ -28,12 +28,10 @@
   title="Edit Settings">
   <pbs-spinner loading="$ctrl.loadingEntry">
     <pbs-form-field label="Speed Dial Code">
-      <div class="select"
-        ng-show="$ctrl.isAdd">
-        <select ng-model="$ctrl.speedDialCode.speedCode"
-          ng-options="speedCode as speedCode for speedCode in $ctrl.speedCodesEntry">
-        </select>
-      </div>
+      <pbs-input-select ng-show="$ctrl.isAdd"
+        ng-model="$ctrl.speedDialCode.speedCode"
+        ng-options="speedCode as speedCode for speedCode in $ctrl.speedCodesEntry">
+      </pbs-input-select>
       <input ng-show="!$ctrl.isAdd"
         type="text"
         class="input"

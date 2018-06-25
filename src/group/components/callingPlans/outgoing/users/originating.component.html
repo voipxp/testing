@@ -41,99 +41,67 @@
   title="Edit Originating {{ $ctrl.editTitle }}">
   <pbs-form>
     <pbs-form-section>Custom Settings</pbs-form-section>
-    <input type="checkbox"
-      ng-model="$ctrl.editPlan.useCustomSettings"
-      label="Use Custom Settings"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editPlan.useCustomSettings"
+      label="Use Custom Settings"></pbs-input-checkbox>
 
     <div ng-show="$ctrl.editPlan.useCustomSettings">
       <pbs-form-section>Permissions</pbs-form-section>
 
       <pbs-form-field-horizontal label="Casual">
-        <select ng-model="$ctrl.editPlan.userPermissions.casual"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.casual"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Chargeable Directory Assisted">
-        <select ng-model="$ctrl.editPlan.userPermissions.chargeableDirectoryAssisted"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.chargeableDirectoryAssisted"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Group">
-        <select ng-model="$ctrl.editPlan.userPermissions.group"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.group"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="International">
-        <select ng-model="$ctrl.editPlan.userPermissions.international"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.international"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Local">
-        <select ng-model="$ctrl.editPlan.userPermissions.local"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.local"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Operator Assisted">
-        <select ng-model="$ctrl.editPlan.userPermissions.operatorAssisted"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.operatorAssisted"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Premium Services I">
-        <select ng-model="$ctrl.editPlan.userPermissions.premiumServicesI"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.premiumServicesI"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Premium Services II">
-        <select ng-model="$ctrl.editPlan.userPermissions.premiumServicesII"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.premiumServicesII"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Special Services I">
-        <select ng-model="$ctrl.editPlan.userPermissions.specialServicesI"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.specialServicesI"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Special Services II">
-        <select ng-model="$ctrl.editPlan.userPermissions.specialServicesII"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.specialServicesII"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Toll">
-        <select ng-model="$ctrl.editPlan.userPermissions.toll"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.toll"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Toll Free">
-        <div class="select">
-          <select ng-model="$ctrl.editPlan.userPermissions.tollFree"
-            ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-            pbs-input-select>
-          </select>
-        </div>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.tollFree"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Unknown">
-        <select ng-model="$ctrl.editPlan.userPermissions.unknown"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.unknown"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="URL Dialing">
-        <select ng-model="$ctrl.editPlan.userPermissions.urlDialing"
-          ng-options="opt as opt for opt in $ctrl.options.userPermissions"
-          pbs-input-select>
-        </select>
+        <pbs-input-select ng-model="$ctrl.editPlan.userPermissions.urlDialing"
+          ng-options="opt as opt for opt in $ctrl.options.userPermissions"></pbs-input-select>
       </pbs-form-field-horizontal>
     </div>
   </pbs-form>

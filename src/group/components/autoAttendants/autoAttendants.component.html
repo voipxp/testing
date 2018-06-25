@@ -40,11 +40,9 @@
           <td>{{ autoAttendant.extension }}</td>
           <td>{{ autoAttendant.department }}</td>
           <td no-parent-click>
-            <input type="checkbox"
-              ng-model="autoAttendant.isActive"
+            <pbs-input-switch ng-model="autoAttendant.isActive"
               ng-click="$ctrl.toggle(autoAttendant)"
-              pbs-input-switch="centered"
-              ng-disabled="autoAttendant.isLoading">
+              ng-disabled="autoAttendant.isLoading"></pbs-input-switch>
           </td>
         </tr>
       </tbody>

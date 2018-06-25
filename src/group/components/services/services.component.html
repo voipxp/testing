@@ -45,15 +45,11 @@
   title="{{ $ctrl.editService.serviceName }}">
   <pbs-form>
     <pbs-form-section>Authorization</pbs-form-section>
-    <input type="checkbox"
-      label="Service Authorized"
-      ng-model="$ctrl.editService.authorized"
-      pbs-input-checkradio>
-    <input type="checkbox"
-      label="Service Assigned"
+    <pbs-input-checkbox label="Service Authorized"
+      ng-model="$ctrl.editService.authorized"></pbs-input-checkbox>
+    <pbs-input-checkbox label="Service Assigned"
       ng-if="$ctrl.isGroupServices()"
-      ng-model="$ctrl.editService.assigned"
-      pbs-input-checkradio>
+      ng-model="$ctrl.editService.assigned"></pbs-input-checkbox>
     <service-licensing service="$ctrl.editService"></service-licensing>
   </pbs-form>
 </pbs-modal>

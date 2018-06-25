@@ -22,9 +22,7 @@
 <pbs-modal id="editUserCallingLineIdDeliveryBlocking"
   title="Edit {{ $ctrl.editTitle }}">
   <pbs-form>
-    <input type="checkbox"
-      ng-model="$ctrl.editSettings.isActive"
-      label="Is Active"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
+      label="Is Active"></pbs-input-checkbox>
   </pbs-form>
 </pbs-modal>

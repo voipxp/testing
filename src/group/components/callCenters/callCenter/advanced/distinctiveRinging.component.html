@@ -21,25 +21,19 @@
 <pbs-modal id="editGroupCallCenterDistinctiveRinging"
   title="Edit Distinctive Ringing">
   <pbs-form-field label="Enabled">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editService.distinctiveRingingCallCenterCalls"> Distinctive Ringing Enabled
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editService.distinctiveRingingCallCenterCalls"
+      label="Distinctive Ringing Enabled"></pbs-input-checkbox>
   </pbs-form-field>
   <pbs-form-field label="Ring Pattern"
     ng-show="$ctrl.editService.distinctiveRingingCallCenterCalls">
-    <div class="select">
-      <select ng-model="$ctrl.editService.distinctiveRingingRingPatternForCallCenter"
-        ng-options="opt for opt in $ctrl.options.ringPattern">
-      </select>
-    </div>
+    <pbs-input-select ng-model="$ctrl.editService.distinctiveRingingRingPatternForCallCenter"
+      ng-options="opt for opt in $ctrl.options.ringPattern">
+    </pbs-input-select>
   </pbs-form-field>
   <pbs-form-field label="Forced Deliver"
     ng-show="$ctrl.editService.distinctiveRingingCallCenterCalls">
-    <div class="select">
-      <select ng-model="$ctrl.editService.distinctiveRingingForceDeliveryRingPattern"
-        ng-options="opt for opt in $ctrl.options.ringPattern">
-      </select>
-    </div>
+    <pbs-input-select ng-model="$ctrl.editService.distinctiveRingingForceDeliveryRingPattern"
+      ng-options="opt for opt in $ctrl.options.ringPattern">
+    </pbs-input-select>
   </pbs-form-field>
 </pbs-modal>

@@ -59,11 +59,9 @@
       </div>
     </pbs-form-field>
     <pbs-form-field label="Device Template">
-      <div class="select">
-        <select ng-model="$ctrl.editDevice.deviceTemplate"
-          ng-options="template for template in $ctrl.options.templates"
-          required></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editDevice.deviceTemplate"
+        ng-options="template for template in $ctrl.options.templates"
+        required></pbs-input-select>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

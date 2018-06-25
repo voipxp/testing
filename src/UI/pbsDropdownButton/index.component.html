@@ -1,68 +1,41 @@
 <pbs-doc-nav component="pbsButtonDropdown"></pbs-doc-nav>
 
-<pbs-tabs>
-  <pbs-tab label="Example">
-    <div class="box">
-      <pbs-columns>
-        <pbs-column>
-          <pbs-form-section>Icon</pbs-form-section>
-          <input type="radio"
-            ng-model="$ctrl.icon"
-            label="Bulk Edit"
-            value="fa-cogs"
-            pbs-input-checkradio>
-          <input type="radio"
-            ng-model="$ctrl.icon"
-            label="Clone"
-            value="fa-clone"
-            pbs-input-checkradio>
-          <input type="radio"
-            ng-model="$ctrl.icon"
-            label="Bulk"
-            value="fa-sitemap"
-            pbs-input-checkradio>
-        </pbs-column>
-        <pbs-column>
-          <pbs-form-section>Items</pbs-form-section>
-          <table class="table is-fullwidth">
-            <tr ng-repeat="item in $ctrl.items">
-              <td>{{ item }}</th>
-            </tr>
-          </table>
-        </pbs-column>
-        <pbs-column>
-          <pbs-form-section>Callbacks</pbs-form-section>
-          <table class="table is-fullwidth">
-            <tr>
-              <th>onSelect</th>
-              <td>{{ $ctrl.selected }}</td>
-            </tr>
-          </table>
-        </pbs-column>
-      </pbs-columns>
-    </div>
-
-    <div class="box margin-top">
-      <pbs-button-dropdown class="is-pulled-right"
-        items="$ctrl.items"
+<div class="box">
+  <pbs-columns>
+    <pbs-column>
+      <pbs-form-section>Icon</pbs-form-section>
+      <pbs-input-radio ng-model="$ctrl.icon"
+        label="Bulk Edit"
+        value="fa-cogs"></pbs-input-radio>
+      <pbs-input-radio ng-model="$ctrl.icon"
+        label="Clone"
+        value="fa-clone"></pbs-input-radio>
+      <pbs-input-radio ng-model="$ctrl.icon"
+        label="Bulk"
+        value="fa-sitemap"></pbs-input-radio>
+    </pbs-column>
+    <pbs-column>
+      <pbs-form-section>Example</pbs-form-section>
+      <pbs-button-dropdown items="$ctrl.items"
         icon="{{ $ctrl.icon }}"
         on-select="$ctrl.onSelect($event)"></pbs-button-dropdown>
-      <br style="clear: right">
-    </div>
-  </pbs-tab>
-  <pbs-tab label="Source">
-    <div class="box content">
-      <marked src="'pbsButtonDropdown.md'"></marked>
-    </div>
-  </pbs-tab>
-</pbs-tabs>
+      <p class="margin-top">
+        <strong>onSelect:</strong>
+        <span>{{ $ctrl.selected }}</span>
+      </p>
+    </pbs-column>
+  </pbs-columns>
+</div>
+
+<div class="box content">
+  <marked src="'pbsButtonDropdown.md'"></marked>
+</div>
 
 <script type="text/ng-template"
   id="pbsButtonDropdown.md">
 ## HTML
 ```
-<pbs-button-dropdown class="is-pulled-right"
-  items="$ctrl.items"
+<pbs-button-dropdown items="$ctrl.items"
   icon="{{ $ctrl.icon }}"
   on-select="$ctrl.onSelect($event)"></pbs-button-dropdown>
 ```

@@ -11,12 +11,10 @@
     <a class="button is-static">@</a>
   </p>
   <p class="control">
-    <div class="select"
-      ng-class="{'is-loading': $ctrl.loading}">
-      <select ng-model="$ctrl.suffix"
-        ng-options="domain as domain for domain in $ctrl.domains.domains"
-        ng-change="$ctrl.update()"
-        ng-required="$ctrl.required"></select>
-    </div>
+    <pbs-input-select ng-model="$ctrl.suffix"
+      loading="$ctrl.loading"
+      ng-options="domain as domain for domain in $ctrl.domains.domains"
+      ng-change="$ctrl.update()"
+      ng-required="$ctrl.required"></pbs-input-select>
   </p>
 </div>

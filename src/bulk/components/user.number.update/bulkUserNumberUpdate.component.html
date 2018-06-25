@@ -13,17 +13,13 @@
       class="large-margin-bottom">
       <pbs-form>
         <pbs-form-section>Would you like to change the UserID?</pbs-form-section>
-        <input type="radio"
-          ng-value="false"
+        <pbs-input-radio ng-value="false"
           ng-model="$ctrl.changeUserId"
           ng-click="$ctrl.data.userId = null"
-          label="Keep the current User IDs"
-          pbs-input-checkradio>
-        <input type="radio"
-          ng-value="true"
+          label="Keep the current User IDs"></pbs-input-radio>
+        <pbs-input-radio ng-value="true"
           ng-model="$ctrl.changeUserId"
-          label="Change the User IDs"
-          pbs-input-checkradio>
+          label="Change the User IDs"></pbs-input-radio>
       </pbs-form>
       <div class="has-text-right large-margin-top">
         <pbs-button-next ng-show="!$ctrl.changeUserId"

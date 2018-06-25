@@ -21,18 +21,14 @@
 <pbs-modal id="editUserOutgoingCallingPlanDigitPlanCallMeNow">
   <pbs-form>
     <pbs-form-section>Custom Settings</pbs-form-section>
-    <input type="checkbox"
-      ng-model="$ctrl.editPlan.useCustomSettings"
-      label="Use Custom Settings"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editPlan.useCustomSettings"
+      label="Use Custom Settings"></pbs-input-checkbox>
 
     <div ng-show="$ctrl.editPlan.useCustomSettings">
       <pbs-form-section>Permissions</pbs-form-section>
-      <input type="checkbox"
-        ng-repeat="pattern in $ctrl.editPlan.userPermissions"
+      <pbs-input-checkbox ng-repeat="pattern in $ctrl.editPlan.userPermissions"
         label="Allow {{ pattern.digitPatternName }}"
-        ng-model="pattern.permission"
-        pbs-input-checkradio>
+        ng-model="pattern.permission"></pbs-input-checkbox>
     </div>
   </pbs-form>
 </pbs-modal>

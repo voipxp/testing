@@ -30,27 +30,15 @@
 <pbs-modal id="editUserCallTransfer"
   title="Edit Settings">
   <pbs-form>
-    <pbs-form-field label="General Settings">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.isRecallActive"> Is Active
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.useDiversionInhibitorForBlindTransfer"> Blind Transfer
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.useDiversionInhibitorForConsultativeCalls"> Consultative Calls
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.enableBusyCampOn"> Enable Busy On Camp
-      </label>
-    </pbs-form-field>
+    <pbs-form-section>General Settings</pbs-form-section>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isRecallActive"
+      label="Is Active"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.useDiversionInhibitorForBlindTransfer"
+      label="Blind Transfer"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.useDiversionInhibitorForConsultativeCalls"
+      label="Consultative Calls"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.enableBusyCampOn"
+      label="Enable Busy On Camp"></pbs-input-checkbox>
     <pbs-form-field label="Number Of Rings">
       <input type="number"
         class="input"

@@ -13,6 +13,7 @@
     ctrl.$onDestroy = stopReload
     ctrl.open = open
     ctrl.errors = errors
+    ctrl.searchStatus = {}
 
     var defaultLimit = 50
 

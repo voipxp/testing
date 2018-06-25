@@ -1,8 +1,6 @@
-<div class="select is-fullwidth"
-  ng-class="{'is-loading': $ctrl.loading}">
-  <select ng-model="$ctrl.ngModel"
-    ng-required="$ctrl.ngRequired"
-    ng-options="schedule as schedule.name for schedule in $ctrl.schedules | filter:{type: $ctrl.type} | orderBy:'name' track by schedule.name+schedule.level+schedule.type">
-    <option value="">{{ $ctrl.type === 'Time' ? 'Every Day All Day' : 'None' }}</option>
-  </select>
-</div>
+<pbs-input-select ng-model="$ctrl.ngModel"
+  loading="$ctrl.loading"
+  ng-required="$ctrl.ngRequired"
+  ng-options="schedule as schedule.name for schedule in $ctrl.schedules | filter:{type: $ctrl.type} | orderBy:'name' track by schedule.name+schedule.level+schedule.type">
+  <option value="">{{ $ctrl.type === 'Time' ? 'Every Day All Day' : 'None' }}</option>
+</pbs-input-select>

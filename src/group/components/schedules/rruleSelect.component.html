@@ -3,14 +3,12 @@
   <label class="label">Repeats</label>
   <div class="field has-addons">
     <div class="control">
-      <div class="select">
-        <select ng-options="opt.value as opt.label for opt in $ctrl.options"
-          ng-model="$ctrl.rrule.freq"
-          ng-disabled="!$ctrl.startTime"
-          ng-change="$ctrl.update()">
-          <option value="">Never</option>
-        </select>
-      </div>
+      <pbs-input-select ng-options="opt.value as opt.label for opt in $ctrl.options"
+        ng-model="$ctrl.rrule.freq"
+        ng-disabled="!$ctrl.startTime"
+        ng-change="$ctrl.update()">
+        <option value="">Never</option>
+      </pbs-input-select>
     </div>
     <div class="control"
       ng-show="$ctrl.rrule.freq">

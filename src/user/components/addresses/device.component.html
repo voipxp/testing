@@ -58,10 +58,8 @@
   title="Select Device">
   <pbs-form>
     <pbs-form-field-horizontal label="Endpoint Type">
-      <div class="select">
-        <select ng-model="$ctrl.editUser.endpointType"
-          ng-options="key as value for (key, value) in $ctrl.endpointTypes"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editUser.endpointType"
+        ng-options="key as value for (key, value) in $ctrl.endpointTypes"></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Device"
       ng-show="$ctrl.editUser.endpointType === 'accessDeviceEndpoint'">

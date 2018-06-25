@@ -22,9 +22,8 @@
   title="Edit Audio Settings">
   <pbs-form>
     <pbs-form-field label="Announcement Type">
-      <select ng-model="$ctrl.editMenu.announcementSelection"
-        ng-options="selection for selection in $ctrl.options.announcementSelections"
-        pbs-input-select></select>
+      <pbs-input-select ng-model="$ctrl.editMenu.announcementSelection"
+        ng-options="selection for selection in $ctrl.options.announcementSelections"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Audio File"
       ng-show="$ctrl.editMenu.announcementSelection === 'Personal'">

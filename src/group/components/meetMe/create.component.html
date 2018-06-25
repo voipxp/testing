@@ -13,11 +13,9 @@
             required>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Service User Domain*">
-          <select ng-model="$ctrl.bridge.serviceUserIdSuffix"
+          <pbs-input-select ng-model="$ctrl.bridge.serviceUserIdSuffix"
             ng-options="domain as domain for domain in $ctrl.domains.domains"
-            required
-            pbs-input-select
-            is-fullwidth></select>
+            required></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Service Profile Name*">
           <input type="text"
@@ -62,16 +60,12 @@
             ng-model="$ctrl.bridge.operatorNumber">
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Individual Out Dial">
-          <label class="checkbox">
-            <input type="checkbox"
-              ng-model="$ctrl.bridge.allowIndividualOutDial"> Allow Individual Out Dial
-          </label>
+          <pbs-input-checkbox ng-model="$ctrl.bridge.allowIndividualOutDial"
+            label="Allow Individual Out Dial"></pbs-input-checkbox>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Warning Prompt">
-          <label class="checkbox">
-            <input type="checkbox"
-              ng-model="$ctrl.bridge.playWarningPrompt"> Play Conference End Warning Prompt
-          </label>
+          <pbs-input-checkbox ng-model="$ctrl.bridge.playWarningPrompt"
+            label="Play Conference End Warning Prompt"></pbs-input-checkbox>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="End Prompt Minutes"
           ng-show="$ctrl.bridge.playWarningPrompt">
@@ -99,10 +93,8 @@
             step="15">
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Set Max Duration">
-          <label class="checkbox">
-            <input type="checkbox"
-              ng-model="$ctrl.bridge.enableMaxConferenceDuration"> Enable Max Conference Duration
-          </label>
+          <pbs-input-checkbox ng-model="$ctrl.bridge.enableMaxConferenceDuration"
+            label="Enable Max Conference Duration"></pbs-input-checkbox>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Max Duration Hours"
           ng-show="$ctrl.bridge.enableMaxConferenceDuration">
@@ -127,13 +119,11 @@
 
       <pbs-tab label="Profile">
         <pbs-form-field-horizontal label="Phone Number">
-          <select ng-model="$ctrl.bridge.serviceInstanceProfile.phoneNumber"
+          <pbs-input-select ng-model="$ctrl.bridge.serviceInstanceProfile.phoneNumber"
             ng-options="number.min as number.min for number in $ctrl.numbers"
-            ng-change="$ctrl.setExtension()"
-            pbs-input-select
-            is-fullwidth>
+            ng-change="$ctrl.setExtension()">
             <option value="">-- None --</option>
-          </select>
+          </pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Extension">
           <input type="text"
@@ -153,23 +143,16 @@
             ng-model="$ctrl.bridge.serviceInstanceProfile.publicUserIdentity">
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Department Name">
-          <select ng-model="$ctrl.bridge.serviceInstanceProfile.department"
-            ng-options="department as department.name for department in $ctrl.departments track by department.name"
-            pbs-input-select
-            is-fullwidth></select>
+          <pbs-input-select ng-model="$ctrl.bridge.serviceInstanceProfile.department"
+            ng-options="department as department.name for department in $ctrl.departments track by department.name"></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Language">
-          <select ng-model="$ctrl.bridge.serviceInstanceProfile.language"
-            ng-options="language.language as language.language for language in $ctrl.languages.languages track by language.language"
-        
-            pbs-input-select
-            is-fullwidth></select>
+          <pbs-input-select ng-model="$ctrl.bridge.serviceInstanceProfile.language"
+            ng-options="language.language as language.language for language in $ctrl.languages.languages track by language.language"></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Timezone">
-          <select ng-model="$ctrl.bridge.serviceInstanceProfile.timeZone"
-            ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones track by timezone.key"
-            pbs-input-select
-            is-fullwidth></select>
+          <pbs-input-select ng-model="$ctrl.bridge.serviceInstanceProfile.timeZone"
+            ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones track by timezone.key"></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Alias">
           <alias-list profile="$ctrl.bridge.serviceInstanceProfile"></alias-list>

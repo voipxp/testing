@@ -35,43 +35,28 @@
       ng-click="$ctrl.download()"></pbs-button-compact-download>
   </pbs-block-buttons>
   <pbs-spinner loading="$ctrl.loading">
-    <div class="field is-grouped"
-      style="margin-bottom: 1.5rem">
-      <p class="control">
-        <label class="radio">
-          <input type="radio"
-            ng-model="$ctrl.searchStatus"
-            value=""> All
-        </label>
-      </p>
-      <p class="control">
-        <label class="radio">
-          <input type="radio"
-            ng-model="$ctrl.searchStatus"
-            value="pending"> Pending
-        </label>
-      </p>
-      <p class="control">
-        <label class="radio">
-          <input type="radio"
-            ng-model="$ctrl.searchStatus"
-            value="completed"> Completed &nbsp;
-        </label>
-      </p>
-      <p class="control">
-        <label class="radio">
-          <input type="radio"
-            ng-model="$ctrl.searchStatus"
-            value="failed"> Failed &nbsp;
-        </label>
-      </p>
-      <p class="control is-expanded">
-        <input type="search"
-          placeholder="Search"
-          class="input"
-          ng-model="search">
-      </p>
-    </div>
+    <pbs-columns>
+      <pbs-column>
+        <pbs-table-search ng-model="$ctrl.search"
+          style="margin-bottom: 0"></pbs-table-search>
+      </pbs-column>
+      <pbs-column class="is-narrow">
+        <div class="buttons has-addons">
+          <button class="button"
+            ng-class="{'is-link': !$ctrl.searchStatus}"
+            ng-click="$ctrl.searchStatus = null">All</button>
+          <button class="button"
+            ng-class="{'is-link': $ctrl.searchStatus === 'pending'}"
+            ng-click="$ctrl.searchStatus = 'pending'">Pending</button>
+          <button class="button"
+            ng-class="{'is-link': $ctrl.searchStatus === 'completed'}"
+            ng-click="$ctrl.searchStatus = 'completed'">Completed</button>
+          <button class="button"
+            ng-class="{'is-link': $ctrl.searchStatus === 'failed'}"
+            ng-click="$ctrl.searchStatus = 'failed'">Failed</button>
+        </div>
+      </pbs-column>
+    </pbs-columns>
     <table pbs-table>
       <thead>
         <tr>

@@ -16,10 +16,8 @@
   title="Edit Settings">
   <pbs-form>
     <pbs-form-field-horizontal label="Night Forwarding">
-      <select pbs-input-select
-              ng-model="$ctrl.editSettings.nightForwarding"
-              ng-options="opt for opt in $ctrl.options.nightForwarding">
-      </select>
+      <pbs-input-select ng-model="$ctrl.editSettings.nightForwarding"
+        ng-options="opt for opt in $ctrl.options.nightForwarding"></pbs-input-select>
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

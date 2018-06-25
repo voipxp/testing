@@ -10,25 +10,21 @@
         title="Add Schedule"></pbs-button-compact-add>
     </pbs-block-buttons>
     <pbs-columns>
-      <pbs-column class="is-narrow">
-        <label class="radio">
-          <input type="radio"
-            ng-model="$ctrl.filter"
-            ng-value="undefined"> All
-        </label>
-        <label class="radio">
-          <input type="radio"
-            ng-model="$ctrl.filter"
-            value="Holiday"> Holiday
-        </label>
-        <label class="radio">
-          <input type="radio"
-            ng-model="$ctrl.filter"
-            value="Time"> Time
-        </label>
-      </pbs-column>
       <pbs-column>
         <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+      </pbs-column>
+      <pbs-column class="is-narrow">
+        <div class="buttons has-addons">
+          <button class="button"
+            ng-class="{'is-link': !$ctrl.filter}"
+            ng-click="$ctrl.filter = null">All</button>
+          <button class="button"
+            ng-class="{'is-link': $ctrl.filter === 'Holiday'}"
+            ng-click="$ctrl.filter = 'Holiday'">Holiday</button>
+          <button class="button"
+            ng-class="{'is-link': $ctrl.filter === 'Time'}"
+            ng-click="$ctrl.filter = 'Time'">Time</button>
+        </div>
       </pbs-column>
     </pbs-columns>
     <table pbs-table>
@@ -67,11 +63,9 @@
         required>
     </pbs-form-field>
     <pbs-form-field label="Type">
-      <div class="select">
-        <select ng-model="$ctrl.newSchedule.type"
-          ng-options="type for type in ['Time', 'Holiday']"
-          required></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.newSchedule.type"
+        ng-options="type for type in ['Time', 'Holiday']"
+        required></pbs-input-select>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

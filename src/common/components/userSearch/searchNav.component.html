@@ -1,29 +1,27 @@
 <form ng-submit="$ctrl.search()">
   <div class="field has-addons">
     <p class="control">
-      <span class="select is-small">
-        <select ng-model="$ctrl.type">
-          <option value="userId">ID</option>
-          <option value="lastName">Last Name</option>
-          <option value="dn">Phone</option>
-          <option value="emailAddress">Email</option>
-          <option value="extension">Extension</option>
-          <option value="macAddress">MAC</option>
-        </select>
-      </span>
+      <pbs-input-select ng-model="$ctrl.type">
+        <option value="userId">ID</option>
+        <option value="lastName">Last Name</option>
+        <option value="dn">Phone</option>
+        <option value="emailAddress">Email</option>
+        <option value="extension">Extension</option>
+        <option value="macAddress">MAC</option>
+      </pbs-input-select>
     </p>
-    <p class="control is-expanded is-small"
+    <p class="control is-expanded"
       ng-class="{'is-loading': $ctrl.isLoading}">
-      <input class="input is-small"
+      <input class="input"
         type="search"
         placeholder="User search"
         ng-model="$ctrl.filter"
         ng-disabled="$ctrl.isLoading">
     </p>
-    <p class="control is-small">
-      <button class="button is-small"
+    <p class="control">
+      <button class="button"
         ng-click="$ctrl.search()">
-        <span class="icon is-small">
+        <span class="icon">
           <i class="fas fa-search"></i>
         </span>
       </button>

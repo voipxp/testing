@@ -16,11 +16,9 @@
   title="Edit Settings">
   <pbs-form>
     <pbs-form-field label="Record Call">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.recordingOption"
-          ng-options="x for x in $ctrl.options.recordingOptions">
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.recordingOption"
+        ng-options="x for x in $ctrl.options.recordingOptions">
+      </pbs-input-select>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

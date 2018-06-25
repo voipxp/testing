@@ -40,11 +40,9 @@
           <td>{{ huntGroup.extension }}</td>
           <td>{{ huntGroup.department }}</td>
           <td no-parent-click>
-            <input type="checkbox"
-              ng-model="huntGroup.isActive"
+            <pbs-input-switch ng-model="huntGroup.isActive"
               ng-click="$ctrl.toggle(huntGroup)"
-              pbs-input-switch="centered"
-              ng-disabled="huntGroup.isLoading">
+              ng-disabled="huntGroup.isLoading"></pbs-input-switch>
           </td>
         </tr>
       </tbody>

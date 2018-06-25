@@ -16,10 +16,8 @@
 <pbs-modal id="editGroupCallCenterAnnouncementsCallWhisperMessage"
   title="{{ $ctrl.modalTitle }}">
   <pbs-form-section>Settings</pbs-form-section>
-  <input type="checkbox"
-    ng-model="$ctrl.editAnnouncements.callWhisperMessage.enabled"
-    label="Play Call Whisper Message"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editAnnouncements.callWhisperMessage.enabled"
+    label="Play Call Whisper Message"></pbs-input-checkbox>
 
   <group-call-center-audio-settings-edit user-id="$ctrl.serviceUserId"
     service="$ctrl.editAnnouncements.callWhisperMessage"></group-call-center-audio-settings-edit>

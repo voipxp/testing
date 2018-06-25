@@ -10,9 +10,31 @@
     {
       path: 'pbsButtonDropdown',
       component: 'pbsButtonDropdownDoc'
+    },
+    {
+      path: 'pbsInputCheckbox',
+      component: 'pbsInputCheckboxDoc'
+    },
+    {
+      path: 'pbsInputSwitch',
+      component: 'pbsInputSwitchDoc'
+    },
+    {
+      path: 'pbsInputRadio',
+      component: 'pbsInputRadioDoc'
+    },
+    {
+      path: 'pbsInputSelect',
+      component: 'pbsInputSelectDoc'
+    },
+    {
+      path: 'pbsInputFile',
+      component: 'pbsInputFileDoc'
     }
   ]
-  angular.module('odin.UI', ['hc.marked']).config(function(PbsRouteProvider) {
-    PbsRouteProvider.set(routes, 'UI')
-  })
+  angular
+    .module('odin.UI', ['hc.marked', 'angularFileInput'])
+    .config(function(PbsRouteProvider) {
+      PbsRouteProvider.set(routes, 'UI')
+    })
 })()

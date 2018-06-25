@@ -41,30 +41,20 @@
   title="Edit Bounced Calls">
 
   <pbs-form-section>Settings</pbs-form-section>
-  <input type="checkbox"
-    ng-model="$ctrl.editService.isActive"
-    label="Bounce Calls Enabled"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editService.isActive"
+    label="Bounce Calls Enabled"></pbs-input-checkbox>
 
-  <input type="checkbox"
-    ng-model="$ctrl.editService.enableTransfer"
-    label="Enable Transfer"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editService.enableTransfer"
+    label="Enable Transfer"></pbs-input-checkbox>
 
-  <input type="checkbox"
-    ng-model="$ctrl.editService.bounceCallWhenAgentUnavailable"
-    label="Bounce calls when Agent unavailable"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editService.bounceCallWhenAgentUnavailable"
+    label="Bounce calls when Agent unavailable"></pbs-input-checkbox>
 
-  <input type="checkbox"
-    ng-model="$ctrl.editService.alertCallCenterCallOnHold"
-    label="Alert Agent when on hold"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editService.alertCallCenterCallOnHold"
+    label="Alert Agent when on hold"></pbs-input-checkbox>
 
-  <input type="checkbox"
-    ng-model="$ctrl.editService.bounceCallCenterCallOnHold"
-    label="Bounce call when on hold"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editService.bounceCallCenterCallOnHold"
+    label="Bounce call when on hold"></pbs-input-checkbox>
 
   <pbs-form-field-horizontal label="Rings before bouncing call">
     <input type="number"

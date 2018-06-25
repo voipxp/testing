@@ -43,11 +43,9 @@
             <pbs-check-box checked="center.video"></pbs-check-box>
           </td>
           <td no-parent-click>
-            <input type="checkbox"
-              ng-model="center.isActive"
+            <pbs-input-switch ng-model="center.isActive"
               ng-click="$ctrl.toggle(center)"
-              pbs-input-switch="centered"
-              ng-disabled="center.isLoading">
+              ng-disabled="center.isLoading"></pbs-input-switch>
           </td>
         </tr>
       </tbody>

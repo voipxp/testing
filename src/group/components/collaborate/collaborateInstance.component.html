@@ -78,18 +78,14 @@
 <pbs-modal id="editGroupCollaborate"
   title="Edit Group Collaborate">
   <form name="editGroupCollaborateForm">
+    <pbs-input-checkbox ng-model="$ctrl.collaborate.supportOutdial"
+      label="Support Outdial"></pbs-input-checkbox>
     <pbs-form-field label="Max Room Participants">
       <input type="number"
         class="input"
         ng-model="$ctrl.collaborate.maxCollaborateRoomParticipants"
         min="$ctrl.options.roomMaximumParticipantsMin"
         max="$ctrl.options.roomMaximumParticipantsMax">
-    </pbs-form-field>
-    <pbs-form-field label="Support Outdial">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.collaborate.supportOutdial">
-      </label>
     </pbs-form-field>
     <pbs-form-field label="Allocated Ports*">
       <input type="number"

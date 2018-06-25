@@ -58,19 +58,14 @@
         ng-max="$ctrl.editTag.max"
         placeholder="{{ $ctrl.editTag.min + ' - ' + $ctrl.editTag.max }}"
         string-to-number>
-      <label ng-if="$ctrl.editTag.type === 'checkbox'"
-        class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTag.tag.value"
-          ng-true-value="'1'"
-          ng-false-value="'0'"> {{ $ctrl.editTag.label }}
-      </label>
-      <div ng-if="$ctrl.editTag.type === 'select'"
-        class="select">
-        <select ng-model="$ctrl.editTag.tag.value"
-          ng-options="opt for opt in $ctrl.editTag.options"
-          required></select>
-      </div>
+      <pbs-input-checkbox ng-if="$ctrl.editTag.type === 'checkbox'"
+        ng-model="$ctrl.editTag.tag.value"
+        ng-true-value="'1'"
+        ng-false-value="'0'"> {{ $ctrl.editTag.label }}</pbs-input-checkbox>
+      <pbs-input-select ng-if="$ctrl.editTag.type === 'select'"
+        ng-model="$ctrl.editTag.tag.value"
+        ng-options="opt for opt in $ctrl.editTag.options"
+        required></pbs-input-select>
       <!-- stringToNumber -->
     </pbs-form-field>
     <pbs-form-field ng-if="$ctrl.editTag.type === 'password'"

@@ -52,11 +52,9 @@
       string-to-number>
   </pbs-form-field>
   <pbs-form-field label="Exhaustion Action">
-    <div class="select">
-      <select ng-model="$ctrl.editTrunk.routeExhaustionAction"
-        ng-options="opt as opt for opt in $ctrl.options.routeExhaustionAction"
-        ng-change="$ctrl.updateConfirm('routeExhaustionAction')"></select>
-    </div>
+    <pbs-input-select ng-model="$ctrl.editTrunk.routeExhaustionAction"
+      ng-options="opt as opt for opt in $ctrl.options.routeExhaustionAction"
+      ng-change="$ctrl.updateConfirm('routeExhaustionAction')"></pbs-input-select>
   </pbs-form-field>
   <pbs-form-field label="Forward To"
     ng-show="$ctrl.editTrunk.routeExhaustionAction === 'Forward'">
@@ -75,9 +73,7 @@
   </pbs-form-field>
   <pbs-form-field label="Ordering Algorithm"
     ng-if="$ctrl.editTrunk.orderedRouting">
-    <div class="select">
-      <select ng-model="$ctrl.editTrunk.orderedRouting.orderingAlgorithm"
-        ng-options="opt as opt for opt in $ctrl.options.orderingAlgorithm"></select>
-    </div>
+    <pbs-input-select ng-model="$ctrl.editTrunk.orderedRouting.orderingAlgorithm"
+      ng-options="opt as opt for opt in $ctrl.options.orderingAlgorithm"></pbs-input-select>
   </pbs-form-field>
 </pbs-modal>

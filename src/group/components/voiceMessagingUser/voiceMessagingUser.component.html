@@ -1,5 +1,5 @@
 <pbs-navigation service-provider-id="$ctrl.serviceProviderId"
-                group-id="$ctrl.groupId">
+  group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Voice Messaging'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
@@ -8,44 +8,32 @@
       <pbs-button-compact-cogs ng-click="$ctrl.showSelect = !$ctrl.showSelect"></pbs-button-compact-cogs>
     </pbs-block-buttons>
     <pbs-data-table order-by="user.userId"
-                    columns="$ctrl.columns"
-                    items="$ctrl.users"
-                    show-select="$ctrl.showSelect"
-                    is-compact="true"
-                    is-bordered="true"
-                    is-striped="true"
-                    limit-to="25"
-                    on-select="$ctrl.onSelect($event)"
-                    on-click="$ctrl.onClick($event)"></pbs-data-table>
+      columns="$ctrl.columns"
+      items="$ctrl.users"
+      show-select="$ctrl.showSelect"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-select="$ctrl.onSelect($event)"
+      on-click="$ctrl.onClick($event)"></pbs-data-table>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editUserVoiceMessagingUser"
-           title="Edit {{ $ctrl.editTitle }}">
+  title="Edit {{ $ctrl.editTitle }}">
   <pbs-form>
-    <input type="checkbox"
-           ng-model="$ctrl.editSettings.isActive"
-           label="Is Active"
-           pbs-input-checkradio>
-    <input type="checkbox"
-           ng-model="$ctrl.editSettings.usePhoneMessageWaitingIndicator"
-           label="Enable Phone Message Waiting Indicator"
-           pbs-input-checkradio>
-    <input type="checkbox"
-           ng-model="$ctrl.editSettings.alwaysRedirectToVoiceMail"
-           label="Always Redirect to Voicemail"
-           pbs-input-checkradio>
-    <input type="checkbox"
-           ng-model="$ctrl.editSettings.busyRedirectToVoiceMail"
-           label="Redirect Busy to Voicemail"
-           pbs-input-checkradio>
-    <input type="checkbox"
-           ng-model="$ctrl.editSettings.noAnswerRedirectToVoiceMail"
-           label="Redirect No Answer to Voicemail"
-           pbs-input-checkradio>
-    <input type="checkbox"
-           ng-model="$ctrl.editSettings.outOfPrimaryZoneRedirectToVoiceMail"
-           label="Redirect Out of Primary Zone to Voicemail"
-           pbs-input-checkradio
-           ng-if="false">
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
+      label="Is Active"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.usePhoneMessageWaitingIndicator"
+      label="Enable Phone Message Waiting Indicator"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.alwaysRedirectToVoiceMail"
+      label="Always Redirect to Voicemail"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.busyRedirectToVoiceMail"
+      label="Redirect Busy to Voicemail"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.noAnswerRedirectToVoiceMail"
+      label="Redirect No Answer to Voicemail"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.outOfPrimaryZoneRedirectToVoiceMail"
+      label="Redirect Out of Primary Zone to Voicemail"
+      ng-if="false"></pbs-input-checkbox>
   </pbs-form>
 </pbs-modal>

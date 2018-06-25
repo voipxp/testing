@@ -1,8 +1,6 @@
 <pbs-form-field label="Do Not Disturb">
-  <input type="checkbox"
-    ng-label="$ctrl.settings.isActive ? 'On' : 'Off'"
+  <pbs-input-switch ng-label="$ctrl.settings.isActive ? 'On' : 'Off'"
     ng-model="$ctrl.settings.isActive"
     ng-click="$ctrl.toggle()"
-    ng-disabled="$ctrl.loading"
-    pbs-input-switch>
+    ng-disabled="$ctrl.loading"></pbs-input-switch>
 </pbs-form-field>

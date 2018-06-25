@@ -45,17 +45,12 @@
             required>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Credentials">
-          <label class="radio">
-            <input type="radio"
-              ng-model="$ctrl.device.useCustomUserNamePassword"
-              ng-value="false"> Use Identity/Device Profile Type Credentials
-          </label>
-          <br>
-          <label class="radio">
-            <input type="radio"
-              ng-model="$ctrl.device.useCustomUserNamePassword"
-              ng-value="true"> Use Custom Credentials
-          </label>
+          <pbs-input-radio ng-model="$ctrl.device.useCustomUserNamePassword"
+            ng-value="false"
+            label="Use Identity/Device Profile Type Credentials"></pbs-input-radio>
+          <pbs-input-radio ng-model="$ctrl.device.useCustomUserNamePassword"
+            ng-value="true"
+            label="Use Custom Credentials"></pbs-input-radio>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Username"
           ng-show="$ctrl.device.useCustomUserNamePassword">
@@ -77,10 +72,8 @@
       <pbs-tab label="Optional">
         <pbs-form-field-horizontal label="Protocol"
           ng-show="$ctrl.device.protocolChoice">
-          <div class="select">
-            <select ng-model="$ctrl.device.protocol"
-              ng-options="protocol for protocol in $ctrl.device.protocolChoice"></select>
-          </div>
+          <pbs-input-select ng-model="$ctrl.device.protocol"
+            ng-options="protocol for protocol in $ctrl.device.protocolChoice"></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Host Name/IP Address">
           <input type="text"
@@ -93,10 +86,8 @@
             class="input">
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Transport">
-          <div class="select">
-            <select ng-model="$ctrl.device.transportProtocol"
-              ng-options="v for v in ['UDP', 'TCP', 'Undefined']"></select>
-          </div>
+          <pbs-input-select ng-model="$ctrl.device.transportProtocol"
+            ng-options="v for v in ['UDP', 'TCP', 'Undefined']"></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="MAC Address">
           <input type="text"

@@ -24,7 +24,7 @@
   <p class="control is-expanded">
     <a class="button is-static is-fullwidth">
       Items Selected:&nbsp;
-      <strong>{{ $ctrl.selected.length }}</strong>
+      <strong>{{ $ctrl.selected }}</strong>
     </a>
   </p>
   <p class="control">
@@ -49,10 +49,8 @@
         <th ng-show="$ctrl.showSelect"
           class="has-text-centered"
           style="width: 50px">
-          <input type="checkbox"
-            ng-model="$ctrl.selectAll"
-            ng-click="$ctrl.toggleAll()"
-            pbs-input-checkradio>
+          <pbs-input-checkbox ng-model="$ctrl.selectAll"
+            ng-click="$ctrl.toggleAll()"></pbs-input-checkbox>
         </th>
         <th ng-repeat="column in $ctrl.columns"
           ng-show="!column.hidden"
@@ -85,11 +83,8 @@
         ng-repeat="item in results = ($ctrl.items | filter:$ctrl.search | filter:$ctrl.filter | orderBy:$ctrl.order.key:$ctrl.order.reverse) | paginate:$ctrl.pager">
         <td ng-show="$ctrl.showSelect"
           class="has-text-centered">
-          <input type="checkbox"
-            checklist-model="$ctrl.selected"
-            checklist-value="item"
-            ng-click="$ctrl.select()"
-            pbs-input-checkradio>
+          <pbs-input-checkbox ng-model="item._selected"
+            ng-click="$ctrl.toggle(item)"></pbs-input-checkbox>
         </td>
         <td ng-repeat="column in $ctrl.columns"
           ng-show="!column.hidden"

@@ -19,15 +19,10 @@
   title="Edit Settings">
   <pbs-form>
     <pbs-form-field label="Settings">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.isActiveForExternalCalls"> External Calling Name Delivery
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.isActiveForInternalCalls"> Internal Calling Name Delivery
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.isActiveForExternalCalls"
+        label="External Calling Name Delivery"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.isActiveForInternalCalls"
+        label="Internal Calling Name Delivery"></pbs-input-checkbox>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

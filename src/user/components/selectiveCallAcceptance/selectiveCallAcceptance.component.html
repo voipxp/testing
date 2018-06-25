@@ -47,15 +47,10 @@
   title="Edit Settings">
   <pbs-spinner loading="$ctrl.loadingCriteria">
     <pbs-form-field label="General Settings">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.selectiveCallAcceptanceCriteria.isActive"> Is Active
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.selectiveCallAcceptanceCriteria.blacklisted"> Reject Call
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.selectiveCallAcceptanceCriteria.isActive"
+        label="Is Active"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.selectiveCallAcceptanceCriteria.blacklisted"
+        label="Reject Call"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Description">
       <input type="text"
@@ -63,48 +58,38 @@
         ng-model="$ctrl.selectiveCallAcceptanceCriteria.criteriaName">
     </pbs-form-field>
     <pbs-form-field label="Time Schedule">
-      <div class="select">
-        <select name="timeSchedule"
-          id="timeSchedule"
-          ng-model="$ctrl.selectiveCallAcceptanceCriteria.timeSchedule.name">
-          <option value="">Every Day All Day</option>
-          <option ng-repeat="option in $ctrl.userTimeSchedules"
-            value="{{option.name}}">{{option.name}} ({{option.level}})</option>
-        </select>
-      </div>
+      <pbs-input-select name="timeSchedule"
+        id="timeSchedule"
+        ng-model="$ctrl.selectiveCallAcceptanceCriteria.timeSchedule.name">
+        <option value="">Every Day All Day</option>
+        <option ng-repeat="option in $ctrl.userTimeSchedules"
+          value="{{option.name}}">{{option.name}} ({{option.level}})</option>
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Holiday Schedule">
-      <div class="select">
-        <select name="holidaySchedule"
-          id="holidaySchedule"
-          ng-model="$ctrl.selectiveCallAcceptanceCriteria.holidaySchedule.name">
-          <option value="">None</option>
-          <option ng-repeat="option in $ctrl.holidaySchedules"
-            value="{{option.name}}">{{option.name}} ({{option.level}})</option>
-        </select>
-      </div>
+      <pbs-input-select name="holidaySchedule"
+        id="holidaySchedule"
+        ng-model="$ctrl.selectiveCallAcceptanceCriteria.holidaySchedule.name">
+        <option value="">None</option>
+        <option ng-repeat="option in $ctrl.holidaySchedules"
+          value="{{option.name}}">{{option.name}} ({{option.level}})</option>
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Calls From">
-      <div class="select">
-        <select name="fromDnCriteriaSelection"
-          id="fromDnCriteriaSelection"
-          ng-model="$ctrl.selectiveCallAcceptanceCriteria.fromDnCriteria.fromDnCriteriaSelection">
-          <option ng-repeat="option in $ctrl.fromDnCriteriaSelections"
-            value="{{option}}">{{option}}</option>
-        </select>
-      </div>
+      <pbs-input-select name="fromDnCriteriaSelection"
+        id="fromDnCriteriaSelection"
+        ng-model="$ctrl.selectiveCallAcceptanceCriteria.fromDnCriteria.fromDnCriteriaSelection">
+        <option ng-repeat="option in $ctrl.fromDnCriteriaSelections"
+          value="{{option}}">{{option}}</option>
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Anonymous Callers">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.selectiveCallAcceptanceCriteria.fromDnCriteria.includeAnonymousCallers"> Any Private Number
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.selectiveCallAcceptanceCriteria.fromDnCriteria.includeAnonymousCallers"
+        label="Any Private Number"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Unavailable Callers">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.selectiveCallAcceptanceCriteria.fromDnCriteria.includeUnavailableCallers"> Any Unavailable
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.selectiveCallAcceptanceCriteria.fromDnCriteria.includeUnavailableCallers"
+        label="Any Unavailable"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Specific Numbers">
       <input class="input"

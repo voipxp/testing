@@ -20,10 +20,8 @@
   title="{{ $ctrl.modalTitle }}">
 
   <pbs-form-section>Settings</pbs-form-section>
-  <input type="checkbox"
-    ng-model="$ctrl.editAnnouncements.comfortMessage.enabled"
-    label="Play Comfort Message"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editAnnouncements.comfortMessage.enabled"
+    label="Play Comfort Message"></pbs-input-checkbox>
 
   <pbs-form-field-horizontal label="Time Between Seconds">
     <input type="number"

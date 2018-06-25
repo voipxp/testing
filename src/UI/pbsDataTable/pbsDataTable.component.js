@@ -21,16 +21,15 @@
     }
   })
 
-  function Controller(EventEmitter, $filter) {
+  function Controller(EventEmitter, $filter, $timeout) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.onPagination = onPagination
     ctrl.click = click
-    ctrl.select = select
     ctrl.sendSelect = sendSelect
     ctrl.toggleAll = toggleAll
+    ctrl.toggle = toggle
     ctrl.sort = sort
-    ctrl.selected = []
     ctrl.cancel = cancel
     ctrl.getValue = getValue
 
@@ -39,6 +38,7 @@
         key: ctrl.orderBy || _.get(ctrl.columns, '0.key'),
         reverse: ctrl.orderReverse
       }
+      ctrl.selected = 0
       ctrl.selectAll = false
       ctrl.canClick = _.isFunction(ctrl.onClick)
     }
@@ -63,11 +63,22 @@
     }
 
     function toggleAll() {
-      ctrl.selected = ctrl.selectAll ? filteredItems() : []
+      filteredItems().forEach(function(item) {
+        item._selected = ctrl.selectAll
+      })
+      updateSelected()
     }
 
-    function select() {
-      ctrl.selectAll = ctrl.selected.length === filteredItems().length
+    function toggle() {
+      $timeout(updateSelected, 1)
+    }
+
+    function selectedItems() {
+      return _.filter(ctrl.items, { _selected: true })
+    }
+
+    function updateSelected() {
+      ctrl.selected = selectedItems().length
     }
 
     function sort(key) {
@@ -80,14 +91,17 @@
     }
 
     function cancel() {
-      ctrl.selected = []
+      ctrl.items.forEach(function(item) {
+        delete item._selected
+      })
+      ctrl.selected = 0
       ctrl.selectAll = false
       ctrl.showSelect = false
     }
 
     function sendSelect() {
-      if (_.isFunction(ctrl.onSelect) && ctrl.selected.length > 0) {
-        ctrl.onSelect(EventEmitter(ctrl.selected))
+      if (_.isFunction(ctrl.onSelect) && ctrl.selected > 0) {
+        ctrl.onSelect(EventEmitter(selectedItems()))
       }
       cancel()
     }

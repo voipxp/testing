@@ -2,14 +2,14 @@
   <p class="panel-heading">
     User Search
     <span class="is-pulled-right">
-      <button class="button is-small"
+      <button class="button"
         ng-show="$ctrl.filter"
         ng-click="$ctrl.filter = null">
         <span class="icon">
           <i class="fas fa-times"></i>
         </span>
       </button>
-      <button class="button is-small"
+      <button class="button"
         ng-click="$ctrl.showHelp = !$ctrl.showHelp">
         <span class="icon">
           <i class="fas fa-info"></i>
@@ -22,26 +22,24 @@
       style="width: 100%">
       <div class="field has-addons">
         <p class="control">
-          <span class="select is-small">
-            <select ng-model="$ctrl.type"
-              ng-change="$ctrl.changeType()">
-              <option value="userId">ID</option>
-              <option value="lastName">Last Name</option>
-              <option value="dn">Phone</option>
-              <option value="emailAddress">Email</option>
-              <option value="extension">Extension</option>
-              <option value="macAddress">MAC</option>
-            </select>
-          </span>
+          <pbs-input-select ng-model="$ctrl.type"
+            ng-change="$ctrl.changeType()">
+            <option value="userId">ID</option>
+            <option value="lastName">Last Name</option>
+            <option value="dn">Phone</option>
+            <option value="emailAddress">Email</option>
+            <option value="extension">Extension</option>
+            <option value="macAddress">MAC</option>
+          </pbs-input-select>
         </p>
-        <p class="control has-icons-left is-expanded is-small"
+        <p class="control has-icons-left is-expanded"
           ng-class="{'is-loading': $ctrl.isLoading}">
-          <input class="input is-small"
+          <input class="input"
             type="search"
             placeholder="search"
             ng-model="$ctrl.filter"
             ng-disabled="$ctrl.isLoading">
-          <span class="icon is-small is-left">
+          <span class="icon is-left">
             <i class="fas fa-search"></i>
           </span>
         </p>

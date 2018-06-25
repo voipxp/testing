@@ -23,7 +23,6 @@
     var route = Route.open('UI')
 
     ctrl.onClick = function(event) {
-      console.log('onClick', event)
       route(event.component)
     }
 
@@ -46,6 +45,26 @@
       {
         component: 'pbsButtonDropdown',
         description: 'Compact Button Dropdown'
+      },
+      {
+        component: 'pbsInputCheckbox',
+        description: 'Form Checkbox'
+      },
+      {
+        component: 'pbsInputSwitch',
+        description: 'Form Checkbox Switch'
+      },
+      {
+        component: 'pbsInputRadio',
+        description: 'Form Radio'
+      },
+      {
+        component: 'pbsInputSelect',
+        description: 'Form Select'
+      },
+      {
+        component: 'pbsInputFile',
+        description: 'Form File Upload'
       }
     ]
   }

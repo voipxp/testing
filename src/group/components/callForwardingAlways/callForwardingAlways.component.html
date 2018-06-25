@@ -22,14 +22,12 @@
 <pbs-modal id="editUserCallForwardingAlways"
   title="Edit {{ $ctrl.editTitle }}">
   <pbs-form>
-    <input type="checkbox"
-      ng-model="$ctrl.editSettings.isRingSplashActive"
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isRingSplashActive"
       label="Is Ring Splash Active"
-      pbs-input-checkradio>
-    <input type="checkbox"
-      ng-model="$ctrl.editSettings.isActive"
+      indeterminate></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
       label="Is Active"
-      pbs-input-checkradio>
+      indeterminate></pbs-input-checkbox>
     <pbs-form-field-horizontal label="Forward To">
       <input type="text"
         class="input"

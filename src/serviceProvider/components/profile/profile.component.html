@@ -52,26 +52,19 @@
             required>
         </pbs-form-field>
         <pbs-form-field label="Default Domain">
-          <div class="select">
-            <select ng-model="$ctrl.editServiceProvider.defaultDomain"
-              ng-options="domain as domain for domain in $ctrl.domains.domains"
-              required></select>
-          </div>
+          <pbs-input-select ng-model="$ctrl.editServiceProvider.defaultDomain"
+            ng-options="domain as domain for domain in $ctrl.domains.domains"
+            required></pbs-input-select>
         </pbs-form-field>
         <pbs-form-field label="Provider Type">
-          <label class="radio">
-            <input type="radio"
-              ng-model="$ctrl.editServiceProvider.isEnterprise"
-              ng-value="false"
-              ng-change="$ctrl.selectType()"> Service Provider
-          </label>
-          <br>
-          <label class="radio">
-            <input type="radio"
-              ng-model="$ctrl.editServiceProvider.isEnterprise"
-              ng-value="true"
-              ng-change="$ctrl.selectType()"> Enterprise
-          </label>
+          <pbs-input-radio ng-model="$ctrl.editServiceProvider.isEnterprise"
+            ng-value="false"
+            ng-change="$ctrl.selectType()"
+            label="Service Provider"></pbs-input-radio>
+          <pbs-input-radio ng-model="$ctrl.editServiceProvider.isEnterprise"
+            ng-value="true"
+            ng-change="$ctrl.selectType()"
+            label="Enterprise"></pbs-input-radio>
         </pbs-form-field>
       </pbs-tab>
 
@@ -112,10 +105,8 @@
             ng-model="$ctrl.editServiceProvider.address.city">
         </pbs-form-field>
         <pbs-form-field label="State/Province">
-          <div class="select">
-            <select ng-model="$ctrl.editServiceProvider.address.stateOrProvince"
-              ng-options="state.key as state.displayName for state in $ctrl.states"></select>
-          </div>
+          <pbs-input-select ng-model="$ctrl.editServiceProvider.address.stateOrProvince"
+            ng-options="state.key as state.displayName for state in $ctrl.states"></pbs-input-select>
         </pbs-form-field>
         <pbs-form-field label="Postal Code">
           <input type="text"

@@ -16,17 +16,9 @@
 </pbs-spinner>
 <pbs-modal id="editUserCallWaiting"
   title="Edit Settings">
-  <pbs-form>
-    <pbs-form-field label="Settings">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.isActive"> Is Active
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.disableCallingLineIdDelivery"> Disable Calling Line Id Delivery
-      </label>
-    </pbs-form-field>
-  </pbs-form>
+  <pbs-form-section>Settings</pbs-form-section>
+  <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
+    label="Is Active"></pbs-input-checkbox>
+  <pbs-input-checkbox ng-model="$ctrl.editSettings.disableCallingLineIdDelivery"
+    label="Disable Calling Line Id Delivery"></pbs-input-checkbox>
 </pbs-modal>

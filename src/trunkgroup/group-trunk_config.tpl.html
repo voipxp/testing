@@ -24,18 +24,14 @@
     </pbs-form-field>
     <pbs-form-field label="Pilot User">
       <p ng-if="vm.isDisabled.pilotUserId">{{ vm.trunk.pilotUserId || "&nbsp;"}}</p>
-      <div class="select"
-        ng-if="!vm.isDisabled.pilotUserId">
-        <select ng-model="vm.trunk.pilotUserId"
-          ng-options="user.userId as (user.phoneNumber || user.userId) for user in vm.availableUsers"></select>
-      </div>
+      <pbs-input-select ng-model="vm.trunk.pilotUserId"
+        ng-if="!vm.isDisabled.pilotUserId"
+        ng-options="user.userId as (user.phoneNumber || user.userId) for user in vm.availableUsers"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Department">
-      <div class="select">
-        <select ng-model="vm.trunk.department"
-          ng-options="department.name for department in vm.departments track by department.name">
-        </select>
-      </div>
+      <pbs-input-select ng-model="vm.trunk.department"
+        ng-options="department.name for department in vm.departments track by department.name">
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Max Active Calls">
       <p ng-if="vm.isDisabled.maxActiveCalls">{{ vm.trunk.maxActiveCalls }}</p>

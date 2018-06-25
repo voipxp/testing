@@ -30,6 +30,7 @@
     ctrl.templates = { callingLineIdPhoneNumber: '{{ phoneNumber }}' }
 
     function onInit() {
+      console.log('selectNumbersLoaded')
       if (ctrl.phoneNumbers && ctrl.phoneNumbers.length >= ctrl.userCount) {
         ctrl.phoneNumberAction = 'select'
       } else {
@@ -71,7 +72,6 @@
     }
 
     function setNumbers(numbers) {
-      console.log('setNumbers', numbers)
       ctrl.phoneNumbers = numbers
       ctrl.phoneNumberAction = 'select'
       var defaultExtension = _.find(ctrl.extensions, { default: true })
@@ -90,9 +90,10 @@
     }
 
     function onUpdateNumbers(event) {
-      console.log('onUpdateNumbers', event)
       if (event.phoneNumbers.length >= ctrl.userCount) {
         setNumbers(event.phoneNumbers)
+      } else {
+        clearNumbers()
       }
     }
 

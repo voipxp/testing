@@ -6,29 +6,19 @@
       <pbs-columns>
         <pbs-column>
           <pbs-form-section>Display</pbs-form-section>
-          <input type="checkbox"
-            ng-model="$ctrl.isNarrow"
-            label="isNarrow"
-            pbs-input-switch>
-          <input type="checkbox"
-            ng-model="$ctrl.isCompact"
-            label="isCompact"
-            pbs-input-switch>
-          <input type="checkbox"
-            ng-model="$ctrl.isBordered"
-            label="isBordered"
-            pbs-input-switch>
-          <input type="checkbox"
-            ng-model="$ctrl.isStriped"
-            label="isStriped"
-            pbs-input-switch>
+          <pbs-input-switch ng-model="$ctrl.isNarrow"
+            label="isNarrow"></pbs-input-switch>
+          <pbs-input-switch ng-model="$ctrl.isCompact"
+            label="isCompact"></pbs-input-switch>
+          <pbs-input-switch ng-model="$ctrl.isBordered"
+            label="isBordered"></pbs-input-switch>
+          <pbs-input-switch ng-model="$ctrl.isStriped"
+            label="isStriped"></pbs-input-switch>
         </pbs-column>
         <pbs-column>
           <pbs-form-section>Controls</pbs-form-section>
-          <input type="checkbox"
-            ng-model="$ctrl.showSelect"
-            label="showSelect"
-            pbs-input-switch>
+          <pbs-input-switch ng-model="$ctrl.showSelect"
+            label="showSelect"></pbs-input-switch>
         </pbs-column>
         <pbs-column>
           <pbs-form-section>Pagination</pbs-form-section>

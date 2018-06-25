@@ -23,10 +23,9 @@
   title="Edit {{ $ctrl.editTitle }}">
   <pbs-form>
     <pbs-form-field-horizontal label="Recording Option">
-      <select ng-model="$ctrl.editSettings.recordingOption"
+      <pbs-input-select ng-model="$ctrl.editSettings.recordingOption"
         ng-options="opt for opt in $ctrl.options.recordingOptions"
-        pbs-input-select
-        required></select>
+        required></pbs-input-select>
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

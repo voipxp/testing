@@ -11,9 +11,8 @@
       </button>
     </pbs-form-field>
     <pbs-form-field label="File Source">
-      <select pbs-input-select
-        ng-options="opt for opt in ['Default', 'Manual', 'Custom']"
-        ng-model="$ctrl.file.fileSource"></select>
+      <pbs-input-select ng-options="opt for opt in ['Default', 'Manual', 'Custom']"
+        ng-model="$ctrl.file.fileSource"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Custom File"
       ng-show="$ctrl.file.fileSource === 'Custom'">

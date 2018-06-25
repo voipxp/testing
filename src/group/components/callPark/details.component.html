@@ -38,10 +38,8 @@
       group-id="$ctrl.groupId"
       settings="$ctrl.editSettings"></select-alternate-user>
     <pbs-form-field label="Recall To">
-      <select pbs-input-select
-        ng-model="$ctrl.editSettings.recallTo"
-        ng-options="opt for opt in $ctrl.options.recallTo">
-      </select>
+      <pbs-input-select ng-model="$ctrl.editSettings.recallTo"
+        ng-options="opt for opt in $ctrl.options.recallTo"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Display Timer">
       <input type="number"
@@ -52,15 +50,12 @@
         required>
     </pbs-form-field>
     <pbs-form-field label="Destination Announcement">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.enableDestinationAnnouncement"
-        label="Enable Destination Announcement"
-        pbs-input-switch>
+      <pbs-input-switch ng-model="$ctrl.editSettings.enableDestinationAnnouncement"
+        label="Enable Destination Announcement"></pbs-input-switch>
     </pbs-form-field>
     <pbs-form-field label="Recall Ring Pattern">
-      <select ng-model="$ctrl.editSettings.recallRingPattern"
-        ng-options="opt for opt in $ctrl.options.ringPattern"
-        pbs-input-select></select>
+      <pbs-input-select ng-model="$ctrl.editSettings.recallRingPattern"
+        ng-options="opt for opt in $ctrl.options.ringPattern"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Recall Timer">
       <input type="number"

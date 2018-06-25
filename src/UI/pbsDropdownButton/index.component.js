@@ -8,7 +8,6 @@
     var ctrl = this
 
     ctrl.onSelect = function(event) {
-      console.log('onClick', event)
       ctrl.selected = event
     }
     ctrl.icons = ['fa-cogs', 'fa-bulk', 'fa-sync']

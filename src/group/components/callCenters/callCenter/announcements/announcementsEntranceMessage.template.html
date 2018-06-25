@@ -20,15 +20,11 @@
   title="{{ $ctrl.modalTitle }}">
 
   <pbs-form-section>Settings</pbs-form-section>
-  <input type="checkbox"
-    ng-model="$ctrl.editAnnouncements.entranceMessage.enabled"
-    label="Play Entrance Message"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editAnnouncements.entranceMessage.enabled"
+    label="Play Entrance Message"></pbs-input-checkbox>
 
-  <input type="checkbox"
-    ng-model="$ctrl.editAnnouncements.entranceMessage.mandatory"
-    label="Entrance Message is Mandatory When Played"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editAnnouncements.entranceMessage.mandatory"
+    label="Entrance Message is Mandatory When Played"></pbs-input-checkbox>
 
   <group-call-center-audio-settings-edit service="$ctrl.editAnnouncements.entranceMessage"
     user-id="$ctrl.serviceUserId"></group-call-center-audio-settings-edit>

@@ -100,18 +100,13 @@
         ng-model="$ctrl.editTrunk.newName">
     </pbs-form-field>
     <pbs-form-field label="Department Name">
-      <div class="select">
-        <select ng-model="$ctrl.editTrunk.department"
-          ng-options="department as department.name for department in $ctrl.departments track by department.name"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editTrunk.department"
+        ng-options="department as department.name for department in $ctrl.departments track by department.name"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Authentication"
       ng-if="$ctrl.authentication.update">
-      <input type="checkbox"
-        label="Require Authentication"
-        ng-model="$ctrl.editTrunk.requireAuthentication"
-        pbs-input-checkradio>
-      </label>
+      <pbs-input-checkbox label="Require Authentication"
+        ng-model="$ctrl.editTrunk.requireAuthentication"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="SIP User Name"
       ng-if="$ctrl.authentication.update"
@@ -142,10 +137,8 @@
         ng-model="$ctrl.editTrunk.otgDtgIdentity">
     </pbs-form-field>
     <pbs-form-field label="Prefix">
-      <input type="checkbox"
-        ng-model="$ctrl.editTrunk.prefixEnabled"
-        label="Prefix Enabled"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.prefixEnabled"
+        label="Prefix Enabled"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Prefix"
       ng-show="$ctrl.editTrunk.prefixEnabled">
@@ -154,48 +147,28 @@
         ng-model="$ctrl.editTrunk.prefix">
     </pbs-form-field>
     <pbs-form-field label="Call Settings">
-      <input type="checkbox"
-        ng-model="$ctrl.editTrunk.allowTerminationToTrunkGroupIdentity"
-        label="Allow calls to trunk group with Trunk Identity"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editTrunk.allowTerminationToDtgIdentity"
-        label="Allow calls to trunk group with DTG Identity"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editTrunk.includeTrunkGroupIdentity"
-        label="Include Trunk Identity for Calls to Trunk Group"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editTrunk.includeDtgIdentity"
-        label="Include DTG Identity for Calls to Trunk Group"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editTrunk.includeTrunkGroupIdentityForNetworkCalls"
-        label="Include Trunk Identity for Calls from Trunk Group"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editTrunk.includeOtgIdentityForNetworkCalls"
-        label="Include OTG Identity for Calls from Trunk Group"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editTrunk.enableNetworkAddressIdentity"
-        label="Enable Network Address Identity"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editTrunk.allowUnscreenedCalls"
-        label="Allow Unscreened Calls"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editTrunk.allowUnscreenedEmergencyCalls"
-        label="Allow Unscreened Emergency Calls"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.allowTerminationToTrunkGroupIdentity"
+        label="Allow calls to trunk group with Trunk Identity"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.allowTerminationToDtgIdentity"
+        label="Allow calls to trunk group with DTG Identity"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.includeTrunkGroupIdentity"
+        label="Include Trunk Identity for Calls to Trunk Group"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.includeDtgIdentity"
+        label="Include DTG Identity for Calls to Trunk Group"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.includeTrunkGroupIdentityForNetworkCalls"
+        label="Include Trunk Identity for Calls from Trunk Group"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.includeOtgIdentityForNetworkCalls"
+        label="Include OTG Identity for Calls from Trunk Group"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.enableNetworkAddressIdentity"
+        label="Enable Network Address Identity"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.allowUnscreenedCalls"
+        label="Allow Unscreened Calls"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.allowUnscreenedEmergencyCalls"
+        label="Allow Unscreened Emergency Calls"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Peering Domain">
-      <input type="checkbox"
-        ng-model="$ctrl.editTrunk.routeToPeeringDomain"
-        label="Route to Peering Domain"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.routeToPeeringDomain"
+        label="Route to Peering Domain"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Peering Domain"
       ng-show="$ctrl.editTrunk.routeToPeeringDomain">
@@ -205,36 +178,26 @@
         ng-required="$ctrl.editTrunk.routeToPeeringDomain">
     </pbs-form-field>
     <pbs-form-field label="Call Optimization Policy">
-      <div class="select">
-        <select ng-model="$ctrl.editTrunk.pilotUserCallOptimizationPolicy"
-          ng-options="opt as opt for opt in $ctrl.options.pilotUserCallOptimizationPolicy"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editTrunk.pilotUserCallOptimizationPolicy"
+        ng-options="opt as opt for opt in $ctrl.options.pilotUserCallOptimizationPolicy"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="CLID Policy">
-      <div class="select">
-        <select ng-model="$ctrl.editTrunk.pilotUserCallingLineIdentityForExternalCallsPolicy"
-          ng-options="opt as opt for opt in $ctrl.options.pilotUserCallingLineIdentityForExternalCallsPolicy"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editTrunk.pilotUserCallingLineIdentityForExternalCallsPolicy"
+        ng-options="opt as opt for opt in $ctrl.options.pilotUserCallingLineIdentityForExternalCallsPolicy"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="CL Asserted ID Policy">
-      <input type="checkbox"
-        ng-model="$ctrl.editTrunk.useSystemCallingLineAssertedIdentityPolicy"
-        label="Use System Calling Line Asserted Identity Policy"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.useSystemCallingLineAssertedIdentityPolicy"
+        label="Use System Calling Line Asserted Identity Policy"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="CL Asserted ID Policy"
       ng-show="!$ctrl.editTrunk.useSystemCallingLineAssertedIdentityPolicy">
-      <div class="select">
-        <select ng-model="$ctrl.editTrunk.pilotUserCallingLineAssertedIdentityPolicy"
-          ng-options="opt as opt for opt in $ctrl.options.pilotUserCallingLineAssertedIdentityPolicy"
-          ng-required="!$ctrl.editTrunk.useSystemCallingLineAssertedIdentityPolicy"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editTrunk.pilotUserCallingLineAssertedIdentityPolicy"
+        ng-options="opt as opt for opt in $ctrl.options.pilotUserCallingLineAssertedIdentityPolicy"
+        ng-required="!$ctrl.editTrunk.useSystemCallingLineAssertedIdentityPolicy"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Charge Number Policy">
-      <div class="select">
-        <select ng-model="$ctrl.editTrunk.pilotUserChargeNumberPolicy"
-          ng-options="opt as opt for opt in $ctrl.options.pilotUserChargeNumberPolicy"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editTrunk.pilotUserChargeNumberPolicy"
+        ng-options="opt as opt for opt in $ctrl.options.pilotUserChargeNumberPolicy"></pbs-input-select>
     </pbs-form-field>
   </form>
 </pbs-modal>

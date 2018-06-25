@@ -28,15 +28,11 @@
   title="Edit Comfort Message Bypass">
 
   <pbs-form-section>Settings</pbs-form-section>
-  <input type="checkbox"
-    ng-model="$ctrl.editService.enabled"
-    label="Comfort Message Bypass Enabled"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editService.enabled"
+    label="Comfort Message Bypass Enabled"></pbs-input-checkbox>
 
-  <input type="checkbox"
-    ng-model="$ctrl.editService.playAnnouncementAfterRinging"
-    label="Play announcement after ringing"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editService.playAnnouncementAfterRinging"
+    label="Play announcement after ringing"></pbs-input-checkbox>
 
   <pbs-form-field-horizontal label="Bypass Wait Time Seconds">
     <input type="number"

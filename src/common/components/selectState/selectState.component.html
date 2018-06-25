@@ -1,9 +1,7 @@
-<div class="select is-fullwidth"
-  ng-class="{'is-loading': $ctrl.loading}">
-  <select ng-model="$ctrl.ngModel"
-    ng-options="state.key as state.displayName for state in $ctrl.states"
-    ng-required="$ctrl.ngRequired">
-    <option ng-if="!$ctrl.ngRequired"
-      value="">None</option>
-  </select>
-</div>
+<pbs-input-select ng-model="$ctrl.ngModel"
+  loading="$ctrl.loading"
+  ng-options="state.key as state.displayName for state in $ctrl.states"
+  ng-required="$ctrl.ngRequired">
+  <option ng-if="!$ctrl.ngRequired"
+    value="">None</option>
+</pbs-input-select>

@@ -49,31 +49,19 @@
 
   <pbs-form-field-horizontal-section>Settings</pbs-form-field-horizontal-section>
 
-  <input type="checkbox"
-    ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.enabled"
-    label="Play Estimated Wait Message"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.enabled"
+    label="Play Estimated Wait Message"></pbs-input-checkbox>
 
-  <input type="checkbox"
-    ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.playUpdatedEWM"
-    label="Play Updated Estimated Wait Message"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.playUpdatedEWM"
+    label="Play Updated Estimated Wait Message"></pbs-input-checkbox>
 
-  <div class="field"
-    ng-if="$ctrl.editAnnouncements.estimatedWaitMessage.operatingMode === 'Position'">
-    <input type="checkbox"
-      ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.playPositionHighVolume"
-      label="Play Position High Volume Message"
-      pbs-input-checkradio>
-  </div>
+  <pbs-input-checkbox ng-if="$ctrl.editAnnouncements.estimatedWaitMessage.operatingMode === 'Position'"
+    ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.playPositionHighVolume"
+    label="Play Position High Volume Message"></pbs-input-checkbox>
 
-  <div class="field"
-    ng-if="$ctrl.editAnnouncements.estimatedWaitMessage.operatingMode === 'Time'">
-    <input type="checkbox"
-      ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.playTimeHighVolume"
-      label="Play Time High Volume Message"
-      pbs-input-checkradio>
-  </div>
+  <pbs-input-checkbox ng-if="$ctrl.editAnnouncements.estimatedWaitMessage.operatingMode === 'Time'"
+    ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.playTimeHighVolume"
+    label="Play Time High Volume Message"></pbs-input-checkbox>
 
   <pbs-form-field-horizontal label="Seconds Between Update Messages"
     ng-show="$ctrl.editAnnouncements.estimatedWaitMessage.playUpdatedEWM">
@@ -85,9 +73,8 @@
   </pbs-form-field-horizontal>
 
   <pbs-form-field-horizontal label="Operating Mode">
-    <select ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.operatingMode"
-      ng-options="opt.key as opt.description for opt in $ctrl.options.operatingMode"
-      pbs-input-select></select>
+    <pbs-input-select ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.operatingMode"
+      ng-options="opt.key as opt.description for opt in $ctrl.options.operatingMode"></pbs-input-select>
   </pbs-form-field-horizontal>
 
   <pbs-form-field-horizontal label="Play Message at Position or Lower"

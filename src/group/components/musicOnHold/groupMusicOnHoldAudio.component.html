@@ -24,16 +24,12 @@
   title="Edit Audio">
   <pbs-form>
     <pbs-form-field label="Audio Codec">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.audioFilePreferredCodec"
-          ng-options="selection for selection in $ctrl.options.audioFileCodecs"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.audioFilePreferredCodec"
+        ng-options="selection for selection in $ctrl.options.audioFileCodecs"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Announcement Type">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.messageSourceSelection"
-          ng-options="selection for selection in $ctrl.options.messageSourceSelections"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.messageSourceSelection"
+        ng-options="selection for selection in $ctrl.options.messageSourceSelections"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Audio File"
       ng-show="$ctrl.editSettings.messageSourceSelection === 'Custom'">

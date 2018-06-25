@@ -37,11 +37,9 @@
           <td>{{ criteria.callsFrom.join(', ') }}</td>
           <td>{{ criteria.forwardTo }}</td>
           <td no-parent-click>
-            <input type="checkbox"
-              ng-model="criteria.isActive"
+            <pbs-input-switch ng-model="criteria.isActive"
               ng-change="$ctrl.toggle(criteria)"
-              pbs-input-switch="centered"
-              ng-disabled="criteria.isLoading">
+              ng-disabled="criteria.isLoading"></pbs-input-switch>
           </td>
         </tr>
       </tbody>
@@ -63,11 +61,9 @@
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal label="Forward To">
-      <select ng-model="$ctrl.editCriteria.forwardToNumberSelection"
+      <pbs-input-select ng-model="$ctrl.editCriteria.forwardToNumberSelection"
         ng-options="x for x in $ctrl.options.forwardToNumberSelection"
-        required
-        pbs-input-select>
-      </select>
+        required></pbs-input-select>
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal label="Forward To Specified"
@@ -92,26 +88,20 @@
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal label="Calls From">
-      <select ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
+      <pbs-input-select ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
         ng-options="x for x in $ctrl.options.fromDnCriteriaSelection"
-        required
-        pbs-input-select>
-      </select>
+        required></pbs-input-select>
     </pbs-form-field-horizontal>
 
     <div ng-show="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection === 'Specified Only'">
 
       <pbs-form-section>Allow From</pbs-form-section>
 
-      <input type="checkbox"
-        label="Any Private Number"
-        pbs-input-checkradio
-        ng-model="$ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers">
+      <pbs-input-checkbox label="Any Private Number"
+        ng-model="$ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers"></pbs-input-checkbox>
 
-      <input type="checkbox"
-        label="Any Unavailable Number"
-        pbs-input-checkradio
-        ng-model="$ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers">
+      <pbs-input-checkbox label="Any Unavailable Number"
+        ng-model="$ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers"></pbs-input-checkbox>
 
       <pbs-form-section>Allow From Specific Numbers</pbs-form-section>
 

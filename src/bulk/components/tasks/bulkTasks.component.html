@@ -4,7 +4,28 @@
       ng-click="$ctrl.open()"></pbs-button-compact-open>
   </pbs-block-buttons>
   <pbs-spinner loading="$ctrl.loading">
-    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <pbs-columns>
+      <pbs-column>
+        <pbs-table-search ng-model="$ctrl.search"
+          style="margin-bottom: 0"></pbs-table-search>
+      </pbs-column>
+      <pbs-column class="is-narrow">
+        <div class="buttons has-addons">
+          <button class="button"
+            ng-class="{'is-link': !$ctrl.searchStatus.status}"
+            ng-click="$ctrl.searchStatus = {}">All</button>
+          <button class="button"
+            ng-class="{'is-link': $ctrl.searchStatus.status === 'pending'}"
+            ng-click="$ctrl.searchStatus.status = 'pending'">Pending</button>
+          <button class="button"
+            ng-class="{'is-link': $ctrl.searchStatus.status === 'completed'}"
+            ng-click="$ctrl.searchStatus.status = 'completed'">Completed</button>
+          <button class="button"
+            ng-class="{'is-link': $ctrl.searchStatus.status === 'failed'}"
+            ng-click="$ctrl.searchStatus.status = 'failed'">Failed</button>
+        </div>
+      </pbs-column>
+    </pbs-columns>
     <table pbs-table>
       <thead>
         <tr>
@@ -17,14 +38,16 @@
       </thead>
       <tfoot>
         <tr ng-if="results.length < 1">
-          <td colspan="6">No Tasks Found
+          <td colspan="6">No
+            <strong ng-show="$ctrl.searchStatus.status">{{ $ctrl.searchStatus.status | capitalize }}</strong>
+            Tasks Found
             <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
           </td>
         </tr>
       </tfoot>
       <tbody>
         <tr class="hover"
-          ng-repeat="task in $ctrl.tasks | filter:$ctrl.search as results track by task.id"
+          ng-repeat="task in $ctrl.tasks | filter:$ctrl.searchStatus | filter:$ctrl.search as results track by task.id"
           ng-click="$ctrl.open(task)">
           <td>{{ task.userId }}</td>
           <td>{{ task.type }}</td>

@@ -71,17 +71,13 @@
     </pbs-form-field>
 
     <pbs-form-field label="Individual Out Dial">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.bridge.allowIndividualOutDial"> Allow Individual Out Dial
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.bridge.allowIndividualOutDial"
+        label="Allow Individual Out Dial"></pbs-input-checkbox>
     </pbs-form-field>
 
     <pbs-form-field label="Warning Prompt">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.bridge.playWarningPrompt"> Play Conference End Warning Prompt
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.bridge.playWarningPrompt"
+        label="Play Conference End Warning Prompt"></pbs-input-checkbox>
     </pbs-form-field>
 
     <pbs-form-field label="End Prompt Minutes"
@@ -113,10 +109,8 @@
     </pbs-form-field>
 
     <pbs-form-field label="Set Max Duration">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.bridge.enableMaxConferenceDuration"> Enable Max Conference Duration
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.bridge.enableMaxConferenceDuration"
+        label="Enable Max Conference Duration"></pbs-input-checkbox>
     </pbs-form-field>
 
     <pbs-form-field label="Max Duration Hours"

@@ -16,10 +16,8 @@
   title="Edit Anonymous Call Rejection">
   <pbs-form>
     <pbs-form-field label="Enabled">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.isActive"> Enable Anonymous Call Rejection
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
+        label="Enable Anonymous Call Rejection"></pbs-input-checkbox>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

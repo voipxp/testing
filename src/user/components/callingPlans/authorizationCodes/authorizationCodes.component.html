@@ -2,11 +2,9 @@
   <pbs-block title="Settings">
     <pbs-list>
       <pbs-list-item label="Use Custom Codes">
-        <input type="checkbox"
-          ng-model="$ctrl.editPlan.useCustomSettings"
+        <pbs-input-switch ng-model="$ctrl.editPlan.useCustomSettings"
           ng-change="$ctrl.toggle()"
-          ng-disabled="$ctrl.isUpdating"
-          pbs-input-switch>
+          ng-disabled="$ctrl.isUpdating"></pbs-input-switch>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>

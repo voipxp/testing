@@ -64,44 +64,34 @@
   title="Edit Disposition Code Settings">
   <form>
     <pbs-form-field label="Enabled">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.enableCallDispositionCodes"> Call Disposition Codes Enabled
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.enableCallDispositionCodes"
+        label="Call Disposition Codes Enabled"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Organization Codes"
       ng-show="$ctrl.editSettings.enableCallDispositionCodes">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.includeOrganizationCodes"> Use enterprise codes in addition to call center codes
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.includeOrganizationCodes"
+        label="Use enterprise codes in addition to call center codes"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Force Use"
       ng-show="$ctrl.editSettings.enableCallDispositionCodes">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.forceUseOfCallDispositionCodes"> Force use of call disposition codes
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.forceUseOfCallDispositionCodes"
+        label="Force use of call disposition codes"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Default Code"
       ng-show="$ctrl.editSettings.enableCallDispositionCodes">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.defaultCallDispositionCode"
-          ng-required="$ctrl.editSettings.forceUseOfCallDispositionCodes"
-          ng-options="opt as opt.code for opt in $ctrl.codes track by opt.code">
-          <option value="">-- None --</option>
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.defaultCallDispositionCode"
+        ng-required="$ctrl.editSettings.forceUseOfCallDispositionCodes"
+        ng-options="opt as opt.code for opt in $ctrl.codes track by opt.code">
+        <option value="">-- None --</option>
+      </pbs-input-select>
     </pbs-form-field>
   </form>
 </pbs-modal>
 <pbs-modal id="editGroupCallCenterQueueDispositionCode"
   title="Edit Disposition Code">
   <pbs-form-field label="Enabled">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.selectedCode.isActive"> Enable Disposition Code
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.selectedCode.isActive"
+      label="Enable Disposition Code"></pbs-input-checkbox>
   </pbs-form-field>
   <pbs-form-field label="Description">
     <input type="text"
@@ -124,10 +114,8 @@
         ng-model="$ctrl.newCode.description">
     </pbs-form-field>
     <pbs-form-field label="Enabled">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.newCode.isActive"> Enable Disposition Code
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.newCode.isActive"
+        label="Enable Disposition Code"></pbs-input-checkbox>
     </pbs-form-field>
   </form>
 </pbs-modal>

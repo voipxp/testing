@@ -23,9 +23,7 @@
         ng-model="$ctrl.editMenu.newSubmenuId"
         required>
     </pbs-form-field>
-    <input type="checkbox"
-      ng-model="$ctrl.editMenu.enableLevelExtensionDialing"
-      label="Enable Level Extension Dialing"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editMenu.enableLevelExtensionDialing"
+      label="Enable Level Extension Dialing"></pbs-input-checkbox>
   </pbs-form>
 </pbs-modal>

@@ -59,29 +59,22 @@
     <pbs-form-field label="General Settings">
       <pbs-input-checkbox label="Alert All for Click-to-Dial Calls"
         ng-model="$ctrl.editSharedCallAppearance.alertAllAppearancesForClickToDialCalls"></pbs-input-checkbox>
-      <br>
       <pbs-input-checkbox label="Alert All for Group Paging Calls"
         ng-model="$ctrl.editSharedCallAppearance.alertAllAppearancesForGroupPagingCalls"></pbs-input-checkbox>
-      <br>
       <pbs-input-checkbox label="Allow Call Retrieve from Another Location"
         ng-model="$ctrl.editSharedCallAppearance.allowSCACallRetrieve"></pbs-input-checkbox>
-      <br>
       <pbs-input-checkbox label="Multiple Call Arrangement Active"
         ng-model="$ctrl.editSharedCallAppearance.multipleCallArrangementIsActive"
         ng-disabled="!$ctrl.editSharedCallAppearance.enableMultipleCallArrangement">
       </pbs-input-checkbox>
-      <br>
       <pbs-input-checkbox label="Allow Bridging Between Locations"
         ng-model="$ctrl.editSharedCallAppearance.allowBridgingBetweenLocations"></pbs-input-checkbox>
-      <br>
       <pbs-input-checkbox label="Enable Call Park Notification"
         ng-model="$ctrl.editSharedCallAppearance.enableCallParkNotification"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Bridge Warning Tone">
-      <div class="select">
-        <select ng-model="$ctrl.editSharedCallAppearance.bridgeWarningTone"
-          ng-options="opt as opt for opt in $ctrl.options.bridgeWarningTone"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSharedCallAppearance.bridgeWarningTone"
+        ng-options="opt as opt for opt in $ctrl.options.bridgeWarningTone"></pbs-input-select>
     </pbs-form-field>
     </pbs-form-field>
   </pbs-form>

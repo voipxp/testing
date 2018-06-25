@@ -47,24 +47,19 @@
 <pbs-modal id="groupMusicOnHoldCreate"
   title="Create MOH Department">
   <pbs-form>
-    <pbs-form-field label="Department">
-      <div class="select">
-        <select ng-model="$ctrl.newMoh.department"
-          ng-options="department as department.fullPathName for department in $ctrl.departments track by department.name"></select>
-      </div>
-    </pbs-form-field>
-    <pbs-form-field label="Settings">
-      <pbs-input-checkbox label="Enable During Call Hold"
-        ng-model="$ctrl.newMoh.isActiveDuringCallHold">
-      </pbs-input-checkbox>
-      <br>
-      <pbs-input-checkbox label="Enable During Call Park"
-        ng-model="$ctrl.newMoh.isActiveDuringCallPark">
-      </pbs-input-checkbox>
-      <br>
-      <pbs-input-checkbox label="Enable During Busy Camp On"
-        ng-model="$ctrl.newMoh.isActiveDuringBusyCampOn"></pbs-input-checkbox>
-      </pbs-input-checkbox>
-    </pbs-form-field>
+    <pbs-form-field-horizontal label="Department">
+      <pbs-input-select ng-model="$ctrl.newMoh.department"
+        ng-options="department as department.fullPathName for department in $ctrl.departments track by department.name"></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-section>Settings</pbs-form-section>
+    <pbs-input-checkbox label="Enable During Call Hold"
+      ng-model="$ctrl.newMoh.isActiveDuringCallHold">
+    </pbs-input-checkbox>
+    <pbs-input-checkbox label="Enable During Call Park"
+      ng-model="$ctrl.newMoh.isActiveDuringCallPark">
+    </pbs-input-checkbox>
+    <pbs-input-checkbox label="Enable During Busy Camp On"
+      ng-model="$ctrl.newMoh.isActiveDuringBusyCampOn"></pbs-input-checkbox>
+    </pbs-input-checkbox>
   </pbs-form>
 </pbs-modal>

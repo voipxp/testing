@@ -16,17 +16,8 @@
 </pbs-spinner>
 <pbs-modal id="editUserDirectedCallPickupWithBargeIn"
   title="Edit Directed Call Pickup With Barge In">
-  <pbs-form>
-    <pbs-form-field label="Settings">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.enableBargeInWarningTone"> Barge In Warning Tone
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.enableAutomaticTargetSelection"> Automatic Target Selection
-      </label>
-    </pbs-form-field>
-  </pbs-form>
+  <pbs-input-checkbox label="Barge In Warning Tone"
+    ng-model="$ctrl.editSettings.enableBargeInWarningTone"></pbs-input-checkbox>
+  <pbs-input-checkbox ng-model="$ctrl.editSettings.enableAutomaticTargetSelection"
+    label="Automatic Target Selection"></pbs-input-checkbox>
 </pbs-modal>

@@ -44,21 +44,14 @@
   title="Auto Attendant Report">
   <pbs-form label="Call Records Search">
     <pbs-form-field-horizontal label="Auto Attendant">
-      <div class="select">
-        <select class=""
-          ng-model="$ctrl.editSearch.serviceUserId"
-          ng-options="aa.serviceUserId as aa.name for aa in $ctrl.autoAttendants"
-          required>
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSearch.serviceUserId"
+        ng-options="aa.serviceUserId as aa.name for aa in $ctrl.autoAttendants"
+        required></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Report Type">
-      <select class=""
-        ng-model="$ctrl.editSearch.reportType"
+      <pbs-input-select ng-model="$ctrl.editSearch.reportType"
         ng-options="opt as opt for opt in $ctrl.options.reportType"
-        required
-        pbs-input-select
-        full-width>
+        required></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Start Time">
       <pbs-input-datetime ng-model="$ctrl.editSearch.startTime"

@@ -17,16 +17,12 @@
   title="Edit Call Policies">
   <form>
     <pbs-form-field label="CLID Privacy">
-      <div class="select">
-        <select ng-model="$ctrl.editPolicies.redirectedCallsCOLPPrivacy"
-          ng-options="type for type in $ctrl.options.redirectedCallsCOLPPrivacy"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editPolicies.redirectedCallsCOLPPrivacy"
+        ng-options="type for type in $ctrl.options.redirectedCallsCOLPPrivacy"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Forwarded Calls">
-      <div class="select">
-        <select ng-model="$ctrl.editPolicies.callBeingForwardedResponseCallType"
-          ng-options="type for type in $ctrl.options.callBeingForwardedResponseCallType"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editPolicies.callBeingForwardedResponseCallType"
+        ng-options="type for type in $ctrl.options.callBeingForwardedResponseCallType"></pbs-input-select>
     </pbs-form-field>
   </form>
 </pbs-modal>

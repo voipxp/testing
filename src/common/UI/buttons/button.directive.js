@@ -28,7 +28,7 @@
     return button
     function button() {
       var template =
-        '<button class="button" ng-class="buttonColor">' +
+        '<button type="button" class="button" ng-class="buttonColor">' +
         '  <span class="icon">' +
         '    <i class="fas" ng-class="iconClass"></i>' +
         '  </span>' +

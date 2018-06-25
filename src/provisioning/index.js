@@ -16,9 +16,7 @@
       acl: 'Provisioning'
     }
   ]
-  angular
-    .module('odin.provisioning', ['angularFileInput'])
-    .config(function(PbsRouteProvider) {
-      PbsRouteProvider.set(routes)
-    })
+  angular.module('odin.provisioning', []).config(function(PbsRouteProvider) {
+    PbsRouteProvider.set(routes)
+  })
 })()

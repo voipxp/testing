@@ -56,11 +56,9 @@
   <form>
 
     <pbs-form-field-horizontal label="Mail Server">
-      <div class="select">
-        <select ng-model="$ctrl.editMessaging.mailServerSelection"
-          ng-options="opt for opt in $ctrl.options.mailServerSelection">
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editMessaging.mailServerSelection"
+        ng-options="opt for opt in $ctrl.options.mailServerSelection">
+      </pbs-input-select>
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal label="Email Address"
@@ -87,19 +85,15 @@
 
     <pbs-form-field-horizontal label="Mailbox Limit"
       ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]">
-      <input type="checkbox"
-        ng-model="$ctrl.editMessaging.useGroupDefaultMailServerFullMailboxLimit"
-        label="Use Group Default Mailbox Limit"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.editMessaging.useGroupDefaultMailServerFullMailboxLimit"
+        label="Use Group Default Mailbox Limit"></pbs-input-checkbox>
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal label="Mailbox Limit"
       ng-show="($ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]) && !$ctrl.editMessaging.useGroupDefaultMailServerFullMailboxLimit">
-      <div class="select">
-        <select ng-model="$ctrl.editMessaging.groupMailServerFullMailboxLimit"
-          ng-options="opt for opt in $ctrl.options.groupMailServerFullMailboxLimit">
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editMessaging.groupMailServerFullMailboxLimit"
+        ng-options="opt for opt in $ctrl.options.groupMailServerFullMailboxLimit">
+      </pbs-input-select>
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal label="Server Address"
@@ -111,19 +105,15 @@
 
     <pbs-form-field-horizontal label="Server Protocol"
       ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]">
-      <div class="select">
-        <select ng-model="$ctrl.editMessaging.personalMailServerProtocol"
-          ng-options="opt for opt in $ctrl.options.personalMailServerProtocol">
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editMessaging.personalMailServerProtocol"
+        ng-options="opt for opt in $ctrl.options.personalMailServerProtocol">
+      </pbs-input-select>
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal label="IMAP Delete"
       ng-show="($ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]) && ($ctrl.editMessaging.personalMailServerProtocol === $ctrl.options.personalMailServerProtocol[1])">
-      <label type="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editMessaging.personalMailServerRealDeleteForImap"> Delete All Messages Marked for Deletion
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editMessaging.personalMailServerRealDeleteForImap"
+        label="Delete All Messages Marked for Deletion"></pbs-input-checkbox>
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal label="Email Address"

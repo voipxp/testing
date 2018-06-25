@@ -58,22 +58,14 @@
         ng-model="$ctrl.editNumber.outboundAlternateNumber">
     </pbs-form-field>
     <pbs-form-field label="General Settings">
-      <input type="checkbox"
-        ng-model="$ctrl.editNumber.isActive"
-        label="Is Active"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editNumber.useDiversionInhibitor"
-        label="Use Diversion Inhibitor"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editNumber.answerConfirmationRequired"
-        label="Answer Confirmation Required"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editNumber.broadworksCallControl"
-        label="Broadworks Call Control"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.editNumber.isActive"
+        label="Is Active"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editNumber.useDiversionInhibitor"
+        label="Use Diversion Inhibitor"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editNumber.answerConfirmationRequired"
+        label="Answer Confirmation Required"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editNumber.broadworksCallControl"
+        label="Broadworks Call Control"></pbs-input-checkbox>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

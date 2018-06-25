@@ -51,10 +51,8 @@
       </pbs-column>
       <pbs-column>
         <pbs-form-field label="Options">
-          <label class="checkbox">
-            <input type="checkbox"
-              ng-model="$ctrl.editEvent.allDayEvent"> All Day Event
-          </label>
+          <pbs-input-checkbox ng-model="$ctrl.editEvent.allDayEvent"
+            label="All Day Event"></pbs-input-checkbox>
         </pbs-form-field>
       </pbs-column>
     </pbs-columns>

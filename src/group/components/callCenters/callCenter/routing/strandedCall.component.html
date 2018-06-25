@@ -22,9 +22,8 @@
 <pbs-modal id="editGroupCallCenterStrandedCall"
   title="Edit Stranded Call">
   <pbs-form-field-horizontal label="Action">
-    <select ng-model="$ctrl.editService.action"
-      ng-options="opt.key as opt.description for opt in $ctrl.options.action"
-      pbs-input-select></select>
+    <pbs-input-select ng-model="$ctrl.editService.action"
+      ng-options="opt.key as opt.description for opt in $ctrl.options.action"></pbs-input-select>
   </pbs-form-field-horizontal>
 
   <pbs-form-field-horizontal label="Transfer To"

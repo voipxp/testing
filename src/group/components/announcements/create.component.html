@@ -8,11 +8,9 @@
     </pbs-form-field>
     <pbs-form-field label="Media Type"
       ng-show="$ctrl.announcement.content">
-      <div class="select">
-        <select ng-model="$ctrl.announcement.mediaType"
-          ng-options="type for type in $ctrl.options.mediaTypes"
-          required></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.announcement.mediaType"
+        ng-options="type for type in $ctrl.options.mediaTypes"
+        required></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="File Name"
       ng-show="$ctrl.announcement.content">

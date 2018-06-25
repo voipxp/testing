@@ -62,6 +62,7 @@
         })
         .catch(function(error) {
           Alert.notify.danger(error)
+          sendUpdate([])
         })
         .finally(function() {
           Alert.spinner.close()

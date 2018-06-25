@@ -1,0 +1,40 @@
+<pbs-doc-nav component="pbsInputCheckbox"></pbs-doc-nav>
+
+<div class="box">
+  <pbs-columns>
+    <pbs-column>
+      <pbs-form-section>Example</pbs-form-section>
+      <pbs-input-checkbox ng-model="$ctrl.item"
+        ng-true-value="'True Value'"
+        ng-false-value="'False Value'"
+        label="Checkbox Label"
+        indeterminate></pbs-input-checkbox>
+      <pbs-form-section>Value</pbs-form-section>
+      <p>{{ $ctrl.item === undefined ? 'undefined' : $ctrl.item }}</p>
+    </pbs-column>
+    <pbs-column>
+      <pbs-form-section>Options</pbs-form-section>
+      <dl>
+        <dt>label</dt>
+        <dd>Clickable label next to checkbox</dd>
+        <dt>indeterminate</dt>
+        <dd>Shows an indeterminate state when undefined</dd>
+      </dl>
+    </pbs-column>
+  </pbs-columns>
+</div>
+<div class="box content">
+  <marked src="'pbsInputCheckbox.md'"></marked>
+</div>
+
+<script type="text/ng-template"
+  id="pbsInputCheckbox.md">
+## HTML
+```
+<pbs-input-checkbox ng-model="$ctrl.item"
+  ng-true-value="'True Value'"
+  ng-false-value="'False Value'"
+  label="Checkbox Label"
+  indeterminate></pbs-input-checkbox>
+```
+</script>

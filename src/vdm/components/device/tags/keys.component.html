@@ -19,16 +19,14 @@
     <pbs-form-field label="Type">
       <div class="control"
         ng-class="{'has-icons-left': $ctrl.editKey.locked}">
-        <div class="select">
-          <select ng-model="$ctrl.editKey.type"
-            ng-options="key as value for (key, value) in $ctrl.options.types"
-            ng-change="$ctrl.editType($ctrl.editKey)"
-            ng-disabled="$ctrl.editKey.locked && !$ctrl.isAdmin()">
-          </select>
-          <div class="icon is-small is-left"
-            ng-if="$ctrl.editKey.locked">
-            <i class="fas fa-lock"></i>
-          </div>
+        <pbs-input-select ng-model="$ctrl.editKey.type"
+          ng-options="key as value for (key, value) in $ctrl.options.types"
+          ng-change="$ctrl.editType($ctrl.editKey)"
+          ng-disabled="$ctrl.editKey.locked && !$ctrl.isAdmin()">
+        </pbs-input-select>
+        <div class="icon is-small is-left"
+          ng-if="$ctrl.editKey.locked">
+          <i class="fas fa-lock"></i>
         </div>
       </div>
     </pbs-form-field>
@@ -46,22 +44,18 @@
     </pbs-form-field>
     <pbs-form-field label="Line"
       ng-show="$ctrl.showLine($ctrl.editKey.type)">
-      <div class="select">
-        <select ng-model="$ctrl.editKey.line"
-          ng-options="opt.id as opt.label for opt in $ctrl.options.lines">
-          <option value="">-- None --</option>
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editKey.line"
+        ng-options="opt.id as opt.label for opt in $ctrl.options.lines">
+        <option value="">-- None --</option>
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Multicast Group"
       ng-show="$ctrl.showMulticast($ctrl.editKey.type)">
-      <div class="select">
-        <select ng-model="$ctrl.editKey.value"
-          ng-options="opt.ip as opt.label for opt in $ctrl.options.multicast"
-          ng-change="$ctrl.editMulticast($ctrl.editKey)">
-          <option value="">-- None --</option>
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editKey.value"
+        ng-options="opt.ip as opt.label for opt in $ctrl.options.multicast"
+        ng-change="$ctrl.editMulticast($ctrl.editKey)">
+        <option value="">-- None --</option>
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Extension"
       ng-show="$ctrl.showExtension($ctrl.editKey.type)">

@@ -6,20 +6,16 @@
         ({{ $ctrl.services[type].length }} Selected)
       </span>
     </pbs-form-section>
-    <input type="radio"
-      value="skip"
+    <pbs-input-radio value="skip"
       ng-model="$ctrl.actions[type]"
       ng-click="$ctrl.clear(type)"
-      label="Skip {{ description }}"
-      pbs-input-checkradio>
-    <input type="radio"
-      ng-repeat="action in ['add']"
+      label="Skip {{ description }}"></pbs-input-radio>
+    <pbs-input-radio ng-repeat="action in ['add']"
       ng-value="action"
       ng-change="$ctrl.clear(type)"
       ng-model="$ctrl.actions[type]"
       ng-click="$ctrl.select(type, action)"
-      label="{{ action | capitalize }} {{ description }}"
-      pbs-input-checkradio>
+      label="{{ action | capitalize }} {{ description }}"></pbs-input-radio>
     <div class="margin-bottom"></div>
   </div>
 

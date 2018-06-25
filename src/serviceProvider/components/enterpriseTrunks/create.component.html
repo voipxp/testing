@@ -16,11 +16,9 @@
         required>
     </pbs-form-field>
     <pbs-form-field label="Exhaustion Action">
-      <div class="select">
-        <select ng-model="$ctrl.trunk.routeExhaustionAction"
-          ng-options="opt as opt for opt in $ctrl.options.routeExhaustionAction"
-          required></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.trunk.routeExhaustionAction"
+        ng-options="opt as opt for opt in $ctrl.options.routeExhaustionAction"
+        required></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Forward To"
       ng-show="$ctrl.trunk.routeExhaustionAction === 'Forward'">
@@ -29,12 +27,10 @@
         ng-model="$ctrl.trunk.routeExhaustionForwardAddress">
     </pbs-form-field>
     <pbs-form-field label="Routing Type">
-      <div class="select">
-        <select ng-model="$ctrl.routingType"
-          ng-options="opt as opt for opt in $ctrl.routingTypes"
-          ng-change="$ctrl.changeRouting()"
-          required></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.routingType"
+        ng-options="opt as opt for opt in $ctrl.routingTypes"
+        ng-change="$ctrl.changeRouting()"
+        required></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Max Reroutes in Priority"
       ng-show="$ctrl.trunk.priorityWeightedRouting">
@@ -47,12 +43,10 @@
     </pbs-form-field>
     <pbs-form-field label="Ordering Algorithm"
       ng-show="$ctrl.trunk.orderedRouting">
-      <div class="select">
-        <select class=""
-          ng-model="$ctrl.trunk.orderedRouting.orderingAlgorithm"
-          ng-options="opt as opt for opt in $ctrl.options.orderingAlgorithm"
-          ng-required="$ctrl.trunk.orderedRouting"></select>
-      </div>
+      <pbs-input-select class=""
+        ng-model="$ctrl.trunk.orderedRouting.orderingAlgorithm"
+        ng-options="opt as opt for opt in $ctrl.options.orderingAlgorithm"
+        ng-required="$ctrl.trunk.orderedRouting"></pbs-input-select>
     </pbs-form-field>
   </form>
 </pbs-modal>

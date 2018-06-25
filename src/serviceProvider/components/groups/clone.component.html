@@ -62,39 +62,23 @@
             required>
         </pbs-form-field-horizontal>
         <pbs-form-section>Clone Options</pbs-form-section>
-        <input type="checkbox"
-          label="Feature Access Code"
-          ng-model="$ctrl.options.featureAccessCode"
-          pbs-input-checkradio>
-        <input type="checkbox"
-          ng-model="$ctrl.options.callProcessingPolicy"
-          label="Call Processing Policy"
-          pbs-input-checkradio>
-        <input type="checkbox"
-          label="Network Class of Service"
+        <pbs-input-checkbox label="Feature Access Code"
+          ng-model="$ctrl.options.featureAccessCode"></pbs-input-checkbox>
+        <pbs-input-checkbox ng-model="$ctrl.options.callProcessingPolicy"
+          label="Call Processing Policy"></pbs-input-checkbox>
+        <pbs-input-checkbox label="Network Class of Service"
           ng-model="$ctrl.options.networkClassOfService"
-          ng-if="$ctrl.canCloneNetworkClassOfService"
-          pbs-input-checkradio>
-        <input type="checkbox"
-          label="Extension Length"
-          ng-model="$ctrl.options.extensionLength"
-          pbs-input-checkradio>
-        <input type="checkbox"
-          label="Services"
-          ng-model="$ctrl.options.services"
-          pbs-input-checkradio>
-        <input type="checkbox"
-          label="Group Policy"
-          ng-model="$ctrl.options.policy"
-          pbs-input-checkradio>
-        <input type="checkbox"
-          label="Schedule"
-          ng-model="$ctrl.options.schedule"
-          pbs-input-checkradio>
-        <input type="checkbox"
-          label="Outgoing Calling Plan"
-          ng-model="$ctrl.options.outgoingCallingPlan"
-          pbs-input-checkradio>
+          ng-if="$ctrl.canCloneNetworkClassOfService"></pbs-input-checkbox>
+        <pbs-input-checkbox label="Extension Length"
+          ng-model="$ctrl.options.extensionLength"></pbs-input-checkbox>
+        <pbs-input-checkbox label="Services"
+          ng-model="$ctrl.options.services"></pbs-input-checkbox>
+        <pbs-input-checkbox label="Group Policy"
+          ng-model="$ctrl.options.policy"></pbs-input-checkbox>
+        <pbs-input-checkbox label="Schedule"
+          ng-model="$ctrl.options.schedule"></pbs-input-checkbox>
+        <pbs-input-checkbox label="Outgoing Calling Plan"
+          ng-model="$ctrl.options.outgoingCallingPlan"></pbs-input-checkbox>
       </pbs-tab>
       <pbs-tab label="Options">
         <pbs-form-field-horizontal label="Default Domain">

@@ -12,11 +12,9 @@
           <a class="button is-static">@</a>
         </p>
         <p class="control">
-          <span class="select">
-            <select ng-model="$ctrl.domain"
-              ng-options="domain as domain for domain in $ctrl.domains.domains"
-              required></select>
-          </span>
+          <pbs-input-select ng-model="$ctrl.domain"
+            ng-options="domain as domain for domain in $ctrl.domains.domains"
+            required></pbs-input-select>
         </p>
       </bulk-tag-input>
     </form>

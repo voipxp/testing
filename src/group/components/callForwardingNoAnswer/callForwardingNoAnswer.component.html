@@ -22,10 +22,8 @@
 <pbs-modal id="editUserCallForwardingNoAnswer"
   title="Edit {{ $ctrl.editTitle }}">
   <pbs-form>
-    <input type="checkbox"
-      ng-model="$ctrl.editSettings.isActive"
-      label="Is Active"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
+      label="Is Active"></pbs-input-checkbox>
     <pbs-form-field-horizontal label="Forward To">
       <input type="text"
         class="input"

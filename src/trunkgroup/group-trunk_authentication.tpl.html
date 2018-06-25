@@ -1,10 +1,10 @@
 <pbs-form-field label="Require Authentication">
   <p ng-if="vm.isDisabled.requireAuthentication">{{ vm.trunk.requireAuthentication }}</p>
-  <input ng-if="!vm.isDisabled.requireAuthentication"
-    type="checkbox"
+  <pbs-input-checkbox ng-if="!vm.isDisabled.requireAuthentication"
     ng-model="vm.trunk.requireAuthentication"
     ng-true-value="'true'"
-    ng-false-value="'false'">
+    ng-false-value="'false'"
+    label="Require Authentication"></pbs-input-checkbox>
 </pbs-form-field>
 <pbs-form-field label="User Name"
   ng-show="vm.trunk.requireAuthentication === 'true'">

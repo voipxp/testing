@@ -69,10 +69,8 @@
         on-update="$ctrl.onUpdateListURI($event)"></select-user-id>
     </pbs-form-field>
     <pbs-form-field label="Other Settings">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.enableCallParkNotification"
-        label="Enable Call Park Notification"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.enableCallParkNotification"
+        label="Enable Call Park Notification"></pbs-input-checkbox>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

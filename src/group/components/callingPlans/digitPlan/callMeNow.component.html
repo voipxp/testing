@@ -32,10 +32,8 @@
   title="{{ $ctrl.editDepartment.department.name || 'Group Default' }} - Call Me Now">
   <pbs-form>
     <pbs-form-section>Digit Pattern Permissions</pbs-form-section>
-    <input type="checkbox"
-      ng-model="pattern.permission"
+    <pbs-input-checkbox ng-model="pattern.permission"
       label="{{ pattern.digitPatternName }}"
-      ng-repeat="pattern in $ctrl.editDepartment.digitPatterns"
-      pbs-input-checkradio>
+      ng-repeat="pattern in $ctrl.editDepartment.digitPatterns"></pbs-input-checkbox>
   </pbs-form>
 </pbs-modal>

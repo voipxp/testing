@@ -24,18 +24,14 @@
 <pbs-modal id="{{ $ctrl.modalId }}"
   title="Edit Audio Settings">
   <pbs-form>
-    <pbs-form-field label="Announcement Type">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.announcementSelection"
-          ng-options="selection for selection in $ctrl.options.announcementSelections"></select>
-      </div>
-    </pbs-form-field>
-    <pbs-form-field label="Extension Dialing">
-      <pbs-input-checkbox label="Enable First Menu Level Extension Dialing"
-        ng-model="$ctrl.editSettings.enableFirstMenuLevelExtensionDialing"></pbs-input-checkbox>
-    </pbs-form-field>
-    <pbs-form-field label="Audio File"
-      ng-show="$ctrl.editSettings.announcementSelection === 'Personal'">
+    <pbs-input-checkbox label="Enable First Menu Level Extension Dialing"
+      ng-model="$ctrl.editSettings.enableFirstMenuLevelExtensionDialing"></pbs-input-checkbox>
+    <pbs-form-field-horizontal label="Announcement Type">
+      <pbs-input-select ng-model="$ctrl.editSettings.announcementSelection"
+        ng-options="selection for selection in $ctrl.options.announcementSelections"></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <div ng-show="$ctrl.editSettings.announcementSelection === 'Personal'">
+      <pbs-form-section>Audio File</pbs-form-section>
       <div ng-if="!$ctrl.hasRepository">
         <div class="field has-addons">
           <p class="control is-expanded">
@@ -87,7 +83,7 @@
           </p>
         </div>
       </div>
-    </pbs-form-field>
+    </div>
   </pbs-form>
 </pbs-modal>
 

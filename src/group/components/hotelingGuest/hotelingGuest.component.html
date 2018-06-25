@@ -22,14 +22,10 @@
 <pbs-modal id="editUserHotelingGuest"
   title="Edit {{ $ctrl.editTitle }}">
   <pbs-form>
-    <input type="checkbox"
-      ng-model="$ctrl.editSettings.isActive"
-      label="Is Active"
-      pbs-input-checkradio>
-    <input type="checkbox"
-      ng-model="$ctrl.editSettings.enableAssociationLimit"
-      label="Enforce Association Limit"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
+      label="Is Active"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.enableAssociationLimit"
+      label="Enforce Association Limit"></pbs-input-checkbox>
     <pbs-form-field-horizontal label="Enforce Association Limit Hours">
       <input type="number"
         class="input"

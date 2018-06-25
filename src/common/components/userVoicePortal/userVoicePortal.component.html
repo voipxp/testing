@@ -29,17 +29,13 @@
   <form name="editUserVoicePortalForm">
 
     <pbs-form-field label="Auto Login">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editPortal.voicePortalAutoLogin"> Auto-login When Calling From Your Phone
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editPortal.voicePortalAutoLogin"
+        label="Auto-login When Calling From Your Phone"></pbs-input-checkbox>
     </pbs-form-field>
 
     <pbs-form-field label="Personalized Name">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editPortal.usePersonalizedName"> Use Personalized Name
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editPortal.usePersonalizedName"
+        label="Use Personalized Name"></pbs-input-checkbox>
     </pbs-form-field>
 
     <pbs-form-field label="Upload File"
@@ -59,11 +55,9 @@
 
     <pbs-form-field label="Audio File Type*"
       ng-show="$ctrl.editPortal.audioFile.content">
-      <div class="select">
-        <select ng-model="$ctrl.editPortal.audioFile.mediaType"
-          ng-options="type for type in $ctrl.options.mediaTypes"
-          ng-required="$ctrl.editPortal.usePersonalizedName"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editPortal.audioFile.mediaType"
+        ng-options="type for type in $ctrl.options.mediaTypes"
+        ng-required="$ctrl.editPortal.usePersonalizedName"></pbs-input-select>
     </pbs-form-field>
   </form>
 </pbs-modal>

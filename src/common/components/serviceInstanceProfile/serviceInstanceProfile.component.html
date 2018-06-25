@@ -85,24 +85,18 @@
         ng-model="$ctrl.editProfile.publicUserIdentity">
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Department">
-      <div class="select">
-        <select ng-model="$ctrl.editProfile.department"
-          ng-options="department as department.name for department in $ctrl.departments track by department.name">
-          <option value="">-- None --</option>
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editProfile.department"
+        ng-options="department as department.name for department in $ctrl.departments track by department.name">
+        <option value="">-- None --</option>
+      </pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Language">
-      <div class="select">
-        <select ng-model="$ctrl.editProfile.language"
-          ng-options="language.language as language.language for language in $ctrl.languages.languages"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editProfile.language"
+        ng-options="language.language as language.language for language in $ctrl.languages.languages"></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Time Zone">
-      <div class="select">
-        <select ng-model="$ctrl.editProfile.timeZone"
-          ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editProfile.timeZone"
+        ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones"></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Alias">
       <alias-list profile="$ctrl.editProfile"></alias-list>

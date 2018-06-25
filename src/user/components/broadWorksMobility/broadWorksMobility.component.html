@@ -53,62 +53,35 @@
     </pbs-form-field>
     <pbs-form-field label="Use Setting Level"
       ng-if="$ctrl.hasPermission('Group')">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.useSettingLevel"
-          ng-options="x for x in $ctrl.options.userSettingLevel">
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.useSettingLevel"
+        ng-options="x for x in $ctrl.options.userSettingLevel">
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Phones to Ring">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.phonesToRing"
-          ng-options="x for x in $ctrl.options.phonesToRing">
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.phonesToRing"
+        ng-options="x for x in $ctrl.options.phonesToRing">
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Other Settings">
-      <label class="checkbox"
-        ng-if="$ctrl.hasPermission('Group')">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.isActive"> Active
-      </label>
-      <br>
-      <label class="checkbox"
-        ng-if="$ctrl.hasPermission('Group')">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.denyCallOriginations"> Deny Call Originations
-      </label>
-      <br>
-      <label class="checkbox"
-        ng-if="$ctrl.hasPermission('Group')">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.denyCallTerminations"> Deny Call Terminations
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.alertClickToDialCalls"> Alert Click To Dial Calls
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.alertGroupPagingCalls"> Alert Group Paging Calls
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.enableDiversionInhibitor"> Enable Diversion Inhibitor
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.requireAnswerConfirmation"> Require Answer Confirmation
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.broadworksCallControl"> BroadWorks Call Control
-      </label>
+      <pbs-input-checkbox ng-if="$ctrl.hasPermission('Group')"
+        ng-model="$ctrl.editSettings.isActive"
+        label="Active"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-if="$ctrl.hasPermission('Group')"
+        ng-model="$ctrl.editSettings.denyCallOriginations"
+        label="Deny Call Originations"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-if="$ctrl.hasPermission('Group')"
+        ng-model="$ctrl.editSettings.denyCallTerminations"
+        label="Deny Call Terminations"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.alertClickToDialCalls"
+        label="Alert Click To Dial Calls"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.alertGroupPagingCalls"
+        label="Alert Group Paging Calls"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.enableDiversionInhibitor"
+        label="Enable Diversion Inhibitor"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.requireAnswerConfirmation"
+        label="Require Answer Confirmation"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.broadworksCallControl"
+        label="BroadWorks Call Control"></pbs-input-checkbox>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

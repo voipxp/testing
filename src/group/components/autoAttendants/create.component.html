@@ -4,11 +4,9 @@
     <pbs-tabs>
       <pbs-tab label="Required">
         <pbs-form-field-horizontal label="Type">
-          <select ng-model="$ctrl.autoAttendant.type"
+          <pbs-input-select ng-model="$ctrl.autoAttendant.type"
             ng-options="scope for scope in $ctrl.options.types"
-            required
-            pbs-input-select
-            is-fullwidth></select>
+            required></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Service ID">
           <select-user-id service-provider-id="$ctrl.serviceProviderId"
@@ -44,25 +42,19 @@
             required>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Extension Dialing">
-          <select ng-model="$ctrl.autoAttendant.extensionDialingScope"
+          <pbs-input-select ng-model="$ctrl.autoAttendant.extensionDialingScope"
             ng-options="scope for scope in $ctrl.options.dialingScopes"
-            required
-            pbs-input-select
-            is-fullwidth></select>
+            required></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Name Dialing">
-          <select ng-model="$ctrl.autoAttendant.nameDialingScope"
+          <pbs-input-select ng-model="$ctrl.autoAttendant.nameDialingScope"
             ng-options="scope for scope in $ctrl.options.dialingScopes"
-            required
-            pbs-input-select
-            is-fullwidth></select>
+            required></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Name Dialing Entries">
-          <select ng-model="$ctrl.autoAttendant.nameDialingEntries"
+          <pbs-input-select ng-model="$ctrl.autoAttendant.nameDialingEntries"
             ng-options="entry for entry in $ctrl.options.dialingEntries"
-            required
-            pbs-input-select
-            is-fullwidth></select>
+            required></pbs-input-select>
         </pbs-form-field-horizontal>
       </pbs-tab>
 

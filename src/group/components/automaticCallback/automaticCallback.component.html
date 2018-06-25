@@ -31,22 +31,22 @@
           <td>{{ user.profile.firstName }}</td>
           <td>{{ user.profile.lastName }}</td>
           <td>{{ user.profile.phoneNumber }}</td>
-          <td><pbs-check-box checked="user.data.isActive"></pbs-check-box></td>
+          <td>
+            <pbs-check-box checked="user.data.isActive"></pbs-check-box>
+          </td>
         </tr>
         <tr class=""
-            ng-click=""
-            ng-repeat="user in $ctrl.users | filter:$ctrl.search | orderBy: 'profile.lastName'"
-            ng-if="user.service.assigned === false"
-        >
+          ng-click=""
+          ng-repeat="user in $ctrl.users | filter:$ctrl.search | orderBy: 'profile.lastName'"
+          ng-if="user.service.assigned === false">
           <td>{{ user.profile.userId }}</td>
           <td>{{ user.profile.firstName }}</td>
           <td>{{ user.profile.lastName }}</td>
           <td>{{ user.profile.phoneNumber }}</td>
-          <td colspan="3" no-parent-click>
-            <input type="checkbox"
-                   ng-model="user.service.assigned"
-                   ng-change="$ctrl.toggle(user)"
-                   pbs-input-switch>
+          <td colspan="3"
+            no-parent-click>
+            <pbs-input-switch ng-model="user.service.assigned"
+              ng-change="$ctrl.toggle(user)"></pbs-input-switch>
             (assign {{user.service.serviceName}})
           </td>
         </tr>

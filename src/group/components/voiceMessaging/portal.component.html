@@ -45,40 +45,28 @@
 <pbs-modal id="editGroupVoiceMessagingPortal"
   title="Edit Group Voice Portal">
   <pbs-form-field label="Enabled">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.isActive"> Enable Voice Portal
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
+      label="Enable Voice Portal"></pbs-input-checkbox>
   </pbs-form-field>
   <pbs-form-field label="Extended Scope">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.enableExtendedScope"> Enable Extended Scope
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.enableExtendedScope"
+      label="Enable Extended Scope"></pbs-input-checkbox>
   </pbs-form-field>
   <pbs-form-field label="Login Identification">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.allowIdentificationByPhoneNumberOrVoiceMailAliasesOnLogin"> Allow Phone or Aliases on Login (in addition to Extensions)
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.allowIdentificationByPhoneNumberOrVoiceMailAliasesOnLogin"
+      label="Allow Phone or Aliases on Login (in addition to Extensions)"></pbs-input-checkbox>
   </pbs-form-field>
   <pbs-form-field label="Voice Portal Wizard">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.useVoicePortalWizard"> Use Voice Portal Wizard
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.useVoicePortalWizard"
+      label="Use Voice Portal Wizard"></pbs-input-checkbox>
   </pbs-form-field>
   <pbs-form-field label="External Routing Scope">
-    <div class="select">
-      <select ng-model="$ctrl.editSettings.voicePortalExternalRoutingScope"
-        ng-options="opt for opt in $ctrl.options.voicePortalExternalRoutingScope"></select>
-    </div>
+    <pbs-input-select ng-model="$ctrl.editSettings.voicePortalExternalRoutingScope"
+      ng-options="opt for opt in $ctrl.options.voicePortalExternalRoutingScope"></pbs-input-select>
   </pbs-form-field>
   <pbs-form-field label="Use External Routing">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.useExternalRouting"> Use External Routing Address
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.useExternalRouting"
+      label="Use External Routing Address"></pbs-input-checkbox>
   </pbs-form-field>
   <pbs-form-field label="Routing Address"
     ng-show="$ctrl.editSettings.useExternalRouting">

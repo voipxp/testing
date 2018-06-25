@@ -65,13 +65,10 @@
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal ng-if="$ctrl.partners.length > 0"
       label="SSO Integration">
-      <select ng-model="$ctrl.editApplication.partner"
-        ng-options="opt.key as opt.name for opt in $ctrl.partners"
-        pbs-input-select></select>
+      <pbs-input-select ng-model="$ctrl.editApplication.partner"
+        ng-options="opt.key as opt.name for opt in $ctrl.partners"></pbs-input-select>
     </pbs-form-field-horizontal>
-    <input type="checkbox"
-      label="Open in New Window"
-      ng-model="$ctrl.editApplication.window"
-      pbs-input-checkradio>
+    <pbs-input-checkbox label="Open in New Window"
+      ng-model="$ctrl.editApplication.window"></pbs-input-checkbox>
   </pbs-form>
 </pbs-modal>

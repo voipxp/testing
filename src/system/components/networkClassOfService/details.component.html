@@ -57,12 +57,10 @@
           style="width: 150px">Profile {{ i }}</a>
       </p>
       <p class="control is-expanded">
-        <select ng-model="$ctrl.editService['communicationBarringProfile' + i].name"
-          ng-options="profile.name as profile.name for profile in $ctrl.profiles"
-          pbs-input-select
-          is-fullwidth>
+        <pbs-input-select ng-model="$ctrl.editService['communicationBarringProfile' + i].name"
+          ng-options="profile.name as profile.name for profile in $ctrl.profiles">
           <option value="">-- None --</option>
-        </select>
+        </pbs-input-select>
       </p>
       <p class="control">
         <button class="button"

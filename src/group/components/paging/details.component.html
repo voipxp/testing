@@ -32,19 +32,14 @@
       <small>(Confirmation Tone Timeout in seconds)</small>
     </pbs-form-field>
     <pbs-form-field label="CLID To Deliver">
-      <label class="radio">
-        <input type="radio"
-          ng-model="$ctrl.instance.deliverOriginatorCLIDInstead"
-          ng-change="$ctrl.setDeliveryCLID()"
-          ng-value="false"> Paging Group CLID
-      </label>
-      <br>
-      <label class="radio">
-        <input type="radio"
-          ng-model="$ctrl.instance.deliverOriginatorCLIDInstead"
-          ng-change="$ctrl.setDeliveryCLID()"
-          ng-value="true"> Originator CLID
-      </label>
+      <pbs-input-radio ng-model="$ctrl.instance.deliverOriginatorCLIDInstead"
+        ng-change="$ctrl.setDeliveryCLID()"
+        ng-value="false"
+        label="Paging Group CLID"></pbs-input-radio>
+      <pbs-input-radio ng-model="$ctrl.instance.deliverOriginatorCLIDInstead"
+        ng-change="$ctrl.setDeliveryCLID()"
+        ng-value="true"
+        label="Originator CLID"></pbs-input-radio>
     </pbs-form-field>
     <pbs-form-field label="Originator CLID Prefix"
       ng-show="$ctrl.instance.deliverOriginatorCLIDInstead">

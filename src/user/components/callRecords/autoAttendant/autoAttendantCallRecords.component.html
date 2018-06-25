@@ -43,13 +43,9 @@
   title="Search Call Records">
   <pbs-form>
     <pbs-form-field-horizontal label="Report Type">
-      <select class=""
-        ng-model="$ctrl.editSearch.reportType"
+      <pbs-input-select ng-model="$ctrl.editSearch.reportType"
         ng-options="opt as opt for opt in $ctrl.options.reportType"
-        required
-        pbs-input-select
-        full-width>
-      </select>
+        required></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Start Time">
       <pbs-input-datetime ng-model="$ctrl.editSearch.startTime"

@@ -7,11 +7,9 @@
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Active">
-        <input type="checkbox"
-          ng-model="$ctrl.settings.isActive"
+        <pbs-input-switch ng-model="$ctrl.settings.isActive"
           ng-change="$ctrl.toggle()"
-          pbs-input-switch
-          ng-disabled="$ctrl.settings.isLoading || !$ctrl.hasActiveCriteria()">
+          ng-disabled="$ctrl.settings.isLoading || !$ctrl.hasActiveCriteria()"></pbs-input-switch>
       </pbs-list-item>
       <pbs-list-item label="Default Forward To Phone Number">
         {{$ctrl.settings.defaultForwardToPhoneNumber}}
@@ -31,15 +29,11 @@
 <pbs-modal id="editUserCallForwardingSelective"
   title="Edit Settings">
   <pbs-form>
-    <input type="checkbox"
-      ng-model="$ctrl.editSettings.isActive"
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
       label="Activate Call Forwarding Selective"
-      ng-click="$ctrl.checkForActive()"
-      pbs-input-checkradio>
-    <input type="checkbox"
-      ng-model="$ctrl.editSettings.playRingReminder"
-      label="Play Ring Reminder When Call is Forwarded"
-      pbs-input-checkradio>
+      ng-click="$ctrl.checkForActive()"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.playRingReminder"
+      label="Play Ring Reminder When Call is Forwarded"></pbs-input-checkbox>
     <pbs-form-field-horizontal label="Default Forward To">
       <input type="text"
         class="input"

@@ -1,8 +1,7 @@
 <pbs-form-section>Audio Selection {{ $ctrl.label }}</pbs-form-section>
 
-<select ng-model="$ctrl.service.audioMessageSource"
-  ng-options="opt for opt in $ctrl.options.audioMessageSource"
-  pbs-input-select></select>
+<pbs-input-select ng-model="$ctrl.service.audioMessageSource"
+  ng-options="opt for opt in $ctrl.options.audioMessageSource"></pbs-input-select>
 
 <div class="margin-top"
   ng-show="$ctrl.isUrl()">

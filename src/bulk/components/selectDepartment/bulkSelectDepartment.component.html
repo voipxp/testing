@@ -22,11 +22,10 @@
         required>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Parent">
-      <div class="select">
-        <select ng-model="$ctrl.newDepartment.parentDepartment"
-          ng-options="department as department.fullPathName for department in $ctrl.parents">
-          <option value="">-- No Parent --</option>
-        </select>
+      <pbs-input-select ng-model="$ctrl.newDepartment.parentDepartment"
+        ng-options="department as department.fullPathName for department in $ctrl.parents">
+        <option value="">-- No Parent --</option>
+      </pbs-input-select>
       </div>
     </pbs-form-field-horizontal>
   </pbs-form>

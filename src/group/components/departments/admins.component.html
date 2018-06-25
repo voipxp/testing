@@ -63,10 +63,8 @@
         ng-model="$ctrl.newAdmin.firstName">
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Language">
-      <div class="select">
-        <select ng-model="$ctrl.newAdmin.language"
-          ng-options="language.language as language.language for language in $ctrl.languages.languages"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.newAdmin.language"
+        ng-options="language.language as language.language for language in $ctrl.languages.languages"></pbs-input-select>
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>
@@ -97,8 +95,8 @@
         ng-model="$ctrl.editAdmin.firstName">
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Language">
-      <select ng-model="$ctrl.editAdmin.language"
-        ng-options="language.language as language.language for language in $ctrl.languages.languages"></select>
+      <pbs-input-select ng-model="$ctrl.editAdmin.language"
+        ng-options="language.language as language.language for language in $ctrl.languages.languages"></pbs-input-select>
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

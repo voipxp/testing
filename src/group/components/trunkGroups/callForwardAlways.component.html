@@ -24,13 +24,10 @@
   title="Edit Call Forward Always">
   <form novalidate>
     <pbs-form-field label="Actions">
-      <div class="select">
-        <select class=""
-          ng-model="$ctrl.editTrunk.callForwardingAlwaysAction"
-          ng-options="opt as opt for opt in $ctrl.options.callForwardingAlwaysAction">
-          <option value="">None</option>
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editTrunk.callForwardingAlwaysAction"
+        ng-options="opt as opt for opt in $ctrl.options.callForwardingAlwaysAction">
+        <option value="">None</option>
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Forward To"
       ng-show="$ctrl.editTrunk.callForwardingAlwaysAction === 'Forward'">
@@ -41,11 +38,9 @@
     </pbs-form-field>
     <pbs-form-field label="Reroute To"
       ng-show="$ctrl.editTrunk.callForwardingAlwaysAction === 'Reroute'">
-      <div class="select">
-        <select ng-model="$ctrl.editTrunk.callForwardingAlwaysRerouteTrunkGroupKey"
-          ng-options="trunk as trunk.name for trunk in $ctrl.parent.trunks track by trunk.name"
-          ng-required="$ctrl.editTrunk.callForwardingAlwaysAction === 'Reroute'"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editTrunk.callForwardingAlwaysRerouteTrunkGroupKey"
+        ng-options="trunk as trunk.name for trunk in $ctrl.parent.trunks track by trunk.name"
+        ng-required="$ctrl.editTrunk.callForwardingAlwaysAction === 'Reroute'"></pbs-input-select>
     </pbs-form-field>
   </form>
 </pbs-modal>

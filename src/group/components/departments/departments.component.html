@@ -48,12 +48,10 @@
         required>
     </pbs-form-field>
     <pbs-form-field label="Parent">
-      <div class="select">
-        <select ng-model="$ctrl.newDepartment.parentDepartment"
-          ng-options="department as department.fullPathName for department in $ctrl.departments">
-          <option value="">-- No Parent --</option>
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.newDepartment.parentDepartment"
+        ng-options="department as department.fullPathName for department in $ctrl.departments">
+        <option value="">-- No Parent --</option>
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="CLID Name">
       <input type="text"

@@ -43,10 +43,7 @@
 <pbs-modal id="editServiceProviderService"
   title="{{ $ctrl.editServices.serviceName }}">
   <pbs-form-section>Authorization</pbs-form-section>
-  <input type="checkbox"
-    label="Service Authorized"
-    ng-model="$ctrl.editService.authorized"
-    pbs-input-checkradio>
+  <pbs-input-checkbox label="Service Authorized"
+    ng-model="$ctrl.editService.authorized"></pbs-input-checkbox>
   <service-licensing service="$ctrl.editService"></service-licensing>
-  </pbs-form>
 </pbs-modal>

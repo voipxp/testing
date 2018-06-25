@@ -106,10 +106,8 @@
   </div>
   <form novalidate>
     <pbs-form-field label="Priority">
-      <div class="select">
-        <select ng-model="vm.selectedPriority.priority"
-          ng-options="p as p for p in ['1','2','3','4','5','6','7','8','9','10']"></select>
-      </div>
+      <pbs-input-select ng-model="vm.selectedPriority.priority"
+        ng-options="p as p for p in ['1','2','3','4','5','6','7','8','9','10']"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Weight">
       <input type="number"

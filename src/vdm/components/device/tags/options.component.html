@@ -18,11 +18,9 @@
 <pbs-modal id="vdmTemplateTagOptionsModal"
   title="Edit Options">
   <pbs-form-item label="Options">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editOptions.value"
-        ng-true-value="'1'"
-        ng-false-value="'0'"> Allow Editing of soft-keys on Handset?
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editOptions.value"
+      ng-true-value="'1'"
+      ng-false-value="'0'"
+      label="Allow Editing of soft-keys on Handset?"></pbs-input-checkbox>
   </pbs-form-item>
 </pbs-modal>

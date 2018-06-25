@@ -17,18 +17,8 @@
 </pbs-spinner>
 <pbs-modal id="editUserCallingNumberDelivery"
   title="Edit Settings">
-  <pbs-form>
-    <pbs-form-field label="External Calling Number Delivery">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.isActiveForExternalCalls">
-      </label>
-    </pbs-form-field>
-    <pbs-form-field label="Internal Calling Number Delivery">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.isActiveForInternalCalls">
-      </label>
-    </pbs-form-field>
-  </pbs-form>
+  <pbs-input-checkbox label="External Calling Number Delivery"
+    ng-model="$ctrl.editSettings.isActiveForExternalCalls"></pbs-input-checkbox>
+  <pbs-input-checkbox label="Internal Calling Number Delivery"
+    ng-model="$ctrl.editSettings.isActiveForInternalCalls"></pbs-input-checkbox>
 </pbs-modal>

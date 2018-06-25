@@ -1,10 +1,10 @@
 ;(function() {
-  angular.module('odin.common').directive('pbsInputFile', pbsInputFile)
+  angular.module('odin.UI').directive('pbsInputFile', Directive)
 
-  function pbsInputFile() {
+  function Directive() {
     return {
       restrict: 'E',
-      templateUrl: 'common/UI/forms/file.directive.html',
+      templateUrl: 'UI/pbsInputFile/pbsInputFile.directive.html',
       scope: {},
       controller: function() {
         this.callback = function(file) {

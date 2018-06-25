@@ -11,57 +11,37 @@
       ng-model="vm.trunk.newEnterpriseTrunkName">
   </pbs-form-field>
   <pbs-form-field label="Max Reroute Attempts">
-    <div class="select">
-      <select ng-model="vm.trunk.maximumRerouteAttempts"
-        ng-options="max as max for max in ['1','2','3','4','5','6','7','8','9','10']"></select>
-    </div>
+    <pbs-input-select ng-model="vm.trunk.maximumRerouteAttempts"
+      ng-options="max as max for max in ['1','2','3','4','5','6','7','8','9','10']"></pbs-input-select>
   </pbs-form-field>
   <pbs-form-field label="Max Reroutes in Priority"
     ng-show="vm.trunk.priorityWeightedRouting">
-    <div class="select">
-      <select ng-model="vm.trunk.priorityWeightedRouting.maximumRerouteAttemptsWithinPriority"
-        ng-options="max as max for max in ['1','2','3','4','5','6','7','8','9','10']"></select>
-    </div>
+    <pbs-input-select ng-model="vm.trunk.priorityWeightedRouting.maximumRerouteAttemptsWithinPriority"
+      ng-options="max as max for max in ['1','2','3','4','5','6','7','8','9','10']"></pbs-input-select>
   </pbs-form-field>
   <pbs-form-field label="Ordering Algorithm"
     ng-show="vm.trunk.orderedRouting">
-    <label class="radio">
-      <input type="radio"
-        ng-model="vm.trunk.orderedRouting.orderingAlgorithm"
-        value="Ordered Load Balancing"> Ordered Load Balancing
-    </label>
-    <br>
-    <label class="radio">
-      <input type="radio"
-        ng-model="vm.trunk.orderedRouting.orderingAlgorithm"
-        value="Overflow"> Overflow
-    </label>
-    <br>
-    <label class="radio">
-      <input type="radio"
-        ng-model="vm.trunk.orderedRouting.orderingAlgorithm"
-        value="Most Idle"> Most Idle
-    </label>
-    <br>
-    <label class="radio">
-      <input type="radio"
-        ng-model="vm.trunk.orderedRouting.orderingAlgorithm"
-        value="Least Idle"> Least Idle
-    </label>
+    <pbs-input-radio ng-model="vm.trunk.orderedRouting.orderingAlgorithm"
+      value="Ordered Load Balancing"
+      label="Ordered Load Balancing"></pbs-input-radio>
+    <pbs-input-radio ng-model="vm.trunk.orderedRouting.orderingAlgorithm"
+      value="Overflow"
+      label="Overflow"></pbs-input-radio>
+    <pbs-input-radio ng-model="vm.trunk.orderedRouting.orderingAlgorithm"
+      value="Most Idle"
+      label="Most Idle"></pbs-input-radio>
+    <pbs-input-radio ng-model="vm.trunk.orderedRouting.orderingAlgorithm"
+      value="Least Idle"
+      label="Least Idle"></pbs-input-radio>
   </pbs-form-field>
   <pbs-form-field label="Exhaustion Action">
-    <label class="radio">
-      <input type="radio"
-        ng-model="vm.trunk.routeExhaustionAction"
-        value="None"> None
-    </label>
-    <br>
-    <label class="radio">
-      <input type="radio"
-        ng-model="vm.trunk.routeExhaustionAction"
-        value="Forward"
-        ng-change="vm.updateConfirm('routeExhaustionAction', 'Forward')"> Forward To: &nbsp;
-    </label>
+    <pbs-input-radio ng-model="vm.trunk.routeExhaustionAction"
+      value="None"
+      label="None"></pbs-input-radio>
+    <pbs-input-radio ng-model="vm.trunk.routeExhaustionAction"
+      value="Forward"
+      ng-change="vm.updateConfirm('routeExhaustionAction', 'Forward')"
+      label="Forward To"></pbs-input-radio>
   </pbs-form-field>
   <pbs-form-field label="Forward To">
     <input type="text"

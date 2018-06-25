@@ -93,30 +93,20 @@
   <pbs-modal id="editGroupCallCenterDNIS"
     title="Edit DNIS">
     <pbs-form-section>Settings</pbs-form-section>
-    <input type="checkbox"
-      ng-model="$ctrl.editService.displayDNISNumber"
-      label="Display DNIS Number to agent"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editService.displayDNISNumber"
+      label="Display DNIS Number to agent"></pbs-input-checkbox>
 
-    <input type="checkbox"
-      ng-model="$ctrl.editService.displayDNISName"
-      label="Display DNIS Name to agent"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editService.displayDNISName"
+      label="Display DNIS Name to agent"></pbs-input-checkbox>
 
-    <input type="checkbox"
-      ng-model="$ctrl.editService.promoteCallsFromPriority1to0"
-      label="Automatically Promote calls with Priority 1 to 0"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editService.promoteCallsFromPriority1to0"
+      label="Automatically Promote calls with Priority 1 to 0"></pbs-input-checkbox>
 
-    <input type="checkbox"
-      ng-model="$ctrl.editService.promoteCallsFromPriority2to1"
-      label="Automatically Promote calls with Priority 2 to 1"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editService.promoteCallsFromPriority2to1"
+      label="Automatically Promote calls with Priority 2 to 1"></pbs-input-checkbox>
 
-    <input type="checkbox"
-      ng-model="$ctrl.editService.promoteCallsFromPriority3to2"
-      label="Automatically Promote calls with Priority 3 to 2"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editService.promoteCallsFromPriority3to2"
+      label="Automatically Promote calls with Priority 3 to 2"></pbs-input-checkbox>
 
     <pbs-form-field-horizontal label="Promote 1 to 0 seconds"
       ng-show="$ctrl.editService.promoteCallsFromPriority1to0">
@@ -155,10 +145,9 @@
           required>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Priority*">
-        <select ng-model="$ctrl.newService.priority"
+        <pbs-input-select ng-model="$ctrl.newService.priority"
           ng-options="opt for opt in $ctrl.instanceOptions.priority"
-          required
-          pbs-input-select>
+          required></pbs-input-select>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Phone Number">
         <select-phone-number service-provider-id="$ctrl.serviceProviderId"
@@ -176,18 +165,12 @@
           class="input"
           ng-model="$ctrl.newService.callingLineIdPhoneNumber">
       </pbs-form-field-horizontal>
-      <input type="checkbox"
-        ng-model="$ctrl.newService.useCustomDnisAnnouncementSettings"
-        label="Use Custom CLID Announcement Settings"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.newService.allowOutgoingACDCall"
-        label="Allow Outgoing Call Center Call"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.newService.useCustomCLIDSettings"
-        label="Use Custom CLID Settings"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.newService.useCustomDnisAnnouncementSettings"
+        label="Use Custom CLID Announcement Settings"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.newService.allowOutgoingACDCall"
+        label="Allow Outgoing Call Center Call"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.newService.useCustomCLIDSettings"
+        label="Use Custom CLID Settings"></pbs-input-checkbox>
       <pbs-form-field-horizontal label="CLID Last Name"
         ng-show="$ctrl.newService.useCustomCLIDSettings">
         <input type="text"

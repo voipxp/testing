@@ -16,11 +16,9 @@
             required>
         </pbs-form-field>
         <pbs-form-field label="Default Domain">
-          <div class="select">
-            <select ng-model="$ctrl.group.defaultDomain"
-              ng-options="domain as domain for domain in $ctrl.domains.domains"
-              required></select>
-          </div>
+          <pbs-input-select ng-model="$ctrl.group.defaultDomain"
+            ng-options="domain as domain for domain in $ctrl.domains.domains"
+            required></pbs-input-select>
         </pbs-form-field>
         <pbs-form-field label="User Limit">
           <input type="number"
@@ -42,10 +40,8 @@
             ng-model="$ctrl.group.locationDialingCode">
         </pbs-form-field>
         <pbs-form-field label="Timezone">
-          <div class="select">
-            <select ng-model="$ctrl.group.timeZone"
-              ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones"></select>
-          </div>
+          <pbs-input-select ng-model="$ctrl.group.timeZone"
+            ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones"></pbs-input-select>
         </pbs-form-field>
         <pbs-form-field label="Contact Name">
           <input type="text"
@@ -78,10 +74,8 @@
             ng-model="$ctrl.group.address.city">
         </pbs-form-field>
         <pbs-form-field label="State/Province">
-          <div class="select">
-            <select ng-model="$ctrl.group.address.stateOrProvince"
-              ng-options="state.key as state.displayName for state in $ctrl.states"></select>
-          </div>
+          <pbs-input-select ng-model="$ctrl.group.address.stateOrProvince"
+            ng-options="state.key as state.displayName for state in $ctrl.states"></pbs-input-select>
         </pbs-form-field>
         <pbs-form-field label="Postal Code">
           <input type="text"

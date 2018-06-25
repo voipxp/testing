@@ -33,14 +33,10 @@
   title="Edit Settings">
   <pbs-form>
     <pbs-form-field label="Settings">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.alertAllLocationsForClickToDialCalls"
-        label="Alert All Locations for Click to Dial"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.alertAllLocationsForGroupPagingCalls"
-        label="Alert All Locations for Group Paging"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.alertAllLocationsForClickToDialCalls"
+        label="Alert All Locations for Click to Dial"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.alertAllLocationsForGroupPagingCalls"
+        label="Alert All Locations for Group Paging"></pbs-input-checkbox>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

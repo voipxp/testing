@@ -3,13 +3,11 @@
   <label class="label">Ends</label>
   <div class="field has-addons">
     <div class="control">
-      <div class="select">
-        <select ng-options="opt for opt in ['After', 'On']"
-          ng-model="endsPattern"
-          ng-change="$ctrl.update(endsPattern)">
-          <option value="">Never</option>
-        </select>
-      </div>
+      <pbs-input-select ng-options="opt for opt in ['After', 'On']"
+        ng-model="endsPattern"
+        ng-change="$ctrl.update(endsPattern)">
+        <option value="">Never</option>
+      </pbs-input-select>
     </div>
     <div class="control is-expanded"
       ng-if="endsPattern === 'After'">

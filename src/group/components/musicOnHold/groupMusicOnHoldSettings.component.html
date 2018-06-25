@@ -22,22 +22,18 @@
 <pbs-modal id="groupMusicOnHoldSettingsModal"
   title="Edit Settings">
   <pbs-form name="groupMusicOnHoldSettingsForm">
-    <pbs-form-field label="Settings">
-      <pbs-input-checkbox label="Enable During Call Hold"
-        ng-model="$ctrl.editMoh.isActiveDuringCallHold">
-      </pbs-input-checkbox>
-      <br>
-      <pbs-input-checkbox label="Enable During Call Park"
-        ng-model="$ctrl.editMoh.isActiveDuringCallPark">
-      </pbs-input-checkbox>
-      <br>
-      <pbs-input-checkbox label="Enable During Busy Camp On"
-        ng-model="$ctrl.editMoh.isActiveDuringBusyCampOn"></pbs-input-checkbox>
-      </pbs-input-checkbox>
-      <br>
-      <pbs-input-checkbox label="Alternate Source for Internal Calls"
-        ng-model="$ctrl.editMoh.useAlternateSourceForInternalCalls">
-      </pbs-input-checkbox>
-    </pbs-form-field>
+    <pbs-form-section>Settings</pbs-form-section>
+    <pbs-input-checkbox label="Enable During Call Hold"
+      ng-model="$ctrl.editMoh.isActiveDuringCallHold">
+    </pbs-input-checkbox>
+    <pbs-input-checkbox label="Enable During Call Park"
+      ng-model="$ctrl.editMoh.isActiveDuringCallPark">
+    </pbs-input-checkbox>
+    <pbs-input-checkbox label="Enable During Busy Camp On"
+      ng-model="$ctrl.editMoh.isActiveDuringBusyCampOn"></pbs-input-checkbox>
+    </pbs-input-checkbox>
+    <pbs-input-checkbox label="Alternate Source for Internal Calls"
+      ng-model="$ctrl.editMoh.useAlternateSourceForInternalCalls">
+    </pbs-input-checkbox>
   </pbs-form>
 </pbs-modal>

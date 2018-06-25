@@ -48,11 +48,9 @@
         required>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Type">
-      <div class="select">
-        <select ng-model="$ctrl.newAdmin.administratorType"
-          ng-options="v for v in ['Normal', 'Customer', 'Password Reset Only']"
-          required></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.newAdmin.administratorType"
+        ng-options="v for v in ['Normal', 'Customer', 'Password Reset Only']"
+        required></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Password">
       <pbs-input-password ng-model="$ctrl.newAdmin.password"
@@ -72,10 +70,8 @@
         ng-model="$ctrl.newAdmin.firstName">
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Language">
-      <div class="select">
-        <select ng-model="$ctrl.newAdmin.language"
-          ng-options="language.language as language.language for language in $ctrl.languages.languages"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.newAdmin.language"
+        ng-options="language.language as language.language for language in $ctrl.languages.languages"></pbs-input-select>
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>
@@ -114,124 +110,90 @@
               ng-model="$ctrl.editAdmin.firstName">
           </pbs-form-field-horizontal>
           <pbs-form-field-horizontal label="Language">
-            <div class="select">
-              <select ng-model="$ctrl.editAdmin.language"
-                ng-options="language.language as language.language for language in $ctrl.languages.languages"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editAdmin.language"
+              ng-options="language.language as language.language for language in $ctrl.languages.languages"></pbs-input-select>
           </pbs-form-field-horizontal>
         </pbs-tab>
 
         <pbs-tab label="Policies">
           <pbs-form-field-horizontal label="Profile">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.profileAccess"
-                ng-options="profileAccess for profileAccess in $ctrl.policies.profileAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.profileAccess"
+              ng-options="profileAccess for profileAccess in $ctrl.policies.profileAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="Group">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.groupAccess"
-                ng-options="groupAccess for groupAccess in $ctrl.policies.groupAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.groupAccess"
+              ng-options="groupAccess for groupAccess in $ctrl.policies.groupAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="User">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.userAccess"
-                ng-options="userAccess for userAccess in $ctrl.policies.userAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.userAccess"
+              ng-options="userAccess for userAccess in $ctrl.policies.userAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="Admin">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.adminAccess"
-                ng-options="adminAccess for adminAccess in $ctrl.policies.adminAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.adminAccess"
+              ng-options="adminAccess for adminAccess in $ctrl.policies.adminAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="Department">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.departmentAccess"
-                ng-options="departmentAccess for departmentAccess in $ctrl.policies.departmentAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.departmentAccess"
+              ng-options="departmentAccess for departmentAccess in $ctrl.policies.departmentAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="Access Device">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.accessDeviceAccess"
-                ng-options="accessDeviceAccess for accessDeviceAccess in $ctrl.policies.accessDeviceAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.accessDeviceAccess"
+              ng-options="accessDeviceAccess for accessDeviceAccess in $ctrl.policies.accessDeviceAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="PhoneNumber Extension">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.phoneNumberExtensionAccess"
-                ng-options="phoneNumberExtensionAccess for phoneNumberExtensionAccess in $ctrl.policies.phoneNumberExtensionAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.phoneNumberExtensionAccess"
+              ng-options="phoneNumberExtensionAccess for phoneNumberExtensionAccess in $ctrl.policies.phoneNumberExtensionAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="CallingLineId Number">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.callingLineIdNumberAccess"
-                ng-options="callingLineIdNumberAccess for callingLineIdNumberAccess in $ctrl.policies.callingLineIdNumberAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.callingLineIdNumberAccess"
+              ng-options="callingLineIdNumberAccess for callingLineIdNumberAccess in $ctrl.policies.callingLineIdNumberAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="Services">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.serviceAccess"
-                ng-options="serviceAccess for serviceAccess in $ctrl.policies.serviceAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.serviceAccess"
+              ng-options="serviceAccess for serviceAccess in $ctrl.policies.serviceAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="Service Pack">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.servicePackAccess"
-                ng-options="servicePackAccess for servicePackAccess in $ctrl.policies.servicePackAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.servicePackAccess"
+              ng-options="servicePackAccess for servicePackAccess in $ctrl.policies.servicePackAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="Session Admission">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.sessionAdmissionControlAccess"
-                ng-options="sessionAdmissionControlAccess for sessionAdmissionControlAccess in $ctrl.policies.sessionAdmissionControlAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.sessionAdmissionControlAccess"
+              ng-options="sessionAdmissionControlAccess for sessionAdmissionControlAccess in $ctrl.policies.sessionAdmissionControlAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="Web Branding">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.webBrandingAccess"
-                ng-options="webBrandingAccess for webBrandingAccess in $ctrl.policies.webBrandingAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.webBrandingAccess"
+              ng-options="webBrandingAccess for webBrandingAccess in $ctrl.policies.webBrandingAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="Office Zone">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.officeZoneAccess"
-                ng-options="officeZoneAccess for officeZoneAccess in $ctrl.policies.officeZoneAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.officeZoneAccess"
+              ng-options="officeZoneAccess for officeZoneAccess in $ctrl.policies.officeZoneAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="Communication Barring">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.communicationBarringAccess"
-                ng-options="communicationBarringAccess for communicationBarringAccess in $ctrl.policies.communicationBarringAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.communicationBarringAccess"
+              ng-options="communicationBarringAccess for communicationBarringAccess in $ctrl.policies.communicationBarringAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="Number Activation">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.numberActivationAccess"
-                ng-options="numberActivationAccess for numberActivationAccess in $ctrl.policies.numberActivationAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.numberActivationAccess"
+              ng-options="numberActivationAccess for numberActivationAccess in $ctrl.policies.numberActivationAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
 
           <pbs-form-field-horizontal label="Dialable CallerID">
-            <div class="select">
-              <select ng-model="$ctrl.editPolicies.dialableCallerIDAccess"
-                ng-options="dialableCallerIDAccess for dialableCallerIDAccess in $ctrl.policies.dialableCallerIDAccess"></select>
-            </div>
+            <pbs-input-select ng-model="$ctrl.editPolicies.dialableCallerIDAccess"
+              ng-options="dialableCallerIDAccess for dialableCallerIDAccess in $ctrl.policies.dialableCallerIDAccess"></pbs-input-select>
           </pbs-form-field-horizontal>
         </pbs-tab>
       </pbs-tabs>

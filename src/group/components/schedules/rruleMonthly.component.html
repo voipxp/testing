@@ -2,13 +2,11 @@
   <label class="label">Monthly On</label>
   <div class="field has-addons">
     <div class="control">
-      <div class="select">
-        <select ng-options="opt for opt in $ctrl.options.weekdayPrefix"
-          ng-model="$ctrl.weekdayPrefix"
-          ng-change="$ctrl.updatePrefix()">
-          <option value="">Day</option>
-        </select>
-      </div>
+      <pbs-input-select ng-options="opt for opt in $ctrl.options.weekdayPrefix"
+        ng-model="$ctrl.weekdayPrefix"
+        ng-change="$ctrl.updatePrefix()">
+        <option value="">Day</option>
+      </pbs-input-select>
     </div>
     <div class="control is-expanded"
       ng-if="!$ctrl.weekdayPrefix">
@@ -19,12 +17,10 @@
     </div>
     <div class="control is-expanded"
       ng-if="$ctrl.weekdayPrefix">
-      <div class="select is-fullwidth">
-        <select ng-options="opt for opt in $ctrl.options.days"
-          ng-model="$ctrl.weekdaySuffix"
-          ng-change="$ctrl.updateSuffix()"
-          ng-required="$ctrl.weekdayPrefix"></select>
-      </div>
+      <pbs-input-select ng-options="opt for opt in $ctrl.options.days"
+        ng-model="$ctrl.weekdaySuffix"
+        ng-change="$ctrl.updateSuffix()"
+        ng-required="$ctrl.weekdayPrefix"></pbs-input-select>
     </div>
     <div class="control">
       <a class="button is-static">Of the Month</a>

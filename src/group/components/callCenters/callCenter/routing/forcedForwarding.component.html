@@ -28,20 +28,14 @@
   title="Edit Forced Forwarding">
   <pbs-form-section>Settings</pbs-form-section>
 
-  <input type="checkbox"
-    ng-model="$ctrl.editService.enabled"
-    label="Forced Forwarding Enabled"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editService.enabled"
+    label="Forced Forwarding Enabled"></pbs-input-checkbox>
 
-  <input type="checkbox"
-    ng-model="$ctrl.editService.allowEnableViaFAC"
-    label="Allow feature access codes to configure forced forwarding"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editService.allowEnableViaFAC"
+    label="Allow feature access codes to configure forced forwarding"></pbs-input-checkbox>
 
-  <input type="checkbox"
-    ng-model="$ctrl.editService.playAnnouncementBeforeForwarding"
-    label="Play announcment before forwarding"
-    pbs-input-checkradio>
+  <pbs-input-checkbox ng-model="$ctrl.editService.playAnnouncementBeforeForwarding"
+    label="Play announcment before forwarding"></pbs-input-checkbox>
 
   <pbs-form-field-horizontal label="Forward To"
     ng-show="$ctrl.editService.enabled">

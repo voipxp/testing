@@ -49,20 +49,14 @@
         ng-model="$ctrl.selectedKey.audioFile.name"
         ng-required="$ctrl.selectedKey.action === 'Play Announcement'">
       <pbs-form-field label="Key">
-        <div class="select">
-          <select class=""
-            ng-model="$ctrl.selectedKey.key"
-            ng-options="key as key for key in $ctrl.availableKeys"
-            required></select>
-        </div>
+        <pbs-input-select ng-model="$ctrl.selectedKey.key"
+          ng-options="key as key for key in $ctrl.availableKeys"
+          required></pbs-input-select>
       </pbs-form-field>
       <pbs-form-field label="Action">
-        <div class="select">
-          <select class=""
-            ng-model="$ctrl.selectedKey.action"
-            ng-options="action as action for action in $ctrl.options.actions"
-            required></select>
-        </div>
+        <pbs-input-select ng-model="$ctrl.selectedKey.action"
+          ng-options="action as action for action in $ctrl.options.actions"
+          required></pbs-input-select>
       </pbs-form-field>
       <pbs-form-field label="Description">
         <input type="text"
@@ -72,11 +66,9 @@
       </pbs-form-field>
       <pbs-form-field label="Submenu"
         ng-if="$ctrl.requiresSubmenu($ctrl.selectedKey)">
-        <div class="select">
-          <select class=""
-            ng-model="$ctrl.selectedKey.submenuId"
-            ng-options="submenu.submenuId as submenu.submenuId for submenu in $ctrl.submenus"></select>
-        </div>
+        <pbs-input-select class=""
+          ng-model="$ctrl.selectedKey.submenuId"
+          ng-options="submenu.submenuId as submenu.submenuId for submenu in $ctrl.submenus"></pbs-input-select>
       </pbs-form-field>
       <pbs-form-field label="Number"
         ng-if="$ctrl.requiresPhone($ctrl.selectedKey)">

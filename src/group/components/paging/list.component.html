@@ -35,11 +35,9 @@
           <td>{{ instance.extension }}</td>
           <td>{{ instance.department }}</td>
           <td no-parent-click>
-            <input type="checkbox"
-              ng-model="instance.isActive"
+            <pbs-input-switch ng-model="instance.isActive"
               ng-click="$ctrl.toggle(instance)"
-              pbs-input-switch
-              ng-disabled="instance.isLoading">
+              ng-disabled="instance.isLoading"></pbs-input-switch>
           </td>
         </tr>
       </tbody>

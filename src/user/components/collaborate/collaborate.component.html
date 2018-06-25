@@ -75,23 +75,13 @@
   title="Edit Settings">
   <form name="editUserCollaborateInstantRoomForm">
     <pbs-form-field label="Notification">
-      <div class="select">
-        <select ng-model="$ctrl.editInstantRoom.attendeeNotification"
-          ng-options="opt as opt for opt in $ctrl.instantRoomOptions.attendeeNotification"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editInstantRoom.attendeeNotification"
+        ng-options="opt as opt for opt in $ctrl.instantRoomOptions.attendeeNotification"></pbs-input-select>
     </pbs-form-field>
-    <pbs-form-field label="End room session when owner departs">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editInstantRoom.endCollaborateRoomSessionOnOwnerExit">
-      </label>
-    </pbs-form-field>
-    <pbs-form-field label="Owner required to start room session">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editInstantRoom.ownerRequired">
-      </label>
-    </pbs-form-field>
+    <pbs-input-checkbox label="End room session when owner departs"
+      ng-model="$ctrl.editInstantRoom.endCollaborateRoomSessionOnOwnerExit"></pbs-input-checkbox>
+    <pbs-input-checkbox label="Owner required to start room session"
+      ng-model="$ctrl.editInstantRoom.ownerRequired"></pbs-input-checkbox>
   </form>
 </pbs-modal>
 
@@ -112,23 +102,13 @@
         ng-model="$ctrl.editMyRoom.roomName">
     </pbs-form-field>
     <pbs-form-field label="Notification">
-      <div class="select">
-        <select ng-model="$ctrl.editMyRoom.attendeeNotification"
-          ng-options="opt as opt for opt in $ctrl.instantRoomOptions.attendeeNotification"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editMyRoom.attendeeNotification"
+        ng-options="opt as opt for opt in $ctrl.instantRoomOptions.attendeeNotification"></pbs-input-select>
     </pbs-form-field>
-    <pbs-form-field label="End room session when owner departs">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editMyRoom.endCollaborateRoomSessionOnOwnerExit">
-      </label>
-    </pbs-form-field>
-    <pbs-form-field label="Owner required to start room session">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editMyRoom.ownerRequired">
-      </label>
-    </pbs-form-field>
+    <pbs-input-checkbox label="End room session when owner departs"
+      ng-model="$ctrl.editMyRoom.endCollaborateRoomSessionOnOwnerExit"></pbs-input-checkbox>
+    <pbs-input-checkbox label="Owner required to start room session"
+      ng-model="$ctrl.editMyRoom.ownerRequired"></pbs-input-checkbox>
   </form>
 </pbs-modal>
 
@@ -149,22 +129,12 @@
         ng-model="$ctrl.editProjectRoom.roomName">
     </pbs-form-field>
     <pbs-form-field label="Notification">
-      <div class="select">
-        <select ng-model="$ctrl.editProjectRoom.attendeeNotification"
-          ng-options="opt as opt for opt in $ctrl.instantRoomOptions.attendeeNotification"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editProjectRoom.attendeeNotification"
+        ng-options="opt as opt for opt in $ctrl.instantRoomOptions.attendeeNotification"></pbs-input-select>
     </pbs-form-field>
-    <pbs-form-field label="End room session when owner departs">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editProjectRoom.endCollaborateRoomSessionOnOwnerExit">
-      </label>
-    </pbs-form-field>
-    <pbs-form-field label="Owner required to start room session">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editProjectRoom.ownerRequired">
-      </label>
-    </pbs-form-field>
+    <pbs-input-checkbox label="End room session when owner departs"
+      ng-model="$ctrl.editProjectRoom.endCollaborateRoomSessionOnOwnerExit"></pbs-input-checkbox>
+    <pbs-input-checkbox label="Owner required to start room session"
+      ng-model="$ctrl.editProjectRoom.ownerRequired"></pbs-input-checkbox>
   </form>
 </pbs-modal>

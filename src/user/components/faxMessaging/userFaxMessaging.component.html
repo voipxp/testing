@@ -25,21 +25,15 @@
 <pbs-modal id="editUserFaxMessaging"
   title="Edit Settings">
   <pbs-form>
-    <pbs-form-field label="Active">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.isActive"> Is Active
-      </label>
-    </pbs-form-field>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
+      label="Is Active"></pbs-input-checkbox>
     <pbs-form-field label="phoneNumber"
       ng-if="$ctrl.hasPermission('Group')">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.phoneNumber"
-          ng-options="number.min as number.min for number in $ctrl.availableNumbers"
-          ng-change="$ctrl.setExtension()">
-          <option value="">-- None --</option>
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.phoneNumber"
+        ng-options="number.min as number.min for number in $ctrl.availableNumbers"
+        ng-change="$ctrl.setExtension()">
+        <option value="">-- None --</option>
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="extension"
       ng-if="$ctrl.hasPermission('Group')">
@@ -60,12 +54,10 @@
           <a class="button is-static">@</a>
         </p>
         <p class="control">
-          <div class="select"
-            ng-class="{'is-loading': $ctrl.loading}">
-            <select ng-model="$ctrl.editSettings.aliases[i].domain"
-              ng-options="domain as domain for domain in $ctrl.domains.domains">
-            </select>
-          </div>
+          <pbs-input-select ng-model="$ctrl.editSettings.aliases[i].domain"
+            loading="$ctrl.loading"
+            ng-options="domain as domain for domain in $ctrl.domains.domains">
+          </pbs-input-select>
         </p>
       </div>
     </pbs-form-field>

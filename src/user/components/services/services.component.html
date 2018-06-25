@@ -37,11 +37,9 @@
         <tr ng-repeat="service in $ctrl.services | filter:$ctrl.filterService | filter:$ctrl.search | orderBy:'serviceName' as results track by service.serviceName">
           <td>{{ service.serviceName }}</td>
           <td>
-            <input type="checkbox"
-              ng-model="service.assigned"
+            <pbs-input-switch ng-model="service.assigned"
               ng-change="$ctrl.toggle(service)"
-              pbs-input-switch="centered"
-              ng-disabled="service.isLoading">
+              ng-disabled="service.isLoading"></pbs-input-switch>
           </td>
         </tr>
       </tbody>

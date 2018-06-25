@@ -50,10 +50,9 @@
   save-text="Clone">
 
   <pbs-form-field-horizontal label="Clone From">
-    <select ng-model="$ctrl.clone.from"
+    <pbs-input-select ng-model="$ctrl.clone.from"
       ng-options="hostname.id as hostname.hostname for hostname in $ctrl.hostnames"
-      required
-      pbs-input-select></select>
+      required></pbs-input-select>
   </pbs-form-field-horizontal>
 
   <pbs-form-field-horizontal label="New Hostname">

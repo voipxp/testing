@@ -40,16 +40,12 @@
   title="Edit Stateful Rerouting">
   <form novalidate>
     <pbs-form-field label="Enabled">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.statefulReroutingEnabled"> Enable Stateful Trunk Group Rerouting
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.statefulReroutingEnabled"
+        label="Enable Stateful Trunk Group Rerouting"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Continous Options">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editTrunk.sendContinuousOptionsMessage"> Send Continuous Options Message
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editTrunk.sendContinuousOptionsMessage"
+        label="Send Continuous Options Message"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Continous Interval Seconds">
       <input type="number"

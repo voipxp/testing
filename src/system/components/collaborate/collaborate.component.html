@@ -5,7 +5,7 @@
   <pbs-block title="Details">
     <pbs-block-buttons>
       <pbs-button-compact-edit title="Edit System Collaborate"
-                               ng-click="$ctrl.edit()">
+        ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -47,83 +47,70 @@
 </pbs-spinner>
 
 <pbs-modal id="editSystemCollaborate"
-           title="Edit System Collaborate">
-  <form  name="editServiceProviderDetailsForm">
-        <pbs-form-field label="Room Length">
-          <input type="number"
-                 class="input"
-                 ng-model="$ctrl.editCollaborate.collaborateRoomIdLength"
-                 min="$ctrl.options.roomIdLengthMin"
-                 max="$ctrl.options.roomIdLengthMax"
-                 >
-        </pbs-form-field>
+  title="Edit System Collaborate">
+  <form name="editServiceProviderDetailsForm">
+    <pbs-form-field label="Room Length">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editCollaborate.collaborateRoomIdLength"
+        min="$ctrl.options.roomIdLengthMin"
+        max="$ctrl.options.roomIdLengthMax">
+    </pbs-form-field>
     <pbs-form-field label="Instant Room Idle Timeout Seconds">
       <input type="number"
-             class="input"
-             ng-model="$ctrl.editCollaborate.instantRoomIdleTimeoutSeconds"
-             min="$ctrl.options.instantRoomIdleTimeoutSecondsMin"
-             max="$ctrl.options.instantRoomIdleTimeoutSecondsMax"
-             >
+        class="input"
+        ng-model="$ctrl.editCollaborate.instantRoomIdleTimeoutSeconds"
+        min="$ctrl.options.instantRoomIdleTimeoutSecondsMin"
+        max="$ctrl.options.instantRoomIdleTimeoutSecondsMax">
     </pbs-form-field>
     <pbs-form-field label="Room Maximum Duration Minutes">
       <input type="number"
-             class="input"
-             ng-model="$ctrl.editCollaborate.collaborateRoomMaximumDurationMinutes"
-             min="$ctrl.options.roomMaximumDurationMinutesMin"
-             max="$ctrl.options.roomMaximumDurationMinutesMax"
-             >
+        class="input"
+        ng-model="$ctrl.editCollaborate.collaborateRoomMaximumDurationMinutes"
+        min="$ctrl.options.roomMaximumDurationMinutesMin"
+        max="$ctrl.options.roomMaximumDurationMinutesMax">
     </pbs-form-field>
     <pbs-form-field label="Support Outdial">
-        <label class="checkbox">
-          <input type="checkbox" ng-model="$ctrl.editCollaborate.supportOutdial">
-        </label>
+      <pbs-input-checkbox ng-model="$ctrl.editCollaborate.supportOutdial"
+        label="Support Outdial"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Max Room Participants">
       <input type="number"
-             class="input"
-             ng-model="$ctrl.editCollaborate.maxCollaborateRoomParticipants"
-             min="$ctrl.options.roomMaximumParticipantsMin"
-             max="$ctrl.options.roomMaximumParticipantsMax"
-      >
+        class="input"
+        ng-model="$ctrl.editCollaborate.maxCollaborateRoomParticipants"
+        min="$ctrl.options.roomMaximumParticipantsMin"
+        max="$ctrl.options.roomMaximumParticipantsMax">
     </pbs-form-field>
     <pbs-form-field label="Active Talker Refresh Interval Seconds">
       <input type="number"
-             class="input"
-             ng-model="$ctrl.editCollaborate.collaborateActiveTalkerRefreshIntervalSeconds"
-             min="$ctrl.options.activeTalkerRefreshIntervalSecondsMin"
-             max="$ctrl.options.activeTalkerRefreshIntervalSecondsMax"
-      >
+        class="input"
+        ng-model="$ctrl.editCollaborate.collaborateActiveTalkerRefreshIntervalSeconds"
+        min="$ctrl.options.activeTalkerRefreshIntervalSecondsMin"
+        max="$ctrl.options.activeTalkerRefreshIntervalSecondsMax">
     </pbs-form-field>
     <pbs-form-field label="Terminate After Grace Period">
-      <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.editCollaborate.terminateCollaborateAfterGracePeriod">
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editCollaborate.terminateCollaborateAfterGracePeriod"
+        label="Terminate After Grace Period"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Terminate After Grace Period Hours">
       <input type="number"
-             class="input"
-             ng-model="$ctrl.editCollaborate.collaborateGracePeriod.hours"
-             min="$ctrl.options.hoursMin"
-             max="$ctrl.options.hoursMax"
-      >
+        class="input"
+        ng-model="$ctrl.editCollaborate.collaborateGracePeriod.hours"
+        min="$ctrl.options.hoursMin"
+        max="$ctrl.options.hoursMax">
     </pbs-form-field>
     <pbs-form-field label="Terminate After Grace Period Minutes">
-      <div class="select">
-        <select ng-model="$ctrl.editCollaborate.collaborateGracePeriod.minutes"
-                ng-options="template for template in $ctrl.options.gracePeriodDurationMinutes"
-                ></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editCollaborate.collaborateGracePeriod.minutes"
+        ng-options="template for template in $ctrl.options.gracePeriodDurationMinutes"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Enable Active Notification">
-      <label class="checkbox">
-        <input type="checkbox" ng-model="$ctrl.editCollaborate.enableActiveCollaborateNotification">
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editCollaborate.enableActiveCollaborateNotification"
+        label="Enable Active Notifications"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="From Address">
       <input type="text"
-             class="input"
-             ng-model="$ctrl.editCollaborate.collaborateFromAddress"
-             >
+        class="input"
+        ng-model="$ctrl.editCollaborate.collaborateFromAddress">
     </pbs-form-field>
   </form>
 </pbs-modal>

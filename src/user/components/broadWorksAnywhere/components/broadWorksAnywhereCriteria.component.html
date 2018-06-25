@@ -48,14 +48,10 @@
     </pbs-form-field>
 
     <pbs-form-field label="General Settings">
-      <input type="checkbox"
-        ng-model="$ctrl.editCriteria.isActive"
-        label="Is Active"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editCriteria.blacklisted"
-        label="Blacklisted"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.editCriteria.isActive"
+        label="Is Active"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editCriteria.blacklisted"
+        label="Blacklisted"></pbs-input-checkbox>
     </pbs-form-field>
 
     <pbs-form-field label="Time Schedule">
@@ -73,23 +69,18 @@
     </pbs-form-field>
 
     <pbs-form-field label="Calls From">
-      <select pbs-input-select
-        ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
+      <pbs-input-select ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
         required>
         <option ng-repeat="option in $ctrl.options.fromDnCriteriaSelections"
           value="{{option}}">{{option}}</option>
-      </select>
+      </pbs-input-select>
     </pbs-form-field>
 
     <pbs-form-field label="From DN Criteria">
-      <input type="checkbox"
-        ng-model="$ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers"
-        label="Any Private Number"
-        pbs-input-checkradio>
-      <input type="checkbox"
-        ng-model="$ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers"
-        label="Any Unavailable"
-        pbs-input-checkradio>
+      <pbs-input-checkbox ng-model="$ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers"
+        label="Any Private Number"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers"
+        label="Any Unavailable"></pbs-input-checkbox>
     </pbs-form-field>
 
     <pbs-form-field label="Specific Number">

@@ -79,11 +79,9 @@
       group-id="$ctrl.groupId"
       settings="$ctrl.editGroup"></select-alternate-user>
     <pbs-form-field label="Recall To">
-      <select pbs-input-select
-        ng-model="$ctrl.editGroup.recallTo"
+      <pbs-input-select ng-model="$ctrl.editGroup.recallTo"
         ng-options="opt for opt in $ctrl.options.recallTo"
-        required>
-      </select>
+        required></pbs-input-select>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

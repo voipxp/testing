@@ -14,10 +14,8 @@
         ng-model="$ctrl.servicePack.servicePackDescription">
     </pbs-form-field-horizontal>
     <pbs-form-section>Availability</pbs-form-section>
-    <input type="checkbox"
-      ng-model="$ctrl.servicePack.isAvailableForUse"
-      label="Available For Use"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.servicePack.isAvailableForUse"
+      label="Available For Use"></pbs-input-checkbox>
 
     <service-pack-licensing service="$ctrl.servicePack"></service-pack-licensing>
 

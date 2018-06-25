@@ -48,30 +48,22 @@
 <pbs-modal id="editGroupVoiceMessaging"
   title="Edit Group Voice Messaging">
   <pbs-form-field label="Mail Server">
-    <div class="select">
-      <select ng-model="$ctrl.editSettings.useMailServerSetting"
-        ng-options="opt for opt in $ctrl.options.useMailServerSetting"></select>
-    </div>
+    <pbs-input-select ng-model="$ctrl.editSettings.useMailServerSetting"
+      ng-options="opt for opt in $ctrl.options.useMailServerSetting"></pbs-input-select>
   </pbs-form-field>
   <pbs-form-field label="Warn On Recording">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.warnCallerBeforeRecordingVoiceMessage"> Warning Announcement before Recording Voice Message
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.warnCallerBeforeRecordingVoiceMessage"
+      label="Warning Announcement before Recording Voice Message"></pbs-input-checkbox>
   </pbs-form-field>
   <pbs-form-field label="Advanced Settings"
     ng-show="$ctrl.editSettings.mailServerProtocol === $ctrl.options.mailServerProtocol[1]">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.allowUsersConfiguringAdvancedSettings"> Allow Users to Configure Advanced Settings
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.allowUsersConfiguringAdvancedSettings"
+      label="Allow Users to Configure Advanced Settings"></pbs-input-checkbox>
   </pbs-form-field>
   <pbs-form-field label="Send Entire Group"
     ng-show="$ctrl.editSettings.mailServerProtocol === $ctrl.options.mailServerProtocol[1]">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.allowComposeOrForwardMessageToEntireGroup"> Allow Send Message to Entire Group
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.allowComposeOrForwardMessageToEntireGroup"
+      label="Allow Send Message to Entire Group"></pbs-input-checkbox>
   </pbs-form-field>
   <div ng-show="$ctrl.editSettings.useMailServerSetting === $ctrl.options.useMailServerSetting[1]">
     <pbs-form-field label="Server Address">
@@ -82,36 +74,26 @@
         ng-maxlength="{{ $ctrl.options.mailServerNetAddress.maxLength }}">
     </pbs-form-field>
     <pbs-form-field label="Server Protocol">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.mailServerProtocol"
-          ng-options="opt for opt in $ctrl.options.mailServerProtocol"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.mailServerProtocol"
+        ng-options="opt for opt in $ctrl.options.mailServerProtocol"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Delete IMAP"
       ng-show="$ctrl.editSettings.mailServerProtocol === $ctrl.options.mailServerProtocol[1]">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.realDeleteForImap"> Delete Messages When using IMAP
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.realDeleteForImap"
+        label="Delete Messages When using IMAP"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Mailbox Length in Minutes">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.maxMailboxLengthMinutes"
-          ng-options="opt for opt in $ctrl.options.maxMailboxLengthMinutes"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.maxMailboxLengthMinutes"
+        ng-options="opt for opt in $ctrl.options.maxMailboxLengthMinutes"></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Message Aging">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.doesMessageAge"> Enable Message Aging
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.doesMessageAge"
+        label="Enable Message Aging"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Message Hold Period in Days"
       ng-show="$ctrl.editSettings.doesMessageAge">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.holdPeriodDays"
-          ng-options="opt for opt in $ctrl.options.holdPeriodDays"></select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.holdPeriodDays"
+        ng-options="opt for opt in $ctrl.options.holdPeriodDays"></pbs-input-select>
     </pbs-form-field>
   </div>
 </pbs-modal>

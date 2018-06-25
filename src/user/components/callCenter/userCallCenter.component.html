@@ -92,10 +92,8 @@
   title="Edit Availability">
   <pbs-form>
     <pbs-form-field label="Availability">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editCenter.available"> Available For Call Center
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editCenter.available"
+        label="Available For Call Center"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Skill Level"
       ng-show="$ctrl.canEditSkillLevel($ctrl.editCenter)">
@@ -110,48 +108,35 @@
   title="Edit Settings">
   <pbs-form>
     <pbs-form-field label="ACD State">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.agentACDState"
-          ng-options="opt for opt in $ctrl.options.agentACDState">
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.agentACDState"
+        ng-options="opt for opt in $ctrl.options.agentACDState">
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field ng-show="$ctrl.isAdmin() && $ctrl.profiles.length > 0"
       label="Agent Threshold Profile">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.agentThresholdProfileName"
-          ng-options="profile.name as profile.name for profile in $ctrl.profiles">
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.agentThresholdProfileName"
+        ng-options="profile.name as profile.name for profile in $ctrl.profiles">
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Outgoing Calls">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.makeOutgoingCallsAsCallCenter"> Make Outgoing Calls as Call Center
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.makeOutgoingCallsAsCallCenter"
+        label="Make Outgoing Calls as Call Center"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Outgoing Calls DNIS"
       ng-show="$ctrl.editSettings.makeOutgoingCallsAsCallCenter">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.outgoingCallDNIS"
-          ng-options="dnis as dnis.name for dnis in $ctrl.dnis track by dnis.name"
-          ng-required="$ctrl.editSettings.makeOutgoingCallsAsCallCenter">
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.outgoingCallDNIS"
+        ng-options="dnis as dnis.name for dnis in $ctrl.dnis track by dnis.name"
+        ng-required="$ctrl.editSettings.makeOutgoingCallsAsCallCenter">
+      </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Guard Timer"
       ng-show="$ctrl.isAdmin()">
-      <label class="checkbox"
-        ng-show="$ctrl.isAdmin()">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.useDefaultGuardTimer"> Use Default Guard Timer Settings
-      </label>
-      <br>
-      <label class="checkbox"
-        ng-show="$ctrl.isAdmin() && !$ctrl.editSettings.useDefaultGuardTimer">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.enableGuardTimer"> Enable Guard Timer
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.useDefaultGuardTimer"
+        ng-show="$ctrl.isAdmin()"
+        label="Use Default Guard Timer Settings"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.enableGuardTimer"
+        ng-show="$ctrl.isAdmin() && !$ctrl.editSettings.useDefaultGuardTimer"
+        label="Enable Guard Timer"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Guard Timer Seconds"
       ng-if="!$ctrl.editSettings.useDefaultGuardTimer">
@@ -163,34 +148,20 @@
     </pbs-form-field>
 
     <pbs-form-field label="Agent Unavailable">
-      <label class="checkbox"
-        ng-show="$ctrl.isAdmin()">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.useSystemDefaultUnavailableSettings"> Use Default Agent Unavailable Settings
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.forceAgentUnavailableOnDNDActivation"> Force Unavailable on Do Not Disturb
-      </label>
-      <br>
-      <label class="checkbox"
-        ng-show="$ctrl.isAdmin() && !$ctrl.editSettings.useSystemDefaultUnavailableSettings">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.forceAgentUnavailableOnPersonalCalls"> Force Unavailable on Personal Calls
-      </label>
-      <br>
-      <label class="checkbox"
-        ng-show="$ctrl.isAdmin() && !$ctrl.editSettings.useSystemDefaultUnavailableSettings">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.forceAgentUnavailableOnNotReachable"> Force Unavailable on Not Reachable
-      </label>
-      <br>
-      <label class="checkbox"
-        ng-show="$ctrl.isAdmin() && !$ctrl.editSettings.useSystemDefaultUnavailableSettings">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.forceAgentUnavailableOnBouncedCallLimit"> Force Unavailable on Bounced Calls
-      </label>
+      <pbs-input-checkbox ng-show="$ctrl.isAdmin()"
+        ng-model="$ctrl.editSettings.useSystemDefaultUnavailableSettings"
+        label="Use Default Agent Unavailable Settings"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.forceAgentUnavailableOnDNDActivation"
+        label="Force Unavailable on Do Not Disturb"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-show="$ctrl.isAdmin() && !$ctrl.editSettings.useSystemDefaultUnavailableSettings"
+        ng-model="$ctrl.editSettings.forceAgentUnavailableOnPersonalCalls"
+        label="Force Unavailable on Personal Calls"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-show="$ctrl.isAdmin() && !$ctrl.editSettings.useSystemDefaultUnavailableSettings"
+        ng-model="$ctrl.editSettings.forceAgentUnavailableOnNotReachable"
+        label="Force Unavailable on Not Reachable"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-show="$ctrl.isAdmin() && !$ctrl.editSettings.useSystemDefaultUnavailableSettings"
+        ng-model="$ctrl.editSettings.forceAgentUnavailableOnBouncedCallLimit"
+        label="Force Unavailable on Bounced Calls"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Agent Unavailable Bounced Call Limit"
       ng-show="$ctrl.isAdmin() && !$ctrl.editSettings.useSystemDefaultUnavailableSettings && $ctrl.editSettings.forceAgentUnavailableOnBouncedCallLimit">

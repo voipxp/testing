@@ -3,12 +3,10 @@
     <p class="panel-heading">Anywhere Mobile Quick Set</p>
     <div class="panel-block"
       ng-repeat="number in $ctrl.settings.phoneNumbers | orderBy:'phoneNumnber' track by number.phoneNumber">
-      <input type="checkbox"
-        label="{{ number.phoneNumber }}"
+      <pbs-input-switch label="{{ number.phoneNumber }}"
         ng-model="number.isActive"
         ng-click="$ctrl.toggle(number)"
-        ng-disabled="$ctrl.loadingNumber[number.phoneNumber]"
-        pbs-input-switch>
+        ng-disabled="$ctrl.loadingNumber[number.phoneNumber]"></pbs-input-switch>
     </div>
     <a class="panel-block"
       ng-if="$ctrl.settings.phoneNumbers.length < 1">

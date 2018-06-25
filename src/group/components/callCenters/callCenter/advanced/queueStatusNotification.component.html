@@ -28,16 +28,12 @@
 <pbs-modal id="editGroupCallCenterQueueStatusNotification"
   title="Edit Queue Status Notification">
   <pbs-form-field label="Enabled">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editService.enableQueueStatusNotification"> Queue Status Notification Enabled
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editService.enableQueueStatusNotification"
+      label="Queue Status Notification Enabled"></pbs-input-checkbox>
   </pbs-form-field>
   <pbs-form-field label="Queue Depth">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editService.enableQueueDepthThreshold"> Enable Queue Depth Threshold
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editService.enableQueueDepthThreshold"
+      label="Enable Queue Depth Threshold"></pbs-input-checkbox>
   </pbs-form-field>
   <pbs-form-field label="Number of Calls in Queue"
     ng-show="$ctrl.editService.enableQueueDepthThreshold">
@@ -48,10 +44,8 @@
       ng-model="$ctrl.editService.numberOfCallsThreshold">
   </pbs-form-field>
   <pbs-form-field label="Waiting Time">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editService.enableWaitingTimeThreshold"> Enable Waiting Time Threshold
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editService.enableWaitingTimeThreshold"
+      label="Enable Waiting Time Threshold"></pbs-input-checkbox>
   </pbs-form-field>
   <pbs-form-field label="Waiting Time Seconds"
     ng-show="$ctrl.editService.enableWaitingTimeThreshold">

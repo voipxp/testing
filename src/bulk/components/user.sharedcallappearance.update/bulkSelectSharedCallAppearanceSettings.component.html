@@ -1,34 +1,21 @@
 <pbs-block title="Shared Call Appearance Settings">
   <pbs-form>
     <pbs-form-section>Settings</pbs-form-section>
-    <input type="checkbox"
-      label="Alert All for Click-to-Dial Calls"
-      ng-model="$ctrl.settings.alertAllAppearancesForClickToDialCalls"
-      pbs-input-checkradio>
-    <input type="checkbox"
-      label="Alert All for Group Paging Calls"
-      ng-model="$ctrl.settings.alertAllAppearancesForGroupPagingCalls"
-      pbs-input-checkradio>
-    <input type="checkbox"
-      label="Allow Call Retrieve from Another Location"
-      ng-model="$ctrl.settings.allowSCACallRetrieve"
-      pbs-input-checkradio>
-    <input type="checkbox"
-      label="Multiple Call Arrangement Active"
-      ng-model="$ctrl.settings.multipleCallArrangementIsActive"
-      pbs-input-checkradio>
-    <input type="checkbox"
-      label="Allow Bridging Between Locations"
-      ng-model="$ctrl.settings.allowBridgingBetweenLocations"
-      pbs-input-checkradio>
-    <input type="checkbox"
-      label="Enable Call Park Notification"
-      ng-model="$ctrl.settings.enableCallParkNotification"
-      pbs-input-checkradio>
+    <pbs-input-checkbox label="Alert All for Click-to-Dial Calls"
+      ng-model="$ctrl.settings.alertAllAppearancesForClickToDialCalls"></pbs-input-checkbox>
+    <pbs-input-checkbox label="Alert All for Group Paging Calls"
+      ng-model="$ctrl.settings.alertAllAppearancesForGroupPagingCalls"></pbs-input-checkbox>
+    <pbs-input-checkbox label="Allow Call Retrieve from Another Location"
+      ng-model="$ctrl.settings.allowSCACallRetrieve"></pbs-input-checkbox>
+    <pbs-input-checkbox label="Multiple Call Arrangement Active"
+      ng-model="$ctrl.settings.multipleCallArrangementIsActive"></pbs-input-checkbox>
+    <pbs-input-checkbox label="Allow Bridging Between Locations"
+      ng-model="$ctrl.settings.allowBridgingBetweenLocations"></pbs-input-checkbox>
+    <pbs-input-checkbox label="Enable Call Park Notification"
+      ng-model="$ctrl.settings.enableCallParkNotification"></pbs-input-checkbox>
     <pbs-form-field-horizontal label="Bridge Warning Tone">
-      <select ng-model="$ctrl.settings.bridgeWarningTone"
-        ng-options="opt as opt for opt in $ctrl.options.bridgeWarningTone"
-        pbs-input-select></select>
+      <pbs-input-select ng-model="$ctrl.settings.bridgeWarningTone"
+        ng-options="opt as opt for opt in $ctrl.options.bridgeWarningTone"></pbs-input-select>
     </pbs-form-field-horizontal>
   </pbs-form>
   <div class="has-text-right large-margin-top">

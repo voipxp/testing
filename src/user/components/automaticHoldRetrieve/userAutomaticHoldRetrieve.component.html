@@ -19,11 +19,8 @@
   title="Edit Settings">
   <pbs-form>
     <pbs-form-field label="General Settings">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.isActive"> Is Active
-      </label>
-      <br>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
+        label="Is Active"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Recall Timer (seconds)">
       <input type="number"

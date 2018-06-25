@@ -68,18 +68,14 @@
   title="Edit Thresholds">
 
   <pbs-form-field label="Thresholds Enabled">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.isActive"> Enable Thresholds
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
+      label="Enable Thresholds"></pbs-input-checkbox>
   </pbs-form-field>
 
   <pbs-form-field label="Notification Emails"
     ng-show="$ctrl.editSettings.isActive">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editSettings.enableNotificationEmail"> Enable Notification Emails
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.enableNotificationEmail"
+      label="Enable Notification Emails"></pbs-input-checkbox>
   </pbs-form-field>
 
   <pbs-form-field label="Notification Emails"

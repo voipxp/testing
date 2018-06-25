@@ -101,28 +101,18 @@
   validate>
   <pbs-form>
     <pbs-form-field label="General Settings">
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.ringBaseLocationFirst"> Ring Base Location First
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.continueIfBaseLocationIsBusy"> Continue If Base Location Is Busy
-      </label>
-      <br>
-      <label class="checkbox">
-        <input type="checkbox"
-          ng-model="$ctrl.editSettings.callerMayStopSearch"> Caller May Stop Search
-      </label>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.ringBaseLocationFirst"
+        label="Ring Base Location First"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.continueIfBaseLocationIsBusy"
+        label="Continue If Base Location Is Busy"></pbs-input-checkbox>
+      <pbs-input-checkbox ng-model="$ctrl.editSettings.callerMayStopSearch"
+        label="Caller May Stop Search"></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Base Location Number Of Rings">
-      <div class="select">
-        <select ng-model="$ctrl.editSettings.baseLocationNumberOfRings"
-          ng-options="x for x in $ctrl.options.baseLocationNumberOfRings"
-          required>
-        </select>
-      </div>
+      <pbs-input-select ng-model="$ctrl.editSettings.baseLocationNumberOfRings"
+        ng-options="x for x in $ctrl.options.baseLocationNumberOfRings"
+        required>
+      </pbs-input-select>
     </pbs-form-field>
     <table pbs-table>
       <thead>
@@ -140,17 +130,12 @@
               ng-model="location.phoneNumber">
           </td>
           <td>
-            <div class="select">
-              <select ng-model="location.numberOfRings"
-                ng-options="x for x in $ctrl.options.numberOfRings">
-              </select>
-            </div>
+            <pbs-input-select ng-model="location.numberOfRings"
+              ng-options="x for x in $ctrl.options.numberOfRings">
+            </pbs-input-select>
           </td>
           <td class="has-text-centered">
-            <label class="checkbox">
-              <input type="checkbox"
-                ng-model="location.answerConfirmationRequired">
-            </label>
+            <pbs-input-checkbox ng-model="location.answerConfirmationRequired"></pbs-input-checkbox>
           </td>
         </tr>
       </tbody>
@@ -163,15 +148,10 @@
   <pbs-spinner loading="$ctrl.loadingCriteria">
     <pbs-form>
       <pbs-form-field label="General Settings">
-        <label class="checkbox">
-          <input type="checkbox"
-            ng-model="$ctrl.editCriteria.isActive"> Is Active
-        </label>
-        <br>
-        <label class="checkbox">
-          <input type="checkbox"
-            ng-model="$ctrl.editCriteria.blacklisted"> Blacklisted
-        </label>
+        <pbs-input-checkbox ng-model="$ctrl.editCriteria.isActive"
+          label="Is Active"></pbs-input-checkbox>
+        <pbs-input-checkbox ng-model="$ctrl.editCriteria.blacklisted"
+          label="Blacklisted"></pbs-input-checkbox>
       </pbs-form-field>
       <pbs-form-field label="Description">
         <input type="text"
@@ -180,28 +160,22 @@
           required>
       </pbs-form-field>
       <pbs-form-field label="Time Schedule">
-        <div class="select">
-          <select ng-model="$ctrl.editCriteria.timeSchedule.name"
-            ng-options="schedule.name as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Time'}">
-            <option value="">All Day Every Day</option>
-          </select>
-        </div>
+        <pbs-input-select ng-model="$ctrl.editCriteria.timeSchedule.name"
+          ng-options="schedule.name as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Time'}">
+          <option value="">All Day Every Day</option>
+        </pbs-input-select>
       </pbs-form-field>
       <pbs-form-field label="Holiday Schedule">
-        <div class="select">
-          <select ng-model="$ctrl.editCriteria.holidaySchedule.name"
-            ng-options="schedule.name as schedule.name for schedule in $ctrl.holidaySchedules">
-            <option value="">None</option>
-          </select>
-        </div>
+        <pbs-input-select ng-model="$ctrl.editCriteria.holidaySchedule.name"
+          ng-options="schedule.name as schedule.name for schedule in $ctrl.holidaySchedules">
+          <option value="">None</option>
+        </pbs-input-select>
       </pbs-form-field>
       <pbs-form-field label="Calls From">
-        <div class="select">
-          <select ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
-            ng-options="x for x in $ctrl.criteriaOptions.fromDnCriteriaSelection"
-            required>
-          </select>
-        </div>
+        <pbs-input-select ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
+          ng-options="x for x in $ctrl.criteriaOptions.fromDnCriteriaSelection"
+          required>
+        </pbs-input-select>
       </pbs-form-field>
       <pbs-form-field label="Anonymous Callers">
         <pbs-input-checkbox label="Any Private Number"

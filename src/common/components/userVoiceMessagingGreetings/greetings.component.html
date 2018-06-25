@@ -68,15 +68,12 @@
   title="Edit Greetings">
   <pbs-form>
     <pbs-form-section>Message Deposit</pbs-form-section>
-    <input type="checkbox"
-      label="Disable Message Deposit"
-      ng-model="$ctrl.editSettings.disableMessageDeposit"
-      pbs-input-checkradio>
+    <pbs-input-checkbox label="Disable Message Deposit"
+      ng-model="$ctrl.editSettings.disableMessageDeposit"></pbs-input-checkbox>
     <pbs-form-field-horizontal ng-show="$ctrl.editSettings.disableMessageDeposit"
       label="After Greeting Action">
-      <select ng-model="$ctrl.editSettings.disableMessageDepositAction"
-        ng-options="opt for opt in $ctrl.options.disableMessageDepositAction"
-        pbs-input-select></select>
+      <pbs-input-select ng-model="$ctrl.editSettings.disableMessageDepositAction"
+        ng-options="opt for opt in $ctrl.options.disableMessageDepositAction"></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Forward To"
       ng-show="$ctrl.editSettings.disableMessageDeposit && $ctrl.editSettings.disableMessageDepositAction === 'Forward'">
@@ -86,37 +83,30 @@
     </pbs-form-field-horizontal>
     <pbs-form-section>Busy Settings</pbs-form-section>
     <pbs-form-field-horizontal label="Announcement Selection">
-      <select ng-model="$ctrl.editSettings.busyAnnouncementSelection"
-        ng-options="opt for opt in $ctrl.options.busyAnnouncementSelection"
-        pbs-input-select></select>
+      <pbs-input-select ng-model="$ctrl.editSettings.busyAnnouncementSelection"
+        ng-options="opt for opt in $ctrl.options.busyAnnouncementSelection"></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Personal Greeting">
       <select-audio-file user-id="$ctrl.userId"
         audio-file="$ctrl.editSettings.busyPersonalAudio"></select-audio-file>
     </pbs-form-field-horizontal>
     <pbs-form-section>Extended Away Settings</pbs-form-section>
-    <input type="checkbox"
-      ng-model="$ctrl.editSettings.extendedAwayEnabled"
-      label="Extended Away Enabled"
-      pbs-input-checkradio>
-    <input type="checkbox"
-      ng-model="$ctrl.editSettings.extendedAwayDisableMessageDeposit"
-      label="Extended Away Disable Message Deposit"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.extendedAwayEnabled"
+      label="Extended Away Enabled"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.extendedAwayDisableMessageDeposit"
+      label="Extended Away Disable Message Deposit"></pbs-input-checkbox>
     <pbs-form-field-horizontal label="Extended Away Greeting">
       <select-audio-file user-id="$ctrl.userId"
         audio-file="$ctrl.editSettings.extendedAwayAudio"></select-audio-file>
     </pbs-form-field-horizontal>
     <pbs-form-section>No Answer Settings</pbs-form-section>
     <pbs-form-field-horizontal label="Rings before Greeting">
-      <select ng-model="$ctrl.editSettings.noAnswerNumberOfRings"
-        ng-options="opt for opt in $ctrl.options.noAnswerNumberOfRings"
-        pbs-input-select></select>
+      <pbs-input-select ng-model="$ctrl.editSettings.noAnswerNumberOfRings"
+        ng-options="opt for opt in $ctrl.options.noAnswerNumberOfRings"></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Announcement Selection">
-      <select ng-model="$ctrl.editSettings.noAnswerAnnouncementSelection"
-        ng-options="opt for opt in $ctrl.options.noAnswerAnnouncementSelection"
-        pbs-input-select></select>
+      <pbs-input-select ng-model="$ctrl.editSettings.noAnswerAnnouncementSelection"
+        ng-options="opt for opt in $ctrl.options.noAnswerAnnouncementSelection"></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Personal Greeting">
       <select-audio-file user-id="$ctrl.userId"

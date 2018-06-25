@@ -42,9 +42,7 @@
       ng-model="$ctrl.editGroup.label">
   </pbs-form-field>
   <pbs-form-field label="Enabled">
-    <label class="checkbox">
-      <input type="checkbox"
-        ng-model="$ctrl.editGroup.enabled"> Multicast Group Enabled?
-    </label>
+    <pbs-input-checkbox ng-model="$ctrl.editGroup.enabled"
+      label="Multicast Group Enabled?"></pbs-input-checkbox>
   </pbs-form-field>
 </pbs-modal>

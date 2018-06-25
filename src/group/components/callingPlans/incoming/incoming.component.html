@@ -39,28 +39,20 @@
   title="{{ $ctrl.editDepartment.departmentName || 'Group Default' }} - Incoming">
   <pbs-form>
     <pbs-form-section>Permissions</pbs-form-section>
-    <input type="checkbox"
-      ng-model="$ctrl.editDepartment.allowCollectCalls"
-      label="Allow Collect Calls"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editDepartment.allowCollectCalls"
+      label="Allow Collect Calls"></pbs-input-checkbox>
 
-    <input type="checkbox"
-      ng-model="$ctrl.editDepartment.allowFromWithinGroup"
-      label="Allow Calls From Within Group"
-      pbs-input-checkradio>
+    <pbs-input-checkbox ng-model="$ctrl.editDepartment.allowFromWithinGroup"
+      label="Allow Calls From Within Group"></pbs-input-checkbox>
 
     <pbs-form-field-horizontal label="Calls From Outside Group">
-      <select ng-model="$ctrl.editDepartment.allowFromOutsideGroup"
-        ng-options="opt as opt for opt in $ctrl.options.allowFromOutsideGroup"
-        pbs-input-select>
-      </select>
+      <pbs-input-select ng-model="$ctrl.editDepartment.allowFromOutsideGroup"
+        ng-options="opt as opt for opt in $ctrl.options.allowFromOutsideGroup"></pbs-input-select>
     </pbs-form-field-horizontal>
 
     <pbs-form-section>Digit Patterns</pbs-form-section>
-    <input type="checkbox"
-      ng-repeat="digitPattern in $ctrl.editDepartment.digitPatterns"
+    <pbs-input-checkbox ng-repeat="digitPattern in $ctrl.editDepartment.digitPatterns"
       label="{{ digitPattern.digitPatternName }}"
-      ng-model="digitPattern.allow"
-      pbs-input-checkradio>
+      ng-model="digitPattern.allow"></pbs-input-checkbox>
   </pbs-form>
 </pbs-modal>
