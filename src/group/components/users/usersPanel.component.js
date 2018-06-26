@@ -32,8 +32,10 @@
     function loadUsers() {
       return UserService.index(ctrl.serviceProviderId, ctrl.groupId).then(
         function(data) {
-          ctrl.users = data
-          return data
+          ctrl.users = data.map(function(user) {
+            user.name = [user.firstName, user.lastName].join(' ')
+            return user
+          })
         }
       )
     }
