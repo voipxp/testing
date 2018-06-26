@@ -6,6 +6,7 @@
       <tr>
         <th>Name</th>
         <th>Type</th>
+        <th>Level</th>
         <th>Size</th>
       </tr>
     </thead>
@@ -19,9 +20,10 @@
     <tbody>
       <tr class="hover"
         ng-click="$ctrl.select(announcement)"
-        ng-repeat="announcement in $ctrl.announcements | filter:$ctrl.search | orderBy:'name' as results track by announcement.name">
+        ng-repeat="announcement in $ctrl.announcements | filter:$ctrl.search | orderBy:'name' as results">
         <td>{{ announcement.name }}</td>
         <td>{{ announcement.mediaType }}</td>
+        <td>{{ announcement.level }}</td>
         <td>{{ announcement.fileSize }}</td>
       </tr>
     </tbody>

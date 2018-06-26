@@ -74,6 +74,7 @@
   <table pbs-table>
     <tr ng-repeat="file in $ctrl.service.audioFileList">
       <td>{{ file.name }}
+        <span ng-show="file.level">({{ file.level }})</span>
         <pbs-button-compact-delete class="is-pulled-right"
           ng-click="$ctrl.removeFile($index)"></pbs-button-compact-delete>
       </td>

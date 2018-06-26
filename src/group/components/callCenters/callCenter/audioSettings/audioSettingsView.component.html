@@ -13,6 +13,7 @@
     ng-show="$ctrl.isFile()">
     <span ng-repeat="file in $ctrl.service.audioFileList">
       {{ file.name }}
+      <span ng-show="file.level">({{ file.level }})</span>
       <br>
     </span>
   </pbs-list-item>
