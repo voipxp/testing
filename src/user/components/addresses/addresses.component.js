@@ -11,7 +11,7 @@
     ctrl.userId = $routeParams.userId
     ctrl.$onInit = function() {
       Module.show('Provisioning').then(function(module) {
-        ctrl.hasProvisioning = module.permissions.update
+        ctrl.hasProvisioning = module.permissions.read
       })
     }
   }

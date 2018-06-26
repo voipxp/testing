@@ -5,16 +5,18 @@
     bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller(Alert, $scope, UserService, ACL) {
+  function Controller(Alert, Module, UserService, ACL) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
     ctrl.setAlias1 = setAlias1
     ctrl.setAlias2 = setAlias2
     ctrl.setAlias3 = setAlias3
-    ctrl.canEdit = ACL.has('Group')
 
     function onInit() {
+      Module.show('Provisioning').then(function(module) {
+        ctrl.canEdit = ACL.has('Group') && module.permissions.update
+      })
       ctrl.loading = true
       loadUser()
         .catch(Alert.notify.danger)
