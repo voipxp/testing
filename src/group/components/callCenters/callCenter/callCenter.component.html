@@ -40,7 +40,7 @@
     <group-call-center-thresholds service-user-id="$ctrl.serviceUserId"></group-call-center-thresholds>
   </pbs-menu-item>
   <pbs-menu-item label="Routing"
-    ng-if="$ctrl.center.type !== 'Basic'">
+    ng-if="$ctrl.center && $ctrl.center.type !== 'Basic'">
     <group-call-center-forced-forwarding service-user-id="$ctrl.serviceUserId"
       ng-if="$ctrl.center.type === 'Premium'"
       pbs-margin-bottom></group-call-center-forced-forwarding>
