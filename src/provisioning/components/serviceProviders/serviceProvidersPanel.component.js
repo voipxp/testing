@@ -32,8 +32,10 @@
 
     function loadServiceProviders() {
       return ServiceProviderService.index().then(function(data) {
-        ctrl.serviceProviders = data
-        return data
+        ctrl.serviceProviders = data.map(function(item) {
+          item.name = _.trim(item.serviceProviderName) || item.serviceProviderId
+          return item
+        })
       })
     }
 
