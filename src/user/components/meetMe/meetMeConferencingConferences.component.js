@@ -127,7 +127,7 @@
       if (ctrl.module.permissions.delete) {
         deleteAction = function(close) {
           Alert.confirm
-            .open('Are you sure you want to delete this Criteria?')
+            .open('Are you sure you want to delete this Conference?')
             .then(function() {
               destroy(ctrl.editConference, close)
             })
@@ -193,6 +193,7 @@
     }
 
     function updateConference(settings, callback) {
+      Alert.spinner.open()
       UserMeetMeConferencingConferencesService.update(
         ctrl.userId,
         ctrl.conferenceId,
