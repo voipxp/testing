@@ -98,7 +98,7 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-angular-animate@^1.6.8:
+angular-animate@^1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/angular-animate/-/angular-animate-1.7.2.tgz#48d1d22caf0057b57b50f882b68d51c297aa7747"
 
@@ -131,11 +131,11 @@ angular-papaparse@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/angular-papaparse/-/angular-papaparse-1.0.0.tgz#5211569108770f62d4441126ee0e8e5dbeb5e330"
 
-angular-route@^1.6.8:
+angular-route@^1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/angular-route/-/angular-route-1.7.2.tgz#a24b7a0c8ef09a3d4e2ca20de7f84e0e857a61ae"
 
-angular-sanitize@^1.6.8:
+angular-sanitize@^1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/angular-sanitize/-/angular-sanitize-1.7.2.tgz#e9f6e6a3e966c479c02dbc5712bee6de031f8eef"
 
@@ -143,7 +143,7 @@ angular-truncate-2@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/angular-truncate-2/-/angular-truncate-2-0.4.2.tgz#89b3957f8668702d53d0d26130f015ef0886bf74"
 
-angular@1.x, angular@^1.6.8:
+angular@1.x, angular@^1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.7.2.tgz#687b955dbe5c533f8d73460461707af00360251f"
 
