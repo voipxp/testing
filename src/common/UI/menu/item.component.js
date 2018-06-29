@@ -12,6 +12,7 @@
     controller: function() {
       var ctrl = this
       ctrl.$onInit = onInit
+      ctrl.$onDestroy = onDestroy
       ctrl.shouldLoad = shouldLoad
 
       function onInit() {
@@ -20,6 +21,10 @@
           selected: false
         }
         ctrl.section.add(ctrl.item)
+      }
+
+      function onDestroy() {
+        ctrl.section.remove(ctrl.item)
       }
 
       function shouldLoad() {

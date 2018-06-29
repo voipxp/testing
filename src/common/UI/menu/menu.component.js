@@ -5,12 +5,13 @@
     '    <aside class="menu pbs-menu-container">' +
     '      <p class="menu-label"' +
     '         ng-repeat-start="section in $ctrl.sections"' +
-    '         ng-show="section.label"' +
+    '         ng-if="section.label && section.items.length"' +
     '         ng-bind="section.label">' +
     '      </p>' +
     '      <ul class="menu-list pbs-menu-list"' +
+    '          ng-if="section.items.length"' +
     '          ng-repeat-end>' +
-    '        <li ng-repeat="item in section.items">' +
+    '        <li ng-repeat="item in section.items | orderBy:\'label\'">' +
     '          <a ng-bind="item.label" ' +
     '             ng-class="{\'is-active\': item.selected}"' +
     '             ng-click="$ctrl.select(item)"></a>' +
@@ -30,6 +31,7 @@
       ctrl.$onInit = onInit
       ctrl.$postLink = postLink
       ctrl.add = add
+      ctrl.remove = remove
       ctrl.select = select
 
       function onInit() {
@@ -38,6 +40,10 @@
 
       function add(section) {
         ctrl.sections.push(section)
+      }
+
+      function remove(section) {
+        _.remove(ctrl.sections, section)
       }
 
       function select(item) {

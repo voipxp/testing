@@ -7,7 +7,9 @@
     controller: function() {
       var ctrl = this
       ctrl.$onInit = onInit
+      ctrl.$onDestroy = onDestroy
       ctrl.add = add
+      ctrl.remove = remove
 
       function onInit() {
         ctrl.section = {
@@ -17,8 +19,16 @@
         ctrl.menu.add(ctrl.section)
       }
 
+      function onDestroy() {
+        ctrl.menu.remove(ctrl.section)
+      }
+
       function add(item) {
         ctrl.section.items.push(item)
+      }
+
+      function remove(item) {
+        _.remove(ctrl.section.items, item)
       }
     }
   })

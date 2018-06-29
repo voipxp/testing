@@ -39,8 +39,7 @@
     ng-if="$ctrl.hasPermission('enableReporting')">
     <group-call-center-thresholds service-user-id="$ctrl.serviceUserId"></group-call-center-thresholds>
   </pbs-menu-item>
-  <pbs-menu-item label="Routing"
-    ng-if="$ctrl.center && $ctrl.center.type !== 'Basic'">
+  <pbs-menu-item label="Routing">
     <group-call-center-forced-forwarding service-user-id="$ctrl.serviceUserId"
       ng-if="$ctrl.center.type === 'Premium'"
       pbs-margin-bottom></group-call-center-forced-forwarding>
@@ -54,31 +53,30 @@
       ng-if="$ctrl.center.type === 'Premium'"
       pbs-margin-bottom></group-call-center-comfort-message-bypass>
     <group-call-center-bounced-calls service-user-id="$ctrl.serviceUserId"
+      ng-if="$ctrl.center.type !== 'Basic'"
       pbs-margin-bottom></group-call-center-bounced-calls>
     <group-call-center-overflow service-user-id="$ctrl.serviceUserId"
       pbs-margin-bottom></group-call-center-overflow>
     <group-call-center-stranded-call service-user-id="$ctrl.serviceUserId"
+      ng-if="$ctrl.center.type !== 'Basic'"
       pbs-margin-bottom></group-call-center-stranded-call>
     <group-call-center-stranded-call-unavailable service-user-id="$ctrl.serviceUserId"
+      ng-if="$ctrl.center.type !== 'Basic'"
       pbs-margin-bottom></group-call-center-stranded-call-unavailable>
   </pbs-menu-item>
   <pbs-menu-item label="Advanced"
     ng-if="$ctrl.hasPermission('routingType')">
-    <group-call-center-queue-status-notification service-user-id="$ctrl.serviceUserId">
-    </group-call-center-queue-status-notification>
+    <group-call-center-queue-status-notification service-user-id="$ctrl.serviceUserId"></group-call-center-queue-status-notification>
     <group-call-center-distinctive-ringing pbs-margin-top
-      service-user-id="$ctrl.serviceUserId">
-    </group-call-center-distinctive-ringing>
+      service-user-id="$ctrl.serviceUserId"></group-call-center-distinctive-ringing>
     <group-call-center-queue-disposition-codes pbs-margin-top
       service-user-id="$ctrl.serviceUserId"
-      ng-if="$ctrl.hasPermission('callDispositionCodes')">
-    </group-call-center-queue-disposition-codes>
+      ng-if="$ctrl.hasPermission('callDispositionCodes')"></group-call-center-queue-disposition-codes>
   </pbs-menu-item>
   <pbs-menu-item label="DNIS"
     ng-if="$ctrl.hasPermission('routingType')">
     <group-call-center-dnis service-provider-id="$ctrl.serviceProviderId"
       group-id="$ctrl.groupId"
-      service-user-id="$ctrl.serviceUserId">
-    </group-call-center-dnis>
+      service-user-id="$ctrl.serviceUserId"></group-call-center-dnis>
   </pbs-menu-item>
 </virtual-user-menu>
