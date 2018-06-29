@@ -122,6 +122,17 @@
     }
 
     function edit(meetMe) {
+      if (!ctrl.module.permissions.update) return
+      var deleteAction
+      if (ctrl.module.permissions.delete) {
+        deleteAction = function(close) {
+          Alert.confirm
+            .open('Are you sure you want to delete this Criteria?')
+            .then(function() {
+              destroy(ctrl.editConference, close)
+            })
+        }
+      }
       Alert.spinner.open()
       getGroupConference(meetMe.bridgeId)
         .then(function(groupBridge) {
@@ -137,7 +148,6 @@
           return getConference(meetMe.conferenceId, meetMe.bridgeId)
         })
         .then(function(data) {
-          Alert.spinner.close()
           ctrl.editConference = data
           ctrl.editConference.conferenceId = meetMe.conferenceId
           ctrl.editConference.bridgeId = meetMe.bridgeId
@@ -147,16 +157,11 @@
             function(close) {
               updateConference(ctrl.editConference, close)
             },
-            function(close) {
-              Alert.confirm
-                .open('Are you sure you want to delete this Criteria?')
-                .then(function() {
-                  destroy(ctrl.editConference, close)
-                })
-            }
+            deleteAction
           )
         })
         .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function destroy(criteria, callback) {

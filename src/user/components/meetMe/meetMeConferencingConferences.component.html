@@ -19,13 +19,13 @@
       </thead>
       <tfoot>
         <tr ng-if="$ctrl.meetMeConferencingConferences.length < 1">
-          <td colspan="6">No Meet Me Conferences Found
+          <td colspan="99">No Meet Me Conferences Found
             <span ng-if="$ctrl.meetMeConferencingConferences">for {{ $ctrl.userId }}</span>
           </td>
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover"
+        <tr ng-class="{hover: $ctrl.module.permissions.update}"
           ng-repeat="meetMe in $ctrl.meetMeConferencingConferences"
           ng-click="$ctrl.edit(meetMe)">
           <td>{{meetMe.title}}</td>
