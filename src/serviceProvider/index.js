@@ -88,6 +88,12 @@
       path: 'networkClassOfServices',
       component: 'serviceProviderNetworkClassOfServices',
       acl: 'Service Provider'
+    },
+    {
+      path: 'reports/users',
+      component: 'usersReport',
+      acl: 'Service Provider',
+      module: 'User Report'
     }
   ]
 

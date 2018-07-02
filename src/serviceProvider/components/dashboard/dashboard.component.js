@@ -120,6 +120,11 @@
           name: 'Group Services',
           path: route('groupServices'),
           admin: true
+        },
+        {
+          type: 'report',
+          module: 'User Report',
+          path: route('reports', 'users')
         }
       ]
     }

@@ -6,14 +6,27 @@
     return service
 
     function url(serviceProviderId, groupId, userId) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId,
-        'reports',
-        'users'
-      )(userId)
+      if (serviceProviderId && groupId) {
+        return Route.api()(
+          'serviceproviders',
+          serviceProviderId,
+          'groups',
+          groupId,
+          'reports',
+          'users',
+          userId
+        )
+      } else if (serviceProviderId && !groupId) {
+        return Route.api()(
+          'serviceproviders',
+          serviceProviderId,
+          'reports',
+          'users',
+          userId
+        )
+      } else {
+        throw new Error('Missing Service Provider Id or Group Id')
+      }
     }
 
     function index(serviceProviderId, groupId) {

@@ -22,6 +22,7 @@
         <th>Device Type</th>
         <th>MAC Address</th>
         <th>Service Packs</th>
+        <th>User Services</th>
         <th>Premium Services</th>
       </tr>
     </thead>
@@ -33,7 +34,7 @@
       </tr>
     </tfoot>
     <tbody>
-      <tr ng-repeat="user in $ctrl.users | filter:$ctrl.search | orderBy:'userId' as results track by user.userId">
+      <tr ng-repeat="user in results = ($ctrl.users | filter:$ctrl.search | orderBy:'userId') | paginate:$ctrl.pager track by user.userId">
         <td>{{ user.userId }}</td>
         <td>{{ user.lastName }}</td>
         <td>{{ user.firstName }}</td>
@@ -47,9 +48,13 @@
         </td>
         <td>{{ user.accessDeviceEndpoint.accessDevice.deviceType }}</td>
         <td>{{ user.accessDeviceEndpoint.accessDevice.macAddress }}</td>
-        <td>{{ user.servicePacks.join(',') }}</td>
-        <td>{{ user.premiumServices.join(',') }}</td>
+        <td>{{ user.servicePacks.join(', ') }}</td>
+        <td>{{ user.userServices.join(', ') }}</td>
+        <td>{{ user.premiumServices.join(', ') }}</td>
       </tr>
     </tbody>
   </table>
+  <pbs-pagination items="results.length"
+    limit="25"
+    on-update="$ctrl.onPagination($event)"></pbs-pagination>
 </pbs-block>

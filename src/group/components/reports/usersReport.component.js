@@ -21,6 +21,10 @@
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
 
+    ctrl.onPagination = function(event) {
+      ctrl.pager = event.pager
+    }
+
     function onInit() {
       ctrl.users = []
       Alert.spinner.open()
@@ -72,6 +76,7 @@
             ''
           ),
           servicePacks: user.servicePacks.join(','),
+          userServices: user.userServices.join(','),
           premiumServices: user.premiumServices.join(',')
         }
       })
@@ -79,11 +84,11 @@
 
     function download() {
       var filename =
-        'odin-users-report-' +
-        ctrl.serviceProviderId +
-        '-' +
-        ctrl.groupId +
-        '.csv'
+        _.compact([
+          'odin-users-report',
+          ctrl.serviceProviderId,
+          ctrl.groupId
+        ]).join('-') + '.csv'
       CsvService.export(transformData(ctrl.users)).then(function(csv) {
         DownloadService.download(csv, filename)
       })
