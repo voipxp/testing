@@ -3,7 +3,7 @@
     templateUrl:
       'group/components/callCenters/callCenter/routing/bouncedCalls.component.html',
     controller: Controller,
-    bindings: { serviceUserId: '<' }
+    bindings: { serviceUserId: '<', type: '<' }
   })
 
   function Controller(GroupCallCenterBouncedCallService, Alert) {
@@ -13,6 +13,12 @@
     ctrl.$onChanges = onChanges
     ctrl.edit = edit
     ctrl.options = GroupCallCenterBouncedCallService.options
+    ctrl.hasPremium = function() {
+      return ctrl.type === 'Premium'
+    }
+    ctrl.hasStandard = function() {
+      return ctrl.type === 'Standard' || ctrl.hasPremium()
+    }
 
     function onInit() {
       ctrl.loading = true

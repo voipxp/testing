@@ -11,7 +11,8 @@
     Route,
     Alert,
     GroupCallCenterService,
-    UserServiceService
+    UserServiceService,
+    ACL
   ) {
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -29,6 +30,7 @@
 
     function activate() {
       ctrl.loading = true
+      ctrl.hasBasicBounced = ACL.hasVersion('20')
       loadAssigned()
         .then(loadCallCenter)
         .catch(function(error) {

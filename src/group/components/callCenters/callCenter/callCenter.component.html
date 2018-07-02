@@ -53,7 +53,8 @@
       ng-if="$ctrl.center.type === 'Premium'"
       pbs-margin-bottom></group-call-center-comfort-message-bypass>
     <group-call-center-bounced-calls service-user-id="$ctrl.serviceUserId"
-      ng-if="$ctrl.center.type !== 'Basic'"
+      type="$ctrl.center.type"
+      ng-if="$ctrl.hasBasicBounced || $ctrl.center.type !== 'Basic'"
       pbs-margin-bottom></group-call-center-bounced-calls>
     <group-call-center-overflow service-user-id="$ctrl.serviceUserId"
       pbs-margin-bottom></group-call-center-overflow>

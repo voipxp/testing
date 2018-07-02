@@ -12,23 +12,28 @@
       <pbs-list-item label="Number of Rings">
         {{ $ctrl.service.numberOfRingsBeforeBouncingCall }}
       </pbs-list-item>
-      <pbs-list-item label="Enable Transfer">
+      <pbs-list-item label="Enable Transfer"
+        ng-if="$ctrl.hasPremium()">
         <pbs-check-box checked="$ctrl.service.enableTransfer"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Transfer Calls To"
+        ng-if="$ctrl.hasPremium()"
         ng-show="$ctrl.service.enableTransfer">
         {{ $ctrl.service.transferPhoneNumber }}
       </pbs-list-item>
-      <pbs-list-item label="Bounce if Unavailable">
+      <pbs-list-item label="Bounce if Unavailable"
+        ng-if="$ctrl.hasStandard()">
         <pbs-check-box checked="$ctrl.service.bounceCallWhenAgentUnavailable"></pbs-check-box>
       </pbs-list-item>
-      <pbs-list-item label="Alert Agent if on Hold">
+      <pbs-list-item label="Alert Agent if on Hold"
+        ng-if="$ctrl.hasStandard()">
         <pbs-check-box checked="$ctrl.service.alertCallCenterCallOnHold"></pbs-check-box>
         <span ng-show="$ctrl.service.alertCallCenterCallOnHold">
           for {{ $ctrl.service.alertCallCenterCallOnHoldSeconds }} seconds
         </span>
       </pbs-list-item>
-      <pbs-list-item label="Bounce if on Hold">
+      <pbs-list-item label="Bounce if on Hold"
+        ng-if="$ctrl.hasStandard()">
         <pbs-check-box checked="$ctrl.service.bounceCallCenterCallOnHold"></pbs-check-box>
         <span ng-show="$ctrl.service.bounceCallCenterCallOnHold">
           for {{ $ctrl.service.bounceCallCenterCallOnHoldSeconds }} seconds
@@ -45,16 +50,20 @@
     label="Bounce Calls Enabled"></pbs-input-checkbox>
 
   <pbs-input-checkbox ng-model="$ctrl.editService.enableTransfer"
-    label="Enable Transfer"></pbs-input-checkbox>
+    label="Enable Transfer"
+    ng-if="$ctrl.hasPremium()"></pbs-input-checkbox>
 
   <pbs-input-checkbox ng-model="$ctrl.editService.bounceCallWhenAgentUnavailable"
-    label="Bounce calls when Agent unavailable"></pbs-input-checkbox>
+    label="Bounce calls when Agent unavailable"
+    ng-if="$ctrl.hasStandard()"></pbs-input-checkbox>
 
   <pbs-input-checkbox ng-model="$ctrl.editService.alertCallCenterCallOnHold"
-    label="Alert Agent when on hold"></pbs-input-checkbox>
+    label="Alert Agent when on hold"
+    ng-if="$ctrl.hasStandard()"></pbs-input-checkbox>
 
   <pbs-input-checkbox ng-model="$ctrl.editService.bounceCallCenterCallOnHold"
-    label="Bounce call when on hold"></pbs-input-checkbox>
+    label="Bounce call when on hold"
+    ng-if="$ctrl.hasStandard()"></pbs-input-checkbox>
 
   <pbs-form-field-horizontal label="Rings before bouncing call">
     <input type="number"
@@ -63,20 +72,23 @@
   </pbs-form-field-horizontal>
 
   <pbs-form-field-horizontal label="Transfer To"
+    ng-if="$ctrl.hasPremium()"
     ng-show="$ctrl.editService.enableTransfer">
     <input type="text"
       class="input"
       ng-model="$ctrl.editService.transferPhoneNumber">
   </pbs-form-field-horizontal>
 
-  <pbs-form-field-horizontal label="Seconds before Alerting">
+  <pbs-form-field-horizontal label="Seconds before Alerting"
+    ng-if="$ctrl.hasStandard()">
     <input type="number"
       class="input"
       ng-model="$ctrl.editService.alertCallCenterCallOnHoldSeconds">
   </pbs-form-field-horizontal>
 
   <pbs-form-field-horizontal label="Seconds before Bouncing"
-    ng-show="$ctrl.editService.bounceCallCenterCallOnHold">
+    ng-show="$ctrl.editService.bounceCallCenterCallOnHold"
+    ng-if="$ctrl.hasStandard()">
     <input type="number"
       class="input"
       ng-model="$ctrl.editService.bounceCallCenterCallOnHoldSeconds">
