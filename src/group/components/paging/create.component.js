@@ -29,14 +29,13 @@
 
     function activate() {
       Alert.spinner.open()
-      $q
-        .all([
-          loadDepartments(),
-          loadLanguages(),
-          loadTimezones(),
-          loadDomains(),
-          loadNumbers()
-        ])
+      $q.all([
+        loadDepartments(),
+        loadLanguages(),
+        loadTimezones(),
+        loadDomains(),
+        loadNumbers()
+      ])
         .then(initGroup)
         .then(function() {
           Alert.modal.open(ctrl.modalId, function(close) {

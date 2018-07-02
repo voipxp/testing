@@ -33,8 +33,7 @@
 
     function onInit() {
       ctrl.loading = true
-      $q
-        .all([Module.load(), loadUser()])
+      $q.all([Module.load(), loadUser()])
         .then(function() {
           ctrl.canEdit = ACL.has('Group') && Module.update('Provisioning')
         })

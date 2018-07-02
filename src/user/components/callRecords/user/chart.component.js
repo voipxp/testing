@@ -94,7 +94,7 @@
     }
 
     function generateLabel(label, value, total) {
-      var percent = value ? Math.round(value / total * 100) : 0
+      var percent = value ? Math.round((value / total) * 100) : 0
       return label + ' (' + percent + '%' + ')'
     }
 

@@ -16,8 +16,7 @@
 
     function onInit() {
       ctrl.loading = true
-      $q
-        .all([loadSettings(), loadAvailableUsers(), loadModule()])
+      $q.all([loadSettings(), loadAvailableUsers(), loadModule()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })

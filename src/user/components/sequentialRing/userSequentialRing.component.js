@@ -35,13 +35,12 @@
 
     function onInit() {
       ctrl.loading = true
-      $q
-        .all([
-          loadSettings(),
-          loadUserSchedules(),
-          loadHolidaySchedules(),
-          loadModule()
-        ])
+      $q.all([
+        loadSettings(),
+        loadUserSchedules(),
+        loadHolidaySchedules(),
+        loadModule()
+      ])
         .catch(function(error) {
           Alert.notify.danger(error)
         })

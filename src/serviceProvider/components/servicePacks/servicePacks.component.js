@@ -35,8 +35,7 @@
     function onInit() {
       ctrl.state = 'list'
       ctrl.loading = true
-      $q
-        .all([loadServicePacks(), loadServices()])
+      $q.all([loadServicePacks(), loadServices()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })

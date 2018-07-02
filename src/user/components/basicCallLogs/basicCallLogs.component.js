@@ -12,8 +12,7 @@
     function onInit() {
       ctrl.loading = true
       ctrl.tab = 'placed'
-      $q
-        .all([loadLogs(), loadModule()])
+      $q.all([loadLogs(), loadModule()])
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false

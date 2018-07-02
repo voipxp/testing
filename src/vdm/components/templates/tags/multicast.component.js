@@ -52,8 +52,7 @@
 
     function update(group, callback) {
       Alert.spinner.open()
-      $q
-        .all([updateLabel(group), updateIP(group)])
+      $q.all([updateLabel(group), updateIP(group)])
         .then(ctrl.parent.reload)
         .then(function() {
           Alert.notify.success('Multicast Group Updated')

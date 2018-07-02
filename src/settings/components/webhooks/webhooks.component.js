@@ -14,8 +14,7 @@
 
     function onInit() {
       ctrl.loading = true
-      $q
-        .all([loadSettings(), loadEvents()])
+      $q.all([loadSettings(), loadEvents()])
         .catch(function(error) {
           console.log('error', error.data)
           Alert.notify.danger(error.data)

@@ -26,8 +26,7 @@
       ctrl.templateName = $location.search().name
       $location.search({})
       ctrl.loading = true
-      $q
-        .all([loadTemplate(), loadPermissions()])
+      $q.all([loadTemplate(), loadPermissions()])
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false

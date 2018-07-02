@@ -32,8 +32,7 @@
 
     function onInit() {
       ctrl.loading = true
-      $q
-        .all([loadAvailableUsers()])
+      $q.all([loadAvailableUsers()])
         .then(loadCollaborate())
         .catch(Alert.notify.danger)
         .finally(function() {

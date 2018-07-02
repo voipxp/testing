@@ -26,8 +26,7 @@
 
     function onInit() {
       ctrl.loading = true
-      $q
-        .all([loadDispositionCodes(), loadSettings()])
+      $q.all([loadDispositionCodes(), loadSettings()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })

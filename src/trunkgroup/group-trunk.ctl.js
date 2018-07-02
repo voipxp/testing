@@ -67,23 +67,22 @@
       vm.isLoading = true
       loadTab($location.search().tab)
       setCredentials()
-      $q
-        .all([
-          GroupTrunkService.get(
-            vm.trunkName,
-            _credentials.serviceProviderId,
-            _credentials.groupId
-          ),
-          GroupTrunkService.list(
-            _credentials.serviceProviderId,
-            _credentials.groupId
-          ),
-          DepartmentsService.list(
-            _credentials.serviceProviderId,
-            _credentials.groupId,
-            true
-          )
-        ])
+      $q.all([
+        GroupTrunkService.get(
+          vm.trunkName,
+          _credentials.serviceProviderId,
+          _credentials.groupId
+        ),
+        GroupTrunkService.list(
+          _credentials.serviceProviderId,
+          _credentials.groupId
+        ),
+        DepartmentsService.list(
+          _credentials.serviceProviderId,
+          _credentials.groupId,
+          true
+        )
+      ])
         .then(function(results) {
           loadTrunk(results[0])
           console.log('TRUNK', results[0])

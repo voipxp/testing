@@ -22,8 +22,7 @@
 
     function onInit() {
       ctrl.loading = true
-      $q
-        .all([loadDirectories(), loadAvailableUsers()])
+      $q.all([loadDirectories(), loadAvailableUsers()])
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false

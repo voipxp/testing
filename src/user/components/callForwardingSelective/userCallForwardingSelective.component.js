@@ -28,8 +28,7 @@
 
     function onInit() {
       ctrl.loading = true
-      $q
-        .all([loadModule(), loadSettings()])
+      $q.all([loadModule(), loadSettings()])
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false

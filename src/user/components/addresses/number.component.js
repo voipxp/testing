@@ -28,8 +28,7 @@
 
     function onInit() {
       ctrl.loading = true
-      $q
-        .all([loadUser(), loadNumbers()])
+      $q.all([loadUser(), loadNumbers()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })

@@ -49,8 +49,7 @@
 
     function onInit() {
       ctrl.loading = true
-      $q
-        .all([loadViewablePacks(), loadViewableServices(), loadUsers()])
+      $q.all([loadViewablePacks(), loadViewableServices(), loadUsers()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })

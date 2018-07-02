@@ -37,8 +37,7 @@
 
     function onInit() {
       ctrl.loading = true
-      $q
-        .all([loadDevices(), loadGroupTemplates()])
+      $q.all([loadDevices(), loadGroupTemplates()])
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
