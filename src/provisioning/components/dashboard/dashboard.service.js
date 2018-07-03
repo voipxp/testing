@@ -7,7 +7,7 @@
     .module('odin.provisioning')
     .factory('ProvisioningDashboardService', ProvisioningDashboardService)
 
-  function ProvisioningDashboardService(Module, $q, $rootScope, ACL) {
+  function ProvisioningDashboardService(Module, ACL) {
     var service = {
       load: load,
       prepareCard: prepareCard,

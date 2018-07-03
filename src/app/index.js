@@ -137,6 +137,23 @@
     CacheFactory.clearAll()
   }
 
+  // Potential solution to Token Expired message
+  //
+  // function addTokenListener($rootScope, jwtHelper, Session, Route) {
+  //   $rootScope.$on('$routeChangeStart', function(event, next) {
+  //     if (next.originalPath === '/login') return
+  //     var token = Session.data('token')
+  //     if (!token || jwtHelper.isTokenExpired(token)) {
+  //       // getTokenExpirationDate
+  //       console.log('Token Expired')
+  //       event.preventDefault()
+  //       Session.clear().then(function() {
+  //         Route.login()
+  //       })
+  //     }
+  //   })
+  // }
+
   // bootstrap angular application
   function bootstrap() {
     angular

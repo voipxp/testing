@@ -13,10 +13,7 @@
       ctrl.loading = true
       return ProvisioningDashboardService.load()
         .then(loadCards)
-        .catch(function(error) {
-          console.log('error', error)
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })

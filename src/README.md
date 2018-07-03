@@ -1,4 +1,5 @@
 # TODO
+- intercept route changes and check for token
 
 x replace all checkboxes
 x replace all radios
