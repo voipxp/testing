@@ -1,7 +1,7 @@
 ;(function() {
   angular.module('odin.app').factory('Session', Session)
 
-  function Session($location, APP, StorageService, $rootScope, $q) {
+  function Session($location, APP, StorageService, $rootScope, $q, jwtHelper) {
     var _data = null
     var service = {
       load: load,
@@ -44,19 +44,17 @@
       return StorageService.clear(APP.sessionKey).then(load)
     }
 
+    // user must have a valid token
     function required() {
       var promise = _data ? $q.when(_data) : load()
-      return promise
-        .then(function(data) {
-          if (data) return data
-          console.log('Session.required no data', data)
+      return promise.then(function(data) {
+        var token = _.get(data, 'token')
+        if (!token || jwtHelper.isTokenExpired(token)) {
+          console.log('expired or missing token')
           $location.path(APP.loginURL)
           return $q.reject()
-        })
-        .catch(function(error) {
-          console.log('Session.required failed', error)
-          return $q.reject(error)
-        })
+        }
+      })
     }
   }
 })()
