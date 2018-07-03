@@ -4,7 +4,7 @@
 
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Numbers">
-    <pbs-block-buttons style="font-size: 14px; font-weight: normal;">
+    <pbs-block-buttons ng-if="$ctrl.canUpdate">
       <pbs-button-compact-add ng-click="$ctrl.add()"
         title="Add Numbers">
       </pbs-button-compact-add>
@@ -45,7 +45,7 @@
       </tfoot>
       <tbody>
         <tr ng-click="$ctrl.edit(number)"
-          ng-class="{hover: !number.groupId}"
+          ng-class="{hover: $ctrl.canUpdate && !number.groupId}"
           ng-repeat="number in $ctrl.numbers | filter:$ctrl.search | filter:$ctrl.filter | orderBy:'min' as results track by number.min">
           <td>{{ number.min }}</td>
           <td>{{ number.max }}</td>

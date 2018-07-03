@@ -11,7 +11,8 @@
     $routeParams,
     $filter,
     $scope,
-    ACL
+    ACL,
+    $q
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -40,11 +41,11 @@
     ]
 
     function onInit() {
-      ctrl.canClone = ACL.has('Service Provider')
       ctrl.filter = {}
       ctrl.title = $filter('humanize')(ctrl.serviceType)
       ctrl.loading = true
-      return loadServices()
+      return $q
+        .all([loadServices(), loadPermissions()])
         .then(function() {
           if (isGroupServices()) {
             ctrl.columns.push({
@@ -54,12 +55,17 @@
             })
           }
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    // TODO: Add a branding setting to disable assigning
+    function loadPermissions() {
+      ctrl.canUpdate = true
+      ctrl.canClone = ACL.has('Service Provider')
+      return $q.resolve()
     }
 
     function loadServices() {
@@ -95,6 +101,7 @@
     }
 
     function onClick(service) {
+      if (!ctrl.canUpdate) return
       ctrl.editService = angular.copy(service)
       // fix when a service has been limited but was set at -1 prior
       if (service.allowed !== -1 && service.quantity === -1) {

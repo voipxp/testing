@@ -63,8 +63,9 @@
     }
 
     function toggleAll() {
+      var isSelected = !ctrl.selectAll
       filteredItems().forEach(function(item) {
-        item._selected = ctrl.selectAll
+        item._selected = isSelected
       })
       updateSelected()
     }

@@ -46,7 +46,7 @@
     {
       path: 'numbers',
       component: 'serviceProviderNumbers',
-      acl: 'Provisioning'
+      acl: 'Service Provider'
     },
     {
       path: 'devices',
@@ -54,9 +54,14 @@
       acl: 'Provisioning'
     },
     {
+      path: 'delete',
+      component: 'serviceProviderDelete',
+      acl: 'Provisioning'
+    },
+    {
       path: 'userServices',
       component: 'serviceProviderServices',
-      acl: 'Provisioning',
+      acl: 'Service Provider',
       bindings: {
         serviceType: 'userServices'
       }
@@ -64,7 +69,7 @@
     {
       path: 'groupServices',
       component: 'serviceProviderServices',
-      acl: 'Provisioning',
+      acl: 'Service Provider',
       bindings: {
         serviceType: 'groupServices'
       }
@@ -72,17 +77,12 @@
     {
       path: 'servicePacks',
       component: 'serviceProviderServicePacks',
-      acl: 'Provisioning'
+      acl: 'Service Provider'
     },
     {
       path: 'servicePacks/:servicePackName',
       component: 'serviceProviderServicePack',
-      acl: 'Provisioning'
-    },
-    {
-      path: 'delete',
-      component: 'serviceProviderDelete',
-      acl: 'Provisioning'
+      acl: 'Service Provider'
     },
     {
       path: 'networkClassOfServices',

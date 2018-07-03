@@ -40,6 +40,7 @@
           ctrl.showAutoAttendant = Module.read('Auto Attendant Report')
         }
         ctrl.showCallRecords = Module.read('Premium Call Records')
+        ctrl.showAssignServices = Module.read('Provisioning')
         ctrl.showReporting = ctrl.showCallRecords || ctrl.showAutoAttendant
       }
     }

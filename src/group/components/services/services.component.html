@@ -4,9 +4,11 @@
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="{{ $ctrl.title }}">
-    <pbs-block-buttons ng-if="$ctrl.canClone">
-      <pbs-button-compact-clone ng-click="$ctrl.clone()"></pbs-button-compact-clone>
-      <pbs-button-compact-cogs ng-click="$ctrl.showSelect = !$ctrl.showSelect"></pbs-button-compact-cogs>
+    <pbs-block-buttons>
+      <pbs-button-compact-clone ng-if="$ctrl.canClone"
+        ng-click="$ctrl.clone()"></pbs-button-compact-clone>
+      <pbs-button-compact-cogs ng-if="$ctrl.canUpdate"
+        ng-click="$ctrl.showSelect = !$ctrl.showSelect"></pbs-button-compact-cogs>
     </pbs-block-buttons>
     <pbs-columns>
       <pbs-column>

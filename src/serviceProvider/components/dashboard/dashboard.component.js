@@ -68,12 +68,6 @@
           path: route('networkClassOfServices')
         },
         {
-          type: 'management',
-          name: 'Bulk Provisioning',
-          module: 'Provisioning',
-          path: '/bulk'
-        },
-        {
           type: 'service',
           service: 'Meet-Me Conferencing',
           path: route('meetMe')
@@ -87,6 +81,12 @@
         },
         {
           type: 'provisioning',
+          name: 'Bulk Provisioning',
+          module: 'Provisioning',
+          path: '/bulk'
+        },
+        {
+          type: 'provisioning',
           name: 'Delete Service Provider',
           path: route('delete'),
           admin: true
@@ -94,8 +94,7 @@
         {
           type: 'provisioning',
           name: 'Numbers',
-          path: route('numbers'),
-          admin: true
+          path: route('numbers')
         },
         {
           type: 'provisioning',
@@ -107,19 +106,17 @@
           type: 'provisioning',
           name: 'Service Packs',
           path: route('servicePacks'),
-          admin: true
+          module: 'Service Packs'
         },
         {
           type: 'provisioning',
           name: 'User Services',
-          path: route('userServices'),
-          admin: true
+          path: route('userServices')
         },
         {
           type: 'provisioning',
           name: 'Group Services',
-          path: route('groupServices'),
-          admin: true
+          path: route('groupServices')
         },
         {
           type: 'report',

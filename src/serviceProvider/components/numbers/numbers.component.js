@@ -8,7 +8,8 @@
     Alert,
     ServiceProviderNumberService,
     NumberService,
-    $routeParams
+    $routeParams,
+    ACL
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -19,6 +20,7 @@
 
     function onInit() {
       ctrl.loading = true
+      ctrl.canUpdate = ACL.has('Provisioning')
       return loadNumbers()
         .catch(function(error) {
           Alert.notify.danger(error)
@@ -40,6 +42,7 @@
     }
 
     function add() {
+      if (!ctrl.canUpdate) return
       ctrl.newNumber = {}
       Alert.modal.open('serviceProviderNumbersCreateModal', function(close) {
         create(ctrl.newNumber, close)
@@ -47,7 +50,7 @@
     }
 
     function edit(number) {
-      if (number.groupId) return
+      if (!ctrl.canUpdate || number.groupId) return
       ctrl.editNumbers = {
         available: [],
         selected: NumberService.expand(number)

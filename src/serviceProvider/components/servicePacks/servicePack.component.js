@@ -7,7 +7,14 @@
       controller: Controller
     })
 
-  function Controller(Alert, ServicePackService, $routeParams, Route) {
+  function Controller(
+    Alert,
+    ServicePackService,
+    $routeParams,
+    Route,
+    Module,
+    $q
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -25,7 +32,7 @@
 
     function onInit() {
       ctrl.loading = true
-      loadServicePack()
+      $q.all([loadServicePack(), loadPermissions()])
         .catch(function(error) {
           console.log('error', error)
           Alert.notify.danger(error)
@@ -33,6 +40,12 @@
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function loadPermissions() {
+      return Module.show('Service Packs').then(function(module) {
+        ctrl.permissions = module.permissions
+      })
     }
 
     function loadServicePack() {
@@ -53,6 +66,17 @@
     }
 
     function edit() {
+      if (!ctrl.permissions.update) return
+      var deleteAction
+      if (ctrl.permissions.delete) {
+        deleteAction = function(close) {
+          Alert.confirm
+            .open('Are you sure you want to delete this Service Pack?')
+            .then(function() {
+              remove(close)
+            })
+        }
+      }
       ctrl.editServicePack = angular.copy(ctrl.servicePack)
       ctrl.editServicePack.newServicePackName =
         ctrl.editServicePack.servicePackName
@@ -62,13 +86,7 @@
           console.log('edit', ctrl.editServicePack)
           update(ctrl.editServicePack, close)
         },
-        function onDelete(close) {
-          Alert.confirm
-            .open('Are you sure you want to delete this Service Pack?')
-            .then(function() {
-              remove(close)
-            })
-        }
+        deleteAction
       )
     }
 

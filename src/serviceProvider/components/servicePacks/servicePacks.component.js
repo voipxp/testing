@@ -15,11 +15,11 @@
     ServiceProviderServiceService,
     Route,
     $q,
-    $scope
+    $scope,
+    Module
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.$onChanges = onChanges
     ctrl.open = open
     ctrl.setTitle = setTitle
     ctrl.add = add
@@ -35,22 +35,17 @@
     function onInit() {
       ctrl.state = 'list'
       ctrl.loading = true
-      $q.all([loadServicePacks(), loadServices()])
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+      $q.all([loadServicePacks(), loadServices(), loadPermissions()])
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
     }
 
-    function onChanges(changes) {
-      if (changes.serviceProviderId) {
-        ctrl.serviceProviderId = changes.serviceProviderId.currentValue
-      }
-      if (changes.returnTo) {
-        ctrl.returnTo = changes.returnTo.currentValue
-      }
+    function loadPermissions() {
+      return Module.show('Service Packs').then(function(module) {
+        ctrl.permissions = module.permissions
+      })
     }
 
     function loadServicePacks() {

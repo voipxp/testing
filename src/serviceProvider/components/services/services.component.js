@@ -11,7 +11,8 @@
     Alert,
     ServiceProviderServiceService,
     $routeParams,
-    $filter
+    $filter,
+    ACL
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -33,11 +34,10 @@
 
     function onInit() {
       ctrl.loading = true
+      ctrl.canUpdate = ACL.has('Provisioning')
       ctrl.title = $filter('humanize')(ctrl.serviceType)
       return loadServices()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
@@ -64,6 +64,7 @@
     }
 
     function onClick(service) {
+      if (!ctrl.canUpdate) return
       ctrl.editService = angular.copy(service)
       Alert.modal.open('editServiceProviderService', function onSave(close) {
         var runUpdate = function() {
@@ -82,6 +83,7 @@
     }
 
     function onSelect(event) {
+      if (!ctrl.canUpdate) return
       ctrl.editService = { authorized: true, quantity: -1 }
       ctrl.editService.serviceName = 'Edit ' + event.length + ' Services'
       Alert.modal.open('editServiceProviderService', function onSave(close) {
