@@ -35,11 +35,7 @@
       var config = {
         template: template,
         reloadOnSearch: route.reloadOnSearch || false,
-        resolve: {
-          session: function(Session) {
-            return Session.required()
-          }
-        }
+        resolve: {}
       }
       if (route.acl) {
         config.resolve.acl = setAcl(route.acl)
