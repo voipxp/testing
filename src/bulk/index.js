@@ -25,7 +25,8 @@
       $routeProvider
         .when('/bulk', {
           template: '<bulk-dashboard></bulk-dashboard>',
-          resolve: { acl: acl, module: module('Provisioning') }
+          resolve: { acl: acl, module: module('Provisioning') },
+          reloadOnSearch: false
         })
         .when('/bulk/csv', {
           template: '<bulk-csv></bulk-csv>',
@@ -50,7 +51,8 @@
         })
         .when('/bulk/user.create', {
           template: '<bulk-user-create></bulk-user-create>',
-          resolve: { acl: acl, module: module('Provisioning') }
+          resolve: { acl: acl, module: module('Provisioning') },
+          reloadOnSearch: false
         })
         .when('/bulk/user.delete', {
           template:

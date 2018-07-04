@@ -24,8 +24,10 @@ IDEA
     controller: function($location, Session, ACL, Route, $window) {
       this.$onInit = function() {
         this.session = Session.data()
-        this.returnTo = $location.search().returnTo
-        $location.search({})
+        var search = $location.search()
+        this.returnTo = search.returnTo
+        delete search.returnTo
+        $location.search(search)
       }
       this.has = ACL.has
       this.dashboard = Route.dashboard
