@@ -80,8 +80,7 @@
           type: 'provisioning',
           name: 'Passwords',
           path: route('passwords'),
-          admin: true,
-          module: 'Provisioning'
+          admin: true
         },
         {
           type: 'provisioning',
