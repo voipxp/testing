@@ -122,7 +122,7 @@ Filter
       return load().then(function() {
         if (read(name)) return get(name)
         console.log('FAILED MODULE CHECK', name)
-        $location.path('/notfound')
+        $location.path('/notfound').replace()
         return $q.reject()
       })
     }

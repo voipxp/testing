@@ -14,7 +14,7 @@
       return $q(function(resolve, reject) {
         if (results) return resolve()
         console.log('FAILED ACL CHECK', results)
-        $location.path('/notfound')
+        $location.path('/notfound').replace()
         reject()
       })
     }
