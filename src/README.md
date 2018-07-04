@@ -1,4 +1,5 @@
 # TODO
+- look at browser history when redirected to notfound
 - look for all returnTo and make sure they work
 - remove all Session.load references since this is happening in route resolves
 - move all routes aside from app/index.js to use pbsRouteProvider

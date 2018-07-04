@@ -328,8 +328,7 @@
     {
       path: 'passwords',
       component: 'userPasswordsIndex',
-      acl: 'Group',
-      module: 'Provisioning'
+      acl: 'Group'
     },
     {
       path: 'delete',

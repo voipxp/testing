@@ -15,7 +15,6 @@
     UserPortalPasscodeService,
     $scope,
     Session,
-    Module,
     UserPermissionService
   ) {
     var ctrl = this
