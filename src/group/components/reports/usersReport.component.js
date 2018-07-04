@@ -9,24 +9,81 @@
     Alert,
     UserReportService,
     Route,
-    $location,
     $routeParams,
     CsvService,
-    DownloadService
+    DownloadService,
+    $location
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.open = open
+    ctrl.onClick = onClick
     ctrl.download = download
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
 
-    ctrl.onPagination = function(event) {
-      ctrl.pager = event.pager
-    }
+    ctrl.columns = [
+      {
+        key: 'userId',
+        label: 'User ID'
+      },
+      {
+        key: 'groupId',
+        label: 'Group ID'
+      },
+      {
+        key: 'lastName',
+        label: 'Last Name'
+      },
+      {
+        key: 'firstName',
+        label: 'First Name'
+      },
+      {
+        key: 'phoneNumber',
+        label: 'Phone'
+      },
+      {
+        key: 'extension',
+        label: 'Extension'
+      },
+      {
+        key: 'phoneNumberActivated',
+        label: 'Activated',
+        type: 'boolean',
+        align: 'centered'
+      },
+      {
+        key: 'inTrunkGroup',
+        label: 'In Trunk',
+        type: 'boolean',
+        align: 'centered'
+      },
+      {
+        key: 'deviceType',
+        label: 'Device Type'
+      },
+      {
+        key: 'macAddress',
+        label: 'MAC Address'
+      },
+      {
+        key: 'servicePacks',
+        label: 'Service Packs'
+      },
+      {
+        key: 'userServices',
+        label: 'User Services'
+      },
+      {
+        key: 'premiumServices',
+        label: 'Premium Services'
+      }
+    ]
 
     function onInit() {
-      ctrl.users = []
+      if (ctrl.groupId) {
+        _.remove(ctrl.columns, { key: 'groupId' })
+      }
       Alert.spinner.open()
       loadReport()
         .catch(function(error) {
@@ -40,46 +97,44 @@
     function loadReport() {
       return UserReportService.index(ctrl.serviceProviderId, ctrl.groupId).then(
         function(data) {
-          ctrl.users = data
+          ctrl.users = data.map(function(user) {
+            return {
+              userId: String(user.userId),
+              groupId: user.groupId || '',
+              serviceProviderId: user.serviceProviderId || '',
+              lastName: user.lastName || '',
+              firstName: user.firstName || '',
+              phoneNumber: user.phoneNumber || '',
+              extension: user.extension || '',
+              phoneNumberActivated: !!user.phoneNumberActivated,
+              inTrunkGroup: !!user.inTrunkGroup,
+              deviceType: _.get(
+                user,
+                'accessDeviceEndpoint.accessDevice.deviceType',
+                ''
+              ),
+              macAddress: _.get(
+                user,
+                'accessDeviceEndpoint.accessDevice.macAddress',
+                ''
+              ),
+              servicePacks: user.servicePacks.join(','),
+              userServices: user.userServices.join(','),
+              premiumServices: user.premiumServices.join(',')
+            }
+          })
           console.log('users', data)
         }
       )
     }
 
-    function open(user) {
-      var returnTo = $location.absUrl()
+    function onClick(user) {
+      var returnTo = $location.url()
       Route.open('users')(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
+        user.serviceProviderId,
+        user.groupId,
         user.userId
       ).search({ returnTo: returnTo })
-    }
-
-    function transformData(users) {
-      return users.map(function(user) {
-        return {
-          userId: String(user.userId),
-          lastName: user.lastName || '',
-          firstName: user.firstName || '',
-          phoneNumber: user.phoneNumber || '',
-          extension: user.extension || '',
-          phoneNumberActivated: !!user.phoneNumberActivated,
-          inTrunkGroup: !!user.inTrunkGroup,
-          deviceType: _.get(
-            user,
-            'accessDeviceEndpoint.accessDevice.deviceType',
-            ''
-          ),
-          macAddress: _.get(
-            user,
-            'accessDeviceEndpoint.accessDevice.macAddress',
-            ''
-          ),
-          servicePacks: user.servicePacks.join(','),
-          userServices: user.userServices.join(','),
-          premiumServices: user.premiumServices.join(',')
-        }
-      })
     }
 
     function download() {
@@ -89,7 +144,7 @@
           ctrl.serviceProviderId,
           ctrl.groupId
         ]).join('-') + '.csv'
-      CsvService.export(transformData(ctrl.users)).then(function(csv) {
+      CsvService.export(ctrl.users).then(function(csv) {
         DownloadService.download(csv, filename)
       })
     }

@@ -8,53 +8,11 @@
     <pbs-button-compact-download title="Download"
       ng-click="$ctrl.download()"></pbs-button-compact-download>
   </pbs-block-buttons>
-  <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
-  <table pbs-table>
-    <thead>
-      <tr>
-        <th>User Id</th>
-        <th>Last Name</th>
-        <th>First Name</th>
-        <th>Phone Number</th>
-        <th>Extension</th>
-        <th class="action">Activated</th>
-        <th class="action">Trunk User</th>
-        <th>Device Type</th>
-        <th>MAC Address</th>
-        <th>Service Packs</th>
-        <th>User Services</th>
-        <th>Premium Services</th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr ng-if="results.length < 1">
-        <td colspan="99">No Users Found
-          <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
-        </td>
-      </tr>
-    </tfoot>
-    <tbody>
-      <tr ng-repeat="user in results = ($ctrl.users | filter:$ctrl.search | orderBy:'userId') | paginate:$ctrl.pager track by user.userId">
-        <td>{{ user.userId }}</td>
-        <td>{{ user.lastName }}</td>
-        <td>{{ user.firstName }}</td>
-        <td>{{ user.phoneNumber }}</td>
-        <td>{{ user.extension }}</td>
-        <td class="action">
-          <pbs-check-box checked="user.phoneNumberActivated"></pbs-check-box>
-        </td>
-        <td>
-          <pbs-check-box checked="user.inTrunkGroup"></pbs-check-box>
-        </td>
-        <td>{{ user.accessDeviceEndpoint.accessDevice.deviceType }}</td>
-        <td>{{ user.accessDeviceEndpoint.accessDevice.macAddress }}</td>
-        <td>{{ user.servicePacks.join(', ') }}</td>
-        <td>{{ user.userServices.join(', ') }}</td>
-        <td>{{ user.premiumServices.join(', ') }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <pbs-pagination items="results.length"
-    limit="25"
-    on-update="$ctrl.onPagination($event)"></pbs-pagination>
+  <pbs-data-table columns="$ctrl.columns"
+    items="$ctrl.users"
+    is-compact="true"
+    is-bordered="true"
+    is-striped="true"
+    limit-to="25"
+    on-click="$ctrl.onClick($event)"></pbs-data-table>
 </pbs-block>

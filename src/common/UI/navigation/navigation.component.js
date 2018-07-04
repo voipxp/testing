@@ -25,6 +25,7 @@ IDEA
       this.$onInit = function() {
         this.session = Session.data()
         this.returnTo = $location.search().returnTo
+        $location.search({})
       }
       this.has = ACL.has
       this.dashboard = Route.dashboard
@@ -48,6 +49,9 @@ IDEA
       this.openLink = function() {
         if (!this.module.url) return
         $window.open(this.module.url, '_blank', 'noopener')
+      }
+      this.return = function() {
+        $location.path(this.returnTo)
       }
     }
   })

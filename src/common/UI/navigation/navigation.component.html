@@ -1,12 +1,22 @@
 <nav class="breadcrumb"
   aria-label="breadcrumbs">
-  <button class="button is-small is-pulled-right"
-    ng-click="$ctrl.showHelp = true"
-    ng-show="$ctrl.module.description || $ctrl.module.url">
-    <span class="icon">
-      <i class="fas fa-info"></i>
-    </span>
-  </button>
+  <field class="is-grouped is-pulled-right"
+    ng-if="$ctrl.returnTo || $ctrl.module.description || $ctrl.module.url">
+    <button ng-if="$ctrl.returnTo"
+      class="button is-small"
+      ng-click="$ctrl.return()">
+      <span class="icon">
+        <i class="fas fa-backward"></i>
+      </span>
+    </button>
+    <button class="button is-small"
+      ng-click="$ctrl.showHelp = true"
+      ng-if="$ctrl.module.description || $ctrl.module.url">
+      <span class="icon">
+        <i class="fas fa-info"></i>
+      </span>
+    </button>
+  </field>
   <ul>
     <li>
       <a href=""
