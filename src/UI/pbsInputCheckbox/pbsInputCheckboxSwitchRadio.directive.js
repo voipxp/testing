@@ -51,7 +51,7 @@
           var label = angular.element(document.createElement('label'))
           label.attr('for', id)
           label.html(attrs.label)
-          if (!attrs.label || !angular.isDefined(attrs.ngLabel)) {
+          if (!attrs.label && !angular.isDefined(attrs.ngLabel)) {
             label.css({ paddingLeft: '.5rem' })
           }
           label.css({ marginLeft: 0 })
@@ -85,7 +85,7 @@
           scope.$watch(attrs.ngLabel, function(newVal) {
             label.html(newVal)
             if (newVal) {
-              label.css({ paddingLeft: '3.5rem' })
+              label.css({ paddingLeft: null })
             }
           })
 
