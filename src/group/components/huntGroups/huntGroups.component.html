@@ -41,7 +41,7 @@
           <td>{{ huntGroup.department }}</td>
           <td no-parent-click>
             <pbs-input-switch ng-model="huntGroup.isActive"
-              ng-click="$ctrl.toggle(huntGroup)"
+              ng-change="$ctrl.toggle(huntGroup)"
               ng-disabled="huntGroup.isLoading"></pbs-input-switch>
           </td>
         </tr>

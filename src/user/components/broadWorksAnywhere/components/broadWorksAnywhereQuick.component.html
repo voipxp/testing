@@ -5,7 +5,7 @@
       ng-repeat="number in $ctrl.settings.phoneNumbers | orderBy:'phoneNumnber' track by number.phoneNumber">
       <pbs-input-switch label="{{ number.phoneNumber }}"
         ng-model="number.isActive"
-        ng-click="$ctrl.toggle(number)"
+        ng-change="$ctrl.toggle(number)"
         ng-disabled="$ctrl.loadingNumber[number.phoneNumber]"></pbs-input-switch>
     </div>
     <a class="panel-block"

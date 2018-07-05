@@ -51,10 +51,11 @@
           var label = angular.element(document.createElement('label'))
           label.attr('for', id)
           label.html(attrs.label)
-          label.css({ marginLeft: 0 })
-          if (!attrs.label) {
-            label.css({ paddingLeft: '1rem' })
+          if (!attrs.label || !angular.isDefined(attrs.ngLabel)) {
+            label.css({ paddingLeft: '.5rem' })
           }
+          label.css({ marginLeft: 0 })
+
           // append label after input
           element.after(label)
 
@@ -78,6 +79,13 @@
               } else {
                 div.addClass('ng-hide')
               }
+            }
+          })
+
+          scope.$watch(attrs.ngLabel, function(newVal) {
+            label.html(newVal)
+            if (newVal) {
+              label.css({ paddingLeft: '3.5rem' })
             }
           })
 

@@ -36,7 +36,7 @@
           <td>{{ instance.department }}</td>
           <td no-parent-click>
             <pbs-input-switch ng-model="instance.isActive"
-              ng-click="$ctrl.toggle(instance)"
+              ng-change="$ctrl.toggle(instance)"
               ng-disabled="instance.isLoading"></pbs-input-switch>
           </td>
         </tr>

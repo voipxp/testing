@@ -1,7 +1,6 @@
 <pbs-form-field label="Call Forward Always">
-  <pbs-input-switch label="N/A"
-    ng-label="$ctrl.settings.forwardToPhoneNumber"
+  <pbs-input-switch ng-label="$ctrl.settings.forwardToPhoneNumber || 'N/A'"
     ng-model="$ctrl.settings.isActive"
-    ng-click="$ctrl.toggle()"
+    ng-change="$ctrl.toggle()"
     ng-disabled="$ctrl.loading"></pbs-input-switch>
 </pbs-form-field>

@@ -41,7 +41,7 @@
           <td>{{ autoAttendant.department }}</td>
           <td no-parent-click>
             <pbs-input-switch ng-model="autoAttendant.isActive"
-              ng-click="$ctrl.toggle(autoAttendant)"
+              ng-change="$ctrl.toggle(autoAttendant)"
               ng-disabled="autoAttendant.isLoading"></pbs-input-switch>
           </td>
         </tr>
