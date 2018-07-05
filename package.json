@@ -1,6 +1,6 @@
 {
   "name": "odinweb",
-  "version": "3.14.2",
+  "version": "3.14.3",
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production gulp",
