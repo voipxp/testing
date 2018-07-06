@@ -68,7 +68,9 @@
   <pbs-form-field-horizontal label="Rings before bouncing call">
     <input type="number"
       class="input"
-      ng-model="$ctrl.editService.numberOfRingsBeforeBouncingCall">
+      ng-model="$ctrl.editService.numberOfRingsBeforeBouncingCall"
+      min="1"
+      max="20">
   </pbs-form-field-horizontal>
 
   <pbs-form-field-horizontal label="Transfer To"
@@ -83,7 +85,9 @@
     ng-if="$ctrl.hasStandard()">
     <input type="number"
       class="input"
-      ng-model="$ctrl.editService.alertCallCenterCallOnHoldSeconds">
+      ng-model="$ctrl.editService.alertCallCenterCallOnHoldSeconds"
+      min="30"
+      max="600">
   </pbs-form-field-horizontal>
 
   <pbs-form-field-horizontal label="Seconds before Bouncing"
@@ -91,6 +95,8 @@
     ng-if="$ctrl.hasStandard()">
     <input type="number"
       class="input"
-      ng-model="$ctrl.editService.bounceCallCenterCallOnHoldSeconds">
+      ng-model="$ctrl.editService.bounceCallCenterCallOnHoldSeconds"
+      min="30"
+      max="600">
   </pbs-form-field-horizontal>
 </pbs-modal>

@@ -37,7 +37,9 @@
   <pbs-form-field-horizontal label="Bypass Wait Time Seconds">
     <input type="number"
       class="input"
-      ng-model="$ctrl.editService.callWaitingAgeThresholdSeconds">
+      ng-model="$ctrl.editService.callWaitingAgeThresholdSeconds"
+      min="1"
+      max="120">
   </pbs-form-field-horizontal>
 
   <pbs-form-field-horizontal label="Seconds Before Announcement"
