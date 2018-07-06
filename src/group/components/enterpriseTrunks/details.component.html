@@ -1,7 +1,7 @@
 <pbs-spinner loading="$ctrl.parent.loading">
   <pbs-block title="Details"
     class="margin-top">
-    <pbs-block-buttons>
+    <pbs-block-buttons if-module-update="$ctrl.parent.module">
       <pbs-button-compact-edit title="Edit Details"
         ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>

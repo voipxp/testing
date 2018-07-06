@@ -20,7 +20,8 @@
       service-user-id="$ctrl.serviceUserId"
       call-center-type="$ctrl.center.type"></group-call-center-agents>
   </pbs-menu-item>
-  <pbs-menu-item label="Supervisors">
+  <pbs-menu-item label="Supervisors"
+    ng-if="$ctrl.center.type && $ctrl.center.type !== 'Basic'">
     <group-call-center-supervisors service-provider-id="$ctrl.serviceProviderId"
       group-id="$ctrl.groupId"
       service-user-id="$ctrl.serviceUserId"></group-call-center-supervisors>
@@ -59,10 +60,10 @@
     <group-call-center-overflow service-user-id="$ctrl.serviceUserId"
       pbs-margin-bottom></group-call-center-overflow>
     <group-call-center-stranded-call service-user-id="$ctrl.serviceUserId"
-      ng-if="$ctrl.center.type !== 'Basic'"
+      ng-if="$ctrl.center.type && $ctrl.center.type !== 'Basic'"
       pbs-margin-bottom></group-call-center-stranded-call>
     <group-call-center-stranded-call-unavailable service-user-id="$ctrl.serviceUserId"
-      ng-if="$ctrl.center.type !== 'Basic'"
+      ng-if="$ctrl.center.type && $ctrl.center.type !== 'Basic'"
       pbs-margin-bottom></group-call-center-stranded-call-unavailable>
   </pbs-menu-item>
   <pbs-menu-item label="Advanced"

@@ -25,6 +25,7 @@
 
     function activate() {
       ctrl.loading = true
+      ctrl.canCreate = ctrl.module.permissions.create
       loadTrunks()
         .catch(function(error) {
           Alert.notify.danger(error)
@@ -58,6 +59,7 @@
     }
 
     function add() {
+      if (!ctrl.canCreate) return
       $scope.$broadcast('groupEnterpriseTrunkCreate:load')
     }
   }

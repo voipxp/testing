@@ -25,9 +25,23 @@
     function edit() {
       ctrl.editTrunk = angular.copy(ctrl.parent.trunk)
       ctrl.editTrunk.newEnterpriseTrunkName = ctrl.parent.trunkName
-      Alert.modal.open('editGroupEnterpriseTrunkDetails', function(close) {
-        ctrl.parent.update(ctrl.editTrunk, close)
-      })
+      var deleteAction
+      if (ctrl.parent.module.permissions.delete) {
+        deleteAction = function(close) {
+          Alert.confirm
+            .open('Are you sure you want to remove this Trunk?')
+            .then(function() {
+              ctrl.parent.destroy(close)
+            })
+        }
+      }
+      Alert.modal.open(
+        'editGroupEnterpriseTrunkDetails',
+        function(close) {
+          ctrl.parent.update(ctrl.editTrunk, close)
+        },
+        deleteAction
+      )
     }
 
     function updateConfirm(propertyName) {

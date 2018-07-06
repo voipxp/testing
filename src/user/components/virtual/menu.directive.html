@@ -10,8 +10,8 @@
         group-id="$ctrl.groupId"
         user-id="$ctrl.userId"></user-call-record-dashboard>
     </pbs-menu-item>
-    <pbs-menu-item label="Auto Attendant Report"
-      ng-if="$ctrl.showAutoAttendant">
+    <pbs-menu-item label="{{ $ctrl.autoAttendantReportAlias }}"
+      ng-if="$ctrl.showAutoAttendantReport">
       <user-auto-attendant-call-records user-id="$ctrl.userId"></user-auto-attendant-call-records>
     </pbs-menu-item>
   </pbs-menu-section>

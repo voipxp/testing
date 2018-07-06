@@ -6,20 +6,14 @@
     bindings: { module: '<' }
   })
 
-  function Controller(
-    $routeParams,
-    Route,
-    $location,
-    Session,
-    Alert,
-    GroupEnterpriseTrunkService
-  ) {
+  function Controller($routeParams, Route, Alert, GroupEnterpriseTrunkService) {
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
     ctrl.trunkName = $routeParams.trunkName
     ctrl.$onInit = activate
     ctrl.update = update
+    ctrl.destroy = destroy
 
     function activate() {
       ctrl.loading = true
@@ -59,12 +53,26 @@
             callback()
           }
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    }
+
+    function destroy(callback) {
+      Alert.spinner.open()
+      GroupEnterpriseTrunkService.destroy(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        ctrl.trunkName
+      )
+        .then(function() {
+          Alert.notify.warning('Enterprise Trunk Removed')
+          callback()
+          Route.open(
+            'groups'
+          )(ctrl.serviceProviderId, ctrl.groupId, 'enterpriseTrunks')
         })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()

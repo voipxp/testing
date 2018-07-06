@@ -41,9 +41,9 @@
   </pbs-tab>
 </pbs-tabs>
 <pbs-modal id="autoAttendantCallRecordsSearch"
-  title="Auto Attendant Report">
+  title="Search Call Records">
   <pbs-form label="Call Records Search">
-    <pbs-form-field-horizontal label="Auto Attendant">
+    <pbs-form-field-horizontal label="Instance">
       <pbs-input-select ng-model="$ctrl.editSearch.serviceUserId"
         ng-options="aa.serviceUserId as aa.name for aa in $ctrl.autoAttendants"
         required></pbs-input-select>

@@ -1,6 +1,6 @@
 <pbs-spinner loading="$ctrl.parent.loading">
   <pbs-block title="Trunk Groups">
-    <pbs-block-buttons>
+    <pbs-block-buttons if-module-update="$ctrl.parent.module">
       <pbs-button-compact-edit ng-click="$ctrl.edit()"></pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>

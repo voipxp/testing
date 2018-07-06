@@ -29,7 +29,7 @@
       }
 
       function read(name) {
-        return has(name)
+        return has(name) && Module.read(name)
       }
 
       function update(name) {
