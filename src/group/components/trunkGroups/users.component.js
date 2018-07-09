@@ -54,7 +54,7 @@
 
     function loadModules() {
       return Module.load().then(function() {
-        ctrl.canEditTrunk = Module.update('Trunk Group')
+        ctrl.canEditPilot = Module.update('Trunk Group')
         ctrl.canEditUsers = Module.update('Provisioning')
       })
     }
@@ -98,13 +98,13 @@
     }
 
     function removeIfPilot(user) {
-      if (!ctrl.canEditTrunk) return $q.when(true)
+      if (!ctrl.canEditPilot) return $q.when(true)
       return user.isPilotUser ? setPilot(null) : $q.when(true)
     }
 
     // This calls parent.update which handles its own spinner
     function togglePilot(user) {
-      if (!ctrl.canEditTrunk) return
+      if (!ctrl.canEditPilot) return
       var message
       var userId
       if (user.isPilotUser) {

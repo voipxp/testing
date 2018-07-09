@@ -29,13 +29,13 @@
         <tr class="hover"
           ng-click="$ctrl.open(user)"
           ng-repeat="user in $ctrl.users | filter:$ctrl.search | orderBy:'userId' as results track by user.userId">
-          <td ng-if="$ctrl.canEditTrunk"
+          <td ng-if="$ctrl.canEditPilot"
             no-parent-click>
             <pbs-input-switch ng-model="user.isPilotUser"
               ng-change="$ctrl.togglePilot(user)"
               ng-disabled="$ctrl.isLoadingUsers"></pbs-input-switch>
           </td>
-          <td ng-if="!$ctrl.canEditTrunk">
+          <td ng-if="!$ctrl.canEditPilot">
             <pbs-check-box checked="user.isPilotUser"></pbs-check-box>
           </td>
           <td>{{ user.userId }}</td>
