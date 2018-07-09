@@ -11,7 +11,8 @@
     UserService,
     $q,
     $location,
-    Route
+    Route,
+    Module
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -23,7 +24,7 @@
 
     function onInit() {
       ctrl.loading = true
-      loadUsers()
+      $q.all([loadUsers(), loadModules()])
         .catch(function(error) {
           Alert.notify.danger(error)
         })
@@ -51,12 +52,19 @@
         })
     }
 
+    function loadModules() {
+      return Module.load().then(function() {
+        ctrl.canEditTrunk = Module.update('Trunk Group')
+        ctrl.canEditUsers = Module.update('Provisioning')
+      })
+    }
+
     function isPilotUser(user) {
       return ctrl.parent.trunk.pilotUserId === user.userId
     }
 
     function edit() {
-      if (!ctrl.parent.module.permissions.update) return
+      if (!ctrl.canEditUsers) return
       ctrl.availableUsers = []
       ctrl.assignedUsers = angular.copy(ctrl.users)
       Alert.modal.open('editGroupTrunkGroupUsers', function(close) {
@@ -90,11 +98,13 @@
     }
 
     function removeIfPilot(user) {
+      if (!ctrl.canEditTrunk) return $q.when(true)
       return user.isPilotUser ? setPilot(null) : $q.when(true)
     }
 
     // This calls parent.update which handles its own spinner
     function togglePilot(user) {
+      if (!ctrl.canEditTrunk) return
       var message
       var userId
       if (user.isPilotUser) {

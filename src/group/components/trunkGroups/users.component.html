@@ -1,6 +1,6 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Users">
-    <pbs-block-buttons if-module-update="$ctrl.parent.module">
+    <pbs-block-buttons ng-if="$ctrl.canEditUsers">
       <pbs-button-compact-edit ng-click="$ctrl.edit()"></pbs-button-compact-edit>
       <pbs-button-compact-bulk ng-click="$ctrl.bulk()"
         title="Add Users in Bulk"></pbs-button-compact-bulk>
@@ -9,7 +9,7 @@
     <table pbs-table>
       <thead>
         <tr>
-          <th class="action">Pilot User</th>
+          <th>Pilot User</th>
           <th>User ID</th>
           <th>Last Name</th>
           <th>First Name</th>
@@ -29,10 +29,14 @@
         <tr class="hover"
           ng-click="$ctrl.open(user)"
           ng-repeat="user in $ctrl.users | filter:$ctrl.search | orderBy:'userId' as results track by user.userId">
-          <td no-parent-click>
+          <td ng-if="$ctrl.canEditTrunk"
+            no-parent-click>
             <pbs-input-switch ng-model="user.isPilotUser"
               ng-change="$ctrl.togglePilot(user)"
               ng-disabled="$ctrl.isLoadingUsers"></pbs-input-switch>
+          </td>
+          <td ng-if="!$ctrl.canEditTrunk">
+            <pbs-check-box checked="user.isPilotUser"></pbs-check-box>
           </td>
           <td>{{ user.userId }}</td>
           <td>{{ user.lastName }}</td>
