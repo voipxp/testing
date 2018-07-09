@@ -7,17 +7,19 @@
 
   function Controller(
     Alert,
-    GroupTrunkGroupService,
     GroupTrunkGroupUserService,
     UserService,
-    $q
+    $q,
+    $location,
+    Route
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.isPilotUser = isPilotUser
     ctrl.edit = edit
     ctrl.togglePilot = togglePilot
-    ctrl.remove = remove
+    ctrl.bulk = bulk
+    ctrl.open = open
 
     function onInit() {
       ctrl.loading = true
@@ -31,102 +33,80 @@
     }
 
     function loadUsers() {
+      ctrl.isLoadingUsers = true
       return GroupTrunkGroupUserService.index(
         ctrl.parent.serviceProviderId,
         ctrl.parent.groupId,
         ctrl.parent.trunkName
-      ).then(function(data) {
-        ctrl.users = data.users
-        console.log('users', data)
-        return data
-      })
+      )
+        .then(function(data) {
+          console.log('data', data)
+          ctrl.users = _.map(data.users, function(user) {
+            user.isPilotUser = isPilotUser(user)
+            return user
+          })
+        })
+        .finally(function() {
+          ctrl.isLoadingUsers = false
+        })
     }
 
     function isPilotUser(user) {
-      if (!user || !ctrl.parent.trunk) return
       return ctrl.parent.trunk.pilotUserId === user.userId
     }
 
-    function edit(user) {
+    function edit() {
       if (!ctrl.parent.module.permissions.update) return
-      ctrl.editUser = angular.copy(user)
-      ctrl.editUser.isPilotUser = isPilotUser(user)
-      Alert.modal.open('groupTrunkGroupUsersModal', null, function(close) {
-        destroy(ctrl.editUser, close)
+      ctrl.availableUsers = []
+      ctrl.assignedUsers = angular.copy(ctrl.users)
+      Alert.modal.open('editGroupTrunkGroupUsers', function(close) {
+        Alert.confirm
+          .open('Are you sure you want to remove these Users?')
+          .then(function() {
+            removeUsers(ctrl.availableUsers, close)
+          })
       })
     }
 
-    function remove(user) {
-      Alert.confirm
-        .open('Are you sure you want to remove this Trunk Group from the User?')
+    function removeUsers(users, callback) {
+      Alert.spinner.open()
+      return Promise.all(users.map(removeUser))
+        .then(loadUsers)
         .then(function() {
-          removeIfPilot(user)
-            .then(function() {
-              return removeUser(user)
-            })
-            .then(loadUsers)
-            .then(function() {
-              Alert.notify.success('User Removed From Trunk Group')
-              Alert.modal.closeAll()
-            })
-            .catch(function(error) {
-              Alert.notify.danger(error)
-            })
+          Alert.notify.warning(users.length + ' Users Removed')
+          callback()
         })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function removeUser(user) {
-      Alert.spinner.open()
-      var editUser = angular.copy(user)
-      editUser.endpointType = 'none'
-      return UserService.update(editUser.userId, editUser).finally(function() {
-        Alert.spinner.close()
+      return removeIfPilot(user).then(function() {
+        var editUser = angular.copy(user)
+        editUser.endpointType = 'none'
+        editUser.trunkAddressing = null
+        return UserService.update(editUser.userId, editUser)
       })
     }
 
-    function destroy(user) {
-      Alert.confirm
-        .open('Are you sure you want to Delete this user?')
-        .then(function() {
-          removeIfPilot(user)
-            .then(function() {
-              Alert.spinner.open()
-              return UserService.destroy(user.userId).finally(function() {
-                Alert.spinner.close()
-              })
-            })
-            .then(loadUsers)
-            .then(function() {
-              Alert.notify.success('User Deleted')
-              Alert.modal.closeAll()
-            })
-            .catch(function(error) {
-              Alert.notify.danger(error)
-              return $q.reject(error)
-            })
-        })
-    }
-
     function removeIfPilot(user) {
-      return isPilotUser(user) ? setPilot(null) : $q.when(true)
+      return user.isPilotUser ? setPilot(null) : $q.when(true)
     }
 
     // This calls parent.update which handles its own spinner
     function togglePilot(user) {
       var message
       var userId
-      if (isPilotUser(user)) {
-        message = 'Are you sure you want to remove the Pilot User?'
-        userId = null
-      } else {
+      if (user.isPilotUser) {
         message =
           'Are you sure you want to make ' + user.userId + ' the Pilot User?'
         userId = user.userId
+      } else {
+        message = 'Are you sure you want to remove the Pilot User?'
+        userId = null
       }
       Alert.confirm.open(message).then(function() {
-        setPilot(userId).then(function() {
-          Alert.modal.closeAll()
-        })
+        return setPilot(userId).then(loadUsers)
       })
     }
 
@@ -134,6 +114,24 @@
       var trunk = angular.copy(ctrl.parent.trunk)
       trunk.pilotUserId = userId
       return ctrl.parent.update(trunk)
+    }
+
+    function bulk() {
+      var returnTo = $location.url()
+      $location.path('/bulk/user.create').search({
+        serviceProviderId: ctrl.parent.serviceProviderId,
+        groupId: ctrl.parent.groupId,
+        returnTo: returnTo
+      })
+    }
+
+    function open(user) {
+      var returnTo = $location.url()
+      Route.open('users')(
+        ctrl.parent.serviceProviderId,
+        ctrl.parent.groupId,
+        user.userId
+      ).search({ returnTo: returnTo })
     }
   }
 })()

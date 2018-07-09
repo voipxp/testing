@@ -23,8 +23,7 @@
     APP,
     Alert,
     Idle,
-    Route,
-    $timeout
+    Route
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -66,14 +65,12 @@
 
     function handleRouteError(rejection) {
       console.log('routeChangeError', rejection)
-      $timeout(function() {
-        if (Session.expired()) {
-          Alert.notify.warning('Please Login')
-          $location.path(APP.loginURL).replace()
-        } else {
-          $location.path('/notfound').replace()
-        }
-      }, 1)
+      if (Session.expired()) {
+        Alert.notify.warning('Please Login')
+        $location.path(APP.loginURL).replace()
+      } else {
+        $location.path('/notfound').replace()
+      }
     }
 
     function setIdle() {
@@ -86,20 +83,16 @@
     }
 
     function notifyTimeout(seconds) {
-      $timeout(function() {
-        NOTIFICATION = Alert.notify.warning(
-          'This session is about to expire',
-          seconds * 1000
-        )
-      }, 1)
+      NOTIFICATION = Alert.notify.warning(
+        'This session is about to expire',
+        seconds * 1000
+      )
     }
 
     function cancelNotify() {
-      $timeout(function() {
-        if (NOTIFICATION) {
-          Alert.notify.remove(NOTIFICATION)
-        }
-      }, 1)
+      if (NOTIFICATION) {
+        Alert.notify.remove(NOTIFICATION)
+      }
     }
 
     // convert from seconds to minutes

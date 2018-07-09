@@ -18,7 +18,9 @@
     function add(type, message, timeout) {
       timeout = timeout || ALERT_TIMEOUT
       var notification = { type: type, message: parse(message) }
-      notifications.push(notification)
+      $timeout(function() {
+        notifications.push(notification)
+      }, 1)
       notification.timeout = $timeout(function() {
         remove(notification)
       }, timeout)
@@ -28,7 +30,9 @@
     function remove(notification) {
       if (!notification) return
       $timeout.cancel(notification.timeout)
-      _.remove(notifications, notification)
+      $timeout(function() {
+        _.remove(notifications, notification)
+      }, 1)
     }
 
     function primary(message, timeout) {
