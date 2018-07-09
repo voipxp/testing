@@ -1,6 +1,7 @@
 ;(function() {
   // Get last selected set of users to inject into component
   function data(BulkUsersService, $q) {
+    'ngInject'
     return BulkUsersService.get().then(function(data) {
       return data.users.length > 0 ? data : $q.reject('routeToSelect')
     })

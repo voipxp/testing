@@ -51,6 +51,7 @@
         reloadOnSearch: route.reloadOnSearch || false,
         resolve: {
           _session: function(Session) {
+            'ngInject'
             return Session.required()
           }
         }
