@@ -12,6 +12,9 @@
     ctrl.submit = submit
 
     function onInit() {
+      if (!Session.expired()) {
+        return Route.dashboard()
+      }
       Template.load().then(function() {
         ctrl.loginMessage = Template.data('pageLoginMessage')
       })

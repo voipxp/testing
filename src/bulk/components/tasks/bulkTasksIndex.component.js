@@ -9,7 +9,6 @@
     var route = Route.open('/bulk/tasks')
     ctrl.open = open
 
-    // add returnTo
     function open(task) {
       console.log('open', task)
       route(task && task.id)

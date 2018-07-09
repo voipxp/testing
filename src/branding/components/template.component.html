@@ -2,6 +2,11 @@
   <pbs-block title="Templates">
     <table class="hover"
       pbs-table>
+      <tr ng-repeat="field in $ctrl.fields.number"
+        ng-click="$ctrl.edit('number', field)">
+        <td>{{ field.label }}</td>
+        <td>{{ $ctrl.template[field.key] ? $ctrl.template[field.key] : 'Off' }}</td>
+      </tr>
       <tr ng-repeat="field in $ctrl.fields.text"
         ng-click="$ctrl.edit('text', field)">
         <td>{{ field.label }}</td>
@@ -34,6 +39,16 @@
     </table>
   </pbs-block>
 </pbs-spinner>
+<pbs-modal id="editBrandingTemplate-number"
+  title="{{ $ctrl.editField.label }}">
+  <pbs-form>
+    <pbs-form-field label="{{ $ctrl.editField.label }}">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editField.value">
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
 <pbs-modal id="editBrandingTemplate-text"
   title="{{ $ctrl.editField.label }}">
   <pbs-form>

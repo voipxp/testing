@@ -45,9 +45,11 @@
     }
 
     function bulk() {
+      var returnTo = $location.url()
       $location.path('/bulk/user.create').search({
         serviceProviderId: ctrl.serviceProviderId,
-        groupId: ctrl.groupId
+        groupId: ctrl.groupId,
+        returnTo: returnTo
       })
     }
 

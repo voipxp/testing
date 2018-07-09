@@ -1,11 +1,13 @@
 # TODO
-- look for all returnTo and make sure they work
-- remove all Session.load references since this is happening in route resolves
-- move all routes aside from app/index.js to use pbsRouteProvider
+- turn service pack buttons into tabs
 - component for input (text, email, phone, number) (class=input)
   - add is-loading to input
 
 # DONE
+x look for all returnTo and make sure they work
+x look at browser history when redirected to notfound
+x remove all Session.load references since this is happening in route resolves
+x move all routes aside from app/index.js to use pbsRouteProvider
 x intercept route changes and check for token
 x replace all checkboxes
 x replace all radios

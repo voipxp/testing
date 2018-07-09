@@ -1,18 +1,13 @@
 ;(function() {
   angular.module('odin.user').factory('UserPermissionService', Service)
 
-  function Service(Module, UserServiceService, Session, ACL, $q) {
+  function Service(Module, UserServiceService, ACL, $q) {
     var service = { load: load }
     return service
 
     function load(userId) {
       return $q
-        .all([
-          loadAssigned(userId),
-          loadViewable(userId),
-          Module.load(),
-          Session.load()
-        ])
+        .all([loadAssigned(userId), loadViewable(userId), Module.load()])
         .then(function(response) {
           return Permission(userId, response[0], response[1])
         })

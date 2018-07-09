@@ -77,7 +77,7 @@
     }
 
     function logout() {
-      Session.clear().then(Route.login)
+      Session.clear()
     }
 
     function burger() {
@@ -107,7 +107,7 @@
       }
     }
 
-    $rootScope.$on('Session:updated', loadSession)
+    $rootScope.$on('Session:loaded', loadSession)
     $rootScope.$on('BrandingApplicationService:updated', loadApplications)
   }
 })()

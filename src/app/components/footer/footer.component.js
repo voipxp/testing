@@ -15,7 +15,7 @@
       ctrl.session = Session.data()
     }
 
-    $rootScope.$on('Session:updated', loadSession)
+    $rootScope.$on('Session:loaded', loadSession)
     $rootScope.$on('Template:updated', loadTemplate)
   }
 })()

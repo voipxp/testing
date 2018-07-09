@@ -20,10 +20,23 @@
     function getConfig(route) {
       // parse the template from the component
       var name = _.kebabCase(route.component)
+
+      // set resolves
+      route.resolve = route.resolve || {}
+      if (route.acl) {
+        route.resolve.acl = setAcl(route.acl)
+      }
+      if (route.module) {
+        route.resolve.module = setModule(route.module)
+      }
+
+      // generate template
       var template = ''
       template += '<' + name
-      if (route.module) {
-        template += ' module="$resolve.module"'
+      if (route.resolve) {
+        _.forOwn(route.resolve, function(val, key) {
+          template += ' ' + key + '="$resolve.' + key + '"'
+        })
       }
       if (route.bindings) {
         _.forOwn(route.bindings, function(val, key) {
@@ -31,19 +44,18 @@
         })
       }
       template += '></' + name + '>'
+
       // set the route config object
       var config = {
         template: template,
         reloadOnSearch: route.reloadOnSearch || false,
-        resolve: {}
+        resolve: {
+          _session: function(Session) {
+            return Session.required()
+          }
+        }
       }
-      if (route.acl) {
-        config.resolve.acl = setAcl(route.acl)
-      }
-      if (route.module) {
-        config.resolve.module = setModule(route.module)
-      }
-
+      _.assign(config.resolve, route.resolve)
       return config
     }
     function set(routes, prefix) {

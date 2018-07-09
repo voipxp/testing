@@ -1,17 +1,13 @@
 ;(function() {
   angular.module('odin.group').factory('GroupPermissionService', Service)
 
-  function Service(Module, GroupServiceService, Session, ACL, $q) {
+  function Service(Module, GroupServiceService, $q) {
     var service = { load: load }
     return service
 
     function load(serviceProviderId, groupId) {
       return $q
-        .all([
-          loadAssigned(serviceProviderId, groupId),
-          Module.load(),
-          Session.load()
-        ])
+        .all([loadAssigned(serviceProviderId, groupId), Module.load()])
         .then(function(response) {
           return Permission(serviceProviderId, groupId, response[0])
         })

@@ -11,11 +11,9 @@
 
     ctrl.neverExpires = 2147483647
     function onInit() {
-      Session.load().then(function() {
-        ctrl.userId = Session.data('userId')
-        ctrl.loginType = Session.data('loginType')
-        ctrl.expiration = Session.data('passwordExpiresDays')
-      })
+      ctrl.userId = Session.data('userId')
+      ctrl.loginType = Session.data('loginType')
+      ctrl.expiration = Session.data('passwordExpiresDays')
     }
 
     function edit() {

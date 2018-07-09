@@ -26,6 +26,9 @@
       { key: 'imageLoginLogo', label: 'Login Logo' },
       { key: 'imageIcon', label: 'Icon Image' }
     ]
+    ctrl.fields.number = [
+      { key: 'sessionTimeout', label: 'Session Timeout (min)' }
+    ]
 
     function onInit() {
       ctrl.loading = true

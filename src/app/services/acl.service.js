@@ -1,31 +1,22 @@
 ;(function() {
   angular.module('odin.app').factory('ACL', ACL)
 
-  function ACL($q, $location, Session) {
+  function ACL($q, Session) {
     return {
-      check: check,
       allow: allow,
       has: has,
       is: is,
       allowVersion: allowVersion,
       hasVersion: hasVersion
     }
-    function check(results) {
-      return $q(function(resolve, reject) {
-        if (results) return resolve()
-        console.log('FAILED ACL CHECK', results)
-        $location.path('/notfound').replace()
-        reject()
-      })
-    }
     function allowVersion(version) {
       return Session.required().then(function() {
-        return check(hasVersion(version))
+        return hasVersion(version) ? $q.when() : $q.reject('aclVersion')
       })
     }
     function allow(allowed) {
       return Session.required().then(function() {
-        return check(has(allowed))
+        return has(allowed) ? $q.when() : $q.reject('aclAllow')
       })
     }
     function has(type) {

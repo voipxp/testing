@@ -69,7 +69,6 @@
       return messages.join(', ') || task.error
     }
 
-    // add returnTo
     function open(task) {
       console.log('open', task)
       route(task && task.id)

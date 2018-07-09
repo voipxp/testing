@@ -120,10 +120,7 @@ Filter
 
     function allow(name) {
       return load().then(function() {
-        if (read(name)) return get(name)
-        console.log('FAILED MODULE CHECK', name)
-        $location.path('/notfound').replace()
-        return $q.reject()
+        return read(name) ? get(name) : $q.reject('moduleAllow')
       })
     }
   }

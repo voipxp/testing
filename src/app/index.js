@@ -6,6 +6,7 @@
     'ngAnimate',
     'ngRoute',
     'ngSanitize',
+    'ngIdle',
     'angular-jwt',
     'chart.js',
     'odin.config',
@@ -52,7 +53,6 @@
             // If a 401 or 403 from API remove local JWT Token
             if (status === 401 || status === 402 || status === 403) {
               return Session.clear().then(function() {
-                Route.login()
                 return $q.reject(response)
               })
             }
@@ -97,62 +97,32 @@
         template: '',
         controller: function(Route) {
           Route.dashboard()
-        },
-        resolve: {
-          session: function(Session) {
-            return Session.load()
-          }
         }
       })
       .when('/account', {
-        template: '<my-account></my-account>'
-      })
-      .when('/notfound', {
-        templateUrl: 'app/layout/notfound.tpl.html'
+        template: '<my-account></my-account>',
+        resolve: {
+          session: function(Session) {
+            return Session.required()
+          }
+        },
+        reloadOnSearch: false
       })
       .when('/login', {
-        template: '<pbs-login></pbs-login>'
+        template: '<pbs-login></pbs-login>',
+        reloadOnSearch: false
       })
       .when('/sso', {
         template: '<pbs-sso></pbs-sso>',
         reloadOnSearch: false
       })
-      .otherwise({
+      .when('/notfound', {
         templateUrl: 'app/layout/notfound.tpl.html'
       })
+      .otherwise({
+        redirectTo: '/notfound'
+      })
   }
-
-  // inject pageTitle into rootScope
-  function addTemplateListener($rootScope, Template) {
-    $rootScope.$on('Template:updated', function() {
-      $rootScope.pageTitle = Template.data('pageTitle') || 'ODiN'
-    })
-  }
-
-  function loaders($q, Module, Template) {
-    return $q.all([Template.load(), Module.load()])
-  }
-
-  function clearCache(CacheFactory) {
-    CacheFactory.clearAll()
-  }
-
-  // Potential solution to Token Expired message
-  //
-  // function addTokenListener($rootScope, jwtHelper, Session, Route) {
-  //   $rootScope.$on('$routeChangeStart', function(event, next) {
-  //     if (next.originalPath === '/login') return
-  //     var token = Session.data('token')
-  //     if (!token || jwtHelper.isTokenExpired(token)) {
-  //       // getTokenExpirationDate
-  //       console.log('Token Expired')
-  //       event.preventDefault()
-  //       Session.clear().then(function() {
-  //         Route.login()
-  //       })
-  //     }
-  //   })
-  // }
 
   // bootstrap angular application
   function bootstrap() {
@@ -164,9 +134,6 @@
       .config(authInterceptorConfig)
       .config(jwtInterceptorConfig)
       .config(routeConfig)
-      .run(clearCache)
-      .run(loaders)
-      .run(addTemplateListener)
 
     angular.element(document.getElementById(moduleID)).ready(function() {
       angular.bootstrap(document, [moduleName])

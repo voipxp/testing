@@ -9,7 +9,7 @@
 
     function load(serviceProviderId) {
       return $q
-        .all([loadServices(serviceProviderId), Module.load(), Session.load()])
+        .all([loadServices(serviceProviderId), Module.load()])
         .then(function(response) {
           return Permission(serviceProviderId, response[0])
         })

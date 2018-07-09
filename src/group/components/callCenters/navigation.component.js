@@ -5,13 +5,12 @@
     bindings: { module: '<' }
   })
 
-  function Controller($routeParams, Route, $location) {
+  function Controller($routeParams, Route) {
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
     ctrl.serviceUserId = $routeParams.serviceUserId
     ctrl.dnisId = $routeParams.dnisId
-    ctrl.returnTo = $location.search().returnTo
     ctrl.open = open
 
     // TODO

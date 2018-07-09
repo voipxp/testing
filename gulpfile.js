@@ -119,6 +119,7 @@ gulp.task('vendor.js', () => {
       'node_modules/rrule/lib/rrule.js',
       'node_modules/rrule/lib/nlp.js',
       'node_modules/checklist-model/checklist-model.js',
+      'node_modules/ng-idle/angular-idle.min.js',
       'node_modules/marked/marked.min.js',
       'node_modules/angular-marked/dist/angular-marked.min.js',
       'node_modules/angular-papaparse/dist/js/angular-PapaParse.js'

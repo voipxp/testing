@@ -5,7 +5,7 @@
     bindings: { userId: '<' }
   })
 
-  function Controller(Alert, UserService, $q, Session, Auth, ACL) {
+  function Controller(Alert, UserService, ACL) {
     var ctrl = this
     ctrl.update = update
     ctrl.$onInit = onInit
@@ -14,8 +14,7 @@
 
     function onInit() {
       ctrl.loading = true
-      return $q
-        .all([Session.load(), loadUser()])
+      return loadUser()
         .then(function() {
           ctrl.isAdmin = ACL.has('Group')
         })

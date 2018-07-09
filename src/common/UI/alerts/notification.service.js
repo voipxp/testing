@@ -22,35 +22,37 @@
       notification.timeout = $timeout(function() {
         remove(notification)
       }, timeout)
+      return notification
     }
 
     function remove(notification) {
+      if (!notification) return
       $timeout.cancel(notification.timeout)
       _.remove(notifications, notification)
     }
 
-    function primary(message) {
-      add('is-primary', message)
+    function primary(message, timeout) {
+      return add('is-primary', message, timeout)
     }
 
-    function link(message) {
-      add('is-link', message)
+    function link(message, timeout) {
+      return add('is-link', message, timeout)
     }
 
-    function info(message) {
-      add('is-info', message)
+    function info(message, timeout) {
+      return add('is-info', message, timeout)
     }
 
-    function success(message) {
-      add('is-success', message)
+    function success(message, timeout) {
+      return add('is-success', message, timeout)
     }
 
-    function warning(message) {
-      add('is-warning', message)
+    function warning(message, timeout) {
+      return add('is-warning', message, timeout)
     }
 
-    function danger(message) {
-      add('is-danger', message, 15000)
+    function danger(message, timeout) {
+      return add('is-danger', message, timeout || 15000)
     }
 
     function parse(message) {

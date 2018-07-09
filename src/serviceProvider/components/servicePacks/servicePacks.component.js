@@ -3,10 +3,7 @@
     templateUrl:
       'serviceProvider/components/servicePacks/servicePacks.component.html',
     controller: Controller,
-    bindings: {
-      serviceProviderId: '<',
-      returnTo: '<'
-    }
+    bindings: { serviceProviderId: '<' }
   })
 
   function Controller(

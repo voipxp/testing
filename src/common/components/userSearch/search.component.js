@@ -10,8 +10,7 @@
     HashService,
     Route,
     $rootScope,
-    ACL,
-    Session
+    ACL
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -35,12 +34,10 @@
 
     function onInit() {
       ctrl.modalId = HashService.guid()
-      Session.load().then(function() {
-        ctrl.isProvisioning = ACL.has('Provisioning')
-        if (ctrl.isProvisioning) {
-          ctrl.types.push({ key: 'macAddress', name: 'MAC Address' })
-        }
-      })
+      ctrl.isProvisioning = ACL.has('Provisioning')
+      if (ctrl.isProvisioning) {
+        ctrl.types.push({ key: 'macAddress', name: 'MAC Address' })
+      }
     }
 
     function doCheck() {

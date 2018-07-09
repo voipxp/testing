@@ -29,8 +29,7 @@
 
     function onInit() {
       ctrl.loading = true
-      return $q
-        .all([Session.load(), loadUser()])
+      return loadUser()
         .then(function() {
           ctrl.isCurrentUser = ctrl.userId === Session.data('userId')
         })

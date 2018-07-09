@@ -21,9 +21,8 @@ IDEA
       userId: '<',
       module: '<'
     },
-    controller: function($location, Session, ACL, Route, $window) {
+    controller: function($location, ACL, Route, $window) {
       this.$onInit = function() {
-        this.session = Session.data()
         var search = $location.search()
         this.returnTo = search.returnTo
         delete search.returnTo

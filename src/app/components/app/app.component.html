@@ -1,2 +1,17 @@
-<section class="section"
-  ng-view></section>
+<section ng-if="$ctrl.loading"
+  class="hero is-fullheight is-link">
+  <div class="hero-body">
+    <div class="spinner"></div>
+  </div>
+</section>
+<div ng-if="!$ctrl.loading">
+  <pbs-notifications></pbs-notifications>
+  <pbs-navbar></pbs-navbar>
+
+  <section class="section"
+    ng-view></section>
+
+  <pbs-confirm-modal></pbs-confirm-modal>
+  <pbs-spinner-modal></pbs-spinner-modal>
+  <pbs-footer></pbs-footer>
+</div>
