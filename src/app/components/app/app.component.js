@@ -13,6 +13,7 @@
 
   function Controller(
     Template,
+    Setting,
     Session,
     $q,
     $rootScope,
@@ -34,12 +35,15 @@
 
     function onInit() {
       ctrl.loading = true
-      $q.all([CacheFactory.clearAll(), Template.load(), Session.load()]).then(
-        function() {
-          ctrl.loading = false
-          setIdle()
-        }
-      )
+      $q.all([
+        CacheFactory.clearAll(),
+        Template.load(),
+        Session.load(),
+        Setting.load()
+      ]).then(function() {
+        ctrl.loading = false
+        setIdle()
+      })
     }
 
     function loadTemplate() {
@@ -97,7 +101,7 @@
 
     // convert from seconds to minutes
     function sessionTimeout() {
-      return (parseInt(Template.data('sessionTimeout'), 10) || 0) * 60
+      return (parseInt(Setting.data('sessionTimeout'), 10) || 0) * 60
     }
 
     $rootScope.$on('$routeChangeSuccess', function() {

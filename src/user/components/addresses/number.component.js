@@ -11,7 +11,8 @@
     UserService,
     $routeParams,
     $q,
-    ACL
+    ACL,
+    Setting
   ) {
     var ctrl = this
     ctrl.edit = edit
@@ -23,7 +24,7 @@
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
     ctrl.userId = $routeParams.userId
-
+    ctrl.editCLID = Setting.data('editCLID')
     ctrl.$onInit = onInit
 
     function onInit() {

@@ -40,7 +40,7 @@
         group-id="$ctrl.user.groupId"
         phone-number="$ctrl.editUser.callingLineIdPhoneNumber"
         show-all="true"
-        allow-manual="true"
+        allow-manual="$ctrl.editCLID"
         on-update="$ctrl.selectCLIDPhoneNumber($event)"></select-phone-number>
     </pbs-form-field>
   </pbs-form>
