@@ -5,40 +5,12 @@
 
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Phone Directory">
-    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
-    <table pbs-table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Last Name</th>
-          <th>First Name</th>
-          <th>Phone</th>
-          <th>Extension</th>
-          <th>Department</th>
-          <th>Group</th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr ng-if="results.length < 1">
-          <td colspan="100">No Users Found
-            <strong ng-if="$ctrl.search">for {{ $ctrl.search }}</strong>
-          </td>
-        </tr>
-      </tfoot>
-      <tbody>
-        <tr ng-repeat="user in results = ($ctrl.users | filter:$ctrl.search | orderBy:'userId') | paginate:$ctrl.pager track by user.userId">
-          <td>{{ user.userId }}</td>
-          <td>{{ user.lastName }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.number }}</td>
-          <td>{{ user.extension }}</td>
-          <td>{{ user.department }}</td>
-          <td>{{ user.groupId }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <pbs-pagination items="results.length"
-      limit="25"
-      on-update="$ctrl.onPagination($event)"></pbs-pagination>
+    <pbs-data-table columns="$ctrl.columns"
+      items="$ctrl.users"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-click="$ctrl.onClick($event)"></pbs-data-table>
   </pbs-block>
 </pbs-spinner>

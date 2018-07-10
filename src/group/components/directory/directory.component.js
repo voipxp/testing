@@ -7,13 +7,35 @@
   function Controller(Alert, GroupPhoneDirectoryService, $routeParams) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.onPagination = onPagination
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
 
-    function onPagination(event) {
-      ctrl.pager = event.pager
-    }
+    ctrl.columns = [
+      {
+        key: 'name',
+        label: 'Name'
+      },
+      {
+        key: 'userId',
+        label: 'User ID'
+      },
+      {
+        key: 'number',
+        label: 'Number'
+      },
+      {
+        key: 'extension',
+        label: 'Extension'
+      },
+      {
+        key: 'department',
+        label: 'Department'
+      },
+      {
+        key: 'groupId',
+        label: 'Group ID'
+      }
+    ]
 
     function onInit() {
       ctrl.loading = true
