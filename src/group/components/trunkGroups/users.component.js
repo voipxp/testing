@@ -54,7 +54,8 @@
 
     function loadModules() {
       return Module.load().then(function() {
-        ctrl.canEditPilot = Module.update('Trunk Group')
+        ctrl.canReadPilot = Module.read('Trunk Group - Pilot User')
+        ctrl.canEditPilot = Module.update('Trunk Group - Pilot User')
         ctrl.canEditUsers = Module.update('Provisioning')
       })
     }
