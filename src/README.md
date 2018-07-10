@@ -2,6 +2,11 @@
 - turn service pack buttons into tabs
 - component for input (text, email, phone, number) (class=input)
   - add is-loading to input
+- pbs-addons component
+  <pbs-addons>
+    <pbs-addon-static expanded>SOMETHING</pbs-addon-static>
+    <pbs-addon-item><input></pbs-addon-static>
+  </pbs-addons>
 
 # DONE
 x look for all returnTo and make sure they work
