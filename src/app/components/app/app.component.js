@@ -40,10 +40,12 @@
         Template.load(),
         Session.load(),
         Setting.load()
-      ]).then(function() {
-        ctrl.loading = false
-        setIdle()
-      })
+      ])
+        .then(setIdle)
+        .catch(Alert.notify.danger)
+        .finally(function() {
+          ctrl.loading = false
+        })
     }
 
     function loadTemplate() {
