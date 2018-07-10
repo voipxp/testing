@@ -22,20 +22,12 @@
 
     ctrl.columns = [
       {
-        key: 'groupId',
-        label: 'Group ID'
+        key: 'name',
+        label: 'Name'
       },
       {
         key: 'userId',
         label: 'User ID'
-      },
-      {
-        key: 'lastName',
-        label: 'Last Name'
-      },
-      {
-        key: 'firstName',
-        label: 'First Name'
       },
       {
         key: 'number',
@@ -48,6 +40,10 @@
       {
         key: 'department',
         label: 'Department'
+      },
+      {
+        key: 'groupId',
+        label: 'Group ID'
       }
     ]
 
