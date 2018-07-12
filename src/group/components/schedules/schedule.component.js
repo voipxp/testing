@@ -30,7 +30,6 @@
         ctrl.scheduleName,
         ctrl.scheduleType
       ).then(function(data) {
-        console.log('schedule', data)
         ctrl.schedule = data
       })
     }

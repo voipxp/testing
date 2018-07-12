@@ -7,8 +7,17 @@
 
   function Controller() {
     var ctrl = this
+    ctrl.$onInit = onInit
     ctrl.$onDestroy = onDestroy
     ctrl.update = update
+
+    function onInit() {
+      if (ctrl.rrule.until) {
+        ctrl.endsPattern = 'On'
+      } else if (ctrl.rrule.count || ctrl.rrule.count === 0) {
+        ctrl.endsPattern = 'After'
+      }
+    }
 
     // cleanup
     function onDestroy() {
@@ -16,11 +25,11 @@
       delete ctrl.rrule.until
     }
 
-    function update(endsPattern) {
-      if (endsPattern === 'After') {
+    function update() {
+      if (ctrl.endsPattern === 'After') {
         delete ctrl.rrule.until
         ctrl.rrule.count = ctrl.rrule.count || 1
-      } else if (endsPattern === 'On') {
+      } else if (ctrl.endsPattern === 'On') {
         delete ctrl.rrule.count
       } else {
         delete ctrl.rrule.count

@@ -10,16 +10,14 @@
     ctrl.$onInit = onInit
     ctrl.$onDestroy = onDestroy
     ctrl.days = [
-      { label: 'Sun', value: RRule.SU },
-      { label: 'Mon', value: RRule.MO },
-      { label: 'Tue', value: RRule.TU },
-      { label: 'Wed', value: RRule.WE },
-      { label: 'Thu', value: RRule.TH },
-      { label: 'Fri', value: RRule.FR },
-      { label: 'Sat', value: RRule.SA }
+      { label: 'Sunday', value: RRule.SU },
+      { label: 'Monday', value: RRule.MO },
+      { label: 'Tuesday', value: RRule.TU },
+      { label: 'Wednesday', value: RRule.WE },
+      { label: 'Thursday', value: RRule.TH },
+      { label: 'Friday', value: RRule.FR },
+      { label: 'Saturday', value: RRule.SA }
     ]
-
-    console.log('days', ctrl.days)
 
     function onInit() {
       setDefault()

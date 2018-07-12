@@ -38,8 +38,6 @@
         ctrl.events = data.map(function(data) {
           return EventHelper.parse(data)
         })
-        console.log('events', ctrl.events)
-        return data
       })
     }
 

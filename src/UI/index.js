@@ -30,6 +30,14 @@
     {
       path: 'pbsInputFile',
       component: 'pbsInputFileDoc'
+    },
+    {
+      path: 'pbsInputDatetimeParse',
+      component: 'pbsInputDatetimeParseDoc'
+    },
+    {
+      path: 'pbsInputDatetime',
+      component: 'pbsInputDatetimeDoc'
     }
   ]
   angular

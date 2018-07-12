@@ -29,8 +29,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.schedules = data
-        console.log('schedules', data)
-        return data
       })
     }
 

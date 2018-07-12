@@ -60,18 +60,18 @@
     <pbs-columns>
       <pbs-column>
         <pbs-form-field label="Starts At">
-          <pbs-input-datetime ng-model="$ctrl.editEvent.startTime"
+          <pbs-input-datetime-parse ng-model="$ctrl.editEvent.startTime"
             is-date="$ctrl.editEvent.allDayEvent"
             ng-required="true">
-          </pbs-input-datetime>
+          </pbs-input-datetime-parse>
         </pbs-form-field>
       </pbs-column>
       <pbs-column>
         <pbs-form-field label="Ends At">
-          <pbs-input-datetime ng-model="$ctrl.editEvent.endTime"
+          <pbs-input-datetime-parse ng-model="$ctrl.editEvent.endTime"
             is-date="$ctrl.editEvent.allDayEvent"
             ng-required="true">
-          </pbs-input-datetime>
+          </pbs-input-datetime-parse>
         </pbs-form-field>
       </pbs-column>
     </pbs-columns>

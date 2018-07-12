@@ -65,6 +65,14 @@
       {
         component: 'pbsInputFile',
         description: 'Form File Upload'
+      },
+      {
+        component: 'pbsInputDatetimeParse',
+        description: 'Form Datetime Input (Natural Language Parser)'
+      },
+      {
+        component: 'pbsInputDatetime',
+        description: 'Form Datetime Input'
       }
     ]
   }

@@ -1,6 +1,7 @@
 ;(function() {
-  angular.module('odin.common').component('pbsInputDatetimeParse', {
-    templateUrl: 'common/UI/forms/dateTimeParse.component.html',
+  angular.module('odin.UI').component('pbsInputDatetimeParse', {
+    templateUrl:
+      'UI/pbsInputDatetimeParse/pbsInputDatetimeParse.component.html',
     bindings: { ngModel: '=', isDate: '<', placeholder: '@', ngRequired: '=' },
     controller: function($filter, HashService, Alert) {
       var ctrl = this
@@ -53,8 +54,6 @@
 
       ctrl.examples = _.chunk(examples, Math.ceil(examples.length / 3))
 
-      console.log('examples', ctrl.examples)
-
       function onInit() {
         ctrl.modalId = HashService.guid()
         if (ctrl.input || !ctrl.ngModel) return
@@ -67,7 +66,7 @@
       function help() {
         return ctrl.ngModel
           ? $filter('date')(ctrl.ngModel, format())
-          : 'Eg: monday 9am, friday 5pm, Aug 1, today, next friday'
+          : 'Eg: monday 9am, friday 5pm, Aug 1, today'
       }
 
       function format() {

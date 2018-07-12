@@ -1,0 +1,38 @@
+<pbs-doc-nav component="pbsInputDatetimeParse"></pbs-doc-nav>
+
+<div class="box">
+  <pbs-columns>
+    <pbs-column>
+      <pbs-form-section>Datetime</pbs-form-section>
+      <pbs-input-datetime-parse ng-model="$ctrl.datetime"></pbs-input-datetime-parse>
+      <pbs-form-section>Date</pbs-form-section>
+      <pbs-input-datetime-parse ng-model="$ctrl.date"
+        is-date="true"></pbs-input-datetime-parse>
+    </pbs-column>
+    <pbs-column>
+      <pbs-form-section>Options</pbs-form-section>
+      <dl>
+        <dt>ng-model</dt>
+        <dd>Two-way binding to model</dd>
+        <dt>ng-required</dt>
+        <dd>Adds required attribute to input field</dd>
+        <dt>is-date</dt>
+        <dd>Present as a Date selection</dd>
+      </dl>
+    </pbs-column>
+  </pbs-columns>
+</div>
+<div class="box content">
+  <marked src="'pbsInputDatetimeParse.md'"></marked>
+</div>
+
+<script type="text/ng-template"
+  id="pbsInputDatetimeParse.md">
+## HTML
+```
+<pbs-input-datetime-parse ng-model="$ctrl.datetime"></pbs-input-datetime-parse>
+
+<pbs-input-datetime-parse ng-model="$ctrl.date"
+  is-date="true"></pbs-input-datetime-parse>
+```
+</script>

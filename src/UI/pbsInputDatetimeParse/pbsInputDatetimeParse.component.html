@@ -9,14 +9,14 @@
       ng-change="$ctrl.parse()"
       placeholder="{{ $ctrl.placeholder }}"
       ng-model-options="{ debounce: 200 }">
-    <span class="help is-pulled-right"
+    <span class="help has-text-right"
       ng-class="{'has-text-weight-bold': $ctrl.ngModel}">{{ $ctrl.help() }}</span>
   </div>
   <div class="control">
     <span class="button"
       ng-click="$ctrl.showExamples()">
       <span class="icon is-small">
-        <i class="fas fa-question"></i>
+        <i class="fas fa-info"></i>
       </span>
     </span>
   </div>

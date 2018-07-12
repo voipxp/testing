@@ -34,7 +34,6 @@
     }
 
     function onInit() {
-      console.log('RRULE', ctrl.rrule)
       flatten('byweekday')
       flatten('bymonthday')
       parseWeekday()
