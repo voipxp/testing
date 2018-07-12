@@ -9,11 +9,6 @@
       path: 'serviceProviders',
       component: 'serviceProvidersIndex',
       acl: 'Provisioning'
-    },
-    {
-      path: 'queue',
-      component: 'pbsHorizon',
-      acl: 'Provisioning'
     }
   ]
   angular.module('odin.provisioning', []).config(function(PbsRouteProvider) {
