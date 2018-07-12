@@ -70,7 +70,14 @@ gulp.task('app.html', () => {
 })
 
 gulp.task('app.assets', () => {
-  return gulp.src('assets/**/*').pipe(gulp.dest(dest))
+  let manifest = gulp
+    .src('assets/manifest.json')
+    .pipe(replace('<!-- #api -->', Config.APP.apiURL))
+  let browserconfig = gulp
+    .src('assets/browserconfig.xml')
+    .pipe(replace('<!-- #api -->', Config.APP.apiURL))
+  let robots = gulp.src('assets/robots.txt')
+  return series(manifest, browserconfig, robots).pipe(gulp.dest(dest))
 })
 
 gulp.task('vendor.css', () => {

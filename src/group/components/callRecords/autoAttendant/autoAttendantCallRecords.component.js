@@ -8,11 +8,9 @@
 
   function Controller(
     $routeParams,
-    Route,
     Alert,
     GroupAutoAttendantService,
-    UserCallRecordsService,
-    DateService
+    UserCallRecordsService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -25,8 +23,8 @@
     ctrl.options = UserCallRecordsService.options
 
     ctrl.search = {
-      startTime: DateService.dayBegin('today'),
-      endTime: DateService.dayEnd('today'),
+      startTime: null,
+      endTime: null,
       reportType: 'Hourly'
     }
 

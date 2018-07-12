@@ -8,14 +8,19 @@
   <h3 class="subtitle has-text-centered">
     {{ $ctrl.search.reportType || 'Auto Attendant' }} Report
     <br>
-    <span style="font-size: 85%">
+    <span style="font-size: 85%"
+      ng-show="$ctrl.search.startTime">
       {{ $ctrl.search.startTime | pbsDate:'{long}' }} - {{ $ctrl.search.endTime | pbsDate:'{long}' }}
     </span>
   </h3>
 </div>
 <div class="box"
-  ng-show="$ctrl.callRecords.length < 1">
+  ng-show="$ctrl.search.startTime && $ctrl.callRecords.length < 1">
   <p>No Call Records Found for selected Date Range</p>
+</div>
+<div class="box"
+  ng-show="!$ctrl.search.startTime">
+  <p>Please select a Date Range</p>
 </div>
 <pbs-tabs size="large"
   ng-show="$ctrl.callRecords.length > 0">
@@ -54,14 +59,15 @@
         required></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Start Time">
-      <pbs-input-datetime ng-model="$ctrl.editSearch.startTime"
+      <pbs-input-datetime-parse ng-model="$ctrl.editSearch.startTime"
         ng-required="true">
-      </pbs-input-datetime>
+        </pbs-input-datetime>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="End Time">
-      <pbs-input-datetime ng-model="$ctrl.editSearch.endTime"
-        ng-required="true">
-      </pbs-input-datetime>
+      <pbs-input-datetime-parse ng-model="$ctrl.editSearch.endTime"
+        ng-required="true"
+        future="true">
+      </pbs-input-datetime-parse>
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>
