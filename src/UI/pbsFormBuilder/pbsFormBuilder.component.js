@@ -1,29 +1,3 @@
-/*
-example
-{
-  "properties": {
-    "isActive": {
-      "title": "Is Active",
-      "type": "boolean"
-    },
-    "forwardToPhoneNumber": {
-      "title": "Forward To Number",
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 161
-    },
-    "numberOfRings": {
-      "title": "Number of Rings",
-      "type": "integer",
-      "enum": [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-      "default": 0
-    }
-  },
-  "title": "Call Forwarding No Answer",
-  "type": "object"
-}
-*/
-
 ;(function() {
   angular.module('odin.UI').component('pbsFormBuilder', {
     templateUrl: 'UI/pbsFormBuilder/pbsFormBuilder.component.html',
@@ -35,7 +9,6 @@ example
     var ctrl = this
     ctrl.$onChanges = onChanges
     ctrl.properties = []
-    ctrl.data = {}
 
     function onChanges(changes) {
       if (changes.schema && changes.schema.currentValue) {
@@ -53,9 +26,8 @@ example
     }
 
     function setDefaultData() {
-      ctrl.data = {}
       ctrl.properties.forEach(function(property) {
-        console.log('property', property)
+        if (ctrl.data[property.key] || ctrl.data[property.key] === 0) return
         if (property.type === 'boolean') {
           ctrl.data[property.key] = !!property.default
         } else {
