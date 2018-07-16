@@ -20,7 +20,12 @@
     function organizeProperties() {
       ctrl.properties = []
       _.forIn(ctrl.schema.properties, function(value, key) {
-        ctrl.properties.push(Object.assign({ key: key }, value))
+        ctrl.properties.push(
+          Object.assign(
+            { key: key, required: _.includes(ctrl.schema.required, key) },
+            value
+          )
+        )
       })
       console.log('ctrl.properties', ctrl.properties)
     }

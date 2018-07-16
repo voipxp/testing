@@ -39,6 +39,7 @@
     ctrl.schema = {
       title: 'Call Forwarding No Answer',
       type: 'object',
+      required: ['textInput'],
       properties: {
         booleanInput: {
           title: 'Boolean Input',
@@ -53,8 +54,8 @@
         numberInput: {
           title: 'Number Input',
           type: 'integer',
-          min: 1,
-          max: 4
+          minimum: 1,
+          maximum: 4
         },
         selectInput: {
           title: 'Select Input',
@@ -66,4 +67,4 @@
     }
   }
   ```
-  </script>
+</script>
