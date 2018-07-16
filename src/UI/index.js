@@ -38,6 +38,10 @@
     {
       path: 'pbsInputDatetime',
       component: 'pbsInputDatetimeDoc'
+    },
+    {
+      path: 'pbsFormBuilder',
+      component: 'pbsFormBuilderDoc'
     }
   ]
   angular

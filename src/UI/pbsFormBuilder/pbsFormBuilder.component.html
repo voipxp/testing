@@ -1,0 +1,29 @@
+<pbs-form>
+  <pbs-input-checkbox ng-model="$ctrl.data[property.key]"
+    ng-required="property.required"
+    ng-repeat="property in $ctrl.properties | filter:{type: 'boolean'}"
+    ng-label="property.title"></pbs-input-checkbox>
+  <pbs-form-field-horizontal label="{{ property.title }}"
+    ng-repeat="property in $ctrl.properties | filter:{enum: '!!'}">
+    <pbs-input-select ng-options="opt for opt in property.enum"
+      ng-model="$ctrl.data[property.key]"></pbs-input-select>
+  </pbs-form-field-horizontal>
+  <pbs-form-field-horizontal label="{{ property.title }}"
+    ng-repeat="property in $ctrl.properties | filter:{enum: '!', type: 'string'}">
+    <input class="input"
+      type="text"
+      ng-model="$ctrl.data[property.key]"
+      ng-required="property.required"
+      ng-minlength="property.minLength"
+      ng-maxlength="property.maxLength">
+  </pbs-form-field-horizontal>
+  <pbs-form-field-horizontal label="{{ property.title }}"
+    ng-repeat="property in $ctrl.properties | filter:{enum: '!', type: 'integer'}">
+    <input class="input"
+      type="number"
+      ng-model="$ctrl.data[property.key]"
+      ng-required="property.required"
+      min="{{ property.min }}"
+      max="{{ property.max }}">
+  </pbs-form-field-horizontal>
+</pbs-form>

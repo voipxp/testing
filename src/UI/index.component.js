@@ -73,6 +73,10 @@
       {
         component: 'pbsInputDatetime',
         description: 'Form Datetime Input'
+      },
+      {
+        component: 'pbsFormBuilder',
+        description: 'OpenAPI Form Builder'
       }
     ]
   }
