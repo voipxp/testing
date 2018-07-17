@@ -37,7 +37,7 @@
 
   function pbsFormFieldHorizontal() {
     var template =
-      '<div class="columns is-1 is-variable">' +
+      '<div class="columns is-2 is-variable">' +
       '  <div class="column is-two-fifths">' +
       '    <pbs-button-static class="is-fullwidth">{{ label }}</pbs-button-static>' +
       '  </div>' +

@@ -83,11 +83,9 @@
         ng-maxlength="60"></pbs-input-password>
     </pbs-form-field-horizontal>
 
-    <pbs-form-field-horizontal label="Mailbox Limit"
-      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]">
-      <pbs-input-checkbox ng-model="$ctrl.editMessaging.useGroupDefaultMailServerFullMailboxLimit"
-        label="Use Group Default Mailbox Limit"></pbs-input-checkbox>
-    </pbs-form-field-horizontal>
+    <pbs-input-checkbox ng-model="$ctrl.editMessaging.useGroupDefaultMailServerFullMailboxLimit"
+      label="Use Group Default Mailbox Limit"
+      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]"></pbs-input-checkbox>
 
     <pbs-form-field-horizontal label="Mailbox Limit"
       ng-show="($ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]) && !$ctrl.editMessaging.useGroupDefaultMailServerFullMailboxLimit">

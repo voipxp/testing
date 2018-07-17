@@ -10,3 +10,6 @@
 h4.subtitle + .columns {
   margin-top: 0.5rem;
 }
+.field + .columns {
+  margin-top: 0.75rem;
+}
