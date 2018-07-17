@@ -1,7 +1,5 @@
 # TODO
-- turn service pack buttons into tabs
 - component for input (text, email, phone, number) (class=input)
-  - add is-loading to input
 - pbs-addons component
   <pbs-addons>
     <pbs-addon-static expanded>SOMETHING</pbs-addon-static>
@@ -9,6 +7,7 @@
   </pbs-addons>
 
 # DONE
+x turn service pack buttons into tabs
 x look for all returnTo and make sure they work
 x look at browser history when redirected to notfound
 x remove all Session.load references since this is happening in route resolves
