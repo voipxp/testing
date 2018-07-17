@@ -1,6 +1,12 @@
 * > h4.subtitle:not(:last-child) {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 * > h4.subtitle:not(:first-child) {
   margin-top: 1.5rem;
+}
+.columns.is-variable .column {
+  padding: var(--columnGap);
+}
+h4.subtitle + .columns {
+  margin-top: 0.5rem;
 }

@@ -112,23 +112,18 @@
       <select-audio-file user-id="$ctrl.userId"
         audio-file="$ctrl.editSettings.noAnswerPersonalAudio"></select-audio-file>
     </pbs-form-field-horizontal>
-    <pbs-form-section>Alternate Greetings</pbs-form-section>
-    <div class="columns"
-      ng-repeat="i in [1,2,3]">
-      <div class="column">
-        <pbs-button-static class="is-fullwidth">Alternate Greeting 0{{ i }}</pbs-button-static>
-      </div>
-      <div class="column">
-        <input type="text"
-          class="input"
-          placeholder="Greeting Name"
-          ng-required="$ctrl.editSettings['noAnswerAlternateGreeting0' + i].audio"
-          ng-model="$ctrl.editSettings['noAnswerAlternateGreeting0' + i].name">
-      </div>
-      <div class="column">
-        <select-audio-file user-id="$ctrl.userId"
-          audio-file="$ctrl.editSettings['noAnswerAlternateGreeting0' + i].audio"></select-audio-file>
-      </div>
-    </div>
+    <pbs-form-section ng-repeat-start="i in [1,2,3]">Alternate Greeting {{ i }}</pbs-form-section>
+    <pbs-form-field-horizontal label="Name">
+      <input type="text"
+        class="input"
+        placeholder="name"
+        ng-required="$ctrl.editSettings['noAnswerAlternateGreeting0' + i].audio"
+        ng-model="$ctrl.editSettings['noAnswerAlternateGreeting0' + i].name">
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Audio"
+      ng-repeat-end>
+      <select-audio-file user-id="$ctrl.userId"
+        audio-file="$ctrl.editSettings['noAnswerAlternateGreeting0' + i].audio"></select-audio-file>
+    </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>
