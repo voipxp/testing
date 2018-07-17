@@ -1,13 +1,8 @@
 pbs-footer .footer {
   padding: 1rem;
+  height: 50px;
 }
 
-pbs-app {
-  flex: 1 0 auto;
-}
-
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+#wrapper {
+  min-height: calc(100vh - 50px);
 }

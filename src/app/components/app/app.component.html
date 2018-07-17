@@ -5,13 +5,15 @@
   </div>
 </section>
 <div ng-if="!$ctrl.loading">
-  <pbs-notifications></pbs-notifications>
-  <pbs-navbar></pbs-navbar>
+  <div id="wrapper">
+    <pbs-notifications></pbs-notifications>
+    <pbs-navbar></pbs-navbar>
 
-  <section class="section"
-    ng-view></section>
+    <section class="section"
+      ng-view></section>
 
-  <pbs-confirm-modal></pbs-confirm-modal>
-  <pbs-spinner-modal></pbs-spinner-modal>
+    <pbs-confirm-modal></pbs-confirm-modal>
+    <pbs-spinner-modal></pbs-spinner-modal>
+  </div>
   <pbs-footer></pbs-footer>
 </div>
