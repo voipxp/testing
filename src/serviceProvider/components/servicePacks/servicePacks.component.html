@@ -1,29 +1,15 @@
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="{{ $ctrl.states[$ctrl.state] }}">
-    <pbs-block-buttons>
-      <pbs-button-compact-list title="List Service Packs"
-        ng-click="$ctrl.state = 'list'"
-        ng-class="{disabled: $ctrl.state === 'list'}">
-      </pbs-button-compact-list>
-      <pbs-button-compact-info title="Service Pack Utilization"
-        ng-click="$ctrl.state = 'utilization'"
-        ng-class="{disabled: $ctrl.state === 'utilization'}">
-      </pbs-button-compact-info>
-      <pbs-button-compact-search title="User Service Usage"
-        ng-click="$ctrl.state = 'service'"
-        ng-class="{disabled: $ctrl.state === 'service'}">
-      </pbs-button-compact-search>
-      <pbs-button-compact-add title="Create Service Packs"
-        ng-if="$ctrl.permissions.create"
-        ng-click="$ctrl.add()">
-      </pbs-button-compact-add>
-    </pbs-block-buttons>
-    <div ng-switch="$ctrl.state">
-      <service-packs-list ng-switch-when="list"></service-packs-list>
-      <service-packs-utilization ng-switch-when="utilization"></service-packs-utilization>
-      <service-packs-service-usage ng-switch-when="service"
-        state="'service'"></service-packs-service-usage>
-    </div>
-  </pbs-block>
+  <pbs-tabs>
+    <pbs-tab label="Service Packs">
+      <service-packs-list></service-packs-list>
+    </pbs-tab>
+    <pbs-tab label="Utilization">
+      <service-packs-utilization></service-packs-utilization>
+    </pbs-tab>
+    <pbs-tab label="Service Usage">
+      <service-packs-service-usage></service-packs-service-usage>
+    </pbs-tab>
+  </pbs-tabs>
 </pbs-spinner>
+
 <service-packs-create on-update="$ctrl.onCreate($event)"></service-packs-create>

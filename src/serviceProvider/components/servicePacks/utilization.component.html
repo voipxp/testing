@@ -1,28 +1,36 @@
-<pbs-table-search ng-model="$ctrl.filter"></pbs-table-search>
-<table pbs-table>
-  <thead>
-    <tr>
-      <th>Service Pack</th>
-      <th>Group</th>
-      <th>Total Packs</th>
-      <th>Assigned</th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr ng-if="results.length < 1">
-      <td colspan="4">No Results Found
-        <span ng-if="$ctrl.filter">for {{ $ctrl.filter }}</span>
-      </td>
-    </tr>
-  </tfoot>
-  <tbody>
-    <tr class="hover"
-      ng-repeat="group in $ctrl.utilization | filter:$ctrl.filter as results"
-      ng-click="$ctrl.parent.open(group.servicePackName)">
-      <td>{{ group.servicePackName }}</td>
-      <td>{{ group.group }}</td>
-      <td>{{ group.totalPacks }}</td>
-      <td>{{ group.assigned }}</td>
-    </tr>
-  </tbody>
-</table>
+<pbs-block title="Utilization">
+  <pbs-block-buttons>
+    <pbs-button-compact-add title="Create Service Packs"
+      ng-if="$ctrl.parent.permissions.create"
+      ng-click="$ctrl.parent.add()">
+    </pbs-button-compact-add>
+  </pbs-block-buttons>
+  <pbs-table-search ng-model="$ctrl.filter"></pbs-table-search>
+  <table pbs-table>
+    <thead>
+      <tr>
+        <th>Service Pack</th>
+        <th>Group</th>
+        <th>Total Packs</th>
+        <th>Assigned</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr ng-if="results.length < 1">
+        <td colspan="4">No Results Found
+          <span ng-if="$ctrl.filter">for {{ $ctrl.filter }}</span>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr class="hover"
+        ng-repeat="group in $ctrl.utilization | filter:$ctrl.filter as results"
+        ng-click="$ctrl.parent.open(group.servicePackName)">
+        <td>{{ group.servicePackName }}</td>
+        <td>{{ group.group }}</td>
+        <td>{{ group.totalPacks }}</td>
+        <td>{{ group.assigned }}</td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-block>

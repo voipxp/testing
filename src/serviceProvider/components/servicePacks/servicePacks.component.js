@@ -18,19 +18,10 @@
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.open = open
-    ctrl.setTitle = setTitle
     ctrl.add = add
     ctrl.onCreate = onCreate
 
-    ctrl.states = {
-      list: 'Service Packs',
-      utilization: 'Service Packs Utilization',
-      service: 'Service Usage',
-      new: 'Create a Service Pack'
-    }
-
     function onInit() {
-      ctrl.state = 'list'
       ctrl.loading = true
       $q.all([loadServicePacks(), loadServices(), loadPermissions()])
         .catch(Alert.notify.danger)
@@ -49,7 +40,6 @@
       return ServicePackService.index(ctrl.serviceProviderId, true).then(
         function(data) {
           ctrl.servicePacks = data
-          console.log('servicePacks', data)
         }
       )
     }
@@ -67,10 +57,6 @@
         'servicePacks',
         servicePackName
       )
-    }
-
-    function setTitle(state, title) {
-      ctrl.states[state] = title
     }
 
     function add() {
