@@ -6,6 +6,12 @@
 
   function Controller(Template, Session, $rootScope) {
     var ctrl = this
+    ctrl.$onInit = onInit
+
+    function onInit() {
+      loadTemplate()
+      loadSession()
+    }
 
     function loadTemplate() {
       ctrl.template = Template.data()
