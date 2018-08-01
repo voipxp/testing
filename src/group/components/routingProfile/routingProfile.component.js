@@ -34,10 +34,6 @@
     function loadSystemRoutingProfiles() {
       return SystemRoutingProfileService.index().then(function(data) {
         ctrl.options.routingProfiles = data
-        console.log(
-          'ctrl.options.routingProfiles',
-          ctrl.options.routingProfiles
-        )
       })
     }
 
@@ -46,7 +42,6 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('data', data)
         ctrl.settings = data
       })
     }
