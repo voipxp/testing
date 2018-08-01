@@ -426,6 +426,13 @@
       module: 'Intercept Group'
     },
     {
+      path: 'routingProfile',
+      component: 'groupRoutingProfile',
+      acl: 'Group',
+      module: 'Routing Profile'
+    },
+
+    {
       path: 'nightForwarding',
       component: 'groupNightForwarding',
       acl: 'Group',

@@ -134,7 +134,11 @@
           path: route('intercept'),
           service: 'Intercept Group'
         },
-
+        {
+          type: 'management',
+          name: 'Routing Profile',
+          path: route('routingProfile')
+        },
         {
           type: 'service',
           service: 'Auto Attendant',
