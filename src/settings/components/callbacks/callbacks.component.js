@@ -16,6 +16,16 @@
     ctrl.add = add
     ctrl.selectTemplate = selectTemplate
 
+    ctrl.hideTags = [
+      'index',
+      'phoneNumberLast3',
+      'phoneNumberLast4',
+      'phoneNumberLast5',
+      'defaultDomain',
+      'generatePassword',
+      'generatePasscode'
+    ]
+
     ctrl.templateColumns = [
       {
         key: 'name',

@@ -1,10 +1,10 @@
-<pbs-button-compact-tag title="Show Template Tags"
+<pbs-button-compact-tag title="Template Tags"
   ng-click="$ctrl.open()"></pbs-button-compact-tag>
 <pbs-modal id="{{ $ctrl.modalId }}"
-  title="Bulk Tags">
+  title="Template Tags">
   <p class="subtitle">
     You may use
-    <strong>tags</strong> to dynamically construct your user IDs.
+    <strong>tags</strong> to dynamically construct your data.
   </p>
   <table pbs-table>
     <thead>
@@ -15,8 +15,8 @@
     </thead>
     <tbody>
       <tr ng-repeat="tag in $ctrl.tags"
-        ng-show="$ctrl.show('userId')"
         ng-click="$ctrl.close()"
+        ng-show="$ctrl.show(tag)"
         pbs-clipboard
         clipboard-text="tag.tag">
         <td>{{ tag.tag }}</td>
