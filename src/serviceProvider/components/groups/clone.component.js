@@ -71,7 +71,8 @@
         services: true,
         policy: true,
         schedule: true,
-        outgoingCallingPlan: true
+        outgoingCallingPlan: true,
+        routingProfile: true
       }
       Alert.modal.open('cloneGroupModal', function(close) {
         ctrl.group.serviceProviderId = ctrl.serviceProviderId
