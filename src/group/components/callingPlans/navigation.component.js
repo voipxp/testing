@@ -2,7 +2,7 @@
   angular.module('odin.group').component('groupCallingPlansNav', {
     templateUrl: 'group/components/callingPlans/navigation.component.html',
     controller: Controller,
-    bindings: { callingPlan: '@' }
+    bindings: { callingPlan: '@', module: '<' }
   })
 
   function Controller($routeParams, Route) {
