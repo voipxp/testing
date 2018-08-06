@@ -324,6 +324,12 @@
       module: 'Auto Attendant Report'
     },
     {
+      path: 'callRecords/callCenter',
+      component: 'groupCallCenterCallRecords',
+      acl: 'Group',
+      module: 'Premium Call Records'
+    },
+    {
       path: 'callRecords/group',
       component: 'groupCallRecordIndex',
       acl: 'Group',

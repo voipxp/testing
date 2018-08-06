@@ -1,6 +1,7 @@
 ;(function() {
-  angular.module('odin.group').component('groupCallRecordDashboard', {
-    templateUrl: 'group/components/callRecords/group/dashboard.component.html',
+  angular.module('odin.group').component('groupCallCenterCallRecordDashboard', {
+    templateUrl:
+      'group/components/callRecords/callCenter/dashboard.component.html',
     controller: Controller,
     bindings: { serviceProviderId: '<', groupId: '<' }
   })
