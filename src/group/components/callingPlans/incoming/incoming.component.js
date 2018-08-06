@@ -5,7 +5,12 @@
     controller: Controller
   })
 
-  function Controller($routeParams, Alert, GroupIncomingCallingPlanService) {
+  function Controller(
+    $routeParams,
+    Alert,
+    GroupIncomingCallingPlanService,
+    Module
+  ) {
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
@@ -15,6 +20,9 @@
     ctrl.edit = edit
 
     function activate() {
+      Module.show('Incoming Calling Plan').then(function(module) {
+        ctrl.module = module
+      })
       ctrl.loading = true
       loadPlan()
         .catch(Alert.notify.danger)
