@@ -1,25 +1,9 @@
-/**
-  answeredTotal
-  busyTotal
-  missedTotal
-  placedAnswered
-  placedMissed
-  placedTotal
-  receivedAnswered
-  receivedMissed
-  receivedTotal
-  redirectTotal
-  total
-  totalAnsweredAndMissed
-**/
-
 ;(function() {
-  angular.module('odin.group').component('groupCallCenterCallRecordChart', {
-    templateUrl: 'group/components/callRecords/callCenter/chart.component.html',
+  angular.module('odin.user').component('userCallCenterCallRecordChart', {
+    templateUrl: 'user/components/callRecords/callCenter/chart.component.html',
     controller: Controller,
     bindings: {
-      serviceProviderId: '<',
-      groupId: '<',
+      userId: '<',
       label: '<',
       startTime: '<',
       endTime: '<',
@@ -27,7 +11,7 @@
     }
   })
 
-  function Controller(Alert, GroupCallRecordsService, EventEmitter) {
+  function Controller(Alert, UserCallRecordsService, EventEmitter) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.open = open
@@ -45,9 +29,8 @@
     }
 
     function loadStats() {
-      return GroupCallRecordsService.related(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
+      return UserCallRecordsService.related(
+        ctrl.userId,
         ctrl.startTime,
         ctrl.endTime,
         'Call Center'

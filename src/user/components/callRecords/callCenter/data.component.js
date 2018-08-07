@@ -1,46 +1,16 @@
-/*
-answerIndicator
-answerTime
-authorizationCode
-callCategory
-calledNumber
-callingNumber
-dayOfWeek
-department
-direction
-groupId
-otherPartyName
-placedTime
-recordId
-releaseTime
-releaseTimeUtc
-route
-serviceProviderId
-startTime
-systemId
-terminationCause
-totalTime
-userId
-userIdSub
-userNumber
-userTimeZone
-waitTime
-*/
-
 ;(function() {
-  angular.module('odin.group').component('groupCallCenterCallRecordData', {
-    templateUrl: 'group/components/callRecords/callCenter/data.component.html',
+  angular.module('odin.user').component('userCallCenterCallRecordData', {
+    templateUrl: 'user/components/callRecords/callCenter/data.component.html',
     controller: Controller,
     bindings: {
-      serviceProviderId: '<',
-      groupId: '<',
+      userId: '<',
       startTime: '<',
       endTime: '<',
       label: '<'
     }
   })
 
-  function Controller(Alert, GroupCallRecordsService, DownloadService, Papa) {
+  function Controller(Alert, UserCallRecordsService, DownloadService, Papa) {
     var ctrl = this
 
     var viewableFields = [
@@ -77,9 +47,8 @@ waitTime
     }
 
     function loadDetails() {
-      return GroupCallRecordsService.related(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
+      return UserCallRecordsService.related(
+        ctrl.userId,
         ctrl.startTime,
         ctrl.endTime,
         'Call Center'
@@ -93,7 +62,7 @@ waitTime
     }
 
     function sendFile(data) {
-      var filename = ['odin', ctrl.groupId, ctrl.label].join('_')
+      var filename = ['odin', ctrl.userId, ctrl.label].join('_')
       filename = filename + '.csv'
       var options = { delimiter: ',', newline: '\r\n', quotes: true }
       var filtered = _.map(data, function(callRecord) {

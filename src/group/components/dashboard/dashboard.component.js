@@ -230,8 +230,9 @@
         },
         {
           type: 'report',
-          module: 'Call Center Report',
-          path: false
+          name: 'Call Center Agent Report',
+          service: 'Call Center',
+          path: route('callRecords', 'callCenter')
         },
         {
           type: 'provisioning',

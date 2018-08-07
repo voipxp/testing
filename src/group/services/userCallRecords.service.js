@@ -11,7 +11,8 @@
       detail: detail,
       details: details,
       stats: stats,
-      get: get
+      get: get,
+      related: related
     }
 
     service.options = { reportType: ['Hourly', 'Daily'] }
@@ -36,6 +37,21 @@
 
     function stats(userIds, startTime, endTime) {
       return get(userIds, startTime, endTime, 'stats')
+    }
+
+    function related(userId, startTime, endTime, related) {
+      return $http
+        .get(url('related'), {
+          params: {
+            startTime: startTime.toJSON(),
+            endTime: endTime.toJSON(),
+            relatedCallIdReason: related,
+            userId: userId
+          }
+        })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function get(userIds, startTime, endTime, reportType) {

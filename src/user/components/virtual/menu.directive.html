@@ -14,6 +14,10 @@
       ng-if="$ctrl.showAutoAttendantReport">
       <user-auto-attendant-call-records user-id="$ctrl.userId"></user-auto-attendant-call-records>
     </pbs-menu-item>
+    <pbs-menu-item label="Call Center Agent Report"
+      ng-if="$ctrl.showCallCenterReport">
+      <user-call-center-call-record-dashboard user-id="$ctrl.userId"></user-call-center-call-record-dashboard>
+    </pbs-menu-item>
   </pbs-menu-section>
   <pbs-menu-section label="Provisioning">
     <pbs-menu-item label="User Announcements"

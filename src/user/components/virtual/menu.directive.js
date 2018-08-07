@@ -40,10 +40,15 @@
           ctrl.showAutoAttendantReport = Module.read('Auto Attendant Report')
           ctrl.autoAttendantReportAlias = Module.alias('Auto Attendant Report')
         }
+        if (ctrl.module.name === 'Call Center') {
+          ctrl.showCallCenterReport = Module.read('Premium Call Records')
+        }
         ctrl.showCallRecords = Module.read('Premium Call Records')
         ctrl.showAssignServices = Module.read('Provisioning')
         ctrl.showReporting =
-          ctrl.showCallRecords || ctrl.showAutoAttendantReport
+          ctrl.showCallRecords ||
+          ctrl.showAutoAttendantReport ||
+          ctrl.showCallCenterReport
       }
     }
   }

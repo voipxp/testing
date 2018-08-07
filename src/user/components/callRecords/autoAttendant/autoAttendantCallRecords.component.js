@@ -1,17 +1,12 @@
 ;(function() {
-  angular.module('odin.group').component('userAutoAttendantCallRecords', {
+  angular.module('odin.user').component('userAutoAttendantCallRecords', {
     templateUrl:
       'user/components/callRecords/autoAttendant/autoAttendantCallRecords.component.html',
     controller: Controller,
     bindings: { userId: '<' }
   })
 
-  function Controller(
-    Alert,
-    GroupAutoAttendantService,
-    UserCallRecordsService,
-    DateService
-  ) {
+  function Controller(Alert, UserCallRecordsService, DateService) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
