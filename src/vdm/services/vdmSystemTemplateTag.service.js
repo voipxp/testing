@@ -4,7 +4,8 @@
   function Service($http, Route) {
     var service = {
       index: index,
-      update: update
+      update: update,
+      store: store
     }
     return service
 
@@ -27,6 +28,12 @@
 
     function update(templateId, tag) {
       return $http.put(url(templateId, tag.id), tag).then(function(response) {
+        return response.data
+      })
+    }
+
+    function store(templateId, tag) {
+      return $http.post(url(templateId), tag).then(function(response) {
         return response.data
       })
     }

@@ -7,7 +7,6 @@
 
   function Controller(
     Alert,
-    Route,
     VdmSystemTemplateTagService,
     VdmGroupTemplateTagService,
     VdmTemplateTagService
@@ -66,21 +65,29 @@
     }
 
     function updateTag(tag) {
-      var action = isGroup() ? updateGroup : updateSystem
-      return action(tag)
+      return isGroup() ? updateGroup(tag) : updateSystem(tag)
     }
 
     function updateSystem(tag) {
-      return VdmSystemTemplateTagService.update(ctrl.template.id, tag)
+      return tag.id
+        ? VdmSystemTemplateTagService.update(ctrl.template.id, tag)
+        : VdmSystemTemplateTagService.store(ctrl.template.id, tag)
     }
 
     function updateGroup(tag) {
-      return VdmGroupTemplateTagService.update(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.template.id,
-        tag
-      )
+      return tag.id
+        ? VdmGroupTemplateTagService.update(
+            ctrl.serviceProviderId,
+            ctrl.groupId,
+            ctrl.template.id,
+            tag
+          )
+        : VdmGroupTemplateTagService.store(
+            ctrl.serviceProviderId,
+            ctrl.groupId,
+            ctrl.template.id,
+            tag
+          )
     }
   }
 })()

@@ -61,7 +61,7 @@
 
     function findTag(name) {
       var tag = _.find(ctrl.tags, { name: name })
-      return angular.copy(tag)
+      return angular.copy(tag) || { name: name }
     }
 
     function getTagValue(name) {
@@ -76,7 +76,7 @@
 
     function edit(account) {
       if (!Module.update('VDM')) return
-      ctrl.editAccount = angular.copy(account)
+      ctrl.editAccount = angular.copy(account) || {}
       Alert.modal.open('vdmTemplateAccountModal', function(close) {
         if (_.isEqual(ctrl.editAccount, account)) return close()
         update(ctrl.editAccount, close)
