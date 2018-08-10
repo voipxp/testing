@@ -111,39 +111,24 @@
 
     function updatePrimary(account) {
       var tag = findTag('%default_account%')
-      if (account.primary) {
-        // bail if already set
-        if (tag.value == account.id) return $q.when(true)
-        tag.value = account.id
-      } else {
-        // bail if already set
-        if (tag.value != account.id) return $q.when(true)
-        tag.value = null
-      }
+      tag.value = account.primary ? account.id : null
       return ctrl.parent.updateTag(tag)
     }
 
     function updateEnabled(account) {
       var tag = findTag('%account' + account.id + 'enable%')
-      var currentlyEnabled = tag.value === '1'
-      // bail if already set
-      if (account.enabled === currentlyEnabled) return $q.when(true)
       tag.value = account.enabled ? '1' : '0'
       return ctrl.parent.updateTag(tag)
     }
 
     function updateLine(account) {
       var tag = findTag('%account' + account.id + 'lines%')
-      // bail if already set
-      if (account.line === tag.value) return $q.when(true)
       tag.value = account.line
       return ctrl.parent.updateTag(tag)
     }
 
     function updateRingtone(account) {
       var tag = findTag('%ringtone_account' + account.id + '%')
-      // bail if already set
-      if (account.ringtone === tag.value) return $q.when(true)
       tag.value = account.ringtone
       return ctrl.parent.updateTag(tag)
     }

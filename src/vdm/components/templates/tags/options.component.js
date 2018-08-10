@@ -16,15 +16,16 @@
     }
 
     function loadOptions() {
-      ctrl.options = _.find(ctrl.tags, { name: '%dss_key_edit_disable%' })
+      ctrl.options = _.find(ctrl.tags, { name: '%dss_key_edit_disable%' }) || {
+        name: '%dss_key_edit_disable%',
+        value: null
+      }
     }
 
     function edit() {
       if (!Module.update('VDM')) return
       ctrl.editOptions = angular.copy(ctrl.options)
       Alert.modal.open('vdmTemplateTagOptionsModal', function(close) {
-        // bail if already set
-        if (ctrl.editOptions.value === ctrl.options.value) return close()
         ctrl.parent.update(ctrl.editOptions, close)
       })
     }

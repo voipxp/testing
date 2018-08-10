@@ -32,7 +32,7 @@
     }
 
     function findTag(name) {
-      var tag = _.find(ctrl.tags, { name: name })
+      var tag = _.find(ctrl.tags, { name: name }) || { name: name, value: null }
       return angular.copy(tag)
     }
 
@@ -45,7 +45,6 @@
       if (!Module.update('VDM')) return
       ctrl.editGroup = angular.copy(group)
       Alert.modal.open('vdmTemplateMulticastModal', function(close) {
-        if (_.isEqual(ctrl.editGroup, group)) return close()
         update(ctrl.editGroup, close)
       })
     }
@@ -64,23 +63,13 @@
 
     function updateLabel(group) {
       var tag = findTag('%multicastlabel' + group.id + '%')
-      // bail if already set
-      if (group.label === tag.value) return $q.when(true)
       tag.value = group.label
       return ctrl.parent.updateTag(tag)
     }
 
     function updateIP(group) {
       var tag = findTag('%multicastip' + group.id + '%')
-      if (group.enabled) {
-        // bail if already set
-        if (group.ip === tag.value) return $q.when(true)
-        tag.value = group.ip
-      } else {
-        // bail if already set
-        if (!tag.value) return $q.when(true)
-        tag.value = null
-      }
+      tag.value = group.enabled ? group.ip : null
       return ctrl.parent.updateTag(tag)
     }
   }
