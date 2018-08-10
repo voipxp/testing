@@ -18,7 +18,7 @@
     }
 
     function findTag(name) {
-      return _.find(ctrl.tags, { name: name })
+      return _.find(ctrl.tags, { name: name }) || { name: name, value: null }
     }
 
     function loadLdap() {
@@ -41,7 +41,6 @@
           Alert.notify.warning('Passwords Do Not Match')
           return
         }
-        if (_.isEqual(ctrl.editTag, tag)) return close()
         ctrl.parent.update(ctrl.editTag.tag, close)
       })
     }

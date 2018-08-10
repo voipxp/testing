@@ -23,12 +23,18 @@
         ctrl.menu.remove(ctrl.section)
       }
 
+      function sortItems() {
+        ctrl.section.items = _.sortBy(ctrl.section.items, ['label'])
+      }
+
       function add(item) {
         ctrl.section.items.push(item)
+        sortItems()
       }
 
       function remove(item) {
         _.remove(ctrl.section.items, item)
+        sortItems()
       }
     }
   })

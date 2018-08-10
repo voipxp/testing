@@ -98,7 +98,7 @@
     }
 
     function findTag(name) {
-      var tag = _.find(ctrl.tags, { name: name })
+      var tag = _.find(ctrl.tags, { name: name }) || { name: name, value: null }
       return angular.copy(tag)
     }
 
@@ -116,7 +116,6 @@
       var key = ctrl.keys[id]
       ctrl.editKey = angular.copy(key)
       Alert.modal.open(ctrl.modalId, function(close) {
-        if (_.isEqual(ctrl.editKey, key)) return close()
         update(ctrl.editKey, close)
       })
     }
@@ -210,14 +209,12 @@
 
     function updateLabel(key) {
       var tag = findTag('%key' + key.id + 'label%')
-      if (key.label === tag.value) return $q.when(true)
       tag.value = key.label
       return ctrl.parent.updateTag(tag)
     }
 
     function updateLine(key) {
       var tag = findTag('%key' + key.id + 'line%')
-      if (key.line === tag.value) return $q.when(true)
       tag.value = key.line
       return ctrl.parent.updateTag(tag)
     }
@@ -225,11 +222,6 @@
     // both locked and type on this tag
     function updateType(key) {
       var tag = findTag('%key' + key.id + 'type%')
-      var isLocked = tag.activeGroup == 0
-      // bail if unchanged
-      if (key.type == tag.value && tag.locked === isLocked) {
-        return $q.when(true)
-      }
       tag.value = key.type
       tag.activeGroup = key.locked ? 0 : 1
       return ctrl.parent.updateTag(tag)
@@ -237,14 +229,12 @@
 
     function updateExtension(key) {
       var tag = findTag('%key' + key.id + 'extension%')
-      if (key.extension === tag.value) return $q.when(true)
       tag.value = key.extension
       return ctrl.parent.updateTag(tag)
     }
 
     function updateValue(key) {
       var tag = findTag('%key' + key.id + 'value%')
-      if (key.value === tag.value) return $q.when(true)
       tag.value = key.value
       return ctrl.parent.updateTag(tag)
     }
