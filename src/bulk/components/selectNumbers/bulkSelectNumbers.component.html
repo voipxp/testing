@@ -26,8 +26,7 @@
     <pbs-input-radio ng-repeat="extension in $ctrl.extensions"
       ng-value="extension.template"
       ng-model="$ctrl.extension"
-      label="Last {{ extension.length }} Digits of Phone Number"></pbs-input-radio>
-    <strong ng-show="extension.default">(default)</strong>
+      label="Last {{ extension.length }} Digits of Phone Number {{ extension.default ? '(default)' : '' }}"></pbs-input-radio>
 
     <pbs-form-section>Do you want to set Calling Line ID?</pbs-form-section>
     <pbs-input-radio ng-value="undefined"
