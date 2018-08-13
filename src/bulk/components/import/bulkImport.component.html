@@ -38,6 +38,7 @@
               <td style="white-space: nowrap"
                 ng-repeat="user in $ctrl.users | filter:$ctrl.search | orderBy:'userId' as results"
                 ng-model="user[key]"
+                ng-model-options="{ updateOn: 'blur' }"
                 contenteditable
                 ng-class="$ctrl.highlight(user, key)">
               </td>

@@ -14,7 +14,8 @@
     BulkTaskService,
     BulkParseService,
     CsvService,
-    DownloadService
+    DownloadService,
+    $scope
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -27,6 +28,9 @@
       loadData()
         .then(function() {
           return validate(ctrl.users)
+        })
+        .then(function() {
+          return setWatcher()
         })
         .finally(function() {
           ctrl.loading = false
@@ -122,6 +126,18 @@
       return {
         'has-text-danger': /{{.*}}/.test(user[key])
       }
+    }
+
+    function setWatcher() {
+      $scope.$watch(
+        function() {
+          return ctrl.users
+        },
+        function(newValue) {
+          if (newValue) validate(ctrl.users)
+        },
+        true
+      )
     }
   }
 })()
