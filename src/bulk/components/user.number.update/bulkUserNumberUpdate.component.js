@@ -40,6 +40,7 @@
           userId: user.userId,
           domain: user.domain,
           phoneNumber: _.get(ctrl.data, 'phoneNumbers.' + i),
+          activatePhoneNumber: ctrl.activatePhoneNumber,
           extension: ctrl.data.extension,
           callingLineIdPhoneNumber: ctrl.data.callingLineIdPhoneNumber
         }

@@ -29,6 +29,7 @@
             callingLineIdFirstName: 'string',
             password: 'string',
             phoneNumber: 'string',
+            activatePhoneNumber: 'true|false',
             extension: 'string',
             callingLineIdPhoneNumber: 'string',
             timeZone: 'string',

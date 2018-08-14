@@ -9,6 +9,7 @@
       userCount: '<',
       phoneNumbers: '<',
       extension: '<',
+      activatePhoneNumber: '<',
       callingLineIdPhoneNumber: '<',
       onUpdate: '&'
     }
@@ -35,6 +36,9 @@
         ctrl.phoneNumberAction = 'select'
       } else {
         clearNumbers()
+      }
+      if (ctrl.activatePhoneNumber === undefined) {
+        ctrl.activatePhoneNumber = true
       }
       ctrl.loading = true
       loadExtensions()
@@ -107,6 +111,7 @@
       ctrl.onUpdate(
         EventEmitter({
           phoneNumbers: ctrl.phoneNumbers,
+          activatePhoneNumber: ctrl.activatePhoneNumber,
           extension: ctrl.extension,
           callingLineIdPhoneNumber: ctrl.callingLineIdPhoneNumber
         })

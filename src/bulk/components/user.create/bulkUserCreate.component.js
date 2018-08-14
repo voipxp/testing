@@ -56,6 +56,7 @@
           password: ctrl.data.password,
           passcode: ctrl.data.passcode,
           phoneNumber: _.get(ctrl.data, 'phoneNumbers.' + i),
+          activatePhoneNumber: ctrl.data.activatePhoneNumber,
           extension: ctrl.data.extension,
           callingLineIdPhoneNumber: ctrl.data.callingLineIdPhoneNumber,
           timeZone: ctrl.data.timeZone,
