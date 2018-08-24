@@ -24,7 +24,7 @@
     function onInit() {
       ctrl.loading = true
       return $q
-        .all([loadSpeedDialNumbers(), loadModule()])
+        .all([loadSpeedDialNumbers(), loadSpeedDialCodes(), loadModule()])
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
@@ -43,12 +43,6 @@
       ctrl.speedDialCode = speedDialCode
       ctrl.speedDialCode.speedCode = parseInt(ctrl.speedDialCode.speedCode)
       ctrl.speedDialCodeOrig = angular.copy(speedDialCode)
-      console.log(
-        'ctrl.speedDialCode     : ' + JSON.stringify(ctrl.speedDialCode)
-      )
-      console.log(
-        'ctrl.speedDialCodeOrig : ' + JSON.stringify(ctrl.speedDialCodeOrig)
-      )
       ctrl.loadingEntry = true
       loadSpeedDialCodes()
         .catch(function(error) {
@@ -75,6 +69,7 @@
     }
 
     function addSpeedDialEntry() {
+      ctrl.speedDialCode = {}
       ctrl.isAdd = true
       ctrl.loadingEntry = true
       loadSpeedDialCodes()
@@ -151,12 +146,12 @@
     }
 
     function loadSpeedDialCodes() {
+      ctrl.speedCodesEntry = {}
       return SpeedDial100Service.index(ctrl.userId).then(function(data) {
         ctrl.speedDialNumbers = data
         var arr = []
         Object.keys(data.speedDialEntry).forEach(function(key) {
           arr.push(parseInt(data.speedDialEntry[key].speedCode))
-          console.log(key, data.speedDialEntry[key])
         })
         ctrl.speedCodesEntry = _.difference(ctrl.speedCodes, arr)
         ctrl.speedCodesEntry.push(parseInt(ctrl.speedDialCode.speedCode))
@@ -166,18 +161,12 @@
 
     function loadSpeedDialNumbers() {
       return SpeedDial100Service.index(ctrl.userId).then(function(data) {
-        console.log(data)
         ctrl.speedDialNumbers = data
         return ctrl.speedDialNumbers
       })
     }
 
     function saveAlternateNumbers(speedDialNumbers, callback) {
-      console.log(
-        '{speedDialNumbers: ' + JSON.stringify(speedDialNumbers) + '}'
-      )
-      console.log('{ctrl.userId: ' + ctrl.userId + '}')
-
       Alert.spinner.open()
       SpeedDial100Service.update(ctrl.userId, speedDialNumbers)
         .then(function() {
