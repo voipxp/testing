@@ -67,6 +67,7 @@
       return _.map(services, function(service) {
         return {
           serviceName: service.serviceName,
+          alias: service.alias,
           assigned: isAssigned(current, service),
           available: isAvailable(service),
           tags: service.tags || []

@@ -1,12 +1,4 @@
 /*
-Devices
-  - Business Communicator - PC
-    + Client License 18
-  - Business Communicator - Mobile
-    + Client License 17
-  - Business Communicator - Tablet
-    + BroadTouch Business Communicator Tablet - Video
-
 Services
   - Shared Call Appearance 5
   - Multiple Call Arrangement
@@ -23,26 +15,13 @@ Services
       devices: devices,
       services: services
     }
-    var deviceTypes = [
-      'Business Communicator - PC',
-      'Business Communicator - Mobile',
-      'Business Communicator - Tablet'
-    ]
-    var deviceServiceMap = {
-      'Business Communicator - PC': ['Client License 18'],
-      'Business Communicator - Mobile': ['Client License 17'],
-      'Business Communicator - Tablet': [
-        'BroadTouch Business Communicator Tablet - Video'
-      ]
-    }
-
     return service
 
     // list all the ucone devices
     function devices() {
       return SystemDeviceTypeService.index().then(function(data) {
         return _.filter(data, function(device) {
-          return _.includes(deviceTypes, device.deviceType)
+          return _.includes(device.tags, 'UC-One')
         })
       })
     }
@@ -50,19 +29,12 @@ Services
     // list all the services required for the endpoints
     // selected
     function services(endpoints) {
-      console.log('endpoints', endpoints)
       var required = requiredServices()
       required.push(scaServices(endpoints))
       endpoints.forEach(function(endpoint) {
-        var deviceType = _.get(endpoint, 'accessDevice.deviceType')
-        if (deviceType) {
-          var service = deviceServiceMap[deviceType]
-          if (service) {
-            required.push(deviceServiceMap[deviceType])
-          }
-        }
+        required.push(_.get(endpoint, 'accessDevice.relatedServices'))
       })
-      return _.uniq(_.flatten(required))
+      return _.compact(_.uniq(_.flatten(required)))
     }
 
     function scaServices(endpoints) {
