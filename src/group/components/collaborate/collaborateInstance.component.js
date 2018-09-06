@@ -30,6 +30,10 @@
     ctrl.availableUsers = []
     ctrl.assignedUsers = []
 
+    ctrl.back = function() {
+      Route.open('groups')(ctrl.serviceProviderId, ctrl.groupId, 'collaborate')
+    }
+
     function onInit() {
       ctrl.loading = true
       $q.all([loadAvailableUsers()])

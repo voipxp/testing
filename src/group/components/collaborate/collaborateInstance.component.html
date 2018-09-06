@@ -2,7 +2,8 @@
   group-id="$ctrl.groupId"
   service-userId="$ctrl.serviceUserId"
   module="$ctrl.module">
-  <pbs-breadcrumb title="'Collaborate'"></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Collaborate'"
+    ng-click="$ctrl.back()"></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.serviceUserId"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-tabs delay="true">
@@ -23,7 +24,8 @@
       </pbs-list>
       <pbs-list>
         <pbs-list-item label="Max Bridge Participants">
-          {{ ($ctrl.collaborate.maximumBridgeParticipants === -1) ? 'Unlimited' : $ctrl.collaborate.maximumBridgeParticipants }}
+          {{ ($ctrl.collaborate.maximumBridgeParticipants === -1) ? 'Unlimited' :
+          $ctrl.collaborate.maximumBridgeParticipants }}
         </pbs-list-item>
       </pbs-list>
     </pbs-block>
