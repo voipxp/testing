@@ -113,7 +113,7 @@
     },
     {
       path: 'collaborate/:serviceUserId',
-      component: 'groupCallaborateInstance',
+      component: 'groupCollaborateInstance',
       acl: 'Group'
     },
     {
