@@ -1,9 +1,7 @@
 ;(function() {
-  angular
-    .module('odin.group')
-    .factory('UserCallRecordsService', UserCallRecordsService)
+  angular.module('odin.group').factory('UserCallRecordsService', Service)
 
-  function UserCallRecordsService($http, Route, $location, UtilityService) {
+  function Service($http, Route, UtilityService) {
     var url = Route.api('/callrecords/users')
     var service = {
       hourly: hourly,
@@ -12,7 +10,8 @@
       details: details,
       stats: stats,
       get: get,
-      related: related
+      related: related,
+      summary: summary
     }
 
     service.options = { reportType: ['Hourly', 'Daily'] }
@@ -37,6 +36,10 @@
 
     function stats(userIds, startTime, endTime) {
       return get(userIds, startTime, endTime, 'stats')
+    }
+
+    function summary(userIds, startTime, endTime) {
+      return get(userIds, startTime, endTime, 'summary')
     }
 
     function related(userId, startTime, endTime, related) {

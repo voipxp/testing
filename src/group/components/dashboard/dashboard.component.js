@@ -225,6 +225,12 @@
         },
         {
           type: 'report',
+          module: 'Premium Call Records',
+          name: 'User Call Report',
+          path: route('callRecords', 'userCallReport')
+        },
+        {
+          type: 'report',
           module: 'Auto Attendant Report',
           path: route('callRecords', 'autoAttendant')
         },

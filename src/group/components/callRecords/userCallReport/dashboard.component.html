@@ -1,0 +1,106 @@
+<div class="card"
+  style="margin-bottom: 1rem">
+  <header class="card-header">
+    <p class="card-header-title"
+      style="font-weight: normal">
+      {{ $ctrl.search.label || 'User Call Report Dashboard'}}
+    </p>
+    <span class="card-header-icon">
+      <div class="buttons">
+        <pbs-button-compact-cancel ng-click="$ctrl.search = {}"
+          ng-show="$ctrl.search.label"></pbs-button-compact-cancel>
+        <pbs-button-compact-search ng-click="$ctrl.edit()"></pbs-button-compact-search>
+      </div>
+    </span>
+  </header>
+</div>
+
+<pbs-spinner loading="$ctrl.loading">
+
+  <div ng-show="!$ctrl.search.label">
+    <pbs-columns>
+      <pbs-column>
+        <group-user-call-report-summary-chart service-provider-id="$ctrl.serviceProviderId"
+          group-id="$ctrl.groupId"
+          start-time="$ctrl.today.startTime"
+          end-time="$ctrl.today.endTime"
+          label="$ctrl.today.label"
+          users="$ctrl.users"
+          on-click="$ctrl.select($event)"></group-user-call-report-summary-chart>
+      </pbs-column>
+      <pbs-column>
+        <group-user-call-report-summary-chart service-provider-id="$ctrl.serviceProviderId"
+          group-id="$ctrl.groupId"
+          start-time="$ctrl.yesterday.startTime"
+          end-time="$ctrl.yesterday.endTime"
+          label="$ctrl.yesterday.label"
+          users="$ctrl.users"
+          on-click="$ctrl.select($event)"></group-user-call-report-summary-chart>
+      </pbs-column>
+    </pbs-columns>
+    <pbs-columns>
+      <pbs-column>
+        <group-user-call-report-summary-chart service-provider-id="$ctrl.serviceProviderId"
+          group-id="$ctrl.groupId"
+          start-time="$ctrl.thisWeek.startTime"
+          end-time="$ctrl.thisWeek.endTime"
+          label="$ctrl.thisWeek.label"
+          users="$ctrl.users"
+          on-click="$ctrl.select($event)"></group-user-call-report-summary-chart>
+      </pbs-column>
+      <pbs-column>
+        <group-user-call-report-summary-chart service-provider-id="$ctrl.serviceProviderId"
+          group-id="$ctrl.groupId"
+          start-time="$ctrl.lastWeek.startTime"
+          end-time="$ctrl.lastWeek.endTime"
+          label="$ctrl.lastWeek.label"
+          users="$ctrl.users"
+          on-click="$ctrl.select($event)"></group-user-call-report-summary-chart>
+      </pbs-column>
+    </pbs-columns>
+  </div>
+
+  <pbs-tabs ng-if="$ctrl.search.label"
+    delay="true">
+    <pbs-tab label="Overview">
+      <group-user-call-report-detail-chart service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        start-time="$ctrl.search.startTime"
+        end-time="$ctrl.search.endTime"
+        label="$ctrl.search.label"
+        users="$ctrl.users"
+        on-click="$ctrl.select($event)">
+      </group-user-call-report-detail-chart>
+    </pbs-tab>
+    <pbs-tab label="Raw Data">
+      <group-user-call-report-data service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        start-time="$ctrl.search.startTime"
+        end-time="$ctrl.search.endTime"
+        users="$ctrl.users"
+        label="$ctrl.search.label"></group-user-call-report-data>
+    </pbs-tab>
+  </pbs-tabs>
+</pbs-spinner>
+
+<pbs-modal id="callRecordSearchModal"
+  title="Search Call Records">
+  <pbs-form>
+    <pbs-columns>
+      <pbs-column>
+        <pbs-form-field label="Start Time">
+          <pbs-input-datetime-parse ng-model="$ctrl.editSearch.startTime"
+            ng-required="true">
+          </pbs-input-datetime-parse>
+        </pbs-form-field>
+      </pbs-column>
+      <pbs-column>
+        <pbs-form-field label="End Time">
+          <pbs-input-datetime-parse ng-model="$ctrl.editSearch.endTime"
+            ng-required="true">
+          </pbs-input-datetime-parse>
+        </pbs-form-field>
+      </pbs-column>
+    </pbs-columns>
+  </pbs-form>
+</pbs-modal>

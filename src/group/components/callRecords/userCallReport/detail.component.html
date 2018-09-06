@@ -1,0 +1,17 @@
+<pbs-spinner loading="$ctrl.loading">
+  <div class="box">
+    <div class="has-text-centered">
+      <p class="subtitle">{{ $ctrl.label }}</p>
+    </div>
+    <div class="large-margin-top"
+      style="max-width: 1000px; text-align: center; margin: auto">
+      <canvas class="chart chart-bar"
+        chart-data="$ctrl.data"
+        chart-labels="$ctrl.labels"
+        chart-options="$ctrl.options"
+        chart-series="$ctrl.series"
+        ng-if="$ctrl.data">
+      </canvas>
+    </div>
+  </div>
+</pbs-spinner>

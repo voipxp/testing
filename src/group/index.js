@@ -330,6 +330,12 @@
       module: 'Premium Call Records'
     },
     {
+      path: 'callRecords/userCallReport',
+      component: 'groupUserCallReportIndex',
+      acl: 'Group',
+      module: 'Premium Call Records'
+    },
+    {
       path: 'callRecords/group',
       component: 'groupCallRecordIndex',
       acl: 'Group',
