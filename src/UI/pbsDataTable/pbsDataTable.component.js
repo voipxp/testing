@@ -1,3 +1,7 @@
+/*
+  add a trackBy param
+  default to track by $id(item)
+*/
 ;(function() {
   angular.module('odin.UI').component('pbsDataTable', {
     templateUrl: 'UI/pbsDataTable/pbsDataTable.component.html',
