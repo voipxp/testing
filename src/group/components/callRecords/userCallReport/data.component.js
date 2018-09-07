@@ -9,7 +9,8 @@
       startTime: '<',
       endTime: '<',
       label: '<',
-      users: '<'
+      allUsers: '<',
+      selectedUsers: '<'
     }
   })
 
@@ -17,6 +18,7 @@
     var ctrl = this
 
     ctrl.$onInit = onInit
+    ctrl.$onChanges = onChanges
     ctrl.download = download
     ctrl.onSelectUser = onSelectUser
 
@@ -56,31 +58,50 @@
     ]
 
     function onInit() {
-      ctrl.details = []
       ctrl.loading = true
-      loadDetails()
+      loadData()
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
     }
 
-    function loadDetails() {
+    function onChanges(changes) {
+      if (changes.loading || !ctrl.allData) return
+      if (changes.allUsers || changes.selectedUsers) {
+        console.log('filterData')
+        filterData()
+      }
+      if (changes.startTime || changes.endTime) {
+        console.log('loadData')
+        loadData()
+      }
+    }
+
+    function loadData() {
       return UserCallRecordsService.summary(
-        _.map(ctrl.users, 'userId'),
+        _.map(ctrl.allUsers, 'userId'),
         ctrl.startTime,
         ctrl.endTime
       ).then(function(data) {
-        ctrl.records = data.map(function(item) {
-          var user = _.find(ctrl.users, { userId: item.userId })
-          if (!user) {
-            item.lastName = item.userId
-          } else {
-            item.lastName = user.lastName
-            item.firstName = user.firstName
-          }
-          return item
-        })
+        ctrl.allData = data
+        filterData()
+      })
+    }
+
+    function filterData() {
+      var data = _.filter(ctrl.allData, function(item) {
+        return _.find(ctrl.selectedUsers, { userId: item.userId })
+      })
+      ctrl.records = data.map(function(item) {
+        var user = _.find(ctrl.users, { userId: item.userId })
+        if (!user) {
+          item.lastName = item.userId
+        } else {
+          item.lastName = user.lastName
+          item.firstName = user.firstName
+        }
+        return item
       })
     }
 
@@ -89,14 +110,10 @@
     }
 
     function sendFile(data) {
-      var filtered = data.map(function(item) {
-        delete item['$$hashKey']
-        return item
-      })
       var filename = ['odin', ctrl.groupId, ctrl.label].join('_')
       filename = filename + '.csv'
       var options = { delimiter: ',', newline: '\r\n', quotes: true }
-      var csv = Papa.unparse(filtered, options)
+      var csv = Papa.unparse(data, options)
       DownloadService.download(csv, filename)
     }
 

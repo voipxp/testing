@@ -6,53 +6,74 @@
     bindings: {
       serviceProviderId: '<',
       groupId: '<',
-      label: '<',
       startTime: '<',
       endTime: '<',
       onClick: '&',
-      users: '<'
+      allUsers: '<',
+      selectedUsers: '<'
     }
   })
 
   function Controller(Alert, UserCallRecordsService) {
     var ctrl = this
     ctrl.$onInit = onInit
+    ctrl.$onChanges = onChanges
 
     function onInit() {
+      console.log('WTF', ctrl.allUsers)
+      console.log('WTF', ctrl.selectedUsers)
       ctrl.loading = true
-      return loadStats()
+      return loadData()
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
     }
 
-    function loadStats() {
+    function onChanges(changes) {
+      if (changes.loading || !ctrl.allData) return
+      if (changes.allUsers || changes.selectedUsers) {
+        console.log('filterData')
+        filterData()
+      }
+      if (changes.startTime || changes.endTime) {
+        console.log('loadData')
+        loadData()
+      }
+    }
+
+    function loadData() {
       return UserCallRecordsService.summary(
-        _.map(ctrl.users, 'userId'),
+        _.map(ctrl.allUsers, 'userId'),
         ctrl.startTime,
         ctrl.endTime
       ).then(function(data) {
-        ctrl.data = data.map(function(item) {
-          var user = _.find(ctrl.users, { userId: item.userId })
-          if (!user) {
-            item.lastName = item.userId
-          } else {
-            item.lastName = user.lastName
-            item.firstName = user.firstName
-          }
-          return item
-        })
-        ctrl.options = { legend: { display: true, position: 'bottom' } }
-        ctrl.labels = ctrl.data.map(function(user) {
-          return [user.firstName, user.lastName].join(' ')
-        })
-        ctrl.series = ['Placed', 'Received']
-        ctrl.data = [
-          _.map(ctrl.data, 'outboundCalls'),
-          _.map(ctrl.data, 'inboundCalls')
-        ]
+        ctrl.allData = data
+        filterData()
       })
+    }
+
+    function filterData() {
+      console.log('allData', ctrl.allData, ctrl.selectedUsers)
+      var data = _.filter(ctrl.allData, function(item) {
+        return _.find(ctrl.selectedUsers, { userId: item.userId })
+      }).map(function(item) {
+        var user = _.find(ctrl.selectedUsers, { userId: item.userId })
+        if (!user) {
+          item.lastName = item.userId
+        } else {
+          item.lastName = user.lastName
+          item.firstName = user.firstName
+        }
+        return item
+      })
+      console.log('DATA', data)
+      ctrl.options = { legend: { display: true, position: 'bottom' } }
+      ctrl.labels = data.map(function(user) {
+        return [user.firstName, user.lastName].join(' ')
+      })
+      ctrl.series = ['Placed', 'Received']
+      ctrl.data = [_.map(data, 'outboundCalls'), _.map(data, 'inboundCalls')]
     }
   }
 })()
