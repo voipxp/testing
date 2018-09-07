@@ -1,7 +1,3 @@
-/*
-  add a trackBy param
-  default to track by $id(item)
-*/
 ;(function() {
   angular.module('odin.UI').component('pbsDataTable', {
     templateUrl: 'UI/pbsDataTable/pbsDataTable.component.html',
@@ -21,7 +17,8 @@
       search: '=?',
       showSelect: '=',
       onClick: '&?',
-      onSelect: '&?'
+      onSelect: '&?',
+      trackBy: '@'
     }
   })
 
@@ -36,6 +33,7 @@
     ctrl.sort = sort
     ctrl.cancel = cancel
     ctrl.getValue = getValue
+    ctrl.getTrackBy = getTrackBy
 
     function onInit() {
       ctrl.order = {
@@ -109,6 +107,10 @@
         ctrl.onSelect(EventEmitter(selectedItems()))
       }
       cancel()
+    }
+
+    function getTrackBy(item, id) {
+      return ctrl.trackBy ? _.get(item, ctrl.trackBy) : id(item)
     }
   }
 })()

@@ -80,7 +80,7 @@
     <tbody>
       <tr ng-class="{hover: !$ctrl.showSelect && $ctrl.canClick}"
         ng-click="$ctrl.click(item)"
-        ng-repeat="item in results = ($ctrl.items | filter:$ctrl.search | filter:$ctrl.filter | orderBy:$ctrl.order.key:$ctrl.order.reverse) | paginate:$ctrl.pager">
+        ng-repeat="item in results = ($ctrl.items | filter:$ctrl.search | filter:$ctrl.filter | orderBy:$ctrl.order.key:$ctrl.order.reverse) | paginate:$ctrl.pager track by ($ctrl.getTrackBy(item, $id))">
         <td ng-show="$ctrl.showSelect"
           class="has-text-centered">
           <pbs-input-checkbox ng-model="item._selected"
