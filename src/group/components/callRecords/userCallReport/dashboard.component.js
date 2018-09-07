@@ -9,8 +9,12 @@
   function Controller(Alert, $timeout, UserService) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.edit = edit
-    ctrl.select = select
+    ctrl.searchUsers = searchUsers
+    ctrl.resetUsers = resetUsers
+    ctrl.searchDate = searchDate
+    ctrl.resetDate = resetDate
+    ctrl.selectDate = selectDate
+
     ctrl.search = {}
 
     ctrl.today = {
@@ -41,7 +45,8 @@
       ctrl.loading = true
       UserService.index(ctrl.serviceProviderId, ctrl.groupId)
         .then(function(data) {
-          ctrl.users = data || []
+          ctrl.allUsers = data || []
+          selectUsers(ctrl.allUsers)
         })
         .catch(Alert.notify.danger)
         .finally(function() {
@@ -49,14 +54,18 @@
         })
     }
 
-    function edit() {
+    function searchDate() {
       ctrl.editSearch = angular.copy(ctrl.search)
       Alert.modal.open('userCallReportSearchModal', function(close) {
-        select(ctrl.editSearch) && close()
+        selectDate(ctrl.editSearch) && close()
       })
     }
 
-    function select(search) {
+    function resetDate() {
+      ctrl.search = {}
+    }
+
+    function selectDate(search) {
       if (
         !Sugar.Date.isValid(search.startTime) ||
         !Sugar.Date.isValid(search.endTime)
@@ -70,12 +79,36 @@
           startTime: Sugar.Date.create(search.startTime),
           endTime: Sugar.Date.create(search.endTime),
           label: [
-            Sugar.Date.format(search.startTime, '{long}'),
-            Sugar.Date.format(search.endTime, '{long}')
+            Sugar.Date.format(search.startTime, '{short} {time}'),
+            Sugar.Date.format(search.endTime, '{short} {time}')
           ].join(' - ')
         }
       }, 1)
       return true
+    }
+
+    function searchUsers() {
+      ctrl.selectedUsers = angular.copy(ctrl.users)
+      ctrl.availableUsers = _.differenceBy(
+        ctrl.allUsers,
+        ctrl.selectedUsers,
+        'userId'
+      )
+      Alert.modal.open('userCallReportUsersModal', function(close) {
+        selectUsers(ctrl.selectedUsers)
+        close()
+      })
+    }
+
+    function selectUsers(users) {
+      ctrl.users = angular.copy(users)
+      ctrl.userList = _.map(ctrl.users, function(user) {
+        return _.compact([user.firstName, user.lastName]).join(' ')
+      }).join(', ')
+    }
+
+    function resetUsers() {
+      selectUsers(ctrl.allUsers)
     }
   }
 })()

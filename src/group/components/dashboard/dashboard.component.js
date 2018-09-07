@@ -223,12 +223,12 @@
           module: 'Premium Call Records',
           path: route('callRecords', 'group')
         },
-        // {
-        //   type: 'report',
-        //   module: 'Premium Call Records',
-        //   name: 'User Call Report',
-        //   path: route('callRecords', 'userCallReport')
-        // },
+        {
+          type: 'report',
+          module: 'Premium Call Records',
+          name: 'User Call Report',
+          path: route('callRecords', 'userCallReport')
+        },
         {
           type: 'report',
           module: 'Auto Attendant Report',
