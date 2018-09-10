@@ -17,13 +17,13 @@
         <div class="buttons has-addons">
           <button class="button"
             ng-class="{'is-link': !$ctrl.filter}"
-            ng-click="$ctrl.filter = null">All</button>
+            ng-click="$ctrl.filter = undefined">All</button>
           <button class="button"
-            ng-class="{'is-link': $ctrl.filter === 'Holiday'}"
-            ng-click="$ctrl.filter = 'Holiday'">Holiday</button>
+            ng-class="{'is-link': $ctrl.filter.type === 'Holiday'}"
+            ng-click="$ctrl.filter = {type: 'Holiday'}">Holiday</button>
           <button class="button"
-            ng-class="{'is-link': $ctrl.filter === 'Time'}"
-            ng-click="$ctrl.filter = 'Time'">Time</button>
+            ng-class="{'is-link': $ctrl.filter.type === 'Time'}"
+            ng-click="$ctrl.filter = {type: 'Time'}">Time</button>
         </div>
       </pbs-column>
     </pbs-columns>
@@ -45,7 +45,7 @@
       <tbody>
         <tr class="hover"
           ng-click="$ctrl.open(schedule)"
-          ng-repeat="schedule in results = ($ctrl.schedules | filter:{type: $ctrl.filter} | filter:$ctrl.search | orderBy:'name') track by [schedule.name, schedule.type]">
+          ng-repeat="schedule in results = ($ctrl.schedules | filter:$ctrl.filter | filter:$ctrl.search | orderBy:'name') track by [schedule.name, schedule.type]">
           <td>{{ schedule.name }}</td>
           <td>{{ schedule.type }}</td>
           <td>{{ schedule.level }}</td>
