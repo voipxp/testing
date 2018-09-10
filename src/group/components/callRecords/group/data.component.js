@@ -49,18 +49,21 @@ waitTime
   ) {
     var ctrl = this
     var viewableFields = [
+      'userId',
       'groupId',
       'department',
-      'userId',
+      'direction',
+      'calledNumber',
+      'callingNumber',
+      'otherPartyName',
       'startTime',
       'answerTime',
       'releaseTime',
+      'placedTime',
       'totalTime',
-      'calledNumber',
-      'otherPartyName',
+      'answerIndicator',
+      'relatedCallIdReason',
       'accountCode',
-      'callingNumber',
-      'direction',
       'authorizationCode'
     ]
 
