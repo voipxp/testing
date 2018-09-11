@@ -417,6 +417,12 @@
       component: 'userNightForwardingIndex',
       acl: 'User',
       module: 'Group Night Forwarding'
+    },
+    {
+      path: 'privacy',
+      component: 'userPrivacyIndex',
+      acl: 'User',
+      module: 'Privacy'
     }
   ]
 

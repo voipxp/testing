@@ -1,0 +1,59 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Settings">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit ng-click="$ctrl.edit()"
+        label="Edit Settings"></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Directory Privacy">
+        <pbs-check-box checked="$ctrl.settings.enableDirectoryPrivacy"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Auto Attendant Extension Dialing Privacy">
+        <pbs-check-box checked="$ctrl.settings.enableAutoAttendantExtensionDialingPrivacy"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Auto Attendant Name Dialing Privacy">
+        <pbs-check-box checked="$ctrl.settings.enableAutoAttendantNameDialingPrivacy"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Phone Status Privacy">
+        <pbs-check-box checked="$ctrl.settings.enablePhoneStatusPrivacy"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+
+  <pbs-block title="Monitors"
+    pbs-margin-top>
+    <pbs-block-buttons>
+      <pbs-button-compact-edit ng-click="$ctrl.editMonitors()"
+        label="Edit Monitors"></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-data-table columns="$ctrl.columns"
+      items="$ctrl.settings.permittedMonitors"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="50"
+      on-click="$ctrl.editMonitors()"></pbs-data-table>
+    </pbs-block-buttons>
+  </pbs-block>
+</pbs-spinner>
+
+
+<pbs-modal id="editUserPrivacySettings"
+  title="Edit Settings">
+  <pbs-form>
+    <pbs-input-checkbox label="Directory Privacy"
+      ng-model="$ctrl.editSettings.enableDirectoryPrivacy"></pbs-input-checkbox>
+    <pbs-input-checkbox label="Auto Attendant Extension Dialing Privacy"
+      ng-model="$ctrl.editSettings.enableAutoAttendantExtensionDialingPrivacy"></pbs-input-checkbox>
+    <pbs-input-checkbox label="Auto Attendant Name Dialing Privacy"
+      ng-model="$ctrl.editSettings.enableAutoAttendantNameDialingPrivacy"></pbs-input-checkbox>
+    <pbs-input-checkbox label="Phone Status Privacy"
+      ng-model="$ctrl.editSettings.enablePhoneStatusPrivacy"></pbs-input-checkbox>
+  </pbs-form>
+</pbs-modal>
+
+<pbs-modal id="editUserPrivacyMonitors"
+  title="Edit Monitors">
+  <select-users available="$ctrl.availableMonitors"
+    selected="$ctrl.selectedMonitors"></select-users>
+</pbs-modal>

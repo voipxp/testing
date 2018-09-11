@@ -393,6 +393,11 @@
           type: 'service',
           service: 'Voice Messaging User',
           path: route('voiceMessaging')
+        },
+        {
+          type: 'service',
+          service: 'Privacy',
+          path: route('privacy')
         }
       ]
     }
