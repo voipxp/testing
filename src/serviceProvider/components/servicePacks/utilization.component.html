@@ -1,10 +1,4 @@
 <pbs-block title="Utilization">
-  <pbs-block-buttons>
-    <pbs-button-compact-add title="Create Service Packs"
-      ng-if="$ctrl.parent.permissions.create"
-      ng-click="$ctrl.parent.add()">
-    </pbs-button-compact-add>
-  </pbs-block-buttons>
   <pbs-table-search ng-model="$ctrl.filter"></pbs-table-search>
   <table pbs-table>
     <thead>

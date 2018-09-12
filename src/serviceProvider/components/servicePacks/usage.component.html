@@ -1,9 +1,5 @@
 <pbs-block title="Service Usage">
   <pbs-block-buttons>
-    <pbs-button-compact-add title="Create Service Packs"
-      ng-if="$ctrl.parent.permissions.create"
-      ng-click="$ctrl.parent.add()">
-    </pbs-button-compact-add>
     <pbs-button-compact-search title="Search by Service Name"
       ng-click="$ctrl.openSelect()"></pbs-button-compact-search>
   </pbs-block-buttons>
@@ -70,7 +66,6 @@
     <tbody>
       <tr class="hover"
         ng-repeat="service in $ctrl.parent.services | filter:$ctrl.search | orderBy:'serviceName' as results track by service.serviceName"
-    
         ng-click="$ctrl.select(service)">
         <td>{{ service.serviceName }}</td>
       </tr>
