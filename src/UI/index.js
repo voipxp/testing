@@ -46,6 +46,10 @@
     {
       path: 'pbsListBuilder',
       component: 'pbsListBuilderDoc'
+    },
+    {
+      path: 'pbsSpinner',
+      component: 'pbsSpinnerDoc'
     }
   ]
   angular

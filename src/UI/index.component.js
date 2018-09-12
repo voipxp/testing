@@ -81,6 +81,10 @@
       {
         component: 'pbsListBuilder',
         description: 'OpenAPI Form Builder'
+      },
+      {
+        component: 'pbsSpinner',
+        description: 'Loading Spinner'
       }
     ]
   }
