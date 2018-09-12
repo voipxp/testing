@@ -1,0 +1,70 @@
+<pbs-doc-nav component="pbsListBuilder"></pbs-doc-nav>
+
+<div class="box">
+  <pbs-columns>
+    <pbs-column>
+      <pbs-form-section style="margin-bottom: 1rem">Example</pbs-form-section>
+      <pbs-list-builder schema="$ctrl.schema"
+        data="$ctrl.data"></pbs-list-builder>
+      <pbs-form-section>Data</pbs-form-section>
+      <pre>{{ $ctrl.data | json }}</pre>
+    </pbs-column>
+    <pbs-column>
+      <pbs-form-section>Options</pbs-form-section>
+      <dl>
+        <dt>schema</dt>
+        <dd>OpenAPI JSON Schema</dd>
+        <dt>data</dt>
+        <dd>Two-way data binding</dd>
+      </dl>
+    </pbs-column>
+  </pbs-columns>
+</div>
+<div class="box content">
+  <marked src="'pbsListBuilder.md'"></marked>
+</div>
+
+<script type="text/ng-template"
+  id="pbsListBuilder.md">
+  ## HTML
+  ```
+  <pbs-list-builder schema="$ctrl.schema"
+    data="$ctrl.data"></pbs-list-builder>
+  ```
+
+  ## JS
+  ```
+  ctrl.$onInit = function() {
+    ctrl.data = {}
+    ctrl.schema = {
+      title: 'Call Forwarding No Answer',
+      type: 'object',
+      required: ['textInput'],
+      properties: {
+        booleanInput: {
+          title: 'Boolean Input',
+          type: 'boolean'
+        },
+        textInput: {
+          title: 'Text Input',
+          type: 'string',
+          minLength: 4,
+          maxLength: 10
+        },
+        numberInput: {
+          title: 'Number Input',
+          type: 'integer',
+          minimum: 1,
+          maximum: 4
+        },
+        selectInput: {
+          title: 'Select Input',
+          type: 'string',
+          enum: [ 'option 1', 'option 2', 'option 3' ],
+          default: 'option 1'
+        }
+      }
+    }
+  }
+  ```
+</script>

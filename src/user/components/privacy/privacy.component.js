@@ -38,6 +38,30 @@
       }
     ]
 
+    ctrl.schema = {
+      title: 'User Privacy Settings',
+      type: 'object',
+      required: [],
+      properties: {
+        enableDirectoryPrivacy: {
+          title: 'Directory Privacy',
+          type: 'boolean'
+        },
+        enableAutoAttendantExtensionDialingPrivacy: {
+          title: 'Auto Attendant Extension Dialing Privacy',
+          type: 'boolean'
+        },
+        enableAutoAttendantNameDialingPrivacy: {
+          title: 'Auto Attendant Name Dialing Privacy',
+          type: 'boolean'
+        },
+        enablePhoneStatusPrivacy: {
+          title: 'Phone Status Privacy',
+          type: 'boolean'
+        }
+      }
+    }
+
     function onInit() {
       ctrl.loading = true
       return loadData()

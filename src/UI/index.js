@@ -42,6 +42,10 @@
     {
       path: 'pbsFormBuilder',
       component: 'pbsFormBuilderDoc'
+    },
+    {
+      path: 'pbsListBuilder',
+      component: 'pbsListBuilderDoc'
     }
   ]
   angular

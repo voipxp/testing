@@ -77,6 +77,10 @@
       {
         component: 'pbsFormBuilder',
         description: 'OpenAPI Form Builder'
+      },
+      {
+        component: 'pbsListBuilder',
+        description: 'OpenAPI Form Builder'
       }
     ]
   }

@@ -1,10 +1,15 @@
 ;(function() {
-  angular.module('odin.UI').component('pbsFormBuilderDoc', {
-    templateUrl: 'UI/pbsFormBuilder/index.component.html',
+  angular.module('odin.UI').component('pbsListBuilderDoc', {
+    templateUrl: 'UI/pbsListBuilder/index.component.html',
     controller: function() {
       var ctrl = this
       ctrl.$onInit = function() {
-        ctrl.data = {}
+        ctrl.data = {
+          booleanInput: true,
+          textInput: 'This is Text',
+          numberInput: 3,
+          selectInput: 'something'
+        }
         ctrl.schema = {
           title: 'Call Forwarding No Answer',
           type: 'object',
