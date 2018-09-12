@@ -93,8 +93,10 @@
       var data = _.filter(ctrl.allData, function(item) {
         return _.find(ctrl.selectedUsers, { userId: item.userId })
       })
+      console.log('DATA', data)
       ctrl.records = data.map(function(item) {
-        var user = _.find(ctrl.users, { userId: item.userId })
+        var user = _.find(ctrl.allUsers, { userId: item.userId })
+        console.log('USER', user)
         if (!user) {
           item.lastName = item.userId
         } else {

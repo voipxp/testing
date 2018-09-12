@@ -5,7 +5,7 @@
       templateUrl:
         'serviceProvider/components/groups/groupsPanel.component.html',
       controller: Controller,
-      bindings: { serviceProviderId: '<' }
+      bindings: { serviceProviderId: '<', limitTo: '<' }
     })
 
   function Controller(Alert, GroupService, Route, $scope) {
