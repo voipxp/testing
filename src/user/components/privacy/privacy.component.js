@@ -78,14 +78,12 @@
     function loadAvailable() {
       return UserPrivacyService.available(ctrl.userId).then(function(data) {
         ctrl.available = data
-        console.log('settings', data)
       })
     }
 
     function loadSettings() {
       return UserPrivacyService.show(ctrl.userId).then(function(data) {
         ctrl.settings = data
-        console.log('settings', data)
       })
     }
 
@@ -110,7 +108,7 @@
 
     function update(settings, callback) {
       Alert.spinner.open()
-      return UserPrivacyService.update(ctrl.userId, settings)
+      return UserPrivacyService.update(settings)
         .then(loadData)
         .then(function() {
           Alert.notify.success('Profile Updated')

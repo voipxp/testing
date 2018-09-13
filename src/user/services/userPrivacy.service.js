@@ -5,24 +5,28 @@
     var service = { available: available, show: show, update: update }
     return service
 
-    function url(userId, extra) {
-      return Route.api('services', 'users', 'privacy')(userId, extra)
+    function url(extra) {
+      return Route.api('services', 'users', 'privacy')(extra)
     }
 
     function available(userId) {
-      return $http.get(url(userId, 'available')).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url('monitors'), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function show(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
-    function update(userId, data) {
-      return $http.put(url(userId), data).then(function(response) {
+    function update(data) {
+      return $http.put(url(), data).then(function(response) {
         return response.data
       })
     }
