@@ -1,5 +1,7 @@
 ;(function() {
-  angular.module('odin.group').factory('GroupFeatureAccessCodeService', Service)
+  angular
+    .module('odin.group')
+    .factory('GroupFeatureAccessCodesService', Service)
 
   function Service($http, Route) {
     var url = Route.api('/services/groups/featureaccesscodes')
@@ -8,7 +10,9 @@
       show: show,
       update: update
     }
-    service.options = {}
+    service.options = {
+      useFeatureAccessCodeLevel: ['Service Provider', 'Group']
+    }
 
     return service
 

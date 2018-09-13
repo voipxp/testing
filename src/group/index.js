@@ -443,7 +443,12 @@
       acl: 'Group',
       module: 'Routing Profile'
     },
-
+    {
+      path: 'featureAccessCodes',
+      component: 'groupFeatureAccessCodes',
+      acl: 'Group',
+      module: 'Group Feature Access Codes'
+    },
     {
       path: 'nightForwarding',
       component: 'groupNightForwarding',

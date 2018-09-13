@@ -140,6 +140,12 @@
           path: route('routingProfile')
         },
         {
+          type: 'management',
+          name: 'Feature Access Codes',
+          path: route('featureAccessCodes')
+        },
+
+        {
           type: 'service',
           service: 'Auto Attendant',
           path: route('autoAttendants')
