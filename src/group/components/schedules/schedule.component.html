@@ -14,10 +14,10 @@
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Name">
-        {{ $ctrl.scheduleName }}
+        {{ $ctrl.schedule.scheduleName }}
       </pbs-list-item>
       <pbs-list-item label="Type">
-        {{ $ctrl.scheduleType }}
+        {{ $ctrl.schedule.scheduleType }}
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
@@ -32,7 +32,7 @@
     <pbs-form-field label="Schedule Name">
       <input type="text"
         class="input"
-        ng-model="$ctrl.editSchedule.newName"
+        ng-model="$ctrl.editSchedule.newScheduleName"
         required>
     </pbs-form-field>
   </pbs-form>

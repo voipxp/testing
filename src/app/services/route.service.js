@@ -63,24 +63,24 @@
       var route
       switch (loginType) {
         case 'System':
-          route = open('system')
+          route = ['system']
           break
         case 'Provisioning':
-          route = open('provisioning')
+          route = ['provisioning']
           break
         case 'Service Provider':
-          route = open('serviceProviders', serviceProviderId)
+          route = ['serviceProviders', serviceProviderId]
           break
         case 'Group':
-          route = open('groups', serviceProviderId, groupId)
+          route = ['groups', serviceProviderId, groupId]
           break
         case 'User':
-          route = open('users', serviceProviderId, groupId, userId)
+          route = ['users', serviceProviderId, groupId, userId]
           break
         default:
-          route = open(APP.loginURL)
+          route = [APP.loginURL]
       }
-      return route().hash(null)
+      return open.apply(null, route).hash(null)
     }
   }
 })()

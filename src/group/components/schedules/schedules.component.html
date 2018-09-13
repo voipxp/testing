@@ -19,11 +19,11 @@
             ng-class="{'is-link': !$ctrl.filter}"
             ng-click="$ctrl.filter = undefined">All</button>
           <button class="button"
-            ng-class="{'is-link': $ctrl.filter.type === 'Holiday'}"
-            ng-click="$ctrl.filter = {type: 'Holiday'}">Holiday</button>
+            ng-class="{'is-link': $ctrl.filter.scheduleType === 'Holiday'}"
+            ng-click="$ctrl.filter = {scheduleType: 'Holiday'}">Holiday</button>
           <button class="button"
-            ng-class="{'is-link': $ctrl.filter.type === 'Time'}"
-            ng-click="$ctrl.filter = {type: 'Time'}">Time</button>
+            ng-class="{'is-link': $ctrl.filter.scheduleType === 'Time'}"
+            ng-click="$ctrl.filter = {scheduleType: 'Time'}">Time</button>
         </div>
       </pbs-column>
     </pbs-columns>
@@ -45,10 +45,10 @@
       <tbody>
         <tr class="hover"
           ng-click="$ctrl.open(schedule)"
-          ng-repeat="schedule in results = ($ctrl.schedules | filter:$ctrl.filter | filter:$ctrl.search | orderBy:'name') track by [schedule.name, schedule.type]">
-          <td>{{ schedule.name }}</td>
-          <td>{{ schedule.type }}</td>
-          <td>{{ schedule.level }}</td>
+          ng-repeat="schedule in results = ($ctrl.schedules | filter:$ctrl.filter | filter:$ctrl.search | orderBy:'name') track by [schedule.scheduleName, schedule.scheduleType]">
+          <td>{{ schedule.scheduleName }}</td>
+          <td>{{ schedule.scheduleType }}</td>
+          <td>{{ schedule.scheduleLevel }}</td>
         </tr>
       </tbody>
     </table>
@@ -59,11 +59,11 @@
     <pbs-form-field label="Name">
       <input type="text"
         class="input"
-        ng-model="$ctrl.newSchedule.name"
+        ng-model="$ctrl.newSchedule.scheduleName"
         required>
     </pbs-form-field>
     <pbs-form-field label="Type">
-      <pbs-input-select ng-model="$ctrl.newSchedule.type"
+      <pbs-input-select ng-model="$ctrl.newSchedule.scheduleType"
         ng-options="type for type in ['Time', 'Holiday']"
         required></pbs-input-select>
     </pbs-form-field>

@@ -42,13 +42,10 @@
 
     function edit() {
       ctrl.editSchedule = angular.copy(ctrl.schedule)
-      ctrl.editSchedule.newName = ctrl.schedule.name
+      ctrl.editSchedule.newScheduleName = ctrl.schedule.scheduleName
       Alert.modal.open(
         'editGroupScheduleModal',
         function(close) {
-          if (ctrl.editSchedule.newName === ctrl.schedule.name) {
-            return close()
-          }
           update(ctrl.editSchedule, close)
         },
         function(close) {
@@ -68,6 +65,7 @@
           Alert.notify.success('Schedule Updated')
           callback()
           open(schedule)
+          onInit()
         })
         .catch(Alert.notify.danger)
         .finally(Alert.spinner.close)
@@ -101,7 +99,10 @@
         ctrl.groupId,
         'schedules',
         'schedule'
-      ).search({ scheduleName: schedule.name, scheduleType: schedule.type })
+      ).search({
+        scheduleName: schedule.newScheduleName,
+        scheduleType: schedule.scheduleType
+      })
     }
   }
 })()

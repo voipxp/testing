@@ -33,7 +33,10 @@
     }
 
     function add() {
-      ctrl.newSchedule = { type: 'Group' }
+      ctrl.newSchedule = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId
+      }
       Alert.modal.open('createScheduleModal', function(close) {
         create(ctrl.newSchedule, close)
       })
@@ -58,7 +61,10 @@
         ctrl.groupId,
         'schedules',
         'schedule'
-      ).search({ scheduleName: schedule.name, scheduleType: schedule.type })
+      ).search({
+        scheduleName: schedule.scheduleName,
+        scheduleType: schedule.scheduleType
+      })
     }
   }
 })()
