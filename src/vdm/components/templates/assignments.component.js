@@ -91,8 +91,9 @@
         assignment.serviceProviderId,
         assignment.groupId,
         'vdm',
-        'templates'
-      )(assignment.deviceTypeId)
+        'templates',
+        assignment.deviceTypeId
+      )
       console.log('open', assignment)
     }
   }

@@ -46,8 +46,9 @@
         'users',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        user.profile.userId
-      )('anonymousCallRejection')
+        user.profile.userId,
+        'anonymousCallRejection'
+      )
     }
 
     function toggle(user) {

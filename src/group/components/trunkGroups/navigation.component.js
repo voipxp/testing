@@ -14,7 +14,10 @@
 
     function open(trunk) {
       var trunkName = (trunk && trunk.name) || trunk
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId)(
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
         'trunkGroups',
         trunkName
       )

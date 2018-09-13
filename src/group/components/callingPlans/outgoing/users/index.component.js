@@ -30,7 +30,7 @@
         ctrl.groupId,
         'callingPlans',
         plan
-      )()
+      )
     }
   }
 })()

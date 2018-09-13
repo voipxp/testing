@@ -40,9 +40,9 @@
           ctrl.serviceProviderId,
           ctrl.groupId,
           'vdm'
-        )().search({})
+        ).search({})
       } else {
-        Route.open('vdm')().search({})
+        Route.open('vdm').search({})
       }
     }
 

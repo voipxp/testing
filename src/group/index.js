@@ -377,7 +377,7 @@
       acl: 'Group'
     },
     {
-      path: 'schedules/:scheduleName/:scheduleType',
+      path: 'schedules/schedule',
       component: 'groupSchedule',
       acl: 'Group'
     },

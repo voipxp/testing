@@ -41,7 +41,7 @@
 
     function create(schedule, callback) {
       Alert.spinner.open()
-      GroupScheduleService.store(ctrl.serviceProviderId, ctrl.groupId, schedule)
+      GroupScheduleService.store(schedule)
         .then(function() {
           Alert.notify.success('Schedule Created')
           callback()
@@ -52,10 +52,13 @@
     }
 
     function open(schedule) {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'schedules')(
-        schedule.name,
-        schedule.type
-      )
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'schedules',
+        'schedule'
+      ).search({ scheduleName: schedule.name, scheduleType: schedule.type })
     }
   }
 })()

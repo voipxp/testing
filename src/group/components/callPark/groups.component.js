@@ -63,7 +63,7 @@
         ctrl.groupId,
         'callPark',
         group.name
-      )()
+      )
     }
   }
 })()

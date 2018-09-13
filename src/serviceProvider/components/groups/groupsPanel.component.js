@@ -55,7 +55,7 @@
 
     function open(event) {
       var group = event.item
-      Route.open('groups', ctrl.serviceProviderId)(group.groupId)
+      Route.open('groups', ctrl.serviceProviderId, group.groupId)
     }
   }
 })()

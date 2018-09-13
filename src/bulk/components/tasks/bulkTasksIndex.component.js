@@ -6,12 +6,11 @@
 
   function Controller(Route) {
     var ctrl = this
-    var route = Route.open('/bulk/tasks')
     ctrl.open = open
 
     function open(task) {
       console.log('open', task)
-      route(task && task.id)
+      Route.open('/bulk/tasks', task && task.id)
     }
   }
 })()

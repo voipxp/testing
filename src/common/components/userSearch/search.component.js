@@ -74,7 +74,7 @@
       if (_.isFunction(ctrl.onSelect)) {
         ctrl.onSelect(user)
       } else {
-        Route.open('users')(user.serviceProviderId, user.groupId, user.userId)
+        Route.open('users', user.serviceProviderId, user.groupId, user.userId)
       }
     }
 

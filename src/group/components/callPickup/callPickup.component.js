@@ -88,7 +88,11 @@
     }
 
     function open(name) {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPickup')(
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'callPickup',
         name
       )
     }

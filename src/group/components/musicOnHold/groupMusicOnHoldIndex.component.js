@@ -20,13 +20,6 @@
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
 
-    var route = Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'musicOnHold'
-    )
-
     function onInit() {
       ctrl.moh = {}
       ctrl.loading = true
@@ -60,7 +53,13 @@
 
     function open(department) {
       var departmentId = GroupDepartmentService.toId(department) || 'group'
-      route(departmentId)
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'musicOnHold',
+        departmentId
+      )
     }
 
     function add() {

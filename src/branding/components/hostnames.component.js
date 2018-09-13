@@ -76,7 +76,7 @@
     }
 
     function open(hostname) {
-      Route.open('branding')(hostname.id)
+      Route.open('branding', hostname.id)
     }
   }
 })()

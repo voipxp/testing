@@ -31,14 +31,13 @@
     function toggle() {
       if (!ctrl.settings.forwardToPhoneNumber) {
         Alert.notify.warning('Please Configure a Phone Number')
-        Route.open(
+        return Route.open(
           'users',
           ctrl.serviceProviderId,
           ctrl.groupId,
           ctrl.userId,
           'callForwardingNoAnswer'
-        )()
-        return
+        )
       }
       ctrl.loading = true
       UserCallForwardingNoAnswerService.update(ctrl.userId, ctrl.settings)

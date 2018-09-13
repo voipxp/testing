@@ -91,7 +91,7 @@
     }
 
     function open(card) {
-      Route.open()(card.path)
+      Route.open(card.path)
     }
   }
 })()

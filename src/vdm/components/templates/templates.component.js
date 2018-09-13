@@ -112,10 +112,11 @@
           ctrl.serviceProviderId,
           ctrl.groupId,
           'vdm',
-          'templates'
-        )(template.id).search({ name: template.name })
+          'templates',
+          template.id
+        ).search({ name: template.name })
       } else {
-        Route.open('vdm', 'templates')(template.id).search({
+        Route.open('vdm', 'templates', template.id).search({
           name: template.name
         })
       }

@@ -138,7 +138,8 @@
 
     function open(user) {
       var returnTo = $location.url()
-      Route.open('users')(
+      Route.open(
+        'users',
         ctrl.parent.serviceProviderId,
         ctrl.parent.groupId,
         user.userId

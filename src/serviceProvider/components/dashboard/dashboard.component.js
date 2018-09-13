@@ -16,7 +16,6 @@
 
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.back = Route.open('serviceProviders')
     ctrl.isAdmin = ACL.has('Provisioning')
 
     function onInit() {

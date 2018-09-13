@@ -75,7 +75,12 @@
         .then(function() {
           Alert.notify.success('Call Center Removed')
           callback()
-          Route.open()('groups', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
+          Route.open(
+            'groups',
+            ctrl.serviceProviderId,
+            ctrl.groupId,
+            'callCenters'
+          )
         })
         .catch(function(error) {
           Alert.notify.danger(error)

@@ -139,7 +139,7 @@
         'templates',
         device.template.id,
         device.deviceName
-      )().search({ name: device.template.name })
+      ).search({ name: device.template.name })
     }
   }
 })()

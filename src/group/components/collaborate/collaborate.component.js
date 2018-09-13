@@ -37,7 +37,8 @@
     }
 
     function open(collaborate) {
-      Route.open('groups')(
+      Route.open(
+        'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
         'collaborate',

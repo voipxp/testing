@@ -2,7 +2,7 @@
   angular.module('odin.group').factory('GroupEventService', GroupEventService)
 
   function GroupEventService($http, Route) {
-    var route = Route.api('/services/groups/events')
+    var url = Route.api('/services/groups/events')()
     var service = {
       index: index,
       store: store,
@@ -12,25 +12,16 @@
     }
     return service
 
-    function url(
-      serviceProviderId,
-      groupId,
-      scheduleName,
-      scheduleType,
-      eventName
-    ) {
-      return route(
-        serviceProviderId,
-        groupId,
-        scheduleName,
-        scheduleType,
-        eventName
-      )
-    }
-
     function index(serviceProviderId, groupId, scheduleName, scheduleType) {
       return $http
-        .get(url(serviceProviderId, groupId, scheduleName, scheduleType))
+        .get(url, {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            scheduleName: scheduleName,
+            scheduleType: scheduleType
+          }
+        })
         .then(function(response) {
           return response.data
         })

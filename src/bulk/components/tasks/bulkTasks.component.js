@@ -17,7 +17,7 @@
 
     var defaultLimit = 50
 
-    var route = Route.open('bulk/tasks')
+    var route = 'bulk/tasks'
 
     var reload
 
@@ -71,7 +71,7 @@
 
     function open(task) {
       console.log('open', task)
-      route(task && task.id)
+      Route.open(route, task && task.id)
     }
   }
 })()

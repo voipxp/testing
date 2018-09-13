@@ -58,7 +58,7 @@
         ctrl.groupId,
         'callPickup',
         group.name
-      )()
+      )
     }
   }
 })()

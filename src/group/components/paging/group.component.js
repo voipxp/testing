@@ -53,7 +53,10 @@
     }
 
     function open(serviceUserId) {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId)(
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
         'paging',
         serviceUserId
       )

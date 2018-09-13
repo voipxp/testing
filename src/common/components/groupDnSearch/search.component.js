@@ -110,11 +110,17 @@
     function route(user) {
       console.log('route', user)
       if (user.userType === 'Normal') {
-        Route.open('users')(user.serviceProviderId, user.groupId, user.userId)
+        Route.open('users', user.serviceProviderId, user.groupId, user.userId)
       } else {
-        var url = Route.open('groups')
         var path = ctrl.userTypes[user.userType]
-        path && url(user.serviceProviderId, user.groupId, path, user.userId)
+        path &&
+          Route.open(
+            'groups',
+            user.serviceProviderId,
+            user.groupId,
+            path,
+            user.userId
+          )
       }
     }
 

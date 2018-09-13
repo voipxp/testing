@@ -20,10 +20,9 @@
 
   function Controller(Route) {
     var ctrl = this
-    var route = Route.open('UI')
 
     ctrl.onClick = function(event) {
-      route(event.component)
+      Route.open('UI', event.component)
     }
 
     ctrl.columns = [

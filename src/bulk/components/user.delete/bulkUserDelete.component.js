@@ -16,7 +16,7 @@
     ctrl.task = 'user.delete'
 
     function select() {
-      Route.open('bulk/users')().search({ next: ctrl.task })
+      Route.open('bulk/users').search({ next: ctrl.task })
     }
 
     function onInit() {

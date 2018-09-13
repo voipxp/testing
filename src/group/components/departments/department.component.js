@@ -11,9 +11,7 @@
     ctrl.name = $routeParams.name
 
     ctrl.goBack = function() {
-      return Route.open('groups', ctrl.serviceProviderId, ctrl.groupId)(
-        'departments'
-      )
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'departments')
     }
   }
 })()

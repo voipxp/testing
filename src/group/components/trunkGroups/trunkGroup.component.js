@@ -104,7 +104,7 @@
                 ctrl.serviceProviderId,
                 ctrl.groupId,
                 'trunkGroups'
-              )()
+              )
             })
             .catch(function(error) {
               Alert.notify.danger(error)

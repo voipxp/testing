@@ -52,8 +52,10 @@
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'announcements'
-      )(name, mediaType)
+        'announcements',
+        name,
+        mediaType
+      )
     }
 
     function onUpdate(event) {

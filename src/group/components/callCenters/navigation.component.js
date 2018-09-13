@@ -18,7 +18,7 @@
     function open(obj) {
       var id = (obj && obj.serviceUserId) || obj
       var menu = id ? 'Advanced' : null
-      Route.open()(
+      Route.open(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,

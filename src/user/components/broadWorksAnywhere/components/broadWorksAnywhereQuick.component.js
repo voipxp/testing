@@ -42,7 +42,7 @@
         ctrl.groupId,
         ctrl.userId,
         'broadWorksAnywhere'
-      )()
+      )
     }
 
     function toggle(number) {

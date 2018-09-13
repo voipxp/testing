@@ -45,7 +45,7 @@
     }
 
     function open(user) {
-      Route.open('users')(user.serviceProviderId, user.groupId, user.userId)
+      Route.open('users', user.serviceProviderId, user.groupId, user.userId)
     }
   }
 })()

@@ -106,7 +106,7 @@
     }
 
     function back() {
-      Route.open('system', 'networkClassOfServices')()
+      Route.open('system', 'networkClassOfServices')
     }
   }
 })()

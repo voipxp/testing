@@ -152,7 +152,7 @@
         ctrl.groupId,
         'callPark',
         name
-      )()
+      )
     }
   }
 })()

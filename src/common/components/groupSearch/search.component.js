@@ -55,7 +55,8 @@
       Alert.modal.close(ctrl.modalId)
       ctrl.filter = null
       ctrl.groups = null
-      Route.open('groups')(
+      Route.open(
+        'groups',
         group.serviceProviderId || group.organizationId,
         group.groupId
       )

@@ -31,20 +31,20 @@ IDEA
       this.has = ACL.has
       this.dashboard = Route.dashboard
       this.openServiceProvider = function(serviceProviderId) {
-        Route.open('serviceProviders')(serviceProviderId)
+        Route.open('serviceProviders', serviceProviderId)
       }
       this.openGroup = function(groupId) {
         if (groupId) {
-          Route.open('groups')(this.serviceProviderId, groupId)
+          Route.open('groups', this.serviceProviderId, groupId)
         } else {
-          Route.open('serviceProviders')(this.serviceProviderId, 'groups')
+          Route.open('serviceProviders', this.serviceProviderId, 'groups')
         }
       }
       this.openUser = function(userId) {
         if (userId) {
-          Route.open('users')(this.serviceProviderId, this.groupId, userId)
+          Route.open('users', this.serviceProviderId, this.groupId, userId)
         } else {
-          Route.open('groups', this.serviceProviderId, this.groupId)('users')
+          Route.open('groups', this.serviceProviderId, this.groupId, 'users')
         }
       }
       this.openLink = function() {

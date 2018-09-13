@@ -32,14 +32,13 @@
     function toggle() {
       if (!ctrl.settings.recallTimerSeconds) {
         Alert.notify.warning('Please Configure a recall timer seconds')
-        Route.open(
+        return Route.open(
           'users',
           ctrl.serviceProviderId,
           ctrl.groupId,
           ctrl.userId,
           'automaticHoldRetrieve'
-        )()
-        return
+        )
       }
       ctrl.loading = true
       UserAutomaticHoldRetrieveService.update(ctrl.userId, ctrl.settings)

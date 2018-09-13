@@ -50,16 +50,17 @@
     }
 
     function open(templateId) {
-      var route = Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'vdm'
-      )
       if (templateId) {
-        route('templates', templateId)
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'vdm',
+          'templates',
+          templateId
+        )
       } else {
-        route()
+        Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'vdm')
       }
     }
   }

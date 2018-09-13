@@ -31,7 +31,7 @@
     ctrl.assignedUsers = []
 
     ctrl.back = function() {
-      Route.open('groups')(ctrl.serviceProviderId, ctrl.groupId, 'collaborate')
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'collaborate')
     }
 
     function onInit() {
@@ -111,7 +111,10 @@
     }
 
     function back() {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId)(
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
         'autoAttendants'
       )
     }

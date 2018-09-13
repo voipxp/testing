@@ -23,8 +23,9 @@
               Route.open(
                 'groups',
                 ctrl.serviceProviderId,
-                ctrl.groupId
-              )('users')
+                ctrl.groupId,
+                'users'
+              )
             })
             .catch(function(error) {
               Alert.notify.danger(error)

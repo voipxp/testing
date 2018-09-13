@@ -100,7 +100,7 @@
     }
 
     function open(groupId) {
-      Route.open('groups', ctrl.serviceProviderId, groupId)('meetMe')
+      Route.open('groups', ctrl.serviceProviderId, groupId, 'meetMe')
     }
   }
 })()

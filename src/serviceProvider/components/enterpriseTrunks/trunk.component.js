@@ -82,8 +82,10 @@
                 callback()
               }
               Route.open(
-                'serviceProviders'
-              )(ctrl.serviceProviderId, 'enterpriseTrunks')
+                'serviceProviders',
+                ctrl.serviceProviderId,
+                'enterpriseTrunks'
+              )
             })
             .catch(function(error) {
               Alert.notify.danger(error)

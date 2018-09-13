@@ -32,14 +32,13 @@
     function toggle() {
       if (!ctrl.settings.forwardToPhoneNumber) {
         Alert.notify.warning('Please Configure a Phone Number')
-        Route.open(
+        return Route.open(
           'users',
           ctrl.serviceProviderId,
           ctrl.groupId,
           ctrl.userId,
           'callForwardingAlways'
-        )()
-        return
+        )
       }
       ctrl.loading = true
       UserCallForwardingAlwaysService.update(ctrl.userId, ctrl.settings)

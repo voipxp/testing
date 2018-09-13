@@ -30,14 +30,13 @@
     function toggle() {
       if (!ctrl.settings.remoteOfficePhoneNumber) {
         Alert.notify.warning('Please Configure a Phone Number')
-        Route.open(
+        return Route.open(
           'users',
           ctrl.serviceProviderId,
           ctrl.groupId,
           ctrl.userId,
           'remoteOffice'
-        )()
-        return
+        )
       }
       ctrl.loading = true
       UserRemoteOfficeService.update(ctrl.userId, ctrl.settings)

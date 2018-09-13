@@ -4,7 +4,7 @@
     .factory('GroupScheduleService', GroupScheduleService)
 
   function GroupScheduleService($http, Route) {
-    var url = Route.api('/services/groups/schedules')
+    var url = Route.api('/services/groups/schedules')()
     var service = {
       index: index,
       store: store,
@@ -16,39 +16,51 @@
 
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
+        .get(url, {
+          params: { serviceProviderId: serviceProviderId, groupId: groupId }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
-    function store(serviceProviderId, groupId, schedule) {
+    function store(schedule) {
+      return $http.post(url, schedule).then(function(response) {
+        return response.data
+      })
+    }
+
+    function show(serviceProviderId, groupId, scheduleName, scheduleType) {
       return $http
-        .post(url(serviceProviderId, groupId), schedule)
+        .get(url, {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            scheduleName: scheduleName,
+            scheduleType: scheduleType
+          }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
-    function show(serviceProviderId, groupId, name, type) {
-      return $http
-        .get(url(serviceProviderId, groupId, name, type))
-        .then(function(response) {
-          return response.data
-        })
+    function update(schedule) {
+      return $http.put(url, schedule).then(function(response) {
+        return response.data
+      })
     }
 
-    function update(serviceProviderId, groupId, name, type, schedule) {
+    function destroy(serviceProviderId, groupId, scheduleName, scheduleType) {
       return $http
-        .put(url(serviceProviderId, groupId, name, type), schedule)
-        .then(function(response) {
-          return response.data
+        .delete(url, {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            scheduleName: scheduleName,
+            scheduleType: scheduleType
+          }
         })
-    }
-
-    function destroy(serviceProviderId, groupId, name, type) {
-      return $http
-        .delete(url(serviceProviderId, groupId, name, type))
         .then(function(response) {
           return response.data
         })

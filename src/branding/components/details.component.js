@@ -72,7 +72,7 @@
             .then(function() {
               Alert.notify.warning('Hostname Removed')
               callback()
-              Route.open('branding')()
+              Route.open('branding')
             })
             .catch(function(error) {
               Alert.notify.danger(error)

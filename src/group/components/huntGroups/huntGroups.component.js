@@ -60,7 +60,7 @@
         ctrl.groupId,
         'huntGroups',
         huntgroup.serviceUserId
-      )()
+      )
     }
 
     function add() {

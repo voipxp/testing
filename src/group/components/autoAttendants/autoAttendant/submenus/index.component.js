@@ -18,8 +18,9 @@
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'autoAttendants'
-      )(serviceUserId)
+        'autoAttendants',
+        serviceUserId
+      )
     }
   }
 })()

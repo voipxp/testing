@@ -99,7 +99,7 @@
         'templates',
         ctrl.template.id,
         device.deviceName
-      )().search({ name: ctrl.template.name })
+      ).search({ name: ctrl.template.name })
     }
   }
 })()

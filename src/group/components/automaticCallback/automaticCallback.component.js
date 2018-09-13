@@ -46,8 +46,9 @@
         'users',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        user.profile.userId
-      )('automaticCallback')
+        user.profile.userId,
+        'automaticCallback'
+      )
     }
 
     function toggle(user) {

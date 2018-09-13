@@ -130,7 +130,8 @@
 
     function onClick(user) {
       var returnTo = $location.url()
-      Route.open('users')(
+      Route.open(
+        'users',
         user.serviceProviderId,
         user.groupId,
         user.userId

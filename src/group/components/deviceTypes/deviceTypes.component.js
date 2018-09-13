@@ -37,7 +37,7 @@
         ctrl.groupId,
         'deviceTypes',
         deviceType
-      )()
+      )
     }
   }
 })()

@@ -49,7 +49,7 @@
     function open(user) {
       Alert.modal.close('UserSearchNavModal')
       ctrl.filter = null
-      Route.open('users')(user.serviceProviderId, user.groupId, user.userId)
+      Route.open('users', user.serviceProviderId, user.groupId, user.userId)
     }
   }
 })()

@@ -4,17 +4,24 @@
     controller: Controller
   })
 
-  function Controller($routeParams, Alert, GroupScheduleService, Route) {
+  function Controller(
+    $routeParams,
+    $location,
+    Alert,
+    GroupScheduleService,
+    Route
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.scheduleType = $routeParams.scheduleType
-    ctrl.scheduleName = $routeParams.scheduleName
     ctrl.back = back
     ctrl.edit = edit
 
     function onInit() {
+      ctrl.scheduleType = $location.search().scheduleType
+      ctrl.scheduleName = $location.search().scheduleName
+      $location.search({})
       ctrl.loading = true
       loadSchedule()
         .catch(Alert.notify.danger)
@@ -57,13 +64,7 @@
 
     function update(schedule, callback) {
       Alert.spinner.open()
-      GroupScheduleService.update(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.scheduleName,
-        ctrl.scheduleType,
-        schedule
-      )
+      GroupScheduleService.update(schedule)
         .then(function() {
           Alert.notify.success('Schedule Updated')
           callback()
@@ -91,14 +92,17 @@
     }
 
     function back() {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'schedules')()
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'schedules')
     }
 
     function open(schedule) {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'schedules')(
-        schedule.newName,
-        schedule.type
-      )
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'schedules',
+        'schedule'
+      ).search({ scheduleName: schedule.name, scheduleType: schedule.type })
     }
   }
 })()

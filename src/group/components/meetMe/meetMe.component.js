@@ -14,7 +14,7 @@
     ctrl.state = 'list'
 
     function open(groupId, bridgeId) {
-      Route.open('groups', ctrl.serviceProviderId, groupId)('meetMe', bridgeId)
+      Route.open('groups', ctrl.serviceProviderId, groupId, 'meetMe', bridgeId)
     }
   }
 })()

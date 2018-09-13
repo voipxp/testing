@@ -18,7 +18,7 @@
           return ServiceProviderService.destroy(ctrl.serviceProviderId)
             .then(function() {
               Alert.notify.success('Service Provider Removed')
-              Route.open('serviceProviders')()
+              Route.open('serviceProviders')
             })
             .catch(function(error) {
               Alert.notify.danger(error)

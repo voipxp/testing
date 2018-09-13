@@ -48,7 +48,10 @@
 
     function open(obj) {
       var serviceUserId = (obj && obj.serviceUserId) || obj
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId)(
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
         'callCenters',
         serviceUserId
       )

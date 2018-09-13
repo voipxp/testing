@@ -51,8 +51,10 @@
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'announcements'
-      )(announcement.name, announcement.mediaType)
+        'announcements',
+        announcement.name,
+        announcement.mediaType
+      )
     }
 
     function add() {

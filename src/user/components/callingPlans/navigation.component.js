@@ -13,7 +13,11 @@
     ctrl.open = open
 
     function open(callingPlan) {
-      Route.open('users', ctrl.serviceProviderId, ctrl.groupId, ctrl.userId)(
+      Route.open(
+        'users',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        ctrl.userId,
         'callingPlans',
         callingPlan
       ).hash(null)

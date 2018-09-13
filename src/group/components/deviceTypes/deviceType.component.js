@@ -32,12 +32,7 @@
     }
 
     function back() {
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'deviceTypes'
-      )()
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'deviceTypes')
     }
   }
 })()

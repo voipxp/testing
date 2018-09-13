@@ -57,7 +57,7 @@
     }
 
     function open(serviceProvider) {
-      Route.open('serviceProviders')(serviceProvider.serviceProviderId)
+      Route.open('serviceProviders', serviceProvider.serviceProviderId)
     }
   }
 })()

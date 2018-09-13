@@ -59,7 +59,9 @@
     }
 
     function open(servicePackName) {
-      Route.open('serviceProviders', ctrl.serviceProviderId)(
+      Route.open(
+        'serviceProviders',
+        ctrl.serviceProviderId,
         'servicePacks',
         servicePackName
       )

@@ -19,7 +19,7 @@
           return GroupService.destroy(ctrl.serviceProviderId, ctrl.groupId)
             .then(function() {
               Alert.notify.success('Group Removed')
-              Route.open('serviceProviders', ctrl.serviceProviderId)('groups')
+              Route.open('serviceProviders', ctrl.serviceProviderId, 'groups')
             })
             .catch(function(error) {
               Alert.notify.danger(error)

@@ -112,7 +112,8 @@
     function open(job) {
       if (!canOpen(job)) return
       var returnTo = $location.url()
-      Route.open('users')(
+      Route.open(
+        'users',
         job.serviceProviderId,
         job.groupId,
         job.newUserId || job.userId

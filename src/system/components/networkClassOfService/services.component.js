@@ -47,7 +47,7 @@
     }
 
     function open(service) {
-      Route.open('system', 'networkClassOfServices')(service.name)
+      Route.open('system', 'networkClassOfServices', service.name)
     }
 
     function loadProfiles() {

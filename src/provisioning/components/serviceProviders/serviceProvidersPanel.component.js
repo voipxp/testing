@@ -53,7 +53,7 @@
 
     function open(event) {
       var serviceProvider = event.item
-      Route.open('serviceProviders')(serviceProvider.serviceProviderId)
+      Route.open('serviceProviders', serviceProvider.serviceProviderId)
     }
   }
 })()

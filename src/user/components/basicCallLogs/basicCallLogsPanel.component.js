@@ -39,7 +39,11 @@
     }
 
     function open() {
-      Route.open('users', ctrl.serviceProviderId, ctrl.groupId, ctrl.userId)(
+      Route.open(
+        'users',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        ctrl.userId,
         'basicCallLogs'
       )
     }

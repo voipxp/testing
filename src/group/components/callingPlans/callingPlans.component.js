@@ -89,7 +89,10 @@
     }
 
     function edit(plan) {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId)(
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
         'callingPlans',
         plan.path
       )

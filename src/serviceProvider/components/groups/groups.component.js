@@ -50,7 +50,7 @@
     }
 
     function open(group) {
-      Route.open('groups', ctrl.serviceProviderId)(group.groupId)
+      Route.open('groups', ctrl.serviceProviderId, group.groupId)
     }
   }
 })()

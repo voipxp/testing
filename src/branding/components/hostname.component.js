@@ -18,7 +18,7 @@
     }
 
     function back() {
-      Route.open('branding')()
+      Route.open('branding')
     }
   }
 })()

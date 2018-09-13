@@ -59,7 +59,7 @@
 
     function open(event) {
       var user = event.item
-      Route.open('users')(ctrl.serviceProviderId, ctrl.groupId, user.userId)
+      Route.open('users', ctrl.serviceProviderId, ctrl.groupId, user.userId)
     }
   }
 })()

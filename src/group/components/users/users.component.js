@@ -86,7 +86,7 @@
     }
 
     function open(user) {
-      Route.open('users')(ctrl.serviceProviderId, ctrl.groupId, user.userId)
+      Route.open('users', ctrl.serviceProviderId, ctrl.groupId, user.userId)
     }
 
     function onCreate(event) {

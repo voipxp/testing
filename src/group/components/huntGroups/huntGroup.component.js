@@ -86,7 +86,7 @@
     }
 
     function back() {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')()
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
     }
   }
 })()

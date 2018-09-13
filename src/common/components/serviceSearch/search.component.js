@@ -87,10 +87,15 @@
     }
 
     function route(user) {
-      var url = Route.open('groups', user.serviceProviderId, user.groupId)
       var path = ctrl.serviceTypes[user.serviceType]
       if (!path) return
-      url(path, user.userId)
+      Route.open(
+        'groups',
+        user.serviceProviderId,
+        user.groupId,
+        path,
+        user.userId
+      )
     }
 
     $rootScope.$on('serviceSearch:load', function(event, data) {

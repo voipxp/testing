@@ -68,8 +68,11 @@
           Alert.notify.warning('Enterprise Trunk Removed')
           callback()
           Route.open(
-            'groups'
-          )(ctrl.serviceProviderId, ctrl.groupId, 'enterpriseTrunks')
+            'groups',
+            ctrl.serviceProviderId,
+            ctrl.groupId,
+            'enterpriseTrunks'
+          )
         })
         .catch(Alert.notify.danger)
         .finally(Alert.spinner.close)

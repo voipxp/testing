@@ -51,11 +51,9 @@
     function open() {
       var prefixes = Array.prototype.slice.call(arguments)
       prefixes[0] = prefixes[0] && prefixes[0].replace(/^([^/])/, '/$1')
-      return function generateURL() {
-        return $location.path(
-          decoded(prefixes, Array.prototype.slice.call(arguments))
-        )
-      }
+      return $location.path(
+        decoded(prefixes, Array.prototype.slice.call(arguments))
+      )
     }
     // redirect to login
     function login() {

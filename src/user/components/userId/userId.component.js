@@ -30,7 +30,7 @@
         .then(function() {
           Alert.notify.success('User ID Updated')
           callback()
-          Route.open('users', ctrl.serviceProviderId, ctrl.groupId, newUserId)()
+          Route.open('users', ctrl.serviceProviderId, ctrl.groupId, newUserId)
         })
         .catch(function(error) {
           Alert.notify.danger(error)

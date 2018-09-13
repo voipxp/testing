@@ -52,8 +52,9 @@
       Route.open(
         'serviceProviders',
         ctrl.serviceProviderId,
-        'enterpriseTrunks'
-      )(trunkName)
+        'enterpriseTrunks',
+        trunkName
+      )
     }
 
     function add() {

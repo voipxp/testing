@@ -73,7 +73,11 @@
     }
 
     function open(plan) {
-      Route.open('users', ctrl.serviceProviderId, ctrl.groupId, ctrl.userId)(
+      Route.open(
+        'users',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        ctrl.userId,
         'callingPlans',
         plan.path
       )

@@ -89,7 +89,7 @@
     }
 
     function back() {
-      Route.open('groups')(ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
     }
   }
 })()
