@@ -21,7 +21,6 @@
     function onInit() {
       ctrl.scheduleType = $location.search().scheduleType
       ctrl.scheduleName = $location.search().scheduleName
-      $location.search({})
       ctrl.loading = true
       loadSchedule()
         .catch(Alert.notify.danger)

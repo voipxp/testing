@@ -24,7 +24,6 @@
 
     function onInit() {
       ctrl.templateName = $location.search().name
-      $location.search({})
       ctrl.loading = true
       loadTemplate()
         .catch(Alert.notify.danger)

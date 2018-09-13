@@ -11,7 +11,6 @@
     function onInit() {
       var token = $location.search().token
       $location.search({})
-      console.log('token', token)
       login(token)
     }
 

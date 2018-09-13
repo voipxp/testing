@@ -15,9 +15,6 @@
       })
       return _.compact(prefixes.concat(components)).join('/')
     }
-    function decoded(prefixes, args) {
-      return _.compact(prefixes.concat(args)).join('/')
-    }
     function encodeURISegment(val) {
       return encodeURIQuery(val, true)
         .replace(/%26/gi, '&')
@@ -49,11 +46,8 @@
       }
     }
     function open() {
-      var prefixes = Array.prototype.slice.call(arguments)
-      prefixes[0] = prefixes[0] && prefixes[0].replace(/^([^/])/, '/$1')
-      return $location.path(
-        decoded(prefixes, Array.prototype.slice.call(arguments))
-      )
+      var parts = Array.prototype.slice.call(arguments)
+      return $location.path(_.compact(parts).join('/')).search({})
     }
     // redirect to login
     function login() {

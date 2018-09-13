@@ -6,7 +6,7 @@
     bindings: { data: '<' }
   })
 
-  function Controller(Alert, BulkImportService, $scope, $location) {
+  function Controller(BulkImportService, $scope) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.select = select
@@ -22,7 +22,6 @@
     }
 
     function onInit() {
-      $location.search({})
       ctrl.actions = {
         userServices: 'skip',
         servicePackServices: 'skip'

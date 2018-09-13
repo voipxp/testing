@@ -24,7 +24,6 @@
 
     function onInit() {
       ctrl.templateName = $location.search().name
-      $location.search({})
       ctrl.loading = true
       $q.all([loadTemplate(), loadPermissions()])
         .catch(Alert.notify.danger)
