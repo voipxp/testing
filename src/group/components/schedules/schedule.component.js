@@ -73,12 +73,7 @@
 
     function destroy(callback) {
       Alert.spinner.open()
-      GroupScheduleService.destroy(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.scheduleName,
-        ctrl.scheduleType
-      )
+      GroupScheduleService.destroy(ctrl.schedule)
         .then(function() {
           Alert.notify.warning('Schedule Removed')
           callback()

@@ -51,14 +51,14 @@
       })
     }
 
-    function destroy(serviceProviderId, groupId, scheduleName, scheduleType) {
+    function destroy(schedule) {
       return $http
         .delete(url, {
           params: {
-            serviceProviderId: serviceProviderId,
-            groupId: groupId,
-            scheduleName: scheduleName,
-            scheduleType: scheduleType
+            serviceProviderId: schedule.serviceProviderId,
+            groupId: schedule.groupId,
+            scheduleName: schedule.scheduleName,
+            scheduleType: schedule.scheduleType
           }
         })
         .then(function(response) {

@@ -42,7 +42,12 @@
     }
 
     function add() {
-      ctrl.editEvent = {}
+      ctrl.editEvent = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId,
+        scheduleName: ctrl.scheduleName,
+        scheduleType: ctrl.scheduleType
+      }
       ctrl.rrule = {}
       Alert.modal.open('editGroupEventModal', function(close) {
         create(ctrl.editEvent, ctrl.rrule, close)
@@ -75,13 +80,7 @@
     function create(event, rrule, callback) {
       event.rrule = EventHelper.toRRule(rrule)
       Alert.spinner.open()
-      GroupEventService.store(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.scheduleName,
-        ctrl.scheduleType,
-        event
-      )
+      GroupEventService.store(event)
         .then(loadEvents)
         .then(function() {
           Alert.notify.success('Event Created')
@@ -94,13 +93,7 @@
     function update(event, rrule, callback) {
       event.rrule = EventHelper.toRRule(rrule)
       Alert.spinner.open()
-      GroupEventService.update(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.scheduleName,
-        ctrl.scheduleType,
-        event
-      )
+      GroupEventService.update(event)
         .then(loadEvents)
         .then(function() {
           Alert.notify.success('Event Updated')
@@ -112,13 +105,7 @@
 
     function destroy(event, callback) {
       Alert.spinner.open()
-      GroupEventService.destroy(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.scheduleName,
-        ctrl.scheduleType,
-        event.eventName
-      )
+      GroupEventService.destroy(event)
         .then(loadEvents)
         .then(function() {
           Alert.notify.warning('Event Removed')

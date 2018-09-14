@@ -2,7 +2,7 @@
   angular.module('odin.group').factory('GroupEventService', GroupEventService)
 
   function GroupEventService($http, Route) {
-    var url = Route.api('/services/groups/events')()
+    var url = Route.api('/services/groups/events')
     var service = {
       index: index,
       store: store,
@@ -14,7 +14,7 @@
 
     function index(serviceProviderId, groupId, scheduleName, scheduleType) {
       return $http
-        .get(url, {
+        .get(url(), {
           params: {
             serviceProviderId: serviceProviderId,
             groupId: groupId,
@@ -27,21 +27,10 @@
         })
     }
 
-    function store(
-      serviceProviderId,
-      groupId,
-      scheduleName,
-      scheduleType,
-      event
-    ) {
-      return $http
-        .post(
-          url(serviceProviderId, groupId, scheduleName, scheduleType),
-          event
-        )
-        .then(function(response) {
-          return response.data
-        })
+    function store(event) {
+      return $http.post(url(), event).then(function(response) {
+        return response.data
+      })
     }
 
     function show(
@@ -52,48 +41,37 @@
       eventName
     ) {
       return $http
-        .get(
-          url(serviceProviderId, groupId, scheduleName, scheduleType, eventName)
-        )
+        .get(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            scheduleName: scheduleName,
+            scheduleType: scheduleType,
+            eventName: eventName
+          }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
-    function update(
-      serviceProviderId,
-      groupId,
-      scheduleName,
-      scheduleType,
-      event
-    ) {
-      return $http
-        .put(
-          url(
-            serviceProviderId,
-            groupId,
-            scheduleName,
-            scheduleType,
-            event.eventName
-          ),
-          event
-        )
-        .then(function(response) {
-          return response.data
-        })
+    function update(event) {
+      return $http.put(url(), event).then(function(response) {
+        return response.data
+      })
     }
 
-    function destroy(
-      serviceProviderId,
-      groupId,
-      scheduleName,
-      scheduleType,
-      eventName
-    ) {
+    function destroy(event) {
       return $http
-        .delete(
-          url(serviceProviderId, groupId, scheduleName, scheduleType, eventName)
-        )
+        .delete(url(), {
+          params: {
+            serviceProviderId: event.serviceProviderId,
+            groupId: event.groupId,
+            scheduleName: event.scheduleName,
+            scheduleType: event.scheduleType,
+            eventName: event.eventName
+          }
+        })
         .then(function(response) {
           return response.data
         })
