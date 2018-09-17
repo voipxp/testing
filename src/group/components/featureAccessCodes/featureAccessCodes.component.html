@@ -3,8 +3,10 @@
   <pbs-breadcrumb title="'Feature Access Code Settings'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Feature Access Code Settings">
+  <pbs-block title="Feature Access Code Setting">
     <pbs-block-buttons>
+      <pbs-button-compact-refresh ng-click="$ctrl.reset()"
+         label="Reset FAC Setting"></pbs-button-compact-refresh>
       <pbs-button-compact-edit ng-click="$ctrl.edit()"
         label="Edit Code Level"></pbs-button-compact-edit>
     </pbs-block-buttons>
@@ -14,7 +16,8 @@
         {{ $ctrl.settings.useFeatureAccessCodeLevel }}
       </pbs-list-item>
     </pbs-list>
-
+  </pbs-block>
+  <pbs-block title="Feature Access Codes" pbs-margin-top>
     <pbs-data-table columns="$ctrl.columns"
       items="$ctrl.settings.featureAccessCodes"
       is-compact="true"
@@ -22,9 +25,7 @@
       is-striped="true"
       limit-to="50"
       filter="$ctrl.selectFilter"
-      show-select="$ctrl.showSelect"
-      on-click="$ctrl.onClick($event)"
-      on-select="$ctrl.onSelect($event)"></pbs-data-table>
+      on-click="$ctrl.onClick($event)"></pbs-data-table>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editFeatureAccessCodeLevel"
