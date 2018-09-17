@@ -56,7 +56,6 @@
           password: ctrl.data.password,
           passcode: ctrl.data.passcode,
           phoneNumber: _.get(ctrl.data, 'phoneNumbers.' + i),
-          activatePhoneNumber: ctrl.data.activatePhoneNumber,
           extension: ctrl.data.extension,
           callingLineIdPhoneNumber: ctrl.data.callingLineIdPhoneNumber,
           timeZone: ctrl.data.timeZone,
@@ -70,6 +69,12 @@
           address: ctrl.data.address,
           endpointType: ctrl.data.endpointType,
           domain: ctrl.data.domain
+        }
+        // make strings so they are editable in review page
+        if (ctrl.data.activatePhoneNumber) {
+          task.activatePhoneNumber = 'true'
+        } else if (ctrl.data.activatePhoneNumber === false) {
+          task.activatePhoneNumber = 'false'
         }
         if (task.endpointType === 'accessDeviceEndpoint') {
           task.accessDeviceEndpoint = ctrl.data.accessDeviceEndpoint
