@@ -26,7 +26,7 @@
     }
 
     ctrl.columns = [
-      { key: 'serviceName', label: 'Service' },
+      { key: 'alias', label: 'Service' },
       { key: 'quantityView', label: 'Limit' },
       { key: 'allocatedView', label: 'Allocated' },
       { key: 'authorized', label: 'Authorized', type: 'boolean' }

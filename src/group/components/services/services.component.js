@@ -33,7 +33,7 @@
     }
 
     ctrl.columns = [
-      { key: 'serviceName', label: 'Service' },
+      { key: 'alias', label: 'Service' },
       { key: 'allowedView', label: 'Allowed' },
       { key: 'quantityView', label: 'Limit' },
       { key: 'usageView', label: 'Allocated' },
