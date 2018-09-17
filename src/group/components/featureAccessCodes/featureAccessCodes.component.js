@@ -79,6 +79,7 @@
           obj.restoreDefaultCodes = true
 
           GroupFeatureAccessCodesService.update(obj)
+            .then(loadData)
             .then(function() {
               Alert.notify.success('Feature Access Codes Reset')
             })
@@ -86,6 +87,23 @@
             .finally(Alert.spinner.close)
         })
     }
+    // function reset() {
+    //   ctrl.editSettings = angular.copy(ctrl.settings)
+    //   Alert.confirm
+    //     .open('Are you sure you want to reset the fac codes?')
+    //     .then(function() {
+    //       let obj = {}
+    //       obj.serviceProviderId = ctrl.serviceProviderId
+    //       obj.groupId = ctrl.groupId
+    //       obj.restoreDefaultCodes = true
+    //       console.log('reset fac', obj)
+    //       update(obj, null)
+    //     })
+    //   // Alert.open('editFeatureAccessCodeLevel', function(close) {
+    //   //   update(ctrl.editSettings, close)
+    //   // })
+    // }
+
     function edit() {
       ctrl.editSettings = angular.copy(ctrl.settings)
       Alert.modal.open('editFeatureAccessCodeLevel', function(close) {
