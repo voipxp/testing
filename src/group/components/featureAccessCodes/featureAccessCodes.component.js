@@ -6,7 +6,13 @@
     bindings: { module: '<' }
   })
 
-  function Controller($routeParams, Alert, GroupFeatureAccessCodesService, $q) {
+  function Controller(
+    $routeParams,
+    Alert,
+    GroupFeatureAccessCodesService,
+    GroupSpeedDial100Service,
+    $q
+  ) {
     let ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -16,8 +22,12 @@
     ctrl.onClick = onClick
     ctrl.onSelect = onSelect
     ctrl.toggleSelect = toggleSelect
+    ctrl.editSpeedDialCode = editSpeedDialCode
+    ctrl.speedDial100 = {}
     ctrl.useFeatureAccessCodeLevels =
       GroupFeatureAccessCodesService.options.useFeatureAccessCodeLevel
+    ctrl.speedDial100 = GroupSpeedDial100Service.options
+
     ctrl.columns = [
       {
         key: 'featureAccessCodeName',
@@ -43,7 +53,16 @@
     }
 
     function loadData() {
-      return $q.all([loadSettings()])
+      return $q.all([loadSettings(), loadSpeedDial100()])
+    }
+
+    function loadSpeedDial100() {
+      return GroupSpeedDial100Service.show(
+        ctrl.serviceProviderId,
+        ctrl.groupId
+      ).then(function(data) {
+        ctrl.speedDial100.settings = data
+      })
     }
 
     function loadSettings() {
@@ -87,22 +106,26 @@
             .finally(Alert.spinner.close)
         })
     }
-    // function reset() {
-    //   ctrl.editSettings = angular.copy(ctrl.settings)
-    //   Alert.confirm
-    //     .open('Are you sure you want to reset the fac codes?')
-    //     .then(function() {
-    //       let obj = {}
-    //       obj.serviceProviderId = ctrl.serviceProviderId
-    //       obj.groupId = ctrl.groupId
-    //       obj.restoreDefaultCodes = true
-    //       console.log('reset fac', obj)
-    //       update(obj, null)
-    //     })
-    //   // Alert.open('editFeatureAccessCodeLevel', function(close) {
-    //   //   update(ctrl.editSettings, close)
-    //   // })
-    // }
+
+    function editSpeedDialCode() {
+      ctrl.editSpeedDial100 = angular.copy(ctrl.speedDial100.settings)
+      Alert.modal.open('editSpeedDial100', function(close) {
+        updateSpeedDial(ctrl.editSpeedDial100, close)
+      })
+    }
+    function updateSpeedDial(settings, callback) {
+      Alert.spinner.open()
+      settings.serviceProviderId = ctrl.serviceProviderId
+      settings.groupId = ctrl.groupId
+      return GroupSpeedDial100Service.update(settings)
+        .then(loadData)
+        .then(function() {
+          Alert.notify.success('Speed Dial 100 Prefix Updated')
+          callback()
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    }
 
     function edit() {
       ctrl.editSettings = angular.copy(ctrl.settings)
@@ -139,9 +162,7 @@
       ctrl.editAccessCode = angular.copy(accessCode)
       ctrl.origAccessCode = angular.copy(accessCode)
       Alert.modal.open('editFeatureAccessCode', function(close) {
-        console.log('before ctrl.editSettings', ctrl.editSettings)
         updateCode(ctrl.editSettings, ctrl.origAccessCode, ctrl.editAccessCode)
-        console.log('after ctrl.editSettings', ctrl.editSettings)
         update(ctrl.editSettings, close)
       })
     }

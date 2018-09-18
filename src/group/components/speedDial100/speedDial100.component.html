@@ -1,0 +1,59 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId">
+  <pbs-breadcrumb title="'Group Speed Dial 100'"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Group Speed Dial 100 Settings">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit title="Edit Settings"
+        ng-click="$ctrl.edit()"
+        if-module-update="$ctrl.module">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-section></pbs-list-section>
+      <pbs-list-item label="Speed Dial 100">
+        {{ $ctrl.settings.nightForwarding }}
+      </pbs-list-item>
+      <pbs-list-item label="Business Schedule">
+        {{ $ctrl.settings.businessHours.name }}
+      </pbs-list-item>
+      <pbs-list-item label="Holiday Schedule">
+        {{ $ctrl.settings.holidaySchedule.name }}
+      </pbs-list-item>
+
+      <pbs-list-item label="Forward To Phone Number">
+        {{ $ctrl.settings.forwardToPhoneNumber }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupSpeedDialModal"
+  title="Edit Group Speed Dial 100 Settings">
+  <pbs-form>
+    <pbs-list-section></pbs-list-section>
+    <pbs-form-field-horizontal label="Speed Dial 100">
+      <pbs-input-select ng-model="$ctrl.editSettings.nightForwarding"
+        ng-options="opt for opt in $ctrl.options.activationMode"></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Business Schedule">
+      <select-group-schedule service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        type="Time"
+        ng-model="$ctrl.editSettings.businessHours">
+      </select-group-schedule>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Holiday Schedule">
+      <select-group-schedule service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        type="Holiday"
+        ng-model="$ctrl.editSettings.holidaySchedule">
+      </select-group-schedule>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Forward To Phone Number">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.forwardToPhoneNumber">
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>
