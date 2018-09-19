@@ -99,7 +99,7 @@
 
     function update(group, callback) {
       Alert.spinner.open()
-      GroupCallPickupService.update(ctrl.serviceProviderId, ctrl.groupId, group)
+      GroupCallPickupService.update(group)
         .then(function() {
           if (group.newName && group.newName !== ctrl.group.name) {
             return open(group.newName)

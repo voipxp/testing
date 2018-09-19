@@ -33,7 +33,10 @@
     }
 
     function add() {
-      ctrl.editGroup = {}
+      ctrl.editGroup = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId
+      }
       Alert.modal.open('groupCallPickupCreateModal', function(close) {
         create(ctrl.editGroup, close)
       })
@@ -41,7 +44,7 @@
 
     function create(group, callback) {
       Alert.spinner.open()
-      GroupCallPickupService.store(ctrl.serviceProviderId, ctrl.groupId, group)
+      GroupCallPickupService.store(group)
         .then(function() {
           callback()
           Alert.notify.success('Group Created')

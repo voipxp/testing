@@ -222,7 +222,7 @@
       module: 'Call Pickup'
     },
     {
-      path: 'callPickup/:name',
+      path: 'callPickup/:name*',
       component: 'groupCallPickup',
       acl: 'Group',
       module: 'Call Pickup'
@@ -234,7 +234,7 @@
       module: 'Call Park'
     },
     {
-      path: 'callPark/group',
+      path: 'callPark/:name*',
       component: 'groupCallParkGroup',
       acl: 'Group',
       module: 'Call Park'
