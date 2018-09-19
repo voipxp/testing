@@ -14,22 +14,18 @@
       fromId: fromId,
       toId: toId
     }
+    var url = Route.api('groups', 'departments')
     return service
-
-    function url(serviceProviderId, groupId, name, parents) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId
-      )('departments', name, parents)
-    }
 
     function index(serviceProviderId, groupId, includeEnterprise) {
       return $http
-        .get(url(serviceProviderId, groupId), {
+        .get(url(), {
           cache: cache,
-          params: { includeEnterprise: includeEnterprise }
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            includeEnterprise: includeEnterprise
+          }
         })
         .then(function(response) {
           return response.data
@@ -37,34 +33,42 @@
     }
 
     function store(serviceProviderId, groupId, object) {
+      return $http.post(url(), object).then(function(response) {
+        cache.removeAll()
+        return response.data
+      })
+    }
+
+    function show(serviceProviderId, groupId, name) {
       return $http
-        .post(url(serviceProviderId, groupId), object)
+        .get(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            name: name
+          }
+        })
         .then(function(response) {
-          cache.removeAll()
           return response.data
         })
     }
 
-    function show(serviceProvierId, groupId, name) {
-      return $http
-        .get(url(serviceProvierId, groupId, name))
-        .then(function(response) {
-          return response.data
-        })
-    }
-
-    function update(serviceProviderId, groupId, name, department) {
-      return $http
-        .put(url(serviceProviderId, groupId, name), department)
-        .then(function(response) {
-          cache.removeAll()
-          return response.data
-        })
+    function update(department) {
+      return $http.put(url(), department).then(function(response) {
+        cache.removeAll()
+        return response.data
+      })
     }
 
     function destroy(serviceProviderId, groupId, name) {
       return $http
-        .delete(url(serviceProviderId, groupId, name))
+        .delete(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            name: name
+          }
+        })
         .then(function(response) {
           cache.removeAll()
           return response.data

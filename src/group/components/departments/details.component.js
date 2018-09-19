@@ -66,12 +66,7 @@
 
     function update(department, callback) {
       Alert.spinner.open()
-      GroupDepartmentService.update(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.name,
-        department
-      )
+      GroupDepartmentService.update(department)
         .then(function() {
           console.log('update', department, ctrl.name)
           if (department.newName !== ctrl.name) {

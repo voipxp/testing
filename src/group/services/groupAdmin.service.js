@@ -12,7 +12,7 @@
     return service
 
     function url(serviceProviderId, groupId, admin) {
-      var adminId = (admin && admin.administratorID) || admin
+      var adminId = (admin && admin.userId) || admin
       return Route.api(
         'serviceproviders',
         serviceProviderId,

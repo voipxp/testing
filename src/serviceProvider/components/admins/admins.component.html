@@ -28,8 +28,8 @@
       </tfoot>
       <tbody>
         <tr ng-click="$ctrl.edit(admin)"
-          ng-repeat="admin in $ctrl.admins | filter:$ctrl.search | orderBy:'administratorID' as results track by admin.administratorID">
-          <td>{{ admin.administratorID }}</td>
+          ng-repeat="admin in $ctrl.admins | filter:$ctrl.search | orderBy:'userId' as results track by admin.userId">
+          <td>{{ admin.userId }}</td>
           <td>{{ admin.administratorType }}</td>
           <td>{{ admin.firstName }}</td>
           <td>{{ admin.lastName }}</td>
@@ -84,7 +84,7 @@
           <pbs-form-field-horizontal label="User ID">
             <input type="text"
               class="input"
-              ng-model="$ctrl.editAdmin.administratorID"
+              ng-model="$ctrl.editAdmin.userId"
               readonly>
           </pbs-form-field-horizontal>
           <pbs-form-field-horizontal label="Type">

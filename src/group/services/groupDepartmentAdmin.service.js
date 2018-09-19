@@ -11,56 +11,46 @@
       update: update,
       destroy: destroy
     }
+    var url = Route.api('groups', 'departments', 'admins')
     return service
-
-    function url(serviceProviderId, groupId, name, admin) {
-      var adminId = (admin && admin.administratorID) || admin
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId,
-        'departments',
-        name,
-        'admins'
-      )(adminId)
-    }
 
     function index(serviceProviderId, groupId, name) {
       return $http
-        .get(url(serviceProviderId, groupId, name))
+        .get(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            name: name
+          }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
-    function store(serviceProviderId, groupId, name, admin) {
+    function store(admin) {
+      return $http.post(url(), admin).then(function(response) {
+        return response.data
+      })
+    }
+
+    function show(userId) {
       return $http
-        .post(url(serviceProviderId, groupId, name), admin)
+        .get(url(), { params: { userId: userId } })
         .then(function(response) {
           return response.data
         })
     }
 
-    function show(serviceProviderId, groupId, name, admin) {
-      return $http
-        .get(url(serviceProviderId, groupId, name, admin))
-        .then(function(response) {
-          return response.data
-        })
+    function update(admin) {
+      return $http.put(url(), admin).then(function(response) {
+        return response.data
+      })
     }
 
-    function update(serviceProviderId, groupId, name, admin) {
+    function destroy(userId) {
       return $http
-        .put(url(serviceProviderId, groupId, name, admin), admin)
-        .then(function(response) {
-          return response.data
-        })
-    }
-
-    function destroy(serviceProviderId, groupId, name, admin) {
-      return $http
-        .delete(url(serviceProviderId, groupId, name, admin))
+        .delete(url(), { params: { userId: userId } })
         .then(function(response) {
           return response.data
         })

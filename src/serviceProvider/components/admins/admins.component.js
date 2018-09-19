@@ -57,8 +57,8 @@
       })
     }
 
-    function loadAdminPolicies(administratorID) {
-      return ServiceProviderAdminPolicyService.show(administratorID)
+    function loadAdminPolicies(userId) {
+      return ServiceProviderAdminPolicyService.show(userId)
     }
 
     function add() {
@@ -74,7 +74,7 @@
     function edit(admin) {
       ctrl.editAdmin = angular.copy(admin)
       ctrl.loadingEdit = true
-      loadAdminPolicies(admin.administratorID)
+      loadAdminPolicies(admin.userId)
         .then(function(policies) {
           ctrl.editPolicies = policies
         })
@@ -88,7 +88,7 @@
         'serviceProviderAdminEditModal',
         function onSave(close) {
           update(ctrl.editAdmin, close)
-          updatePolicies(admin.administratorID, ctrl.editPolicies, close)
+          updatePolicies(admin.userId, ctrl.editPolicies, close)
         },
         function onDelete(close) {
           Alert.confirm

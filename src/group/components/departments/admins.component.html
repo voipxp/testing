@@ -23,10 +23,9 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr ng-repeat="admin in $ctrl.admins | filter:$ctrl.search | orderBy:'administratorID' as results track by admin.administratorID"
-      
+        <tr ng-repeat="admin in $ctrl.admins | filter:$ctrl.search | orderBy:'userId' as results track by admin.userId"
           ng-click="$ctrl.edit(admin)">
-          <td>{{ admin.administratorID }}</td>
+          <td>{{ admin.userId }}</td>
           <td>{{ admin.firstName }}</td>
           <td>{{ admin.lastName }}</td>
         </tr>
@@ -74,7 +73,7 @@
     <pbs-form-field-horizontal label="User ID">
       <input type="text"
         class="input"
-        ng-model="$ctrl.editAdmin.administratorID"
+        ng-model="$ctrl.editAdmin.userId"
         disabled>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Password">

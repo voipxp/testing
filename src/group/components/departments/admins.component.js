@@ -71,6 +71,11 @@
 
     function add() {
       ctrl.newAdmin = {
+        department: {
+          serviceProviderId: ctrl.serviceProviderId,
+          groupId: ctrl.groupId,
+          name: ctrl.name
+        },
         language: ctrl.languages.default
       }
       Alert.modal.open('groupDepartmentAdminCreateModal', function(close) {
@@ -97,12 +102,7 @@
 
     function create(admin, callback) {
       Alert.spinner.open()
-      GroupDepartmentAdminService.store(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.name,
-        admin
-      )
+      GroupDepartmentAdminService.store(admin)
         .then(loadAdmins)
         .then(function() {
           Alert.notify.success('Administrator created')
@@ -120,12 +120,7 @@
 
     function update(admin, callback) {
       Alert.spinner.open()
-      GroupDepartmentAdminService.update(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.name,
-        admin
-      )
+      GroupDepartmentAdminService.update(admin)
         .then(loadAdmins)
         .then(function() {
           Alert.notify.success('Admin updated')
@@ -143,12 +138,7 @@
 
     function remove(admin, callback) {
       Alert.spinner.open()
-      GroupDepartmentAdminService.destroy(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.name,
-        admin
-      )
+      GroupDepartmentAdminService.destroy(admin.userId)
         .then(loadAdmins)
         .then(function() {
           Alert.notify.success('Admin removed')

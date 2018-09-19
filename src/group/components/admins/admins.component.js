@@ -28,7 +28,7 @@
 
     ctrl.columns = [
       {
-        key: 'administratorID',
+        key: 'userId',
         label: 'ID'
       },
       {
@@ -73,7 +73,7 @@
       Alert.spinner.open()
       var promise = admin.department
         ? $q.resolve()
-        : GroupAdminPolicyService.show(admin.administratorID)
+        : GroupAdminPolicyService.show(admin.userId)
       return promise
         .then(function(data) {
           ctrl.editPolicies = data
@@ -142,12 +142,7 @@
       Alert.spinner.open()
       var promise
       if (ctrl.newAdminType === 'department') {
-        promise = GroupDepartmentAdminService.store(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          admin.department.name,
-          admin
-        )
+        promise = GroupDepartmentAdminService.store(admin)
       } else {
         promise = GroupAdminService.store(
           ctrl.serviceProviderId,
@@ -195,17 +190,12 @@
 
     function updatePolicies(admin, policies) {
       if (admin.department) return $q.resolve()
-      return GroupAdminPolicyService.update(admin.administratorID, policies)
+      return GroupAdminPolicyService.update(admin.userId, policies)
     }
 
     function updateAdmin(admin) {
       if (admin.department) {
-        return GroupDepartmentAdminService.update(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          admin.department.name,
-          admin
-        )
+        return GroupDepartmentAdminService.update(admin)
       } else {
         return GroupAdminService.update(
           ctrl.serviceProviderId,
@@ -219,12 +209,7 @@
       Alert.spinner.open()
       var promise
       if (admin.department) {
-        promise = GroupDepartmentAdminService.destroy(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          admin.department.name,
-          admin
-        )
+        promise = GroupDepartmentAdminService.destroy(admin.userId)
       } else {
         promise = GroupAdminService.destroy(
           ctrl.serviceProviderId,

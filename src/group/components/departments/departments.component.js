@@ -38,7 +38,10 @@
     }
 
     function add() {
-      ctrl.newDepartment = {}
+      ctrl.newDepartment = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId
+      }
       ctrl.selectedParent = null
       Alert.modal.open('groupDepartmentCreateModal', function onSave(close) {
         save(ctrl.newDepartment, close)
