@@ -14,7 +14,7 @@
 
     function select() {
       Alert.spinner.open()
-      GroupCallParkService.huntgroups(ctrl.serviceProviderId, ctrl.groupId)
+      GroupCallParkService.recall(ctrl.serviceProviderId, ctrl.groupId)
         .then(function(data) {
           ctrl.users = data
           console.log('users', data)

@@ -11,13 +11,14 @@
     GroupCallParkService,
     GroupCallParkGroupService,
     Route,
-    Module
+    Module,
+    $location
   ) {
     var ctrl = this
 
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.name = $routeParams.name
+    ctrl.name = $location.search().name
     ctrl.open = open
     ctrl.options = GroupCallParkGroupService.options
     ctrl.$onInit = onInit
@@ -69,7 +70,7 @@
 
     function select() {
       Alert.spinner.open()
-      GroupCallParkService.huntgroups(ctrl.serviceProviderId, ctrl.groupId)
+      GroupCallParkService.recall(ctrl.serviceProviderId, ctrl.groupId)
         .then(function(data) {
           ctrl.users = data
           Alert.modal.open('groupCallParkRecallUserModal')
@@ -109,11 +110,7 @@
 
     function update(group, callback) {
       Alert.spinner.open()
-      GroupCallParkGroupService.update(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        group
-      )
+      GroupCallParkGroupService.update(group)
         .then(function() {
           if (group.newName && group.newName !== ctrl.group.name) {
             return open(group.newName)
@@ -146,13 +143,15 @@
     }
 
     function open(name) {
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'callPark',
-        name
-      )
+      return name
+        ? Route.open(
+            'groups',
+            ctrl.serviceProviderId,
+            ctrl.groupId,
+            'callPark',
+            'group'
+          ).search({ name: name })
+        : Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPark')
     }
   }
 })()

@@ -2,8 +2,10 @@
   angular.module('odin.group').factory('GroupCallParkService', Service)
 
   function Service($http, Route) {
+    var url = Route.api('services', 'groups', 'callpark')
+
     var service = {
-      huntgroups: huntgroups,
+      recall: recall,
       show: show,
       update: update
     }
@@ -31,20 +33,14 @@
     }
     return service
 
-    function url(serviceProviderId, groupId, sub) {
-      return Route.api(
-        'services',
-        'groups',
-        serviceProviderId,
-        groupId,
-        'callpark',
-        sub
-      )()
-    }
-
-    function huntgroups(serviceProviderId, groupId) {
+    function recall(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId, 'huntgroups'))
+        .get(url('recall'), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId
+          }
+        })
         .then(function(response) {
           return response.data
         })
@@ -52,18 +48,21 @@
 
     function show(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
+        .get(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId
+          }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
-    function update(serviceProviderId, groupId, settings) {
-      return $http
-        .put(url(serviceProviderId, groupId), settings)
-        .then(function(response) {
-          return response.data
-        })
+    function update(settings) {
+      return $http.put(url(), settings).then(function(response) {
+        return response.data
+      })
     }
   }
 })()

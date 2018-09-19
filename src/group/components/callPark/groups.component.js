@@ -34,7 +34,10 @@
     }
 
     function add() {
-      ctrl.editGroup = {}
+      ctrl.editGroup = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId
+      }
       Alert.modal.open('groupCallParkGroupCreateModal', function(close) {
         create(ctrl.editGroup, close)
       })
@@ -42,11 +45,7 @@
 
     function create(group, callback) {
       Alert.spinner.open()
-      GroupCallParkGroupService.store(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        group
-      )
+      GroupCallParkGroupService.store(group)
         .then(function() {
           callback()
           Alert.notify.success('Group Created')
@@ -62,8 +61,8 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         'callPark',
-        group.name
-      )
+        'group'
+      ).search({ name: group.name })
     }
   }
 })()

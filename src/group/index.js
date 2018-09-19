@@ -234,7 +234,7 @@
       module: 'Call Park'
     },
     {
-      path: 'callPark/:name',
+      path: 'callPark/group',
       component: 'groupCallParkGroup',
       acl: 'Group',
       module: 'Call Park'

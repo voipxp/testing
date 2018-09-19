@@ -42,11 +42,7 @@
 
     function update(settings, callback) {
       Alert.spinner.open()
-      GroupCallParkService.update(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        settings
-      )
+      GroupCallParkService.update(settings)
         .then(loadSettings)
         .then(function() {
           Alert.notify.success('Settings Updated')
