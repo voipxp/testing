@@ -9,7 +9,6 @@
     GroupAnnouncementService,
     $scope,
     Route,
-    $location,
     $routeParams
   ) {
     var ctrl = this
@@ -52,9 +51,11 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         'announcements',
-        announcement.name,
-        announcement.mediaType
-      )
+        'announcement'
+      ).search({
+        name: announcement.name,
+        mediaType: announcement.mediaType
+      })
     }
 
     function add() {

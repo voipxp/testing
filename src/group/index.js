@@ -51,7 +51,8 @@
       acl: 'Group'
     },
     {
-      path: 'announcements/:name*/:mediaType',
+      path: 'announcements/announcement',
+      reloadOnSearch: true,
       component: 'groupAnnouncement',
       acl: 'Group'
     },

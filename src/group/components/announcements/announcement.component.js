@@ -9,7 +9,8 @@
     GroupAnnouncementService,
     Route,
     $scope,
-    $routeParams
+    $routeParams,
+    $location
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -19,8 +20,8 @@
     ctrl.onDelete = onDelete
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.name = $routeParams.name
-    ctrl.mediaType = $routeParams.mediaType
+    ctrl.name = $location.search().name
+    ctrl.mediaType = $location.search().mediaType
 
     function onInit() {
       ctrl.loading = true
@@ -48,22 +49,28 @@
     function open(announcement) {
       var name = _.get(announcement, 'newName')
       var mediaType = _.get(announcement, 'mediaType')
-      return Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'announcements',
-        name,
-        mediaType
-      )
+      if (name && mediaType) {
+        return Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'announcements',
+          'announcement'
+        ).search({ name: name, mediaType: mediaType })
+      } else {
+        return Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'announcements'
+        )
+      }
     }
 
     function onUpdate(event) {
-      if (event.announcement.newName === ctrl.announcement.name) {
-        onInit()
-      } else {
-        open(event.announcement)
-      }
+      return event.announcement.newName === ctrl.announcement.name
+        ? onInit()
+        : open(event.announcement)
     }
 
     function onDelete() {
