@@ -60,8 +60,8 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         'callPickup',
-        group.name
-      )
+        'group'
+      ).search({ name: group.name })
     }
   }
 })()

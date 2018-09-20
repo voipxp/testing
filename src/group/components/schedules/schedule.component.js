@@ -65,7 +65,6 @@
           Alert.notify.success('Schedule Updated')
           callback()
           open(schedule)
-          onInit()
         })
         .catch(Alert.notify.danger)
         .finally(Alert.spinner.close)

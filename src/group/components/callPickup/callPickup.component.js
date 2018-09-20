@@ -10,13 +10,14 @@
     GroupCallPickupService,
     $routeParams,
     Route,
-    Module
+    Module,
+    $location
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.name = $routeParams.name
+    ctrl.name = $location.search().name
     ctrl.open = open
     ctrl.edit = edit
     ctrl.users = users
@@ -88,24 +89,26 @@
     }
 
     function open(name) {
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'callPickup',
-        name
-      )
+      if (name) {
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'callPickup',
+          'group'
+        ).search({ name: name })
+      } else {
+        Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPickup')
+      }
     }
 
     function update(group, callback) {
       Alert.spinner.open()
       GroupCallPickupService.update(group)
         .then(function() {
-          if (group.newName && group.newName !== ctrl.group.name) {
-            return open(group.newName)
-          } else {
-            return loadGroup()
-          }
+          return group.newName && group.newName === ctrl.group.name
+            ? loadGroup()
+            : open(group.newName)
         })
         .then(function() {
           Alert.notify.success('Group Updated')

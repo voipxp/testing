@@ -61,8 +61,8 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         'callPark',
-        group.name
-      )
+        'group'
+      ).search({ name: group.name })
     }
   }
 })()

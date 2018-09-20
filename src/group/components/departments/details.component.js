@@ -68,12 +68,9 @@
       Alert.spinner.open()
       GroupDepartmentService.update(department)
         .then(function() {
-          console.log('update', department, ctrl.name)
-          if (department.newName !== ctrl.name) {
-            return open(department.newName)
-          } else {
-            return loadDepartment()
-          }
+          return department.newName === ctrl.name
+            ? loadDepartment()
+            : open(department.newName)
         })
         .then(function() {
           Alert.notify.success('Department Updated')

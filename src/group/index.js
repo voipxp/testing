@@ -179,6 +179,7 @@
     {
       path: 'departments/department',
       component: 'groupDepartment',
+      reloadOnSearch: true,
       acl: 'Group'
     },
     {
@@ -222,7 +223,8 @@
       module: 'Call Pickup'
     },
     {
-      path: 'callPickup/:name*',
+      path: 'callPickup/group',
+      reloadOnSearch: true,
       component: 'groupCallPickup',
       acl: 'Group',
       module: 'Call Pickup'
@@ -234,7 +236,8 @@
       module: 'Call Park'
     },
     {
-      path: 'callPark/:name*',
+      path: 'callPark/group',
+      reloadOnSearch: true,
       component: 'groupCallParkGroup',
       acl: 'Group',
       module: 'Call Park'
@@ -378,6 +381,7 @@
     },
     {
       path: 'schedules/schedule',
+      reloadOnSearch: true,
       component: 'groupSchedule',
       acl: 'Group'
     },

@@ -11,13 +11,14 @@
     GroupCallParkService,
     GroupCallParkGroupService,
     Route,
-    Module
+    Module,
+    $location
   ) {
     var ctrl = this
 
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.name = $routeParams.name
+    ctrl.name = $location.search().name
     ctrl.open = open
     ctrl.options = GroupCallParkGroupService.options
     ctrl.$onInit = onInit
@@ -111,11 +112,9 @@
       Alert.spinner.open()
       GroupCallParkGroupService.update(group)
         .then(function() {
-          if (group.newName && group.newName !== ctrl.group.name) {
-            return open(group.newName)
-          } else {
-            return loadGroup()
-          }
+          return group.newName && group.newName === ctrl.group.name
+            ? loadGroup()
+            : open(group.newName)
         })
         .then(function() {
           Alert.notify.success('Group Updated')
@@ -142,13 +141,17 @@
     }
 
     function open(name) {
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'callPark',
-        name
-      )
+      if (name) {
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'callPark',
+          'group'
+        ).search({ name: name })
+      } else {
+        Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPark')
+      }
     }
   }
 })()
