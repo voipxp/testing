@@ -81,8 +81,8 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         'departments',
-        department.name
-      )
+        'department'
+      ).search({ name: department.name })
     }
   }
 })()

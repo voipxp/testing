@@ -117,14 +117,22 @@
     }
 
     function open(name) {
-      console.log('open', name)
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'departments',
-        name
-      )
+      if (name) {
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'departments',
+          'department'
+        ).search({ name: name })
+      } else {
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'departments'
+        )
+      }
     }
   }
 })()

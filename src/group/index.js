@@ -177,7 +177,7 @@
       acl: 'Group'
     },
     {
-      path: 'departments/:name*',
+      path: 'departments/department',
       component: 'groupDepartment',
       acl: 'Group'
     },
