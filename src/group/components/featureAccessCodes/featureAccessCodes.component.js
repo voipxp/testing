@@ -13,7 +13,7 @@
     GroupSpeedDial100Service,
     $q
   ) {
-    let ctrl = this
+    var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
@@ -92,7 +92,7 @@
         .open('Are you sure you want to reset the fac codes?')
         .then(function() {
           Alert.spinner.open()
-          let obj = {}
+          var obj = {}
           obj.serviceProviderId = ctrl.serviceProviderId
           obj.groupId = ctrl.groupId
           obj.restoreDefaultCodes = true
@@ -134,10 +134,10 @@
       })
     }
 
-    let updateCode = function(arr, origVal, newval) {
-      let match = _.find(arr.featureAccessCodes, origVal)
+    function updateCode(arr, origVal, newval) {
+      var match = _.find(arr.featureAccessCodes, origVal)
       if (match) {
-        let index = _.findIndex(arr.featureAccessCodes, origVal)
+        var index = _.findIndex(arr.featureAccessCodes, origVal)
         arr.featureAccessCodes.splice(index, 1, newval)
       }
     }
