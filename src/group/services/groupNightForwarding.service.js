@@ -2,7 +2,7 @@
   angular.module('odin.group').factory('GroupNightForwardingService', Service)
 
   function Service($http, Route) {
-    var url = Route.api('/services/groups/nightforwarding')
+    var url = Route.api2('/services/groups/nightforwarding')
 
     var service = {
       index: index,

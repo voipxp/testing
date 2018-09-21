@@ -6,7 +6,7 @@
     return service
 
     function url(extra) {
-      return Route.api('services', 'users', 'privacy')(extra)
+      return Route.api2('services', 'users', 'privacy')(extra)
     }
 
     function available(userId) {

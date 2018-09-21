@@ -4,7 +4,7 @@
     .factory('GroupAutoAttendantSubmenuService', Service)
 
   function Service($http, CacheFactory, Route, GroupAutoAttendantService) {
-    var url = Route.api('/services/groups/autoattendants/submenus')
+    var url = Route.api2('/services/groups/autoattendants/submenus')
     var cache = CacheFactory('GroupAutoAttendantSubmenuService')
     var service = {
       index: index,

@@ -4,7 +4,7 @@
     .factory('GroupCallProcessingPolicyService', Service)
 
   function Service($http, Route) {
-    var url = Route.api('services', 'groups', 'callprocessingpolicy')
+    var url = Route.api2('services', 'groups', 'callprocessingpolicy')
     var service = { show: show, update: update }
     service.options = {
       clidPolicy: ['Use DN', 'Use Configurable CLID', 'Use Group CLID'],

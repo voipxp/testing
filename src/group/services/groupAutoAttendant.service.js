@@ -4,7 +4,7 @@
     .factory('GroupAutoAttendantService', GroupAutoAttendantService)
 
   function GroupAutoAttendantService($http, Route) {
-    var url = Route.api('/services/groups/autoattendants')
+    var url = Route.api2('/services/groups/autoattendants')
 
     var service = {
       index: index,

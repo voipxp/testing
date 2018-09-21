@@ -2,7 +2,7 @@
   angular.module('odin.group').factory('UserCallRecordsService', Service)
 
   function Service($http, Route, UtilityService) {
-    var url = Route.api('/callrecords/users')
+    var url = Route.api2('/callrecords/users')
     var service = {
       hourly: hourly,
       daily: daily,

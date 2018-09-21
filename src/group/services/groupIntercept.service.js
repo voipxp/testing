@@ -2,7 +2,7 @@
   angular.module('odin.group').factory('GroupInterceptService', Service)
 
   function Service($http, Route) {
-    var url = Route.api('/services/groups/intercept')
+    var url = Route.api2('/services/groups/intercept')
 
     var service = {
       index: index,

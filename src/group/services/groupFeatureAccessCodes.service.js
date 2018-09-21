@@ -4,7 +4,7 @@
     .factory('GroupFeatureAccessCodesService', Service)
 
   function Service($http, Route) {
-    var url = Route.api('/services/groups/featureaccesscodes')
+    var url = Route.api2('/services/groups/featureaccesscodes')
 
     var service = {
       show: show,

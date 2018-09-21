@@ -11,7 +11,7 @@
       destroy: destroy
     }
 
-    var url = Route.api('services', 'groups', 'callpickup')
+    var url = Route.api2('services', 'groups', 'callpickup')
     return service
 
     function users(serviceProviderId, groupId) {
