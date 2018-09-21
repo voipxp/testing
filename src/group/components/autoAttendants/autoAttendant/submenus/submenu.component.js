@@ -9,11 +9,17 @@
       groupId: '<',
       serviceUserId: '<',
       submenuId: '<',
-      onDestroy: '&'
+      onDestroy: '&',
+      onUpdate: '&'
     }
   })
 
-  function Controller(Alert, GroupAutoAttendantSubmenuService, Route, $q) {
+  function Controller(
+    Alert,
+    GroupAutoAttendantSubmenuService,
+    EventEmitter,
+    $q
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.update = update
@@ -30,6 +36,7 @@
     }
 
     function loadSubmenu() {
+      console.log('loadSubmenu')
       return GroupAutoAttendantSubmenuService.show(
         ctrl.serviceUserId,
         ctrl.submenuId
@@ -51,13 +58,9 @@
 
     function update(menu, callback) {
       Alert.spinner.open()
-      GroupAutoAttendantSubmenuService.update(
-        ctrl.serviceUserId,
-        ctrl.submenuId,
-        menu
-      )
-        .then(loadSubmenu)
+      GroupAutoAttendantSubmenuService.update(menu)
         .then(function() {
+          ctrl.onUpdate(EventEmitter(menu))
           Alert.notify.success('Submenu Updated')
           callback()
         })

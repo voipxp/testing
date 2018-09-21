@@ -11,7 +11,6 @@
     Alert,
     GroupAutoAttendantService,
     Route,
-    Module,
     $scope
   ) {
     var ctrl = this
@@ -52,8 +51,8 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         'autoAttendants',
-        autoAttendant.serviceUserId
-      )
+        'autoAttendant'
+      ).search({ serviceUserId: autoAttendant.serviceUserId })
     }
 
     function toggle(service) {

@@ -4,7 +4,7 @@
     .factory('GroupAutoAttendantSubmenuService', Service)
 
   function Service($http, CacheFactory, Route, GroupAutoAttendantService) {
-    var route = Route.api('/services/groups/autoattendants')
+    var url = Route.api('/services/groups/autoattendants/submenus')
     var cache = CacheFactory('GroupAutoAttendantSubmenuService')
     var service = {
       index: index,
@@ -20,50 +20,52 @@
 
     return service
 
-    function url(serviceUserId, submenuId, extra) {
-      return route(serviceUserId, 'submenus', submenuId, extra)
-    }
-
     function index(serviceUserId) {
       return $http
-        .get(url(serviceUserId), { cache: cache })
+        .get(url(), { params: { serviceUserId: serviceUserId } })
         .then(function(response) {
           return response.data
         })
     }
 
-    function store(serviceUserId, submenu) {
-      return $http.post(url(serviceUserId), submenu).then(function(response) {
+    function store(submenu) {
+      return $http.post(url(), submenu).then(function(response) {
         cache.removeAll()
         return response.data
       })
     }
 
     function show(serviceUserId, submenuId) {
-      return $http.get(url(serviceUserId, submenuId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), {
+          params: { serviceUserId: serviceUserId, submenuId: submenuId }
+        })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function usage(serviceUserId, submenuId) {
       return $http
-        .get(url(serviceUserId, submenuId, 'usage'), { cache: cache })
+        .get(url('usage'), {
+          params: { serviceUserId: serviceUserId, submenuId: submenuId }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
-    function update(serviceUserId, submenuId, submenu) {
-      return $http
-        .put(url(serviceUserId, submenuId), submenu)
-        .then(function(response) {
-          return response.data
-        })
+    function update(submenu) {
+      return $http.put(url(), submenu).then(function(response) {
+        return response.data
+      })
     }
 
     function destroy(serviceUserId, submenuId) {
       return $http
-        .delete(url(serviceUserId, submenuId))
+        .delete(url(), {
+          params: { serviceUserId: serviceUserId, submenuId: submenuId }
+        })
         .then(function(response) {
           cache.removeAll()
           return response.data

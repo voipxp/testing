@@ -200,20 +200,9 @@
       module: 'Auto Attendant'
     },
     {
-      path: 'autoAttendants/:serviceUserId',
+      path: 'autoAttendants/autoAttendant',
+      reloadOnSearch: true,
       component: 'autoAttendant',
-      acl: 'Group',
-      module: 'Auto Attendant'
-    },
-    {
-      path: 'autoAttendants/:serviceUserId/submenus',
-      component: 'groupAutoAttendantSubmenusIndex',
-      acl: 'Group',
-      module: 'Auto Attendant'
-    },
-    {
-      path: 'autoAttendants/:serviceUserId/:submenuId',
-      component: 'groupAutoAttendantSubmenu',
       acl: 'Group',
       module: 'Auto Attendant'
     },

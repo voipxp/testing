@@ -66,21 +66,29 @@
     }
 
     function show(serviceUserId) {
-      return $http.get(url(serviceUserId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), {
+          params: { serviceUserId: serviceUserId }
+        })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function update(aa) {
-      return $http.put(url(aa.serviceUserId), aa).then(function(response) {
+      return $http.put(url(), aa).then(function(response) {
         return response.data
       })
     }
 
     function destroy(serviceUserId) {
-      return $http.delete(url(serviceUserId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .delete(url(), {
+          params: { serviceUserId: serviceUserId }
+        })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function requiresPhone(key) {

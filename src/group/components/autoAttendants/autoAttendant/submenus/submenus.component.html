@@ -40,7 +40,8 @@
   service-user-id="$ctrl.serviceUserId"
   submenu-id="$ctrl.submenuId"
   module="$ctrl.module"
-  on-destroy="$ctrl.onDestroy()"></group-auto-attendant-submenu>
+  on-destroy="$ctrl.onDestroy()"
+  on-update="$ctrl.onUpdate($event)"></group-auto-attendant-submenu>
 
 <pbs-modal id="createAutoAttendantSubmenuProfileModal">
   <pbs-form>

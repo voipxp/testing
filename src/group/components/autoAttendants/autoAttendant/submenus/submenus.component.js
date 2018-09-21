@@ -11,11 +11,12 @@
     }
   })
 
-  function Controller(Alert, GroupAutoAttendantSubmenuService) {
+  function Controller(Alert, GroupAutoAttendantSubmenuService, $timeout) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.add = add
     ctrl.onDestroy = onDestroy
+    ctrl.onUpdate = onUpdate
 
     function onInit() {
       ctrl.loading = true
@@ -38,6 +39,7 @@
 
     function add() {
       ctrl.newMenu = {
+        serviceUserId: ctrl.serviceUserId,
         announcementSelection: 'Default',
         enableLevelExtensionDialing: false
       }
@@ -50,7 +52,7 @@
 
     function create(menu, callback) {
       Alert.spinner.open()
-      GroupAutoAttendantSubmenuService.store(ctrl.serviceUserId, menu)
+      GroupAutoAttendantSubmenuService.store(menu)
         .then(function() {
           Alert.notify.success('Submenu Created')
           callback()
@@ -58,6 +60,14 @@
         })
         .catch(Alert.notify.danger)
         .finally(Alert.spinner.close)
+    }
+
+    function onUpdate(event) {
+      console.log('onUpdate', event)
+      ctrl.submenuId = null
+      $timeout(function() {
+        ctrl.submenuId = event.newSubmenuId || event.submenuId
+      }, 1)
     }
 
     function onDestroy() {
