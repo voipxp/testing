@@ -17,6 +17,14 @@
       },
       {
         tag: '{{ phoneNumber }}',
+        example: '+1-5133334444'
+      },
+      {
+        tag: '{{ phoneNumberDigits }}',
+        example: '15133334444'
+      },
+      {
+        tag: '{{ phoneNumberShort }}',
         example: '5133334444'
       },
       {

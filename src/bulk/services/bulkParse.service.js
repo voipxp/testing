@@ -105,6 +105,20 @@
     }
 
     function addPhoneNumberTags(template, view) {
+      if (hasTag('phoneNumberDigits', template)) {
+        view.phoneNumberDigits = function() {
+          if (this.phoneNumber) {
+            return this.phoneNumber.toString().replace(/\D/g, '')
+          }
+        }
+      }
+      if (hasTag('phoneNumberShort', template)) {
+        view.phoneNumberShort = function() {
+          if (this.phoneNumber) {
+            return this.phoneNumber.toString().replace(/^\+\d+-/g, '')
+          }
+        }
+      }
       if (hasTag('phoneNumberLast3', template)) {
         view.phoneNumberLast3 = phoneNumberLast(3)
       }

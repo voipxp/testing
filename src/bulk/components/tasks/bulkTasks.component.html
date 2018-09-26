@@ -29,6 +29,7 @@
     <table pbs-table>
       <thead>
         <tr>
+          <td>ID</td>
           <th>User</th>
           <th>Task</th>
           <th>Status</th>
@@ -49,6 +50,7 @@
         <tr class="hover"
           ng-repeat="task in $ctrl.tasks | filter:$ctrl.searchStatus | filter:$ctrl.search as results track by task.id"
           ng-click="$ctrl.open(task)">
+          <td>{{ task.id }}</td>
           <td>{{ task.userId }}</td>
           <td>{{ task.type }}</td>
           <td>
