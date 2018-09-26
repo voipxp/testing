@@ -67,6 +67,7 @@
           }
         })
         .catch(function(error) {
+          service.isActive = !service.isActive
           Alert.notify.danger(error)
         })
     }

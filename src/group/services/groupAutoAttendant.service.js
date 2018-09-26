@@ -60,9 +60,11 @@
     }
 
     function status(aa) {
-      return $http.put(url(), { instances: [aa] }).then(function(response) {
-        return response.data
-      })
+      return $http
+        .put(url('status'), { instances: [aa] })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function show(serviceUserId) {
