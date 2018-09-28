@@ -39,11 +39,13 @@
       service.isLoading = true
 
       // format as an array to fit API requirements
-      var singleService = {}
+      var singleService = {
+        userId: ctrl.userId
+      }
       singleService[ctrl.serviceType] = [service]
 
       // Update service
-      UserServiceService.update(ctrl.userId, singleService)
+      UserServiceService.update(singleService)
         .then(function() {
           var message = service.assigned ? 'Assigned' : 'Unassigned'
           var action = service.assigned

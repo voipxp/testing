@@ -52,9 +52,11 @@
     }
 
     function toggle(user) {
-      var singleService = {}
-      singleService['userServices'] = [user.service]
-      UserServiceService.update(user.profile.userId, singleService)
+      var singleService = {
+        userId: user.profile.userId,
+        userServices: [user.service]
+      }
+      UserServiceService.update(singleService)
         .then(load)
         .then(function() {
           var message = user.service.assigned ? 'Assigned' : 'Unassigned'

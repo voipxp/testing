@@ -5,6 +5,7 @@
 
   function UserCallPoliciesService($http, Route) {
     var service = { show: show, update: update }
+    var url = Route.api2('users', 'callpolicies')
     service.options = {
       redirectedCallsCOLPPrivacy: [
         'No Privacy',
@@ -24,18 +25,16 @@
     }
     return service
 
-    function url(id) {
-      return Route.api('users')(id, 'callpolicies')
-    }
-
     function show(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
-    function update(userId, obj) {
-      return $http.put(url(userId), obj).then(function(response) {
+    function update(policies) {
+      return $http.put(url(), policies).then(function(response) {
         return response.data
       })
     }

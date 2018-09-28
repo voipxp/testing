@@ -31,7 +31,7 @@
 
     function update(policies, callback) {
       Alert.spinner.open()
-      UserCallPoliciesService.update(ctrl.userId, policies)
+      UserCallPoliciesService.update(policies)
         .then(loadPolicies)
         .then(function() {
           ctrl.editPolicies = {}
