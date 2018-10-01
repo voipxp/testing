@@ -35,15 +35,10 @@
         data
       ) {
         ctrl.settings = data
-        console.log('settings', data)
       })
     }
 
     function edit() {
-      console.log(
-        'ctrl.settings.forwardToPhoneNumber',
-        ctrl.settings.forwardToPhoneNumber
-      )
       ctrl.editSettings = angular.copy(ctrl.settings)
       Alert.modal.open('editUserCallForwardingNoAnswer', function(close) {
         update(ctrl.editSettings, close)
@@ -51,7 +46,6 @@
     }
 
     function update(settings, callback) {
-      console.log('UPDATE', settings)
       Alert.spinner.open()
       UserCallForwardingNoAnswerService.update(ctrl.userId, settings)
         .then(loadSettings)

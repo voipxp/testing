@@ -35,7 +35,6 @@
         data
       ) {
         ctrl.settings = data
-        console.log('settings', data)
       })
     }
 
@@ -53,7 +52,6 @@
     }
 
     function update(settings, callback) {
-      console.log('UPDATE', settings)
       Alert.spinner.open()
       UserAutomaticHoldRetrieveService.update(ctrl.userId, settings)
         .then(loadSettings)
