@@ -44,8 +44,10 @@
           ctrl.showCallCenterReport = Module.read('Premium Call Records')
         }
         ctrl.showCallRecords = Module.read('Premium Call Records')
+        ctrl.showBasicCallLogs = Module.read('Basic Call Logs')
         ctrl.showAssignServices = Module.read('Provisioning')
         ctrl.showReporting =
+          ctrl.showBasicCallLogs ||
           ctrl.showCallRecords ||
           ctrl.showAutoAttendantReport ||
           ctrl.showCallCenterReport

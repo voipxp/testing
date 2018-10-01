@@ -5,21 +5,19 @@
 
   function UserBasicCallLogService($http, Route, CacheFactory) {
     var service = { show: show }
-    var path = Route.api('services', 'users', 'basiccalllogs')
+    var url = Route.api2('/users/basic-call-logs')
     var cache = CacheFactory('UserBasicCallLogService', {
       maxAge: 5 * 60 * 1000
     })
     return service
 
-    function url(id) {
-      return path(id)
-    }
-
     function show(userId, noCache) {
       if (noCache) cache.remove(url(userId))
-      return $http.get(url(userId), { cache: cache }).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { userId: userId }, cache: cache })
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()

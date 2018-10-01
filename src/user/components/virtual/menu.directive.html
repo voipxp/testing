@@ -4,6 +4,10 @@
   </pbs-menu-section>
   <pbs-menu-section label="Reporting"
     ng-show="$ctrl.showReporting">
+    <pbs-menu-item label="Basic Call Logs"
+      ng-if="$ctrl.showBasicCallLogs">
+      <user-basic-call-logs user-id="$ctrl.userId"></user-basic-call-logs>
+    </pbs-menu-item>
     <pbs-menu-item label="Premium Call Records"
       ng-if="$ctrl.showCallRecords">
       <user-call-record-dashboard service-provider-id="$ctrl.serviceProviderId"

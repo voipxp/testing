@@ -24,7 +24,7 @@
       </thead>
       <tfoot>
         <tr ng-show="!$ctrl.logs[$ctrl.tab] || results.length < 1">
-          <td colspan="3">No Calls Found
+          <td colspan="3">No {{ $ctrl.tab | capitalize }} Calls Found
             <span ng-show="$ctrl.search">for
               <strong>{{ $ctrl.search }}</strong>
             </span>
