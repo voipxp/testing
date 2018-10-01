@@ -12,9 +12,7 @@
     UserSequentialRingService,
     UserSequentialRingServiceCriteria,
     ACL,
-    $scope,
     UserScheduleService,
-    UserHolidayScheduleService,
     Module
   ) {
     var ctrl = this
@@ -222,7 +220,7 @@
     }
 
     function loadHolidaySchedules() {
-      return UserHolidayScheduleService.index(ctrl.userId).then(function(data) {
+      return UserScheduleService.holidays(ctrl.userId).then(function(data) {
         ctrl.holidaySchedules = data
         return data
       })

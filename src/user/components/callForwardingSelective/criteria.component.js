@@ -54,6 +54,7 @@
 
     function add() {
       ctrl.editCriteria = {
+        userId: ctrl.userId,
         forwardToNumberSelection: 'Forward To Default Number',
         fromDnCriteria: {
           fromDnCriteriaSelection: 'Any'

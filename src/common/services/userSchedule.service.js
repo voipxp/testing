@@ -4,18 +4,25 @@
     .factory('UserScheduleService', UserScheduleService)
 
   function UserScheduleService($http, Route, CacheFactory) {
-    var service = { index: index }
+    var service = { index: index, holidays: holidays }
     var cache = CacheFactory('UserScheduleService')
+    var url = Route.api2('/users/schedules')
     return service
 
-    function url(id, scheduleId) {
-      return Route.api('users')(id, 'schedules', scheduleId)
+    function index(userId) {
+      return $http
+        .get(url(), { params: { userId: userId }, cache: cache })
+        .then(function(response) {
+          return response.data
+        })
     }
 
-    function index(userId) {
-      return $http.get(url(userId), { cache: cache }).then(function(response) {
-        return response.data
-      })
+    function holidays(userId) {
+      return $http
+        .get(url('holidays'), { params: { userId: userId }, cache: cache })
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()

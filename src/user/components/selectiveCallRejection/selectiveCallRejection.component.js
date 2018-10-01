@@ -11,7 +11,6 @@
     $q,
     SelectiveCallRejectionService,
     UserScheduleService,
-    UserHolidayScheduleService,
     Module
   ) {
     var ctrl = this
@@ -78,14 +77,8 @@
     }
 
     function loadHolidaySchedules() {
-      return UserHolidayScheduleService.index(ctrl.userId).then(function(data) {
+      return UserScheduleService.holidays(ctrl.userId).then(function(data) {
         ctrl.holidaySchedules = data
-        // var element = {}
-        // element.level = "";
-        // element.name = "";
-        // ctrl.holidaySchedules.push(element);
-        //
-        // console.log('holiday schedules', ctrl.holidaySchedules)
         return data
       })
     }

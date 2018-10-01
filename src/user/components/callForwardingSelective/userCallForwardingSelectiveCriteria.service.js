@@ -22,44 +22,43 @@
       ],
       fromDnCriteriaSelection: ['Any', 'Specified Only']
     }
+    var url = Route.api2('/users/call-forwarding-selective/criteria')
     return service
 
-    function url(userId, criteriaName) {
-      return Route.api('/services/users/callforwardingselective')(
-        userId,
-        'criteria',
-        criteriaName
-      )
-    }
-
     function index(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function create(userId, obj) {
-      return $http.post(url(userId), obj).then(function(response) {
+      return $http.post(url(), obj).then(function(response) {
         return response.data
       })
     }
 
     function show(userId, name) {
-      return $http.get(url(userId, name)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { userId: userId, criteriaName: name } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function update(userId, name, obj) {
-      return $http.put(url(userId, name), obj).then(function(response) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
 
     function destroy(userId, name) {
-      return $http.delete(url(userId, name)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .delete(url(), { params: { userId: userId, criteriaName: name } })
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()
