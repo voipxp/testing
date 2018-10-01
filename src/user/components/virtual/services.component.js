@@ -11,6 +11,8 @@
     ctrl.module = Module
     ctrl.select = select
 
+    var ignoredServices = ['Basic Call Logs']
+
     function onInit() {
       ctrl.loading = true
       return $q
@@ -29,7 +31,10 @@
     function loadServices() {
       return UserServiceService.assigned(ctrl.userId).then(function(data) {
         ctrl.services = _.filter(data.userServices || [], function(service) {
-          return Module.read(service.serviceName)
+          return (
+            !_.includes(ignoredServices, service.serviceName) &&
+            Module.read(service.serviceName)
+          )
         })
       })
     }
