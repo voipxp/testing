@@ -11,7 +11,7 @@
       update: update,
       destroy: destroy
     }
-    var url = Route.api2('groups', 'departments', 'admins')
+    var url = Route.api2('/groups/departments/admins')
     return service
 
     function index(serviceProviderId, groupId, name) {

@@ -20,8 +20,6 @@
     ctrl.$onChanges = onChanges
 
     function onInit() {
-      console.log('WTF', ctrl.allUsers)
-      console.log('WTF', ctrl.selectedUsers)
       ctrl.loading = true
       return loadData()
         .catch(Alert.notify.danger)

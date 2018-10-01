@@ -32,7 +32,7 @@
     }
 
     function loadSettings() {
-      return AlternateNumbersService.index(ctrl.userId).then(function(data) {
+      return AlternateNumbersService.show(ctrl.userId).then(function(data) {
         ctrl.settings = data
         return ctrl.settings
       })
@@ -85,7 +85,7 @@
 
     function update(settings, callback) {
       Alert.spinner.open()
-      AlternateNumbersService.update(ctrl.userId, settings)
+      AlternateNumbersService.update(settings)
         .then(loadSettings)
         .then(function() {
           Alert.notify.success('Settings Update')

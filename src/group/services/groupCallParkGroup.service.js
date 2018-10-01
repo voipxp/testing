@@ -2,7 +2,7 @@
   angular.module('odin.group').factory('GroupCallParkGroupService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('services', 'groups', 'callpark', 'groups')
+    var url = Route.api2('/groups/call-park/groups')
 
     var service = {
       index: index,

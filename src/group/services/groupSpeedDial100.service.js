@@ -2,7 +2,7 @@
   angular.module('odin.group').factory('GroupSpeedDial100Service', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/services/groups/speeddial100')
+    var url = Route.api2('/groups/speed-dial-100')
 
     var service = {
       show: show,

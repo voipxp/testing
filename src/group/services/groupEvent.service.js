@@ -2,7 +2,7 @@
   angular.module('odin.group').factory('GroupEventService', GroupEventService)
 
   function GroupEventService($http, Route) {
-    var url = Route.api2('/services/groups/events')
+    var url = Route.api2('/groups/events')
     var service = {
       index: index,
       store: store,

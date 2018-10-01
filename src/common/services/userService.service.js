@@ -10,7 +10,7 @@
       assigned: assigned,
       viewable: viewable
     }
-    var url = Route.api2('users', 'services')
+    var url = Route.api2('/users/services')
 
     // clear cache on service related updates
     // $rootScope.$on('GroupViewablePackService:updated', clearCache)

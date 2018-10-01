@@ -4,7 +4,7 @@
     .factory('GroupScheduleService', GroupScheduleService)
 
   function GroupScheduleService($http, Route) {
-    var url = Route.api2('/services/groups/schedules')()
+    var url = Route.api2('/groups/schedules')
     var service = {
       index: index,
       store: store,
@@ -16,7 +16,7 @@
 
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url, {
+        .get(url(), {
           params: { serviceProviderId: serviceProviderId, groupId: groupId }
         })
         .then(function(response) {
@@ -25,14 +25,14 @@
     }
 
     function store(schedule) {
-      return $http.post(url, schedule).then(function(response) {
+      return $http.post(url(), schedule).then(function(response) {
         return response.data
       })
     }
 
     function show(serviceProviderId, groupId, scheduleName, scheduleType) {
       return $http
-        .get(url, {
+        .get(url(), {
           params: {
             serviceProviderId: serviceProviderId,
             groupId: groupId,
@@ -46,14 +46,14 @@
     }
 
     function update(schedule) {
-      return $http.put(url, schedule).then(function(response) {
+      return $http.put(url(), schedule).then(function(response) {
         return response.data
       })
     }
 
     function destroy(schedule) {
       return $http
-        .delete(url, {
+        .delete(url(), {
           params: {
             serviceProviderId: schedule.serviceProviderId,
             groupId: schedule.groupId,

@@ -4,8 +4,8 @@
     .factory('AlternateNumbersService', AlternateNumbersService)
 
   function AlternateNumbersService($http, Route) {
-    var url = Route.api('/services/users/alternatenumbers')
-    var service = { index: index, update: update }
+    var url = Route.api2('/users/alternate-numbers')
+    var service = { show: show, update: update }
     service.options = {
       ringPatterns: [
         'Normal',
@@ -16,14 +16,16 @@
     }
     return service
 
-    function index(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+    function show(userId) {
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
-    function update(userId, obj) {
-      return $http.put(url(userId), obj).then(function(response) {
+    function update(settings) {
+      return $http.put(url(), settings).then(function(response) {
         return response.data
       })
     }
