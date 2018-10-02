@@ -11,7 +11,7 @@
       bulk: bulk
     }
     var cache = CacheFactory('UserService')
-    var url = Route.api('users')
+    var url = Route.api2('users')
 
     return service
 
@@ -40,13 +40,15 @@
     }
 
     function show(userId) {
-      return $http.get(url(userId), { cache: cache }).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { userId: userId }, cache: cache })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function update(userId, user) {
-      return $http.put(url(userId), user).then(function(response) {
+      return $http.put(url(), user).then(function(response) {
         cache.removeAll()
         return response.data
       })
@@ -54,7 +56,7 @@
 
     function bulk(data) {
       return $http
-        .put(url(), data)
+        .put(url('bulk'), data)
         .then(function(response) {
           return response.data
         })
@@ -64,10 +66,12 @@
     }
 
     function destroy(userId) {
-      return $http.delete(url(userId)).then(function(response) {
-        cache.removeAll()
-        return response.data
-      })
+      return $http
+        .delete(url(), { params: { userId: userId } })
+        .then(function(response) {
+          cache.removeAll()
+          return response.data
+        })
     }
   }
 })()
