@@ -4,8 +4,8 @@
     .factory('UserOutlookIntegrationService', UserOutlookIntegrationService)
 
   function UserOutlookIntegrationService($http, Route) {
-    var url = Route.api('/services/users/outlookintegration')
-    var service = { show: show, update: update, index: index }
+    var url = Route.api2('/users/outlook-integration')
+    var service = { show: show, update: update }
     service.options = {
       contactRetrievalSelection: [
         'Retrieve Default Contact Folder Only',
@@ -16,20 +16,15 @@
     return service
 
     function show(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
-    }
-
-    function index(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function update(userId, obj) {
-      return $http.put(url(userId), obj).then(function(response) {
-        console.log(response.data)
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }

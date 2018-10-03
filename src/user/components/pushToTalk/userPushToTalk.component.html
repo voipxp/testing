@@ -40,7 +40,7 @@
       <tbody>
         <tr class="hover"
           ng-click="$ctrl.editUsers()"
-          ng-repeat="user in $ctrl.users| filter:$ctrl.search as results track by user.userId">
+          ng-repeat="user in $ctrl.settings.users | filter:$ctrl.search as results track by user.userId">
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
           <td>{{ user.userId }}</td>

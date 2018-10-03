@@ -37,11 +37,6 @@
     function loadSettings() {
       return UserPushToTalkService.show(ctrl.userId).then(function(data) {
         ctrl.settings = data
-        console.log('ctrl.settings', ctrl.settings)
-        ctrl.users = data.selectedUserTable
-        // var split = ctrl.settings.listURI.split('@')
-        // ctrl.prefix = split[0]
-        // ctrl.suffix = split[1]
       })
     }
 
@@ -55,12 +50,10 @@
     function editUsers() {
       if (!ctrl.module.permissions.update) return
       loadAvailableUsers().then(function(available) {
-        ctrl.assignedUsers = angular.copy(ctrl.users)
-        console.log('available', available)
+        ctrl.assignedUsers = angular.copy(ctrl.settings.users)
         ctrl.availableUsers = _.filter(available, function(user) {
           return !_.find(ctrl.assignedUsers, { userId: user.userId })
         })
-        console.log('availableUsers', ctrl.availableUsers)
         Alert.modal.open('editUserPushToTalkUsers', function onSave(close) {
           updateUsers(ctrl.assignedUsers, close)
         })
@@ -69,7 +62,8 @@
 
     function updateUsers(users, callback) {
       Alert.spinner.open()
-      var obj = { users: users }
+      var obj = angular.copy(ctrl.settings)
+      obj.users = users
       UserPushToTalkService.update(ctrl.userId, obj)
         .then(loadSettings)
         .then(function() {
@@ -112,7 +106,7 @@
 
     function loadAvailableUsers() {
       Alert.spinner.open()
-      return UserPushToTalkService.availableusers(ctrl.userId)
+      return UserPushToTalkService.users(ctrl.userId)
         .then(function(data) {
           console.log('loadAvailableUsers', data.users)
           return data.users
