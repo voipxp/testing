@@ -1,31 +1,24 @@
 ;(function() {
   angular
     .module('odin.user')
-    .factory(
-      'UserExternalCallingLineIdDeliveryService',
-      UserExternalCallingLineIdDeliveryService
-    )
+    .factory('UserExternalCallingLineIdDeliveryService', Service)
 
-  function UserExternalCallingLineIdDeliveryService($http, Route) {
-    var url = Route.api('/services/users/externalcallinglineiddelivery')
-    var service = { show: show, update: update, index: index }
+  function Service($http, Route) {
+    var url = Route.api2('/users/external-calling-line-id-delivery')
+    var service = { show: show, update: update }
     service.options = {}
     return service
 
     function show(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
-    }
-
-    function index(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function update(userId, obj) {
-      return $http.put(url(userId), obj).then(function(response) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }

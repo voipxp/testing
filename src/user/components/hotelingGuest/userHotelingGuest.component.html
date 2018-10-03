@@ -15,8 +15,8 @@
       <pbs-list-item label="Enforce Association Limit Hours">
         {{$ctrl.settings.associationLimitHours}}
       </pbs-list-item>
-      <pbs-list-item label="Hosts">
-        {{$ctrl.settings.hostUserId}}
+      <pbs-list-item label="Host">
+        {{$ctrl.settings.hostDescription}}
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
@@ -39,7 +39,7 @@
     </pbs-form-field>
     <pbs-form-field label="Hosts">
       <pbs-input-select ng-model="$ctrl.editSettings.hostUserId"
-        ng-options="i.userId as i.hiraganaFirstName + ' ' + i.hiraganaLastName + ' ' + i.userId + ' ' for i in $ctrl.availableUsers">
+        ng-options="user.userId as $ctrl.userDescription(user) for user in $ctrl.availableUsers">
       </pbs-input-select>
     </pbs-form-field>
   </pbs-form>

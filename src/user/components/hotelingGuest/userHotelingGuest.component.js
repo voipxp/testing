@@ -10,35 +10,36 @@
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
-
     ctrl.availableUsers = {}
+    ctrl.userDescription = userDescription
     ctrl.options = UserHotelingGuestService.options
 
     function onInit() {
       ctrl.loading = true
       $q.all([loadSettings(), loadAvailableUsers(), loadModule()])
+        .then(function() {
+          ctrl.availableUsers.push({ userId: '' })
+          if (ctrl.settings.hostUserId) {
+            ctrl.availableUsers.push({
+              userId: ctrl.settings.hostUserId,
+              firstName: ctrl.settings.hostFirstName,
+              lastName: ctrl.settings.hostLastName
+            })
+          } else {
+            ctrl.settings.hostUserId = ''
+          }
+        })
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
-          console.log('ctrl.userId : ', ctrl.userId)
-          var object = {
-            hiraganaFirstName: '',
-            hiraganaLastName: '',
-            userId: ''
-          }
-          ctrl.availableUsers.push(object)
-
-          if (ctrl.settings.hostUserId && ctrl.settings.hostUserId.length > 0) {
-            var obj = {
-              hiraganaFirstName: ctrl.settings.hostFirstName,
-              hiraganaLastName: ctrl.settings.hostLastName,
-              userId: ctrl.settings.hostUserId
-            }
-            ctrl.availableUsers.push(obj)
-          }
           ctrl.loading = false
         })
+    }
+
+    function userDescription(user) {
+      if (!user.userId) return '--NONE--'
+      return user.firstName + ' ' + user.lastName + ' (' + user.userId + ')'
     }
 
     function loadModule() {
@@ -50,22 +51,24 @@
     function loadSettings() {
       return UserHotelingGuestService.show(ctrl.userId).then(function(data) {
         ctrl.settings = data
-        console.log('settings', data)
+        if (ctrl.settings.hostUserId) {
+          ctrl.settings.hostDescription = userDescription({
+            userId: ctrl.settings.hostUserId,
+            lastName: ctrl.settings.hostLastName,
+            firstName: ctrl.settings.hostFirstName
+          })
+        }
       })
     }
 
     function loadAvailableUsers() {
       return UserHotelingGuestService.index(ctrl.userId).then(function(data) {
         ctrl.availableUsers = data
-        console.log('availableUsers: ', ctrl.availableUsers)
-        return ctrl.availableUsers
       })
     }
 
     function edit() {
-      console.log('ctrl.settings:', ctrl.settings)
       ctrl.editSettings = angular.copy(ctrl.settings)
-      console.log('ctrl.editSettings:', ctrl.editSettings)
       Alert.modal.open('editUserHotelingGuest', function onSave(close) {
         update(ctrl.editSettings, close)
       })
@@ -73,10 +76,9 @@
 
     function update(settings, callback) {
       console.log('UPDATE', settings)
-      console.log('ctrl.userId', ctrl.userId)
       Alert.spinner.open()
       UserHotelingGuestService.update(ctrl.userId, settings)
-        .then(loadSettings)
+        .then(onInit)
         .then(function() {
           Alert.notify.success('Settings Updated')
           if (_.isFunction(callback)) callback()

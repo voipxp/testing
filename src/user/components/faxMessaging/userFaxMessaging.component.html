@@ -9,13 +9,13 @@
       <pbs-list-item label="Active">
         <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
       </pbs-list-item>
-      <pbs-list-item label="phoneNumber">
+      <pbs-list-item label="Phone Number">
         {{$ctrl.settings.phoneNumber}}
       </pbs-list-item>
       <pbs-list-item label="Extension">
         {{$ctrl.settings.extension}}
       </pbs-list-item>
-      <pbs-list-item label="Alias"
+      <pbs-list-item label="Aliases"
         ng-repeat="i in [0,1,2]">
         {{ $ctrl.settings.aliases[i].phoneNumber}}
       </pbs-list-item>
@@ -27,7 +27,7 @@
   <pbs-form>
     <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
       label="Is Active"></pbs-input-checkbox>
-    <pbs-form-field label="phoneNumber"
+    <pbs-form-field label="Phone Number"
       ng-if="$ctrl.hasPermission('Group')">
       <pbs-input-select ng-model="$ctrl.editSettings.phoneNumber"
         ng-options="number.min as number.min for number in $ctrl.availableNumbers"
@@ -35,7 +35,7 @@
         <option value="">-- None --</option>
       </pbs-input-select>
     </pbs-form-field>
-    <pbs-form-field label="extension"
+    <pbs-form-field label="Extension"
       ng-if="$ctrl.hasPermission('Group')">
       <input type="text"
         class="input"
