@@ -5,29 +5,39 @@
     bindings: { userId: '<' }
   })
 
-  function Controller(Alert, SpeedDial100Service, Session, $q, Module) {
+  function Controller(Alert, SpeedDial100Service, $q, Module) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.saveAlternateNumbers = saveAlternateNumbers
-    ctrl.speedCodes = SpeedDial100Service.options.speedCodes
-    ctrl.speedCodesEntry = []
-    ctrl.speedDialNumbers = {}
-    ctrl.speedDialCode = {}
-    ctrl.speedDialCodeOrig = {}
-    ctrl.range = _.range(1, 11)
-    ctrl.loginType = Session.data('loginType')
-    ctrl.editSpeedDialCode = editSpeedDialCode
-    ctrl.addSpeedDialEntry = addSpeedDialEntry
-    ctrl.loadSpeedDialCodes = loadSpeedDialCodes
-    ctrl.isAdd = false
+    ctrl.edit = edit
+    ctrl.add = add
+
+    ctrl.columns = [
+      {
+        key: 'speedCode',
+        label: 'Code'
+      },
+      {
+        key: 'phoneNumber',
+        label: 'Phone Number'
+      },
+      {
+        key: 'description',
+        label: 'Description'
+      }
+    ]
+
+    // generate 100 speed codes
+    var allSpeedCodes = _.range(0, 100).map(function(number) {
+      return number.toString()
+    })
 
     function onInit() {
-      ctrl.loading = true
+      ctrl.isLoading = true
       return $q
-        .all([loadSpeedDialNumbers(), loadSpeedDialCodes(), loadModule()])
+        .all([loadSpeedCodes(), loadModule()])
         .catch(Alert.notify.danger)
         .finally(function() {
-          ctrl.loading = false
+          ctrl.isLoading = false
         })
     }
 
@@ -37,151 +47,85 @@
       })
     }
 
-    function editSpeedDialCode(speedDialCode) {
-      if (!ctrl.module.permissions.update) return
-      ctrl.isAdd = false
-      ctrl.speedDialCode = speedDialCode
-      ctrl.speedDialCode.speedCode = parseInt(ctrl.speedDialCode.speedCode)
-      ctrl.speedDialCodeOrig = angular.copy(speedDialCode)
-      ctrl.loadingEntry = true
-      loadSpeedDialCodes()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          ctrl.loadingEntry = false
-        })
+    function loadSpeedCodes() {
+      return SpeedDial100Service.index(ctrl.userId).then(function(data) {
+        ctrl.settings = data
+      })
+    }
 
-      var onDelete
-      if (ctrl.module.permissions.delete) {
-        onDelete = function(close) {
-          _deleteSpeedDialCode(ctrl.speedDialCode, close)
-        }
-      }
+    function add() {
+      var usedSpeedCodes = _.map(ctrl.settings.speedCodes, 'speedCode')
+      ctrl.availableSpeedCodes = _.difference(allSpeedCodes, usedSpeedCodes)
+      ctrl.newSpeedCode = {}
+      Alert.modal.open('add-speedDial100SpeedCode', function onSave(close) {
+        create(ctrl.newSpeedCode, close)
+      })
+    }
 
+    function edit(code) {
+      console.log('edit', code)
+      ctrl.editSpeedCode = angular.copy(code)
       Alert.modal.open(
-        'edit-speedDialEntryEntry',
+        'edit-speedDial100SpeedCode',
         function onSave(close) {
-          _saveSpeedDialCode(ctrl.speedDialCode, close)
+          update(ctrl.editSpeedCode, close)
         },
-        onDelete
+        function onDelete(close) {
+          Alert.confirm
+            .open('Are you sure you want to delete this SpeedCode?')
+            .then(function() {
+              destroy(ctrl.editSpeedCode, close)
+            })
+        }
       )
     }
 
-    function addSpeedDialEntry() {
-      ctrl.speedDialCode = {}
-      ctrl.isAdd = true
-      ctrl.loadingEntry = true
-      loadSpeedDialCodes()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          ctrl.loadingEntry = false
-        })
-      Alert.modal.open('edit-speedDialEntryEntry', function onSave(close) {
-        _addSpeedDialEntry(ctrl.speedDialCode, close)
-      })
-    }
-
-    function _deleteSpeedDialCode(speedDialCode, callback) {
+    function create(speedCode, callback) {
+      var settings = {
+        userId: ctrl.userId,
+        speedCodes: [speedCode]
+      }
       Alert.spinner.open()
-      var arr = { speedDialEntry: [speedDialCode] }
-
-      SpeedDial100Service.destroy(ctrl.userId, arr)
+      SpeedDial100Service.store(ctrl.userId, settings)
+        .then(loadSpeedCodes)
         .then(function() {
-          ctrl.speedDialCode = speedDialCode
-          Alert.notify.danger('Saving speed dial code complete')
-          if (_.isFunction(callback)) {
-            callback()
-          }
-          return $q.all([loadSpeedDialCodes()])
+          Alert.notify.success('SpeedCode Added')
+          callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
-    function _addSpeedDialEntry(speedDialCode, callback) {
+    function update(speedCode, callback) {
+      var settings = {
+        userId: ctrl.userId,
+        speedCodes: [speedCode]
+      }
       Alert.spinner.open()
-      var arr = { speedDialEntry: [speedDialCode] }
-      SpeedDial100Service.create(ctrl.userId, arr)
+      SpeedDial100Service.update(ctrl.userId, settings)
+        .then(loadSpeedCodes)
         .then(function() {
-          ctrl.speedDialCode = speedDialCode
-          Alert.notify.danger('Speed dial entry complete')
-          if (_.isFunction(callback)) {
-            callback()
-          }
-          return $q.all([loadSpeedDialCodes()])
+          Alert.notify.success('SpeedCode Updated')
+          callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
-    function _saveSpeedDialCode(speedDialCode, callback) {
+    function destroy(speedCode, callback) {
+      var settings = {
+        userId: ctrl.userId,
+        speedCodes: [speedCode]
+      }
       Alert.spinner.open()
-      var arr = { speedDialEntry: [speedDialCode] }
-      SpeedDial100Service.update(ctrl.userId, arr)
+      SpeedDial100Service.destroy(ctrl.userId, settings)
+        .then(loadSpeedCodes)
         .then(function() {
-          ctrl.speedDialCode = speedDialCode
-          Alert.notify.danger('Saving speed dial code complete')
-          if (_.isFunction(callback)) {
-            callback()
-          }
-          return $q.all([loadSpeedDialCodes(), loadSpeedDialNumbers()])
+          Alert.notify.warning('SpeedCode Removed')
+          callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
-    }
-
-    function loadSpeedDialCodes() {
-      ctrl.speedCodesEntry = {}
-      return SpeedDial100Service.index(ctrl.userId).then(function(data) {
-        ctrl.speedDialNumbers = data
-        var arr = []
-        Object.keys(data.speedDialEntry).forEach(function(key) {
-          arr.push(parseInt(data.speedDialEntry[key].speedCode))
-        })
-        ctrl.speedCodesEntry = _.difference(ctrl.speedCodes, arr)
-        ctrl.speedCodesEntry.push(parseInt(ctrl.speedDialCode.speedCode))
-        return ctrl.speedDialNumbers
-      })
-    }
-
-    function loadSpeedDialNumbers() {
-      return SpeedDial100Service.index(ctrl.userId).then(function(data) {
-        ctrl.speedDialNumbers = data
-        return ctrl.speedDialNumbers
-      })
-    }
-
-    function saveAlternateNumbers(speedDialNumbers, callback) {
-      Alert.spinner.open()
-      SpeedDial100Service.update(ctrl.userId, speedDialNumbers)
-        .then(function() {
-          Alert.notify.danger('Alternate numbers saved')
-          Alert.notify.success('Alternate numbers saved')
-          if (_.isFunction(callback)) {
-            callback()
-          }
-        })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()

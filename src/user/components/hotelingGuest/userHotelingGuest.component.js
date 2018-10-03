@@ -75,7 +75,6 @@
     }
 
     function update(settings, callback) {
-      console.log('UPDATE', settings)
       Alert.spinner.open()
       UserHotelingGuestService.update(ctrl.userId, settings)
         .then(onInit)
