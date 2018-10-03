@@ -87,7 +87,7 @@
 
     function loadAvailableUsers() {
       Alert.spinner.open()
-      return UserBusyLampFieldService.availableusers(ctrl.userId)
+      return UserBusyLampFieldService.users(ctrl.userId)
         .then(function(data) {
           return data.users
         })
