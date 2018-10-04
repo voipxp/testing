@@ -8,10 +8,9 @@
   function Controller(
     $q,
     Alert,
-    UserCallCenterSettingsService,
+    UserCallCenterService,
     GroupCallCenterThresholdProfileService,
     EnterpriseCallCenterThresholdProfileService,
-    UserCallCenterDnisService,
     Session,
     UserService,
     Module
@@ -23,7 +22,7 @@
     ctrl.canEditAvailability = canEditAvailability
     ctrl.canEditSkillLevel = canEditSkillLevel
     ctrl.isAdmin = isAdmin
-    ctrl.options = UserCallCenterSettingsService.options
+    ctrl.options = UserCallCenterService.options
     ctrl.isEnterprise = false
 
     function onInit() {
@@ -56,11 +55,8 @@
     }
 
     function loadSettings() {
-      return UserCallCenterSettingsService.show(ctrl.userId).then(function(
-        data
-      ) {
+      return UserCallCenterService.show(ctrl.userId).then(function(data) {
         ctrl.settings = data
-        console.log('settings', data)
       })
     }
 
@@ -76,14 +72,12 @@
         })
         .then(function(data) {
           ctrl.profiles = data
-          console.log('profiles', data)
         })
     }
 
     function loadDNIS() {
-      return UserCallCenterDnisService.index(ctrl.userId).then(function(data) {
-        ctrl.dnis = data
-        console.log('dnis', data)
+      return UserCallCenterService.dnis(ctrl.userId).then(function(data) {
+        ctrl.dnis = data.dnis
       })
     }
 
@@ -133,7 +127,7 @@
     function update(settings, callback) {
       console.log('UPDATE', settings)
       Alert.spinner.open()
-      UserCallCenterSettingsService.update(ctrl.userId, settings)
+      UserCallCenterService.update(ctrl.userId, settings)
         .then(loadSettings)
         .then(function() {
           Alert.notify.success('Settings Updated')

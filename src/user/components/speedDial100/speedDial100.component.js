@@ -63,7 +63,6 @@
     }
 
     function edit(code) {
-      console.log('edit', code)
       ctrl.editSpeedCode = angular.copy(code)
       Alert.modal.open(
         'edit-speedDial100SpeedCode',
