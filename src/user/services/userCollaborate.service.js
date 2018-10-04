@@ -4,7 +4,7 @@
     .factory('UserCollaborateService', UserCollaborateService)
 
   function UserCollaborateService($http, Route) {
-    var url = Route.api('/services/users/collaborate')
+    var url = Route.api2('/users/collaborate')
 
     var service = {
       bridge: bridge,
@@ -27,24 +27,30 @@
     return service
 
     function bridge(userId) {
-      return $http.get(url(userId) + '/bridge').then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url('bridge'), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
+
     function show(userId) {
-      return $http.get(url(userId) + '/myroom').then(function(response) {
+      return $http
+        .get(url('my-room'), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
+    }
+
+    function update(userId, obj) {
+      return $http.put(url('my-room'), obj).then(function(response) {
         return response.data
       })
     }
 
-    function update(userId, obj) {
-      return $http.put(url(userId) + '/myroom', obj).then(function(response) {
-        return response.data
-      })
-    }
     function regenerate(userId, roomId) {
       return $http
-        .put(url(userId) + '/regenerate/' + roomId)
+        .put(url('regenerate'), { userId: userId, roomId: roomId })
         .then(function(response) {
           return response.data
         })

@@ -1,13 +1,10 @@
 ;(function() {
   angular
     .module('odin.user')
-    .factory(
-      'UserCollaborateInstantRoomService',
-      UserCollaborateInstantRoomService
-    )
+    .factory('UserCollaborateInstantRoomService', Service)
 
-  function UserCollaborateInstantRoomService($http, Route) {
-    var url = Route.api('/services/users/collaborate')
+  function Service($http, Route) {
+    var url = Route.api2('/users/collaborate/instant-room')
 
     var service = {
       show: show,
@@ -20,17 +17,17 @@
     return service
 
     function show(userId) {
-      return $http.get(url(userId) + '/instantroom').then(function(response) {
-        return response.data
-      })
-    }
-
-    function update(userId, obj) {
       return $http
-        .put(url(userId) + '/instantroom', obj)
+        .get(url(), { params: { userId: userId } })
         .then(function(response) {
           return response.data
         })
+    }
+
+    function update(userId, obj) {
+      return $http.put(url(), obj).then(function(response) {
+        return response.data
+      })
     }
   }
 })()
