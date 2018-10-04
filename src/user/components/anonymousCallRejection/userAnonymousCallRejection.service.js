@@ -6,11 +6,22 @@
   function Controller($http, Route) {
     var url = Route.api2('/users/anonymous-call-rejection')
     var service = {
+      index: index,
       show: show,
       update: update
     }
 
     return service
+
+    function index(serviceProviderId, groupId) {
+      return $http
+        .get(url(), {
+          params: { serviceProviderId: serviceProviderId, groupId: groupId }
+        })
+        .then(function(response) {
+          return response.data
+        })
+    }
 
     function show(userId) {
       return $http

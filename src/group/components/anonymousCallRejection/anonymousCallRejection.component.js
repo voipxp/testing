@@ -9,7 +9,7 @@
   function Controller(
     $routeParams,
     Alert,
-    GroupAnonymousCallRejectionService,
+    UserAnonymousCallRejectionService,
     UserServiceService,
     Route
   ) {
@@ -33,7 +33,7 @@
     }
 
     function load() {
-      return GroupAnonymousCallRejectionService.users(
+      return UserAnonymousCallRejectionService.index(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {

@@ -9,7 +9,7 @@
   function Controller(
     $routeParams,
     Alert,
-    GroupAutomaticCallbackService,
+    UserAutomaticCallbackService,
     UserServiceService,
     Route
   ) {
@@ -33,7 +33,7 @@
     }
 
     function load() {
-      return GroupAutomaticCallbackService.users(
+      return UserAutomaticCallbackService.index(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
