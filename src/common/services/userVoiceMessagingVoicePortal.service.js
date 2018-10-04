@@ -1,28 +1,25 @@
 ;(function() {
   angular
     .module('odin.common')
-    .factory(
-      'UserVoiceMessagingVoicePortalService',
-      UserVoiceMessagingVoicePortalService
-    )
+    .factory('UserVoiceMessagingVoicePortalService', Service)
 
-  function UserVoiceMessagingVoicePortalService($http, Route) {
+  function Service($http, Route) {
+    var url = Route.api2('/users/voice-messaging/voice-portal')
+
     var service = { show: show, update: update }
     service.options = { mediaTypes: ['WMA', 'WAV', '3GP', 'MOV'] }
     return service
 
-    function url(id) {
-      return Route.api('/services/users')(id, 'voicemessaging', 'voiceportal')
-    }
-
     function show(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function update(userId, obj) {
-      return $http.put(url(userId), obj).then(function(response) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }

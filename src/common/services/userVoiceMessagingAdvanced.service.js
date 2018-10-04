@@ -1,13 +1,13 @@
 ;(function() {
   angular
     .module('odin.common')
-    .factory(
-      'UserVoiceMessagingAdvancedService',
-      UserVoiceMessagingAdvancedService
-    )
+    .factory('UserVoiceMessagingAdvancedService', Service)
 
-  function UserVoiceMessagingAdvancedService($http, Route) {
+  function Service($http, Route) {
     var service = { show: show, update: update }
+
+    var url = Route.api2('/users/voice-messaging/advanced')
+
     service.options = {
       mailServerSelection: ['Group Mail Server', 'Personal Mail Server'],
       groupMailServerFullMailboxLimit: [
@@ -35,18 +35,16 @@
 
     return service
 
-    function url(id) {
-      return Route.api('/services/users')(id, 'voicemessaging', 'advanced')
+    function show(userId) {
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
-    function show(id) {
-      return $http.get(url(id)).then(function(response) {
-        return response.data
-      })
-    }
-
-    function update(id, obj) {
-      return $http.put(url(id), obj).then(function(response) {
+    function update(userId, obj) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }

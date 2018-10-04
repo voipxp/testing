@@ -6,12 +6,7 @@
     bindings: { module: '<' }
   })
 
-  function Controller(
-    $routeParams,
-    Alert,
-    GroupVoiceMessagingService,
-    UserVoiceMessagingService
-  ) {
+  function Controller($routeParams, Alert, UserVoiceMessagingService) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -55,7 +50,7 @@
     }
 
     function load() {
-      return GroupVoiceMessagingService.users(
+      return UserVoiceMessagingService.index(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {

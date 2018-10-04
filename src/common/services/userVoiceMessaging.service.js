@@ -1,10 +1,9 @@
 ;(function() {
-  angular
-    .module('odin.common')
-    .factory('UserVoiceMessagingService', UserVoiceMessagingService)
+  angular.module('odin.common').factory('UserVoiceMessagingService', Service)
 
-  function UserVoiceMessagingService($http, Route) {
-    var service = { show: show, update: update, bulk: bulk }
+  function Service($http, Route) {
+    var service = { index: index, show: show, update: update, bulk: bulk }
+    var url = Route.api2('/users/voice-messaging')
     service.options = {
       processing: [
         'Unified Voice and Email Messaging',
@@ -13,25 +12,31 @@
     }
     return service
 
-    function url(id) {
-      return Route.api('/services/users')(id, 'voicemessaging')
+    function index(serviceProviderId, groupId) {
+      return $http
+        .get(url('bulk'), {
+          params: { serviceProviderId: serviceProviderId, groupId: groupId }
+        })
+        .then(function(response) {
+          return response.data
+        })
+    }
+    function show(userId) {
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
-    function show(id) {
-      return $http.get(url(id)).then(function(response) {
-        return response.data
-      })
-    }
-
-    function update(id, obj) {
-      return $http.put(url(id), obj).then(function(response) {
+    function update(userId, obj) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
 
     function bulk(data) {
-      var path = Route.api('/services/users/voicemessaging')()
-      return $http.put(path, data).then(function(response) {
+      return $http.put(url('bulk'), data).then(function(response) {
         return response.data
       })
     }
