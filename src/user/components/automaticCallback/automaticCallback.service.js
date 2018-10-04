@@ -15,7 +15,7 @@
 
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url(), {
+        .get(url('bulk'), {
           params: { serviceProviderId: serviceProviderId, groupId: groupId }
         })
         .then(function(response) {

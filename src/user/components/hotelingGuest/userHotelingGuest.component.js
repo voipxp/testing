@@ -62,7 +62,7 @@
     }
 
     function loadAvailableUsers() {
-      return UserHotelingGuestService.index(ctrl.userId).then(function(data) {
+      return UserHotelingGuestService.users(ctrl.userId).then(function(data) {
         ctrl.availableUsers = data
       })
     }

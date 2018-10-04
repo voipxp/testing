@@ -5,12 +5,7 @@
     bindings: { module: '<' }
   })
 
-  function Controller(
-    $routeParams,
-    Alert,
-    GroupHotelingHostService,
-    UserHotelingHostService
-  ) {
+  function Controller($routeParams, Alert, UserHotelingHostService) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -68,7 +63,7 @@
     }
 
     function load() {
-      return GroupHotelingHostService.users(
+      return UserHotelingHostService.index(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {

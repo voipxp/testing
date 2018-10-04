@@ -6,12 +6,23 @@
   function Service($http, Route) {
     var url = Route.api2('/users/calling-line-id-delivery-blocking')
     var service = {
+      index: index,
       show: show,
       update: update,
       bulk: bulk
     }
 
     return service
+
+    function index(serviceProviderId, groupId) {
+      return $http
+        .get(url('bulk'), {
+          params: { serviceProviderId: serviceProviderId, groupId: groupId }
+        })
+        .then(function(response) {
+          return response.data
+        })
+    }
 
     function show(userId) {
       return $http

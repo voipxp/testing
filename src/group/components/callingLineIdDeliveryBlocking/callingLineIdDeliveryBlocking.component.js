@@ -9,7 +9,6 @@
   function Controller(
     $routeParams,
     Alert,
-    GroupCallingLineIdDeliveryBlockingService,
     UserCallingLineIdDeliveryBlockingService
   ) {
     var ctrl = this
@@ -54,7 +53,7 @@
     }
 
     function load() {
-      return GroupCallingLineIdDeliveryBlockingService.users(
+      return UserCallingLineIdDeliveryBlockingService.index(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {

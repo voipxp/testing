@@ -5,12 +5,7 @@
     bindings: { module: '<' }
   })
 
-  function Controller(
-    $routeParams,
-    Alert,
-    GroupCallRecordingService,
-    UserCallRecordingService
-  ) {
+  function Controller($routeParams, Alert, UserCallRecordingService) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -52,7 +47,7 @@
     }
 
     function load() {
-      return GroupCallRecordingService.users(
+      return UserCallRecordingService.index(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {

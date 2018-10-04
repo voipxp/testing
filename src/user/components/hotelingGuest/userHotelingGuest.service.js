@@ -5,12 +5,28 @@
 
   function UserHotelingGuestService($http, Route) {
     var url = Route.api2('/users/hoteling-guest')
-    var service = { show: show, update: update, index: index, bulk: bulk }
+    var service = {
+      show: show,
+      update: update,
+      index: index,
+      bulk: bulk,
+      users: users
+    }
     service.options = {
       minAssociationLimitHours: 1,
       maxAssociationLimitHours: 999
     }
     return service
+
+    function index(serviceProviderId, groupId) {
+      return $http
+        .get(url('bulk'), {
+          params: { serviceProviderId: serviceProviderId, groupId: groupId }
+        })
+        .then(function(response) {
+          return response.data
+        })
+    }
 
     function show(userId) {
       return $http
@@ -20,7 +36,7 @@
         })
     }
 
-    function index(userId) {
+    function users(userId) {
       return $http
         .get(url('users'), { params: { userId: userId } })
         .then(function(response) {

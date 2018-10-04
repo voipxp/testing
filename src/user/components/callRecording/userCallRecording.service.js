@@ -5,9 +5,19 @@
 
   function UserCallRecordingService($http, Route) {
     var url = Route.api2('/users/call-recording')
-    var service = { show: show, update: update, bulk: bulk }
+    var service = { index: index, show: show, update: update, bulk: bulk }
     service.options = { recordingOptions: ['Always', 'Never', 'On Demand'] }
     return service
+
+    function index(serviceProviderId, groupId) {
+      return $http
+        .get(url('bulk'), {
+          params: { serviceProviderId: serviceProviderId, groupId: groupId }
+        })
+        .then(function(response) {
+          return response.data
+        })
+    }
 
     function show(userId) {
       return $http

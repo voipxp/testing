@@ -6,12 +6,7 @@
     bindings: { module: '<' }
   })
 
-  function Controller(
-    $routeParams,
-    Alert,
-    GroupCallForwardingAlwaysService,
-    UserCallForwardingAlwaysService
-  ) {
+  function Controller($routeParams, Alert, UserCallForwardingAlwaysService) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -65,7 +60,7 @@
     }
 
     function load() {
-      return GroupCallForwardingAlwaysService.users(
+      return UserCallForwardingAlwaysService.index(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {

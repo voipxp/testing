@@ -9,7 +9,6 @@
   function Controller(
     $routeParams,
     Alert,
-    GroupCallForwardingNotReachableService,
     UserCallForwardingNotReachableService
   ) {
     var ctrl = this
@@ -59,7 +58,7 @@
     }
 
     function load() {
-      return GroupCallForwardingNotReachableService.users(
+      return UserCallForwardingNotReachableService.index(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
