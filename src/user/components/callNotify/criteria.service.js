@@ -1,7 +1,8 @@
 ;(function() {
   angular.module('odin.user').factory('UserCallNotifyCriteriaService', Service)
 
-  function Service($http, Route, CacheFactory, $rootScope) {
+  function Service($http, Route) {
+    var url = Route.api2('/users/call-notify/criteria')
     var service = {
       index: index,
       store: store,
@@ -12,56 +13,44 @@
     service.options = {
       fromDnCriteriaSelection: ['Any', 'Specified Only']
     }
-    var cache = CacheFactory('UserCallNotifyCriteriaService')
     return service
 
-    function url(userId, criteriaName) {
-      return Route.api(
-        '/services/users/callnotify',
-        userId,
-        'criteria',
-        criteriaName
-      )()
-    }
-
     function index(userId) {
-      return $http.get(url(userId), { cache: cache }).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function store(userId, criteria) {
-      return $http.post(url(userId), criteria).then(function(response) {
-        $rootScope.$emit('UserCallNotifyCriteriaService:updated')
-        cache.removeAll()
+      return $http.post(url(), criteria).then(function(response) {
         return response.data
       })
     }
 
     function show(userId, criteriaName) {
       return $http
-        .get(url(userId, criteriaName), { cache: cache })
+        .get(url(), { params: { userId: userId, criteriaName: criteriaName } })
         .then(function(response) {
           return response.data
         })
     }
 
     function update(userId, criteria) {
-      return $http
-        .put(url(userId, criteria.criteriaName), criteria)
-        .then(function(response) {
-          $rootScope.$emit('UserCallNotifyCriteriaService:updated')
-          cache.removeAll()
-          return response.data
-        })
+      return $http.put(url(), criteria).then(function(response) {
+        return response.data
+      })
     }
 
     function destroy(userId, criteriaName) {
-      return $http.delete(url(userId, criteriaName)).then(function(response) {
-        $rootScope.$emit('UserCallNotifyCriteriaService:updated')
-        cache.removeAll()
-        return response.data
-      })
+      return $http
+        .delete(url(), {
+          params: { userId: userId, criteriaName: criteriaName }
+        })
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()

@@ -4,7 +4,7 @@
     .factory('UserSharedCallAppearanceService', Service)
 
   function Service($http, Route) {
-    var url = Route.api('/services/users/sharedcallappearance')
+    var url = Route.api2('/users/shared-call-appearance')
 
     var service = {
       show: show,
@@ -12,13 +12,15 @@
     }
     return service
 
-    function show(id) {
-      return $http.get(url(id)).then(function(response) {
-        return response.data
-      })
+    function show(userId) {
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
-    function update(id, obj) {
-      return $http.put(url(id), obj).then(function(response) {
+    function update(userId, obj) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }

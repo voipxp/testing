@@ -35,7 +35,6 @@
         .then(function(data) {
           ctrl.editCriteria = angular.extend({}, data, criteria)
           ctrl.editCriteria.newCriteriaName = criteria.criteriaName
-          console.log('criteria', ctrl.editCriteria)
           Alert.modal.open(
             'editUserCallNotifyCriteria',
             function(close) {
@@ -83,6 +82,7 @@
         return
       }
       ctrl.editCriteria = {
+        userId: ctrl.parent.userId,
         blacklisted: false,
         isActive: false
       }
@@ -93,7 +93,6 @@
     }
 
     function create(criteria, callback) {
-      console.log('create', criteria)
       Alert.spinner.open()
       UserCallNotifyCriteriaService.store(ctrl.parent.userId, criteria)
         .then(function() {

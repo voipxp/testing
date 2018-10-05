@@ -10,19 +10,14 @@
       update: update,
       destroy: destroy
     }
+    var url = Route.api2('/users/shared-call-appearance/endpoints')
     return service
-
-    function url(userId) {
-      return Route.api('/services/users/sharedcallappearance')(
-        userId,
-        'endpoints'
-      )
-    }
 
     function show(userId, endpoint) {
       return $http
-        .get(url(userId), {
+        .get(url(), {
           params: {
+            userId: userId,
             deviceName: endpoint.deviceName,
             deviceLevel: endpoint.deviceLevel,
             linePort: endpoint.linePort
@@ -32,18 +27,21 @@
           return response.data
         })
     }
-    function store(id, obj) {
-      return $http.post(url(id), obj).then(function(response) {
+
+    function store(userId, obj) {
+      return $http.post(url(), obj).then(function(response) {
         return response.data
       })
     }
-    function update(id, obj) {
-      return $http.put(url(id), obj).then(function(response) {
+
+    function update(userId, obj) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
-    function destroy(id, obj) {
-      return $http.delete(url(id), { data: obj }).then(function(response) {
+
+    function destroy(userId, obj) {
+      return $http.delete(url(), { data: obj }).then(function(response) {
         return response.data
       })
     }

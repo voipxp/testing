@@ -7,7 +7,7 @@
     )
 
   function UserMeetMeConferencingDelegatesService($http, Route) {
-    var url = Route.api('/services/users/meetmeconferencing')
+    var url = Route.api2('/users/meet-me-conferencing/delegates')
 
     var service = {
       users: users,
@@ -19,16 +19,13 @@
 
     function users(userId, bridgeId, conferenceId) {
       return $http
-        .get(
-          url() +
-            '/' +
-            userId +
-            '/bridges/' +
-            bridgeId +
-            '/delegates/' +
-            conferenceId +
-            '/users'
-        )
+        .get(url('users'), {
+          params: {
+            userId: userId,
+            conferenceId: conferenceId,
+            bridgeId: bridgeId
+          }
+        })
         .then(function(response) {
           return response.data
         })
@@ -36,34 +33,21 @@
 
     function index(userId, bridgeId, conferenceId) {
       return $http
-        .get(
-          url() +
-            '/' +
-            userId +
-            '/bridges/' +
-            bridgeId +
-            '/delegates/' +
-            conferenceId
-        )
+        .get(url(), {
+          params: {
+            userId: userId,
+            conferenceId: conferenceId,
+            bridgeId: bridgeId
+          }
+        })
         .then(function(response) {
           return response.data
         })
     }
     function update(userId, conferenceId, bridgeId, obj) {
-      return $http
-        .put(
-          url() +
-            '/' +
-            userId +
-            '/bridges/' +
-            conferenceId +
-            '/delegates/' +
-            bridgeId,
-          obj
-        )
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), obj).then(function(response) {
+        return response.data
+      })
     }
   }
 })()

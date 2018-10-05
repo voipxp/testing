@@ -2,7 +2,7 @@
   <pbs-block module="$ctrl.module">
     <pbs-block-buttons if-module-create="$ctrl.module">
       <pbs-button-compact-add ng-click="$ctrl.add()"
-        title="Add New Selective Call Rejection">
+        title="Add New Conference">
       </pbs-button-compact-add>
     </pbs-block-buttons>
     <table pbs-table>
@@ -19,9 +19,7 @@
       </thead>
       <tfoot>
         <tr ng-if="$ctrl.meetMeConferencingConferences.length < 1">
-          <td colspan="99">No Meet Me Conferences Found
-            <span ng-if="$ctrl.meetMeConferencingConferences">for {{ $ctrl.userId }}</span>
-          </td>
+          <td colspan="99">No Meet Me Conferences Found</td>
         </tr>
       </tfoot>
       <tbody>

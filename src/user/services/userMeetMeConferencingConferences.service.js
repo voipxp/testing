@@ -1,13 +1,10 @@
 ;(function() {
   angular
     .module('odin.user')
-    .factory(
-      'UserMeetMeConferencingConferencesService',
-      UserMeetMeConferencingConferencesService
-    )
+    .factory('UserMeetMeConferencingConferencesService', Service)
 
-  function UserMeetMeConferencingConferencesService($http, Route) {
-    var url = Route.api('/services/users/meetmeconferencing')
+  function Service($http, Route) {
+    var url = Route.api2('/users/meet-me-conferencing')
 
     var service = {
       bridges: bridges,
@@ -27,70 +24,56 @@
     return service
 
     function bridges(userId) {
-      return $http.get(url() + '/bridges/' + userId).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url('bridges'), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function index(userId) {
       return $http
-        .get(url() + '/' + userId + '/conferences')
+        .get(url('conferences'), { params: { userId: userId } })
         .then(function(response) {
           return response.data
         })
     }
 
     function store(userId, bridgeId, obj) {
-      return $http
-        .post(url() + '/' + userId + '/conferences/' + bridgeId, obj)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.post(url('conferences'), obj).then(function(response) {
+        return response.data
+      })
     }
 
     function show(userId, conferenceId, bridgeId) {
       return $http
-        .get(
-          url() +
-            '/' +
-            userId +
-            '/conferences/' +
-            conferenceId +
-            '/bridges/' +
-            bridgeId
-        )
-        .then(function(response) {
-          return response.data
+        .get(url('conferences'), {
+          params: {
+            userId: userId,
+            conferenceId: conferenceId,
+            bridgeId: bridgeId
+          }
         })
-    }
-    function update(userId, conferenceId, bridgeId, obj) {
-      return $http
-        .put(
-          url() +
-            '/' +
-            userId +
-            '/conferences/' +
-            conferenceId +
-            '/bridges/' +
-            bridgeId,
-          obj
-        )
         .then(function(response) {
           return response.data
         })
     }
 
+    function update(userId, conferenceId, bridgeId, obj) {
+      return $http.put(url('conferences'), obj).then(function(response) {
+        return response.data
+      })
+    }
+
     function destroy(userId, conferenceId, bridgeId) {
       return $http
-        .delete(
-          url() +
-            '/' +
-            userId +
-            '/conferences/' +
-            conferenceId +
-            '/bridges/' +
-            bridgeId
-        )
+        .delete(url('conferences'), {
+          params: {
+            userId: userId,
+            conferenceId: conferenceId,
+            bridgeId: bridgeId
+          }
+        })
         .then(function(response) {
           return response.data
         })

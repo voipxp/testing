@@ -65,6 +65,7 @@
         return
       }
       ctrl.newEndpoint = {
+        userId: ctrl.userId,
         linePort: '',
         isActive: true,
         allowOrigination: true,

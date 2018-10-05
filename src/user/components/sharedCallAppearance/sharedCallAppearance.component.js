@@ -6,7 +6,7 @@
     bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller(Alert, UserSharedCallAppereanceService, Module, $q) {
+  function Controller(Alert, UserSharedCallAppearanceService, Module, $q) {
     var ctrl = this
     ctrl.$onInit = activate
     ctrl.update = update
@@ -31,17 +31,17 @@
     }
 
     function edit() {
-      ctrl.editSettings = angular.copy(ctrl.sharedCallAppereance)
+      ctrl.editSettings = angular.copy(ctrl.sharedCallAppearance)
       Alert.modal.open('editSharedCallAppearanceModal', function(close) {
         update(ctrl.editSettings, close)
       })
     }
 
     function loadInstance() {
-      return UserSharedCallAppereanceService.show(ctrl.userId).then(function(
+      return UserSharedCallAppearanceService.show(ctrl.userId).then(function(
         data
       ) {
-        ctrl.sharedCallAppereance = data
+        ctrl.sharedCallAppearance = data
         console.log('instance', data)
         return data
       })
@@ -49,10 +49,10 @@
 
     function update(instance, callback) {
       Alert.spinner.open()
-      UserSharedCallAppereanceService.update(ctrl.userId, instance)
+      UserSharedCallAppearanceService.update(ctrl.userId, instance)
         .then(loadInstance)
         .then(function() {
-          Alert.notify.success('Shared Call Appereance Updated')
+          Alert.notify.success('Shared Call Appearance Updated')
           if (_.isFunction(callback)) {
             callback()
           }

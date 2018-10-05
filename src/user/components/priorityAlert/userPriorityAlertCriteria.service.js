@@ -1,13 +1,10 @@
 ;(function() {
   angular
     .module('odin.user')
-    .factory(
-      'UserPriorityAlertCriteriaService',
-      UserPriorityAlertCriteriaService
-    )
+    .factory('UserPriorityAlertCriteriaService', Service)
 
-  function UserPriorityAlertCriteriaService($http, Route) {
-    var url = Route.api('/services/users/priorityalert')
+  function Service($http, Route) {
+    var url = Route.api2('/users/priority-alert/criteria')
     var service = {
       index: index,
       store: store,
@@ -21,38 +18,38 @@
     return service
 
     function index(userId) {
-      return $http.get(url(userId, 'criteria')).then(function(response) {
-        return response.data
-      })
-    }
-
-    function store(userId, criteria) {
       return $http
-        .post(url(userId, 'criteria'), criteria)
+        .get(url(), { params: { userId: userId } })
         .then(function(response) {
           return response.data
         })
     }
 
+    function store(userId, criteria) {
+      return $http.post(url(), criteria).then(function(response) {
+        return response.data
+      })
+    }
+
     function show(userId, criteriaName) {
       return $http
-        .get(url(userId, 'criteria', criteriaName))
+        .get(url(), { params: { userId: userId, criteriaName: criteriaName } })
         .then(function(response) {
           return response.data
         })
     }
 
     function update(userId, criteriaName, criteria) {
-      return $http
-        .put(url(userId, 'criteria', criteriaName), criteria)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), criteria).then(function(response) {
+        return response.data
+      })
     }
 
     function destroy(userId, criteriaName) {
       return $http
-        .delete(url(userId, 'criteria', criteriaName))
+        .delete(url(), {
+          params: { userId: userId, criteriaName: criteriaName }
+        })
         .then(function(response) {
           return response.data
         })

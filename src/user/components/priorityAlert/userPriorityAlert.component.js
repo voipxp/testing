@@ -12,7 +12,6 @@
     UserPriorityAlertService,
     UserPriorityAlertCriteriaService,
     ACL,
-    $scope,
     Module
   ) {
     var ctrl = this
@@ -40,7 +39,6 @@
 
     function loadCriterias() {
       return UserPriorityAlertService.show(ctrl.userId).then(function(data) {
-        console.log('loadCriterias', data)
         ctrl.criterias = data
       })
     }
@@ -53,10 +51,10 @@
     }
 
     function toggle(criteria) {
-      console.log('toggle', criteria)
       criteria.isLoading = true
       // format as an array to fit API requirements
       UserPriorityAlertService.update(ctrl.userId, {
+        userId: ctrl.userId,
         criteria: [criteria]
       })
         .then(function() {
@@ -67,7 +65,6 @@
           action(criteria.criteriaName + ' ' + message)
         })
         .catch(function(error) {
-          console.log('error', error.data)
           Alert.notify.danger(error)
           criteria.isActive = !criteria.isActive
         })
@@ -91,7 +88,6 @@
       Alert.spinner.open()
       loadCriteria(criteria)
         .then(function(data) {
-          console.log('loadCriteria', data)
           ctrl.editCriteria = data
           ctrl.editCriteria.newCriteriaName = data.criteriaName
           Alert.modal.open(
@@ -124,7 +120,10 @@
 
     function add() {
       ctrl.editCriteria = {
-        fromDnCriteria: { fromDnCriteriaSelection: 'Any External' }
+        userId: ctrl.userId,
+        fromDnCriteria: {
+          fromDnCriteriaSelection: 'Any External'
+        }
       }
       Alert.modal.open('editUserPriorityAlert', function onSave(close) {
         ctrl.editCriteria.criteriaName = ctrl.editCriteria.newCriteriaName

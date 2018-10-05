@@ -34,7 +34,6 @@
     function loadSettings() {
       return UserCallNotifyService.show(ctrl.userId).then(function(data) {
         ctrl.settings = data
-        console.log('settings', data)
       })
     }
 
@@ -59,6 +58,7 @@
 
     function activate(criteria) {
       var activation = {
+        userId: ctrl.userId,
         criteria: [
           {
             criteriaName: criteria.newCriteriaName || criteria.criteriaName,
