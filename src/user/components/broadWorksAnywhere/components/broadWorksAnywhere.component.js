@@ -28,6 +28,7 @@
     }
 
     function loadSettings() {
+      console.log('loadSettings')
       return UserBroadWorksAnywhereService.show(ctrl.userId).then(function(
         data
       ) {

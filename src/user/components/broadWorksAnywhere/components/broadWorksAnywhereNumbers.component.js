@@ -14,7 +14,7 @@
 
     function add() {
       if (!ctrl.parent.module.permissions.create) return
-      ctrl.editNumber = {}
+      ctrl.editNumber = { userId: ctrl.userId }
       Alert.modal.open('editUserBroadworksAnywherePhoneNumber', function onSave(
         close
       ) {

@@ -4,13 +4,13 @@
     .factory('SelectiveCallRejectionService', SelectiveCallRejectionService)
 
   function SelectiveCallRejectionService($http, Route) {
-    var url = Route.api('/services/users/selectivecallrejection')
+    var url = Route.api2('/users/selective-call-rejection')
     var service = {
       index: index,
       show: show,
       update: update,
-      post: post,
-      criteriaactivation: criteriaactivation,
+      store: store,
+      activation: activation,
       destroy: destroy
     }
     service.options = {
@@ -22,45 +22,43 @@
     return service
 
     function index(userId) {
-      return $http.get(url(userId) + '/criteria').then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function show(userId, criteriaName) {
       return $http
-        .get(url(userId) + '/criteria/' + criteriaName)
+        .get(url(), { params: { userId: userId, criteriaName: criteriaName } })
         .then(function(response) {
           return response.data
         })
     }
 
-    function criteriaactivation(userId, criteria) {
-      return $http
-        .post(url(userId) + '/criteriaactivation', criteria)
-        .then(function(response) {
-          return response.data
-        })
+    function activation(userId, criteria) {
+      return $http.post(url('activation'), criteria).then(function(response) {
+        return response.data
+      })
     }
-    function post(userId, criteria) {
-      return $http
-        .post(url(userId) + '/criteria', criteria)
-        .then(function(response) {
-          return response.data
-        })
+    function store(userId, criteria) {
+      return $http.post(url(), criteria).then(function(response) {
+        return response.data
+      })
     }
 
     function update(userId, criteriaName, criteria) {
-      return $http
-        .put(url(userId) + '/criteria/' + criteriaName, criteria)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), criteria).then(function(response) {
+        return response.data
+      })
     }
 
-    function destroy(userId, criteriaName, criteria) {
+    function destroy(userId, criteriaName) {
       return $http
-        .delete(url(userId) + '/criteria/' + criteriaName, criteria)
+        .delete(url(), {
+          params: { userId: userId, criteriaName: criteriaName }
+        })
         .then(function(response) {
           return response.data
         })

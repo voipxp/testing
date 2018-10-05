@@ -19,7 +19,6 @@
     ctrl.holidaySchedules = []
     ctrl.selectiveCallAcceptanceCriteria = {}
     ctrl.editSelectCallAcceptanceCriteria = editSelectCallAcceptanceCriteria
-    ctrl.save = save
     ctrl.fromDnCriteriaSelections =
       SelectiveCallAcceptanceService.options.fromDnCriteriaSelections
     ctrl.fromDnCriteriaMin =
@@ -42,7 +41,6 @@
           Alert.notify.danger(error)
         })
         .finally(function() {
-          console.log(' ctrl.fromDnCriteriaMax : ' + ctrl.fromDnCriteriaMax)
           ctrl.loading = false
           // list()
         })
@@ -58,18 +56,14 @@
       return SelectiveCallAcceptanceService.index(ctrl.userId).then(function(
         data
       ) {
-        console.log(data)
+        console.log('DATA', data)
         ctrl.selectiveCallAcceptance = data
-        console.log(ctrl.selectiveCallAcceptance)
-        console.log('{ length : ' + ctrl.selectiveCallAcceptance.length + '}')
-        return ctrl.selectiveCallAcceptance
       })
     }
 
     function loadUserSchedules() {
       return UserScheduleService.index(ctrl.userId).then(function(data) {
         ctrl.userTimeSchedules = data
-        console.log('user schedules', data)
         return data
       })
     }
@@ -89,7 +83,7 @@
     }
 
     function addSelectCallAcceptanceCriteria() {
-      ctrl.selectiveCallAcceptanceCriteria = {}
+      ctrl.selectiveCallAcceptanceCriteria = { userId: ctrl.userId }
       Alert.modal.open('edit-selectiveCallAcceptanceCriteria', function(close) {
         _addSelectiveCallAcceptanceCriteria(
           ctrl.selectiveCallAcceptanceCriteria,
@@ -138,12 +132,7 @@
     }
 
     function _addSelectiveCallAcceptanceCriteria(sca, callback) {
-      Alert.spinner.open()
       var criteria = {}
-      console.log('_addSelectiveCallAcceptanceCriteria')
-      console.log('ctrl.selectiveCallAcceptanceCriteria')
-      console.log(ctrl.selectiveCallAcceptanceCriteria)
-
       if (
         typeof ctrl.selectiveCallAcceptanceCriteria.timeSchedule !== 'undefined'
       ) {
@@ -170,35 +159,28 @@
         )
       }
 
-      SelectiveCallAcceptanceService.post(
+      Alert.spinner.open()
+      SelectiveCallAcceptanceService.store(
         ctrl.userId,
         ctrl.selectiveCallAcceptanceCriteria
       )
         .then(function() {
           ctrl.selectiveCallAcceptanceCriteria = sca
           criteria = {
+            userId: ctrl.userId,
             criteria: [
               { criteriaName: sca.criteriaName, isActive: sca.isActive }
             ]
           }
-          Alert.notify.danger('Saving Selective Call Acceptance')
-          if (_.isFunction(callback)) {
-            callback()
-          }
-        })
-        .then(function() {
-          SelectiveCallAcceptanceService.criteriaactivation(
+          return SelectiveCallAcceptanceService.activation(
             ctrl.userId,
             criteria
           )
-          if (_.isFunction(callback)) {
-            callback()
-          }
-          return $q.all([
-            loadSelectiveCallAcceptanceList(),
-            loadUserSchedules(),
-            loadHolidaySchedules()
-          ])
+        })
+        .then(loadSelectiveCallAcceptanceList)
+        .then(function() {
+          Alert.notify.success('Criteria Created')
+          callback()
         })
         .catch(function(error) {
           Alert.notify.danger(error)
@@ -209,11 +191,7 @@
     }
 
     function saveSelectiveCallAcceptanceCriteria(sca, callback) {
-      Alert.spinner.open()
       var criteria = {}
-      console.log('saveSelectiveCallAcceptanceCriteria')
-      console.log(sca)
-
       if (typeof sca.timeSchedule !== 'undefined') {
         sca.timeSchedule = ctrl.userTimeSchedules.find(function(o) {
           return o.name == sca.timeSchedule.name
@@ -226,32 +204,25 @@
         })
       }
 
+      Alert.spinner.open()
       SelectiveCallAcceptanceService.update(ctrl.userId, sca.criteriaName, sca)
         .then(function() {
           ctrl.selectiveCallAcceptanceCriteria = sca
           criteria = {
+            userId: ctrl.userId,
             criteria: [
               { criteriaName: sca.criteriaName, isActive: sca.isActive }
             ]
           }
-          Alert.notify.danger('Saving Selective Call Acceptance')
-          if (_.isFunction(callback)) {
-            callback()
-          }
-        })
-        .then(function() {
-          SelectiveCallAcceptanceService.criteriaactivation(
+          return SelectiveCallAcceptanceService.activation(
             ctrl.userId,
             criteria
           )
-          if (_.isFunction(callback)) {
-            callback()
-          }
-          return $q.all([
-            loadSelectiveCallAcceptanceList(),
-            loadUserSchedules(),
-            loadHolidaySchedules()
-          ])
+        })
+        .then(loadSelectiveCallAcceptanceList)
+        .then(function() {
+          Alert.notify.success('Criteria Updated')
+          callback()
         })
         .catch(function(error) {
           Alert.notify.danger(error)
@@ -272,27 +243,17 @@
     function doDeleteSelectiveCallAcceptanceCriteria(sca, callback) {
       Alert.spinner.open()
       SelectiveCallAcceptanceService.destroy(ctrl.userId, sca.criteriaName, sca)
+        .then(loadSelectiveCallAcceptanceList)
         .then(function() {
-          Alert.notify.success('Selective Call Acceptance deleted')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          Alert.notify.success('Criteria Removed')
+          callback()
         })
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           Alert.spinner.close()
-          return $q.all([
-            loadSelectiveCallAcceptanceList(),
-            loadUserSchedules(),
-            loadHolidaySchedules()
-          ])
         })
-    }
-
-    function save() {
-      return null
     }
   }
 })()

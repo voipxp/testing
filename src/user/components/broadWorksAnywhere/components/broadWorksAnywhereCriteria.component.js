@@ -92,7 +92,10 @@
     }
 
     function add() {
-      ctrl.editCriteria = {}
+      ctrl.editCriteria = {
+        userId: ctrl.userId,
+        phoneNumber: ctrl.number.phoneNumber
+      }
       Alert.modal.open(ctrl.modalId, function(close) {
         ctrl.editCriteria.criteriaName = ctrl.editCriteria.newCriteriaName
         create(ctrl.editCriteria, close)
@@ -120,6 +123,8 @@
 
     function activate(criteria) {
       var activation = {
+        userId: ctrl.userId,
+        phoneNumber: ctrl.number.phoneNumber,
         criteria: [
           {
             criteriaName: criteria.newCriteriaName || criteria.criteriaName,

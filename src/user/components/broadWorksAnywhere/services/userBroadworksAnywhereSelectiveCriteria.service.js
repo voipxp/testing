@@ -3,7 +3,7 @@
     .module('odin.user')
     .factory('UserBroadworksAnywhereServiceSelectiveCriteria', Service)
 
-  function Service($http, Route, $rootScope, CacheFactory) {
+  function Service($http, Route) {
     var service = {
       store: store,
       show: show,
@@ -15,60 +15,45 @@
       fromDnCriteriaMin: 0,
       fromDnCriteriaMax: 11
     }
-    var cache = CacheFactory('UserBroadworksAnywhereServiceSelectiveCriteria')
+    var url = Route.api2('/users/broad-works-anywhere/criteria')
     return service
 
-    function url(userId, phoneNumber, criteriaName) {
-      return Route.api(
-        '/services/users/broadworksanywhere',
-        userId,
-        'phonenumbers',
-        phoneNumber,
-        'criteria',
-        criteriaName
-      )()
-    }
-
     function store(userId, phoneNumber, criteria) {
-      return $http
-        .post(url(userId, phoneNumber), criteria)
-        .then(function(response) {
-          cache.removeAll()
-          $rootScope.$emit(
-            'UserBroadworksAnywhereServiceSelectiveCriteria:update'
-          )
-          return response.data
-        })
+      return $http.post(url(), criteria).then(function(response) {
+        return response.data
+      })
     }
 
     function show(userId, phoneNumber, criteriaName) {
       return $http
-        .get(url(userId, phoneNumber, criteriaName), { cache: cache })
+        .get(url(), {
+          params: {
+            userId: userId,
+            phoneNumber: phoneNumber,
+            criteriaName: criteriaName
+          }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
     function update(userId, phoneNumber, criteriaName, criteria) {
-      return $http
-        .put(url(userId, phoneNumber, criteriaName), criteria)
-        .then(function(response) {
-          cache.removeAll()
-          $rootScope.$emit(
-            'UserBroadworksAnywhereServiceSelectiveCriteria:update'
-          )
-          return response.data
-        })
+      return $http.put(url(), criteria).then(function(response) {
+        return response.data
+      })
     }
 
     function destroy(userId, phoneNumber, criteriaName) {
       return $http
-        .delete(url(userId, phoneNumber, criteriaName))
+        .delete(url(), {
+          params: {
+            userId: userId,
+            phoneNumber: phoneNumber,
+            criteriaName: criteriaName
+          }
+        })
         .then(function(response) {
-          cache.removeAll()
-          $rootScope.$emit(
-            'UserBroadworksAnywhereServiceSelectiveCriteria:update'
-          )
           return response.data
         })
     }

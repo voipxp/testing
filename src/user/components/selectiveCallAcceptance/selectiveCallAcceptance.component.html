@@ -18,9 +18,7 @@
       </thead>
       <tfoot>
         <tr ng-if="$ctrl.selectiveCallAcceptance.length < 1">
-          <td colspan="6">No Selective Call Acceptance Found
-            <span ng-if="$ctrl.selectiveCallAcceptance">for {{ $ctrl.userId }}</span>
-          </td>
+          <td colspan="6">No Selective Call Acceptance Found</td>
         </tr>
       </tfoot>
       <tbody>
@@ -44,7 +42,7 @@
 </pbs-spinner>
 <!-- Edit Selective Call Acceptance Criteria  -->
 <pbs-modal id="edit-selectiveCallAcceptanceCriteria"
-  title="Edit Settings">
+  title="Edit Criteria">
   <pbs-spinner loading="$ctrl.loadingCriteria">
     <pbs-form-field label="General Settings">
       <pbs-input-checkbox ng-model="$ctrl.selectiveCallAcceptanceCriteria.isActive"

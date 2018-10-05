@@ -21,7 +21,6 @@
 
     ctrl.selectiveCallRejectionCriteria = {}
     ctrl.editSelectCallRejectionCriteria = editSelectCallRejectionCriteria
-    ctrl.save = save
     ctrl.fromDnCriteriaSelections =
       SelectiveCallRejectionService.options.fromDnCriteriaSelections
     ctrl.fromDnCriteriaMin =
@@ -44,7 +43,6 @@
           Alert.notify.danger(error)
         })
         .finally(function() {
-          console.log(' ctrl.fromDnCriteriaMax : ' + ctrl.fromDnCriteriaMax)
           ctrl.loading = false
           // list()
         })
@@ -60,10 +58,7 @@
       return SelectiveCallRejectionService.index(ctrl.userId).then(function(
         data
       ) {
-        console.log(data)
         ctrl.selectiveCallRejection = data
-        console.log(ctrl.selectiveCallRejection)
-        console.log('{ length : ' + ctrl.selectiveCallRejection.length + '}')
         return ctrl.selectiveCallRejection
       })
     }
@@ -71,7 +66,6 @@
     function loadUserSchedules() {
       return UserScheduleService.index(ctrl.userId).then(function(data) {
         ctrl.userTimeSchedules = data
-        console.log('user schedules', data)
         return data
       })
     }
@@ -91,7 +85,7 @@
     }
 
     function addSelectCallRejectionCriteria() {
-      ctrl.selectiveCallRejectionCriteria = {}
+      ctrl.selectiveCallRejectionCriteria = { userId: ctrl.userId }
       Alert.modal.open('edit-selectiveCallRejectionCriteria', function(close) {
         _addSelectiveCallRejectionCriteria(
           ctrl.selectiveCallRejectionCriteria,
@@ -143,10 +137,6 @@
     function _addSelectiveCallRejectionCriteria(sca, callback) {
       Alert.spinner.open()
       var criteria = {}
-      console.log('_addSelectiveCallRejectionCriteria')
-      console.log('ctrl.selectiveCallRejectionCriteria')
-      console.log(ctrl.selectiveCallRejectionCriteria)
-
       if (
         typeof ctrl.selectiveCallRejectionCriteria.timeSchedule !== 'undefined'
       ) {
@@ -172,35 +162,24 @@
         )
       }
 
-      SelectiveCallRejectionService.post(
+      SelectiveCallRejectionService.store(
         ctrl.userId,
         ctrl.selectiveCallRejectionCriteria
       )
         .then(function() {
           ctrl.selectiveCallRejectionCriteria = sca
           criteria = {
+            userId: ctrl.userId,
             criteria: [
               { criteriaName: sca.criteriaName, isActive: sca.isActive }
             ]
           }
-          Alert.notify.danger('Saving Selective Call Rejection')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          return SelectiveCallRejectionService.activation(ctrl.userId, criteria)
         })
+        .then(loadSelectiveCallRejectionList)
         .then(function() {
-          SelectiveCallRejectionService.criteriaactivation(
-            ctrl.userId,
-            criteria
-          )
-          if (_.isFunction(callback)) {
-            callback()
-          }
-          return $q.all([
-            loadSelectiveCallRejectionList(),
-            loadUserSchedules(),
-            loadHolidaySchedules()
-          ])
+          Alert.notify.success('Criteria Created')
+          callback()
         })
         .catch(function(error) {
           Alert.notify.danger(error)
@@ -213,9 +192,6 @@
     function saveSelectiveCallRejectionCriteria(sca, callback) {
       Alert.spinner.open()
       var criteria = {}
-      console.log('saveSelectiveCallRejectionCriteria')
-      console.log(sca)
-
       if (typeof sca.timeSchedule !== 'undefined') {
         sca.timeSchedule = ctrl.userTimeSchedules.find(function(o) {
           return o.name == sca.timeSchedule.name
@@ -232,28 +208,17 @@
         .then(function() {
           ctrl.selectiveCallRejectionCriteria = sca
           criteria = {
+            userId: ctrl.userId,
             criteria: [
               { criteriaName: sca.criteriaName, isActive: sca.isActive }
             ]
           }
-          Alert.notify.danger('Saving Selective Call Rejection')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          return SelectiveCallRejectionService.activation(ctrl.userId, criteria)
         })
+        .then(loadSelectiveCallRejectionList)
         .then(function() {
-          SelectiveCallRejectionService.criteriaactivation(
-            ctrl.userId,
-            criteria
-          )
-          if (_.isFunction(callback)) {
-            callback()
-          }
-          return $q.all([
-            loadSelectiveCallRejectionList(),
-            loadUserSchedules(),
-            loadHolidaySchedules()
-          ])
+          Alert.notify.success('Criteria Updated')
+          callback()
         })
         .catch(function(error) {
           Alert.notify.danger(error)
@@ -273,28 +238,18 @@
 
     function doDeleteSelectiveCallRejectionCriteria(sca, callback) {
       Alert.spinner.open()
-      SelectiveCallRejectionService.destroy(ctrl.userId, sca.criteriaName, sca)
+      SelectiveCallRejectionService.destroy(ctrl.userId, sca.criteriaName)
+        .then(loadSelectiveCallRejectionList)
         .then(function() {
-          Alert.notify.success('Selective Call Rejection deleted')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          Alert.notify.success('Criteria Removed')
+          callback()
         })
         .catch(function(error) {
           Alert.notify.danger(error)
         })
         .finally(function() {
           Alert.spinner.close()
-          return $q.all([
-            loadSelectiveCallRejectionList(),
-            loadUserSchedules(),
-            loadHolidaySchedules()
-          ])
         })
-    }
-
-    function save() {
-      return null
     }
   }
 })()

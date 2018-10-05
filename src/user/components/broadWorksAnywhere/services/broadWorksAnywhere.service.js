@@ -1,41 +1,26 @@
 ;(function() {
-  angular
-    .module('odin.user')
-    .factory('UserBroadWorksAnywhereService', UserBroadWorksAnywhereService)
+  angular.module('odin.user').factory('UserBroadWorksAnywhereService', Service)
 
-  function UserBroadWorksAnywhereService(
-    $http,
-    Route,
-    CacheFactory,
-    $rootScope
-  ) {
-    var url = Route.api('/services/users/broadworksanywhere')
+  function Service($http, Route) {
+    var url = Route.api2('/users/broad-works-anywhere')
     var service = { show: show, update: update }
     service.options = {
       phonesToRing: ['Fixed', 'Mobile', 'Both'],
       userSettingLevel: ['Group', 'User']
     }
-    var cache = CacheFactory('UserBroadWorksAnywhereService')
 
-    $rootScope.$on(
-      'PhoneNumberBroadWorksAnywhereService:updated',
-      cache.removeAll
-    )
-    $rootScope.$on(
-      'UserBroadworksAnywhereServiceSelectiveCriteria:updated',
-      cache.removeAll
-    )
     return service
 
     function show(userId) {
-      return $http.get(url(userId), { cache: cache }).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function update(userId, obj) {
-      return $http.put(url(userId), obj).then(function(response) {
-        cache.removeAll()
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
