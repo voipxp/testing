@@ -234,7 +234,7 @@
     }
 
     function addCriteria() {
-      ctrl.editCriteria = {}
+      ctrl.editCriteria = { userId: ctrl.userId }
       Alert.modal.open('editUserSequentialRingCriteria', function(close) {
         ctrl.editCriteria.criteriaName = ctrl.criteriaName
         doAddCriteria(ctrl.editCriteria, close)
@@ -268,8 +268,7 @@
       console.log('ctrl.editCriteria', ctrl.editCriteria)
 
       Alert.spinner.open()
-      UserSequentialRingServiceCriteria.post(ctrl.userId, ctrl.editCriteria)
-        // .then(UserSequentialRingService.update(ctrl.userId,obj))
+      UserSequentialRingServiceCriteria.store(ctrl.userId, ctrl.editCriteria)
         .then(loadSettings)
         .then(function() {
           Alert.notify.success('Settings Added')

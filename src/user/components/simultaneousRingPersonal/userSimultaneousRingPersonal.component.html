@@ -24,7 +24,7 @@
       </thead>
       <tfoot>
         <tr ng-if="$ctrl.settings.locations < 1">
-          <td colspan="6">No Simultaneous Ring Personal Found</td>
+          <td colspan="6">No Location Found</td>
         </tr>
       </tfoot>
       <tbody ng-repeat="location in $ctrl.settings.locations">
@@ -59,8 +59,10 @@
         </tr>
       </thead>
       <tfoot>
-        <tr ng-if="$ctrl.settings.criteria < 1">
-          <td colspan="2">No Simultaneous Ring Personal Criteria found for {{ ctrl.userId }}</span>
+        <tr ng-if="results.length === 0">
+          <td colspan="6">No Simultaneous Ring Personal Criteria Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}
+            </span>
           </td>
         </tr>
       </tfoot>
@@ -75,17 +77,10 @@
           <td>{{ criteria.timeSchedule }}</td>
           <td>{{ criteria.holidaySchedule }}</td>
           <td>
-            <pbs-check-box checked="criteria.blacklisted">}</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr ng-if="results.length === 0">
-          <td colspan="6">No Simultaneous Ring Personal Criteria Found
-            <span ng-if="$ctrl.search">for {{ $ctrl.search }}
-            </span>
+            <pbs-check-box checked="criteria.blacklisted">}
           </td>
         </tr>
-      </tfoot>
+      </tbody>
     </table>
   </pbs-block>
 </pbs-spinner>

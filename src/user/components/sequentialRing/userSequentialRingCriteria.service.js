@@ -1,18 +1,15 @@
 ;(function() {
   angular
     .module('odin.user')
-    .factory(
-      'UserSequentialRingServiceCriteria',
-      UserSequentialRingServiceCriteria
-    )
+    .factory('UserSequentialRingServiceCriteria', Service)
 
-  function UserSequentialRingServiceCriteria($http, Route) {
-    var url = Route.api('/services/users/sequentialring')
+  function Service($http, Route) {
+    var url = Route.api2('/users/sequential-ring/criteria')
     var service = {
       show: show,
       update: update,
       index: index,
-      post: post,
+      store: store,
       destroy: destroy
     }
     service.options = {
@@ -20,38 +17,39 @@
     }
     return service
 
-    function show(userId, name) {
+    function show(userId, criteriaName) {
       return $http
-        .get(url(userId) + '/criteria/' + name)
+        .get(url(), { params: { userId: userId, criteriaName: criteriaName } })
         .then(function(response) {
           return response.data
         })
     }
 
     function index(userId) {
-      return $http.get(url(userId)).then(function(response) {
+      return $http
+        .get(url(), { params: { userId: userId } })
+        .then(function(response) {
+          return response.data
+        })
+    }
+
+    function update(userId, criteriaName, obj) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
 
-    function update(userId, name, obj) {
-      return $http
-        .put(url(userId) + '/criteria/' + name, obj)
-        .then(function(response) {
-          return response.data
-        })
-    }
-    function post(userId, obj) {
-      return $http
-        .post(url(userId) + '/criteria', obj)
-        .then(function(response) {
-          return response.data
-        })
+    function store(userId, obj) {
+      return $http.post(url(), obj).then(function(response) {
+        return response.data
+      })
     }
 
-    function destroy(userId, name, obj) {
+    function destroy(userId, criteriaName) {
       return $http
-        .delete(url(userId) + '/criteria/' + name, obj)
+        .delete(url(), {
+          params: { userId: userId, criteriaName: criteriaName }
+        })
         .then(function(response) {
           return response.data
         })

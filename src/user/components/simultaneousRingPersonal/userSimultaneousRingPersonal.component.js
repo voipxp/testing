@@ -185,14 +185,17 @@
         editCriteria.fromDnCriteria.phoneNumbers = []
       }
 
-      UserSimultaneousRingPersonalServiceCriteria.update(
+      return UserSimultaneousRingPersonalServiceCriteria.update(
         ctrl.userId,
         criteriaName,
         editCriteria
       )
-        .then(
-          UserSimultaneousRingPersonalService.update(ctrl.userId, editSettings)
-        )
+        .then(function() {
+          return UserSimultaneousRingPersonalService.update(
+            ctrl.userId,
+            editSettings
+          )
+        })
         .then(loadSettings)
         .then(function() {
           Alert.notify.success('Settings Updated')
@@ -220,7 +223,7 @@
     }
 
     function addCriteria() {
-      ctrl.editCriteria = {}
+      ctrl.editCriteria = { userId: ctrl.userId }
       Alert.modal.open(
         'editUserSimultaneousRingPersonalCriteria',
         function onSave(close) {
@@ -256,7 +259,7 @@
       ctrl.editCriteria.holidaySchedule = settings.holidaySchedule
 
       Alert.spinner.open()
-      UserSimultaneousRingPersonalServiceCriteria.post(
+      UserSimultaneousRingPersonalServiceCriteria.store(
         ctrl.userId,
         ctrl.editCriteria
       )
