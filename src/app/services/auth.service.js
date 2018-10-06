@@ -16,11 +16,14 @@
     }
 
     function password(oldPassword, newPassword, userId) {
-      var obj = { newPassword: newPassword }
+      var obj = {
+        userId: userId,
+        newPassword: newPassword
+      }
       if (oldPassword) {
         obj['oldPassword'] = oldPassword
       }
-      return $http.put(url('password', userId), obj).then(function(response) {
+      return $http.put(url('password'), obj).then(function(response) {
         return response.data
       })
     }

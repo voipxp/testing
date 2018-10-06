@@ -4,7 +4,7 @@
     .factory('GroupCollaborateService', GroupCollaborateService)
 
   function GroupCollaborateService($http, Route) {
-    var url = Route.api('/services/groups/collaborate')
+    var url = Route.api2('/groups/collaborate')
 
     var service = {
       index: index,
@@ -37,9 +37,10 @@
           return response.data
         })
     }
+
     function users(serviceProviderId, groupId) {
       return $http
-        .get(url() + '/users', {
+        .get(url('users'), {
           params: { serviceProviderId: serviceProviderId, groupId: groupId }
         })
         .then(function(response) {
@@ -48,27 +49,31 @@
     }
 
     function store(serviceUserId, obj) {
-      return $http.post(url(serviceUserId), obj).then(function(response) {
+      return $http.post(url(), obj).then(function(response) {
         return response.data
       })
     }
 
     function show(serviceUserId) {
-      return $http.get(url(serviceUserId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { serviceUserId: serviceUserId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function update(serviceUserId, obj) {
-      return $http.put(url(serviceUserId), obj).then(function(response) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
 
     function destroy(serviceUserId) {
-      return $http.delete(url(serviceUserId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .delete(url(), { serviceUserId: serviceUserId })
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()
