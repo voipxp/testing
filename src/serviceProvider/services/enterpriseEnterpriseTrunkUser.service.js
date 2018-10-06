@@ -10,45 +10,42 @@
       update: update,
       destroy: destroy
     }
+    var url = Route.api2('/service-providers/enterprise-trunks/users')
     return service
 
-    function url(serviceProviderId, trunkName) {
-      return Route.api('/services/enterprises')(
-        serviceProviderId,
-        'enterprisetrunk',
-        'trunks',
-        trunkName,
-        'users'
-      )
-    }
-
-    function index(serviceProviderId, trunkName) {
+    function index(serviceProviderId, enterpriseTrunkName) {
       return $http
-        .get(url(serviceProviderId, trunkName))
+        .get(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            enterpriseTrunkName: enterpriseTrunkName
+          }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
-    function store(serviceProviderId, trunkName, obj) {
-      return $http
-        .post(url(serviceProviderId, trunkName), obj)
-        .then(function(response) {
-          return response.data
-        })
+    function store(serviceProviderId, enterpriseTrunkName, obj) {
+      return $http.post(url(), obj).then(function(response) {
+        return response.data
+      })
     }
 
-    function update(serviceProviderId, trunkName, obj) {
-      return $http
-        .put(url(serviceProviderId, trunkName), obj)
-        .then(function(response) {
-          return response.data
-        })
+    function update(serviceProviderId, enterpriseTrunkName, obj) {
+      return $http.put(url(), obj).then(function(response) {
+        return response.data
+      })
     }
 
-    function destroy(serviceProviderId, trunkName, obj) {
+    function destroy(serviceProviderId, enterpriseTrunkName) {
       return $http
-        .delete(url(serviceProviderId, trunkName), obj)
+        .delete(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            enterpriseTrunkName: enterpriseTrunkName
+          }
+        })
         .then(function(response) {
           return response.data
         })

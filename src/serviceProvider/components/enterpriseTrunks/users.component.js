@@ -70,7 +70,11 @@
     }
 
     function update(users, callback) {
-      var newUsers = { users: users }
+      var newUsers = {
+        serviceProviderId: ctrl.parent.serviceProviderId,
+        enterpriseTrunkName: ctrl.parent.trunkName,
+        users: users
+      }
       Alert.spinner.open()
       EnterpriseEnterpriseTrunkUserService.update(
         ctrl.parent.serviceProviderId,

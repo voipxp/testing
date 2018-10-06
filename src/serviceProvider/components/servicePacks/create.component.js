@@ -26,6 +26,7 @@
 
     function load() {
       ctrl.servicePack = {
+        serviceProviderId: ctrl.parent.serviceProviderId,
         isAvailableForUse: false,
         servicePackQuantity: -1,
         allowedQuantity: -1,

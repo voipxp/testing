@@ -21,48 +21,51 @@
       routeExhaustionAction: ['None', 'Forward'],
       routingTypes: ['priorityWeightedRouting', 'orderedRouting']
     }
+
+    var url = Route.api2('/service-providers/enterprise-trunks')
     return service
 
-    function url(serviceProviderId, trunkName) {
-      return Route.api('/services/enterprises')(
-        serviceProviderId,
-        'enterprisetrunk',
-        'trunks',
-        trunkName
-      )
-    }
-
     function index(serviceProviderId) {
-      return $http.get(url(serviceProviderId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { serviceProviderId: serviceProviderId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function store(serviceProviderId, obj) {
-      return $http.post(url(serviceProviderId), obj).then(function(response) {
+      return $http.post(url(), obj).then(function(response) {
         return response.data
       })
     }
 
-    function show(serviceProviderId, trunkName) {
+    function show(serviceProviderId, enterpriseTrunkName) {
       return $http
-        .get(url(serviceProviderId, trunkName))
+        .get(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            enterpriseTrunkName: enterpriseTrunkName
+          }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
-    function update(serviceProviderId, trunkName, trunk) {
-      return $http
-        .put(url(serviceProviderId, trunkName), trunk)
-        .then(function(response) {
-          return response.data
-        })
+    function update(serviceProviderId, enterpriseTrunkName, trunk) {
+      return $http.put(url(), trunk).then(function(response) {
+        return response.data
+      })
     }
 
-    function destroy(serviceProviderId, trunkName) {
+    function destroy(serviceProviderId, enterpriseTrunkName) {
       return $http
-        .delete(url(serviceProviderId, trunkName))
+        .delete(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            enterpriseTrunkName: enterpriseTrunkName
+          }
+        })
         .then(function(response) {
           return response.data
         })

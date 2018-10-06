@@ -2,7 +2,7 @@
   angular.module('odin.serviceProvider').factory('ServicePackService', Service)
 
   function Service($http, Route) {
-    var base = Route.api('/services/serviceproviders')
+    var url = Route.api2('/service-providers/service-packs')
     var service = {
       index: index,
       create: create,
@@ -13,14 +13,13 @@
     }
     return service
 
-    function url(serviceProviderId, servicePackName) {
-      return base(serviceProviderId, 'servicepacks', servicePackName)
-    }
-
     function index(serviceProviderId, includeUtilization) {
       return $http
-        .get(url(serviceProviderId), {
-          params: { utilization: includeUtilization }
+        .get(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            utilization: includeUtilization
+          }
         })
         .then(function(response) {
           return response.data
@@ -28,30 +27,38 @@
     }
 
     function create(serviceProviderId, obj) {
-      return $http.post(url(serviceProviderId), obj).then(function(response) {
+      return $http.post(url(), obj).then(function(response) {
         return response.data
       })
     }
 
     function show(serviceProviderId, servicePackName) {
       return $http
-        .get(url(serviceProviderId, servicePackName))
+        .get(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            servicePackName: servicePackName
+          }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
     function update(serviceProviderId, servicePackName, obj) {
-      return $http
-        .put(url(serviceProviderId, servicePackName), obj)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), obj).then(function(response) {
+        return response.data
+      })
     }
 
     function destroy(serviceProviderId, servicePackName) {
       return $http
-        .delete(url(serviceProviderId, servicePackName))
+        .delete(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            servicePackName: servicePackName
+          }
+        })
         .then(function(response) {
           return response.data
         })
@@ -59,8 +66,9 @@
 
     function usage(serviceProviderId, serviceName) {
       return $http
-        .get(base(serviceProviderId, 'servicepackusage'), {
+        .get(url('usage'), {
           params: {
+            serviceProviderId: serviceProviderId,
             serviceName: serviceName
           }
         })

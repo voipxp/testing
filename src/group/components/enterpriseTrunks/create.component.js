@@ -14,7 +14,9 @@
     ctrl.routingTypes = ['Priority Weighted Routing', 'Ordered Routing']
 
     function activate() {
-      ctrl.trunk = {}
+      ctrl.trunk = {
+        serviceProviderId: ctrl.serviceProviderId
+      }
       ctrl.routingType = null
       if ($scope.editGroupEnterpriseTrunkCreateForm) {
         $scope.editGroupEnterpriseTrunkCreateForm.$setPristine()

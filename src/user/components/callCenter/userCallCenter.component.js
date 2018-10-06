@@ -27,13 +27,8 @@
 
     function onInit() {
       ctrl.loading = true
-      $q.all([
-        loadUser(),
-        loadSettings(),
-        loadProfiles(),
-        loadDNIS(),
-        loadModule()
-      ])
+      $q.all([loadUser(), loadSettings(), loadDNIS(), loadModule()])
+        .then(loadProfiles)
         .catch(function(error) {
           Alert.notify.danger(error)
         })
