@@ -70,7 +70,7 @@
 
     function destroy(serviceUserId) {
       return $http
-        .delete(url('bridges'), { serviceUserId: serviceUserId })
+        .delete(url('bridges'), { params: { serviceUserId: serviceUserId } })
         .then(function(response) {
           return response.data
         })

@@ -50,18 +50,16 @@
     <pbs-form-field-horizontal label="Phone Number">
       <select-phone-number service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
-        phone-number="$ctrl.autoAttendant.serviceInstanceProfile.phoneNumber"
+        phone-number="$ctrl.addBridge.serviceInstanceProfile.phoneNumber"
         on-update="$ctrl.onSelectPhone($event)"></select-phone-number>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Extension">
       <input type="text"
         class="input"
-        ng-model="$ctrl.autoAttendant.serviceInstanceProfile.extension">
+        ng-model="$ctrl.addBridge.serviceInstanceProfile.extension">
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Password">
-      <pbs-input-password ng-model="$ctrl.autoAttendant.serviceInstanceProfile.password"
-        ng-minlength="6"
-        ng-maxlength="60"
+      <pbs-input-password ng-model="$ctrl.addBridge.serviceInstanceProfile.password"
         service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"></pbs-input-password>
     </pbs-form-field-horizontal>

@@ -13,6 +13,7 @@
     ctrl.add = add
     ctrl.onClick = onClick
     ctrl.onSelectUserId = onSelectUserId
+    ctrl.onSelectPhone = onSelectPhone
 
     ctrl.columns = [
       {
@@ -80,6 +81,15 @@
 
     function onSelectUserId(event) {
       ctrl.addBridge.serviceUserId = event.userId
+    }
+
+    function onSelectPhone(event) {
+      console.log('onSelectPhone', event)
+      _.set(
+        ctrl.addBridge,
+        'serviceInstanceProfile.phoneNumber',
+        event.phoneNumber
+      )
     }
 
     function create(bridge, callback) {

@@ -1,11 +1,3 @@
-/*
-  TODO
-    - get it working
-    - add a bridge
-    - don't update users if default bridge
-    - split users into a component
-*/
-
 ;(function() {
   angular.module('odin.group').component('groupCollaborateBridge', {
     templateUrl:
@@ -80,9 +72,9 @@
         .finally(Alert.spinner.close)
     }
 
-    function destroy(callback) {
+    function destroy(bridge, callback) {
       Alert.spinner.open()
-      GroupCollaborateService.destroy(ctrl.serviceUserId)
+      GroupCollaborateService.destroy(bridge.serviceUserId)
         .then(function() {
           Alert.notify.success('Collaborate Bridge Removed')
           callback()
