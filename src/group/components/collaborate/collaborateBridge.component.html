@@ -1,0 +1,71 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  service-userId="$ctrl.serviceUserId"
+  module="$ctrl.module">
+  <pbs-breadcrumb title="'Collaborate'"
+    ng-click="$ctrl.back()"></pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.serviceUserId"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-tabs>
+    <pbs-tab label="Details">
+      <pbs-block title="Details">
+        <pbs-block-buttons>
+          <pbs-button-compact-edit title="Edit Details"
+            ng-click="$ctrl.edit()">
+          </pbs-button-compact-edit>
+        </pbs-block-buttons>
+        <pbs-list>
+          <pbs-list-item label="Max Room Participants">
+            {{ $ctrl.bridge.maxCollaborateRoomParticipants }}
+          </pbs-list-item>
+          <pbs-list-item label="Support Outdial">
+            <pbs-check-box checked="$ctrl.bridge.supportOutdial"></pbs-check-box>
+          </pbs-list-item>
+          <pbs-list-item label="Max Bridge Participants">
+            {{ $ctrl.bridge.maximumBridgeParticipants === -1 ? 'Unlimited' : $ctrl.bridge.maximumBridgeParticipants }}
+          </pbs-list-item>
+        </pbs-list>
+      </pbs-block>
+    </pbs-tab>
+
+    <pbs-tab label="Profile">
+      <service-instance-profile profile="$ctrl.bridge.serviceInstanceProfile"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        service-user-id="$ctrl.serviceUserId"
+        on-update="$ctrl.onUpdateProfile($event)"
+        loading="$ctrl.loading">
+      </service-instance-profile>
+    </pbs-tab>
+
+    <pbs-tab label="Users">
+      <group-collaborate-users></group-collaborate-users>
+    </pbs-tab>
+  </pbs-tabs>
+</pbs-spinner>
+
+<pbs-modal id="editGroupCollaborate"
+  title="Edit Bridge: {{ $ctrl.editBridge.serviceInstanceProfile.name }}">
+  <pbs-form>
+
+    <pbs-input-checkbox ng-model="$ctrl.editBridge.supportOutdial"
+      label="Support Outdial"></pbs-input-checkbox>
+
+    <pbs-form-field-horizontal label="Max Room Participants">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editBridge.maxCollaborateRoomParticipants"
+        min="$ctrl.options.roomMaximumParticipantsMin"
+        max="$ctrl.options.roomMaximumParticipantsMax">
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal label="Allocated Ports*">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.editBridge.maximumBridgeParticipants">
+    </pbs-form-field-horizontal>
+
+  </pbs-form>
+</pbs-modal>

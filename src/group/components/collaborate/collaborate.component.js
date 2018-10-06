@@ -10,15 +10,37 @@
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.open = open
     ctrl.add = add
-    ctrl.onCreate = onCreate
+    ctrl.onClick = onClick
+    ctrl.onSelectUserId = onSelectUserId
+
+    ctrl.columns = [
+      {
+        key: 'name',
+        label: 'Name'
+      },
+      {
+        key: 'participants',
+        label: 'Participants'
+      },
+      {
+        key: 'phoneNumber',
+        label: 'Phone Number'
+      },
+      {
+        key: 'extension',
+        label: 'Extension'
+      },
+      {
+        key: 'department',
+        label: 'Department'
+      }
+    ]
 
     function onInit() {
       ctrl.loading = true
-      return loadCollaborateList()
+      return loadBridges()
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {
@@ -26,28 +48,50 @@
         })
     }
 
-    function loadCollaborateList() {
+    function loadBridges() {
       return GroupCollaborateService.index(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        ctrl.listCollaborate = data
-        console.log('listCollaborate', data)
+        ctrl.bridges = data
       })
     }
 
-    function open(collaborate) {
+    function onClick(bridge) {
       Route.open(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
         'collaborate',
-        collaborate.serviceUserId
+        bridge.serviceUserId
       )
     }
 
-    function add() {}
+    function add() {
+      ctrl.addBridge = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId,
+        supportOutdial: false
+      }
+      Alert.modal.open('addGroupCollaborate', function(close) {
+        create(ctrl.addBridge, close)
+      })
+    }
 
-    function onCreate() {}
+    function onSelectUserId(event) {
+      ctrl.addBridge.serviceUserId = event.userId
+    }
+
+    function create(bridge, callback) {
+      Alert.spinner.open()
+      GroupCollaborateService.store(bridge.serviceUserId, bridge)
+        .then(function() {
+          Alert.notify.success('Bridge Created')
+          callback()
+          onClick(bridge)
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    }
   }
 })()

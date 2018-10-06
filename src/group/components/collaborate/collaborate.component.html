@@ -8,42 +8,85 @@
       <pbs-button-compact-add title="Add Collaborate"
         ng-click="$ctrl.add()"></pbs-button-compact-add>
     </pbs-block-buttons>
-    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
-    <table pbs-table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Participants</th>
-          <th>Number</th>
-          <th>Extension</th>
-          <th>Department</th>
-          <th>isDefault</th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr ng-if="results.length < 1">
-          <td colspan="6">No Collaborate Bridges Found
-            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
-          </td>
-        </tr>
-      </tfoot>
-      <tbody>
-        <tr class="hover"
-          ng-click="$ctrl.open(collaborate)"
-          ng-repeat="collaborate in $ctrl.listCollaborate.collaborateBridgeTable | filter:$ctrl.search | orderBy:'name' as results track by collaborate.serviceUserId">
-          <td>{{ collaborate.name }}</td>
-          <td>{{ collaborate.participants }}</td>
-          <td>{{ collaborate.phoneNumber }}</td>
-          <td>{{ collaborate.extension }}</td>
-          <td>{{ collaborate.department }}</td>
-          <td>{{ collaborate.isDefault }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <pbs-data-table columns="$ctrl.columns"
+      items="$ctrl.bridges"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-click="$ctrl.onClick($event)"></pbs-data-table>
   </pbs-block>
 </pbs-spinner>
-<!--<auto-attendant-create service-provider-id="$ctrl.serviceProviderId"-->
-  <!--group-id="$ctrl.groupId"-->
-  <!--on-update="$ctrl.onCreate($event)">-->
-  <!---->
-<!--</auto-attendant-create>-->
+
+<pbs-modal id="addGroupCollaborate"
+  title="Add Bridge">
+  <pbs-form>
+    <pbs-form-section>Profile</pbs-form-section>
+    <pbs-form-field-horizontal label="*Service ID">
+      <select-user-id service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.addBridge.serviceUserId"
+        on-update="$ctrl.onSelectUserId($event)"
+        required="true"></select-user-id>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="*Service Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.addBridge.serviceInstanceProfile.name"
+        required>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="*CLID Last Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.addBridge.serviceInstanceProfile.callingLineIdLastName"
+        required>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="*CLID First Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.addBridge.serviceInstanceProfile.callingLineIdFirstName"
+        required>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Phone Number">
+      <select-phone-number service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        phone-number="$ctrl.autoAttendant.serviceInstanceProfile.phoneNumber"
+        on-update="$ctrl.onSelectPhone($event)"></select-phone-number>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Extension">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.autoAttendant.serviceInstanceProfile.extension">
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Password">
+      <pbs-input-password ng-model="$ctrl.autoAttendant.serviceInstanceProfile.password"
+        ng-minlength="6"
+        ng-maxlength="60"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"></pbs-input-password>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Department">
+      <select-department service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        ng-model="$ctrl.addBridge.serviceInstanceProfile.department">
+      </select-department>
+    </pbs-form-field-horizontal>
+
+    <pbs-form-section>Bridge Settings</pbs-form-section>
+
+    <pbs-input-checkbox ng-model="$ctrl.addBridge.supportOutdial"
+      label="Support Outdial"></pbs-input-checkbox>
+    <pbs-form-field-horizontal label="Max Room Participants">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.addBridge.maxCollaborateRoomParticipants"
+        min="$ctrl.options.roomMaximumParticipantsMin"
+        max="$ctrl.options.roomMaximumParticipantsMax">
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Allocated Ports*">
+      <input type="number"
+        class="input"
+        ng-model="$ctrl.addBridge.maximumBridgeParticipants">
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>

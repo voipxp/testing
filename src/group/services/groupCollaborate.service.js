@@ -30,7 +30,7 @@
 
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url(), {
+        .get(url('bridges'), {
           params: { serviceProviderId: serviceProviderId, groupId: groupId }
         })
         .then(function(response) {
@@ -49,28 +49,28 @@
     }
 
     function store(serviceUserId, obj) {
-      return $http.post(url(), obj).then(function(response) {
+      return $http.post(url('bridges'), obj).then(function(response) {
         return response.data
       })
     }
 
     function show(serviceUserId) {
       return $http
-        .get(url(), { params: { serviceUserId: serviceUserId } })
+        .get(url('bridges'), { params: { serviceUserId: serviceUserId } })
         .then(function(response) {
           return response.data
         })
     }
 
     function update(serviceUserId, obj) {
-      return $http.put(url(), obj).then(function(response) {
+      return $http.put(url('bridges'), obj).then(function(response) {
         return response.data
       })
     }
 
     function destroy(serviceUserId) {
       return $http
-        .delete(url(), { serviceUserId: serviceUserId })
+        .delete(url('bridges'), { serviceUserId: serviceUserId })
         .then(function(response) {
           return response.data
         })
