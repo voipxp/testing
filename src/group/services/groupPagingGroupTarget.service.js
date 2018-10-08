@@ -5,30 +5,31 @@
 
   function GroupPagingGroupTargetService($http, Route) {
     var service = { available: available, assigned: assigned, update: update }
+    var url = Route.api2('/groups/paging/targets')
     return service
 
-    function url(id) {
-      return Route.api('/services/groups/paging/groups')(id, 'targets')
-    }
-
     function available(serviceUserId) {
-      var path = Route.api('/services/groups/paging/targets')()
       return $http
-        .get(path, { params: { serviceUserId: serviceUserId } })
+        .get(url('available'), { params: { serviceUserId: serviceUserId } })
         .then(function(response) {
           return response.data
         })
     }
 
-    function assigned(id) {
-      return $http.get(url(id)).then(function(response) {
-        return response.data
-      })
+    function assigned(serviceUserId) {
+      return $http
+        .get(url(), { params: { serviceUserId: serviceUserId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
-    function update(id, users) {
-      var obj = { targets: users }
-      return $http.put(url(id), obj).then(function(response) {
+    function update(serviceUserId, users) {
+      var obj = {
+        serviceUserId: serviceUserId,
+        targets: users
+      }
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }

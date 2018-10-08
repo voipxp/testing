@@ -1,10 +1,8 @@
 ;(function() {
-  angular
-    .module('odin.group')
-    .factory('GroupPagingGroupService', GroupPagingGroupService)
+  angular.module('odin.group').factory('GroupPagingGroupService', Service)
 
-  function GroupPagingGroupService($http, Route) {
-    var url = Route.api('/services/groups/paging/groups')
+  function Service($http, Route) {
+    var url = Route.api2('/groups/paging')
 
     var service = {
       index: index,
@@ -32,30 +30,34 @@
       })
     }
 
-    function show(id) {
-      return $http.get(url(id)).then(function(response) {
-        return response.data
-      })
-    }
-
-    function status(instance) {
+    function show(serviceUserId) {
       return $http
-        .put(url(), { instances: [instance] })
+        .get(url(), { params: { serviceUserId: serviceUserId } })
         .then(function(response) {
           return response.data
         })
     }
 
-    function update(id, obj) {
-      return $http.put(url(id), obj).then(function(response) {
+    function status(instance) {
+      return $http
+        .put(url('status'), { instances: [instance] })
+        .then(function(response) {
+          return response.data
+        })
+    }
+
+    function update(serviceUserId, obj) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
 
-    function destroy(id) {
-      return $http.delete(url(id)).then(function(response) {
-        return response.data
-      })
+    function destroy(serviceUserId) {
+      return $http
+        .delete(url(), { params: { serviceUserId: serviceUserId } })
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()

@@ -1,23 +1,16 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupPagingGroupOriginatorService',
-      GroupPagingGroupOriginatorService
-    )
+    .factory('GroupPagingGroupOriginatorService', Service)
 
-  function GroupPagingGroupOriginatorService($http, Route) {
+  function Service($http, Route) {
     var service = { available: available, assigned: assigned, update: update }
+    var url = Route.api2('/groups/paging/originators')
     return service
 
-    function url(id) {
-      return Route.api('/services/groups/paging/groups')(id, 'originators')
-    }
-
     function available(serviceProviderId, groupId) {
-      var path = Route.api('/services/groups/paging/originators')()
       return $http
-        .get(path, {
+        .get(url('available'), {
           params: { serviceProviderId: serviceProviderId, groupId: groupId }
         })
         .then(function(response) {
@@ -25,15 +18,17 @@
         })
     }
 
-    function assigned(id) {
-      return $http.get(url(id)).then(function(response) {
-        return response.data
-      })
+    function assigned(serviceUserId) {
+      return $http
+        .get(url(), { params: { serviceUserId: serviceUserId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
-    function update(id, users) {
-      var obj = { originators: users }
-      return $http.put(url(id), obj).then(function(response) {
+    function update(serviceUserId, users) {
+      var obj = { serviceUserId: serviceUserId, originators: users }
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
