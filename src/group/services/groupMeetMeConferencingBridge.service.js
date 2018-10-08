@@ -1,13 +1,10 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupMeetMeConferencingBridgeService',
-      GroupMeetMeConferencingBridgeService
-    )
+    .factory('GroupMeetMeConferencingBridgeService', Service)
 
-  function GroupMeetMeConferencingBridgeService($http, Route) {
-    var url = Route.api('/services/groups/meetmeconferencing/bridges')
+  function Service($http, Route) {
+    var url = Route.api2('/groups/meet-me-conferencing/bridges')
 
     var service = {
       index: index,
@@ -34,22 +31,26 @@
       })
     }
 
-    function show(id) {
-      return $http.get(url(id)).then(function(response) {
+    function show(serviceUserId) {
+      return $http
+        .get(url(), { params: { serviceUserId: serviceUserId } })
+        .then(function(response) {
+          return response.data
+        })
+    }
+
+    function update(serviceUserId, obj) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
 
-    function update(id, obj) {
-      return $http.put(url(id), obj).then(function(response) {
-        return response.data
-      })
-    }
-
-    function destroy(id) {
-      return $http.delete(url(id)).then(function(response) {
-        return response.data
-      })
+    function destroy(serviceUserId) {
+      return $http
+        .delete(url(), { params: { serviceUserId: serviceUserId } })
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()

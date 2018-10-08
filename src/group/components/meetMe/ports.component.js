@@ -12,9 +12,12 @@
     ctrl.$onInit = activate
 
     function activate() {
-      return loadPorts().catch(function(error) {
-        Alert.notify.danger(error)
-      })
+      ctrl.loading = true
+      return loadPorts()
+        .catch(Alert.notify.danger)
+        .finally(function() {
+          ctrl.loading = false
+        })
     }
 
     function loadPorts() {
@@ -23,8 +26,6 @@
         ctrl.parent.groupId
       ).then(function(data) {
         ctrl.ports = data
-        console.log('ports', data)
-        return data
       })
     }
 
@@ -43,16 +44,10 @@
         .then(loadPorts)
         .then(function() {
           Alert.notify.success('Meet-Me Settings Saved')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()

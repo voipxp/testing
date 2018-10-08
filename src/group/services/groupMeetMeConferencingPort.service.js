@@ -1,13 +1,10 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupMeetMeConferencingPortService',
-      GroupMeetMeConferencingPortService
-    )
+    .factory('GroupMeetMeConferencingPortService', Service)
 
-  function GroupMeetMeConferencingPortService($http, Route) {
-    var url = Route.api('/services/groups/meetmeconferencing/ports')
+  function Service($http, Route) {
+    var url = Route.api2('/groups/meet-me-conferencing/ports')
 
     var service = { index: index, update: update }
     return service

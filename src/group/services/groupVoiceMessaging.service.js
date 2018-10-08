@@ -4,7 +4,8 @@
     .factory('GroupVoiceMessagingService', GroupVoiceMessagingService)
 
   function GroupVoiceMessagingService($http, Route) {
-    var service = { show: show, update: update, users: users }
+    var service = { show: show, update: update }
+    var url = Route.api2('/groups/voice-messaging')
     service.options = {
       useMailServerSetting: ['System Mail Server', 'Group Mail Server'],
       mailServerNetAddress: { minLength: 1, maxLength: 80 },
@@ -34,39 +35,20 @@
 
     return service
 
-    function url(serviceProviderId, groupId) {
-      return Route.api('/services/groups')(
-        serviceProviderId,
-        groupId,
-        'voicemessaging'
-      )
-    }
-
     function show(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
+        .get(url(), {
+          params: { serviceProviderId: serviceProviderId, groupId: groupId }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
     function update(serviceProviderId, groupId, obj) {
-      return $http
-        .put(url(serviceProviderId, groupId), obj)
-        .then(function(response) {
-          return response.data
-        })
-    }
-
-    function users(serviceProviderId, groupId) {
-      var path = Route.api('/services/users/voicemessaging')()
-      return $http
-        .get(path, {
-          params: { serviceProviderId: serviceProviderId, groupId: groupId }
-        })
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), obj).then(function(response) {
+        return response.data
+      })
     }
   }
 })()
