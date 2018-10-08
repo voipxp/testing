@@ -4,7 +4,7 @@
     .factory('GroupHuntGroupService', GroupHuntGroupService)
 
   function GroupHuntGroupService($http, Route) {
-    var url = Route.api('/services/groups/huntgroups')
+    var url = Route.api2('/groups/hunt-groups')
 
     var service = {
       index: index,
@@ -43,30 +43,32 @@
 
     function status(huntgroup) {
       return $http
-        .put(url(), { instances: [huntgroup] })
+        .put(url('status'), { instances: [huntgroup] })
         .then(function(response) {
           return response.data
         })
     }
 
     function show(serviceUserId) {
-      return $http.get(url(serviceUserId)).then(function(response) {
-        return response.data
-      })
-    }
-
-    function update(huntgroup) {
       return $http
-        .put(url(huntgroup.serviceUserId), huntgroup)
+        .get(url(), { params: { serviceUserId: serviceUserId } })
         .then(function(response) {
           return response.data
         })
     }
 
-    function destroy(serviceUserId) {
-      return $http.delete(url(serviceUserId)).then(function(response) {
+    function update(huntgroup) {
+      return $http.put(url(), huntgroup).then(function(response) {
         return response.data
       })
+    }
+
+    function destroy(serviceUserId) {
+      return $http
+        .delete(url(), { params: { serviceUserId: serviceUserId } })
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()
