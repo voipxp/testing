@@ -43,21 +43,6 @@ waitTime
   function Controller(Alert, GroupCallRecordsService, DownloadService, Papa) {
     var ctrl = this
 
-    var viewableFields = [
-      'groupId',
-      'userId',
-      'department',
-      'otherPartyName',
-      'calledNumber',
-      'callingNumber',
-      'startTime',
-      'answerTime',
-      'releaseTime',
-      'waitTime',
-      'placedTime',
-      'totalTime'
-    ]
-
     ctrl.$onInit = onInit
     ctrl.download = download
     ctrl.onPagination = onPagination
@@ -89,17 +74,14 @@ waitTime
     }
 
     function download() {
-      return sendFile(ctrl.records.data)
+      return sendFile(ctrl.details)
     }
 
     function sendFile(data) {
       var filename = ['odin', ctrl.groupId, ctrl.label].join('_')
       filename = filename + '.csv'
       var options = { delimiter: ',', newline: '\r\n', quotes: true }
-      var filtered = _.map(data, function(callRecord) {
-        return _.pick(callRecord, viewableFields)
-      })
-      var csv = Papa.unparse(filtered, options)
+      var csv = Papa.unparse(data, options)
       DownloadService.download(csv, filename)
     }
   }
