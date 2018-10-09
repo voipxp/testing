@@ -3,7 +3,7 @@
     .module('odin.group')
     .factory('GroupMusicOnHoldService', GroupMusicOnHoldService)
 
-  function GroupMusicOnHoldService($http, Route, GroupDepartmentService) {
+  function GroupMusicOnHoldService($http, Route) {
     var service = {
       index: index,
       store: store,
@@ -16,50 +16,66 @@
       audioFileCodecs: ['None', 'G711', 'G722', 'G729', 'G726', 'AMR', 'AMR-WB']
     }
 
-    var route = Route.api('services', 'groups')
+    var url = Route.api2('/groups/music-on-hold')
     return service
-
-    function url(serviceProviderId, groupId, department) {
-      var departmentId = GroupDepartmentService.toId(department)
-      return route(serviceProviderId, groupId, 'musiconhold', departmentId)
-    }
 
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
+        .get(url('departments'), {
+          params: { serviceProviderId: serviceProviderId, groupId: groupId }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
     function store(serviceProviderId, groupId, moh) {
-      return $http
-        .post(url(serviceProviderId, groupId), moh)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.post(url(), moh).then(function(response) {
+        return response.data
+      })
     }
 
-    function show(serviceProviderId, groupId, departmentId) {
+    function show(
+      serviceProviderId,
+      groupId,
+      departmentName,
+      isEnterpriseDepartment
+    ) {
       return $http
-        .get(url(serviceProviderId, groupId, departmentId))
+        .get(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            departmentName: departmentName,
+            isEnterpriseDepartment: isEnterpriseDepartment
+          }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
     function update(serviceProviderId, groupId, moh) {
-      var department = moh && moh.department
-      return $http
-        .put(url(serviceProviderId, groupId, department), moh)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), moh).then(function(response) {
+        return response.data
+      })
     }
 
-    function destroy(serviceProviderId, groupId, departmentId) {
+    function destroy(
+      serviceProviderId,
+      groupId,
+      departmentName,
+      isEnterpriseDepartment
+    ) {
       return $http
-        .delete(url(serviceProviderId, groupId, departmentId))
+        .delete(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            departmentName: departmentName,
+            isEnterpriseDepartment: isEnterpriseDepartment
+          }
+        })
         .then(function(response) {
           return response.data
         })

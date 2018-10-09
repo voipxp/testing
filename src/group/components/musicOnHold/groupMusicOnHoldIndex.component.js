@@ -24,9 +24,7 @@
       ctrl.moh = {}
       ctrl.loading = true
       loadMusicOnHold()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
@@ -52,14 +50,17 @@
     }
 
     function open(department) {
-      var departmentId = GroupDepartmentService.toId(department) || 'group'
+      department = department || {}
       Route.open(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
         'musicOnHold',
-        departmentId
-      )
+        'instance'
+      ).search({
+        departmentName: department.name,
+        isEnterpriseDepartment: department.isEnterpriseDepartment
+      })
     }
 
     function add() {
@@ -67,6 +68,8 @@
       loadDepartments()
         .then(function(departments) {
           ctrl.newMoh = {
+            serviceProviderId: ctrl.serviceProviderId,
+            groupId: ctrl.groupId,
             isActiveDuringCallHold: true,
             isActiveDuringCallPark: true,
             isActiveDuringBusyCampOn: true,
@@ -86,12 +89,8 @@
             create(ctrl.newMoh, close)
           })
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function create(moh, callback) {
@@ -99,16 +98,12 @@
       GroupMusicOnHoldService.store(ctrl.serviceProviderId, ctrl.groupId, moh)
         .then(loadMusicOnHold)
         .then(function() {
-          Alert.notify.success('Department MOH Created')
+          Alert.notify.success('Music On Hold Department Created')
           callback()
           open(moh.department)
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
   }
 })()

@@ -5,25 +5,28 @@
     bindings: { module: '<' }
   })
 
-  function Controller(Alert, GroupMusicOnHoldService, Route, $routeParams) {
+  function Controller(
+    Alert,
+    GroupMusicOnHoldService,
+    Route,
+    $routeParams,
+    $location
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.departmentId = $routeParams.departmentId
     ctrl.update = update
     ctrl.destroy = destroy
     ctrl.back = back
 
     function onInit() {
-      var name = ctrl.departmentId.split('+')
-      ctrl.title = name[name.length - 1]
-      ctrl.moh = {}
+      ctrl.departmentName = $location.search().departmentName
+      ctrl.isEnterpriseDepartment = $location.search().isEnterpriseDepartment
+      ctrl.title = ctrl.departmentName || 'Group'
       ctrl.loading = true
       loadMoh()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
@@ -33,9 +36,9 @@
       return GroupMusicOnHoldService.show(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        ctrl.departmentId
+        ctrl.departmentName,
+        ctrl.isEnterpriseDepartment
       ).then(function(data) {
-        console.log('MOH', data)
         ctrl.moh = data
       })
     }
@@ -49,17 +52,11 @@
       )
         .then(loadMoh)
         .then(function() {
-          Alert.notify.success('Music On Hold Updated')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          Alert.notify.success('Music On Hold Instance Updated')
+          callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function destroy(callback) {
@@ -70,21 +67,16 @@
           return GroupMusicOnHoldService.destroy(
             ctrl.serviceProviderId,
             ctrl.groupId,
-            ctrl.departmentId
+            ctrl.departmentName,
+            ctrl.isEnterpriseDepartment
           )
             .then(function() {
-              Alert.notify.success('Music On Hold Removed')
-              if (_.isFunction(callback)) {
-                callback()
-              }
+              Alert.notify.success('Music On Hold Department Removed')
+              callback()
               back()
             })
-            .catch(function(error) {
-              Alert.notify.danger(error)
-            })
-            .finally(function() {
-              Alert.spinner.close()
-            })
+            .catch(Alert.notify.danger)
+            .finally(Alert.spinner.close)
         })
     }
 

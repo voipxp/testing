@@ -299,7 +299,7 @@
       module: 'Music On Hold'
     },
     {
-      path: 'musicOnHold/:departmentId',
+      path: 'musicOnHold/instance',
       component: 'groupMusicOnHold',
       acl: 'Group',
       module: 'Music On Hold'
