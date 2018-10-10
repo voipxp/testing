@@ -89,7 +89,7 @@
 
     function update(agents, callback) {
       Alert.spinner.open()
-      var obj = { agents: agents }
+      var obj = { serviceUserId: ctrl.serviceUserId, agents: agents }
       GroupCallCenterAgentService.update(ctrl.serviceUserId, obj)
         .then(loadAgents)
         .then(function() {

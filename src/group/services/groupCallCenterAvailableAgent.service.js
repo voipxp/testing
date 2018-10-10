@@ -1,13 +1,10 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupCallCenterAvailableAgentService',
-      GroupCallCenterAvailableAgentService
-    )
+    .factory('GroupCallCenterAvailableAgentService', Service)
 
-  function GroupCallCenterAvailableAgentService($http, Route) {
-    var url = Route.api('/services/groups/callcenters/agents')
+  function Service($http, Route) {
+    var url = Route.api2('/groups/call-centers/agents/available')
     var service = { index: index }
 
     return service

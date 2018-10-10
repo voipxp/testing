@@ -1,10 +1,8 @@
 ;(function() {
-  angular
-    .module('odin.group')
-    .factory('GroupCallCenterService', GroupCallCenterService)
+  angular.module('odin.group').factory('GroupCallCenterService', Service)
 
-  function GroupCallCenterService($http, Route) {
-    var url = Route.api('/services/groups/callcenters/instances')
+  function Service($http, Route) {
+    var url = Route.api2('/groups/call-centers')
     var service = {
       index: index,
       store: store,
@@ -69,28 +67,32 @@
 
     function status(callcenter) {
       return $http
-        .put(url(), { instances: [callcenter] })
+        .put(url('status'), { instances: [callcenter] })
         .then(function(response) {
           return response.data
         })
     }
 
     function show(serviceUserId) {
-      return $http.get(url(serviceUserId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { serviceUserId: serviceUserId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function update(serviceUserId, obj) {
-      return $http.put(url(serviceUserId), obj).then(function(response) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
 
     function destroy(serviceUserId) {
-      return $http.delete(url(serviceUserId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .delete(url(), { params: { serviceUserId: serviceUserId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function hasPermission(service, attribute) {

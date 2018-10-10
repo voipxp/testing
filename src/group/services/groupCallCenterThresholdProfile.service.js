@@ -1,13 +1,10 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupCallCenterThresholdProfileService',
-      GroupCallCenterThresholdProfileService
-    )
+    .factory('GroupCallCenterThresholdProfileService', Service)
 
-  function GroupCallCenterThresholdProfileService($http, Route) {
-    var url = Route.api('/services/groups/callcenters/thresholdprofiles')
+  function Service($http, Route) {
+    var url = Route.api2('/groups/call-centers/threshold-profiles')
     var service = { index: index }
     return service
 

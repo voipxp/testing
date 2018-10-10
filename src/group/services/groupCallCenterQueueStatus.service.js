@@ -1,25 +1,20 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupCallCenterQueueStatusService',
-      GroupCallCenterQueueStatusService
-    )
+    .factory('GroupCallCenterQueueStatusService', Service)
 
-  function GroupCallCenterQueueStatusService($http, Route) {
-    var _url = Route.api('/services/groups/callcenters/status')
+  function Service($http, Route) {
+    var url = Route.api2('/groups/call-centers/status')
     var service = { show: show }
 
     return service
 
-    function url(serviceUserId) {
-      return _url(serviceUserId)
-    }
-
     function show(serviceUserId) {
-      return $http.get(url(serviceUserId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { serviceUserId: serviceUserId } })
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()

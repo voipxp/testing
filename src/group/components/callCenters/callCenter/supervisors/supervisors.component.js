@@ -82,7 +82,7 @@
 
     function update(supervisors, callback) {
       Alert.spinner.open()
-      var obj = { supervisors: supervisors }
+      var obj = { serviceUserId: ctrl.serviceUserId, supervisors: supervisors }
       GroupCallCenterSupervisorService.update(ctrl.serviceUserId, obj)
         .then(loadSupervisors)
         .then(function() {

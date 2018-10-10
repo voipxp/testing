@@ -51,6 +51,12 @@
         ng-model="$ctrl.editSettings.phoneNumber"
         required>
     </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Extension">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.extension"
+        required>
+    </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Last Name">
       <input type="text"
         class="input"
@@ -75,13 +81,7 @@
         ng-model="$ctrl.editSettings.callingLineIdFirstName"
         required>
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="extension">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.editSettings.extension"
-        required>
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="Virtual On-Net User">
+    <pbs-form-field-horizontal label="Call Type Name">
       <pbs-input-select ng-model="$ctrl.editSettings.virtualOnNetCallTypeName"
         ng-options="opt for opt in $ctrl.callTypes"></pbs-input-select>
     </pbs-form-field-horizontal>

@@ -1,24 +1,19 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupCallCenterStatisticsService',
-      GroupCallCenterStatisticsService
-    )
+    .factory('GroupCallCenterStatisticsService', Service)
 
-  function GroupCallCenterStatisticsService($http, Route) {
-    var _url = Route.api('/services/groups/callcenters/statistics')
+  function Service($http, Route) {
+    var url = Route.api2('/groups/call-centers/statistics')
     var service = { show: show }
 
     return service
 
-    function url(serviceUserId) {
-      return _url(serviceUserId)
-    }
-
     function show(serviceUserId, start, end) {
       return $http
-        .get(url(serviceUserId), { params: { start: start, end: end } })
+        .get(url(), {
+          params: { serviceUserId: serviceUserId, start: start, end: end }
+        })
         .then(function(response) {
           return response.data
         })
