@@ -53,6 +53,8 @@
     }
 
     function create(trunk, callback) {
+      trunk.serviceProviderId = ctrl.serviceProviderId
+      trunk.groupId = ctrl.groupId
       Alert.spinner.open()
       GroupTrunkGroupService.store(ctrl.serviceProviderId, ctrl.groupId, trunk)
         .then(function() {

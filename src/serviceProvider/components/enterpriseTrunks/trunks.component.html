@@ -29,7 +29,7 @@
         <tr class="hover"
           ng-repeat="trunk in $ctrl.trunks | filter:search as results track by trunk.enterpriseTrunk"
           ng-click="$ctrl.open(trunk)">
-          <td>{{ trunk.enterpriseTrunk }}</td>
+          <td>{{ trunk.enterpriseTrunkName }}</td>
           <td>{{ trunk.routingType }}</td>
         </tr>
       </tbody>

@@ -15,7 +15,8 @@
 
     function activate() {
       ctrl.trunk = {
-        serviceProviderId: ctrl.serviceProviderId
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId
       }
       ctrl.routingType = null
       if ($scope.editGroupEnterpriseTrunkCreateForm) {

@@ -1,55 +1,53 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory('GroupEnterpriseTrunkUserService', GroupEnterpriseTrunkUserService)
+    .factory('GroupEnterpriseTrunkUserService', Service)
 
-  function GroupEnterpriseTrunkUserService($http, Route) {
+  function Service($http, Route) {
     var service = {
       index: index,
       store: store,
       update: update,
       destroy: destroy
     }
+    var url = Route.api2('/groups/enterprise-trunks/users')
     return service
 
-    function url(serviceProviderId, groupId, trunkName) {
-      return Route.api('/services/groups')(
-        serviceProviderId,
-        groupId,
-        'enterprisetrunk',
-        'trunks',
-        trunkName,
-        'users'
-      )
-    }
-
-    function index(serviceProviderId, groupId, trunkName) {
+    function index(serviceProviderId, groupId, enterpriseTrunkName) {
       return $http
-        .get(url(serviceProviderId, groupId, trunkName))
+        .get(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            enterpriseTrunkName: enterpriseTrunkName
+          }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
-    function store(serviceProviderId, groupId, trunkName, obj) {
-      return $http
-        .post(url(serviceProviderId, groupId, trunkName), obj)
-        .then(function(response) {
-          return response.data
-        })
+    function store(serviceProviderId, groupId, enterpriseTrunkName, obj) {
+      return $http.post(url(), obj).then(function(response) {
+        return response.data
+      })
     }
 
-    function update(serviceProviderId, groupId, trunkName, obj) {
-      return $http
-        .put(url(serviceProviderId, groupId, trunkName), obj)
-        .then(function(response) {
-          return response.data
-        })
+    function update(serviceProviderId, groupId, enterpriseTrunkName, obj) {
+      return $http.put(url(), obj).then(function(response) {
+        return response.data
+      })
     }
 
-    function destroy(serviceProviderId, groupId, trunkName, obj) {
+    function destroy(serviceProviderId, groupId, enterpriseTrunkName) {
       return $http
-        .delete(url(serviceProviderId, groupId, trunkName), obj)
+        .delete(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            enterpriseTrunkName: enterpriseTrunkName
+          }
+        })
         .then(function(response) {
           return response.data
         })

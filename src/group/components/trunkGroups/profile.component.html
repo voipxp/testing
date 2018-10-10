@@ -100,8 +100,9 @@
         ng-model="$ctrl.editTrunk.newName">
     </pbs-form-field>
     <pbs-form-field label="Department Name">
-      <pbs-input-select ng-model="$ctrl.editTrunk.department"
-        ng-options="department as department.name for department in $ctrl.departments track by department.name"></pbs-input-select>
+      <select-department service-provider-id="$ctrl.parent.serviceProviderId"
+        group-id="$ctrl.parent.groupId"
+        ng-model="$ctrl.editTrunk.department">
     </pbs-form-field>
     <pbs-form-field label="Authentication"
       ng-if="$ctrl.authentication.update">

@@ -5,32 +5,33 @@
 
   function GroupTrunkGroupUserService($http, Route) {
     var service = { index: index, hosted: hosted }
+    var url = Route.api2('/groups/trunk-groups/users')
     service.options = {}
     return service
 
-    function url(serviceProviderId, groupId, trunkName, type) {
-      return Route.api('/services/groups')(
-        serviceProviderId,
-        groupId,
-        'trunkgroup',
-        'trunks',
-        trunkName,
-        'users',
-        type
-      )
-    }
-
-    function index(serviceProviderId, groupId, trunkName) {
+    function index(serviceProviderId, groupId, name) {
       return $http
-        .get(url(serviceProviderId, groupId, trunkName))
+        .get(url(), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            name: name
+          }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
-    function hosted(serviceProviderId, groupId, trunkName) {
+    function hosted(serviceProviderId, groupId, name) {
       return $http
-        .get(url(serviceProviderId, groupId, trunkName, 'hosted'))
+        .get(url('hosted'), {
+          params: {
+            serviceProviderId: serviceProviderId,
+            groupId: groupId,
+            name: name
+          }
+        })
         .then(function(response) {
           return response.data
         })

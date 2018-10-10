@@ -1,12 +1,9 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupTrunkGroupCallCapacityService',
-      GroupTrunkGroupCallCapacityService
-    )
+    .factory('GroupTrunkGroupCallCapacityService', Service)
 
-  function GroupTrunkGroupCallCapacityService($http, Route) {
+  function Service($http, Route) {
     var service = { show: show, update: update }
     service.options = {}
     return service

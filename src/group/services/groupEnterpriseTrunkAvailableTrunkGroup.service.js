@@ -1,27 +1,18 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupEnterpriseTrunkAvailableTrunkGroupService',
-      GroupEnterpriseTrunkAvailableTrunkGroupService
-    )
+    .factory('GroupEnterpriseTrunkAvailableTrunkGroupService', Service)
 
-  function GroupEnterpriseTrunkAvailableTrunkGroupService($http, Route) {
+  function Service($http, Route) {
     var service = { index: index }
+    var url = Route.api2('/groups/enterprise-trunks/available-trunk-groups')
     return service
-
-    function url(serviceProviderId, groupId) {
-      return Route.api('/services/groups')(
-        serviceProviderId,
-        groupId,
-        'enterprisetrunk',
-        'trunkgroups'
-      )
-    }
 
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
+        .get(url(), {
+          params: { serviceProviderId: serviceProviderId, groupId: groupId }
+        })
         .then(function(response) {
           return response.data
         })
