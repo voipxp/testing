@@ -37,7 +37,6 @@
       return GroupCallCenterDnisService.show(ctrl.serviceUserId).then(function(
         data
       ) {
-        console.log('DNIS', data)
         ctrl.service = data
       })
     }
@@ -51,6 +50,7 @@
 
     function add() {
       ctrl.newService = {
+        serviceUserId: ctrl.serviceUserId,
         name: null,
         priority: null,
         dnisPhoneNumber: null,
@@ -69,17 +69,19 @@
 
     function selectNumber(event) {
       ctrl.newService.dnisPhoneNumber = event.phoneNumber
-      setExtension()
+      setExtension(event.phoneNumber)
+      setCLID(event.phoneNumber)
     }
 
-    function setExtension() {
-      ctrl.newService.extension = ctrl.newService.dnisPhoneNumber
-        ? ctrl.newService.dnisPhoneNumber.slice(-4)
-        : null
+    function setExtension(number) {
+      ctrl.newService.extension = number ? number.slice(-4) : null
+    }
+
+    function setCLID(number) {
+      ctrl.newService.callingLineIdPhoneNumber = number
     }
 
     function open(dnis) {
-      console.log('open', dnis)
       ctrl.dnisId = dnis.name
     }
 
@@ -87,13 +89,11 @@
       ctrl.dnisId = null
       ctrl.dnisId = event.dnis.newDNISName || event.dnis.name
       onInit()
-      console.log('onUpdate', event)
     }
 
-    function onDelete(event) {
+    function onDelete() {
       ctrl.dnisId = null
       onInit()
-      console.log('onDelete', event)
     }
 
     function update(service, callback) {

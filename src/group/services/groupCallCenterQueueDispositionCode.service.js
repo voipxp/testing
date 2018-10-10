@@ -1,13 +1,10 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupCallCenterQueueDispositionCodeService',
-      GroupCallCenterQueueDispositionCodeService
-    )
+    .factory('GroupCallCenterQueueDispositionCodeService', Service)
 
-  function GroupCallCenterQueueDispositionCodeService($http, Route) {
-    var url = Route.api('/services/groups/callcenters/dispositioncodes/codes')
+  function Service($http, Route) {
+    var url = Route.api2('/groups/call-centers/disposition-codes/codes')
     var service = {
       index: index,
       store: store,
@@ -19,33 +16,39 @@
     return service
 
     function index(serviceUserId) {
-      return $http.get(url(serviceUserId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { serviceUserId: serviceUserId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function store(serviceUserId, obj) {
-      return $http.post(url(serviceUserId), obj).then(function(response) {
+      return $http.post(url(), obj).then(function(response) {
         return response.data
       })
     }
 
     function show(serviceUserId, code) {
-      return $http.get(url(serviceUserId, code)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { serviceUserId: serviceUserId, code: code } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function update(serviceUserId, code, obj) {
-      return $http.put(url(serviceUserId, code), obj).then(function(response) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
 
     function destroy(serviceUserId, code) {
-      return $http.delete(url(serviceUserId, code)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .delete(url(), { params: { serviceUserId: serviceUserId, code: code } })
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()

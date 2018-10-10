@@ -1,13 +1,10 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupCallCenterDnisInstanceService',
-      GroupCallCenterDnisInstanceService
-    )
+    .factory('GroupCallCenterDnisInstanceService', Service)
 
-  function GroupCallCenterDnisInstanceService($http, Route) {
-    var _url = Route.api('/services/groups/callcenters/dnis')
+  function Service($http, Route) {
+    var url = Route.api2('/groups/call-centers/dnis/instances')
     var service = {
       index: index,
       store: store,
@@ -21,38 +18,40 @@
 
     return service
 
-    function url(serviceUserId, name) {
-      return _url(serviceUserId, 'instances', name)
-    }
-
     function index(serviceUserId) {
-      return $http.get(url(serviceUserId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { serviceUserId: serviceUserId } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function store(serviceUserId, obj) {
-      return $http.post(url(serviceUserId), obj).then(function(response) {
+      return $http.post(url(), obj).then(function(response) {
         return response.data
       })
     }
 
     function show(serviceUserId, name) {
-      return $http.get(url(serviceUserId, name)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { serviceUserId: serviceUserId, name: name } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function update(serviceUserId, name, obj) {
-      return $http.put(url(serviceUserId, name), obj).then(function(response) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
 
     function destroy(serviceUserId, name) {
-      return $http.delete(url(serviceUserId, name)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .delete(url(), { params: { serviceUserId: serviceUserId, name: name } })
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()

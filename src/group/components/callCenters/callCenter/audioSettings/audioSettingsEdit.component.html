@@ -27,9 +27,10 @@
   </div>
   <table pbs-table>
     <tr ng-repeat="url in $ctrl.service.audioUrlList">
-      <td>{{ url }}
+      <td>
         <pbs-button-compact-delete class="is-pulled-right"
           ng-click="$ctrl.removeUrl($index)"></pbs-button-compact-delete>
+        {{ url }}
       </td>
     </tr>
   </table>
@@ -73,10 +74,11 @@
   </div>
   <table pbs-table>
     <tr ng-repeat="file in $ctrl.service.audioFileList">
-      <td>{{ file.name }}
-        <span ng-show="file.level">({{ file.level }})</span>
+      <td>
         <pbs-button-compact-delete class="is-pulled-right"
           ng-click="$ctrl.removeFile($index)"></pbs-button-compact-delete>
+        {{ file.name }}
+        <span ng-show="file.level">({{ file.level }})</span>
       </td>
     </tr>
   </table>

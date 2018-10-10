@@ -95,7 +95,12 @@
       if ($scope.createGroupCallCenterQueueDispositionCodeForm) {
         $scope.createGroupCallCenterQueueDispositionCodeForm.$setPristine()
       }
-      ctrl.newCode = { code: null, description: null, isActive: false }
+      ctrl.newCode = {
+        serviceUserId: ctrl.serviceUserId,
+        code: null,
+        description: null,
+        isActive: false
+      }
       Alert.modal.open(
         'createGroupCallCenterQueueDispositionCode',
         function onSave(close) {

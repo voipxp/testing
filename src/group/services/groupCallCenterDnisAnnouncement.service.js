@@ -1,13 +1,10 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupCallCenterDnisAnnouncementService',
-      GroupCallCenterDnisAnnouncementService
-    )
+    .factory('GroupCallCenterDnisAnnouncementService', Service)
 
-  function GroupCallCenterDnisAnnouncementService($http, Route) {
-    var _url = Route.api('/services/groups/callcenters/dnis')
+  function Service($http, Route) {
+    var url = Route.api2('/groups/call-centers/dnis/announcements')
     var service = { show: show, update: update }
 
     service.options = {
@@ -24,18 +21,16 @@
 
     return service
 
-    function url(serviceUserId, name) {
-      return _url(serviceUserId, 'announcements', name)
-    }
-
     function show(serviceUserId, name) {
-      return $http.get(url(serviceUserId, name)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { serviceUserId: serviceUserId, name: name } })
+        .then(function(response) {
+          return response.data
+        })
     }
 
     function update(serviceUserId, name, obj) {
-      return $http.put(url(serviceUserId, name), obj).then(function(response) {
+      return $http.put(url(), obj).then(function(response) {
         return response.data
       })
     }
