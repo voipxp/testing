@@ -62,8 +62,8 @@
         'schedules',
         'schedule'
       ).search({
-        scheduleName: schedule.scheduleName,
-        scheduleType: schedule.scheduleType
+        name: schedule.name,
+        type: schedule.type
       })
     }
   }

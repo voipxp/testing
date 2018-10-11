@@ -19,8 +19,8 @@
     ctrl.edit = edit
 
     function onInit() {
-      ctrl.scheduleType = $location.search().scheduleType
-      ctrl.scheduleName = $location.search().scheduleName
+      ctrl.type = $location.search().type
+      ctrl.name = $location.search().name
       ctrl.loading = true
       loadSchedule()
         .catch(Alert.notify.danger)
@@ -33,8 +33,8 @@
       return GroupScheduleService.show(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        ctrl.scheduleName,
-        ctrl.scheduleType
+        ctrl.name,
+        ctrl.type
       ).then(function(data) {
         ctrl.schedule = data
       })
@@ -42,7 +42,7 @@
 
     function edit() {
       ctrl.editSchedule = angular.copy(ctrl.schedule)
-      ctrl.editSchedule.newScheduleName = ctrl.schedule.scheduleName
+      ctrl.editSchedule.newName = ctrl.schedule.name
       Alert.modal.open(
         'editGroupScheduleModal',
         function(close) {
@@ -94,8 +94,8 @@
         'schedules',
         'schedule'
       ).search({
-        scheduleName: schedule.newScheduleName,
-        scheduleType: schedule.scheduleType
+        name: schedule.newName,
+        type: schedule.type
       })
     }
   }

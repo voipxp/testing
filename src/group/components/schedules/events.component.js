@@ -5,8 +5,8 @@
     bindings: {
       serviceProviderId: '<',
       groupId: '<',
-      scheduleName: '<',
-      scheduleType: '<'
+      name: '<',
+      type: '<'
     }
   })
 
@@ -32,8 +32,8 @@
       return GroupEventService.index(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        ctrl.scheduleName,
-        ctrl.scheduleType
+        ctrl.name,
+        ctrl.type
       ).then(function(data) {
         ctrl.events = data.map(function(data) {
           return EventHelper.parse(data)
@@ -45,8 +45,8 @@
       ctrl.editEvent = {
         serviceProviderId: ctrl.serviceProviderId,
         groupId: ctrl.groupId,
-        scheduleName: ctrl.scheduleName,
-        scheduleType: ctrl.scheduleType
+        name: ctrl.name,
+        type: ctrl.type
       }
       ctrl.rrule = {}
       Alert.modal.open('editGroupEventModal', function(close) {
