@@ -36,34 +36,13 @@
         }
       }
       ctrl.editAutoAttendant = angular.copy(ctrl.autoAttendant)
-      Alert.spinner.open()
-      loadSchedules()
-        .then(function() {
-          Alert.modal.open(
-            'autoAttendantDetails',
-            function(close) {
-              ctrl.parent.update(ctrl.editAutoAttendant, close)
-            },
-            onDelete
-          )
-        })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
-    }
-
-    function loadSchedules() {
-      return GroupScheduleService.index(
-        ctrl.autoAttendant.serviceProviderId,
-        ctrl.autoAttendant.groupId
-      ).then(function(data) {
-        ctrl.schedules = data
-        console.log('schedules', data)
-        return data
-      })
+      Alert.modal.open(
+        'autoAttendantDetails',
+        function(close) {
+          ctrl.parent.update(ctrl.editAutoAttendant, close)
+        },
+        onDelete
+      )
     }
   }
 })()
