@@ -30,14 +30,14 @@
       })
     }
 
-    function show(serviceProviderId, groupId, scheduleName, scheduleType) {
+    function show(serviceProviderId, groupId, name, type) {
       return $http
         .get(url, {
           params: {
             serviceProviderId: serviceProviderId,
             groupId: groupId,
-            scheduleName: scheduleName,
-            scheduleType: scheduleType
+            name: name,
+            type: type
           }
         })
         .then(function(response) {
@@ -57,8 +57,8 @@
           params: {
             serviceProviderId: schedule.serviceProviderId,
             groupId: schedule.groupId,
-            scheduleName: schedule.scheduleName,
-            scheduleType: schedule.scheduleType
+            name: schedule.name,
+            type: schedule.type
           }
         })
         .then(function(response) {
