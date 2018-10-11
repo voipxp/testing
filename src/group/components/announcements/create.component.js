@@ -31,6 +31,12 @@
 
     function open() {
       ctrl.announcement = { level: 'User' }
+      if (ctrl.userId) {
+        ctrl.announcement.userId = ctrl.userId
+      } else {
+        ctrl.announcement.serviceProviderId = ctrl.serviceProviderId
+        ctrl.announcement.groupId = ctrl.groupId
+      }
       Alert.modal.open(ctrl.modalId, function(close) {
         create(ctrl.announcement, close)
       })
