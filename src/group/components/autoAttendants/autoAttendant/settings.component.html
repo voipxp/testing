@@ -60,16 +60,18 @@
         required></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Business Schedule">
-      <pbs-input-select ng-model="$ctrl.editAutoAttendant.businessHours"
-        ng-options="schedule as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Time'} track by schedule.name">
-        <option value="">-- 24x7 --</option>
-      </pbs-input-select>
+      <select-group-schedule service-provider-id="$ctrl.editAutoAttendant.serviceProviderId"
+        group-id="$ctrl.editAutoAttendant.groupId"
+        type="Time"
+        ng-model="$ctrl.editAutoAttendant.businessHours">
+      </select-group-schedule>
     </pbs-form-field>
     <pbs-form-field label="Holiday Schedule">
-      <pbs-input-select ng-model="$ctrl.editAutoAttendant.holidaySchedule"
-        ng-options="schedule as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Holiday'} track by schedule.name">
-        <option value="">-- None --</option>
-      </pbs-input-select>
+      <select-group-schedule service-provider-id="$ctrl.editAutoAttendant.serviceProviderId"
+        group-id="$ctrl.editAutoAttendant.groupId"
+        type="Holiday"
+        ng-model="$ctrl.editAutoAttendant.holidaySchedule">
+      </select-group-schedule>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

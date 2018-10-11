@@ -30,6 +30,7 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
+        console.log('data', data)
         ctrl.schedules = data
       })
     }
