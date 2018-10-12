@@ -11,7 +11,7 @@ ADD . /app
 RUN cd /app; yarn; yarn run build
 
 # FINAL STAGE
-FROM alpine:3.7
+FROM alpine:3.8
 WORKDIR /app
 COPY --from=caddy /install/caddy /usr/local/bin/caddy
 COPY --from=build /app/dist /app/html/app
