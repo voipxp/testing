@@ -4,13 +4,13 @@
   function Service($http, Route) {
     var url = Route.api2('/groups/call-centers')
     var service = {
-      index: index,
-      store: store,
-      show: show,
-      update: update,
-      destroy: destroy,
-      hasPermission: hasPermission,
-      status: status
+      index,
+      store,
+      show,
+      update,
+      destroy,
+      hasPermission,
+      status
     }
 
     service.options = {
@@ -49,50 +49,35 @@
 
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url(), {
-          params: { serviceProviderId: serviceProviderId, groupId: groupId }
-        })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId } })
+        .then(resp => resp.data)
     }
 
     function store(serviceProviderId, groupId, obj) {
-      obj.serviceProviderId = serviceProviderId
-      obj.groupId = groupId
-      return $http.post(url(), obj).then(function(response) {
-        return response.data
-      })
+      obj = { ...obj, serviceProviderId, groupId }
+      return $http.post(url(), obj).then(resp => resp.data)
     }
 
     function status(callcenter) {
       return $http
         .put(url('status'), { instances: [callcenter] })
-        .then(function(response) {
-          return response.data
-        })
+        .then(resp => resp.data)
     }
 
     function show(serviceUserId) {
       return $http
-        .get(url(), { params: { serviceUserId: serviceUserId } })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceUserId } })
+        .then(resp => resp.data)
     }
 
     function update(serviceUserId, obj) {
-      return $http.put(url(), obj).then(function(response) {
-        return response.data
-      })
+      return $http.put(url(), obj).then(resp => resp.data)
     }
 
     function destroy(serviceUserId) {
       return $http
-        .delete(url(), { params: { serviceUserId: serviceUserId } })
-        .then(function(response) {
-          return response.data
-        })
+        .delete(url(), { params: { serviceUserId } })
+        .then(resp => resp.data)
     }
 
     function hasPermission(service, attribute) {
