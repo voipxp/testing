@@ -1,6 +1,6 @@
 pipeline:
   build:
-    image: node
+    image: node:10-alpine
     commands:
       - yarn
       - yarn run lint
