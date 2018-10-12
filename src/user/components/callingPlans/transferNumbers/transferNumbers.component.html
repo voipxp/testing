@@ -9,7 +9,6 @@
       <pbs-list-item label="Use Custom Settings">
         <pbs-check-box checked="$ctrl.plan.useCustomSettings"></pbs-check-box>
       </pbs-list-item>
-
       <pbs-list-section>Transfer Numbers</pbs-list-section>
       <pbs-list-item label="Transer Number 1">
         {{ $ctrl.plan.userNumbers.phoneNumber01 }}
@@ -26,28 +25,35 @@
 <pbs-modal id="editUserOutgoingCallingPlanTransferNumber"
   title="Edit Transfer Number">
   <pbs-form>
-    <pbs-form-field label="Transfer Number 1">
-      <input type="text"
-        ng-model="$ctrl.editPlan.userNumbers.phoneNumber01"
-        class="input"
-        minlength="1"
-        maxlength="30">
-    </pbs-form-field>
+    <pbs-form-section>Custom Settings</pbs-form-section>
+    <pbs-input-checkbox ng-model="$ctrl.editPlan.useCustomSettings"
+      label="Use Custom Settings"></pbs-input-checkbox>
 
-    <pbs-form-field label="Transfer Number 2">
-      <input type="text"
-        ng-model="$ctrl.editPlan.userNumbers.phoneNumber02"
-        class="input"
-        minlength="1"
-        maxlength="30">
-    </pbs-form-field>
+    <div ng-show="$ctrl.editPlan.useCustomSettings">
+      <pbs-form-section>Transfer Numbers</pbs-form-section>
+      <pbs-form-field-horizontal label="Transfer Number 1">
+        <input type="text"
+          ng-model="$ctrl.editPlan.userNumbers.phoneNumber01"
+          class="input"
+          minlength="1"
+          maxlength="30">
+      </pbs-form-field-horizontal>
 
-    <pbs-form-field label="Transfer Number 3">
-      <input type="text"
-        ng-model="$ctrl.editPlan.userNumbers.phoneNumber03"
-        class="input"
-        minlength="1"
-        maxlength="30">
-    </pbs-form-field>
+      <pbs-form-field-horizontal label="Transfer Number 2">
+        <input type="text"
+          ng-model="$ctrl.editPlan.userNumbers.phoneNumber02"
+          class="input"
+          minlength="1"
+          maxlength="30">
+      </pbs-form-field-horizontal>
+
+      <pbs-form-field-horizontal label="Transfer Number 3">
+        <input type="text"
+          ng-model="$ctrl.editPlan.userNumbers.phoneNumber03"
+          class="input"
+          minlength="1"
+          maxlength="30">
+      </pbs-form-field-horizontal>
+    </div>
   </pbs-form>
 </pbs-modal>

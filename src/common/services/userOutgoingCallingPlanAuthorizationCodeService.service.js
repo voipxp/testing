@@ -1,62 +1,43 @@
 ;(function() {
   angular
     .module('odin.common')
-    .factory(
-      'UserOutgoingCallingPlanAuthorizationCodeService',
-      UserOutgoingCallingPlanAuthorizationCodeService
-    )
+    .factory('UserOutgoingCallingPlanAuthorizationCodeService', Service)
 
-  function UserOutgoingCallingPlanAuthorizationCodeService($http, Route) {
+  function Service($http, Route) {
     var service = {
-      show: show,
-      update: update,
-      index: index,
-      create: create,
-      destroy: destroy
+      show,
+      update,
+      index,
+      create,
+      destroy
     }
+    var url = Route.api2('/users/calling-plans/outgoing/authorization-codes')
     return service
 
-    function url(id, nested, codeId) {
-      var path = nested ? 'codes' : null
-      return Route.api('users')(
-        id,
-        'callingplans',
-        'outgoing',
-        'authorizationcode',
-        path,
-        codeId
-      )
-    }
-
     function show(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { params: { userId } }).then(res => res.data)
     }
 
     function update(userId, obj) {
-      return $http.put(url(userId), obj).then(function(response) {
-        return response.data
-      })
+      return $http.put(url(), obj).then(res => res.data)
     }
 
     function index(userId) {
-      return $http.get(url(userId, true)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url('codes'), { params: { userId } })
+        .then(res => res.data)
     }
 
     function create(userId, obj) {
-      return $http.post(url(userId, true), obj).then(function(response) {
-        return response.data
-      })
+      return $http.post(url('codes'), obj).then(res => res.data)
     }
 
     function destroy(userId, code) {
-      var codeId = code.code || code
-      return $http.delete(url(userId, true, codeId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .delete(url('codes'), { params: { userId, code: code.code || code } })
+        .then(function(response) {
+          return response.data
+        })
     }
   }
 })()

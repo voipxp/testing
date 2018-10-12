@@ -8,11 +8,7 @@
       bindings: { userId: '<' }
     })
 
-  function Controller(
-    $routeParams,
-    Alert,
-    UserOutgoingCallingPlanTransferNumbersService
-  ) {
+  function Controller(Alert, UserOutgoingCallingPlanTransferNumbersService) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit

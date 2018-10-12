@@ -7,7 +7,7 @@
     )
 
   function Service($http, Route) {
-    var service = { show: show, update: update }
+    var service = { show, update }
     service.options = {
       userPermissions: [
         'Ignore',
@@ -18,29 +18,18 @@
         'Transfer To Third Transfer Number'
       ]
     }
+    var url = Route.api2(
+      '/users/calling-plans/outgoing/pinhole-digit-plan/originating'
+    )
 
     return service
 
-    function url(id) {
-      return Route.api('users')(
-        id,
-        'callingplans',
-        'outgoing',
-        'pinholedigitplan',
-        'originating'
-      )
-    }
-
     function show(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { params: { userId } }).then(res => res.data)
     }
 
     function update(userId, obj) {
-      return $http.put(url(userId), obj).then(function(response) {
-        return response.data
-      })
+      return $http.put(url(), obj).then(res => res.data)
     }
   }
 })()

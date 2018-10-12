@@ -50,34 +50,34 @@
     function index(serviceProviderId, groupId) {
       return $http
         .get(url(), { params: { serviceProviderId, groupId } })
-        .then(resp => resp.data)
+        .then(res => res.data)
     }
 
     function store(serviceProviderId, groupId, obj) {
       obj = { ...obj, serviceProviderId, groupId }
-      return $http.post(url(), obj).then(resp => resp.data)
+      return $http.post(url(), obj).then(res => res.data)
     }
 
     function status(callcenter) {
       return $http
         .put(url('status'), { instances: [callcenter] })
-        .then(resp => resp.data)
+        .then(res => res.data)
     }
 
     function show(serviceUserId) {
       return $http
         .get(url(), { params: { serviceUserId } })
-        .then(resp => resp.data)
+        .then(res => res.data)
     }
 
     function update(serviceUserId, obj) {
-      return $http.put(url(), obj).then(resp => resp.data)
+      return $http.put(url(), obj).then(res => res.data)
     }
 
     function destroy(serviceUserId) {
       return $http
         .delete(url(), { params: { serviceUserId } })
-        .then(resp => resp.data)
+        .then(res => res.data)
     }
 
     function hasPermission(service, attribute) {

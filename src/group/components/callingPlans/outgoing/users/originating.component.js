@@ -120,7 +120,7 @@
     }
 
     function loadUsers() {
-      return GroupOutgoingCallingPlanOriginatingService.users(
+      return UserOutgoingCallingPlanOriginatingService.bulkIndex(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
@@ -163,7 +163,7 @@
 
     function bulk(users, data, callback) {
       Alert.spinner.open()
-      UserOutgoingCallingPlanOriginatingService.bulk({
+      UserOutgoingCallingPlanOriginatingService.bulkUpdate({
         users: users,
         data: data
       })

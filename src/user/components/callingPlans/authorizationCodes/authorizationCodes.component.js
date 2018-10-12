@@ -68,7 +68,7 @@
     }
 
     function add() {
-      ctrl.newCode = {}
+      ctrl.newCode = { userId: ctrl.userId }
       Alert.modal.open('addOutgoingCallingPlanAuthorizationCode', function(
         close
       ) {

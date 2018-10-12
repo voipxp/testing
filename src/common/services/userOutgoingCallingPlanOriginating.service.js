@@ -4,7 +4,8 @@
     .factory('UserOutgoingCallingPlanOriginatingService', Service)
 
   function Service($http, Route) {
-    var service = { show: show, update: update, bulk: bulk }
+    var service = { show, update, bulkUpdate, bulkIndex }
+    var url = Route.api2('/users/calling-plans/outgoing/originating')
     service.options = {
       userPermissions: [
         'Disallow',
@@ -17,27 +18,22 @@
     }
     return service
 
-    function url(id) {
-      return Route.api('users')(id, 'callingplans', 'outgoing', 'originating')
-    }
-
     function show(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { params: { userId } }).then(res => res.data)
     }
 
     function update(userId, obj) {
-      return $http.put(url(userId), obj).then(function(response) {
-        return response.data
-      })
+      return $http.put(url(), obj).then(res => res.data)
     }
 
-    function bulk(data) {
-      var route = Route.api('callingplans', 'users', 'outgoing', 'originating')
-      return $http.put(route(), data).then(function(response) {
-        return response.data
-      })
+    function bulkIndex(serviceProviderId, groupId) {
+      return $http
+        .get(url('bulk'), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
+    }
+
+    function bulkUpdate(data) {
+      return $http.put(url('bulk'), data).then(res => res.data)
     }
   }
 })()
