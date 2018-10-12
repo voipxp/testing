@@ -1,7 +1,6 @@
 require('dotenv').config()
 const gulp = require('gulp')
 const babel = require('gulp-babel')
-const annotate = require('gulp-ng-annotate')
 const concat = require('gulp-concat')
 const cssnano = require('gulp-cssnano')
 const del = require('del')
@@ -11,7 +10,6 @@ const sass = require('gulp-sass')
 const series = require('stream-series')
 const replace = require('gulp-replace')
 const templates = require('gulp-angular-templatecache')
-const uglify = require('gulp-uglify')
 const buffer = require('buffer-to-vinyl')
 const ngConfig = require('gulp-ng-config')
 
@@ -42,9 +40,7 @@ gulp.task('app.js', () => {
   let app = gulp.src(['src/common/lib/*.js', 'src/**/index.js', 'src/**/*.js'])
   return series(conf, app)
     .pipe(concat('app.js'))
-    .pipe(gulpIf(prod, annotate()))
     .pipe(babel())
-    .pipe(gulpIf(prod, uglify()))
     .pipe(gulp.dest(dest))
 })
 
@@ -59,7 +55,6 @@ gulp.task('app.tpl', () => {
         transformUrl: url => url.replace(/^\//, '')
       })
     )
-    .pipe(gulpIf(prod, uglify()))
     .pipe(gulp.dest(dest))
 })
 
