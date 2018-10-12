@@ -8,7 +8,7 @@ RUN VERSION=${CADDY_VERSION} PLUGINS=${CADDY_PLUGINS} /bin/sh /usr/bin/builder.s
 FROM node:10-alpine as build
 RUN apk add --no-cache git
 ADD . /app
-RUN cd /app; yarn; yarn run build
+RUN cd /app && yarn && yarn lint && yarn build
 
 # FINAL STAGE
 FROM alpine:3.8
