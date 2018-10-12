@@ -1,8 +1,5 @@
-# CADDY BUILD STAGE
-FROM abiosoft/caddy:builder as caddy
-ARG CADDY_VERSION="0.10.10"
-ARG CADDY_PLUGINS="cors"
-RUN VERSION=${CADDY_VERSION} PLUGINS=${CADDY_PLUGINS} /bin/sh /usr/bin/builder.sh
+# CADDY BINARY
+FROM abiosoft/caddy as caddy
 
 # APP BUILD STAGE
 FROM node:10-alpine as build
@@ -13,7 +10,7 @@ RUN cd /app && yarn && yarn lint && yarn build
 # FINAL STAGE
 FROM alpine:3.8
 WORKDIR /app
-COPY --from=caddy /install/caddy /usr/local/bin/caddy
+COPY --from=caddy /usr/bin/caddy /usr/local/bin/caddy
 COPY --from=build /app/dist /app/html/app
 RUN apk add --no-cache ca-certificates
 RUN mkdir /app/etc \
