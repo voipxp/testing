@@ -12,14 +12,14 @@
     }
     return service
 
-    function index(serviceProviderId, groupId, scheduleName, scheduleType) {
+    function index(serviceProviderId, groupId, name, type) {
       return $http
         .get(url(), {
           params: {
             serviceProviderId: serviceProviderId,
             groupId: groupId,
-            scheduleName: scheduleName,
-            scheduleType: scheduleType
+            name: name,
+            type: type
           }
         })
         .then(function(response) {
@@ -33,20 +33,14 @@
       })
     }
 
-    function show(
-      serviceProviderId,
-      groupId,
-      scheduleName,
-      scheduleType,
-      eventName
-    ) {
+    function show(serviceProviderId, groupId, name, type, eventName) {
       return $http
         .get(url(), {
           params: {
             serviceProviderId: serviceProviderId,
             groupId: groupId,
-            scheduleName: scheduleName,
-            scheduleType: scheduleType,
+            name: name,
+            type: type,
             eventName: eventName
           }
         })
@@ -67,8 +61,8 @@
           params: {
             serviceProviderId: event.serviceProviderId,
             groupId: event.groupId,
-            scheduleName: event.scheduleName,
-            scheduleType: event.scheduleType,
+            name: event.name,
+            type: event.type,
             eventName: event.eventName
           }
         })

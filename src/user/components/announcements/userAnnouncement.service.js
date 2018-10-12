@@ -13,71 +13,60 @@
       destroy: destroy
     }
     service.options = { mediaTypes: ['WMA', 'WAV', '3GP', 'MOV'] }
-
+    var url = Route.api2('/users/announcements')
     return service
 
-    function url(userId, name, mediaType) {
-      return Route.api('users', userId, 'announcements')(name, mediaType)
-    }
-
     function index(userId, type) {
-      var params = {}
+      var params = { userId: userId }
       if (type) {
         params['type'] = type
       }
-      return $http
-        .get(url(userId), { params: params })
-        .then(function(response) {
-          return response.data
-        })
+      return $http.get(url(), { params: params }).then(function(response) {
+        return response.data
+      })
     }
 
     function available(userId, type) {
-      var params = { available: true }
+      var params = { userId: userId, available: true }
       if (type) {
         params['type'] = type
       }
-      return $http
-        .get(url(userId), { params: params })
-        .then(function(response) {
-          return response.data
-        })
-    }
-
-    function encodeName(name) {
-      return name.replace(/\//g, '%2F')
+      return $http.get(url(), { params: params }).then(function(response) {
+        return response.data
+      })
     }
 
     function store(userId, announcement) {
-      return $http.post(url(userId), announcement).then(function(response) {
+      return $http.post(url(), announcement).then(function(response) {
         return response.data
       })
     }
 
     function show(userId, name, mediaType) {
       return $http
-        .get(url(userId, encodeName(name), mediaType))
+        .get(url(), {
+          params: { userId: userId, name: name, mediaType: mediaType }
+        })
         .then(function(response) {
           return response.data
         })
     }
 
     function update(userId, announcement) {
-      return $http
-        .put(
-          url(userId, encodeName(announcement.name), announcement.mediaType),
-          announcement
-        )
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), announcement).then(function(response) {
+        return response.data
+      })
     }
 
     function destroy(userId, announcement) {
       return $http
-        .delete(
-          url(userId, encodeName(announcement.name), announcement.mediaType)
-        )
+        .delete(url(), {
+          params: {
+            userId: userId,
+            name: announcement.name,
+            mediaType: announcement.mediaType
+          }
+        })
         .then(function(response) {
           return response.data
         })
