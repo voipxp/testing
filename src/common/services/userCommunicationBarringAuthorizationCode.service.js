@@ -1,40 +1,25 @@
 ;(function() {
   angular
     .module('odin.common')
-    .factory(
-      'UserCommunicationBarringAuthorizationCodeService',
-      UserCommunicationBarringAuthorizationCodeService
-    )
+    .factory('UserCommunicationBarringAuthorizationCodeService', Service)
 
-  function UserCommunicationBarringAuthorizationCodeService($http, Route) {
-    var service = { index: index, create: create, destroy: destroy }
+  function Service($http, Route) {
+    var service = { index, create, destroy }
+    var url = Route.api2('/users/communication-barring/authorization-codes')
     return service
 
-    function url(id, code) {
-      return Route.api('users')(
-        id,
-        'communicationbarring',
-        'authorizationcodes',
-        code
-      )
-    }
-
     function index(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { params: { userId } }).then(res => res.data)
     }
 
     function create(userId, obj) {
-      return $http.post(url(userId), obj).then(function(response) {
-        return response.data
-      })
+      return $http.post(url(), obj).then(res => res.data)
     }
 
     function destroy(userId, code) {
-      return $http.delete(url(userId, code)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .delete(url(), { params: { userId, code } })
+        .then(res => res.data)
     }
   }
 })()

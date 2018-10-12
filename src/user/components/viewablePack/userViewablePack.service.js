@@ -1,26 +1,19 @@
 ;(function() {
-  angular
-    .module('odin.user')
-    .factory('UserViewablePackService', UserViewablePackService)
+  angular.module('odin.user').factory('UserViewablePackService', Service)
 
-  function UserViewablePackService($http, Route, $rootScope) {
-    var service = { show: show, update: update }
+  function Service($http, Route, $rootScope) {
+    var service = { show, update }
+    var url = Route.api2('/users/viewable-packs')
     return service
 
-    function url(userId, viewablePackId) {
-      return Route.api('users', userId, 'viewablepacks')(viewablePackId)
-    }
-
     function show(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { params: { userId } }).then(res => res.data)
     }
 
-    function update(userId, viewablePackId) {
-      return $http.put(url(userId, viewablePackId)).then(function(response) {
+    function update(userId, id) {
+      return $http.put(url(), { userId, id }).then(res => {
         $rootScope.$emit('UserViewablePackService:updated')
-        return response.data
+        return res.data
       })
     }
   }

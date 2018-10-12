@@ -57,7 +57,7 @@
     }
 
     function add() {
-      ctrl.newCode = {}
+      ctrl.newCode = { userId: ctrl.userId }
       Alert.modal.open(
         'addUserCommunicationBarringAuthorizationCode',
         function onSave(close) {

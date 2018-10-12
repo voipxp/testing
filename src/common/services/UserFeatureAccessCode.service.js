@@ -4,17 +4,12 @@
     .factory('UserFeatureAccessCodeService', UserFeatureAccessCodeService)
 
   function UserFeatureAccessCodeService($http, Route) {
-    var service = { index: index }
+    var service = { index }
+    var url = Route.api2('/users/feature-access-codes')
     return service
 
-    function url(id) {
-      return Route.api('users')(id, 'featureaccesscodes')
-    }
-
     function index(userId) {
-      return $http.get(url(userId)).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { params: { userId } }).then(res => res.data)
     }
   }
 })()

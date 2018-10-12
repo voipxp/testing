@@ -63,6 +63,7 @@
       if ($scope.editUserPortalPasscodeForm) {
         $scope.editUserPortalPasscodeForm.$setPristine()
       }
+      ctrl.editPasscode = { userId: ctrl.userId }
       Alert.modal.open('editUserPortalPasscode', function(close) {
         update(ctrl.editPasscode, close)
       })
