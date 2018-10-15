@@ -6,6 +6,10 @@
     "angularjs-annotate"
   ],
   "env": {
+    "development": {
+      "compact": false,
+      "comments": true
+    },
     "production": {
       "compact": true,
       "comments": false,
