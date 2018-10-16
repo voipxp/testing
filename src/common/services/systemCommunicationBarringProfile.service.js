@@ -5,14 +5,12 @@
 
   function Service($http, CacheFactory, Route) {
     var cache = CacheFactory('SystemCommunicationBarringProfileService')
-    var url = Route.api('system', 'communicationbarringprofiles')
-    var service = { index: index }
+    var url = Route.api2('/system/communication-barring/profiles')
+    var service = { index }
     return service
 
     function index() {
-      return $http.get(url(), { cache: cache }).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { cache: cache }).then(res => res.data)
     }
   }
 })()

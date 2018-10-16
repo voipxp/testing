@@ -5,20 +5,16 @@
 
   function SystemPasscodeService($http, Route, CacheFactory) {
     var cache = CacheFactory('SystemPasscodeService')
-    var url = Route.api('system', 'passcodes')
+    var url = Route.api2('/system/passcode-rules')
     var service = { show: show, update: update }
     return service
 
     function show() {
-      return $http.get(url(), { cache: cache }).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { cache: cache }).then(res => res.data)
     }
 
     function update(obj) {
-      return $http.put(url(), obj).then(function(response) {
-        return response.data
-      })
+      return $http.put(url(), obj).then(res => res.data)
     }
   }
 })()
