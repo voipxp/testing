@@ -164,7 +164,7 @@
     }
 
     function removeSystem(device) {
-      return SystemDeviceService.destroy(device)
+      return SystemDeviceService.destroy(device.deviceName)
     }
 
     function sendUpdate(device) {

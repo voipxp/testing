@@ -3,50 +3,36 @@
 
   function Service($http, CacheFactory, Route) {
     var cache = CacheFactory('SystemDeviceService')
-    var service = {
-      index: index,
-      store: store,
-      show: show,
-      update: update,
-      destroy: destroy
-    }
+    var url = Route.api2('/system/devices')
+    var service = { index, store, show, update, destroy }
     return service
 
-    function url(device) {
-      var deviceId = (device && device.deviceName) || device
-      return Route.api('/system/devices')(deviceId)
-    }
-
     function index() {
-      return $http.get(url(), { cache: cache }).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { cache }).then(res => res.data)
     }
 
     function store(device) {
-      return $http.post(url(), device).then(function(response) {
+      return $http.post(url(), device).then(res => {
         cache.removeAll()
-        return response.data
+        return res.data
       })
     }
 
     function update(device) {
-      return $http.put(url(device), device).then(function(response) {
+      return $http.put(url(), device).then(res => {
         cache.removeAll()
-        return response.data
+        return res.data
       })
     }
 
-    function show(device) {
-      return $http.get(url(device)).then(function(response) {
-        return response.data
-      })
+    function show(deviceName) {
+      return $http.get(url(), { params: { deviceName } }).then(res => res.data)
     }
 
-    function destroy(device) {
-      return $http.delete(url(device)).then(function(response) {
+    function destroy(deviceName) {
+      return $http.delete(url(), { params: { deviceName } }).then(res => {
         cache.removeAll()
-        return response.data
+        return res.data
       })
     }
   }

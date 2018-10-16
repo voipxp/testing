@@ -40,7 +40,6 @@
     function loadDevices() {
       return SystemDeviceTypeService.index().then(function(data) {
         ctrl.devices = data
-        console.log('deviceCreate', data)
         return data
       })
     }

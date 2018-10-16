@@ -3,14 +3,12 @@
 
   function Service($http, CacheFactory, Route) {
     var cache = CacheFactory('SystemDeviceTypeService')
-    var service = { index: index }
-    var url = Route.api('/system/devicetypes')
+    var service = { index }
+    var url = Route.api2('/system/device-types')
     return service
 
     function index() {
-      return $http.get(url(), { cache: cache }).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { cache }).then(res => res.data)
     }
   }
 })()

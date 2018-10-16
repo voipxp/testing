@@ -4,8 +4,8 @@
     .factory('SystemCollaborateService', SystemCollaborateService)
 
   function SystemCollaborateService($http, Route) {
-    var url = Route.api('/system/collaborate')
-    var service = { show: show, update: update }
+    var url = Route.api2('/system/collaborate')
+    var service = { show, update }
     service.options = {
       roomIdLengthMin: 4,
       roomIdLengthMax: 15,
@@ -25,14 +25,11 @@
     return service
 
     function show() {
-      return $http.get(url()).then(function(response) {
-        return response.data
-      })
+      return $http.get(url()).then(res => res.data)
     }
+
     function update(obj) {
-      return $http.put(url(), obj).then(function(response) {
-        return response.data
-      })
+      return $http.put(url(), obj).then(res => res.data)
     }
   }
 })()

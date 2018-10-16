@@ -53,7 +53,6 @@
       }
       return action().then(function(data) {
         ctrl.devices = data
-        console.log('devices#loadDevices', data)
         return data
       })
     }
