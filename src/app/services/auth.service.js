@@ -9,30 +9,21 @@
     // obtain a user token
     function token(username, password) {
       return $http
-        .post(url('token'), { username: username, password: password })
-        .then(function(response) {
-          return response.data
-        })
+        .post(url('token'), { username, password })
+        .then(res => res.data)
     }
 
     function password(oldPassword, newPassword, userId) {
-      var obj = {
-        userId: userId,
-        newPassword: newPassword
-      }
+      var obj = { userId, newPassword }
       if (oldPassword) {
         obj['oldPassword'] = oldPassword
       }
-      return $http.put(url('password'), obj).then(function(response) {
-        return response.data
-      })
+      return $http.put(url('password'), obj).then(res => res.data)
     }
 
     // load the session information about the logged in user
     function session() {
-      return $http.get(url('session')).then(function(response) {
-        return response.data
-      })
+      return $http.get(url('session')).then(res => res.data)
     }
   }
 })()
