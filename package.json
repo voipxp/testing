@@ -40,6 +40,7 @@
     "sugar-date": "^2.0.4"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.4.1",
     "del": "^3.0.0",
     "dotenv": "^6.0.0",
     "eslint": "^4.19.1",

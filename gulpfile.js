@@ -77,7 +77,11 @@ gulp.task('app.assets', () => {
     .src('assets/browserconfig.xml')
     .pipe(replace('<!-- #api -->', Config.APP.apiURL))
   let robots = gulp.src('assets/robots.txt')
-  return series(manifest, browserconfig, robots).pipe(gulp.dest(dest))
+  let fa = gulp.src(
+    ['node_modules/@fortawesome/fontawesome-free/webfonts/**'],
+    { base: 'node_modules/@fortawesome/fontawesome-free' }
+  )
+  return series(manifest, browserconfig, robots, fa).pipe(gulp.dest(dest))
 })
 
 gulp.task('vendor.css', () => {
