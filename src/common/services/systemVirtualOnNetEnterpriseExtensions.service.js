@@ -1,25 +1,16 @@
 ;(function() {
   angular
     .module('odin.common')
-    .factory(
-      'SystemVirtualOnNetEnterpriseExtensionsService',
-      SystemVirtualOnNetEnterpriseExtensionsService
-    )
+    .factory('SystemVirtualOnNetEnterpriseExtensionsService', System)
 
-  function SystemVirtualOnNetEnterpriseExtensionsService(
-    $http,
-    CacheFactory,
-    Route
-  ) {
-    var url = Route.api('/system/virtualonnetenterpriseextensions')
+  function System($http, CacheFactory, Route) {
+    var url = Route.api2('/system/virtual-on-net-enterprise-extensions')
     var cache = CacheFactory('SystemVirtualOnNetEnterpriseExtensionsService')
-    var service = { index: index }
+    var service = { index }
     return service
 
     function index() {
-      return $http.get(url(), { cache: cache }).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { cache }).then(res => res.data)
     }
   }
 })()

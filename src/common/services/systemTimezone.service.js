@@ -1,18 +1,14 @@
 ;(function() {
-  angular
-    .module('odin.common')
-    .factory('SystemTimeZoneService', SystemTimeZoneService)
+  angular.module('odin.common').factory('SystemTimeZoneService', Service)
 
-  function SystemTimeZoneService($http, CacheFactory, Route) {
-    var url = Route.api('/system/timezones')
+  function Service($http, CacheFactory, Route) {
+    var url = Route.api2('/system/time-zones')
     var cache = CacheFactory('SystemTimeZoneService')
-    var service = { index: index }
+    var service = { index }
     return service
 
     function index() {
-      return $http.get(url(), { cache: cache }).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { cache }).then(res => res.data)
     }
   }
 })()
