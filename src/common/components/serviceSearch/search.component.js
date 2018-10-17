@@ -89,13 +89,23 @@
     function route(user) {
       var path = ctrl.serviceTypes[user.serviceType]
       if (!path) return
-      Route.open(
-        'groups',
-        user.serviceProviderId,
-        user.groupId,
-        path,
-        user.userId
-      )
+      if (path === 'autoAttendants') {
+        Route.open(
+          'groups',
+          user.serviceProviderId,
+          user.groupId,
+          path,
+          'autoAttendant'
+        ).search({ serviceUserId: user.userId })
+      } else {
+        Route.open(
+          'groups',
+          user.serviceProviderId,
+          user.groupId,
+          path,
+          user.userId
+        )
+      }
     }
 
     $rootScope.$on('serviceSearch:load', function(event, data) {
