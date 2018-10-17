@@ -5,19 +5,14 @@
 
   function ServiceProviderDomainService($http, CacheFactory, Route) {
     var cache = CacheFactory('ServiceProviderDomainService')
-    var service = { index: index }
+    var url = Route.api2('/service-providers/domains')
+    var service = { index }
     return service
-
-    function url(serviceProviderId) {
-      return Route.api('serviceproviders', serviceProviderId)('domains')
-    }
 
     function index(serviceProviderId) {
       return $http
-        .get(url(serviceProviderId), { cache: cache })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId }, cache })
+        .then(res => res.data)
     }
   }
 })()

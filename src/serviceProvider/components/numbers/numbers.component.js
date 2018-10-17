@@ -33,7 +33,7 @@
     function loadNumbers() {
       return ServiceProviderNumberService.index(ctrl.serviceProviderId).then(
         function(data) {
-          ctrl.numbers = _.map(data, function(number) {
+          ctrl.numbers = _.map(data.dns, function(number) {
             number.expanded = _.map(NumberService.expand(number), 'min')
             return number
           })

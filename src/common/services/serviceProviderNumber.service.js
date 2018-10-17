@@ -4,34 +4,25 @@
     .factory('ServiceProviderNumberService', ServiceProviderNumberService)
 
   function ServiceProviderNumberService($http, Route) {
-    var service = { index: index, store: store, destroy: destroy }
+    var service = { index, store, destroy }
+    var url = Route.api2('/service-providers/dns')
     return service
 
-    function url(serviceProviderId) {
-      return Route.api('serviceproviders', serviceProviderId)('dns')
-    }
-
     // activated, summary, default
-    function index(serviceProviderId, query) {
+    function index(serviceProviderId, q) {
       return $http
-        .get(url(serviceProviderId), { params: { q: query } })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, q } })
+        .then(res => res.data)
     }
 
     function store(serviceProviderId, dns) {
-      return $http.post(url(serviceProviderId), dns).then(function(response) {
-        return response.data
-      })
+      return $http.post(url(), { serviceProviderId, dns }).then(res => res.data)
     }
 
     function destroy(serviceProviderId, dns) {
       return $http
-        .delete(url(serviceProviderId), { data: dns })
-        .then(function(response) {
-          return response.data
-        })
+        .delete(url(), { data: { serviceProviderId, dns } })
+        .then(res => res.data)
     }
   }
 })()
