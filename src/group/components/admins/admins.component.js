@@ -62,7 +62,6 @@
     function loadAdmins() {
       return GroupAdminService.index(ctrl.serviceProviderId, ctrl.groupId).then(
         function(data) {
-          console.log('admins', data)
           ctrl.admins = data.admins
           return data
         }
@@ -151,11 +150,9 @@
       if (ctrl.newAdminType === 'department') {
         promise = GroupDepartmentAdminService.store(admin)
       } else {
-        promise = GroupAdminService.store(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          admin
-        )
+        admin.serviceProviderId = ctrl.serviceProviderId
+        admin.groupId = ctrl.groupId
+        promise = GroupAdminService.store(admin)
       }
       promise
         .then(loadAdmins)
@@ -204,11 +201,9 @@
       if (admin.department) {
         return GroupDepartmentAdminService.update(admin)
       } else {
-        return GroupAdminService.update(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          admin
-        )
+        admin.serviceProviderId = ctrl.serviceProviderId
+        admin.groupId = ctrl.groupId
+        return GroupAdminService.update(admin)
       }
     }
 
@@ -218,11 +213,7 @@
       if (admin.department) {
         promise = GroupDepartmentAdminService.destroy(admin.userId)
       } else {
-        promise = GroupAdminService.destroy(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          admin
-        )
+        promise = GroupAdminService.destroy(admin.userId)
       }
 
       promise
