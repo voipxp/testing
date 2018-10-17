@@ -4,14 +4,8 @@
     .factory('ServiceProviderService', ServiceProviderService)
 
   function ServiceProviderService($http, Route, $rootScope, CacheFactory) {
-    var url = Route.api('serviceproviders')
-    var service = {
-      index: index,
-      show: show,
-      store: store,
-      update: update,
-      destroy: destroy
-    }
+    var url = Route.api2('/service-providers')
+    var service = { index, show, store, update, destroy }
     var cache = CacheFactory('ServiceProviderService')
 
     $rootScope.$on('ServiceProviderService:updated', clearCache)
@@ -23,40 +17,36 @@
     }
 
     function index() {
-      return $http.get(url(), { cache: cache }).then(function(response) {
-        return response.data || []
-      })
+      return $http.get(url(), { cache }).then(res => res.data)
     }
 
     function store(serviceProvider) {
-      return $http.post(url(), serviceProvider).then(function(response) {
+      return $http.post(url(), serviceProvider).then(res => {
         clearCache()
-        return response.data
+        return res.data
       })
     }
 
     function show(serviceProviderId) {
       return $http
-        .get(url(serviceProviderId), { cache: cache })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId }, cache })
+        .then(res => res.data)
     }
 
     function update(serviceProviderId, serviceProvider) {
-      return $http
-        .put(url(serviceProviderId), serviceProvider)
-        .then(function(response) {
-          clearCache()
-          return response.data
-        })
+      return $http.put(url(), serviceProvider).then(res => {
+        clearCache()
+        return res.data
+      })
     }
 
     function destroy(serviceProviderId) {
-      return $http.delete(url(serviceProviderId)).then(function(response) {
-        clearCache()
-        return response.data
-      })
+      return $http
+        .delete(url(), { params: { serviceProviderId } })
+        .then(res => {
+          clearCache()
+          return res.data
+        })
     }
   }
 })()
