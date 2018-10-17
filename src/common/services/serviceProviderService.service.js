@@ -9,49 +9,34 @@
     CacheFactory,
     $rootScope
   ) {
-    var service = { show: show, assignable: assignable, update: update }
+    var service = { show, assignable, update }
     var cache = CacheFactory('ServiceProviderServiceService')
-
+    var url = Route.api2('/service-providers/services')
     $rootScope.$on('BrandingModuleService:updated', clearCache)
-
     return service
 
     function clearCache() {
       cache.removeAll()
     }
 
-    function url(serviceProviderId, action) {
-      return Route.api('serviceproviders', serviceProviderId)(
-        'services',
-        action
-      )
-    }
-
     function show(serviceProviderId) {
       return $http
-        .get(url(serviceProviderId), { cache: cache })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId }, cache })
+        .then(res => res.data)
     }
 
     function assignable(serviceProviderId) {
       return $http
-        .get(url(serviceProviderId, 'assignable'), { cache: cache })
-        .then(function(response) {
-          $rootScope.$emit('ServiceProviderServiceService:updated')
-          return response.data
-        })
+        .get(url('assignable'), { params: { serviceProviderId }, cache })
+        .then(res => res.data)
     }
 
     function update(serviceProviderId, services) {
-      return $http
-        .put(url(serviceProviderId), services)
-        .then(function(response) {
-          cache.removeAll()
-          $rootScope.$emit('ServiceProviderServiceService:updated')
-          return response.data
-        })
+      return $http.put(url(), { ...services, serviceProviderId }).then(res => {
+        cache.removeAll()
+        $rootScope.$emit('ServiceProviderServiceService:updated')
+        return res.data
+      })
     }
   }
 })()
