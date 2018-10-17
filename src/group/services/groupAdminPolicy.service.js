@@ -4,13 +4,8 @@
     .factory('GroupAdminPolicyService', GroupAdminPolicyService)
 
   function GroupAdminPolicyService($http, Route) {
-    var url = Route.api('/groups/admins')
-
-    var service = {
-      show: show,
-      update: update,
-      bulk: bulk
-    }
+    var url = Route.api2('/groups/admins/policies')
+    var service = { show, update, bulk }
     service.options = {
       policies: {
         profileAccess: ['Full', 'Read-Only', 'None'],
@@ -47,21 +42,15 @@
     return service
 
     function show(userId) {
-      return $http.get(url(userId) + '/policies').then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { params: { userId } }).then(res => res.data)
     }
 
     function update(userId, obj) {
-      return $http.put(url(userId) + '/policies', obj).then(function(response) {
-        return response.data
-      })
+      return $http.put(url(), obj).then(res => res.data)
     }
 
     function bulk(data) {
-      return $http.post(url('policies', 'bulk'), data).then(function(response) {
-        return response.data
-      })
+      return $http.post(url('bulk'), data).then(res => res.data)
     }
   }
 })()

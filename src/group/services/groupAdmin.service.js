@@ -2,63 +2,36 @@
   angular.module('odin.group').factory('GroupAdminService', GroupAdminService)
 
   function GroupAdminService($http, Route) {
-    var service = {
-      index: index,
-      store: store,
-      show: show,
-      update: update,
-      destroy: destroy
-    }
+    var url = Route.api2('/groups/admins')
+    var service = { index, store, show, update, destroy }
     return service
 
-    function url(serviceProviderId, groupId, admin) {
-      var adminId = (admin && admin.userId) || admin
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId
-      )('admins', adminId)
+    function getId(admin) {
+      return (admin && admin.userId) || admin
     }
 
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
     function store(serviceProviderId, groupId, admin) {
-      return $http
-        .post(url(serviceProviderId, groupId), admin)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.post(url(), admin).then(res => res.data)
     }
 
     function show(serviceProviderId, groupId, admin) {
-      return $http
-        .get(url(serviceProviderId, groupId, admin))
-        .then(function(response) {
-          return response.data
-        })
+      const userId = getId(admin)
+      return $http.get(url(), { params: { userId } }).then(res => res.data)
     }
 
     function update(serviceProviderId, groupId, admin) {
-      return $http
-        .put(url(serviceProviderId, groupId, admin), admin)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), admin).then(res => res.data)
     }
 
     function destroy(serviceProviderId, groupId, admin) {
-      return $http
-        .delete(url(serviceProviderId, groupId, admin))
-        .then(function(response) {
-          return response.data
-        })
+      const userId = getId(admin)
+      return $http.delete(url(), { params: { userId } }).then(res => res.data)
     }
   }
 })()

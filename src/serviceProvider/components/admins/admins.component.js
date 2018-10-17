@@ -63,6 +63,8 @@
 
     function add() {
       ctrl.newAdmin = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId,
         language: ctrl.languages.default,
         administratorType: 'Normal'
       }
@@ -73,31 +75,26 @@
 
     function edit(admin) {
       ctrl.editAdmin = angular.copy(admin)
-      ctrl.loadingEdit = true
+      Alert.spinner.open()
       loadAdminPolicies(admin.userId)
         .then(function(policies) {
           ctrl.editPolicies = policies
+          Alert.modal.open(
+            'serviceProviderAdminEditModal',
+            function onSave(close) {
+              updateBoth(ctrl.editAdmin, ctrl.editPolicies, close)
+            },
+            function onDelete(close) {
+              Alert.confirm
+                .open('Are you sure you want to delete this Admin?')
+                .then(function() {
+                  remove(ctrl.editAdmin, close)
+                })
+            }
+          )
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          ctrl.loadingEdit = false
-        })
-      Alert.modal.open(
-        'serviceProviderAdminEditModal',
-        function onSave(close) {
-          update(ctrl.editAdmin, close)
-          updatePolicies(admin.userId, ctrl.editPolicies, close)
-        },
-        function onDelete(close) {
-          Alert.confirm
-            .open('Are you sure you want to delete this Admin?')
-            .then(function() {
-              remove(ctrl.editAdmin, close)
-            })
-        }
-      )
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function create(admin, callback) {
@@ -118,38 +115,25 @@
         })
     }
 
-    function updatePolicies(adminId, policies, callback) {
+    function updateBoth(admin, policies, callback) {
       Alert.spinner.open()
-      ServiceProviderAdminPolicyService.update(adminId, policies)
-        .then(function() {
-          if (_.isFunction(callback)) {
-            callback()
-          }
+      update(admin)
+        .then(() => updatePolicies(admin.userId, policies))
+        .then(loadAdmins)
+        .then(() => {
+          Alert.notify.success('Admin updated')
+          callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
-    function update(admin, callback) {
-      Alert.spinner.open()
-      ServiceProviderAdminService.update(ctrl.serviceProviderId, admin)
-        .then(loadAdmins)
-        .then(function() {
-          Alert.notify.success('Admin updated')
-          if (_.isFunction(callback)) {
-            callback()
-          }
-        })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+    function updatePolicies(adminId, policies) {
+      return ServiceProviderAdminPolicyService.update(adminId, policies)
+    }
+
+    function update(admin) {
+      return ServiceProviderAdminService.update(ctrl.serviceProviderId, admin)
     }
 
     function remove(admin, callback) {

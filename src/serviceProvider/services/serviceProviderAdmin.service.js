@@ -4,52 +4,36 @@
     .factory('ServiceProviderAdminService', Service)
 
   function Service($http, Route) {
-    var service = {
-      index: index,
-      store: store,
-      show: show,
-      update: update,
-      destroy: destroy
-    }
+    var service = { index, store, show, update, destroy }
+    var url = Route.api2('/service-providers/admins')
     return service
 
-    function url(serviceProviderId, admin) {
-      var adminId = (admin && admin.administratorID) || admin
-      return Route.api('serviceproviders', serviceProviderId, 'admins')(adminId)
+    function getId(admin) {
+      return admin ? admin.administratorID || admin.userId || admin : admin
     }
 
     function index(serviceProviderId) {
-      return $http.get(url(serviceProviderId)).then(function(response) {
-        return response.data
-      })
+      return $http
+        .get(url(), { params: { serviceProviderId } })
+        .then(res => res.data)
     }
 
     function store(serviceProviderId, admin) {
-      return $http.post(url(serviceProviderId), admin).then(function(response) {
-        return response.data
-      })
+      return $http.post(url(), admin).then(res => res.data)
     }
 
     function show(serviceProviderId, admin) {
-      return $http.get(url(serviceProviderId, admin)).then(function(response) {
-        return response.data
-      })
+      const userId = getId(admin)
+      return $http.get(url(), { params: { userId } }).then(res => res.data)
     }
 
     function update(serviceProviderId, admin) {
-      return $http
-        .put(url(serviceProviderId, admin), admin)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), admin).then(res => res.data)
     }
 
     function destroy(serviceProviderId, admin) {
-      return $http
-        .delete(url(serviceProviderId, admin))
-        .then(function(response) {
-          return response.data
-        })
+      const userId = getId(admin)
+      return $http.delete(url(), { params: { userId } }).then(res => res.data)
     }
   }
 })()

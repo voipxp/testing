@@ -63,7 +63,7 @@
       return GroupAdminService.index(ctrl.serviceProviderId, ctrl.groupId).then(
         function(data) {
           console.log('admins', data)
-          ctrl.admins = data
+          ctrl.admins = data.admins
           return data
         }
       )
@@ -92,7 +92,10 @@
     function add() {
       if (!ctrl.canCreate) return
       ctrl.newAdminType = 'group'
-      ctrl.newAdmin = {}
+      ctrl.newAdmin = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId
+      }
       Alert.modal.open('create-GroupAdmin', function(close) {
         create(ctrl.newAdmin, close)
       })
@@ -101,21 +104,25 @@
     function onClick(admin) {
       if (!ctrl.canUpdate) return
       ctrl.editAdmin = angular.copy(admin)
-      loadAdminPolicies(admin).then(function() {
-        Alert.modal.open(
-          'update-GroupAdmin',
-          function onSave(close) {
-            update(ctrl.editAdmin, ctrl.editPolicies, close)
-          },
-          function onDelete(close) {
-            Alert.confirm
-              .open('Are you sure you want to delete this Admin?')
-              .then(function() {
-                remove(ctrl.editAdmin, close)
-              })
-          }
-        )
-      })
+      Alert.spinner.open()
+      loadAdminPolicies(admin)
+        .then(function() {
+          Alert.modal.open(
+            'update-GroupAdmin',
+            function onSave(close) {
+              update(ctrl.editAdmin, ctrl.editPolicies, close)
+            },
+            function onDelete(close) {
+              Alert.confirm
+                .open('Are you sure you want to delete this Admin?')
+                .then(function() {
+                  remove(ctrl.editAdmin, close)
+                })
+            }
+          )
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function toggleSelect() {
