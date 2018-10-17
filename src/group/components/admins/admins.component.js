@@ -145,15 +145,12 @@
     }
 
     function create(admin, callback) {
+      console.log('create', admin)
       Alert.spinner.open()
-      var promise
-      if (ctrl.newAdminType === 'department') {
-        promise = GroupDepartmentAdminService.store(admin)
-      } else {
-        admin.serviceProviderId = ctrl.serviceProviderId
-        admin.groupId = ctrl.groupId
-        promise = GroupAdminService.store(admin)
-      }
+      var promise =
+        ctrl.newAdminType === 'department'
+          ? GroupDepartmentAdminService.store(admin)
+          : GroupAdminService.store(admin)
       promise
         .then(loadAdmins)
         .then(function() {

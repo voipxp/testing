@@ -16,20 +16,20 @@
         .then(res => res.data)
     }
 
-    function store(serviceProviderId, groupId, admin) {
+    function store(admin) {
       return $http.post(url(), admin).then(res => res.data)
     }
 
-    function show(serviceProviderId, groupId, admin) {
+    function show(admin) {
       const userId = getId(admin)
       return $http.get(url(), { params: { userId } }).then(res => res.data)
     }
 
-    function update(serviceProviderId, groupId, admin) {
+    function update(admin) {
       return $http.put(url(), admin).then(res => res.data)
     }
 
-    function destroy(serviceProviderId, groupId, admin) {
+    function destroy(admin) {
       const userId = getId(admin)
       return $http.delete(url(), { params: { userId } }).then(res => res.data)
     }
