@@ -14,7 +14,9 @@
     return service
 
     function url(serviceProviderId, admin) {
-      var adminId = (admin && admin.administratorID) || admin
+      var adminId = admin
+        ? admin.administratorID || admin.userId || admin
+        : admin
       return Route.api('serviceproviders', serviceProviderId, 'admins')(adminId)
     }
 
