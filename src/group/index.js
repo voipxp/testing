@@ -434,7 +434,7 @@
     {
       path: 'routingProfile',
       component: 'groupRoutingProfile',
-      acl: 'Group',
+      acl: 'Provisioning',
       module: 'Routing Profile'
     },
     {

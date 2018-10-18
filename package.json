@@ -6,7 +6,7 @@
     "build": "NODE_ENV=production gulp",
     "fix": "eslint --fix 'src/**/*.js'",
     "lint": "eslint 'src/**/*.js'",
-    "dev": "live-server dist",
+    "dev": "live-server --proxy=/api:http://127.0.0.1:${API_PORT:-80}/api dist/",
     "watch": "gulp watch"
   },
   "dependencies": {
