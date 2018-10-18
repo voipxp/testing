@@ -106,9 +106,9 @@
       Alert.spinner.open()
       GroupCallPickupService.update(group)
         .then(function() {
-          return group.newName && group.newName === ctrl.group.name
-            ? loadGroup()
-            : open(group.newName)
+          return group.newName && group.newName !== ctrl.group.name
+            ? open(group.newName)
+            : loadGroup()
         })
         .then(function() {
           Alert.notify.success('Group Updated')
