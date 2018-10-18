@@ -91,10 +91,16 @@
     }
 
     function createServiceProvider(device) {
+      device = { ...device, serviceProviderId: ctrl.serviceProviderId }
       return ServiceProviderDeviceService.store(ctrl.serviceProviderId, device)
     }
 
     function createGroup(device) {
+      device = {
+        ...device,
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId
+      }
       return GroupDeviceService.store(
         ctrl.serviceProviderId,
         ctrl.groupId,

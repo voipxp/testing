@@ -159,7 +159,7 @@
     function removeServiceProvider(device) {
       return ServiceProviderDeviceService.destroy(
         ctrl.serviceProviderId,
-        device
+        device.deviceName
       )
     }
 

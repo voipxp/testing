@@ -5,65 +5,42 @@
 
   function ServiceProviderDeviceService($http, CacheFactory, Route) {
     var cache = CacheFactory('ServiceProviderDeviceService')
-    var service = {
-      index: index,
-      store: store,
-      update: update,
-      show: show,
-      destroy: destroy
-    }
+    var url = Route.api2('/service-providers/devices')
+    var service = { index, store, update, show, destroy }
     return service
 
-    function url(serviceProviderId, device) {
-      var deviceId = (device && device.deviceName) || device
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'devices',
-        deviceId
-      )()
-    }
-
-    function index(serviceProviderId, filter, params) {
-      params = params || {}
-      params.q = filter
+    function index(serviceProviderId, q, params = {}) {
       return $http
-        .get(url(serviceProviderId), { cache: cache, params: params })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { cache, params: { ...params, serviceProviderId, q } })
+        .then(res => res.data)
     }
 
     function store(serviceProviderId, device) {
-      return $http
-        .post(url(serviceProviderId), device)
-        .then(function(response) {
-          cache.removeAll()
-          return response.data
-        })
-    }
-
-    function update(serviceProviderId, device) {
-      return $http
-        .put(url(serviceProviderId, device), device)
-        .then(function(response) {
-          cache.removeAll()
-          return response.data
-        })
-    }
-
-    function show(serviceProviderId, device) {
-      return $http.get(url(serviceProviderId, device)).then(function(response) {
-        return response.data
+      return $http.post(url(), device).then(res => {
+        cache.removeAll()
+        return res.data
       })
     }
 
-    function destroy(serviceProviderId, device) {
+    function update(serviceProviderId, device) {
+      return $http.put(url(), device).then(res => {
+        cache.removeAll()
+        return res.data
+      })
+    }
+
+    function show(serviceProviderId, deviceName) {
       return $http
-        .delete(url(serviceProviderId, device))
-        .then(function(response) {
+        .get(url(), { params: { serviceProviderId, deviceName } })
+        .then(res => res.data)
+    }
+
+    function destroy(serviceProviderId, deviceName) {
+      return $http
+        .delete(url(), { params: { serviceProviderId, deviceName } })
+        .then(res => {
           cache.removeAll()
-          return response.data
+          return res.data
         })
     }
   }
