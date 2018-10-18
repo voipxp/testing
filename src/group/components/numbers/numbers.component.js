@@ -77,7 +77,7 @@
         ctrl.serviceProviderId,
         'available'
       ).then(function(data) {
-        return _.map(data, function(number) {
+        return _.map(data.dns, function(number) {
           number.expanded = _.map(NumberService.expand(number), 'min')
           return number
         })

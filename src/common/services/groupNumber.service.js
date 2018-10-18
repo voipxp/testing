@@ -4,6 +4,7 @@
     .factory('GroupNumberService', GroupNumberService)
 
   function GroupNumberService($http, Route) {
+    var url = Route.api2('/groups/dns')
     var service = {
       index: index,
       assign: assign,
@@ -12,46 +13,29 @@
     }
     return service
 
-    function url(serviceProviderId, groupId) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId
-      )('dns')
-    }
-
     // activated, summary, default
-    function index(serviceProviderId, groupId, query) {
+    function index(serviceProviderId, groupId, q) {
       return $http
-        .get(url(serviceProviderId, groupId), { params: { q: query } })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId, q } })
+        .then(res => res.data.dns)
     }
 
     function assign(serviceProviderId, groupId, dns) {
       return $http
-        .post(url(serviceProviderId, groupId), dns)
-        .then(function(response) {
-          return response.data
-        })
+        .post(url(), { serviceProviderId, groupId, dns })
+        .then(res => res.data)
     }
 
     function unassign(serviceProviderId, groupId, dns) {
       return $http
-        .delete(url(serviceProviderId, groupId), { data: dns })
-        .then(function(response) {
-          return response.data
-        })
+        .delete(url(), { data: { serviceProviderId, groupId, dns } })
+        .then(res => res.data)
     }
 
     function update(serviceProviderId, groupId, dns) {
       return $http
-        .put(url(serviceProviderId, groupId), dns)
-        .then(function(response) {
-          return response.data
-        })
+        .put(url(), { data: { serviceProviderId, groupId, dns } })
+        .then(res => res.data)
     }
   }
 })()
