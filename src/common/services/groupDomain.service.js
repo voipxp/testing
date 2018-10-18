@@ -4,25 +4,19 @@
     .factory('GroupDomainService', GroupDomainService)
 
   function GroupDomainService($http, CacheFactory, Route) {
+    var url = Route.api2('/groups/domains')
     var cache = CacheFactory('GroupDomainService')
     var service = { index: index }
     return service
 
-    function url(serviceProviderId, groupId) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId
-      )('domains')
-    }
-
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId), { cache: cache })
-        .then(function(response) {
-          return response.data
-        })
+        .get(
+          url(),
+          { params: { serviceProviderId, groupId } },
+          { cache: cache }
+        )
+        .then(res => res.data)
     }
   }
 })()
