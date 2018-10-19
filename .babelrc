@@ -14,7 +14,12 @@
       "compact": true,
       "comments": false,
       "presets": [
-        "minify"
+        [
+          "minify",
+          {
+            "builtIns": false
+          }
+        ]
       ]
     }
   }
