@@ -110,7 +110,7 @@
     function route(user) {
       var path = ctrl.userTypes[user.userType]
       if (!path) return
-      if (path === 'Normal') {
+      if (path === 'users') {
         Route.open('users', user.serviceProviderId, user.groupId, user.userId)
       } else if (path === 'autoAttendants') {
         Route.open(
