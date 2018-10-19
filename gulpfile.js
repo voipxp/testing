@@ -34,14 +34,15 @@ gulp.task('app.css', () => {
 })
 
 gulp.task('app.js', () => {
+  let polyfill = gulp.src(['node_modules/@babel/polyfill/dist/polyfill.min.js'])
   let conf = buffer
     .stream(new Buffer(JSON.stringify(Config)), 'config.js')
     .pipe(ngConfig('odin.config', { wrap: false }))
-  let polyfill = gulp.src(['node_modules/@babel/polyfill/dist/polyfill.min.js'])
-  let app = gulp.src(['src/common/lib/*.js', 'src/**/index.js', 'src/**/*.js'])
+  let app = gulp
+    .src(['src/common/lib/*.js', 'src/**/index.js', 'src/**/*.js'])
+    .pipe(babel())
   return series(polyfill, conf, app)
     .pipe(concat('app.js'))
-    .pipe(babel())
     .pipe(gulp.dest(dest))
 })
 
