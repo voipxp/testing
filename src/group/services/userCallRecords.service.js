@@ -4,14 +4,14 @@
   function Service($http, Route, UtilityService) {
     var url = Route.api2('/users/call-records')
     var service = {
-      hourly: hourly,
-      daily: daily,
-      detail: detail,
-      details: details,
-      stats: stats,
-      get: get,
-      related: related,
-      summary: summary
+      hourly,
+      daily,
+      detail,
+      details,
+      stats,
+      related,
+      summary,
+      get
     }
 
     service.options = { reportType: ['Hourly', 'Daily'] }
@@ -42,19 +42,17 @@
       return get(userIds, startTime, endTime, 'summary')
     }
 
-    function related(userId, startTime, endTime, related) {
+    function related(userId, startTime, endTime, relatedCallIdReason) {
       return $http
         .get(url('related'), {
           params: {
             startTime: startTime.toJSON(),
             endTime: endTime.toJSON(),
-            relatedCallIdReason: related,
-            userId: userId
+            relatedCallIdReason,
+            userId
           }
         })
-        .then(function(response) {
-          return response.data
-        })
+        .then(res => res.data)
     }
 
     function get(userIds, startTime, endTime, reportType) {
@@ -67,9 +65,7 @@
             userIds: userIds.join(',')
           }
         })
-        .then(function(response) {
-          return response.data
-        })
+        .then(res => res.data)
     }
   }
 })()

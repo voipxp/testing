@@ -4,98 +4,95 @@
     .factory('GroupCallRecordsService', GroupCallRecordsService)
 
   function GroupCallRecordsService($http, Route) {
-    var route = Route.api('/callrecords/groups')
+    var url = Route.api2('/groups/call-records')
     var service = {
-      related: related,
-      detail: detail,
-      received: received,
-      placed: placed,
-      missed: missed,
-      usersummary: usersummary,
-      stats: stats,
-      get: get
+      related,
+      detail,
+      received,
+      placed,
+      missed,
+      users,
+      stats
     }
 
     service.options = {
-      reportType: [
-        'detail',
-        'received',
-        'placed',
-        'missed',
-        'usersummary',
-        'stats'
-      ]
+      reportType: ['detail', 'received', 'placed', 'missed', 'users', 'stats']
     }
 
     return service
 
-    function url(serviceProviderId, groupId, type) {
-      return route(serviceProviderId, groupId, type)
-    }
-
     function detail(serviceProviderId, groupId, startTime, endTime, bypass) {
-      return get(
-        serviceProviderId,
-        groupId,
-        startTime,
-        endTime,
-        'detail',
-        bypass
-      )
+      return $http
+        .get(url('detail'), {
+          params: {
+            serviceProviderId,
+            groupId,
+            startTime,
+            endTime,
+            limit: bypass ? 'false' : null
+          }
+        })
+        .then(res => res.data)
     }
 
     function received(serviceProviderId, groupId, startTime, endTime) {
-      return get(serviceProviderId, groupId, startTime, endTime, 'received')
-    }
-
-    function related(serviceProviderId, groupId, startTime, endTime, related) {
-      var params = {
-        startTime: startTime.toJSON(),
-        endTime: endTime.toJSON(),
-        relatedCallIdReason: related
-      }
       return $http
-        .get(url(serviceProviderId, groupId, 'related'), { params: params })
-        .then(function(response) {
-          return response.data
+        .get(url('received'), {
+          params: { serviceProviderId, groupId, startTime, endTime }
         })
+        .then(res => res.data)
     }
 
-    function placed(serviceProviderId, groupId, startTime, endTime) {
-      return get(serviceProviderId, groupId, startTime, endTime, 'placed')
-    }
-
-    function missed(serviceProviderId, groupId, startTime, endTime) {
-      return get(serviceProviderId, groupId, startTime, endTime, 'missed')
-    }
-
-    function usersummary(serviceProviderId, groupId, startTime, endTime) {
-      return get(serviceProviderId, groupId, startTime, endTime, 'usersummary')
-    }
-
-    function stats(serviceProviderId, groupId, startTime, endTime) {
-      return get(serviceProviderId, groupId, startTime, endTime, 'stats')
-    }
-
-    function get(
+    function related(
       serviceProviderId,
       groupId,
       startTime,
       endTime,
-      reportType,
-      bypass
+      relatedCallIdReason
     ) {
-      var params = { startTime: startTime.toJSON(), endTime: endTime.toJSON() }
-      if (bypass) {
-        params['limit'] = false
-      }
       return $http
-        .get(url(serviceProviderId, groupId, reportType.toLowerCase()), {
-          params: params
+        .get(url('related'), {
+          params: {
+            serviceProviderId,
+            groupId,
+            relatedCallIdReason,
+            startTime: startTime.toJSON(),
+            endTime: endTime.toJSON()
+          }
         })
-        .then(function(response) {
-          return response.data
+        .then(res => res.data)
+    }
+
+    function placed(serviceProviderId, groupId, startTime, endTime) {
+      return $http
+        .get(url('placed'), {
+          params: { serviceProviderId, groupId, startTime, endTime }
         })
+        .then(res => res.data)
+    }
+
+    function missed(serviceProviderId, groupId, startTime, endTime) {
+      return $http
+        .get(url('missed'), {
+          params: { serviceProviderId, groupId, startTime, endTime }
+        })
+        .then(res => res.data)
+    }
+
+    function users(serviceProviderId, groupId, startTime, endTime) {
+      return $http
+        .get(url('users'), {
+          params: { serviceProviderId, groupId, startTime, endTime }
+        })
+        .then(res => res.data)
+    }
+
+    function stats(serviceProviderId, groupId, startTime, endTime) {
+      return $http
+        .get(url('stats'), {
+          params: { serviceProviderId, groupId, startTime, endTime }
+        })
+        .then(res => res.data)
     }
   }
 })()
