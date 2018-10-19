@@ -38,7 +38,7 @@
 
     function update(module, callback) {
       Alert.spinner.open()
-      BrandingModuleService.update(ctrl.hostnameId, module)
+      BrandingModuleService.update(module)
         .then(loadModules)
         .then(function() {
           Alert.notify.success('Module Updated')

@@ -53,7 +53,7 @@
         }
       } else {
         ctrl.modalAction = 'New'
-        ctrl.editApplication = { hostname_id: ctrl.hostnameId, window: 0 }
+        ctrl.editApplication = { hostnameId: ctrl.hostnameId, window: 0 }
       }
       Alert.modal.open(
         'editBrandingApplication',
@@ -82,7 +82,7 @@
         method = BrandingApplicationService.store
       }
       Alert.spinner.open()
-      method(ctrl.hostnameId, application)
+      method(application)
         .then(loadApplications)
         .then(function() {
           Alert.notify.success('Application Saved')
@@ -101,7 +101,7 @@
         .open('Are you sure you want to remove this Application?')
         .then(function() {
           Alert.spinner.open()
-          BrandingApplicationService.destroy(ctrl.hostnameId, application)
+          BrandingApplicationService.destroy(application.id)
             .then(loadApplications)
             .then(function() {
               Alert.notify.warning('Application Removed')

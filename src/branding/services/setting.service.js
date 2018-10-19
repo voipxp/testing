@@ -4,27 +4,20 @@
     .factory('BrandingSettingService', BrandingSettingService)
 
   function BrandingSettingService($http, Route, $rootScope) {
-    var service = { show: show, update: update }
-
-    var route = Route.api('branding')
-
+    var service = { show, update }
+    var url = Route.api2('/branding/settings')
     return service
 
-    function url(hostnameId) {
-      return route(hostnameId, 'settings')
-    }
-
     function show(hostnameId) {
-      return $http.get(url(hostnameId)).then(function(response) {
-        var data = response.data
-        return _.isEmpty(data) ? {} : data
+      return $http.get(url(), { params: { hostnameId } }).then(res => {
+        return _.isEmpty(res.data) ? {} : res.data
       })
     }
 
-    function update(hostnameId, template) {
-      return $http.put(url(hostnameId), template).then(function(response) {
+    function update(template) {
+      return $http.put(url(), template).then(res => {
         $rootScope.$emit('BrandingSettingService:updated')
-        return response.data
+        return res.data
       })
     }
   }

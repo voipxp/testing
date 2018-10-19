@@ -44,19 +44,19 @@
       })
     }
 
-    function clone(from, to, callback) {
+    async function clone(from, to, callback) {
       Alert.spinner.open()
-      BrandingHostnameService.clone(from, to)
-        .then(function(data) {
-          console.log('data', data)
-          return loadHostnames().then(function() {
-            Alert.notify.success('Hostname Cloned')
-            callback()
-            open(data)
-          })
-        })
-        .catch(Alert.notify.danger)
-        .finally(Alert.spinner.close)
+      try {
+        const data = await BrandingHostnameService.clone(from, to)
+        await loadHostnames()
+        Alert.notify.success('Hostname Cloned')
+        callback()
+        open(data)
+      } catch (e) {
+        Alert.notify.danger(e)
+      } finally {
+        Alert.spinner.close()
+      }
     }
 
     function create(hostname, callback) {

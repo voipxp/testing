@@ -42,9 +42,9 @@
 
     function update(field, callback) {
       Alert.spinner.open()
-      var update = {}
+      var update = { hostnameId: ctrl.hostnameId }
       update[field.key] = field.value
-      BrandingSettingService.update(ctrl.hostnameId, update)
+      BrandingSettingService.update(update)
         .then(loadSetting)
         .then(Setting.load)
         .then(function() {

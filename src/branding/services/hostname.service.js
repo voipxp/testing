@@ -4,59 +4,46 @@
     .factory('BrandingHostnameService', BrandingHostnameService)
 
   function BrandingHostnameService($http, Route, $rootScope) {
-    var service = {
-      index: index,
-      store: store,
-      show: show,
-      update: update,
-      destroy: destroy,
-      clone: clone
-    }
+    var service = { index, store, show, update, destroy, clone }
 
-    var url = Route.api('branding')
+    var url = Route.api2('/branding/hostnames')
 
     return service
 
     function index() {
-      return $http.get(url()).then(function(response) {
-        return response.data
-      })
+      return $http.get(url()).then(res => res.data)
     }
 
     function store(hostname) {
-      return $http.post(url(), hostname).then(function(response) {
+      return $http.post(url(), hostname).then(res => {
         $rootScope.$emit('BrandingHostnameService:updated')
-        return response.data
+        return res.data
       })
     }
 
     function show(id) {
-      return $http.get(url(id)).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { params: { id } }).then(res => res.data)
     }
 
     function update(hostname) {
-      return $http.put(url(hostname.id), hostname).then(function(response) {
+      return $http.put(url(), hostname).then(res => {
         $rootScope.$emit('BrandingHostnameService:updated')
-        return response.data
+        return res.data
       })
     }
 
-    function destroy(hostname) {
-      return $http.delete(url(hostname.id)).then(function(response) {
+    function destroy(id) {
+      return $http.delete(url(), { params: { id } }).then(res => {
         $rootScope.$emit('BrandingHostnameService:updated')
-        return response.data
+        return res.data
       })
     }
 
-    function clone(hostnameId, newHostname) {
-      return $http
-        .post(url(hostnameId, 'clone', newHostname))
-        .then(function(response) {
-          $rootScope.$emit('BrandingHostnameService:updated')
-          return response.data
-        })
+    function clone(id, hostname) {
+      return $http.post(url('clone'), { id, hostname }).then(res => {
+        $rootScope.$emit('BrandingHostnameService:updated')
+        return res.data
+      })
     }
   }
 })()

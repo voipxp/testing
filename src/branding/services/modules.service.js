@@ -4,40 +4,25 @@
     .factory('BrandingModuleService', BrandingModuleService)
 
   function BrandingModuleService($http, Route, $rootScope) {
-    var service = {
-      index: index,
-      show: show,
-      update: update
-    }
-
-    var route = Route.api('branding')
-
+    var service = { index, show, update }
+    var url = Route.api2('/branding/modules')
     return service
 
-    function url(hostnameId, module) {
-      var id = (module && module.id) || module
-      return route(hostnameId, 'modules', id)
-    }
-
     function index(hostnameId) {
-      return $http.get(url(hostnameId)).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { params: { hostnameId } }).then(res => res.data)
     }
 
-    function show(hostnameId, module) {
-      return $http.get(url(hostnameId, module)).then(function(response) {
-        return response.data
-      })
-    }
-
-    function update(hostnameId, module) {
+    function show(hostnameId, id) {
       return $http
-        .put(url(hostnameId, module), module)
-        .then(function(response) {
-          $rootScope.$emit('BrandingModuleService:updated')
-          return response.data
-        })
+        .get(url(), { params: { hostnameId, id } })
+        .then(res => res.data)
+    }
+
+    function update(module) {
+      return $http.put(url(), module).then(res => {
+        $rootScope.$emit('BrandingModuleService:updated')
+        return res.data
+      })
     }
   }
 })()

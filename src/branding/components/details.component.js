@@ -68,7 +68,7 @@
         .open('Are you sure you want to remove this hostname?')
         .then(function() {
           Alert.spinner.open()
-          BrandingHostnameService.destroy(hostname)
+          BrandingHostnameService.destroy(hostname.id)
             .then(function() {
               Alert.notify.warning('Hostname Removed')
               callback()
