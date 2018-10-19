@@ -108,19 +108,26 @@
     }
 
     function route(user) {
-      console.log('route', user)
-      if (user.userType === 'Normal') {
+      var path = ctrl.userTypes[user.userType]
+      if (!path) return
+      if (path === 'Normal') {
         Route.open('users', user.serviceProviderId, user.groupId, user.userId)
+      } else if (path === 'autoAttendants') {
+        Route.open(
+          'groups',
+          user.serviceProviderId,
+          user.groupId,
+          path,
+          'autoAttendant'
+        ).search({ serviceUserId: user.userId })
       } else {
-        var path = ctrl.userTypes[user.userType]
-        path &&
-          Route.open(
-            'groups',
-            user.serviceProviderId,
-            user.groupId,
-            path,
-            user.userId
-          )
+        Route.open(
+          'groups',
+          user.serviceProviderId,
+          user.groupId,
+          path,
+          user.userId
+        )
       }
     }
 
