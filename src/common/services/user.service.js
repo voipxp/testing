@@ -11,7 +11,7 @@
       bulk: bulk
     }
     var cache = CacheFactory('UserService')
-    var url = Route.api2('users')
+    var url = Route.api2('/users')
 
     return service
 

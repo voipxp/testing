@@ -2,31 +2,23 @@
   angular.module('odin.common').factory('TaskService', TaskService)
 
   function TaskService($http, Route) {
-    var url = Route.api('tasks')
-    var service = { index: index, create: create, show: show }
+    var url = Route.api2('/tasks')
+    var service = { index, create, show }
     return service
 
     function index(limit, status, types) {
-      var _types = _.isArray(types) ? types.join(',') : types
+      var type = _.isArray(types) ? types.join(',') : types
       return $http
-        .get(url(), {
-          params: { limit: limit, status: status, type: _types }
-        })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { limit, status, type } })
+        .then(res => res.data)
     }
 
     function create(data) {
-      return $http.post(url(), data).then(function(response) {
-        return response.data
-      })
+      return $http.post(url(), data).then(res => res.data)
     }
 
     function show(id) {
-      return $http.get(url(id)).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { params: { id } }).then(res => res.data)
     }
   }
 })()

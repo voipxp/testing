@@ -2,22 +2,16 @@
   angular.module('odin.common').factory('WebhookService', WebhookService)
 
   function WebhookService($http, Route) {
-    var url = Route.api('webhooks')
-    var service = { index: index, show: show }
+    var url = Route.api2('/webhooks')
+    var service = { index, show }
     return service
 
     function index(limit) {
-      return $http
-        .get(url(), { params: { limit: limit } })
-        .then(function(response) {
-          return response.data
-        })
+      return $http.get(url(), { params: { limit } }).then(res => res.data)
     }
 
     function show(id) {
-      return $http.get(url(id)).then(function(response) {
-        return response.data
-      })
+      return $http.get(url(), { params: { id } }).then(res => res.data)
     }
   }
 })()
