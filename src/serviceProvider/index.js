@@ -94,9 +94,14 @@
       component: 'usersReport',
       acl: 'Service Provider',
       module: 'User Report'
+    },
+    {
+      path: 'reports/callCapacity',
+      component: 'serviceProviderTrunkGroupsCallCapacityReport',
+      acl: 'Service Provider',
+      module: 'User Report'
     }
   ]
-
   angular.module('odin.serviceProvider', []).config(function(PbsRouteProvider) {
     PbsRouteProvider.set(routes, '/serviceProviders/:serviceProviderId')
   })

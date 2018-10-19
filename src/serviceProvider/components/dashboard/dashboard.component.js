@@ -121,6 +121,12 @@
           type: 'report',
           module: 'User Report',
           path: route('reports', 'users')
+        },
+        {
+          type: 'report',
+          name: 'Trunk Call Capacity',
+          module: 'User Report',
+          path: route('reports', 'callCapacity')
         }
       ]
     }
