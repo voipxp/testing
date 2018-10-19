@@ -2,14 +2,12 @@
   angular.module('odin.app').factory('Application', Application)
 
   function Application($http, Route) {
-    var url = Route.api('ui', 'applications')
-    var service = { index: index }
+    var url = Route.api2('/ui/applications')
+    var service = { index }
     return service
 
     function index() {
-      return $http.get(url()).then(function(response) {
-        return response.data
-      })
+      return $http.get(url()).then(res => res.data)
     }
   }
 })()

@@ -136,11 +136,6 @@
         },
         {
           type: 'management',
-          name: 'Routing Profile',
-          path: route('routingProfile')
-        },
-        {
-          type: 'management',
           name: 'Feature Access Codes',
           path: route('featureAccessCodes')
         },
@@ -287,6 +282,13 @@
           name: 'Delete Group',
           path: route('delete'),
           admin: true
+        },
+        {
+          type: 'provisioning',
+          name: 'Routing Profile',
+          path: route('routingProfile'),
+          module: 'Routing Profile',
+          provisioning: true
         },
         {
           type: 'user',

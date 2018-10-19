@@ -17,30 +17,22 @@ Filter
 ;(function() {
   angular.module('odin.app').factory('Module', Module)
 
-  function Module(
-    $http,
-    Route,
-    Session,
-    $q,
-    $location,
-    CacheFactory,
-    $rootScope
-  ) {
+  function Module($http, Route, Session, $q, CacheFactory, $rootScope) {
     var service = {
-      load: load,
-      allow: allow,
-      show: show,
-      name: name,
-      alias: alias,
-      description: description,
-      url: url,
-      permissions: permissions,
-      create: create,
-      read: read,
-      update: update,
+      load,
+      allow,
+      show,
+      name,
+      alias,
+      description,
+      url,
+      permissions,
+      create,
+      read,
+      update,
       delete: destroy
     }
-    var route = Route.api('ui', 'modules')
+    var route = Route.api2('/ui/modules')
     var cache = CacheFactory('Module')
     var _modules = {}
 
@@ -53,7 +45,7 @@ Filter
     }
 
     function load() {
-      return $http.get(route(), { cache: cache }).then(function(response) {
+      return $http.get(route(), { cache }).then(function(response) {
         return mapModules(response.data)
       })
     }

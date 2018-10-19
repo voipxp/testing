@@ -55,6 +55,9 @@
       // check for admin access
       if (card.admin && !ACL.has('Service Provider')) return
 
+      // check for prov access
+      if (card.provisioning && !ACL.has('Provisioning')) return
+
       // check for isEnterprise requirements
       if (card.isEnterprise && !isEnterprise()) return
       if (card.isEnterprise === false && isEnterprise()) return
