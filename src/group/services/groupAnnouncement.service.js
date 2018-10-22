@@ -1,104 +1,70 @@
 ;(function() {
-  angular
-    .module('odin.group')
-    .factory('GroupAnnouncementService', GroupAnnouncementService)
+  angular.module('odin.group').factory('GroupAnnouncementService', Service)
 
-  function GroupAnnouncementService($http, Route) {
-    var service = {
-      index: index,
-      available: available,
-      store: store,
-      show: show,
-      update: update,
-      destroy: destroy
-    }
+  function Service($http, Route) {
+    var service = { index, available, store, show, update, destroy }
+    var url = Route.api2('/groups/announcements')
     service.options = { mediaTypes: ['WMA', 'WAV', '3GP', 'MOV'] }
 
     return service
 
-    function url(serviceProviderId, groupId, name, mediaType) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId,
-        'announcements'
-      )(name, mediaType)
+    function index(serviceProviderId, groupId, announcementType) {
+      return $http
+        .get(url(), {
+          params: {
+            serviceProviderId,
+            groupId,
+            announcementType
+          }
+        })
+        .then(res => res.data)
     }
 
-    function index(serviceProviderId, groupId, type) {
-      var params = {}
-      if (type) {
-        params['announcementType'] = type
-      }
+    function available(serviceProviderId, groupId, announcementType) {
       return $http
-        .get(url(serviceProviderId, groupId), { params: params })
-        .then(function(response) {
-          return response.data
+        .get(url(), {
+          params: {
+            serviceProviderId,
+            groupId,
+            announcementType,
+            available: true
+          }
         })
-    }
-
-    function available(serviceProviderId, groupId, type) {
-      var params = { available: true }
-      if (type) {
-        params['announcementType'] = type
-      }
-      return $http
-        .get(url(serviceProviderId, groupId), { params: params })
-        .then(function(response) {
-          return response.data
-        })
+        .then(res => res.data)
     }
 
     function store(serviceProviderId, groupId, announcement) {
-      return $http
-        .post(url(serviceProviderId, groupId), announcement)
-        .then(function(response) {
-          return response.data
-        })
-    }
-
-    function encodeName(name) {
-      return name.replace(/\//g, '%2F')
+      return $http.post(url(), announcement).then(res => res.data)
     }
 
     function show(serviceProviderId, groupId, name, mediaType) {
       return $http
-        .get(url(serviceProviderId, groupId, encodeName(name), mediaType))
-        .then(function(response) {
-          return response.data
+        .get(url(), {
+          params: {
+            serviceProviderId,
+            groupId,
+            name,
+            mediaType
+          }
         })
+        .then(res => res.data)
     }
 
     function update(serviceProviderId, groupId, announcement) {
-      return $http
-        .put(
-          url(
-            serviceProviderId,
-            groupId,
-            encodeName(announcement.name),
-            announcement.mediaType
-          ),
-          announcement
-        )
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), announcement).then(res => res.data)
     }
 
     function destroy(serviceProviderId, groupId, announcement) {
       return $http
-        .delete(
-          url(
+        .delete(url(), {
+          params: {
             serviceProviderId,
             groupId,
-            encodeName(announcement.name),
-            announcement.mediaType
-          )
-        )
-        .then(function(response) {
-          return response.data
+            name: announcement.name,
+            mediaType: announcement.mediaType
+          }
         })
+        .then(res => res.data)
     }
   }
 })()
