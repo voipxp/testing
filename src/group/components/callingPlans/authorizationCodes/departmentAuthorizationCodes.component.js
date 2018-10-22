@@ -5,11 +5,11 @@
       templateUrl:
         'group/components/callingPlans/authorizationCodes/departmentAuthorizationCodes.component.html',
       controller: Controller,
-      bindings: { serviceProviderId: '=', groupId: '=', onSave: '&' }
+      bindings: { serviceProviderId: '=', groupId: '=', onSave: '&' },
+      require: { parent: '^^groupOutgoingCallingPlanAuthorizationCodes' }
     })
 
   function Controller(
-    $routeParams,
     Alert,
     GroupOutgoingCallingPlanAuthorizationCodeService,
     HashService,
@@ -26,81 +26,62 @@
     }
 
     function loadCodes() {
-      var department =
-        ctrl.department.department && ctrl.department.department.name
-      return GroupOutgoingCallingPlanAuthorizationCodeService.index(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        department
-      ).then(function(data) {
-        ctrl.department.codes = data.codes
-        console.log('department', ctrl.department)
-        return data
-      })
-    }
-
-    function load() {
-      Alert.modal.open(ctrl.modalId)
-    }
-
-    function addDepartment(code) {
-      code.department = ctrl.department.department
+      ctrl.loading = true
+      return ctrl.parent
+        .loadCodes()
+        .then(function(data) {
+          if (ctrl.department.default) {
+            ctrl.department = _.find(data.departments, { default: true })
+          } else {
+            ctrl.department = _.find(data.departments, function(department) {
+              return (
+                ctrl.department.name === department.name &&
+                ctrl.serviceProviderId == department.serviceProviderId &&
+                ctrl.groupId == department.groupId
+              )
+            })
+          }
+        })
+        .catch(Alert.notify.error)
+        .finally(() => (ctrl.loading = false))
     }
 
     function add() {
       ctrl.code = {}
-      if ($scope.authorizationCodeCreateForm) {
+      $scope.authorizationCodeCreateForm &&
         $scope.authorizationCodeCreateForm.$setPristine()
-      }
       Alert.modal.open(ctrl.addId, function onSave(close) {
         create(ctrl.code, close)
       })
     }
 
     function create(code, callback) {
-      addDepartment(code)
-      console.log('create', code)
+      var department = angular.copy(ctrl.department)
+      department.codes = [code]
       Alert.spinner.open()
-      GroupOutgoingCallingPlanAuthorizationCodeService.store(
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        code
-      )
+      GroupOutgoingCallingPlanAuthorizationCodeService.store(department)
         .then(loadCodes)
-        .then(function() {
+        .then(() => {
           Alert.notify.success('Authorization Code Created')
-          if (_.isFunction(callback)) {
-            callback()
-          }
+          callback()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          Alert.spinner.close()
-        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
     }
 
     function remove(code) {
       var message = 'Are you sure you want to remove ' + code.code + '?'
       Alert.confirm.open(message).then(function() {
         Alert.spinner.open()
-        addDepartment(code)
-        GroupOutgoingCallingPlanAuthorizationCodeService.destroy(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          code
-        )
+        var department = angular.copy(ctrl.department)
+        department.codes = [code]
+        GroupOutgoingCallingPlanAuthorizationCodeService.destroy(department)
           .then(loadCodes)
-          .then(function() {
+          .then(() => {
             Alert.notify.success('Authorization Code Removed')
           })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
+          .catch(Alert.notify.danger)
+          .finally(Alert.spinner.close)
       })
     }
 
@@ -108,8 +89,7 @@
       'groupOutgoingCallingPlanDepartmentAuthorizationCodes:load',
       function(event, data) {
         ctrl.department = data
-        console.log('department', data)
-        load()
+        Alert.modal.open(ctrl.modalId)
       }
     )
   }

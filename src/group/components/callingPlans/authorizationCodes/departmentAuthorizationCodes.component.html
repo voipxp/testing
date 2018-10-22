@@ -1,24 +1,19 @@
 <pbs-modal id="{{ $ctrl.modalId }}"
   title="Edit Codes">
   <div class="margin-bottom">
-    <div class="columns">
-      <div class="column">
-        <input type="search"
-          placeholder="Search"
-          class="input"
-          ng-model="$ctrl.search">
-      </div>
-      <div class="column has-text-right is-narrow">
-        <pbs-button-compact-add ng-click="$ctrl.add()"></pbs-button-compact-add>
-      </div>
-    </div>
+    <input type="search"
+      placeholder="Search"
+      class="input"
+      ng-model="$ctrl.search">
   </div>
   <table pbs-table>
     <thead>
       <tr>
         <th>Code</th>
         <th>Description</th>
-        <th class="action"></th>
+        <th class="action">
+          <pbs-button-compact-add ng-click="$ctrl.add()"></pbs-button-compact-add>
+        </th>
       </tr>
     </thead>
     <tfoot>
@@ -32,9 +27,8 @@
       <tr ng-repeat="code in $ctrl.department.codes | filter:$ctrl.search as results track by code.code">
         <td>{{ code.code }}</td>
         <td>{{ code.description }}</td>
-        <td class="action hover"
-          ng-click="$ctrl.remove(code)">
-          <a class="delete"></a>
+        <td class="action">
+          <pbs-button-compact-delete ng-click="$ctrl.remove(code)"></pbs-button-compact-delete>
         </td>
       </tr>
     </tbody>

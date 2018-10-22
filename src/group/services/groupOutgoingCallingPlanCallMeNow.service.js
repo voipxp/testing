@@ -1,47 +1,22 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupOutgoingCallingPlanCallMeNowService',
-      GroupOutgoingCallingPlanCallMeNowService
-    )
+    .factory('GroupOutgoingCallingPlanCallMeNowService', Service)
 
-  function GroupOutgoingCallingPlanCallMeNowService($http, Route) {
-    var service = { show: show, update: update, users: users }
+  function Service($http, Route) {
+    var service = { show, update }
+    var url = Route.api2('/groups/calling-plans/outgoing/call-me-now')
 
     return service
 
-    function url(serviceProviderId, groupId, opt) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId
-      )('callingplans', 'outgoing', 'callmenow', opt)
-    }
-
     function show(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
     function update(serviceProviderId, groupId, obj) {
-      return $http
-        .put(url(serviceProviderId, groupId), obj)
-        .then(function(response) {
-          return response.data
-        })
-    }
-
-    function users(serviceProviderId, groupId) {
-      return $http
-        .get(url(serviceProviderId, groupId, 'users'))
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), obj).then(res => res.data)
     }
   }
 })()

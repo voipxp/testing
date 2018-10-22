@@ -115,7 +115,6 @@
         ctrl.groupPlan = _.find(data.departments, function(department) {
           return !department.department
         })
-        console.log('Originating Group', ctrl.groupPlan)
       })
     }
 

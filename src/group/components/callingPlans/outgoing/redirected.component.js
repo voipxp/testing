@@ -46,7 +46,11 @@
     }
 
     function update(department, callback) {
-      var plan = { departments: [department] }
+      var plan = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId,
+        departments: [department]
+      }
       Alert.spinner.open()
       GroupOutgoingCallingPlanRedirectedService.update(
         ctrl.serviceProviderId,

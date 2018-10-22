@@ -19,7 +19,6 @@
       <tbody>
         <tr class="hover"
           ng-repeat="department in $ctrl.plan.departments | filter:$ctrl.search as results track by department.departmentName"
-      
           ng-click="$ctrl.edit(department)">
           <td>{{ $ctrl.departmentName(department) }}</td>
           <td>
@@ -31,5 +30,4 @@
   </pbs-block>
 </pbs-spinner>
 <group-outgoing-calling-plan-department-authorization-codes service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
-  on-save="$ctrl.updated(department, didChange)"></group-outgoing-calling-plan-department-authorization-codes>
+  group-id="$ctrl.groupId"></group-outgoing-calling-plan-department-authorization-codes>

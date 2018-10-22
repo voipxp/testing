@@ -3,42 +3,26 @@
     .module('odin.group')
     .factory(
       'GroupOutgoingCallingPlanPinholeDigitPlanCallMeNowService',
-      GroupOutgoingCallingPlanPinholeDigitPlanCallMeNowService
+      Service
     )
 
-  function GroupOutgoingCallingPlanPinholeDigitPlanCallMeNowService(
-    $http,
-    Route
-  ) {
-    var service = { show: show, update: update }
-
+  function Service($http, Route) {
+    var service = { show, update }
+    var url = Route.api2(
+      '/groups/calling-plans/outgoing/pinhole-digit-plan/call-me-now'
+    )
     service.options = { permissions: ['Ignore', 'Allow'] }
 
     return service
 
-    function url(serviceProviderId, groupId) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId
-      )('callingplans', 'outgoing', 'pinholedigitplan', 'callmenow')
-    }
-
     function show(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
     function update(serviceProviderId, groupId, obj) {
-      return $http
-        .put(url(serviceProviderId, groupId), obj)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), obj).then(res => res.data)
     }
   }
 })()

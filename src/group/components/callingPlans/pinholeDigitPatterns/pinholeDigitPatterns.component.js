@@ -57,7 +57,10 @@
     }
 
     function add() {
-      ctrl.addPattern = {}
+      ctrl.addPattern = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId
+      }
       if ($scope.addOutgoingCallingPlanPinholeDigitPatternForm) {
         $scope.addOutgoingCallingPlanPinholeDigitPatternForm.$setPristine()
       }
@@ -116,7 +119,6 @@
     }
 
     function remove(pattern, callback) {
-      console.log('remove', pattern)
       Alert.confirm
         .open('Are you sure you want to delete ' + pattern.name + '?')
         .then(function() {
@@ -124,7 +126,7 @@
           GroupOutgoingCallingPlanPinholeDigitPatternService.destroy(
             ctrl.serviceProviderId,
             ctrl.groupId,
-            pattern
+            pattern.name
           )
             .then(loadPatterns)
             .then(function() {

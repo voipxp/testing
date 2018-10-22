@@ -18,38 +18,30 @@
     ctrl.groupId = $routeParams.groupId
     ctrl.departmentName = departmentName
     ctrl.codeList = codeList
-    ctrl.$onInit = activate
+    ctrl.$onInit = onInit
     ctrl.edit = edit
-    ctrl.updated = updated
+    ctrl.loadCodes = loadCodes
 
-    function activate() {
+    function onInit() {
       ctrl.loading = true
       loadCodes()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
-        .finally(function() {
-          ctrl.loading = false
-        })
+        .catch(Alert.notify.danger)
+        .finally(() => (ctrl.loading = false))
     }
 
     function loadCodes() {
       return GroupOutgoingCallingPlanAuthorizationCodeService.index(
         ctrl.serviceProviderId,
-        ctrl.groupId,
-        '*'
-      ).then(function(data) {
+        ctrl.groupId
+      ).then(data => {
         ctrl.plan = data
-        console.log('plan', data)
         return data
       })
     }
 
     function departmentName(department) {
       if (!department) return
-      return (
-        (department.department && department.department.name) || 'Group Default'
-      )
+      return _.get(department, 'department.name', 'Group Default')
     }
 
     function codeList(object) {
@@ -61,11 +53,6 @@
         'groupOutgoingCallingPlanDepartmentAuthorizationCodes:load',
         department
       )
-    }
-
-    function updated(department, didChange) {
-      console.log('Department Updated', department)
-      if (didChange) activate()
     }
   }
 })()
