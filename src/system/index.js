@@ -34,6 +34,12 @@
       path: 'networkClassOfServices/:name',
       component: 'systemNetworkClassOfService',
       acl: 'System'
+    },
+    {
+      path: 'serviceProvidersReport',
+      component: 'serviceProviderReport',
+      acl: 'System',
+      module: 'User Report'
     }
   ]
 

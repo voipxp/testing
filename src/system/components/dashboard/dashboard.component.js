@@ -43,6 +43,11 @@
           path: route('system', 'dn')
         },
         {
+          type: 'system',
+          name: 'Service Provider Groups',
+          path: route('system', 'serviceProvidersReport')
+        },
+        {
           type: 'services',
           name: 'Collaborate',
           path: route('system', 'collaborate')
