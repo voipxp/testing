@@ -28,13 +28,13 @@
 
     function unassign(serviceProviderId, groupId, dns) {
       return $http
-        .delete(url(), { data: { serviceProviderId, groupId, dns } })
+        .delete(url(), { serviceProviderId, groupId, dns })
         .then(res => res.data)
     }
 
     function update(serviceProviderId, groupId, dns) {
       return $http
-        .put(url(), { data: { serviceProviderId, groupId, dns } })
+        .put(url(), { serviceProviderId, groupId, dns })
         .then(res => res.data)
     }
   }
