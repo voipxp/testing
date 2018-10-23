@@ -5,36 +5,22 @@
 
   function GroupRoutingProfileService($http, CacheFactory, Route) {
     var cache = CacheFactory('GroupRoutingProfileService')
-    var service = {
-      show: show,
-      update: update
-    }
+    var service = { show, update }
+    var url = Route.api2('/groups/routing-profile')
     return service
-
-    function url(serviceProviderId, groupId) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId,
-        'routingprofile'
-      )()
-    }
 
     function show(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
-    function update(serviceProviderId, groupId, name) {
+    function update(serviceProviderId, groupId, routingProfile) {
       return $http
-        .put(url(serviceProviderId, groupId) + '/' + name)
-        .then(function(response) {
+        .put(url(), { serviceProviderId, groupId, routingProfile })
+        .then(res => {
           cache.removeAll()
-          return response.data
+          return res.data
         })
     }
   }

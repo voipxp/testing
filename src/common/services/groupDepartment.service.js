@@ -5,71 +5,45 @@
 
   function GroupDepartmentService($http, CacheFactory, Route) {
     var cache = CacheFactory('GroupDepartmentService')
-    var service = {
-      index: index,
-      store: store,
-      show: show,
-      update: update,
-      destroy: destroy
-    }
+    var service = { index, store, show, update, destroy }
     var url = Route.api2('/groups/departments')
     return service
 
     function index(serviceProviderId, groupId, includeEnterprise) {
       return $http
         .get(url(), {
-          cache: cache,
-          params: {
-            serviceProviderId: serviceProviderId,
-            groupId: groupId,
-            includeEnterprise: includeEnterprise
-          }
+          cache,
+          params: { serviceProviderId, groupId, includeEnterprise }
         })
-        .then(function(response) {
-          return response.data
-        })
+        .then(res => res.data)
     }
 
     function store(serviceProviderId, groupId, object) {
-      return $http.post(url(), object).then(function(response) {
+      return $http.post(url(), object).then(res => {
         cache.removeAll()
-        return response.data
+        return res.data
       })
     }
 
     function show(serviceProviderId, groupId, name) {
       return $http
-        .get(url(), {
-          params: {
-            serviceProviderId: serviceProviderId,
-            groupId: groupId,
-            name: name
-          }
-        })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId, name } })
+        .then(res => res.data)
     }
 
     function update(department) {
-      return $http.put(url(), department).then(function(response) {
+      return $http.put(url(), department).then(res => {
         cache.removeAll()
-        return response.data
+        return res.data
       })
     }
 
     function destroy(serviceProviderId, groupId, name) {
       return $http
-        .delete(url(), {
-          params: {
-            serviceProviderId: serviceProviderId,
-            groupId: groupId,
-            name: name
-          }
-        })
-        .then(function(response) {
+        .delete(url(), { params: { serviceProviderId, groupId, name } })
+        .then(res => {
           cache.removeAll()
-          return response.data
+          return res.data
         })
     }
   }

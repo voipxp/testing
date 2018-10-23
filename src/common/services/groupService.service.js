@@ -1,10 +1,9 @@
 ;(function() {
-  angular
-    .module('odin.common')
-    .factory('GroupServiceService', GroupServiceService)
+  angular.module('odin.common').factory('GroupServiceService', Service)
 
-  function GroupServiceService($http, Route, CacheFactory, $rootScope) {
-    var service = { show: show, available: available, update: update }
+  function Service($http, Route, CacheFactory, $rootScope) {
+    var service = { show, authorized, available, update }
+    var url = Route.api2('/groups/services')
     var cache = CacheFactory('GroupServiceService')
 
     $rootScope.$on('ServiceProviderServiceService:updated', clearCache)
@@ -17,31 +16,21 @@
       cache.removeAll()
     }
 
-    function url(serviceProviderId, groupId, extra) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId
-      )('services', extra)
-    }
-
     function show(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId), { cache: cache })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { cache, params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
     // map this into an easy to access hash
     function available(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId, 'available'), { cache: cache })
-        .then(function(response) {
-          return response.data
+        .get(url('available'), {
+          cache,
+          params: { serviceProviderId, groupId }
         })
-        .then(function(services) {
+        .then(res => res.data)
+        .then(services => {
           var results = {}
           services.forEach(function(service) {
             results[service] = true
@@ -50,13 +39,22 @@
         })
     }
 
+    function authorized(serviceProviderId, groupId) {
+      return $http
+        .get(url('authorized'), {
+          cache,
+          params: { serviceProviderId, groupId }
+        })
+        .then(res => res.data)
+    }
+
     function update(serviceProviderId, groupId, service) {
       return $http
-        .put(url(serviceProviderId, groupId), service)
-        .then(function(response) {
+        .put(url(), { ...service, serviceProviderId, groupId })
+        .then(res => {
           cache.removeAll()
           $rootScope.$emit('GroupServiceService:updated')
-          return response.data
+          return res.data
         })
     }
   }

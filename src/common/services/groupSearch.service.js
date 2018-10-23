@@ -5,7 +5,7 @@
     var url = Route.api2('/groups')
     return { index }
     function index(params) {
-      return $http.get(url, { params }).then(res => res.data)
+      return $http.get(url(), { params }).then(res => res.data)
     }
   }
 })()
