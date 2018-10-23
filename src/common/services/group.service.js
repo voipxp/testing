@@ -2,14 +2,9 @@
   angular.module('odin.common').factory('GroupService', GroupService)
 
   function GroupService($http, Route, CacheFactory, $rootScope) {
-    var service = {
-      index: index,
-      store: store,
-      show: show,
-      update: update,
-      destroy: destroy
-    }
+    var service = { index, store, show, update, destroy }
     var cache = CacheFactory('GroupService')
+    var url = Route.api2('/groups')
 
     $rootScope.$on('GroupService:updated', clearCache)
 
@@ -19,53 +14,38 @@
       cache.removeAll()
     }
 
-    function url(serviceProviderId, groupId) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId
-      )()
-    }
-
     function index(serviceProviderId) {
       return $http
-        .get(url(serviceProviderId), { cache: cache })
-        .then(function(response) {
-          return response.data || []
-        })
+        .get(url(), { cache, params: { serviceProviderId } })
+        .then(res => res.data)
     }
 
     function store(serviceProviderId, group) {
-      return $http.post(url(serviceProviderId), group).then(function(response) {
+      return $http.post(url(), group).then(res => {
         clearCache()
-        return response.data
+        return res.data
       })
     }
 
     function show(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId), { cache: cache })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { cache, params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
     function update(serviceProviderId, group) {
-      return $http
-        .put(url(serviceProviderId, group.groupId), group)
-        .then(function(response) {
-          clearCache()
-          return response.data
-        })
+      return $http.put(url(), group).then(res => {
+        clearCache()
+        return res.data
+      })
     }
 
     function destroy(serviceProviderId, groupId) {
       return $http
-        .delete(url(serviceProviderId, groupId))
-        .then(function(response) {
+        .delete(url(), { params: { serviceProviderId, groupId } })
+        .then(res => {
           clearCache()
-          return response.data
+          return res.data
         })
     }
   }

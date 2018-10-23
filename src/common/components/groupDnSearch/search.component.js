@@ -6,12 +6,11 @@
 
   function Controller(
     Alert,
-    GroupDnSearchService,
+    SystemDnSearchService,
     HashService,
     Route,
     $rootScope,
     ACL,
-    Session,
     NumberService,
     $scope
   ) {
@@ -24,13 +23,7 @@
     ctrl.selectServiceProvider = selectServiceProvider
     ctrl.onSelectServiceProvider = onSelectServiceProvider
 
-    ctrl.types = [
-      { key: 'dn', name: 'Phone Number' },
-      { key: 'extension', name: 'Extension' },
-      { key: 'lastName', name: 'Last Name' },
-      { key: 'firstName', name: 'First Name' },
-      { key: 'userId', name: 'User ID' }
-    ]
+    ctrl.types = [{ key: 'dn', name: 'Phone Number' }]
 
     ctrl.userTypes = {
       Normal: 'users',
@@ -87,7 +80,7 @@
       }
       ctrl.users = null
       ctrl.isLoading = true
-      GroupDnSearchService.index(params)
+      SystemDnSearchService.index(params)
         .then(function(data) {
           data.forEach(function(user) {
             user.dns = _.map(NumberService.expand(user.dns), 'min')

@@ -2,25 +2,14 @@
   angular.module('odin.group').factory('GroupPhoneDirectoryService', Service)
 
   function Service($http, Route) {
-    var service = { show: show }
+    var service = { show }
+    var url = Route.api2('/groups/phone-directory')
     return service
-
-    function url(serviceProviderId, groupId) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId,
-        'phonedirectory'
-      )()
-    }
 
     function show(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
   }
 })()

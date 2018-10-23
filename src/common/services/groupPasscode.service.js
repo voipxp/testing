@@ -5,33 +5,18 @@
 
   function GroupPasscodeService($http, Route, CacheFactory) {
     var cache = CacheFactory('GroupPasscodeService')
-    var service = { show: show, update: update }
+    var service = { show, update }
+    var url = Route.api2('/groups/passcode-rules')
     return service
-
-    function url(serviceProviderId, groupId) {
-      var _url = Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId
-      )('passcodes')
-      return _url
-    }
 
     function show(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId), { cache: cache })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { cache, params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
     function update(serviceProviderId, groupId, obj) {
-      return $http
-        .put(url(serviceProviderId, groupId), obj)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), obj).then(res => res.data)
     }
   }
 })()
