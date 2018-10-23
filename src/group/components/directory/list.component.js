@@ -1,10 +1,15 @@
 ;(function() {
-  angular.module('odin.group').component('groupPhoneList', {
+  angular.module('odin.group').component('groupCommonPhoneList', {
     templateUrl: 'group/components/directory/list.component.html',
     controller: Controller
   })
 
-  function Controller(Alert, GroupPhoneListService, $routeParams, CsvService) {
+  function Controller(
+    Alert,
+    GroupCommonPhoneListService,
+    $routeParams,
+    CsvService
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.onPagination = onPagination
@@ -31,11 +36,11 @@
     }
 
     function loadContacts() {
-      return GroupPhoneListService.show(
+      return GroupCommonPhoneListService.index(
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        ctrl.contacts = data
+        ctrl.contacts = data.entries
         console.log('contacts', data)
       })
     }
@@ -78,10 +83,9 @@
 
     function update(contact, callback) {
       Alert.spinner.open()
-      GroupPhoneListService.update(
+      GroupCommonPhoneListService.update(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        contact.name,
         contact
       )
         .then(loadContacts)
@@ -95,7 +99,9 @@
 
     function create(contact, callback) {
       Alert.spinner.open()
-      GroupPhoneListService.store(ctrl.serviceProviderId, ctrl.groupId, contact)
+      GroupCommonPhoneListService.store(ctrl.serviceProviderId, ctrl.groupId, [
+        contact
+      ])
         .then(loadContacts)
         .then(function() {
           Alert.notify.success('Contact Added')
@@ -107,10 +113,10 @@
 
     function destroy(contact, callback) {
       Alert.spinner.open()
-      GroupPhoneListService.destroy(
+      GroupCommonPhoneListService.destroy(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        contact.name
+        [contact]
       )
         .then(loadContacts)
         .then(function() {
@@ -134,9 +140,11 @@
 
     function bulk(contacts, callback) {
       Alert.spinner.open()
-      GroupPhoneListService.store(ctrl.serviceProviderId, ctrl.groupId, {
-        entries: contacts
-      })
+      GroupCommonPhoneListService.store(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        contacts
+      )
         .then(loadContacts)
         .then(function() {
           Alert.notify.success('Import Successful')

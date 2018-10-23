@@ -37,7 +37,7 @@
     },
     {
       path: 'phoneList',
-      component: 'groupPhoneList',
+      component: 'groupCommonPhoneList',
       acl: 'Group'
     },
     {

@@ -1,75 +1,42 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupCustomContactDirectoryService',
-      GroupCustomContactDirectoryService
-    )
+    .factory('GroupCustomContactDirectoryService', Service)
 
-  function GroupCustomContactDirectoryService($http, Route) {
-    var service = {
-      index: index,
-      store: store,
-      show: show,
-      update: update,
-      destroy: destroy,
-      users: users
-    }
+  function Service($http, Route) {
+    var service = { index, store, show, update, destroy, users }
+    var url = Route.api2('/groups/custom-contact-directory')
     return service
-
-    function url(serviceProviderId, groupId, name) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId,
-        'customcontactdirectory'
-      )(name)
-    }
 
     function users(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId, 'users'))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url('users'), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
     function store(serviceProviderId, groupId, directory) {
-      return $http
-        .post(url(serviceProviderId, groupId, directory.name), directory)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.post(url(), directory).then(res => res.data)
     }
 
     function show(serviceProviderId, groupId, name) {
       return $http
-        .get(url(serviceProviderId, groupId, name))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId, name } })
+        .then(res => res.data)
     }
 
     function update(serviceProviderId, groupId, directory) {
-      return $http
-        .put(url(serviceProviderId, groupId, directory.name), directory)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), directory).then(res => res.data)
     }
 
-    function destroy(serviceProviderId, groupId, directory) {
+    function destroy(serviceProviderId, groupId, name) {
       return $http
-        .delete(url(serviceProviderId, groupId, directory.name))
+        .delete(url(), { params: { serviceProviderId, groupId, name } })
         .then(function(response) {
           return response.data
         })

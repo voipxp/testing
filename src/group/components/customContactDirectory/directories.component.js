@@ -66,6 +66,8 @@
     function add() {
       ctrl.availableUsers = angular.copy(ctrl.users)
       ctrl.editDirectory = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId,
         name: '',
         users: []
       }
@@ -129,7 +131,7 @@
       GroupCustomContactDirectoryService.destroy(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        directory
+        directory.name
       )
         .then(loadDirectories)
         .then(function() {
