@@ -1,49 +1,29 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupCommunicationBarringAuthorizationCodeService',
-      GroupCommunicationBarringAuthorizationCodeService
-    )
+    .factory('GroupCommunicationBarringAuthorizationCodeService', Service)
 
-  function GroupCommunicationBarringAuthorizationCodeService($http, Route) {
-    var service = { index: index, create: create, destroy: destroy }
+  function Service($http, Route) {
+    var service = { index, create, destroy }
+    var url = Route.api2('/groups/communication-barring/authorization-codes')
     return service
-
-    function url(serviceProviderId, groupId, code) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId,
-        'communicationbarring',
-        'authorizationcodes',
-        code
-      )()
-    }
 
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
-    function create(serviceProviderId, groupId, obj) {
+    function create(serviceProviderId, groupId, codes) {
       return $http
-        .post(url(serviceProviderId, groupId), obj)
-        .then(function(response) {
-          return response.data
-        })
+        .post(url(), { serviceProviderId, groupId, codes })
+        .then(res => res.data)
     }
 
-    function destroy(serviceProviderId, groupId, code) {
+    function destroy(serviceProviderId, groupId, codes) {
       return $http
-        .delete(url(serviceProviderId, groupId, code))
-        .then(function(response) {
-          return response.data
-        })
+        .delete(url(), { data: { serviceProviderId, groupId, codes } })
+        .then(res => res.data)
     }
   }
 })()

@@ -38,8 +38,7 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('codes', data)
-        ctrl.codes = data
+        ctrl.codes = data.codes
         return data
       })
     }
@@ -49,7 +48,7 @@
       GroupCommunicationBarringAuthorizationCodeService.create(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        code
+        [code]
       )
         .then(loadCodes)
         .then(function() {
@@ -67,7 +66,10 @@
     }
 
     function add() {
-      ctrl.newCode = {}
+      ctrl.newCode = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId
+      }
       Alert.modal.open(
         'addGroupCommunicationBarringAuthorizationCode',
         function onSave(close) {
@@ -85,7 +87,7 @@
           GroupCommunicationBarringAuthorizationCodeService.destroy(
             ctrl.serviceProviderId,
             ctrl.groupId,
-            code.code
+            [code]
           )
             .then(loadCodes)
             .then(function() {
