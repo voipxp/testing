@@ -55,7 +55,10 @@
     }
 
     function add() {
-      ctrl.addPattern = {}
+      ctrl.addPattern = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId
+      }
       if ($scope.addCallingPlanDigitPatternForm) {
         $scope.addCallingPlanDigitPatternForm.$setPristine()
       }
@@ -65,7 +68,6 @@
     }
 
     function create(pattern, callback) {
-      console.log('create', pattern)
       Alert.spinner.open()
       GroupCallingPlanDigitPatternService.store(
         ctrl.serviceProviderId,
@@ -111,7 +113,6 @@
     }
 
     function remove(pattern, callback) {
-      console.log('remove', pattern)
       Alert.confirm
         .open('Are you sure you want to delete ' + pattern.name + '?')
         .then(function() {
@@ -119,7 +120,7 @@
           GroupCallingPlanDigitPatternService.destroy(
             ctrl.serviceProviderId,
             ctrl.groupId,
-            pattern
+            pattern.name
           )
             .then(loadPatterns)
             .then(function() {

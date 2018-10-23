@@ -56,7 +56,11 @@
 
     function update(department, callback) {
       Alert.spinner.open()
-      var plan = { departments: [department] }
+      var plan = {
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId,
+        departments: [department]
+      }
       GroupOutgoingCallingPlanDigitPlanCallMeNowService.update(
         ctrl.serviceProviderId,
         ctrl.groupId,

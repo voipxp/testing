@@ -1,62 +1,31 @@
 ;(function() {
   angular
     .module('odin.group')
-    .factory(
-      'GroupCallingPlanDigitPatternService',
-      GroupCallingPlanDigitPatternService
-    )
+    .factory('GroupCallingPlanDigitPatternService', Service)
 
-  function GroupCallingPlanDigitPatternService($http, Route) {
-    var service = {
-      index: index,
-      store: store,
-      update: update,
-      destroy: destroy
-    }
-
+  function Service($http, Route) {
+    var service = { index, store, update, destroy }
+    var url = Route.api2('/groups/calling-plans/digit-patterns')
     return service
-
-    function url(serviceProviderId, groupId, name) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId
-      )('callingplans', 'digitpatterns', name)
-    }
 
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
     function store(serviceProviderId, groupId, pattern) {
-      return $http
-        .post(url(serviceProviderId, groupId), pattern)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.post(url(), pattern).then(res => res.data)
     }
 
     function update(serviceProviderId, groupId, pattern) {
-      var name = pattern.name || pattern
-      return $http
-        .put(url(serviceProviderId, groupId, name), pattern)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url(), pattern).then(res => res.data)
     }
 
-    function destroy(serviceProviderId, groupId, pattern) {
-      var name = pattern.name || pattern
+    function destroy(serviceProviderId, groupId, name) {
       return $http
-        .delete(url(serviceProviderId, groupId, name))
-        .then(function(response) {
-          return response.data
-        })
+        .delete(url(), { params: { serviceProviderId, groupId, name } })
+        .then(res => res.data)
     }
   }
 })()
