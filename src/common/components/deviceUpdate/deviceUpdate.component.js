@@ -152,7 +152,7 @@
       return GroupDeviceService.destroy(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        device
+        device.deviceName
       )
     }
 

@@ -62,7 +62,7 @@
       return GroupDeviceService.rebuild(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        ctrl.device
+        ctrl.device.deviceName
       )
     }
 
@@ -70,7 +70,7 @@
       return GroupDeviceService.reset(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        ctrl.device
+        ctrl.device.deviceName
       )
     }
 

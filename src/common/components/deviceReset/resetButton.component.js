@@ -10,13 +10,7 @@
     }
   })
 
-  function Controller(
-    Alert,
-    GroupDeviceService,
-    HashService,
-    $scope,
-    EventEmitter
-  ) {
+  function Controller(Alert, GroupDeviceService, HashService, EventEmitter) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.reset = reset
@@ -77,7 +71,7 @@
       return GroupDeviceService.rebuild(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        ctrl.device
+        ctrl.device.deviceName
       )
     }
 
@@ -85,7 +79,7 @@
       return GroupDeviceService.reset(
         ctrl.serviceProviderId,
         ctrl.groupId,
-        ctrl.device
+        ctrl.device.deviceName
       )
     }
 

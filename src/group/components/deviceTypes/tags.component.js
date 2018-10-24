@@ -91,7 +91,6 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         ctrl.deviceType,
-        tag.tagName,
         tag
       )
         .then(loadTags)

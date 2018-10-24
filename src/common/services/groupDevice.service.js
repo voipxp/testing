@@ -5,87 +5,62 @@
 
   function GroupDeviceService($http, CacheFactory, Route) {
     var cache = CacheFactory('GroupDeviceService')
-    var service = {
-      index: index,
-      store: store,
-      update: update,
-      show: show,
-      destroy: destroy,
-      rebuild: rebuild,
-      reset: reset
-    }
+    var service = { index, store, update, show, destroy, rebuild, reset }
+    var url = Route.api2('/groups/devices')
     return service
 
-    function url(serviceProviderId, groupId, device, command) {
-      var deviceId = (device && device.deviceName) || device
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId,
-        'devices'
-      )(deviceId, command)
-    }
-
-    function index(serviceProviderId, groupId, filter, params) {
-      params = params || {}
-      params.q = filter
+    function index(serviceProviderId, groupId, q, params = {}) {
       return $http
-        .get(url(serviceProviderId, groupId), { cache: cache, params: params })
-        .then(function(response) {
-          return response.data
+        .get(url(), {
+          cache,
+          params: { ...params, q, serviceProviderId, groupId }
         })
+        .then(res => res.data)
     }
 
     function store(serviceProviderId, groupId, device) {
-      return $http
-        .post(url(serviceProviderId, groupId), device)
-        .then(function(response) {
-          cache.removeAll()
-          return response.data
-        })
+      return $http.post(url(), device).then(res => {
+        cache.removeAll()
+        return res.data
+      })
     }
 
     function update(serviceProviderId, groupId, device) {
+      return $http.put(url(), device).then(res => {
+        cache.removeAll()
+        return res.data
+      })
+    }
+
+    function show(serviceProviderId, groupId, deviceName) {
       return $http
-        .put(url(serviceProviderId, groupId, device), device)
-        .then(function(response) {
+        .get(url(), { params: { serviceProviderId, groupId, deviceName } })
+        .then(res => res.data)
+    }
+
+    function destroy(serviceProviderId, groupId, deviceName) {
+      return $http
+        .delete(url(), { params: { serviceProviderId, groupId, deviceName } })
+        .then(res => {
           cache.removeAll()
-          return response.data
+          return res.data
         })
     }
 
-    function show(serviceProviderId, groupId, device) {
+    function rebuild(serviceProviderId, groupId, deviceName) {
       return $http
-        .get(url(serviceProviderId, groupId, device))
-        .then(function(response) {
-          return response.data
+        .post(url('rebuild'), {
+          params: { serviceProviderId, groupId, deviceName }
         })
+        .then(res => res.data)
     }
 
-    function destroy(serviceProviderId, groupId, device) {
+    function reset(serviceProviderId, groupId, deviceName) {
       return $http
-        .delete(url(serviceProviderId, groupId, device))
-        .then(function(response) {
-          cache.removeAll()
-          return response.data
+        .post(url('reset'), {
+          params: { serviceProviderId, groupId, deviceName }
         })
-    }
-
-    function rebuild(serviceProviderId, groupId, device) {
-      return $http
-        .post(url(serviceProviderId, groupId, device, 'rebuild'))
-        .then(function(response) {
-          return response.data
-        })
-    }
-
-    function reset(serviceProviderId, groupId, device) {
-      return $http
-        .post(url(serviceProviderId, groupId, device, 'reset'))
-        .then(function(response) {
-          return response.data
-        })
+        .then(res => res.data)
     }
   }
 })()
