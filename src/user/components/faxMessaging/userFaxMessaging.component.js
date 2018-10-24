@@ -104,15 +104,15 @@
         ctrl.groupId,
         'available'
       ).then(function(data) {
-        console.log('ctrl.settings.phoneNumber', ctrl.settings.phoneNumber)
-        console.log('availableNumbers', data)
         ctrl.availableNumbers = data
-        ctrl.availableNumbers.push({
-          assigned: true,
-          activated: true,
-          min: ctrl.settings.phoneNumber,
-          max: null
-        })
+        if (ctrl.settings.phoneNumber) {
+          ctrl.availableNumbers.push({
+            assigned: true,
+            activated: true,
+            min: ctrl.settings.phoneNumber,
+            max: null
+          })
+        }
         return ctrl.availableNumbers
       })
     }

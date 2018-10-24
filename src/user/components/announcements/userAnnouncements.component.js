@@ -30,7 +30,6 @@
 
     function loadAnnouncements() {
       return UserAnnouncementService.index(ctrl.userId).then(function(data) {
-        console.log('repository', data)
         ctrl.repository = data
       })
     }
@@ -39,15 +38,11 @@
       ctrl.selectedAnnouncement = null
       var announcement = event.announcement
       $timeout(function() {
-        if (announcement.name !== announcement.newName) {
-          ctrl.selectedAnnouncement = {
-            name: announcement.newName,
-            mediaType: announcement.mediaType,
-            level: announcement.level
-          }
-        } else {
-          ctrl.selectedAnnouncement = announcement
-        }
+        open({
+          name: announcement.newName || announcement.name,
+          mediaType: announcement.mediaType,
+          level: announcement.level
+        })
       }, 1)
     }
 
@@ -57,6 +52,7 @@
     }
 
     function open(announcement) {
+      console.log('open', announcement)
       ctrl.selectedAnnouncement = announcement
     }
 

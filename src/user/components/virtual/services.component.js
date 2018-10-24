@@ -11,7 +11,15 @@
     ctrl.module = Module
     ctrl.select = select
 
-    var ignoredServices = ['Basic Call Logs']
+    var ignoredServices = [
+      'Basic Call Logs',
+      'Charge Number',
+      'Communication Barring User-Control',
+      'Privacy',
+      'Client Call Control',
+      'Directory Number Hunting',
+      'Virtual On-Net Enterprise Extensions'
+    ]
 
     function onInit() {
       ctrl.loading = true
@@ -36,6 +44,7 @@
             Module.read(service.serviceName)
           )
         })
+        console.log('services', ctrl.services)
       })
     }
   }

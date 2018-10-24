@@ -17,7 +17,7 @@
       }
     }
 
-    function Controller(Alert, Module, ACL) {
+    function Controller(Alert, Module, UserServiceService, ACL) {
       var ctrl = this
       ctrl.$onInit = onInit
 
@@ -25,11 +25,18 @@
         ctrl.hasAnnouncements = ACL.hasVersion('20')
         ctrl.loading = true
         Module.load()
+          .then(loadServices)
           .then(loadPermissions)
           .catch(Alert.notify.danger)
           .finally(function() {
             ctrl.loading = false
           })
+      }
+
+      function loadServices() {
+        return UserServiceService.assigned(ctrl.userId).then(data => {
+          ctrl.services = (data.userServices || []).map(s => s.serviceName)
+        })
       }
 
       function loadPermissions() {
@@ -44,7 +51,9 @@
           ctrl.showCallCenterReport = Module.read('Premium Call Records')
         }
         ctrl.showCallRecords = Module.read('Premium Call Records')
-        ctrl.showBasicCallLogs = Module.read('Basic Call Logs')
+        ctrl.showBasicCallLogs =
+          ctrl.services.includes('Basic Call Logs') &&
+          Module.read('Basic Call Logs')
         ctrl.showAssignServices = Module.read('Provisioning')
         ctrl.showReporting =
           ctrl.showBasicCallLogs ||

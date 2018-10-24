@@ -24,7 +24,7 @@
           <td>{{ $ctrl.module.alias(service.serviceName) }}</td>
           <td>{{ $ctrl.module.description(service.serviceName) }}</td>
           <td class="has-text-centered">
-            <pbs-check-box checked="service.isActive"></pbs-check-box>
+            <pbs-check-box checked="service.isActive === 'true' || service.isActive === true"></pbs-check-box>
           </td>
         </tr>
       </tbody>
@@ -109,6 +109,8 @@
     ng-switch-when="Outlook Integration"></user-outlook-integration>
   <user-priority-alert user-id="$ctrl.userId"
     ng-switch-when="Priority Alert"></user-priority-alert>
+  <user-privacy user-id="$ctrl.userId"
+    ng-switch-when="Privacy"></user-privacy>
   <user-push-to-talk user-id="$ctrl.userId"
     ng-switch-when="Push to Talk"></user-push-to-talk>
   <user-remote-office user-id="$ctrl.userId"
