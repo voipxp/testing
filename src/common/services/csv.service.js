@@ -33,8 +33,8 @@
             }
             resolve(csvResults)
           },
-          error: function(error) {
-            console.log('CsvService#import', error)
+          error: function() {
+            // console.log('CsvService#import', error)
             return reject('CSV Parse Error')
           }
         })
@@ -50,7 +50,7 @@
           var stripped = UtilityService.stripSpecial(flattened)
           resolve(Papa.unparse(stripped, options))
         } catch (error) {
-          console.log('CsvService#export', error)
+          // console.log('CsvService#export', error)
           reject('CSV Generation Error')
         }
       })

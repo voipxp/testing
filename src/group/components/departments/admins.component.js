@@ -29,7 +29,6 @@
       return $q
         .all([loadAdmins(), loadLanguages()])
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {
@@ -55,7 +54,6 @@
         ctrl.groupId,
         ctrl.name
       ).then(function(data) {
-        console.log('admins', data)
         ctrl.admins = data
         return data
       })
@@ -63,7 +61,6 @@
 
     function loadLanguages() {
       return SystemLanguageService.index().then(function(data) {
-        console.log('languages', data)
         ctrl.languages = data
         return data
       })

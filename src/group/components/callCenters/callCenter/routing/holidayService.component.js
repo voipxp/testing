@@ -41,7 +41,6 @@
     function loadService() {
       return GroupCallCenterHolidayServiceService.show(ctrl.serviceUserId).then(
         function(data) {
-          console.log('holidayService', data)
           ctrl.service = data
         }
       )
@@ -53,7 +52,6 @@
           data
         ) {
           ctrl.schedules = data
-          console.log('schedules', data)
           return data
         })
       } else {

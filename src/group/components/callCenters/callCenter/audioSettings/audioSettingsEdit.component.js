@@ -100,7 +100,6 @@
     }
 
     function onSelectAudio(event) {
-      console.log('onSelectAudio', event)
       ctrl.service.audioFileList = ctrl.service.audioFileList || []
       var file = event.audioFile || event.announcement
       file.level = file.level || 'User'

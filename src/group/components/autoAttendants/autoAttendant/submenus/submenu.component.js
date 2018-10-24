@@ -36,13 +36,11 @@
     }
 
     function loadSubmenu() {
-      console.log('loadSubmenu')
       return GroupAutoAttendantSubmenuService.show(
         ctrl.serviceUserId,
         ctrl.submenuId
       ).then(function(data) {
         ctrl.menu = data
-        console.log('menu', data)
       })
     }
 
@@ -52,7 +50,6 @@
         ctrl.submenuId
       ).then(function(data) {
         ctrl.usage = data
-        console.log('usage', data)
       })
     }
 

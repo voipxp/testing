@@ -28,7 +28,6 @@
     function loadPortal() {
       return UserVoiceMessagingVoicePortalService.show(ctrl.userId).then(
         function(data) {
-          console.log('portal', data)
           ctrl.portal = data
           return data
         }

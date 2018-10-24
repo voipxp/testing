@@ -22,7 +22,6 @@
     function loadTimeZones() {
       return SystemTimeZoneService.index().then(function(data) {
         ctrl.timezones = data
-        console.log('timezones', ctrl.timezones)
         return data
       })
     }

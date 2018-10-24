@@ -32,7 +32,6 @@
         function(data) {
           ctrl.group = data
           ctrl.max = ctrl.group.userLimit - ctrl.group.userCount
-          console.log('group', data)
         }
       )
     }

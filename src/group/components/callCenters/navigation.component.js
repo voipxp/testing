@@ -5,26 +5,17 @@
     bindings: { module: '<' }
   })
 
-  function Controller($routeParams, Route) {
+  function Controller($routeParams, $location, Route) {
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.serviceUserId = $routeParams.serviceUserId
-    ctrl.dnisId = $routeParams.dnisId
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.open = open
 
     // TODO
     // Make this display inline
-    function open(obj) {
-      var id = (obj && obj.serviceUserId) || obj
-      var menu = id ? 'Advanced' : null
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'callCenters',
-        id
-      ).search({ menu: menu })
+    function open() {
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
     }
   }
 })()

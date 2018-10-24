@@ -31,7 +31,6 @@
       return UserOutgoingCallingPlanPinholeDigitPlanOriginatingService.show(
         ctrl.userId
       ).then(function(data) {
-        console.log('plan', data)
         ctrl.plan = data
       })
     }

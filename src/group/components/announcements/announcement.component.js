@@ -41,7 +41,6 @@
         ctrl.name,
         ctrl.mediaType
       ).then(function(data) {
-        console.log('announcement', data)
         ctrl.announcement = data
       })
     }

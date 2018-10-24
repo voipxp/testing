@@ -38,8 +38,6 @@
             groupId: trunk.groupId
           })
         })
-        console.log('assignedTrunks', ctrl.assignedTrunks)
-        console.log('availableTrunks', ctrl.availableTrunks)
         return data
       })
     }
@@ -90,8 +88,6 @@
         groupId: trunk.groupId
       })
       ctrl.assignedTrunks.push(trunk)
-      console.log('assignedTrunks', ctrl.assignedTrunks)
-      console.log('availableTrunks', ctrl.availableTrunks)
     }
 
     function removeTrunk(trunk) {
@@ -100,8 +96,6 @@
         groupId: trunk.groupId
       })
       ctrl.availableTrunks.push(trunk)
-      console.log('assignedTrunks', ctrl.assignedTrunks)
-      console.log('availableTrunks', ctrl.availableTrunks)
     }
   }
 })()

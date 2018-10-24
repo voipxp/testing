@@ -32,7 +32,6 @@
     function loadSettings() {
       return UserNightForwardingService.show(ctrl.userId).then(function(data) {
         ctrl.settings = data
-        console.log('settings', data)
       })
     }
 
@@ -44,7 +43,6 @@
     }
 
     function update(settings, callback) {
-      console.log('UPDATE', settings)
       Alert.spinner.open()
       UserNightForwardingService.update(ctrl.userId, settings)
         .then(loadSettings)

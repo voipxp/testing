@@ -28,7 +28,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.groups = data
-        console.log('groups', data)
       })
     }
 

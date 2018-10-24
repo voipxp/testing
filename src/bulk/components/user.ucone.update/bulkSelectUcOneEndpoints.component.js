@@ -28,9 +28,7 @@
           ctrl.endpoints.push(buildEndpoint(device))
         }
       })
-      console.log('built', ctrl.endpoints)
       cleanEndpoints()
-      console.log('cleaned', ctrl.endpoints)
     }
 
     function endpointHasDevice(device) {
@@ -79,7 +77,6 @@
         _.assign(endpoint, ctrl.editEndpoint)
         endpoint.deviceName = _.get(endpoint, 'accessDevice.deviceName')
         endpoint.deviceLevel = _.get(endpoint, 'accessDevice.deviceLevel')
-        console.log('endpoint', endpoint)
         close()
       })
     }

@@ -150,7 +150,6 @@
     }
 
     function update(service, callback) {
-      console.log('UPDATE', service)
       Alert.spinner.open()
       GroupServiceService.update(ctrl.serviceProviderId, ctrl.groupId, service)
         .then(loadServices)

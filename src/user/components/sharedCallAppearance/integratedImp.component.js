@@ -38,14 +38,12 @@
     function loadIntegratedImp() {
       return UserIntegratedIMPService.show(ctrl.userId).then(function(data) {
         ctrl.integratedImp = data
-        console.log('integratedImp ', data)
       })
     }
 
     function loadServices() {
       return UserServiceService.assigned(ctrl.userId).then(function(data) {
         ctrl.assignedServices = data
-        console.log('assignedServices', ctrl.assignedServices)
       })
     }
 
@@ -79,7 +77,6 @@
           callback()
         })
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {

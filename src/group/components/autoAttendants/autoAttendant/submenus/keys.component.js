@@ -36,7 +36,6 @@
           ctrl.submenus = _.filter(data, function(submenu) {
             return submenu.submenuId !== ctrl.parent.submenuId
           })
-          console.log('submenu', ctrl.submenus)
         })
         .catch(Alert.notify.danger)
         .finally(Alert.spinner.close)
@@ -55,14 +54,12 @@
     }
 
     function onSelectAudio(event) {
-      console.log('gotAudioFile', event)
       ctrl.selectedKey.audioFile = event.audioFile || event.announcement
     }
 
     function edit(index) {
       var editKeys = angular.copy(ctrl.parent.menu.keys)
       var originalKey = editKeys[index] || {}
-      console.log('edit', originalKey)
       ctrl.selectedKey = angular.copy(originalKey)
       setAvailableKeys(ctrl.selectedKey)
       loadSubmenus().then(function() {

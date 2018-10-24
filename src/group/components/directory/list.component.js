@@ -41,7 +41,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.contacts = data.entries
-        console.log('contacts', data)
       })
     }
 

@@ -34,7 +34,6 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('directories', data)
         ctrl.directories = data
       })
     }
@@ -45,7 +44,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.users = data
-        console.log('users', data)
       })
     }
 
@@ -99,7 +97,6 @@
       Alert.spinner.open()
       loadDirectory(directory)
         .then(function(data) {
-          console.log('loadDirectory', data)
           ctrl.editDirectory = angular.copy(data)
           ctrl.editDirectory.newName = ctrl.editDirectory.name
           ctrl.availableUsers = filterUsers(

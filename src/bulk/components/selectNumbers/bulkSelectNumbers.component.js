@@ -31,7 +31,6 @@
     ctrl.templates = { callingLineIdPhoneNumber: '{{ phoneNumber }}' }
 
     function onInit() {
-      console.log('selectNumbersLoaded')
       if (ctrl.phoneNumbers && ctrl.phoneNumbers.length >= ctrl.userCount) {
         ctrl.phoneNumberAction = 'select'
       } else {
@@ -55,7 +54,6 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('data', data)
         var min = data.minExtensionLength
         var max = data.maxExtensionLength
         var def = data.defaultExtensionLength

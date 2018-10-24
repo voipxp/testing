@@ -18,7 +18,8 @@
       'Privacy',
       'Client Call Control',
       'Directory Number Hunting',
-      'Virtual On-Net Enterprise Extensions'
+      'Virtual On-Net Enterprise Extensions',
+      'Enhanced Call Logs'
     ]
 
     function onInit() {
@@ -44,7 +45,6 @@
             Module.read(service.serviceName)
           )
         })
-        console.log('services', ctrl.services)
       })
     }
   }

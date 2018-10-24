@@ -54,7 +54,7 @@
     }
 
     function next() {
-      console.log(JSON.stringify(ctrl.data, null, 2))
+      // console.log(JSON.stringify(ctrl.data, null, 2))
       ctrl.wizard.next()
     }
   }

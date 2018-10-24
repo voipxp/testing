@@ -32,7 +32,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.plan = data
-        console.log('redirecting', data)
         loadDigitPatterns()
         return data
       })

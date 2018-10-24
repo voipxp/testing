@@ -30,7 +30,6 @@
     }
 
     function onSelectAudio(event) {
-      console.log('gotAudioFile', event)
       ctrl.editMenu.audioFile = event.audioFile || event.announcement
     }
 

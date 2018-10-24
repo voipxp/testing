@@ -24,7 +24,6 @@
     function loadPlan() {
       return UserOutgoingCallingPlanCallMeNowService.show(ctrl.userId).then(
         function(data) {
-          console.log('plan', data)
           ctrl.plan = data
         }
       )

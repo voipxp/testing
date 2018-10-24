@@ -24,7 +24,6 @@
       ctrl.loading = true
       return load()
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {
@@ -68,7 +67,6 @@
           )
         })
         .catch(function(error) {
-          console.log('error', error.data)
           Alert.notify.danger(error)
         })
         .finally(function() {})

@@ -38,7 +38,6 @@
         ctrl.name
       ).then(function(data) {
         ctrl.group = data
-        console.log('group', data)
       })
     }
 

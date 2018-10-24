@@ -50,7 +50,6 @@
         data
       ) {
         ctrl.serviceProvider = data
-        console.log('serviceProvider', data)
       })
     }
 
@@ -60,7 +59,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.trunks = data
-        console.log('groupTrunks', data)
       })
     }
 
@@ -69,7 +67,6 @@
         ctrl.serviceProviderId
       ).then(function(data) {
         ctrl.trunks = data
-        console.log('enterpriseTrunks', data)
       })
     }
 

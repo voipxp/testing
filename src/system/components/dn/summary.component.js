@@ -30,7 +30,6 @@
     function loadDnSummary() {
       return SystemDnService.summary().then(function(data) {
         ctrl.summary = data
-        console.log('summary', data)
       })
     }
 

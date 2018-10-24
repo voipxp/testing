@@ -52,7 +52,6 @@
             data.phoneNumber = String(data.phoneNumber)
           }
           ctrl.bridge = data
-          console.log('bridge', data)
           return data
         }
       )

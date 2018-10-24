@@ -35,7 +35,6 @@
       return GroupCallCenterDistinctiveRingingService.show(
         ctrl.serviceUserId
       ).then(function(data) {
-        console.log('distinctiveRinging', data)
         ctrl.service = data
       })
     }

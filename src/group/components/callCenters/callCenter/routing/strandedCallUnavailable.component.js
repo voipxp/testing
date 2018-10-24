@@ -64,7 +64,6 @@
       return GroupCallCenterStrandedCallUnavailableService.show(
         ctrl.serviceUserId
       ).then(function(data) {
-        console.log('strandedCallUnavailable', data)
         ctrl.service = data
       })
     }

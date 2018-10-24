@@ -27,7 +27,6 @@
       ctrl.loading = true
       return loadAutoAttendants()
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {
@@ -41,7 +40,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.autoAttendants = data
-        console.log('attendants', data)
       })
     }
 
@@ -77,7 +75,6 @@
     }
 
     function clone() {
-      console.log('CLONE')
       $scope.$broadcast('groupCloneAutoAttendant:load')
     }
 

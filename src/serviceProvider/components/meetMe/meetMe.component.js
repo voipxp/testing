@@ -34,7 +34,6 @@
         ctrl.serviceProviderId
       ).then(function(data) {
         ctrl.ports = data
-        console.log('ports', data)
         return data
       })
     }

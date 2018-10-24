@@ -26,7 +26,6 @@
     function loadHostnames() {
       return BrandingHostnameService.index().then(function(data) {
         ctrl.hostnames = data
-        console.log('hostnames', data)
       })
     }
 

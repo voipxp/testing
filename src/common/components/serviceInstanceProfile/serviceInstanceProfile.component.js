@@ -51,7 +51,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.departments = data
-        console.log('departments', ctrl.departments)
         return data
       })
     }
@@ -59,7 +58,6 @@
     function loadLanguages() {
       return SystemLanguageService.index().then(function(data) {
         ctrl.languages = data
-        console.log('languages', ctrl.languages)
         return data
       })
     }
@@ -67,7 +65,6 @@
     function loadTimezones() {
       return SystemTimeZoneService.index().then(function(data) {
         ctrl.timezones = data
-        console.log('timezones', ctrl.timezones)
         return data
       })
     }
@@ -84,7 +81,6 @@
       activate().then(function() {
         ctrl.editProfile = angular.copy(ctrl.profile)
         Alert.modal.open('editServiceInstanceProfile', function(close) {
-          console.log('editProfile', ctrl.editProfile)
           sendUpdate(ctrl.editProfile, close)
         })
       })

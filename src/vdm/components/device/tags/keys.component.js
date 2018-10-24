@@ -72,7 +72,6 @@
         key.locked = typeTag.activeGroup == 0
         keys[i] = key
       }
-      console.log('keys', keys)
       ctrl.keys = keys
     }
 

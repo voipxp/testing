@@ -34,7 +34,6 @@
       return GroupCallCenterForcedForwardingService.show(
         ctrl.serviceUserId
       ).then(function(data) {
-        console.log('forcedForwarding', data)
         ctrl.service = data
       })
     }

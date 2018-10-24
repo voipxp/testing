@@ -98,7 +98,7 @@
           return BulkParseService.validate(users, ctrl.action.required || [])
         })
         .catch(function(error) {
-          console.log('error', error)
+          console.log(error)
           return $q.reject('Data Error: ' + error)
         })
     }

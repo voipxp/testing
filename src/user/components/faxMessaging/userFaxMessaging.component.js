@@ -33,7 +33,6 @@
           return $q.all([loadDomains(), loadAvailableNumbers()])
         })
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {
@@ -54,9 +53,7 @@
     }
 
     function edit() {
-      console.log('ctrl.settings:', ctrl.settings)
       ctrl.editSettings = angular.copy(ctrl.settings)
-      // console.log('ctrl.editSettings:', ctrl.editSettings)
       Alert.modal.open('editUserFaxMessaging', function onSave(close) {
         update(ctrl.editSettings, close)
       })
@@ -64,7 +61,6 @@
 
     function update(settings, callback) {
       Alert.spinner.open()
-      console.log('settings', settings)
       UserFaxMessagingService.update(ctrl.userId, settings)
         .then(onInit)
         .then(function() {
@@ -89,7 +85,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.domains = data
-        console.log('domains', data)
         return data
       })
     }
@@ -122,7 +117,6 @@
         ? ctrl.editSettings.phoneNumber.slice(-4)
         : null
       ctrl.editSettings.extension = ext
-      console.log('setExtension', ctrl.editSettings.extension)
     }
 
     function shitsplit(input, splitChar) {

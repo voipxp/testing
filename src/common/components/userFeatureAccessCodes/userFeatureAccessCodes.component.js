@@ -27,7 +27,6 @@
         data
       ) {
         ctrl.accessCodes = data
-        console.log('UserFeatureAccessCodeService', data)
         return data
       })
     }

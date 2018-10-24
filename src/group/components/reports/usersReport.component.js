@@ -123,7 +123,6 @@
               premiumServices: user.premiumServices.join(',')
             }
           })
-          console.log('users', data)
         }
       )
     }

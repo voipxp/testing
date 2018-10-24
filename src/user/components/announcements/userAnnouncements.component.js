@@ -52,7 +52,6 @@
     }
 
     function open(announcement) {
-      console.log('open', announcement)
       ctrl.selectedAnnouncement = announcement
     }
 

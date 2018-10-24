@@ -61,7 +61,6 @@
 
     function edit(user) {
       Alert.spinner.open()
-      console.log('user', user, ctrl.serviceProviderId, ctrl.groupId)
       loadUser(user)
         .then(function() {
           Alert.modal.open(
@@ -92,10 +91,8 @@
         ctrl.groupId,
         user.phoneNumber
       ).then(function(data) {
-        console.log('data', data)
         ctrl.editSettings = data
         ctrl.editSettings.phoneNumber = user.phoneNumber
-        console.log('ctrl.editSettings', ctrl.editSettings)
         return data
       })
     }

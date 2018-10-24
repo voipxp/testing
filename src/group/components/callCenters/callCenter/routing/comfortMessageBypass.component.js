@@ -36,7 +36,6 @@
       return GroupCallCenterComfortMessageBypassService.show(
         ctrl.serviceUserId
       ).then(function(data) {
-        console.log('comfortMessage', data)
         ctrl.service = data
       })
     }

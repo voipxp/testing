@@ -41,7 +41,6 @@
         ctrl.parent.trunkName
       )
         .then(function(data) {
-          console.log('data', data)
           ctrl.users = _.map(data.users, function(user) {
             user.isPilotUser = isPilotUser(user)
             return user

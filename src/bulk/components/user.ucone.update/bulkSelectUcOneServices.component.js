@@ -86,7 +86,6 @@
           selected: false
         }
       })
-      console.log('required', ctrl.requiredServices)
     }
 
     // build a list of all user services

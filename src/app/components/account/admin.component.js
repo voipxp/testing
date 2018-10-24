@@ -46,7 +46,7 @@
         .then(Auth.session)
         .then(Session.update)
         .then(function(data) {
-          console.log('session reset', data)
+          console.log('session', data)
         })
     }
   }

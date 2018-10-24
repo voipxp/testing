@@ -23,7 +23,6 @@
     }
 
     function onSelect(event) {
-      console.log('onSelectServiceProvider', event)
       ctrl.serviceProviderId = event.serviceProviderId
     }
 

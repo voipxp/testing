@@ -16,7 +16,6 @@
       ctrl.loading = true
       $q.all([loadSettings(), loadEvents()])
         .catch(function(error) {
-          console.log('error', error.data)
           Alert.notify.danger(error.data)
         })
         .finally(function() {
@@ -114,7 +113,6 @@
           callback()
         })
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {

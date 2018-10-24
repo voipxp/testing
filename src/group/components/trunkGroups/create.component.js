@@ -75,13 +75,11 @@
     }
 
     function selectDevice() {
-      console.log('selectDevice')
       $scope.$broadcast('deviceSelect:load')
     }
 
     function deviceSelected(event) {
       ctrl.trunk.accessDevice = event.device
-      console.log('here', event)
     }
 
     $scope.$on('groupTrunkGroupCreate:load', edit)

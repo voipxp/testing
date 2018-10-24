@@ -69,7 +69,6 @@
         ctrl.groupPlan = _.find(data.departments, function(department) {
           return !department.department
         })
-        console.log('group', ctrl.groupPlan)
       })
     }
 
@@ -79,7 +78,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.userPlans = data
-        console.log('Redirected', data)
       })
     }
 

@@ -57,7 +57,6 @@
       return UserSimultaneousRingPersonalService.show(ctrl.userId).then(
         function(data) {
           ctrl.settings = data
-          console.log('ctrl.settings', ctrl.settings)
           return data
         }
       )

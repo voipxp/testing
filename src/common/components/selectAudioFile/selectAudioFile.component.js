@@ -34,7 +34,6 @@
     }
 
     function onSelectAudio(event) {
-      console.log('gotAudioFile', event)
       ctrl.audioFile = event.audioFile || event.announcement
     }
   }

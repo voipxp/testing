@@ -31,11 +31,9 @@
     function onChanges(changes) {
       if (changes.loading || !ctrl.allData) return
       if (changes.allUsers || changes.selectedUsers) {
-        console.log('filterData')
         filterData()
       }
       if (changes.startTime || changes.endTime) {
-        console.log('loadData')
         loadData()
       }
     }
@@ -52,7 +50,6 @@
     }
 
     function filterData() {
-      console.log('allData', ctrl.allData, ctrl.selectedUsers)
       var data = _.filter(ctrl.allData, function(item) {
         return _.find(ctrl.selectedUsers, { userId: item.userId })
       }).map(function(item) {
@@ -65,7 +62,6 @@
         }
         return item
       })
-      console.log('DATA', data)
       ctrl.options = { legend: { display: true, position: 'bottom' } }
       ctrl.labels = data.map(function(user) {
         return [user.firstName, user.lastName].join(' ')

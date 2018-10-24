@@ -131,7 +131,6 @@
       Alert.spinner.open()
       loadAvailableNumbers()
         .then(function(numbers) {
-          console.log('add', numbers)
           ctrl.editNumbers = {
             available: numbers,
             selected: []

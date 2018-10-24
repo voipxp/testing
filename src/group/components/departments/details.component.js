@@ -45,7 +45,6 @@
         ctrl.groupId,
         ctrl.name
       ).then(function(data) {
-        console.log('department', data)
         ctrl.department = data
       })
     }
@@ -100,7 +99,6 @@
               open()
             })
             .catch(function(error) {
-              console.log('error', error)
               Alert.notify.danger(error)
             })
             .finally(function() {

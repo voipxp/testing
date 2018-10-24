@@ -35,7 +35,6 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('services', data)
         ctrl.services = data.services
       })
     }
@@ -66,7 +65,6 @@
         ctrl.serviceProviderId
       )
         .then(function(data) {
-          console.log('sp', data)
           return data
         })
         .catch(function(error) {

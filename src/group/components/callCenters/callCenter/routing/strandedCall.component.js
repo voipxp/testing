@@ -45,7 +45,6 @@
     function loadService() {
       return GroupCallCenterStrandedCallService.show(ctrl.serviceUserId).then(
         function(data) {
-          console.log('strandedCall', data)
           ctrl.service = data
         }
       )

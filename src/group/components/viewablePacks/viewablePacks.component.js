@@ -63,7 +63,6 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('packs', data)
         ctrl.packs = data
         return data
       })
@@ -84,7 +83,6 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('users', data)
         ctrl.users = data
         return data
       })
@@ -99,7 +97,6 @@
     }
 
     function onSelect(event) {
-      console.log('onSelect', event)
       ctrl.selectedUser = {}
       ctrl.editTitle = event.length + ' Users'
       Alert.modal.open('editUserVirtualPack', function(close) {
@@ -127,8 +124,6 @@
           ctrl.editServices = _.filter(services, function(service) {
             return !_.find(ctrl.editPack.services, { id: service.id })
           })
-          console.log('editPack', ctrl.editPack)
-          console.log('editServices', ctrl.editServices)
         })
         .catch(function(error) {
           Alert.notify.danger(error)
@@ -188,7 +183,6 @@
           callback()
         })
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {

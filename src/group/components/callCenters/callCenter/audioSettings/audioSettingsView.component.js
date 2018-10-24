@@ -17,7 +17,6 @@
 
     function onInit() {
       ctrl.service = ctrl.service || {}
-      console.log('service', ctrl.service)
     }
 
     function isFile() {

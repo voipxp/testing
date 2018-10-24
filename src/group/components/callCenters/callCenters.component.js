@@ -37,7 +37,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.centers = data
-        console.log('centers', data)
         return data
       })
     }
@@ -53,8 +52,8 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         'callCenters',
-        serviceUserId
-      )
+        'callCenter'
+      ).search({ serviceUserId })
     }
 
     function add() {

@@ -84,7 +84,6 @@
 
       // check for admin policies
       if (card.policy) {
-        console.log('policy', card.policy)
         var func = GroupPolicyService[card.policy]
         if (_.isFunction(func)) {
           card.active = func()

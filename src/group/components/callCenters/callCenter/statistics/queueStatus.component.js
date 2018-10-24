@@ -27,7 +27,6 @@
     function loadStatus() {
       return GroupCallCenterQueueStatusService.show(ctrl.serviceUserId).then(
         function(data) {
-          console.log('status', data)
           ctrl.status = data
           return data
         }

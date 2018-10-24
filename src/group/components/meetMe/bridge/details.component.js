@@ -22,7 +22,6 @@
         ctrl.parent.groupId
       ).then(function(data) {
         ctrl.ports = data
-        console.log('ports', data)
         return data
       })
     }
@@ -39,7 +38,6 @@
           Alert.modal.open(
             'editBridgeDetails',
             function onSave(close) {
-              console.log('editDetails', ctrl.bridge)
               ctrl.parent.update(ctrl.bridge, close)
             },
             onDelete

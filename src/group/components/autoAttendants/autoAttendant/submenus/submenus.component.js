@@ -32,7 +32,6 @@
       return GroupAutoAttendantSubmenuService.show(ctrl.serviceUserId).then(
         function(data) {
           ctrl.menus = data
-          console.log('menus', data)
         }
       )
     }
@@ -63,7 +62,6 @@
     }
 
     function onUpdate(event) {
-      console.log('onUpdate', event)
       ctrl.submenuId = null
       $timeout(function() {
         ctrl.submenuId = event.newSubmenuId || event.submenuId

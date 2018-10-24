@@ -35,7 +35,6 @@
     }
 
     function toggle(service) {
-      console.log('toggle', service)
       service.isLoading = true
 
       // format as an array to fit API requirements
@@ -55,7 +54,6 @@
           sendUpdate(singleService)
         })
         .catch(function(error) {
-          console.log('error', error.data)
           Alert.notify.danger(error)
           service.assigned = !service.assigned
         })

@@ -35,7 +35,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.trunks = data
-        console.log('trunks', data)
         return data
       })
     }

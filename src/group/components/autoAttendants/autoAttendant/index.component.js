@@ -42,7 +42,6 @@
         data
       ) {
         ctrl.autoAttendant = data
-        console.log('attendant', data)
       })
     }
 

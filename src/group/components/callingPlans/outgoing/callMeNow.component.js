@@ -29,14 +29,12 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.plan = data
-        console.log('originating', data)
         return data
       })
     }
 
     function edit(department) {
       ctrl.editDepartment = angular.copy(department)
-      console.log('editDepartment', ctrl.editPlan)
       Alert.modal.open('editGroupOutgoingCallingPlanCallMeNow', function onSave(
         close
       ) {

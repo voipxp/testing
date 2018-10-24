@@ -25,7 +25,6 @@
 
     function loadHostname() {
       return BrandingHostnameService.show(ctrl.hostnameId).then(function(data) {
-        console.log('Hostname', data)
         ctrl.hostname = data
         sendUpdate(ctrl.hostname)
       })

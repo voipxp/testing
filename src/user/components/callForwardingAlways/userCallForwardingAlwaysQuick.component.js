@@ -24,7 +24,6 @@
       return UserCallForwardingAlwaysService.show(ctrl.userId).then(function(
         data
       ) {
-        console.log('settings', ctrl.settings)
         ctrl.settings = data
       })
     }

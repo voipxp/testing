@@ -42,7 +42,6 @@
     function loadAdmins() {
       return ServiceProviderAdminService.index(ctrl.serviceProviderId).then(
         function(data) {
-          console.log('admins', data)
           ctrl.admins = data
           return data
         }
@@ -51,7 +50,6 @@
 
     function loadLanguages() {
       return SystemLanguageService.index().then(function(data) {
-        console.log('languages', data)
         ctrl.languages = data
         return data
       })

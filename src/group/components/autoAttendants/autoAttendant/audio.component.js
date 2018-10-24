@@ -60,7 +60,6 @@
     }
 
     function onSelectAudio(event) {
-      console.log('gotAudioFile', event)
       ctrl.editSettings.audioFile = event.audioFile || event.announcement
     }
 

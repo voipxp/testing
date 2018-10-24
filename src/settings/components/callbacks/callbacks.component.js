@@ -52,14 +52,12 @@
 
     function loadTemplates() {
       return CallbackTemplateService.index().then(function(data) {
-        console.log('templates', data)
         ctrl.templates = data
       })
     }
 
     function loadSettings() {
       return CallbackSettingService.index().then(function(data) {
-        console.log('callbacks', data)
         ctrl.callbacks = data
       })
     }
@@ -106,7 +104,6 @@
     }
 
     function create(callback, close) {
-      console.log('callback', callback)
       Alert.spinner.open()
       CallbackSettingService.store(callback)
         .then(loadData)

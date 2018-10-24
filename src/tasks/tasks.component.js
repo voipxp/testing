@@ -16,7 +16,6 @@
       TaskService.index(ctrl.recent)
         .then(function(data) {
           ctrl.tasks = data
-          console.log(data)
         })
         .catch(function(error) {
           Alert.notify.danger(error)

@@ -13,7 +13,6 @@
     ctrl.back = back
 
     function onUpdate(event) {
-      console.log('event', event)
       ctrl.hostname = event.hostname.hostname
     }
 

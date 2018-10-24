@@ -27,7 +27,6 @@
       return UserVoiceMessagingGreetingService.show(ctrl.userId).then(function(
         data
       ) {
-        console.log('settings', data)
         ctrl.settings = data
       })
     }

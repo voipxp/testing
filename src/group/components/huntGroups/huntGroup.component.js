@@ -42,7 +42,6 @@
       return GroupHuntGroupService.show(ctrl.serviceUserId).then(function(
         data
       ) {
-        console.log('huntGroup', data)
         ctrl.huntGroup = data
       })
     }

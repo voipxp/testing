@@ -29,7 +29,6 @@
     function loadVoiceMessaging() {
       return UserVoiceMessagingService.show(ctrl.userId).then(function(data) {
         ctrl.messaging = data
-        console.log('messaging', data)
         return data
       })
     }
@@ -42,7 +41,6 @@
     }
 
     function update(callback) {
-      console.log('updating', ctrl.editMessaging)
       ctrl.editMessaging.userId = ctrl.userId
       Alert.spinner.open()
       return UserVoiceMessagingService.update(ctrl.userId, ctrl.editMessaging)

@@ -10,13 +10,7 @@
     }
   })
 
-  function Controller(
-    Alert,
-    GroupAutoAttendantService,
-    Module,
-    GroupScheduleService,
-    ACL
-  ) {
+  function Controller(Alert, GroupAutoAttendantService, Module, ACL) {
     var ctrl = this
     ctrl.edit = edit
     ctrl.options = GroupAutoAttendantService.options

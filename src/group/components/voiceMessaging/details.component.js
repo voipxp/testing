@@ -28,7 +28,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.settings = data
-        console.log('settings', data)
         return data
       })
     }

@@ -128,7 +128,6 @@
         })
         if (!isSelected) return service
       })
-      console.log('setAvailable', ctrl.available)
     }
 
     function selectServices() {

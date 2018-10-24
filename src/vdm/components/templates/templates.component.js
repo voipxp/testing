@@ -36,7 +36,6 @@
     function loadTemplates() {
       var action = isGroup() ? loadGroupTemplates : loadSystemTemplates
       return action().then(function(data) {
-        console.log('templates', data)
         ctrl.templates = data
       })
     }

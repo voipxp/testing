@@ -11,7 +11,6 @@
     this.edit = edit
 
     function edit() {
-      console.log('edit')
       ctrl.editMenu = angular.copy(ctrl.parent.menu)
       ctrl.editMenu.newSubmenuId = ctrl.parent.submenuId
       var deleteAction

@@ -36,7 +36,6 @@
       return GroupCallCenterQueueStatusNotificationService.show(
         ctrl.serviceUserId
       ).then(function(data) {
-        console.log('queueStatusNotification', data)
         ctrl.service = data
       })
     }

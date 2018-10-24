@@ -27,7 +27,6 @@
         ctrl.parent.groupId
       ).then(function(data) {
         ctrl.instances = data
-        console.log('instances', data)
         return data
       })
     }

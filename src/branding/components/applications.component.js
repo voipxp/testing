@@ -33,7 +33,6 @@
         data
       ) {
         ctrl.applications = data
-        console.log('applications', data)
       })
     }
 

@@ -31,7 +31,6 @@
         ctrl.parent.groupId
       ).then(function(data) {
         ctrl.users = data
-        console.log('availableUsers', data)
         return data
       })
     }
@@ -45,7 +44,6 @@
         })
         Alert.modal.open('editBridgeUsers', function onSave(close) {
           var bridge = angular.copy(ctrl.parent.bridge)
-          console.log('updateUsers', ctrl.assignedUsers)
           bridge.users = ctrl.assignedUsers
           return ctrl.parent.update(bridge, close)
         })

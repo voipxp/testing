@@ -44,7 +44,6 @@
         ctrl.search.start,
         ctrl.search.end
       ).then(function(data) {
-        console.log('Statistics', data)
         ctrl.statistics = data
         return data
       })

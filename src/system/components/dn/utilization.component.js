@@ -30,7 +30,6 @@
     function loadDnUtilization() {
       return SystemDnService.utilization().then(function(data) {
         ctrl.utilization = data
-        console.log('utilization', data)
       })
     }
 

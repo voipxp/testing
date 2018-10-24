@@ -26,7 +26,6 @@
           )
         )
       })
-      console.log('ctrl.properties', ctrl.properties)
     }
   }
 })()

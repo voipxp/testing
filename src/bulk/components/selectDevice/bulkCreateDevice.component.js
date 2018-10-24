@@ -46,9 +46,7 @@
     }
 
     function select(device) {
-      console.log('select', device)
       ctrl.device = BulkCreateDeviceService.generate(device)
-      console.log('ctrl.device', ctrl.device)
     }
 
     function create(device, callback) {

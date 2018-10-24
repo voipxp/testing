@@ -59,7 +59,6 @@
         delete ctrl.trunk.priorityWeightedRouting
         ctrl.trunk.orderedRouting = {}
       }
-      console.log('ctrl.trunk', ctrl.trunk)
     }
 
     $scope.$on('enterpriseEnterpriseTrunkCreate:load', edit)

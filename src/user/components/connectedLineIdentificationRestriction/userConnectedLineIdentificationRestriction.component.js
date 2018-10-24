@@ -43,7 +43,6 @@
         ctrl.userId
       ).then(function(data) {
         ctrl.settings = data
-        console.log('settings', data)
       })
     }
 
@@ -58,7 +57,6 @@
     }
 
     function update(settings, callback) {
-      console.log('UPDATE', settings)
       Alert.spinner.open()
       UserConnectedLineIdentificationRestrictionService.update(
         ctrl.userId,

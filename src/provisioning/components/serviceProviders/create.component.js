@@ -30,7 +30,6 @@
           sendUpdate(ctrl.serviceProvider)
         })
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error.data)
         })
         .finally(function() {

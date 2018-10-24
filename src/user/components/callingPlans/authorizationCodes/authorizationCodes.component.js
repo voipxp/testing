@@ -38,7 +38,6 @@
       ).then(function(data) {
         ctrl.plan = data
         ctrl.editPlan = angular.copy(ctrl.plan)
-        console.log('plan', data)
       })
     }
 
@@ -47,7 +46,6 @@
         ctrl.userId
       ).then(function(data) {
         ctrl.codes = data
-        console.log('codes', data)
       })
     }
 

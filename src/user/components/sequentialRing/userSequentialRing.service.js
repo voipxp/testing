@@ -61,7 +61,6 @@
 
     function update(userId, obj) {
       return $http.put(url(), obj).then(function(response) {
-        console.log(response.data)
         return response.data
       })
     }

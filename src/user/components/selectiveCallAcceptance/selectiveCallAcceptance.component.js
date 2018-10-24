@@ -56,7 +56,6 @@
       return SelectiveCallAcceptanceService.index(ctrl.userId).then(function(
         data
       ) {
-        console.log('DATA', data)
         ctrl.selectiveCallAcceptance = data
       })
     }

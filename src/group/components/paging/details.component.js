@@ -32,7 +32,6 @@
         Alert.modal.open(
           'editGroupPagingGroupDetails',
           function onSave(close) {
-            console.log('editGroupPagingGroupDetails', ctrl.instance)
             ctrl.parent.update(ctrl.instance, close)
           },
           onDelete

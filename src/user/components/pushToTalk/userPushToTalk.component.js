@@ -81,14 +81,12 @@
     }
 
     function update(settings, callback) {
-      console.log('UPDATE', settings)
       if (ACL.is('User')) {
         delete settings.listURI
       }
       if (ACL.has('Group')) {
         settings.listURI = ctrl.prefix + '@' + ctrl.suffix
       }
-      console.log('UPDATE settings', settings)
       Alert.spinner.open()
       UserPushToTalkService.update(ctrl.userId, settings)
         .then(loadSettings)
@@ -108,7 +106,6 @@
       Alert.spinner.open()
       return UserPushToTalkService.users(ctrl.userId)
         .then(function(data) {
-          console.log('loadAvailableUsers', data.users)
           return data.users
         })
         .catch(function(error) {

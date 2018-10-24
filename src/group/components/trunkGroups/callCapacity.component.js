@@ -52,7 +52,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.settings = data
-        console.log('callCapacity', data)
         return data
       })
     }

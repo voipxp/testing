@@ -41,7 +41,6 @@
     function loadTemplate() {
       return BrandingTemplateService.show(ctrl.hostnameId).then(function(data) {
         ctrl.template = data
-        console.log('template', data)
       })
     }
 

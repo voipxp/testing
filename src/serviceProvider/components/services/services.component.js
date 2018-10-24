@@ -52,7 +52,6 @@
     function loadServices() {
       return ServiceProviderServiceService.show(ctrl.serviceProviderId).then(
         function(data) {
-          console.log('data', data)
           var services = _.filter(data[ctrl.serviceType], { licensed: true })
           services.forEach(function(service) {
             service.allocatedView = ctrl.quantity(service.allocated)

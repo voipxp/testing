@@ -42,7 +42,6 @@
       return ServiceProviderDomainService.index(ctrl.serviceProviderId).then(
         function(data) {
           ctrl.domains = data
-          console.log('sp domains', ctrl.domains)
           return data
         }
       )
@@ -51,7 +50,6 @@
     function loadStates() {
       return SystemStateService.index().then(function(data) {
         ctrl.states = data
-        console.log('states', ctrl.states)
         return data
       })
     }
@@ -59,7 +57,6 @@
     function loadTimeZones() {
       return SystemTimeZoneService.index().then(function(data) {
         ctrl.timezones = data
-        console.log('timezones', ctrl.timezones)
         return data
       })
     }
@@ -74,7 +71,6 @@
           sendUpdate(ctrl.group)
         })
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {
@@ -90,7 +86,6 @@
       load()
         .then(open)
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
     })

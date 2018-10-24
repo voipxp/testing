@@ -34,7 +34,6 @@
     }
 
     function update(trunk, callback) {
-      console.log('update', trunk)
       ctrl.parent.update(trunk, callback)
     }
   }

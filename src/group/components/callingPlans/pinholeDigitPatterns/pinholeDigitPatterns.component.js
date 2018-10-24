@@ -38,7 +38,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.patterns = data
-        console.log('patterns', data)
         return data
       })
     }
@@ -73,7 +72,6 @@
     }
 
     function create(pattern, callback) {
-      console.log('create', pattern)
       Alert.spinner.open()
       GroupOutgoingCallingPlanPinholeDigitPatternService.store(
         ctrl.serviceProviderId,
@@ -96,7 +94,6 @@
     }
 
     function update(pattern, callback) {
-      console.log('update', pattern)
       Alert.spinner.open()
       GroupOutgoingCallingPlanPinholeDigitPatternService.update(
         ctrl.serviceProviderId,

@@ -17,7 +17,6 @@
       GroupCallParkService.recall(ctrl.serviceProviderId, ctrl.groupId)
         .then(function(data) {
           ctrl.users = data
-          console.log('users', data)
           Alert.modal.open('groupCallParkRecallUserModal')
         })
         .catch(Alert.notify.danger)
@@ -25,7 +24,6 @@
     }
 
     function onSelect(user) {
-      console.log('got user', user)
       ctrl.settings.recallAlternateUserId = user && user.userId
       Alert.modal.close('groupCallParkRecallUserModal')
     }

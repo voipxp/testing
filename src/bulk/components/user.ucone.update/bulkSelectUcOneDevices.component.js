@@ -18,7 +18,6 @@
       ctrl.devices = ctrl.devices || []
       loadDevices()
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {
@@ -40,7 +39,6 @@
 
     function loadDevices() {
       return UcOneService.devices().then(function(data) {
-        console.log('devices', data)
         ctrl.deviceTypes = data
       })
     }

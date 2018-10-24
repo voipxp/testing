@@ -30,7 +30,6 @@
         ctrl.groupId,
         ctrl.deviceType
       ).then(function(data) {
-        console.log('tags', data)
         ctrl.tags = data
       })
     }
@@ -85,7 +84,6 @@
     }
 
     function update(tag, callback) {
-      console.log('update', tag)
       Alert.spinner.open()
       GroupDeviceTypeTagService.update(
         ctrl.serviceProviderId,

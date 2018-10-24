@@ -34,7 +34,7 @@
     function parseUser(user, count) {
       var max = 2
       count = count || 0
-      console.log('count', count)
+      // console.log('count', count)
       // reduce function makes them sequential
       return Object.keys(user)
         .reduce(function(promise, key) {
@@ -45,9 +45,9 @@
         .then(function() {
           return validateTags(user)
         })
-        .catch(function(error) {
+        .catch(function() {
           // try again unless over max
-          console.log('parseUser', error)
+          // console.log('parseUser', error)
           return count > max ? user : parseUser(user, count + 1)
         })
     }

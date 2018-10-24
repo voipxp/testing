@@ -35,7 +35,6 @@
     function loadService() {
       return GroupCallCenterOverflowService.show(ctrl.serviceUserId).then(
         function(data) {
-          console.log('overflow', data)
           ctrl.service = data
         }
       )

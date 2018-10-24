@@ -70,7 +70,6 @@
     }
 
     function open(task) {
-      console.log('open', task)
       Route.open(route, task && task.id)
     }
   }

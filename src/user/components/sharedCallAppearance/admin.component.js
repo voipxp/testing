@@ -39,7 +39,6 @@
         data
       ) {
         ctrl.sharedCallAppearance = data
-        console.log('sharedCallAppearance ', data)
       })
     }
 
@@ -60,7 +59,6 @@
           callback()
         })
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {

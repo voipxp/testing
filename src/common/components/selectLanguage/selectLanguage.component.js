@@ -21,7 +21,6 @@
 
     function loadLanguages() {
       return SystemLanguageService.index().then(function(data) {
-        console.log('languages', data)
         ctrl.languages = data
         return data
       })

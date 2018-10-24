@@ -64,7 +64,6 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('users', data)
         ctrl.users = _.filter(data, function(item) {
           return _.get(item, 'service.assigned')
         })

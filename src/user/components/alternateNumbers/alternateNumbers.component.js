@@ -43,7 +43,6 @@
     }
 
     function edit() {
-      console.log('edit')
       ctrl.editSettings = angular.copy(ctrl.settings)
       delete ctrl.editSettings.alternateEntries
       Alert.modal.open('userAlternateNumbersEditModal', function(close) {

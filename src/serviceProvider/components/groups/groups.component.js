@@ -32,7 +32,6 @@
     function loadGroups() {
       return GroupService.index(ctrl.serviceProviderId).then(function(data) {
         ctrl.groups = data
-        console.log('groups', ctrl.groups)
         return data
       })
     }

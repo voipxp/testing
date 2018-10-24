@@ -65,7 +65,6 @@
         Method = Service.show(ctrl.serviceUserId)
       }
       return Method.then(function(data) {
-        console.log('announcements', data)
         ctrl.announcements = data
         return data
       })
@@ -81,7 +80,6 @@
     }
 
     function update(announcements, callback) {
-      console.log('update announcements', announcements)
       Alert.spinner.open()
       var Method
       if (isDnis()) {

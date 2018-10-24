@@ -73,7 +73,6 @@
         }
         return tag
       })
-      console.log('tags', tags)
       ctrl.tags = tags
     }
 

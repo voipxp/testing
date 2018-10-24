@@ -30,7 +30,6 @@
 
     function loadServices() {
       return SystemNetworkClassOfServiceService.index().then(function(data) {
-        console.log('services', data)
         ctrl.services = data.services
       })
     }
@@ -54,7 +53,6 @@
       Alert.spinner.open()
       return SystemCommunicationBarringProfileService.index()
         .then(function(data) {
-          console.log('profiles', data)
           ctrl.profiles = data
         })
         .catch(function(error) {

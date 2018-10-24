@@ -45,7 +45,6 @@
       return GroupCallCenterQueueDispositionCodeService.index(
         ctrl.serviceUserId
       ).then(function(data) {
-        console.log('codes', data)
         ctrl.codes = data
       })
     }
@@ -54,7 +53,6 @@
       return GroupCallCenterQueueDispositionCodeSettingsService.show(
         ctrl.serviceUserId
       ).then(function(data) {
-        console.log('settings', data)
         ctrl.settings = data
       })
     }
@@ -70,7 +68,6 @@
     }
 
     function update(settings, callback) {
-      console.log('update', settings)
       Alert.spinner.open()
       GroupCallCenterQueueDispositionCodeSettingsService.update(
         ctrl.serviceUserId,

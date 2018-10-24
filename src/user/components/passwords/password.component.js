@@ -44,7 +44,6 @@
     function loadUser() {
       return UserService.show(ctrl.userId).then(function(data) {
         ctrl.user = data
-        console.log('user', data)
       })
     }
 
@@ -72,7 +71,6 @@
           callback()
         })
         .catch(function(error) {
-          console.log('error', error.data)
           Alert.notify.danger(error)
         })
         .finally(function() {

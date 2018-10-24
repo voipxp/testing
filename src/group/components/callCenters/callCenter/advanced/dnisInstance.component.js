@@ -12,8 +12,6 @@
   })
 
   function Controller() {
-    this.$onInit = function() {
-      console.log('DNIS', this)
-    }
+    this.$onInit = function() {}
   }
 })()

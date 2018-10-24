@@ -28,7 +28,6 @@
         ctrl.parent.groupId
       ).then(function(data) {
         ctrl.bridges = data
-        console.log('bridges', data)
         return data
       })
     }

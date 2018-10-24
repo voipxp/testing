@@ -9,7 +9,6 @@
     ctrl.open = open
 
     function open(task) {
-      console.log('open', task)
       Route.open('/bulk/tasks', task && task.id)
     }
   }

@@ -27,7 +27,6 @@
           )
         )
       })
-      console.log('ctrl.properties', ctrl.properties)
     }
 
     function setDefaultData() {
@@ -40,7 +39,6 @@
           ctrl.data[property.key] = val || val === 0 ? val : null
         }
       })
-      console.log('ctrl.data', ctrl.data)
     }
   }
 })()

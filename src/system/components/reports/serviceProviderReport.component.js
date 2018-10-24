@@ -14,7 +14,6 @@
     $location
   ) {
     var ctrl = this
-    console.log('$routeParams', $routeParams)
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.$onInit = onInit
     ctrl.onClick = onClick
@@ -64,7 +63,6 @@
       })
     }
     function onClick(item) {
-      console.log('item', item)
       var returnTo = $location.url()
       Route.open('groups', item.serviceProviderId, item.groupId).search({
         returnTo: returnTo

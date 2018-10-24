@@ -28,7 +28,6 @@
           ctrl.utilization.push(item)
         })
       })
-      console.log('utilization', ctrl.utilization)
     }
   }
 })()

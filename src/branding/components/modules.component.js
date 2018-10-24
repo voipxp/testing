@@ -25,7 +25,6 @@
     function loadModules() {
       return BrandingModuleService.index(ctrl.hostnameId).then(function(data) {
         ctrl.modules = data
-        console.log('modules', data)
       })
     }
 

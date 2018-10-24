@@ -29,7 +29,6 @@
         data
       ) {
         ctrl.instance = data
-        console.log('instance', data)
         return data
       })
     }

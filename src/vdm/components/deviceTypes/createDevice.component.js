@@ -25,14 +25,12 @@
 
     function loadSystemDevices() {
       return SystemDeviceTypeService.index().then(function(data) {
-        console.log('systemDevices', data)
         ctrl.systemDevices = data
       })
     }
 
     function loadVdmDevices() {
       return VdmDeviceTypeService.index().then(function(data) {
-        console.log('vdmDevices', data)
         ctrl.vdmDevices = data
       })
     }

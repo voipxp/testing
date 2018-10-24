@@ -15,7 +15,6 @@
       return ProvisioningDashboardService.load()
         .then(loadCards)
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {

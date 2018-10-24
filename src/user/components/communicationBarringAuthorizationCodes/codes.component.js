@@ -32,7 +32,6 @@
       return UserCommunicationBarringAuthorizationCodeService.index(
         ctrl.userId
       ).then(function(data) {
-        console.log('codes', data)
         ctrl.codes = data
         return data
       })

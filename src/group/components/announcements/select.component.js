@@ -38,7 +38,6 @@
           Alert.modal.open(ctrl.modalId)
         })
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {

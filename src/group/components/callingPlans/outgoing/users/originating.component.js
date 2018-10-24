@@ -124,7 +124,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.userPlans = data
-        console.log('Originating Users', data)
       })
     }
 

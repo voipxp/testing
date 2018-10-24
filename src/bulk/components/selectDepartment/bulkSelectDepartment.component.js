@@ -23,7 +23,6 @@
         true
       ).then(function(data) {
         ctrl.parents = data
-        console.log('parents', data)
         return data
       })
     }

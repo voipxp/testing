@@ -15,7 +15,7 @@
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>
       <thead>
-        <th>Alternate Number ID</th>
+        <th class="action">#</th>
         <th>Phone Number</th>
         <th>Extension</th>
         <th>Ring Pattern</th>
@@ -31,7 +31,7 @@
         <tr ng-class="{hover: $ctrl.canEdit}"
           ng-click="$ctrl.editAlternateEntry(entry)"
           ng-repeat="entry in $ctrl.settings.alternateEntries | filter:$ctrl.search as results">
-          <td>{{ entry.alternateEntryId }}</td>
+          <td class="action">{{ entry.alternateEntryId }}</td>
           <td>{{ entry.phoneNumber }}</td>
           <td>{{ entry.extension }}</td>
           <td>{{ entry.ringPattern }}</td>

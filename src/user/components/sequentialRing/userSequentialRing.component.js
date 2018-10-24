@@ -56,9 +56,6 @@
     function loadSettings() {
       return UserSequentialRingService.show(ctrl.userId).then(function(data) {
         ctrl.settings = data
-        console.log('ctrl.settings', ctrl.settings)
-        console.log('ctrl.settings.string', JSON.stringify(ctrl.settings))
-
         return data
       })
     }
@@ -149,8 +146,6 @@
 
     function updateCriteria(criteriaName, settings, callback) {
       Alert.spinner.open()
-      console.log('criteriaName', criteriaName, ctrl.criteriaName)
-      console.log('edit(criteriaName) ctrl.editCriteria', ctrl.editCriteria)
       ctrl.editCriteria.newCriteriaName = ctrl.editCriteria.name
 
       if (typeof settings.timeSchedule !== 'undefined') {
@@ -158,7 +153,6 @@
           return o.name == settings.timeSchedule.name
         })
       } else {
-        console.log('create blank json object for settings.timeSchedule')
         settings.timeSchedule = {}
       }
 
@@ -178,7 +172,6 @@
         criteriaName: ctrl.editCriteria.name,
         isActive: ctrl.editCriteria.isActive
       })
-      console.log('obj.criteria', obj.criteria)
       if (
         typeof settings.fromDnCriteria.phoneNumbers == 'undefined' &&
         settings.fromDnCriteria.phoneNumbers == null
@@ -228,7 +221,6 @@
     function loadUserSchedules() {
       return UserScheduleService.index(ctrl.userId).then(function(data) {
         ctrl.schedules = data
-        console.log('ctrl.schedules:', ctrl.schedules)
         return data
       })
     }
@@ -261,11 +253,8 @@
         criteriaName: ctrl.editCriteria.name,
         isActive: ctrl.editCriteria.isActive
       })
-      console.log('obj.criteria', obj.criteria)
 
       ctrl.editCriteria.criteriaName = settings.name
-      console.log('settings', settings)
-      console.log('ctrl.editCriteria', ctrl.editCriteria)
 
       Alert.spinner.open()
       UserSequentialRingServiceCriteria.store(ctrl.userId, ctrl.editCriteria)

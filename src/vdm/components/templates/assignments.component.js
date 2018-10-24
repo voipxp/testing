@@ -33,7 +33,6 @@
     function loadAssignments() {
       return VdmSystemTemplateService.assignments(ctrl.template.id).then(
         function(data) {
-          console.log('assignments', data)
           ctrl.assignments = data
         }
       )
@@ -94,7 +93,6 @@
         'templates',
         assignment.deviceTypeId
       )
-      console.log('open', assignment)
     }
   }
 })()

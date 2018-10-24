@@ -27,7 +27,6 @@
     function open() {
       ctrl.editAnnouncement = angular.copy(ctrl.announcement)
       ctrl.editAnnouncement.newName = ctrl.editAnnouncement.name
-      console.log('editAnnouncement', ctrl.editAnnouncement)
       var removeAction
       var usage = ctrl.editAnnouncement.usage || []
       if (usage.length < 1) {

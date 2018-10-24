@@ -70,7 +70,6 @@
       params[ctrl.type] = '*' + ctrl.filter + '*'
       UserServiceSearchService.index(params)
         .then(function(data) {
-          console.log('data', data)
           ctrl.users = data
         })
         .catch(Alert.notify.danger)

@@ -54,7 +54,6 @@
         ctrl.groupId
       )
         .then(function(data) {
-          console.log('availableAgents', data)
           ctrl.availableAgents = data
         })
         .catch(Alert.danger)

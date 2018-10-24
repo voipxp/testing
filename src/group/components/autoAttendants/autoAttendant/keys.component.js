@@ -84,14 +84,12 @@
     }
 
     function onSelectAudio(event) {
-      console.log('gotAudioFile', event)
       ctrl.selectedKey.audioFile = event.audioFile || event.announcement
     }
 
     function edit(index) {
       var editKeys = angular.copy(ctrl.keys)
       var originalKey = editKeys[index] || {}
-      console.log('edit', originalKey)
       ctrl.selectedKey = angular.copy(originalKey)
       setAvailableKeys(ctrl.selectedKey)
       ctrl.loadingKey = true

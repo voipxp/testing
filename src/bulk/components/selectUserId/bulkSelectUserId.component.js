@@ -54,7 +54,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.domains = data
-        console.log('domains', data)
         return data
       })
     }

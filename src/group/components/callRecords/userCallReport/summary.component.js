@@ -33,11 +33,9 @@
     function onChanges(changes) {
       if (changes.loading || !ctrl.allData) return
       if (changes.allUsers || changes.selectedUsers) {
-        console.log('filterData')
         filterData()
       }
       if (changes.startTime || changes.endTime) {
-        console.log('loadData')
         loadData()
       }
     }

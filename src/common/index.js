@@ -6,7 +6,7 @@
         maxAge: 5 * 60 * 1000,
         deleteOnExpire: 'passive',
         onExpire: function(key) {
-          console.log('expire cache', key)
+          console.log('expire', key)
         }
       })
     })

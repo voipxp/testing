@@ -61,7 +61,6 @@
       Alert.spinner.open()
       loadProjectRoom(projectRoom.roomId)
         .then(function(data) {
-          console.log('editRoom', data)
           ctrl.editProjectRoom = data
           Alert.modal.open(
             'editUserCollaborateProjectRoom',

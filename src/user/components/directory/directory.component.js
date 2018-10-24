@@ -48,7 +48,6 @@
     function loadDirectory() {
       return UserPhoneDirectoryService.show(ctrl.userId).then(function(data) {
         ctrl.users = data
-        console.log('users', data)
       })
     }
   }

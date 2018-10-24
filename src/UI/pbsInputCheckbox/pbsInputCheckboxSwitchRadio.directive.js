@@ -28,7 +28,7 @@
       restrict: 'A',
       compile: function(element, attrs) {
         if (attrs.ngShow) {
-          console.log('ngShow is here')
+          // console.log('ngShow is here')
         }
         return function(scope, element, attrs) {
           // add id and css classes to input

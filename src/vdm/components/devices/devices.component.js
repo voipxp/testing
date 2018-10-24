@@ -49,7 +49,6 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('devices', data)
         ctrl.devices = data
       })
     }
@@ -59,7 +58,6 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('templates', data)
         ctrl.templates = data
       })
     }

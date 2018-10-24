@@ -27,7 +27,6 @@
 
     function loadLogs() {
       return UserBasicCallLogService.show(ctrl.userId).then(function(data) {
-        console.log('logs', data)
         ctrl.logs = data
       })
     }

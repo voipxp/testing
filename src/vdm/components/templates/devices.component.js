@@ -32,7 +32,6 @@
         ctrl.groupId,
         ctrl.template.id
       ).then(function(data) {
-        console.log('devices', data)
         ctrl.devices = data
       })
     }

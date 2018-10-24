@@ -33,7 +33,6 @@
       return SystemNetworkClassOfServiceService.show(ctrl.name).then(function(
         data
       ) {
-        console.log('service', data)
         ctrl.service = data
       })
     }
@@ -42,7 +41,6 @@
       Alert.spinner.open()
       return SystemCommunicationBarringProfileService.index()
         .then(function(data) {
-          console.log('profiles', data)
           ctrl.profiles = data
         })
         .catch(function(error) {

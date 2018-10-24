@@ -20,7 +20,6 @@
       ctrl.loading = true
       return loadStats()
         .catch(function(error) {
-          console.log(error)
           Alert.notify.danger(error)
         })
         .finally(function() {

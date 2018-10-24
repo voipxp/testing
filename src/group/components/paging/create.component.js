@@ -52,7 +52,6 @@
         ctrl.parent.groupId
       ).then(function(data) {
         ctrl.departments = data
-        console.log('departments', ctrl.departments)
         return data
       })
     }
@@ -60,7 +59,6 @@
     function loadLanguages() {
       return SystemLanguageService.index().then(function(data) {
         ctrl.languages = data
-        console.log('languages', ctrl.languages)
         return data
       })
     }
@@ -68,7 +66,6 @@
     function loadTimezones() {
       return SystemTimeZoneService.index().then(function(data) {
         ctrl.timezones = data
-        console.log('timezones', ctrl.timezones)
         return data
       })
     }
@@ -79,7 +76,6 @@
         ctrl.parent.groupId
       ).then(function(data) {
         ctrl.domains = data
-        console.log('domains', data)
         return data
       })
     }
@@ -90,7 +86,6 @@
         ctrl.parent.groupId,
         'available'
       ).then(function(data) {
-        console.log('numbers', data)
         ctrl.numbers = data
         return data
       })

@@ -37,7 +37,6 @@
 
     function wizardComplete() {
       var data = prepareImport()
-      console.log('data', data)
       BulkImportService.open(data)
     }
 
@@ -112,7 +111,7 @@
     }
 
     function next() {
-      console.log(JSON.stringify(ctrl.data, null, 2))
+      // console.log(JSON.stringify(ctrl.data, null, 2))
       ctrl.wizard.next()
     }
   }

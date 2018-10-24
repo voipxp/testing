@@ -33,7 +33,6 @@
         ctrl.groupId,
         ctrl.deviceType
       ).then(function(data) {
-        console.log('files', data)
         ctrl.files = data
       })
     }

@@ -45,11 +45,9 @@
       return GroupCallCenterAgentService.show(ctrl.serviceUserId).then(function(
         data
       ) {
-        console.log('incoming', data.agents)
         ctrl.agents = isSkillBased
           ? $filter('orderBy')(data.agents, 'skillLevel')
           : data.agents
-        console.log('sorted', ctrl.agents)
       })
     }
 
@@ -76,11 +74,9 @@
       if (!ctrl.canUpdate) return
       loadAvailableAgents().then(function(available) {
         ctrl.assignedAgents = angular.copy(ctrl.agents)
-        console.log('available', available)
         ctrl.availableAgents = _.filter(available, function(agent) {
           return !_.find(ctrl.assignedAgents, { userId: agent.userId })
         })
-        console.log('availableAgents', ctrl.availableAgents)
         Alert.modal.open('editGroupCallCenterAgents', function onSave(close) {
           update(ctrl.assignedAgents, close)
         })

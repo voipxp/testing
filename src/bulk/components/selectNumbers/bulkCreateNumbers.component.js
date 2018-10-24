@@ -81,8 +81,7 @@
       return ServiceProviderNumberService.store(
         ctrl.serviceProviderId,
         numbers
-      ).catch(function(error) {
-        console.log('assignServiceProvider', error)
+      ).catch(function() {
         return numbers
       })
     }
@@ -92,8 +91,7 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         numbers
-      ).catch(function(error) {
-        console.log('assignGroup', error)
+      ).catch(function() {
         return numbers
       })
     }

@@ -28,7 +28,6 @@
     function loadUser() {
       return UserService.show(ctrl.userId).then(function(data) {
         ctrl.user = data
-        console.log('data', data)
       })
     }
 

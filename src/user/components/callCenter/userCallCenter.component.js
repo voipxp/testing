@@ -120,7 +120,6 @@
     }
 
     function update(settings, callback) {
-      console.log('UPDATE', settings)
       Alert.spinner.open()
       UserCallCenterService.update(ctrl.userId, settings)
         .then(loadSettings)

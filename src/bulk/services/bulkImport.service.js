@@ -40,7 +40,6 @@
           return $location.path('bulk/import')
         })
         .catch(function(error) {
-          console.log('BulkImport#open', error)
           Alert.notify.danger(error || 'Data Import Error')
         })
     }
@@ -92,7 +91,6 @@
         return UserService.show(user.userId).then(function(data) {
           user.serviceProviderId = data.serviceProviderId
           user.groupId = data.groupId
-          console.log('addServiceProviderGroup', user)
           return user
         })
       }

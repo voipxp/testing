@@ -31,7 +31,6 @@
     function loadSettings() {
       return UserRemoteOfficeService.show(ctrl.userId).then(function(data) {
         ctrl.settings = data
-        console.log('settings', data)
       })
     }
 

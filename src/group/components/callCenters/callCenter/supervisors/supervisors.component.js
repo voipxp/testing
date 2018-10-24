@@ -40,7 +40,6 @@
       return GroupCallCenterSupervisorService.show(ctrl.serviceUserId).then(
         function(data) {
           ctrl.supervisors = data.supervisors
-          console.log('supervisors', ctrl.supervisors)
         }
       )
     }
@@ -52,7 +51,6 @@
         ctrl.groupId
       )
         .then(function(data) {
-          console.log('availableSupervisors', data)
           return data.supervisors
         })
         .catch(function(error) {
@@ -67,13 +65,11 @@
     function edit() {
       loadAvailableSupervisors().then(function(available) {
         ctrl.assignedSupervisors = angular.copy(ctrl.supervisors)
-        console.log('available', available)
         ctrl.availableSupervisors = _.filter(available, function(supervisor) {
           return !_.find(ctrl.assignedSupervisors, {
             userId: supervisor.userId
           })
         })
-        console.log('availableSupervisors', ctrl.availableSupervisors)
         Alert.modal.open('editGroupCallCenterSupervisors', function(close) {
           update(ctrl.assignedSupervisors, close)
         })

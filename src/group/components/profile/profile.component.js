@@ -29,7 +29,6 @@
       ctrl.loading = true
       return loadGroup()
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {
@@ -41,7 +40,6 @@
       return GroupService.show(ctrl.serviceProviderId, ctrl.groupId).then(
         function(data) {
           ctrl.group = data
-          console.log('group', data)
         }
       )
     }
@@ -59,7 +57,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.numbers = data
-        console.log('numbers', ctrl.numbers)
         return data
       })
     }

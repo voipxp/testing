@@ -62,11 +62,9 @@ TODO:
     ]
 
     function onInit() {
-      console.log('starting')
       ctrl.loading = true
       WebhookService.index(ctrl.recent)
         .then(function(data) {
-          console.log('data', data)
           ctrl.webhooks = data
         })
         .catch(Alert.notify.danger)

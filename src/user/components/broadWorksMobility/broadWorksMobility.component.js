@@ -42,7 +42,6 @@
         data
       ) {
         ctrl.settings = data
-        console.log('settings', data)
       })
     }
 
@@ -54,14 +53,12 @@
     }
 
     function update(settings, callback) {
-      console.log('UPDATE', settings)
       if (ACL.is('User')) {
         delete settings.isActive
         delete settings.mobilePhoneNumber
         delete settings.useSettingLevel
         delete settings.denyCallOriginations
         delete settings.denyCallTerminations
-        console.log('USER', settings)
       }
 
       Alert.spinner.open()

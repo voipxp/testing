@@ -62,7 +62,6 @@
     }
 
     function onSelect(event) {
-      console.log('onSelect', event)
       ctrl.services[event.type] = event.services
       loadServices()
     }
@@ -111,7 +110,6 @@
         return num
       })
       ctrl.maxEndpoints = _.max(licenses) || 0
-      console.log('maxEndpoints', ctrl.maxEndpoints)
     }
 
     function next() {

@@ -23,7 +23,6 @@
       return SystemNetworkClassOfServiceService.usage(ctrl.name).then(function(
         data
       ) {
-        console.log('usage', data)
         ctrl.usage = data
       })
     }

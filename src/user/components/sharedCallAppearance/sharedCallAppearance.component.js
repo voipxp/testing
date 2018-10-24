@@ -42,7 +42,6 @@
         data
       ) {
         ctrl.sharedCallAppearance = data
-        console.log('instance', data)
         return data
       })
     }

@@ -80,7 +80,6 @@
         ctrl.serviceProviderId
       ).then(function(data) {
         ctrl.users = data
-        console.log('users', data)
       })
     }
   }

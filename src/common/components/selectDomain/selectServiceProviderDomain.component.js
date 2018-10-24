@@ -27,7 +27,6 @@
       return ServiceProviderDomainService.index(ctrl.serviceProviderId).then(
         function(data) {
           ctrl.domains = data
-          console.log('domains', ctrl.domains)
         }
       )
     }

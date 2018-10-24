@@ -84,7 +84,6 @@
     }
 
     function onSelectPhone(event) {
-      console.log('onSelectPhone', event)
       _.set(
         ctrl.addBridge,
         'serviceInstanceProfile.phoneNumber',

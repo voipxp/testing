@@ -40,7 +40,6 @@
     function loadPack() {
       return UserViewablePackService.show(ctrl.userId).then(function(data) {
         ctrl.pack = data || defaultPack
-        console.log('pack', data)
       })
     }
 
@@ -51,7 +50,6 @@
       ).then(function(data) {
         ctrl.packs = data
         ctrl.packs.push(defaultPack)
-        console.log('packs', data)
       })
     }
 

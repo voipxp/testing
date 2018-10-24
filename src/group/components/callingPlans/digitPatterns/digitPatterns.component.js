@@ -36,7 +36,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.patterns = data
-        console.log('patterns', data)
         return data
       })
     }
@@ -90,7 +89,6 @@
     }
 
     function update(pattern, callback) {
-      console.log('update', pattern)
       Alert.spinner.open()
       GroupCallingPlanDigitPatternService.update(
         ctrl.serviceProviderId,

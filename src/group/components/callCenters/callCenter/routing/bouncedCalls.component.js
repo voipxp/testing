@@ -40,7 +40,6 @@
     function loadService() {
       return GroupCallCenterBouncedCallService.show(ctrl.serviceUserId).then(
         function(data) {
-          console.log('bouncedCall', data)
           ctrl.service = data
         }
       )
@@ -54,7 +53,6 @@
     }
 
     function update(service, callback) {
-      console.log('GroupCallCenterBouncedCallService', service)
       Alert.spinner.open()
       GroupCallCenterBouncedCallService.update(ctrl.serviceUserId, service)
         .then(loadService)

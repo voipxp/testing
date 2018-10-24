@@ -32,22 +32,17 @@
     function loadSettings() {
       return UserCallRecordingService.show(ctrl.userId).then(function(data) {
         ctrl.settings = data
-        console.log('settings', data)
       })
     }
 
     function edit() {
-      console.log('ctrl.settings:', ctrl.settings)
       ctrl.editSettings = angular.copy(ctrl.settings)
-      console.log('ctrl.editSettings:', ctrl.editSettings)
       Alert.modal.open('editUserCallRecording', function onSave(close) {
         update(ctrl.editSettings, close)
       })
     }
 
     function update(settings, callback) {
-      console.log('UPDATE', settings)
-      console.log('ctrl.userId', ctrl.userId)
       Alert.spinner.open()
       UserCallRecordingService.update(ctrl.userId, settings)
         .then(loadSettings)

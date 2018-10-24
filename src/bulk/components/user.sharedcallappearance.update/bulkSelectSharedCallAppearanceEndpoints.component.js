@@ -43,7 +43,6 @@
             .open('Are you sure you want to remove this Endpoint?')
             .then(function() {
               _.remove(ctrl.endpoints, endpoint)
-              console.log('endpoints', ctrl.endpoints)
               close()
             })
         }
@@ -61,7 +60,6 @@
           } else {
             endpoint = ctrl.editEndpoint
           }
-          console.log('endpoints', ctrl.endpoints)
           close()
         },
         deleteAction
@@ -73,7 +71,6 @@
     }
 
     function onSelectDevice(event) {
-      console.log('onSelectDevice', event)
       var device = event.device || {}
       ctrl.editEndpoint.accessDevice = device
       ctrl.editEndpoint.deviceName = device.deviceName

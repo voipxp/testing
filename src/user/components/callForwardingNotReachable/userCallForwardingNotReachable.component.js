@@ -38,16 +38,11 @@
       return UserCallForwardingNotReachableService.show(ctrl.userId).then(
         function(data) {
           ctrl.settings = data
-          console.log('settings', data)
         }
       )
     }
 
     function edit() {
-      console.log(
-        'ctrl.settings.forwardToPhoneNumber',
-        ctrl.settings.forwardToPhoneNumber
-      )
       ctrl.editSettings = angular.copy(ctrl.settings)
       // We aren't updated callCenters here
       // delete ctrl.editSettings.callCenters;
@@ -57,7 +52,6 @@
     }
 
     function update(settings, callback) {
-      console.log('UPDATE', settings)
       Alert.spinner.open()
       UserCallForwardingNotReachableService.update(ctrl.userId, settings)
         .then(loadSettings)

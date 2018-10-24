@@ -57,7 +57,6 @@
       return TaskService.show(ctrl.id)
         .then(function(data) {
           ctrl.task = data
-          console.log('task', data)
           return data
         })
         .then(function() {
@@ -129,7 +128,6 @@
     }
 
     function retry(data) {
-      console.log('retry', data)
       BulkImportService.open(angular.copy(data))
     }
 

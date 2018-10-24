@@ -41,7 +41,6 @@
     function loadService() {
       return GroupCallCenterNightServiceService.show(ctrl.serviceUserId).then(
         function(data) {
-          console.log('nightService', data)
           ctrl.service = data
         }
       )
@@ -53,7 +52,6 @@
           data
         ) {
           ctrl.schedules = data
-          console.log('schedules', data)
           return data
         })
       } else {
@@ -79,7 +77,6 @@
     }
 
     function update(service, callback) {
-      console.log('update', service)
       Alert.spinner.open()
       GroupCallCenterNightServiceService.update(ctrl.serviceUserId, service)
         .then(loadService)

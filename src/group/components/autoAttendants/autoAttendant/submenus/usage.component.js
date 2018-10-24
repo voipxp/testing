@@ -30,7 +30,6 @@
         ctrl.submenuId
       ).then(function(data) {
         ctrl.usage = data
-        console.log('usage', data)
       })
     }
   }

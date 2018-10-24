@@ -27,7 +27,6 @@
         ctrl.parent.trunkName
       )
         .then(function(data) {
-          console.log('DATA', data)
           var users = data.users
           ctrl.assignedUsers = angular.copy(ctrl.parent.trunk.users)
           ctrl.availableUsers = _.filter(users, function(user) {

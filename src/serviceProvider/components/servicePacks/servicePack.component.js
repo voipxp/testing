@@ -34,7 +34,6 @@
       ctrl.loading = true
       $q.all([loadServicePack(), loadPermissions()])
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {
@@ -53,7 +52,6 @@
         ctrl.serviceProviderId,
         ctrl.servicePackName
       ).then(function(data) {
-        console.log('servicePack', data)
         ctrl.servicePack = data
       })
     }
@@ -85,7 +83,6 @@
       Alert.modal.open(
         'editServicePack',
         function onSave(close) {
-          console.log('edit', ctrl.editServicePack)
           update(ctrl.editServicePack, close)
         },
         deleteAction

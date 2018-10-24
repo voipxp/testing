@@ -28,7 +28,6 @@
           })
         })
         element.on('$destroy', function() {
-          // console.log('destroy')
           clipboard.destroy()
         })
       }

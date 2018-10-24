@@ -23,7 +23,6 @@
 
     function loadDevices() {
       return VdmDeviceTypeService.index().then(function(data) {
-        console.log('devices', data)
         ctrl.devices = data
       })
     }

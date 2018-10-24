@@ -43,7 +43,6 @@
       Alert.spinner.open()
       loadNumbers()
         .then(function(data) {
-          console.log('numbers', data)
           if (data.length < ctrl.userCount) {
             throw 'Not enough numbers available'
           }

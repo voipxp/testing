@@ -145,7 +145,6 @@
     }
 
     function create(admin, callback) {
-      console.log('create', admin)
       Alert.spinner.open()
       var promise =
         ctrl.newAdminType === 'department'

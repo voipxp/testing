@@ -32,7 +32,6 @@
         ctrl.groupId
       ).then(function(data) {
         ctrl.plan = data
-        console.log('originating', data)
         loadDigitPatterns()
         return data
       })

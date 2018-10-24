@@ -23,7 +23,6 @@
 
     function loadPolicies() {
       return UserCallPoliciesService.show(ctrl.userId).then(function(data) {
-        console.log('policies', data)
         ctrl.policies = data
         return data
       })

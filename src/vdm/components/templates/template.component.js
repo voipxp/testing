@@ -52,7 +52,6 @@
     function loadTemplate() {
       var action = isGroup() ? loadGroupTemplate : loadSystemTemplate
       return action().then(function(data) {
-        console.log('template', data)
         ctrl.template = data
       })
     }

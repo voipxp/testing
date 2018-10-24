@@ -1,20 +1,9 @@
 <pbs-navigation service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
   module="$ctrl.module">
-  <pbs-breadcrumb module="$ctrl.module"
-    ng-show="!$ctrl.serviceUserId"></pbs-breadcrumb>
 
   <pbs-breadcrumb module="$ctrl.module"
-    ng-click="$ctrl.open()"
-    ng-show="$ctrl.serviceUserId">
-  </pbs-breadcrumb>
-
+    ng-click="$ctrl.open()"></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.serviceUserId"
-    ng-show="$ctrl.serviceUserId && !$ctrl.dnisId"></pbs-breadcrumb>
-  <pbs-breadcrumb title="$ctrl.serviceUserId"
-    ng-click="$ctrl.open($ctrl.serviceUserId)"
-    ng-show="$ctrl.serviceUserId && $ctrl.dnisId"></pbs-breadcrumb>
-
-  <pbs-breadcrumb title="$ctrl.dnisId"
-    ng-show="$ctrl.serviceUserId && $ctrl.dnisId"></pbs-breadcrumb>
+    ng-if="$ctrl.serviceUserId"></pbs-breadcrumb>
 </pbs-navigation>

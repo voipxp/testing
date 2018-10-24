@@ -21,7 +21,6 @@
     function loadApplications() {
       return UserOCICallControlApplicationService.show(ctrl.userId).then(
         function(data) {
-          console.log('applications', data)
           ctrl.applications = data.applicationIdList
           return data
         }

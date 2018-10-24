@@ -30,7 +30,6 @@
     }
 
     function open(deviceType) {
-      console.log('open', deviceType)
       Route.open(
         'groups',
         ctrl.serviceProviderId,

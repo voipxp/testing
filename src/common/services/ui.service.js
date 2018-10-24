@@ -24,7 +24,6 @@
 
     function clickButton() {
       var button = $('#open-menu')
-      console.log('button', button)
       if (button) {
         button.click()
       }

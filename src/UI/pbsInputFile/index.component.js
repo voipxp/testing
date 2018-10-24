@@ -4,7 +4,6 @@
     controller: function() {
       this.onUpload = function(file) {
         this.file = file
-        console.log(file)
       }
     }
   })

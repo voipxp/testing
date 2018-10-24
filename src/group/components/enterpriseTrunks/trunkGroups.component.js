@@ -26,7 +26,6 @@
         ctrl.parent.groupId,
         ctrl.parent.trunkName
       ).then(function(data) {
-        console.log('DATA', data)
         ctrl.assignedTrunks = angular.copy(ctrl.parent.trunk.trunkGroups)
         ctrl.availableTrunks = _.filter(data.trunkGroups, function(trunk) {
           return !_.find(ctrl.assignedTrunks, {
@@ -77,15 +76,11 @@
       addWeightAndPriority(trunk)
       _.remove(ctrl.availableTrunks, { trunkGroupName: trunk.trunkGroupName })
       ctrl.assignedTrunks.push(trunk)
-      console.log('assignedTrunks', ctrl.assignedTrunks)
-      console.log('availableTrunks', ctrl.availableTrunks)
     }
 
     function removeTrunk(trunk) {
       _.remove(ctrl.assignedTrunks, { trunkGroupName: trunk.trunkGroupName })
       ctrl.availableTrunks.push(trunk)
-      console.log('assignedTrunks', ctrl.assignedTrunks)
-      console.log('availableTrunks', ctrl.availableTrunks)
     }
   }
 })()

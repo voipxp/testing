@@ -16,7 +16,6 @@
     $location
   ) {
     var ctrl = this
-    console.log('$routeParams', $routeParams)
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.$onInit = onInit
     ctrl.onClick = onClick
@@ -84,7 +83,6 @@
     }
 
     function loadCallCapacityReport() {
-      console.log('ctrl.serviceProviderId', ctrl.serviceProviderId)
       return ServiceProviderTrunkGroupCallCapacityReportService.index(
         ctrl.serviceProviderId
       ).then(function(data) {
@@ -103,7 +101,6 @@
       })
     }
     function onClick(group) {
-      console.log('group', group)
       var returnTo = $location.url()
       Route.open(
         'groups',
@@ -112,6 +109,5 @@
         'trunkGroups'
       ).search({ returnTo: returnTo })
     }
-    //http://127.0.0.1:8080/#!/groups/ent.odin/group.odin/trunkGroups
   }
 })()

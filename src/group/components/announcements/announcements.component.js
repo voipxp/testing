@@ -36,7 +36,6 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('repository', data)
         ctrl.repository = data
       })
     }

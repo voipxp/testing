@@ -353,14 +353,8 @@
       module: 'Call Center'
     },
     {
-      path: 'callCenters/:serviceUserId',
+      path: 'callCenters/callCenter',
       component: 'groupCallCenter',
-      acl: 'Group',
-      module: 'Call Center'
-    },
-    {
-      path: 'callCenters/:serviceUserId/:dnisId',
-      component: 'groupCallCenterDnisInstance',
       acl: 'Group',
       module: 'Call Center'
     },

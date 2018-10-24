@@ -29,7 +29,6 @@
     function loadSettings() {
       return GroupCallCenterThresholdService.show(ctrl.serviceUserId).then(
         function(data) {
-          console.log('settings', data)
           ctrl.settings = data
           return data
         }
@@ -44,7 +43,6 @@
     }
 
     function update(settings, callback) {
-      console.log('update settings', settings)
       Alert.spinner.open()
       GroupCallCenterThresholdService.update(ctrl.serviceUserId, settings)
         .then(loadSettings)

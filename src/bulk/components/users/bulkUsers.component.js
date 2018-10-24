@@ -40,7 +40,6 @@
       return TaskService.index(limit, 'completed')
         .then(function(data) {
           ctrl.tasks = data
-          console.log('tasks', data)
           return data
         })
         .then(function(data) {
@@ -105,7 +104,6 @@
     }
 
     function onUpdateServiceProviderId(event) {
-      console.log('onUpdateServiceProviderId', event)
       if (!ctrl.data) return
       ctrl.data.serviceProviderId = event.serviceProviderId
       ctrl.data.groupId = null
@@ -114,7 +112,6 @@
     }
 
     function onUpdateGroupId(event) {
-      console.log('onUpdateGroupId', event)
       if (!ctrl.data) return
       ctrl.data.groupId = event.groupId
       ctrl.data.users = []
@@ -122,7 +119,6 @@
     }
 
     function onUpdateUsers(event) {
-      console.log('onUpdateUsers', event)
       ctrl.data.users = event.users
       next()
     }
@@ -132,7 +128,7 @@
     }
 
     function next() {
-      console.log(JSON.stringify(ctrl.data, null, 2))
+      // console.log(JSON.stringify(ctrl.data, null, 2))
       ctrl.wizard.next()
     }
 

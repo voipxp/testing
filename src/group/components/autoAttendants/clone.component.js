@@ -103,7 +103,6 @@
     }
 
     function create(autoAttendant, options, callback) {
-      console.log('create', autoAttendant)
       Alert.spinner.open()
       CloneGroupServiceService.autoAttendant(ctrl.fromAutoAttendantId, {
         data: autoAttendant,

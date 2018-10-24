@@ -35,7 +35,6 @@
       return ServiceProviderNetworkClassOfServiceService.show(
         ctrl.serviceProviderId
       ).then(function(data) {
-        console.log('services', data)
         ctrl.services = data.services
       })
     }
@@ -63,7 +62,6 @@
       Alert.spinner.open()
       return SystemNetworkClassOfServiceService.index()
         .then(function(data) {
-          console.log('system', data)
           return data
         })
         .catch(function(error) {

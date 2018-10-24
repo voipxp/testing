@@ -33,7 +33,6 @@
         ctrl.trunkName
       ).then(function(data) {
         ctrl.trunk = data
-        console.log('trunk', data)
         return data
       })
     }
@@ -52,12 +51,10 @@
             name: trunk.name
           }
         })
-        console.log('trunks', ctrl.trunks)
       })
     }
 
     function update(trunk, callback) {
-      console.log('update', trunk)
       Alert.spinner.open()
       return GroupTrunkGroupService.update(
         ctrl.serviceProviderId,

@@ -69,11 +69,9 @@
     function onChanges(changes) {
       if (changes.loading || !ctrl.allData) return
       if (changes.allUsers || changes.selectedUsers) {
-        console.log('filterData')
         filterData()
       }
       if (changes.startTime || changes.endTime) {
-        console.log('loadData')
         loadData()
       }
     }
@@ -117,8 +115,8 @@
       DownloadService.download(csv, filename)
     }
 
-    function onSelectUser(user) {
-      console.log('onSelectUser', user)
+    function onSelectUser() {
+      // console.log('onSelectUser', user)
     }
   }
 })()

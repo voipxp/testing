@@ -112,7 +112,6 @@
     function onSelect(users) {
       ctrl.editSettings = { callingLineIdPhoneNumber: null }
       ctrl.editCount = users.length
-      console.log('onSelect', users)
       Alert.modal.open('bulkEditUserCLID', function(close) {
         bulkUpdate(users, ctrl.editSettings, close)
       })

@@ -28,7 +28,6 @@
         ctrl.serviceUserId
       ).then(function(data) {
         ctrl.assigned = data
-        console.log('assigned', data)
         return data
       })
     }
@@ -57,7 +56,6 @@
         })
       ctrl.editAssigned = angular.copy(ctrl.assigned)
       Alert.modal.open('editGroupPagingOriginators', function onSave(close) {
-        console.log('editGroupPagingOriginators', ctrl.editAssigned)
         update(ctrl.editAssigned, close)
       })
     }

@@ -27,7 +27,6 @@
         ctrl.userId
       ).then(function(data) {
         ctrl.plan = data
-        console.log('plan', data)
       })
     }
 

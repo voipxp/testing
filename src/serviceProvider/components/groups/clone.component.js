@@ -36,7 +36,6 @@
     }
 
     function onSelectServiceProvider(event) {
-      console.log('onSelectServiceProvider', event)
       if (event.serviceProviderId !== ctrl.fromServiceProviderId) {
         ctrl.fromGroupId = null
       }
@@ -51,7 +50,6 @@
     }
 
     function onSelectGroup(event) {
-      console.log('onSelectGroup', event)
       ctrl.fromGroupId = event.groupId
     }
 

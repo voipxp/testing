@@ -112,7 +112,6 @@ waitTime
       ctrl.loading = true
       loadDetails()
         .catch(function(error) {
-          console.log(error)
           Alert.notify.danger(error)
         })
         .finally(function() {
@@ -152,7 +151,6 @@ waitTime
         .then(function(data) {
           ctrl.records = data
           setFilters()
-          console.log('records', data)
         })
         .then(warnLimit)
     }
@@ -209,7 +207,6 @@ waitTime
     }
 
     function onSelectUser(user) {
-      console.log('onSelectUser', user)
       ctrl.searchUserId = user && user.userId
       setFilters()
     }

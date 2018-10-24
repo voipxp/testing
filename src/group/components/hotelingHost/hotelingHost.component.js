@@ -70,7 +70,6 @@
         ctrl.users = _.filter(data, function(item) {
           return _.get(item, 'service.assigned')
         })
-        console.log(ctrl.users)
       })
     }
 

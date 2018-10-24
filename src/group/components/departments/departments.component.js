@@ -32,7 +32,6 @@
         ctrl.groupId,
         true
       ).then(function(data) {
-        console.log('departments', data)
         ctrl.departments = data
       })
     }
@@ -49,7 +48,6 @@
     }
 
     function save(department, callback) {
-      console.log('save', department)
       Alert.spinner.open()
       GroupDepartmentService.store(
         ctrl.serviceProviderId,
@@ -57,7 +55,6 @@
         department
       )
         .then(function() {
-          console.log('save', department)
           if (_.isFunction(callback)) {
             callback()
           }

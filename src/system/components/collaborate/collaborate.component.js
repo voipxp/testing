@@ -24,7 +24,6 @@
 
     function loadCollaborate() {
       return SystemCollaborateService.show().then(function(data) {
-        console.log(data)
         ctrl.collaborate = data
         return data
       })

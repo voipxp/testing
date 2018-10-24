@@ -33,7 +33,6 @@
         ctrl.parent.trunkName
       ).then(function(data) {
         ctrl.users = data.users
-        console.log('loadAssignedUsers', data)
         return data
       })
     }
@@ -47,7 +46,6 @@
         ctrl.availableUsers = _.filter(data.users, function(user) {
           return !_.find(ctrl.assignedUsers, { userId: user.userId })
         })
-        console.log('loadAvailableUsers', ctrl.availableUsers)
         return data
       })
     }

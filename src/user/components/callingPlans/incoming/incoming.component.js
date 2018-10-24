@@ -29,7 +29,6 @@
         data
       ) {
         ctrl.plan = data
-        console.log('plan', data)
         return data
       })
     }

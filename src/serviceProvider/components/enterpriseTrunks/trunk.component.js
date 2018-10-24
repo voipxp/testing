@@ -40,7 +40,6 @@
         ctrl.trunkName
       ).then(function(data) {
         ctrl.trunk = data
-        console.log('data', data)
         return data
       })
     }

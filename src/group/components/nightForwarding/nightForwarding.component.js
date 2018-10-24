@@ -28,14 +28,12 @@
         ctrl.serviceProviderId,
         ctrl.groupId
       ).then(function(data) {
-        console.log('data', data)
         ctrl.settings = data
       })
     }
 
     function edit() {
       ctrl.editSettings = angular.copy(ctrl.settings)
-      console.log('ctrl.editSettings', ctrl.editSettings)
       Alert.modal.open('editGroupNightForwardingModal', function(close) {
         update(ctrl.editSettings, close)
       })

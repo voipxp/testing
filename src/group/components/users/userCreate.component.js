@@ -52,7 +52,6 @@
           sendUpdate(user)
         })
         .catch(function(error) {
-          console.log('error', error)
           Alert.notify.danger(error)
         })
         .finally(function() {

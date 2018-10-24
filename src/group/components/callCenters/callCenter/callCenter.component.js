@@ -8,6 +8,7 @@
 
   function Controller(
     $routeParams,
+    $location,
     Route,
     Alert,
     GroupCallCenterService,
@@ -17,7 +18,7 @@
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.serviceUserId = $routeParams.serviceUserId
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.$onInit = activate
     ctrl.update = update
     ctrl.updateProfile = updateProfile
@@ -46,7 +47,6 @@
         data
       ) {
         ctrl.center = data
-        console.log('center', data)
         return data
       })
     }
@@ -104,7 +104,6 @@
       return UserServiceService.assigned(ctrl.serviceUserId)
         .then(mapServices)
         .then(function(data) {
-          console.log('ctrl._assigned', data)
           ctrl._assigned = data
         })
     }

@@ -41,7 +41,6 @@
 
     function loadPasscode() {
       return UserPortalPasscodeService.show(ctrl.userId).then(function(data) {
-        console.log('passcode', data)
         ctrl.passcode = data
         return data
       })
