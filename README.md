@@ -21,9 +21,9 @@ The code will be compiled and placed in dist/ by default.  You may override the 
 APP_DIST=../api/public
 ```
 
-By default the path to the API is local eg: /api/v1/status.  If you are running the frontend code seperately from the API code, you may pass in API_BASE to configure the base of the API path. All routes inside the app will be prefixed with API_BASE.
+By default the path to the API is local eg: /api/v2.  If you are running the frontend code seperately from the API code, you may pass in API_BASE to configure the base of the API path. All routes inside the app will be prefixed with API_BASE.
 ```
-API_BASE=http://127.0.0.1:9000/api/v1/status.
+API_BASE=http://127.0.0.1:9000/api/v2
 ```
 
 ### Yarn Commands
@@ -92,6 +92,3 @@ services:
     container_name: api
     image: odin.api
     command: php-fpm7 -F
-
-
-

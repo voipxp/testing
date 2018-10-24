@@ -19,7 +19,7 @@ const base = process.env.API_BASE || ''
 
 const Config = {
   APP: {
-    apiURL: `${base}/api/v1`,
+    apiURL: `${base}/api/v2`,
     loginURL: '/login',
     sessionKey: 'odin:session'
   }
