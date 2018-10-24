@@ -15,7 +15,7 @@
       fromDnCriteriaMin: 0,
       fromDnCriteriaMax: 11
     }
-    var url = Route.api2('/users/broad-works-anywhere/criteria')
+    var url = Route.api('/users/broad-works-anywhere/criteria')
     return service
 
     function store(userId, phoneNumber, criteria) {

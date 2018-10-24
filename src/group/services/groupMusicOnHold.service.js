@@ -16,7 +16,7 @@
       audioFileCodecs: ['None', 'G711', 'G722', 'G729', 'G726', 'AMR', 'AMR-WB']
     }
 
-    var url = Route.api2('/groups/music-on-hold')
+    var url = Route.api('/groups/music-on-hold')
     return service
 
     function index(serviceProviderId, groupId) {

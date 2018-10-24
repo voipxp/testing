@@ -4,7 +4,7 @@
     .factory('UserExternalCallingLineIdDeliveryService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/external-calling-line-id-delivery')
+    var url = Route.api('/users/external-calling-line-id-delivery')
     var service = { show: show, update: update }
     service.options = {}
     return service

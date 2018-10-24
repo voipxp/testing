@@ -4,7 +4,7 @@
     .factory('GroupMeetMeConferencingBridgeService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/meet-me-conferencing/bridges')
+    var url = Route.api('/groups/meet-me-conferencing/bridges')
 
     var service = {
       index: index,

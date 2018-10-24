@@ -10,7 +10,7 @@
       update: update,
       destroy: destroy
     }
-    var url = Route.api2('/users/shared-call-appearance/endpoints')
+    var url = Route.api('/users/shared-call-appearance/endpoints')
     return service
 
     function show(userId, endpoint) {

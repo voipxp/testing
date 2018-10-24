@@ -3,7 +3,7 @@
 
   function Service($http, Route) {
     var service = { index, show, rebuild, reset }
-    var url = Route.api2('/groups/device-types')
+    var url = Route.api('/groups/device-types')
     return service
 
     function index(serviceProviderId, groupId) {

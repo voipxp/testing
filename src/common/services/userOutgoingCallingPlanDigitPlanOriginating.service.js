@@ -15,7 +15,7 @@
         'Transfer To Third Transfer Number'
       ]
     }
-    var url = Route.api2('/users/calling-plans/outgoing/digit-plan/originating')
+    var url = Route.api('/users/calling-plans/outgoing/digit-plan/originating')
     return service
 
     function show(userId) {

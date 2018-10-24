@@ -2,7 +2,7 @@
   angular.module('odin.settings').factory('SettingService', SettingService)
 
   function SettingService($http, Route) {
-    var url = Route.api2('/settings')
+    var url = Route.api('/settings')
     var service = { index, show, update, destroy }
     return service
 

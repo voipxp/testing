@@ -4,7 +4,7 @@
     .factory('SpeedDial100Service', SpeedDial100Service)
 
   function SpeedDial100Service($http, Route) {
-    var url = Route.api2('/users/speed-dial-100')
+    var url = Route.api('/users/speed-dial-100')
     var service = {
       index: index,
       update: update,

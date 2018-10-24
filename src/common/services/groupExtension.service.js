@@ -6,7 +6,7 @@
   function GroupExtensionService($http, CacheFactory, Route) {
     var service = { show, update }
     var cache = CacheFactory('GroupExtensionService')
-    var url = Route.api2('/groups/extensions')
+    var url = Route.api('/groups/extensions')
     return service
 
     function show(serviceProviderId, groupId) {

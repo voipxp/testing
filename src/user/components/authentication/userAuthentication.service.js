@@ -4,7 +4,7 @@
     .factory('UserAuthenticationService', UserAuthenticationService)
 
   function UserAuthenticationService($http, Route) {
-    var url = Route.api2('/users/authentication')
+    var url = Route.api('/users/authentication')
     var service = { show: show, update: update }
     service.options = {}
     return service

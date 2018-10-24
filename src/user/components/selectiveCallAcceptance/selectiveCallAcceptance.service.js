@@ -4,7 +4,7 @@
     .factory('SelectiveCallAcceptanceService', SelectiveCallAcceptanceService)
 
   function SelectiveCallAcceptanceService($http, Route) {
-    var url = Route.api2('/users/selective-call-acceptance')
+    var url = Route.api('/users/selective-call-acceptance')
     var service = {
       index: index,
       show: show,

@@ -102,7 +102,7 @@
         userLookupPolicy: 'Basic'
       }
     }
-    var url = Route.api2('/groups/trunk-groups')
+    var url = Route.api('/groups/trunk-groups')
 
     return service
 

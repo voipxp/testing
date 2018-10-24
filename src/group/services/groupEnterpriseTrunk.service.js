@@ -20,7 +20,7 @@
       routingTypes: ['priorityWeightedRouting', 'orderedRouting']
     }
 
-    var url = Route.api2('/groups/enterprise-trunks')
+    var url = Route.api('/groups/enterprise-trunks')
     return service
 
     function index(serviceProviderId, groupId) {

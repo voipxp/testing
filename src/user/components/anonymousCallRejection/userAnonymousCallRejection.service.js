@@ -4,7 +4,7 @@
     .factory('UserAnonymousCallRejectionService', Controller)
 
   function Controller($http, Route) {
-    var url = Route.api2('/users/anonymous-call-rejection')
+    var url = Route.api('/users/anonymous-call-rejection')
     var service = {
       index: index,
       show: show,

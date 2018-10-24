@@ -3,7 +3,7 @@
 
   function Service($http, Route) {
     var service = { index, available, store, show, update, destroy }
-    var url = Route.api2('/groups/announcements')
+    var url = Route.api('/groups/announcements')
     service.options = { mediaTypes: ['WMA', 'WAV', '3GP', 'MOV'] }
 
     return service

@@ -5,7 +5,7 @@
 
   function Service($http, Route) {
     var service = { index, store, show, update, destroy }
-    var url = Route.api2('/service-providers/admins')
+    var url = Route.api('/service-providers/admins')
     return service
 
     function getId(admin) {

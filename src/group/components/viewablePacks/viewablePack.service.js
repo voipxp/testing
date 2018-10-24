@@ -4,103 +4,63 @@
     .factory('GroupViewablePackService', GroupViewablePackService)
 
   function GroupViewablePackService($http, Route, $rootScope) {
-    var service = {
-      index: index,
-      services: services,
-      store: store,
-      show: show,
-      update: update,
-      destroy: destroy,
-      users: users,
-      bulk: bulk
-    }
+    var service = { index, services, store, show, update, destroy, users, bulk }
+    var url = Route.api('/groups/viewable-packs')
     return service
-
-    function url(serviceProviderId, groupId, viewablePackId) {
-      return Route.api(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId,
-        'viewablepacks'
-      )(viewablePackId)
-    }
 
     function index(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
     function services(serviceProviderId, groupId) {
       return $http
-        .get(url(serviceProviderId, groupId, 'services'))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url('services'), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
     function store(serviceProviderId, groupId, pack) {
       return $http
-        .post(url(serviceProviderId, groupId), pack)
-        .then(function(response) {
+        .post(url(), { ...pack, serviceProviderId, groupId })
+        .then(res => {
           $rootScope.$emit('GroupViewablePackService:updated')
-          return response.data
+          return res.data
         })
     }
 
-    function show(serviceProviderId, groupId, packId) {
+    function show(serviceProviderId, groupId, id) {
       return $http
-        .get(url(serviceProviderId, groupId, packId))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceProviderId, groupId, id } })
+        .then(res => res.data)
     }
 
     function update(serviceProviderId, groupId, pack) {
       return $http
-        .put(url(serviceProviderId, groupId, pack.id), pack)
-        .then(function(response) {
+        .put(url(), { ...pack, serviceProviderId, groupId })
+        .then(res => {
           $rootScope.$emit('GroupViewablePackService:updated')
-          return response.data
+          return res.data
         })
     }
 
-    function destroy(serviceProviderId, groupId, pack) {
+    function destroy(serviceProviderId, groupId, id) {
       return $http
-        .delete(url(serviceProviderId, groupId, pack.id))
-        .then(function(response) {
+        .delete(url(), { params: { serviceProviderId, groupId, id } })
+        .then(res => {
           $rootScope.$emit('GroupViewablePackService:updated')
-          return response.data
+          return res.data
         })
-    }
-
-    function bulkUrl(serviceProviderId, groupId) {
-      return Route.api()(
-        'serviceproviders',
-        serviceProviderId,
-        'groups',
-        groupId,
-        'viewablepacksbulk'
-      )
     }
 
     function users(serviceProviderId, groupId) {
       return $http
-        .get(bulkUrl(serviceProviderId, groupId))
-        .then(function(response) {
-          return response.data
-        })
+        .get(url('bulk'), { params: { serviceProviderId, groupId } })
+        .then(res => res.data)
     }
 
     function bulk(serviceProviderId, groupId, data) {
-      return $http
-        .put(bulkUrl(serviceProviderId, groupId), data)
-        .then(function(response) {
-          return response.data
-        })
+      return $http.put(url('bulk'), data).then(res => res.data)
     }
   }
 })()

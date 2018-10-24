@@ -5,7 +5,7 @@
 
   function Service($http, Route) {
     var service = { show, update, bulkIndex, bulkUpdate }
-    var url = Route.api2('/users/calling-plans/outgoing/redirecting')
+    var url = Route.api('/users/calling-plans/outgoing/redirecting')
     return service
 
     function show(userId) {

@@ -7,7 +7,7 @@
     )
 
   function UserCallingNumberDeliveryService($http, Route) {
-    var url = Route.api2('/users/calling-number-delivery')
+    var url = Route.api('/users/calling-number-delivery')
     var service = { show: show, update: update }
     service.options = {}
 

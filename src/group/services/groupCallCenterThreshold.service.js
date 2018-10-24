@@ -4,7 +4,7 @@
     .factory('GroupCallCenterThresholdService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/thresholds')
+    var url = Route.api('/groups/call-centers/thresholds')
     var service = { show: show, update: update }
 
     service.options = {

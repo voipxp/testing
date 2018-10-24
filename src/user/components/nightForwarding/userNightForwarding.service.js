@@ -4,7 +4,7 @@
     .factory('UserNightForwardingService', UserNightForwardingService)
 
   function UserNightForwardingService($http, Route) {
-    var url = Route.api2('/users/night-forwarding')
+    var url = Route.api('/users/night-forwarding')
     var service = { show: show, update: update }
     service.options = {
       nightForwarding: ['Use Group', 'On', 'Off']

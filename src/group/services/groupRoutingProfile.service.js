@@ -6,7 +6,7 @@
   function GroupRoutingProfileService($http, CacheFactory, Route) {
     var cache = CacheFactory('GroupRoutingProfileService')
     var service = { show, update }
-    var url = Route.api2('/groups/routing-profile')
+    var url = Route.api('/groups/routing-profile')
     return service
 
     function show(serviceProviderId, groupId) {

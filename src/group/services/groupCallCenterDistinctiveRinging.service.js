@@ -4,7 +4,7 @@
     .factory('GroupCallCenterDistinctiveRingingService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/distinctive-ringing')
+    var url = Route.api('/groups/call-centers/distinctive-ringing')
     var service = { show: show, update: update }
     service.options = {
       ringPattern: [

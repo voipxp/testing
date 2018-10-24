@@ -4,7 +4,7 @@
     .factory('UserCollaborateService', UserCollaborateService)
 
   function UserCollaborateService($http, Route) {
-    var url = Route.api2('/users/collaborate')
+    var url = Route.api('/users/collaborate')
 
     var service = {
       bridge: bridge,

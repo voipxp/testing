@@ -4,7 +4,7 @@
     .factory('UserCallForwardingNoAnswerService', Service)
 
   function Service($http, Route, CacheFactory) {
-    var url = Route.api2('/users/call-forwarding-no-answer')
+    var url = Route.api('/users/call-forwarding-no-answer')
     var service = { index: index, show: show, update: update, bulk: bulk }
     service.options = {
       outgoingDNorSIPURI: { minimum: 1, maximum: 161 },

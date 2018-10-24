@@ -7,7 +7,7 @@
     )
 
   function GroupCallCenterAvailableSupervisorService($http, Route) {
-    var url = Route.api2('/groups/call-centers/supervisors/available')
+    var url = Route.api('/groups/call-centers/supervisors/available')
     var service = { index: index }
 
     return service

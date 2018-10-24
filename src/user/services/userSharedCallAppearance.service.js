@@ -4,7 +4,7 @@
     .factory('UserSharedCallAppearanceService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/shared-call-appearance')
+    var url = Route.api('/users/shared-call-appearance')
 
     var service = {
       show: show,

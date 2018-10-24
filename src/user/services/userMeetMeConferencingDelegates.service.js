@@ -7,7 +7,7 @@
     )
 
   function UserMeetMeConferencingDelegatesService($http, Route) {
-    var url = Route.api2('/users/meet-me-conferencing/delegates')
+    var url = Route.api('/users/meet-me-conferencing/delegates')
 
     var service = {
       users: users,

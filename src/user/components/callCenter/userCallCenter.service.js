@@ -2,7 +2,7 @@
   angular.module('odin.user').factory('UserCallCenterService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/call-center')
+    var url = Route.api('/users/call-center')
     var service = { show: show, update: update, dnis: dnis }
     service.options = {
       skillLevel: { minimum: 1, maximum: 20 },

@@ -2,7 +2,7 @@
   angular.module('odin.common').factory('TaskService', TaskService)
 
   function TaskService($http, Route) {
-    var url = Route.api2('/tasks')
+    var url = Route.api('/tasks')
     var service = { index, create, show }
     return service
 

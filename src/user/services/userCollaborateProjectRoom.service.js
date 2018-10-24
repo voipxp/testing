@@ -4,7 +4,7 @@
     .factory('UserCollaborateProjectRoomService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/collaborate/project-rooms')
+    var url = Route.api('/users/collaborate/project-rooms')
 
     var service = {
       index: index,

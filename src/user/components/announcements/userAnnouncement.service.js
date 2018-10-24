@@ -13,7 +13,7 @@
       destroy: destroy
     }
     service.options = { mediaTypes: ['WMA', 'WAV', '3GP', 'MOV'] }
-    var url = Route.api2('/users/announcements')
+    var url = Route.api('/users/announcements')
     return service
 
     function index(userId, type) {

@@ -3,7 +3,7 @@
 
   function CloneGroupService($http, Route, $rootScope) {
     var service = { all, services }
-    var url = Route.api2('/groups/clone')
+    var url = Route.api('/groups/clone')
     return service
 
     function all(serviceProviderId, groupId, obj) {

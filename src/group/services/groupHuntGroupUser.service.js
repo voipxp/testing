@@ -4,7 +4,7 @@
     .factory('GroupHuntGroupUserService', GroupHuntGroupUserService)
 
   function GroupHuntGroupUserService($http, Route) {
-    var url = Route.api2('/groups/hunt-groups/users')
+    var url = Route.api('/groups/hunt-groups/users')
 
     var service = { index: index }
     return service

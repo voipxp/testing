@@ -4,7 +4,7 @@
     .factory('UserCallingLineIdDeliveryBlockingService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/calling-line-id-delivery-blocking')
+    var url = Route.api('/users/calling-line-id-delivery-blocking')
     var service = {
       index: index,
       show: show,

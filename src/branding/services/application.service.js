@@ -5,7 +5,7 @@
 
   function BrandingApplicationService($http, Route, $rootScope) {
     var service = { index, store, show, update, destroy }
-    var url = Route.api2('/branding/applications')
+    var url = Route.api('/branding/applications')
 
     return service
 

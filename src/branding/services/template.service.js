@@ -5,7 +5,7 @@
 
   function BrandingTemplateService($http, Route, $rootScope) {
     var service = { show, update }
-    var url = Route.api2('/branding/templates')
+    var url = Route.api('/branding/templates')
     return service
 
     function show(hostnameId) {

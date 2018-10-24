@@ -6,7 +6,7 @@
   function Service($http, Route) {
     var service = { show, update }
     service.options = { userPermissions: ['Ignore', 'Allow'] }
-    var url = Route.api2(
+    var url = Route.api(
       '/users/calling-plans/outgoing/pinhole-digit-plan/call-me-now'
     )
     return service

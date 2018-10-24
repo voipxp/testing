@@ -2,7 +2,7 @@
   angular.module('odin.group').factory('GroupPagingGroupService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/paging')
+    var url = Route.api('/groups/paging')
 
     var service = {
       index: index,

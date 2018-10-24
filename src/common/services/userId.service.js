@@ -3,7 +3,7 @@
 
   function UserIdService($http, Route) {
     var service = { update }
-    var url = Route.api2('/users/user-id')
+    var url = Route.api('/users/user-id')
     return service
 
     function update(userId, newUserId) {

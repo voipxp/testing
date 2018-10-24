@@ -6,7 +6,7 @@
   function UserScheduleService($http, Route, CacheFactory) {
     var service = { index: index, holidays: holidays }
     var cache = CacheFactory('UserScheduleService')
-    var url = Route.api2('/users/schedules')
+    var url = Route.api('/users/schedules')
     return service
 
     function index(userId) {

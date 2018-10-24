@@ -5,7 +5,7 @@
 
   function Service($http, Route) {
     var service = { index, store, update, destroy }
-    var url = Route.api2('/groups/calling-plans/digit-patterns')
+    var url = Route.api('/groups/calling-plans/digit-patterns')
     return service
 
     function index(serviceProviderId, groupId) {

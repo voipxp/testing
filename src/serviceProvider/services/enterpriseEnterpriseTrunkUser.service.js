@@ -10,7 +10,7 @@
       update: update,
       destroy: destroy
     }
-    var url = Route.api2('/service-providers/enterprise-trunks/users')
+    var url = Route.api('/service-providers/enterprise-trunks/users')
     return service
 
     function index(serviceProviderId, enterpriseTrunkName) {

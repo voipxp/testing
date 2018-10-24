@@ -4,7 +4,7 @@
     .factory('GroupCallCenterAvailableAgentService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/agents/available')
+    var url = Route.api('/groups/call-centers/agents/available')
     var service = { index: index }
 
     return service

@@ -2,7 +2,7 @@
   angular.module('odin.common').factory('SystemFileService', Service)
 
   function Service($http, CacheFactory, Route) {
-    var url = Route.api2('/system/files')
+    var url = Route.api('/system/files')
     var service = { show }
     return service
 

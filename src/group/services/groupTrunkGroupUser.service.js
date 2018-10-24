@@ -5,7 +5,7 @@
 
   function GroupTrunkGroupUserService($http, Route) {
     var service = { index: index, hosted: hosted }
-    var url = Route.api2('/groups/trunk-groups/users')
+    var url = Route.api('/groups/trunk-groups/users')
     service.options = {}
     return service
 

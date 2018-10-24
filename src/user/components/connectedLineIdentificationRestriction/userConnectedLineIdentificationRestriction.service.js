@@ -7,7 +7,7 @@
     )
 
   function UserConnectedLineIdentificationRestrictionService($http, Route) {
-    var url = Route.api2('/users/connected-line-identification-restriction')
+    var url = Route.api('/users/connected-line-identification-restriction')
     var service = { show: show, update: update }
     service.options = {}
     return service

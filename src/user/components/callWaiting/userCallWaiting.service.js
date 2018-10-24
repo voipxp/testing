@@ -2,7 +2,7 @@
   angular.module('odin.user').factory('UserCallWaitingService', Controller)
 
   function Controller($http, Route) {
-    var url = Route.api2('/users/call-waiting')
+    var url = Route.api('/users/call-waiting')
     var service = {
       show: show,
       update: update

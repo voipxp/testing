@@ -4,7 +4,7 @@
     .factory('GroupCallCenterAnnouncementService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/announcements')
+    var url = Route.api('/groups/call-centers/announcements')
     var service = { show: show, update: update }
 
     service.options = {

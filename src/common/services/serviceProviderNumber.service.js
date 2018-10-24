@@ -5,7 +5,7 @@
 
   function ServiceProviderNumberService($http, Route) {
     var service = { index, store, destroy }
-    var url = Route.api2('/service-providers/dns')
+    var url = Route.api('/service-providers/dns')
     return service
 
     // activated, summary, default

@@ -5,7 +5,7 @@
 
   function SystemPasscodeService($http, Route, CacheFactory) {
     var cache = CacheFactory('SystemPasscodeService')
-    var url = Route.api2('/system/passcode-rules')
+    var url = Route.api('/system/passcode-rules')
     var service = { show: show, update: update }
     return service
 

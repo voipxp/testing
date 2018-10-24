@@ -4,7 +4,7 @@
     .factory('UserPushToTalkService', UserPushToTalkService)
 
   function UserPushToTalkService($http, Route) {
-    var url = Route.api2('/users/push-to-talk')
+    var url = Route.api('/users/push-to-talk')
     var service = {
       show: show,
       update: update,

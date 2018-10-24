@@ -2,7 +2,7 @@
   angular.module('odin.user').factory('UserCallNotifyCriteriaService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/call-notify/criteria')
+    var url = Route.api('/users/call-notify/criteria')
     var service = {
       index: index,
       store: store,

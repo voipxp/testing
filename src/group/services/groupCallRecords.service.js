@@ -4,7 +4,7 @@
     .factory('GroupCallRecordsService', GroupCallRecordsService)
 
   function GroupCallRecordsService($http, Route) {
-    var url = Route.api2('/groups/call-records')
+    var url = Route.api('/groups/call-records')
     var service = {
       related,
       detail,

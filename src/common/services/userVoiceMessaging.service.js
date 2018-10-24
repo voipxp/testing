@@ -3,7 +3,7 @@
 
   function Service($http, Route) {
     var service = { index: index, show: show, update: update, bulk: bulk }
-    var url = Route.api2('/users/voice-messaging')
+    var url = Route.api('/users/voice-messaging')
     service.options = {
       processing: [
         'Unified Voice and Email Messaging',

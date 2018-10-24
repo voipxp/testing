@@ -22,7 +22,7 @@
       routingTypes: ['priorityWeightedRouting', 'orderedRouting']
     }
 
-    var url = Route.api2('/service-providers/enterprise-trunks')
+    var url = Route.api('/service-providers/enterprise-trunks')
     return service
 
     function index(serviceProviderId) {

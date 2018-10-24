@@ -4,7 +4,7 @@
     .factory('UserIntegratedIMPService', UserIntegratedIMPService)
 
   function UserIntegratedIMPService($http, Route) {
-    var url = Route.api2('/users/integrated-imp')
+    var url = Route.api('/users/integrated-imp')
     var service = { show: show, update: update }
     return service
 

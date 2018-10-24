@@ -5,7 +5,7 @@
 
   function UserFeatureAccessCodeService($http, Route) {
     var service = { index }
-    var url = Route.api2('/users/feature-access-codes')
+    var url = Route.api('/users/feature-access-codes')
     return service
 
     function index(userId) {

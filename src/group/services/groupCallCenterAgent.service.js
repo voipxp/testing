@@ -2,7 +2,7 @@
   angular.module('odin.group').factory('GroupCallCenterAgentService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/agents')
+    var url = Route.api('/groups/call-centers/agents')
     var service = { show: show, update: update }
     return service
 

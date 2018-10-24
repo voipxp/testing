@@ -4,7 +4,7 @@
     .factory('UserHotelingGuestService', UserHotelingGuestService)
 
   function UserHotelingGuestService($http, Route) {
-    var url = Route.api2('/users/hoteling-guest')
+    var url = Route.api('/users/hoteling-guest')
     var service = {
       show: show,
       update: update,

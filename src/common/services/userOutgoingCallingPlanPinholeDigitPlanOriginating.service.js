@@ -18,7 +18,7 @@
         'Transfer To Third Transfer Number'
       ]
     }
-    var url = Route.api2(
+    var url = Route.api(
       '/users/calling-plans/outgoing/pinhole-digit-plan/originating'
     )
 

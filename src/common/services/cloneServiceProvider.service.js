@@ -3,7 +3,7 @@
 
   function Service($http, Route, $rootScope) {
     var service = { all }
-    var url = Route.api2('/service-providers/clone/service-provider')
+    var url = Route.api('/service-providers/clone/service-provider')
     return service
 
     function all(serviceProviderId, obj) {

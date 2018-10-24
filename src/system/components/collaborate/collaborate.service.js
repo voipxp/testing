@@ -4,7 +4,7 @@
     .factory('SystemCollaborateService', SystemCollaborateService)
 
   function SystemCollaborateService($http, Route) {
-    var url = Route.api2('/system/collaborate')
+    var url = Route.api('/system/collaborate')
     var service = { show, update }
     service.options = {
       roomIdLengthMin: 4,

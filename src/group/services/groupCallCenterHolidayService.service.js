@@ -4,7 +4,7 @@
     .factory('GroupCallCenterHolidayServiceService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/holiday-service')
+    var url = Route.api('/groups/call-centers/holiday-service')
     var service = { show: show, update: update }
     service.options = {
       audioMessageSource: ['File', 'URL', 'Default'],

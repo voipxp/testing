@@ -3,7 +3,7 @@
 
   function Service($http, Route) {
     var service = { show, update }
-    var url = Route.api2('/users/portal-passcode')
+    var url = Route.api('/users/portal-passcode')
     return service
 
     function show(userId) {

@@ -2,7 +2,7 @@
   angular.module('odin.group').factory('GroupAdminService', GroupAdminService)
 
   function GroupAdminService($http, Route) {
-    var url = Route.api2('/groups/admins')
+    var url = Route.api('/groups/admins')
     var service = { index, store, show, update, destroy }
     return service
 

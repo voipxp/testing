@@ -4,7 +4,7 @@
     .factory('ServiceProviderPhoneDirectoryService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/service-providers/phone-directory')
+    var url = Route.api('/service-providers/phone-directory')
     var service = { show: show }
     return service
 

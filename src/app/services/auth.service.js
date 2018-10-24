@@ -3,7 +3,7 @@
 
   function Auth($http, Route) {
     var service = { token: token, password: password, session: session }
-    var url = Route.api2('/auth')
+    var url = Route.api('/auth')
     return service
 
     // obtain a user token

@@ -204,7 +204,7 @@
           GroupViewablePackService.destroy(
             ctrl.serviceProviderId,
             ctrl.groupId,
-            pack
+            pack.id
           )
             .then(loadViewablePacks)
             .then(function() {
@@ -250,7 +250,9 @@
     function updateBulk(pack, users, callback) {
       Alert.spinner.open()
       GroupViewablePackService.bulk(ctrl.serviceProviderId, ctrl.groupId, {
-        virtualPackId: pack.virtualPackId,
+        serviceProviderId: ctrl.serviceProviderId,
+        groupId: ctrl.groupId,
+        id: pack.virtualPackId,
         users: users
       })
         .then(loadUsers)

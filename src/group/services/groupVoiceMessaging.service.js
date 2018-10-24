@@ -5,7 +5,7 @@
 
   function GroupVoiceMessagingService($http, Route) {
     var service = { show: show, update: update }
-    var url = Route.api2('/groups/voice-messaging')
+    var url = Route.api('/groups/voice-messaging')
     service.options = {
       useMailServerSetting: ['System Mail Server', 'Group Mail Server'],
       mailServerNetAddress: { minLength: 1, maxLength: 80 },

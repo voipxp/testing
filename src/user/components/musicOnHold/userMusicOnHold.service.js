@@ -4,7 +4,7 @@
     .factory('UserMusicOnHoldService', UserMusicOnHoldService)
 
   function UserMusicOnHoldService($http, Route) {
-    var url = Route.api2('/users/music-on-hold')
+    var url = Route.api('/users/music-on-hold')
     var service = { show: show, update: update }
     service.options = {}
     return service

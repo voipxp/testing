@@ -5,7 +5,7 @@
 
   function UserBasicCallLogService($http, Route, CacheFactory) {
     var service = { show: show }
-    var url = Route.api2('/users/basic-call-logs')
+    var url = Route.api('/users/basic-call-logs')
     var cache = CacheFactory('UserBasicCallLogService', {
       maxAge: 5 * 60 * 1000
     })

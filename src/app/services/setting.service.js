@@ -2,7 +2,7 @@
   angular.module('odin.app').factory('Setting', Setting)
 
   function Setting($http, Route, $rootScope) {
-    var url = Route.api2('/ui/settings')
+    var url = Route.api('/ui/settings')
     var _data = {}
     var service = { load, data }
     $rootScope.$on('BrandingSettingService:updated', load)

@@ -4,7 +4,7 @@
     .factory('GroupCallCenterQueueDispositionCodeService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/disposition-codes/codes')
+    var url = Route.api('/groups/call-centers/disposition-codes/codes')
     var service = {
       index: index,
       store: store,

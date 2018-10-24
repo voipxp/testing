@@ -3,7 +3,7 @@
 
   function Service($http, Route) {
     var service = { show: show }
-    var url = Route.api2('/auth/sso')
+    var url = Route.api('/auth/sso')
     return service
 
     function show(partnerId) {

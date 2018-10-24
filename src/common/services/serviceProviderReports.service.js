@@ -9,7 +9,7 @@
     $rootScope,
     CacheFactory
   ) {
-    var url = Route.api2('/service-providers/reports')
+    var url = Route.api('/service-providers/reports')
     var service = { index }
     var cache = CacheFactory('ServiceProviderReportsService')
     return service

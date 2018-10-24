@@ -4,7 +4,7 @@
     .factory('GroupCollaborateService', GroupCollaborateService)
 
   function GroupCollaborateService($http, Route) {
-    var url = Route.api2('/groups/collaborate')
+    var url = Route.api('/groups/collaborate')
 
     var service = {
       index: index,

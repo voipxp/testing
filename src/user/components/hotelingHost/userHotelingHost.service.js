@@ -4,7 +4,7 @@
     .factory('UserHotelingHostService', UserHotelingHostService)
 
   function UserHotelingHostService($http, Route) {
-    var url = Route.api2('/users/hoteling-host')
+    var url = Route.api('/users/hoteling-host')
     var service = { index: index, show: show, update: update, bulk: bulk }
     service.options = {
       accessLevels: ['Enterprise', 'Group'],

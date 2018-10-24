@@ -4,7 +4,7 @@
     .factory('ServiceProviderAdminPolicyService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/service-providers/admins/policies')
+    var url = Route.api('/service-providers/admins/policies')
 
     var service = {
       show: show,

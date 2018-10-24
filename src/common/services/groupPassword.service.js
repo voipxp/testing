@@ -6,7 +6,7 @@
   function GroupPasswordService($http, Route, CacheFactory) {
     var cache = CacheFactory('GroupPasswordService')
     var service = { show, update }
-    var url = Route.api2('/groups/password-rules')
+    var url = Route.api('/groups/password-rules')
     return service
 
     function show(serviceProviderId, groupId) {

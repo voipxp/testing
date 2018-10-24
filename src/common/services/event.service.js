@@ -2,7 +2,7 @@
   angular.module('odin.common').factory('EventService', EventService)
 
   function EventService($http, Route) {
-    var url = Route.api2('/events')
+    var url = Route.api('/events')
     var service = { index, show, types }
     return service
 

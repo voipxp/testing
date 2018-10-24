@@ -3,7 +3,7 @@
 
   function Service($http, Route, $rootScope) {
     var service = { show, update }
-    var url = Route.api2('/users/viewable-packs')
+    var url = Route.api('/users/viewable-packs')
     return service
 
     function show(userId) {

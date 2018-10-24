@@ -4,7 +4,7 @@
     .factory('GroupNumberService', GroupNumberService)
 
   function GroupNumberService($http, Route) {
-    var url = Route.api2('/groups/dns')
+    var url = Route.api('/groups/dns')
     var service = {
       index: index,
       assign: assign,

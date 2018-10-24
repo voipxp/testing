@@ -6,7 +6,7 @@
   function Service($http, Route) {
     var service = { show: show, update: update }
 
-    var url = Route.api2('/users/voice-messaging/advanced')
+    var url = Route.api('/users/voice-messaging/advanced')
 
     service.options = {
       mailServerSelection: ['Group Mail Server', 'Personal Mail Server'],

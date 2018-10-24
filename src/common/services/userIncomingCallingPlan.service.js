@@ -12,7 +12,7 @@
         'Disallow'
       ]
     }
-    var url = Route.api2('/users/calling-plans/incoming')
+    var url = Route.api('/users/calling-plans/incoming')
     return service
 
     function show(userId) {

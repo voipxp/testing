@@ -6,7 +6,7 @@
   function GroupDepartmentService($http, CacheFactory, Route) {
     var cache = CacheFactory('GroupDepartmentService')
     var service = { index, store, show, update, destroy }
-    var url = Route.api2('/groups/departments')
+    var url = Route.api('/groups/departments')
     return service
 
     function index(serviceProviderId, groupId, includeEnterprise) {

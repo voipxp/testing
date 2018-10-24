@@ -6,7 +6,7 @@
   function BrandingHostnameService($http, Route, $rootScope) {
     var service = { index, store, show, update, destroy, clone }
 
-    var url = Route.api2('/branding/hostnames')
+    var url = Route.api('/branding/hostnames')
 
     return service
 

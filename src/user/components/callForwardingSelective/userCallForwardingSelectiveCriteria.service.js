@@ -22,7 +22,7 @@
       ],
       fromDnCriteriaSelection: ['Any', 'Specified Only']
     }
-    var url = Route.api2('/users/call-forwarding-selective/criteria')
+    var url = Route.api('/users/call-forwarding-selective/criteria')
     return service
 
     function index(userId) {

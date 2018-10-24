@@ -5,7 +5,7 @@
 
   function GroupPagingGroupTargetService($http, Route) {
     var service = { available: available, assigned: assigned, update: update }
-    var url = Route.api2('/groups/paging/targets')
+    var url = Route.api('/groups/paging/targets')
     return service
 
     function available(serviceUserId) {

@@ -5,7 +5,7 @@
 
   function Service($http, CacheFactory, Route) {
     var cache = CacheFactory('SystemCommunicationBarringProfileService')
-    var url = Route.api2('/system/communication-barring/profiles')
+    var url = Route.api('/system/communication-barring/profiles')
     var service = { index }
     return service
 

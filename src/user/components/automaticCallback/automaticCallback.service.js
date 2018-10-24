@@ -4,7 +4,7 @@
     .factory('UserAutomaticCallbackService', Controller)
 
   function Controller($http, Route) {
-    var url = Route.api2('/users/automatic-callback')
+    var url = Route.api('/users/automatic-callback')
     var service = {
       index: index,
       show: show,

@@ -4,7 +4,7 @@
     .factory('UserCallingNameDeliveryService', UserCallingNameDeliveryService)
 
   function UserCallingNameDeliveryService($http, Route) {
-    var url = Route.api2('/users/calling-name-delivery')
+    var url = Route.api('/users/calling-name-delivery')
     var service = { show: show, update: update }
     service.options = {}
 

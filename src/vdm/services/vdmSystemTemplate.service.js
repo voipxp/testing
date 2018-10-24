@@ -2,7 +2,7 @@
   angular.module('odin.vdm').factory('VdmSystemTemplateService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/vdm/system/templates')
+    var url = Route.api('/vdm/system/templates')
     var service = { index, store, show, update, destroy, assignments }
     service.options = {
       templates: ['t41', 't46', 't48']

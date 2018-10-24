@@ -4,7 +4,7 @@
     .factory('UserSequentialRingServiceCriteria', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/sequential-ring/criteria')
+    var url = Route.api('/users/sequential-ring/criteria')
     var service = {
       show: show,
       update: update,

@@ -5,7 +5,7 @@
 
   function Service($http, Route) {
     var service = { show, update }
-    var url = Route.api2('/groups/calling-plans/outgoing/redirecting')
+    var url = Route.api('/groups/calling-plans/outgoing/redirecting')
     return service
 
     function show(serviceProviderId, groupId) {

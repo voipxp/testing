@@ -4,7 +4,7 @@
     .factory('GroupScheduleService', GroupScheduleService)
 
   function GroupScheduleService($http, Route) {
-    var url = Route.api2('/groups/schedules')
+    var url = Route.api('/groups/schedules')
     var service = {
       index: index,
       store: store,

@@ -2,7 +2,7 @@
   angular.module('odin.settings').factory('CallbackSettingService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/callbacks')
+    var url = Route.api('/callbacks')
     var service = { index, store, show, update, destroy }
     return service
 

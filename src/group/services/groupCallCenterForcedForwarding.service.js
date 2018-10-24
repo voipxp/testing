@@ -7,7 +7,7 @@
     )
 
   function GroupCallCenterForcedForwardingService($http, Route) {
-    var url = Route.api2('/groups/call-centers/forced-forwarding')
+    var url = Route.api('/groups/call-centers/forced-forwarding')
     var service = { show: show, update: update }
     service.options = { audioMessageSource: ['File', 'URL', 'Default'] }
     return service

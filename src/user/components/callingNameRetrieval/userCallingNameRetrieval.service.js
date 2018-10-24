@@ -4,7 +4,7 @@
     .factory('UserCallingNameRetrievalService', UserCallingNameRetrievalService)
 
   function UserCallingNameRetrievalService($http, Route) {
-    var url = Route.api2('/users/calling-name-retrieval')
+    var url = Route.api('/users/calling-name-retrieval')
     var service = { show: show, update: update }
     return service
 

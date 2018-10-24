@@ -4,7 +4,7 @@
     .factory('GroupAdminPolicyService', GroupAdminPolicyService)
 
   function GroupAdminPolicyService($http, Route) {
-    var url = Route.api2('/groups/admins/policies')
+    var url = Route.api('/groups/admins/policies')
     var service = { show, update, bulk }
     service.options = {
       policies: {

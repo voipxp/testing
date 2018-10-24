@@ -5,7 +5,7 @@
 
   function BrandingSettingService($http, Route, $rootScope) {
     var service = { show, update }
-    var url = Route.api2('/branding/settings')
+    var url = Route.api('/branding/settings')
     return service
 
     function show(hostnameId) {

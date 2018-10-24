@@ -4,7 +4,7 @@
     .factory('UserCallForwardingSelectiveService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/call-forwarding-selective')
+    var url = Route.api('/users/call-forwarding-selective')
     var service = { show: show, update: update }
     service.options = {}
     return service

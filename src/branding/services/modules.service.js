@@ -5,7 +5,7 @@
 
   function BrandingModuleService($http, Route, $rootScope) {
     var service = { index, show, update }
-    var url = Route.api2('/branding/modules')
+    var url = Route.api('/branding/modules')
     return service
 
     function index(hostnameId) {

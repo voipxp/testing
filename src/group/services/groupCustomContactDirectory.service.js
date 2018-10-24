@@ -5,7 +5,7 @@
 
   function Service($http, Route) {
     var service = { index, store, show, update, destroy, users }
-    var url = Route.api2('/groups/custom-contact-directory')
+    var url = Route.api('/groups/custom-contact-directory')
     return service
 
     function users(serviceProviderId, groupId) {

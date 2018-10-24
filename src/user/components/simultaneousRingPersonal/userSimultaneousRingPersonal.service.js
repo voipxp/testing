@@ -4,7 +4,7 @@
     .factory('UserSimultaneousRingPersonalService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/simultaneous-ring-personal')
+    var url = Route.api('/users/simultaneous-ring-personal')
     var service = { show: show, update: update }
     service.options = {
       numberOfRings: [

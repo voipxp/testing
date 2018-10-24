@@ -5,9 +5,7 @@
 
   function Service($http, Route) {
     var service = { show, update }
-    var url = Route.api2(
-      '/groups/calling-plans/outgoing/digit-plan/originating'
-    )
+    var url = Route.api('/groups/calling-plans/outgoing/digit-plan/originating')
     service.options = {
       permissions: [
         'Disallow',

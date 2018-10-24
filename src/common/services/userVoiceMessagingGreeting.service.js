@@ -6,7 +6,7 @@
   function Service($http, Route) {
     var service = { show: show, update: update }
 
-    var url = Route.api2('/users/voice-messaging/greetings')
+    var url = Route.api('/users/voice-messaging/greetings')
 
     service.options = {
       busyAnnouncementSelection: ['Default', 'Personal'],

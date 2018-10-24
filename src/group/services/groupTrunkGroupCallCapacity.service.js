@@ -6,7 +6,7 @@
   function Service($http, Route) {
     var service = { show: show, update: update }
     service.options = {}
-    var url = Route.api2('/groups/trunk-groups/call-capacity')
+    var url = Route.api('/groups/trunk-groups/call-capacity')
     return service
 
     function show(serviceProviderId, groupId) {

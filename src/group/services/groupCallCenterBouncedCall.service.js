@@ -4,7 +4,7 @@
     .factory('GroupCallCenterBouncedCallService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/bounced-calls')
+    var url = Route.api('/groups/call-centers/bounced-calls')
     var service = { show: show, update: update }
     service.options = {
       numberOfRingsBeforeBouncingCall: { min: 1, max: 20 },

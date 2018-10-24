@@ -5,7 +5,7 @@
 
   function Service($http, Route) {
     var service = { available: available, assigned: assigned, update: update }
-    var url = Route.api2('/groups/paging/originators')
+    var url = Route.api('/groups/paging/originators')
     return service
 
     function available(serviceProviderId, groupId) {

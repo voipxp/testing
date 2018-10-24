@@ -8,7 +8,7 @@
 
   function Service($http, Route) {
     var service = { show, update }
-    var url = Route.api2(
+    var url = Route.api(
       '/groups/calling-plans/outgoing/pinhole-digit-plan/call-me-now'
     )
     service.options = { permissions: ['Ignore', 'Allow'] }

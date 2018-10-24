@@ -2,7 +2,7 @@
   angular.module('odin.serviceProvider').factory('ServicePackService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/service-providers/service-packs')
+    var url = Route.api('/service-providers/service-packs')
     var service = {
       index: index,
       create: create,

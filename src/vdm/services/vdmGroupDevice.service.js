@@ -3,7 +3,7 @@
 
   function Service($http, Route) {
     var service = { index }
-    var url = Route.api2('/vdm/groups/devices')
+    var url = Route.api('/vdm/groups/devices')
     return service
 
     function index(serviceProviderId, groupId) {

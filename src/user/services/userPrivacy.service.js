@@ -3,7 +3,7 @@
 
   function Service($http, Route) {
     var service = { available: available, show: show, update: update }
-    var url = Route.api2('/users/privacy')
+    var url = Route.api('/users/privacy')
     return service
 
     function available(userId) {

@@ -4,7 +4,7 @@
     .factory('GroupCallCenterOverflowService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/overflow')
+    var url = Route.api('/groups/call-centers/overflow')
     var service = { show: show, update: update }
     service.options = {
       action: ['Busy', 'Transfer', 'Ringing'],

@@ -4,7 +4,7 @@
     .factory('GroupCallCenterDnisInstanceService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/dnis/instances')
+    var url = Route.api('/groups/call-centers/dnis/instances')
     var service = {
       index: index,
       store: store,

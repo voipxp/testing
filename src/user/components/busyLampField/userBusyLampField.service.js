@@ -4,7 +4,7 @@
     .factory('UserBusyLampFieldService', UserBusyLampFieldService)
 
   function UserBusyLampFieldService($http, Route) {
-    var url = Route.api2('/users/busy-lamp-field')
+    var url = Route.api('/users/busy-lamp-field')
     var service = {
       show: show,
       update: update,

@@ -5,7 +5,7 @@
 
   function UserCallPoliciesService($http, Route) {
     var service = { show: show, update: update }
-    var url = Route.api2('/users/call-policies')
+    var url = Route.api('/users/call-policies')
     service.options = {
       redirectedCallsCOLPPrivacy: [
         'No Privacy',

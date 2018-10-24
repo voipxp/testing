@@ -11,7 +11,7 @@
   ) {
     var service = { show, assignable, update }
     var cache = CacheFactory('ServiceProviderServiceService')
-    var url = Route.api2('/service-providers/services')
+    var url = Route.api('/service-providers/services')
     $rootScope.$on('BrandingModuleService:updated', clearCache)
     return service
 

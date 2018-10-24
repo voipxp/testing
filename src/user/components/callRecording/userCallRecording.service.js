@@ -4,7 +4,7 @@
     .factory('UserCallRecordingService', UserCallRecordingService)
 
   function UserCallRecordingService($http, Route) {
-    var url = Route.api2('/users/call-recording')
+    var url = Route.api('/users/call-recording')
     var service = { index: index, show: show, update: update, bulk: bulk }
     service.options = { recordingOptions: ['Always', 'Never', 'On Demand'] }
     return service

@@ -4,7 +4,7 @@
     .factory('UserFaxMessagingService', UserFaxMessagingService)
 
   function UserFaxMessagingService($http, Route) {
-    var url = Route.api2('/users/fax-messaging')
+    var url = Route.api('/users/fax-messaging')
     var service = { show: show, update: update }
     service.options = {}
     return service

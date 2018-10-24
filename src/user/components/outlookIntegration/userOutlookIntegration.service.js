@@ -4,7 +4,7 @@
     .factory('UserOutlookIntegrationService', UserOutlookIntegrationService)
 
   function UserOutlookIntegrationService($http, Route) {
-    var url = Route.api2('/users/outlook-integration')
+    var url = Route.api('/users/outlook-integration')
     var service = { show: show, update: update }
     service.options = {
       contactRetrievalSelection: [

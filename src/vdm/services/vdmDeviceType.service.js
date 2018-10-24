@@ -2,7 +2,7 @@
   angular.module('odin.vdm').factory('VdmDeviceTypeService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/vdm/device-types')
+    var url = Route.api('/vdm/device-types')
     var service = { index, store, show, update, destroy }
     service.options = {
       templates: ['t41', 't46', 't48']

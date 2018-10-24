@@ -4,7 +4,7 @@
     .factory('SystemLicensingService', SystemLicensingService)
 
   function SystemLicensingService($http, Route) {
-    var url = Route.api2('/system/licensing')
+    var url = Route.api('/system/licensing')
     var service = { show }
     return service
 

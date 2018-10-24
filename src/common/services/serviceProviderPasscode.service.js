@@ -6,7 +6,7 @@
   function ServiceProviderPasscodeService($http, Route, CacheFactory) {
     var cache = CacheFactory('ServiceProviderPasscodeService')
     var service = { show, update }
-    var url = Route.api2('/service-providers/passcode-rules')
+    var url = Route.api('/service-providers/passcode-rules')
     return service
 
     function show(serviceProviderId) {

@@ -2,7 +2,7 @@
   angular.module('odin.system').factory('SystemDnService', SystemDnService)
 
   function SystemDnService($http, Route) {
-    var url = Route.api2('/system/dns')
+    var url = Route.api('/system/dns')
     var service = { summary, utilization, show }
     return service
 

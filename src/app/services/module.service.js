@@ -32,7 +32,7 @@ Filter
       update,
       delete: destroy
     }
-    var route = Route.api2('/ui/modules')
+    var route = Route.api('/ui/modules')
     var cache = CacheFactory('Module')
     var _modules = {}
 

@@ -5,7 +5,7 @@
 
   function ServiceProviderDeviceService($http, CacheFactory, Route) {
     var cache = CacheFactory('ServiceProviderDeviceService')
-    var url = Route.api2('/service-providers/devices')
+    var url = Route.api('/service-providers/devices')
     var service = { index, store, update, show, destroy }
     return service
 

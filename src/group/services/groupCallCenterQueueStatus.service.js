@@ -4,7 +4,7 @@
     .factory('GroupCallCenterQueueStatusService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/status')
+    var url = Route.api('/groups/call-centers/status')
     var service = { show: show }
 
     return service

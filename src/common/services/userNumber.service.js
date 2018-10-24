@@ -3,7 +3,7 @@
 
   function UserNumberService($http, Route) {
     var service = { index: index }
-    var url = Route.api2('/users/dns')
+    var url = Route.api('/users/dns')
     return service
 
     function index(userId) {

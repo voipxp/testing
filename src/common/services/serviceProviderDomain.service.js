@@ -5,7 +5,7 @@
 
   function ServiceProviderDomainService($http, CacheFactory, Route) {
     var cache = CacheFactory('ServiceProviderDomainService')
-    var url = Route.api2('/service-providers/domains')
+    var url = Route.api('/service-providers/domains')
     var service = { index }
     return service
 

@@ -4,7 +4,7 @@
     .factory('GroupCallCenterComfortMessageBypassService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/comfort-message-bypass')
+    var url = Route.api('/groups/call-centers/comfort-message-bypass')
     var service = { show: show, update: update }
     service.options = {
       callWaitingAgeThresholdSeconds: { min: 1, max: 120 },

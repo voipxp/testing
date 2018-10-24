@@ -4,7 +4,7 @@
     .factory('GroupCallCenterStatisticsService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/statistics')
+    var url = Route.api('/groups/call-centers/statistics')
     var service = { show: show }
 
     return service

@@ -6,7 +6,7 @@
   function GroupDeviceService($http, CacheFactory, Route) {
     var cache = CacheFactory('GroupDeviceService')
     var service = { index, store, update, show, destroy, rebuild, reset }
-    var url = Route.api2('/groups/devices')
+    var url = Route.api('/groups/devices')
     return service
 
     function index(serviceProviderId, groupId, q, params = {}) {

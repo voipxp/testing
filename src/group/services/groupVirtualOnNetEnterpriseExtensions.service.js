@@ -11,7 +11,7 @@
       update: update,
       destroy: destroy
     }
-    var url = Route.api2('/groups/virtual-on-net-enterprise-extensions')
+    var url = Route.api('/groups/virtual-on-net-enterprise-extensions')
     return service
 
     function index(serviceProviderId, groupId) {

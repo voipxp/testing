@@ -3,7 +3,7 @@
 
   function Service($http, CacheFactory, Route) {
     var cache = CacheFactory('SystemDeviceService')
-    var url = Route.api2('/system/devices')
+    var url = Route.api('/system/devices')
     var service = { index, store, show, update, destroy }
     return service
 

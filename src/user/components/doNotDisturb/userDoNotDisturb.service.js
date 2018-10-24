@@ -2,7 +2,7 @@
   angular.module('odin.user').factory('UserDoNotDisturbService', Controller)
 
   function Controller($http, Route, CacheFactory) {
-    var url = Route.api2('/users/do-not-disturb')
+    var url = Route.api('/users/do-not-disturb')
     var service = {
       show: show,
       update: update

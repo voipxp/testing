@@ -5,7 +5,7 @@
 
   function Service($http, CacheFactory, Route) {
     var cache = CacheFactory('SystemNetworkClassOfServiceService')
-    var url = Route.api2('/system/network-class-of-services')
+    var url = Route.api('/system/network-class-of-services')
     var service = { index, store, show, update, destroy, usage }
     return service
 

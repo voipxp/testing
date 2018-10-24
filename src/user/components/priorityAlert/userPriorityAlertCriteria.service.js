@@ -4,7 +4,7 @@
     .factory('UserPriorityAlertCriteriaService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/priority-alert/criteria')
+    var url = Route.api('/users/priority-alert/criteria')
     var service = {
       index: index,
       store: store,

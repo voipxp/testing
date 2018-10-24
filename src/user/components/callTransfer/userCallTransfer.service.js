@@ -4,7 +4,7 @@
     .factory('UserCallTransferService', UserCallTransferService)
 
   function UserCallTransferService($http, Route) {
-    var url = Route.api2('/users/call-transfer')
+    var url = Route.api('/users/call-transfer')
     var service = { show: show, update: update }
     service.options = {
       minRecallNumberOfRings: 2,

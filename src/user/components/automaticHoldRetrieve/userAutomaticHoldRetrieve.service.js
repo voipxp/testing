@@ -7,7 +7,7 @@
     )
 
   function UserAutomaticHoldRetrieveService($http, Route, CacheFactory) {
-    var url = Route.api2('/users/automatic-hold-retrieve')
+    var url = Route.api('/users/automatic-hold-retrieve')
     var service = { show: show, update: update, index: index }
     service.options = {
       recallTimerSeconds: { minimum: 6, maximum: 600 }

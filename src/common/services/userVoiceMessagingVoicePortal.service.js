@@ -4,7 +4,7 @@
     .factory('UserVoiceMessagingVoicePortalService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/voice-messaging/voice-portal')
+    var url = Route.api('/users/voice-messaging/voice-portal')
 
     var service = { show: show, update: update }
     service.options = { mediaTypes: ['WMA', 'WAV', '3GP', 'MOV'] }

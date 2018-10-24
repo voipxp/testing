@@ -3,7 +3,7 @@
 
   function UserReportService($http, Route) {
     var service = { index: index, show: show }
-    var url = Route.api2('/groups/reports/users')
+    var url = Route.api('/groups/reports/users')
     return service
 
     function index(serviceProviderId, groupId) {

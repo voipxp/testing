@@ -3,7 +3,7 @@
 
   function Service($http, Route) {
     var service = { show }
-    var url = Route.api2('/groups/phone-directory')
+    var url = Route.api('/groups/phone-directory')
     return service
 
     function show(serviceProviderId, groupId) {

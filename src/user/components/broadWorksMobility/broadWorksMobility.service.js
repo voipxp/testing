@@ -4,7 +4,7 @@
     .factory('UserBroadWorksMobilityService', UserBroadWorksMobilityService)
 
   function UserBroadWorksMobilityService($http, Route) {
-    var url = Route.api2('/users/broad-works-mobility')
+    var url = Route.api('/users/broad-works-mobility')
     var service = { show: show, update: update }
     service.options = {
       phonesToRing: ['Fixed', 'Mobile', 'Both'],

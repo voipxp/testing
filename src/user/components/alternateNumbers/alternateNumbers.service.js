@@ -4,7 +4,7 @@
     .factory('AlternateNumbersService', AlternateNumbersService)
 
   function AlternateNumbersService($http, Route) {
-    var url = Route.api2('/users/alternate-numbers')
+    var url = Route.api('/users/alternate-numbers')
     var service = { show: show, update: update }
     service.options = {
       ringPatterns: [

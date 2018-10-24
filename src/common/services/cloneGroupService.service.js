@@ -3,7 +3,7 @@
 
   function Service($http, Route) {
     var service = { autoAttendant }
-    var url = Route.api2('/groups/clone')
+    var url = Route.api('/groups/clone')
     return service
 
     function autoAttendant(serviceUserId, obj) {

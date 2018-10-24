@@ -3,7 +3,7 @@
 
   function Service($http, Route, CacheFactory, $rootScope) {
     var service = { show, authorized, available, update }
-    var url = Route.api2('/groups/services')
+    var url = Route.api('/groups/services')
     var cache = CacheFactory('GroupServiceService')
 
     $rootScope.$on('ServiceProviderServiceService:updated', clearCache)

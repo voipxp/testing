@@ -4,7 +4,7 @@
   function GroupService($http, Route, CacheFactory, $rootScope) {
     var service = { index, store, show, update, destroy }
     var cache = CacheFactory('GroupService')
-    var url = Route.api2('/groups')
+    var url = Route.api('/groups')
 
     $rootScope.$on('GroupService:updated', clearCache)
 

@@ -2,7 +2,7 @@
   angular.module('odin.user').factory('UserBroadWorksAnywhereService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/broad-works-anywhere')
+    var url = Route.api('/users/broad-works-anywhere')
     var service = { show: show, update: update }
     service.options = {
       phonesToRing: ['Fixed', 'Mobile', 'Both'],

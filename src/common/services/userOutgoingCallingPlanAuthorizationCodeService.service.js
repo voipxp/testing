@@ -11,7 +11,7 @@
       create,
       destroy
     }
-    var url = Route.api2('/users/calling-plans/outgoing/authorization-codes')
+    var url = Route.api('/users/calling-plans/outgoing/authorization-codes')
     return service
 
     function show(userId) {

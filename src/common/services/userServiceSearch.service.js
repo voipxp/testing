@@ -2,7 +2,7 @@
   angular.module('odin.common').factory('UserServiceSearchService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/services/search')
+    var url = Route.api('/users/services/search')
     return { index: index }
 
     function index(params) {

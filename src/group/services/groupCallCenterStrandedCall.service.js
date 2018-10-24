@@ -4,7 +4,7 @@
     .factory('GroupCallCenterStrandedCallService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/groups/call-centers/stranded-calls')
+    var url = Route.api('/groups/call-centers/stranded-calls')
     var service = { show: show, update: update }
     service.options = {
       action: [

@@ -4,7 +4,7 @@
     .factory('GroupDomainService', GroupDomainService)
 
   function GroupDomainService($http, CacheFactory, Route) {
-    var url = Route.api2('/groups/domains')
+    var url = Route.api('/groups/domains')
     var cache = CacheFactory('GroupDomainService')
     var service = { index: index }
     return service

@@ -10,7 +10,7 @@
       destroy: destroy,
       store: store
     }
-    var url = Route.api2('/users/broad-works-anywhere/phone-numbers')
+    var url = Route.api('/users/broad-works-anywhere/phone-numbers')
     service.options = {}
 
     return service

@@ -5,7 +5,7 @@
 
   function Service($http, Route) {
     var service = { index: index }
-    var url = Route.api2(
+    var url = Route.api(
       '/service-providers/enterprise-trunks/available-trunk-groups'
     )
     return service

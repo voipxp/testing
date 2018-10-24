@@ -4,7 +4,7 @@
     .factory('UserCallForwardingAlwaysService', Service)
 
   function Service($http, Route, CacheFactory) {
-    var url = Route.api2('/users/call-forwarding-always')
+    var url = Route.api('/users/call-forwarding-always')
     var service = { index: index, show: show, update: update, bulk: bulk }
     service.options = {
       outgoingDNorSIPURI: { minimum: 1, maximum: 161 }

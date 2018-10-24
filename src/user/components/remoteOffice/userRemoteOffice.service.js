@@ -4,7 +4,7 @@
     .factory('UserRemoteOfficeService', UserRemoteOfficeService)
 
   function UserRemoteOfficeService($http, Route, CacheFactory) {
-    var url = Route.api2('/users/remote-office')
+    var url = Route.api('/users/remote-office')
     var service = { show: show, update: update }
     var cache = CacheFactory('UserRemoteOfficeService')
     return service

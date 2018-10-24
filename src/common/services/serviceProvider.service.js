@@ -4,7 +4,7 @@
     .factory('ServiceProviderService', ServiceProviderService)
 
   function ServiceProviderService($http, Route, $rootScope, CacheFactory) {
-    var url = Route.api2('/service-providers')
+    var url = Route.api('/service-providers')
     var service = { index, show, store, update, destroy }
     var cache = CacheFactory('ServiceProviderService')
 

@@ -4,7 +4,7 @@
     .factory('UserDirectedCallPickupWithBargeInService', Controller)
 
   function Controller($http, Route) {
-    var url = Route.api2('/users/directed-call-pickup-with-barge-in')
+    var url = Route.api('/users/directed-call-pickup-with-barge-in')
     var service = {
       show: show,
       update: update

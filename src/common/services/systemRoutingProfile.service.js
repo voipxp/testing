@@ -4,7 +4,7 @@
     .factory('SystemRoutingProfileService', SystemRoutingProfileService)
 
   function SystemRoutingProfileService($http, CacheFactory, Route) {
-    var url = Route.api2('/system/routing-profile')
+    var url = Route.api('/system/routing-profile')
     var cache = CacheFactory('SystemRoutingProfileService')
     var service = { index }
     return service

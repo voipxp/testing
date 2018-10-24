@@ -2,7 +2,7 @@
   angular.module('odin.user').factory('UserBargeInExemptService', Controller)
 
   function Controller($http, Route) {
-    var url = Route.api2('/users/barge-in-exempt')
+    var url = Route.api('/users/barge-in-exempt')
     var service = {
       show: show,
       update: update

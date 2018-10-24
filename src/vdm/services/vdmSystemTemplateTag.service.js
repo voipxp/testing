@@ -3,7 +3,7 @@
 
   function Service($http, Route) {
     var service = { index, update, store }
-    var url = Route.api2('/vdm/system/templates/tags')
+    var url = Route.api('/vdm/system/templates/tags')
     return service
 
     function index(templateId) {

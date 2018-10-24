@@ -2,7 +2,7 @@
   angular.module('odin.user').factory('UserSequentialRingService', Service)
 
   function Service($http, Route) {
-    var url = Route.api2('/users/sequential-ring')
+    var url = Route.api('/users/sequential-ring')
     var service = { show: show, update: update }
     service.options = {
       numberOfRings: [

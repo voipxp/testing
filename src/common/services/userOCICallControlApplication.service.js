@@ -5,7 +5,7 @@
 
   function Service($http, Route) {
     var service = { show, update }
-    var url = Route.api2('/users/call-control/applications')
+    var url = Route.api('/users/call-control/applications')
     return service
 
     function show(userId) {
