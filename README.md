@@ -1,3 +1,6 @@
+[![Build Status](https://drone.odinapi.net/api/badges/parkbenchsolutions/odinapi/status.svg)](https://drone.odinapi.net/api/badges/parkbenchsolutions/odinapi/status.svg)
+
+
 # ODiN Web
 
 Odin API Frontend.
