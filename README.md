@@ -1,4 +1,4 @@
-[![Build Status](https://drone.odinapi.net/api/badges/parkbenchsolutions/odinapi/status.svg)](https://drone.odinapi.net/api/badges/parkbenchsolutions/odinapi/status.svg)
+[![Build Status](https://drone.odinapi.net/api/badges/parkbenchsolutions/odinweb/status.svg)](https://drone.odinapi.net/api/badges/parkbenchsolutions/odinweb)
 
 
 # ODiN Web
