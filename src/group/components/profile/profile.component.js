@@ -6,8 +6,6 @@
 
   function Controller(
     GroupService,
-    GroupDomainService,
-    SystemTimeZoneService,
     Alert,
     GroupNumberService,
     $q,

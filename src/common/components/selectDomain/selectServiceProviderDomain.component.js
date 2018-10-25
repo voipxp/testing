@@ -1,34 +1,31 @@
-;(function() {
+;(() => {
+  const template = `
+  <pbs-input-select ng-model="$ctrl.ngModel"
+    loading="$ctrl.loading"
+    ng-options="domain as domain for domain in $ctrl.domains.domains"
+    ng-required="$ctrl.ngRequired">
+    <option ng-if="!$ctrl.ngRequired"
+      value="">None</option>
+  </pbs-input-select>
+  `
+
+  function controller(Alert, ServiceProviderDomainService) {
+    this.$onInit = () => {
+      this.loading = true
+      ServiceProviderDomainService.index(this.serviceProviderId)
+        .then(data => (this.domais = data))
+        .catch(Alert.notify.danger)
+        .finally(() => (this.loading = false))
+    }
+  }
+
   angular.module('odin.common').component('selectServiceProviderDomain', {
-    templateUrl:
-      'common/components/selectDomain/selectServiceProviderDomain.component.html',
-    controller: Controller,
+    template,
+    controller,
     bindings: {
       serviceProviderId: '<',
       ngRequired: '<',
       ngModel: '='
     }
   })
-
-  function Controller(Alert, ServiceProviderDomainService) {
-    var ctrl = this
-    ctrl.$onInit = onInit
-
-    function onInit() {
-      ctrl.loading = true
-      loadDomains()
-        .catch(Alert.notify.danger)
-        .finally(function() {
-          ctrl.loading = false
-        })
-    }
-
-    function loadDomains() {
-      return ServiceProviderDomainService.index(ctrl.serviceProviderId).then(
-        function(data) {
-          ctrl.domains = data
-        }
-      )
-    }
-  }
 })()

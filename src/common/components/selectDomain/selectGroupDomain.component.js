@@ -1,8 +1,27 @@
-;(function() {
+;(() => {
+  const template = `
+  <pbs-input-select ng-model="$ctrl.ngModel"
+    loading="$ctrl.loading"
+    ng-options="domain as domain for domain in $ctrl.domains.domains"
+    ng-required="$ctrl.ngRequired">
+    <option ng-if="!$ctrl.ngRequired"
+      value="">None</option>
+  </pbs-input-select>
+  `
+
+  function controller(Alert, GroupDomainService) {
+    this.$onInit = () => {
+      this.loading = true
+      GroupDomainService.index(this.serviceProviderId, this.groupId)
+        .then(data => (this.domains = data))
+        .catch(Alert.notify.danger)
+        .finally(() => (this.loading = false))
+    }
+  }
+
   angular.module('odin.common').component('selectGroupDomain', {
-    templateUrl:
-      'common/components/selectDomain/selectGroupDomain.component.html',
-    controller: Controller,
+    template,
+    controller,
     bindings: {
       serviceProviderId: '<',
       groupId: '<',
@@ -10,27 +29,4 @@
       ngModel: '='
     }
   })
-
-  function Controller(Alert, GroupDomainService) {
-    var ctrl = this
-    ctrl.$onInit = onInit
-
-    function onInit() {
-      ctrl.loading = true
-      loadDomains()
-        .catch(Alert.notify.danger)
-        .finally(function() {
-          ctrl.loading = false
-        })
-    }
-
-    function loadDomains() {
-      return GroupDomainService.index(
-        ctrl.serviceProviderId,
-        ctrl.groupId
-      ).then(function(data) {
-        ctrl.domains = data
-      })
-    }
-  }
 })()
