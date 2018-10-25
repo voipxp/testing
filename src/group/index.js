@@ -26,7 +26,7 @@
       acl: 'Group'
     },
     {
-      path: 'deviceTypes/:deviceType',
+      path: 'deviceTypes/deviceType',
       component: 'groupDeviceType',
       acl: 'Group'
     },

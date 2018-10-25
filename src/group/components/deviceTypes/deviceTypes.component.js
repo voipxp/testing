@@ -30,13 +30,22 @@
     }
 
     function open(deviceType) {
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'deviceTypes',
-        deviceType
-      )
+      if (deviceType) {
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'deviceTypes',
+          'deviceType'
+        ).search({ deviceType })
+      } else {
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'deviceTypes'
+        )
+      }
     }
   }
 })()
