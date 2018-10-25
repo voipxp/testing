@@ -1,7 +1,6 @@
-<pbs-block title="Details"
-  class="margin-top">
+<pbs-block title="Settings">
   <pbs-block-buttons if-module-update="$ctrl.parent.module">
-    <pbs-button-compact-edit title="Edit Details"
+    <pbs-button-compact-edit title="Edit Settings"
       ng-click="$ctrl.edit()">
     </pbs-button-compact-edit>
   </pbs-block-buttons>
@@ -22,7 +21,8 @@
       <pbs-check-box checked="$ctrl.parent.bridge.allowIndividualOutDial"></pbs-check-box>
     </pbs-list-item>
     <pbs-list-item label="Scheduled Conference Limit">
-      {{ $ctrl.parent.bridge.maxScheduledConferenceDurationMinutes.hours }} hours {{ $ctrl.parent.bridge.maxScheduledConferenceDurationMinutes.minutes
+      {{ $ctrl.parent.bridge.maxScheduledConferenceDurationMinutes.hours }} hours {{
+      $ctrl.parent.bridge.maxScheduledConferenceDurationMinutes.minutes
       }} minutes
     </pbs-list-item>
     <pbs-list-item label="Conference Limit Enabled">
@@ -30,7 +30,8 @@
     </pbs-list-item>
     <pbs-list-item label="Conference Limit"
       ng-show="$ctrl.parent.bridge.enableMaxConferenceDuration">
-      {{ $ctrl.parent.bridge.maxConferenceDurationMinutes.hours }} hours {{ $ctrl.parent.bridge.maxConferenceDurationMinutes.minutes
+      {{ $ctrl.parent.bridge.maxConferenceDurationMinutes.hours }} hours {{
+      $ctrl.parent.bridge.maxConferenceDurationMinutes.minutes
       }} minutes
     </pbs-list-item>
     <pbs-list-item label="Play Warning Prompt">
@@ -53,7 +54,8 @@
         ng-model="$ctrl.bridge.allocatedPorts"
         max="{{ $ctrl.ports.availablePorts === -1 ? '999999' : $ctrl.ports.availablePorts }}"
         min="-1">
-      <small ng-show="$ctrl.ports.availablePorts">(max: {{ $ctrl.ports.availablePorts === -1 ? 'Unlimited' : $ctrl.ports.availablePorts }})</small>
+      <small ng-show="$ctrl.ports.availablePorts">(max: {{ $ctrl.ports.availablePorts === -1 ? 'Unlimited' :
+        $ctrl.ports.availablePorts }})</small>
     </pbs-form-field>
 
     <pbs-form-field label="Security PIN Length">

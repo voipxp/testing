@@ -9,7 +9,6 @@
     Alert,
     Route,
     $routeParams,
-    $location,
     VdmGroupTemplateService,
     Module,
     $q
@@ -19,11 +18,11 @@
     ctrl.groupId = $routeParams.groupId
     ctrl.templateId = $routeParams.templateId
     ctrl.deviceName = $routeParams.deviceName
+    ctrl.templateName = $routeParams.name
     ctrl.$onInit = onInit
     ctrl.open = open
 
     function onInit() {
-      ctrl.templateName = $location.search().name
       ctrl.loading = true
       $q.all([loadTemplate(), loadPermissions()])
         .catch(Alert.notify.danger)

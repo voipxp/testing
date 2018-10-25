@@ -287,7 +287,7 @@
       module: 'Meet-Me Conferencing'
     },
     {
-      path: 'meetMe/:serviceUserId',
+      path: 'meetMe/bridge',
       component: 'meetMeBridge',
       acl: 'Group',
       module: 'Meet-Me Conferencing'

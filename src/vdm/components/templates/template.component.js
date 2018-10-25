@@ -10,20 +10,19 @@
     Route,
     VdmGroupTemplateService,
     VdmSystemTemplateService,
-    $routeParams,
-    $location
+    $routeParams
   ) {
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
     ctrl.id = $routeParams.id
+    ctrl.templateName = $routeParams.name
     ctrl.back = back
     ctrl.$onInit = onInit
     ctrl.update = update
     ctrl.destroy = destroy
 
     function onInit() {
-      ctrl.templateName = $location.search().name
       ctrl.loading = true
       loadTemplate()
         .catch(Alert.notify.danger)

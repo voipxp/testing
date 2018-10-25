@@ -9,7 +9,6 @@
     $routeParams,
     Alert,
     Route,
-    $q,
     GroupMeetMeConferencingBridgeService,
     Session
   ) {

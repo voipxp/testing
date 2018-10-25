@@ -4,7 +4,7 @@
     controller: Controller
   })
 
-  function Controller(Alert, BulkImportService, $location) {
+  function Controller(BulkImportService, $location) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.wizardReady = wizardReady

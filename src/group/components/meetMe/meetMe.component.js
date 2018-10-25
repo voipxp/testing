@@ -14,7 +14,17 @@
     ctrl.state = 'list'
 
     function open(groupId, bridgeId) {
-      Route.open('groups', ctrl.serviceProviderId, groupId, 'meetMe', bridgeId)
+      if (bridgeId) {
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          groupId,
+          'meetMe',
+          'bridge'
+        ).search({ serviceUserId: bridgeId })
+      } else {
+        Route.open('groups', ctrl.serviceProviderId, groupId, 'meetMe')
+      }
     }
   }
 })()

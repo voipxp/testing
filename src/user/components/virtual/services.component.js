@@ -19,7 +19,8 @@
       'Client Call Control',
       'Directory Number Hunting',
       'Virtual On-Net Enterprise Extensions',
-      'Enhanced Call Logs'
+      'Enhanced Call Logs',
+      'Calling Party Category'
     ]
 
     function onInit() {
