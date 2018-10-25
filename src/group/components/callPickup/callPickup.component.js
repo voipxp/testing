@@ -10,14 +10,13 @@
     GroupCallPickupService,
     $routeParams,
     Route,
-    Module,
-    $location
+    Module
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.name = $location.search().name
+    ctrl.name = $routeParams.name
     ctrl.open = open
     ctrl.edit = edit
     ctrl.users = users

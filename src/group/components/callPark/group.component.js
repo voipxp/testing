@@ -11,14 +11,13 @@
     GroupCallParkService,
     GroupCallParkGroupService,
     Route,
-    Module,
-    $location
+    Module
   ) {
     var ctrl = this
 
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.name = $location.search().name
+    ctrl.name = $routeParams.name
     ctrl.open = open
     ctrl.options = GroupCallParkGroupService.options
     ctrl.$onInit = onInit

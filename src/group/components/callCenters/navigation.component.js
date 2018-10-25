@@ -5,11 +5,11 @@
     bindings: { module: '<' }
   })
 
-  function Controller($routeParams, $location, Route) {
+  function Controller($routeParams, Route) {
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.serviceUserId = $location.search().serviceUserId
+    ctrl.serviceUserId = $routeParams.serviceUserId
     ctrl.open = open
 
     // TODO

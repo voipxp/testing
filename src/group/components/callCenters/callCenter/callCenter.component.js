@@ -8,7 +8,6 @@
 
   function Controller(
     $routeParams,
-    $location,
     Route,
     Alert,
     GroupCallCenterService,
@@ -18,7 +17,7 @@
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.serviceUserId = $location.search().serviceUserId
+    ctrl.serviceUserId = $routeParams.serviceUserId
     ctrl.$onInit = activate
     ctrl.update = update
     ctrl.updateProfile = updateProfile

@@ -17,8 +17,8 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         'paging',
-        serviceUserId
-      )
+        'group'
+      ).search({ serviceUserId: serviceUserId })
     }
   }
 })()

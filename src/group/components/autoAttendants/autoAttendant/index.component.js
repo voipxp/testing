@@ -6,16 +6,10 @@
     bindings: { module: '<' }
   })
 
-  function Controller(
-    $routeParams,
-    Alert,
-    GroupAutoAttendantService,
-    Route,
-    $location
-  ) {
+  function Controller($routeParams, Alert, GroupAutoAttendantService, Route) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.serviceUserId = $location.search().serviceUserId
+    ctrl.serviceUserId = $routeParams.serviceUserId
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
     ctrl.back = back

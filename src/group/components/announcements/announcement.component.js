@@ -9,8 +9,7 @@
     GroupAnnouncementService,
     Route,
     $scope,
-    $routeParams,
-    $location
+    $routeParams
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -20,8 +19,8 @@
     ctrl.onDelete = onDelete
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.name = $location.search().name
-    ctrl.mediaType = $location.search().mediaType
+    ctrl.name = $routeParams.name
+    ctrl.mediaType = $routeParams.mediaType
 
     function onInit() {
       ctrl.loading = true

@@ -263,7 +263,7 @@
       module: 'Group Paging'
     },
     {
-      path: 'paging/:serviceUserId',
+      path: 'paging/group',
       component: 'groupPagingGroup',
       acl: 'Group',
       module: 'Group Paging'

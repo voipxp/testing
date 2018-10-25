@@ -5,13 +5,7 @@
     bindings: { module: '<' }
   })
 
-  function Controller(
-    Alert,
-    GroupMusicOnHoldService,
-    Route,
-    $routeParams,
-    $location
-  ) {
+  function Controller(Alert, GroupMusicOnHoldService, Route, $routeParams) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -21,8 +15,8 @@
     ctrl.back = back
 
     function onInit() {
-      ctrl.departmentName = $location.search().departmentName
-      ctrl.isEnterpriseDepartment = $location.search().isEnterpriseDepartment
+      ctrl.departmentName = $routeParams.departmentName
+      ctrl.isEnterpriseDepartment = $routeParams.isEnterpriseDepartment
       ctrl.title = ctrl.departmentName || 'Group'
       ctrl.loading = true
       loadMoh()

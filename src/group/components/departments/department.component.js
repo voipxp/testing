@@ -4,11 +4,11 @@
     controller: Controller
   })
 
-  function Controller($routeParams, $location, Route) {
+  function Controller($routeParams, Route) {
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.name = $location.search().name
+    ctrl.name = $routeParams.name
 
     ctrl.goBack = function() {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'departments')

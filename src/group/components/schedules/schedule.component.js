@@ -4,13 +4,7 @@
     controller: Controller
   })
 
-  function Controller(
-    $routeParams,
-    $location,
-    Alert,
-    GroupScheduleService,
-    Route
-  ) {
+  function Controller($routeParams, Alert, GroupScheduleService, Route) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -19,8 +13,8 @@
     ctrl.edit = edit
 
     function onInit() {
-      ctrl.type = $location.search().type
-      ctrl.name = $location.search().name
+      ctrl.type = $routeParams.type
+      ctrl.name = $routeParams.name
       ctrl.loading = true
       loadSchedule()
         .catch(Alert.notify.danger)
