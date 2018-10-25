@@ -25,8 +25,7 @@
       module: 'VDM'
     },
     {
-      path:
-        '/groups/:serviceProviderId/:groupId/vdm/templates/:templateId/:deviceName',
+      path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id/device',
       component: 'vdmDevice',
       acl: 'Group',
       module: 'VDM'

@@ -5,7 +5,7 @@
     bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller(Alert, $timeout, DateService) {
+  function Controller(Alert, $timeout) {
     var ctrl = this
     ctrl.edit = edit
     ctrl.select = select
@@ -13,26 +13,26 @@
 
     ctrl.today = {
       label: 'Today',
-      startTime: DateService.dayBegin('today'),
-      endTime: DateService.dayEnd('today')
+      startTime: Sugar.Date.create('beginning of today'),
+      endTime: Sugar.Date.create('end of today')
     }
 
     ctrl.yesterday = {
       label: 'Yesterday',
-      startTime: DateService.dayBegin('1 days ago'),
-      endTime: DateService.dayEnd('1 days ago')
+      startTime: Sugar.Date.create('beginning of yesterday'),
+      endTime: Sugar.Date.create('end of yesterday')
     }
 
-    ctrl.week = {
-      label: 'Last 7',
-      startTime: DateService.dayBegin('6 days ago'),
-      endTime: DateService.dayEnd('today')
+    ctrl.thisWeek = {
+      label: 'This Week',
+      startTime: Sugar.Date.beginningOfISOWeek(Sugar.Date.create('this week')),
+      endTime: Sugar.Date.endOfISOWeek(Sugar.Date.create('this week'))
     }
 
-    ctrl.month = {
-      label: 'Last 30',
-      startTime: DateService.dayBegin('29 days ago'),
-      endTime: DateService.dayEnd('today')
+    ctrl.lastWeek = {
+      label: 'Last Week',
+      startTime: Sugar.Date.beginningOfISOWeek(Sugar.Date.create('last week')),
+      endTime: Sugar.Date.endOfISOWeek(Sugar.Date.create('last week'))
     }
 
     function edit() {

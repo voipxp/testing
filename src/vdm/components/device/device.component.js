@@ -16,7 +16,7 @@
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
-    ctrl.templateId = $routeParams.templateId
+    ctrl.templateId = $routeParams.id
     ctrl.deviceName = $routeParams.deviceName
     ctrl.templateName = $routeParams.name
     ctrl.$onInit = onInit

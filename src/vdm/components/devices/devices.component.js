@@ -136,8 +136,8 @@
         'vdm',
         'templates',
         device.template.id,
-        device.deviceName
-      ).search({ name: device.template.name })
+        'device'
+      ).search({ deviceName: device.deviceName, name: device.template.name })
     }
   }
 })()

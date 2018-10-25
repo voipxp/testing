@@ -35,16 +35,16 @@
   <pbs-columns>
     <pbs-column>
       <user-call-record-chart user-id="$ctrl.userId"
-        start-time="$ctrl.week.startTime"
-        end-time="$ctrl.week.endTime"
-        label="$ctrl.week.label"
+        start-time="$ctrl.thisWeek.startTime"
+        end-time="$ctrl.thisWeek.endTime"
+        label="$ctrl.thisWeek.label"
         on-click="$ctrl.select($event)"></user-call-record-chart>
     </pbs-column>
     <pbs-column>
       <user-call-record-chart user-id="$ctrl.userId"
-        start-time="$ctrl.month.startTime"
-        end-time="$ctrl.month.endTime"
-        label="$ctrl.month.label"
+        start-time="$ctrl.lastWeek.startTime"
+        end-time="$ctrl.lastWeek.endTime"
+        label="$ctrl.lastWeek.label"
         on-click="$ctrl.select($event)"></user-call-record-chart>
     </pbs-column>
   </pbs-columns>

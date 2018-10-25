@@ -22,11 +22,6 @@
       acl: 'User'
     },
     {
-      path: 'announcements/:name/:mediaType',
-      component: 'userAnnouncementPage',
-      acl: 'User'
-    },
-    {
       path: 'anonymousCallRejection',
       component: 'userAnonymousCallRejectionIndex',
       acl: 'User',
@@ -65,12 +60,6 @@
     {
       path: 'premiumCallRecords',
       component: 'userCallRecordIndex',
-      acl: 'User',
-      module: 'Premium Call Records'
-    },
-    {
-      path: 'premiumCallRecords/:startTime/:endTime',
-      component: 'userCallRecordSearch',
       acl: 'User',
       module: 'Premium Call Records'
     },
