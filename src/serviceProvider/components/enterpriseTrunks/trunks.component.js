@@ -38,6 +38,7 @@
         ctrl.serviceProviderId
       ).then(function(data) {
         ctrl.trunks = data
+        console.log('trunks', data)
         return data
       })
     }
@@ -48,12 +49,20 @@
 
     function open(trunk) {
       var trunkName = (trunk && trunk.enterpriseTrunkName) || trunk
-      Route.open(
-        'serviceProviders',
-        ctrl.serviceProviderId,
-        'enterpriseTrunks',
-        trunkName
-      )
+      if (trunkName) {
+        Route.open(
+          'serviceProviders',
+          ctrl.serviceProviderId,
+          'enterpriseTrunks',
+          'enterpriseTrunk'
+        ).search({ trunkName })
+      } else {
+        Route.open(
+          'serviceProviders',
+          ctrl.serviceProviderId,
+          'enterpriseTrunks'
+        )
+      }
     }
 
     function add() {

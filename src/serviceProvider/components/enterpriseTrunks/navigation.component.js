@@ -15,13 +15,21 @@
     ctrl.open = open
 
     function open(trunk) {
-      var trunkName = (trunk && trunk.enterpriseTrunk) || trunk
-      Route.open(
-        'serviceProviders',
-        ctrl.serviceProviderId,
-        'enterpriseTrunks',
-        trunkName
-      )
+      var trunkName = (trunk && trunk.enterpriseTrunkName) || trunk
+      if (trunkName) {
+        Route.open(
+          'serviceProviders',
+          ctrl.serviceProviderId,
+          'enterpriseTrunks',
+          'enterpriseTrunk'
+        ).search({ trunkName })
+      } else {
+        Route.open(
+          'serviceProviders',
+          ctrl.serviceProviderId,
+          'enterpriseTrunks'
+        )
+      }
     }
   }
 })()

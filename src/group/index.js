@@ -335,12 +335,6 @@
       module: 'Premium Call Records'
     },
     {
-      path: 'callRecords/group/:startTime/:endTime',
-      component: 'groupCallRecordSearch',
-      acl: 'Group',
-      module: 'Premium Call Records'
-    },
-    {
       path: 'reports/users',
       component: 'usersReport',
       acl: 'Group',

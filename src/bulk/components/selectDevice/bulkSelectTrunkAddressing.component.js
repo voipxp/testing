@@ -46,7 +46,7 @@
     }
 
     function onSelectEnterpriseTrunk(event) {
-      var name = _.get(event, 'trunk.enterpriseTrunk')
+      var name = _.get(event, 'trunk.enterpriseTrunkName')
       if (name) {
         _.set(ctrl, 'trunkAddressing.enterpriseTrunkName', name)
       } else {

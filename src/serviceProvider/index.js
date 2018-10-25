@@ -32,7 +32,7 @@
       module: 'Trunk Group'
     },
     {
-      path: 'enterpriseTrunks/:trunkName',
+      path: 'enterpriseTrunks/enterpriseTrunk',
       component: 'enterpriseEnterpriseTrunk',
       acl: 'Service Provider',
       module: 'Trunk Group'

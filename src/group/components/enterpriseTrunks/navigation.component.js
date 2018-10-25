@@ -13,7 +13,7 @@
     ctrl.open = open
 
     function open(trunk) {
-      var trunkName = (trunk && trunk.enterpriseTrunk) || trunk
+      var trunkName = (trunk && trunk.enterpriseTrunkName) || trunk
       if (trunkName) {
         Route.open(
           'groups',
