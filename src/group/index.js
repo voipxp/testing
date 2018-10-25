@@ -113,7 +113,7 @@
       acl: 'Group'
     },
     {
-      path: 'collaborate/:serviceUserId',
+      path: 'collaborate/bridge',
       component: 'groupCollaborateBridge',
       acl: 'Group'
     },

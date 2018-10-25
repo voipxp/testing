@@ -79,12 +79,14 @@
         class="input"
         ng-model="$ctrl.addBridge.maxCollaborateRoomParticipants"
         min="$ctrl.options.roomMaximumParticipantsMin"
-        max="$ctrl.options.roomMaximumParticipantsMax">
+        max="$ctrl.options.roomMaximumParticipantsMax"
+        required>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Allocated Ports*">
       <input type="number"
         class="input"
-        ng-model="$ctrl.addBridge.maximumBridgeParticipants">
+        ng-model="$ctrl.addBridge.maximumBridgeParticipants"
+        required>
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

@@ -64,8 +64,8 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         'collaborate',
-        bridge.serviceUserId
-      )
+        'bridge'
+      ).search({ serviceUserId: bridge.serviceUserId })
     }
 
     function add() {

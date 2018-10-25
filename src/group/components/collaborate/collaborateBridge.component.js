@@ -29,27 +29,25 @@
     }
 
     function loadBridge() {
-      return GroupCollaborateService.show(ctrl.serviceUserId).then(function(
-        data
-      ) {
+      return GroupCollaborateService.show(ctrl.serviceUserId).then(data => {
+        console.log('bridge', data)
         ctrl.bridge = data
       })
     }
 
     function edit() {
+      var onDelete = ctrl.bridge.isDefault
+        ? null
+        : close => {
+            Alert.confirm
+              .open('Are you sure you want to delete this Bridge?')
+              .then(() => destroy(ctrl.bridge, close))
+          }
       ctrl.editBridge = angular.copy(ctrl.bridge)
       Alert.modal.open(
         'editGroupCollaborate',
-        function(close) {
-          update(ctrl.editBridge, close)
-        },
-        function(close) {
-          Alert.confirm
-            .open('Are you sure you want to delete this Bridge?')
-            .then(function() {
-              destroy(ctrl.bridge, close)
-            })
-        }
+        close => update(ctrl.editBridge, close),
+        onDelete
       )
     }
 
