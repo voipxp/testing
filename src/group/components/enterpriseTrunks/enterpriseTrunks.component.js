@@ -51,13 +51,22 @@
 
     function open(trunk) {
       var trunkName = (trunk && trunk.enterpriseTrunkName) || trunk
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'enterpriseTrunks',
-        trunkName
-      )
+      if (trunkName) {
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'enterpriseTrunks',
+          'enterpriseTrunk'
+        ).search({ trunkName })
+      } else {
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'enterpriseTrunks'
+        )
+      }
     }
 
     function add() {

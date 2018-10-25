@@ -239,7 +239,7 @@
       module: 'Trunk Group'
     },
     {
-      path: 'enterpriseTrunks/:trunkName',
+      path: 'enterpriseTrunks/enterpriseTrunk',
       component: 'groupEnterpriseTrunk',
       acl: 'Group',
       module: 'Trunk Group'

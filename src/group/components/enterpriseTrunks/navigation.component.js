@@ -14,13 +14,23 @@
 
     function open(trunk) {
       var trunkName = (trunk && trunk.enterpriseTrunk) || trunk
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'enterpriseTrunks',
-        trunkName
-      )
+      if (trunkName) {
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'enterpriseTrunks',
+          'entepriseTrunk'
+        ).search({ trunkName })
+      } else {
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'enterpriseTrunks',
+          trunkName
+        )
+      }
     }
   }
 })()
