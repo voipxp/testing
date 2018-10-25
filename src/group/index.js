@@ -251,7 +251,7 @@
       module: 'Trunk Group'
     },
     {
-      path: 'trunkGroups/:trunkName',
+      path: 'trunkGroups/trunkGroup',
       component: 'groupTrunkGroup',
       acl: 'Group',
       module: 'Trunk Group'

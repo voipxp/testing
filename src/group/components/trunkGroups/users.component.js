@@ -142,7 +142,7 @@
         ctrl.parent.serviceProviderId,
         ctrl.parent.groupId,
         user.userId
-      ).search({ returnTo: returnTo })
+      ).search({ returnTo })
     }
   }
 })()

@@ -23,10 +23,7 @@ IDEA
     },
     controller: function($location, ACL, Route, $window) {
       this.$onInit = function() {
-        var search = $location.search()
-        this.returnTo = search.returnTo
-        delete search.returnTo
-        $location.search(search)
+        this.returnTo = $location.search().returnTo
       }
       this.has = ACL.has
       this.dashboard = Route.dashboard
@@ -52,7 +49,8 @@ IDEA
         $window.open(this.module.url, '_blank', 'noopener')
       }
       this.return = function() {
-        $location.path(this.returnTo)
+        $window.history.back()
+        // $location.path(this.returnTo)
       }
     }
   })
