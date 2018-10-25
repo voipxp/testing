@@ -31,7 +31,7 @@
       acl: 'System'
     },
     {
-      path: 'networkClassOfServices/:name',
+      path: 'networkClassOfServices/networkClassOfService',
       component: 'systemNetworkClassOfService',
       acl: 'System'
     },

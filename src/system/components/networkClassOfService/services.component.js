@@ -46,7 +46,16 @@
     }
 
     function open(service) {
-      Route.open('system', 'networkClassOfServices', service.name)
+      var name = service && service.name
+      if (name) {
+        Route.open(
+          'system',
+          'networkClassOfServices',
+          'networkClassOfService'
+        ).search({ name })
+      } else {
+        Route.open('system', 'networkClassOfServices')
+      }
     }
 
     function loadProfiles() {
