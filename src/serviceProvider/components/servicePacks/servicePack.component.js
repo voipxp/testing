@@ -57,12 +57,16 @@
     }
 
     function open(servicePackName) {
-      Route.open(
-        'serviceProviders',
-        ctrl.serviceProviderId,
-        'servicePacks',
-        servicePackName
-      )
+      if (servicePackName) {
+        Route.open(
+          'serviceProviders',
+          ctrl.serviceProviderId,
+          'servicePacks',
+          'servicePack'
+        ).search({ servicePackName })
+      } else {
+        Route.open('serviceProviders', ctrl.serviceProviderId, 'servicePacks')
+      }
     }
 
     function edit() {

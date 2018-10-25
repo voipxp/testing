@@ -80,7 +80,7 @@
       acl: 'Service Provider'
     },
     {
-      path: 'servicePacks/:servicePackName',
+      path: 'servicePacks/servicePack',
       component: 'serviceProviderServicePack',
       acl: 'Service Provider'
     },
