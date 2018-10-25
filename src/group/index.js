@@ -275,7 +275,7 @@
       module: 'Hunt Group'
     },
     {
-      path: 'huntGroups/:serviceUserId',
+      path: 'huntGroups/huntGroup',
       component: 'groupHuntGroup',
       acl: 'Group',
       module: 'Hunt Group'

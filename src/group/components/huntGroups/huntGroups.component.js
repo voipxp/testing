@@ -59,8 +59,10 @@
         ctrl.serviceProviderId,
         ctrl.groupId,
         'huntGroups',
-        huntgroup.serviceUserId
-      )
+        'huntGroup'
+      ).search({
+        serviceUserId: huntgroup.serviceUserId
+      })
     }
 
     function add() {
