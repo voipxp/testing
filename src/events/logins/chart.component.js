@@ -17,6 +17,7 @@
     ctrl.open = open
 
     function onChanges(changes) {
+      if (changes.loading || !ctrl.data) return
       if (changes.startTime || changes.endTime) loadData()
     }
 
