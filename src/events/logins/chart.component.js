@@ -30,6 +30,7 @@
     }
 
     function filterData() {
+      ctrl.total = ctrl.data.length || 0
       var logins = {
         System: 0,
         Provisioning: 0,
@@ -40,8 +41,15 @@
       ctrl.data.forEach(item => {
         logins[item.loginType]++
       })
-      ctrl.labels = Object.keys(logins)
+      ctrl.labels = Object.keys(logins).map(label =>
+        generateLabel(label, logins[label], ctrl.total)
+      )
       ctrl.loginData = Object.values(logins)
+    }
+
+    function generateLabel(label, value, total) {
+      var percent = value ? Math.round((value / total) * 100) : 0
+      return label + ' (' + percent + '%' + ')'
     }
 
     function open() {

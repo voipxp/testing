@@ -7,14 +7,13 @@
     <p class="subtitle has-text-centered">
       <span class="thin">Total</span>
       <br>
-      <strong>{{ $ctrl.data.length || 0 }}</strong>
+      <strong>{{ $ctrl.total }}</strong>
     </p>
     <div style="max-width: 800px; text-align: center; margin: auto">
-      <canvas class="chart chart-bar"
+      <canvas class="chart chart-doughnut"
         chart-data="$ctrl.loginData"
         chart-labels="$ctrl.labels"
-        chart-options="$ctrl.options"
-        chart-series="$ctrl.series">
+        chart-options="$ctrl.options">
       </canvas>
     </div>
   </div>
