@@ -3,7 +3,7 @@
 
   function EventService($http, Route) {
     var url = Route.api('/events')
-    var service = { index, show, types }
+    var service = { index, show, types, logins }
     return service
 
     function index(limit) {
@@ -16,6 +16,12 @@
 
     function show(id) {
       return $http.get(url(), { params: { id } }).then(res => res.data)
+    }
+
+    function logins(startTime, endTime) {
+      return $http
+        .get(url('logins'), { params: { startTime, endTime } })
+        .then(res => res.data)
     }
   }
 })()

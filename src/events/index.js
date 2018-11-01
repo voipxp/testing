@@ -6,6 +6,11 @@
       acl: 'Provisioning'
     },
     {
+      path: '/events/logins',
+      component: 'odinUserLoginIndex',
+      acl: 'Provisioning'
+    },
+    {
       path: '/webhooks',
       component: 'odinWebhooks',
       acl: 'Provisioning'

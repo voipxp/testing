@@ -1,0 +1,87 @@
+<div class="card"
+  pbs-margin-bottom>
+  <header class="card-header">
+    <p class="card-header-title"
+      style="font-weight: normal">
+      {{ $ctrl.search.label || 'User Login Dashboard'}}
+    </p>
+    <span class="card-header-icon">
+      <div class="buttons">
+        <pbs-button-compact-cancel ng-click="$ctrl.resetDate()"
+          ng-show="$ctrl.search.label"></pbs-button-compact-cancel>
+        <pbs-button-compact-search ng-click="$ctrl.searchDate()"></pbs-button-compact-search>
+      </div>
+    </span>
+  </header>
+</div>
+
+<pbs-spinner loading="$ctrl.loading">
+
+  <div ng-show="!$ctrl.search.label">
+    <pbs-columns>
+      <pbs-column>
+        <odin-user-login-chart start-time="$ctrl.today.startTime"
+          end-time="$ctrl.today.endTime"
+          label="$ctrl.today.label"
+          on-click="$ctrl.selectDate($event)"></odin-user-login-chart>
+      </pbs-column>
+      <pbs-column>
+        <odin-user-login-chart start-time="$ctrl.yesterday.startTime"
+          end-time="$ctrl.yesterday.endTime"
+          label="$ctrl.yesterday.label"
+          on-click="$ctrl.selectDate($event)"></odin-user-login-chart>
+      </pbs-column>
+    </pbs-columns>
+    <pbs-columns>
+      <pbs-column>
+        <odin-user-login-chart start-time="$ctrl.thisWeek.startTime"
+          end-time="$ctrl.thisWeek.endTime"
+          label="$ctrl.thisWeek.label"
+          on-click="$ctrl.selectDate($event)"></odin-user-login-chart>
+      </pbs-column>
+      <pbs-column>
+        <odin-user-login-chart start-time="$ctrl.lastWeek.startTime"
+          end-time="$ctrl.lastWeek.endTime"
+          label="$ctrl.lastWeek.label"
+          on-click="$ctrl.selectDate($event)"></odin-user-login-chart>
+      </pbs-column>
+    </pbs-columns>
+  </div>
+
+  <pbs-tabs ng-if="$ctrl.search.label"
+    delay="true">
+    <pbs-tab label="Overview">
+      <odin-user-login-chart start-time="$ctrl.search.startTime"
+        end-time="$ctrl.search.endTime"
+        label="$ctrl.search.label"
+        on-click="$ctrl.selectDate($event)"></odin-user-login-chart>
+    </pbs-tab>
+    <pbs-tab label="Raw Data">
+      <odin-user-login-data start-time="$ctrl.search.startTime"
+        end-time="$ctrl.search.endTime"
+        label="$ctrl.search.label"></odin-user-login-data>
+    </pbs-tab>
+  </pbs-tabs>
+</pbs-spinner>
+
+<pbs-modal id="odinUserLoginSearchModal"
+  title="Search User Logins">
+  <pbs-form>
+    <pbs-columns>
+      <pbs-column>
+        <pbs-form-field label="Start Time">
+          <pbs-input-datetime-parse ng-model="$ctrl.editSearch.startTime"
+            ng-required="true">
+          </pbs-input-datetime-parse>
+        </pbs-form-field>
+      </pbs-column>
+      <pbs-column>
+        <pbs-form-field label="End Time">
+          <pbs-input-datetime-parse ng-model="$ctrl.editSearch.endTime"
+            ng-required="true">
+          </pbs-input-datetime-parse>
+        </pbs-form-field>
+      </pbs-column>
+    </pbs-columns>
+  </pbs-form>
+</pbs-modal>

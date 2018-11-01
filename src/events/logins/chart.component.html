@@ -1,0 +1,21 @@
+<pbs-spinner loading="$ctrl.loading">
+  <div class="box">
+    <p class="subtitle has-text-centered">
+      <a href=""
+        ng-click="$ctrl.open()">{{ $ctrl.label }}</a>
+    </p>
+    <p class="subtitle has-text-centered">
+      <span class="thin">Total</span>
+      <br>
+      <strong>{{ $ctrl.data.length || 0 }}</strong>
+    </p>
+    <div style="max-width: 800px; text-align: center; margin: auto">
+      <canvas class="chart chart-bar"
+        chart-data="$ctrl.loginData"
+        chart-labels="$ctrl.labels"
+        chart-options="$ctrl.options"
+        chart-series="$ctrl.series">
+      </canvas>
+    </div>
+  </div>
+</pbs-spinner>
