@@ -24,6 +24,7 @@
     ctrl.toggleOptional = toggleOptional
 
     function onInit() {
+      ctrl.isAdmin = ACL.has('Service Provider')
       ctrl.loading = true
       return loadGroup()
         .catch(function(error) {
@@ -60,28 +61,18 @@
     }
 
     function edit() {
-      var onDelete
-      if (ACL.has('Service Provider')) {
-        onDelete = function(close) {
-          remove(close)
-        }
-      }
+      var onDelete = ctrl.isAdmin ? close => remove(close) : null
       loadHelpers()
-        .then(function() {
+        .then(() => {
           ctrl.editGroup = angular.copy(ctrl.group)
           ctrl.editGroup.groupId = ctrl.groupId
-
           Alert.modal.open(
             'editGroupDetailsModal',
-            function onSave(close) {
-              update(ctrl.editGroup, close)
-            },
+            close => update(ctrl.editGroup, close),
             onDelete
           )
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
     }
 
     function contactSummary() {
