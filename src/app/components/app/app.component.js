@@ -106,10 +106,6 @@
       return (parseInt(Setting.data('sessionTimeout'), 10) || 0) * 60
     }
 
-    $rootScope.$on('$routeUpdate', function(event, route) {
-      console.log('update', route)
-    })
-
     $rootScope.$on('$routeChangeSuccess', function() {
       sendGoogleUA()
     })
