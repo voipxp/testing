@@ -28,7 +28,7 @@
 
     function unassign(serviceProviderId, groupId, dns) {
       return $http
-        .delete(url(), { serviceProviderId, groupId, dns })
+        .delete(url(), { data: { serviceProviderId, groupId, dns } })
         .then(res => res.data)
     }
 
