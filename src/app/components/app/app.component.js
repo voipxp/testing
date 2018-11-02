@@ -55,7 +55,7 @@
     }
 
     function setGoogleUA() {
-      var id = _.get(ctrl.template, 'pageGoogeUA')
+      var id = _.get(ctrl.template, 'pageGoogleUA')
       if (_.isEmpty(id)) return
       $window.ga('create', id, 'auto')
       $window.ga(function(tracker) {
@@ -105,6 +105,10 @@
     function sessionTimeout() {
       return (parseInt(Setting.data('sessionTimeout'), 10) || 0) * 60
     }
+
+    $rootScope.$on('$routeUpdate', function(event, route) {
+      console.log('update', route)
+    })
 
     $rootScope.$on('$routeChangeSuccess', function() {
       sendGoogleUA()
