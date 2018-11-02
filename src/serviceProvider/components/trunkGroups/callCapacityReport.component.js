@@ -28,40 +28,26 @@
         label: 'Group ID'
       },
       {
-        key: 'groupName',
-        label: 'Group Name'
+        key: 'name',
+        label: 'Trunk Name'
       },
       {
-        key: 'userLimit',
-        label: 'User Limit'
+        key: 'maxActiveCalls',
+        label: 'Trunk Group Max Active'
       },
       {
-        key: 'groupTrunkCapacity.maxActiveCalls',
-        label: 'Max Active'
+        key: 'maxIncomingCalls',
+        label: 'Max Incoming Calls'
       },
       {
-        key: 'groupTrunkCapacity.maxAvailableActiveCalls',
-        label: 'Max Available'
+        key: 'maxOutgoingCalls',
+        label: 'Max Outgoing Calls'
       },
       {
-        key: 'groupTrunkCapacity.burstingMaxActiveCalls',
-        label: 'Bursting Max Active'
-      },
-      {
-        key: 'groupTrunkCapacity.burstingMaxAvailableActiveCalls',
-        label: 'Bursting Max Available'
-      },
-      {
-        key: 'service.quantity',
-        label: 'Quantity'
-      },
-      {
-        key: 'service.usage',
-        label: 'Usage'
-      },
-      {
-        key: 'service.allowed',
-        label: 'Allowed'
+        key: 'enableBursting',
+        label: 'Bursting Enabled',
+        type: 'boolean',
+        align: 'centered'
       }
     ]
 
@@ -83,20 +69,26 @@
     }
 
     function loadCallCapacityReport() {
-      return ServiceProviderTrunkGroupCallCapacityReportService.index(
+      return ServiceProviderTrunkGroupCallCapacityReportService.show(
         ctrl.serviceProviderId
       ).then(function(data) {
         ctrl.settings = data
-        var groups = _.map(data.groups, function(group) {
-          group.groupTrunkCapacity.burstingMaxAvailableActiveCalls = displayMax(
-            group.groupTrunkCapacity.burstingMaxAvailableActiveCalls
-          )
-          group.service.quantity = displayMax(group.service.quantity)
-          group.service.allowed = displayMax(group.service.allowed)
-          return group
-        })
-
-        ctrl.settings.groups = groups
+        var groupTrunkGroupDetails = _.map(
+          data.groupTrunkGroupDetails,
+          function(groupTrunkGroupDetails) {
+            groupTrunkGroupDetails.burstingMaxAvailableActiveCalls = displayMax(
+              groupTrunkGroupDetails.burstingMaxAvailableActiveCalls
+            )
+            groupTrunkGroupDetails.quantity = displayMax(
+              groupTrunkGroupDetails.quantity
+            )
+            groupTrunkGroupDetails.allowed = displayMax(
+              groupTrunkGroupDetails.allowed
+            )
+            return groupTrunkGroupDetails
+          }
+        )
+        ctrl.settings.groups = groupTrunkGroupDetails
         return data
       })
     }
