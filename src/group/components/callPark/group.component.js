@@ -11,7 +11,8 @@
     GroupCallParkService,
     GroupCallParkGroupService,
     Route,
-    Module
+    Module,
+    $route
   ) {
     var ctrl = this
 
@@ -112,7 +113,7 @@
       GroupCallParkGroupService.update(group)
         .then(function() {
           return group.newName && group.newName !== ctrl.group.name
-            ? open(group.newName)
+            ? open(group.newName) && $route.reload()
             : loadGroup()
         })
         .then(function() {

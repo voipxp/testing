@@ -47,7 +47,10 @@
     }
     function open() {
       var parts = Array.prototype.slice.call(arguments)
-      return $location.path(_.compact(parts).join('/')).search({})
+      return $location
+        .path(_.compact(parts).join('/'))
+        .search({})
+        .hash(null)
     }
     // redirect to login
     function login() {

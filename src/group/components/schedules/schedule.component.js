@@ -4,7 +4,13 @@
     controller: Controller
   })
 
-  function Controller($routeParams, Alert, GroupScheduleService, Route) {
+  function Controller(
+    $routeParams,
+    Alert,
+    GroupScheduleService,
+    Route,
+    $route
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -58,7 +64,9 @@
         .then(function() {
           Alert.notify.success('Schedule Updated')
           callback()
-          open(schedule)
+          schedule.newName === ctrl.name
+            ? loadSchedule()
+            : open(schedule) && $route.reload()
         })
         .catch(Alert.notify.danger)
         .finally(Alert.spinner.close)
@@ -81,7 +89,7 @@
     }
 
     function open(schedule) {
-      Route.open(
+      return Route.open(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,

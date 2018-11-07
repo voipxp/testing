@@ -1,9 +1,11 @@
-<user-announcement ng-if="$ctrl.selectedAnnouncement"
-  user-id="$ctrl.userId"
-  name="$ctrl.selectedAnnouncement.name"
-  media-type="$ctrl.selectedAnnouncement.mediaType"
-  on-update="$ctrl.onUpdate($event)"
-  on-delete="$ctrl.onDelete($event)"></user-announcement>
+<div ng-if="$ctrl.selectedAnnouncement">
+  <pbs-cancel ng-click="$ctrl.open()"></pbs-cancel>
+  <user-announcement user-id="$ctrl.userId"
+    name="$ctrl.selectedAnnouncement.name"
+    media-type="$ctrl.selectedAnnouncement.mediaType"
+    on-update="$ctrl.onUpdate($event)"
+    on-delete="$ctrl.onDelete($event)"></user-announcement>
+</div>
 
 <pbs-spinner loading="$ctrl.loading"
   ng-if="!$ctrl.selectedAnnouncement">

@@ -9,7 +9,8 @@
     GroupAnnouncementService,
     Route,
     $scope,
-    $routeParams
+    $routeParams,
+    $route
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -17,12 +18,12 @@
     ctrl.edit = edit
     ctrl.onUpdate = onUpdate
     ctrl.onDelete = onDelete
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.name = $routeParams.name
-    ctrl.mediaType = $routeParams.mediaType
 
     function onInit() {
+      ctrl.serviceProviderId = $routeParams.serviceProviderId
+      ctrl.groupId = $routeParams.groupId
+      ctrl.name = $routeParams.name
+      ctrl.mediaType = $routeParams.mediaType
       ctrl.loading = true
       return loadAnnouncement()
         .catch(function(error) {
@@ -68,7 +69,7 @@
     function onUpdate(event) {
       return event.announcement.newName === ctrl.announcement.name
         ? onInit()
-        : open(event.announcement)
+        : open(event.announcement) && $route.reload()
     }
 
     function onDelete() {

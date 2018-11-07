@@ -26,7 +26,7 @@
     template: template,
     transclude: true,
     bindings: { delay: '<' },
-    controller: function($timeout, $window) {
+    controller: function($timeout, $window, $location) {
       var ctrl = this
       ctrl.$onInit = onInit
       ctrl.$postLink = postLink
@@ -53,14 +53,31 @@
           })
         })
         $timeout(function() {
+          $location.hash(generateHash(item))
           item.selected = true
           $window.scrollTo(0, 0)
         }, 1)
       }
 
+      function generateHash(item) {
+        return `${item.section}:${item.label}`
+      }
+
+      function parseHash(hash) {
+        const split = hash.split(':')
+        return { _section: split[0], _item: split[1] }
+      }
+
       function postLink() {
-        var item = _.get(ctrl.sections, '0.items.0')
-        select(item)
+        const { _section, _item } = parseHash($location.hash())
+        var item
+        if (_section && _item) {
+          var section = ctrl.sections.find(s => s.label === _section)
+          if (section) {
+            item = section.items.find(i => i.label === _item)
+          }
+        }
+        select(item || _.get(ctrl.sections, '0.items.0'))
       }
     }
   })

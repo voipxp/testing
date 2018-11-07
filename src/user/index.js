@@ -6,6 +6,11 @@
       acl: 'User'
     },
     {
+      path: 'dashboard',
+      component: 'userDashboard2',
+      acl: 'User'
+    },
+    {
       path: 'profile',
       component: 'userProfileIndex',
       acl: 'User'

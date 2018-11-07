@@ -10,7 +10,8 @@
     GroupCallPickupService,
     $routeParams,
     Route,
-    Module
+    Module,
+    $route
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -88,7 +89,7 @@
 
     function open(name) {
       if (name) {
-        Route.open(
+        return Route.open(
           'groups',
           ctrl.serviceProviderId,
           ctrl.groupId,
@@ -96,7 +97,12 @@
           'group'
         ).search({ name: name })
       } else {
-        Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPickup')
+        return Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'callPickup'
+        )
       }
     }
 
@@ -105,7 +111,7 @@
       GroupCallPickupService.update(group)
         .then(function() {
           return group.newName && group.newName !== ctrl.group.name
-            ? open(group.newName)
+            ? open(group.newName) && $route.reload()
             : loadGroup()
         })
         .then(function() {

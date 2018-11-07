@@ -9,10 +9,9 @@
     }
   })
 
-  function Controller(GroupDepartmentService, Alert, Route) {
+  function Controller(GroupDepartmentService, Alert, Route, $route) {
     var ctrl = this
     ctrl.$onInit = onInit
-    ctrl.$onChanges = onChanges
     ctrl.edit = edit
     ctrl.selectPhoneNumber = selectPhoneNumber
 
@@ -25,18 +24,6 @@
         .finally(function() {
           ctrl.loading = false
         })
-    }
-
-    function onChanges(changes) {
-      if (changes.serviceProviderId) {
-        ctrl.serviceProviderId = changes.serviceProviderId.currentValue
-      }
-      if (changes.groupId) {
-        ctrl.groupId = changes.groupId.currentValue
-      }
-      if (changes.name) {
-        ctrl.name = changes.name.currentValue
-      }
     }
 
     function loadDepartment() {
@@ -69,7 +56,7 @@
         .then(function() {
           return department.newName === ctrl.name
             ? loadDepartment()
-            : open(department.newName)
+            : open(department.newName) && $route.reload()
         })
         .then(function() {
           Alert.notify.success('Department Updated')
@@ -113,7 +100,7 @@
 
     function open(name) {
       if (name) {
-        Route.open(
+        return Route.open(
           'groups',
           ctrl.serviceProviderId,
           ctrl.groupId,
@@ -121,7 +108,7 @@
           'department'
         ).search({ name: name })
       } else {
-        Route.open(
+        return Route.open(
           'groups',
           ctrl.serviceProviderId,
           ctrl.groupId,

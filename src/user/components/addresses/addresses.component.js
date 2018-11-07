@@ -1,14 +1,16 @@
 ;(function() {
   angular.module('odin.user').component('userAddresses', {
     templateUrl: 'user/components/addresses/addresses.component.html',
-    controller: Controller
+    controller: Controller,
+    bindings: {
+      userId: '<',
+      serviceProviderId: '<',
+      groupId: '<'
+    }
   })
 
-  function Controller($routeParams, Module) {
+  function Controller(Module) {
     var ctrl = this
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
     ctrl.$onInit = function() {
       Module.show('Provisioning').then(function(module) {
         ctrl.hasProvisioning = module.permissions.read

@@ -18,7 +18,8 @@
       function onInit() {
         ctrl.item = {
           label: ctrl.label,
-          selected: false
+          selected: false,
+          section: ctrl.section.label
         }
         ctrl.section.add(ctrl.item)
       }

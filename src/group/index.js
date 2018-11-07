@@ -52,7 +52,6 @@
     },
     {
       path: 'announcements/announcement',
-      reloadOnSearch: true,
       component: 'groupAnnouncement',
       acl: 'Group'
     },
@@ -180,7 +179,6 @@
     {
       path: 'departments/department',
       component: 'groupDepartment',
-      reloadOnSearch: true,
       acl: 'Group'
     },
     {
@@ -201,7 +199,6 @@
     },
     {
       path: 'autoAttendants/autoAttendant',
-      reloadOnSearch: true,
       component: 'autoAttendant',
       acl: 'Group',
       module: 'Auto Attendant'
@@ -214,7 +211,6 @@
     },
     {
       path: 'callPickup/group',
-      reloadOnSearch: true,
       component: 'groupCallPickup',
       acl: 'Group',
       module: 'Call Pickup'
@@ -227,7 +223,6 @@
     },
     {
       path: 'callPark/group',
-      reloadOnSearch: true,
       component: 'groupCallParkGroup',
       acl: 'Group',
       module: 'Call Park'
@@ -359,7 +354,6 @@
     },
     {
       path: 'schedules/schedule',
-      reloadOnSearch: true,
       component: 'groupSchedule',
       acl: 'Group'
     },

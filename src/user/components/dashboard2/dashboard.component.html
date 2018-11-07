@@ -1,0 +1,52 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  user-id="$ctrl.userId">
+</pbs-navigation>
+
+<pbs-menu>
+  <pbs-menu-section label="Reporting">
+    <pbs-menu-item label="Basic Call Logs">
+      <user-basic-call-logs user-id="$ctrl.userId"></user-basic-call-logs>
+    </pbs-menu-item>
+    <pbs-menu-item label="Premium Call Records">
+      <user-call-record-dashboard service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"></user-call-record-dashboard>
+    </pbs-menu-item>
+  </pbs-menu-section>
+  <pbs-menu-section label="Management">
+    <pbs-menu-item label="Announcements">
+      <user-announcements user-id="$ctrl.userId"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"></user-announcements>
+    </pbs-menu-item>
+    <pbs-menu-item label="Services">
+      <p>Services</p>
+    </pbs-menu-item>
+  </pbs-menu-section>
+  <pbs-menu-section label="Provisioning">
+    <pbs-menu-item label="Addresses">
+      <user-addresses user-id="$ctrl.userId"
+        group-id="$ctrl.groupId"
+        service-provider-id="$ctrl.serviceProviderId"></user-addresses>
+    </pbs-menu-item>
+    <pbs-menu-item label="User Services">
+      <user-services service-type="userServices"
+        user-id="$ctrl.userId">
+      </user-services>
+    </pbs-menu-item>
+    <pbs-menu-item label="Service Packs">
+      <user-services service-type="servicePackServices"
+        user-id="$ctrl.userId">
+      </user-services>
+    </pbs-menu-item>
+    <pbs-menu-item label="Calling Plans">
+      <user-calling-plans user-id="$ctrl.userId"
+        group-id="$ctrl.groupId"
+        service-provider-id="$ctrl.serviceProviderId"></user-calling-plans>
+    </pbs-menu-item>
+    <pbs-menu-item label="Passwords">
+      <p>Passwords</p>
+    </pbs-menu-item>
+  </pbs-menu-section>
+</pbs-menu>
