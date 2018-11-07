@@ -58,10 +58,10 @@
         return _.find(ctrl.selectedUsers, { userId: item.userId })
       })
       var placed = ctrl.data.reduce(function(sum, user) {
-        return sum + parseInt(user.inboundCalls, 10) || 0
+        return sum + parseInt(user.outboundCalls, 10) || 0
       }, 0)
       var received = ctrl.data.reduce(function(sum, user) {
-        return sum + parseInt(user.outboundCalls, 10) || 0
+        return sum + parseInt(user.inboundCalls, 10) || 0
       }, 0)
       var total = placed + received
       ctrl.labels = ['Placed', 'Received']
