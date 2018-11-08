@@ -3,39 +3,84 @@
   user-id="$ctrl.userId">
 </pbs-navigation>
 
-<pbs-spinner loading="$ctrl.loading">
-  <div class="columns">
-    <div class="column"
-      ng-if="$ctrl.isAdmin">
-      <pbs-dashboard-cards title="Provisioning"
-        cards="$ctrl.cards"
-        search="$ctrl.search"
-        filter="{type: 'provisioning', active: true}"></pbs-dashboard-cards>
-    </div>
-    <div class="column"
-      ng-if="$ctrl.showQuick">
+<pbs-menu sort="false">
+  <pbs-menu-section label="Dashboard">
+    <pbs-menu-item label="Basic Call Records">
+      <user-basic-call-logs user-id="$ctrl.userId"></user-basic-call-logs>
+    </pbs-menu-item>
+    <pbs-menu-item label="Feature Quick Set">
       <user-quick-set service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
         user-id="$ctrl.userId"></user-quick-set>
-    </div>
-    <div class="column"
-      ng-if="$ctrl.showCalls">
-      <user-basic-call-logs-panel service-provider-id="$ctrl.serviceProviderId"
+    </pbs-menu-item>
+    <pbs-menu-item label="Premium Call Records">
+      <user-call-record-dashboard service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
-        user-id="$ctrl.userId"
-        limit-to="8"></user-basic-call-logs-panel>
-      <pbs-dashboard-cards class="margin-top"
-        title="Call Records"
-        cards="$ctrl.cards"
-        search="$ctrl.search"
-        filter="{type: 'callRecords', active: true}"></pbs-dashboard-cards>
-    </div>
-    <div class="column">
-      <pbs-dashboard-cards title="Services"
-        cards="$ctrl.cards"
-        search="$ctrl.search"
-        limit-to="9"
-        filter="{type: 'service', active: true}"></pbs-dashboard-cards>
-    </div>
-  </div>
-</pbs-spinner>
+        user-id="$ctrl.userId"></user-call-record-dashboard>
+    </pbs-menu-item>
+    <pbs-menu-item label="My Profile">
+      <user-profile user-id="$ctrl.userId"></user-profile>
+    </pbs-menu-item>
+    <pbs-menu-item label="My Passwords">
+      <user-password user-id="$ctrl.userId"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"></user-password>
+      <user-portal-passcode user-id="$ctrl.userId"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"></user-portal-passcode>
+    </pbs-menu-item>
+  </pbs-menu-section>
+  <pbs-menu-section label="Management">
+    <pbs-menu-item label="Announcements">
+      <user-announcements user-id="$ctrl.userId"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"></user-announcements>
+    </pbs-menu-item>
+    <pbs-menu-item label="Services">
+      <user-services-dashboard user-id="$ctrl.userId"
+        group-id="$ctrl.groupId"
+        service-provider-id="$ctrl.serviceProviderId"></user-services-dashboard>
+    </pbs-menu-item>
+    <pbs-menu-item label="Meet-Me Conferences">
+      <user-meet-me-conferencing-conferences user-id="$ctrl.userId"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"></user-meet-me-conferencing-conferences>
+    </pbs-menu-item>
+  </pbs-menu-section>
+  <pbs-menu-section label="Provisioning"
+    ng-if="$ctrl.isAdmin">
+    <pbs-menu-item label="Number and Device">
+      <user-addresses user-id="$ctrl.userId"
+        group-id="$ctrl.groupId"
+        service-provider-id="$ctrl.serviceProviderId"></user-addresses>
+    </pbs-menu-item>
+    <pbs-menu-item label="Authorization Codes">
+      <user-communication-barring-authorization-codes user-id="$ctrl.userId"></user-communication-barring-authorization-codes>
+    </pbs-menu-item>
+    <pbs-menu-item label="Services">
+      <user-services service-type="userServices"
+        user-id="$ctrl.userId">
+      </user-services>
+    </pbs-menu-item>
+    <pbs-menu-item label="Service Packs">
+      <user-services service-type="servicePackServices"
+        user-id="$ctrl.userId">
+      </user-services>
+    </pbs-menu-item>
+    <pbs-menu-item label="Calling Plans">
+      <user-calling-plans user-id="$ctrl.userId"
+        group-id="$ctrl.groupId"
+        service-provider-id="$ctrl.serviceProviderId"></user-calling-plans>
+    </pbs-menu-item>
+    <pbs-menu-item label="User ID">
+      <user-id user-id="$ctrl.userId"
+        group-id="$ctrl.groupId"
+        service-provider-id="$ctrl.serviceProviderId"></user-id>
+    </pbs-menu-item>
+    <pbs-menu-item label="User Delete">
+      <user-delete user-id="$ctrl.userId"
+        group-id="$ctrl.groupId"
+        service-provider-id="$ctrl.serviceProviderId"></user-delete>
+    </pbs-menu-item>
+  </pbs-menu-section>
+</pbs-menu>

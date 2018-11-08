@@ -7,7 +7,7 @@
     },
     {
       path: 'dashboard',
-      component: 'userDashboard2',
+      component: 'userDashboardOld',
       acl: 'User'
     },
     {
