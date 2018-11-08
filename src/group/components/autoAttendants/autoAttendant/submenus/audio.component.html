@@ -85,8 +85,8 @@
 <audio-file-create ng-if="!$ctrl.hasRepository"
   on-update="$ctrl.onSelectAudio($event)"></audio-file-create>
 <announcement-create ng-if="$ctrl.hasRepository"
-  user-id="$ctrl.autoAttendant.serviceUserId"
+  user-id="$ctrl.parent.serviceUserId"
   on-update="$ctrl.onSelectAudio($event)"></announcement-create>
 <announcement-select ng-if="$ctrl.hasRepository"
-  user-id="$ctrl.autoAttendant.serviceUserId"
+  user-id="$ctrl.parent.serviceUserId"
   on-update="$ctrl.onSelectAudio($event)"></announcement-select>
