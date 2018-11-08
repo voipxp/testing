@@ -72,8 +72,15 @@
         group-id="$ctrl.groupId"
         service-provider-id="$ctrl.serviceProviderId"></user-calling-plans>
     </pbs-menu-item>
-    <pbs-menu-item label="Passwords">
-      <pbs-component component="$ctrl.component"></pbs-component>
+    <pbs-menu-item label="User ID">
+      <user-id user-id="$ctrl.userId"
+        group-id="$ctrl.groupId"
+        service-provider-id="$ctrl.serviceProviderId"></user-id>
+    </pbs-menu-item>
+    <pbs-menu-item label="Delete User">
+      <user-delete user-id="$ctrl.userId"
+        group-id="$ctrl.groupId"
+        service-provider-id="$ctrl.serviceProviderId"></user-delete>
     </pbs-menu-item>
   </pbs-menu-section>
 </pbs-menu>

@@ -1,18 +1,15 @@
 ;(function() {
   angular.module('odin.user').component('userId', {
     templateUrl: 'user/components/userId/userId.component.html',
-    controller: Controller
+    controller: Controller,
+    bindings: { userId: '<', groupId: '<', serviceProviderId: '<' }
   })
 
-  function Controller(Alert, UserIdService, Route, $routeParams) {
+  function Controller(Alert, UserIdService, Route) {
     var ctrl = this
     ctrl.update = update
     ctrl.edit = edit
     ctrl.setUserId = setUserId
-
-    ctrl.userId = $routeParams.userId
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
 
     function edit() {
       Alert.modal.open('editUserIdModal', function(close) {

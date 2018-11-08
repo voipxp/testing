@@ -1,16 +1,13 @@
 ;(function() {
   angular.module('odin.user').component('userDelete', {
     templateUrl: 'user/components/delete/delete.component.html',
-    controller: Controller
+    controller: Controller,
+    bindings: { userId: '<', groupId: '<', serviceProviderId: '<' }
   })
 
-  function Controller(Alert, UserService, Route, $routeParams) {
+  function Controller(Alert, UserService, Route) {
     var ctrl = this
     ctrl.remove = remove
-
-    ctrl.userId = $routeParams.userId
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
 
     function remove() {
       Alert.confirm
