@@ -5,18 +5,15 @@
 
 <pbs-menu sort="false">
   <pbs-menu-section label="Dashboard">
-    <pbs-menu-item label="Basic Call Records">
-      <user-basic-call-logs user-id="$ctrl.userId"></user-basic-call-logs>
+    <pbs-menu-item label="Call Records">
+      <user-call-record-dashboard service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"></user-call-record-dashboard>
     </pbs-menu-item>
     <pbs-menu-item label="Feature Quick Set">
       <user-quick-set service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
         user-id="$ctrl.userId"></user-quick-set>
-    </pbs-menu-item>
-    <pbs-menu-item label="Premium Call Records">
-      <user-call-record-dashboard service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
-        user-id="$ctrl.userId"></user-call-record-dashboard>
     </pbs-menu-item>
     <pbs-menu-item label="My Profile">
       <user-profile user-id="$ctrl.userId"></user-profile>

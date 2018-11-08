@@ -10,7 +10,7 @@
 */
 ;(function() {
   angular.module('odin.user').component('userServicesDashboard', {
-    templateUrl: 'user/components/dashboard2/services.component.html',
+    templateUrl: 'user/components/dashboard/services.component.html',
     controller: Controller,
     bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
@@ -28,6 +28,7 @@
       'Automatic Callback',
       'Automatic Hold/Retrieve',
       'Barge-in Exempt',
+      'Basic Call Logs',
       'BroadWorks Anywhere',
       'BroadWorks Mobility',
       'Busy Lamp Field',
