@@ -21,14 +21,20 @@
         group-id="$ctrl.groupId"></user-announcements>
     </pbs-menu-item>
     <pbs-menu-item label="Services">
-      <p>Services</p>
+      <user-services-dashboard user-id="$ctrl.userId"
+        group-id="$ctrl.groupId"
+        service-provider-id="$ctrl.serviceProviderId"></user-services-dashboard>
     </pbs-menu-item>
   </pbs-menu-section>
-  <pbs-menu-section label="Provisioning">
+  <pbs-menu-section label="Provisioning"
+    ng-if="$ctrl.isAdmin">
     <pbs-menu-item label="Addresses">
       <user-addresses user-id="$ctrl.userId"
         group-id="$ctrl.groupId"
         service-provider-id="$ctrl.serviceProviderId"></user-addresses>
+    </pbs-menu-item>
+    <pbs-menu-item label="Authorization Codes">
+      <user-communication-barring-authorization-codes user-id="$ctrl.userId"></user-communication-barring-authorization-codes>
     </pbs-menu-item>
     <pbs-menu-item label="User Services">
       <user-services service-type="userServices"
@@ -46,7 +52,7 @@
         service-provider-id="$ctrl.serviceProviderId"></user-calling-plans>
     </pbs-menu-item>
     <pbs-menu-item label="Passwords">
-      <p>Passwords</p>
+      <pbs-component component="$ctrl.component"></pbs-component>
     </pbs-menu-item>
   </pbs-menu-section>
 </pbs-menu>

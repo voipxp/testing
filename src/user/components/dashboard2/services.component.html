@@ -1,0 +1,18 @@
+<pbs-spinner loading="$ctrl.loading"
+  ng-show="!$ctrl.selectedService">
+  <pbs-block title="Configure Services">
+    <pbs-data-table columns="$ctrl.columns"
+      items="$ctrl.services"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="10"
+      on-click="$ctrl.select($event)"></pbs-data-table>
+</pbs-spinner>
+<div ng-if="$ctrl.selectedService">
+  <pbs-cancel ng-click="$ctrl.select()"></pbs-cancel>
+  <pbs-component component="$ctrl.selectedService"
+    user-id="$ctrl.userId"
+    group-id="$ctrl.groupId"
+    service-provider-id="$ctrl.serviceProviderId"></pbs-component>
+</div>

@@ -33,6 +33,7 @@
 </pbs-spinner>
 <div ng-switch="$ctrl.selectedService"
   ng-show="$ctrl.selectedService">
+  <pbs-cancel ng-click="$ctrl.select()"></pbs-cancel>
   <user-alternate-numbers service-provider-id="$ctrl.serviceProviderId"
     group-id="$ctrl.groupId"
     user-id="$ctrl.userId"

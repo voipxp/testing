@@ -9,11 +9,11 @@
       return $q
         .all([loadAssigned(userId), loadViewable(userId), Module.load()])
         .then(function(response) {
-          return Permission(userId, response[0], response[1])
+          return Permission(response[0], response[1])
         })
     }
 
-    function Permission(userId, _assigned, _viewable) {
+    function Permission(_assigned, _viewable) {
       var service = {
         assigned: assigned,
         create: create,

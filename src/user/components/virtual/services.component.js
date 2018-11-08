@@ -34,7 +34,7 @@
     }
 
     function select(service) {
-      ctrl.selectedService = service.serviceName
+      ctrl.selectedService = service && service.serviceName
       $window.scrollTo(0, 0)
     }
 

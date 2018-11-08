@@ -9,6 +9,12 @@
     ctrl.$onInit = onInit
 
     function onInit() {
+      ctrl.component = {
+        name: 'userCallForwardingBusy',
+        bindings: {
+          something: 'else'
+        }
+      }
       ctrl.serviceProviderId = $routeParams.serviceProviderId
       ctrl.groupId = $routeParams.groupId
       ctrl.userId = $routeParams.userId

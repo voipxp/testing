@@ -7,13 +7,7 @@
     .module('odin.user')
     .factory('UserDashboardService', UserDashboardService)
 
-  function UserDashboardService(
-    Module,
-    UserPermissionService,
-    $q,
-    $rootScope,
-    ACL
-  ) {
+  function UserDashboardService(Module, UserPermissionService, ACL) {
     var service = { load: load, prepareCard: prepareCard }
     var Permission
     return service

@@ -372,12 +372,6 @@
           service: 'Sequential Ring',
           path: route('sequentialRing')
         },
-        // This was never completed
-        // {
-        //   type: 'service',
-        //   service: 'Shared Call Appearance',
-        //   path: route('sharedCallAppearance')
-        // },
         {
           type: 'service',
           service: 'Simultaneous Ring Personal',
