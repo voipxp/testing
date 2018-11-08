@@ -36,15 +36,17 @@
         ctrl.tabs.forEach(function(_tab) {
           _tab.selected = false
         })
-        tab.selected = true
+        $timeout(function() {
+          $location.search('tab', tab.label)
+          tab.selected = true
+        }, 1)
       }
 
       ctrl.$postLink = function() {
-        var search = $location.search().tab
-        var tab = _.find(ctrl.tabs, { label: search }) || ctrl.tabs[0]
         $timeout(function() {
-          select(tab)
-        }, 1)
+          var search = $location.search().tab
+          select(_.find(ctrl.tabs, { label: search }) || ctrl.tabs[0])
+        }, 5)
       }
     }
   })
