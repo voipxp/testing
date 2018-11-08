@@ -1,7 +1,7 @@
 ;(function() {
-  angular.module('odin.user').component('userNightForwarding', {
+  angular.module('odin.user').component('userGroupNightForwarding', {
     templateUrl:
-      'user/components/nightForwarding/userNightForwarding.component.html',
+      'user/components/nightForwarding/userGroupNightForwarding.component.html',
     controller: Controller,
     bindings: { userId: '<' }
   })

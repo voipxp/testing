@@ -1,5 +1,5 @@
 ;(function() {
-  angular.module('odin.user').component('userPhoneDirectory', {
+  angular.module('odin.user').component('userDirectory', {
     templateUrl: 'user/components/directory/directory.component.html',
     controller: Controller
   })

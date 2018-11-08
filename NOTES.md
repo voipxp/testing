@@ -1,17 +1,10 @@
 IDEAS
+  - document pbsCancel and pbsComponent
+  - maybe use Permissions on user service view
+  - redo the virtual services page to use pbsComponent
 
-<pbs-inline-modal on-close="$ctrl.doSomething" />
+DYNAMICALLY RENDER PAGE
+  /:spId/:gpId/:uId/:component?/:subcomponent?
+  <pbs-component component="component" />
 
-
-
-DYNAMICALLY RENDER PAGE?
-
-/:spId/:gpId/:uId?menu=x&serviceUserId=y
-
-<userMenu menu="$ctrl.menu">
-</userMenu>
-
-
-/:spId/:gpId/:uId/:component
-<userMenu />
-<component />
+NOTE: perhaps that will be better for deep linking?

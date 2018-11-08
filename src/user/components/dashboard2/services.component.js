@@ -1,7 +1,11 @@
 /*
   Notes:
-  - Meet-me is not a service?
   - UserPermissions instead of Module.read?
+  Gotchas
+  - Collaborate - Audio, Sharing, Video
+  - userMeetMeConferencingConferences
+  - userMusicOnHold User
+  - userVoiceMessagingDashboard
 
 */
 ;(function() {
@@ -25,12 +29,11 @@
     ctrl.select = select
 
     var allowedServices = [
-      'Call Recording',
       'Alternate Numbers',
       'Anonymous Call Rejection',
       'Authentication',
-      'Automatic Hold/Retrieve',
       'Automatic Callback',
+      'Automatic Hold/Retrieve',
       'Barge-in Exempt',
       'BroadWorks Anywhere',
       'BroadWorks Mobility',
@@ -42,27 +45,29 @@
       'Call Forwarding Not Reachable',
       'Call Forwarding Selective',
       'Call Notify',
+      'Call Recording',
       'Call Transfer',
+      'Call Waiting',
       'Calling Line ID Delivery Blocking',
       'Calling Name Delivery',
       'Calling Name Retrieval',
       'Calling Number Delivery',
       'Collaborate - Audio',
       'Connected Line Identification Restriction',
-      'Call Waiting',
-      'Directory',
       'Directed Call Pickup with Barge-in',
+      'Directory',
       'Do Not Disturb',
       'External Calling Line ID Delivery',
       'Fax Messaging',
+      'Group Night Forwarding',
       'Hoteling Guest',
       'Hoteling Host',
       'Internal Calling Line ID Delivery',
       'Meet-Me Conferencing',
       'Music On Hold User',
       'Outlook Integration',
-      'Group Night Forwarding',
       'Priority Alert',
+      'Privacy',
       'Push to Talk',
       'Remote Office',
       'Selective Call Acceptance',
@@ -70,8 +75,7 @@
       'Sequential Ring',
       'Simultaneous Ring Personal',
       'Speed Dial 100',
-      'Voice Messaging User',
-      'Privacy'
+      'Voice Messaging User'
     ]
 
     ctrl.columns = [

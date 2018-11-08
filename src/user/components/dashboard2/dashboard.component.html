@@ -15,6 +15,9 @@
     </pbs-menu-item>
   </pbs-menu-section>
   <pbs-menu-section label="Management">
+    <pbs-menu-item label="My Profile">
+      <user-profile user-id="$ctrl.userId"></user-profile>
+    </pbs-menu-item>
     <pbs-menu-item label="Announcements">
       <user-announcements user-id="$ctrl.userId"
         service-provider-id="$ctrl.serviceProviderId"
@@ -24,6 +27,11 @@
       <user-services-dashboard user-id="$ctrl.userId"
         group-id="$ctrl.groupId"
         service-provider-id="$ctrl.serviceProviderId"></user-services-dashboard>
+    </pbs-menu-item>
+    <pbs-menu-item>
+      <user-meet-me-conferencing-conferences user-id="$ctrl.userId"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"></user-meet-me-conferencing-conferences>
     </pbs-menu-item>
   </pbs-menu-section>
   <pbs-menu-section label="Provisioning"

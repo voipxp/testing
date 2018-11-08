@@ -20,7 +20,8 @@
         numbers="$ctrl.settings.phoneNumbers"
         pbs-margin-top></user-broad-works-anywhere-numbers>
     </pbs-tab>
-    <pbs-tab label="Criteria">
+    <pbs-tab label="Criteria"
+      ng-show="$ctrl.settings.phoneNumbers.length > 0">
       <user-broad-works-anywhere-criteria user-id="$ctrl.userId"
         number="number"
         ng-repeat="number in $ctrl.settings.phoneNumbers"></user-broad-works-anywhere-criteria>
