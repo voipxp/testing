@@ -26,22 +26,22 @@
     ]
 
     ctrl.serviceTypes = {
-      'Auto Attendant': 'autoAttendants',
-      'Auto Attendant - Standard': 'autoAttendants',
-      'Auto Attendant - Video': 'autoAttendants',
+      'Auto Attendant': ['autoAttendants', 'autoAttendant'],
+      'Auto Attendant - Standard': ['autoAttendants', 'autoAttendant'],
+      'Auto Attendant - Video': ['autoAttendants', 'autoAttendant'],
       'BroadWorks Anywhere Portal': null,
-      'Call Center': 'callCenters',
-      'Call Center - Basic': 'callCenters',
-      'Call Center - Standard': 'callCenters',
-      'Call Center - Premium': 'callCenters',
-      'Collaborate Bridge': 'collaborate',
+      'Call Center': ['callCenters', 'callCenter'],
+      'Call Center - Basic': ['callCenters', 'callCenter'],
+      'Call Center - Standard': ['callCenters', 'callCenter'],
+      'Call Center - Premium': ['callCenters', 'callCenter'],
+      'Collaborate Bridge': ['collaborate', 'bridge'],
       'Find-me/Follow-me': null,
       'Flexible Seating Host': null,
-      'Group Paging': 'paging',
-      'Hunt Group': 'huntGroups',
+      'Group Paging': ['paging', 'group'],
+      'Hunt Group': ['huntGroups', 'huntGroup'],
       'Instant Group Call': null,
       'Instant Conference Bridge': null,
-      'Meet-Me Conference Bridge': 'meetMe',
+      'Meet-Me Conference Bridge': ['meetMe', 'bridge'],
       'Route Point': null,
       VoiceXML: null
     }
@@ -88,23 +88,13 @@
     function route(user) {
       var path = ctrl.serviceTypes[user.serviceType]
       if (!path) return
-      if (path === 'autoAttendants') {
-        Route.open(
-          'groups',
-          user.serviceProviderId,
-          user.groupId,
-          path,
-          'autoAttendant'
-        ).search({ serviceUserId: user.userId })
-      } else {
-        Route.open(
-          'groups',
-          user.serviceProviderId,
-          user.groupId,
-          path,
-          user.userId
-        )
-      }
+      Route.open(
+        'groups',
+        user.serviceProviderId,
+        user.groupId,
+        path[0],
+        path[1]
+      ).search({ serviceUserId: user.userId })
     }
 
     $rootScope.$on('serviceSearch:load', function(event, data) {
