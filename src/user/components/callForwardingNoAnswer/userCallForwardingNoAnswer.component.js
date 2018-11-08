@@ -3,7 +3,7 @@
     templateUrl:
       'user/components/callForwardingNoAnswer/userCallForwardingNoAnswer.component.html',
     controller: Controller,
-    bindings: { userId: '<' }
+    bindings: { userId: '<', showQuick: '<' }
   })
 
   function Controller(Alert, UserCallForwardingNoAnswerService, Module, $q) {
@@ -11,6 +11,7 @@
 
     ctrl.$onInit = onInit
     ctrl.edit = edit
+    ctrl.toggle = toggle
     ctrl.options = UserCallForwardingNoAnswerService.options
 
     function onInit() {
@@ -43,6 +44,27 @@
       Alert.modal.open('editUserCallForwardingNoAnswer', function(close) {
         update(ctrl.editSettings, close)
       })
+    }
+
+    function toggle() {
+      if (!ctrl.settings.forwardToPhoneNumber) {
+        Alert.notify.warning('Please Configure a Phone Number')
+        ctrl.settings.isActive = !ctrl.settings.isActive
+        return edit()
+      }
+      ctrl.loading = true
+      UserCallForwardingNoAnswerService.update(ctrl.userId, ctrl.settings)
+        .then(loadSettings)
+        .then(function() {
+          Alert.notify.success('Call Forwarding No Answer Updated')
+        })
+        .catch(function(error) {
+          ctrl.settings.isActive = !ctrl.settings.isActive
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          ctrl.loading = false
+        })
     }
 
     function update(settings, callback) {

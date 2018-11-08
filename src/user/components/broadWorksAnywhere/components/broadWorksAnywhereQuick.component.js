@@ -3,20 +3,20 @@
     templateUrl:
       'user/components/broadWorksAnywhere/components/broadWorksAnywhereQuick.component.html',
     controller: Controller,
-    bindings: { userId: '<', serviceProviderId: '<', groupId: '<' }
+    bindings: { userId: '<', serviceProviderId: '<', groupId: '<' },
+    require: { parent: '^^userQuickSet' }
   })
 
   function Controller(
     Alert,
     UserBroadWorksAnywhereService,
-    PhoneNumberBroadWorksAnywhereService,
-    Route
+    PhoneNumberBroadWorksAnywhereService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.toggle = toggle
     ctrl.loadingNumber = {}
-    ctrl.open = open
+    ctrl.edit = edit
 
     function onInit() {
       ctrl.loading = true
@@ -35,14 +35,8 @@
       })
     }
 
-    function open() {
-      Route.open(
-        'users',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        ctrl.userId,
-        'broadWorksAnywhere'
-      )
+    function edit() {
+      ctrl.parent.editService = 'userBroadWorksAnywhere'
     }
 
     function toggle(number) {

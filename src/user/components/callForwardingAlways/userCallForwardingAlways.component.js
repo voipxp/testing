@@ -3,20 +3,15 @@
     templateUrl:
       'user/components/callForwardingAlways/userCallForwardingAlways.component.html',
     controller: Controller,
-    bindings: { userId: '<' }
+    bindings: { userId: '<', showQuick: '<' }
   })
 
-  function Controller(
-    $location,
-    $q,
-    Alert,
-    UserCallForwardingAlwaysService,
-    Module
-  ) {
+  function Controller($q, Alert, UserCallForwardingAlwaysService, Module) {
     var ctrl = this
 
     ctrl.$onInit = onInit
     ctrl.edit = edit
+    ctrl.toggle = toggle
 
     function onInit() {
       ctrl.loading = true
@@ -49,6 +44,27 @@
       Alert.modal.open('editUserCallForwardingAlways', function onSave(close) {
         update(ctrl.editSettings, close)
       })
+    }
+
+    function toggle() {
+      if (!ctrl.settings.forwardToPhoneNumber) {
+        Alert.notify.warning('Please Configure a Phone Number')
+        ctrl.settings.isActive = !ctrl.settings.isActive
+        return ctrl.edit()
+      }
+      ctrl.loading = true
+      UserCallForwardingAlwaysService.update(ctrl.userId, ctrl.settings)
+        .then(loadSettings)
+        .then(function() {
+          Alert.notify.success('Call Forwarding Always Updated')
+        })
+        .catch(function(error) {
+          ctrl.settings.isActive = !ctrl.settings.isActive
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          ctrl.loading = false
+        })
     }
 
     function update(settings, callback) {

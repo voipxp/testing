@@ -2,13 +2,14 @@
   angular.module('odin.user').component('userDoNotDisturb', {
     templateUrl: 'user/components/doNotDisturb/userDoNotDisturb.component.html',
     controller: Controller,
-    bindings: { userId: '<' }
+    bindings: { userId: '<', showQuick: '<' }
   })
 
   function Controller(Alert, UserDoNotDisturbService, $q, Module) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
+    ctrl.toggle = toggle
 
     function onInit() {
       ctrl.loading = true
@@ -38,6 +39,22 @@
       Alert.modal.open('editUserDoNotDisturb', function onSave(close) {
         update(ctrl.editSettings, close)
       })
+    }
+
+    function toggle() {
+      ctrl.loading = true
+      UserDoNotDisturbService.update(ctrl.userId, ctrl.settings)
+        .then(loadSettings)
+        .then(function() {
+          Alert.notify.success('Do Not Disturb Updated')
+        })
+        .catch(function(error) {
+          ctrl.settings.isActive = !ctrl.settings.isActive
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          ctrl.loading = false
+        })
     }
 
     function update(settings, callback) {

@@ -3,7 +3,7 @@
     templateUrl:
       'user/components/callForwardingBusy/userCallForwardingBusy.component.html',
     controller: Controller,
-    bindings: { userId: '<' }
+    bindings: { userId: '<', showQuick: '<' }
   })
 
   function Controller(Alert, UserCallForwardingBusyService, Module, $q) {
@@ -11,6 +11,7 @@
 
     ctrl.$onInit = onInit
     ctrl.edit = edit
+    ctrl.toggle = toggle
 
     function onInit() {
       ctrl.loading = true
@@ -33,6 +34,27 @@
       ) {
         ctrl.settings = data
       })
+    }
+
+    function toggle() {
+      if (!ctrl.settings.forwardToPhoneNumber) {
+        Alert.notify.warning('Please Configure a Phone Number')
+        ctrl.settings.isActive = !ctrl.settings.isActive
+        return ctrl.edit()
+      }
+      ctrl.loading = true
+      UserCallForwardingBusyService.update(ctrl.userId, ctrl.settings)
+        .then(loadSettings)
+        .then(function() {
+          Alert.notify.success('Call Forwarding Busy Updated')
+        })
+        .catch(function(error) {
+          ctrl.settings.isActive = !ctrl.settings.isActive
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          ctrl.loading = false
+        })
     }
 
     function edit() {

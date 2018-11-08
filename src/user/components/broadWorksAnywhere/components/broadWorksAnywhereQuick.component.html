@@ -1,16 +1,18 @@
 <pbs-spinner loading="$ctrl.loading">
   <nav class="panel">
-    <p class="panel-heading">Anywhere Mobile Quick Set</p>
+    <p class="panel-heading hover"
+      ng-click="$ctrl.edit()">Anywhere Mobile Quick Set</p>
     <div class="panel-block"
-      ng-repeat="number in $ctrl.settings.phoneNumbers | orderBy:'phoneNumnber' track by number.phoneNumber">
+      ng-repeat="number in $ctrl.settings.phoneNumbers | orderBy:'phoneNumber' track by number.phoneNumber">
       <pbs-input-switch label="{{ number.phoneNumber }}"
         ng-model="number.isActive"
         ng-change="$ctrl.toggle(number)"
         ng-disabled="$ctrl.loadingNumber[number.phoneNumber]"></pbs-input-switch>
     </div>
     <a class="panel-block"
+      ng-click="$ctrl.edit()"
       ng-if="$ctrl.settings.phoneNumbers.length < 1">
-      <p ng-click="$ctrl.open()">Setup Numbers</p>
+      <p>Setup Numbers</p>
     </a>
   </nav>
 </pbs-spinner>

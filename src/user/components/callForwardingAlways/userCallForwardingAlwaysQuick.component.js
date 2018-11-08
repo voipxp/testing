@@ -3,10 +3,11 @@
     templateUrl:
       'user/components/callForwardingAlways/userCallForwardingAlwaysQuick.component.html',
     controller: Controller,
-    bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
+    bindings: { serviceProviderId: '<', groupId: '<', userId: '<' },
+    require: { parent: '^^userQuickSet' }
   })
 
-  function Controller(Alert, UserCallForwardingAlwaysService, Route) {
+  function Controller(Alert, UserCallForwardingAlwaysService) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.toggle = toggle
@@ -31,13 +32,9 @@
     function toggle() {
       if (!ctrl.settings.forwardToPhoneNumber) {
         Alert.notify.warning('Please Configure a Phone Number')
-        return Route.open(
-          'users',
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          ctrl.userId,
-          'callForwardingAlways'
-        )
+        ctrl.parent.editService = 'User Call Forwarding Always'
+        ctrl.settings.isActive = !ctrl.settings.isActive
+        return
       }
       ctrl.loading = true
       UserCallForwardingAlwaysService.update(ctrl.userId, ctrl.settings)

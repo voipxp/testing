@@ -15,14 +15,7 @@
     bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller(
-    Alert,
-    UserServiceService,
-    Module,
-    $q,
-    $window,
-    $location
-  ) {
+  function Controller(Alert, UserServiceService, Module, $q, $window) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.module = Module
@@ -99,10 +92,6 @@
       ctrl.loading = true
       return $q
         .all([loadServices(), Module.load()])
-        .then(() => {
-          const serviceName = $location.search().serviceName
-          select({ serviceName })
-        })
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
@@ -111,7 +100,6 @@
 
     function select(service) {
       const name = _.get(service, 'serviceName')
-      $location.search('serviceName', name)
       ctrl.selectedService = name ? _.camelCase(`User ${name}`) : null
       $window.scrollTo(0, 0)
     }

@@ -2,13 +2,14 @@
   angular.module('odin.user').component('userRemoteOffice', {
     templateUrl: 'user/components/remoteOffice/userRemoteOffice.component.html',
     controller: Controller,
-    bindings: { userId: '<' }
+    bindings: { userId: '<', showQuick: '<' }
   })
 
   function Controller(Alert, UserRemoteOfficeService, $q, Module) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.edit = edit
+    ctrl.toggle = toggle
     ctrl.options = UserRemoteOfficeService.options
 
     function onInit() {
@@ -39,6 +40,27 @@
       Alert.modal.open('editUserRemoteOffice', function onSave(close) {
         update(ctrl.editSettings, close)
       })
+    }
+
+    function toggle() {
+      if (!ctrl.settings.remoteOfficePhoneNumber) {
+        Alert.notify.warning('Please Configure a Phone Number')
+        ctrl.settings.isActive = !ctrl.settings.isActive
+        return edit()
+      }
+      ctrl.loading = true
+      UserRemoteOfficeService.update(ctrl.userId, ctrl.settings)
+        .then(loadSettings)
+        .then(function() {
+          Alert.notify.success('Remote Office Updated')
+        })
+        .catch(function(error) {
+          ctrl.settings.isActive = !ctrl.settings.isActive
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          ctrl.loading = false
+        })
     }
 
     function update(settings, callback) {
