@@ -1,3 +1,8 @@
+/*
+  replace allowesServics with defined modules and permissions
+  like old dashboard - then use UserPermissions to check
+  - perhaps add meetme here
+*/
 ;(function() {
   angular.module('odin.user').component('userServicesDashboard', {
     templateUrl: 'user/components/dashboard/services.component.html',
