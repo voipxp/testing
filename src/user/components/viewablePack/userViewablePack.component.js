@@ -1,21 +1,17 @@
 ;(function() {
   angular.module('odin.user').component('userViewablePack', {
     templateUrl: 'user/components/viewablePack/userViewablePack.component.html',
-    controller: Controller
+    controller: Controller,
+    bindings: { userId: '<', groupId: '<', serviceProviderId: '< ' }
   })
 
   function Controller(
     Alert,
     UserViewablePackService,
     GroupViewablePackService,
-    $q,
-    $routeParams
+    $q
   ) {
     var ctrl = this
-
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
 
     ctrl.$onInit = onInit
     ctrl.select = select

@@ -14,17 +14,26 @@
     }
 
     function Permission(_assigned, _viewable) {
+      var _assignedMap = mapServices(_assigned)
+      var _viewableMap = mapServices(_viewable)
+
       var service = {
-        assigned: assigned,
-        create: create,
-        read: read,
-        update: update,
-        destroy: destroy
+        assigned,
+        viewable,
+        create,
+        read,
+        update,
+        destroy,
+        isAssigned
       }
       return service
 
-      function assigned(name) {
-        return has(name)
+      function assigned() {
+        return _assigned.userServices
+      }
+
+      function viewable() {
+        return _viewable.userServices
       }
 
       function create(name) {
@@ -44,11 +53,11 @@
       }
 
       function isAssigned(name) {
-        return !!_assigned[name]
+        return !!_assignedMap[name]
       }
 
       function isViewable(name) {
-        return ACL.has('Group') || !!_viewable[name]
+        return ACL.has('Group') || !!_viewableMap[name]
       }
 
       function has(name) {
@@ -91,11 +100,11 @@
     }
 
     function loadAssigned(userId) {
-      return UserServiceService.assigned(userId).then(mapServices)
+      return UserServiceService.assigned(userId)
     }
 
     function loadViewable(userId) {
-      return UserServiceService.viewable(userId).then(mapServices)
+      return UserServiceService.viewable(userId)
     }
 
     function mapServices(assigned) {

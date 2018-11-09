@@ -10,14 +10,7 @@
     bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller(
-    Alert,
-    UserPermissionService,
-    UserServiceService,
-    Module,
-    $q,
-    $window
-  ) {
+  function Controller(Alert, UserPermissionService, Module, $q, $window) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.module = Module
@@ -117,26 +110,21 @@
 
     function loadServices() {
       return UserPermissionService.load(ctrl.userId).then(Permission => {
-        return UserServiceService.assigned(ctrl.userId).then(
-          ({ userServices }) => {
-            ctrl.services = userServices
-              .filter(service => {
-                return (
-                  allowedServices.includes(service.serviceName) &&
-                  Permission.read(service.serviceName)
-                )
-              })
-              .map(service => {
-                return {
-                  ...service,
-                  alias: Module.alias(service.serviceName),
-                  description: Module.description(service.serviceName),
-                  isActive:
-                    service.isActive === 'true' || service.isActive === true
-                }
-              })
-          }
-        )
+        ctrl.services = Permission.assigned()
+          .filter(service => {
+            return (
+              allowedServices.includes(service.serviceName) &&
+              Permission.read(service.serviceName)
+            )
+          })
+          .map(service => {
+            return {
+              ...service,
+              alias: Module.alias(service.serviceName),
+              description: Module.description(service.serviceName),
+              isActive: service.isActive === 'true' || service.isActive === true
+            }
+          })
       })
     }
   }

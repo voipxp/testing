@@ -1,26 +1,26 @@
 ;(function() {
-  var template =
-    '<div class="columns">' +
-    '  <div class="column is-one-quarter pbs-menu-nav">' +
-    '    <aside class="menu pbs-menu-container">' +
-    '      <p class="menu-label"' +
-    '         ng-repeat-start="section in $ctrl.sections"' +
-    '         ng-if="section.label && section.items.length"' +
-    '         ng-bind="section.label">' +
-    '      </p>' +
-    '      <ul class="menu-list pbs-menu-list"' +
-    '          ng-if="section.items.length"' +
-    '          ng-repeat-end>' +
-    '        <li ng-repeat="item in section.items | orderBy:\'label\'">' +
-    '          <a ng-bind="item.label" ' +
-    '             ng-class="{\'is-active\': item.selected}"' +
-    '             ng-click="$ctrl.select(item)"></a>' +
-    '        </li>' +
-    '      </ul>' +
-    '    </aside>' +
-    '  </div>' +
-    '  <div class="column is-three-quarters pbs-menu-content" ng-transclude></div>' +
-    '</div>'
+  var template = `
+<div class="columns">
+  <div class="column is-one-quarter pbs-menu-nav">
+    <aside class="menu pbs-menu-container">
+      <p class="menu-label"
+          ng-repeat-start="section in $ctrl.sections"
+          ng-if="section.label && section.items.length"
+          ng-bind="section.label">
+      </p>
+      <ul class="menu-list pbs-menu-list"
+          ng-if="section.items.length"
+          ng-repeat-end>
+        <li ng-repeat="item in section.items | orderBy:'label'">
+          <a ng-bind="item.label"
+              ng-class="{'is-active': item.selected}"
+              ng-click="$ctrl.select(item)"></a>
+        </li>
+      </ul>
+    </aside>
+  </div>
+  <div class="column is-three-quarters pbs-menu-content" ng-transclude></div>
+</div>`
 
   angular.module('odin.common').component('pbsMenu', {
     template: template,
