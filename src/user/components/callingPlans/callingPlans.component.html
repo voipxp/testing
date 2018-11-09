@@ -1,5 +1,5 @@
 <pbs-spinner loading="$ctrl.isLoading"
-  ng-if="!$ctrl.selectedService">
+  ng-show="!$ctrl.selectedService">
   <pbs-block title="User Calling Plans">
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>
@@ -28,15 +28,10 @@
   </pbs-block>
 </pbs-spinner>
 
-<div ng-switch="$ctrl.selectedService"
-  ng-show="$ctrl.selectedService">
+<div ng-if="$ctrl.selectedService">
   <pbs-cancel ng-click="$ctrl.select()"></pbs-cancel>
-  <user-incoming-calling-plan user-id="$ctrl.userId"
-    ng-switch-when="Incoming Calling Plan">
-  </user-incoming-calling-plan>
-  <user-outgoing-calling-plan user-id="$ctrl.userId"
-    ng-switch-when="Outgoing Calling Plan">
-  </user-outgoing-calling-plan>
-  <user-outgoing-calling-plan-authorization-codes user-id="$ctrl.userId"
-    ng-switch-when="Outgoing Authorization Codes"></user-outgoing-calling-plan-authorization-codes>
+  <pbs-component component="$ctrl.selectedService"
+    user-id="$ctrl.userId"
+    group-id="$ctrl.groupId"
+    service-provider-id="$ctrl.serviceProviderId"></pbs-component>
 </div>

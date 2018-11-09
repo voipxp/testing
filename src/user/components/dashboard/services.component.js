@@ -1,13 +1,3 @@
-/*
-  Notes:
-  - UserPermissions instead of Module.read?
-  Gotchas
-  - Collaborate - Audio, Sharing, Video
-  - userMeetMeConferencingConferences
-  - userMusicOnHold User
-  - userVoiceMessagingDashboard
-
-*/
 ;(function() {
   angular.module('odin.user').component('userServicesDashboard', {
     templateUrl: 'user/components/dashboard/services.component.html',
@@ -15,11 +5,24 @@
     bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller(Alert, UserServiceService, Module, $q, $window) {
+  function Controller(
+    Alert,
+    UserPermissionService,
+    UserServiceService,
+    Module,
+    $q,
+    $window
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.module = Module
     ctrl.select = select
+
+    var overrides = {
+      'Voice Messaging User': 'userVoiceMessagingDashboard',
+      'Music On Hold User': 'userMusicOnHold',
+      'Collaborate - Audio': 'userCollaborate'
+    }
 
     var allowedServices = [
       'Alternate Numbers',
@@ -101,25 +104,34 @@
 
     function select(service) {
       const name = _.get(service, 'serviceName')
-      ctrl.selectedService = name ? _.camelCase(`User ${name}`) : null
+      ctrl.selectedService = name
+        ? overrides[name] || _.camelCase(`User ${name}`)
+        : null
       $window.scrollTo(0, 0)
     }
 
     function loadServices() {
-      return UserServiceService.assigned(ctrl.userId).then(function(data) {
-        ctrl.services = _.filter(data.userServices || [], function(service) {
-          return (
-            _.includes(allowedServices, service.serviceName) &&
-            Module.read(service.serviceName)
-          )
-        }).map(service => {
-          return {
-            ...service,
-            alias: Module.alias(service.serviceName),
-            description: Module.description(service.serviceName),
-            isActive: service.isActive === 'true' || service.isActive === true
+      return UserPermissionService.load(ctrl.userId).then(Permission => {
+        return UserServiceService.assigned(ctrl.userId).then(
+          ({ userServices }) => {
+            ctrl.services = userServices
+              .filter(service => {
+                return (
+                  allowedServices.includes(service.serviceName) &&
+                  Permission.read(service.serviceName)
+                )
+              })
+              .map(service => {
+                return {
+                  ...service,
+                  alias: Module.alias(service.serviceName),
+                  description: Module.description(service.serviceName),
+                  isActive:
+                    service.isActive === 'true' || service.isActive === true
+                }
+              })
           }
-        })
+        )
       })
     }
   }

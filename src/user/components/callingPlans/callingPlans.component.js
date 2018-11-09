@@ -18,17 +18,20 @@
       {
         name: 'Incoming Calling Plan',
         service: 'Incoming Calling Plan',
+        component: 'userIncomingCallingPlan',
         description:
           'Prevent departments, or the group from receiving incoming calls of a specified type'
       },
       {
         name: 'Outgoing Calling Plan',
         service: 'Outgoing Calling Plan',
+        component: 'userOutgoingCallingPlan',
         description:
           'Prevent departments, or the group from making outgoing calls of a specified type'
       },
       {
         name: 'Outgoing Authorization Codes',
+        component: 'userOutgoingCallingPlanAuthorizationCodes',
         service: 'Outgoing Calling Plan',
         description:
           'Set the authorization codes to be used on outgoing calls as defined in the Outgoing Calling Plan'
@@ -36,18 +39,21 @@
       {
         name: 'Outgoing Digit Plan',
         service: 'Outgoing Calling Plan',
+        component: 'userOutgoingCallingPlanDigitPlan',
         description:
           'Prevent departments, or the group from making outgoing calls based on a defined digit pattern'
       },
       {
         name: 'Outgoing Pinhole Digit Plan',
         service: 'Enhanced Outgoing Calling Plan',
+        component: 'userOutgoingCallingPlanPinholeDigitPlan',
         description:
           'Override departments, or the group outgoing dial restrictions based on a defined digit pattern'
       },
       {
         name: 'Transfer Numbers',
         service: 'Outgoing Calling Plan',
+        component: 'userOutgoingCallingPlanTransferNumbers',
         description:
           'Configure the transfer numbers when making an outgoing call that requires operator assistance'
       }
@@ -69,7 +75,7 @@
     }
 
     function select(plan) {
-      ctrl.selectedService = plan && plan.name
+      ctrl.selectedService = plan && plan.component
       $window.scrollTo(0, 0)
     }
   }
