@@ -5,7 +5,7 @@ ARG CADDY_PLUGINS="cors"
 RUN VERSION=${CADDY_VERSION} PLUGINS=${CADDY_PLUGINS} /bin/sh /usr/bin/builder.sh
 
 # APP BUILD STAGE
-FROM node:alpine as build
+FROM node:8-alpine as build
 RUN apk add --no-cache git
 ADD . /app
 RUN cd /app; yarn; yarn run build
