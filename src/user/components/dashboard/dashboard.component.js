@@ -1,10 +1,3 @@
-/*
-  TODO:
-  - Premium Call Records Permissions
-  - MeetMe Permissions Module(MeetMe) && what else?
-  - Announcements Version
-  - Quick load or not?
-*/
 ;(function() {
   angular.module('odin.user').component('userDashboard', {
     templateUrl: 'user/components/dashboard/dashboard.component.html',
