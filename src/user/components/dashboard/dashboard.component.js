@@ -11,9 +11,17 @@
     controller: Controller
   })
 
-  function Controller($routeParams, ACL, Module, UserPermissionService) {
-    var ctrl = this
+  function Controller($routeParams, ACL, Module, UserPermissionService, Alert) {
+    const ctrl = this
     ctrl.$onInit = onInit
+    const quickActions = [
+      'Call Forwarding Always',
+      'Call Forwarding Busy',
+      'Call Forwarding No Answer',
+      'Do Not Disturb',
+      'Remote Office',
+      'BroadWorks Anywhere'
+    ]
 
     function onInit() {
       ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -31,8 +39,11 @@
             'Communication Barring User-Control'
           )
           ctrl.hasSCA = Permission.isAssigned('Shared Call Appearance')
+          ctrl.showQuick = quickActions.find(service => {
+            return Permission.read(service)
+          })
         })
-        .catch(err => console.log(err))
+        .catch(err => Alert.notify.danger(err))
         .finally(() => (ctrl.loading = false))
     }
   }

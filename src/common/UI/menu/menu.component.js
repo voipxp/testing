@@ -5,11 +5,11 @@
     <aside class="menu pbs-menu-container">
       <p class="menu-label"
           ng-repeat-start="section in $ctrl.sections"
-          ng-if="section.label && section.items.length"
+          ng-show="section.label && section.items.length"
           ng-bind="section.label">
       </p>
       <ul class="menu-list pbs-menu-list"
-          ng-if="section.items.length"
+          ng-show="section.items.length"
           ng-repeat-end>
         <li ng-repeat="item in section.items | orderBy:'label'">
           <a ng-bind="item.label"
@@ -35,7 +35,9 @@
       ctrl.select = select
 
       function onInit() {
-        ctrl.sections = []
+        // this is a hack around some strange angular issue
+        // with rendering the first item
+        ctrl.sections = [{ items: [] }]
       }
 
       function add(section) {
@@ -83,7 +85,7 @@
               }
             }
           }
-          select(item || _.get(ctrl.sections, '0.items.0'))
+          select(item || _.get(ctrl.sections, '1.items.0'))
         }, 5)
       }
     }
