@@ -33,7 +33,6 @@
         ctrl.trunkName
       ).then(function(data) {
         ctrl.trunk = data
-        console.log('trunk', data)
         return data
       })
     }

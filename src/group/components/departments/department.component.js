@@ -7,7 +7,6 @@
   function Controller($routeParams, Route) {
     var ctrl = this
     ctrl.$onInit = function() {
-      console.log('onInit Main')
       ctrl.serviceProviderId = $routeParams.serviceProviderId
       ctrl.groupId = $routeParams.groupId
       ctrl.name = $routeParams.name

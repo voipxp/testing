@@ -39,7 +39,6 @@
     function loadServicePacks() {
       return ServicePackService.index(ctrl.serviceProviderId, true).then(
         function(data) {
-          console.log('servicePacks', data)
           ctrl.servicePacks = data
         }
       )
@@ -67,7 +66,6 @@
     }
 
     function onCreate(event) {
-      console.log('onCreate', event)
       open(event.servicePack.servicePackName)
     }
   }

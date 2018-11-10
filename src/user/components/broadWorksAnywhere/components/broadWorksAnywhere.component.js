@@ -32,7 +32,6 @@
         data
       ) {
         ctrl.settings = data
-        console.log('settings', ctrl.settings)
         return data
       })
     }

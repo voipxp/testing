@@ -30,7 +30,6 @@
 
     function loadBridge() {
       return GroupCollaborateService.show(ctrl.serviceUserId).then(data => {
-        console.log('bridge', data)
         ctrl.bridge = data
       })
     }

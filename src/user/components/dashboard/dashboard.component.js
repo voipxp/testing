@@ -32,9 +32,9 @@
             'Communication Barring User-Control'
           )
           ctrl.hasSCA = Permission.isAssigned('Shared Call Appearance')
-          ctrl.showQuick = quickActions.find(service => {
-            return Permission.read(service)
-          })
+          ctrl.showQuick = quickActions.find(service =>
+            Permission.read(service)
+          )
         })
         .catch(err => Alert.notify.danger(err))
         .finally(() => (ctrl.loading = false))

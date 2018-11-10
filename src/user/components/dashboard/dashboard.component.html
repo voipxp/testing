@@ -11,7 +11,8 @@
           group-id="$ctrl.groupId"
           user-id="$ctrl.userId"></user-call-record-dashboard>
       </pbs-menu-item>
-      <pbs-menu-item label="Feature Quick Set">
+      <pbs-menu-item label="Feature Quick Set"
+        ng-if="$ctrl.showQuick">
         <user-quick-set service-provider-id="$ctrl.serviceProviderId"
           group-id="$ctrl.groupId"
           user-id="$ctrl.userId"></user-quick-set>
@@ -58,7 +59,7 @@
         ng-if="$ctrl.hasCommBarring">
         <user-communication-barring-authorization-codes user-id="$ctrl.userId"></user-communication-barring-authorization-codes>
       </pbs-menu-item>
-      <pbs-menu-item label="Services"
+      <pbs-menu-item label="Assign Services"
         ng-if="$ctrl.hasProvisioning">
         <user-services service-type="userServices"
           user-id="$ctrl.userId">

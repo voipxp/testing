@@ -1,9 +1,8 @@
 <pbs-spinner loading="$ctrl.loading"
   ng-if="!$ctrl.editService">
   <pbs-columns>
-    <pbs-column>
-      <nav class="panel"
-        ng-if="$ctrl.showQuick">
+    <pbs-column ng-if="$ctrl.showQuick">
+      <nav class="panel">
         <p class="panel-heading">Feature Quick Set</p>
         <div class="panel-block"
           ng-if="$ctrl.has('Call Forwarding Always')">
