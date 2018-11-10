@@ -15,7 +15,7 @@
     .directive('pbsButtonCompactInfo', pbsButtonCompact('fa-info'))
     .directive('pbsButtonCompactRefresh', pbsButtonCompact('fa-sync'))
     .directive('pbsButtonCompactList', pbsButtonCompact('fa-list'))
-    .directive('pbsButtonCompactDevice', pbsButtonCompact('fa-phone'))
+    .directive('pbsButtonCompactDevice', pbsButtonCompact('fa-wrench'))
     .directive('pbsButtonCompactOpen', pbsButtonCompact('fa-external-link-alt'))
     .directive('pbsButtonCompactTag', pbsButtonCompact('fa-tag'))
     .directive('pbsButtonCompactLeft', pbsButtonCompact('fa-chevron-left'))
