@@ -12,13 +12,6 @@
     }
     var url = Route.api('/users/services')
 
-    // clear cache on service related updates
-    // $rootScope.$on('GroupViewablePackService:updated', clearCache)
-    // $rootScope.$on('UserViewablePackService:updated', clearCache)
-    // $rootScope.$on('BrandingModuleService:updated', clearCache)
-    // $rootScope.$on('GroupServiceService:updated', clearCache)
-    // $rootScope.$on('ServiceProviderServiceService:updated', clearCache)
-
     return service
 
     function show(userId) {

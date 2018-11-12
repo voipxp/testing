@@ -1,15 +1,7 @@
 ;(function() {
   angular.module('odin.bulk').factory('BulkUsersService', BulkUsersService)
 
-  function BulkUsersService(
-    $location,
-    $q,
-    StorageService,
-    UtilityService,
-    DownloadService,
-    CsvService,
-    Session
-  ) {
+  function BulkUsersService($location, $q, StorageService, Session) {
     var service = {
       open: open,
       get: get,

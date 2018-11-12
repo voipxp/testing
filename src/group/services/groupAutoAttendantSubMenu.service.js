@@ -3,9 +3,8 @@
     .module('odin.group')
     .factory('GroupAutoAttendantSubmenuService', Service)
 
-  function Service($http, CacheFactory, Route, GroupAutoAttendantService) {
+  function Service($http, Route, GroupAutoAttendantService) {
     var url = Route.api('/groups/auto-attendants/submenus')
-    var cache = CacheFactory('GroupAutoAttendantSubmenuService')
     var service = {
       index: index,
       store: store,
@@ -30,46 +29,30 @@
 
     function store(submenu) {
       return $http.post(url(), submenu).then(function(response) {
-        cache.removeAll()
         return response.data
       })
     }
 
     function show(serviceUserId, submenuId) {
       return $http
-        .get(url(), {
-          params: { serviceUserId: serviceUserId, submenuId: submenuId }
-        })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url(), { params: { serviceUserId, submenuId } })
+        .then(res => res.data)
     }
 
     function usage(serviceUserId, submenuId) {
       return $http
-        .get(url('usage'), {
-          params: { serviceUserId: serviceUserId, submenuId: submenuId }
-        })
-        .then(function(response) {
-          return response.data
-        })
+        .get(url('usage'), { params: { serviceUserId, submenuId } })
+        .then(res => res.data)
     }
 
     function update(submenu) {
-      return $http.put(url(), submenu).then(function(response) {
-        return response.data
-      })
+      return $http.put(url(), submenu).then(res => res.data)
     }
 
     function destroy(serviceUserId, submenuId) {
       return $http
-        .delete(url(), {
-          params: { serviceUserId: serviceUserId, submenuId: submenuId }
-        })
-        .then(function(response) {
-          cache.removeAll()
-          return response.data
-        })
+        .delete(url(), { params: { serviceUserId, submenuId } })
+        .then(res => res.data)
     }
   }
 })()
