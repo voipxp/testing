@@ -4,7 +4,14 @@
     controller: Controller
   })
 
-  function Controller($routeParams, ACL, Module, UserPermissionService, Alert) {
+  function Controller(
+    $routeParams,
+    ACL,
+    Module,
+    UserPermissionService,
+    Alert,
+    $rootScope
+  ) {
     const ctrl = this
     ctrl.$onInit = onInit
     const quickActions = [
@@ -23,21 +30,24 @@
       ctrl.isAdmin = ACL.has('Group')
       ctrl.hasAnnouncements = ACL.hasVersion('20')
       ctrl.loading = true
-      UserPermissionService.load(ctrl.userId)
-        .then(Permission => {
-          ctrl.hasProvisioning = Module.read('Provisioning')
-          ctrl.hasViewablePacks = Module.read('Viewable Service Packs')
-          ctrl.hasMeetMe = Module.read('Meet-Me Conferencing')
-          ctrl.hasCommBarring = Permission.isAssigned(
-            'Communication Barring User-Control'
-          )
-          ctrl.hasSCA = Permission.isAssigned('Shared Call Appearance')
-          ctrl.showQuick = quickActions.find(service =>
-            Permission.read(service)
-          )
-        })
+      loadPermissions()
         .catch(err => Alert.notify.danger(err))
         .finally(() => (ctrl.loading = false))
     }
+
+    function loadPermissions() {
+      return UserPermissionService.load(ctrl.userId).then(Permission => {
+        ctrl.hasProvisioning = Module.read('Provisioning')
+        ctrl.hasViewablePacks = Module.read('Viewable Service Packs')
+        ctrl.hasMeetMe = Module.read('Meet-Me Conferencing')
+        ctrl.hasCommBarring = Permission.isAssigned(
+          'Communication Barring User-Control'
+        )
+        ctrl.hasSCA = Permission.isAssigned('Shared Call Appearance')
+        ctrl.showQuick = quickActions.find(service => Permission.read(service))
+      })
+    }
+
+    $rootScope.$on('UserServiceService:updated', loadPermissions)
   }
 })()
