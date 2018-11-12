@@ -35,9 +35,7 @@
       ctrl.select = select
 
       function onInit() {
-        // this is a hack around some strange angular issue
-        // with rendering the first item
-        ctrl.sections = [{ items: [] }]
+        ctrl.sections = []
       }
 
       function add(section) {
@@ -85,7 +83,7 @@
               }
             }
           }
-          select(item || _.get(ctrl.sections, '1.items.0'))
+          select(item || _.get(ctrl.sections, '0.items.0'))
         }, 5)
       }
     }
