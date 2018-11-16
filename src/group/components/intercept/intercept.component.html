@@ -88,8 +88,7 @@
     <pbs-form-field-horizontal label="Upload File"
       ng-if="$ctrl.editSettings.announcementSelection === 'Personal'">
       <pbs-input-file on-upload="$ctrl.upload(file)"
-        mode="data-url"
-        require>
+        required>
       </pbs-input-file>
     </pbs-form-field-horizontal>
 

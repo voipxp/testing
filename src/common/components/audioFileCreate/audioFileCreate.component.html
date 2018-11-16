@@ -2,8 +2,7 @@
   title="New Audio File">
   <pbs-form>
     <pbs-form-field-horizontal label="Upload File">
-      <pbs-input-file on-upload="$ctrl.onUpload(file)"
-        mode="data-url"></pbs-input-file>
+      <pbs-input-file on-upload="$ctrl.onUpload(file)"></pbs-input-file>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Audio File Type">
       <pbs-input-select ng-model="$ctrl.audioFile.mediaType"

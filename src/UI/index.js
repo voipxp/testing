@@ -52,9 +52,7 @@
       component: 'pbsSpinnerDoc'
     }
   ]
-  angular
-    .module('odin.UI', ['hc.marked', 'angularFileInput'])
-    .config(function(PbsRouteProvider) {
-      PbsRouteProvider.set(routes, 'UI')
-    })
+  angular.module('odin.UI', ['hc.marked']).config(function(PbsRouteProvider) {
+    PbsRouteProvider.set(routes, 'UI')
+  })
 })()
