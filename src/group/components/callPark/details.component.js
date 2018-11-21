@@ -42,7 +42,10 @@
     function update(settings, callback) {
       Alert.spinner.open()
       GroupCallParkService.update(settings)
-        .then(loadSettings)
+        // .then(loadSettings)
+        .then(function(data) {
+          ctrl.settings = data
+        })
         .then(function() {
           Alert.notify.success('Settings Updated')
           callback()
