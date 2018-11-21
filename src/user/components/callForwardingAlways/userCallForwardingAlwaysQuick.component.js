@@ -38,7 +38,10 @@
       }
       ctrl.loading = true
       UserCallForwardingAlwaysService.update(ctrl.userId, ctrl.settings)
-        .then(loadSettings)
+        // .then(loadSettings)
+        .then(function(data) {
+          ctrl.settings = data
+        })
         .then(function() {
           Alert.notify.success('Call Forwarding Always Updated')
         })
