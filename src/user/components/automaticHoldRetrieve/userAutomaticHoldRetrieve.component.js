@@ -54,7 +54,10 @@
     function update(settings, callback) {
       Alert.spinner.open()
       UserAutomaticHoldRetrieveService.update(ctrl.userId, settings)
-        .then(loadSettings)
+        .then(function(data) {
+          ctrl.settings = data
+        })
+        // .then(loadSettings)
         .then(function() {
           Alert.notify.success('Settings Updated')
           if (_.isFunction(callback)) callback()

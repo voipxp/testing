@@ -41,7 +41,10 @@
       }
       ctrl.loading = true
       UserAutomaticHoldRetrieveService.update(ctrl.userId, ctrl.settings)
-        .then(loadSettings)
+        // .then(loadSettings)
+        .then(function(data) {
+          ctrl.settings = data
+        })
         .then(function() {
           Alert.notify.success('User Automatic Hold Retrieve Updated')
         })
