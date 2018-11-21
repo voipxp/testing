@@ -54,7 +54,10 @@
     function update(settings, callback) {
       Alert.spinner.open()
       UserCallForwardingNotReachableService.update(ctrl.userId, settings)
-        .then(loadSettings)
+        // .then(loadSettings)
+        .then(function(data) {
+          ctrl.settings = data
+        })
         .then(function() {
           Alert.notify.success('Settings Updated')
           if (_.isFunction(callback)) callback()
