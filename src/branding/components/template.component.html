@@ -83,8 +83,7 @@
 <pbs-modal id="editBrandingTemplate-image"
   title="{{ $ctrl.editField.label }}">
   <pbs-form-field label="{{ $ctrl.editField.label }}">
-    <pbs-input-file on-upload="$ctrl.onUpload(file)"
-      mode="data-url"></pbs-input-file>
+    <pbs-input-file on-upload="$ctrl.onUpload(file)"></pbs-input-file>
   </pbs-form-field>
   <div class="box has-text-centered">
     <img ng-src="{{ $ctrl.imageSrc($ctrl.editField.value) }}"
