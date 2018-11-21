@@ -44,9 +44,11 @@
     }
 
     function update(settings, callback) {
-      Alert.spinner.open()
-      UserAnonymousCallRejectionService.update(settings)
-        .then(loadSettings)
+      Alert.spinner
+        .open()
+        .then(function(data) {
+          ctrl.settings = data
+        })
         .then(function() {
           Alert.notify.success('Settings Updated')
           if (_.isFunction(callback)) {
