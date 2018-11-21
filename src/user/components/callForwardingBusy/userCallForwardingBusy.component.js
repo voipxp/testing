@@ -44,7 +44,10 @@
       }
       ctrl.loading = true
       UserCallForwardingBusyService.update(ctrl.userId, ctrl.settings)
-        .then(loadSettings)
+        // .then(loadSettings)
+        .then(function(data) {
+          ctrl.settings = data
+        })
         .then(function() {
           Alert.notify.success('Call Forwarding Busy Updated')
         })
@@ -67,7 +70,10 @@
     function update(settings, callback) {
       Alert.spinner.open()
       UserCallForwardingBusyService.update(ctrl.userId, settings)
-        .then(loadSettings)
+        // .then(loadSettings)
+        .then(function(data) {
+          ctrl.settings = data
+        })
         .then(function() {
           Alert.notify.success('Settings Updated')
           if (_.isFunction(callback)) callback()
