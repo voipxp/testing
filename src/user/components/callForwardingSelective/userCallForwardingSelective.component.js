@@ -69,14 +69,19 @@
 
     function update(settings, callback) {
       Alert.spinner.open()
-      return UserCallForwardingSelectiveService.update(ctrl.userId, settings)
-        .then(loadSettings)
-        .then(function() {
-          Alert.notify.success('Settings Updated')
-          callback()
-        })
-        .catch(Alert.notify.danger)
-        .finally(Alert.spinner.close)
+      return (
+        UserCallForwardingSelectiveService.update(ctrl.userId, settings)
+          // .then(loadSettings)
+          .then(function(data) {
+            ctrl.settings = data
+          })
+          .then(function() {
+            Alert.notify.success('Settings Updated')
+            callback()
+          })
+          .catch(Alert.notify.danger)
+          .finally(Alert.spinner.close)
+      )
     }
 
     // toggle isActive on settings
@@ -110,18 +115,20 @@
       if (!active) {
         editSettings.isActive = false
       }
-      return UserCallForwardingSelectiveService.update(
-        ctrl.userId,
-        editSettings
+      return (
+        UserCallForwardingSelectiveService.update(ctrl.userId, editSettings)
+          .then(function(data) {
+            ctrl.settings = data
+          })
+          // .then(loadSettings)
+          .then(function() {
+            var message = criteria.isActive ? 'Activated' : 'Deactivated'
+            var action = criteria.isActive
+              ? Alert.notify.success
+              : Alert.notify.warning
+            action(criteria.criteriaName + ' ' + message)
+          })
       )
-        .then(loadSettings)
-        .then(function() {
-          var message = criteria.isActive ? 'Activated' : 'Deactivated'
-          var action = criteria.isActive
-            ? Alert.notify.success
-            : Alert.notify.warning
-          action(criteria.criteriaName + ' ' + message)
-        })
     }
   }
 })()
