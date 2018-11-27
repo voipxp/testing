@@ -6,7 +6,20 @@
   function UserCallRecordingService($http, Route) {
     var url = Route.api('/users/call-recording')
     var service = { index: index, show: show, update: update, bulk: bulk }
-    service.options = { recordingOptions: ['Always', 'Never', 'On Demand'] }
+    service.options = {
+      recordingOptions: [
+        'Always',
+        'Never',
+        'On Demand',
+        'Always with Pause/Resume',
+        'On Demand with User Initiated Start'
+      ],
+      pauseResumeNotification: ['None', 'Beep', 'Play Announcement'],
+      recordCallRepeatWarningToneTimerSeconds: {
+        minimum: 10,
+        maximum: 1800
+      }
+    }
     return service
 
     function index(serviceProviderId, groupId) {
@@ -23,6 +36,7 @@
       return $http
         .get(url(), { params: { userId: userId } })
         .then(function(response) {
+          console.log(response.data)
           return response.data
         })
     }
