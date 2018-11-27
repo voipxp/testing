@@ -52,6 +52,7 @@
       'Group Night Forwarding',
       'Hoteling Guest',
       'Hoteling Host',
+      'Integrated IMP',
       'Internal Calling Line ID Delivery',
       'Meet-Me Conferencing',
       'Music On Hold User',
