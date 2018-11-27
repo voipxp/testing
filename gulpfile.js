@@ -116,7 +116,6 @@ gulp.task('vendor.js', () => {
       'node_modules/angular-color-picker/angular-color-picker.js',
       'node_modules/angular-jwt/dist/angular-jwt.min.js',
       'node_modules/angular-truncate-2/dist/angular-truncate-2.min.js',
-      'node_modules/angularFileInput/dist/angular-file-input.min.js',
       'node_modules/papaparse/papaparse.min.js',
       'node_modules/sugar-date/dist/sugar-date.min.js',
       'node_modules/mustache/mustache.min.js',
