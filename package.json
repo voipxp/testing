@@ -11,6 +11,7 @@
     "browsers": "npx browserslist"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "angular": "^1.7.2",
     "angular-animate": "^1.7.2",
     "angular-cache": "^4.6.0",
@@ -22,7 +23,6 @@
     "angular-route": "^1.7.2",
     "angular-sanitize": "^1.7.2",
     "angular-truncate-2": "^0.4.2",
-    "angularFileInput": "git+https://github.com/odra/angular-file-input.git",
     "animate.css": "^3.5.2",
     "buffer-to-vinyl": "^1.1.0",
     "bulma": "^0.7.1",
@@ -38,8 +38,7 @@
     "npm": "^6.0.0",
     "papaparse": "^4.3.6",
     "rrule": "^2.2.0",
-    "sugar-date": "^2.0.4",
-    "@babel/polyfill": "^7.0.0"
+    "sugar-date": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
