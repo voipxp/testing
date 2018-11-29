@@ -1,32 +1,3 @@
-/*
-answerIndicator
-answerTime
-authorizationCode
-callCategory
-calledNumber
-callingNumber
-dayOfWeek
-department
-direction
-groupId
-otherPartyName
-placedTime
-recordId
-releaseTime
-releaseTimeUtc
-route
-serviceProviderId
-startTime
-systemId
-terminationCause
-totalTime
-userId
-userIdSub
-userNumber
-userTimeZone
-waitTime
-*/
-
 ;(function() {
   angular.module('odin.group').component('groupCallRecordData', {
     templateUrl: 'group/components/callRecords/group/data.component.html',
@@ -40,32 +11,8 @@ waitTime
     }
   })
 
-  function Controller(
-    Alert,
-    GroupCallRecordsService,
-    DownloadService,
-    Papa,
-    $rootScope
-  ) {
+  function Controller(Alert, GroupCallRecordsService, $rootScope) {
     var ctrl = this
-    var viewableFields = [
-      'userId',
-      'groupId',
-      'department',
-      'direction',
-      'calledNumber',
-      'callingNumber',
-      'otherPartyName',
-      'startTime',
-      'answerTime',
-      'releaseTime',
-      'placedTime',
-      'totalTime',
-      'answerIndicator',
-      'relatedCallIdReason',
-      'accountCode',
-      'authorizationCode'
-    ]
 
     ctrl.filters = [
       {
@@ -131,7 +78,7 @@ waitTime
     // Set the data based on the filter
     function setFilters() {
       var filters = _.map(_.filter(ctrl.filters, { show: true }), 'value')
-      var details = _.filter(ctrl.records.data, function(item) {
+      var details = _.filter(ctrl.records, function(item) {
         return _.includes(filters, item.direction) && isUser(item)
       })
       ctrl.details = details
@@ -147,48 +94,19 @@ waitTime
         ctrl.groupId,
         ctrl.startTime,
         ctrl.endTime
-      )
-        .then(function(data) {
-          ctrl.records = data
-          setFilters()
-        })
-        .then(warnLimit)
-    }
-
-    function incomplete() {
-      return ctrl.records.count < ctrl.records.total
-    }
-
-    function warnLimit() {
-      if (incomplete()) {
-        Alert.notify.danger(
-          'Results are limited to ' +
-            ctrl.records.count +
-            ' records. ' +
-            'Please download the CSV file to see all the results.'
-        )
-      }
+      ).then(function(data) {
+        ctrl.records = data
+        setFilters()
+      })
     }
 
     function download() {
-      if (!incomplete()) return sendFile(ctrl.records.data)
       GroupCallRecordsService.download(
         ctrl.serviceProviderId,
         ctrl.groupId,
         ctrl.startTime,
         ctrl.endTime
       )
-    }
-
-    function sendFile(data) {
-      var filename = ['odin', ctrl.groupId, ctrl.label].join('_')
-      filename = filename + '.csv'
-      var options = { delimiter: ',', newline: '\r\n', quotes: true }
-      var filtered = _.map(data, function(callRecord) {
-        return _.pick(callRecord, viewableFields)
-      })
-      var csv = Papa.unparse(filtered, options)
-      DownloadService.download(csv, filename)
     }
 
     function searchUser() {
