@@ -3,11 +3,12 @@
     .module('odin.group')
     .factory('GroupCallRecordsService', GroupCallRecordsService)
 
-  function GroupCallRecordsService($http, Route) {
+  function GroupCallRecordsService($http, Route, Session, $window) {
     var url = Route.api('/groups/call-records')
     var service = {
       related,
       detail,
+      download,
       received,
       placed,
       missed,
@@ -33,6 +34,21 @@
           }
         })
         .then(res => res.data)
+    }
+
+    // construct url to download csv file
+    function download(serviceProviderId, groupId, startTime, endTime) {
+      const params = {
+        serviceProviderId: encodeURIComponent(serviceProviderId),
+        groupId: encodeURIComponent(groupId),
+        startTime: startTime.toISOString(),
+        endTime: endTime.toISOString(),
+        _authToken: Session.data('token')
+      }
+      const query = Object.keys(params)
+        .map(key => `${key}=${params[key]}`)
+        .join('&')
+      $window.open(`${url('download')}?${query}`)
     }
 
     function received(serviceProviderId, groupId, startTime, endTime) {

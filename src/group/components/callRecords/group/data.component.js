@@ -172,19 +172,12 @@ waitTime
 
     function download() {
       if (!incomplete()) return sendFile(ctrl.records.data)
-      Alert.spinner.open()
-      GroupCallRecordsService.detail(
+      GroupCallRecordsService.download(
         ctrl.serviceProviderId,
         ctrl.groupId,
         ctrl.startTime,
-        ctrl.endTime,
-        true
+        ctrl.endTime
       )
-        .then(function(data) {
-          sendFile(data.data)
-        })
-        .catch(Alert.notify.danger)
-        .finally(Alert.spinner.close)
     }
 
     function sendFile(data) {
