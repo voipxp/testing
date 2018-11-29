@@ -153,7 +153,7 @@
      * action: 'add|remove|replace'
      * services: []
      * count: integer
-    */
+     */
     $scope.$on('bulkSelectServices:load', function(event, data) {
       ctrl.action = data.action || 'add'
       ctrl.type = data.type
