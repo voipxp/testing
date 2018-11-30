@@ -117,7 +117,7 @@
         ctrl.endTime
       ).then(function(data) {
         ctrl.records = data
-        filterRecords()
+        ctrl.details = angular.copy(data)
       })
     }
 
