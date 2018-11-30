@@ -55,7 +55,6 @@
     ctrl.searchUser = searchUser
     ctrl.onSelectUser = onSelectUser
     ctrl.searchText = searchText
-    ctrl.clearText = clearText
 
     let worker
 
@@ -91,11 +90,6 @@
       filterRecords()
     }
 
-    function clearText() {
-      ctrl.search = null
-      filterRecords()
-    }
-
     // Send filters to worker
     function filterRecords() {
       ctrl.isFiltering = true
@@ -112,7 +106,7 @@
       $timeout(() => {
         ctrl.details = event.data
         ctrl.isFiltering = false
-      }, 3000)
+      }, 1)
     }
 
     function loadDetails() {
