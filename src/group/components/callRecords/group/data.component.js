@@ -112,7 +112,7 @@
       $timeout(() => {
         ctrl.details = event.data
         ctrl.isFiltering = false
-      }, 1)
+      }, 3000)
     }
 
     function loadDetails() {

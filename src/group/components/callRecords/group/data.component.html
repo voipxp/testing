@@ -24,8 +24,8 @@
               placeholder="Search by User"
               class="input margin-bottom"
               ng-model="$ctrl.searchUserId"
-              readonly
-              ng-click="$ctrl.searchUser()">
+              ng-click="$ctrl.searchUser()"
+              readonly>
           </p>
           <p class="control"
             ng-if="$ctrl.searchUserId">
@@ -39,6 +39,7 @@
           <p class="control">
             <button class="button"
               ng-click="$ctrl.searchUser()"
+              ng-class="{'is-loading': $ctrl.isFiltering}"
               ng-disabled="$ctrl.isFiltering">
               <span class="icon">
                 <i class="fas fa-search"></i>
@@ -49,25 +50,17 @@
       </div>
       <div class="column">
         <div class="field has-addons">
-          <p class="control is-expanded"
-            ng-class="{'is-loading': $ctrl.isFiltering}">
-            <input type="text"
+          <p class="control is-expanded">
+            <input type="search"
               class="input"
+              ng-disabled="$ctrl.isFiltering"
               ng-model="$ctrl.search"
               placeholder="Filter Results"
-              ng-keydown="$event.keyCode === 13 && $ctrl.searchText()">
-          </p>
-          <p class="control"
-            ng-if="$ctrl.search">
-            <button class="button"
-              ng-click="$ctrl.clearText()">
-              <span class="icon">
-                <i class="fas fa-times"></i>
-              </span>
-            </button>
+              ng-enter="$ctrl.searchText()">
           </p>
           <p class="control">
             <button class="button"
+              ng-class="{'is-loading': $ctrl.isFiltering}"
               ng-click="$ctrl.searchText()"
               ng-disabled="$ctrl.isFiltering">
               <span class="icon">
