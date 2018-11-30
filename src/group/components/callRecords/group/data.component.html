@@ -38,7 +38,8 @@
           </p>
           <p class="control">
             <button class="button"
-              ng-click="$ctrl.searchUser()">
+              ng-click="$ctrl.searchUser()"
+              ng-disabled="$ctrl.isFiltering">
               <span class="icon">
                 <i class="fas fa-search"></i>
               </span>
@@ -47,11 +48,33 @@
         </div>
       </div>
       <div class="column">
-        <div class="fields has-addons">
-          <input type="search"
-            class="input"
-            ng-model="$ctrl.search"
-            placeholder="Filter Results">
+        <div class="field has-addons">
+          <p class="control is-expanded"
+            ng-class="{'is-loading': $ctrl.isFiltering}">
+            <input type="text"
+              class="input"
+              ng-model="$ctrl.search"
+              placeholder="Filter Results"
+              ng-keydown="$event.keyCode === 13 && $ctrl.searchText()">
+          </p>
+          <p class="control"
+            ng-if="$ctrl.search">
+            <button class="button"
+              ng-click="$ctrl.clearText()">
+              <span class="icon">
+                <i class="fas fa-times"></i>
+              </span>
+            </button>
+          </p>
+          <p class="control">
+            <button class="button"
+              ng-click="$ctrl.searchText()"
+              ng-disabled="$ctrl.isFiltering">
+              <span class="icon">
+                <i class="fas fa-search"></i>
+              </span>
+            </button>
+          </p>
         </div>
       </div>
     </div>
@@ -85,7 +108,7 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr ng-repeat="detail in results = ($ctrl.details | filter:$ctrl.search) | paginate:$ctrl.pager">
+        <tr ng-repeat="detail in results = $ctrl.details | paginate:$ctrl.pager">
           <td>{{ detail.userIdSub }}</td>
           <td>{{ detail.department }}</td>
           <td>{{ detail.direction | humanize }}</td>

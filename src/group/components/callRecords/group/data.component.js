@@ -11,7 +11,7 @@
     }
   })
 
-  function Controller(Alert, GroupCallRecordsService, $rootScope) {
+  function Controller(Alert, GroupCallRecordsService, $rootScope, $timeout) {
     var ctrl = this
 
     ctrl.filters = [
@@ -48,13 +48,21 @@
     ]
 
     ctrl.$onInit = onInit
+    ctrl.$onDestroy = onDestroy
     ctrl.download = download
     ctrl.toggleFilter = toggleFilter
     ctrl.onPagination = onPagination
     ctrl.searchUser = searchUser
     ctrl.onSelectUser = onSelectUser
+    ctrl.searchText = searchText
+    ctrl.clearText = clearText
+
+    let worker
 
     function onInit() {
+      worker = new Worker('/group/components/callRecords/group/data.worker.js')
+      worker.onmessage = onFilteredRecords
+
       ctrl.details = []
       ctrl.loading = true
       loadDetails()
@@ -66,26 +74,45 @@
         })
     }
 
+    function onDestroy() {
+      worker.terminate()
+    }
+
     function onPagination(event) {
       ctrl.pager = event.pager
     }
 
     function toggleFilter(filter) {
       filter.show = !filter.show
-      setFilters()
+      filterRecords()
     }
 
-    // Set the data based on the filter
-    function setFilters() {
-      var filters = _.map(_.filter(ctrl.filters, { show: true }), 'value')
-      var details = _.filter(ctrl.records, function(item) {
-        return _.includes(filters, item.direction) && isUser(item)
+    function searchText() {
+      filterRecords()
+    }
+
+    function clearText() {
+      ctrl.search = null
+      filterRecords()
+    }
+
+    // Send filters to worker
+    function filterRecords() {
+      ctrl.isFiltering = true
+      worker.postMessage({
+        filters: ctrl.filters,
+        records: ctrl.records,
+        search: ctrl.search,
+        userId: ctrl.searchUserId
       })
-      ctrl.details = details
     }
 
-    function isUser(user) {
-      return ctrl.searchUserId ? user.userId === ctrl.searchUserId : true
+    // Receive filters from worker
+    function onFilteredRecords(event) {
+      $timeout(() => {
+        ctrl.details = event.data
+        ctrl.isFiltering = false
+      }, 1)
     }
 
     function loadDetails() {
@@ -96,7 +123,7 @@
         ctrl.endTime
       ).then(function(data) {
         ctrl.records = data
-        setFilters()
+        filterRecords()
       })
     }
 
@@ -119,7 +146,7 @@
 
     function onSelectUser(user) {
       ctrl.searchUserId = user && user.userId
-      setFilters()
+      filterRecords()
     }
   }
 })()

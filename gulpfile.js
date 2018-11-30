@@ -39,7 +39,12 @@ gulp.task('app.js', () => {
     .stream(new Buffer(JSON.stringify(Config)), 'config.js')
     .pipe(ngConfig('odin.config', { wrap: false }))
   let app = gulp
-    .src(['src/common/lib/*.js', 'src/**/index.js', 'src/**/*.js'])
+    .src([
+      'src/common/lib/*.js',
+      'src/**/index.js',
+      'src/**/*.js',
+      '!src/**/*.worker.js'
+    ])
     .pipe(babel())
   return series(polyfill, conf, app)
     .pipe(concat('app.js'))
@@ -81,6 +86,13 @@ gulp.task('app.assets', () => {
     { base: 'node_modules/@fortawesome/fontawesome-free' }
   )
   return series(manifest, browserconfig, robots, fa).pipe(gulp.dest(dest))
+})
+
+gulp.task('app.workers', () => {
+  return gulp
+    .src(['src/**/*.worker.js'])
+    .pipe(babel())
+    .pipe(gulp.dest(dest))
 })
 
 gulp.task('vendor.css', () => {
@@ -162,6 +174,7 @@ gulp.task(
       'app.tpl',
       'app.html',
       'app.assets',
+      'app.workers',
       'vendor.css',
       'vendor.js',
       'vendor.debug'
@@ -173,7 +186,8 @@ gulp.task(
   'watch',
   gulp.series('default', () => {
     gulp.watch(['src/**/*.css'], gulp.series('app.css'))
-    gulp.watch(['src/**/*.js'], gulp.series('app.js'))
+    gulp.watch(['src/**/*.js', '!src/**/*.worker.js'], gulp.series('app.js'))
+    gulp.watch(['src/**/*.worker.js'], gulp.series('app.workers'))
     gulp.watch(['src/app/layout/index.html'], gulp.series('app.html'))
     gulp.watch(
       ['src/**/*.html', '!src/app/layout/index.html'],
