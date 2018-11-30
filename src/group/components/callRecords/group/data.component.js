@@ -60,7 +60,7 @@
     let worker
 
     function onInit() {
-      worker = new Worker('/group/components/callRecords/group/data.worker.js')
+      worker = new Worker('group/components/callRecords/group/data.worker.js')
       worker.onmessage = onFilteredRecords
 
       ctrl.details = []
