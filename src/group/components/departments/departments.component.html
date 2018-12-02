@@ -6,7 +6,8 @@
   <pbs-block title="Departments">
     <pbs-block-buttons>
       <pbs-button-compact-add title="Add Department"
-        ng-click="$ctrl.add()">
+        ng-click="$ctrl.add()"
+        ng-if="$ctrl.canCreate">
       </pbs-button-compact-add>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.filter"></pbs-table-search>
@@ -29,7 +30,8 @@
         <tr class="hover"
           ng-repeat="department in $ctrl.departments | filter:{isEnterpriseDepartment: false} | filter:$ctrl.filter | orderBy:'fullPathName' as results track by department.name"
       
-          ng-click="$ctrl.open(department)">
+          ng-click="$ctrl.open(department)"
+          ng-if="$ctrl.canUpdate">
           <td>{{ department.fullPathName }}</td>
           <td>{{ department.callingLineIdName }}</td>
           <td>{{ department.callingLineIdPhoneNumber }}</td>

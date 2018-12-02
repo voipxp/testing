@@ -4,7 +4,14 @@
     controller: Controller
   })
 
-  function Controller(Alert, GroupDepartmentService, $routeParams, Route) {
+  function Controller(
+    Alert,
+    GroupDepartmentService,
+    $routeParams,
+    Route,
+    GroupPolicyService,
+    $q
+  ) {
     var ctrl = this
 
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -17,13 +24,24 @@
 
     function onInit() {
       ctrl.loading = true
-      loadDepartments()
-        .catch(function(error) {
-          Alert.notify.danger(error)
+      return $q
+        .all([loadDepartments(), GroupPolicyService.load()])
+        .then(function() {
+          ctrl.canRead = GroupPolicyService.departmentRead()
+          ctrl.canCreate = GroupPolicyService.departmentCreate()
+          ctrl.canUpdate = GroupPolicyService.departmentUpdate()
         })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
+      // loadDepartments()
+      //   .catch(function(error) {
+      //     Alert.notify.danger(error)
+      //   })
+      //   .finally(function() {
+      //     ctrl.loading = false
+      //   })
     }
 
     function loadDepartments() {
