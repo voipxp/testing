@@ -6,7 +6,14 @@
     bindings: { module: '<' }
   })
 
-  function Controller($routeParams, Alert, GroupAutoAttendantService, Route) {
+  function Controller(
+    $routeParams,
+    Alert,
+    GroupAutoAttendantService,
+    Route,
+    $q,
+    GroupPolicyService
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceUserId = $routeParams.serviceUserId
@@ -20,11 +27,23 @@
 
     function onInit() {
       ctrl.loading = true
-      return loadAutoAttendant()
+      return $q
+        .all([loadAutoAttendant(), GroupPolicyService.load()])
+        .then(function() {
+          ctrl.canRead = GroupPolicyService.enhancedServiceRead()
+          ctrl.canUpdate = GroupPolicyService.enhancedServiceCreate()
+          ctrl.canCreate = GroupPolicyService.enhancedServiceCreate()
+          ctrl.canDelete = GroupPolicyService.enhancedServiceCreate()
+        })
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
+      // return loadAutoAttendant()
+      //   .catch(Alert.notify.danger)
+      //   .finally(function() {
+      //     ctrl.loading = false
+      //   })
     }
 
     function isStandard() {
