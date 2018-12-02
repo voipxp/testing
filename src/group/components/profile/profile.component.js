@@ -11,7 +11,8 @@
     $q,
     ACL,
     $routeParams,
-    Route
+    Route,
+    GroupPolicyService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -22,17 +23,30 @@
     ctrl.contactSummary = contactSummary
     ctrl.addressSummary = addressSummary
     ctrl.toggleOptional = toggleOptional
+    // ctrl.policies = GroupPolicyService.options.policies
 
     function onInit() {
       ctrl.isAdmin = ACL.has('Service Provider')
       ctrl.loading = true
-      return loadGroup()
-        .catch(function(error) {
-          Alert.notify.danger(error)
+      return $q
+        .all([loadGroup(), GroupPolicyService.load()])
+        .then(function() {
+          ctrl.canRead = GroupPolicyService.profileRead()
+          ctrl.canUpdate = GroupPolicyService.profileUpdate()
+          console.log('ctrl.canUpdate', ctrl.canUpdate)
+          console.log('ctrl.canRead', ctrl.canRead)
         })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
+      // return loadGroup()
+      //   .catch(function(error) {
+      //     Alert.notify.danger(error)
+      //   })
+      //   .finally(function() {
+      //     ctrl.loading = false
+      //   })
     }
 
     function loadGroup() {
