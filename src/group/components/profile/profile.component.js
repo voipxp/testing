@@ -33,8 +33,6 @@
         .then(function() {
           ctrl.canRead = GroupPolicyService.profileRead()
           ctrl.canUpdate = GroupPolicyService.profileUpdate()
-          console.log('ctrl.canUpdate', ctrl.canUpdate)
-          console.log('ctrl.canRead', ctrl.canRead)
         })
         .catch(Alert.notify.danger)
         .finally(function() {

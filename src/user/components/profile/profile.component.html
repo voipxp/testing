@@ -2,10 +2,10 @@
   <pbs-block title="Profile">
     <pbs-block-buttons>
       <pbs-button-compact-edit title="Edit Profile"
-        ng-click="$ctrl.edit()">
+        ng-click="$ctrl.edit()" ng-if="$ctrl.canUpdate">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
-    <pbs-list>
+    <pbs-list ng-if="$ctrl.canRead">
       <pbs-list-item label="User ID">
         {{ $ctrl.user.userId }}
       </pbs-list-item>
@@ -50,6 +50,10 @@
       </pbs-list-item>
       <pbs-list-item label="Network Class of Service">
         {{ $ctrl.user.networkClassOfService }}
+      </pbs-list-item>
+    </pbs-list>
+    <pbs-list ng-if="!$ctrl.canRead">
+      <pbs-list-item label="User Profile Policy Read Permission Is Disabled For Group Admin">
       </pbs-list-item>
     </pbs-list>
   </pbs-block>

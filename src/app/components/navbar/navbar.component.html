@@ -18,7 +18,7 @@
   <div class="navbar-menu"
        ng-class="{'is-active': $ctrl.showMenu}">
     <div class="navbar-start">
-      <div class="navbar-item">{{ $root.pageTitle }}</div>
+      <div class="navbar-item">{{ $root.pageTitle }} ({{$ctrl.session.userId}})</div>
     </div>
     <div class="navbar-end">
       <div class="navbar-item has-dropdown is-hoverable"

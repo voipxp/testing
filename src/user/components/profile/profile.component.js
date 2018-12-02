@@ -5,7 +5,7 @@
     bindings: { userId: '<' }
   })
 
-  function Controller(Alert, UserService, ACL) {
+  function Controller(Alert, UserService, ACL, GroupPolicyService, $q) {
     var ctrl = this
     ctrl.update = update
     ctrl.$onInit = onInit
@@ -14,13 +14,13 @@
 
     function onInit() {
       ctrl.loading = true
-      return loadUser()
+      return $q
+        .all([loadUser(), GroupPolicyService.load()])
         .then(function() {
-          ctrl.isAdmin = ACL.has('Group')
+          ctrl.canRead = GroupPolicyService.userProfileRead()
+          ctrl.canUpdate = GroupPolicyService.userProfileUpdate()
         })
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
