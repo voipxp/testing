@@ -31,10 +31,10 @@
       return $q
         .all([GroupPolicyService.load()])
         .then(function() {
-          // ctrl.canRead = GroupPolicyService.enhancedServiceRead()
-          // ctrl.canUpdate = GroupPolicyService.enhancedServiceCreate()
-          ctrl.canCreate = GroupPolicyService.enhancedServiceCreate()
-          ctrl.canDelete = GroupPolicyService.enhancedServiceCreate()
+          ctrl.canUpdate =
+            GroupPolicyService.enhancedServiceCreate() && ctrl.canUpdate
+          ctrl.canDelete =
+            GroupPolicyService.enhancedServiceCreate() && ctrl.canDelete
         })
         .catch(Alert.notify.danger)
         .finally(function() {

@@ -5,7 +5,7 @@
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block module="$ctrl.module">
-    <pbs-block-buttons ng-if="$ctrl.module.permissions.create">
+    <pbs-block-buttons ng-if="$ctrl.module.permissions.create && $ctrl.canCreate">
       <pbs-button-compact-clone title="Clone Auto Attendant"
         ng-click="$ctrl.clone()"></pbs-button-compact-clone>
       <pbs-button-compact-add title="Add Auto Attendant"

@@ -11,7 +11,9 @@
     Alert,
     GroupAutoAttendantService,
     Route,
-    $scope
+    $scope,
+    $q,
+    GroupPolicyService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -25,13 +27,24 @@
 
     function onInit() {
       ctrl.loading = true
-      return loadAutoAttendants()
-        .catch(function(error) {
-          Alert.notify.danger(error)
+      return $q
+        .all([loadAutoAttendants(), GroupPolicyService.load()])
+        .then(function() {
+          ctrl.canCreate = GroupPolicyService.enhancedServiceCreate()
+          console.log('ctrl.canCreate', ctrl.canCreate)
         })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
+
+      // return loadAutoAttendants()
+      //   .catch(function(error) {
+      //     Alert.notify.danger(error)
+      //   })
+      //   .finally(function() {
+      //     ctrl.loading = false
+      //   })
     }
 
     function loadAutoAttendants() {
