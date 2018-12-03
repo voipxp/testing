@@ -10,7 +10,9 @@
     GroupHuntGroupService,
     Route,
     $routeParams,
-    $scope
+    $scope,
+    GroupPolicyService,
+    $q
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -23,11 +25,21 @@
 
     function onInit() {
       ctrl.loading = true
-      loadHuntGroups()
+      return $q
+        .all([loadHuntGroups(), GroupPolicyService.load()])
+        .then(function() {
+          ctrl.canCreate = GroupPolicyService.enhancedServiceCreate()
+        })
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
+
+      // loadHuntGroups()
+      //   .catch(Alert.notify.danger)
+      //   .finally(function() {
+      //     ctrl.loading = false
+      //   })
     }
 
     function loadHuntGroups() {
