@@ -10,7 +10,9 @@
     Route,
     Alert,
     GroupCallCenterService,
-    $scope
+    $scope,
+    GroupPolicyService,
+    $q
   ) {
     var ctrl = this
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -24,11 +26,21 @@
     function activate() {
       ctrl.canCreate = ctrl.module.permissions.create
       ctrl.loading = true
-      loadCallCenters()
+      return $q
+        .all([loadCallCenters(), GroupPolicyService.load()])
+        .then(function() {
+          ctrl.canCreate =
+            GroupPolicyService.enhancedServiceCreate() && ctrl.canCreate
+        })
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
+      // loadCallCenters()
+      //   .catch(Alert.notify.danger)
+      //   .finally(function() {
+      //     ctrl.loading = false
+      //   })
     }
 
     function loadCallCenters() {
