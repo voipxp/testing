@@ -10,7 +10,8 @@
     SystemStateService,
     Alert,
     $routeParams,
-    $q
+    $q,
+    ServiceProviderPolicyService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -24,10 +25,13 @@
 
     function onInit() {
       ctrl.loading = true
-      return loadServiceProvider()
-        .catch(function(error) {
-          Alert.notify.danger(error)
+      return $q
+        .all([loadServiceProvider(), ServiceProviderPolicyService.load()])
+        .then(function() {
+          ctrl.canRead = ServiceProviderPolicyService.profileRead()
+          ctrl.canUpdate = ServiceProviderPolicyService.profileUpdate()
         })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })

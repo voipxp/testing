@@ -2,8 +2,8 @@
   <pbs-breadcrumb title="'Profile'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Details">
-    <pbs-block-buttons>
+  <pbs-block title="Details" ng-if="$ctrl.canRead">
+    <pbs-block-buttons ng-if="$ctrl.canUpdate">
       <pbs-button-compact-edit title="Edit Service Provider"
         ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
@@ -34,6 +34,12 @@
       </pbs-list-item>
       <pbs-list-item label="Address">
         {{ $ctrl.addressSummary() }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+  <pbs-block title="Details" ng-if="!$ctrl.canRead">
+    <pbs-list>
+      <pbs-list-item label="Profile Policy Read Permission Is Disabled">
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
