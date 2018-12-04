@@ -1,7 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Trunk Groups"
     class="margin-top">
-    <pbs-block-buttons>
+    <pbs-block-buttons ng-if="$ctrl.canCreate">
       <pbs-button-compact-add title="New Trunk Group"
         ng-click="$ctrl.add()"
         if-module-create="$ctrl.module">

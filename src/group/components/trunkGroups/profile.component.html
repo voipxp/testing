@@ -1,6 +1,6 @@
 <pbs-spinner loading="$ctrl.parent.loading">
   <pbs-block title="Settings">
-    <pbs-block-buttons if-module-update="'Trunk Group'">
+    <pbs-block-buttons ng-if="$ctrl.canUpdate">
       <pbs-button-compact-edit title="Edit Settings"
         ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>

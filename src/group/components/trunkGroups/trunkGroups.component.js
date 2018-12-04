@@ -11,23 +11,40 @@
     Route,
     $location,
     Alert,
-    GroupTrunkGroupService
+    GroupTrunkGroupService,
+    GroupPolicyService,
+    $q
   ) {
     var ctrl = this
-    ctrl.$onInit = activate
+    ctrl.$onInit = onInit
 
-    function activate() {
+    function onInit() {
       ctrl.open = ctrl.parent.open
       ctrl.add = ctrl.parent.add
       ctrl.loading = true
-      loadTrunks()
-        .catch(function(error) {
-          Alert.notify.danger(error)
+      return $q
+        .all([GroupPolicyService.load(), loadTrunks()])
+        .then(function() {
+          ctrl.canCreate = GroupPolicyService.trunkGroupCreate()
         })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
     }
+
+    // function activate() {
+    //   ctrl.open = ctrl.parent.open
+    //   ctrl.add = ctrl.parent.add
+    //   ctrl.loading = true
+    //   loadTrunks()
+    //     .catch(function(error) {
+    //       Alert.notify.danger(error)
+    //     })
+    //     .finally(function() {
+    //       ctrl.loading = false
+    //     })
+    // }
 
     function loadTrunks() {
       return GroupTrunkGroupService.index(

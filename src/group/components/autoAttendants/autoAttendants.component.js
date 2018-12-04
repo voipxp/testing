@@ -31,7 +31,6 @@
         .all([loadAutoAttendants(), GroupPolicyService.load()])
         .then(function() {
           ctrl.canCreate = GroupPolicyService.enhancedServiceCreate()
-          console.log('ctrl.canCreate', ctrl.canCreate)
         })
         .catch(Alert.notify.danger)
         .finally(function() {

@@ -5,18 +5,27 @@
     require: { parent: '^groupTrunkGroup' }
   })
 
-  function Controller(Alert, GroupTrunkGroupService, Module) {
+  function Controller(
+    Alert,
+    GroupTrunkGroupService,
+    Module,
+    GroupPolicyService
+  ) {
     var ctrl = this
     ctrl.options = GroupTrunkGroupService.options
     ctrl.edit = edit
     ctrl.$onInit = onInit
+    ctrl.canUpdate = Module.update('Trunk Group - Authentication')
 
     function onInit() {
       return Module.show('Trunk Group - Authentication').then(function(data) {
         ctrl.authentication = data.permissions
+        GroupPolicyService.load().then(function() {
+          ctrl.canUpdate =
+            GroupPolicyService.trunkGroupUpdate() && ctrl.canUpdate
+        })
       })
     }
-
     function edit() {
       var onDelete
       if (ctrl.parent.module.permissions.delete) {

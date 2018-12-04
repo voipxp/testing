@@ -83,9 +83,8 @@
         ])
         ctrl.settings = data
         ctrl.settings.featureAccessCodes = sorted
-        GroupPolicyService.load().then(function(data) {
+        GroupPolicyService.load().then(function() {
           ctrl.canUpdate = GroupPolicyService.featureAccessCodeUpdate()
-          console.log('data', data)
         })
       })
     }
@@ -168,7 +167,6 @@
         .finally(Alert.spinner.close)
     }
     function onClick(accessCode) {
-      console.log('ctrl.canUpdate', ctrl.canUpdate)
       if (ctrl.canUpdate) {
         ctrl.editSettings = angular.copy(ctrl.settings)
         // make a copy of the original access code
