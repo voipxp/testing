@@ -4,7 +4,7 @@
     item-key="name"
     limit-to="$ctrl.limitTo"
     on-select="$ctrl.open($event)">
-    <pbs-panel-buttons>
+    <pbs-panel-buttons ng-if="$ctrl.canCreate">
       <pbs-button-compact-clone title="Clone Group"
         ng-click="$ctrl.clone()">
       </pbs-button-compact-clone>
