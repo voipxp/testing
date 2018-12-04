@@ -8,6 +8,7 @@
     Alert,
     ServiceProviderAdminService,
     ServiceProviderAdminPolicyService,
+    ServiceProviderPolicyService,
     SystemLanguageService,
     $q,
     $routeParams
@@ -24,7 +25,16 @@
     function onInit() {
       ctrl.loading = true
       return $q
-        .all([loadAdmins(), loadLanguages()])
+        .all([
+          loadAdmins(),
+          loadLanguages(),
+          ServiceProviderPolicyService.load()
+        ])
+        .then(function() {
+          ctrl.canRead = ServiceProviderPolicyService.adminRead()
+          ctrl.canCreate = ServiceProviderPolicyService.adminCreate()
+          ctrl.canUpdate = ServiceProviderPolicyService.adminUpdate()
+        })
         .catch(function(error) {
           Alert.notify.danger(error)
         })
@@ -72,27 +82,29 @@
     }
 
     function edit(admin) {
-      ctrl.editAdmin = angular.copy(admin)
-      Alert.spinner.open()
-      loadAdminPolicies(admin.userId)
-        .then(function(policies) {
-          ctrl.editPolicies = policies
-          Alert.modal.open(
-            'serviceProviderAdminEditModal',
-            function onSave(close) {
-              updateBoth(ctrl.editAdmin, ctrl.editPolicies, close)
-            },
-            function onDelete(close) {
-              Alert.confirm
-                .open('Are you sure you want to delete this Admin?')
-                .then(function() {
-                  remove(ctrl.editAdmin, close)
-                })
-            }
-          )
-        })
-        .catch(Alert.notify.danger)
-        .finally(Alert.spinner.close)
+      if (ctrl.canUpdate) {
+        ctrl.editAdmin = angular.copy(admin)
+        Alert.spinner.open()
+        loadAdminPolicies(admin.userId)
+          .then(function(policies) {
+            ctrl.editPolicies = policies
+            Alert.modal.open(
+              'serviceProviderAdminEditModal',
+              function onSave(close) {
+                updateBoth(ctrl.editAdmin, ctrl.editPolicies, close)
+              },
+              function onDelete(close) {
+                Alert.confirm
+                  .open('Are you sure you want to delete this Admin?')
+                  .then(function() {
+                    remove(ctrl.editAdmin, close)
+                  })
+              }
+            )
+          })
+          .catch(Alert.notify.danger)
+          .finally(Alert.spinner.close)
+      }
     }
 
     function create(admin, callback) {
