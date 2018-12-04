@@ -12,6 +12,7 @@
     ServiceProviderService,
     GroupPermissionService,
     GroupPolicyService,
+    ServiceProviderPolicyService,
     $q,
     ACL
   ) {
@@ -25,6 +26,7 @@
       return $q
         .all([
           GroupPolicyService.load(),
+          ServiceProviderPolicyService.load(),
           Module.load(),
           loadServiceProvider(serviceProviderId)
         ])
@@ -85,6 +87,16 @@
       // check for admin policies
       if (card.policy) {
         var func = GroupPolicyService[card.policy]
+        if (_.isFunction(func)) {
+          card.active = func()
+        }
+        // only skip below if we are denied access
+        if (!card.active) return
+      }
+
+      if (card.serviceProviderPolicy) {
+        func = ServiceProviderPolicyService[card.serviceProviderPolicy]
+        console.log(func)
         if (_.isFunction(func)) {
           card.active = func()
         }

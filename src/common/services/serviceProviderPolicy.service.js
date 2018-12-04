@@ -26,6 +26,7 @@
       groupCreate: groupCreate, //
       groupRead: groupRead, //
       groupUpdate: groupUpdate, //
+      groupDelete: groupDelete,
       networkPolicyRead: networkPolicyRead, //
       networkPolicyUpdate: networkPolicyUpdate, //
       numberActivationRead: numberActivationRead, //
@@ -155,6 +156,10 @@
     }
 
     function groupUpdate() {
+      return checkAccess('groupAccess', ['Full'])
+    }
+
+    function groupDelete() {
       return checkAccess('groupAccess', ['Full'])
     }
 
