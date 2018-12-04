@@ -5,20 +5,38 @@
     bindings: { userId: '<' }
   })
 
-  function Controller(Alert, UserService, ACL, GroupPolicyService, $q) {
+  function Controller(
+    Alert,
+    UserService,
+    ACL,
+    GroupPolicyService,
+    ServiceProviderPolicyService,
+    $q,
+    Session
+  ) {
     var ctrl = this
     ctrl.update = update
     ctrl.$onInit = onInit
     ctrl.addressSummary = addressSummary
     ctrl.edit = edit
+    ctrl.loginType = Session.data('loginType')
 
     function onInit() {
       ctrl.loading = true
       return $q
-        .all([loadUser(), GroupPolicyService.load()])
+        .all([
+          loadUser(),
+          GroupPolicyService.load(),
+          ServiceProviderPolicyService.load()
+        ])
         .then(function() {
-          ctrl.canRead = GroupPolicyService.userProfileRead()
-          ctrl.canUpdate = GroupPolicyService.userProfileUpdate()
+          if (ctrl.loginType === 'Group') {
+            ctrl.canRead = GroupPolicyService.userProfileRead()
+            ctrl.canUpdate = GroupPolicyService.userProfileUpdate()
+          } else if (ctrl.loginType === 'Service Provider') {
+            ctrl.canRead = ServiceProviderPolicyService.userProfileRead()
+            ctrl.canUpdate = ServiceProviderPolicyService.userProfileUpdate()
+          }
         })
         .catch(Alert.notify.danger)
         .finally(function() {

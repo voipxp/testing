@@ -44,6 +44,7 @@
       servicePackCreate: servicePackCreate, //
       sessionControlRead: sessionControlRead, //
       sessionControlUpdate: sessionControlUpdate, //
+      userDelete: userDelete, //
       userCreate: userCreate, //
       userProfileRead: userProfileRead, //
       userProfileUpdate: userProfileUpdate, //
@@ -230,6 +231,10 @@
     }
 
     function userCreate() {
+      return checkAccess('userAccess', ['Full'])
+    }
+
+    function userDelete() {
       return checkAccess('userAccess', ['Full'])
     }
 

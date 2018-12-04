@@ -5,11 +5,39 @@
     bindings: { userId: '<', groupId: '<', serviceProviderId: '<' }
   })
 
-  function Controller(Alert, UserIdService, UserService, Route) {
+  function Controller(
+    Alert,
+    UserIdService,
+    UserService,
+    Route,
+    GroupPolicyService,
+    ServiceProviderPolicyService,
+    Session,
+    $q
+  ) {
     var ctrl = this
+    ctrl.$onInit = onInit
     ctrl.update = update
     ctrl.edit = edit
     ctrl.setUserId = setUserId
+    ctrl.loginType = Session.data('loginType')
+
+    function onInit() {
+      ctrl.loading = true
+      return $q
+        .all([GroupPolicyService.load(), ServiceProviderPolicyService.load()])
+        .then(function() {
+          if (ctrl.loginType === 'Group') {
+            ctrl.canEdit = GroupPolicyService.userProfileUpdate()
+          } else if (ctrl.loginType === 'Service Provider') {
+            ctrl.canEdit = ServiceProviderPolicyService.userProfileUpdate()
+          }
+        })
+        .catch(Alert.notify.danger)
+        .finally(function() {
+          ctrl.loading = false
+        })
+    }
 
     function edit() {
       Alert.modal.open(
