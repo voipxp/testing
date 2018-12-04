@@ -11,7 +11,8 @@
     Alert,
     GroupFeatureAccessCodesService,
     GroupSpeedDial100Service,
-    $q
+    $q,
+    GroupPolicyService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -27,7 +28,6 @@
     ctrl.useFeatureAccessCodeLevels =
       GroupFeatureAccessCodesService.options.useFeatureAccessCodeLevel
     ctrl.speedDial100 = GroupSpeedDial100Service.options
-
     ctrl.columns = [
       {
         key: 'featureAccessCodeName',
@@ -45,7 +45,11 @@
 
     function onInit() {
       ctrl.loading = true
-      return loadData()
+      return $q
+        .all([GroupPolicyService.load(), loadSettings(), loadSpeedDial100()])
+        .then(function() {
+          ctrl.canUpdate = GroupPolicyService.featureAccessCodeUpdate()
+        })
         .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
@@ -53,7 +57,11 @@
     }
 
     function loadData() {
-      return $q.all([loadSettings(), loadSpeedDial100()])
+      return $q
+        .all([loadSettings(), loadSpeedDial100(), GroupPolicyService.load()])
+        .then(function() {
+          ctrl.canUpdate = GroupPolicyService.featureAccessCodeUpdate()
+        })
     }
 
     function loadSpeedDial100() {
@@ -75,6 +83,10 @@
         ])
         ctrl.settings = data
         ctrl.settings.featureAccessCodes = sorted
+        GroupPolicyService.load().then(function(data) {
+          ctrl.canUpdate = GroupPolicyService.featureAccessCodeUpdate()
+          console.log('data', data)
+        })
       })
     }
     function toggleSelect() {
@@ -156,15 +168,22 @@
         .finally(Alert.spinner.close)
     }
     function onClick(accessCode) {
-      ctrl.editSettings = angular.copy(ctrl.settings)
-      // make a copy of the original access code
-      // let match = _.find(arr.featureAccessCodes, origVal)
-      ctrl.editAccessCode = angular.copy(accessCode)
-      ctrl.origAccessCode = angular.copy(accessCode)
-      Alert.modal.open('editFeatureAccessCode', function(close) {
-        updateCode(ctrl.editSettings, ctrl.origAccessCode, ctrl.editAccessCode)
-        update(ctrl.editSettings, close)
-      })
+      console.log('ctrl.canUpdate', ctrl.canUpdate)
+      if (ctrl.canUpdate) {
+        ctrl.editSettings = angular.copy(ctrl.settings)
+        // make a copy of the original access code
+        // let match = _.find(arr.featureAccessCodes, origVal)
+        ctrl.editAccessCode = angular.copy(accessCode)
+        ctrl.origAccessCode = angular.copy(accessCode)
+        Alert.modal.open('editFeatureAccessCode', function(close) {
+          updateCode(
+            ctrl.editSettings,
+            ctrl.origAccessCode,
+            ctrl.editAccessCode
+          )
+          update(ctrl.editSettings, close)
+        })
+      }
     }
     function onSelect(event) {
       ctrl.selectFilter = {}
