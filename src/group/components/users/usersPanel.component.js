@@ -5,7 +5,15 @@
     bindings: { serviceProviderId: '<', groupId: '<', limitTo: '<' }
   })
 
-  function Controller(Alert, UserService, $scope, $location, Route) {
+  function Controller(
+    Alert,
+    UserService,
+    $scope,
+    $location,
+    Route,
+    ServiceProviderPolicyService,
+    $q
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.open = open
@@ -20,13 +28,23 @@
 
     function onInit() {
       ctrl.loading = true
-      loadUsers()
-        .catch(function(error) {
-          Alert.notify.danger(error)
+      return $q
+        .all([loadUsers(), ServiceProviderPolicyService.load()])
+        .then(function() {
+          ctrl.canCreate = ServiceProviderPolicyService.userCreate()
         })
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
+
+      // loadUsers()
+      //   .catch(function(error) {
+      //     Alert.notify.danger(error)
+      //   })
+      //   .finally(function() {
+      //     ctrl.loading = false
+      //   })
     }
 
     function loadUsers() {

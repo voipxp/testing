@@ -96,7 +96,6 @@
 
       if (card.serviceProviderPolicy) {
         func = ServiceProviderPolicyService[card.serviceProviderPolicy]
-        console.log(func)
         if (_.isFunction(func)) {
           card.active = func()
         }
