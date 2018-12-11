@@ -11,6 +11,7 @@
     Route,
     $routeParams,
     UserPermissionService,
+    GroupHuntGroupWeightedCallDistributionService,
     $q
   ) {
     var ctrl = this
@@ -24,6 +25,7 @@
     ctrl.updateProfile = updateProfile
     ctrl.update = update
     ctrl.destroy = destroy
+    ctrl.updateWeight = updateWeight
 
     function onInit() {
       ctrl.loading = true
@@ -71,7 +73,18 @@
         .catch(Alert.notify.danger)
         .finally(Alert.spinner.close)
     }
-
+    function updateWeight(huntGroup, callback) {
+      huntGroup.serviceUserId = ctrl.serviceUserId
+      Alert.spinner.open()
+      return GroupHuntGroupWeightedCallDistributionService.update(huntGroup)
+        .then(onInit)
+        .then(function() {
+          Alert.notify.success('Hunt Group Agent Weight Updated')
+          callback()
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    }
     function destroy(callback) {
       Alert.spinner.open()
       GroupHuntGroupService.destroy(ctrl.serviceUserId)
