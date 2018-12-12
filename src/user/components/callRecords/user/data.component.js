@@ -60,7 +60,9 @@ waitTime
       'accountCode',
       'callingNumber',
       'direction',
-      'authorizationCode'
+      'authorizationCode',
+      'relatedCallIdReason',
+      'answerIndicator'
     ]
 
     ctrl.filters = [
