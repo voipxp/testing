@@ -36,7 +36,7 @@
       </tfoot>
       <tbody>
         <tr class="hover"
-          ng-repeat="agent in $ctrl.parent.huntGroup.agents | filter:$ctrl.search as results track by agent.userId"
+          ng-repeat="agent in $ctrl.parent.huntGroup.agents | filter:$ctrl.search | orderBy:['lastName','firstName'] as results track by agent.userId"
           ng-click="$ctrl.edit()">
           <td>{{ agent.userId }}</td>
           <td>{{ agent.lastName }}</td>
@@ -77,7 +77,7 @@
     </tfoot>
     <tbody>
     <tr class="hover"
-        ng-repeat="agent in $ctrl.assignedAgents| filter:$ctrl.filter | filter:$ctrl.search | orderBy:['firstName','lastName'] as results track by agent.userId">
+        ng-repeat="agent in $ctrl.assignedAgents| filter:$ctrl.filter | filter:$ctrl.search | orderBy:['lastName','firstName'] as results track by agent.userId">
       <td>{{ agent.userId }}</td>
       <td>{{ agent.firstName }}</td>
       <td>{{ agent.lastName }}</td>
