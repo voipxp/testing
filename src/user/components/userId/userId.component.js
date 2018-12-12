@@ -31,6 +31,8 @@
             ctrl.canEdit = GroupPolicyService.userProfileUpdate()
           } else if (ctrl.loginType === 'Service Provider') {
             ctrl.canEdit = ServiceProviderPolicyService.userProfileUpdate()
+          } else if (ctrl.loginType === 'System') {
+            ctrl.canEdit = true
           }
         })
         .catch(Alert.notify.danger)
