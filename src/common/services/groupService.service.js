@@ -2,7 +2,7 @@
   angular.module('odin.common').factory('GroupServiceService', Service)
 
   function Service($http, Route, CacheFactory, $rootScope) {
-    var service = { show, authorized, available, update }
+    var service = { show, authorized, available, update, assigned }
     var url = Route.api('/groups/services')
     var cache = CacheFactory('GroupServiceService')
 
@@ -38,7 +38,14 @@
           return results
         })
     }
-
+    function assigned(serviceProviderId, groupId, serviceType, serviceName) {
+      return $http
+        .get(url('assigned'), {
+          cache,
+          params: { serviceProviderId, groupId, serviceType, serviceName }
+        })
+        .then(res => res.data)
+    }
     function authorized(serviceProviderId, groupId) {
       return $http
         .get(url('authorized'), {

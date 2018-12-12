@@ -39,7 +39,12 @@
       { key: 'usageView', label: 'Allocated' },
       { key: 'authorized', label: 'Authorized', type: 'boolean' }
     ]
-
+    ctrl.serviceColumns = [
+      { key: 'userId', label: 'User id' },
+      { key: 'firstName', label: 'First Name' },
+      { key: 'lastName', label: 'Last Name' },
+      { key: 'phoneNumber', label: 'phoneBymber' }
+    ]
     function onInit() {
       ctrl.filter = {}
       ctrl.title = $filter('humanize')(ctrl.serviceType)
@@ -99,29 +104,79 @@
     function isUserServices() {
       return ctrl.serviceType === 'userServices'
     }
-
+    function loadGroupServiceAssigned(service) {
+      var serviceType = ''
+      var serviceName = ''
+      if (isServicePackServices()) {
+        serviceType = 'servicePackName'
+        serviceName = service.servicePackName
+      } else if (isUserServices()) {
+        serviceType = 'serviceName'
+        serviceName = service.serviceName
+      }
+      return GroupServiceService.assigned(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        serviceType,
+        serviceName
+      ).then(function(data) {
+        ctrl.userServices = data.userListTable
+        ctrl.userServices
+      })
+    }
     function onClick(service) {
       if (!ctrl.canUpdate) return
-      ctrl.editService = angular.copy(service)
-      // fix when a service has been limited but was set at -1 prior
-      if (service.allowed !== -1 && service.quantity === -1) {
-        ctrl.editService.quantity = service.allowed
+      if (!isGroupServices()) {
+        Alert.spinner.open()
+        loadGroupServiceAssigned(service)
+          .then(function() {
+            ctrl.editService = angular.copy(service)
+            // fix when a service has been limited but was set at -1 prior
+            if (service.allowed !== -1 && service.quantity === -1) {
+              ctrl.editService.quantity = service.allowed
+            }
+            ctrl.editService.isUnlimited = ctrl.editService.quantity === -1
+            Alert.modal.open('editGroupService', function onSave(close) {
+              var runUpdate = function() {
+                var singleService = {}
+                singleService[ctrl.serviceType] = [ctrl.editService]
+                update(singleService, close)
+              }
+              if (!ctrl.editService.authorized && service.authorized) {
+                Alert.confirm
+                  .open('Are you sure you want to de-authorize this service?')
+                  .then(runUpdate)
+              } else {
+                runUpdate()
+              }
+            })
+          })
+          .catch(Alert.notify.danger)
+          .finally(function() {
+            Alert.spinner.close()
+          })
+      } else {
+        ctrl.editService = angular.copy(service)
+        // fix when a service has been limited but was set at -1 prior
+        if (service.allowed !== -1 && service.quantity === -1) {
+          ctrl.editService.quantity = service.allowed
+        }
+        ctrl.editService.isUnlimited = ctrl.editService.quantity === -1
+        Alert.modal.open('editGroupService', function onSave(close) {
+          var runUpdate = function() {
+            var singleService = {}
+            singleService[ctrl.serviceType] = [ctrl.editService]
+            update(singleService, close)
+          }
+          if (!ctrl.editService.authorized && service.authorized) {
+            Alert.confirm
+              .open('Are you sure you want to de-authorize this service?')
+              .then(runUpdate)
+          } else {
+            runUpdate()
+          }
+        })
       }
-      ctrl.editService.isUnlimited = ctrl.editService.quantity === -1
-      Alert.modal.open('editGroupService', function onSave(close) {
-        var runUpdate = function() {
-          var singleService = {}
-          singleService[ctrl.serviceType] = [ctrl.editService]
-          update(singleService, close)
-        }
-        if (!ctrl.editService.authorized && service.authorized) {
-          Alert.confirm
-            .open('Are you sure you want to de-authorize this service?')
-            .then(runUpdate)
-        } else {
-          runUpdate()
-        }
-      })
     }
 
     function onSelect(event) {

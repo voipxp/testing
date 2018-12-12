@@ -46,13 +46,29 @@
 <pbs-modal id="editGroupService"
   title="{{ $ctrl.editService.alias }}">
   <pbs-form>
-    <pbs-form-section>Authorization</pbs-form-section>
-    <pbs-input-checkbox label="Service Authorized"
-      ng-model="$ctrl.editService.authorized"></pbs-input-checkbox>
-    <pbs-input-checkbox label="Service Assigned"
-      ng-if="$ctrl.isGroupServices()"
-      ng-model="$ctrl.editService.assigned"></pbs-input-checkbox>
-    <service-licensing service="$ctrl.editService"></service-licensing>
+    <pbs-tabs>
+      <pbs-tab label="Services">
+        <pbs-form-section>Authorization</pbs-form-section>
+        <pbs-input-checkbox label="Service Authorized"
+                            ng-model="$ctrl.editService.authorized"></pbs-input-checkbox>
+        <pbs-input-checkbox label="Service Assigned"
+                            ng-if="$ctrl.isGroupServices()"
+                            ng-model="$ctrl.editService.assigned"></pbs-input-checkbox>
+        <service-licensing service="$ctrl.editService"></service-licensing>
+      </pbs-tab>
+      <pbs-tab label="Users" ng-if="$ctrl.userServices">
+        <pbs-data-table columns="$ctrl.serviceColumns"
+                        items="$ctrl.userServices"
+                        hide-search="true"
+                        search="$ctrl.search"
+                        filter="$ctrl.filter"
+                        is-compact="true"
+                        is-bordered="true"
+                        is-striped="true"
+                        limit-to="25"></pbs-data-table>
+        </pbs-block>
+      </pbs-tab>
+    </pbs-tabs>
   </pbs-form>
 </pbs-modal>
 <group-clone-services service-provider-id="$ctrl.serviceProviderId"
