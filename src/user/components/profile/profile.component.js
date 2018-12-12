@@ -40,9 +40,6 @@
             ctrl.canRead = 'true'
             ctrl.canUpdate = 'true'
           }
-          console.log('ctrl.loginType', ctrl.loginType)
-          console.log('ctrl.canRead', ctrl.canRead)
-          console.log('ctrl.canUpdate', ctrl.canUpdate)
         })
         .catch(Alert.notify.danger)
         .finally(function() {
