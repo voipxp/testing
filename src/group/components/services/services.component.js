@@ -120,8 +120,7 @@
         serviceType,
         serviceName
       ).then(function(data) {
-        ctrl.userServices = data.userListTable
-        ctrl.userServices
+        ctrl.users = data.users
       })
     }
     function onClick(service) {

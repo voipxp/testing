@@ -56,9 +56,9 @@
                             ng-model="$ctrl.editService.assigned"></pbs-input-checkbox>
         <service-licensing service="$ctrl.editService"></service-licensing>
       </pbs-tab>
-      <pbs-tab label="Users" ng-if="$ctrl.userServices">
+      <pbs-tab label="Users" ng-if="$ctrl.users">
         <pbs-data-table columns="$ctrl.serviceColumns"
-                        items="$ctrl.userServices"
+                        items="$ctrl.users"
                         hide-search="true"
                         search="$ctrl.search"
                         filter="$ctrl.filter"
