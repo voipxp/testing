@@ -5,7 +5,17 @@
     bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
   })
 
-  function Controller(Alert, $scope, UserService, ACL, Module, $q) {
+  function Controller(
+    Alert,
+    $scope,
+    UserService,
+    ACL,
+    Module,
+    $q,
+    GroupPolicyService,
+    ServiceProviderPolicyService,
+    Session
+  ) {
     var ctrl = this
     ctrl.$onInit = onInit
 
@@ -30,12 +40,27 @@
       trunkAddressing: 'Trunking',
       none: 'None'
     }
+    ctrl.loginType = Session.data('loginType')
 
     function onInit() {
       ctrl.loading = true
-      $q.all([Module.load(), loadUser()])
+      $q.all([
+        Module.load(),
+        loadUser(),
+        GroupPolicyService.load(),
+        ServiceProviderPolicyService.load()
+      ])
         .then(function() {
-          ctrl.canEdit = ACL.has('Group') && Module.update('Provisioning')
+          if (ctrl.loginType === 'Group') {
+            ctrl.canEdit = GroupPolicyService.accessDeviceUpdate()
+          } else if (ctrl.loginType === 'Service Provider') {
+            ctrl.canEdit = ServiceProviderPolicyService.accessDeviceUpdate()
+          } else if (ctrl.loginType === 'System') {
+            ctrl.canEdit = true
+          }
+          console.log('ctrl.loginType', ctrl.loginType)
+          console.log('ctrl.canEdit', ctrl.canEdit)
+          // ctrl.canEdit = ACL.has('Group') && Module.update('Provisioning')
         })
         .catch(function(error) {
           Alert.notify.danger(error)
