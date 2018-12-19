@@ -5,9 +5,10 @@
     require: { parent: '^^groupCollaborateBridge' }
   })
 
-  function Controller(Alert, GroupCollaborateService) {
+  function Controller(Alert, GroupCollaborateService, Route) {
     var ctrl = this
     ctrl.edit = edit
+    ctrl.onClick = onClick
 
     ctrl.columns = [
       {
@@ -42,7 +43,17 @@
         ctrl.parent.groupId
       )
     }
-
+    function open(user) {
+      Route.open(
+        'users',
+        ctrl.parent.serviceProviderId,
+        ctrl.parent.groupId,
+        user.userId
+      )
+    }
+    function onClick(event) {
+      open(event)
+    }
     function edit() {
       if (ctrl.parent.bridge.isDefault) return
       Alert.spinner.open()
