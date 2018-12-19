@@ -59,8 +59,8 @@
       <pbs-tab label="Users" ng-if="$ctrl.users">
         <pbs-data-table columns="$ctrl.serviceColumns"
                         items="$ctrl.users"
-                        hide-search="true"
-                        search="$ctrl.search"
+                        hide-search="false"
+                        search="$ctrl.searchUsers"
                         filter="$ctrl.filter"
                         is-compact="true"
                         is-bordered="true"

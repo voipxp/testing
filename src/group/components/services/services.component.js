@@ -43,7 +43,7 @@
       { key: 'userId', label: 'User id' },
       { key: 'firstName', label: 'First Name' },
       { key: 'lastName', label: 'Last Name' },
-      { key: 'phoneNumber', label: 'phoneBymber' }
+      { key: 'phoneNumber', label: 'phoneNumber' }
     ]
     function onInit() {
       ctrl.filter = {}
