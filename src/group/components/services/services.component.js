@@ -12,7 +12,8 @@
     $filter,
     $scope,
     ACL,
-    $q
+    $q,
+    Route
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -20,6 +21,7 @@
     ctrl.groupId = $routeParams.groupId
 
     ctrl.onClick = onClick
+    ctrl.onUserClick = onUserClick
     ctrl.onSelect = onSelect
     ctrl.isServicePackServices = isServicePackServices
     ctrl.isGroupServices = isGroupServices
@@ -123,6 +125,13 @@
         ctrl.users = data.users
       })
     }
+    function onUserClick(user) {
+      open(user)
+    }
+    function open(user) {
+      Route.open('users', ctrl.serviceProviderId, ctrl.groupId, user.userId)
+    }
+
     function onClick(service) {
       if (!ctrl.canUpdate) return
       if (!isGroupServices()) {
