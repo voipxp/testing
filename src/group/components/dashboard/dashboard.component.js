@@ -237,7 +237,7 @@
         {
           type: 'report',
           name: 'Call Center Agent Report',
-          service: 'Call Center',
+          module: 'Premium Call Records',
           path: route('callRecords', 'callCenter')
         },
         {
