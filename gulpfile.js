@@ -143,6 +143,7 @@ gulp.task('vendor.js', () => {
       'node_modules/ng-idle/angular-idle.min.js',
       'node_modules/marked/marked.min.js',
       'node_modules/angular-marked/dist/angular-marked.min.js',
+      'node_modules/socket.io-client/dist/socket.io.slim.dev.js',
       'node_modules/angular-papaparse/dist/js/angular-PapaParse.js'
     ])
     .pipe(concat('vendor.js'))

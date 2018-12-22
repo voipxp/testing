@@ -6,79 +6,51 @@
     bindings: { serviceUserId: '<' }
   })
 
-  function Controller(Alert, Session, WebSocketService) {
+  function Controller(Alert, Session, SocketService) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.$onDestroy = onDestroy
     ctrl.toMinutes = toMinutes
+    ctrl.stats = {}
 
     let socket
 
     function onInit() {
-      ctrl.status = {}
-      socket = WebSocketService()
-      socket.open('ws://localhost:4000/ws').then(subscribe)
-      socket.onError(onError)
-      socket.onClose(onClose)
-      socket.onMessage(onMessage)
+      socket = SocketService('http://localhost:4000')
+      socket.on('connect', subscribe)
+      socket.on('event', onEvent)
+      socket.on('close', () => console.log('close'))
+      socket.on('error', err => console.log('error', err))
     }
 
     function subscribe() {
-      socket.send('subscribe', {
-        event: 'Call Center Monitoring',
-        userId: ctrl.serviceUserId,
-        token: Session.data('token')
-      })
+      socket.emit(
+        'subscribe',
+        {
+          event: 'Call Center Monitoring',
+          userId: ctrl.serviceUserId,
+          token: Session.data('token')
+        },
+        data => console.log('Subscribed', data)
+      )
     }
 
     function unsubscribe() {
-      socket.send('unsubscribe', { token: Session.data('token') })
+      socket.emit('unsubscribe', { token: Session.data('token') })
     }
 
-    function onError(error) {
-      console.log('Error', error)
-    }
-
-    function onClose() {
-      console.log('Close')
-    }
-
-    function onMessage({ type, payload }) {
-      switch (type) {
-        case 'subscription':
-          return handleSubscription(payload)
-        case 'event':
-          return handleEvent(payload)
-        case 'error':
-          return handleError(payload)
-        default:
-          console.log('onMessage notFound', payload)
-      }
-    }
-
-    function handleEvent(event) {
+    function onEvent(event = {}) {
       console.log('Event', event)
-      const { eventData } = event
-      if (!eventData) return
-
-      switch (eventData._type) {
+      switch (event._type) {
         case 'xsi:CallCenterMonitoringEvent': {
-          ctrl.stats = { ...eventData.monitoringStatus, date: new Date() }
+          ctrl.stats = { ...event.monitoringStatus, date: new Date() }
           break
         }
         case 'xsi:SubscriptionTerminatedEvent':
-          // automatically re-subscribe
           return subscribe()
         default:
+          console.log('UnknownEvent', event)
       }
-    }
-
-    function handleSubscription(subscription) {
-      console.log('Subscription', subscription)
-    }
-
-    function handleError(error) {
-      console.log('Error', error)
     }
 
     function toMinutes(value) {
