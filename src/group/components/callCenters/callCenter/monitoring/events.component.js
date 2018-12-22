@@ -10,10 +10,12 @@
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.$onDestroy = onDestroy
+    ctrl.toMinutes = toMinutes
 
     let socket
 
     function onInit() {
+      ctrl.status = {}
       socket = WebSocketService()
       socket.open('ws://localhost:4000/ws').then(subscribe)
       socket.onError(onError)
@@ -56,10 +58,26 @@
 
     function handleEvent(event) {
       console.log('Event', event)
+      const { eventData } = event
+      if (!eventData) return
+
+      switch (eventData._type) {
+        case 'xsi:CallCenterMonitoringEvent': {
+          ctrl.stats = { ...eventData.monitoringStatus, date: new Date() }
+          break
+        }
+        case 'xsi:SubscriptionTerminatedEvent':
+          return subscribe()
+        default:
+      }
     }
 
     function handleError(error) {
       console.log('Error', error)
+    }
+
+    function toMinutes(value) {
+      return Math.round(value / 1000 / 60)
     }
 
     function onDestroy() {

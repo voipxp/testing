@@ -1,1 +1,32 @@
-<h1>Group Call Center Monitoring Events</h1>
+<pbs-block title="Call Center Monitoring">
+
+  <pbs-list>
+    <pbs-list-item label="Number of Agents Assigned">
+      {{ $ctrl.stats.numAgentsAssigned }}
+    </pbs-list-item>
+    <pbs-list-item label="Number of Agents Staffed">
+      {{ $ctrl.stats.numAgentsStaffed }}
+    </pbs-list-item>
+    <pbs-list-item label="Number of Agents Idle">
+      {{ $ctrl.stats.numStaffedAgentsIdle }}
+    </pbs-list-item>
+    <pbs-list-item label="Number of Agents Unavailable">
+      {{ $ctrl.stats.numStaffedAgentsUnavailable }}
+    </pbs-list-item>
+    <pbs-list-item label="Number of Calls in Queue">
+      {{ $ctrl.stats.numCallsInQueue.value }}
+    </pbs-list-item>
+    <pbs-list-item label="Average Handling Time">
+      {{ $ctrl.toMinutes($ctrl.stats.averageHandlingTime.value) }}
+    </pbs-list-item>
+    <pbs-list-item label="Average Speed of Answer">
+      {{ $ctrl.toMinutes($ctrl.stats.averageSpeedOfAnswer.value) }}
+    </pbs-list-item>
+    <pbs-list-item label="Expected Wait Time">
+      {{ $ctrl.toMinutes($ctrl.stats.expectedWaitTime.value) }}
+    </pbs-list-item>
+    <pbs-list-item label="Longest Wait Time">
+      {{ $ctrl.toMinutes($ctrl.stats.longestWaitTime.value) }}
+    </pbs-list-item>
+  </pbs-list>
+</pbs-block>
