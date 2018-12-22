@@ -31,6 +31,10 @@
       })
     }
 
+    function unsubscribe() {
+      socket.send('unsubscribe', { token: Session.data('token') })
+    }
+
     function onError(error) {
       console.log('Error', error)
     }
@@ -52,10 +56,6 @@
       }
     }
 
-    function handleSubscription(subscription) {
-      console.log('Subscription', subscription)
-    }
-
     function handleEvent(event) {
       console.log('Event', event)
       const { eventData } = event
@@ -67,9 +67,14 @@
           break
         }
         case 'xsi:SubscriptionTerminatedEvent':
+          // automatically re-subscribe
           return subscribe()
         default:
       }
+    }
+
+    function handleSubscription(subscription) {
+      console.log('Subscription', subscription)
     }
 
     function handleError(error) {
@@ -81,6 +86,7 @@
     }
 
     function onDestroy() {
+      unsubscribe()
       socket.close()
     }
   }
