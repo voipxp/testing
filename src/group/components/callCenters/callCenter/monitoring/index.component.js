@@ -28,7 +28,7 @@
       ctrl.agents = []
       loadAgents()
         .then(() => {
-          _socket = SocketService('http://localhost:4000')
+          _socket = SocketService()
           _socket.on('connect', subscribe)
           _socket.on('event', onEvent)
           _socket.on('close', () => console.log('close'))

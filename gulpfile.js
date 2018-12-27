@@ -16,12 +16,14 @@ const ngConfig = require('gulp-ng-config')
 const prod = process.env.NODE_ENV === 'production'
 const dest = process.env.APP_DIST || 'dist'
 const base = process.env.API_BASE || ''
+const socketURL = process.env.SOCKET_URL
 
 const Config = {
   APP: {
     apiURL: `${base}/api/v2`,
     loginURL: '/login',
-    sessionKey: 'odin:session'
+    sessionKey: 'odin:session',
+    socketURL: socketURL
   }
 }
 

@@ -2,9 +2,9 @@
 ;(function() {
   angular.module('odin.common').factory('SocketService', Service)
 
-  function Service($rootScope) {
+  function Service($rootScope, APP) {
     return function(url) {
-      const socket = io.connect(url)
+      const socket = io.connect(url || APP.socketURL)
 
       function on(eventName, callback) {
         socket.on(eventName, function() {
