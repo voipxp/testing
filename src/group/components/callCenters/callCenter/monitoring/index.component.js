@@ -23,7 +23,7 @@
     let _agentStats = {}
 
     function onInit() {
-      ctrl.loading = false
+      ctrl.loading = true
       ctrl.stats = {}
       ctrl.agents = []
       loadAgents()
@@ -41,7 +41,6 @@
     function loadAgents() {
       return GroupCallCenterAgentService.show(ctrl.serviceUserId).then(data => {
         _agents = data.agents
-        console.log('agents', _agents)
       })
     }
 
