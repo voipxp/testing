@@ -11,7 +11,7 @@
       </pbs-list-item>
       <pbs-list-item label="Agents Currently Staffed">
         <a href=""
-          ng-click="$ctrl.viewAgents()">{{ (ctrl.status.agentsCurrentlyStaffed && ctrl.status.agentsCurrentlyStaffed.length) || 0 }} Agents</a>
+          ng-click="$ctrl.viewAgents()">{{ $ctrl.status.agentsCurrentlyStaffed.length || 0 }} Agents</a>
       </pbs-list-item>
     </pbs-list>
     <h4 class="subtitle">
