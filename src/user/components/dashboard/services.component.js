@@ -104,6 +104,7 @@
       $window.scrollTo(0, 0)
     }
 
+    // WHY ISN'T CALL CENTER SHOWING UP HERE?
     function loadServices() {
       return UserPermissionService.load(ctrl.userId).then(Permission => {
         ctrl.services = Permission.assigned()
