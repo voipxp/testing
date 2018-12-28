@@ -62,7 +62,9 @@
         token: Session.data('token')
       }
       _socket.emit('subscribe', data, data => {
-        _subscriptions[data.subscriptionId] = data
+        if (data && data.subscriptionId) {
+          _subscriptions[data.subscriptionId] = data
+        }
       })
     }
 
@@ -73,7 +75,9 @@
         token: Session.data('token')
       }
       _socket.emit('subscribe', data, data => {
-        _subscriptions[data.subscriptionId] = data
+        if (data && data.subscriptionId) {
+          _subscriptions[data.subscriptionId] = data
+        }
       })
     }
 
