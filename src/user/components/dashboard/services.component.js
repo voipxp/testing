@@ -153,7 +153,7 @@
 
     function loadServices() {
       return UserPermissionService.load(ctrl.userId).then(Permission => {
-        ctrl.services = Permission.assigned()
+        const services = Permission.assigned()
           .filter(service => {
             const allowed = allowedServices[service.serviceName]
             return (
@@ -170,6 +170,11 @@
               isActive: service.isActive === 'true' || service.isActive === true
             }
           })
+        // remove dups such as Call Center - Basic and Call Center - Standard
+        ctrl.services = _.uniqBy(services, service => {
+          const allowed = allowedServices[service.serviceName]
+          return allowed.module || service.serviceName
+        })
       })
     }
     $rootScope.$on('UserServiceService:updated', loadServices)
