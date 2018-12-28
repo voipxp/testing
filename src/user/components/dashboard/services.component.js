@@ -18,6 +18,9 @@
     ctrl.module = Module
     ctrl.select = select
 
+    // module defaults to serviceName
+    // component defaults to camelcase `User ${serviceName}`
+    // overrides are listed here
     var allowedServices = {
       'Alternate Numbers': {},
       'Anonymous Call Rejection': {},
