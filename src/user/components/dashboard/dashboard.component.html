@@ -47,6 +47,10 @@
           service-provider-id="$ctrl.serviceProviderId"
           group-id="$ctrl.groupId"></user-meet-me-conferencing-conferences>
       </pbs-menu-item>
+      <pbs-menu-item label="Call Center"
+        ng-if="$ctrl.hasCallCenter">
+        <user-call-center user-id="$ctrl.userId"></user-call-center>
+      </pbs-menu-item>
     </pbs-menu-section>
     <pbs-menu-section label="Provisioning"
       ng-if="$ctrl.isAdmin">
