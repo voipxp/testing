@@ -100,7 +100,7 @@
 
     function findAgent(userId, withoutDomain) {
       if (withoutDomain) userId = userId.split('@')[0]
-      return _agents.find(agent => agent.userId === userId)
+      return _agents.find(agent => agent.userId == userId)
     }
 
     function onEvent(event = {}) {
