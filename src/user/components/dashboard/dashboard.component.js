@@ -45,9 +45,6 @@
         )
         ctrl.hasSCA = Permission.read('Shared Call Appearance')
         ctrl.showQuick = quickActions.find(service => Permission.read(service))
-
-        console.log('canRead', Module.read('Call Center'))
-        console.log('isAssigned', Permission.isAssigned('Call Center'))
       })
     }
 
