@@ -8,6 +8,7 @@
 
     var service = {
       index: index,
+      details: details,
       store: store,
       show: show,
       update: update,
@@ -31,6 +32,15 @@
     function index(serviceProviderId, groupId) {
       return $http
         .get(url('bridges'), {
+          params: { serviceProviderId: serviceProviderId, groupId: groupId }
+        })
+        .then(function(response) {
+          return response.data
+        })
+    }
+    function details(serviceProviderId, groupId) {
+      return $http
+        .get(url('bridges', 'details'), {
           params: { serviceProviderId: serviceProviderId, groupId: groupId }
         })
         .then(function(response) {

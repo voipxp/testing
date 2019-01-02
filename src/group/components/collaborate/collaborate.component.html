@@ -3,19 +3,34 @@
   <pbs-breadcrumb title="'Collaborate'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Collaborate">
-    <pbs-block-buttons>
-      <pbs-button-compact-add title="Add Collaborate"
-        ng-click="$ctrl.add()"></pbs-button-compact-add>
-    </pbs-block-buttons>
-    <pbs-data-table columns="$ctrl.columns"
-      items="$ctrl.bridges"
-      is-compact="true"
-      is-bordered="true"
-      is-striped="true"
-      limit-to="25"
-      on-click="$ctrl.onClick($event)"></pbs-data-table>
-  </pbs-block>
+  <pbs-tabs>
+    <pbs-tab label="Collaborate">
+      <pbs-block title="Collaborate">
+        <pbs-block-buttons>
+          <pbs-button-compact-add title="Add Collaborate"
+                                  ng-click="$ctrl.add()"></pbs-button-compact-add>
+        </pbs-block-buttons>
+        <pbs-data-table columns="$ctrl.columns"
+                        items="$ctrl.bridges"
+                        is-compact="true"
+                        is-bordered="true"
+                        is-striped="true"
+                        limit-to="25"
+                        on-click="$ctrl.onClick($event)"></pbs-data-table>
+      </pbs-block>
+    </pbs-tab>
+    <pbs-tab label="Users">
+      <pbs-block title="Users">
+        <pbs-data-table columns="$ctrl.columnsDetails"
+                        items="$ctrl.details"
+                        is-compact="true"
+                        is-bordered="true"
+                        is-striped="true"
+                        limit-to="25"
+                        on-click="$ctrl.onUserClick($event)"></pbs-data-table>
+      </pbs-block>
+    </pbs-tab>
+  </pbs-tabs>
 </pbs-spinner>
 
 <pbs-modal id="addGroupCollaborate"

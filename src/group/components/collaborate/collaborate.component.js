@@ -5,13 +5,15 @@
     bindings: { module: '<' }
   })
 
-  function Controller($routeParams, Alert, GroupCollaborateService, Route) {
+  function Controller($routeParams, Alert, GroupCollaborateService, Route, $q) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.groupId = $routeParams.groupId
     ctrl.add = add
     ctrl.onClick = onClick
+    ctrl.onUserClick = onUserClick
+
     ctrl.onSelectUserId = onSelectUserId
     ctrl.onSelectPhone = onSelectPhone
 
@@ -38,12 +40,42 @@
       }
     ]
 
+    ctrl.columnsDetails = [
+      {
+        key: 'name',
+        label: 'Name'
+      },
+      {
+        key: 'participants',
+        label: 'Participants'
+      },
+      {
+        key: 'phoneNumber',
+        label: 'Phone Number'
+      },
+      {
+        key: 'extension',
+        label: 'Extension'
+      },
+      {
+        key: 'userId',
+        label: 'User Id'
+      },
+      {
+        key: 'lastName',
+        label: 'Last Name'
+      },
+      {
+        key: 'firstName',
+        label: 'First Name'
+      }
+    ]
+
     function onInit() {
       ctrl.loading = true
-      return loadBridges()
-        .catch(function(error) {
-          Alert.notify.danger(error)
-        })
+      return $q
+        .all([loadBridges(), loadDetails()])
+        .catch(Alert.notify.danger)
         .finally(function() {
           ctrl.loading = false
         })
@@ -58,6 +90,15 @@
       })
     }
 
+    function loadDetails() {
+      return GroupCollaborateService.details(
+        ctrl.serviceProviderId,
+        ctrl.groupId
+      ).then(function(data) {
+        ctrl.details = data
+      })
+    }
+
     function onClick(bridge) {
       Route.open(
         'groups',
@@ -68,6 +109,12 @@
       ).search({ serviceUserId: bridge.serviceUserId })
     }
 
+    function open(user) {
+      Route.open('users', ctrl.serviceProviderId, ctrl.groupId, user.userId)
+    }
+    function onUserClick(event) {
+      open(event)
+    }
     function add() {
       ctrl.addBridge = {
         serviceProviderId: ctrl.serviceProviderId,
