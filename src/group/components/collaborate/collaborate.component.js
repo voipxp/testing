@@ -68,6 +68,10 @@
       {
         key: 'firstName',
         label: 'First Name'
+      },
+      {
+        key: 'myRoom.roomId',
+        label: 'My Room Id'
       }
     ]
 
