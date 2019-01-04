@@ -51,12 +51,5 @@
         ng-model="$ctrl.editPortal.audioFile.description"
         ng-required="$ctrl.editPortal.usePersonalizedName">
     </pbs-form-field>
-
-    <pbs-form-field label="Audio File Type*"
-      ng-show="$ctrl.editPortal.audioFile.content">
-      <pbs-input-select ng-model="$ctrl.editPortal.audioFile.mediaType"
-        ng-options="type for type in $ctrl.options.mediaTypes"
-        ng-required="$ctrl.editPortal.usePersonalizedName"></pbs-input-select>
-    </pbs-form-field>
   </form>
 </pbs-modal>

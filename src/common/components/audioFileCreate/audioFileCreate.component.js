@@ -6,13 +6,7 @@
     bindings: { onUpdate: '&' }
   })
 
-  function Controller(
-    Alert,
-    EventEmitter,
-    $scope,
-    HashService,
-    UtilityService
-  ) {
+  function Controller(Alert, EventEmitter, $scope, HashService) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.onUpload = onUpload
@@ -32,7 +26,7 @@
 
     function onUpload(file) {
       ctrl.audioFile.content = file.content
-      ctrl.audioFile.mediaType = UtilityService.getMediaType(file.mimetype)
+      ctrl.audioFile.mediaType = 'WAV'
       ctrl.audioFile.name = file.name
     }
 

@@ -11,8 +11,7 @@
     $scope,
     EventEmitter,
     UserAnnouncementService,
-    GroupAnnouncementService,
-    UtilityService
+    GroupAnnouncementService
   ) {
     var ctrl = this
 
@@ -64,9 +63,7 @@
 
     function upload(file) {
       ctrl.editAnnouncement.content = file.content
-      ctrl.editAnnouncement.mediaType = UtilityService.getMediaType(
-        file.mimetype
-      )
+      ctrl.editAnnouncement.mediaType = 'WAV'
       ctrl.editAnnouncement.description = file.name
     }
 

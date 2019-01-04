@@ -65,23 +65,7 @@
 
     function audioFileSelected(file) {
       if (!file) return
-      switch (file.mimetype) {
-        case 'audio/wav':
-          ctrl.editPortal.audioFile.mediaType = 'WAV'
-          break
-        case 'video/3gpp':
-          ctrl.editPortal.audioFile.mediaType = '3GP'
-          break
-        case 'video/x-ms-wma':
-          ctrl.editPortal.audioFile.mediaType = 'WMA'
-          break
-        case 'video/quicktime':
-          ctrl.editPortal.audioFile.mediaType = 'MOV'
-          break
-        default:
-          Alert.notify.danger('Media Type Not Supported: (WAV, 3GP, WMA, MOV)')
-          return
-      }
+      ctrl.editPortal.audioFile.mediaType = 'WAV'
       ctrl.editPortal.audioFile.description = file.name
       ctrl.editPortal.audioFile.content = file.content
     }

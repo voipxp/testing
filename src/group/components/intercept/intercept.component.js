@@ -5,12 +5,7 @@
     bindings: { module: '<' }
   })
 
-  function Controller(
-    $routeParams,
-    Alert,
-    GroupInterceptService,
-    UtilityService
-  ) {
+  function Controller($routeParams, Alert, GroupInterceptService) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
@@ -79,9 +74,7 @@
     function upload(file) {
       // ctrl.editSettings.announcementSelection.name = file.name
       ctrl.editSettings.audioMediaContent = file.content
-      ctrl.editSettings.audioMediaType = UtilityService.getMediaType(
-        file.mimetype
-      )
+      ctrl.editSettings.audioMediaType = 'WAV'
       ctrl.editSettings.audioFileDescription = file.name
     }
   }
