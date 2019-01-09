@@ -12,9 +12,9 @@
     Alert,
     GroupService,
     Route,
-    $scope,
-    $q,
-    ServiceProviderPolicyService
+    $scope
+    // $q,
+    // ServiceProviderPolicyService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -30,24 +30,24 @@
 
     function onInit() {
       ctrl.loading = true
-      return $q
-        .all([loadGroups(), ServiceProviderPolicyService.load()])
-        .then(function() {
-          ctrl.canCreate = ServiceProviderPolicyService.profileUpdate()
-        })
-        .catch(Alert.notify.danger)
-        .finally(function() {
-          ctrl.loading = false
-        })
-
-      // ctrl.loading = true
-      // loadGroups()
-      //   .catch(function(error) {
-      //     Alert.notify.danger(error)
+      // return $q
+      //   .all([loadGroups(), ServiceProviderPolicyService.load()])
+      //   .then(function() {
+      //     ctrl.canCreate = ServiceProviderPolicyService.profileUpdate()
       //   })
+      //   .catch(Alert.notify.danger)
       //   .finally(function() {
       //     ctrl.loading = false
       //   })
+
+      ctrl.loading = true
+      loadGroups()
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          ctrl.loading = false
+        })
     }
 
     function loadGroups() {
