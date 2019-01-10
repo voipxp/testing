@@ -45,7 +45,11 @@
 
     function create(department, callback) {
       Alert.spinner.open()
-      GroupDepartmentService.store(department)
+      GroupDepartmentService.store(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        department
+      )
         .then(function() {
           ctrl.department = department
           complete()
