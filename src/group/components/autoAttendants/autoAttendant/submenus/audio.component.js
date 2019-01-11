@@ -6,8 +6,6 @@
     require: { parent: '^^groupAutoAttendantSubmenu' }
   })
 
-  // things
-
   function Controller(Alert, GroupAutoAttendantService, $scope, ACL) {
     var ctrl = this
     ctrl.edit = edit
