@@ -6,14 +6,22 @@ steps:
   - -t
   - gcr.io/odin-dev-208422/odin-web:$SHORT_SHA
   - -t
+  - gcr.io/odin-dev-208422/odin-web:$BRANCH_NAME
+  - -t
   - gcr.io/odin-dev-208422/odin-web:latest
   - -t
-  - quay.io/parkbench/odin-web:$SHORT_SHA
+  - gcr.io/odin-dev-208422/odin-web:$BRANCH_NAME
   - -t
   - quay.io/parkbench/odin-web:latest
   - .
 
 # push SHORT_SHA to GCR
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+  - push
+  - gcr.io/odin-dev-208422/odin-web:$SHORT_SHA
+
+# push BRANCH_NAME to GCR
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - push
@@ -35,11 +43,11 @@ steps:
   - QUAY_USERNAME
   - QUAY_PASSWORD
 
-# push SHORT_SHA to quay.io
+# push BRANCH_NAME to quay.io
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - push
-  - quay.io/parkbench/odin-web:$SHORT_SHA
+  - quay.io/parkbench/odin-web:$BRANCH_NAME
 
 # push latest to quay.io
 - name: 'gcr.io/cloud-builders/docker'
@@ -71,5 +79,3 @@ secrets:
 - kmsKeyName: projects/odin-dev-208422/locations/global/keyRings/odin/cryptoKeys/quay_password
   secretEnv:
     QUAY_PASSWORD: CiQAxaAITH1/SMezIB+vncIztPtySV3M6lkqREol4iwwMu/HsWoSaQCyM4yb6rzh5bMFj/77KzsURiZwyRWg/e58m8wVxP2ylqBmnw+ZoplxubQg3IyuVYLI8nNxE+wEJohQWv3UIH78y25G8ltUV3m+XmcXNyOXe6tYatFh++wvxqlxFyEoqoSrmnybtP93MA==
-
-
