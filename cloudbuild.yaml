@@ -61,7 +61,7 @@ steps:
   - set
   - image
   - deployment
-  - microv-web
+  - web
   - "*=gcr.io/odin-dev-208422/odin-web:$SHORT_SHA"
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
