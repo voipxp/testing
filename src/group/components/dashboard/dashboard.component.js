@@ -281,7 +281,7 @@
           type: 'provisioning',
           name: 'Delete Group',
           path: route('delete'),
-          serviceProviderPolicy: 'groupDelete',
+          // serviceProviderPolicy: 'groupDelete',
           admin: true
         },
         {
