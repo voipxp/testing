@@ -22,6 +22,11 @@
     let _agents = []
     let _agentStats = {}
 
+    function fullUserId(userId) {
+      if (/@/.test(userId)) return userId
+      return `${userId}@${Session.data('systemDomain')}`
+    }
+
     function onInit() {
       ctrl.loading = true
       ctrl.stats = {}
@@ -58,11 +63,13 @@
     function subscribeMonitoring() {
       const data = {
         event: 'Call Center Monitoring',
-        userId: ctrl.serviceUserId,
+        userId: fullUserId(ctrl.serviceUserId),
         token: Session.data('token')
       }
-      _socket.emit('subscribe', data, data => {
-        if (data && data.subscriptionId) {
+      _socket.emit('subscribe', data, (data = {}) => {
+        if (data.error) {
+          console.log('subscribeError', data.error)
+        } else if (data.subscriptionId) {
           _subscriptions[data.subscriptionId] = data
         }
       })
@@ -71,11 +78,13 @@
     function subscribeAgent(agent) {
       const data = {
         event: 'Call Center Agent',
-        userId: agent.userId,
+        userId: fullUserId(agent.userId),
         token: Session.data('token')
       }
-      _socket.emit('subscribe', data, data => {
-        if (data && data.subscriptionId) {
+      _socket.emit('subscribe', data, (data = {}) => {
+        if (data.error) {
+          console.log('subscribeError', data.error)
+        } else if (data.subscriptionId) {
           _subscriptions[data.subscriptionId] = data
         }
       })
