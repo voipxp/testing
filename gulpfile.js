@@ -38,7 +38,7 @@ gulp.task('app.css', () => {
 gulp.task('app.js', () => {
   let polyfill = gulp.src(['node_modules/@babel/polyfill/dist/polyfill.min.js'])
   let conf = buffer
-    .stream(new Buffer(JSON.stringify(Config)), 'config.js')
+    .stream(Buffer.from(JSON.stringify(Config)), 'config.js')
     .pipe(ngConfig('odin.config', { wrap: false }))
   let app = gulp
     .src([
