@@ -3,7 +3,8 @@
   group-id="$ctrl.groupId"
   user-id="$ctrl.serviceUserId"
   module="$ctrl.module">
-  <pbs-menu-item label=" Queue">
+  <pbs-menu-item label=" Queue"
+    ng-if="$ctrl.hasMonitoring">
     <group-call-center-monitoring service-user-id="$ctrl.serviceUserId"></group-call-center-monitoring>
   </pbs-menu-item>
   <pbs-menu-item label="Settings">
