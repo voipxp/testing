@@ -29,6 +29,7 @@
     ctrl.showMulticast = showMulticast
     ctrl.showValue = showValue
     ctrl.showExtension = showExtension
+    ctrl.showPhonebook = showPhonebook
 
     var types = VdmTemplateTagService.types
     var numKeys = VdmTemplateTagService.numKeys
@@ -47,6 +48,7 @@
         loadKeys()
         loadMulticastGroups()
         loadLines()
+        loadPhonebooks()
       }
     }
 
@@ -66,7 +68,8 @@
           value: getTagValue('%key' + i + 'value%'),
           label: getTagValue('%key' + i + 'label%'),
           line: getTagValue('%key' + i + 'line%'),
-          extension: getTagValue('%key' + i + 'extension%')
+          extension: getTagValue('%key' + i + 'extension%'),
+          phonebook: getTagValue('%key' + i + 'xml_phonebook%')
         }
         var typeTag = findTag('%key' + i + 'type%')
         key.locked = typeTag.activeGroup == 0
@@ -95,6 +98,15 @@
         lines.push({ label: 'Account ' + i, id: String(i) })
       }
       ctrl.options.lines = lines
+    }
+
+    function loadPhonebooks() {
+      var books = []
+      for (var i = 1; i <= 6; i++) {
+        var value = getTagValue('%REMOTE_PHONEBOOK_' + i + '_NAME%')
+        if (value) books.push(value)
+      }
+      ctrl.options.phonebooks = books
     }
 
     function findTag(name) {
@@ -170,6 +182,10 @@
       )
     }
 
+    function showPhonebook(type) {
+      return showOn(['22'], type)
+    }
+
     function showLine(type) {
       return showOn(
         ['9', '10', '12', '13', '14', '15', '23', '39', '46', '55', '56'],
@@ -197,7 +213,8 @@
           updateLine(key),
           updateExtension(key),
           updateType(key),
-          updateValue(key)
+          updateValue(key),
+          updatePhonebook(key)
         ])
         .then(ctrl.parent.reload)
         .then(function() {
@@ -236,6 +253,13 @@
     function updateValue(key) {
       var tag = findTag('%key' + key.id + 'value%')
       tag.value = key.value
+      return ctrl.parent.updateTag(tag)
+    }
+
+    function updatePhonebook(key) {
+      console.log('key', key)
+      var tag = findTag('%key' + key.id + 'xml_phonebook%')
+      tag.value = key.phonebook
       return ctrl.parent.updateTag(tag)
     }
   }

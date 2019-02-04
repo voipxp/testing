@@ -1,6 +1,6 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-menu>
-    <pbs-menu-section>
+    <pbs-menu-section label="Settings">
       <pbs-menu-item label="Options">
         <vdm-device-tag-options tags="$ctrl.tags"></vdm-device-tag-options>
       </pbs-menu-item>
@@ -13,6 +13,9 @@
       </pbs-menu-item>
       <pbs-menu-item label="Directories">
         <vdm-device-tag-ldap tags="$ctrl.tags"></vdm-device-tag-ldap>
+      </pbs-menu-item>
+      <pbs-menu-item label="Phone Book">
+        <vdm-device-tag-phonebook tags="$ctrl.tags"></vdm-device-tag-phonebook>
       </pbs-menu-item>
       <pbs-menu-item ng-repeat="pattern in $ctrl.keyPattern"
         label="{{ pattern.label }}">
