@@ -67,21 +67,21 @@
       // check service cards
       if (card.service) {
         // check it is assigned and accessible
-        if (!Permission.read(card.service)) return
+        card.active = Permission.read(card.service)
         // set the alias and activate it
         card.name = card.name || Module.alias(card.service)
-        card.active = true
-        return
+        // only skip below if we are denied access
+        if (!card.active) return
       }
 
       // check modules (PBS stuff)
       if (card.module) {
         // check permissions
-        if (!Module.read(card.module)) return
+        card.active = Module.read(card.module)
         // set the alias and activate it
         card.name = card.name || Module.alias(card.module)
-        card.active = true
-        return
+        // only skip below if we are denied access
+        if (!card.active) return
       }
 
       // check for admin policies

@@ -233,12 +233,14 @@
         {
           type: 'report',
           module: 'Auto Attendant Report',
+          service: 'Auto Attendant',
           path: route('callRecords', 'autoAttendant')
         },
         {
           type: 'report',
           name: 'Call Center Agent Report',
           module: 'Premium Call Records',
+          service: 'Call Center',
           path: route('callRecords', 'callCenter')
         },
         {
