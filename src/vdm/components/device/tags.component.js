@@ -40,7 +40,6 @@
       return $q
         .all([loadDeviceTags(), loadTemplateTags()])
         .then(function(data) {
-          console.log('deviceTags', data[0])
           var deviceTags = data[0]
           var templateTags = data[1]
           mergeTags(deviceTags, templateTags)

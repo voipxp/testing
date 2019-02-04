@@ -98,7 +98,7 @@
     var phonebookTags = [
       {
         name: '%REMOTE_PHONEBOOK_FLASH_TIME%',
-        label: 'Phone Book Flash Time',
+        label: 'Phonebook Flash Time',
         type: 'number',
         default: '3600',
         min: 1,
@@ -106,58 +106,58 @@
       },
       {
         name: '%REMOTE_PHONEBOOK_ENABLE%',
-        label: 'Phone Book Enabled',
+        label: 'Phonebook Enabled',
         default: '1',
         type: 'checkbox'
       },
       {
         name: '%REMOTE_PHONEBOOK_1_NAME%',
-        label: 'Phone Book 1 Name',
+        label: 'Phonebook 1 Name',
         type: 'text'
       },
       {
         name: '%REMOTE_PHONEBOOK_1_URL%',
-        label: 'Phone Book 1 URL',
+        label: 'Phonebook 1 URL',
         type: 'text'
       },
       {
         name: '%REMOTE_PHONEBOOK_2_NAME%',
-        label: 'Phone Book 2 Name',
+        label: 'Phonebook 2 Name',
         type: 'text'
       },
       {
         name: '%REMOTE_PHONEBOOK_2_URL%',
-        label: 'Phone Book 2 URL',
+        label: 'Phonebook 2 URL',
         type: 'text'
       },
       {
         name: '%REMOTE_PHONEBOOK_3_NAME%',
-        label: 'Phone Book 3 Name',
+        label: 'Phonebook 3 Name',
         type: 'text'
       },
       {
         name: '%REMOTE_PHONEBOOK_3_URL%',
-        label: 'Phone Book 3 URL',
+        label: 'Phonebook 3 URL',
         type: 'text'
       },
       {
         name: '%REMOTE_PHONEBOOK_4_NAME%',
-        label: 'Phone Book 4 Name',
+        label: 'Phonebook 4 Name',
         type: 'text'
       },
       {
         name: '%REMOTE_PHONEBOOK_4_URL%',
-        label: 'Phone Book 4 URL',
+        label: 'Phonebook 4 URL',
         type: 'text'
       },
       {
         name: '%REMOTE_PHONEBOOK_5_NAME%',
-        label: 'Phone Book 5 Name',
+        label: 'Phonebook 5 Name',
         type: 'text'
       },
       {
         name: '%REMOTE_PHONEBOOK_5_URL%',
-        label: 'Phone Book 5 URL',
+        label: 'Phonebook 5 URL',
         type: 'text'
       }
     ]
@@ -179,7 +179,7 @@
       '14': 'Intercom',
       '15': 'Line',
       '20': 'Private Hold',
-      '22': 'Phone Book',
+      '22': 'Phonebook',
       '23': 'Group Pickup',
       '24': 'Multicast Paging',
       '40': 'Prefix',
