@@ -95,6 +95,73 @@
       }
     ]
 
+    var phonebookTags = [
+      {
+        name: '%REMOTE_PHONEBOOK_FLASH_TIME%',
+        label: 'Phone Book Flash Time',
+        type: 'number',
+        default: '3600',
+        min: 1,
+        max: 86400
+      },
+      {
+        name: '%REMOTE_PHONEBOOK_ENABLE%',
+        label: 'Phone Book Enabled',
+        default: '1',
+        type: 'checkbox'
+      },
+      {
+        name: '%REMOTE_PHONEBOOK_1_NAME%',
+        label: 'Phone Book 1 Name',
+        type: 'text'
+      },
+      {
+        name: '%REMOTE_PHONEBOOK_1_URL%',
+        label: 'Phone Book 1 URL',
+        type: 'text'
+      },
+      {
+        name: '%REMOTE_PHONEBOOK_2_NAME%',
+        label: 'Phone Book 2 Name',
+        type: 'text'
+      },
+      {
+        name: '%REMOTE_PHONEBOOK_2_URL%',
+        label: 'Phone Book 2 URL',
+        type: 'text'
+      },
+      {
+        name: '%REMOTE_PHONEBOOK_3_NAME%',
+        label: 'Phone Book 3 Name',
+        type: 'text'
+      },
+      {
+        name: '%REMOTE_PHONEBOOK_3_URL%',
+        label: 'Phone Book 3 URL',
+        type: 'text'
+      },
+      {
+        name: '%REMOTE_PHONEBOOK_4_NAME%',
+        label: 'Phone Book 4 Name',
+        type: 'text'
+      },
+      {
+        name: '%REMOTE_PHONEBOOK_4_URL%',
+        label: 'Phone Book 4 URL',
+        type: 'text'
+      },
+      {
+        name: '%REMOTE_PHONEBOOK_5_NAME%',
+        label: 'Phone Book 5 Name',
+        type: 'text'
+      },
+      {
+        name: '%REMOTE_PHONEBOOK_5_URL%',
+        label: 'Phone Book 5 URL',
+        type: 'text'
+      }
+    ]
+
     // removed: "39": "BLF List"
     var types = {
       '0': '-- None --',
@@ -112,6 +179,7 @@
       '14': 'Intercom',
       '15': 'Line',
       '20': 'Private Hold',
+      '22': 'Phone Book',
       '23': 'Group Pickup',
       '24': 'Multicast Paging',
       '40': 'Prefix',
@@ -148,6 +216,7 @@
     var service = {
       keyPattern: keyPattern,
       ldapTags: ldapTags,
+      phonebookTags: phonebookTags,
       types: types,
       numKeys: numKeys,
       numAccounts: numAccounts,
@@ -159,11 +228,11 @@
       var patterns = {
         t41: [
           {
-            label: 'Keys 1-5',
+            label: 'Keys 01-05',
             rows: [[1, 4], [2, 5], [3, null]]
           },
           {
-            label: 'Keys 6-10',
+            label: 'Keys 06-10',
             rows: [[6, 9], [7, 10], [8, null]]
           },
           {
@@ -173,7 +242,7 @@
         ],
         t46: [
           {
-            label: 'Keys 1-9',
+            label: 'Keys 01-09',
             rows: [[1, 6], [2, 7], [3, 8], [4, 9], [5, null]]
           },
           {

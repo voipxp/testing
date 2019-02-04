@@ -68,5 +68,12 @@
         class="input"
         ng-model="$ctrl.editKey.extension">
     </pbs-form-field>
+    <pbs-form-field label="Phone Book"
+      ng-show="$ctrl.showPhonebook($ctrl.editKey.type)">
+      <pbs-input-select ng-model="$ctrl.editKey.phonebook"
+        ng-options="opt as opt for opt in $ctrl.options.phonebooks">
+        <option value="">-- None --</option>
+      </pbs-input-select>
+    </pbs-form-field>
   </pbs-form>
 </pbs-modal>
