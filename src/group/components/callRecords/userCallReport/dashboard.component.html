@@ -22,12 +22,10 @@
       <header class="card-header">
         <p class="card-header-title"
           style="font-weight: normal">
-          {{ $ctrl.users.length == $ctrl.allUsers.length ? 'All' : $ctrl.users.length }} Users
+          {{ $ctrl.users.length }} Users
         </p>
         <span class="card-header-icon">
           <div class="buttons">
-            <pbs-button-compact-cancel ng-click="$ctrl.resetUsers()"
-              ng-show="$ctrl.users.length !== $ctrl.allUsers.length"></pbs-button-compact-cancel>
             <pbs-button-compact-search ng-click="$ctrl.searchUsers()"></pbs-button-compact-search>
           </div>
         </span>
@@ -46,7 +44,6 @@
           start-time="$ctrl.today.startTime"
           end-time="$ctrl.today.endTime"
           label="$ctrl.today.label"
-          all-users="$ctrl.allUsers"
           selected-users="$ctrl.users"
           on-click="$ctrl.selectDate($event)"></group-user-call-report-summary-chart>
       </pbs-column>
@@ -56,7 +53,6 @@
           start-time="$ctrl.yesterday.startTime"
           end-time="$ctrl.yesterday.endTime"
           label="$ctrl.yesterday.label"
-          all-users="$ctrl.allUsers"
           selected-users="$ctrl.users"
           on-click="$ctrl.selectDate($event)"></group-user-call-report-summary-chart>
       </pbs-column>
@@ -68,7 +64,6 @@
           start-time="$ctrl.thisWeek.startTime"
           end-time="$ctrl.thisWeek.endTime"
           label="$ctrl.thisWeek.label"
-          all-users="$ctrl.allUsers"
           selected-users="$ctrl.users"
           on-click="$ctrl.selectDate($event)"></group-user-call-report-summary-chart>
       </pbs-column>
@@ -78,15 +73,13 @@
           start-time="$ctrl.lastWeek.startTime"
           end-time="$ctrl.lastWeek.endTime"
           label="$ctrl.lastWeek.label"
-          all-users="$ctrl.allUsers"
           selected-users="$ctrl.users"
           on-click="$ctrl.selectDate($event)"></group-user-call-report-summary-chart>
       </pbs-column>
     </pbs-columns>
   </div>
 
-  <pbs-tabs ng-if="$ctrl.search.label"
-    delay="true">
+  <pbs-tabs ng-if="$ctrl.search.label">
     <pbs-tab label="Overview">
       <pbs-columns>
         <pbs-column class="is-narrow">
@@ -94,7 +87,6 @@
             group-id="$ctrl.groupId"
             start-time="$ctrl.search.startTime"
             end-time="$ctrl.search.endTime"
-            all-users="$ctrl.allUsers"
             selected-users="$ctrl.users"></group-user-call-report-summary-chart>
         </pbs-column>
         <pbs-column>
@@ -102,7 +94,6 @@
             group-id="$ctrl.groupId"
             start-time="$ctrl.search.startTime"
             end-time="$ctrl.search.endTime"
-            all-users="$ctrl.allUsers"
             selected-users="$ctrl.users">
           </group-user-call-report-detail-chart>
         </pbs-column>
@@ -113,7 +104,6 @@
         group-id="$ctrl.groupId"
         start-time="$ctrl.search.startTime"
         end-time="$ctrl.search.endTime"
-        all-users="$ctrl.allUsers"
         selected-users="$ctrl.users"
         label="$ctrl.search.label"></group-user-call-report-data>
     </pbs-tab>
@@ -121,7 +111,8 @@
 </pbs-spinner>
 
 <pbs-modal id="userCallReportSearchModal"
-           title="Search Call Records" save-text="Generate">
+  title="Search Call Records"
+  save-text="Generate">
   <pbs-form>
     <pbs-columns>
       <pbs-column>

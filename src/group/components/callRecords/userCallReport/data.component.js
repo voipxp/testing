@@ -9,7 +9,6 @@
       startTime: '<',
       endTime: '<',
       label: '<',
-      allUsers: '<',
       selectedUsers: '<'
     }
   })
@@ -57,28 +56,24 @@
       }
     ]
 
-    function onInit() {
-      ctrl.loading = true
-      loadData()
-        .catch(Alert.notify.danger)
-        .finally(function() {
-          ctrl.loading = false
-        })
-    }
+    function onInit() {}
 
     function onChanges(changes) {
-      if (changes.loading || !ctrl.allData) return
-      if (changes.allUsers || changes.selectedUsers) {
-        filterData()
-      }
-      if (changes.startTime || changes.endTime) {
+      if (changes.loading) return
+      if (!ctrl.startTime || !ctrl.endTime || !ctrl.selectedUsers.length) return
+      if (changes.selectedUsers || changes.startTime || changes.endTime) {
+        ctrl.loading = true
         loadData()
+          .catch(Alert.notify.danger)
+          .finally(function() {
+            ctrl.loading = false
+          })
       }
     }
 
     function loadData() {
       return UserCallRecordsService.summary(
-        _.map(ctrl.allUsers, 'userId'),
+        _.map(ctrl.selectedUsers, 'userId'),
         ctrl.startTime,
         ctrl.endTime
       ).then(function(data) {
@@ -92,7 +87,7 @@
         return _.find(ctrl.selectedUsers, { userId: item.userId })
       })
       ctrl.records = data.map(function(item) {
-        var user = _.find(ctrl.allUsers, { userId: item.userId })
+        var user = _.find(ctrl.selectedUsers, { userId: item.userId })
         if (!user) {
           item.lastName = item.userId
         } else {

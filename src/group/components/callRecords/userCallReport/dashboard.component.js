@@ -10,7 +10,6 @@
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.searchUsers = searchUsers
-    ctrl.resetUsers = resetUsers
     ctrl.searchDate = searchDate
     ctrl.resetDate = resetDate
     ctrl.selectDate = selectDate
@@ -43,10 +42,16 @@
 
     function onInit() {
       ctrl.loading = true
+      ctrl.users = []
       UserService.index(ctrl.serviceProviderId, ctrl.groupId)
         .then(function(data) {
           ctrl.allUsers = data || []
-          selectUsers(ctrl.allUsers)
+          if (ctrl.allUsers.length > 15) {
+            selectUsers([])
+            searchUsers()
+          } else {
+            selectUsers(ctrl.allUsers)
+          }
         })
         .catch(Alert.notify.danger)
         .finally(function() {
@@ -105,10 +110,6 @@
       ctrl.userList = _.map(ctrl.users, function(user) {
         return _.compact([user.firstName, user.lastName]).join(' ')
       }).join(', ')
-    }
-
-    function resetUsers() {
-      selectUsers(ctrl.allUsers)
     }
   }
 })()

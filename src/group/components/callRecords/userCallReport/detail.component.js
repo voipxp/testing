@@ -9,7 +9,6 @@
       startTime: '<',
       endTime: '<',
       onClick: '&',
-      allUsers: '<',
       selectedUsers: '<'
     }
   })
@@ -19,28 +18,24 @@
     ctrl.$onInit = onInit
     ctrl.$onChanges = onChanges
 
-    function onInit() {
-      ctrl.loading = true
-      return loadData()
-        .catch(Alert.notify.danger)
-        .finally(function() {
-          ctrl.loading = false
-        })
-    }
+    function onInit() {}
 
     function onChanges(changes) {
-      if (changes.loading || !ctrl.allData) return
-      if (changes.allUsers || changes.selectedUsers) {
-        filterData()
-      }
-      if (changes.startTime || changes.endTime) {
-        loadData()
+      if (changes.loading) return
+      if (!ctrl.startTime || !ctrl.endTime || !ctrl.selectedUsers.length) return
+      if (changes.selectedUsers || changes.startTime || changes.endTime) {
+        ctrl.loading = true
+        return loadData()
+          .catch(Alert.notify.danger)
+          .finally(function() {
+            ctrl.loading = false
+          })
       }
     }
 
     function loadData() {
       return UserCallRecordsService.summary(
-        _.map(ctrl.allUsers, 'userId'),
+        _.map(ctrl.selectedUsers, 'userId'),
         ctrl.startTime,
         ctrl.endTime
       ).then(function(data) {
