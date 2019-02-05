@@ -12,6 +12,8 @@ const replace = require('gulp-replace')
 const templates = require('gulp-angular-templatecache')
 const buffer = require('buffer-to-vinyl')
 const ngConfig = require('gulp-ng-config')
+const cache = require('gulp-cached')
+const remember = require('gulp-remember')
 
 const prod = process.env.NODE_ENV === 'production'
 const dest = process.env.APP_DIST || 'dist'
@@ -36,7 +38,10 @@ gulp.task('app.css', () => {
 })
 
 gulp.task('app.js', () => {
-  let polyfill = gulp.src(['node_modules/@babel/polyfill/dist/polyfill.min.js'])
+  let polyfill = gulp
+    .src(['node_modules/@babel/polyfill/dist/polyfill.min.js'])
+    .pipe(cache('app.js.polyfill'))
+    .pipe(remember('app.js.polyfill'))
   let conf = buffer
     .stream(Buffer.from(JSON.stringify(Config)), 'config.js')
     .pipe(ngConfig('odin.config', { wrap: false }))
@@ -47,7 +52,9 @@ gulp.task('app.js', () => {
       'src/**/*.js',
       '!src/**/*.worker.js'
     ])
+    .pipe(cache('app.js'))
     .pipe(babel())
+    .pipe(remember('app.js'))
   return series(polyfill, conf, app)
     .pipe(concat('app.js'))
     .pipe(gulp.dest(dest))
@@ -56,8 +63,10 @@ gulp.task('app.js', () => {
 gulp.task('app.tpl', () => {
   return gulp
     .src(['src/**/*.html'])
+    .pipe(cache('app.tpl'))
     .pipe(replace('<!-- #api -->', Config.APP.apiURL))
     .pipe(htmlmin())
+    .pipe(remember('app.tpl'))
     .pipe(
       templates('app.tpl.js', {
         module: 'odin.app',
