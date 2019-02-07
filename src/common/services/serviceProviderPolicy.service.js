@@ -55,7 +55,7 @@
 
     function load() {
       // no need if not a system admin
-      if (ACL.has('System')) return $q.resolve()
+      if (ACL.has('Provisioning')) return $q.resolve()
       return Auth.session().then(Session.update)
     }
 
@@ -264,7 +264,7 @@
     }
 
     function checkAccess(attribute, values) {
-      if (ACL.has('System')) return true
+      if (ACL.has('Provisioning')) return true
       var policy = Session.data('policy')
       values = _.castArray(values)
       var permission = _.get(policy, attribute)
