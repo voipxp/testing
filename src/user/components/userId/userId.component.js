@@ -13,6 +13,7 @@
     GroupPolicyService,
     ServiceProviderPolicyService,
     Session,
+    ACL,
     $q
   ) {
     var ctrl = this
@@ -20,19 +21,18 @@
     ctrl.update = update
     ctrl.edit = edit
     ctrl.setUserId = setUserId
-    ctrl.loginType = Session.data('loginType')
 
     function onInit() {
       ctrl.loading = true
       return $q
         .all([GroupPolicyService.load(), ServiceProviderPolicyService.load()])
         .then(function() {
-          if (ctrl.loginType === 'Group') {
-            ctrl.canEdit = GroupPolicyService.userProfileUpdate()
-          } else if (ctrl.loginType === 'Service Provider') {
-            ctrl.canEdit = ServiceProviderPolicyService.userProfileUpdate()
-          } else if (ctrl.loginType === 'System') {
+          if (ACL.has('Provisioning')) {
             ctrl.canEdit = true
+          } else if (ACL.is('Group')) {
+            ctrl.canEdit = GroupPolicyService.userProfileUpdate()
+          } else if (ACL.is('Service Provider')) {
+            ctrl.canEdit = ServiceProviderPolicyService.userProfileUpdate()
           }
         })
         .catch(Alert.notify.danger)

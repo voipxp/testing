@@ -13,8 +13,7 @@
     Module,
     $q,
     GroupPolicyService,
-    ServiceProviderPolicyService,
-    Session
+    ServiceProviderPolicyService
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -40,7 +39,6 @@
       trunkAddressing: 'Trunking',
       none: 'None'
     }
-    ctrl.loginType = Session.data('loginType')
 
     function onInit() {
       ctrl.loading = true
@@ -51,15 +49,13 @@
         ServiceProviderPolicyService.load()
       ])
         .then(function() {
-          if (ctrl.loginType === 'Group') {
-            ctrl.canEdit = GroupPolicyService.accessDeviceUpdate()
-          } else if (ctrl.loginType === 'Service Provider') {
-            ctrl.canEdit = ServiceProviderPolicyService.accessDeviceUpdate()
-          } else if (ctrl.loginType === 'System') {
+          if (ACL.has('Provisioning')) {
             ctrl.canEdit = true
+          } else if (ACL.is('Group')) {
+            ctrl.canEdit = GroupPolicyService.accessDeviceUpdate()
+          } else if (ACL.is('Service Provider')) {
+            ctrl.canEdit = ServiceProviderPolicyService.accessDeviceUpdate()
           }
-          console.log('ctrl.loginType', ctrl.loginType)
-          console.log('ctrl.canEdit', ctrl.canEdit)
           // ctrl.canEdit = ACL.has('Group') && Module.update('Provisioning')
         })
         .catch(function(error) {

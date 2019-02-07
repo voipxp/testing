@@ -11,15 +11,13 @@
     ACL,
     GroupPolicyService,
     ServiceProviderPolicyService,
-    $q,
-    Session
+    $q
   ) {
     var ctrl = this
     ctrl.update = update
     ctrl.$onInit = onInit
     ctrl.addressSummary = addressSummary
     ctrl.edit = edit
-    ctrl.loginType = Session.data('loginType')
 
     function onInit() {
       ctrl.loading = true
@@ -30,15 +28,15 @@
           ServiceProviderPolicyService.load()
         ])
         .then(function() {
-          if (ctrl.loginType === 'Group') {
+          if (ACL.has('Provisioning')) {
+            ctrl.canRead = true
+            ctrl.canUpdate = true
+          } else if (ACL.is('Group')) {
             ctrl.canRead = GroupPolicyService.userProfileRead()
             ctrl.canUpdate = GroupPolicyService.userProfileUpdate()
-          } else if (ctrl.loginType === 'Service Provider') {
+          } else if (ACL.is('Service Provider')) {
             ctrl.canRead = ServiceProviderPolicyService.userProfileRead()
             ctrl.canUpdate = ServiceProviderPolicyService.userProfileUpdate()
-          } else if (ctrl.loginType === 'System') {
-            ctrl.canRead = 'true'
-            ctrl.canUpdate = 'true'
           }
         })
         .catch(Alert.notify.danger)
