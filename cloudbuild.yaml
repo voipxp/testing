@@ -1,81 +1,81 @@
 steps:
-# build image tags
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - build
-  - -t
-  - gcr.io/odin-dev-208422/odin-web:$SHORT_SHA
-  - -t
-  - gcr.io/odin-dev-208422/odin-web:$BRANCH_NAME
-  - -t
-  - gcr.io/odin-dev-208422/odin-web:latest
-  - -t
-  - quay.io/parkbench/odin-web:$BRANCH_NAME
-  - -t
-  - quay.io/parkbench/odin-web:latest
-  - .
+  # build image tags
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - build
+      - -t
+      - gcr.io/odin-dev-208422/odin-web:$SHORT_SHA
+      - -t
+      - gcr.io/odin-dev-208422/odin-web:$BRANCH_NAME
+      - -t
+      - gcr.io/odin-dev-208422/odin-web:latest
+      - -t
+      - quay.io/parkbench/odin-web:$BRANCH_NAME
+      - -t
+      - quay.io/parkbench/odin-web:latest
+      - .
 
-# push SHORT_SHA to GCR
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - push
-  - gcr.io/odin-dev-208422/odin-web:$SHORT_SHA
+  # push SHORT_SHA to GCR
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - gcr.io/odin-dev-208422/odin-web:$SHORT_SHA
 
-# push BRANCH_NAME to GCR
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - push
-  - gcr.io/odin-dev-208422/odin-web:$BRANCH_NAME
+  # push BRANCH_NAME to GCR
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - gcr.io/odin-dev-208422/odin-web:$BRANCH_NAME
 
-# push latest to gcr
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - push
-  - gcr.io/odin-dev-208422/odin-web:latest
+  # push latest to gcr
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - gcr.io/odin-dev-208422/odin-web:latest
 
-# login to quay.io
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args:
-  - -c
-  - docker login --username=$$QUAY_USERNAME --password=$$QUAY_PASSWORD quay.io
-  secretEnv:
-  - QUAY_USERNAME
-  - QUAY_PASSWORD
+  # login to quay.io
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - -c
+      - docker login --username=$$QUAY_USERNAME --password=$$QUAY_PASSWORD quay.io
+    secretEnv:
+      - QUAY_USERNAME
+      - QUAY_PASSWORD
 
-# push BRANCH_NAME to quay.io
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - push
-  - quay.io/parkbench/odin-web:$BRANCH_NAME
+  # push BRANCH_NAME to quay.io
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - quay.io/parkbench/odin-web:$BRANCH_NAME
 
-# push latest to quay.io
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - push
-  - quay.io/parkbench/odin-web:latest
+  # push latest to quay.io
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - quay.io/parkbench/odin-web:latest
 
-# deploy to kubenetes demo cluster
-- name: 'gcr.io/cloud-builders/kubectl'
-  args:
-  - set
-  - image
-  - deployment
-  - web
-  - "*=gcr.io/odin-dev-208422/odin-web:$SHORT_SHA"
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=odin'
+  # deploy to kubenetes demo cluster
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - set
+      - image
+      - deployment
+      - web
+      - '*=gcr.io/odin-dev-208422/odin-web:$SHORT_SHA'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=odin'
 
 # images to show in cloud builder
 images:
-- gcr.io/odin-dev-208422/odin-web:$SHORT_SHA
+  - gcr.io/odin-dev-208422/odin-web:$SHORT_SHA
 
 # decrypt secrets
 secrets:
-- kmsKeyName: projects/odin-dev-208422/locations/global/keyRings/odin/cryptoKeys/quay_username
-  secretEnv:
-    QUAY_USERNAME: CiQAglj0AsL4kpAYmaN1XeUVEYy1xZizKkFr3tkCwWEMlAOxc2MSOADDOslesrKUNMzuxSut/5v8xl1n/fIPcv+gLyk+h5eS+1WCC+xplwsa5O03FH8507mAusKRNudW
-- kmsKeyName: projects/odin-dev-208422/locations/global/keyRings/odin/cryptoKeys/quay_password
-  secretEnv:
-    QUAY_PASSWORD: CiQAxaAITH1/SMezIB+vncIztPtySV3M6lkqREol4iwwMu/HsWoSaQCyM4yb6rzh5bMFj/77KzsURiZwyRWg/e58m8wVxP2ylqBmnw+ZoplxubQg3IyuVYLI8nNxE+wEJohQWv3UIH78y25G8ltUV3m+XmcXNyOXe6tYatFh++wvxqlxFyEoqoSrmnybtP93MA==
+  - kmsKeyName: projects/odin-dev-208422/locations/global/keyRings/odin/cryptoKeys/quay_username
+    secretEnv:
+      QUAY_USERNAME: CiQAglj0AsL4kpAYmaN1XeUVEYy1xZizKkFr3tkCwWEMlAOxc2MSOADDOslesrKUNMzuxSut/5v8xl1n/fIPcv+gLyk+h5eS+1WCC+xplwsa5O03FH8507mAusKRNudW
+  - kmsKeyName: projects/odin-dev-208422/locations/global/keyRings/odin/cryptoKeys/quay_password
+    secretEnv:
+      QUAY_PASSWORD: CiQAxaAITH1/SMezIB+vncIztPtySV3M6lkqREol4iwwMu/HsWoSaQCyM4yb6rzh5bMFj/77KzsURiZwyRWg/e58m8wVxP2ylqBmnw+ZoplxubQg3IyuVYLI8nNxE+wEJohQWv3UIH78y25G8ltUV3m+XmcXNyOXe6tYatFh++wvxqlxFyEoqoSrmnybtP93MA==

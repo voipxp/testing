@@ -2,7 +2,7 @@ label.radio.is-stacked {
   display: block;
 }
 
-label.radio.is-stacked+label.radio.is-stacked {
+label.radio.is-stacked + label.radio.is-stacked {
   margin-left: 0;
-  margin-top: .25rem;
+  margin-top: 0.25rem;
 }

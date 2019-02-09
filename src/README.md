@@ -1,12 +1,14 @@
 # TODO
+
 - component for input (text, email, phone, number) (class=input)
 - pbs-addons component
   <pbs-addons>
-    <pbs-addon-static expanded>SOMETHING</pbs-addon-static>
-    <pbs-addon-item><input></pbs-addon-static>
+  <pbs-addon-static expanded>SOMETHING</pbs-addon-static>
+  <pbs-addon-item><input></pbs-addon-static>
   </pbs-addons>
 
 # DONE
+
 x turn service pack buttons into tabs
 x look for all returnTo and make sure they work
 x look at browser history when redirected to notfound

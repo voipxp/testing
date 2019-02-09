@@ -2,11 +2,12 @@
   margin-bottom: 1.5rem;
 }
 
-table.pbs-table td, table.pbs-table th {
+table.pbs-table td,
+table.pbs-table th {
   white-space: nowrap;
 }
 
-table.hover tbody>tr:hover,
+table.hover tbody > tr:hover,
 tr.hover:hover,
 td.hover:hover {
   cursor: pointer;

@@ -23,5 +23,5 @@ pbs-notifications {
 }
 
 pbs-notifications .notification:not(:last-child) {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }

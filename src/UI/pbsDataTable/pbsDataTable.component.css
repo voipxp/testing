@@ -1,9 +1,10 @@
-table.pbs-data-table td, table.pbs-data-table th {
+table.pbs-data-table td,
+table.pbs-data-table th {
   white-space: nowrap;
 }
 
 .pbs-data-table-wrapper {
   display: block;
   width: 100%;
-  overflow-X: auto;
+  overflow-x: auto;
 }
