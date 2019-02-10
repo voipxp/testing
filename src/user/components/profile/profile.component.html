@@ -1,14 +1,15 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Profile">
     <pbs-block-buttons>
-      <pbs-button-compact-edit title="Edit Profile"
-        ng-click="$ctrl.edit()" ng-if="$ctrl.canUpdate">
+      <pbs-button-compact-edit
+        title="Edit Profile"
+        ng-click="$ctrl.edit()"
+        ng-if="$ctrl.canUpdate"
+      >
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list ng-if="$ctrl.canRead">
-      <pbs-list-item label="User ID">
-        {{ $ctrl.user.userId }}
-      </pbs-list-item>
+      <pbs-list-item label="User ID"> {{ $ctrl.user.userId }} </pbs-list-item>
       <pbs-list-item label="Phone Number">
         {{ $ctrl.user.phoneNumber }}
       </pbs-list-item>
@@ -33,9 +34,7 @@
       <pbs-list-item label="Department">
         {{ $ctrl.user.department.name }}
       </pbs-list-item>
-      <pbs-list-item label="Title">
-        {{ $ctrl.user.title }}
-      </pbs-list-item>
+      <pbs-list-item label="Title"> {{ $ctrl.user.title }} </pbs-list-item>
       <pbs-list-item label="Mobile">
         {{ $ctrl.user.mobilePhoneNumber }}
       </pbs-list-item>
@@ -53,44 +52,54 @@
       </pbs-list-item>
     </pbs-list>
     <pbs-list ng-if="!$ctrl.canRead">
-      <pbs-list-item label="User Profile Policy Read Permission Is Disabled For Group Admin">
+      <pbs-list-item
+        label="User Profile Policy Read Permission Is Disabled For Group Admin"
+      >
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
 
-<pbs-modal id="editUserProfile"
-  title="Edit Profile">
+<pbs-modal id="editUserProfile" title="Edit Profile">
   <pbs-form>
     <pbs-form-field-horizontal label="First Name">
-      <input type="text"
+      <input
+        type="text"
         class="input"
         ng-model="$ctrl.editUser.firstName"
-        required>
+        required
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Last Name">
-      <input type="text"
+      <input
+        type="text"
         class="input"
         ng-model="$ctrl.editUser.lastName"
-        required>
+        required
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="CLID First Name">
-      <input type="text"
+      <input
+        type="text"
         class="input"
         ng-model="$ctrl.editUser.callingLineIdFirstName"
-        required>
+        required
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="CLID Last Name">
-      <input type="text"
+      <input
+        type="text"
         class="input"
         ng-model="$ctrl.editUser.callingLineIdLastName"
-        required>
+        required
+      />
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="Department"
-      ng-if="$ctrl.isAdmin">
-      <select-department service-provider-id="$ctrl.editUser.serviceProviderId"
+    <pbs-form-field-horizontal label="Department" ng-if="$ctrl.isAdmin">
+      <select-department
+        service-provider-id="$ctrl.editUser.serviceProviderId"
         group-id="$ctrl.editUser.groupId"
-        ng-model="$ctrl.editUser.department">
+        ng-model="$ctrl.editUser.department"
+      ></select-department>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Timezone">
       <select-timezone ng-model="$ctrl.editUser.timeZone"></select-timezone>
@@ -98,64 +107,82 @@
     <pbs-form-field-horizontal label="Language">
       <select-language ng-model="$ctrl.editUser.language"></select-language>
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="Network Class of Service"
-      ng-if="$ctrl.isAdmin">
-      <select-network-class-of-service service-provider-id="$ctrl.editUser.serviceProviderId"
+    <pbs-form-field-horizontal
+      label="Network Class of Service"
+      ng-if="$ctrl.isAdmin"
+    >
+      <select-network-class-of-service
+        service-provider-id="$ctrl.editUser.serviceProviderId"
         group-id="$ctrl.editUser.groupId"
-        ng-model="$ctrl.editUser.networkClassOfService"></select-network-class-of-service>
+        ng-model="$ctrl.editUser.networkClassOfService"
+      ></select-network-class-of-service>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Title">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.editUser.title">
+      <input type="text" class="input" ng-model="$ctrl.editUser.title" />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Email Address">
-      <input type="email"
+      <input
+        type="email"
         class="input"
-        ng-model="$ctrl.editUser.emailAddress">
+        ng-model="$ctrl.editUser.emailAddress"
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Pager Number">
-      <input type="text"
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editUser.pagerPhoneNumber">
+        ng-model="$ctrl.editUser.pagerPhoneNumber"
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Mobile Number">
-      <input type="text"
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editUser.mobilePhoneNumber">
+        ng-model="$ctrl.editUser.mobilePhoneNumber"
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Address Location">
-      <input type="text"
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editUser.addressLocation">
+        ng-model="$ctrl.editUser.addressLocation"
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Address Line 1">
-      <input type="text"
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editUser.address.addressLine1">
+        ng-model="$ctrl.editUser.address.addressLine1"
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Address Line 2">
-      <input type="text"
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editUser.address.addressLine2">
+        ng-model="$ctrl.editUser.address.addressLine2"
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="City">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.editUser.address.city">
+      <input type="text" class="input" ng-model="$ctrl.editUser.address.city" />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="State/Province">
-      <select-state ng-model="$ctrl.editUser.address.stateOrProvince"></select-state>
+      <select-state
+        ng-model="$ctrl.editUser.address.stateOrProvince"
+      ></select-state>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Postal Code">
-      <input type="text"
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editUser.address.zipOrPostalCode">
+        ng-model="$ctrl.editUser.address.zipOrPostalCode"
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Country">
-      <input type="text"
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editUser.address.country">
+        ng-model="$ctrl.editUser.address.country"
+      />
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

@@ -1,8 +1,10 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block module="$ctrl.module">
     <pbs-block-buttons if-module-create="$ctrl.module">
-      <pbs-button-compact-add ng-click="$ctrl.add($ctrl.userId)"
-        title="Add New Priority Alert">
+      <pbs-button-compact-add
+        ng-click="$ctrl.add($ctrl.userId)"
+        title="Add New Priority Alert"
+      >
       </pbs-button-compact-add>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
@@ -18,77 +20,98 @@
       </thead>
       <tfoot>
         <tr ng-if="results.length < 1">
-          <td colspan="6">No Priority Alert Criteria Found
+          <td colspan="6">
+            No Priority Alert Criteria Found
             <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
           </td>
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover"
+        <tr
+          class="hover"
           ng-repeat="criteria in $ctrl.criterias.criteria | filter:$ctrl.search as results track by criteria.criteriaName"
-      
-          ng-click="$ctrl.edit(criteria)">
+          ng-click="$ctrl.edit(criteria)"
+        >
           <td>{{ criteria.criteriaName }}</td>
           <td>{{ criteria.timeSchedule }}</td>
           <td>{{ criteria.holidaySchedule }}</td>
           <td>
-            <pbs-check-box checked="criteria.blacklisted">
+            <pbs-check-box checked="criteria.blacklisted"></pbs-check-box>
           </td>
           <td no-parent-click>
-            <pbs-input-switch ng-model="criteria.isActive"
+            <pbs-input-switch
+              ng-model="criteria.isActive"
               ng-change="$ctrl.toggle(criteria)"
-              ng-disabled="criteria.isLoading"></pbs-input-switch>
+              ng-disabled="criteria.isLoading"
+            ></pbs-input-switch>
           </td>
         </tr>
       </tbody>
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="editUserPriorityAlert"
-  title="Edit Settings">
+<pbs-modal id="editUserPriorityAlert" title="Edit Settings">
   <pbs-form>
     <pbs-form-section>General Settings</pbs-form-section>
     <pbs-form-field-horizontal label="Name">
-      <input type="text"
+      <input
+        type="text"
         class="input"
         ng-model="$ctrl.editCriteria.newCriteriaName"
-        required>
+        required
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Time Schedule">
-      <select-user-schedule user-id="$ctrl.userId"
+      <select-user-schedule
+        user-id="$ctrl.userId"
         type="Time"
         ng-model="$ctrl.editCriteria.timeSchedule"
-        is-fullwidth>
+        is-fullwidth
+      >
       </select-user-schedule>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Holiday Schedule">
-      <select-user-schedule user-id="$ctrl.userId"
+      <select-user-schedule
+        user-id="$ctrl.userId"
         type="Holiday"
         ng-model="$ctrl.editCriteria.holidaySchedule"
-        is-fullwidth>
+        is-fullwidth
+      >
       </select-user-schedule>
     </pbs-form-field-horizontal>
-    <pbs-input-checkbox label="Blacklisted"
-      ng-model="$ctrl.editCriteria.blacklisted"></pbs-input-checkbox>
+    <pbs-input-checkbox
+      label="Blacklisted"
+      ng-model="$ctrl.editCriteria.blacklisted"
+    ></pbs-input-checkbox>
     <pbs-form-section>Calls From</pbs-form-section>
-    <pbs-input-checkbox label="Anonymous Callers"
+    <pbs-input-checkbox
+      label="Anonymous Callers"
       ng-model="$ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers"
       ng-true-value="'true'"
-      ng-false-value="'false'"></pbs-input-checkbox>
-    <pbs-input-checkbox label="Any Unavailable Number"
+      ng-false-value="'false'"
+    ></pbs-input-checkbox>
+    <pbs-input-checkbox
+      label="Any Unavailable Number"
       ng-model="$ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers"
       ng-true-value="'true'"
-      ng-false-value="'false'"></pbs-input-checkbox>
-    <pbs-input-select ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
+      ng-false-value="'false'"
+    ></pbs-input-checkbox>
+    <pbs-input-select
+      ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
       ng-options="x for x in $ctrl.options.fromDnCriteriaSelection"
-      required></pbs-input-select>
-    <div class="margin-top"
-      ng-show="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection === 'Specified Only'">
-      <input class="input"
+      required
+    ></pbs-input-select>
+    <div
+      class="margin-top"
+      ng-show="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection === 'Specified Only'"
+    >
+      <input
+        class="input"
         style="margin-bottom: 10px"
         ng-repeat="value in [1,2,3,4,5,6,7,8,9,10,11,12] track by $index"
         type="text"
-        ng-model="$ctrl.editCriteria.fromDnCriteria.phoneNumbers[$index]">
+        ng-model="$ctrl.editCriteria.fromDnCriteria.phoneNumbers[$index]"
+      />
     </div>
   </pbs-form>
 </pbs-modal>

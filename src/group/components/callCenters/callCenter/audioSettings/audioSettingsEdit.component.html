@@ -1,72 +1,75 @@
 <pbs-form-section>Audio Selection {{ $ctrl.label }}</pbs-form-section>
 
-<pbs-input-select ng-model="$ctrl.service.audioMessageSource"
-  ng-options="opt for opt in $ctrl.options.audioMessageSource"></pbs-input-select>
+<pbs-input-select
+  ng-model="$ctrl.service.audioMessageSource"
+  ng-options="opt for opt in $ctrl.options.audioMessageSource"
+></pbs-input-select>
 
-<div class="margin-top"
-  ng-show="$ctrl.isUrl()">
+<div class="margin-top" ng-show="$ctrl.isUrl()">
   <pbs-form-section>Audio URLs {{ $ctrl.label }} </pbs-form-section>
-  <div class="field has-addons"
-    ng-show="$ctrl.isUrl()">
+  <div class="field has-addons" ng-show="$ctrl.isUrl()">
     <p class="control is-expanded">
-      <input type="url"
+      <input
+        type="url"
         class="input"
         placeholder="URL"
-        ng-model="$ctrl.newUrl">
+        ng-model="$ctrl.newUrl"
+      />
     </p>
     <p class="control">
-      <button class="button"
+      <button
+        class="button"
         ng-click="$ctrl.addUrl()"
         ng-disabled="!$ctrl.newUrl"
-        title="Add a URL">
-        <span class="icon">
-          <i class="fas fa-plus"></i>
-        </span>
+        title="Add a URL"
+      >
+        <span class="icon"> <i class="fas fa-plus"></i> </span>
       </button>
     </p>
   </div>
   <table pbs-table>
     <tr ng-repeat="url in $ctrl.service.audioUrlList">
       <td>
-        <pbs-button-compact-delete class="is-pulled-right"
-          ng-click="$ctrl.removeUrl($index)"></pbs-button-compact-delete>
+        <pbs-button-compact-delete
+          class="is-pulled-right"
+          ng-click="$ctrl.removeUrl($index)"
+        ></pbs-button-compact-delete>
         {{ url }}
       </td>
     </tr>
   </table>
 </div>
 
-<div class="margin-top"
-  ng-show="$ctrl.isFile()">
+<div class="margin-top" ng-show="$ctrl.isFile()">
   <pbs-form-section>Audio Files {{ $ctrl.label }} </pbs-form-section>
   <div class="margin-bottom">
-    <button class="button is-fullwidth"
+    <button
+      class="button is-fullwidth"
       ng-if="!$ctrl.hasRepository"
       ng-click="$ctrl.selectAudioFile()"
-      ng-disabled="!$ctrl.canAddFile()">
-      <span class="icon">
-        <i class="fas fa-plus"></i>
-      </span>
+      ng-disabled="!$ctrl.canAddFile()"
+    >
+      <span class="icon"> <i class="fas fa-plus"></i> </span>
       <span>Upload Announcement</span>
     </button>
-    <div class="columns"
-      ng-if="$ctrl.hasRepository">
+    <div class="columns" ng-if="$ctrl.hasRepository">
       <div class="column">
-        <button class="button is-fullwidth"
+        <button
+          class="button is-fullwidth"
           ng-click="$ctrl.selectAnnouncement()"
-          ng-disabled="!$ctrl.canAddFile()">
-          <span class="icon">
-            <i class="fas fa-list"></i>
-          </span>
+          ng-disabled="!$ctrl.canAddFile()"
+        >
+          <span class="icon"> <i class="fas fa-list"></i> </span>
           <span>Select Announcement</span>
+        </button>
       </div>
       <div class="column">
-        <button class="button is-fullwidth"
+        <button
+          class="button is-fullwidth"
           ng-click="$ctrl.createAnnouncement()"
-          ng-disabled="!$ctrl.canAddFile()">
-          <span class="icon">
-            <i class="fas fa-plus"></i>
-          </span>
+          ng-disabled="!$ctrl.canAddFile()"
+        >
+          <span class="icon"> <i class="fas fa-plus"></i> </span>
           <span>Create Announcement</span>
         </button>
       </div>
@@ -75,20 +78,27 @@
   <table pbs-table>
     <tr ng-repeat="file in $ctrl.service.audioFileList">
       <td>
-        <pbs-button-compact-delete class="is-pulled-right"
-          ng-click="$ctrl.removeFile($index)"></pbs-button-compact-delete>
-        {{ file.name }}
-        <span ng-show="file.level">({{ file.level }})</span>
+        <pbs-button-compact-delete
+          class="is-pulled-right"
+          ng-click="$ctrl.removeFile($index)"
+        ></pbs-button-compact-delete>
+        {{ file.name }} <span ng-show="file.level">({{ file.level }})</span>
       </td>
     </tr>
   </table>
 </div>
 
-<audio-file-create ng-if="!$ctrl.hasRepository"
-  on-update="$ctrl.onSelectAudio($event)"></audio-file-create>
-<announcement-create ng-if="$ctrl.hasRepository"
+<audio-file-create
+  ng-if="!$ctrl.hasRepository"
+  on-update="$ctrl.onSelectAudio($event)"
+></audio-file-create>
+<announcement-create
+  ng-if="$ctrl.hasRepository"
   user-id="$ctrl.userId"
-  on-update="$ctrl.onSelectAudio($event)"></announcement-create>
-<announcement-select ng-if="$ctrl.hasRepository"
+  on-update="$ctrl.onSelectAudio($event)"
+></announcement-create>
+<announcement-select
+  ng-if="$ctrl.hasRepository"
   user-id="$ctrl.userId"
-  on-update="$ctrl.onSelectAudio($event)"></announcement-select>
+  on-update="$ctrl.onSelectAudio($event)"
+></announcement-select>

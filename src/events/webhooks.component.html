@@ -5,32 +5,36 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Recent Webhooks ({{ $ctrl.recent }})">
     <pbs-block-buttons>
-      <pbs-button-compact-refresh title="Refresh"
-        ng-click="$ctrl.refresh()">
+      <pbs-button-compact-refresh title="Refresh" ng-click="$ctrl.refresh()">
       </pbs-button-compact-refresh>
     </pbs-block-buttons>
-    <pbs-data-table columns="$ctrl.columns"
+    <pbs-data-table
+      columns="$ctrl.columns"
       order-reverse="true"
       items="$ctrl.webhooks"
       is-compact="true"
       is-bordered="true"
       is-striped="true"
       limit-to="50"
-      on-click="$ctrl.onClick($event)"></pbs-data-table>
+      on-click="$ctrl.onClick($event)"
+    ></pbs-data-table>
   </pbs-block>
 </pbs-spinner>
 
-<pbs-modal id="showOdinWebhook"
-  title="Webhooks: Event {{ $ctrl.selectedEvent.id }} ({{ $ctrl.selectedEvent.type }})">
-  <pbs-data-table columns="$ctrl.columns"
+<pbs-modal
+  id="showOdinWebhook"
+  title="Webhooks: Event {{ $ctrl.selectedEvent.id }} ({{ $ctrl.selectedEvent.type }})"
+>
+  <pbs-data-table
+    columns="$ctrl.columns"
     order-reverse="true"
     items="$ctrl.selectedWebhooks"
     is-compact="true"
     is-bordered="true"
     is-striped="true"
-    limit-to="50"></pbs-data-table>
+    limit-to="50"
+  ></pbs-data-table>
 
   <h4 class="margin-top subtitle">Related Event Data</h4>
   <pre class="prettyprint">{{ $ctrl.selectedEvent | json }}</pre>
-  </pbs-block>
 </pbs-modal>

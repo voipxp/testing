@@ -1,7 +1,9 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Outgoing Redirecting">
     <pbs-block-buttons>
-      <pbs-button-compact-edit ng-click="$ctrl.edit()"></pbs-button-compact-edit>
+      <pbs-button-compact-edit
+        ng-click="$ctrl.edit()"
+      ></pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-section>Custom Settings</pbs-list-section>
@@ -10,103 +12,158 @@
       </pbs-list-item>
       <pbs-list-section>Permissions</pbs-list-section>
       <pbs-list-item label="Casual">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.casual"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.casual"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Chargeable Directory Assisted">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.chargeableDirectoryAssisted"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.chargeableDirectoryAssisted"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Group">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.group"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.group"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="International">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.international"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.international"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Local">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.local"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.local"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Operator Assisted">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.operatorAssisted"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.operatorAssisted"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Premium Services I">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.premiumServicesI"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.premiumServicesI"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Premium Services II">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.premiumServicesII"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.premiumServicesII"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Special Services I">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.specialServicesI"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.specialServicesI"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Special Services II">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.specialServicesII"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.specialServicesII"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Toll">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.toll"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.toll"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Toll Free">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.tollFree"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.tollFree"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Unknown">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.unknown"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.unknown"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="URL Dialing">
-        <pbs-check-box checked="$ctrl.plan.userPermissions.urlDialing"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.plan.userPermissions.urlDialing"
+        ></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="editUserOutgoingCallingPlanRedirecting"
-  title="Edit Redirecting">
+<pbs-modal id="editUserOutgoingCallingPlanRedirecting" title="Edit Redirecting">
   <pbs-form>
     <pbs-form-section>Custom Settings</pbs-form-section>
-    <pbs-input-checkbox ng-model="$ctrl.editPlan.useCustomSettings"
-      label="Use Custom Settings"></pbs-input-checkbox>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editPlan.useCustomSettings"
+      label="Use Custom Settings"
+    ></pbs-input-checkbox>
 
     <div ng-show="$ctrl.editPlan.useCustomSettings">
       <pbs-form-section>Permissions</pbs-form-section>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.casual"
-        label="Casual"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.casual"
+        label="Casual"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.chargeableDirectoryAssisted"
-        label="Chargeable Directory Assisted"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.chargeableDirectoryAssisted"
+        label="Chargeable Directory Assisted"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.group"
-        label="Group"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.group"
+        label="Group"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.international"
-        label="International"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.international"
+        label="International"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.local"
-        label="Local"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.local"
+        label="Local"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.operatorAssisted"
-        label="Operator Assisted"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.operatorAssisted"
+        label="Operator Assisted"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.premiumServicesI"
-        label="Premium Services I"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.premiumServicesI"
+        label="Premium Services I"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.premiumServicesII"
-        label="Premium Services II"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.premiumServicesII"
+        label="Premium Services II"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.specialServicesI"
-        label="Special Services I"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.specialServicesI"
+        label="Special Services I"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.specialServicesII"
-        label="Special Services II"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.specialServicesII"
+        label="Special Services II"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.toll"
-        label="Toll"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.toll"
+        label="Toll"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.tollFree"
-        label="Toll Free"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.tollFree"
+        label="Toll Free"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.unknown"
-        label="Unknown"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.unknown"
+        label="Unknown"
+      ></pbs-input-checkbox>
 
-      <pbs-input-checkbox ng-model="$ctrl.editPlan.userPermissions.urlDialing"
-        label="URL Dialing"></pbs-input-checkbox>
-
-      </pbs-form-field>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPlan.userPermissions.urlDialing"
+        label="URL Dialing"
+      ></pbs-input-checkbox>
     </div>
   </pbs-form>
 </pbs-modal>

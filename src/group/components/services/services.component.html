@@ -1,35 +1,56 @@
-<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId">
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+>
   <pbs-breadcrumb title="$ctrl.title"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="{{ $ctrl.title }}">
     <pbs-block-buttons>
-      <pbs-button-compact-clone ng-if="$ctrl.canClone"
-        ng-click="$ctrl.clone()"></pbs-button-compact-clone>
-      <pbs-button-compact-cogs ng-if="$ctrl.canUpdate"
-        ng-click="$ctrl.showSelect = !$ctrl.showSelect"></pbs-button-compact-cogs>
+      <pbs-button-compact-clone
+        ng-if="$ctrl.canClone"
+        ng-click="$ctrl.clone()"
+      ></pbs-button-compact-clone>
+      <pbs-button-compact-cogs
+        ng-if="$ctrl.canUpdate"
+        ng-click="$ctrl.showSelect = !$ctrl.showSelect"
+      ></pbs-button-compact-cogs>
     </pbs-block-buttons>
     <pbs-columns>
       <pbs-column>
-        <pbs-table-search ng-model="$ctrl.search"
-          style="margin-bottom: 0"></pbs-table-search>
+        <pbs-table-search
+          ng-model="$ctrl.search"
+          style="margin-bottom: 0"
+        ></pbs-table-search>
       </pbs-column>
       <pbs-column class="is-narrow">
         <div class="buttons has-addons">
-          <button class="button"
+          <button
+            class="button"
             ng-class="{'is-link': $ctrl.filter.authorized === undefined}"
-            ng-click="$ctrl.filter = {}">All</button>
-          <button class="button"
+            ng-click="$ctrl.filter = {}"
+          >
+            All
+          </button>
+          <button
+            class="button"
             ng-class="{'is-link': $ctrl.filter.authorized === true}"
-            ng-click="$ctrl.filter.authorized = true">Authorized</button>
-          <button class="button"
+            ng-click="$ctrl.filter.authorized = true"
+          >
+            Authorized
+          </button>
+          <button
+            class="button"
             ng-class="{'is-link': $ctrl.filter.authorized === false}"
-            ng-click="$ctrl.filter.authorized = false">Unauthorized</button>
+            ng-click="$ctrl.filter.authorized = false"
+          >
+            Unauthorized
+          </button>
         </div>
       </pbs-column>
     </pbs-columns>
-    <pbs-data-table columns="$ctrl.columns"
+    <pbs-data-table
+      columns="$ctrl.columns"
       items="$ctrl.services"
       hide-search="true"
       search="$ctrl.search"
@@ -40,38 +61,45 @@
       is-striped="true"
       limit-to="25"
       on-select="$ctrl.onSelect($event)"
-      on-click="$ctrl.onClick($event)"></pbs-data-table>
+      on-click="$ctrl.onClick($event)"
+    ></pbs-data-table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="editGroupService"
-  title="{{ $ctrl.editService.alias }}">
+<pbs-modal id="editGroupService" title="{{ $ctrl.editService.alias }}">
   <pbs-form>
     <pbs-tabs>
       <pbs-tab label="Services">
         <pbs-form-section>Authorization</pbs-form-section>
-        <pbs-input-checkbox label="Service Authorized"
-                            ng-model="$ctrl.editService.authorized"></pbs-input-checkbox>
-        <pbs-input-checkbox label="Service Assigned"
-                            ng-if="$ctrl.isGroupServices()"
-                            ng-model="$ctrl.editService.assigned"></pbs-input-checkbox>
+        <pbs-input-checkbox
+          label="Service Authorized"
+          ng-model="$ctrl.editService.authorized"
+        ></pbs-input-checkbox>
+        <pbs-input-checkbox
+          label="Service Assigned"
+          ng-if="$ctrl.isGroupServices()"
+          ng-model="$ctrl.editService.assigned"
+        ></pbs-input-checkbox>
         <service-licensing service="$ctrl.editService"></service-licensing>
       </pbs-tab>
       <pbs-tab label="Users" ng-if="$ctrl.users">
-        <pbs-data-table columns="$ctrl.serviceColumns"
-                        items="$ctrl.users"
-                        hide-search="false"
-                        search="$ctrl.searchUsers"
-                        filter="$ctrl.filter"
-                        is-compact="true"
-                        is-bordered="true"
-                        is-striped="true"
-                        on-click="$ctrl.onUserClick($event)"
-                        limit-to="25"></pbs-data-table>
-        </pbs-block>
+        <pbs-data-table
+          columns="$ctrl.serviceColumns"
+          items="$ctrl.users"
+          hide-search="false"
+          search="$ctrl.searchUsers"
+          filter="$ctrl.filter"
+          is-compact="true"
+          is-bordered="true"
+          is-striped="true"
+          on-click="$ctrl.onUserClick($event)"
+          limit-to="25"
+        ></pbs-data-table>
       </pbs-tab>
     </pbs-tabs>
   </pbs-form>
 </pbs-modal>
-<group-clone-services service-provider-id="$ctrl.serviceProviderId"
+<group-clone-services
+  service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
-  on-update="$ctrl.onClone()"></group-clone-services>
+  on-update="$ctrl.onClone()"
+></group-clone-services>

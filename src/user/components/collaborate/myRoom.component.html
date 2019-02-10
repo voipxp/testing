@@ -1,18 +1,25 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="My Room">
     <pbs-block-buttons>
-      <pbs-button-compact-edit ng-click="$ctrl.edit()"
-        title="Edit My Room">
-        </pbs-button-compact-add>
+      <pbs-button-compact-edit
+        ng-click="$ctrl.edit()"
+        title="Edit My Room"
+      ></pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Room ID">{{ $ctrl.myRoom.roomId }}</pbs-list-item>
-      <pbs-list-item label="Room Name">{{ $ctrl.myRoom.roomName }}</pbs-list-item>
+      <pbs-list-item label="Room Name">{{
+        $ctrl.myRoom.roomName
+      }}</pbs-list-item>
       <pbs-list-item label="Notification">
-        <pbs-check-box checked="$ctrl.myRoom.attendeeNotification"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.myRoom.attendeeNotification"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="End When Owner Departs">
-        <pbs-check-box checked="$ctrl.myRoom.endCollaborateRoomSessionOnOwnerExit"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.myRoom.endCollaborateRoomSessionOnOwnerExit"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Owner Required to Start">
         <pbs-check-box checked="$ctrl.myRoom.ownerRequired"></pbs-check-box>
@@ -21,42 +28,51 @@
   </pbs-block>
 </pbs-spinner>
 
-<pbs-modal id="editUserCollaborateMyRoom"
-  title="Edit My Room">
+<pbs-modal id="editUserCollaborateMyRoom" title="Edit My Room">
   <pbs-form>
     <pbs-form-field-horizontal label="Room ID">
       <div class="field has-addons">
         <p class="control is-expanded">
-          <input type="text"
+          <input
+            type="text"
             class="input"
             ng-model="$ctrl.editMyRoom.roomId"
-            readonly>
+            readonly
+          />
         </p>
         <p class="control">
-          <button class="button"
+          <button
+            class="button"
             ng-click="$ctrl.regenerate()"
-            title="Regenerate Room ID">
-            <span class="icon">
-              <i class="fas fa-sync"></i>
-            </span>
+            title="Regenerate Room ID"
+          >
+            <span class="icon"> <i class="fas fa-sync"></i> </span>
           </button>
         </p>
       </div>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Room Name">
-      <input type="text"
+      <input
+        type="text"
         class="input"
         ng-model="$ctrl.editMyRoom.roomName"
-        required>
+        required
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Notification">
-      <pbs-input-select ng-model="$ctrl.editMyRoom.attendeeNotification"
+      <pbs-input-select
+        ng-model="$ctrl.editMyRoom.attendeeNotification"
         ng-options="opt as opt for opt in $ctrl.options.attendeeNotification"
-        ng-required="true"></pbs-input-select>
+        ng-required="true"
+      ></pbs-input-select>
     </pbs-form-field-horizontal>
-    <pbs-input-checkbox label="End room session when owner departs"
-      ng-model="$ctrl.editMyRoom.endCollaborateRoomSessionOnOwnerExit"></pbs-input-checkbox>
-    <pbs-input-checkbox label="Owner required to start room session"
-      ng-model="$ctrl.editMyRoom.ownerRequired"></pbs-input-checkbox>
+    <pbs-input-checkbox
+      label="End room session when owner departs"
+      ng-model="$ctrl.editMyRoom.endCollaborateRoomSessionOnOwnerExit"
+    ></pbs-input-checkbox>
+    <pbs-input-checkbox
+      label="Owner required to start room session"
+      ng-model="$ctrl.editMyRoom.ownerRequired"
+    ></pbs-input-checkbox>
   </pbs-form>
 </pbs-modal>

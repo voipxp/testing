@@ -1,15 +1,19 @@
-<pbs-navigation service-provider-id="$ctrl.serviceProviderId"
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
-  module="$ctrl.module">
+  module="$ctrl.module"
+>
   <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Music On Hold">
     <pbs-block-buttons if-module-create="$ctrl.module">
-      <pbs-button-compact-add ng-if="$ctrl.moh.hasDepartment"
+      <pbs-button-compact-add
+        ng-if="$ctrl.moh.hasDepartment"
         title="Add Music On Hold"
         ng-click="$ctrl.add()"
-        ng-show="$ctrl.moh.hasDepartment"></pbs-button-compact-add>
+        ng-show="$ctrl.moh.hasDepartment"
+      ></pbs-button-compact-add>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>
@@ -21,22 +25,24 @@
       </thead>
       <tfoot>
         <tr ng-if="$ctrl.moh.hasDepartment && results.length < 1">
-          <td colspan="2">No Music On Hold Departments
-            <span ng-if="$ctrl.search">Found for
-              <strong>{{ $ctrl.search }}</strong>
+          <td colspan="2">
+            No Music On Hold Departments
+            <span ng-if="$ctrl.search"
+              >Found for <strong>{{ $ctrl.search }}</strong>
             </span>
           </td>
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover"
-          ng-click="$ctrl.open()">
+        <tr class="hover" ng-click="$ctrl.open()">
           <td>Group</td>
           <td>{{ $ctrl.groupId }}</td>
         </tr>
-        <tr class="hover"
+        <tr
+          class="hover"
           ng-click="$ctrl.open(department)"
-          ng-repeat="department in $ctrl.moh.departments | filter:$ctrl.search | orderBy:'department.name' as results track by department.name">
+          ng-repeat="department in $ctrl.moh.departments | filter:$ctrl.search | orderBy:'department.name' as results track by department.name"
+        >
           <td>Department</td>
           <td>{{ department.fullPathName }}</td>
         </tr>
@@ -44,22 +50,28 @@
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="groupMusicOnHoldCreate"
-  title="Create MOH Department">
+<pbs-modal id="groupMusicOnHoldCreate" title="Create MOH Department">
   <pbs-form>
     <pbs-form-field-horizontal label="Department">
-      <pbs-input-select ng-model="$ctrl.newMoh.department"
-        ng-options="department as department.fullPathName for department in $ctrl.departments track by department.name"></pbs-input-select>
+      <pbs-input-select
+        ng-model="$ctrl.newMoh.department"
+        ng-options="department as department.fullPathName for department in $ctrl.departments track by department.name"
+      ></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-section>Settings</pbs-form-section>
-    <pbs-input-checkbox label="Enable During Call Hold"
-      ng-model="$ctrl.newMoh.isActiveDuringCallHold">
+    <pbs-input-checkbox
+      label="Enable During Call Hold"
+      ng-model="$ctrl.newMoh.isActiveDuringCallHold"
+    >
     </pbs-input-checkbox>
-    <pbs-input-checkbox label="Enable During Call Park"
-      ng-model="$ctrl.newMoh.isActiveDuringCallPark">
+    <pbs-input-checkbox
+      label="Enable During Call Park"
+      ng-model="$ctrl.newMoh.isActiveDuringCallPark"
+    >
     </pbs-input-checkbox>
-    <pbs-input-checkbox label="Enable During Busy Camp On"
-      ng-model="$ctrl.newMoh.isActiveDuringBusyCampOn"></pbs-input-checkbox>
-    </pbs-input-checkbox>
+    <pbs-input-checkbox
+      label="Enable During Busy Camp On"
+      ng-model="$ctrl.newMoh.isActiveDuringBusyCampOn"
+    ></pbs-input-checkbox>
   </pbs-form>
 </pbs-modal>

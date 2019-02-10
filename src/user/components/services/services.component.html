@@ -2,20 +2,34 @@
   <pbs-block title="{{ $ctrl.title }}">
     <pbs-columns>
       <pbs-column>
-        <pbs-table-search ng-model="$ctrl.search"
-          style="margin-bottom: 0"></pbs-table-search>
+        <pbs-table-search
+          ng-model="$ctrl.search"
+          style="margin-bottom: 0"
+        ></pbs-table-search>
       </pbs-column>
       <pbs-column class="is-narrow">
         <div class="buttons has-addons">
-          <button class="button"
+          <button
+            class="button"
             ng-class="{'is-link': !$ctrl.filter}"
-            ng-click="$ctrl.filter = null">All</button>
-          <button class="button"
+            ng-click="$ctrl.filter = null"
+          >
+            All
+          </button>
+          <button
+            class="button"
             ng-class="{'is-link': $ctrl.filter === 'assigned'}"
-            ng-click="$ctrl.filter = 'assigned'">Assigned</button>
-          <button class="button"
+            ng-click="$ctrl.filter = 'assigned'"
+          >
+            Assigned
+          </button>
+          <button
+            class="button"
             ng-class="{'is-link': $ctrl.filter === 'unassigned'}"
-            ng-click="$ctrl.filter = 'unassigned'">Unassigned</button>
+            ng-click="$ctrl.filter = 'unassigned'"
+          >
+            Unassigned
+          </button>
         </div>
       </pbs-column>
     </pbs-columns>
@@ -28,29 +42,36 @@
       </thead>
       <tfoot>
         <tr ng-if="results.length < 1">
-          <td colspan="100">No Services Found
+          <td colspan="100">
+            No Services Found
             <strong ng-if="$ctrl.search">for {{ $ctrl.search }}</strong>
           </td>
         </tr>
       </tfoot>
       <tbody>
-        <tr ng-repeat="service in $ctrl.services | filter:$ctrl.filterService | filter:$ctrl.search | orderBy:'serviceName' as results track by service.serviceName">
+        <tr
+          ng-repeat="service in $ctrl.services | filter:$ctrl.filterService | filter:$ctrl.search | orderBy:'serviceName' as results track by service.serviceName"
+        >
           <td>{{ service.alias }}</td>
           <td>
-            <pbs-input-switch ng-model="service.assigned"
+            <pbs-input-switch
+              ng-model="service.assigned"
               ng-change="$ctrl.toggle(service)"
-              ng-disabled="service.isLoading"></pbs-input-switch>
+              ng-disabled="service.isLoading"
+            ></pbs-input-switch>
           </td>
         </tr>
       </tbody>
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="userServicesEditModal"
-  title="Edit Services">
+<pbs-modal id="userServicesEditModal" title="Edit Services">
   <pbs-form>
     <pbs-form-field label="Assigned">
-      <pbs-input-checkbox label="Service Assigned"
-        ng-model="$ctrl.editService.assigned"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        label="Service Assigned"
+        ng-model="$ctrl.editService.assigned"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
   </pbs-form>
 </pbs-modal>

@@ -1,25 +1,34 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Sequential Ring Settings">
     <pbs-block-buttons if-module-update="$ctrl.module">
-      <pbs-button-compact-edit title="Edit Sequential Ring"
-        ng-click="$ctrl.edit()">
+      <pbs-button-compact-edit
+        title="Edit Sequential Ring"
+        ng-click="$ctrl.edit()"
+      >
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Ring Base Location First">
-        <pbs-check-box checked="$ctrl.settings.ringBaseLocationFirst"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.settings.ringBaseLocationFirst"
+        ></pbs-check-box>
       </pbs-list-item>
-      <pbs-list-item label="Base Location Number Of Rings">{{$ctrl.settings.baseLocationNumberOfRings}}</pbs-list-item>
+      <pbs-list-item label="Base Location Number Of Rings">{{
+        $ctrl.settings.baseLocationNumberOfRings
+      }}</pbs-list-item>
       <pbs-list-item label="Continue If Base Location Is Busy">
-        <pbs-check-box checked="$ctrl.settings.continueIfBaseLocationIsBusy"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.settings.continueIfBaseLocationIsBusy"
+        ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Caller May Stop Search">
-        <pbs-check-box checked="$ctrl.settings.callerMayStopSearch"></pbs-check-box>
+        <pbs-check-box
+          checked="$ctrl.settings.callerMayStopSearch"
+        ></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
-  <pbs-block title="Locations"
-    class="margin-top">
+  <pbs-block title="Locations" class="margin-top">
     <table pbs-table>
       <thead>
         <tr>
@@ -36,22 +45,25 @@
       </tfoot>
       <tbody ng-repeat="location in $ctrl.settings.locations">
         <tr>
-          <td>{{$index+1}}</td>
-          <td>{{location.phoneNumber}}</td>
-          <td>{{location.numberOfRings}}</td>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ location.phoneNumber }}</td>
+          <td>{{ location.numberOfRings }}</td>
           <td>
-            <pbs-check-box checked="location.answerConfirmationRequired"></pbs-check-box>
+            <pbs-check-box
+              checked="location.answerConfirmationRequired"
+            ></pbs-check-box>
           </td>
         </tr>
       </tbody>
     </table>
   </pbs-block>
-  <pbs-block title="Sequential Ring Criteria"
-    class="margin-top">
+  <pbs-block title="Sequential Ring Criteria" class="margin-top">
     <pbs-block-buttons>
-      <pbs-button-compact-add if-module-create="$ctrl.module"
+      <pbs-button-compact-add
+        if-module-create="$ctrl.module"
         ng-click="$ctrl.addCriteria($ctrl.userId)"
-        title="Add New Criteria">
+        title="Add New Criteria"
+      >
       </pbs-button-compact-add>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
@@ -67,45 +79,52 @@
       </thead>
       <tfoot>
         <tr ng-if="results.length === 0">
-          <td colspan="6">No Sequential Ring Criteria Found
-            <span ng-if="$ctrl.search">for {{ $ctrl.search }}
-            </span>
+          <td colspan="6">
+            No Sequential Ring Criteria Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }} </span>
           </td>
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover"
+        <tr
+          class="hover"
           ng-repeat="criteria in $ctrl.settings.criteria| filter:$ctrl.search as results track by criteria.criteriaName"
-          ng-click="$ctrl.eCriteria(criteria.criteriaName,criteria.isActive)">
-          <td>
-            <pbs-check-box checked="criteria.isActive"></pbs-check-box>
-          </td>
+          ng-click="$ctrl.eCriteria(criteria.criteriaName,criteria.isActive)"
+        >
+          <td><pbs-check-box checked="criteria.isActive"></pbs-check-box></td>
           <td>{{ criteria.criteriaName }}</td>
           <td>{{ criteria.timeSchedule }}</td>
           <td>{{ criteria.holidaySchedule }}</td>
           <td>
-            <pbs-check-box checked="criteria.blacklisted">}
+            <pbs-check-box checked="criteria.blacklisted"></pbs-check-box>
           </td>
         </tr>
       </tbody>
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="editUserSequentialRing"
-  validate>
+<pbs-modal id="editUserSequentialRing" validate>
   <pbs-form>
     <pbs-form-field label="General Settings">
-      <pbs-input-checkbox ng-model="$ctrl.editSettings.ringBaseLocationFirst"
-        label="Ring Base Location First"></pbs-input-checkbox>
-      <pbs-input-checkbox ng-model="$ctrl.editSettings.continueIfBaseLocationIsBusy"
-        label="Continue If Base Location Is Busy"></pbs-input-checkbox>
-      <pbs-input-checkbox ng-model="$ctrl.editSettings.callerMayStopSearch"
-        label="Caller May Stop Search"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.ringBaseLocationFirst"
+        label="Ring Base Location First"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.continueIfBaseLocationIsBusy"
+        label="Continue If Base Location Is Busy"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.callerMayStopSearch"
+        label="Caller May Stop Search"
+      ></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Base Location Number Of Rings">
-      <pbs-input-select ng-model="$ctrl.editSettings.baseLocationNumberOfRings"
+      <pbs-input-select
+        ng-model="$ctrl.editSettings.baseLocationNumberOfRings"
         ng-options="x for x in $ctrl.options.baseLocationNumberOfRings"
-        required>
+        required
+      >
       </pbs-input-select>
     </pbs-form-field>
     <table pbs-table>
@@ -119,17 +138,19 @@
       <tbody ng-repeat="location in $ctrl.editSettings.locations">
         <tr>
           <td>
-            <input type="text"
-              class="input"
-              ng-model="location.phoneNumber">
+            <input type="text" class="input" ng-model="location.phoneNumber" />
           </td>
           <td>
-            <pbs-input-select ng-model="location.numberOfRings"
-              ng-options="x for x in $ctrl.options.numberOfRings">
+            <pbs-input-select
+              ng-model="location.numberOfRings"
+              ng-options="x for x in $ctrl.options.numberOfRings"
+            >
             </pbs-input-select>
           </td>
           <td class="has-text-centered">
-            <pbs-input-checkbox ng-model="location.answerConfirmationRequired"></pbs-input-checkbox>
+            <pbs-input-checkbox
+              ng-model="location.answerConfirmationRequired"
+            ></pbs-input-checkbox>
           </td>
         </tr>
       </tbody>
@@ -137,56 +158,73 @@
   </pbs-form>
 </pbs-modal>
 
-<pbs-modal id="editUserSequentialRingCriteria"
-  title="Edit Settings">
+<pbs-modal id="editUserSequentialRingCriteria" title="Edit Settings">
   <pbs-spinner loading="$ctrl.loadingCriteria">
     <pbs-form>
       <pbs-form-field label="General Settings">
-        <pbs-input-checkbox ng-model="$ctrl.editCriteria.isActive"
-          label="Is Active"></pbs-input-checkbox>
-        <pbs-input-checkbox ng-model="$ctrl.editCriteria.blacklisted"
-          label="Blacklisted"></pbs-input-checkbox>
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCriteria.isActive"
+          label="Is Active"
+        ></pbs-input-checkbox>
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCriteria.blacklisted"
+          label="Blacklisted"
+        ></pbs-input-checkbox>
       </pbs-form-field>
       <pbs-form-field label="Description">
-        <input type="text"
+        <input
+          type="text"
           class="input"
           ng-model="$ctrl.editCriteria.name"
-          required>
+          required
+        />
       </pbs-form-field>
       <pbs-form-field label="Time Schedule">
-        <pbs-input-select ng-model="$ctrl.editCriteria.timeSchedule.name"
-          ng-options="schedule.name as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Time'}">
+        <pbs-input-select
+          ng-model="$ctrl.editCriteria.timeSchedule.name"
+          ng-options="schedule.name as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Time'}"
+        >
           <option value="">All Day Every Day</option>
         </pbs-input-select>
       </pbs-form-field>
       <pbs-form-field label="Holiday Schedule">
-        <pbs-input-select ng-model="$ctrl.editCriteria.holidaySchedule.name"
-          ng-options="schedule.name as schedule.name for schedule in $ctrl.holidaySchedules">
+        <pbs-input-select
+          ng-model="$ctrl.editCriteria.holidaySchedule.name"
+          ng-options="schedule.name as schedule.name for schedule in $ctrl.holidaySchedules"
+        >
           <option value="">None</option>
         </pbs-input-select>
       </pbs-form-field>
       <pbs-form-field label="Calls From">
-        <pbs-input-select ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
+        <pbs-input-select
+          ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
           ng-options="x for x in $ctrl.criteriaOptions.fromDnCriteriaSelection"
-          required>
+          required
+        >
         </pbs-input-select>
       </pbs-form-field>
       <pbs-form-field label="Anonymous Callers">
-        <pbs-input-checkbox label="Any Private Number"
-          ng-model="$ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers">
+        <pbs-input-checkbox
+          label="Any Private Number"
+          ng-model="$ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers"
+        >
         </pbs-input-checkbox>
       </pbs-form-field>
       <pbs-form-field label="Unavailable Callers">
-        <pbs-input-checkbox label="Any Unavailable Number"
-          ng-model="$ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers">
+        <pbs-input-checkbox
+          label="Any Unavailable Number"
+          ng-model="$ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers"
+        >
         </pbs-input-checkbox>
       </pbs-form-field>
       <pbs-form-field label="Specific Numbers">
-        <input class="input"
+        <input
+          class="input"
           style="margin-bottom: .5em"
           ng-repeat="value in [1,2,3,4,5,6,7,8,9,10,11,12] track by $index"
           type="text"
-          ng-model="$ctrl.editCriteria.fromDnCriteria.phoneNumbers[$index]">
+          ng-model="$ctrl.editCriteria.fromDnCriteria.phoneNumbers[$index]"
+        />
       </pbs-form-field>
     </pbs-form>
   </pbs-spinner>

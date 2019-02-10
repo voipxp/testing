@@ -1,21 +1,27 @@
 <pbs-columns>
   <pbs-column>
     <pbs-form-field label="Start Time">
-      <pbs-input-datetime-parse ng-model="$ctrl.search.start"></pbs-input-datetime-parse>
+      <pbs-input-datetime-parse
+        ng-model="$ctrl.search.start"
+      ></pbs-input-datetime-parse>
     </pbs-form-field>
   </pbs-column>
   <pbs-column>
     <pbs-form-field label="End Time">
-      <pbs-input-datetime-parse ng-model="$ctrl.search.end"></pbs-input-datetime-parse>
+      <pbs-input-datetime-parse
+        ng-model="$ctrl.search.end"
+      ></pbs-input-datetime-parse>
+    </pbs-form-field>
   </pbs-column>
   <pbs-column class="is-narrow has-text-right">
-    <pbs-button-compact-search style="margin-top: 2.25rem; display: block"
+    <pbs-button-compact-search
+      style="margin-top: 2.25rem; display: block"
       ng-click="$ctrl.view()"
-      ng-disabled="!$ctrl.search.start"></pbs-button-compact-search>
+      ng-disabled="!$ctrl.search.start"
+    ></pbs-button-compact-search>
   </pbs-column>
 </pbs-columns>
-<pbs-modal id="groupCallCenterStatistics"
-  title="{{ $ctrl.modalTitle }}">
+<pbs-modal id="groupCallCenterStatistics" title="{{ $ctrl.modalTitle }}">
   <pbs-tabs>
     <pbs-tab label="Queue Statistics">
       <pbs-list>
@@ -64,17 +70,32 @@
         </thead>
         <tfoot>
           <tr ng-if="results.length === 0">
-            <td colspan="7">No Agents Found
-              <span ng-if="$ctrl.searchAgents">for {{ $ctrl.searchAgents }}</span>
+            <td colspan="7">
+              No Agents Found
+              <span ng-if="$ctrl.searchAgents"
+                >for {{ $ctrl.searchAgents }}</span
+              >
             </td>
           </tr>
         </tfoot>
         <tbody>
-          <tr ng-repeat="agent in $ctrl.statistics.agentStatistics | filter:$ctrl.searchAgents as results track by agent.agentUserId">
-            <td>{{ agent.agentDisplayNames.firstName + ' ' + agent.agentDisplayNames.lastName + ' (' + agent.agentUserId + ')'}}
+          <tr
+            ng-repeat="agent in $ctrl.statistics.agentStatistics | filter:$ctrl.searchAgents as results track by agent.agentUserId"
+          >
+            <td>
+              {{
+                agent.agentDisplayNames.firstName +
+                  ' ' +
+                  agent.agentDisplayNames.lastName +
+                  ' (' +
+                  agent.agentUserId +
+                  ')'
+              }}
             </td>
             <td class="action">
-              <pbs-check-box checked="agent.available === 'true'">
+              <pbs-check-box
+                checked="agent.available === 'true'"
+              ></pbs-check-box>
             </td>
             <td>{{ agent.statistics.numberOfCallsHandled }}</td>
             <td>{{ agent.statistics.numberOfCallsUnanswered }}</td>

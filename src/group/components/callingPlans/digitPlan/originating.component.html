@@ -10,30 +10,41 @@
       </thead>
       <tfoot>
         <tr ng-if="results.length < ($ctrl.digitPatterns.length + 1)">
-          <td colspan="99">No Departments Found
+          <td colspan="99">
+            No Departments Found
             <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
           </td>
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover"
+        <tr
+          class="hover"
           ng-click="$ctrl.edit(department)"
-          ng-repeat="department in $ctrl.plan.departments | filter:$ctrl.search as results track by department.departmentName">
+          ng-repeat="department in $ctrl.plan.departments | filter:$ctrl.search as results track by department.departmentName"
+        >
           <td>{{ department.departmentName || 'Group Default' }}</td>
-          <td ng-repeat="pattern in department.digitPatterns">{{ pattern.permission }}</td>
+          <td ng-repeat="pattern in department.digitPatterns">
+            {{ pattern.permission }}
+          </td>
         </tr>
       </tbody>
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="editGroupOutgoingCallingPlanDigitPlanOriginating"
-  title="{{ $ctrl.editDepartment.department.name || 'Group Default'}} - Originating">
+<pbs-modal
+  id="editGroupOutgoingCallingPlanDigitPlanOriginating"
+  title="{{ $ctrl.editDepartment.department.name || 'Group Default'}} - Originating"
+>
   <pbs-form>
     <pbs-form-section>Digit Pattern Permissions</pbs-form-section>
-    <pbs-form-field-horizontal label="{{ pattern.digitPatternName }}"
-      ng-repeat="pattern in $ctrl.editDepartment.digitPatterns">
-      <pbs-input-select ng-model="pattern.permission"
-        ng-options="opt as opt for opt in $ctrl.options.permissions"></pbs-input-select>
-      </pbs-form-field>
+    <pbs-form-field-horizontal
+      label="{{ pattern.digitPatternName }}"
+      ng-repeat="pattern in $ctrl.editDepartment.digitPatterns"
+    >
+      <pbs-input-select
+        ng-model="pattern.permission"
+        ng-options="opt as opt for opt in $ctrl.options.permissions"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>
