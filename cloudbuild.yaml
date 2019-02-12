@@ -60,7 +60,7 @@ steps:
     args:
       - set
       - image
-      - deployment
+      - statefulset
       - web
       - '*=gcr.io/odin-dev-208422/odin-web:$SHORT_SHA'
     env:
