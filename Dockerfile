@@ -1,5 +1,8 @@
-# CADDY BINARY
-FROM abiosoft/caddy as caddy
+# CADDY BUILD STAGE
+FROM abiosoft/caddy:builder as builder
+ARG CADDY_VERSION="0.11.3"
+ARG CADDY_PLUGINS="cors,digitalocean,googlecloud"
+RUN VERSION=${CADDY_VERSION} PLUGINS=${CADDY_PLUGINS} /bin/sh /usr/bin/builder.sh
 
 # APP BUILD STAGE
 FROM node:10-alpine as build
@@ -8,7 +11,7 @@ ADD . /app
 RUN cd /app && yarn && yarn lint && yarn build
 
 # FINAL STAGE
-FROM alpine:3.8
+FROM alpine:3.9
 WORKDIR /app
 COPY --from=caddy /usr/bin/caddy /usr/local/bin/caddy
 COPY --from=build /app/dist /app/html/app
