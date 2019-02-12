@@ -13,7 +13,7 @@ RUN cd /app && yarn && yarn lint && yarn build
 # FINAL STAGE
 FROM alpine:3.9
 WORKDIR /app
-COPY --from=caddy /usr/bin/caddy /usr/local/bin/caddy
+COPY --from=caddy /install/caddy /usr/local/bin/caddy
 COPY --from=app /app/dist /app/html/app
 RUN apk add --no-cache ca-certificates
 RUN mkdir /app/etc \
