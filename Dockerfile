@@ -38,4 +38,4 @@ RUN mkdir /app/etc \
 ENV CADDYPATH /app/ssl
 VOLUME /app/etc /app/ssl
 EXPOSE 80 443 2015
-CMD ["/usr/local/bin/caddy", "-agree", "-conf", "/app/etc/Caddyfile"]
+CMD ["/usr/local/bin/caddy", "-log", "-agree", "-conf", "/app/etc/Caddyfile"]
