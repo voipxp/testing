@@ -35,7 +35,8 @@ RUN mkdir /app/etc \
   && echo "  Strict-Transport-Security \"max-age=31536000; includeSubDomains\"" >> /app/etc/Caddyfile \
   && echo "  Content-Security-Policy \"default-src 'none'; script-src 'self' 'nonce-1eb8230f61cf659e7e96c3d1dfa53882e5fd737c' https://*.google-analytics.com; connect-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' https:;\"" >> /app/etc/Caddyfile \
   && echo "}" >> /app/etc/Caddyfile
+ENV CADDYEMAIL none
 ENV CADDYPATH /app/ssl
 VOLUME /app/etc /app/ssl
 EXPOSE 80 443 2015
-CMD ["/usr/local/bin/caddy", "-agree", "-conf", "/app/etc/Caddyfile"]
+CMD ["sh", "-c", "/usr/local/bin/caddy -agree -email $CADDYEMAIL -conf /app/etc/Caddyfile"]
