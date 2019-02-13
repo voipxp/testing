@@ -1,3 +1,4 @@
+/* globals microsoftTeams */
 ;(function() {
   var moduleName = 'odin.app'
   var moduleID = 'pbs-app'
@@ -141,6 +142,7 @@
       .config(routeConfig)
 
     angular.element(document.getElementById(moduleID)).ready(function() {
+      microsoftTeams.initialize()
       angular.bootstrap(document, [moduleName])
     })
   }
