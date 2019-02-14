@@ -9,8 +9,7 @@
     UserSearchService,
     HashService,
     Route,
-    $rootScope,
-    ACL
+    $rootScope
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -25,7 +24,8 @@
       { key: 'lastName', name: 'Last Name' },
       { key: 'firstName', name: 'First Name' },
       { key: 'emailAddress', name: 'Email Address' },
-      { key: 'userId', name: 'User ID' }
+      { key: 'userId', name: 'User ID' },
+      { key: 'macAddress', name: 'MAC Address' }
     ]
 
     function onPagination(event) {
@@ -34,10 +34,6 @@
 
     function onInit() {
       ctrl.modalId = HashService.guid()
-      ctrl.isProvisioning = ACL.has('Provisioning')
-      if (ctrl.isProvisioning) {
-        ctrl.types.push({ key: 'macAddress', name: 'MAC Address' })
-      }
     }
 
     function doCheck() {
