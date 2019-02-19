@@ -5,16 +5,27 @@ FROM quay.io/parkbench/caddy-base as caddy
 FROM node:10-alpine as app
 RUN apk add --no-cache git
 WORKDIR /app
-COPY package.json yarn.lock /app/
-RUN yarn
-COPY . /app/
+
+# INSTALL DEPS
+COPY package.json /app
+COPY yarn.lock /app
+RUN yarn install
+
+# LINT AND BUILD
+COPY . /app
 RUN yarn lint && yarn build
 
 # FINAL STAGE
 FROM alpine:3.9
 WORKDIR /app
+
+# INSTALL DEPS
 RUN apk add --no-cache ca-certificates
-RUN mkdir /app/etc \
+COPY --from=caddy /usr/local/bin/caddy /usr/local/bin/caddy
+COPY --from=app /app/dist /app/html/app
+
+# DEFAULT CONFIG
+RUN mkdir -p /app/etc \
   && echo "0.0.0.0" > /app/etc/Caddyfile \
   && echo "root /app/html" >> /app/etc/Caddyfile \
   && echo "errors stderr" >> /app/etc/Caddyfile \
@@ -33,8 +44,7 @@ RUN mkdir /app/etc \
   && echo "  Strict-Transport-Security \"max-age=31536000; includeSubDomains\"" >> /app/etc/Caddyfile \
   && echo "  Content-Security-Policy \"default-src 'none'; script-src 'self' 'nonce-1eb8230f61cf659e7e96c3d1dfa53882e5fd737c' https://*.google-analytics.com; connect-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' https:;\"" >> /app/etc/Caddyfile \
   && echo "}" >> /app/etc/Caddyfile
-COPY --from=caddy /usr/local/bin/caddy /usr/local/bin/caddy
-COPY --from=app /app/dist /app/html/app
+
 ENV CADDYPATH /app/ssl
 VOLUME /app/etc /app/ssl
 EXPOSE 80 443 2015
