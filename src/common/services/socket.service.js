@@ -4,7 +4,7 @@
 
   function Service($rootScope, APP) {
     return function(url) {
-      const socket = io(url || APP.socketURL)
+      const socket = io(url || APP.eventURL)
 
       function on(eventName, callback) {
         socket.on(eventName, function() {

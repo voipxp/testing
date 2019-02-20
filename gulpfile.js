@@ -16,17 +16,15 @@ const cache = require('gulp-cached')
 const remember = require('gulp-remember')
 const size = require('gulp-sizereport')
 
-const prod = process.env.NODE_ENV === 'production'
-const dest = process.env.APP_DIST || 'dist'
-const base = process.env.API_BASE || ''
-const socketURL = process.env.SOCKET_URL
+const isProduction = process.env.NODE_ENV === 'production'
+const dest = isProduction ? 'dist' : process.env.APP_DIST || 'dist'
 
 const Config = {
   APP: {
-    apiURL: `${base}/api/v2`,
+    apiURL: `${process.env.API_URL || ''}/api/v2`,
+    eventURL: process.env.API_URL,
     loginURL: '/login',
-    sessionKey: 'odin:session',
-    socketURL: socketURL
+    sessionKey: 'odin:session'
   }
 }
 
@@ -38,7 +36,7 @@ gulp.task('app.css', () => {
   return gulp
     .src(['src/**/*.css'])
     .pipe(concat('app.css'))
-    .pipe(gulpIf(prod, cssnano({ safe: true })))
+    .pipe(gulpIf(isProduction, cssnano({ safe: true })))
     .pipe(gulp.dest(dest))
 })
 
@@ -124,7 +122,7 @@ gulp.task('vendor.css', () => {
     .pipe(concat('vendor.css'))
     .pipe(
       gulpIf(
-        prod,
+        isProduction,
         cssnano({
           autoprefixer: { browsers: ['last 2 versions'], add: true },
           safe: true

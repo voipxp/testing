@@ -1,102 +1,52 @@
-[![Build Status](https://drone.odinapi.net/api/badges/parkbenchsolutions/odinweb/status.svg)](https://drone.odinapi.net/api/badges/parkbenchsolutions/odinweb)
-
 # ODiN Web
 
-Odin API Frontend.
+## Requirements
 
-### Usage
+You must have nodejs >= 8 installed along with the yarn package manager. To begin development run yarn to install the requirements. It is recommended to use a code editor that supports eslint and prettier for linting and formatting the code automatically on save.
 
-All source code lives in src/
+## Installation
 
-To compile code
-
-```
-> gulp
-```
-
-To compile production code
+Install the required dependencies with yarn package manager.
 
 ```
-> NODE_ENV=production gulp
+yarn
 ```
 
-The code will be compiled and placed in dist/ by default. You may override the location of the dist folder by passing in the APP_DIST environmental variable.
+## Environmental Variables
+
+The build and dev scripts excepts several environmental variables. By default the builds are placed in ./dist and the API URL is a relative path. You may override those with environmental variables. For your convenience you may also place these environmental variables in a .env file located in the project root.
+
+In general these don't need to be set, however, if you are developing locally and need to specify the path or ports to access certain services you can utilize these variables. For example, if the API is running on your local machine on a different port, set the API_PORT to that port. If you are developing but the API is located at a remote URL, then update API_URL.
 
 ```
-APP_DIST=../api/public
+APP_DIST=./dist                   # path for compiled files
+API_URL=https://myserver.com      # URL to odin API
+API_PORT=8000                     # local dev api port
+EVENT_PORT=4000                   # local dev event port
+AUDIO_PORT=5000                   # local dev audio port
 ```
 
-By default the path to the API is local eg: /api/v2. If you are running the frontend code seperately from the API code, you may pass in API_BASE to configure the base of the API path. All routes inside the app will be prefixed with API_BASE.
+## Commands
+
+Some helpful commands for development.
 
 ```
-API_BASE=http://127.0.0.1:9000/api/v2
+yarn lint   # lint all the js files
+yarn fix    # auto-fix lint errors if possible
+yarn format # format all the code with prettier
+yarn build  # build a production bundle
+yarn watch  # watch src files and rebuild on changes
+yarn dev    # serve a live version of dist with hot-reload
 ```
 
-### Yarn Commands
+## Usage
 
-Some helpful yarn commands.
+You will typicall run **yarn watch** and **yarn dev** in two seperate terminal sessions. **Watch** will bundle all the files into the dist directory, watch for changes, and automatically reload the browser on changes. **Dev** will start up a local web server that will automatically reload when it detects changes.
 
-```
-> yarn run lint   # lint all the js files
-> yarn run fix    # fix all the js files
-> yarn run build  # build a production dist
-> yarn run watch  # watch src files and rebuild on changes
-> yarn run serve  # serve a live version of dist with hot-reload
-```
+If you are working on the front-end code seperate from the API, you should change the API_URL environmental parameter to point to your remote instance of the API.
 
-### Environmental Variables
-
-The build process excepts two environmental variables.
+eg:
 
 ```
-# path where compiled files should go
-APP_DIST=/path/to/public
-# base path to the API
-API_BASE=http://127.0.0.1:80
+API_URL=https://portal.odinapi.net
 ```
-
-### Docker
-
-The Dockerfile generats a Caddyserver app to serve the static HTML and uses fastcgi to proxy other requests to the PHP backend.
-
-```
-docker build -t odin.web .
-```
-
-You may specify a custom Caddyfile by mounting it in the image to /app/etc
-
-```
-docker run -v $(pwd)/Caddyfile:/app/etc/Caddyfile odin.web
-```
-
-Caddy runs by default on port 2015.
-
-```
-docker run -p 2015:2015 odin.web
-```
-
-By default SSL certificates are stored in /app/ssl. You may wish to mount this directory to the host machine or make it a named volume to persist containers.
-
-```
-docker run -v ssl:/app/ssl odin.web
-```
-
-The HTML files are served from /app/html. You can mount this directory overwrite the code with a local copy
-
-```
-docker run -v $(pwd):/app/html odin.web
-```
-
-#### Example docker-compose.yml
-
-version: '3.0'
-services:
-proxy:
-container_name: web
-image: odin.web
-ports: - "2015:2015"
-volumes: - ./Caddyfile:/app/data/Caddyfile
-api
-container_name: api
-image: odin.api
-command: php-fpm7 -F
