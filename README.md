@@ -14,7 +14,7 @@ yarn
 
 ## Environmental Variables
 
-The build and dev scripts excepts several environmental variables. By default the builds are placed in ./dist and the API URL is a relative path. You may override those with environmental variables. For your convenience you may also place these environmental variables in a .env file located in the project root.
+The build and dev scripts accept several environmental variables. By default the builds are placed in ./dist and the API URL is a relative path. You may override those with environmental variables. For your convenience you may also place these environmental variables in a .env file located in the project root.
 
 In general these don't need to be set, however, if you are developing locally and need to specify the path or ports to access certain services you can utilize these variables. For example, if the API is running on your local machine on a different port, set the API_PORT to that port. If you are developing but the API is located at a remote URL, then update API_URL.
 
