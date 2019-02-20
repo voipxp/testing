@@ -14,6 +14,7 @@ const buffer = require('buffer-to-vinyl')
 const ngConfig = require('gulp-ng-config')
 const cache = require('gulp-cached')
 const remember = require('gulp-remember')
+const size = require('gulp-sizereport')
 
 const prod = process.env.NODE_ENV === 'production'
 const dest = process.env.APP_DIST || 'dist'
@@ -28,6 +29,10 @@ const Config = {
     socketURL: socketURL
   }
 }
+
+gulp.task('size', () => {
+  return gulp.src([`${dest}/*.+(css|js)`]).pipe(size({ gzip: true }))
+})
 
 gulp.task('app.css', () => {
   return gulp
