@@ -42,15 +42,12 @@ yarn dev    # serve a live version of dist with hot-reload
 The typical development process is to run **yarn watch** and **yarn dev** in two seperate terminal sessions. **Watch** bundles all the src files into the dist directory, watches for changes, and re-bundles when any files are modified. **Dev** starts up a local web server pointed to the dist directory and automatically reloads the browser when it detects changes.
 
 If you are working on the front-end and also running the API locally, then you may need to adjust the \*\_PORT environmental variables to point to the proper port running on your local machine.
-eg:
 
 ```
 API_PORT=8000
 ```
 
 If you are working on the front-end code and the API is hosted remotely, then you should change the API_URL environmental parameter to point to your remote instance of the API. The \*\_PORT variables are not needed and can remain commented out.
-
-eg:
 
 ```
 API_URL=https://portal.odinapi.net
