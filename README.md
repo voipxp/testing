@@ -47,7 +47,7 @@ If you are working on the front-end and also running the API locally, then you m
 API_PORT=8000
 ```
 
-If you are working on the front-end code and the API is hosted remotely, then you should change the API_URL environmental parameter to point to your remote instance of the API. The \*\_PORT variables are not needed and can remain commented out.
+If you are working on the front-end code and the API is hosted remotely, then you should change the API_URL environmental variable to point to your remote instance of the API. The \*\_PORT variables are not needed and can remain commented out.
 
 ```
 API_URL=https://portal.odinapi.net
