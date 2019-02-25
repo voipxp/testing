@@ -1,20 +1,18 @@
 ;(function() {
-  angular
-    .module('odin.provisioning')
-    .component('userSharedCallAppearanceEndpoints', {
-      templateUrl:
-        'user/components/sharedCallAppearance/endpoints.component.html',
-      controller: Controller,
-      bindings: {
-        userId: '<',
-        groupId: '<',
-        serviceProviderId: '<',
-        sharedCallAppearance: '<'
-      },
-      require: {
-        parent: '^userSharedCallAppearanceAdmin'
-      }
-    })
+  angular.module('odin.user').component('userSharedCallAppearanceEndpoints', {
+    templateUrl:
+      'user/components/sharedCallAppearance/endpoints.component.html',
+    controller: Controller,
+    bindings: {
+      userId: '<',
+      groupId: '<',
+      serviceProviderId: '<',
+      sharedCallAppearance: '<'
+    },
+    require: {
+      parent: '^userSharedCallAppearanceAdmin'
+    }
+  })
 
   function Controller(Alert, UserSharedCallAppearanceEndpointService, $scope) {
     var ctrl = this

@@ -69,7 +69,7 @@
           route = ['system']
           break
         case 'Provisioning':
-          route = ['provisioning']
+          route = ['system']
           break
         case 'Service Provider':
           route = ['serviceProviders', serviceProviderId]

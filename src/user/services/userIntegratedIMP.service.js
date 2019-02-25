@@ -1,6 +1,6 @@
 ;(function() {
   angular
-    .module('odin.provisioning')
+    .module('odin.user')
     .factory('UserIntegratedIMPService', UserIntegratedIMPService)
 
   function UserIntegratedIMPService($http, Route) {

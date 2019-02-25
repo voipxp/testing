@@ -1,7 +1,6 @@
 ;(function() {
-  angular.module('odin.provisioning').component('serviceProviderCreate', {
-    templateUrl:
-      'provisioning/components/serviceProviders/create.component.html',
+  angular.module('odin.system').component('serviceProviderCreate', {
+    templateUrl: 'system/components/serviceProviders/create.component.html',
     controller: Controller,
     bindings: {
       onCreate: '&'

@@ -1,7 +1,6 @@
 ;(function() {
-  angular.module('odin.provisioning').component('selectServiceProvider', {
-    templateUrl:
-      'provisioning/components/serviceProviders/select.component.html',
+  angular.module('odin.system').component('selectServiceProvider', {
+    templateUrl: 'system/components/serviceProviders/select.component.html',
     controller: Controller,
     bindings: { onUpdate: '&' }
   })

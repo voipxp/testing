@@ -1,6 +1,6 @@
 ;(function() {
   angular
-    .module('odin.provisioning')
+    .module('odin.user')
     .factory('UserSharedCallAppearanceService', Service)
 
   function Service($http, Route) {

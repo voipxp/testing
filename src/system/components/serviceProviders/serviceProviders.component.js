@@ -1,19 +1,11 @@
 ;(function() {
-  angular.module('odin.provisioning').component('serviceProviders', {
+  angular.module('odin.system').component('serviceProviders', {
     templateUrl:
-      'provisioning/components/serviceProviders/serviceProviders.component.html',
+      'system/components/serviceProviders/serviceProviders.component.html',
     controller: Controller
   })
 
-  function Controller(
-    Alert,
-    ServiceProviderService,
-    SystemDomainService,
-    SystemStateService,
-    $q,
-    $scope,
-    Route
-  ) {
+  function Controller(Alert, ServiceProviderService, $scope, Route) {
     var ctrl = this
     ctrl.$onInit = onInit
     ctrl.clone = clone

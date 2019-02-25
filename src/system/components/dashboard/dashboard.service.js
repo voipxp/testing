@@ -4,10 +4,10 @@
 */
 ;(function() {
   angular
-    .module('odin.provisioning')
-    .factory('ProvisioningDashboardService', ProvisioningDashboardService)
+    .module('odin.system')
+    .factory('SystemDashboardService', SystemDashboardService)
 
-  function ProvisioningDashboardService(Module, ACL) {
+  function SystemDashboardService(Module, ACL) {
     var service = {
       load: load,
       prepareCard: prepareCard,
@@ -29,6 +29,8 @@
     }
 
     function prepareCard(card) {
+      if (card.acl && !ACL.has(card.acl)) return
+
       // check we have the right version
       if (card.version && !ACL.hasVersion(card.version)) return
 

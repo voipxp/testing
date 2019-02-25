@@ -3,7 +3,7 @@
     {
       path: null,
       component: 'systemDashboard',
-      acl: 'System'
+      acl: 'Provisioning'
     },
     {
       path: 'devices',
@@ -18,7 +18,7 @@
     {
       path: 'dn',
       component: 'systemDn',
-      acl: 'System'
+      acl: 'Provisioning'
     },
     {
       path: 'collaborate',
@@ -38,8 +38,13 @@
     {
       path: 'serviceProvidersReport',
       component: 'serviceProviderReport',
-      acl: 'System',
+      acl: 'Provisioning',
       module: 'User Report'
+    },
+    {
+      path: 'serviceProviders',
+      component: 'serviceProvidersIndex',
+      acl: 'Provisioning'
     }
   ]
 

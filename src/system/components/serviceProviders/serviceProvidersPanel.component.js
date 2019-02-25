@@ -1,7 +1,7 @@
 ;(function() {
-  angular.module('odin.provisioning').component('serviceProvidersPanel', {
+  angular.module('odin.user').component('serviceProvidersPanel', {
     templateUrl:
-      'provisioning/components/serviceProviders/serviceProvidersPanel.component.html',
+      'system/components/serviceProviders/serviceProvidersPanel.component.html',
     controller: Controller,
     bindings: { limitTo: '<' }
   })

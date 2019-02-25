@@ -16,7 +16,6 @@
     'odin.bulk',
     'odin.events',
     'odin.group',
-    'odin.provisioning',
     'odin.serviceProvider',
     'odin.settings',
     'odin.system',

@@ -4,14 +4,14 @@
     controller: Controller
   })
 
-  function Controller(Route, ProvisioningDashboardService, Alert) {
+  function Controller(Route, SystemDashboardService, Alert) {
     var ctrl = this
     var route = Route.path()
     ctrl.open = open
 
     ctrl.$onInit = function() {
       ctrl.loading = true
-      return ProvisioningDashboardService.load()
+      return SystemDashboardService.load()
         .then(loadCards)
         .catch(Alert.notify.danger)
         .finally(function() {
@@ -21,7 +21,7 @@
 
     function loadCards() {
       var _cards = cards()
-      _cards.forEach(ProvisioningDashboardService.prepareCard)
+      _cards.forEach(SystemDashboardService.prepareCard)
       ctrl.cards = _cards
     }
 
@@ -30,11 +30,13 @@
         {
           type: 'system',
           name: 'Devices',
+          acl: 'System',
           path: route('system', 'devices')
         },
         {
           type: 'system',
           name: 'License Reports',
+          acl: 'System',
           path: route('system', 'licensing')
         },
         {
@@ -44,23 +46,25 @@
         },
         {
           type: 'system',
-          name: 'Service Provider Groups',
+          name: 'Service Provider Report',
           path: route('system', 'serviceProvidersReport')
         },
         {
-          type: 'services',
+          type: 'system',
           name: 'Collaborate',
+          acl: 'System',
           path: route('system', 'collaborate')
         },
         {
-          type: 'services',
+          type: 'system',
           name: 'Network Class of Services',
+          acl: 'System',
           path: route('system', 'networkClassOfServices')
         },
         {
           type: 'provisioning',
           name: 'Service Providers',
-          path: route('serviceProviders')
+          path: route('system', 'serviceProviders')
         },
         {
           type: 'provisioning',
