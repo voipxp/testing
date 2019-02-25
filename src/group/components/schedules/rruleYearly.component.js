@@ -125,7 +125,7 @@
     function setWeekday() {
       var prefix = weekdayPrefixes[ctrl.weekdayPrefix]
       var suffix = ctrl.weekdaySuffix.slice(0, 2).toUpperCase()
-      ctrl.rrule.byweekday = [RRule[suffix].nth(prefix)]
+      ctrl.rrule.byweekday = [rrule.RRule[suffix].nth(prefix)]
     }
   }
 })()

@@ -15,7 +15,7 @@
     ctrl.$onInit = onInit
     ctrl.add = add
     ctrl.edit = edit
-    ctrl.RRule = RRule
+    ctrl.RRule = rrule.RRule
 
     function onInit() {
       ctrl.loading = true
@@ -77,8 +77,8 @@
       )
     }
 
-    function create(event, rrule, callback) {
-      event.rrule = EventHelper.toRRule(rrule)
+    function create(event, _rrule, callback) {
+      event.rrule = EventHelper.toRRule(_rrule)
       Alert.spinner.open()
       GroupEventService.store(event)
         .then(loadEvents)
@@ -90,8 +90,8 @@
         .finally(Alert.spinner.close)
     }
 
-    function update(event, rrule, callback) {
-      event.rrule = EventHelper.toRRule(rrule)
+    function update(event, _rrule, callback) {
+      event.rrule = EventHelper.toRRule(_rrule)
       Alert.spinner.open()
       GroupEventService.update(event)
         .then(loadEvents)

@@ -10,17 +10,17 @@
     ctrl.update = update
 
     ctrl.options = [
-      { label: 'Daily', value: RRule.DAILY },
-      { label: 'Weekly', value: RRule.WEEKLY },
-      { label: 'Monthly', value: RRule.MONTHLY },
-      { label: 'Yearly', value: RRule.YEARLY }
+      { label: 'Daily', value: rrule.RRule.DAILY },
+      { label: 'Weekly', value: rrule.RRule.WEEKLY },
+      { label: 'Monthly', value: rrule.RRule.MONTHLY },
+      { label: 'Yearly', value: rrule.RRule.YEARLY }
     ]
 
     ctrl.label = {}
-    ctrl.label[RRule.DAILY] = 'Days'
-    ctrl.label[RRule.WEEKLY] = 'Weeks'
-    ctrl.label[RRule.MONTHLY] = 'Months'
-    ctrl.label[RRule.YEARLY] = 'Years'
+    ctrl.label[rrule.RRule.DAILY] = 'Days'
+    ctrl.label[rrule.RRule.WEEKLY] = 'Weeks'
+    ctrl.label[rrule.RRule.MONTHLY] = 'Months'
+    ctrl.label[rrule.RRule.YEARLY] = 'Years'
 
     function update() {
       if (ctrl.rrule.freq) {

@@ -22,7 +22,7 @@
     "document": true,
     "ExtendEditor": true,
     "rrulestr": true,
-    "RRule": true,
+    "rrule": true,
     "atob": true
   },
   "env": {
