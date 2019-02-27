@@ -16,7 +16,7 @@
         {{ $ctrl.service.transferPhoneNumber }}
       </pbs-list-item>
       <pbs-list-item label="Holiday Schedule">
-        {{ $ctrl.service.holidaySchedule.name }}
+        {{ $ctrl.service.holidaySchedule.name || 'None' }}
       </pbs-list-item>
       <pbs-list-item label="Announcement Before Action">
         <pbs-check-box
