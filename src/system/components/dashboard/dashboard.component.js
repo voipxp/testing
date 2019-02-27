@@ -64,7 +64,7 @@
         {
           type: 'provisioning',
           name: 'Service Providers',
-          path: route('system', 'serviceProviders')
+          path: route('serviceProviders')
         },
         {
           type: 'provisioning',

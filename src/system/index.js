@@ -40,15 +40,18 @@
       component: 'serviceProviderReport',
       acl: 'Provisioning',
       module: 'User Report'
-    },
-    {
-      path: 'serviceProviders',
-      component: 'serviceProvidersIndex',
-      acl: 'Provisioning'
     }
   ]
 
   angular.module('odin.system', []).config(function(PbsRouteProvider) {
     PbsRouteProvider.set(routes, '/system')
+    PbsRouteProvider.set(
+      {
+        path: 'serviceProviders',
+        component: 'serviceProvidersIndex',
+        acl: 'Provisioning'
+      },
+      null
+    )
   })
 })()
