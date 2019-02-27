@@ -41,10 +41,6 @@ gulp.task('app.css', () => {
 })
 
 gulp.task('app.js', () => {
-  let polyfill = gulp
-    .src(['node_modules/@babel/polyfill/dist/polyfill.min.js'])
-    .pipe(cache('app.js.polyfill'))
-    .pipe(remember('app.js.polyfill'))
   let conf = buffer
     .stream(Buffer.from(JSON.stringify(Config)), 'config.js')
     .pipe(ngConfig('odin.config', { wrap: false }))
@@ -58,7 +54,7 @@ gulp.task('app.js', () => {
     .pipe(cache('app.js'))
     .pipe(babel())
     .pipe(remember('app.js'))
-  return series(polyfill, conf, app)
+  return series(conf, app)
     .pipe(concat('app.js'))
     .pipe(gulp.dest(dest))
 })
