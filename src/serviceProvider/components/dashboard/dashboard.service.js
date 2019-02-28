@@ -47,12 +47,15 @@
       // check we have the right version
       if (card.version && !ACL.hasVersion(card.version)) return
 
-      // check for admin cards
-      if (card.admin && !ACL.has('Provisioning')) return
-
       // check for isEnterprise requirements
       if (card.isEnterprise && !isEnterprise()) return
       if (card.isEnterprise === false && isEnterprise()) return
+
+      // check for acl requirements
+      if (card.acl && !ACL.has(card.acl)) return
+
+      // check for legacyPaas
+      if (card.isPaasAdmin && !ACL.isPaasAdmin()) return
 
       // check service cards
       if (card.service) {

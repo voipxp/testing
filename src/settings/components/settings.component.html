@@ -5,7 +5,7 @@
   <pbs-tab label="Webhooks">
     <odin-settings-webhooks></odin-settings-webhooks>
   </pbs-tab>
-  <pbs-tab label="Callbacks">
+  <pbs-tab label="Callbacks" ng-if="$ctrl.isProvisioning">
     <odin-settings-callbacks></odin-settings-callbacks>
   </pbs-tab>
 </pbs-tabs>

@@ -3,7 +3,7 @@
     {
       path: null,
       component: 'odinSettings',
-      acl: 'Provisioning'
+      acl: 'Provisioning-PaasAdmin'
     }
   ]
   angular

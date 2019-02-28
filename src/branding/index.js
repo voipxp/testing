@@ -3,12 +3,12 @@
     {
       path: null,
       component: 'brandingHostnames',
-      acl: 'Provisioning'
+      acl: 'Provisioning-PaasAdmin'
     },
     {
       path: ':hostnameId',
       component: 'brandingHostname',
-      acl: 'Provisioning'
+      acl: 'Provisioning-PaasAdmin'
     }
   ]
   angular

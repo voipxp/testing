@@ -1,30 +1,47 @@
-<pbs-navigation service-provider-id="$ctrl.serviceProviderId">
-</pbs-navigation>
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId"> </pbs-navigation>
 
 <pbs-spinner loading="$ctrl.loading">
   <div class="columns">
     <div class="column">
-      <pbs-dashboard-cards title="Provisioning"
+      <pbs-dashboard-cards
+        title="Provisioning"
         cards="$ctrl.cards"
         filter="{type: 'provisioning', active: true}"
-        class="margin-bottom"></pbs-dashboard-cards>
-      <pbs-dashboard-cards title="Reports"
+        class="margin-bottom"
+      ></pbs-dashboard-cards>
+      <pbs-dashboard-cards
+        ng-show="$ctrl.isPaasAdmin"
+        title="System"
         cards="$ctrl.cards"
-        filter="{type: 'report', active: true}"></pbs-dashboard-cards>
+        filter="{type: 'system', active: true}"
+        class="margin-bottom"
+      ></pbs-dashboard-cards>
     </div>
     <div class="column">
-      <pbs-dashboard-cards title="Services"
+      <pbs-dashboard-cards
+        title="Services"
         cards="$ctrl.cards"
-        filter="{type: 'service', active: true}"></pbs-dashboard-cards>
+        filter="{type: 'service', active: true}"
+        class="margin-bottom"
+      ></pbs-dashboard-cards>
+      <pbs-dashboard-cards
+        title="Reports"
+        cards="$ctrl.cards"
+        filter="{type: 'report', active: true}"
+      ></pbs-dashboard-cards>
     </div>
     <div class="column">
-      <pbs-dashboard-cards title="Management"
+      <pbs-dashboard-cards
+        title="Management"
         cards="$ctrl.cards"
-        filter="{type: 'management', active: true}"></pbs-dashboard-cards>
+        filter="{type: 'management', active: true}"
+      ></pbs-dashboard-cards>
     </div>
     <div class="column">
-      <service-provider-groups-panel service-provider-id="$ctrl.serviceProviderId"
-        limit-to="15"></service-provider-groups-panel>
+      <service-provider-groups-panel
+        service-provider-id="$ctrl.serviceProviderId"
+        limit-to="15"
+      ></service-provider-groups-panel>
     </div>
   </div>
 </pbs-spinner>

@@ -3,7 +3,7 @@
     {
       path: null,
       component: 'odinTasks',
-      acl: 'Provisioning'
+      acl: 'Provisioning-PaasAdmin'
     }
   ]
   angular.module('odin.tasks', []).config(function(PbsRouteProvider) {

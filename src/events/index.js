@@ -3,17 +3,17 @@
     {
       path: '/events',
       component: 'odinEvents',
-      acl: 'Provisioning'
+      acl: 'Provisioning-PaasAdmin'
     },
     {
       path: '/events/logins',
       component: 'odinUserLoginIndex',
-      acl: 'Provisioning'
+      acl: 'Provisioning-PaasAdmin'
     },
     {
       path: '/webhooks',
       component: 'odinWebhooks',
-      acl: 'Provisioning'
+      acl: 'Provisioning-PaasAdmin'
     }
   ]
   angular.module('odin.events', []).config(function(PbsRouteProvider) {

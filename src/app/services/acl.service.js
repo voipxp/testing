@@ -7,18 +7,22 @@
       has: has,
       is: is,
       allowVersion: allowVersion,
-      hasVersion: hasVersion
+      hasVersion: hasVersion,
+      isPaasAdmin: isPaasAdmin
     }
+
     function allowVersion(version) {
       return Session.required().then(function() {
         return hasVersion(version) ? $q.when() : $q.reject('aclVersion')
       })
     }
+
     function allow(allowed) {
       return Session.required().then(function() {
         return has(allowed) ? $q.when() : $q.reject('aclAllow')
       })
     }
+
     function has(type) {
       var types = {
         User: 1,
@@ -31,9 +35,11 @@
       var user = types[Session.data('loginType')] || 0
       return user >= required
     }
+
     function is(type) {
       return Session.data('loginType') === type
     }
+
     function hasVersion(required) {
       try {
         var currentVersion = parseFloat(
@@ -45,6 +51,10 @@
         console.log(err)
         return false
       }
+    }
+
+    function isPaasAdmin() {
+      return Session.data('isPaasAdmin')
     }
   }
 })()

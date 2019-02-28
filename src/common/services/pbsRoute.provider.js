@@ -2,8 +2,11 @@
   angular.module('odin.common').provider('PbsRoute', Provider)
   function Provider($routeProvider) {
     function setAcl(type) {
-      return function(ACL) {
+      return function(ACL, $q) {
         'ngInject'
+        if (type === 'Provisioning-PaasAdmin') {
+          return ACL.isPaasAdmin() ? $q.when() : ACL.allow('Provisioning')
+        }
         return ACL.allow(type)
       }
     }

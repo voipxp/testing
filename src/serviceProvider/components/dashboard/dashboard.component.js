@@ -16,10 +16,10 @@
 
     ctrl.$onInit = onInit
     ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.isAdmin = ACL.has('Provisioning')
 
     function onInit() {
       ctrl.loading = true
+      ctrl.isPaasAdmin = ACL.isPaasAdmin()
       return ServiceProviderDashboardService.load(ctrl.serviceProviderId)
         .then(loadCards)
         .catch(function(error) {
@@ -39,6 +39,7 @@
     // always return a new set
     function cards() {
       var route = Route.path('serviceProviders', ctrl.serviceProviderId)
+      var baseRoute = Route.path()
       return [
         {
           type: 'management',
@@ -74,8 +75,8 @@
           type: 'service',
           name: 'Enterprise Trunk',
           service: 'Trunk Group',
-          path: route('enterpriseTrunks'),
-          isEnterprise: true
+          isEnterprise: true,
+          path: route('enterpriseTrunks')
         },
         {
           type: 'provisioning',
@@ -87,7 +88,7 @@
           type: 'provisioning',
           name: 'Delete Service Provider',
           path: route('delete'),
-          admin: true
+          acl: 'Provisioning'
         },
         {
           type: 'provisioning',
@@ -98,7 +99,7 @@
           type: 'provisioning',
           name: 'Devices',
           path: route('devices'),
-          admin: true
+          acl: 'Provisioning'
         },
         {
           type: 'provisioning',
@@ -126,6 +127,30 @@
           name: 'Trunk Call Capacity',
           module: 'User Report',
           path: route('reports', 'callCapacity')
+        },
+        {
+          type: 'system',
+          name: 'Branding',
+          isPaasAdmin: true,
+          path: baseRoute('branding')
+        },
+        {
+          type: 'system',
+          name: 'Event History',
+          isPaasAdmin: true,
+          path: baseRoute('events')
+        },
+        {
+          type: 'system',
+          name: 'Webhook History',
+          isPaasAdmin: true,
+          path: baseRoute('webhooks')
+        },
+        {
+          type: 'system',
+          name: 'Settings',
+          isPaasAdmin: true,
+          path: baseRoute('settings')
         }
       ]
     }
