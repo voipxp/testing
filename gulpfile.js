@@ -15,6 +15,7 @@ const ngConfig = require('gulp-ng-config')
 const cache = require('gulp-cached')
 const remember = require('gulp-remember')
 const size = require('gulp-sizereport')
+const terser = require('gulp-terser')
 
 const isProduction = process.env.NODE_ENV === 'production'
 const dest = isProduction ? 'dist' : process.env.APP_DIST || 'dist'
@@ -53,6 +54,7 @@ gulp.task('app.js', () => {
     ])
     .pipe(cache('app.js'))
     .pipe(babel())
+    .pipe(gulpIf(isProduction, terser({ mangle: true, compress: true })))
     .pipe(remember('app.js'))
   return series(conf, app)
     .pipe(concat('app.js'))
@@ -102,6 +104,7 @@ gulp.task('app.workers', () => {
   return gulp
     .src(['src/**/*.worker.js'])
     .pipe(babel())
+    .pipe(gulpIf(isProduction, terser({ mangle: true, compress: true })))
     .pipe(gulp.dest(dest))
 })
 

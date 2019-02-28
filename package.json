@@ -33,6 +33,7 @@
     "checklist-model": "^1.0.0",
     "clipboard": "^2.0.0",
     "gulp-ng-config": "^1.5.0",
+    "gulp-terser": "^1.1.7",
     "localforage": "^1.5.5",
     "lodash": "^4.17.2",
     "moment": "^2.20.1",
