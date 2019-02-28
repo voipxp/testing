@@ -82,6 +82,11 @@
           path: route('events')
         },
         {
+          type: 'system',
+          name: 'Login History',
+          path: route('events', 'logins')
+        },
+        {
           type: 'provisioning',
           name: 'Webhook History',
           path: route('webhooks')
