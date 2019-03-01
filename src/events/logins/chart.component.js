@@ -37,20 +37,25 @@
         Provisioning: 0,
         'Service Provider': 0,
         Group: 0,
-        User: 0
+        User: 0,
+        Other: 0
       }
       ctrl.data.forEach(item => {
-        logins[item.loginType]++
+        var loginType = Object.keys(logins).includes(item.loginType)
+          ? item.loginType
+          : 'Other'
+        logins[loginType]++
       })
       ctrl.labels = Object.keys(logins).map(label =>
         generateLabel(label, logins[label], ctrl.total)
       )
+      ctrl.options = { legend: { display: true, position: 'right' } }
       ctrl.loginData = Object.values(logins)
     }
 
-    function generateLabel(label, value, total) {
+    function generateLabel(label, value = 0, total) {
       var percent = value ? Math.round((value / total) * 100) : 0
-      return label + ' (' + percent + '%' + ')'
+      return `${label} (${percent}%)`
     }
 
     function open() {
