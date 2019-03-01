@@ -1,19 +1,21 @@
 <pbs-spinner loading="$ctrl.loading">
   <div class="box">
     <p class="subtitle has-text-centered">
-      <a href=""
-        ng-click="$ctrl.open()">{{ $ctrl.label }}</a>
+      <a href="" ng-click="$ctrl.open()">{{ $ctrl.label }}</a>
     </p>
     <p class="subtitle has-text-centered">
       <span class="thin">Total</span>
-      <br>
+      <br />
       <strong>{{ $ctrl.total }}</strong>
     </p>
     <div style="max-width: 800px; text-align: center; margin: auto">
-      <canvas class="chart chart-doughnut"
+      <canvas
+        class="chart chart-doughnut"
+        height="100px"
         chart-data="$ctrl.loginData"
         chart-labels="$ctrl.labels"
-        chart-options="$ctrl.options">
+        chart-options="$ctrl.options"
+      >
       </canvas>
     </div>
   </div>
