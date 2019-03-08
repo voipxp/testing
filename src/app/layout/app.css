@@ -55,3 +55,10 @@
 .disabled {
   cursor: not-allowed;
 }
+
+dl dt {
+  font-weight: bold;
+}
+dl dd {
+  margin: 0 0 1rem 1rem;
+}
