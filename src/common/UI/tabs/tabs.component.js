@@ -1,6 +1,6 @@
 ;(function() {
   var template =
-    '  <div class="tabs" ng-class="$ctrl.class">' +
+    '  <div class="tabs is-fullwidth is-toggle" ng-class="$ctrl.class">' +
     '    <ul>' +
     '      <li ng-repeat="tab in $ctrl.tabs" ng-class="{\'is-active\': tab.selected}">' +
     '        <a ng-bind="tab.label" ng-click="$ctrl.select(tab)"></a>' +
