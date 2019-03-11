@@ -1,7 +1,7 @@
 ;(function() {
   var template =
     '<div>' +
-    '  <div class="card pbs-spinner-card" ng-if="$ctrl.loading">' +
+    '  <div class="card" ng-if="$ctrl.loading">' +
     '    <div class="card-content">' +
     '      <div class="spinner"></div>' +
     '    </div>' +

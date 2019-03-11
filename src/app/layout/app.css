@@ -62,26 +62,3 @@ dl dt {
 dl dd {
   margin: 0 0 1rem 1rem;
 }
-
-.panel,
-.card,
-.box {
-  box-shadow: 0 0.25rem 0.75rem hsla(0, 0%, 0%, 0.2);
-}
-
-.card .pbs-spinner-card {
-  box-shadow: none;
-}
-
-.panel {
-  background-color: #fcfcfc;
-}
-
-section.section {
-  background-color: #fafafa;
-}
-/*
-.tabs {
-  box-shadow: 0 0 6px 0 hsla(0, 0%, 0%, 0.1);
-  margin-bottom: 0 !important;
-} */
