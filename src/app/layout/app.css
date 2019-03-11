@@ -64,21 +64,24 @@ dl dd {
 }
 
 .panel,
-.card {
-  box-shadow: 0 0.25rem 0.75rem #ccc;
+.card,
+.box {
+  box-shadow: 0 0.25rem 0.75rem hsla(0, 0%, 0%, 0.2);
 }
 
+.card .pbs-spinner-card {
+  box-shadow: none;
+}
+
+.panel {
+  background-color: #fcfcfc;
+}
+
+section.section {
+  background-color: #fafafa;
+}
+/*
 .tabs {
-  border-radius: 4px 0 0 4px;
-  box-shadow: 0 0.25rem 0.75rem #ccc;
-}
-
-.tabs.is-toggle li:last-child a {
-  border-radius: 0 4px 4px 0;
-  box-shadow: 0 0 0.75rem 0 #ccc;
-}
-
-.tabs.is-toggle li:first-child a {
-  border-radius: 4px 0px 0px 4px;
-  box-shadow: 0 0 0 0 #ccc;
-}
+  box-shadow: 0 0 6px 0 hsla(0, 0%, 0%, 0.1);
+  margin-bottom: 0 !important;
+} */
