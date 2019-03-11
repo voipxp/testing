@@ -15,6 +15,7 @@
     ctrl.edit = edit
     ctrl.add = add
     ctrl.selectTemplate = selectTemplate
+    ctrl.hasTextField = hasTextField
 
     ctrl.templateColumns = [
       {
@@ -101,6 +102,12 @@
             })
         }
       )
+    }
+
+    function hasTextField() {
+      if (!ctrl.editCallback) return
+      const props = ctrl.editCallback.template.schema.properties
+      return Object.keys(props).find(prop => props[prop].type === 'string')
     }
 
     function create(callback, close) {

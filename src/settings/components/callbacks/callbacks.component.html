@@ -1,39 +1,49 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="odin Callbacks">
     <pbs-block-buttons>
-      <pbs-button-compact-add title="Add Callback"
+      <pbs-button-compact-add
+        title="Add Callback"
         ng-click="$ctrl.add()"
-        ng-show="$ctrl.availableTemplates.length > 0">
+        ng-show="$ctrl.availableTemplates.length > 0"
+      >
       </pbs-button-compact-add>
     </pbs-block-buttons>
-    <pbs-data-table columns="$ctrl.callbackColumns"
+    <pbs-data-table
+      columns="$ctrl.callbackColumns"
       items="$ctrl.callbacks"
       is-compact="true"
       is-bordered="true"
       is-striped="true"
       limit-to="50"
-      on-click="$ctrl.edit($event)"></pbs-data-table>
+      on-click="$ctrl.edit($event)"
+    ></pbs-data-table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="newCallback"
-  title="Select Callback Type">
-  <pbs-data-table columns="$ctrl.templateColumns"
+<pbs-modal id="newCallback" title="Select Callback Type">
+  <pbs-data-table
+    columns="$ctrl.templateColumns"
     items="$ctrl.availableTemplates"
     is-compact="true"
     is-bordered="true"
     is-striped="true"
     limit-to="50"
-    on-click="$ctrl.selectTemplate($event)"></pbs-data-table>
+    on-click="$ctrl.selectTemplate($event)"
+  ></pbs-data-table>
 </pbs-modal>
-<pbs-modal id="editCallback"
-  title="{{ $ctrl.editCallback.template.name }}">
+<pbs-modal id="editCallback" title="{{ $ctrl.editCallback.template.name }}">
   <pbs-form-section>Callback Settings</pbs-form-section>
-  <pbs-input-checkbox ng-model="$ctrl.editCallback.active"
-    label="Callback Enabled"></pbs-input-checkbox>
+  <pbs-input-checkbox
+    ng-model="$ctrl.editCallback.active"
+    label="Callback Enabled"
+  ></pbs-input-checkbox>
 
-  <pbs-form-section>{{ $ctrl.editCallback.template.name }} Settings</pbs-form-section>
-  <pbs-tags class="is-pulled-right"></pbs-tags>
-  <pbs-form-builder ng-if="$ctrl.editCallback.template"
+  <pbs-form-section
+    >{{ $ctrl.editCallback.template.name }} Settings
+    <pbs-tags class="is-pulled-right" ng-show="$ctrl.hasTextField()"></pbs-tags>
+  </pbs-form-section>
+  <pbs-form-builder
+    ng-if="$ctrl.editCallback.template"
     data="$ctrl.editCallback.data"
-    schema="$ctrl.editCallback.template.schema"></pbs-form-builder>
+    schema="$ctrl.editCallback.template.schema"
+  ></pbs-form-builder>
 </pbs-modal>
