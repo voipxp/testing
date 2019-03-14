@@ -10,12 +10,14 @@
       <pbs-button-compact-clone
         title="Clone Group"
         if-module-create="'Provisioning'"
+        ng-show="$ctrl.canCreate"
         ng-click="$ctrl.clone()"
       >
       </pbs-button-compact-clone>
       <pbs-button-compact-add
         title="Add Group"
         if-module-create="'Provisioning'"
+        ng-show="$ctrl.canCreate"
         ng-click="$ctrl.add()"
       >
       </pbs-button-compact-add>
