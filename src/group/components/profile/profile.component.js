@@ -12,7 +12,9 @@
     ACL,
     $routeParams,
     Route,
-    GroupPolicyService
+    GroupPolicyService,
+    ServiceProviderPolicyService,
+    Module
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -29,10 +31,19 @@
       ctrl.isAdmin = ACL.has('Service Provider')
       ctrl.loading = true
       return $q
-        .all([loadGroup(), GroupPolicyService.load()])
+        .all([
+          loadGroup(),
+          Module.load(),
+          GroupPolicyService.load(),
+          ServiceProviderPolicyService.load()
+        ])
         .then(function() {
           ctrl.canRead = GroupPolicyService.profileRead()
-          ctrl.canUpdate = GroupPolicyService.profileUpdate()
+          ctrl.canUpdate =
+            Module.update('Provisioning') && GroupPolicyService.profileUpdate()
+          ctrl.canDelete =
+            Module.delete('Provisioning') &&
+            ServiceProviderPolicyService.groupDelete()
         })
         .catch(Alert.notify.danger)
         .finally(function() {
@@ -73,7 +84,8 @@
     }
 
     function edit() {
-      var onDelete = ctrl.isAdmin ? close => remove(close) : null
+      var onDelete =
+        ctrl.isAdmin && ctrl.canDelete ? close => remove(close) : null
       loadHelpers()
         .then(() => {
           ctrl.editGroup = angular.copy(ctrl.group)

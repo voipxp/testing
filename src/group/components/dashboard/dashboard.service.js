@@ -76,8 +76,12 @@
 
       // check modules (PBS stuff)
       if (card.module) {
+        const split = card.module.split('.')
+        const moduleName = split[0]
+        const modulePerm = split[1] || 'read'
+
         // check permissions
-        card.active = Module.read(card.module)
+        card.active = Module[modulePerm](moduleName)
         // set the alias and activate it
         card.name = card.name || Module.alias(card.module)
         // only skip below if we are denied access
