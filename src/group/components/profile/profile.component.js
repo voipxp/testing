@@ -6,14 +6,13 @@
 
   function Controller(
     GroupService,
-    GroupDomainService,
-    SystemTimeZoneService,
     Alert,
     GroupNumberService,
     $q,
     ACL,
     $routeParams,
-    Route
+    Route,
+    Module
   ) {
     var ctrl = this
     ctrl.$onInit = onInit
@@ -27,7 +26,11 @@
 
     function onInit() {
       ctrl.loading = true
-      return loadGroup()
+      return $q
+        .all([loadGroup(), Module.load()])
+        .then(function() {
+          ctrl.canDelete = Module.delete('Provisioning')
+        })
         .catch(function(error) {
           console.log('error', error)
           Alert.notify.danger(error)
@@ -66,7 +69,7 @@
 
     function edit() {
       var onDelete
-      if (ACL.has('Service Provider')) {
+      if (ACL.has('Service Provider') && ctrl.canDelete) {
         onDelete = function(close) {
           remove(close)
         }

@@ -280,6 +280,7 @@
           type: 'provisioning',
           name: 'Delete Group',
           path: route('delete'),
+          module: 'Provisioning.delete',
           admin: true
         },
         {
