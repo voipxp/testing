@@ -52,11 +52,14 @@
           if (ACL.has('Provisioning')) {
             ctrl.canEdit = true
           } else if (ACL.is('Group')) {
-            ctrl.canEdit = GroupPolicyService.accessDeviceUpdate()
+            ctrl.canEdit =
+              Module.update('Provisioning') &&
+              GroupPolicyService.accessDeviceUpdate()
           } else if (ACL.is('Service Provider')) {
-            ctrl.canEdit = ServiceProviderPolicyService.accessDeviceUpdate()
+            ctrl.canEdit =
+              Module.update('Provisioning') &&
+              ServiceProviderPolicyService.accessDeviceUpdate()
           }
-          // ctrl.canEdit = ACL.has('Group') && Module.update('Provisioning')
         })
         .catch(function(error) {
           Alert.notify.danger(error)
