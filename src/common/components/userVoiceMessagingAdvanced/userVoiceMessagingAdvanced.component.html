@@ -1,138 +1,210 @@
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Advanced Voice Messaging"
-    class="margin-top">
+  <pbs-block title="Advanced Voice Messaging" class="margin-top">
     <pbs-block-buttons>
-      <pbs-button-compact-edit title="Edit Advanced Voice Messaging"
+      <pbs-button-compact-edit
+        title="Edit Advanced Voice Messaging"
         ng-click="$ctrl.edit()"
-        ng-if="$ctrl.module.permissions.update && !$ctrl.readOnly">
+        ng-if="$ctrl.module.permissions.update && !$ctrl.readOnly"
+      >
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Mail Server">
         {{ $ctrl.messaging.mailServerSelection }}
       </pbs-list-item>
-      <pbs-list-item label="Email Address"
-        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[0]">
+      <pbs-list-item
+        label="Email Address"
+        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[0]"
+      >
         {{ $ctrl.messaging.groupMailServerEmailAddress }}
       </pbs-list-item>
-      <pbs-list-item label="User ID"
-        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[0]">
+      <pbs-list-item
+        label="User ID"
+        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[0]"
+      >
         {{ $ctrl.messaging.groupMailServerUserId }}
       </pbs-list-item>
-      <pbs-list-item label="Mailbox Limit"
-        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[0]">
-        <span ng-show="$ctrl.messaging.useGroupDefaultMailServerFullMailboxLimit">Group Default</span>
-        <span ng-show="!$ctrl.messaging.useGroupDefaultMailServerFullMailboxLimit">
+      <pbs-list-item
+        label="Mailbox Limit"
+        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[0]"
+      >
+        <span
+          ng-show="$ctrl.messaging.useGroupDefaultMailServerFullMailboxLimit"
+          >Group Default</span
+        >
+        <span
+          ng-show="!$ctrl.messaging.useGroupDefaultMailServerFullMailboxLimit"
+        >
           {{ $ctrl.messaging.groupMailServerFullMailboxLimit }}
         </span>
       </pbs-list-item>
-      <pbs-list-item label="Server Address"
-        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[1]">
+      <pbs-list-item
+        label="Server Address"
+        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[1]"
+      >
         {{ $ctrl.messaging.personalMailServerNetAddress }}
       </pbs-list-item>
-      <pbs-list-item label="Server Protocol"
-        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[1]">
+      <pbs-list-item
+        label="Server Protocol"
+        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[1]"
+      >
         {{ $ctrl.messaging.personalMailServerProtocol }}
       </pbs-list-item>
-      <pbs-list-item label="IMAP Delete"
-        ng-show="($ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[1]) && ($ctrl.messaging.personalMailServerProtocol = $ctrl.options.personalMailServerProtocol[1])">
-        <pbs-check-box checked="$ctrl.messaging.personalMailServerRealDeleteForImap"></pbs-check-box>
-        <span ng-show="$ctrl.messaging.personalMailServerRealDeleteForImap"> Delete</span>
-        <span ng-show="!$ctrl.messaging.personalMailServerRealDeleteForImap"> Archive</span>
+      <pbs-list-item
+        label="IMAP Delete"
+        ng-show="($ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[1]) && ($ctrl.messaging.personalMailServerProtocol === $ctrl.options.personalMailServerProtocol[1])"
+      >
+        <pbs-check-box
+          checked="$ctrl.messaging.personalMailServerRealDeleteForImap"
+        ></pbs-check-box>
+        <span ng-show="$ctrl.messaging.personalMailServerRealDeleteForImap">
+          Delete</span
+        >
+        <span ng-show="!$ctrl.messaging.personalMailServerRealDeleteForImap">
+          Archive</span
+        >
       </pbs-list-item>
-      <pbs-list-item label="Email Address"
-        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[1]">
+      <pbs-list-item
+        label="Email Address"
+        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[1]"
+      >
         {{ $ctrl.messaging.personalMailServerEmailAddress }}
       </pbs-list-item>
-      <pbs-list-item label="User ID"
-        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[1]">
+      <pbs-list-item
+        label="User ID"
+        ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[1]"
+      >
         {{ $ctrl.messaging.personalMailServerUserId }}
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="editUserVoiceMessagingAdvanced"
-  title="Edit Advanced Voice Messaging">
+<pbs-modal
+  id="editUserVoiceMessagingAdvanced"
+  title="Edit Advanced Voice Messaging"
+>
   <form>
-
     <pbs-form-field-horizontal label="Mail Server">
-      <pbs-input-select ng-model="$ctrl.editMessaging.mailServerSelection"
-        ng-options="opt for opt in $ctrl.options.mailServerSelection">
+      <pbs-input-select
+        ng-model="$ctrl.editMessaging.mailServerSelection"
+        ng-options="opt for opt in $ctrl.options.mailServerSelection"
+      >
       </pbs-input-select>
     </pbs-form-field-horizontal>
 
-    <pbs-form-field-horizontal label="Email Address"
-      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]">
-      <input type="text"
+    <pbs-form-field-horizontal
+      label="Email Address"
+      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]"
+    >
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editMessaging.groupMailServerEmailAddress">
+        ng-model="$ctrl.editMessaging.groupMailServerEmailAddress"
+      />
     </pbs-form-field-horizontal>
 
-
-    <pbs-form-field-horizontal label="User ID"
-      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]">
-      <input type="text"
+    <pbs-form-field-horizontal
+      label="User ID"
+      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]"
+    >
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editMessaging.groupMailServerUserId">
+        ng-model="$ctrl.editMessaging.groupMailServerUserId"
+      />
     </pbs-form-field-horizontal>
 
-    <pbs-form-field-horizontal label="Password"
-      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]">
-      <pbs-input-password ng-model="$ctrl.editMessaging.groupMailServerPassword"
+    <pbs-form-field-horizontal
+      label="Password"
+      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]"
+    >
+      <pbs-input-password
+        ng-model="$ctrl.editMessaging.groupMailServerPassword"
         ng-minlength="6"
-        ng-maxlength="60"></pbs-input-password>
+        ng-maxlength="60"
+      ></pbs-input-password>
     </pbs-form-field-horizontal>
 
-    <pbs-input-checkbox ng-model="$ctrl.editMessaging.useGroupDefaultMailServerFullMailboxLimit"
+    <pbs-input-checkbox
+      ng-model="$ctrl.editMessaging.useGroupDefaultMailServerFullMailboxLimit"
       label="Use Group Default Mailbox Limit"
-      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]"></pbs-input-checkbox>
+      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]"
+    ></pbs-input-checkbox>
 
-    <pbs-form-field-horizontal label="Mailbox Limit"
-      ng-show="($ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]) && !$ctrl.editMessaging.useGroupDefaultMailServerFullMailboxLimit">
-      <pbs-input-select ng-model="$ctrl.editMessaging.groupMailServerFullMailboxLimit"
-        ng-options="opt for opt in $ctrl.options.groupMailServerFullMailboxLimit">
+    <pbs-form-field-horizontal
+      label="Mailbox Limit"
+      ng-show="($ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]) && !$ctrl.editMessaging.useGroupDefaultMailServerFullMailboxLimit"
+    >
+      <pbs-input-select
+        ng-model="$ctrl.editMessaging.groupMailServerFullMailboxLimit"
+        ng-options="opt for opt in $ctrl.options.groupMailServerFullMailboxLimit"
+      >
       </pbs-input-select>
     </pbs-form-field-horizontal>
 
-    <pbs-form-field-horizontal label="Server Address"
-      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]">
-      <input type="text"
+    <pbs-form-field-horizontal
+      label="Server Address"
+      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]"
+    >
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editMessaging.personalMailServerNetAddress">
+        ng-model="$ctrl.editMessaging.personalMailServerNetAddress"
+      />
     </pbs-form-field-horizontal>
 
-    <pbs-form-field-horizontal label="Server Protocol"
-      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]">
-      <pbs-input-select ng-model="$ctrl.editMessaging.personalMailServerProtocol"
-        ng-options="opt for opt in $ctrl.options.personalMailServerProtocol">
+    <pbs-form-field-horizontal
+      label="Server Protocol"
+      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]"
+    >
+      <pbs-input-select
+        ng-model="$ctrl.editMessaging.personalMailServerProtocol"
+        ng-options="opt for opt in $ctrl.options.personalMailServerProtocol"
+      >
       </pbs-input-select>
     </pbs-form-field-horizontal>
 
-    <pbs-form-field-horizontal label="IMAP Delete"
-      ng-show="($ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]) && ($ctrl.editMessaging.personalMailServerProtocol === $ctrl.options.personalMailServerProtocol[1])">
-      <pbs-input-checkbox ng-model="$ctrl.editMessaging.personalMailServerRealDeleteForImap"
-        label="Delete All Messages Marked for Deletion"></pbs-input-checkbox>
+    <pbs-form-field-horizontal
+      label="IMAP Delete"
+      ng-show="($ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]) && ($ctrl.editMessaging.personalMailServerProtocol === $ctrl.options.personalMailServerProtocol[1])"
+    >
+      <pbs-input-checkbox
+        ng-model="$ctrl.editMessaging.personalMailServerRealDeleteForImap"
+        label="Delete All Messages Marked for Deletion"
+      ></pbs-input-checkbox>
     </pbs-form-field-horizontal>
 
-    <pbs-form-field-horizontal label="Email Address"
-      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]">
-      <input type="text"
+    <pbs-form-field-horizontal
+      label="Email Address"
+      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]"
+    >
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editMessaging.personalMailServerEmailAddress">
+        ng-model="$ctrl.editMessaging.personalMailServerEmailAddress"
+      />
     </pbs-form-field-horizontal>
 
-    <pbs-form-field-horizontal label="User ID"
-      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]">
-      <input type="text"
+    <pbs-form-field-horizontal
+      label="User ID"
+      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]"
+    >
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editMessaging.personalMailServerUserId">
+        ng-model="$ctrl.editMessaging.personalMailServerUserId"
+      />
     </pbs-form-field-horizontal>
 
-    <pbs-form-field-horizontal label="Password"
-      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]">
-      <pbs-input-password ng-model="$ctrl.editMessaging.personalMailServerPassword"
+    <pbs-form-field-horizontal
+      label="Password"
+      ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]"
+    >
+      <pbs-input-password
+        ng-model="$ctrl.editMessaging.personalMailServerPassword"
         ng-minlength="6"
-        ng-maxlength="60"></pbs-input-password>
+        ng-maxlength="60"
+      ></pbs-input-password>
     </pbs-form-field-horizontal>
   </form>
 </pbs-modal>
