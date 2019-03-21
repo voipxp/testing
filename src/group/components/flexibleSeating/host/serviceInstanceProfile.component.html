@@ -1,0 +1,85 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Service Instance Profile">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit title="Edit Profile"
+        ng-click="$ctrl.edit()"
+        ng-if="!$ctrl.readOnly">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Service Name">
+        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.name }}
+      </pbs-list-item>
+      <pbs-list-item label="CLID First Name">
+        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.callingLineIdFirstName }}
+      </pbs-list-item>
+      <pbs-list-item label="CLID Last Name">
+        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.callingLineIdLastName }}
+      </pbs-list-item>
+      <pbs-list-item label="Phone Number">
+        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.phoneNumber }}
+      </pbs-list-item>
+      <pbs-list-item label="Extension">
+        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.extension }}
+      </pbs-list-item>
+      <pbs-list-item label="Department">
+        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.department.name }}
+      </pbs-list-item>
+      <pbs-list-item label="Language">
+        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.language }}
+      </pbs-list-item>
+      <pbs-list-item label="Time Zone">
+        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.timeZoneDisplayName }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editServiceInstanceProfile"
+  title="Edit Profile: {{ $ctrl.serviceUserId }}">
+  <pbs-form>
+    <pbs-form-field-horizontal label="Service Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editFlexibleSeatingHost.serviceInstanceProfile.name"
+        required>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="CLID Last Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editFlexibleSeatingHost.serviceInstanceProfile.callingLineIdLastName"
+        required>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="CLID First Name">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editFlexibleSeatingHost.serviceInstanceProfile.callingLineIdFirstName"
+        required>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Phone Number">
+      <select-phone-number service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        phone-number="$ctrl.editFlexibleSeatingHost.serviceInstanceProfile.phoneNumber"
+        on-update="$ctrl.selectNumber($event)"></select-phone-number>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Extension">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editFlexibleSeatingHost.serviceInstanceProfile.extension">
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Department">
+      <pbs-input-select ng-model="$ctrl.editFlexibleSeatingHost.serviceInstanceProfile.department"
+        ng-options="department as department.name for department in $ctrl.departments track by department.name">
+        <option value="">-- None --</option>
+      </pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Language">
+      <pbs-input-select ng-model="$ctrl.editFlexibleSeatingHost.serviceInstanceProfile.language"
+        ng-options="language.language as language.language for language in $ctrl.languages.languages">
+      </pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Time Zone">
+      <pbs-input-select ng-model="$ctrl.editFlexibleSeatingHost.serviceInstanceProfile.timeZone"
+        ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones"></pbs-input-select>
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>

@@ -1,0 +1,77 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Device Endpoint">
+    <pbs-block-buttons ng-if="$ctrl.canEdit">
+      <pbs-button-compact-edit ng-click="$ctrl.select()"
+        title="Select Device and Line Port"></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Device Level">
+        {{ $ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice.deviceLevel }}
+      </pbs-list-item>
+      <pbs-list-item label="Device Name">
+        {{ $ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice.deviceName }}
+      </pbs-list-item>
+      <pbs-list-item label="Line Port">
+        {{ $ctrl.flexibleSeatingHost.accessDeviceEndpoint.linePort }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="flexibleSeatingHostDeviceSelectModal"
+  title="Select Device">
+  <pbs-form>
+    <pbs-form-field-horizontal label="Endpoint Type">
+      <pbs-input-select ng-model="$ctrl.editFlexibleSeatingHost.endpointType"
+        ng-options="key as value for (key, value) in $ctrl.endpointTypes"></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Device"
+      ng-show="$ctrl.editFlexibleSeatingHost.endpointType === 'accessDeviceEndpoint'">
+      <div class="field has-addons">
+        <p class="control is-expanded">
+          <input type="text"
+            class="input"
+            ng-model="$ctrl.editFlexibleSeatingHost.accessDeviceEndpoint.accessDevice.deviceName"
+            placeholder="No Device Selected"
+            readonly
+            ng-required="$ctrl.editFlexibleSeatingHost.endpointType === 'accessDeviceEndpoint'">
+        </p>
+        <p class="control">
+          <button class="button"
+            ng-click="$ctrl.createDevice()"
+            title="Create a Device">
+            <span class="icon">
+              <i class="fas fa-plus"></i>
+            </span>
+          </button>
+        </p>
+        <p class="control">
+          <button class="button"
+            ng-click="$ctrl.selectDevice()"
+            title="Select a Device">
+            <span class="icon">
+              <i class="fas fa-list"></i>
+            </span>
+          </button>
+        </p>
+      </div>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Line Port"
+      ng-if="$ctrl.editFlexibleSeatingHost.endpointType === 'accessDeviceEndpoint'">
+      <select-user-id service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.editFlexibleSeatingHost.accessDeviceEndpoint.linePort"
+        on-update="$ctrl.onSetLinePort($event)"
+        required="$ctrl.editFlexibleSeatingHost.endpointType === 'accessDeviceEndpoint'">
+      </select-user-id>
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>
+<device-update service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onDeviceUpdate($event)"></device-update>
+<device-select service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onDeviceSelect($event)"></device-select>
+<device-create service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onDeviceSelect($event)"></device-create>

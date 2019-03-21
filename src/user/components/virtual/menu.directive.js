@@ -60,6 +60,12 @@
           ctrl.showCallRecords ||
           ctrl.showAutoAttendantReport ||
           ctrl.showCallCenterReport
+        if (ctrl.module.name === 'Flexible Seating Guest') {
+          ctrl.isMeetMe = false
+          ctrl.hasAnnouncements = false
+          ctrl.showCallRecords = false
+          ctrl.showReporting = false
+        }
       }
     }
   }

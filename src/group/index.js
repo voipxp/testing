@@ -436,6 +436,18 @@
       component: 'groupVirtualOnNetEnterpriseExtensions',
       acl: 'Group',
       module: 'Virtual On-Net Enterprise Extensions'
+    },
+    {
+      path: 'flexibleSeatingHosts',
+      component: 'flexibleSeatingHosts',
+      acl: 'Group',
+      module: 'Flexible Seating Guest'
+    },
+    {
+      path: 'flexibleSeatingHosts/flexibleSeatingHost',
+      component: 'flexibleSeatingHost',
+      acl: 'Group',
+      module: 'Flexible Seating Guest'
     }
   ]
 

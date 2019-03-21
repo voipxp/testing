@@ -1,0 +1,27 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Routing Policies">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit title="Edit Policies"
+        ng-click="$ctrl.edit()"
+        ng-if="!$ctrl.readOnly">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Allow Emergency Calls">
+        <pbs-check-box checked="$ctrl.settings.allowEmergencyCalls"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Allow Calls To Voice Portal">
+        <pbs-check-box checked="$ctrl.settings.allowCallsToVoicePortal"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editRoutingPoliciesFlexibleSeating"
+  title="Edit Profile: {{ $ctrl.serviceUserId }}">
+  <pbs-form>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.allowEmergencyCalls"
+      label="Allow Emergency Calls"></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.allowCallsToVoicePortal"
+      label="Allow Calls To Voice Portal"></pbs-input-checkbox>
+  </pbs-form>
+</pbs-modal>
