@@ -1,0 +1,3 @@
+- split out odin.app
+- create a new point of entry
+- move all UI components out of common into UI

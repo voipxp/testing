@@ -1,33 +1,21 @@
 {
   "parserOptions": {
-    "ecmaVersion": 2018
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "parser": "babel-eslint",
+    "ecmaFeatures": { "jsx": true }
   },
   "extends": ["eslint:recommended", "prettier"],
   "rules": {
     "no-console": 0
   },
   "globals": {
-    "console": true,
-    "angular": true,
-    "dotize": true,
-    "_": true,
-    "moment": true,
-    "$": true,
-    "Blob": true,
-    "Sugar": true,
-    "Mustache": true,
-    "localforage": true,
-    "localStorage": true,
-    "window": true,
-    "document": true,
-    "ExtendEditor": true,
-    "rrulestr": true,
-    "rrule": true,
-    "atob": true
+    "document": true
   },
   "env": {
     "es6": true,
     "node": true,
-    "worker": true
+    "worker": true,
+    "browser": true
   }
 }

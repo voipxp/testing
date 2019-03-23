@@ -1,0 +1,20 @@
+<pbs-navigation>
+  <pbs-breadcrumb title="'My Profile'"></pbs-breadcrumb>
+</pbs-navigation>
+<user-password
+  ng-if="$ctrl.loginType === 'User'"
+  user-id="$ctrl.userId"
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+></user-password>
+<user-portal-passcode
+  ng-if="$ctrl.loginType === 'User'"
+  user-id="$ctrl.userId"
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+></user-portal-passcode>
+<user-profile
+  ng-if="$ctrl.loginType === 'User'"
+  user-id="$ctrl.userId"
+></user-profile>
+<admin-account ng-if="$ctrl.loginType !== 'User'"></admin-account>

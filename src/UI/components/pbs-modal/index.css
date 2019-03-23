@@ -1,0 +1,44 @@
+@media screen and (min-width: 769px) {
+  .modal-content,
+  .modal-card {
+    margin: 0 auto;
+    max-height: calc(100vh - 40px);
+    width: 800px;
+    max-width: calc(100% - 80px);
+  }
+}
+
+.modal {
+  flex-direction: column;
+}
+
+.modal-card {
+  overflow-y: visible;
+  -ms-overflow-y: visible;
+}
+
+.modal-card-body {
+  position: relative;
+}
+
+/* MODAL CARDS */
+.modal.ng-enter {
+  animation-name: fadeIn;
+  animation-duration: 500ms;
+}
+
+.modal.ng-enter .modal-card {
+  animation-name: bounceInDown;
+  animation-duration: 500ms;
+}
+
+.modal.ng-leave {
+  /* transition: 300ms; */
+  animation-name: fadeOut;
+  animation-duration: 500ms;
+}
+
+.modal.ng-leave .modal-card {
+  animation-name: bounceOutUp;
+  animation-duration: 500ms;
+}

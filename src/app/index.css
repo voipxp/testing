@@ -1,0 +1,57 @@
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
+}
+
+.hover:hover {
+  cursor: pointer;
+}
+.is-hoverable:hover {
+  cursor: pointer;
+}
+
+.template-image {
+  max-width: 300px;
+}
+
+.color-label {
+  box-shadow: none;
+  outline: none;
+  border-color: none;
+  text-shadow: none;
+  color: rgba(0, 0, 0, 0);
+}
+
+.angular-color-picker {
+  border: none;
+  margin: 10px 10px 10px 0;
+  padding: 0;
+}
+
+.small-margin-top {
+  margin-top: 0.5rem;
+}
+
+.margin-top {
+  margin-top: 1rem;
+}
+
+.large-margin-top {
+  margin-top: 2rem;
+}
+
+.margin-bottom {
+  margin-bottom: 1rem;
+}
+
+.large-margin-bottom {
+  margin-bottom: 2rem;
+}
+
+.disabled {
+  cursor: not-allowed;
+}

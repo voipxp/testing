@@ -2,12 +2,12 @@
   "name": "ODiN",
   "icons": [
     {
-      "src": "<!-- #api -->/ui/images/imageIcon.png?size=192x192",
+      "src": "/ui/images/imageIcon.png?size=192x192",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "<!-- #api -->/ui/images/imageIcon.png?size=512x512",
+      "src": "/ui/images/imageIcon.png?size=512x512",
       "sizes": "512x512",
       "type": "image/png"
     }

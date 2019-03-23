@@ -1,0 +1,11 @@
+<div class="has-text-centered">
+  <div
+    ng-repeat="notification in $ctrl.notifications"
+    class="notification hover"
+    ng-class="notification.type"
+    ng-click="$ctrl.remove(notification)"
+  >
+    <button class="delete" ng-click="$ctrl.remove(notification)"></button>
+    {{ notification.message }}
+  </div>
+</div>
