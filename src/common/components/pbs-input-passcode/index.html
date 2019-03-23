@@ -1,0 +1,75 @@
+<div ng-form name="passcodeForm">
+  <div class="field has-addons">
+    <div class="control is-expanded has-icons-right">
+      <input
+        class="input"
+        name="passcode1"
+        type="{{ inputType }}"
+        placeholder="Passcode"
+        ng-model="ngModel"
+        ng-required="ngRequired"
+        ng-minlength="ngMinlength"
+        ng-maxlength="ngMaxlength"
+        ng-disabled="isLoading"
+        ng-change="onChange()"
+      />
+      <span class="icon is-small is-right">
+        <i
+          class="fas"
+          ng-class="{
+            'fa-exclamation-triangle': passcodeForm.passcode1.$invalid,
+            'fa-check': passcodeForm.passcode1.$valid
+          }"
+        ></i>
+      </span>
+    </div>
+    <div class="control">
+      <div
+        class="button is-link"
+        ng-class="{'is-loading': isLoading}"
+        ng-click="generate()"
+        ng-disabled="isLoading"
+      >
+        <span class="icon"><i class="fas fa-key"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="field has-addons">
+    <div class="control is-expanded has-icons-right">
+      <input
+        class="input"
+        type="{{ inputType }}"
+        name="passcode2"
+        placeholder="Repeat Passcode"
+        ng-model="passcode2"
+        ng-required="ngModel"
+        ng-minlength="ngMinlength"
+        ng-maxlength="ngMaxlength"
+        ng-disabled="isLoading"
+        ng-pattern="pattern"
+      />
+      <span class="icon is-small is-right">
+        <i
+          class="fas"
+          ng-class="{
+            'fa-exclamation-triangle': passcodeForm.passcode2.$invalid,
+            'fa-check': passcodeForm.passcode2.$valid
+          }"
+        ></i>
+      </span>
+    </div>
+    <div class="control">
+      <div class="button is-link" ng-click="toggle()">
+        <span class="icon">
+          <i
+            class="fas"
+            ng-class="{
+              'fa-eye': inputType === 'text',
+              'fa-eye-slash': inputType === 'password'
+            }"
+          ></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

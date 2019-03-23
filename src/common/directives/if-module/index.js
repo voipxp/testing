@@ -1,14 +1,18 @@
-;(function() {
-  angular
-    .module('odin.common')
-    .directive('ifModuleCreate', ModuleConstructor('create'))
-    .directive('ifModuleRead', ModuleConstructor('read'))
-    .directive('ifModuleUpdate', ModuleConstructor('update'))
-    .directive('ifModuleDelete', ModuleConstructor('delete'))
+import angular from 'angular'
+import _ from 'lodash'
 
-  function ModuleConstructor(permission) {
-    return function(ngIfDirective, Module) {
-      'ngInject'
+angular
+  .module('odin.common')
+  .directive('ifModuleCreate', ModuleConstructor('create'))
+  .directive('ifModuleRead', ModuleConstructor('read'))
+  .directive('ifModuleUpdate', ModuleConstructor('update'))
+  .directive('ifModuleDelete', ModuleConstructor('delete'))
+
+function ModuleConstructor(permission) {
+  return [
+    'ngIfDirective',
+    'Module',
+    function(ngIfDirective, Module) {
       var ngIf = ngIfDirective[0]
       return {
         transclude: ngIf.transclude,
@@ -28,5 +32,5 @@
         }
       }
     }
-  }
-})()
+  ]
+}

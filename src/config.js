@@ -87,3 +87,15 @@ export function idleConfig(IdleProvider, TitleProvider) {
   IdleProvider.keepalive(false)
   TitleProvider.enabled(false)
 }
+
+run.$inject = ['$rootScope']
+export function run($rootScope) {
+  $rootScope.apiURL = process.env.API_URL || '/'
+}
+
+export const app = {
+  apiURL: `${process.env.API_URL || ''}/api/v2`,
+  eventURL: process.env.EVENT_URL || process.env.API_URL || '/',
+  loginURL: '/login',
+  sessionKey: 'odin:session'
+}

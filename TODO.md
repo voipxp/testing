@@ -1,3 +1,4 @@
-- split out odin.app
-- create a new point of entry
 - move all UI components out of common into UI
+- check that all files are registered to the correct module
+- import only what is needed from lodash
+- check for moment and move to Sugar-date

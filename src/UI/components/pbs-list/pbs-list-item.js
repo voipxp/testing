@@ -1,4 +1,5 @@
 import angular from 'angular'
+import './pbs-list-item.css'
 
 angular.module('odin.UI').directive('pbsListItem', pbsListItem)
 
