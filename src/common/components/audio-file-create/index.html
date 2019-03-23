@@ -1,14 +1,15 @@
-<pbs-modal id="{{ $ctrl.modalId }}"
-  title="New Audio File">
+<pbs-modal id="{{ $ctrl.modalId }}" title="New Audio File">
   <pbs-form>
     <pbs-form-field-horizontal label="Upload File">
       <pbs-input-file on-upload="$ctrl.onUpload(file)"></pbs-input-file>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Audio File Description">
-      <input type="text"
+      <input
+        type="text"
         class="input"
         ng-model="$ctrl.audioFile.name"
-        required>
+        required
+      />
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

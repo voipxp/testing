@@ -1,15 +1,19 @@
 <div class="field has-addons">
   <p class="control is-expanded">
-    <input type="text"
+    <input
+      type="text"
       class="input"
       ng-model="$ctrl.newAlias"
-      placeholder="New Alias">
+      placeholder="New Alias"
+    />
   </p>
   <p class="control">
-    <button class="button"
+    <button
+      class="button"
       ng-click="$ctrl.add()"
       ng-disabled="!$ctrl.newAlias || $ctrl.newAlias.length < 10"
-      title="Add an Alias">
+      title="Add an Alias"
+    >
       <span class="icon">
         <i class="fas fa-plus"></i>
       </span>
@@ -18,9 +22,12 @@
 </div>
 <table pbs-table>
   <tr ng-repeat="alias in $ctrl.profile.aliases">
-    <td>{{ alias }}
-      <pbs-button-compact-delete class="is-pulled-right"
-        ng-click="$ctrl.remove($index)"></pbs-button-compact-delete>
+    <td>
+      {{ alias }}
+      <pbs-button-compact-delete
+        class="is-pulled-right"
+        ng-click="$ctrl.remove($index)"
+      ></pbs-button-compact-delete>
     </td>
   </tr>
 </table>

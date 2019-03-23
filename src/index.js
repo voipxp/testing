@@ -54,7 +54,6 @@ angular
   .ready(() => angular.bootstrap(document, ['odin']))
 
 // 'odin.config',
-// 'odin.UI',
 // 'odin.branding',
 // 'odin.bulk',
 // 'odin.events',
