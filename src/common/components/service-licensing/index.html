@@ -1,0 +1,19 @@
+<pbs-form-section>Licensing</pbs-form-section>
+<pbs-input-checkbox
+  label="Unlimited Licenses"
+  ng-model="$ctrl.isUnlimited"
+  ng-model-options="{ getterSetter: true }"
+  ng-if="$ctrl.hasUnlimited()"
+></pbs-input-checkbox>
+<pbs-form-field-horizontal
+  label="Licenses ({{ $ctrl.available() }})"
+  ng-if="!$ctrl.isUnlimited()"
+>
+  <input
+    type="number"
+    class="input"
+    ng-model="$ctrl.service.quantity"
+    min="1"
+    ng-max="$ctrl.max()"
+  />
+</pbs-form-field-horizontal>

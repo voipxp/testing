@@ -1,24 +1,25 @@
-<pbs-modal id="{{ $ctrl.modalId }}"
-  title="Phone Number Search">
+<pbs-modal id="{{ $ctrl.modalId }}" title="Phone Number Search">
   <form ng-submit="$ctrl.search()">
-    <div class="field has-addons"
-      ng-if="$ctrl.isProvisioning">
-      <p class="control"
-        style="width: 175px">
+    <div class="field has-addons" ng-if="$ctrl.isProvisioning">
+      <p class="control" style="width: 175px">
         <a class="button is-static is-fullwidth">Service Provider</a>
       </p>
       <p class="control is-expanded">
-        <input type="text"
+        <input
+          type="text"
           class="input"
           ng-model="$ctrl.serviceProviderId"
           placeholder="Any Service Provider"
           readonly
-          ng-click="$ctrl.selectServiceProvider()">
+          ng-click="$ctrl.selectServiceProvider()"
+        />
       </p>
       <p class="control">
-        <a class="button"
+        <a
+          class="button"
           ng-click="$ctrl.selectServiceProvider()"
-          title="Select a Service Provider">
+          title="Select a Service Provider"
+        >
           <span class="icon">
             <i class="fas fa-list"></i>
           </span>
@@ -26,24 +27,25 @@
       </p>
     </div>
     <div class="field has-addons">
-      <p class="control"
-        style="width: 175px">
-        <pbs-input-select ng-model="$ctrl.type"
+      <p class="control" style="width: 175px">
+        <pbs-input-select
+          ng-model="$ctrl.type"
           ng-options="t.key as t.name for t in $ctrl.types"
-          ng-disabled="$ctrl.isLoading"></pbs-input-select>
+          ng-disabled="$ctrl.isLoading"
+        ></pbs-input-select>
       </p>
-      <p class="control is-expanded"
-        ng-class="{'is-loading': $ctrl.isLoading}">
-        <input class="input"
+      <p class="control is-expanded" ng-class="{'is-loading': $ctrl.isLoading}">
+        <input
+          class="input"
           type="search"
           placeholder="search"
           ng-model="$ctrl.filter"
           ng-disabled="$ctrl.isLoading"
-          autofocus>
+          autofocus
+        />
       </p>
       <p class="control">
-        <button class="button"
-          type="submit">
+        <button class="button" type="submit">
           <span class="icon">
             <i class="fas fa-search"></i>
           </span>
@@ -52,9 +54,7 @@
     </div>
   </form>
 
-  <table pbs-table
-    ng-show="$ctrl.users"
-    class="large-margin-top">
+  <table pbs-table ng-show="$ctrl.users" class="large-margin-top">
     <thead>
       <tr>
         <th>Phone</th>
@@ -69,17 +69,21 @@
     </thead>
     <tfoot>
       <tr ng-if="results.length < 1">
-        <td colspan="100">No Users Found
-          <span ng-if="$ctrl.filter">for
+        <td colspan="100">
+          No Users Found
+          <span ng-if="$ctrl.filter"
+            >for
             <strong>{{ $ctrl.type }}: {{ $ctrl.filter}}</strong>
           </span>
         </td>
       </tr>
     </tfoot>
     <tbody>
-      <tr ng-class="{hover: $ctrl.userTypes[user.userType]}"
+      <tr
+        ng-class="{hover: $ctrl.userTypes[user.userType]}"
         ng-click="$ctrl.select(user)"
-        ng-repeat="user in results = ($ctrl.users | orderBy:'phoneNumbers') | paginate:$ctrl.pager track by user.phoneNumbers">
+        ng-repeat="user in results = ($ctrl.users | orderBy:'phoneNumbers') | paginate:$ctrl.pager track by user.phoneNumbers"
+      >
         <td>{{ user.phoneNumbers }}</td>
         <td>{{ user.userIdShort || user.userId }}</td>
         <td>{{ user.lastName }}</td>
@@ -91,9 +95,13 @@
       </tr>
     </tbody>
   </table>
-  <pbs-pagination items="results.length"
+  <pbs-pagination
+    items="results.length"
     limit="25"
-    on-update="$ctrl.onPagination($event)"></pbs-pagination>
+    on-update="$ctrl.onPagination($event)"
+  ></pbs-pagination>
 </pbs-modal>
 
-<select-service-provider on-update="$ctrl.onSelectServiceProvider($event)"></select-service-provider>
+<select-service-provider
+  on-update="$ctrl.onSelectServiceProvider($event)"
+></select-service-provider>
