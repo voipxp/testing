@@ -1,4 +1,4 @@
-- move all UI components out of common into UI
 - check that all files are registered to the correct module
 - import only what is needed from lodash
 - check for moment and move to Sugar-date
+- why is google UA being initialized so many times
