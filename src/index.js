@@ -1,3 +1,4 @@
+// DEPS
 import angular from 'angular'
 import 'angular-animate'
 import 'angular-sanitize'
@@ -12,14 +13,16 @@ import 'angular-color-picker/angular-color-picker.css'
 import 'animate.css/animate.css'
 import './index.css'
 import './index.scss'
-import routes from './routes'
-import * as config from './config'
 
 // MODULES
 import './app'
 import './common'
 import './system'
 import './UI'
+
+// CONFIGS
+import routes from './routes'
+import * as config from './config'
 
 angular
   .module('odin', [
@@ -48,31 +51,6 @@ angular
   .config(config.idleConfig)
   .run(config.run)
 
-// Bootstrap app
 angular
   .element(document.getElementById('odin'))
   .ready(() => angular.bootstrap(document, ['odin']))
-
-// 'odin.config',
-// 'odin.branding',
-// 'odin.bulk',
-// 'odin.events',
-// 'odin.group',
-// 'odin.serviceProvider',
-// 'odin.settings',
-// 'odin.system',
-// 'odin.tasks',
-// 'odin.user',
-// 'odin.vdm',
-
-// import 'sugar-date'
-// import 'mustache'
-// import 'clipboard'
-// import 'chart.js'
-// import 'angular-chart.js'
-// import 'rrule'
-// import 'checklist-model'
-// import 'marked'
-// import 'angular-marked'
-// import 'socket.io-client'
-// import '@microsoft/teams-js'
