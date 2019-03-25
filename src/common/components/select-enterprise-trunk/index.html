@@ -1,5 +1,4 @@
-<pbs-modal id="{{ $ctrl.modalId }}"
-  title="Select Trunk Group">
+<pbs-modal id="{{ $ctrl.modalId }}" title="Select Trunk Group">
   <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
   <table pbs-table>
     <thead>
@@ -11,16 +10,19 @@
       <tr ng-if="results.length < 1">
         <td colspan="99">
           No Enterprise Trunks Found
-          <span ng-show="$ctrl.search">for
+          <span ng-show="$ctrl.search"
+            >for
             <strong>{{ $ctrl.search }}</strong>
           </span>
         </td>
       </tr>
     </tfoot>
     <tbody>
-      <tr class="hover"
+      <tr
+        class="hover"
         ng-repeat="trunk in $ctrl.trunks | filter:$ctrl.search | orderBy:'name' | limitTo:50 as results track by trunk.enterpriseTrunkName"
-        ng-click="$ctrl.select(trunk)">
+        ng-click="$ctrl.select(trunk)"
+      >
         <td>{{ trunk.enterpriseTrunkName }}</td>
       </tr>
     </tbody>
