@@ -3,8 +3,8 @@ import _ from 'lodash'
 
 angular.module('odin.app').factory('Session', Session)
 
-Session.$inject = ['APP', 'StorageService', '$rootScope', '$q', 'jwtHelper']
-function Session(APP, StorageService, $rootScope, $q, jwtHelper) {
+Session.$inject = ['StorageService', '$rootScope', '$q', 'jwtHelper']
+function Session(StorageService, $rootScope, $q, jwtHelper) {
   let _data = null
   const service = {
     load: load,
@@ -20,7 +20,7 @@ function Session(APP, StorageService, $rootScope, $q, jwtHelper) {
 
   // load the saved data into memory
   function load() {
-    return StorageService.get(APP.sessionKey).then(function(data) {
+    return StorageService.get($rootScope.sessionKey).then(function(data) {
       _data = data || {}
       $rootScope.$emit('Session:loaded')
       return _data
@@ -35,7 +35,7 @@ function Session(APP, StorageService, $rootScope, $q, jwtHelper) {
 
   // replace session data and cache in memory
   function set(data) {
-    return StorageService.set(APP.sessionKey, data).then(load)
+    return StorageService.set($rootScope.sessionKey, data).then(load)
   }
 
   // update session data and cache in memory
@@ -48,7 +48,7 @@ function Session(APP, StorageService, $rootScope, $q, jwtHelper) {
 
   // remove the session data
   function clear() {
-    return StorageService.clear(APP.sessionKey)
+    return StorageService.clear($rootScope.sessionKey)
       .then(load)
       .then(function() {
         $rootScope.$emit('Session:cleared')

@@ -45,17 +45,10 @@ export function authInterceptorConfig($httpProvider) {
   ])
 }
 
-jwtInterceptorConfig.$inject = ['$httpProvider', 'jwtOptionsProvider', 'APP']
-export function jwtInterceptorConfig($httpProvider, jwtOptionsProvider, APP) {
-  // Set whiteListedDomains based on APP.apiURL
-  const whiteListedDomains = []
-  const parser = document.createElement('a')
-  parser.href = APP.apiURL
-  if (parser.hostname) {
-    whiteListedDomains.push(parser.hostname)
-  }
+jwtInterceptorConfig.$inject = ['$httpProvider', 'jwtOptionsProvider']
+export function jwtInterceptorConfig($httpProvider, jwtOptionsProvider) {
   jwtOptionsProvider.config({
-    whiteListedDomains: whiteListedDomains,
+    whiteListedDomains: [location.hostname, 'localhost'],
     tokenGetter: [
       'options',
       'Session',
@@ -88,13 +81,23 @@ export function idleConfig(IdleProvider, TitleProvider) {
   TitleProvider.enabled(false)
 }
 
-run.$inject = ['$rootScope']
-export function run($rootScope) {
-  $rootScope.apiURL = process.env.API_URL || '/'
+rootScope.$inject = ['$rootScope']
+export function rootScope($rootScope) {
+  $rootScope.eventURL = process.env.EVENT_URL || '/'
+  $rootScope.apiURL = apiURL()
+  $rootScope.loginURL = '/login'
+  $rootScope.sessionKey = 'odin:session'
+}
+
+function apiURL() {
+  const version = process.env.API_VERSION || '2'
+  const port = process.env.API_PORT || location.port
+  const prefix = `${location.protocol}//${location.hostname}:${port}`
+  return `${prefix}/api/v${version}`
 }
 
 export const app = {
-  apiURL: `${process.env.API_URL || ''}/api/v2`,
+  apiURL,
   eventURL: process.env.EVENT_URL || process.env.API_URL || '/',
   loginURL: '/login',
   sessionKey: 'odin:session'

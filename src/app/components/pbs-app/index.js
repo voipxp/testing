@@ -14,7 +14,6 @@ controller.$inject = [
   '$location',
   '$window',
   'CacheFactory',
-  'APP',
   'Alert',
   'Idle',
   'Route'
@@ -29,7 +28,6 @@ function controller(
   $location,
   $window,
   CacheFactory,
-  APP,
   Alert,
   Idle,
   Route
@@ -81,7 +79,7 @@ function controller(
     console.log('routeChangeError', rejection)
     if (Session.expired()) {
       Alert.notify.warning('Please Login')
-      $location.path(APP.loginURL).replace()
+      $location.path($rootScope.loginURL).replace()
     } else {
       $location.path('/notfound').replace()
     }

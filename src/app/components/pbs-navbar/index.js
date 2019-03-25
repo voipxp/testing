@@ -4,7 +4,6 @@ import template from './index.html'
 angular.module('odin.app').component('pbsNavbar', { template, controller })
 
 controller.$inject = [
-  'APP',
   'Session',
   'Application',
   '$rootScope',
@@ -15,7 +14,6 @@ controller.$inject = [
   'SsoService'
 ]
 function controller(
-  APP,
   Session,
   Application,
   $rootScope,
@@ -35,7 +33,6 @@ function controller(
   const tokens = {}
 
   function onInit() {
-    ctrl.apiURL = APP.apiURL
     loadSession()
     loadApplications()
   }

@@ -3,8 +3,8 @@ import _ from 'lodash'
 
 angular.module('odin.app').factory('Route', Route)
 
-Route.$inject = ['APP', '$location', 'Session']
-function Route(APP, $location, Session) {
+Route.$inject = ['$rootScope', '$location', 'Session']
+function Route($rootScope, $location, Session) {
   return {
     api: api,
     path: path,
@@ -36,7 +36,7 @@ function Route(APP, $location, Session) {
   function api() {
     const prefixes = Array.prototype.slice.call(arguments)
     prefixes[0] = prefixes[0] && prefixes[0].replace(/^\//, '')
-    prefixes.unshift(APP.apiURL)
+    prefixes.unshift($rootScope.apiURL)
     return function generateURL() {
       return encoded(prefixes, Array.prototype.slice.call(arguments))
     }
@@ -57,7 +57,7 @@ function Route(APP, $location, Session) {
   }
   // redirect to login
   function login() {
-    return $location.path(APP.loginURL)
+    return $location.path($rootScope.loginURL)
   }
   // redirect the user based on loginType
   function dashboard() {
@@ -84,7 +84,7 @@ function Route(APP, $location, Session) {
         route = ['users', serviceProviderId, groupId, userId]
         break
       default:
-        route = [APP.loginURL]
+        route = [$rootScope.loginURL]
     }
     return open.apply(null, route).hash(null)
   }

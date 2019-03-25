@@ -1,16 +1,16 @@
 // DEPS
 import angular from 'angular'
 import 'angular-animate'
-import 'angular-sanitize'
-import 'angular-route'
-import 'angular-jwt'
-import 'ng-idle'
 import 'angular-cache'
-import 'angular-color-picker'
-import 'angular-truncate-2'
 import 'angular-chart.js'
+import 'angular-color-picker'
 import 'angular-color-picker/angular-color-picker.css'
+import 'angular-jwt'
+import 'angular-route'
+import 'angular-sanitize'
+import 'angular-truncate-2'
 import 'animate.css/animate.css'
+import 'ng-idle'
 import './index.css'
 import './index.scss'
 
@@ -40,7 +40,6 @@ angular
     'odin.system',
     'odin.UI'
   ])
-  .constant('APP', config.app)
   .config(routes)
   .config(config.locationConfig)
   .config(config.httpSyncConfig)
@@ -49,7 +48,7 @@ angular
   .config(config.jwtInterceptorConfig)
   .config(config.cacheFactoryConfig)
   .config(config.idleConfig)
-  .run(config.run)
+  .run(config.rootScope)
 
 angular
   .element(document.getElementById('odin'))

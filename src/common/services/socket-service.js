@@ -3,10 +3,10 @@ import io from 'socket.io-client'
 
 angular.module('odin.common').factory('SocketService', Service)
 
-Service.$inject = ['$rootScope', 'APP']
-function Service($rootScope, APP) {
+Service.$inject = ['$rootScope']
+function Service($rootScope) {
   return function(url) {
-    const socket = io(url || APP.eventURL)
+    const socket = io(url || $rootScope.eventURL)
 
     function on(eventName, callback) {
       socket.on(eventName, function() {

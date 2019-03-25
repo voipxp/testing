@@ -6,15 +6,15 @@ import './index.css'
 angular.module('odin.app').component('pbsLogin', { template, controller })
 
 controller.$inject = [
-  'APP',
   'Auth',
   'Session',
   'Module',
   'Route',
   'Alert',
-  'Template'
+  'Template',
+  '$rootScope'
 ]
-function controller(APP, Auth, Session, Module, Route, Alert, Template) {
+function controller(Auth, Session, Module, Route, Alert, Template) {
   const ctrl = this
   ctrl.$onInit = onInit
   ctrl.login = login
@@ -22,7 +22,6 @@ function controller(APP, Auth, Session, Module, Route, Alert, Template) {
   ctrl.submit = submit
 
   function onInit() {
-    ctrl.apiURL = APP.apiURL
     if (!Session.expired()) {
       return Route.dashboard()
     }

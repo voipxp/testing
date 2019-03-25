@@ -182,3 +182,11 @@ import './a-service.js'
 import './b-service.js'
 import './c-service.js'
 ```
+
+For directories
+
+```
+for i in $(find . -type d); do
+  echo "import '$i'" >> index.js
+done
+```
