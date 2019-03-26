@@ -10,6 +10,9 @@
     $routeParams,
     Alert,
     GroupFlexibleSeatingHostService,
+    UserFlexibleSeatingGuestService,
+    UserServiceService,
+    EventEmitter,
     Route,
     $scope,
     $q,
@@ -24,11 +27,58 @@
     ctrl.onCreate = onCreate
     ctrl.onUpdate = onUpdate
     ctrl.toggle = toggle
+    ctrl.onClick = onClick
+    // ctrl.onSelect = onSelect
+    ctrl.createDevice = createDevice
+    ctrl.selectDevice = selectDevice
+    ctrl.updateDevice = updateDevice
+    ctrl.onDeviceUpdate = onDeviceUpdate
+    ctrl.onDeviceSelect = onDeviceSelect
+    ctrl.onSetLinePort = onSetLinePort
+
+    ctrl.columns = [
+      {
+        key: 'user.userId',
+        label: 'User ID'
+      },
+      {
+        key: 'user.lastName',
+        label: 'Last Name'
+      },
+      {
+        key: 'user.phoneNumber',
+        label: 'Phone Number'
+      },
+      {
+        key: 'data.accessDeviceEndpoint.accessDevice.deviceName',
+        label: 'Access Device'
+      },
+      {
+        key: 'data.accessDeviceEndpoint.linePort',
+        label: 'Line Port'
+      },
+      {
+        key: 'service.assigned',
+        label: 'Assigned',
+        type: 'boolean',
+        align: 'centered'
+      },
+      {
+        key: 'data.isActive',
+        label: 'Active',
+        type: 'boolean',
+        align: 'centered'
+      }
+    ]
 
     function onInit() {
       ctrl.loading = true
       return $q
-        .all([load(), GroupPolicyService.load()])
+        .all([
+          loadGroupFlexibleSeatingHosts(),
+          loadGroupFlexibleSeatingUsers(),
+          GroupPolicyService.load()
+        ])
         .then(function() {
           ctrl.canCreate = GroupPolicyService.enhancedServiceCreate()
         })
@@ -38,7 +88,16 @@
         })
     }
 
-    function load() {
+    function loadGroupFlexibleSeatingUsers() {
+      return GroupFlexibleSeatingHostService.bulk(
+        ctrl.serviceProviderId,
+        ctrl.groupId
+      ).then(function(data) {
+        ctrl.users = data
+      })
+    }
+
+    function loadGroupFlexibleSeatingHosts() {
       return GroupFlexibleSeatingHostService.index(
         ctrl.serviceProviderId,
         ctrl.groupId
@@ -60,7 +119,7 @@
     function toggle(service) {
       service.isLoading = true
       GroupFlexibleSeatingHostService.status(service)
-        .then(load)
+        .then(loadGroupFlexibleSeatingHosts)
         .then(function() {
           if (service.isActive) {
             Alert.notify.success('Service Enabled')
@@ -83,6 +142,93 @@
     }
     function onUpdate(event) {
       open(event.flexibleSeatingHost)
+    }
+
+    function updateUserService() {
+      var singleService = {
+        userId: ctrl.editSettings.userId,
+        userServices: [ctrl.editSettings.service]
+      }
+      return UserServiceService.update(singleService)
+    }
+
+    function updateUserFlexibleSeatingGuest() {
+      if (!ctrl.editSettings.data.userId)
+        ctrl.editSettings.data.userId = ctrl.editSettings.userId
+      return UserFlexibleSeatingGuestService.update(ctrl.editSettings.data)
+    }
+
+    function update(callback) {
+      Alert.spinner.open()
+      updateUserService()
+        .then(updateUserFlexibleSeatingGuest)
+        .then(loadGroupFlexibleSeatingUsers)
+        .then(function() {
+          Alert.notify.success('User Settings Updated')
+          callback()
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    }
+
+    function onClick(event) {
+      ctrl.editSettings = angular.copy(event.data)
+      ctrl.editService = angular.copy(event.service)
+      ctrl.editSettings = angular.copy(event)
+      ctrl.editSettings.userId = event.user.userId
+      ctrl.editTitle = event.user.userId
+      Alert.modal.open('editUserFlexibleSeatingGuest', function(close) {
+        update(close)
+      })
+    }
+
+    // function onSelect(event) {
+    //   var users = _.map(event, 'user')
+    //   ctrl.editSettings = {}
+    //   ctrl.editTitle = users.length + ' Users'
+    //   // Alert.modal.open('editUserFlexibleSeatingGuest', function(close) {
+    //     // bulk({ data: ctrl.editSettings, users: users }, close)
+    //   // })
+    // }
+    function createDevice() {
+      $scope.$broadcast('deviceCreate:load')
+    }
+
+    function selectDevice() {
+      $scope.$broadcast('deviceSelect:load')
+    }
+
+    function updateDevice() {
+      $scope.$broadcast('deviceUpdate:load', {
+        deviceName:
+          ctrl.editSettings.data.accessDeviceEndpoint.accessDevice.deviceName,
+        deviceLevel:
+          ctrl.editSettings.data.accessDeviceEndpoint.accessDevice.deviceLevel
+      })
+    }
+
+    function onDeviceUpdate(event) {
+      _.set(
+        ctrl.editSettings.data,
+        'accessDeviceEndpoint.accessDevice',
+        event.device
+      )
+    }
+
+    function onDeviceSelect(event) {
+      _.set(
+        ctrl.editSettings.data,
+        'accessDeviceEndpoint.accessDevice',
+        event.device
+      )
+    }
+
+    function onSetLinePort(event) {
+      _.set(
+        ctrl.editSettings.data,
+        'accessDeviceEndpoint.linePort',
+        event.userId
+      )
     }
   }
 })()
