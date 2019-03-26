@@ -20,7 +20,7 @@
         })
     }
 
-    function update(userId, obj) {
+    function update(obj) {
       return $http.put(url(), obj).then(function(response) {
         return response.data
       })

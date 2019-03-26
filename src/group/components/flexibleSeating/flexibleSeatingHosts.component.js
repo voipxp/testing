@@ -96,9 +96,10 @@
     }
 
     function onCheckIsAssigned() {
-      if (ctrl.editSettings.service.assigned === false) {
-        ctrl.editSettings.service.assigned = true
-      }
+      if (ctrl.editSettings.service.assigned === true) return
+      ctrl.editSettings.data.isActive = false
+      delete ctrl.editSettings.data
+      ctrl.editSettings.data = {}
     }
 
     function loadGroupFlexibleSeatingUsers() {
@@ -173,15 +174,26 @@
 
     function update(callback) {
       Alert.spinner.open()
-      updateUserService()
-        .then(updateUserFlexibleSeatingGuest)
-        .then(loadGroupFlexibleSeatingUsers)
-        .then(function() {
-          Alert.notify.success('User Settings Updated')
-          callback()
-        })
-        .catch(Alert.notify.danger)
-        .finally(Alert.spinner.close)
+      if (ctrl.editSettings.service.assigned === false) {
+        updateUserService()
+          .then(loadGroupFlexibleSeatingUsers)
+          .then(function() {
+            Alert.notify.success('User Settings Updated')
+            callback()
+          })
+          .catch(Alert.notify.danger)
+          .finally(Alert.spinner.close)
+      } else {
+        updateUserService()
+          .then(updateUserFlexibleSeatingGuest)
+          .then(loadGroupFlexibleSeatingUsers)
+          .then(function() {
+            Alert.notify.success('User Settings Updated')
+            callback()
+          })
+          .catch(Alert.notify.danger)
+          .finally(Alert.spinner.close)
+      }
     }
 
     function onClick(event) {

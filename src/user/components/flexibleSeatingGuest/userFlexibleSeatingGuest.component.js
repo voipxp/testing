@@ -31,7 +31,6 @@
         data
       ) {
         ctrl.settings = data
-        console.log('ctrl.settings', ctrl.settings)
       })
     }
 
@@ -45,7 +44,8 @@
 
     function update(settings, callback) {
       Alert.spinner.open()
-      UserFlexibleSeatingGuestService.update(ctrl.userId, settings)
+      if (!settings.userId) settings.userId = ctrl.userId
+      UserFlexibleSeatingGuestService.update(settings)
         .then(loadSettings)
         .then(function() {
           Alert.notify.success('Settings Updated')
