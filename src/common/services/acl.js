@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.app').factory('ACL', ACL)
+angular.module('odin.common').factory('ACL', ACL)
 
 ACL.$inject = ['$q', 'Session']
 function ACL($q, Session) {

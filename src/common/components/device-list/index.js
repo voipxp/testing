@@ -1,7 +1,7 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular.module('odin.group').component('deviceList', {
+angular.module('odin.common').component('deviceList', {
   template,
   controller,
   bindings: { serviceProviderId: '<', groupId: '<' }

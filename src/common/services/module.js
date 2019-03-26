@@ -17,7 +17,7 @@ Filter
 import _ from 'lodash'
 import angular from 'angular'
 
-angular.module('odin.app').factory('Module', Module)
+angular.module('odin.common').factory('Module', Module)
 
 Module.$inject = [
   '$http',

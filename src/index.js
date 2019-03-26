@@ -16,6 +16,7 @@ import './index.scss'
 
 // MODULES
 import './app'
+import './branding'
 import './common'
 import './system'
 import './UI'
@@ -35,8 +36,9 @@ angular
     'mp.colorPicker',
     'truncate',
     'chart.js',
-    'odin.app',
     'odin.common',
+    'odin.app',
+    'odin.branding',
     'odin.system',
     'odin.UI'
   ])

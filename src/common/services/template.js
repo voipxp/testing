@@ -1,7 +1,7 @@
 import angular from 'angular'
 import _ from 'lodash'
 
-angular.module('odin.app').factory('Template', Template)
+angular.module('odin.common').factory('Template', Template)
 
 Template.$inject = ['$http', 'Route', '$rootScope']
 function Template($http, Route, $rootScope) {

@@ -1,7 +1,7 @@
 import angular from 'angular'
 import _ from 'lodash'
 
-angular.module('odin.app').factory('Setting', Setting)
+angular.module('odin.common').factory('Setting', Setting)
 
 Setting.$inject = ['$http', 'Route', '$rootScope']
 function Setting($http, Route, $rootScope) {

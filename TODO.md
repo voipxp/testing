@@ -2,3 +2,4 @@
 - import only what is needed from lodash
 - check for moment and move to Sugar-date
 - why is google UA being initialized so many times
+- make an API component that has only our services that hit the API

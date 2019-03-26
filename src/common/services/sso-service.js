@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.app').factory('SsoService', SsoService)
+angular.module('odin.common').factory('SsoService', SsoService)
 
 SsoService.$inject = ['$http', 'Route']
 function SsoService($http, Route) {

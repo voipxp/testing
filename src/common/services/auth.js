@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.app').factory('Auth', Auth)
+angular.module('odin.common').factory('Auth', Auth)
 
 Auth.$inject = ['$http', 'Route']
 function Auth($http, Route) {

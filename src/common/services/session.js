@@ -1,7 +1,7 @@
 import angular from 'angular'
 import _ from 'lodash'
 
-angular.module('odin.app').factory('Session', Session)
+angular.module('odin.common').factory('Session', Session)
 
 Session.$inject = ['StorageService', '$rootScope', '$q', 'jwtHelper']
 function Session(StorageService, $rootScope, $q, jwtHelper) {

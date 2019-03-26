@@ -1,7 +1,7 @@
 import angular from 'angular'
 import _ from 'lodash'
 
-angular.module('odin.app').factory('Route', Route)
+angular.module('odin.common').factory('Route', Route)
 
 Route.$inject = ['$rootScope', '$location', 'Session']
 function Route($rootScope, $location, Session) {

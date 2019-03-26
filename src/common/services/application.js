@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.app').factory('Application', Application)
+angular.module('odin.common').factory('Application', Application)
 
 Application.$inject = ['$http', 'Route']
 function Application($http, Route) {
