@@ -214,12 +214,12 @@
           service: 'Voice Messaging Group',
           path: route('voiceMessaging')
         },
-        {
-          type: 'service',
-          service: 'Flexible Seating Guest',
-          name: 'Flexible Seating Hosts',
-          path: route('flexibleSeatingHosts')
-        },
+        // {
+        //   type: 'service',
+        //   service: 'Flexible Seating Guest',
+        //   name: 'Flexible Seating Hosts',
+        //   path: route('flexibleSeatingHosts')
+        // },
         {
           type: 'report',
           module: 'User Report',
