@@ -56,8 +56,8 @@
     function createRange(numbers, callback) {
       Alert.spinner.open()
       assignServiceProvider(numbers)
-        .then(assignGroup)
-        .then(validateAssignment)
+        .then(() => assignGroup(numbers))
+        .then(() => validateAssignment(numbers))
         .then(function() {
           sendUpdate(numbers, callback)
         })
