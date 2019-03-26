@@ -1,6 +1,8 @@
 import './acl.js'
 import './application.js'
 import './auth.js'
+import './callback-setting-service'
+import './callback-template-service'
 import './clone-group-service-service.js'
 import './clone-group-service.js'
 import './clone-service-provider-service.js'
