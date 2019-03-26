@@ -1,12 +1,13 @@
 <pbs-navigation>
-  <pbs-breadcrumb title="'Branding'"
-    ng-click="$ctrl.back()"></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Branding'" ng-click="$ctrl.back()"></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.hostname"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-tabs delay="true">
   <pbs-tab label="Details">
-    <branding-details hostname-id="$ctrl.hostnameId"
-      on-update="$ctrl.onUpdate($event)"></branding-details>
+    <branding-details
+      hostname-id="$ctrl.hostnameId"
+      on-update="$ctrl.onUpdate($event)"
+    ></branding-details>
   </pbs-tab>
   <pbs-tab label="Modules">
     <branding-modules hostname-id="$ctrl.hostnameId"></branding-modules>
@@ -15,7 +16,9 @@
     <branding-template hostname-id="$ctrl.hostnameId"></branding-template>
   </pbs-tab>
   <pbs-tab label="Applications">
-    <branding-applications hostname-id="$ctrl.hostnameId"></branding-applications>
+    <branding-applications
+      hostname-id="$ctrl.hostnameId"
+    ></branding-applications>
   </pbs-tab>
   <pbs-tab label="Settings">
     <branding-settings hostname-id="$ctrl.hostnameId"></branding-settings>

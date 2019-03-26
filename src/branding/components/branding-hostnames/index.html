@@ -4,10 +4,14 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Hostnames">
     <pbs-block-buttons>
-      <pbs-button-compact-add ng-click="$ctrl.add()"
-        title="Add Hostname"></pbs-button-compact-add>
-      <pbs-button-compact-clone ng-click="$ctrl.copy()"
-        title="Clone Hostname"></pbs-button-compact-clone>
+      <pbs-button-compact-add
+        ng-click="$ctrl.add()"
+        title="Add Hostname"
+      ></pbs-button-compact-add>
+      <pbs-button-compact-clone
+        ng-click="$ctrl.copy()"
+        title="Clone Hostname"
+      ></pbs-button-compact-clone>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>
@@ -18,47 +22,46 @@
       </thead>
       <tfoot>
         <tr ng-if="results.length === 0">
-          <td colspan="1">No Hostnames Found
+          <td colspan="1">
+            No Hostnames Found
             <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
           </td>
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover"
+        <tr
+          class="hover"
           ng-click="$ctrl.open(hostname)"
-          ng-repeat="hostname in $ctrl.hostnames | filter:$ctrl.search | orderBy:'hostname' as results track by hostname.id">
+          ng-repeat="hostname in $ctrl.hostnames | filter:$ctrl.search | orderBy:'hostname' as results track by hostname.id"
+        >
           <td>{{ hostname.hostname }}</td>
         </tr>
       </tbody>
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="newHostnameModal"
-  title="New Hostname"
-  save-text="Create">
+<pbs-modal id="newHostnameModal" title="New Hostname" save-text="Create">
   <form>
     <pbs-form-field label="Hostname">
-      <input type="text"
+      <input
+        type="text"
         class="input"
         ng-model="$ctrl.newHostname.hostname"
-        required>
+        required
+      />
     </pbs-form-field>
   </form>
 </pbs-modal>
-<pbs-modal id="cloneHostnameModal"
-  title="Clone Hostname"
-  save-text="Clone">
-
+<pbs-modal id="cloneHostnameModal" title="Clone Hostname" save-text="Clone">
   <pbs-form-field-horizontal label="Clone From">
-    <pbs-input-select ng-model="$ctrl.clone.from"
+    <pbs-input-select
+      ng-model="$ctrl.clone.from"
       ng-options="hostname.id as hostname.hostname for hostname in $ctrl.hostnames"
-      required></pbs-input-select>
+      required
+    ></pbs-input-select>
   </pbs-form-field-horizontal>
 
   <pbs-form-field-horizontal label="New Hostname">
-    <input type="text"
-      class="input"
-      ng-model="$ctrl.clone.to"
-      required>
+    <input type="text" class="input" ng-model="$ctrl.clone.to" required />
   </pbs-form-field-horizontal>
 </pbs-modal>

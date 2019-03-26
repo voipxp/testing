@@ -944,13 +944,6 @@ angular-jwt@^0.1.10:
   resolved "https://registry.yarnpkg.com/angular-jwt/-/angular-jwt-0.1.11.tgz#a72b7583c7cf2f2d7acda169a4114141c83f9c91"
   integrity sha512-793dv5vXOXaW5/cweMd+sqSf9dPhbazDya3szTVOQ84MDEj1nYLJrixBBa7WNtZeMqz7ylWX7djnFgqLjEWcHw==
 
-angular-marked@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/angular-marked/-/angular-marked-1.2.2.tgz#031f81015dad5fb01adf8d48922c52feb3588de5"
-  integrity sha1-Ax+BAV2tX7Aa341IkixS/rNYjeU=
-  dependencies:
-    marked "^0.3.3"
-
 angular-papaparse@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/angular-papaparse/-/angular-papaparse-1.0.0.tgz#5211569108770f62d4441126ee0e8e5dbeb5e330"
@@ -4040,11 +4033,6 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
-
-marked@^0.3.3:
-  version "0.3.19"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.19.tgz#5d47f709c4c9fc3c216b6d46127280f40b39d790"
-  integrity sha512-ea2eGWOqNxPcXv8dyERdSr/6FmzvWwzjMxpfGB/sbMccXoct+xY+YukPD+QTUZwyvK7BZwcr4m21WBOW41pAkg==
 
 marked@^0.6.1:
   version "0.6.1"

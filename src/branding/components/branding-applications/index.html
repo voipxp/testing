@@ -11,29 +11,32 @@
           <th>URL</th>
           <th>Description</th>
           <th class="has-text-centered">New Window</th>
-          <th class="has-text-centered"
-            ng-show="$ctrl.partners.length > 0">SSO</th>
+          <th class="has-text-centered" ng-show="$ctrl.partners.length > 0">
+            SSO
+          </th>
         </tr>
       </thead>
       <tfoot>
         <tr ng-if="results.length === 0">
-          <td colspan="4">No Applications Found
+          <td colspan="4">
+            No Applications Found
             <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
           </td>
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover"
+        <tr
+          class="hover"
           ng-repeat="application in $ctrl.applications | filter:$ctrl.search as results track by application.id"
-          ng-click="$ctrl.edit(application)">
+          ng-click="$ctrl.edit(application)"
+        >
           <td>{{ application.name }}</td>
           <td>{{ application.url }}</td>
           <td>{{ application.description }}</td>
           <td class="has-text-centered">
             <pbs-check-box checked="application.window"></pbs-check-box>
           </td>
-          <td class="has-text-centered"
-            ng-show="$ctrl.partners.length > 0">
+          <td class="has-text-centered" ng-show="$ctrl.partners.length > 0">
             <pbs-check-box checked="application.partner"></pbs-check-box>
           </td>
         </tr>
@@ -41,34 +44,45 @@
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="editBrandingApplication"
-  title="Edit Application">
+<pbs-modal id="editBrandingApplication" title="Edit Application">
   <pbs-form>
     <pbs-form-field-horizontal label="Name">
-      <input type="text"
+      <input
+        type="text"
         class="input"
         ng-model="$ctrl.editApplication.name"
         placeholder="name"
-        required>
+        required
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="URL">
-      <input type="url"
+      <input
+        type="url"
         class="input"
         ng-model="$ctrl.editApplication.url"
         placeholder="http://example.com"
-        required>
+        required
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Description">
-      <input type="text"
+      <input
+        type="text"
         class="input"
-        ng-model="$ctrl.editApplication.description">
+        ng-model="$ctrl.editApplication.description"
+      />
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal ng-if="$ctrl.partners.length > 0"
-      label="SSO Integration">
-      <pbs-input-select ng-model="$ctrl.editApplication.partner"
-        ng-options="opt.key as opt.name for opt in $ctrl.partners"></pbs-input-select>
+    <pbs-form-field-horizontal
+      ng-if="$ctrl.partners.length > 0"
+      label="SSO Integration"
+    >
+      <pbs-input-select
+        ng-model="$ctrl.editApplication.partner"
+        ng-options="opt.key as opt.name for opt in $ctrl.partners"
+      ></pbs-input-select>
     </pbs-form-field-horizontal>
-    <pbs-input-checkbox label="Open in New Window"
-      ng-model="$ctrl.editApplication.window"></pbs-input-checkbox>
+    <pbs-input-checkbox
+      label="Open in New Window"
+      ng-model="$ctrl.editApplication.window"
+    ></pbs-input-checkbox>
   </pbs-form>
 </pbs-modal>
