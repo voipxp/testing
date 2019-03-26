@@ -1,0 +1,37 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit title="Edit Flexible Seating Guest"
+        ng-click="$ctrl.edit()"></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Is Active">
+        <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Unlock Phone PIN Code">
+        {{ $ctrl.settings.unlockPhonePINCode }}
+      </pbs-list-item>
+      <pbs-list-item label="Device name">
+        {{ $ctrl.settings.accessDeviceEndpoint.accessDevice.deviceName }}
+      </pbs-list-item>
+      <pbs-list-item label="Line Port">
+        {{ $ctrl.settings.accessDeviceEndpoint.linePort }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserFlexibleSeatingGuest"
+  title="Edit Settings">
+  <pbs-form>
+    <pbs-form-section>Settings</pbs-form-section>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
+      label="Is Active"></pbs-input-checkbox>
+    <pbs-form-field label="Unlock Phone PIN Code">
+      <input type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.unlockPhonePINCode"
+        ng-minlength="4"
+        ng-maxlength="10">
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
