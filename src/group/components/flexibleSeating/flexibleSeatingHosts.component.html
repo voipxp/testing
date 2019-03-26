@@ -76,9 +76,11 @@
   title="Edit {{ $ctrl.editTitle }}">
   <pbs-form>
     <pbs-input-checkbox ng-model="$ctrl.editSettings.service.assigned"
-      label="Is Assigned"></pbs-input-checkbox>
+      label="Is Assigned"
+      ng-change="$ctrl.onCheckIsAssigned()"></pbs-input-checkbox>
     <pbs-input-checkbox ng-model="$ctrl.editSettings.data.isActive"
-      label="Is Active"></pbs-input-checkbox>
+      label="Is Active"
+      ng-change="$ctrl.onCheckIsActive()"></pbs-input-checkbox>
     <pbs-form-field-horizontal label="Unlock Phone Pin">
       <input type="text"
         class="input"

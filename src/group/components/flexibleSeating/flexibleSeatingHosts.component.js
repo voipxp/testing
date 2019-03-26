@@ -35,7 +35,8 @@
     ctrl.onDeviceUpdate = onDeviceUpdate
     ctrl.onDeviceSelect = onDeviceSelect
     ctrl.onSetLinePort = onSetLinePort
-
+    ctrl.onCheckIsActive = onCheckIsActive
+    ctrl.onCheckIsAssigned = onCheckIsAssigned
     ctrl.columns = [
       {
         key: 'user.userId',
@@ -86,6 +87,18 @@
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function onCheckIsActive() {
+      if (ctrl.editSettings.data.isActive === true) {
+        ctrl.editSettings.service.assigned = true
+      }
+    }
+
+    function onCheckIsAssigned() {
+      if (ctrl.editSettings.service.assigned === false) {
+        ctrl.editSettings.service.assigned = true
+      }
     }
 
     function loadGroupFlexibleSeatingUsers() {
