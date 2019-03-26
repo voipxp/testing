@@ -66,6 +66,7 @@
       'Do Not Disturb': {},
       'External Calling Line ID Delivery': {},
       'Fax Messaging': {},
+      'Flexible Seating Guest': {},
       'Group Night Forwarding': {},
       'Hoteling Guest': {},
       'Hoteling Host': {},
