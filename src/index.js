@@ -17,6 +17,7 @@ import './index.scss'
 // MODULES
 import './app'
 import './branding'
+import './bulk'
 import './common'
 import './system'
 import './UI'
@@ -39,6 +40,7 @@ angular
     'odin.common',
     'odin.app',
     'odin.branding',
+    'odin.bulk',
     'odin.system',
     'odin.UI'
   ])
