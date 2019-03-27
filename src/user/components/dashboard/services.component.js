@@ -23,6 +23,7 @@
     // overrides are listed here
     var allowedServices = {
       'Alternate Numbers': {},
+      'Advice Of Charge': {},
       'Anonymous Call Rejection': {},
       Authentication: {},
       'Automatic Callback': {},
