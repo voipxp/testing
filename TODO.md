@@ -3,3 +3,4 @@
 - check for moment and move to Sugar-date
 - why is google UA being initialized so many times
 - make an API component that has only our services that hit the API
+- remove angular-chart.js and replace with just chart.js or w/in react

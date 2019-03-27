@@ -1,0 +1,51 @@
+<bulk-task-header task="$ctrl.task"></bulk-task-header>
+<pbs-wizard
+  on-ready="$ctrl.wizardReady($event)"
+  on-complete="$ctrl.wizardComplete($event)"
+>
+  <pbs-wizard-step label="Numbers">
+    <bulk-select-numbers
+      service-provider-id="$ctrl.data.serviceProviderId"
+      group-id="$ctrl.data.groupId"
+      user-count="$ctrl.data.users.length"
+      activate-phone-number="$ctrl.data.activatePhoneNumber"
+      on-update="$ctrl.onUpdate($event)"
+    >
+    </bulk-select-numbers>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="User ID">
+    <pbs-block title="User ID" class="large-margin-bottom">
+      <pbs-form>
+        <pbs-form-section
+          >Would you like to change the UserID?</pbs-form-section
+        >
+        <pbs-input-radio
+          ng-value="false"
+          ng-model="$ctrl.changeUserId"
+          ng-click="$ctrl.data.userId = null"
+          label="Keep the current User IDs"
+        ></pbs-input-radio>
+        <pbs-input-radio
+          ng-value="true"
+          ng-model="$ctrl.changeUserId"
+          label="Change the User IDs"
+        ></pbs-input-radio>
+      </pbs-form>
+      <div class="has-text-right large-margin-top">
+        <pbs-button-next
+          ng-show="!$ctrl.changeUserId"
+          ng-click="$ctrl.next()"
+        ></pbs-button-next>
+      </div>
+    </pbs-block>
+    <bulk-select-user-id
+      service-provider-id="$ctrl.data.serviceProviderId"
+      group-id="$ctrl.data.groupId"
+      user-id="$ctrl.data.userId"
+      domain="$ctrl.data.domain"
+      on-update="$ctrl.onUpdate($event)"
+      ng-show="$ctrl.changeUserId"
+    >
+    </bulk-select-user-id>
+  </pbs-wizard-step>
+</pbs-wizard>

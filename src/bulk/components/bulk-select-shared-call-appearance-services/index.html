@@ -1,0 +1,40 @@
+<pbs-block title="Shared Call Appearance Services">
+  <pbs-spinner loading="$ctrl.loading">
+    <div
+      ng-repeat="(type, description) in $ctrl.serviceTypes"
+      class="large-margin-bottom"
+    >
+      <pbs-form-section>
+        Add {{ description }}
+        <span class="is-pulled-right" ng-show="$ctrl.services[type].length > 0">
+          ({{ $ctrl.services[type].length }} Selected)
+        </span>
+      </pbs-form-section>
+      <pbs-input-radio
+        value="skip"
+        ng-model="$ctrl.actions[type]"
+        ng-click="$ctrl.clear(type)"
+        label="Skip {{ description }}"
+      ></pbs-input-radio>
+      <pbs-input-radio
+        ng-repeat="action in ['add']"
+        ng-value="action"
+        ng-change="$ctrl.clear(type)"
+        ng-model="$ctrl.actions[type]"
+        ng-click="$ctrl.select(type, action)"
+        label="{{ action | capitalize }} {{ description }}"
+      ></pbs-input-radio>
+    </div>
+    <p class="subtitle">
+      Required Licenses: {{ $ctrl.maxEndpoints || 0 }} / {{ $ctrl.endpointCount
+      || 0 }}
+    </p>
+    <div class="large-margin-top has-text-right">
+      <pbs-button-next
+        ng-disabled="!$ctrl.canComplete()"
+        ng-click="$ctrl.next()"
+      ></pbs-button-next>
+    </div>
+  </pbs-spinner>
+</pbs-block>
+<bulk-select-services on-update="$ctrl.onSelect($event)"></bulk-select-services>

@@ -186,7 +186,7 @@ import './c-service.js'
 For directories
 
 ```
-for i in $(find . -type d); do
+for i in $(find . -type d | sort); do
   echo "import '$i'" >> index.js
 done
 ```

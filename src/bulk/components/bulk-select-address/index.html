@@ -1,0 +1,48 @@
+<pbs-block title="User Address">
+  <pbs-spinner loading="$ctrl.loading">
+    <pbs-form>
+      <pbs-form-section>Address Details</pbs-form-section>
+      <pbs-form-field-horizontal label="Address Location">
+        <input
+          type="text"
+          class="input"
+          ng-model="$ctrl.addressLocation"
+          placeholder="work, home, city, etc.."
+        />
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Address Line 1">
+        <input
+          type="text"
+          class="input"
+          ng-model="$ctrl.address.addressLine1"
+        />
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Address Line 2">
+        <input
+          type="text"
+          class="input"
+          ng-model="$ctrl.address.addressLine2"
+        />
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="City">
+        <input type="text" class="input" ng-model="$ctrl.address.city" />
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="State/Province">
+        <select-state ng-model="$ctrl.address.stateOrProvince"></select-state>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Postal Code">
+        <input
+          type="text"
+          class="input"
+          ng-model="$ctrl.address.zipOrPostalCode"
+        />
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal label="Country">
+        <input type="text" class="input" ng-model="$ctrl.address.country" />
+      </pbs-form-field-horizontal>
+    </pbs-form>
+    <div class="large-margin-top has-text-right">
+      <pbs-button-save ng-click="$ctrl.complete()"></pbs-button-save>
+    </div>
+  </pbs-spinner>
+</pbs-block>

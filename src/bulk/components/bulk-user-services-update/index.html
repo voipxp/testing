@@ -1,0 +1,37 @@
+<bulk-task-header task="$ctrl.task"></bulk-task-header>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Manage Services">
+    <div
+      ng-repeat="(type, description) in $ctrl.serviceTypes"
+      class="large-margin-bottom"
+    >
+      <p class="subtitle">
+        Add, Remove, or Replace {{ description }}
+        <span class="is-pulled-right" ng-show="$ctrl.services[type].length > 0">
+          ({{ $ctrl.services[type].length }} Selected)
+        </span>
+      </p>
+      <pbs-input-radio
+        value="skip"
+        ng-model="$ctrl.actions[type]"
+        ng-click="$ctrl.clear(type)"
+        label="Skip {{ description }}"
+      ></pbs-input-radio>
+      <pbs-input-radio
+        ng-repeat="action in ['add', 'remove', 'replace']"
+        ng-value="action"
+        ng-change="$ctrl.clear(type)"
+        ng-model="$ctrl.actions[type]"
+        ng-click="$ctrl.select(type, action)"
+        label="{{ action | capitalize }} {{ description }}"
+      ></pbs-input-radio>
+    </div>
+    <div class="has-text-right">
+      <pbs-button-next
+        ng-disabled="!$ctrl.canComplete()"
+        ng-click="$ctrl.complete()"
+      ></pbs-button-next>
+    </div>
+  </pbs-block>
+</pbs-spinner>
+<bulk-select-services on-update="$ctrl.onSelect($event)"></bulk-select-services>
