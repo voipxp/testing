@@ -1,8 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="odin Webhooks">
     <pbs-block-buttons>
-      <pbs-button-compact-add title="Add Endpoint"
-        ng-click="$ctrl.add()">
+      <pbs-button-compact-add title="Add Endpoint" ng-click="$ctrl.add()">
       </pbs-button-compact-add>
     </pbs-block-buttons>
     <table pbs-table>
@@ -21,80 +20,102 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover"
+        <tr
+          class="hover"
           ng-repeat="endpoint in $ctrl.endpoints | orderBy:'name'"
-          ng-click="$ctrl.edit(endpoint)">
+          ng-click="$ctrl.edit(endpoint)"
+        >
           <td class="action">
             <pbs-check-box checked="endpoint.enabled"></pbs-check-box>
           </td>
           <td>{{ endpoint.name }}</td>
           <td>{{ endpoint.url }}</td>
           <td>{{ endpoint.key }}</td>
-          <td>{{ endpoint.unlimited ? 'All' : (endpoint.events.length || 0) }} Events</td>
+          <td>
+            {{ endpoint.unlimited ? 'All' : (endpoint.events.length || 0) }}
+            Events
+          </td>
         </tr>
       </tbody>
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="editWebhookEndpoint"
-  title="{{ $ctrl.modalTitle }}">
+<pbs-modal id="editWebhookEndpoint" title="{{ $ctrl.modalTitle }}">
   <pbs-form>
     <pbs-form-field label="Enabled">
-      <pbs-input-checkbox label="Endpoint Enabled"
-        ng-model="$ctrl.editEndpoint.enabled">
+      <pbs-input-checkbox
+        label="Endpoint Enabled"
+        ng-model="$ctrl.editEndpoint.enabled"
+      >
       </pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Name">
-      <input type="text"
+      <input
+        type="text"
         class="input"
         ng-model="$ctrl.editEndpoint.name"
         placeholder="My Endpoint"
-        required>
+        required
+      />
     </pbs-form-field>
     <pbs-form-field label="Url">
-      <input type="url"
+      <input
+        type="url"
         class="input"
         ng-model="$ctrl.editEndpoint.url"
         placeholder="http://api.example.com/webhook"
-        required>
+        required
+      />
     </pbs-form-field>
     <pbs-form-field label="Key">
-      <input type="text"
+      <input
+        type="text"
         class="input"
         readonly
-        ng-model="$ctrl.editEndpoint.key">
+        ng-model="$ctrl.editEndpoint.key"
+      />
     </pbs-form-field>
     <pbs-form-field label="Custom Header">
-      <pbs-input-checkbox label="Enable Custom Authorization Header"
-        ng-model="$ctrl.hasHeader"></pbs-input-checkbox>
+      <pbs-input-checkbox
+        label="Enable Custom Authorization Header"
+        ng-model="$ctrl.hasHeader"
+      ></pbs-input-checkbox>
     </pbs-form-field>
-    <pbs-form-field label="Header Name"
-      ng-show="$ctrl.hasHeader">
-      <input type="text"
+    <pbs-form-field label="Header Name" ng-show="$ctrl.hasHeader">
+      <input
+        type="text"
         class="input"
         ng-model="$ctrl.editEndpoint.header.name"
         placeholder="eg: Authorization, X-API-KEY"
-        ng-required="$ctrl.hasHeader">
+        ng-required="$ctrl.hasHeader"
+      />
     </pbs-form-field>
-    <pbs-form-field label="Header Value"
-      ng-show="$ctrl.hasHeader">
-      <input type="text"
+    <pbs-form-field label="Header Value" ng-show="$ctrl.hasHeader">
+      <input
+        type="text"
         class="input"
         ng-model="$ctrl.editEndpoint.header.value"
         placeholder="eg: SOMERANDOMKEY"
-        ng-required="$ctrl.hasHeader">
+        ng-required="$ctrl.hasHeader"
+      />
     </pbs-form-field>
     <pbs-form-field label="Events">
-      <pbs-input-checkbox label="Send All Events"
-        ng-model="$ctrl.editEndpoint.unlimited">
+      <pbs-input-checkbox
+        label="Send All Events"
+        ng-model="$ctrl.editEndpoint.unlimited"
+      >
       </pbs-input-checkbox>
     </pbs-form-field>
-    <pbs-form-field label="Specific Events"
-      ng-if="!$ctrl.editEndpoint.unlimited">
+    <pbs-form-field
+      label="Specific Events"
+      ng-if="!$ctrl.editEndpoint.unlimited"
+    >
       <div ng-repeat="event in $ctrl.events">
-        <pbs-input-checkbox label="{{ event }}"
+        <pbs-input-checkbox
+          label="{{ event }}"
           checklist-model="$ctrl.editEndpoint.events"
-          checklist-value="event"></pbs-input-checkbox>
+          checklist-value="event"
+        ></pbs-input-checkbox>
       </div>
     </pbs-form-field>
   </pbs-form>

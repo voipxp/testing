@@ -10,6 +10,7 @@ import 'angular-route'
 import 'angular-sanitize'
 import 'angular-truncate-2'
 import 'animate.css/animate.css'
+import 'checklist-model'
 import 'ng-idle'
 import './index.css'
 import './index.scss'
@@ -20,6 +21,7 @@ import './branding'
 import './bulk'
 import './common'
 import './events'
+import './settings'
 import './system'
 import './UI'
 
@@ -36,6 +38,7 @@ angular
     'angular-jwt',
     'angular-cache',
     'mp.colorPicker',
+    'checklist-model',
     'truncate',
     'chart.js',
     'odin.common',
@@ -43,6 +46,7 @@ angular
     'odin.branding',
     'odin.bulk',
     'odin.events',
+    'odin.settings',
     'odin.system',
     'odin.UI'
   ])
