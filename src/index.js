@@ -19,6 +19,7 @@ import './app'
 import './branding'
 import './bulk'
 import './common'
+import './events'
 import './system'
 import './UI'
 
@@ -41,6 +42,7 @@ angular
     'odin.app',
     'odin.branding',
     'odin.bulk',
+    'odin.events',
     'odin.system',
     'odin.UI'
   ])

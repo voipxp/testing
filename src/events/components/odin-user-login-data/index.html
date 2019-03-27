@@ -4,10 +4,13 @@
       <pbs-button-compact-download ng-click="$ctrl.download()">
       </pbs-button-compact-download>
     </pbs-block-buttons>
-    <pbs-data-table columns="$ctrl.columns"
+    <pbs-data-table
+      columns="$ctrl.columns"
       items="$ctrl.data"
       is-compact="true"
       is-bordered="true"
       is-striped="true"
-      limit-to="50"></pbs-data-table>
+      limit-to="50"
+    ></pbs-data-table>
   </pbs-block>
+</pbs-spinner>

@@ -2,11 +2,9 @@
   <pbs-breadcrumb title="'Events'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
-
   <pbs-block title="Recent Events ({{ $ctrl.recent }})">
     <pbs-block-buttons>
-      <pbs-button-compact-refresh title="Refresh"
-        ng-click="$ctrl.refresh()">
+      <pbs-button-compact-refresh title="Refresh" ng-click="$ctrl.refresh()">
       </pbs-button-compact-refresh>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
@@ -20,15 +18,18 @@
       </thead>
       <tfoot>
         <tr ng-if="results.length < 1">
-          <td colspan="3">No Events Found
+          <td colspan="3">
+            No Events Found
             <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
           </td>
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover"
+        <tr
+          class="hover"
           ng-repeat="event in $ctrl.events | filter:$ctrl.search as results track by event.id"
-          ng-click="$ctrl.open(event)">
+          ng-click="$ctrl.open(event)"
+        >
           <td>{{ event.type }}</td>
           <td>{{ event.userId }}</td>
           <td>{{ event.createdAt | date:'medium' }}</td>
@@ -37,7 +38,6 @@
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="showOdinEvent"
-  title="{{ 'Event ' + $ctrl.event.id }}">
+<pbs-modal id="showOdinEvent" title="{{ 'Event ' + $ctrl.event.id }}">
   <pre class="prettyprint">{{ $ctrl.event | json }}</pre>
 </pbs-modal>
