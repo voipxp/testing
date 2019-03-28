@@ -42,7 +42,7 @@ export default [
   },
   {
     path: '/serviceProviders',
-    component: 'serviceProvidersIndex',
+    component: 'serviceProviders',
     acl: 'Provisioning'
   }
 ]

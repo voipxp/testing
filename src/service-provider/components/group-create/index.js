@@ -18,7 +18,7 @@ controller.$inject = [
   'GroupService',
   'ServiceProviderDomainService',
   'SystemStateService',
-  'SystemTimeZoneServic'
+  'SystemTimeZoneService'
 ]
 function controller(
   EventEmitter,

@@ -11,7 +11,7 @@ angular.module('odin.serviceProvider').component('serviceProviderMeetMe', {
 controller.$inject = [
   '$routeParams',
   'Alert',
-  'ServiceProviderMeetMeConferencingPortsServic'
+  'ServiceProviderMeetMeConferencingPortsService'
 ]
 function controller(
   $routeParams,
