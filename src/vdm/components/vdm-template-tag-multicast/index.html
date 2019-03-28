@@ -1,0 +1,48 @@
+<pbs-block title="Multicast">
+  <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+  <table pbs-table>
+    <thead>
+      <th>Name</th>
+      <th>IP</th>
+      <th>Enabled</th>
+    </thead>
+    <tfoot>
+      <tr ng-show="results.length < 1">
+        <td colspan="99">
+          No Multicast Groups Found
+          <span ng-show="$ctrl.search"
+            >for
+            <strong>{{ $ctrl.search }}</strong>
+          </span>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr
+        class="hover"
+        ng-repeat="group in $ctrl.groups as results track by group.id"
+        ng-click="$ctrl.edit(group)"
+      >
+        <td>{{ group.label }}</td>
+        <td>{{ group.ip }}</td>
+        <td>
+          <pbs-check-box checked="group.enabled"></pbs-check-box>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-block>
+<pbs-modal id="vdmTemplateMulticastModal" title="Edit Multicast Group">
+  <pbs-form-field label="IP">
+    <input type="text" class="input" ng-model="$ctrl.editGroup.ip" readonly />
+  </pbs-form-field>
+  <pbs-form-field label="Name">
+    <input type="text" class="input" ng-model="$ctrl.editGroup.label" />
+  </pbs-form-field>
+  <pbs-form-field label="Enabled">
+    <pbs-input-checkbox
+      ng-model="$ctrl.editGroup.enabled"
+      label="Multicast Group Enabled?"
+    ></pbs-input-checkbox>
+  </pbs-form-field>
+</pbs-modal>

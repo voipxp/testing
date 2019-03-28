@@ -1,0 +1,75 @@
+<pbs-block title="Phonebook Settings">
+  <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+  <table pbs-table>
+    <thead>
+      <th>Tag</th>
+      <th class="has-text-centered">Value</th>
+    </thead>
+    <tfoot>
+      <tr ng-show="results.length < 1">
+        <td colspan="99">
+          No Tags Found
+          <span ng-show="$ctrl.search"
+            >for
+            <strong>{{ $ctrl.search }}</strong>
+          </span>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr
+        class="hover"
+        ng-repeat="tag in $ctrl.phonebookTags as results track by tag.name"
+        ng-click="$ctrl.edit(tag)"
+      >
+        <td>{{ tag.label }}</td>
+        <td ng-switch="tag.type" class="has-text-centered">
+          <span ng-switch-when="checkbox">
+            <pbs-check-box checked="tag.tag.value == '1'"></pbs-check-box>
+          </span>
+          <span ng-switch-default>
+            {{ tag.tag.value }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-block>
+
+<pbs-modal id="vdmTemplateTagPhonebookModal" title="{{ $ctrl.editTag.label }}">
+  <pbs-form>
+    <pbs-form-field label="{{ $ctrl.editTag.label }}">
+      <input
+        ng-if="$ctrl.editTag.type === 'text'"
+        type="text"
+        class="input"
+        ng-model="$ctrl.editTag.tag.value"
+        placeholder="{{ $ctrl.editTag.label }}"
+      />
+      <input
+        ng-if="$ctrl.editTag.type === 'number'"
+        type="number"
+        class="input"
+        ng-model="$ctrl.editTag.tag.value"
+        ng-min="$ctrl.editTag.min"
+        ng-max="$ctrl.editTag.max"
+        placeholder="{{ $ctrl.editTag.min + ' - ' + $ctrl.editTag.max }}"
+        string-to-number
+      />
+      <pbs-input-checkbox
+        ng-if="$ctrl.editTag.type === 'checkbox'"
+        ng-model="$ctrl.editTag.tag.value"
+        ng-true-value="'1'"
+        ng-false-value="'0'"
+      >
+        {{ $ctrl.editTag.label }}</pbs-input-checkbox
+      >
+      <pbs-input-select
+        ng-if="$ctrl.editTag.type === 'select'"
+        ng-model="$ctrl.editTag.tag.value"
+        ng-options="opt for opt in $ctrl.editTag.options"
+        required
+      ></pbs-input-select>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

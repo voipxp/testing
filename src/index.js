@@ -24,6 +24,7 @@ import './events'
 import './settings'
 import './system'
 import './UI'
+import './vdm'
 
 // CONFIGS
 import routes from './routes'
@@ -48,7 +49,8 @@ angular
     'odin.events',
     'odin.settings',
     'odin.system',
-    'odin.UI'
+    'odin.UI',
+    'odin.vdm'
   ])
   .config(routes)
   .config(config.locationConfig)

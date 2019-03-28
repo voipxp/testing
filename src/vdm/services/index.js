@@ -1,0 +1,8 @@
+import './vdm-device-type-service.js'
+import './vdm-group-device-service.js'
+import './vdm-group-template-device-service.js'
+import './vdm-group-template-service.js'
+import './vdm-group-template-tag-service.js'
+import './vdm-system-template-service.js'
+import './vdm-system-template-tag-service.js'
+import './vdm-template-tag-service.js'

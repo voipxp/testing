@@ -18,11 +18,11 @@ function routes($routeProvider) {
   $routeProvider
     .when('/', {
       template: '',
-      controller: Route => Route.dashboard()
+      controller: ['Route', Route => Route.dashboard()]
     })
     .when('/account', {
       template: '<my-account></my-account>',
-      resolve: { session: Session => Session.required() },
+      resolve: { session: ['Session', Session => Session.required()] },
       reloadOnSearch: false
     })
     .when('/login', {
