@@ -1,7 +1,6 @@
 import './select-service-provider'
 import './service-provider-clone'
 import './service-provider-create'
-import './service-providers-index'
 import './service-provider-report'
 import './service-providers'
 import './service-providers-panel'
