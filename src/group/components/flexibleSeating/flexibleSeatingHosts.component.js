@@ -11,6 +11,7 @@
     Alert,
     GroupFlexibleSeatingHostService,
     UserFlexibleSeatingGuestService,
+    GroupFlexibleSeatingHostGuestAssociationService,
     UserServiceService,
     EventEmitter,
     Route,
@@ -37,7 +38,13 @@
     ctrl.onSetLinePort = onSetLinePort
     ctrl.onCheckIsActive = onCheckIsActive
     ctrl.onCheckIsAssigned = onCheckIsAssigned
+    ctrl.onChangeHost = onChangeHost
+
     ctrl.columns = [
+      {
+        key: 'data.hostUserId',
+        label: 'Host User ID'
+      },
       {
         key: 'user.userId',
         label: 'User ID'
@@ -54,10 +61,10 @@
         key: 'data.accessDeviceEndpoint.accessDevice.deviceName',
         label: 'Access Device'
       },
-      {
-        key: 'data.accessDeviceEndpoint.linePort',
-        label: 'Line Port'
-      },
+      // {
+      //   key: 'data.accessDeviceEndpoint.linePort',
+      //   label: 'Line Port'
+      // },
       {
         key: 'service.assigned',
         label: 'Assigned',
@@ -87,6 +94,19 @@
         .finally(function() {
           ctrl.loading = false
         })
+    }
+
+    function onChangeHost(item) {
+      if (!item) return
+      GroupFlexibleSeatingHostGuestAssociationService.show(item).then(function(
+        host
+      ) {
+        ctrl.editSettings.data.hostAssociationLimitHours =
+          host.associationLimitHours
+        ctrl.editSettings.data.associationLimitHours =
+          host.associationLimitHours
+        ctrl.editSettings.data.hostUserId = item
+      })
     }
 
     function onCheckIsActive() {

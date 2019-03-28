@@ -26,7 +26,7 @@
               lastName: ctrl.settings.hostLastName
             })
           } else {
-            ctrl.settings.hostUserId = ''
+            // ctrl.settings.hostUserId = ''
           }
         })
         .catch(function(error) {

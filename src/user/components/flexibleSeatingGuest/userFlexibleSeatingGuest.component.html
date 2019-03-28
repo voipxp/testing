@@ -17,21 +17,78 @@
       <pbs-list-item label="Line Port">
         {{ $ctrl.settings.accessDeviceEndpoint.linePort }}
       </pbs-list-item>
+      <pbs-list-item label="Host Association Limit Hours">
+        {{ $ctrl.settings.hostAssociationLimitHours }}
+      </pbs-list-item>
+      <pbs-list-item label="Host Enforces Association Limit">
+        <pbs-check-box checked="$ctrl.settings.hostEnforcesAssociationLimit"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Host User Id">
+        {{ $ctrl.settings.hostUserId }}
+      </pbs-list-item>
+      <pbs-list-item label="Host Last Name">
+        {{ $ctrl.settings.hostLastName}}
+      </pbs-list-item>
+      <pbs-list-item label="Host First Name">
+        {{ $ctrl.settings.hostFirstName}}
+      </pbs-list-item>
+      <pbs-list-item label="Host Association Date Start">
+        {{ $ctrl.settings.hostAssociationDateTimeReadable}}
+      </pbs-list-item>
+      <pbs-list-item label="Host Association Date Expire">
+        {{ $ctrl.settings.hostAssociationDateTimeExpireReadable}}
+      </pbs-list-item>
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editUserFlexibleSeatingGuest"
   title="Edit Settings">
   <pbs-form>
-    <pbs-form-section>Settings</pbs-form-section>
-    <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive"
-      label="Is Active"></pbs-input-checkbox>
-    <pbs-form-field label="Unlock Phone PIN Code">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.editSettings.unlockPhonePINCode"
-        ng-minlength="4"
-        ng-maxlength="10">
-    </pbs-form-field>
+    <pbs-tabs>
+      <pbs-tab label="Profile">
+        <pbs-form-field-horizontal label="Is Active">
+          <pbs-input-checkbox ng-disabled="$ctrl.editSettings.hostUserId.length > 0"
+            ng-model="$ctrl.editSettings.isActive"
+            label="Is Active"></pbs-input-checkbox>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Unlock Phone PIN Code">
+          <input type="text"
+            class="input"
+            ng-disabled="$ctrl.editSettings.hostUserId.length > 0"
+            ng-model="$ctrl.editSettings.unlockPhonePINCode"
+            ng-minlength="4"
+            ng-maxlength="10">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Device name">
+          {{ $ctrl.settings.accessDeviceEndpoint.accessDevice.deviceName }}
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Line Port">
+          {{ $ctrl.settings.accessDeviceEndpoint.linePort }}
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+      <pbs-tab label="Host Association">
+        <pbs-form-field-horizontal label="Enable Association Limit">
+          <pbs-input-checkbox ng-model="$ctrl.editSettings.enableAssociationLimit"
+            label="enableAssociationLimit"></pbs-input-checkbox>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Association Limit Hours">
+          <input type="number"
+            class="input"
+            ng-min="1"
+            ng-max="$ctrl.editSettings.hostAssociationLimitHours"
+            ng-model="$ctrl.editSettings.associationLimitHours">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Hosts">
+          <pbs-input-select ng-model="$ctrl.editSettings.hostUserId"
+            ng-options="host.userId as host.userId for host in $ctrl.hosts"
+            ng-change="$ctrl.onChangeHost($ctrl.editSettings.hostUserId)">
+            <option value="">--NONE--</option>
+          </pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Host Association Limit Hours">
+          {{  $ctrl.editSettings.hostAssociationLimitHours }}
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+    </pbs-tabs>
   </pbs-form>
 </pbs-modal>

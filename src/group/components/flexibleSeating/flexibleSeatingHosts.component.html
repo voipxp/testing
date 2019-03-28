@@ -75,57 +75,86 @@
 <pbs-modal id="editUserFlexibleSeatingGuest"
   title="Edit {{ $ctrl.editTitle }}">
   <pbs-form>
-    <pbs-input-checkbox ng-model="$ctrl.editSettings.service.assigned"
-      label="Is Assigned"
-      ng-change="$ctrl.onCheckIsAssigned()"></pbs-input-checkbox>
-    <pbs-input-checkbox ng-model="$ctrl.editSettings.data.isActive"
-      label="Is Active"
-      ng-change="$ctrl.onCheckIsActive()"></pbs-input-checkbox>
-    <pbs-form-field-horizontal label="Unlock Phone Pin">
-      <input type="text"
-        class="input"
-        ng-model="$ctrl.editSettings.data.unlockPhonePINCode">
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="Line Port">
-      <select-user-id service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
-        user-id="$ctrl.editSettings.data.accessDeviceEndpoint.linePort"
-        on-update="$ctrl.onSetLinePort($event)"
-        required="$ctrl.editSettings.data.endpointType === 'accessDeviceEndpoint'">
-      </select-user-id>
-    </pbs-form-field-horizontal>
-    <!-- device below -->
-    <pbs-form-field-horizontal label="Device">
-      <div class="field has-addons">
-        <p class="control is-expanded">
+    <pbs-tabs>
+      <pbs-tab label="Profile">
+
+        <pbs-form-field-horizontal label="Is Assigned">
+          <pbs-input-checkbox ng-model="$ctrl.editSettings.service.assigned"
+            ng-change="$ctrl.onCheckIsAssigned()"></pbs-input-checkbox>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Is Active">
+          <pbs-input-checkbox ng-model="$ctrl.editSettings.data.isActive"
+            ng-change="$ctrl.onCheckIsActive()"></pbs-input-checkbox>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Unlock Phone Pin">
           <input type="text"
             class="input"
-            ng-model="$ctrl.editSettings.data.accessDeviceEndpoint.accessDevice.deviceName"
-            placeholder="No Device Selected"
-            readonly
-            ng-required="$ctrl.editSettings.data.endpointType === 'accessDeviceEndpoint'">
-        </p>
-        <p class="control">
-          <button class="button"
-            ng-click="$ctrl.createDevice()"
-            title="Create a Device">
-            <span class="icon">
-              <i class="fas fa-plus"></i>
-            </span>
-          </button>
-        </p>
-        <p class="control">
-          <button class="button"
-            ng-click="$ctrl.selectDevice()"
-            title="Select a Device">
-            <span class="icon">
-              <i class="fas fa-list"></i>
-            </span>
-          </button>
-        </p>
-      </div>
-    </pbs-form-field-horizontal>
-    <!-- end of device  -->
+            ng-model="$ctrl.editSettings.data.unlockPhonePINCode">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Line Port">
+          <select-user-id service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            user-id="$ctrl.editSettings.data.accessDeviceEndpoint.linePort"
+            on-update="$ctrl.onSetLinePort($event)"
+            required="$ctrl.editSettings.data.endpointType === 'accessDeviceEndpoint'">
+          </select-user-id>
+        </pbs-form-field-horizontal>
+        <!-- device below -->
+        <pbs-form-field-horizontal label="Device">
+          <div class="field has-addons">
+            <p class="control is-expanded">
+              <input type="text"
+                class="input"
+                ng-model="$ctrl.editSettings.data.accessDeviceEndpoint.accessDevice.deviceName"
+                placeholder="No Device Selected"
+                readonly
+                ng-required="$ctrl.editSettings.data.endpointType === 'accessDeviceEndpoint'">
+            </p>
+            <p class="control">
+              <button class="button"
+                ng-click="$ctrl.createDevice()"
+                title="Create a Device">
+                <span class="icon">
+                  <i class="fas fa-plus"></i>
+                </span>
+              </button>
+            </p>
+            <p class="control">
+              <button class="button"
+                ng-click="$ctrl.selectDevice()"
+                title="Select a Device">
+                <span class="icon">
+                  <i class="fas fa-list"></i>
+                </span>
+              </button>
+            </p>
+          </div>
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+      <pbs-tab label="Host Association">
+        <pbs-form-field-horizontal label="Enable Association Limit">
+          <pbs-input-checkbox ng-model="$ctrl.editSettings.data.enableAssociationLimit"
+            label="enableAssociationLimit"></pbs-input-checkbox>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Association Limit Hours">
+          <input type="number"
+            class="input"
+            ng-min="1"
+            ng-max="$ctrl.editSettings.hostAssociationLimitHours"
+            ng-model="$ctrl.editSettings.data.associationLimitHours">
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Hosts">
+          <pbs-input-select ng-model="$ctrl.editSettings.data.hostUserId"
+            ng-options="host.serviceUserId as host.serviceUserId for host in $ctrl.hosts"
+            ng-change="$ctrl.onChangeHost($ctrl.editSettings.data.hostUserId)">
+            <option value="">--NONE--</option>
+          </pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Host Association Limit Hours">
+          {{  $ctrl.editSettings.data.hostAssociationLimitHours }}
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+    </pbs-tabs>
   </pbs-form>
 </pbs-modal>
 <flexible-seating-host-create service-provider-id="$ctrl.serviceProviderId"
