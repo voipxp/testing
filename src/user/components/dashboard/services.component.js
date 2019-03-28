@@ -46,6 +46,7 @@
         module: 'Call Center'
       },
       'Call Forwarding Always': {},
+      'Call Forwarding Always Secondary': {},
       'Call Forwarding Busy': {},
       'Call Forwarding No Answer': {},
       'Call Forwarding Not Reachable': {},
