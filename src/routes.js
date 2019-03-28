@@ -18,7 +18,7 @@ function routes($routeProvider) {
   $routeProvider
     .when('/', {
       template: '',
-      controller: Route => Route.dashboard()
+      controller: ['Route', Route => Route.dashboard()]
     })
     .when('/notfound', {
       template: notFound

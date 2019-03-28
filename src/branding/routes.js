@@ -1,18 +1,12 @@
-routes.$inject = ['PbsRouteProvider']
-export default function routes(PbsRouteProvider) {
-  return PbsRouteProvider.set(
-    [
-      {
-        path: null,
-        component: 'brandingHostnames',
-        acl: 'Provisioning-PaasAdmin'
-      },
-      {
-        path: ':hostnameId',
-        component: 'brandingHostname',
-        acl: 'Provisioning-PaasAdmin'
-      }
-    ],
-    '/branding'
-  )
-}
+export default [
+  {
+    path: '/branding',
+    component: 'brandingHostnames',
+    acl: 'Provisioning-PaasAdmin'
+  },
+  {
+    path: '/branding/:hostnameId',
+    component: 'brandingHostname',
+    acl: 'Provisioning-PaasAdmin'
+  }
+]

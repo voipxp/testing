@@ -170,7 +170,7 @@ function MyService(SomeDI) {
 You can use the command-line to generate includes in services directories. For example, this will find all the files in the directory and add them to an index.js file
 
 ```
-for i in $(find . -type f | grep -v index.js | sort); do
+for i in $(find . -type f | grep -v index.js | sort | awk -F '.js' '{print $1}'); do
   echo "import '$i'" >> index.js
 done
 ```

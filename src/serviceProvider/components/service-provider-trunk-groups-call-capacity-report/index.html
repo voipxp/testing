@@ -1,0 +1,30 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId">
+  <pbs-breadcrumb title="'Trunk Call Capacity Report'"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Trunk Call Capacity Report">
+    <pbs-list>
+      <pbs-list-item label="Max Active Calls"
+        >{{
+        $ctrl.displayMax($ctrl.settings.serviceProviderTrunkCapacity.maxActiveCalls)
+        }}</pbs-list-item
+      >
+      <pbs-list-item label="Max Bursting Calls"
+        >{{
+        $ctrl.displayMax($ctrl.settings.serviceProviderTrunkCapacity.burstingMaxActiveCalls)
+        }}</pbs-list-item
+      >
+    </pbs-list>
+  </pbs-block>
+  <pbs-block title="Group Trunk Report" class="margin-top">
+    <pbs-data-table
+      columns="$ctrl.columns"
+      items="$ctrl.settings.groups"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-click="$ctrl.onClick($event)"
+    ></pbs-data-table>
+  </pbs-block>
+</pbs-spinner>

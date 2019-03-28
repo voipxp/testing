@@ -1,56 +1,48 @@
-const routes = [
+export default [
   {
-    path: null,
+    path: '/system',
     component: 'systemDashboard',
     acl: 'Provisioning'
   },
   {
-    path: 'devices',
+    path: '/system/devices',
     component: 'systemDevices',
     acl: 'System'
   },
   {
-    path: 'licensing',
+    path: '/system/licensing',
     component: 'systemLicensing',
     acl: 'System'
   },
   {
-    path: 'dn',
+    path: '/system/dn',
     component: 'systemDn',
     acl: 'Provisioning'
   },
   {
-    path: 'collaborate',
+    path: '/system/collaborate',
     component: 'systemCollaborate',
     acl: 'System'
   },
   {
-    path: 'networkClassOfServices',
+    path: '/system/networkClassOfServices',
     component: 'systemNetworkClassOfServices',
     acl: 'System'
   },
   {
-    path: 'networkClassOfServices/networkClassOfService',
+    path: '/system/networkClassOfServices/networkClassOfService',
     component: 'systemNetworkClassOfService',
     acl: 'System'
   },
   {
-    path: 'serviceProvidersReport',
+    path: '/system/serviceProvidersReport',
     component: 'serviceProviderReport',
     acl: 'Provisioning',
     module: 'User Report'
+  },
+  {
+    path: '/serviceProviders',
+    component: 'serviceProvidersIndex',
+    acl: 'Provisioning'
   }
 ]
-
-config.$inject = ['PbsRouteProvider']
-export default function config(PbsRouteProvider) {
-  PbsRouteProvider.set(routes, '/system')
-  PbsRouteProvider.set(
-    {
-      path: 'serviceProviders',
-      component: 'serviceProvidersIndex',
-      acl: 'Provisioning'
-    },
-    null
-  )
-}

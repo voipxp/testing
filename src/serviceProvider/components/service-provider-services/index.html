@@ -1,0 +1,71 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId">
+  <pbs-breadcrumb title="$ctrl.title"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="{{ $ctrl.title }}">
+    <pbs-block-buttons ng-if="$ctrl.canUpdate">
+      <pbs-button-compact-cogs
+        ng-click="$ctrl.showSelect = !$ctrl.showSelect"
+      ></pbs-button-compact-cogs>
+    </pbs-block-buttons>
+    <pbs-columns>
+      <pbs-column>
+        <pbs-table-search
+          ng-model="$ctrl.search"
+          style="margin-bottom: 0"
+        ></pbs-table-search>
+      </pbs-column>
+      <pbs-column class="is-narrow">
+        <div class="buttons has-addons">
+          <button
+            class="button"
+            ng-class="{'is-link': $ctrl.filter.authorized === undefined}"
+            ng-click="$ctrl.filter = {}"
+          >
+            All
+          </button>
+          <button
+            class="button"
+            ng-class="{'is-link': $ctrl.filter.authorized === true}"
+            ng-click="$ctrl.filter.authorized = true"
+          >
+            Authorized
+          </button>
+          <button
+            class="button"
+            ng-class="{'is-link': $ctrl.filter.authorized === false}"
+            ng-click="$ctrl.filter.authorized = false"
+          >
+            Unauthorized
+          </button>
+        </div>
+      </pbs-column>
+    </pbs-columns>
+    <pbs-data-table
+      columns="$ctrl.columns"
+      items="$ctrl.services"
+      hide-search="true"
+      search="$ctrl.search"
+      filter="$ctrl.filter"
+      show-select="$ctrl.showSelect"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-select="$ctrl.onSelect($event)"
+      on-click="$ctrl.onClick($event)"
+    ></pbs-data-table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal
+  id="editServiceProviderService"
+  title="{{ $ctrl.editServices.alias }}"
+>
+  <pbs-form-section>Authorization</pbs-form-section>
+  <pbs-input-checkbox
+    label="Service Authorized"
+    ng-model="$ctrl.editService.authorized"
+  ></pbs-input-checkbox>
+  <service-licensing service="$ctrl.editService"></service-licensing>
+</pbs-modal>

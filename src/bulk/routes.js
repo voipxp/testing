@@ -1,72 +1,86 @@
 // Get last selected set of users to inject into component
 data.$inject = ['BulkUsersService', '$q']
-function data(BulkUsersService, $q) {
-  return BulkUsersService.get().then(function(data) {
-    return data.users.length > 0 ? data : $q.reject('routeToSelect')
-  })
+async function data(BulkUsersService, $q) {
+  const res = await BulkUsersService.get()
+  return res.users.length > 0 ? res : $q.reject('routeToSelect')
 }
 
-const _routes = [
+export default [
   {
-    path: null,
-    component: 'bulkDashboard'
+    path: '/bulk',
+    component: 'bulkDashboard',
+    acl: 'Group',
+    module: 'Provisioning'
   },
   {
-    path: 'csv',
-    component: 'bulkCsv'
+    path: '/bulk/csv',
+    component: 'bulkCsv',
+    acl: 'Group',
+    module: 'Provisioning'
   },
   {
-    path: 'tasks',
-    component: 'bulkTasksIndex'
+    path: '/bulk/tasks',
+    component: 'bulkTasksIndex',
+    acl: 'Group',
+    module: 'Provisioning'
   },
   {
-    path: 'tasks/:id',
-    component: 'bulkTask'
+    path: '/bulk/tasks/:id',
+    component: 'bulkTask',
+    acl: 'Group',
+    module: 'Provisioning'
   },
   {
-    path: 'users',
-    component: 'bulkUsers'
+    path: '/bulk/users',
+    component: 'bulkUsers',
+    acl: 'Group',
+    module: 'Provisioning'
   },
   {
-    path: 'import',
-    component: 'bulkImport'
+    path: '/bulk/import',
+    component: 'bulkImport',
+    acl: 'Group',
+    module: 'Provisioning'
   },
   {
-    path: 'user.create',
-    component: 'bulkUserCreate'
+    path: '/bulk/user.create',
+    component: 'bulkUserCreate',
+    acl: 'Group',
+    module: 'Provisioning'
   },
   {
-    path: 'user.delete',
+    path: '/bulk/user.delete',
     component: 'bulkUserDelete',
-    resolve: { data: data }
+    acl: 'Group',
+    module: 'Provisioning',
+    resolve: { data }
   },
   {
-    path: 'user.services.update',
+    path: '/bulk/user.services.update',
     component: 'bulkUserServicesUpdate',
-    resolve: { data: data }
+    acl: 'Group',
+    module: 'Provisioning',
+    resolve: { data }
   },
   {
-    path: 'user.number.update',
+    path: '/bulk/user.number.update',
     component: 'bulkUserNumberUpdate',
-    resolve: { data: data }
+    acl: 'Group',
+    module: 'Provisioning',
+    resolve: { data }
   },
   {
-    path: 'user.sharedcallappearance.update',
+    path: '/bulk/user.sharedcallappearance.update',
     component: 'bulkUserSharedCallAppearanceUpdate',
-    resolve: { data: data }
+    acl: 'Group',
+    module: 'Provisioning',
+    resolve: { data }
   },
   {
-    path: 'user.ucone.update',
+    path: '/bulk/user.ucone.update',
     component: 'bulkUserUcOneUpdate',
-    resolve: { data: data }
+    acl: 'Group',
+    module: 'Provisioning',
+    resolve: { data }
   }
-].map(function(route) {
-  route.acl = 'Group'
-  route.module = 'Provisioning'
-  return route
-})
-
-routes.$inject = ['PbsRouteProvider']
-export default function routes(PbsRouteProvider) {
-  PbsRouteProvider.set(_routes, '/bulk')
-}
+]

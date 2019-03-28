@@ -3,11 +3,11 @@ import routes from './routes'
 
 angular
   .module('odin.bulk', [])
-  .config(routes)
+  .config(['PbsRouteProvider', P => P.set(routes)])
   .run([
     '$rootScope',
     '$location',
-    function($rootScope, $location) {
+    ($rootScope, $location) => {
       $rootScope.$on('$routeChangeError', function(e, c, p, error) {
         if (error === 'routeToSelect') {
           var path = $location

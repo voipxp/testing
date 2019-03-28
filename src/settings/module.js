@@ -1,14 +1,6 @@
 import angular from 'angular'
+import routes from './routes'
 
-routes.$inject = ['PbsRouteProvider']
-function routes(PbsRouteProvider) {
-  PbsRouteProvider.set([
-    {
-      path: '/settings',
-      component: 'odinSettings',
-      acl: 'Provisioning-PaasAdmin'
-    }
-  ])
-}
-
-angular.module('odin.settings', []).config(routes)
+angular
+  .module('odin.settings', [])
+  .config(['PbsRouteProvider', P => P.set(routes)])

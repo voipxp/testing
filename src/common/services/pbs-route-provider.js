@@ -2,26 +2,32 @@ import angular from 'angular'
 import _ from 'lodash'
 
 angular.module('odin.common').provider('PbsRoute', Provider)
+Provider.$inject = ['$routeProvider']
 function Provider($routeProvider) {
   function setAcl(type) {
-    return function(ACL, $q) {
-      'ngInject'
+    function checkAcl(ACL, $q) {
       if (type === 'Provisioning-PaasAdmin') {
         return ACL.isPaasAdmin() ? $q.when() : ACL.allow('Provisioning')
       }
       return ACL.allow(type)
     }
+    checkAcl.$inject = ['ACL', '$q']
+    return checkAcl
   }
+
   function setModule(name) {
-    return function(Module) {
-      'ngInject'
+    function checkModule(Module) {
       return Module.allow(name)
     }
+    checkModule.$inject = ['Module']
+    return checkModule
   }
+
   function getPath(prefix, path) {
     var route = _.compact([prefix, path]).join('/')
     return /^\//.test(route) ? route : '/' + route
   }
+
   function getConfig(route) {
     // parse the template from the component
     var name = _.kebabCase(route.component)
@@ -53,23 +59,24 @@ function Provider($routeProvider) {
     // set the route config object
     var config = {
       template: template,
-      reloadOnSearch: route.reloadOnSearch || false,
-      resolve: {
-        _session: function(Session) {
-          'ngInject'
-          return Session.required()
-        }
-      }
+      reloadOnSearch: route.reloadOnSearch || false
     }
+
+    config.resolve = route.noAuth
+      ? {}
+      : { _session: ['Session', S => S.required()] }
+
     _.assign(config.resolve, route.resolve)
     return config
   }
+
   function set(routes, prefix) {
     routes = _.flatten([routes])
     routes.forEach(function(route) {
       $routeProvider.when(getPath(prefix, route.path), getConfig(route))
     })
   }
+
   return {
     set: set,
     $get: function() {}
