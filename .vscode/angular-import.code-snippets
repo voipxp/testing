@@ -19,10 +19,14 @@
   "Import angular": {
     "scope": "javascript",
     "prefix": "angular",
-    "body": [
-      "import angular from 'angular'",
-      "import template from './index.html'"
-    ],
+    "body": ["import angular from 'angular'"],
+    "description": "Angular import statements"
+  },
+
+  "Import template": {
+    "scope": "javascript",
+    "prefix": "template",
+    "body": ["import template from './index.html'"],
     "description": "Angular import statements"
   },
 
@@ -40,10 +44,10 @@
     "description": "Sugar import statement"
   },
 
-  "Set controller $inject": {
+  "Set $inject": {
     "scope": "javascript",
-    "prefix": "controller",
-    "body": ["controller.\\$inject = [$1]"],
-    "description": "Set controller $inject"
+    "prefix": "$inject",
+    "body": ["$1.\\$inject = [$2]"],
+    "description": "Set $inject"
   }
 }

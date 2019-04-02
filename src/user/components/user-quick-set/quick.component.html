@@ -1,0 +1,69 @@
+<pbs-spinner loading="$ctrl.loading" ng-if="!$ctrl.editService">
+  <pbs-columns>
+    <pbs-column ng-if="$ctrl.showQuick">
+      <nav class="panel">
+        <p class="panel-heading">Feature Quick Set</p>
+        <div class="panel-block" ng-if="$ctrl.has('Call Forwarding Always')">
+          <user-call-forwarding-always
+            show-quick="true"
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            user-id="$ctrl.userId"
+          >
+          </user-call-forwarding-always>
+        </div>
+        <div class="panel-block" ng-if="$ctrl.has('Call Forwarding Busy')">
+          <user-call-forwarding-busy
+            show-quick="true"
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            user-id="$ctrl.userId"
+          ></user-call-forwarding-busy>
+        </div>
+        <div class="panel-block" ng-if="$ctrl.has('Call Forwarding No Answer')">
+          <user-call-forwarding-no-answer
+            show-quick="true"
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            user-id="$ctrl.userId"
+          ></user-call-forwarding-no-answer>
+        </div>
+        <div class="panel-block" ng-if="$ctrl.has('Do Not Disturb')">
+          <user-do-not-disturb
+            show-quick="true"
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            user-id="$ctrl.userId"
+          ></user-do-not-disturb>
+        </div>
+        <div class="panel-block" ng-if="$ctrl.has('Remote Office')">
+          <user-remote-office
+            show-quick="true"
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            user-id="$ctrl.userId"
+          ></user-remote-office>
+        </div>
+      </nav>
+    </pbs-column>
+    <pbs-column>
+      <div ng-if="$ctrl.has('BroadWorks Anywhere')">
+        <user-broadworks-anywhere-quick-set
+          service-provider-id="$ctrl.serviceProviderId"
+          group-id="$ctrl.groupId"
+          user-id="$ctrl.userId"
+        ></user-broadworks-anywhere-quick-set>
+      </div>
+    </pbs-column>
+  </pbs-columns>
+</pbs-spinner>
+
+<div ng-if="$ctrl.editService">
+  <pbs-cancel ng-click="$ctrl.editService = null"></pbs-cancel>
+  <pbs-component
+    component="$ctrl.editService"
+    user-id="$ctrl.userId"
+    group-id="$ctrl.groupId"
+    service-provider-id="$ctrl.serviceProviderId"
+  ></pbs-component>
+</div>

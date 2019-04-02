@@ -1,0 +1,18 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Bridge Information">
+    <pbs-list>
+      <pbs-list-item label="Bridge ID">
+        {{ $ctrl.bridge.bridgeId }}
+      </pbs-list-item>
+      <pbs-list-item label="Bridge Name">
+        {{ $ctrl.bridge.bridgeName }}
+      </pbs-list-item>
+      <pbs-list-item label="Support Outdial">
+        <pbs-check-box checked="$ctrl.bridge.supportOutDial"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Max Collaborate Room Participants">
+        {{ $ctrl.bridge.maxCollaborateRoomParticipants }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>

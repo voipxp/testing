@@ -1,0 +1,57 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit
+        title="Edit Call Forwarding Selective"
+        ng-click="$ctrl.edit()"
+      >
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Active">
+        <pbs-input-switch
+          ng-model="$ctrl.settings.isActive"
+          ng-change="$ctrl.toggle()"
+          ng-disabled="$ctrl.settings.isLoading || !$ctrl.hasActiveCriteria()"
+        ></pbs-input-switch>
+      </pbs-list-item>
+      <pbs-list-item label="Default Forward To Phone Number">
+        {{ $ctrl.settings.defaultForwardToPhoneNumber }}
+      </pbs-list-item>
+      <pbs-list-item label="Play Ring Reminder When Forwarded">
+        <pbs-check-box
+          checked="$ctrl.settings.playRingReminder"
+        ></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+
+<div class="margin-top">
+  <user-call-forwarding-selective-criteria
+    user-id="$ctrl.userId"
+    on-update="$ctrl.onCriteriaUpdate($event)"
+  ></user-call-forwarding-selective-criteria>
+</div>
+
+<pbs-modal id="editUserCallForwardingSelective" title="Edit Settings">
+  <pbs-form>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editSettings.isActive"
+      label="Activate Call Forwarding Selective"
+      ng-click="$ctrl.checkForActive()"
+    ></pbs-input-checkbox>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editSettings.playRingReminder"
+      label="Play Ring Reminder When Call is Forwarded"
+    ></pbs-input-checkbox>
+    <pbs-form-field-horizontal label="Default Forward To">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.defaultForwardToPhoneNumber"
+        required
+      />
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>

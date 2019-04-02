@@ -1,0 +1,35 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit
+        title="Edit Directed Call Pickup With Barge In"
+        ng-click="$ctrl.edit()"
+      ></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Barge In Warning Tone">
+        <pbs-check-box
+          checked="$ctrl.settings.enableBargeInWarningTone"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Automatic Target Selection">
+        <pbs-check-box
+          checked="$ctrl.settings.enableAutomaticTargetSelection"
+        ></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal
+  id="editUserDirectedCallPickupWithBargeIn"
+  title="Edit Directed Call Pickup With Barge In"
+>
+  <pbs-input-checkbox
+    label="Barge In Warning Tone"
+    ng-model="$ctrl.editSettings.enableBargeInWarningTone"
+  ></pbs-input-checkbox>
+  <pbs-input-checkbox
+    ng-model="$ctrl.editSettings.enableAutomaticTargetSelection"
+    label="Automatic Target Selection"
+  ></pbs-input-checkbox>
+</pbs-modal>

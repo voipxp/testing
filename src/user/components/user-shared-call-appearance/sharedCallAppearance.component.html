@@ -1,0 +1,27 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit
+        title="Edit Shared Call Appearance"
+        ng-click="$ctrl.edit()"
+      >
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Is Active">
+        <pbs-check-box
+          checked="$ctrl.sharedCallAppearance.isActive"
+        ></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+
+<pbs-modal id="editSharedCallAppearanceModal" title="Edit Settings">
+  <pbs-form-field label="Settings">
+    <pbs-input-checkbox
+      label="Is Active"
+      ng-model="$ctrl.editSettings.isActive"
+    ></pbs-input-checkbox>
+  </pbs-form-field>
+</pbs-modal>

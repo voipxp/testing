@@ -1,0 +1,9 @@
+<pbs-form-field label="Remote Office">
+  <pbs-input-switch
+    label="N/A"
+    ng-label="$ctrl.settings.remoteOfficePhoneNumber"
+    ng-model="$ctrl.settings.isActive"
+    ng-change="$ctrl.toggle()"
+    ng-disabled="$ctrl.loading"
+  ></pbs-input-switch>
+</pbs-form-field>
