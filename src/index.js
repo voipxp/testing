@@ -15,6 +15,9 @@ import 'ng-idle'
 import './index.css'
 import './index.scss'
 
+// LIBS
+import './common/lib/date'
+
 // MODULES
 import './app'
 import './branding'
