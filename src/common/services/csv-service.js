@@ -16,7 +16,7 @@ function CsvService($q, UtilityService) {
       var csvResults = []
       // strip non unicode characters
       /* eslint no-control-regex: 0 */
-      content = content.replace(/[^\x00-\x7F]/g, '')
+      content = content.replace(/[^\u0000-\u007F]/g, '')
       // fix windows returns
       content = content.replace(/\r\r/gm, '\r')
       Papa.parse(content, {
@@ -31,7 +31,7 @@ function CsvService($q, UtilityService) {
           csvResults.push(row)
         },
         complete: function() {
-          if (csvResults.length < 1) {
+          if (csvResults.length === 0) {
             return reject('No Users Found')
           }
           resolve(csvResults)

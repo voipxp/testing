@@ -12,35 +12,39 @@ function Service($http, CacheFactory, Route) {
   return service
 
   function index() {
-    return $http.get(url(), { cache }).then(res => res.data)
+    return $http.get(url(), { cache }).then(response => response.data)
   }
 
   function store(service) {
-    return $http.post(url(), service).then(res => {
+    return $http.post(url(), service).then(response => {
       cache.removeAll()
-      return res.data
+      return response.data
     })
   }
 
   function show(name) {
-    return $http.get(url(), { params: { name } }).then(res => res.data)
+    return $http
+      .get(url(), { params: { name } })
+      .then(response => response.data)
   }
 
   function update(name, service) {
-    return $http.put(url(), service).then(res => {
+    return $http.put(url(), service).then(response => {
       cache.removeAll()
-      return res.data
+      return response.data
     })
   }
 
   function destroy(name) {
-    return $http.delete(url(), { params: { name } }).then(res => {
+    return $http.delete(url(), { params: { name } }).then(response => {
       cache.removeAll()
-      return res.data
+      return response.data
     })
   }
 
   function usage(name) {
-    return $http.get(url('usage'), { params: { name } }).then(res => res.data)
+    return $http
+      .get(url('usage'), { params: { name } })
+      .then(response => response.data)
   }
 }

@@ -19,35 +19,35 @@ function GroupService($http, Route, CacheFactory, $rootScope) {
   function index(serviceProviderId) {
     return $http
       .get(url(), { cache, params: { serviceProviderId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, group) {
-    return $http.post(url(), group).then(res => {
+    return $http.post(url(), group).then(response => {
       clearCache()
-      return res.data
+      return response.data
     })
   }
 
   function show(serviceProviderId, groupId) {
     return $http
       .get(url(), { cache, params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(serviceProviderId, group) {
-    return $http.put(url(), group).then(res => {
+    return $http.put(url(), group).then(response => {
       clearCache()
-      return res.data
+      return response.data
     })
   }
 
   function destroy(serviceProviderId, groupId) {
     return $http
       .delete(url(), { params: { serviceProviderId, groupId } })
-      .then(res => {
+      .then(response => {
         clearCache()
-        return res.data
+        return response.data
       })
   }
 }

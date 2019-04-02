@@ -12,35 +12,35 @@ function service($http, CacheFactory, Route) {
   function index(serviceProviderId, q, params = {}) {
     return $http
       .get(url(), { cache, params: { ...params, serviceProviderId, q } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, device) {
-    return $http.post(url(), device).then(res => {
+    return $http.post(url(), device).then(response => {
       cache.removeAll()
-      return res.data
+      return response.data
     })
   }
 
   function update(serviceProviderId, device) {
-    return $http.put(url(), device).then(res => {
+    return $http.put(url(), device).then(response => {
       cache.removeAll()
-      return res.data
+      return response.data
     })
   }
 
   function show(serviceProviderId, deviceName) {
     return $http
       .get(url(), { params: { serviceProviderId, deviceName } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function destroy(serviceProviderId, deviceName) {
     return $http
       .delete(url(), { params: { serviceProviderId, deviceName } })
-      .then(res => {
+      .then(response => {
         cache.removeAll()
-        return res.data
+        return response.data
       })
   }
 }

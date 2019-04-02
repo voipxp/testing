@@ -33,8 +33,8 @@
         })
     }
 
-    function update(userId, obj) {
-      return $http.put(url(), obj).then(function(response) {
+    function update(userId, object) {
+      return $http.put(url(), object).then(function(response) {
         cache.removeAll()
         return response.data
       })

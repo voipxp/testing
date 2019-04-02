@@ -9,20 +9,22 @@ function EventService($http, Route) {
   return service
 
   function index(limit) {
-    return $http.get(url(), { params: { limit } }).then(res => res.data)
+    return $http
+      .get(url(), { params: { limit } })
+      .then(response => response.data)
   }
 
   function types() {
-    return $http.get(url('types')).then(res => res.data)
+    return $http.get(url('types')).then(response => response.data)
   }
 
   function show(id) {
-    return $http.get(url(), { params: { id } }).then(res => res.data)
+    return $http.get(url(), { params: { id } }).then(response => response.data)
   }
 
   function logins(startTime, endTime) {
     return $http
       .get(url('logins'), { params: { startTime, endTime } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

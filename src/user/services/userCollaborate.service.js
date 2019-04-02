@@ -42,8 +42,8 @@
         })
     }
 
-    function update(userId, obj) {
-      return $http.put(url('my-room'), obj).then(function(response) {
+    function update(userId, object) {
+      return $http.put(url('my-room'), object).then(function(response) {
         return response.data
       })
     }

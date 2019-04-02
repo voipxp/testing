@@ -14,16 +14,18 @@ function ServiceProviderNumberService($http, Route) {
   function index(serviceProviderId, q) {
     return $http
       .get(url(), { params: { serviceProviderId, q } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, dns) {
-    return $http.post(url(), { serviceProviderId, dns }).then(res => res.data)
+    return $http
+      .post(url(), { serviceProviderId, dns })
+      .then(response => response.data)
   }
 
   function destroy(serviceProviderId, dns) {
     return $http
       .delete(url(), { data: { serviceProviderId, dns } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

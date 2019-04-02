@@ -11,13 +11,15 @@ function BrandingTemplateService($http, Route, $rootScope) {
   return service
 
   function show(hostnameId) {
-    return $http.get(url(), { params: { hostnameId } }).then(res => res.data)
+    return $http
+      .get(url(), { params: { hostnameId } })
+      .then(response => response.data)
   }
 
   function update(template) {
-    return $http.put(url(), template).then(res => {
+    return $http.put(url(), template).then(response => {
       $rootScope.$emit('BrandingTemplateService:updated')
-      return res.data
+      return response.data
     })
   }
 }

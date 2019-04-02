@@ -32,9 +32,9 @@ function UtilityService() {
   // unflatten an object or collection
   // { 'address.city': 'city' } to { address: { city: 'city'} }
   function unflatten(data) {
-    function unflat(obj) {
+    function unflat(object) {
       var newObject = {}
-      _.forOwn(obj, function(value, key) {
+      _.forOwn(object, function(value, key) {
         _.set(newObject, key, value)
       })
       return newObject
@@ -47,8 +47,8 @@ function UtilityService() {
 
   // strip special from an object or collection
   function stripSpecial(data) {
-    function strip(obj) {
-      return _.omitBy(obj, function(value, key) {
+    function strip(object) {
+      return _.omitBy(object, function(value, key) {
         return /\$/.exec(key)
       })
     }

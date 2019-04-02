@@ -12,10 +12,10 @@ function SystemPasscodeService($http, Route, CacheFactory) {
   return service
 
   function show() {
-    return $http.get(url(), { cache: cache }).then(res => res.data)
+    return $http.get(url(), { cache: cache }).then(response => response.data)
   }
 
-  function update(obj) {
-    return $http.put(url(), obj).then(res => res.data)
+  function update(object) {
+    return $http.put(url(), object).then(response => response.data)
   }
 }

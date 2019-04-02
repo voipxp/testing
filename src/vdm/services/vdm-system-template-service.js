@@ -12,28 +12,30 @@ function Service($http, Route) {
   return service
 
   function index() {
-    return $http.get(url()).then(res => res.data)
+    return $http.get(url()).then(response => response.data)
   }
 
   function store(template) {
-    return $http.post(url(), template).then(res => res.data)
+    return $http.post(url(), template).then(response => response.data)
   }
 
   function show(id) {
-    return $http.get(url(), { params: { id } }).then(res => res.data)
+    return $http.get(url(), { params: { id } }).then(response => response.data)
   }
 
   function assignments(id) {
     return $http
       .get(url('assignments'), { params: { id } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(template) {
-    return $http.put(url(), template).then(res => res.data)
+    return $http.put(url(), template).then(response => response.data)
   }
 
   function destroy(id) {
-    return $http.delete(url(), { params: { id } }).then(res => res.data)
+    return $http
+      .delete(url(), { params: { id } })
+      .then(response => response.data)
   }
 }

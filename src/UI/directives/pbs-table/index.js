@@ -15,7 +15,7 @@ function pbsTable() {
       wrapper.style.width = '100%'
       wrapper.style.overflowX = 'auto'
       table.parentNode.insertBefore(wrapper, table)
-      wrapper.appendChild(table)
+      wrapper.append(table)
     }
   }
 }

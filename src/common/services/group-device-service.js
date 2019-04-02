@@ -11,27 +11,27 @@ function GroupDeviceService($http, Route) {
   function index(serviceProviderId, groupId, q, params = {}) {
     return $http
       .get(url(), { params: { ...params, q, serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, groupId, device) {
-    return $http.post(url(), device).then(res => res.data)
+    return $http.post(url(), device).then(response => response.data)
   }
 
   function update(serviceProviderId, groupId, device) {
-    return $http.put(url(), device).then(res => res.data)
+    return $http.put(url(), device).then(response => response.data)
   }
 
   function show(serviceProviderId, groupId, deviceName) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId, deviceName } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function destroy(serviceProviderId, groupId, deviceName) {
     return $http
       .delete(url(), { params: { serviceProviderId, groupId, deviceName } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function rebuild(serviceProviderId, groupId, deviceName) {
@@ -39,7 +39,7 @@ function GroupDeviceService($http, Route) {
       .post(url('rebuild'), {
         params: { serviceProviderId, groupId, deviceName }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function reset(serviceProviderId, groupId, deviceName) {
@@ -47,6 +47,6 @@ function GroupDeviceService($http, Route) {
       .post(url('reset'), {
         params: { serviceProviderId, groupId, deviceName }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

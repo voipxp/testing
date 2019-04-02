@@ -17,15 +17,15 @@ Directive.$inject = ['HashService']
 export function Directive(HashService) {
   return {
     restrict: 'A',
-    compile: function(element, attrs) {
-      if (attrs.ngShow) {
+    compile: function(element, attributes) {
+      if (attributes.ngShow) {
         // console.log('ngShow is here')
       }
-      return function(scope, element, attrs) {
+      return function(scope, element, attributes) {
         // add id and css classes to input
         const id = HashService.guid()
         element.attr('id', id)
-        const cssClass = angular.isDefined(attrs.pbsInputSwitch)
+        const cssClass = angular.isDefined(attributes.pbsInputSwitch)
           ? 'switch'
           : 'is-checkradio'
         element.addClass(cssClass)
@@ -41,8 +41,8 @@ export function Directive(HashService) {
         // create the label
         const label = angular.element(document.createElement('label'))
         label.attr('for', id)
-        label.html(attrs.label)
-        if (!attrs.label && !angular.isDefined(attrs.ngLabel)) {
+        label.html(attributes.label)
+        if (!attributes.label && !angular.isDefined(attributes.ngLabel)) {
           label.css({ paddingLeft: '.5rem' })
         }
         label.css({ marginLeft: 0 })
@@ -56,16 +56,16 @@ export function Directive(HashService) {
         })
 
         // add indeterminate if set
-        if (angular.isDefined(attrs.indeterminate)) {
-          scope.$watch('ngModel', function(newVal) {
-            element[0].indeterminate = newVal === undefined
+        if (angular.isDefined(attributes.indeterminate)) {
+          scope.$watch('ngModel', function(newValue) {
+            element[0].indeterminate = newValue === undefined
           })
         }
 
         // show/hide wrapped element via ngShow
-        scope.$watch(attrs.ngShow, function(newVal) {
-          if (angular.isDefined(attrs.ngShow)) {
-            if (newVal) {
+        scope.$watch(attributes.ngShow, function(newValue) {
+          if (angular.isDefined(attributes.ngShow)) {
+            if (newValue) {
               div.removeClass('ng-hide')
             } else {
               div.addClass('ng-hide')
@@ -73,9 +73,9 @@ export function Directive(HashService) {
           }
         })
 
-        scope.$watch(attrs.ngLabel, function(newVal) {
-          label.html(newVal)
-          if (newVal) {
+        scope.$watch(attributes.ngLabel, function(newValue) {
+          label.html(newValue)
+          if (newValue) {
             label.css({ paddingLeft: null })
           }
         })

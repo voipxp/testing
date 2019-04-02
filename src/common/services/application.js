@@ -9,6 +9,6 @@ function Application($http, Route) {
   return service
 
   function index() {
-    return $http.get(url()).then(res => res.data)
+    return $http.get(url()).then(response => response.data)
   }
 }

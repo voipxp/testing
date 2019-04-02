@@ -1,0 +1,90 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Supervisors">
+    <pbs-block-buttons ng-if="$ctrl.canUpdate">
+      <pbs-button-compact-edit
+        ng-click="$ctrl.edit()"
+      ></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Number</th>
+          <th>Department</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length === 0">
+          <td colspan="5">
+            No Supervisors Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          class="hover"
+          ng-repeat="supervisor in $ctrl.supervisors | filter:$ctrl.search as results track by supervisor.userId"
+          ng-click="$ctrl.edit()"
+        >
+          <td>{{ supervisor.userId }}</td>
+          <td>{{ supervisor.lastName }}</td>
+          <td>{{ supervisor.firstName }}</td>
+          <td>{{ supervisor.phoneNumber }}</td>
+          <td>{{ supervisor.department }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupCallCenterSupervisors" title="Edit Supervisors">
+  <pbs-columns>
+    <pbs-column>
+      <h3>Available Supervisors</h3>
+      <pbs-table-search ng-model="$ctrl.searchAvailable"></pbs-table-search>
+      <table pbs-table>
+        <tr
+          class="hover"
+          ng-click="$ctrl.addSupervisor(supervisor)"
+          ng-repeat="supervisor in $ctrl.availableSupervisors | filter:$ctrl.searchAvailable | orderBy:'userId' as availableResults track by supervisor.userId"
+        >
+          <td>{{ $ctrl.supervisorDescription(supervisor) }}</td>
+        </tr>
+        <tr ng-show="availableResults.length < 1">
+          <td>
+            No Supervisors Available
+            <span ng-show="$ctrl.searchAvailable"
+              >for
+              <strong>{{ $ctrl.searchAvailable }}</strong>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </pbs-column>
+    <pbs-column>
+      <h3>Assigned Supervisors</h3>
+      <pbs-table-search ng-model="$ctrl.searchAssigned"></pbs-table-search>
+      <table pbs-table>
+        <tr
+          class="hover"
+          ng-click="$ctrl.removeSupervisor(supervisor)"
+          ng-repeat="supervisor in $ctrl.assignedSupervisors | filter:$ctrl.searchAssigned as assignedResults track by supervisor.userId"
+        >
+          <td>{{ $ctrl.supervisorDescription(supervisor) }}</td>
+        </tr>
+        <tr ng-show="assignedResults.length < 1">
+          <td>
+            No Supervisors Available
+            <span ng-show="$ctrl.searchAssigned"
+              >for
+              <strong>{{ $ctrl.searchAssigned }}</strong>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </pbs-column>
+  </pbs-columns>
+</pbs-modal>

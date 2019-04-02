@@ -13,14 +13,14 @@ function TaskService($http, Route) {
     var type = _.isArray(types) ? types.join(',') : types
     return $http
       .get(url(), { params: { limit, status, type } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function create(data) {
-    return $http.post(url(), data).then(res => res.data)
+    return $http.post(url(), data).then(response => response.data)
   }
 
   function show(id) {
-    return $http.get(url(), { params: { id } }).then(res => res.data)
+    return $http.get(url(), { params: { id } }).then(response => response.data)
   }
 }

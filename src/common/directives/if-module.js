@@ -19,13 +19,13 @@ function ModuleConstructor(permission) {
         priority: ngIf.priority,
         terminal: ngIf.terminal,
         restrict: ngIf.restrict,
-        link: function($scope, $element, $attr) {
-          var attrName = _.camelCase('if-module-' + permission)
-          var value = $attr[attrName]
+        link: function($scope, $element, attribute) {
+          var attributeName = _.camelCase('if-module-' + permission)
+          var value = attribute[attributeName]
           if (!value) return
           var module = $scope.$eval(value)
           if (!module) return
-          $attr.ngIf = function() {
+          attribute.ngIf = function() {
             return Module[permission](module)
           }
           ngIf.link.apply(ngIf, arguments)

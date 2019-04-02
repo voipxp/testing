@@ -9,6 +9,6 @@ function service($http, Route) {
   return service
 
   function show() {
-    return $http.get(url()).then(res => res.data)
+    return $http.get(url()).then(response => response.data)
   }
 }

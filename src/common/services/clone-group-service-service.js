@@ -8,9 +8,9 @@ function Service($http, Route) {
   var url = Route.api('/groups/clone')
   return service
 
-  function autoAttendant(serviceUserId, obj) {
+  function autoAttendant(serviceUserId, object) {
     return $http
-      .put(url('auto-attendant'), { ...obj, serviceUserId })
-      .then(res => res.data)
+      .put(url('auto-attendant'), { ...object, serviceUserId })
+      .then(response => response.data)
   }
 }

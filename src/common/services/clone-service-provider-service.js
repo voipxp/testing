@@ -8,10 +8,10 @@ function Service($http, Route, $rootScope) {
   var url = Route.api('/service-providers/clone/service-provider')
   return service
 
-  function all(serviceProviderId, obj) {
-    return $http.put(url(), { ...obj, serviceProviderId }).then(res => {
+  function all(serviceProviderId, object) {
+    return $http.put(url(), { ...object, serviceProviderId }).then(response => {
       $rootScope.$emit('ServiceProviderService:updated')
-      return res.data
+      return response.data
     })
   }
 }

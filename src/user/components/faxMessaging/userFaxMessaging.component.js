@@ -113,10 +113,10 @@
     }
 
     function setExtension() {
-      var ext = ctrl.editSettings.phoneNumber
+      var extension = ctrl.editSettings.phoneNumber
         ? ctrl.editSettings.phoneNumber.slice(-4)
         : null
-      ctrl.editSettings.extension = ext
+      ctrl.editSettings.extension = extension
     }
 
     function shitsplit(input, splitChar) {

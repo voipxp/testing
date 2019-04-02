@@ -12,31 +12,33 @@ function BrandingApplicationService($http, Route, $rootScope) {
   return service
 
   function index(hostnameId) {
-    return $http.get(url(), { params: { hostnameId } }).then(res => res.data)
+    return $http
+      .get(url(), { params: { hostnameId } })
+      .then(response => response.data)
   }
 
   function store(application) {
-    return $http.post(url(), application).then(res => {
+    return $http.post(url(), application).then(response => {
       $rootScope.$emit('BrandingApplicationService:updated')
-      return res.data
+      return response.data
     })
   }
 
   function show(id) {
-    return $http.get(url(), { params: { id } }).then(res => res.data)
+    return $http.get(url(), { params: { id } }).then(response => response.data)
   }
 
   function update(application) {
-    return $http.put(url(), application).then(res => {
+    return $http.put(url(), application).then(response => {
       $rootScope.$emit('BrandingApplicationService:updated')
-      return res.data
+      return response.data
     })
   }
 
   function destroy(id) {
-    return $http.delete(url(), { params: { id } }).then(res => {
+    return $http.delete(url(), { params: { id } }).then(response => {
       $rootScope.$emit('BrandingApplicationService:updated')
-      return res.data
+      return response.data
     })
   }
 }

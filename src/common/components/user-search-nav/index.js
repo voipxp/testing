@@ -42,7 +42,7 @@ function controller(Alert, UserSearchService, Route) {
   }
 
   function show() {
-    if (ctrl.users.length < 1) {
+    if (ctrl.users.length === 0) {
       Alert.notify.warning('No Users Found')
       return
     }

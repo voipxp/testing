@@ -7,7 +7,9 @@
     return service
 
     function show(userId) {
-      return $http.get(url(), { params: { userId } }).then(res => res.data)
+      return $http
+        .get(url(), { params: { userId } })
+        .then(response => response.data)
     }
   }
 })()

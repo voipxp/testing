@@ -112,10 +112,10 @@ function controller(
   function validateAssignment(numbers) {
     return $q(function(resolve, reject) {
       return loadAvailable().then(function(data) {
-        var result = _.every(numbers, function(number) {
+        var response = _.every(numbers, function(number) {
           return _.find(data, { min: number.min })
         })
-        if (!result) return reject('Unable to Assign Numbers')
+        if (!response) return reject('Unable to Assign Numbers')
         resolve(numbers)
       })
     })

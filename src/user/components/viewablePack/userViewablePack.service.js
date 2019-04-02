@@ -7,13 +7,15 @@
     return service
 
     function show(userId) {
-      return $http.get(url(), { params: { userId } }).then(res => res.data)
+      return $http
+        .get(url(), { params: { userId } })
+        .then(response => response.data)
     }
 
     function update(userId, id) {
-      return $http.put(url(), { userId, id }).then(res => {
+      return $http.put(url(), { userId, id }).then(response => {
         $rootScope.$emit('UserViewablePackService:updated')
-        return res.data
+        return response.data
       })
     }
   }

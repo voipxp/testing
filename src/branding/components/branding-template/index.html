@@ -36,7 +36,7 @@
         ng-click="$ctrl.edit('textArea', field)"
       >
         <td>{{ field.label }}</td>
-        <td>{{ $ctrl.template[field.key] | words:8 }}</td>
+        <td>{{ $ctrl.template[field.key] | words: 8 }}</td>
       </tr>
       <tr
         ng-repeat="field in $ctrl.fields.images"
@@ -45,7 +45,7 @@
         <td>{{ field.label }}</td>
         <td>
           <img
-            ng-src="{{ $ctrl.imageSrc($ctrl.template[field.key]) }}"
+            ng-src="{{ $ctrl.imageSource($ctrl.template[field.key]) }}"
             class="template-image"
             style="max-width: 50px"
           />
@@ -100,7 +100,7 @@
   </pbs-form-field>
   <div class="box has-text-centered">
     <img
-      ng-src="{{ $ctrl.imageSrc($ctrl.editField.value) }}"
+      ng-src="{{ $ctrl.imageSource($ctrl.editField.value) }}"
       class="template-image"
       ng-if="$ctrl.editField.type === 'image'"
     />

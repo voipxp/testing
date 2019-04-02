@@ -54,8 +54,8 @@ function controller(BrandingHostnameService, Route, Alert) {
       Alert.notify.success('Hostname Cloned')
       callback()
       open(data)
-    } catch (e) {
-      Alert.notify.danger(e)
+    } catch (error) {
+      Alert.notify.danger(error)
     } finally {
       Alert.spinner.close()
     }

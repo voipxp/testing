@@ -12,7 +12,7 @@ function controller(BrandingTemplateService, Alert, Template) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
-  ctrl.imageSrc = imageSrc
+  ctrl.imageSource = imageSource
   ctrl.onUpload = onUpload
   ctrl.template = {}
   ctrl.fields = {}
@@ -47,7 +47,7 @@ function controller(BrandingTemplateService, Alert, Template) {
     })
   }
 
-  function imageSrc(value) {
+  function imageSource(value) {
     if (!value) return
     return 'data:image/png;base64,' + value
   }

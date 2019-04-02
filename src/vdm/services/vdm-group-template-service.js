@@ -12,30 +12,30 @@ function Service($http, Route) {
   function index(serviceProviderId, groupId) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function show(serviceProviderId, groupId, id) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId, id } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, groupId, template) {
     return $http
       .post(url(), template, { params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(serviceProviderId, groupId, template) {
     return $http
       .put(url(), template, { params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function destroy(serviceProviderId, groupId, id) {
     return $http
       .delete(url(), { params: { serviceProviderId, groupId, id } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

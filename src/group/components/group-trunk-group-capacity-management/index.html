@@ -1,0 +1,178 @@
+<pbs-spinner loading="$ctrl.parent.loading">
+  <pbs-block title="Call Capacity">
+    <pbs-block-buttons if-module-update="$ctrl.parent.module">
+      <pbs-button-compact-edit
+        title="Edit Call Capacity"
+        ng-click="$ctrl.edit()"
+      >
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Maximum Active Calls">
+        {{ $ctrl.parent.trunk.maxActiveCalls }}
+      </pbs-list-item>
+      <pbs-list-item label="Maximum Active Incoming">
+        {{ $ctrl.parent.trunk.maxIncomingCalls }}
+      </pbs-list-item>
+      <pbs-list-item label="Maximum Active Outgoing">
+        {{ $ctrl.parent.trunk.maxOutgoingCalls }}
+      </pbs-list-item>
+      <pbs-list-item label="Bursting Enabled">
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.enableBursting"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item
+        label="Bursting Max Active Calls"
+        ng-show="$ctrl.parent.trunk.enableBursting"
+      >
+        {{ $ctrl.parent.trunk.burstingMaxActiveCalls }}
+      </pbs-list-item>
+      <pbs-list-item
+        label="Bursting Max Incoming Calls"
+        ng-show="$ctrl.parent.trunk.enableBursting"
+      >
+        {{ $ctrl.parent.trunk.burstingMaxIncomingCalls }}
+      </pbs-list-item>
+      <pbs-list-item
+        label="Bursting Max Outgoing Calls"
+        ng-show="$ctrl.parent.trunk.enableBursting"
+      >
+        {{ $ctrl.parent.trunk.burstingMaxOutgoingCalls }}
+      </pbs-list-item>
+      <pbs-list-item label="Capacity Exceeded Action">
+        {{ $ctrl.parent.trunk.capacityExceededAction || 'None' }}
+        <span ng-show="$ctrl.parent.trunk.capacityExceededAction === 'Forward'">
+          to
+          <strong
+            >{{ $ctrl.parent.trunk.capacityExceededForwardAddress }}</strong
+          >
+        </span>
+        <span ng-show="$ctrl.parent.trunk.capacityExceededAction === 'Reroute'">
+          to
+          <strong
+            >{{ $ctrl.parent.trunk.capacityExceededRerouteTrunkGroupKey.name
+            }}</strong
+          >
+        </span>
+      </pbs-list-item>
+      <pbs-list-item label="Capacity Exceeded Initial Value">
+        {{ $ctrl.parent.trunk.capacityExceededTrapInitialCalls }} calls
+      </pbs-list-item>
+      <pbs-list-item label="Capacity Exceeded Offset Value">
+        {{ $ctrl.parent.trunk.capacityExceededTrapOffsetCalls }} calls
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal
+  id="editGroupTrunkGroupCapacityManagement"
+  title="Capacity Management"
+>
+  <form novalidate>
+    <pbs-form-field label="Max Active Calls">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.maxActiveCalls"
+        min="{{ $ctrl.options.maxActiveCalls.min }}"
+      />
+    </pbs-form-field>
+    <pbs-form-field label="Max Incoming Calls">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.maxIncomingCalls"
+        min="{{ $ctrl.options.maxIncomingCalls.min }}"
+        max="{{ $ctrl.options.maxIncomingCalls.max }}"
+      />
+    </pbs-form-field>
+    <pbs-form-field label="Max Outgoing Calls">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.maxOutgoingCalls"
+        min="{{ $ctrl.options.maxOutgoingCalls.min }}"
+        max="{{ $ctrl.options.maxOutgoingCalls.max }}"
+      />
+    </pbs-form-field>
+    <pbs-form-field label="Bursting Enabled">
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.enableBursting"
+        label="Enable Bursting Capacity"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+    <pbs-form-field label="Bursting Max Active Calls">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.burstingMaxActiveCalls"
+        min="{{ $ctrl.options.burstingMaxActiveCalls.min }}"
+        max="{{ $ctrl.options.burstingMaxActiveCalls.max }}"
+      />
+    </pbs-form-field>
+    <pbs-form-field label="Bursting Max Incoming Calls">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.burstingMaxIncomingCalls"
+        min="{{ $ctrl.options.burstingMaxIncomingCalls.min }}"
+        max="{{ $ctrl.options.burstingMaxIncomingCalls.max }}"
+      />
+    </pbs-form-field>
+    <pbs-form-field label="Bursting Max Outgoing Calls">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.burstingMaxOutgoingCalls"
+        min="{{ $ctrl.options.burstingMaxOutgoingCalls.min }}"
+        max="{{ $ctrl.options.burstingMaxOutgoingCalls.max }}"
+      />
+    </pbs-form-field>
+    <pbs-form-field label="Capacity Exceeded Actions">
+      <pbs-input-select
+        ng-model="$ctrl.editTrunk.capacityExceededAction"
+        ng-options="opt as opt for opt in $ctrl.options.capacityExceededAction"
+      >
+        <option value="">None</option>
+      </pbs-input-select>
+    </pbs-form-field>
+    <pbs-form-field
+      label="Capacity Exceeded Forward To"
+      ng-show="$ctrl.editTrunk.capacityExceededAction === 'Forward'"
+    >
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editTrunk.capacityExceededForwardAddress"
+        ng-required="$ctrl.editTrunk.capacityExceededAction === 'Forward'"
+      />
+    </pbs-form-field>
+    <pbs-form-field
+      label="Capacity Exceeded Reroute To"
+      ng-show="$ctrl.editTrunk.capacityExceededAction === 'Reroute'"
+    >
+      <pbs-input-select
+        ng-model="$ctrl.editTrunk.capacityExceededRerouteTrunkGroupKey"
+        ng-options="trunk as trunk.name for trunk in $ctrl.parent.trunks track by trunk.name"
+        ng-required="$ctrl.editTrunk.capacityExceededAction === 'Reroute'"
+      ></pbs-input-select>
+    </pbs-form-field>
+    <pbs-form-field label="Capacity Exceeded Initial Value">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.capacityExceededTrapInitialCalls"
+        min="{{ $ctrl.options.capacityExceededTrapInitialCalls.min }}"
+      />
+    </pbs-form-field>
+    <pbs-form-field label="Capacity Exceeded Initial Offset">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.editTrunk.capacityExceededTrapOffsetCalls"
+        min="{{ $ctrl.options.capacityExceededTrapOffsetCalls.min }}"
+      />
+    </pbs-form-field>
+  </form>
+</pbs-modal>

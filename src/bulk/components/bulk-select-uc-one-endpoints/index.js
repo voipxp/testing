@@ -62,7 +62,7 @@ function controller(EventEmitter, Alert) {
   }
 
   function canComplete() {
-    if (ctrl.endpoints.length < 1) return false
+    if (ctrl.endpoints.length === 0) return false
     return _.every(ctrl.endpoints, function(endpoint) {
       return (
         _.get(endpoint, 'accessDevice.deviceType') &&

@@ -11,16 +11,18 @@ function Service($http, Route) {
   return service
 
   function index(userId) {
-    return $http.get(url(), { params: { userId } }).then(res => res.data)
+    return $http
+      .get(url(), { params: { userId } })
+      .then(response => response.data)
   }
 
-  function create(userId, obj) {
-    return $http.post(url(), obj).then(res => res.data)
+  function create(userId, object) {
+    return $http.post(url(), object).then(response => response.data)
   }
 
   function destroy(userId, code) {
     return $http
       .delete(url(), { params: { userId, code } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

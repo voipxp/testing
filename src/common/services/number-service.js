@@ -57,9 +57,9 @@ function NumberService() {
       // guard against typo huge ranges
       if (min.toString().length !== max.toString().length) return
       // calculate all numbers in range
-      for (var num = min; num <= max; num++) {
+      for (var number_ = min; number_ <= max; number_++) {
         var number = angular.copy(range)
-        number.min = prefix + zeroNumber + num.toString()
+        number.min = prefix + zeroNumber + number_.toString()
         number.max = null
         expanded.push(number)
       }

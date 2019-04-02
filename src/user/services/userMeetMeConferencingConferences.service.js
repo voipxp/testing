@@ -39,8 +39,8 @@
         })
     }
 
-    function store(userId, bridgeId, obj) {
-      return $http.post(url('conferences'), obj).then(function(response) {
+    function store(userId, bridgeId, object) {
+      return $http.post(url('conferences'), object).then(function(response) {
         return response.data
       })
     }
@@ -59,8 +59,8 @@
         })
     }
 
-    function update(userId, conferenceId, bridgeId, obj) {
-      return $http.put(url('conferences'), obj).then(function(response) {
+    function update(userId, conferenceId, bridgeId, object) {
+      return $http.put(url('conferences'), object).then(function(response) {
         return response.data
       })
     }

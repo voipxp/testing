@@ -13,14 +13,14 @@ function Service($http, Route) {
   function index(serviceProviderId, groupId) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
-  function store(obj) {
-    return $http.post(url(), obj).then(res => res.data)
+  function store(object) {
+    return $http.post(url(), object).then(response => response.data)
   }
 
   function destroy(data) {
-    return $http.delete(url(), { data }).then(res => res.data)
+    return $http.delete(url(), { data }).then(response => response.data)
   }
 }

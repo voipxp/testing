@@ -13,38 +13,38 @@ function BrandingHostnameService($http, Route, $rootScope) {
   return service
 
   function index() {
-    return $http.get(url()).then(res => res.data)
+    return $http.get(url()).then(response => response.data)
   }
 
   function store(hostname) {
-    return $http.post(url(), hostname).then(res => {
+    return $http.post(url(), hostname).then(response => {
       $rootScope.$emit('BrandingHostnameService:updated')
-      return res.data
+      return response.data
     })
   }
 
   function show(id) {
-    return $http.get(url(), { params: { id } }).then(res => res.data)
+    return $http.get(url(), { params: { id } }).then(response => response.data)
   }
 
   function update(hostname) {
-    return $http.put(url(), hostname).then(res => {
+    return $http.put(url(), hostname).then(response => {
       $rootScope.$emit('BrandingHostnameService:updated')
-      return res.data
+      return response.data
     })
   }
 
   function destroy(id) {
-    return $http.delete(url(), { params: { id } }).then(res => {
+    return $http.delete(url(), { params: { id } }).then(response => {
       $rootScope.$emit('BrandingHostnameService:updated')
-      return res.data
+      return response.data
     })
   }
 
   function clone(id, hostname) {
-    return $http.post(url('clone'), { id, hostname }).then(res => {
+    return $http.post(url('clone'), { id, hostname }).then(response => {
       $rootScope.$emit('BrandingHostnameService:updated')
-      return res.data
+      return response.data
     })
   }
 }

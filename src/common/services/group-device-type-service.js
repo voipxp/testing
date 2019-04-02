@@ -11,24 +11,24 @@ function Service($http, Route) {
   function index(serviceProviderId, groupId) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function show(serviceProviderId, groupId, deviceType) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId, deviceType } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function rebuild(serviceProviderId, groupId, deviceType) {
     return $http
       .post(url('rebuild'), { serviceProviderId, groupId, deviceType })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function reset(serviceProviderId, groupId, deviceType) {
     return $http
       .post(url('reset'), { serviceProviderId, groupId, deviceType })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

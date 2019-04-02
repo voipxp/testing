@@ -43,8 +43,8 @@ function controller(
   ctrl.showPhonebook = showPhonebook
 
   var types = VdmTemplateTagService.types
-  var numKeys = VdmTemplateTagService.numKeys
-  var numAccounts = VdmTemplateTagService.numAccounts
+  var numberKeys = VdmTemplateTagService.numKeys
+  var numberAccounts = VdmTemplateTagService.numAccounts
 
   ctrl.options = {
     types: types
@@ -72,7 +72,7 @@ function controller(
     */
   function loadKeys() {
     var keys = {}
-    for (var i = 1; i <= numKeys[ctrl.deviceTemplate]; i++) {
+    for (var i = 1; i <= numberKeys[ctrl.deviceTemplate]; i++) {
       var key = {
         id: i,
         type: getTagValue('%key' + i + 'type%'),
@@ -105,7 +105,7 @@ function controller(
 
   function loadLines() {
     var lines = []
-    for (var i = 1; i <= numAccounts[ctrl.deviceTemplate]; i++) {
+    for (var i = 1; i <= numberAccounts[ctrl.deviceTemplate]; i++) {
       lines.push({ label: 'Account ' + i, id: String(i) })
     }
     ctrl.options.lines = lines
@@ -209,11 +209,11 @@ function controller(
   }
 
   function hideOn(types, type) {
-    return types.indexOf(type) === -1
+    return !types.includes(type)
   }
 
   function showOn(types, type) {
-    return types.indexOf(type) !== -1
+    return types.includes(type)
   }
 
   function update(key, callback) {

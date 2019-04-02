@@ -28,14 +28,14 @@ function Service($http, Route) {
       })
   }
 
-  function store(serviceProviderId, enterpriseTrunkName, obj) {
-    return $http.post(url(), obj).then(function(response) {
+  function store(serviceProviderId, enterpriseTrunkName, object) {
+    return $http.post(url(), object).then(function(response) {
       return response.data
     })
   }
 
-  function update(serviceProviderId, enterpriseTrunkName, obj) {
-    return $http.put(url(), obj).then(function(response) {
+  function update(serviceProviderId, enterpriseTrunkName, object) {
+    return $http.put(url(), object).then(function(response) {
       return response.data
     })
   }

@@ -38,15 +38,15 @@ function Service($http, Route) {
         return response.data
       })
   }
-  function update(serviceProviderId, groupId, obj) {
-    obj = _.assign(
+  function update(serviceProviderId, groupId, object) {
+    object = _.assign(
       {
         serviceProviderId: serviceProviderId,
         groupId: groupId
       },
-      obj
+      object
     )
-    return $http.put(url(), obj).then(function(response) {
+    return $http.put(url(), object).then(function(response) {
       return response.data
     })
   }

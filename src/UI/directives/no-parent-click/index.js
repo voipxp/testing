@@ -12,8 +12,8 @@ angular.module('odin.UI').directive('noParentClick', Directive)
 function Directive() {
   return {
     restrict: 'A',
-    link: function(scope, elem) {
-      elem.on('click', function(event) {
+    link: function(scope, element) {
+      element.on('click', function(event) {
         event.stopPropagation()
         return false
       })

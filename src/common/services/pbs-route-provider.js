@@ -45,13 +45,13 @@ function Provider($routeProvider) {
     var template = ''
     template += '<' + name
     if (route.resolve) {
-      _.forOwn(route.resolve, function(val, key) {
+      _.forOwn(route.resolve, function(value, key) {
         template += ' ' + key + '="$resolve.' + key + '"'
       })
     }
     if (route.bindings) {
-      _.forOwn(route.bindings, function(val, key) {
-        template += ' ' + _.kebabCase(key) + '="' + val + '"'
+      _.forOwn(route.bindings, function(value, key) {
+        template += ' ' + _.kebabCase(key) + '="' + value + '"'
       })
     }
     template += '></' + name + '>'

@@ -12,6 +12,6 @@ function GroupDomainService($http, CacheFactory, Route) {
   function index(serviceProviderId, groupId) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId } }, { cache: cache })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

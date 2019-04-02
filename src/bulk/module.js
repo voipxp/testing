@@ -8,7 +8,12 @@ angular
     '$rootScope',
     '$location',
     ($rootScope, $location) => {
-      $rootScope.$on('$routeChangeError', function(e, c, p, error) {
+      $rootScope.$on('$routeChangeError', function(
+        event,
+        current,
+        previous,
+        error
+      ) {
         if (error === 'routeToSelect') {
           var path = $location
             .path()

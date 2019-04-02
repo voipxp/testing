@@ -31,7 +31,7 @@
       ctrl.hasAnnouncements = ACL.hasVersion('20')
       ctrl.loading = true
       loadPermissions()
-        .catch(err => Alert.notify.danger(err))
+        .catch(error => Alert.notify.danger(error))
         .finally(() => (ctrl.loading = false))
     }
 

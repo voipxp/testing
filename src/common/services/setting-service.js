@@ -9,18 +9,18 @@ function SettingService($http, Route) {
   return service
 
   function index() {
-    return $http.get(url()).then(res => res.data)
+    return $http.get(url()).then(response => response.data)
   }
 
   function show(key) {
-    return $http.get(url(key)).then(res => res.data)
+    return $http.get(url(key)).then(response => response.data)
   }
 
   function update(key, value) {
-    return $http.put(url(key), value).then(res => res.data)
+    return $http.put(url(key), value).then(response => response.data)
   }
 
   function destroy(key) {
-    return $http.delete(url(key)).then(res => res.data)
+    return $http.delete(url(key)).then(response => response.data)
   }
 }

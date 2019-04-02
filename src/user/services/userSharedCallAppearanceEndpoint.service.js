@@ -28,20 +28,20 @@
         })
     }
 
-    function store(userId, obj) {
-      return $http.post(url(), obj).then(function(response) {
+    function store(userId, object) {
+      return $http.post(url(), object).then(function(response) {
         return response.data
       })
     }
 
-    function update(userId, obj) {
-      return $http.put(url(), obj).then(function(response) {
+    function update(userId, object) {
+      return $http.put(url(), object).then(function(response) {
         return response.data
       })
     }
 
-    function destroy(userId, obj) {
-      return $http.delete(url(), { data: obj }).then(function(response) {
+    function destroy(userId, object) {
+      return $http.delete(url(), { data: object }).then(function(response) {
         return response.data
       })
     }

@@ -60,8 +60,8 @@ function GroupCollaborateService($http, Route) {
       })
   }
 
-  function store(serviceUserId, obj) {
-    return $http.post(url('bridges'), obj).then(function(response) {
+  function store(serviceUserId, object) {
+    return $http.post(url('bridges'), object).then(function(response) {
       return response.data
     })
   }
@@ -74,8 +74,8 @@ function GroupCollaborateService($http, Route) {
       })
   }
 
-  function update(serviceUserId, obj) {
-    return $http.put(url('bridges'), obj).then(function(response) {
+  function update(serviceUserId, object) {
+    return $http.put(url('bridges'), object).then(function(response) {
       return response.data
     })
   }

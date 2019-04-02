@@ -9,18 +9,20 @@ function Service($http, Route) {
   return service
 
   function index(templateId) {
-    return $http.get(url(), { params: { templateId } }).then(res => res.data)
+    return $http
+      .get(url(), { params: { templateId } })
+      .then(response => response.data)
   }
 
   function update(templateId, tag) {
     return $http
       .put(url(), tag, { params: { templateId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(templateId, tag) {
     return $http
       .post(url(), tag, { params: { templateId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

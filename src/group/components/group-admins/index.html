@@ -1,0 +1,309 @@
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+>
+  <pbs-breadcrumb title="'Administrators'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Administrators">
+    <pbs-block-buttons ng-if="$ctrl.canCreate">
+      <pbs-button-compact-add ng-click="$ctrl.add()" title="Add Administrator">
+      </pbs-button-compact-add>
+      <pbs-button-compact-cogs
+        ng-click="$ctrl.toggleSelect()"
+      ></pbs-button-compact-cogs>
+    </pbs-block-buttons>
+    <pbs-data-table
+      columns="$ctrl.columns"
+      items="$ctrl.admins"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="50"
+      filter="$ctrl.selectFilter"
+      show-select="$ctrl.showSelect"
+      on-click="$ctrl.onClick($event)"
+      on-select="$ctrl.onSelect($event)"
+    ></pbs-data-table>
+  </pbs-block>
+</pbs-spinner>
+
+<pbs-modal id="create-GroupAdmin" title="Add Administrator">
+  <pbs-form>
+    <pbs-form-field-horizontal label="User ID">
+      <select-user-id
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.newAdmin.userId"
+        required="true"
+        on-update="$ctrl.setNewUserId($event)"
+      ></select-user-id>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Type">
+      <pbs-input-select ng-model="$ctrl.newAdminType">
+        <option value="group">Group</option>
+        <option value="department">Department</option>
+      </pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal
+      label="Department"
+      ng-show="$ctrl.newAdminType === 'department'"
+    >
+      <select-department
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        ng-model="$ctrl.newAdmin.department"
+        ng-required="$ctrl.newAdminType === 'department'"
+      >
+      </select-department>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Last Name">
+      <input type="text" class="input" ng-model="$ctrl.newAdmin.lastName" />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="First Name">
+      <input type="text" class="input" ng-model="$ctrl.newAdmin.firstName" />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Password">
+      <pbs-input-password
+        ng-model="$ctrl.newAdmin.password"
+        ng-minlength="6"
+        ng-maxlength="60"
+        ng-required="true"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+      ></pbs-input-password>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Language">
+      <select-language ng-model="$ctrl.newAdmin.language"></select-language>
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>
+
+<pbs-modal id="update-GroupAdmin" title="Edit {{ $ctrl.editAdmin.userId }}">
+  <pbs-form>
+    <pbs-tabs>
+      <pbs-tab label="Required">
+        <pbs-form-field-horizontal label="Last Name">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.editAdmin.lastName"
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="First Name">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.editAdmin.firstName"
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="New Password">
+          <pbs-input-password
+            ng-model="$ctrl.editAdmin.password"
+            ng-minlength="6"
+            ng-maxlength="60"
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+          ></pbs-input-password>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Language">
+          <select-language
+            ng-model="$ctrl.editAdmin.language"
+          ></select-language>
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+
+      <pbs-tab label="Policies" ng-if="!$ctrl.editAdmin.department">
+        <pbs-form-field-horizontal label="Profile">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.profileAccess"
+            ng-options="profileAccess for profileAccess in $ctrl.policies.profileAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="User">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.userAccess"
+            ng-options="userAccess for userAccess in $ctrl.policies.userAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Administrators">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.adminAccess"
+            ng-options="adminAccess for adminAccess in $ctrl.policies.adminAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Department">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.departmentAccess"
+            ng-options="departmentAccess for departmentAccess in $ctrl.policies.departmentAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Access Device">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.accessDeviceAccess"
+            ng-options="accessDeviceAccess for accessDeviceAccess in $ctrl.policies.accessDeviceAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="PhoneNumber Extension">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.phoneNumberExtensionAccess"
+            ng-options="phoneNumberExtensionAccess for phoneNumberExtensionAccess in $ctrl.policies.phoneNumberExtensionAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="CallingLineId Number">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.callingLineIdNumberAccess"
+            ng-options="callingLineIdNumberAccess for callingLineIdNumberAccess in $ctrl.policies.callingLineIdNumberAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Services">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.serviceAccess"
+            ng-options="serviceAccess for serviceAccess in $ctrl.policies.serviceAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Dialable CallerID">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.dialableCallerIDAccess"
+            ng-options="dialableCallerIDAccess for dialableCallerIDAccess in $ctrl.policies.dialableCallerIDAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Enhanced Service">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.enhancedServiceInstanceAccess"
+            ng-options="enhancedServiceInstanceAccess for enhancedServiceInstanceAccess in $ctrl.policies.enhancedServiceInstanceAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Feature Access Code">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.featureAccessCodeAccess"
+            ng-options="featureAccessCodeAccess for featureAccessCodeAccess in $ctrl.policies.featureAccessCodeAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Number Activation">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.numberActivationAccess"
+            ng-options="numberActivationAccess for numberActivationAccess in $ctrl.policies.numberActivationAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Office Zone">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.officeZoneAccess"
+            ng-options="officeZoneAccess for officeZoneAccess in $ctrl.policies.officeZoneAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Session Admission">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.sessionAdmissionControlAccess"
+            ng-options="sessionAdmissionControlAccess for sessionAdmissionControlAccess in $ctrl.policies.sessionAdmissionControlAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Trunk Group">
+          <pbs-input-select
+            ng-model="$ctrl.editPolicies.trunkGroupAccess"
+            ng-options="trunkGroupAccess for trunkGroupAccess in $ctrl.policies.trunkGroupAccess"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+    </pbs-tabs>
+  </pbs-form>
+</pbs-modal>
+
+<pbs-modal
+  id="update-GroupAdminBulk"
+  title="Edit {{ $ctrl.selected }} Group Admins"
+>
+  <pbs-form>
+    <pbs-form-field-horizontal label="Profile">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.profileAccess"
+        ng-options="profileAccess for profileAccess in $ctrl.policies.profileAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="User">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.userAccess"
+        ng-options="userAccess for userAccess in $ctrl.policies.userAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Administrators">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.adminAccess"
+        ng-options="adminAccess for adminAccess in $ctrl.policies.adminAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Department">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.departmentAccess"
+        ng-options="departmentAccess for departmentAccess in $ctrl.policies.departmentAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Access Device">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.accessDeviceAccess"
+        ng-options="accessDeviceAccess for accessDeviceAccess in $ctrl.policies.accessDeviceAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="PhoneNumber Extension">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.phoneNumberExtensionAccess"
+        ng-options="phoneNumberExtensionAccess for phoneNumberExtensionAccess in $ctrl.policies.phoneNumberExtensionAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="CallingLineId Number">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.callingLineIdNumberAccess"
+        ng-options="callingLineIdNumberAccess for callingLineIdNumberAccess in $ctrl.policies.callingLineIdNumberAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Services">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.serviceAccess"
+        ng-options="serviceAccess for serviceAccess in $ctrl.policies.serviceAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Dialable CallerID">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.dialableCallerIDAccess"
+        ng-options="dialableCallerIDAccess for dialableCallerIDAccess in $ctrl.policies.dialableCallerIDAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Enhanced Service">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.enhancedServiceInstanceAccess"
+        ng-options="enhancedServiceInstanceAccess for enhancedServiceInstanceAccess in $ctrl.policies.enhancedServiceInstanceAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Feature Access Code">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.featureAccessCodeAccess"
+        ng-options="featureAccessCodeAccess for featureAccessCodeAccess in $ctrl.policies.featureAccessCodeAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Number Activation">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.numberActivationAccess"
+        ng-options="numberActivationAccess for numberActivationAccess in $ctrl.policies.numberActivationAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Office Zone">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.officeZoneAccess"
+        ng-options="officeZoneAccess for officeZoneAccess in $ctrl.policies.officeZoneAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Session Admission">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.sessionAdmissionControlAccess"
+        ng-options="sessionAdmissionControlAccess for sessionAdmissionControlAccess in $ctrl.policies.sessionAdmissionControlAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Trunk Group">
+      <pbs-input-select
+        ng-model="$ctrl.editPolicies.trunkGroupAccess"
+        ng-options="trunkGroupAccess for trunkGroupAccess in $ctrl.policies.trunkGroupAccess"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>

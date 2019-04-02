@@ -34,8 +34,8 @@ function controller(Alert, ServiceProviderTrunkGroupCallCapacityService, ACL) {
       })
   }
 
-  function displayMax(attr) {
-    var value = ctrl.settings[attr]
+  function displayMax(attribute) {
+    var value = ctrl.settings[attribute]
     return value === -1 ? 'Unlimited' : value
   }
 

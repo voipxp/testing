@@ -11,32 +11,32 @@ function Service($http, Route) {
   function index(serviceProviderId, includeUtilization) {
     return $http
       .get(url(), { params: { serviceProviderId, includeUtilization } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
-  function create(serviceProviderId, obj) {
-    return $http.post(url(), obj).then(res => res.data)
+  function create(serviceProviderId, object) {
+    return $http.post(url(), object).then(response => response.data)
   }
 
   function show(serviceProviderId, servicePackName) {
     return $http
       .get(url(), { params: { serviceProviderId, servicePackName } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
-  function update(serviceProviderId, servicePackName, obj) {
-    return $http.put(url(), obj).then(res => res.data)
+  function update(serviceProviderId, servicePackName, object) {
+    return $http.put(url(), object).then(response => response.data)
   }
 
   function destroy(serviceProviderId, servicePackName) {
     return $http
       .delete(url(), { params: { serviceProviderId, servicePackName } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function usage(serviceProviderId, serviceName) {
     return $http
       .get(url('usage'), { params: { serviceProviderId, serviceName } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

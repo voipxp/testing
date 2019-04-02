@@ -16,24 +16,24 @@ function GroupNumberService($http, Route) {
   function index(serviceProviderId, groupId, q) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId, q } })
-      .then(res => res.data.dns)
+      .then(response => response.data.dns)
   }
 
   function assign(serviceProviderId, groupId, dns) {
     return $http
       .post(url(), { serviceProviderId, groupId, dns })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function unassign(serviceProviderId, groupId, dns) {
     return $http
       .delete(url(), { data: { serviceProviderId, groupId, dns } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(serviceProviderId, groupId, dns) {
     return $http
       .put(url(), { serviceProviderId, groupId, dns })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

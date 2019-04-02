@@ -1,0 +1,76 @@
+<group-calling-plans-nav></group-calling-plans-nav>
+
+<pbs-spinner loading="$ctrl.isLoading">
+  <pbs-block title="Calling Plans">
+    <pbs-columns>
+      <pbs-column>
+        <nav class="panel">
+          <p class="panel-heading">
+            Configure
+          </p>
+          <div class="panel-block">
+            <p class="control has-icons-left">
+              <input
+                class="input is-small"
+                type="search"
+                placeholder="search"
+                ng-model="$ctrl.searchC"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-search"></i>
+              </span>
+            </p>
+          </div>
+          <a
+            class="panel-block"
+            ng-repeat="plan in $ctrl.configuration | filter:{isActive: true} | filter:$ctrl.searchC as resultsC"
+            ng-click="$ctrl.edit(plan)"
+          >
+            {{ plan.name }}
+          </a>
+          <a class="panel-block" ng-show="resultsC.length < 1">
+            No Plan Found
+            <span ng-show="$ctrl.searchC">
+              for
+              <strong>{{ $ctrl.searchC }}</strong>
+            </span>
+          </a>
+        </nav>
+      </pbs-column>
+      <pbs-column>
+        <nav class="panel">
+          <p class="panel-heading">
+            Manage
+          </p>
+          <div class="panel-block">
+            <p class="control has-icons-left">
+              <input
+                class="input is-small"
+                type="search"
+                placeholder="search"
+                ng-model="$ctrl.searchM"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-search"></i>
+              </span>
+            </p>
+          </div>
+          <a
+            class="panel-block"
+            ng-repeat="plan in $ctrl.management | filter:{isActive: true} | filter:$ctrl.searchM as resultsM"
+            ng-click="$ctrl.edit(plan)"
+          >
+            {{ plan.name }}
+          </a>
+          <a class="panel-block" ng-show="resultsM.length < 1">
+            No Plan Found
+            <span ng-show="$ctrl.searchM">
+              for
+              <strong>{{ $ctrl.searchM }}</strong>
+            </span>
+          </a>
+        </nav>
+      </pbs-column>
+    </pbs-columns>
+  </pbs-block>
+</pbs-spinner>

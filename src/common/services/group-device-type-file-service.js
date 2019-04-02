@@ -11,7 +11,7 @@ function Service($http, Route) {
   function index(serviceProviderId, groupId, deviceType) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId, deviceType } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function show(serviceProviderId, groupId, deviceType, fileFormat) {
@@ -19,10 +19,10 @@ function Service($http, Route) {
       .get(url(), {
         params: { serviceProviderId, groupId, deviceType, fileFormat }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(serviceProviderId, groupId, deviceType, file) {
-    return $http.put(url(), file).then(res => res.data)
+    return $http.put(url(), file).then(response => response.data)
   }
 }

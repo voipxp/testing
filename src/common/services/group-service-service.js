@@ -21,7 +21,7 @@ function Service($http, Route, CacheFactory, $rootScope) {
   function show(serviceProviderId, groupId) {
     return $http
       .get(url(), { cache, params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   // map this into an easy to access hash
@@ -31,7 +31,7 @@ function Service($http, Route, CacheFactory, $rootScope) {
         cache,
         params: { serviceProviderId, groupId }
       })
-      .then(res => res.data)
+      .then(response => response.data)
       .then(services => {
         var results = {}
         services.forEach(function(service) {
@@ -46,7 +46,7 @@ function Service($http, Route, CacheFactory, $rootScope) {
         cache,
         params: { serviceProviderId, groupId, serviceType, serviceName }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
   function authorized(serviceProviderId, groupId) {
     return $http
@@ -54,16 +54,16 @@ function Service($http, Route, CacheFactory, $rootScope) {
         cache,
         params: { serviceProviderId, groupId }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(serviceProviderId, groupId, service) {
     return $http
       .put(url(), { ...service, serviceProviderId, groupId })
-      .then(res => {
+      .then(response => {
         cache.removeAll()
         $rootScope.$emit('GroupServiceService:updated')
-        return res.data
+        return response.data
       })
   }
 }

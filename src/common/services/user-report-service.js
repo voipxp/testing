@@ -11,10 +11,12 @@ function UserReportService($http, Route) {
   function index(serviceProviderId, groupId) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function show(userId) {
-    return $http.get(url(), { params: { userId } }).then(res => res.data)
+    return $http
+      .get(url(), { params: { userId } })
+      .then(response => response.data)
   }
 }

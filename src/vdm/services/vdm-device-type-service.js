@@ -12,22 +12,24 @@ function Service($http, Route) {
   return service
 
   function index() {
-    return $http.get(url()).then(res => res.data)
+    return $http.get(url()).then(response => response.data)
   }
 
-  function store(obj) {
-    return $http.post(url(), obj).then(res => res.data)
+  function store(object) {
+    return $http.post(url(), object).then(response => response.data)
   }
 
   function show(id) {
-    return $http.get(url(), { params: { id } }).then(res => res.data)
+    return $http.get(url(), { params: { id } }).then(response => response.data)
   }
 
-  function update(obj) {
-    return $http.put(url(), obj).then(res => res.data)
+  function update(object) {
+    return $http.put(url(), object).then(response => response.data)
   }
 
   function destroy(id) {
-    return $http.delete(url(), { params: { id } }).then(res => res.data)
+    return $http
+      .delete(url(), { params: { id } })
+      .then(response => response.data)
   }
 }

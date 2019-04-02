@@ -21,6 +21,7 @@ import './branding'
 import './bulk'
 import './common'
 import './events'
+import './group'
 import './service-provider'
 import './settings'
 import './system'
@@ -48,6 +49,7 @@ angular
     'odin.branding',
     'odin.bulk',
     'odin.events',
+    'odin.group',
     'odin.serviceProvider',
     'odin.settings',
     'odin.system',
@@ -65,5 +67,5 @@ angular
   .run(config.rootScope)
 
 angular
-  .element(document.getElementById('odin'))
-  .ready(() => angular.bootstrap(document, ['odin']))
+  .element(document.querySelector('#odin'))
+  .ready(() => angular.bootstrap(document, ['odin'], { strictDi: true }))

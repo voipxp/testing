@@ -35,8 +35,8 @@ function Service($http, Route) {
       })
   }
 
-  function store(serviceProviderId, obj) {
-    return $http.post(url(), obj).then(function(response) {
+  function store(serviceProviderId, object) {
+    return $http.post(url(), object).then(function(response) {
       return response.data
     })
   }

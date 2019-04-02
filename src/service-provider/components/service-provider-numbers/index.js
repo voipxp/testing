@@ -66,7 +66,7 @@ function controller(
       selected: NumberService.expand(number)
     }
     Alert.modal.open('serviceProviderNumbersEditModal', function(close) {
-      if (ctrl.editNumbers.available.length < 1) return close()
+      if (ctrl.editNumbers.available.length === 0) return close()
       remove(ctrl.editNumbers.available, close)
     })
   }

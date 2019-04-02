@@ -87,11 +87,11 @@ function BulkTagService() {
   }
 
   function view() {
-    var obj = {}
+    var object = {}
     tags.forEach(function(tag) {
-      obj[tag.property] = tag.example
+      object[tag.property] = tag.example
     })
-    return obj
+    return object
   }
 
   return { index: index, view: view }

@@ -19,7 +19,7 @@ function controller(Alert, $q, Module, VdmTemplateTagService) {
 
   var ringtones = VdmTemplateTagService.ringtones
 
-  var numAccounts = VdmTemplateTagService.numAccounts
+  var numberAccounts = VdmTemplateTagService.numAccounts
 
   ctrl.options = { ringtones: ringtones }
 
@@ -34,9 +34,9 @@ function controller(Alert, $q, Module, VdmTemplateTagService) {
       %default_account% = 1
     */
   function loadAccounts() {
-    var num = numAccounts[ctrl.deviceTemplate]
+    var number = numberAccounts[ctrl.deviceTemplate]
     var accounts = []
-    for (var i = 1; i <= num; i++) {
+    for (var i = 1; i <= number; i++) {
       accounts.push({
         id: i,
         line: getTagValue('%account' + i + 'lines%'),

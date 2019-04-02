@@ -60,7 +60,7 @@ function Directive($timeout) {
 
       function handleFile(file) {
         const reader = new FileReader()
-        reader.onload = event => {
+        reader.addEventListener('load', event => {
           $timeout(() => {
             const content = event.target.result
             if (/^data:.*,/.test(content)) {
@@ -73,7 +73,7 @@ function Directive($timeout) {
             scope.name = file.name
             scope.onUpload({ file })
           })
-        }
+        })
         switch (scope.mode) {
           case 'text':
             return reader.readAsText(file)

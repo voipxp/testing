@@ -17,33 +17,35 @@ function service($http, Route, $rootScope, CacheFactory) {
   }
 
   function index() {
-    return $http.get(url(), { cache }).then(res => res.data)
+    return $http.get(url(), { cache }).then(response => response.data)
   }
 
   function store(serviceProvider) {
-    return $http.post(url(), serviceProvider).then(res => {
+    return $http.post(url(), serviceProvider).then(response => {
       clearCache()
-      return res.data
+      return response.data
     })
   }
 
   function show(serviceProviderId) {
     return $http
       .get(url(), { params: { serviceProviderId }, cache })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(serviceProviderId, serviceProvider) {
-    return $http.put(url(), serviceProvider).then(res => {
+    return $http.put(url(), serviceProvider).then(response => {
       clearCache()
-      return res.data
+      return response.data
     })
   }
 
   function destroy(serviceProviderId) {
-    return $http.delete(url(), { params: { serviceProviderId } }).then(res => {
-      clearCache()
-      return res.data
-    })
+    return $http
+      .delete(url(), { params: { serviceProviderId } })
+      .then(response => {
+        clearCache()
+        return response.data
+      })
   }
 }

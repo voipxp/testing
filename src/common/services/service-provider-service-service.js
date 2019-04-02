@@ -17,20 +17,22 @@ function service($http, Route, CacheFactory, $rootScope) {
   function show(serviceProviderId) {
     return $http
       .get(url(), { params: { serviceProviderId }, cache })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function assignable(serviceProviderId) {
     return $http
       .get(url('assignable'), { params: { serviceProviderId }, cache })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(serviceProviderId, services) {
-    return $http.put(url(), { ...services, serviceProviderId }).then(res => {
-      cache.removeAll()
-      $rootScope.$emit('ServiceProviderServiceService:updated')
-      return res.data
-    })
+    return $http
+      .put(url(), { ...services, serviceProviderId })
+      .then(response => {
+        cache.removeAll()
+        $rootScope.$emit('ServiceProviderServiceService:updated')
+        return response.data
+      })
   }
 }

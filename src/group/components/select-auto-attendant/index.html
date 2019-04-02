@@ -1,0 +1,37 @@
+<pbs-modal id="{{ $ctrl.modalId }}" title="Select {{ $ctrl.module.alias }}">
+  <pbs-spinner loading="$ctrl.loading">
+    <pbs-table-search ng-model="search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Number</th>
+          <th>Extension</th>
+          <th>Department</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="99">
+            No {{ $ctrl.module.alias }} Found
+            <span ng-if="search">for {{ search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          class="hover"
+          ng-click="$ctrl.select(autoAttendant)"
+          ng-repeat="autoAttendant in $ctrl.autoAttendants | filter:search | orderBy:'serviceUserId' as results track by autoAttendant.serviceUserId"
+        >
+          <td>{{ autoAttendant.name }}</td>
+          <td>{{ autoAttendant.type }}</td>
+          <td>{{ autoAttendant.phoneNumber }}</td>
+          <td>{{ autoAttendant.extension }}</td>
+          <td>{{ autoAttendant.department }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-spinner>
+</pbs-modal>

@@ -112,8 +112,10 @@ function controller(
 
   function hasTextField() {
     if (!ctrl.editCallback) return
-    const props = ctrl.editCallback.template.schema.properties
-    return Object.keys(props).find(prop => props[prop].type === 'string')
+    const properties = ctrl.editCallback.template.schema.properties
+    return Object.keys(properties).find(
+      property => properties[property].type === 'string'
+    )
   }
 
   function create(callback, close) {

@@ -114,8 +114,8 @@ function controller(Alert, $scope, $q, ServicePackService, EventEmitter) {
     var licenses = _.filter(services, function(service) {
       return /Shared Call Appearance/.exec(service)
     }).map(function(sca) {
-      var num = parseInt(sca.replace(/[^\d]/g, '') || 1, 10)
-      return num
+      var number = parseInt(sca.replace(/[^\d]/g, '') || 1, 10)
+      return number
     })
     ctrl.maxEndpoints = _.max(licenses) || 0
   }

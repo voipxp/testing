@@ -14,10 +14,10 @@ function ServiceProviderPasscodeService($http, Route, CacheFactory) {
   function show(serviceProviderId) {
     return $http
       .get(url(), { cache, params: { serviceProviderId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
-  function update(serviceProviderId, obj) {
-    return $http.put(url(), obj).then(res => res.data)
+  function update(serviceProviderId, object) {
+    return $http.put(url(), object).then(response => response.data)
   }
 }

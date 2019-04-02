@@ -13,8 +13,8 @@ function Setting($http, Route, $rootScope) {
 
   // get the UI settings and save in memory
   function load() {
-    return $http.get(url()).then(res => {
-      _data = _.isEmpty(res.data) ? {} : res.data
+    return $http.get(url()).then(response => {
+      _data = _.isEmpty(response.data) ? {} : response.data
       $rootScope.$emit('Setting:updated')
     })
   }

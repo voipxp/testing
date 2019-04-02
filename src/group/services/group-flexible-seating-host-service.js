@@ -34,15 +34,15 @@ function Service($http, Route) {
       })
   }
 
-  function store(obj) {
-    return $http.post(url(), obj).then(function(response) {
+  function store(object) {
+    return $http.post(url(), object).then(function(response) {
       return response.data
     })
   }
 
-  function status(obj) {
+  function status(object) {
     return $http
-      .put(url('status'), { instances: [obj] })
+      .put(url('status'), { instances: [object] })
       .then(function(response) {
         return response.data
       })
@@ -58,8 +58,8 @@ function Service($http, Route) {
       })
   }
 
-  function update(obj) {
-    return $http.put(url(), obj).then(function(response) {
+  function update(object) {
+    return $http.put(url(), object).then(function(response) {
       return response.data
     })
   }

@@ -12,19 +12,19 @@ function Auth($http, Route) {
   function token(username, password) {
     return $http
       .post(url('token'), { username, password })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function password(oldPassword, newPassword, userId) {
-    const obj = { userId, newPassword }
+    const object = { userId, newPassword }
     if (oldPassword) {
-      obj['oldPassword'] = oldPassword
+      object['oldPassword'] = oldPassword
     }
-    return $http.put(url('password'), obj).then(res => res.data)
+    return $http.put(url('password'), object).then(response => response.data)
   }
 
   // load the session information about the logged in user
   function session() {
-    return $http.get(url('session')).then(res => res.data)
+    return $http.get(url('session')).then(response => response.data)
   }
 }

@@ -13,10 +13,10 @@ function GroupPasswordService($http, Route, CacheFactory) {
   function show(serviceProviderId, groupId) {
     return $http
       .get(url(), { cache, params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
-  function update(serviceProviderId, groupId, obj) {
-    return $http.put(url(), obj).then(res => res.data)
+  function update(serviceProviderId, groupId, object) {
+    return $http.put(url(), object).then(response => response.data)
   }
 }

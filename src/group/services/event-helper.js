@@ -48,8 +48,8 @@ function EventHelper() {
   function fromRRule(event) {
     if (!event.rrule) return {}
     var _rrule = rrule.rrulestr(event.rrule)
-    var opts = angular.copy(_rrule.origOptions)
-    opts.interval = opts.interval || 1
-    return opts
+    var options = angular.copy(_rrule.origOptions)
+    options.interval = options.interval || 1
+    return options
   }
 }

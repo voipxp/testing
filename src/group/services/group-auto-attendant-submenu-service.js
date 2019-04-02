@@ -38,22 +38,22 @@ function Service($http, Route, GroupAutoAttendantService) {
   function show(serviceUserId, submenuId) {
     return $http
       .get(url(), { params: { serviceUserId, submenuId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function usage(serviceUserId, submenuId) {
     return $http
       .get(url('usage'), { params: { serviceUserId, submenuId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(submenu) {
-    return $http.put(url(), submenu).then(res => res.data)
+    return $http.put(url(), submenu).then(response => response.data)
   }
 
   function destroy(serviceUserId, submenuId) {
     return $http
       .delete(url(), { params: { serviceUserId, submenuId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

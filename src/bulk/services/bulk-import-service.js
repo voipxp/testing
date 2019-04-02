@@ -62,10 +62,10 @@ function BulkImportService(
 
   function transform(data) {
     return $q(function(resolve) {
-      var result = _.isString(data)
+      var response = _.isString(data)
         ? CsvService.import(data)
         : UtilityService.flatten(data)
-      resolve(result)
+      resolve(response)
     })
   }
 
@@ -111,7 +111,7 @@ function BulkImportService(
   // make sure its a proper task and all required fields are not empty
   function validate(data) {
     return $q(function(resolve, reject) {
-      if (_.castArray(data).length < 1) return reject('No Data Provided')
+      if (_.castArray(data).length === 0) return reject('No Data Provided')
       data.forEach(function(row) {
         var service = BulkTaskService.get(row['task'])
         if (!service) throw 'Invalid task type: ' + row['task']

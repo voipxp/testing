@@ -3,6 +3,7 @@ import localforage from 'localforage'
 
 angular.module('odin.common').factory('StorageService', StorageService)
 
+StorageService.$inject = ['$q']
 function StorageService($q) {
   var service = { get: get, set: set, clear: clear }
   return service

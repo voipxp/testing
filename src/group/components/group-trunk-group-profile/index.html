@@ -1,0 +1,283 @@
+<pbs-spinner loading="$ctrl.parent.loading">
+  <pbs-block title="Settings">
+    <pbs-block-buttons ng-if="$ctrl.canUpdate">
+      <pbs-button-compact-edit title="Edit Settings" ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Name"> {{ $ctrl.parent.trunkName }} </pbs-list-item>
+      <pbs-list-item label="Pilot UserID">
+        {{ $ctrl.parent.trunk.pilotUserId }}
+      </pbs-list-item>
+      <pbs-list-item
+        label="Department"
+        ng-show="$ctrl.parent.trunk.department.name"
+      >
+        {{ $ctrl.parent.trunk.department.name }}
+      </pbs-list-item>
+      <pbs-list-item label="Access Device">
+        {{ $ctrl.parent.trunk.accessDevice.deviceName }}
+      </pbs-list-item>
+      <pbs-list-item
+        label="Require Authentication"
+        ng-show="$ctrl.authentication.read"
+      >
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.requireAuthentication"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item
+        label="Authentication Username"
+        ng-show="$ctrl.authentication.read && $ctrl.parent.trunk.requireAuthentication"
+      >
+        {{ $ctrl.parent.trunk.sipAuthenticationUserName }}
+      </pbs-list-item>
+      <pbs-list-item label="Trunk Group Identity">
+        {{ $ctrl.parent.trunk.trunkGroupIdentity }}
+      </pbs-list-item>
+      <pbs-list-item label="OTG/DTG Identity">
+        {{ $ctrl.parent.trunk.otgDtgIdentity }}
+      </pbs-list-item>
+      <pbs-list-item label="Prefix Enabled">
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.prefixEnabled"
+        ></pbs-check-box>
+        <span ng-show="$ctrl.parent.trunk.prefixEnabled"
+          >{{ $ctrl.parent.trunk.prefix }}</span
+        >
+      </pbs-list-item>
+      <pbs-list-item label="Allow Incoming To Trunk Identity">
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.allowTerminationToTrunkGroupIdentity"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Allow Incoming To DTG Identity">
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.allowTerminationToDtgIdentity"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Incoming Include Trunk Identity">
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.includeTrunkGroupIdentity"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Incoming Include DTG Identity">
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.includeDtgIdentity"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Outgoing Include Trunk Identity">
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.includeTrunkGroupIdentityForNetworkCalls"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Outgoing Include OTG Identity">
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.includeOtgIdentityForNetworkCalls"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Enable Network Address Identity">
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.enableNetworkAddressIdentity"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Allow Unscreened Calls">
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.allowUnscreenedCalls"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Allow Unscreened Emergency Calls">
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.allowUnscreenedEmergencyCalls"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Route To Peering Domain">
+        <pbs-check-box
+          checked="$ctrl.parent.trunk.routeToPeeringDomain"
+        ></pbs-check-box>
+        <span ng-show="$ctrl.parent.trunk.routeToPeeringDomain">
+          {{ $ctrl.parent.trunk.peeringDomain }}
+        </span>
+      </pbs-list-item>
+      <pbs-list-item label="Pilot Call Optimization Policy">
+        {{ $ctrl.parent.trunk.pilotUserCallOptimizationPolicy }}
+      </pbs-list-item>
+      <pbs-list-item label="Pilot Calling Line ID Policy">
+        {{ $ctrl.parent.trunk.pilotUserCallingLineIdentityForExternalCallsPolicy
+        }}
+      </pbs-list-item>
+      <pbs-list-item label="Pilot Calling Line Asserted ID Policy">
+        <span
+          ng-show="$ctrl.parent.trunk.useSystemCallingLineAssertedIdentityPolicy"
+        >
+          Use System Policy
+        </span>
+        <span
+          ng-show="!$ctrl.parent.trunk.useSystemCallingLineAssertedIdentityPolicy"
+        >
+          {{ $ctrl.parent.trunk.pilotUserCallingLineAssertedIdentityPolicy }}
+        </span>
+      </pbs-list-item>
+      <pbs-list-item label="Pilot Charge Number Policy">
+        {{ $ctrl.parent.trunk.pilotUserChargeNumberPolicy }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupTrunkGroupProfile" title="Edit Settings">
+  <form novalidate>
+    <pbs-form-field label="Trunk Name" ng-if="$ctrl.authentication.update">
+      <input type="text" class="input" ng-model="$ctrl.editTrunk.newName" />
+    </pbs-form-field>
+    <pbs-form-field label="Department Name">
+      <select-department
+        service-provider-id="$ctrl.parent.serviceProviderId"
+        group-id="$ctrl.parent.groupId"
+        ng-model="$ctrl.editTrunk.department"
+      ></select-department>
+    </pbs-form-field>
+    <pbs-form-field label="Authentication" ng-if="$ctrl.authentication.update">
+      <pbs-input-checkbox
+        label="Require Authentication"
+        ng-model="$ctrl.editTrunk.requireAuthentication"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+    <pbs-form-field
+      label="SIP User Name"
+      ng-if="$ctrl.authentication.update"
+      ng-show="$ctrl.editTrunk.requireAuthentication"
+    >
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editTrunk.sipAuthenticationUserName"
+        ng-required="$ctrl.editTrunk.requireAuthentication"
+      />
+    </pbs-form-field>
+    <pbs-form-field
+      label="SIP Password"
+      ng-if="$ctrl.authentication.update"
+      ng-show="$ctrl.editTrunk.requireAuthentication"
+    >
+      <pbs-input-password
+        ng-model="$ctrl.editTrunk.sipAuthenticationPassword"
+        ng-minlength="6"
+        ng-maxlength="60"
+        service-provider-id="$ctrl.parent.serviceProviderId"
+        group-id="$ctrl.parent.groupId"
+      ></pbs-input-password>
+    </pbs-form-field>
+    <pbs-form-field label="Trunk Group Identity">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editTrunk.trunkGroupIdentity"
+      />
+    </pbs-form-field>
+    <pbs-form-field label="OTG Identity">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editTrunk.otgDtgIdentity"
+      />
+    </pbs-form-field>
+    <pbs-form-field label="Prefix">
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.prefixEnabled"
+        label="Prefix Enabled"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+    <pbs-form-field label="Prefix" ng-show="$ctrl.editTrunk.prefixEnabled">
+      <input type="text" class="input" ng-model="$ctrl.editTrunk.prefix" />
+    </pbs-form-field>
+    <pbs-form-field label="Call Settings">
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.allowTerminationToTrunkGroupIdentity"
+        label="Allow calls to trunk group with Trunk Identity"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.allowTerminationToDtgIdentity"
+        label="Allow calls to trunk group with DTG Identity"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.includeTrunkGroupIdentity"
+        label="Include Trunk Identity for Calls to Trunk Group"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.includeDtgIdentity"
+        label="Include DTG Identity for Calls to Trunk Group"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.includeTrunkGroupIdentityForNetworkCalls"
+        label="Include Trunk Identity for Calls from Trunk Group"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.includeOtgIdentityForNetworkCalls"
+        label="Include OTG Identity for Calls from Trunk Group"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.enableNetworkAddressIdentity"
+        label="Enable Network Address Identity"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.allowUnscreenedCalls"
+        label="Allow Unscreened Calls"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.allowUnscreenedEmergencyCalls"
+        label="Allow Unscreened Emergency Calls"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+    <pbs-form-field label="Peering Domain">
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.routeToPeeringDomain"
+        label="Route to Peering Domain"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+    <pbs-form-field
+      label="Peering Domain"
+      ng-show="$ctrl.editTrunk.routeToPeeringDomain"
+    >
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editTrunk.peeringDomain"
+        ng-required="$ctrl.editTrunk.routeToPeeringDomain"
+      />
+    </pbs-form-field>
+    <pbs-form-field label="Call Optimization Policy">
+      <pbs-input-select
+        ng-model="$ctrl.editTrunk.pilotUserCallOptimizationPolicy"
+        ng-options="opt as opt for opt in $ctrl.options.pilotUserCallOptimizationPolicy"
+      ></pbs-input-select>
+    </pbs-form-field>
+    <pbs-form-field label="CLID Policy">
+      <pbs-input-select
+        ng-model="$ctrl.editTrunk.pilotUserCallingLineIdentityForExternalCallsPolicy"
+        ng-options="opt as opt for opt in $ctrl.options.pilotUserCallingLineIdentityForExternalCallsPolicy"
+      ></pbs-input-select>
+    </pbs-form-field>
+    <pbs-form-field label="CL Asserted ID Policy">
+      <pbs-input-checkbox
+        ng-model="$ctrl.editTrunk.useSystemCallingLineAssertedIdentityPolicy"
+        label="Use System Calling Line Asserted Identity Policy"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+    <pbs-form-field
+      label="CL Asserted ID Policy"
+      ng-show="!$ctrl.editTrunk.useSystemCallingLineAssertedIdentityPolicy"
+    >
+      <pbs-input-select
+        ng-model="$ctrl.editTrunk.pilotUserCallingLineAssertedIdentityPolicy"
+        ng-options="opt as opt for opt in $ctrl.options.pilotUserCallingLineAssertedIdentityPolicy"
+        ng-required="!$ctrl.editTrunk.useSystemCallingLineAssertedIdentityPolicy"
+      ></pbs-input-select>
+    </pbs-form-field>
+    <pbs-form-field label="Charge Number Policy">
+      <pbs-input-select
+        ng-model="$ctrl.editTrunk.pilotUserChargeNumberPolicy"
+        ng-options="opt as opt for opt in $ctrl.options.pilotUserChargeNumberPolicy"
+      ></pbs-input-select>
+    </pbs-form-field>
+  </form>
+</pbs-modal>

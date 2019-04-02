@@ -11,7 +11,7 @@ function Service($http, Route) {
   function index(serviceProviderId, groupId, templateId) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId, templateId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, groupId, templateId, tag) {
@@ -19,12 +19,12 @@ function Service($http, Route) {
       .post(url(), tag, {
         params: { serviceProviderId, groupId, templateId }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(serviceProviderId, groupId, templateId, tag) {
     return $http
       .put(url(), tag, { params: { serviceProviderId, groupId, templateId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

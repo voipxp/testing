@@ -20,32 +20,38 @@ function UserService($http, Route) {
   function index(serviceProviderId, groupId, extended) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId, extended } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function info(userId) {
-    return $http.get(url('login'), { params: { userId } }).then(res => res.data)
+    return $http
+      .get(url('login'), { params: { userId } })
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, groupId, user) {
     return $http
       .post(url(), { ...user, serviceProviderId, groupId })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function show(userId) {
-    return $http.get(url(), { params: { userId } }).then(res => res.data)
+    return $http
+      .get(url(), { params: { userId } })
+      .then(response => response.data)
   }
 
   function update(userId, user) {
-    return $http.put(url(), user).then(res => res.data)
+    return $http.put(url(), user).then(response => response.data)
   }
 
   function bulk(data) {
-    return $http.put(url('bulk'), data).then(res => res.data)
+    return $http.put(url('bulk'), data).then(response => response.data)
   }
 
   function destroy(userId) {
-    return $http.delete(url(), { params: { userId } }).then(res => res.data)
+    return $http
+      .delete(url(), { params: { userId } })
+      .then(response => response.data)
   }
 }

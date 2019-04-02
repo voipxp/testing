@@ -11,7 +11,7 @@ angular.module('odin.common').directive('ngTranscludeReplace', [
     return {
       terminal: true,
       restrict: 'EA',
-      link: function($scope, $element, $attr, ctrl, transclude) {
+      link: function($scope, $element, attribute, ctrl, transclude) {
         if (!transclude) {
           $log.error(
             'orphan',
@@ -21,7 +21,7 @@ angular.module('odin.common').directive('ngTranscludeReplace', [
           return
         }
         transclude(function(clone) {
-          if (clone.length) {
+          if (clone.length > 0) {
             $element.replaceWith(clone)
           } else {
             $element.remove()

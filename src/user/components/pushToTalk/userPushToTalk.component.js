@@ -62,9 +62,9 @@
 
     function updateUsers(users, callback) {
       Alert.spinner.open()
-      var obj = angular.copy(ctrl.settings)
-      obj.users = users
-      UserPushToTalkService.update(ctrl.userId, obj)
+      var object = angular.copy(ctrl.settings)
+      object.users = users
+      UserPushToTalkService.update(ctrl.userId, object)
         .then(loadSettings)
         .then(function() {
           Alert.notify.success('Users Updated')

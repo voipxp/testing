@@ -12,15 +12,15 @@ function BrandingSettingService($http, Route, $rootScope) {
   return service
 
   function show(hostnameId) {
-    return $http.get(url(), { params: { hostnameId } }).then(res => {
-      return _.isEmpty(res.data) ? {} : res.data
+    return $http.get(url(), { params: { hostnameId } }).then(response => {
+      return _.isEmpty(response.data) ? {} : response.data
     })
   }
 
   function update(template) {
-    return $http.put(url(), template).then(res => {
+    return $http.put(url(), template).then(response => {
       $rootScope.$emit('BrandingSettingService:updated')
-      return res.data
+      return response.data
     })
   }
 }

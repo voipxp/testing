@@ -35,14 +35,14 @@
         })
     }
 
-    function update(userId, roomId, obj) {
-      return $http.put(url(), obj).then(function(response) {
+    function update(userId, roomId, object) {
+      return $http.put(url(), object).then(function(response) {
         return response.data
       })
     }
 
-    function store(userId, obj) {
-      return $http.post(url(), obj).then(function(response) {
+    function store(userId, object) {
+      return $http.post(url(), object).then(function(response) {
         return response.data
       })
     }

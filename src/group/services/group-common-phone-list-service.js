@@ -11,24 +11,24 @@ function Service($http, Route) {
   function index(serviceProviderId, groupId) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, groupId, entries) {
     return $http
       .post(url(), { serviceProviderId, groupId, entries })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(serviceProviderId, groupId, entry) {
     return $http
       .put(url(), { ...entry, serviceProviderId, groupId })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function destroy(serviceProviderId, groupId, entries) {
     return $http
       .delete(url(), { data: { serviceProviderId, groupId, entries } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

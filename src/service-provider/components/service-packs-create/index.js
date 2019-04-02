@@ -77,7 +77,7 @@ function controller(Alert, ServicePackService, $scope, EventEmitter) {
   function maxAllowed() {
     if (!ctrl.servicePack) return
     var selectedServices = ctrl.servicePack.userServices || []
-    if (selectedServices.length < 1) return unlimited
+    if (selectedServices.length === 0) return unlimited
     if (_.every(selectedServices, { quantity: -1 })) return unlimited
 
     return _.minBy(selectedServices, function(service) {

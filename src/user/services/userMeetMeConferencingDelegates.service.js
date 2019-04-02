@@ -44,8 +44,8 @@
           return response.data
         })
     }
-    function update(userId, conferenceId, bridgeId, obj) {
-      return $http.put(url(), obj).then(function(response) {
+    function update(userId, conferenceId, bridgeId, object) {
+      return $http.put(url(), object).then(function(response) {
         return response.data
       })
     }

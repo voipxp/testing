@@ -16,7 +16,7 @@ function Directive() {
   return {
     restrict: 'A',
     scope: { loading: '<' },
-    link: function(scope, element, attrs) {
+    link: function(scope, element, attributes) {
       // create a wrapper
       const div = angular.element(document.createElement('div'))
       div.addClass('select is-fullwidth')
@@ -26,9 +26,9 @@ function Directive() {
       div.prepend(element)
 
       // show/hide wrapped element via ngShow
-      scope.$watch(attrs.ngShow, function(newVal) {
-        if (angular.isDefined(attrs.ngShow)) {
-          if (newVal) {
+      scope.$watch(attributes.ngShow, function(newValue) {
+        if (angular.isDefined(attributes.ngShow)) {
+          if (newValue) {
             div.removeClass('ng-hide')
           } else {
             div.addClass('ng-hide')
@@ -42,8 +42,8 @@ function Directive() {
         div.remove()
       })
 
-      scope.$watch('loading', function(newVal) {
-        if (newVal) {
+      scope.$watch('loading', function(newValue) {
+        if (newValue) {
           div.addClass('is-loading')
         } else {
           div.removeClass('is-loading')

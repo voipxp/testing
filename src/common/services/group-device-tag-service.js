@@ -11,19 +11,19 @@ function Service($http, Route) {
   function index(serviceProviderId, groupId, deviceName) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId, deviceName } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, groupId, deviceName, tag) {
     return $http
       .post(url(), { ...tag, serviceProviderId, groupId, deviceName })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(serviceProviderId, groupId, deviceName, tag) {
     return $http
       .put(url(), { ...tag, serviceProviderId, groupId, deviceName })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function destroy(serviceProviderId, groupId, deviceName, tagName) {
@@ -31,6 +31,6 @@ function Service($http, Route) {
       .delete(url(), {
         params: { serviceProviderId, groupId, deviceName, tagName }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

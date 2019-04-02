@@ -13,20 +13,20 @@ function Service($http, Route) {
   function index(serviceProviderId, groupId) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, groupId, pattern) {
-    return $http.post(url(), pattern).then(res => res.data)
+    return $http.post(url(), pattern).then(response => response.data)
   }
 
   function update(serviceProviderId, groupId, pattern) {
-    return $http.put(url(), pattern).then(res => res.data)
+    return $http.put(url(), pattern).then(response => response.data)
   }
 
   function destroy(serviceProviderId, groupId, name) {
     return $http
       .delete(url(), { params: { serviceProviderId, groupId, name } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

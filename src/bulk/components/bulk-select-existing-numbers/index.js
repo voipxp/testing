@@ -59,7 +59,7 @@ function controller(
         ctrl.selectedNumbers = angular.copy(ctrl.phoneNumbers) || []
         // remove already selected numbers
         var available = _.filter(data, function(number) {
-          return ctrl.selectedNumbers.indexOf(number.min) === -1
+          return !ctrl.selectedNumbers.includes(number.min)
         })
         ctrl.availableNumbers = _.map(available, 'min')
         setCount()

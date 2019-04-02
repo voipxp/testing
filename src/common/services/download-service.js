@@ -23,7 +23,7 @@ function DownloadService() {
       var a = document.createElement('a')
       a.href = window.URL.createObjectURL(data)
       a.setAttribute('download', filename)
-      document.body.appendChild(a)
+      document.body.append(a)
       a.click()
       document.body.removeChild(a)
     }

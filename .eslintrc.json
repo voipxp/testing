@@ -5,9 +5,19 @@
     "parser": "babel-eslint",
     "ecmaFeatures": { "jsx": true }
   },
-  "extends": ["eslint:recommended", "prettier"],
+  "extends": ["eslint:recommended", "plugin:unicorn/recommended", "prettier"],
   "rules": {
-    "no-console": 0
+    "no-console": 0,
+    "unicorn/prevent-abbreviations": [
+      "error",
+      {
+        "replacements": {
+          "e": { "event": false },
+          "res": { "result": false },
+          "props": false
+        }
+      }
+    ]
   },
   "globals": {
     "document": true

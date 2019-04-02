@@ -1,0 +1,172 @@
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+>
+  <pbs-breadcrumb title="'Group Intercept'"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Settings">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit
+        title="Edit Settings"
+        ng-click="$ctrl.edit()"
+        if-module-update="$ctrl.module"
+      >
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+
+    <pbs-list>
+      <pbs-list-section></pbs-list-section>
+      <pbs-list-item label="Active">
+        <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-section>Inbound Announcement</pbs-list-section>
+      <pbs-list-item label="Announcement Selection">
+        {{ $ctrl.settings.announcementSelection }}
+      </pbs-list-item>
+      <pbs-list-item
+        label="Audio File Description"
+        ng-if="$ctrl.settings.announcementSelection === 'Personal'"
+      >
+        {{ $ctrl.settings.audioFileDescription }}
+      </pbs-list-item>
+      <!--<pbs-list-item label="audioMediaType" ng-if="$ctrl.settings.announcementSelection === 'Personal'">-->
+      <!--{{ $ctrl.settings.audioMediaType }}-->
+      <!--</pbs-list-item>-->
+
+      <pbs-list-section>Inbound Call Options</pbs-list-section>
+      <!--inboundCallMode-->
+      <pbs-list-item label="Inbound Call Mode">
+        {{ $ctrl.settings.inboundCallMode }}
+      </pbs-list-item>
+      <pbs-list-item label="Route To Voice Mail">
+        <pbs-check-box
+          checked="$ctrl.settings.routeToVoiceMail"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Play New Phone Number">
+        <pbs-check-box
+          checked="$ctrl.settings.playNewPhoneNumber"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item
+        label="New Phone Number"
+        ng-if="$ctrl.settings.playNewPhoneNumber"
+      >
+        {{ $ctrl.settings.newPhoneNumber }}
+      </pbs-list-item>
+      <pbs-list-item label="Transfer On Zero To PhoneNumber">
+        <pbs-check-box
+          checked="$ctrl.settings.transferOnZeroToPhoneNumber"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item
+        label="Transfer Phone Number"
+        ng-if="$ctrl.settings.transferOnZeroToPhoneNumber"
+      >
+        {{ $ctrl.settings.transferPhoneNumber }}
+      </pbs-list-item>
+
+      <!--routeToVoiceMail-->
+      <pbs-list-section>Outbound Call Options</pbs-list-section>
+      <pbs-list-item label="Allow Outbound Local Calls">
+        <pbs-check-box
+          checked="$ctrl.settings.allowOutboundLocalCalls"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Reroute Outbound Calls">
+        <pbs-check-box
+          checked="$ctrl.settings.rerouteOutboundCalls"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item
+        label="outboundReroutePhoneNumber"
+        ng-if="$ctrl.settings.rerouteOutboundCalls"
+      >
+        {{ $ctrl.settings.outboundReroutePhoneNumber }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupInterceptModal" title="Edit Settings">
+  <pbs-form>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editSettings.isActive"
+      label="Active"
+    ></pbs-input-checkbox>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editSettings.routeToVoiceMail"
+      label="Route To Voice Mail"
+    ></pbs-input-checkbox>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editSettings.playNewPhoneNumber"
+      label="Play New Phone Number"
+    ></pbs-input-checkbox>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editSettings.transferOnZeroToPhoneNumber"
+      label="Transfer On Zero To Phone Number"
+    ></pbs-input-checkbox>
+
+    <pbs-form-field-horizontal label="Announcement Selection">
+      <pbs-input-select
+        ng-model="$ctrl.editSettings.announcementSelection"
+        ng-options="opt for opt in $ctrl.options.announcementSelection"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal
+      label="Upload File"
+      ng-if="$ctrl.editSettings.announcementSelection === 'Personal'"
+    >
+      <pbs-input-file on-upload="$ctrl.upload(file)" required> </pbs-input-file>
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal label="Inbound Call Mode">
+      <pbs-input-select
+        ng-model="$ctrl.editSettings.inboundCallMode"
+        ng-options="opt for opt in $ctrl.options.interceptInboundCalls"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal label="Outbound Call Option">
+      <pbs-input-select
+        ng-model="$ctrl.outboundCallOption"
+        ng-change="$ctrl.setOutboundCallOptions()"
+        ng-options="opt for opt in $ctrl.options.outboundCallOptions"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal
+      label="Route To Phone Number"
+      ng-if="$ctrl.editSettings.rerouteOutboundCalls "
+    >
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.outboundReroutePhoneNumber"
+      />
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal
+      label="New Phone Number"
+      ng-if="$ctrl.editSettings.playNewPhoneNumber"
+    >
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.newPhoneNumber"
+      />
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal
+      label="Transfer Phone Number"
+      ng-if="$ctrl.editSettings.transferOnZeroToPhoneNumber"
+    >
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.transferPhoneNumber"
+      />
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>

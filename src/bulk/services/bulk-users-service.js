@@ -53,7 +53,7 @@ function BulkUsersService($location, $q, StorageService, Session) {
   }
 
   function load(data, next) {
-    if (!data.users || data.users.length < 1) {
+    if (!data.users || data.users.length === 0) {
       return $q.reject('No Users provided')
     }
     if (!data.serviceProviderId || !data.groupId) {

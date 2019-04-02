@@ -33,8 +33,8 @@
         })
     }
 
-    function create(userId, obj) {
-      return $http.post(url(), obj).then(function(response) {
+    function create(userId, object) {
+      return $http.post(url(), object).then(function(response) {
         return response.data
       })
     }
@@ -47,8 +47,8 @@
         })
     }
 
-    function update(userId, name, obj) {
-      return $http.put(url(), obj).then(function(response) {
+    function update(userId, name, object) {
+      return $http.put(url(), object).then(function(response) {
         return response.data
       })
     }

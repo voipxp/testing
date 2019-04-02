@@ -26,7 +26,7 @@
     ctrl.schedules = []
     ctrl.editCriteria = []
 
-    ctrl.eCriteria = eCriteria
+    ctrl.eCriteria = errorCriteria
     ctrl.edit = edit
     ctrl.$onInit = onInit
     ctrl.addCriteria = addCriteria
@@ -69,7 +69,7 @@
       })
     }
 
-    function eCriteria(criteriaName, isActive) {
+    function errorCriteria(criteriaName, isActive) {
       if (!ctrl.module.permissions.update) return
       ctrl.loadingCriteria = true
       loadCriteria(criteriaName)
@@ -245,10 +245,10 @@
           return o.name == settings.holidaySchedule.name
         })
       }
-      var obj = {
+      var object = {
         criteria: []
       }
-      obj.criteria.push({
+      object.criteria.push({
         criteriaName: ctrl.editCriteria.name,
         isActive: ctrl.editCriteria.isActive
       })

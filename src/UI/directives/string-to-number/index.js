@@ -5,7 +5,7 @@ angular.module('odin.UI').directive('stringToNumber', stringToNumber)
 function stringToNumber() {
   return {
     require: 'ngModel',
-    link: function(scope, element, attrs, ngModel) {
+    link: function(scope, element, attributes, ngModel) {
       ngModel.$parsers.push(function(value) {
         return '' + value
       })

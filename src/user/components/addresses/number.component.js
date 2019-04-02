@@ -75,10 +75,10 @@
     }
 
     function setExtension() {
-      var ext = ctrl.editUser.phoneNumber
+      var extension = ctrl.editUser.phoneNumber
         ? ctrl.editUser.phoneNumber.slice(-4)
         : null
-      ctrl.editUser.extension = ext
+      ctrl.editUser.extension = extension
     }
 
     function update(user, callback) {

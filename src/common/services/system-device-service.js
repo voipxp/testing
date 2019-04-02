@@ -10,31 +10,33 @@ function Service($http, CacheFactory, Route) {
   return service
 
   function index() {
-    return $http.get(url(), { cache }).then(res => res.data)
+    return $http.get(url(), { cache }).then(response => response.data)
   }
 
   function store(device) {
-    return $http.post(url(), device).then(res => {
+    return $http.post(url(), device).then(response => {
       cache.removeAll()
-      return res.data
+      return response.data
     })
   }
 
   function update(device) {
-    return $http.put(url(), device).then(res => {
+    return $http.put(url(), device).then(response => {
       cache.removeAll()
-      return res.data
+      return response.data
     })
   }
 
   function show(deviceName) {
-    return $http.get(url(), { params: { deviceName } }).then(res => res.data)
+    return $http
+      .get(url(), { params: { deviceName } })
+      .then(response => response.data)
   }
 
   function destroy(deviceName) {
-    return $http.delete(url(), { params: { deviceName } }).then(res => {
+    return $http.delete(url(), { params: { deviceName } }).then(response => {
       cache.removeAll()
-      return res.data
+      return response.data
     })
   }
 }

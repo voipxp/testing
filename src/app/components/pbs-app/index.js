@@ -116,7 +116,12 @@ function controller(
     sendGoogleUA()
   })
 
-  $rootScope.$on('$routeChangeError', function(e, c, p, rejection) {
+  $rootScope.$on('$routeChangeError', function(
+    event,
+    current,
+    previous,
+    rejection
+  ) {
     handleRouteError(rejection)
   })
 

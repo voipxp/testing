@@ -121,8 +121,8 @@ function Service($http, Route) {
       })
   }
 
-  function store(serviceProviderId, groupId, obj) {
-    return $http.post(url(), obj).then(function(response) {
+  function store(serviceProviderId, groupId, object) {
+    return $http.post(url(), object).then(function(response) {
       return response.data
     })
   }

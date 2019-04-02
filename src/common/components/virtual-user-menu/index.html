@@ -1,0 +1,96 @@
+<pbs-menu>
+  <pbs-menu-section label="{{ $ctrl.module.alias }}">
+    <div ng-transclude-replace></div>
+  </pbs-menu-section>
+  <pbs-menu-section label="Reporting" ng-show="$ctrl.showReporting">
+    <pbs-menu-item label="Basic Call Records" ng-if="$ctrl.showBasicCallLogs">
+      <user-basic-call-logs user-id="$ctrl.userId"></user-basic-call-logs>
+    </pbs-menu-item>
+    <pbs-menu-item label="Premium Call Records" ng-if="$ctrl.showCallRecords">
+      <user-call-record-dashboard
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"
+      ></user-call-record-dashboard>
+    </pbs-menu-item>
+    <pbs-menu-item
+      label="{{ $ctrl.autoAttendantReportAlias }}"
+      ng-if="$ctrl.showAutoAttendantReport"
+    >
+      <user-auto-attendant-call-records
+        user-id="$ctrl.userId"
+      ></user-auto-attendant-call-records>
+    </pbs-menu-item>
+    <pbs-menu-item label="Agent Report" ng-if="$ctrl.showCallCenterReport">
+      <user-call-center-call-record-dashboard
+        user-id="$ctrl.userId"
+      ></user-call-center-call-record-dashboard>
+    </pbs-menu-item>
+  </pbs-menu-section>
+  <pbs-menu-section label="Provisioning">
+    <pbs-menu-item label="Announcements" ng-if="$ctrl.hasAnnouncements">
+      <user-announcements
+        user-id="$ctrl.userId"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+      ></user-announcements>
+    </pbs-menu-item>
+    <pbs-menu-item label="Assign Services" ng-if="$ctrl.showAssignServices">
+      <user-services service-type="userServices" user-id="$ctrl.userId">
+      </user-services>
+    </pbs-menu-item>
+    <pbs-menu-item label="Configure Services">
+      <virtual-user-services
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"
+      ></virtual-user-services>
+    </pbs-menu-item>
+    <pbs-menu-item label="Utilities">
+      <user-feature-access-codes
+        user-id="$ctrl.userId"
+      ></user-feature-access-codes>
+    </pbs-menu-item>
+    <pbs-menu-item label="Call Policies">
+      <user-call-policies user-id="$ctrl.userId"></user-call-policies>
+    </pbs-menu-item>
+    <pbs-menu-item label="Comm Barring Auth Codes" ng-if="$ctrl.isMeetMe">
+      <user-communication-barring-authorization-codes
+        class="margin-top"
+        user-id="$ctrl.userId"
+      ></user-communication-barring-authorization-codes>
+    </pbs-menu-item>
+  </pbs-menu-section>
+  <pbs-menu-section label="Calling Plans">
+    <pbs-menu-item label="Incoming Calling Plan">
+      <user-incoming-calling-plan
+        user-id="$ctrl.userId"
+      ></user-incoming-calling-plan>
+    </pbs-menu-item>
+    <pbs-menu-item label="Outgoing Calling Plan" ng-if="$ctrl.isMeetMe">
+      <user-outgoing-calling-plan
+        user-id="$ctrl.userId"
+      ></user-outgoing-calling-plan>
+    </pbs-menu-item>
+    <pbs-menu-item label="Authorization Codes" ng-if="$ctrl.isMeetMe">
+      <user-outgoing-calling-plan-authorization-codes
+        user-id="$ctrl.userId"
+      ></user-outgoing-calling-plan-authorization-codes>
+    </pbs-menu-item>
+    <pbs-menu-item label="Digit Plan" ng-if="$ctrl.isMeetMe">
+      <user-outgoing-calling-plan-digit-plan
+        user-id="$ctrl.userId"
+      ></user-outgoing-calling-plan-digit-plan>
+    </pbs-menu-item>
+    <pbs-menu-item label="Pinhole Digit Plan" ng-if="$ctrl.isMeetMe">
+      <user-outgoing-calling-plan-pinhole-digit-plan
+        user-id="$ctrl.userId"
+      ></user-outgoing-calling-plan-pinhole-digit-plan>
+    </pbs-menu-item>
+    <pbs-menu-item label="Transfer Numbers" ng-if="$ctrl.isMeetMe">
+      <user-outgoing-calling-plan-transfer-numbers
+        user-id="$ctrl.userId"
+      ></user-outgoing-calling-plan-transfer-numbers>
+    </pbs-menu-item>
+  </pbs-menu-section>
+</pbs-menu>

@@ -14,6 +14,6 @@ function ServiceProviderDomainService($http, CacheFactory, Route) {
   function index(serviceProviderId) {
     return $http
       .get(url(), { params: { serviceProviderId }, cache })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

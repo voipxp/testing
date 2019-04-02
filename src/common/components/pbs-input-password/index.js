@@ -4,6 +4,12 @@ import template from './index.html'
 
 angular.module('odin.common').directive('pbsInputPassword', pbsInputPassword)
 
+pbsInputPassword.$inject = [
+  'PasswordService',
+  'GroupPasswordService',
+  'Alert',
+  '$q'
+]
 function pbsInputPassword(PasswordService, GroupPasswordService, Alert, $q) {
   return {
     template,

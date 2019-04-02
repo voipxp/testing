@@ -87,7 +87,7 @@ function controller(Auth, Session, Module, Route, Alert, Template) {
   function parseError(error) {
     console.log('loginError', error)
     const generic = 'Login Failed'
-    const msg = _.get(error, 'data.error', generic)
-    return msg.match(/^Empty userId/) ? generic : msg
+    const message = _.get(error, 'data.error', generic)
+    return message.startsWith('Empty userId') ? generic : message
   }
 }

@@ -13,8 +13,8 @@ function Template($http, Route, $rootScope) {
 
   // get the UI template and save in memory
   function load() {
-    return $http.get(url()).then(res => {
-      _data = res.data || {}
+    return $http.get(url()).then(response => {
+      _data = response.data || {}
       $rootScope.$emit('Template:updated')
     })
   }

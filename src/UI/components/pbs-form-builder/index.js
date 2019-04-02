@@ -38,8 +38,8 @@ function controller() {
       if (property.type === 'boolean') {
         ctrl.data[property.key] = !!property.default
       } else {
-        const val = property.default
-        ctrl.data[property.key] = val || val === 0 ? val : null
+        const value = property.default
+        ctrl.data[property.key] = value || value === 0 ? value : null
       }
     })
   }

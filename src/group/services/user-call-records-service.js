@@ -54,7 +54,7 @@ function Service($http, Route, UtilityService) {
           userId
         }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function get(userIds, startTime, endTime, reportType) {
@@ -67,6 +67,6 @@ function Service($http, Route, UtilityService) {
           userIds: userIds.join(',')
         }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

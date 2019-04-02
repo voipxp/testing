@@ -72,8 +72,8 @@ function controller(
       })
   }
 
-  function displayMax(attr) {
-    var value = attr
+  function displayMax(attribute) {
+    var value = attribute
     return value === -1 ? 'Unlimited' : value
   }
 

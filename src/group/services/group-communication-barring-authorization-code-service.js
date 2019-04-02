@@ -13,18 +13,18 @@ function Service($http, Route) {
   function index(serviceProviderId, groupId) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function create(serviceProviderId, groupId, codes) {
     return $http
       .post(url(), { serviceProviderId, groupId, codes })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function destroy(serviceProviderId, groupId, codes) {
     return $http
       .delete(url(), { data: { serviceProviderId, groupId, codes } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

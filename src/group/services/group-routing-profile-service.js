@@ -14,15 +14,15 @@ function GroupRoutingProfileService($http, CacheFactory, Route) {
   function show(serviceProviderId, groupId) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(serviceProviderId, groupId, routingProfile) {
     return $http
       .put(url(), { serviceProviderId, groupId, routingProfile })
-      .then(res => {
+      .then(response => {
         cache.removeAll()
-        return res.data
+        return response.data
       })
   }
 }

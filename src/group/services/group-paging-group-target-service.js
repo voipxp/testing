@@ -27,11 +27,11 @@ function GroupPagingGroupTargetService($http, Route) {
   }
 
   function update(serviceUserId, users) {
-    var obj = {
+    var object = {
       serviceUserId: serviceUserId,
       targets: users
     }
-    return $http.put(url(), obj).then(function(response) {
+    return $http.put(url(), object).then(function(response) {
       return response.data
     })
   }

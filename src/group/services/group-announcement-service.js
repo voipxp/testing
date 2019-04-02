@@ -19,7 +19,7 @@ function Service($http, Route) {
           announcementType
         }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function available(serviceProviderId, groupId, announcementType) {
@@ -32,11 +32,11 @@ function Service($http, Route) {
           available: true
         }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, groupId, announcement) {
-    return $http.post(url(), announcement).then(res => res.data)
+    return $http.post(url(), announcement).then(response => response.data)
   }
 
   function show(serviceProviderId, groupId, name, mediaType) {
@@ -49,11 +49,11 @@ function Service($http, Route) {
           mediaType
         }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(serviceProviderId, groupId, announcement) {
-    return $http.put(url(), announcement).then(res => res.data)
+    return $http.put(url(), announcement).then(response => response.data)
   }
 
   function destroy(serviceProviderId, groupId, announcement) {
@@ -66,6 +66,6 @@ function Service($http, Route) {
           mediaType: announcement.mediaType
         }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

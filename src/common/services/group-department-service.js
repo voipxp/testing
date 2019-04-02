@@ -17,35 +17,35 @@ function GroupDepartmentService($http, CacheFactory, Route) {
         cache,
         params: { serviceProviderId, groupId, includeEnterprise }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, groupId, object) {
-    return $http.post(url(), object).then(res => {
+    return $http.post(url(), object).then(response => {
       cache.removeAll()
-      return res.data
+      return response.data
     })
   }
 
   function show(serviceProviderId, groupId, name) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId, name } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(department) {
-    return $http.put(url(), department).then(res => {
+    return $http.put(url(), department).then(response => {
       cache.removeAll()
-      return res.data
+      return response.data
     })
   }
 
   function destroy(serviceProviderId, groupId, name) {
     return $http
       .delete(url(), { params: { serviceProviderId, groupId, name } })
-      .then(res => {
+      .then(response => {
         cache.removeAll()
-        return res.data
+        return response.data
       })
   }
 }

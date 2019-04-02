@@ -19,8 +19,8 @@ function Service($http, Route) {
       })
   }
 
-  function update(serviceProviderId, obj) {
-    return $http.put(url(), obj).then(function(response) {
+  function update(serviceProviderId, object) {
+    return $http.put(url(), object).then(function(response) {
       return response.data
     })
   }

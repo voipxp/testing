@@ -188,13 +188,13 @@ function Service() {
     '56': 'Retrieve Park'
   }
 
-  var numKeys = {
+  var numberKeys = {
     t46: 27,
     t48: 29,
     t41: 15
   }
 
-  var numAccounts = {
+  var numberAccounts = {
     t41: 3,
     t46: 6,
     t48: 6
@@ -218,8 +218,8 @@ function Service() {
     ldapTags: ldapTags,
     phonebookTags: phonebookTags,
     types: types,
-    numKeys: numKeys,
-    numAccounts: numAccounts,
+    numKeys: numberKeys,
+    numAccounts: numberAccounts,
     ringtones: ringtones
   }
   return service

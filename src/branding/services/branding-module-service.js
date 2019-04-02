@@ -11,19 +11,21 @@ function BrandingModuleService($http, Route, $rootScope) {
   return service
 
   function index(hostnameId) {
-    return $http.get(url(), { params: { hostnameId } }).then(res => res.data)
+    return $http
+      .get(url(), { params: { hostnameId } })
+      .then(response => response.data)
   }
 
   function show(hostnameId, id) {
     return $http
       .get(url(), { params: { hostnameId, id } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function update(module) {
-    return $http.put(url(), module).then(res => {
+    return $http.put(url(), module).then(response => {
       $rootScope.$emit('BrandingModuleService:updated')
-      return res.data
+      return response.data
     })
   }
 }

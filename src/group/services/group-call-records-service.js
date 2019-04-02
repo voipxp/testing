@@ -35,7 +35,7 @@ function GroupCallRecordsService($http, Route, Session, $window) {
           limit: bypass ? 'false' : null
         }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   // construct url to download csv file
@@ -58,7 +58,7 @@ function GroupCallRecordsService($http, Route, Session, $window) {
       .get(url('received'), {
         params: { serviceProviderId, groupId, startTime, endTime }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function related(
@@ -78,7 +78,7 @@ function GroupCallRecordsService($http, Route, Session, $window) {
           endTime: endTime.toJSON()
         }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function placed(serviceProviderId, groupId, startTime, endTime) {
@@ -86,7 +86,7 @@ function GroupCallRecordsService($http, Route, Session, $window) {
       .get(url('placed'), {
         params: { serviceProviderId, groupId, startTime, endTime }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function missed(serviceProviderId, groupId, startTime, endTime) {
@@ -94,7 +94,7 @@ function GroupCallRecordsService($http, Route, Session, $window) {
       .get(url('missed'), {
         params: { serviceProviderId, groupId, startTime, endTime }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function users(serviceProviderId, groupId, startTime, endTime) {
@@ -102,7 +102,7 @@ function GroupCallRecordsService($http, Route, Session, $window) {
       .get(url('users'), {
         params: { serviceProviderId, groupId, startTime, endTime }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function stats(serviceProviderId, groupId, startTime, endTime) {
@@ -110,6 +110,6 @@ function GroupCallRecordsService($http, Route, Session, $window) {
       .get(url('stats'), {
         params: { serviceProviderId, groupId, startTime, endTime }
       })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

@@ -24,10 +24,10 @@ function service($http, Route) {
   return service
 
   function show() {
-    return $http.get(url()).then(res => res.data)
+    return $http.get(url()).then(response => response.data)
   }
 
-  function update(obj) {
-    return $http.put(url(), obj).then(res => res.data)
+  function update(object) {
+    return $http.put(url(), object).then(response => response.data)
   }
 }

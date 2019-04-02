@@ -42,7 +42,7 @@ function pbsModal(Modal) {
       // is-mobile to them
       scope.$watch(
         function() {
-          const cols = element[0].getElementsByClassName('columns')
+          const cols = element[0].querySelectorAll('.columns')
           return cols.length > 0 ? cols[0] : null
         },
         function(column) {

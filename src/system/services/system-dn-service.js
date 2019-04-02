@@ -9,14 +9,16 @@ function service($http, Route) {
   return service
 
   function summary() {
-    return $http.get(url('summary')).then(res => res.data)
+    return $http.get(url('summary')).then(response => response.data)
   }
 
   function show(phoneNumber) {
-    return $http.get(url(), { params: { phoneNumber } }).then(res => res.data)
+    return $http
+      .get(url(), { params: { phoneNumber } })
+      .then(response => response.data)
   }
 
   function utilization() {
-    return $http.get(url('utilization')).then(res => res.data)
+    return $http.get(url('utilization')).then(response => response.data)
   }
 }

@@ -1,0 +1,104 @@
+<pbs-modal id="createUserModal" title="New User">
+  <form novalidate name="createUserForm">
+    <pbs-tabs>
+      <pbs-tab label="Required">
+        <pbs-form-field-horizontal label="User ID">
+          <select-user-id
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            user-id="$ctrl.user.userId"
+            on-update="$ctrl.setUserId($event)"
+            required="true"
+          ></select-user-id>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Last Name">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.user.lastName"
+            ng-change="$ctrl.setCLID()"
+            required
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="First Name">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.user.firstName"
+            ng-change="$ctrl.setCLID()"
+            required
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="CLID Last Name">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.user.callingLineIdLastName"
+            required
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="CLID First Name">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.user.callingLineIdFirstName"
+            required
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Password">
+          <pbs-input-password
+            ng-model="$ctrl.user.password"
+            ng-minlength="6"
+            ng-maxlength="60"
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+          ></pbs-input-password>
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+
+      <pbs-tab label="Optional">
+        <pbs-form-field-horizontal label="Department">
+          <select-department
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            ng-model="$ctrl.user.department"
+          >
+          </select-department>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Timezone">
+          <select-timezone ng-model="$ctrl.user.timeZone"></select-timezone>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Language">
+          <select-language ng-model="$ctrl.user.language"></select-language>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Title">
+          <input type="text" class="input" ng-model="$ctrl.user.title" />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Email Address">
+          <input
+            type="email"
+            class="input"
+            ng-model="$ctrl.user.emailAddress"
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Pager Number">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.user.pagerPhoneNumber"
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Mobile Number">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.user.mobilePhoneNumber"
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Aliases">
+          <alias-list profile="$ctrl.user"></alias-list>
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+    </pbs-tabs>
+  </form>
+</pbs-modal>

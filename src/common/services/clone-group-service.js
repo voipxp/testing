@@ -8,21 +8,21 @@ function CloneGroupService($http, Route, $rootScope) {
   var url = Route.api('/groups/clone')
   return service
 
-  function all(serviceProviderId, groupId, obj) {
+  function all(serviceProviderId, groupId, object) {
     return $http
-      .put(url('group'), { ...obj, serviceProviderId, groupId })
-      .then(res => {
+      .put(url('group'), { ...object, serviceProviderId, groupId })
+      .then(response => {
         $rootScope.$emit('GroupService:updated')
-        return res.data
+        return response.data
       })
   }
 
-  function services(serviceProviderId, groupId, obj) {
+  function services(serviceProviderId, groupId, object) {
     return $http
-      .put(url('services'), { ...obj, serviceProviderId, groupId })
-      .then(res => {
+      .put(url('services'), { ...object, serviceProviderId, groupId })
+      .then(response => {
         $rootScope.$emit('GroupServiceService:updated')
-        return res.data
+        return response.data
       })
   }
 }

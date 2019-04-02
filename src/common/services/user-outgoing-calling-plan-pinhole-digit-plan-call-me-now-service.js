@@ -14,10 +14,12 @@ function Service($http, Route) {
   return service
 
   function show(userId) {
-    return $http.get(url(), { params: { userId } }).then(res => res.data)
+    return $http
+      .get(url(), { params: { userId } })
+      .then(response => response.data)
   }
 
-  function update(userId, obj) {
-    return $http.put(url(), obj).then(res => res.data)
+  function update(userId, object) {
+    return $http.put(url(), object).then(response => response.data)
   }
 }

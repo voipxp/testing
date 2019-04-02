@@ -12,6 +12,6 @@ function Service($http, CacheFactory, Route) {
   return service
 
   function index() {
-    return $http.get(url(), { cache: cache }).then(res => res.data)
+    return $http.get(url(), { cache: cache }).then(response => response.data)
   }
 }

@@ -30,7 +30,7 @@ function controller(Alert, $q, Module) {
     'Splash.wav'
   ]
 
-  var numAccounts = {
+  var numberAccounts = {
     t41: 3,
     t46: 6,
     t48: 6
@@ -49,9 +49,9 @@ function controller(Alert, $q, Module) {
       %default_account% = 1
     */
   function loadAccounts() {
-    var num = numAccounts[ctrl.deviceTemplate]
+    var number = numberAccounts[ctrl.deviceTemplate]
     var accounts = []
-    for (var i = 1; i <= num; i++) {
+    for (var i = 1; i <= number; i++) {
       accounts.push({
         id: i,
         line: getTagValue('%account' + i + 'lines%'),

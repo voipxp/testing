@@ -10,14 +10,14 @@ function Service($rootScope, $q, $location) {
     function open(url = `ws://${$location.host()}:${$location.port()}/ws`) {
       return $q(resolve => {
         socket = new WebSocket(url)
-        socket.onopen = () => resolve()
+        socket.addEventListener('open', () => resolve())
       })
     }
 
     function onError(callback) {
-      socket.onerror = err => {
-        $rootScope.$apply(() => callback(err))
-      }
+      socket.addEventListener('error', error => {
+        $rootScope.$apply(() => callback(error))
+      })
     }
 
     function onClose(callback) {
@@ -27,9 +27,9 @@ function Service($rootScope, $q, $location) {
     }
 
     function onMessage(callback) {
-      socket.onmessage = ({ data }) => {
+      socket.addEventListener('message', ({ data }) => {
         $rootScope.$apply(() => callback(JSON.parse(data)))
-      }
+      })
     }
 
     function send(type, payload) {

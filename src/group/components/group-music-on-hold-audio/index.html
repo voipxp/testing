@@ -1,0 +1,183 @@
+<pbs-block title="Message Settings">
+  <pbs-block-buttons if-module-update="'Music On Hold'">
+    <pbs-button-compact-edit ng-click="$ctrl.edit()"></pbs-button-compact-edit>
+  </pbs-block-buttons>
+  <pbs-list>
+    <pbs-list-item label="Preferred Audio Codec">
+      {{ $ctrl.settings.audioFilePreferredCodec }}
+    </pbs-list-item>
+    <pbs-list-item label="Announcement Type">
+      {{ $ctrl.settings.messageSourceSelection }}
+    </pbs-list-item>
+    <pbs-list-item
+      label="Audio File Name"
+      ng-show="$ctrl.settings.messageSourceSelection === 'Custom'"
+    >
+      {{ $ctrl.settings.customSource.audioFile.name }}
+    </pbs-list-item>
+    <pbs-list-item
+      label="Audio File Type"
+      ng-show="$ctrl.settings.messageSourceSelection === 'Custom'"
+    >
+      {{ $ctrl.settings.customSource.audioFile.mediaType }}
+    </pbs-list-item>
+  </pbs-list>
+</pbs-block>
+
+<pbs-modal id="{{ $ctrl.modalId }}" title="Edit Audio">
+  <pbs-form>
+    <pbs-form-field label="Audio Codec">
+      <pbs-input-select
+        ng-model="$ctrl.editSettings.audioFilePreferredCodec"
+        ng-options="selection for selection in $ctrl.options.audioFileCodecs"
+      ></pbs-input-select>
+    </pbs-form-field>
+    <pbs-form-field label="Announcement Type">
+      <pbs-input-select
+        ng-model="$ctrl.editSettings.messageSourceSelection"
+        ng-options="selection for selection in $ctrl.options.messageSourceSelections"
+      ></pbs-input-select>
+    </pbs-form-field>
+    <pbs-form-field
+      label="Audio File"
+      ng-show="$ctrl.editSettings.messageSourceSelection === 'Custom'"
+    >
+      <div ng-if="!$ctrl.hasRepository">
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <input
+              type="text"
+              class="input"
+              ng-model="$ctrl.editSettings.customSource.audioFile.name"
+              ng-required="$ctrl.editSettings.messageSourceSelection === 'Custom'"
+              readonly
+              placeholder="No Audio File Selected"
+            />
+          </p>
+          <p class="control">
+            <button
+              class="button"
+              ng-click="$ctrl.selectAudioFile()"
+              title="Upload an Audio File"
+            >
+              <span class="icon">
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+          </p>
+        </div>
+      </div>
+      <div ng-if="$ctrl.hasRepository">
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <input
+              type="text"
+              class="input"
+              ng-model="$ctrl.editSettings.customSource.audioFile.name"
+              ng-required="$ctrl.editSettings.messageSourceSelection === 'Custom'"
+              readonly
+              placeholder="No Announcement Selected"
+            />
+          </p>
+          <p class="control">
+            <button
+              class="button"
+              ng-click="$ctrl.createAnnouncement()"
+              title="Create an Announcement"
+            >
+              <span class="icon">
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+          </p>
+          <p class="control">
+            <button
+              class="button"
+              ng-click="$ctrl.selectAnnouncement()"
+              title="Select an Announcement"
+            >
+              <span class="icon">
+                <i class="fas fa-list"></i>
+              </span>
+            </button>
+          </p>
+        </div>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field
+      label="Access Device"
+      ng-show="$ctrl.editSettings.messageSourceSelection === 'External'"
+    >
+      <div class="field has-addons">
+        <p class="control is-expanded">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.editSettings.externalSource.accessDeviceEndpoint.accessDevice.deviceName"
+            placeholder="No Device Selected"
+            readonly
+          />
+        </p>
+        <p
+          class="control"
+          ng-show="$ctrl.editSettings.externalSource.accessDeviceEndpoint.accessDevice.deviceName"
+        >
+          <button
+            class="button"
+            ng-click="$ctrl.removeDevice()"
+            title="Remove Device"
+          >
+            <span class="icon">
+              <i class="fas fa-trash"></i>
+            </span>
+          </button>
+        </p>
+        <p class="control">
+          <button
+            class="button"
+            ng-click="$ctrl.selectDevice()"
+            title="Add a Device"
+          >
+            <span class="icon">
+              <i class="fas fa-plus"></i>
+            </span>
+          </button>
+        </p>
+      </div>
+    </pbs-form-field>
+    <pbs-form-field
+      label="Line Port"
+      ng-show="$ctrl.editSettings.messageSourceSelection === 'External' && $ctrl.editSettings.externalSource.accessDeviceEndpoint.accessDevice.deviceName"
+    >
+      <select-user-id
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.editSettings.externalSource.accessDeviceEndpoint.linePort"
+        required="$ctrl.editSettings.externalSource.accessDeviceEndpoint.accessDevice.deviceName"
+        on-update="$ctrl.onSetLinePort($event)"
+      ></select-user-id>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+
+<audio-file-create
+  ng-if="!$ctrl.hasRepository"
+  on-update="$ctrl.onSelectAudio($event)"
+></audio-file-create>
+<announcement-create
+  ng-if="$ctrl.hasRepository"
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onSelectAudio($event)"
+></announcement-create>
+<announcement-select
+  ng-if="$ctrl.hasRepository"
+  user-id="$ctrl.moh.serviceUserId"
+  on-update="$ctrl.onSelectAudio($event)"
+></announcement-select>
+<device-select
+  service-provider-id="$ctrl.moh.serviceProviderId"
+  group-id="$ctrl.moh.groupId"
+  params="{isMusicOnHolds: true}"
+  on-update="$ctrl.onSelectDevice($event)"
+></device-select>

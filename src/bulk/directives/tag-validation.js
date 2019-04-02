@@ -13,7 +13,7 @@ function tagValidation(BulkTemplateService, $q, EventEmitter, BulkTagService) {
   return {
     require: 'ngModel',
     scope: { onUpdate: '&', tagRequired: '<', tagView: '<', isRequired: '<' },
-    link: function(scope, elm, attrs, ctrl) {
+    link: function(scope, elm, attributes, ctrl) {
       var defaultView = BulkTagService.view()
       function sendUpdate(data) {
         scope.onUpdate(EventEmitter({ parsed: data }))

@@ -1,0 +1,18 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="{{ $ctrl.label }}">
+    <pbs-block-buttons>
+      <pbs-button-compact-download ng-click="$ctrl.download()">
+      </pbs-button-compact-download>
+    </pbs-block-buttons>
+    <pbs-data-table
+      columns="$ctrl.columns"
+      items="$ctrl.records"
+      track-by="userId"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="50"
+      on-select="$ctrl.onSelect($event)"
+    ></pbs-data-table>
+  </pbs-block>
+</pbs-spinner>

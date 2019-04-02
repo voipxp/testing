@@ -12,20 +12,20 @@ function Route($rootScope, $location, Session) {
     login: login,
     dashboard: dashboard
   }
-  function encoded(prefixes, args) {
-    const components = args.map(function(arg) {
-      if (arg) return encodeURISegment(arg)
+  function encoded(prefixes, arguments_) {
+    const components = arguments_.map(function(argument) {
+      if (argument) return encodeURISegment(argument)
     })
     return _.compact(prefixes.concat(components)).join('/')
   }
-  function encodeURISegment(val) {
-    return encodeURIQuery(val, true)
+  function encodeURISegment(value) {
+    return encodeURIQuery(value, true)
       .replace(/%26/gi, '&')
       .replace(/%3D/gi, '=')
       .replace(/%2B/gi, '+')
   }
-  function encodeURIQuery(val, pctEncodeSpaces) {
-    return encodeURIComponent(val)
+  function encodeURIQuery(value, pctEncodeSpaces) {
+    return encodeURIComponent(value)
       .replace(/%40/gi, '@')
       .replace(/%3A/gi, ':')
       .replace(/%24/g, '$')

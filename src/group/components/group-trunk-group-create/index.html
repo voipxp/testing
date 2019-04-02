@@ -1,0 +1,220 @@
+<pbs-modal id="groupTrunkGroupCreate" title="Add Trunk Group">
+  <form novalidate>
+    <pbs-form-field-horizontal label="Trunk Name*">
+      <input type="text" class="input" ng-model="$ctrl.trunk.name" required />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Max Active Calls*">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.trunk.maxActiveCalls"
+        min="{{ $ctrl.options.maxActiveCalls.min }}"
+        required
+      />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Max Incoming Calls">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.trunk.maxIncomingCalls"
+        min="{{ $ctrl.options.maxIncomingCalls.min }}"
+        max="{{ $ctrl.options.maxIncomingCalls.max }}"
+      />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Max Outgoing Calls">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.trunk.maxOutgoingCalls"
+        min="{{ $ctrl.options.maxOutgoingCalls.min }}"
+        max="{{ $ctrl.options.maxOutgoingCalls.max }}"
+      />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Access Device">
+      <div class="field has-addons">
+        <p class="control is-expanded">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.trunk.accessDevice.deviceName"
+            placeholder="No Device Selected"
+            readonly
+          />
+        </p>
+        <p class="control" ng-show="$ctrl.trunk.accessDevice.deviceName">
+          <button
+            class="button"
+            ng-click="$ctrl.removeDevice()"
+            title="Remove Device"
+          >
+            <span class="icon">
+              <i class="fas fa-trash"></i>
+            </span>
+          </button>
+        </p>
+        <p class="control">
+          <button
+            class="button"
+            ng-click="$ctrl.selectDevice()"
+            title="Add a Device"
+          >
+            <span class="icon">
+              <i class="fas fa-plus"></i>
+            </span>
+          </button>
+        </p>
+      </div>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Department Name">
+      <pbs-input-select
+        ng-model="$ctrl.trunk.department"
+        ng-options="department as department.name for department in $ctrl.departments track by department.name"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Authentication">
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.requireAuthentication"
+        label="Require Authentication"
+      ></pbs-input-checkbox>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal
+      label="SIP User Name"
+      ng-show="$ctrl.trunk.requireAuthentication"
+    >
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.trunk.sipAuthenticationUserName"
+        ng-required="$ctrl.trunk.requireAuthentication"
+      />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal
+      label="SIP Password"
+      ng-show="$ctrl.trunk.requireAuthentication"
+    >
+      <pbs-input-password
+        ng-model="$ctrl.trunk.sipAuthenticationPassword"
+        ng-minlength="6"
+        ng-maxlength="60"
+        ng-required="$ctrl.trunk.requireAuthentication"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+      ></pbs-input-password>
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal label="Trunk Group Identity">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.trunk.trunkGroupIdentity"
+      />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="OTG Identity">
+      <input type="text" class="input" ng-model="$ctrl.trunk.otgDtgIdentity" />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Prefix">
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.prefixEnabled"
+        label="Prefix Enabled"
+      ></pbs-input-checkbox>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal
+      label="Prefix"
+      ng-show="$ctrl.trunk.prefixEnabled"
+    >
+      <input type="text" class="input" ng-model="$ctrl.trunk.prefix" />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Other Settings">
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.allowTerminationToTrunkGroupIdentity"
+        label="Allow calls to trunk group with Trunk Identity"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.allowTerminationToDtgIdentity"
+        label="Allow calls to trunk group with DTG Identity"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.includeTrunkGroupIdentity"
+        label="Include Trunk Identity for Calls to Trunk Group"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.includeDtgIdentity"
+        label="Include DTG Identity for Calls to Trunk Group"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.includeTrunkGroupIdentityForNetworkCalls"
+        label="Include Trunk Identity for Calls from Trunk Group"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.includeOtgIdentityForNetworkCalls"
+        label="Include OTG Identity for Calls from Trunk Group"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.enableNetworkAddressIdentity"
+        label="Enable Network Address Identity"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.allowUnscreenedCalls"
+        label="Allow Unscreened Calls"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.allowUnscreenedEmergencyCalls"
+        label="Allow Unscreened Emergency Calls"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.routeToPeeringDomain"
+        label="Route to Peering Domain"
+      ></pbs-input-checkbox>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal
+      label="Peering Domain"
+      ng-show="$ctrl.trunk.routeToPeeringDomain"
+    >
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.trunk.peeringDomain"
+        ng-required="$ctrl.trunk.routeToPeeringDomain"
+      />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Call Optimization Policy">
+      <pbs-input-select
+        ng-model="$ctrl.trunk.pilotUserCallOptimizationPolicy"
+        ng-options="opt as opt for opt in $ctrl.options.pilotUserCallOptimizationPolicy"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="CLID Policy">
+      <pbs-input-select
+        ng-model="$ctrl.trunk.pilotUserCallingLineIdentityForExternalCallsPolicy"
+        ng-options="opt as opt for opt in $ctrl.options.pilotUserCallingLineIdentityForExternalCallsPolicy"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="CL Asserted ID Policy">
+      <pbs-input-checkbox
+        ng-model="$ctrl.trunk.useSystemCallingLineAssertedIdentityPolicy"
+        label="Use System Calling Line Asserted Identity Policy"
+      ></pbs-input-checkbox>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal
+      label="CL Asserted ID Policy"
+      ng-show="!$ctrl.trunk.useSystemCallingLineAssertedIdentityPolicy"
+    >
+      <pbs-input-select
+        ng-model="$ctrl.trunk.pilotUserCallingLineAssertedIdentityPolicy"
+        ng-options="opt as opt for opt in $ctrl.options.pilotUserCallingLineAssertedIdentityPolicy"
+        ng-required="!$ctrl.trunk.useSystemCallingLineAssertedIdentityPolicy"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Charge Number Policy">
+      <pbs-input-select
+        ng-model="$ctrl.trunk.pilotUserChargeNumberPolicy"
+        ng-options="opt as opt for opt in $ctrl.options.pilotUserChargeNumberPolicy"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+  </form>
+</pbs-modal>
+<device-select
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.deviceSelected($event)"
+></device-select>

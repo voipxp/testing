@@ -102,16 +102,16 @@ function PasscodeService() {
   //   str: string to check
   //   limit: limit to the number of consecutive chars
   //   type: 'ascending', 'descending', 'consecutive, 'repeating'
-  function checkConsecutive(str, limit, type) {
-    if (!str) return true
+  function checkConsecutive(string, limit, type) {
+    if (!string) return true
     if (!limit || limit < 2) return true
     // start with first digit as lastDigit
-    var lastDigit = str.charCodeAt(0)
+    var lastDigit = string.charCodeAt(0)
     var consecutive = 1
     var results = true
     // start on the second digit
-    for (var i = 1; i < str.length; i++) {
-      var currentDigit = str.charCodeAt(i)
+    for (var i = 1; i < string.length; i++) {
+      var currentDigit = string.charCodeAt(i)
       var delta = currentDigit - lastDigit
       lastDigit = currentDigit
       if (isConsecutive(type, delta)) {

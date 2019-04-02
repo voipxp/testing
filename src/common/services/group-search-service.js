@@ -7,6 +7,6 @@ function Service($http, Route) {
   var url = Route.api('/groups')
   return { index }
   function index(params) {
-    return $http.get(url(), { params }).then(res => res.data)
+    return $http.get(url(), { params }).then(response => response.data)
   }
 }

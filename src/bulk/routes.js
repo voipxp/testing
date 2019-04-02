@@ -1,8 +1,8 @@
 // Get last selected set of users to inject into component
 data.$inject = ['BulkUsersService', '$q']
 async function data(BulkUsersService, $q) {
-  const res = await BulkUsersService.get()
-  return res.users.length > 0 ? res : $q.reject('routeToSelect')
+  const results = await BulkUsersService.get()
+  return results.users.length > 0 ? results : $q.reject('routeToSelect')
 }
 
 export default [

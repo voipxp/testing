@@ -10,15 +10,15 @@ function Service($rootScope) {
 
     function on(eventName, callback) {
       socket.on(eventName, function() {
-        const args = arguments
-        $rootScope.$apply(() => callback.apply(socket, args))
+        const arguments_ = arguments
+        $rootScope.$apply(() => callback.apply(socket, arguments_))
       })
     }
 
     function emit(eventName, data, callback) {
       socket.emit(eventName, data, function() {
-        const args = arguments
-        $rootScope.$apply(() => callback && callback.apply(socket, args))
+        const arguments_ = arguments
+        $rootScope.$apply(() => callback && callback.apply(socket, arguments_))
       })
     }
 

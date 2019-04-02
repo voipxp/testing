@@ -8,7 +8,7 @@ function ContentEditable($sce, $timeout) {
   return {
     restrict: 'A',
     require: '?ngModel',
-    link: function(scope, element, attrs, ngModel) {
+    link: function(scope, element, attributes, ngModel) {
       if (!ngModel) return
 
       element.on('focus', function() {

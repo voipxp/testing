@@ -11,12 +11,12 @@ function Service($http, Route) {
   function index(serviceProviderId, groupId, templateId) {
     return $http
       .get(url(), { params: { serviceProviderId, groupId, templateId } })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 
   function store(serviceProviderId, groupId, templateId, deviceName) {
     return $http
       .post(url(), { serviceProviderId, groupId, templateId, deviceName })
-      .then(res => res.data)
+      .then(response => response.data)
   }
 }

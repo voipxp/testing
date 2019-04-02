@@ -80,10 +80,10 @@ function controller(
 
   function selectNumber(event) {
     ctrl.editProfile.phoneNumber = event.phoneNumber
-    var ext = ctrl.editProfile.phoneNumber
+    var extension = ctrl.editProfile.phoneNumber
       ? ctrl.editProfile.phoneNumber.slice(-4)
       : null
-    ctrl.editProfile.extension = ext
+    ctrl.editProfile.extension = extension
   }
 
   function edit() {

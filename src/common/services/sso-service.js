@@ -9,6 +9,6 @@ function SsoService($http, Route) {
   return service
 
   function show(partnerId) {
-    return $http.put(url(), { partnerId }).then(res => res.data)
+    return $http.put(url(), { partnerId }).then(response => response.data)
   }
 }
