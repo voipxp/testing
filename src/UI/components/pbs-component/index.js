@@ -6,8 +6,8 @@ angular.module('odin.UI').directive('pbsComponent', Directive)
 function Directive($compile, $parse) {
   return {
     restrict: 'E',
-    link: function(scope, element, attrs) {
-      const { component, ...props } = attrs
+    link: function(scope, element, attributes) {
+      const { component, ...props } = attributes
       const name = _.kebabCase($parse(component)(scope))
       let template = `<${name}`
       Object.entries(props).forEach(([k, v]) => {

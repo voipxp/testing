@@ -218,8 +218,8 @@ function Service() {
     ldapTags: ldapTags,
     phonebookTags: phonebookTags,
     types: types,
-    numKeys: numberKeys,
-    numAccounts: numberAccounts,
+    numberKeys: numberKeys,
+    numberAccounts: numberAccounts,
     ringtones: ringtones
   }
   return service

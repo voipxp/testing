@@ -19,7 +19,7 @@ function controller(Alert, $q, Module, VdmTemplateTagService) {
 
   var ringtones = VdmTemplateTagService.ringtones
 
-  var numberAccounts = VdmTemplateTagService.numAccounts
+  var numberAccounts = VdmTemplateTagService.numberAccounts
 
   ctrl.options = { ringtones: ringtones }
 

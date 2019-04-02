@@ -43,8 +43,8 @@ function controller(
   ctrl.showPhonebook = showPhonebook
 
   var types = VdmTemplateTagService.types
-  var numberKeys = VdmTemplateTagService.numKeys
-  var numberAccounts = VdmTemplateTagService.numAccounts
+  var numberKeys = VdmTemplateTagService.numberKeys
+  var numberAccounts = VdmTemplateTagService.numberAccounts
 
   ctrl.options = {
     types: types
