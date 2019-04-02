@@ -1,7 +1,7 @@
 import angular from 'angular'
 import Sugar from 'sugar-date'
 import _ from 'lodash'
-import rrule from 'rrule'
+import { RRule } from 'rrule'
 import template from './index.html'
 
 angular.module('odin.group').component('rruleMonthly', {
@@ -100,6 +100,6 @@ function controller() {
   function setWeekday() {
     var prefix = weekdayPrefixes[ctrl.weekdayPrefix]
     var suffix = ctrl.weekdaySuffix.slice(0, 2).toUpperCase()
-    ctrl.rrule.byweekday = [rrule.RRule[suffix].nth(prefix)]
+    ctrl.rrule.byweekday = [RRule[suffix].nth(prefix)]
   }
 }

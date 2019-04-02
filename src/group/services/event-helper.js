@@ -1,7 +1,7 @@
 import angular from 'angular'
 import _ from 'lodash'
 import Sugar from 'sugar-date'
-import rrule from 'rrule'
+import { RRule, rrulestr } from 'rrule'
 
 angular.module('odin.group').factory('EventHelper', EventHelper)
 
@@ -23,7 +23,7 @@ function EventHelper() {
       summary.startTime = Sugar.Date.long(event.startTime)
     }
     if (event.rrule) {
-      var _rrule = rrule.rrulestr(event.rrule)
+      var _rrule = rrulestr(event.rrule)
       event.nextTime = _rrule.after(Sugar.Date.create())
       summary.recurrence = _rrule.toText()
     } else {
@@ -40,14 +40,14 @@ function EventHelper() {
     if (_.isUndefined(freq)) return
     var _options = angular.copy(options)
     delete _options.dtstart
-    var _rrule = new rrule.RRule(_options)
+    var _rrule = new RRule(_options)
     return _rrule.toString()
   }
 
   // return parsed rrule
   function fromRRule(event) {
     if (!event.rrule) return {}
-    var _rrule = rrule.rrulestr(event.rrule)
+    var _rrule = rrulestr(event.rrule)
     var options = angular.copy(_rrule.origOptions)
     options.interval = options.interval || 1
     return options

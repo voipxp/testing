@@ -4731,6 +4731,11 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.10.tgz#4328badb5086a426aa90f541977d4955da5c9732"
   integrity sha512-0DTvPVU3ed8+HNXOu5Bs+o//Mbdj9VNQMUOe9oKCwh8l0GNwpTDMKCWbRjgtD291AWnkAgkqA/LOnQS8AmS1tw==
 
+papa@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/papa/-/papa-0.0.0.tgz#5ff0736fec2b4f766883807e85cdae306d317421"
+  integrity sha1-X/Bzb+wrT3Zog4B+hc2uMG0xdCE=
+
 papaparse@^4.6.3:
   version "4.6.3"
   resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-4.6.3.tgz#742e5eaaa97fa6c7e1358d2934d8f18f44aee781"

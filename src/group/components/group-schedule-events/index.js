@@ -1,5 +1,5 @@
 import angular from 'angular'
-import rrule from 'rrule'
+import { RRule } from 'rrule'
 import template from './index.html'
 
 angular.module('odin.group').component('groupScheduleEvents', {
@@ -19,7 +19,7 @@ function controller(Alert, GroupEventService, EventHelper) {
   ctrl.$onInit = onInit
   ctrl.add = add
   ctrl.edit = edit
-  ctrl.RRule = rrule.RRule
+  ctrl.RRule = RRule
 
   function onInit() {
     ctrl.loading = true

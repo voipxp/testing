@@ -1,7 +1,7 @@
 import angular from 'angular'
 import Sugar from 'sugar-date'
 import _ from 'lodash'
-import rrule from 'rrule'
+import { RRule } from 'rrule'
 import template from './index.html'
 
 angular.module('odin.group').component('rruleWeekly', {
@@ -15,13 +15,13 @@ function controller() {
   ctrl.$onInit = onInit
   ctrl.$onDestroy = onDestroy
   ctrl.days = [
-    { label: 'Sunday', value: rrule.RRule.SU },
-    { label: 'Monday', value: rrule.RRule.MO },
-    { label: 'Tuesday', value: rrule.RRule.TU },
-    { label: 'Wednesday', value: rrule.RRule.WE },
-    { label: 'Thursday', value: rrule.RRule.TH },
-    { label: 'Friday', value: rrule.RRule.FR },
-    { label: 'Saturday', value: rrule.RRule.SA }
+    { label: 'Sunday', value: RRule.SU },
+    { label: 'Monday', value: RRule.MO },
+    { label: 'Tuesday', value: RRule.TU },
+    { label: 'Wednesday', value: RRule.WE },
+    { label: 'Thursday', value: RRule.TH },
+    { label: 'Friday', value: RRule.FR },
+    { label: 'Saturday', value: RRule.SA }
   ]
 
   function onInit() {
@@ -41,7 +41,7 @@ function controller() {
     if (!isNew()) return
     var day = Sugar.Date.format(ctrl.startTime, '{Weekday}')
     var prefix = day.slice(0, 2).toUpperCase()
-    var weekday = rrule.RRule[prefix]
+    var weekday = RRule[prefix]
     ctrl.rrule.byweekday = ctrl.rrule.byweekday || []
     if (!_.find(ctrl.rrule.byweekday, weekday)) {
       ctrl.rrule.byweekday.push(weekday)

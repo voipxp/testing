@@ -1,6 +1,6 @@
 import angular from 'angular'
 import _ from 'lodash'
-import Papa from 'papa'
+import Papa from 'papaparse'
 import template from './index.html'
 
 angular.module('odin.user').component('userCallCenterCallRecordData', {

@@ -3,6 +3,7 @@ import _ from 'lodash'
 
 angular.module('odin.UI').directive('pbsComponent', Directive)
 
+Directive.$inject = ['$compile', '$parse']
 function Directive($compile, $parse) {
   return {
     restrict: 'E',

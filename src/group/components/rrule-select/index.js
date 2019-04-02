@@ -1,5 +1,5 @@
 import angular from 'angular'
-import rrule from 'rrule'
+import { RRule } from 'rrule'
 import template from './index.html'
 
 angular.module('odin.group').component('rruleSelect', {
@@ -13,17 +13,17 @@ function controller() {
   ctrl.update = update
 
   ctrl.options = [
-    { label: 'Daily', value: rrule.RRule.DAILY },
-    { label: 'Weekly', value: rrule.RRule.WEEKLY },
-    { label: 'Monthly', value: rrule.RRule.MONTHLY },
-    { label: 'Yearly', value: rrule.RRule.YEARLY }
+    { label: 'Daily', value: RRule.DAILY },
+    { label: 'Weekly', value: RRule.WEEKLY },
+    { label: 'Monthly', value: RRule.MONTHLY },
+    { label: 'Yearly', value: RRule.YEARLY }
   ]
 
   ctrl.label = {}
-  ctrl.label[rrule.RRule.DAILY] = 'Days'
-  ctrl.label[rrule.RRule.WEEKLY] = 'Weeks'
-  ctrl.label[rrule.RRule.MONTHLY] = 'Months'
-  ctrl.label[rrule.RRule.YEARLY] = 'Years'
+  ctrl.label[RRule.DAILY] = 'Days'
+  ctrl.label[RRule.WEEKLY] = 'Weeks'
+  ctrl.label[RRule.MONTHLY] = 'Months'
+  ctrl.label[RRule.YEARLY] = 'Years'
 
   function update() {
     if (ctrl.rrule.freq) {
