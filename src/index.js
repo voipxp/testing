@@ -26,6 +26,7 @@ import './service-provider'
 import './settings'
 import './system'
 import './UI'
+import './user'
 import './vdm'
 
 // CONFIGS
@@ -54,6 +55,7 @@ angular
     'odin.settings',
     'odin.system',
     'odin.UI',
+    'odin.user',
     'odin.vdm'
   ])
   .config(routes)

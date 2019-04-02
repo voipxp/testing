@@ -1,0 +1,33 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Viewable Pack">
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Viewable Pack Name</th>
+          <th class="action">Assigned</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="100">
+            No Viewable Packs Found
+            <strong ng-if="$ctrl.filter">for {{ $ctrl.search }}</strong>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          class="hover"
+          ng-click="$ctrl.select(pack)"
+          ng-repeat="pack in $ctrl.packs | filter:$ctrl.search | orderBy:'id' as results track by pack.id"
+        >
+          <td>{{ pack.name }}</td>
+          <td class="action">
+            <pbs-check-box checked="$ctrl.pack.id === pack.id"></pbs-check-box>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
