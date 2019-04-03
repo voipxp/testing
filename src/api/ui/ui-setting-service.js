@@ -1,10 +1,10 @@
 import angular from 'angular'
 import _ from 'lodash'
 
-angular.module('odin.api').factory('Setting', Setting)
+angular.module('odin.api').factory('UiSettingService', UiSettingService)
 
-Setting.$inject = ['$http', 'Route', '$rootScope']
-function Setting($http, Route, $rootScope) {
+UiSettingService.$inject = ['$http', 'Route', '$rootScope']
+function UiSettingService($http, Route, $rootScope) {
   const url = Route.api('/ui/settings')
   let _data = {}
   const service = { load, data }

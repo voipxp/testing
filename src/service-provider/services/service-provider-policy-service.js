@@ -1,10 +1,12 @@
 import angular from 'angular'
 import _ from 'lodash'
 
-angular.module('odin.common').factory('ServiceProviderPolicyService', Service)
+angular
+  .module('odin.serviceProvider')
+  .factory('ServiceProviderPolicyService', Service)
 
-Service.$inject = ['Auth', 'Session', 'ACL', '$q']
-function Service(Auth, Session, ACL, $q) {
+Service.$inject = ['AuthService', 'Session', 'ACL', '$q']
+function Service(AuthService, Session, ACL, $q) {
   var service = {
     load: load,
     accessDeviceAssociationRead: accessDeviceAssociationRead, //
@@ -59,7 +61,7 @@ function Service(Auth, Session, ACL, $q) {
   function load() {
     // no need if not a system admin
     if (ACL.has('Provisioning')) return $q.resolve()
-    return Auth.session().then(Session.update)
+    return AuthService.session().then(Session.update)
   }
 
   function accessDeviceAssociationRead() {

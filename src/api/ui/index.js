@@ -1,4 +1,4 @@
-import './application-service'
-import './module-service'
-import './setting'
-import './template'
+import './ui-application-service'
+import './ui-module-service'
+import './ui-setting-service'
+import './ui-template-service'

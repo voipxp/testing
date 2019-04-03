@@ -3,8 +3,8 @@ import template from './index.html'
 
 angular.module('odin.app').component('adminAccount', { template, controller })
 
-controller.$inject = ['Session', 'Alert', 'Auth']
-function controller(Session, Alert, Auth) {
+controller.$inject = ['Session', 'Alert', 'AuthService']
+function controller(Session, Alert, AuthService) {
   const ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -25,7 +25,7 @@ function controller(Session, Alert, Auth) {
 
   function changePassword(oldPassword, newPassword, callback) {
     Alert.spinner.open()
-    Auth.password(oldPassword, newPassword)
+    AuthService.password(oldPassword, newPassword)
       .then(function(data) {
         return updateSession(data)
       })
@@ -43,7 +43,7 @@ function controller(Session, Alert, Auth) {
 
   function updateSession(token) {
     return Session.set(token)
-      .then(Auth.session)
+      .then(AuthService.session)
       .then(Session.update)
       .then(function(data) {
         console.log('session', data)

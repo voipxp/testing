@@ -1,9 +1,9 @@
 import angular from 'angular'
 
-angular.module('odin.api').factory('Auth', Auth)
+angular.module('odin.api').factory('AuthService', AuthService)
 
-Auth.$inject = ['$http', 'Route']
-function Auth($http, Route) {
+AuthService.$inject = ['$http', 'Route']
+function AuthService($http, Route) {
   const service = { token: token, password: password, session: session }
   const url = Route.api('/auth')
   return service

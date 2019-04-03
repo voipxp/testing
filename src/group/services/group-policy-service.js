@@ -3,8 +3,8 @@ import _ from 'lodash'
 
 angular.module('odin.group').factory('GroupPolicyService', Service)
 
-Service.$inject = ['Auth', 'Session', 'ACL', '$q']
-function Service(Auth, Session, ACL, $q) {
+Service.$inject = ['AuthService', 'Session', 'ACL', '$q']
+function Service(AuthService, Session, ACL, $q) {
   var service = {
     load: load,
     accessDeviceAssociationRead: accessDeviceAssociationRead,
@@ -54,7 +54,7 @@ function Service(Auth, Session, ACL, $q) {
   function load() {
     // no need if not a group admin
     if (ACL.has('Service Provider')) return $q.resolve()
-    return Auth.session().then(Session.update)
+    return AuthService.session().then(Session.update)
   }
 
   function accessDeviceAssociationRead() {

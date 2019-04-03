@@ -6,15 +6,22 @@ import './index.css'
 angular.module('odin.app').component('pbsLogin', { template, controller })
 
 controller.$inject = [
-  'Auth',
+  'AuthService',
   'Session',
   'Module',
   'Route',
   'Alert',
-  'Template',
+  'UiTemplateService',
   '$rootScope'
 ]
-function controller(Auth, Session, Module, Route, Alert, Template) {
+function controller(
+  AuthService,
+  Session,
+  Module,
+  Route,
+  Alert,
+  UiTemplateService
+) {
   const ctrl = this
   ctrl.$onInit = onInit
   ctrl.login = login
@@ -25,8 +32,8 @@ function controller(Auth, Session, Module, Route, Alert, Template) {
     if (!Session.expired()) {
       return Route.dashboard()
     }
-    Template.load().then(function() {
-      ctrl.loginMessage = Template.data('pageLoginMessage')
+    UiTemplateService.load().then(function() {
+      ctrl.loginMessage = UiTemplateService.data('pageLoginMessage')
     })
   }
 
@@ -54,7 +61,7 @@ function controller(Auth, Session, Module, Route, Alert, Template) {
       return
     }
     Alert.spinner.open()
-    Auth.password(ctrl.password, ctrl.newPassword1, ctrl.username)
+    AuthService.password(ctrl.password, ctrl.newPassword1, ctrl.username)
       .then(function() {
         return login(ctrl.username, ctrl.newPassword1)
       })
@@ -69,9 +76,9 @@ function controller(Auth, Session, Module, Route, Alert, Template) {
 
   function login(username, password) {
     Alert.spinner.open()
-    return Auth.token(username, password)
+    return AuthService.token(username, password)
       .then(Session.set)
-      .then(Auth.session)
+      .then(AuthService.session)
       .then(Session.update)
       .then(Module.load)
       .then(Route.dashboard)

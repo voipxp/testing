@@ -7,8 +7,8 @@ angular.module('odin.branding').component('brandingSettings', {
   bindings: { hostnameId: '<' }
 })
 
-controller.$inject = ['BrandingSettingService', 'Alert', 'Setting']
-function controller(BrandingSettingService, Alert, Setting) {
+controller.$inject = ['BrandingSettingService', 'Alert', 'UiSettingService']
+function controller(BrandingSettingService, Alert, UiSettingService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -49,7 +49,7 @@ function controller(BrandingSettingService, Alert, Setting) {
     update[field.key] = field.value
     BrandingSettingService.update(update)
       .then(loadSetting)
-      .then(Setting.load)
+      .then(UiSettingService.load)
       .then(function() {
         Alert.notify.success('Setting Updated')
         callback()

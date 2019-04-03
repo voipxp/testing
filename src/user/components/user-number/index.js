@@ -15,7 +15,7 @@ controller.$inject = [
   '$routeParams',
   '$q',
   'ACL',
-  'Setting'
+  'UiSettingService'
 ]
 function controller(
   Alert,
@@ -24,7 +24,7 @@ function controller(
   $routeParams,
   $q,
   ACL,
-  Setting
+  UiSettingService
 ) {
   var ctrl = this
   ctrl.edit = edit
@@ -36,7 +36,7 @@ function controller(
   ctrl.serviceProviderId = $routeParams.serviceProviderId
   ctrl.groupId = $routeParams.groupId
   ctrl.userId = $routeParams.userId
-  ctrl.editCLID = Setting.data('editCLID')
+  ctrl.editCLID = UiSettingService.data('editCLID')
   ctrl.$onInit = onInit
 
   function onInit() {

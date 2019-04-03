@@ -4,8 +4,8 @@ import './index.css'
 
 angular.module('odin.app').component('pbsFooter', { template, controller })
 
-controller.$inject = ['Template', 'Session', '$rootScope']
-function controller(Template, Session, $rootScope) {
+controller.$inject = ['UiTemplateService', 'Session', '$rootScope']
+function controller(UiTemplateService, Session, $rootScope) {
   const ctrl = this
   ctrl.$onInit = onInit
 
@@ -15,7 +15,7 @@ function controller(Template, Session, $rootScope) {
   }
 
   function loadTemplate() {
-    ctrl.template = Template.data()
+    ctrl.template = UiTemplateService.data()
   }
 
   function loadSession() {

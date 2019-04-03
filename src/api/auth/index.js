@@ -1,2 +1,2 @@
-import './auth'
+import './auth-service'
 import './sso-service'

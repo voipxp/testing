@@ -5,8 +5,8 @@ import template from './index.html'
 angular.module('odin.app').component('pbsApp', { template, controller })
 
 controller.$inject = [
-  'Template',
-  'Setting',
+  'UiTemplateService',
+  'UiSettingService',
   'Session',
   '$q',
   '$rootScope',
@@ -19,8 +19,8 @@ controller.$inject = [
   'Route'
 ]
 function controller(
-  Template,
-  Setting,
+  UiTemplateService,
+  UiSettingService,
   Session,
   $q,
   $rootScope,
@@ -43,9 +43,9 @@ function controller(
     ctrl.loading = true
     $q.all([
       CacheFactory.clearAll(),
-      Template.load(),
+      UiTemplateService.load(),
       Session.load(),
-      Setting.load()
+      UiSettingService.load()
     ])
       .then(setIdle)
       .catch(Alert.notify.danger)
@@ -55,8 +55,8 @@ function controller(
   }
 
   function loadTemplate() {
-    ctrl.template = Template.data()
-    $rootScope.pageTitle = Template.data('pageTitle') || 'ODiN'
+    ctrl.template = UiTemplateService.data()
+    $rootScope.pageTitle = UiTemplateService.data('pageTitle') || 'ODiN'
     setGoogleUA()
   }
 
@@ -109,7 +109,7 @@ function controller(
 
   // convert from seconds to minutes
   function sessionTimeout() {
-    return (parseInt(Setting.data('sessionTimeout'), 10) || 0) * 60
+    return (parseInt(UiSettingService.data('sessionTimeout'), 10) || 0) * 60
   }
 
   $rootScope.$on('$routeChangeSuccess', function() {

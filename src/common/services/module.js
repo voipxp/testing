@@ -19,8 +19,8 @@ import angular from 'angular'
 
 angular.module('odin.common').factory('Module', Module)
 
-Module.$inject = ['ModuleService', 'Session', '$q']
-function Module(ModuleService, Session, $q) {
+Module.$inject = ['UiModuleService', 'Session', '$q']
+function Module(UiModuleService, Session, $q) {
   const service = {
     load,
     allow,
@@ -39,7 +39,7 @@ function Module(ModuleService, Session, $q) {
   return service
 
   function load() {
-    return ModuleService.index().then(function(response) {
+    return UiModuleService.index().then(function(response) {
       return mapModules(response.data)
     })
   }

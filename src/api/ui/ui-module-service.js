@@ -1,12 +1,12 @@
 import angular from 'angular'
 
-angular.module('odin.api').factory('ModuleService', ModuleService)
+angular.module('odin.api').factory('UiModuleService', UiModuleService)
 
-ModuleService.$inject = ['$http', 'Route', 'CacheFactory', '$rootScope']
-function ModuleService($http, Route, CacheFactory, $rootScope) {
+UiModuleService.$inject = ['$http', 'Route', 'CacheFactory', '$rootScope']
+function UiModuleService($http, Route, CacheFactory, $rootScope) {
   const service = { index }
   const route = Route.api('/ui/modules')
-  const cache = CacheFactory('Module')
+  const cache = CacheFactory('UiModuleService')
   const clearCache = () => cache.removeAll()
   $rootScope.$on('BrandingHostnameService:updated', clearCache)
   $rootScope.$on('BrandingModuleService:updated', clearCache)

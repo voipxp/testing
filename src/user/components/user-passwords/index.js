@@ -8,8 +8,8 @@ angular.module('odin.user').component('userPassword', {
   bindings: { userId: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserService', '$q', 'Session', 'Auth']
-function controller(Alert, UserService, $q, Session, Auth) {
+controller.$inject = ['Alert', 'UserService', '$q', 'Session', 'AuthService']
+function controller(Alert, UserService, $q, Session, AuthService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -84,9 +84,9 @@ function controller(Alert, UserService, $q, Session, Auth) {
 
   // so we don't have to login again
   function updateSession(userId, password) {
-    return Auth.token(userId, password)
+    return AuthService.token(userId, password)
       .then(Session.set)
-      .then(Auth.session)
+      .then(AuthService.session)
       .then(Session.update)
   }
 }

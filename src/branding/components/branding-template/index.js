@@ -7,8 +7,8 @@ angular.module('odin.branding').component('brandingTemplate', {
   bindings: { hostnameId: '<' }
 })
 
-controller.$inject = ['BrandingTemplateService', 'Alert', 'Template']
-function controller(BrandingTemplateService, Alert, Template) {
+controller.$inject = ['BrandingTemplateService', 'Alert', 'UiTemplateService']
+function controller(BrandingTemplateService, Alert, UiTemplateService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -73,7 +73,7 @@ function controller(BrandingTemplateService, Alert, Template) {
     update[field.key] = field.value
     BrandingTemplateService.update(update)
       .then(loadTemplate)
-      .then(Template.load)
+      .then(UiTemplateService.load)
       .then(function() {
         Alert.notify.success('Template Updated')
         callback()

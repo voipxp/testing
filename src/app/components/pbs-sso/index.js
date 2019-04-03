@@ -3,14 +3,14 @@ import angular from 'angular'
 angular.module('odin.app').component('pbsSso', { template: '', controller })
 
 controller.$inject = [
-  'Auth',
+  'AuthService',
   'Session',
   'Module',
   'Route',
   'Alert',
   '$location'
 ]
-function controller(Auth, Session, Module, Route, Alert, $location) {
+function controller(AuthService, Session, Module, Route, Alert, $location) {
   const ctrl = this
   ctrl.$onInit = onInit
 
@@ -23,7 +23,7 @@ function controller(Auth, Session, Module, Route, Alert, $location) {
   function login(token) {
     Alert.spinner.open()
     return Session.set({ token: token })
-      .then(Auth.session)
+      .then(AuthService.session)
       .then(Session.update)
       .then(Module.load)
       .then(Route.dashboard)
