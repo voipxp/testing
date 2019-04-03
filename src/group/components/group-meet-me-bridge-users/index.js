@@ -2,7 +2,7 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular.module('odin.group').component('meetMeBridgeUsers', {
+angular.module('odin.group').component('groupMeetMeBridgeUsers', {
   template,
   controller,
   require: { parent: '^meetMeBridge' }

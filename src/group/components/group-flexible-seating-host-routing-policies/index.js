@@ -1,18 +1,20 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular.module('odin.group').component('routingPoliciesFlexibleSeating', {
-  template,
-  controller,
-  bindings: {
-    serviceProviderId: '<',
-    groupId: '<',
-    serviceUserId: '<',
-    readOnly: '<',
-    loading: '<',
-    onUpdate: '&'
-  }
-})
+angular
+  .module('odin.group')
+  .component('groupFlexibleSeatingHostRoutingPolicies', {
+    template,
+    controller,
+    bindings: {
+      serviceProviderId: '<',
+      groupId: '<',
+      serviceUserId: '<',
+      readOnly: '<',
+      loading: '<',
+      onUpdate: '&'
+    }
+  })
 
 controller.$inject = [
   'Alert',

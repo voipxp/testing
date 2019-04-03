@@ -3,7 +3,7 @@ import template from './index.html'
 
 angular
   .module('odin.group')
-  .component('serviceInstanceProfileFlexibleSeating', {
+  .component('groupFlexibleSeatingHostServiceInstanceProfile', {
     template,
     controller,
     bindings: {

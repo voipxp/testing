@@ -285,7 +285,7 @@ export default [
   },
   {
     path: '/groups/:serviceProviderId/:groupId/meetMe/bridge',
-    component: 'meetMeBridge',
+    component: 'groupMeetMeBridge',
     acl: 'Group',
     module: 'Meet-Me Conferencing'
   },
@@ -442,14 +442,14 @@ export default [
   },
   {
     path: '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts',
-    component: 'flexibleSeatingHosts',
+    component: 'groupFlexibleSeatingHosts',
     acl: 'Group',
     module: 'Flexible Seating Guest'
   },
   {
     path:
       '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
-    component: 'flexibleSeatingHost',
+    component: 'groupFlexibleSeatingHost',
     acl: 'Group',
     module: 'Flexible Seating Guest'
   }

@@ -1,7 +1,7 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular.module('odin.group').component('meetMeBridgeDetails', {
+angular.module('odin.group').component('groupMeetMeBridgeDetails', {
   template,
   controller,
   require: { parent: '^meetMeBridge' }

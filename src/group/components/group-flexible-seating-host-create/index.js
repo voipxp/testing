@@ -2,7 +2,7 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular.module('odin.group').component('flexibleSeatingHostCreate', {
+angular.module('odin.group').component('groupFlexibleSeatingHostCreate', {
   template,
   controller,
   bindings: {

@@ -15,7 +15,7 @@
   module="$ctrl.module"
 >
   <pbs-menu-item label="Number and Device">
-    <service-instance-profile-flexible-seating
+    <group-flexible-seating-host-service-instance-profile
       flexible-seating-host="$ctrl.flexibleSeatingHost"
       service-provider-id="$ctrl.serviceProviderId"
       group-id="$ctrl.groupId"
@@ -24,33 +24,33 @@
       on-delete="$ctrl.onDeleteProfile($event)"
       loading="$ctrl.loading"
       read-only="!$ctrl.module.permissions.update"
-    ></service-instance-profile-flexible-seating>
-    <flexible-seating-host-device
+    ></group-flexible-seating-host-service-instance-profile>
+    <group-flexible-seating-host-device
       service-provider-id="$ctrl.serviceProviderId"
       group-id="$ctrl.groupId"
       flexible-seating-host="$ctrl.flexibleSeatingHost"
       service-user-id="$ctrl.serviceUserId"
       pbs-margin-top
-    ></flexible-seating-host-device>
+    ></group-flexible-seating-host-device>
   </pbs-menu-item>
   <pbs-menu-item label="Guest Association">
-    <guest-association-flexible-seating
+    <group-flexible-seating-host-guest-association
       service-provider-id="$ctrl.serviceProviderId"
       group-id="$ctrl.groupId"
       service-user-id="$ctrl.serviceUserId"
       on-update="$ctrl.onUpdateProfile($event)"
       loading="$ctrl.loading"
       read-only="!$ctrl.module.permissions.update"
-    ></guest-association-flexible-seating>
+    ></group-flexible-seating-host-guest-association>
   </pbs-menu-item>
   <pbs-menu-item label="Routing Policies">
-    <routing-policies-flexible-seating
+    <group-flexible-seating-host-routing-policies
       service-provider-id="$ctrl.serviceProviderId"
       group-id="$ctrl.groupId"
       service-user-id="$ctrl.serviceUserId"
       on-update="$ctrl.onUpdateProfile($event)"
       loading="$ctrl.loading"
       read-only="!$ctrl.module.permissions.update"
-    ></routing-policies-flexible-seating>
+    ></group-flexible-seating-host-routing-policies>
   </pbs-menu-item>
 </virtual-user-menu>
