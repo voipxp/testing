@@ -1,6 +1,7 @@
 import './admin-account'
 import './my-account'
 import './pbs-app'
+import './pbs-footer'
 import './pbs-login'
 import './pbs-navbar'
 import './pbs-sso'

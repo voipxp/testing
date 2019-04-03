@@ -9,12 +9,12 @@ angular.module('odin.group').component('groupCloneServices', {
 
 controller.$inject = [
   'EventEmitter',
-  'CloneGroupService',
+  'GroupCloneService',
   '$scope',
   'Alert',
   'ACL'
 ]
-function controller(EventEmitter, CloneGroupService, $scope, Alert, ACL) {
+function controller(EventEmitter, GroupCloneService, $scope, Alert, ACL) {
   var ctrl = this
   ctrl.selectServiceProvider = selectServiceProvider
   ctrl.selectGroup = selectGroup
@@ -61,7 +61,7 @@ function controller(EventEmitter, CloneGroupService, $scope, Alert, ACL) {
 
   function create(group, options, callback) {
     Alert.spinner.open()
-    CloneGroupService.services(ctrl.fromServiceProviderId, ctrl.fromGroupId, {
+    GroupCloneService.services(ctrl.fromServiceProviderId, ctrl.fromGroupId, {
       data: group,
       options: options
     })

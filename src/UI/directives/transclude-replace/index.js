@@ -5,7 +5,7 @@
 
 import angular from 'angular'
 
-angular.module('odin.common').directive('ngTranscludeReplace', [
+angular.module('odin.UI').directive('ngTranscludeReplace', [
   '$log',
   function($log) {
     return {

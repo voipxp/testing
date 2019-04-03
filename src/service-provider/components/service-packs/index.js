@@ -9,7 +9,7 @@ angular.module('odin.serviceProvider').component('servicePacks', {
 
 controller.$inject = [
   'Alert',
-  'ServicePackService',
+  'ServiceProviderServicePackService',
   'ServiceProviderServiceService',
   'Route',
   '$q',
@@ -18,7 +18,7 @@ controller.$inject = [
 ]
 function controller(
   Alert,
-  ServicePackService,
+  ServiceProviderServicePackService,
   ServiceProviderServiceService,
   Route,
   $q,
@@ -47,9 +47,10 @@ function controller(
   }
 
   function loadServicePacks() {
-    return ServicePackService.index(ctrl.serviceProviderId, true).then(function(
-      data
-    ) {
+    return ServiceProviderServicePackService.index(
+      ctrl.serviceProviderId,
+      true
+    ).then(function(data) {
       ctrl.servicePacks = data
     })
   }

@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.common').directive('ngEscape', ngEscape)
+angular.module('odin.UI').directive('ngEscape', ngEscape)
 
 function ngEscape() {
   return function(scope, element, attributes) {

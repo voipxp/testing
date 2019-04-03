@@ -19,7 +19,7 @@ controller.$inject = [
   'EventEmitter',
   'Alert',
   'UcOneService',
-  'ServicePackService',
+  'ServiceProviderServicePackService',
   '$scope',
   '$q'
 ]
@@ -27,7 +27,7 @@ function controller(
   EventEmitter,
   Alert,
   UcOneService,
-  ServicePackService,
+  ServiceProviderServicePackService,
   $scope,
   $q
 ) {
@@ -141,7 +141,7 @@ function controller(
 
   // just return the userServices inside the servicePack
   function loadServicePack(service) {
-    return ServicePackService.show(
+    return ServiceProviderServicePackService.show(
       ctrl.serviceProviderId,
       service.serviceName
     ).then(function(data) {

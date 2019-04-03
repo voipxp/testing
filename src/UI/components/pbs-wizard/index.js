@@ -19,7 +19,7 @@ const wizardTemplate = `
 </div>
 `
 
-angular.module('odin.common').component('pbsWizard', {
+angular.module('odin.UI').component('pbsWizard', {
   template: wizardTemplate,
   controller: wizardController,
   transclude: true,
@@ -99,7 +99,7 @@ const stepTemplate = `
   <div ng-transclude></div>
 </div>
 `
-angular.module('odin.common').component('pbsWizardStep', {
+angular.module('odin.UI').component('pbsWizardStep', {
   template: stepTemplate,
   controller: StepController,
   transclude: true,

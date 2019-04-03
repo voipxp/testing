@@ -19,15 +19,8 @@ import angular from 'angular'
 
 angular.module('odin.common').factory('Module', Module)
 
-Module.$inject = [
-  '$http',
-  'Route',
-  'Session',
-  '$q',
-  'CacheFactory',
-  '$rootScope'
-]
-function Module($http, Route, Session, $q, CacheFactory, $rootScope) {
+Module.$inject = ['ModuleService', 'Session', '$q']
+function Module(ModuleService, Session, $q) {
   const service = {
     load,
     allow,
@@ -42,20 +35,11 @@ function Module($http, Route, Session, $q, CacheFactory, $rootScope) {
     update,
     delete: destroy
   }
-  const route = Route.api('/ui/modules')
-  const cache = CacheFactory('Module')
   let _modules = {}
-
-  $rootScope.$on('BrandingHostnameService:updated', clearCache)
-  $rootScope.$on('BrandingModuleService:updated', clearCache)
   return service
 
-  function clearCache() {
-    cache.removeAll()
-  }
-
   function load() {
-    return $http.get(route(), { cache }).then(function(response) {
+    return ModuleService.index().then(function(response) {
       return mapModules(response.data)
     })
   }

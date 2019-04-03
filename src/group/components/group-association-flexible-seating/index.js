@@ -1,7 +1,7 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular.module('odin.common').component('guestAssociationFlexibleSeating', {
+angular.module('odin.group').component('guestAssociationFlexibleSeating', {
   template,
   controller,
   bindings: {

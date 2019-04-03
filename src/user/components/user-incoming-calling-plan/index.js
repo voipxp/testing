@@ -1,7 +1,7 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular.module('odin.common').component('userIncomingCallingPlan', {
+angular.module('odin.user').component('userIncomingCallingPlan', {
   template,
   controller,
   bindings: { userId: '<', readOnly: '<' }

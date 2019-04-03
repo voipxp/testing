@@ -19,6 +19,7 @@ import './index.scss'
 import './common/lib/date'
 
 // MODULES
+import './api'
 import './app'
 import './branding'
 import './bulk'
@@ -48,6 +49,7 @@ angular
     'checklist-model',
     'truncate',
     'chart.js',
+    'odin.api',
     'odin.common',
     'odin.app',
     'odin.branding',

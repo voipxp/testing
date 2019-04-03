@@ -1,7 +1,7 @@
 import angular from 'angular'
 import _ from 'lodash'
 
-angular.module('odin.common').filter('capitalize', Capitalize)
+angular.module('odin.UI').filter('capitalize', Capitalize)
 
 function Capitalize() {
   return function(input) {

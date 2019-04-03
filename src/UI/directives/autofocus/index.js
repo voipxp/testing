@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.common').directive('autofocus', directive)
+angular.module('odin.UI').directive('autofocus', directive)
 
 directive.$inject = ['$timeout']
 function directive($timeout) {

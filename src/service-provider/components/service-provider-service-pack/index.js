@@ -9,7 +9,7 @@ angular.module('odin.serviceProvider').component('serviceProviderServicePack', {
 
 controller.$inject = [
   'Alert',
-  'ServicePackService',
+  'ServiceProviderServicePackService',
   '$routeParams',
   'Route',
   'Module',
@@ -17,7 +17,7 @@ controller.$inject = [
 ]
 function controller(
   Alert,
-  ServicePackService,
+  ServiceProviderServicePackService,
   $routeParams,
   Route,
   Module,
@@ -56,7 +56,7 @@ function controller(
   }
 
   function loadServicePack() {
-    return ServicePackService.show(
+    return ServiceProviderServicePackService.show(
       ctrl.serviceProviderId,
       ctrl.servicePackName
     ).then(function(data) {
@@ -105,7 +105,7 @@ function controller(
     var wasRenamed =
       servicePack.newServicePackName !== servicePack.servicePackName
     Alert.spinner.open()
-    ServicePackService.update(
+    ServiceProviderServicePackService.update(
       ctrl.serviceProviderId,
       ctrl.servicePackName,
       servicePack
@@ -131,7 +131,10 @@ function controller(
 
   function remove(callback) {
     Alert.spinner.open()
-    ServicePackService.destroy(ctrl.serviceProviderId, ctrl.servicePackName)
+    ServiceProviderServicePackService.destroy(
+      ctrl.serviceProviderId,
+      ctrl.servicePackName
+    )
       .then(function() {
         Alert.notify.success('Service Pack Removed')
         if (_.isFunction(callback)) {

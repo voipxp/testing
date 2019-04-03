@@ -10,7 +10,7 @@ angular.module('odin.common').component('usersReport', {
 
 controller.$inject = [
   'Alert',
-  'UserReportService',
+  'GroupUserReportService',
   'Route',
   '$routeParams',
   'CsvService',
@@ -19,7 +19,7 @@ controller.$inject = [
 ]
 function controller(
   Alert,
-  UserReportService,
+  GroupUserReportService,
   Route,
   $routeParams,
   CsvService,
@@ -107,36 +107,37 @@ function controller(
   }
 
   function loadReport() {
-    return UserReportService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.users = data.map(function(user) {
-          return {
-            userId: String(user.userId),
-            groupId: user.groupId || '',
-            serviceProviderId: user.serviceProviderId || '',
-            lastName: user.lastName || '',
-            firstName: user.firstName || '',
-            phoneNumber: user.phoneNumber || '',
-            extension: user.extension || '',
-            phoneNumberActivated: !!user.phoneNumberActivated,
-            inTrunkGroup: !!user.inTrunkGroup,
-            deviceType: _.get(
-              user,
-              'accessDeviceEndpoint.accessDevice.deviceType',
-              ''
-            ),
-            macAddress: _.get(
-              user,
-              'accessDeviceEndpoint.accessDevice.macAddress',
-              ''
-            ),
-            servicePacks: user.servicePacks.join(','),
-            userServices: user.userServices.join(','),
-            premiumServices: user.premiumServices.join(',')
-          }
-        })
-      }
-    )
+    return GroupUserReportService.index(
+      ctrl.serviceProviderId,
+      ctrl.groupId
+    ).then(function(data) {
+      ctrl.users = data.map(function(user) {
+        return {
+          userId: String(user.userId),
+          groupId: user.groupId || '',
+          serviceProviderId: user.serviceProviderId || '',
+          lastName: user.lastName || '',
+          firstName: user.firstName || '',
+          phoneNumber: user.phoneNumber || '',
+          extension: user.extension || '',
+          phoneNumberActivated: !!user.phoneNumberActivated,
+          inTrunkGroup: !!user.inTrunkGroup,
+          deviceType: _.get(
+            user,
+            'accessDeviceEndpoint.accessDevice.deviceType',
+            ''
+          ),
+          macAddress: _.get(
+            user,
+            'accessDeviceEndpoint.accessDevice.macAddress',
+            ''
+          ),
+          servicePacks: user.servicePacks.join(','),
+          userServices: user.userServices.join(','),
+          premiumServices: user.premiumServices.join(',')
+        }
+      })
+    })
   }
 
   function onClick(user) {

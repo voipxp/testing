@@ -9,14 +9,14 @@ angular.module('odin.system').component('serviceProviderClone', {
 
 controller.$inject = [
   'EventEmitter',
-  'CloneServiceProviderService',
+  'ServiceProviderCloneService',
   '$scope',
   'Alert',
   'ACL'
 ]
 function controller(
   EventEmitter,
-  CloneServiceProviderService,
+  ServiceProviderCloneService,
   $scope,
   Alert,
   ACL
@@ -68,7 +68,7 @@ function controller(
 
   function create(serviceProvider, options, callback) {
     Alert.spinner.open()
-    CloneServiceProviderService.all(ctrl.serviceProviderId, {
+    ServiceProviderCloneService.all(ctrl.serviceProviderId, {
       data: serviceProvider,
       options: options
     })

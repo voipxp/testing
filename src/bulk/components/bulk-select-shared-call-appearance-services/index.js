@@ -21,10 +21,16 @@ controller.$inject = [
   'Alert',
   '$scope',
   '$q',
-  'ServicePackService',
+  'ServiceProviderServicePackService',
   'EventEmitter'
 ]
-function controller(Alert, $scope, $q, ServicePackService, EventEmitter) {
+function controller(
+  Alert,
+  $scope,
+  $q,
+  ServiceProviderServicePackService,
+  EventEmitter
+) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.select = select
@@ -98,7 +104,7 @@ function controller(Alert, $scope, $q, ServicePackService, EventEmitter) {
   }
 
   function loadServicePack(service) {
-    return ServicePackService.show(
+    return ServiceProviderServicePackService.show(
       ctrl.serviceProviderId,
       service.serviceName
     ).then(function(data) {

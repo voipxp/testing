@@ -1,7 +1,7 @@
 import angular from 'angular'
 import Sugar from 'sugar-date'
 
-angular.module('odin.common').filter('toTime', Controller)
+angular.module('odin.UI').filter('toTime', Controller)
 
 function Controller() {
   return function(input) {

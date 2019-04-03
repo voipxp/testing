@@ -9,8 +9,18 @@ angular.module('odin.serviceProvider').component('servicePacksCreate', {
   bindings: { onUpdate: '&' }
 })
 
-controller.$inject = ['Alert', 'ServicePackService', '$scope', 'EventEmitter']
-function controller(Alert, ServicePackService, $scope, EventEmitter) {
+controller.$inject = [
+  'Alert',
+  'ServiceProviderServicePackService',
+  '$scope',
+  'EventEmitter'
+]
+function controller(
+  Alert,
+  ServiceProviderServicePackService,
+  $scope,
+  EventEmitter
+) {
   var ctrl = this
   ctrl.maxAllowed = maxAllowed
   ctrl.maxAllowedDescription = maxAllowedDescription
@@ -41,7 +51,10 @@ function controller(Alert, ServicePackService, $scope, EventEmitter) {
 
   function create(servicePack, callback) {
     Alert.spinner.open()
-    ServicePackService.create(ctrl.parent.serviceProviderId, servicePack)
+    ServiceProviderServicePackService.create(
+      ctrl.parent.serviceProviderId,
+      servicePack
+    )
       .then(function() {
         Alert.notify.success('Service Pack Created')
         callback()

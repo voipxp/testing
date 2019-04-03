@@ -2,7 +2,7 @@ import angular from 'angular'
 import template from './index.html'
 
 angular
-  .module('odin.common')
+  .module('odin.group')
   .component('serviceInstanceProfileFlexibleSeating', {
     template,
     controller,

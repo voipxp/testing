@@ -7,8 +7,8 @@ angular.module('odin.serviceProvider').component('servicePacksServiceUsage', {
   require: { parent: '^servicePacks' }
 })
 
-controller.$inject = ['ServicePackService', 'Alert']
-function controller(ServicePackService, Alert) {
+controller.$inject = ['ServiceProviderServicePackService', 'Alert']
+function controller(ServiceProviderServicePackService, Alert) {
   var ctrl = this
   ctrl.openSelect = openSelect
   ctrl.select = select
@@ -20,7 +20,10 @@ function controller(ServicePackService, Alert) {
   function select(service) {
     Alert.modal.closeAll()
     Alert.spinner.open()
-    ServicePackService.usage(ctrl.parent.serviceProviderId, service.serviceName)
+    ServiceProviderServicePackService.usage(
+      ctrl.parent.serviceProviderId,
+      service.serviceName
+    )
       .then(function(data) {
         ctrl.service = {
           serviceName: service.serviceName,

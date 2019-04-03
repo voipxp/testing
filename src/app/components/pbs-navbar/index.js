@@ -5,7 +5,7 @@ angular.module('odin.app').component('pbsNavbar', { template, controller })
 
 controller.$inject = [
   'Session',
-  'Application',
+  'ApplicationService',
   '$rootScope',
   '$q',
   '$window',
@@ -15,7 +15,7 @@ controller.$inject = [
 ]
 function controller(
   Session,
-  Application,
+  ApplicationService,
   $rootScope,
   $q,
   $window,
@@ -38,7 +38,7 @@ function controller(
   }
 
   function loadApplications() {
-    return Application.index().then(function(data) {
+    return ApplicationService.index().then(function(data) {
       ctrl.applications = data
     })
   }

@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.common').directive('pbsTable', pbsTable)
+angular.module('odin.UI').directive('pbsTable', pbsTable)
 
 function pbsTable() {
   return {

@@ -35,7 +35,7 @@ import angular from 'angular'
 import template from './index.html'
 import './index.css'
 
-angular.module('odin.common').component('pbsPagination', {
+angular.module('odin.UI').component('pbsPagination', {
   template,
   controller,
   bindings: { items: '<', limit: '<', onUpdate: '&', position: '@' }

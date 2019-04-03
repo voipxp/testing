@@ -14,7 +14,7 @@ angular.module('odin.group').component('autoAttendantClone', {
 
 controller.$inject = [
   'EventEmitter',
-  'CloneGroupServiceService',
+  'GroupServiceCloneService',
   '$scope',
   'Alert',
   'ACL',
@@ -22,7 +22,7 @@ controller.$inject = [
 ]
 function controller(
   EventEmitter,
-  CloneGroupServiceService,
+  GroupServiceCloneService,
   $scope,
   Alert,
   ACL,
@@ -114,7 +114,7 @@ function controller(
 
   function create(autoAttendant, options, callback) {
     Alert.spinner.open()
-    CloneGroupServiceService.autoAttendant(ctrl.fromAutoAttendantId, {
+    GroupServiceCloneService.autoAttendant(ctrl.fromAutoAttendantId, {
       data: autoAttendant,
       options: options
     })
