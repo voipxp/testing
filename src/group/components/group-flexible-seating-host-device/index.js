@@ -119,7 +119,7 @@ function controller(
 
   function onDeviceUpdate(event) {
     _.set(
-      ctrl.usflexibleSeatingHoster,
+      ctrl.editFlexibleSeatingHost,
       'accessDeviceEndpoint.accessDevice',
       event.device
     )

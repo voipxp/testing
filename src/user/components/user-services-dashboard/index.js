@@ -34,6 +34,7 @@ function controller(
   // overrides are listed here
   var allowedServices = {
     'Alternate Numbers': {},
+    'Advice Of Charge': {},
     'Anonymous Call Rejection': {},
     Authentication: {},
     'Automatic Callback': {},
@@ -56,6 +57,7 @@ function controller(
       module: 'Call Center'
     },
     'Call Forwarding Always': {},
+    'Call Forwarding Always Secondary': {},
     'Call Forwarding Busy': {},
     'Call Forwarding No Answer': {},
     'Call Forwarding Not Reachable': {},
@@ -77,6 +79,7 @@ function controller(
     'Do Not Disturb': {},
     'External Calling Line ID Delivery': {},
     'Fax Messaging': {},
+    'Flexible Seating Guest': {},
     'Group Night Forwarding': {},
     'Hoteling Guest': {},
     'Hoteling Host': {},

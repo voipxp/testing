@@ -6,9 +6,11 @@ angular.module('odin.api').factory('GroupFlexibleSeatingHostService', Service)
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
   var url = Route.api('/groups/flexible-seating/host')
+  var bUrl = Route.api('/users/flexible-seating/bulk')
 
   var service = {
     index: index,
+    bulk: bulk,
     store: store,
     show: show,
     update: update,
@@ -27,6 +29,16 @@ function Service($http, Route) {
   function index(serviceProviderId, groupId) {
     return $http
       .get(url(), {
+        params: { serviceProviderId: serviceProviderId, groupId: groupId }
+      })
+      .then(function(response) {
+        return response.data
+      })
+  }
+
+  function bulk(serviceProviderId, groupId) {
+    return $http
+      .get(bUrl(), {
         params: { serviceProviderId: serviceProviderId, groupId: groupId }
       })
       .then(function(response) {

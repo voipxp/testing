@@ -3,7 +3,6 @@
     OR
   Generate a user.phoneNumber.create task?
 */
-
 import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
@@ -69,8 +68,8 @@ function controller(
   function createRange(numbers, callback) {
     Alert.spinner.open()
     assignServiceProvider(numbers)
-      .then(assignGroup)
-      .then(validateAssignment)
+      .then(() => assignGroup(numbers))
+      .then(() => validateAssignment(numbers))
       .then(function() {
         sendUpdate(numbers, callback)
       })
@@ -112,10 +111,10 @@ function controller(
   function validateAssignment(numbers) {
     return $q(function(resolve, reject) {
       return loadAvailable().then(function(data) {
-        var response = _.every(numbers, function(number) {
+        var result = _.every(numbers, function(number) {
           return _.find(data, { min: number.min })
         })
-        if (!response) return reject('Unable to Assign Numbers')
+        if (!result) return reject('Unable to Assign Numbers')
         resolve(numbers)
       })
     })

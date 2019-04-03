@@ -6,63 +6,205 @@
   <pbs-breadcrumb title="'Flexible Seating Hosts'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Flexible Seating Hosts">
-    <pbs-block-buttons
-      ng-if="$ctrl.module.permissions.create && $ctrl.canCreate"
-    >
-      <pbs-button-compact-add
-        title="Add Flexible Seating Host"
-        ng-click="$ctrl.add()"
-      ></pbs-button-compact-add>
-    </pbs-block-buttons>
-    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
-    <table pbs-table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Number</th>
-          <th>Extension</th>
-          <th>Department</th>
-          <th>Device Name</th>
-          <th>Device Level</th>
-          <th class="has-text-centered">Active</th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr ng-if="results.length < 1">
-          <td colspan="6">
-            No Flexible Seating Hosts Found
-            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
-          </td>
-        </tr>
-      </tfoot>
-      <tbody>
-        <tr
-          class="hover"
-          ng-click="$ctrl.open(host)"
-          ng-repeat="host in $ctrl.hosts | filter:$ctrl.search | orderBy:'name' as results track by host.serviceUserId"
+  <pbs-tabs>
+    <pbs-tab label="Flexible Seating Host">
+      <pbs-block title="Flexible Seating Hosts">
+        <pbs-block-buttons
+          ng-if="$ctrl.module.permissions.create && $ctrl.canCreate"
         >
-          <td>{{ host.name }}</td>
-          <td>{{ host.phoneNumber }}</td>
-          <td>{{ host.extension }}</td>
-          <td>{{ host.department }}</td>
-          <td>{{ host.accessDeviceEndpoint.accessDevice.deviceName }}</td>
-          <td>{{ host.accessDeviceEndpoint.accessDevice.deviceLevel }}</td>
-          <td no-parent-click>
-            <pbs-input-switch
-              ng-model="host.isActive"
-              ng-change="$ctrl.toggle(host)"
-              ng-disabled="host.isLoading"
-            ></pbs-input-switch>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </pbs-block>
+          <pbs-button-compact-add
+            title="Add Flexible Seating Host"
+            ng-click="$ctrl.add()"
+          ></pbs-button-compact-add>
+        </pbs-block-buttons>
+        <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+        <table pbs-table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Number</th>
+              <th>Extension</th>
+              <th>Department</th>
+              <th>Device Name</th>
+              <th>Device Level</th>
+              <th class="has-text-centered">Active</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr ng-if="results.length < 1">
+              <td colspan="6">
+                No Flexible Seating Hosts Found
+                <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+              </td>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr
+              class="hover"
+              ng-click="$ctrl.open(host)"
+              ng-repeat="host in $ctrl.hosts | filter:$ctrl.search | orderBy:'name' as results track by host.serviceUserId"
+            >
+              <td>{{ host.name }}</td>
+              <td>{{ host.phoneNumber }}</td>
+              <td>{{ host.extension }}</td>
+              <td>{{ host.department }}</td>
+              <td>{{ host.accessDeviceEndpoint.accessDevice.deviceName }}</td>
+              <td>{{ host.accessDeviceEndpoint.accessDevice.deviceLevel }}</td>
+              <td no-parent-click>
+                <pbs-input-switch
+                  ng-model="host.isActive"
+                  ng-change="$ctrl.toggle(host)"
+                  ng-disabled="host.isLoading"
+                ></pbs-input-switch>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </pbs-block>
+    </pbs-tab>
+    <pbs-tab label="Users">
+      <pbs-block title="Users">
+        <!-- <pbs-block-buttons>
+          <pbs-button-compact-cogs ng-click="$ctrl.showSelect = !$ctrl.showSelect"></pbs-button-compact-cogs>
+        </pbs-block-buttons> -->
+        <pbs-data-table
+          order-by="user.userId"
+          columns="$ctrl.columns"
+          items="$ctrl.users"
+          show-select="$ctrl.showSelect"
+          is-compact="true"
+          is-bordered="true"
+          is-striped="true"
+          limit-to="25"
+          on-select="$ctrl.onSelect($event)"
+          on-click="$ctrl.onClick($event)"
+        >
+        </pbs-data-table>
+      </pbs-block>
+    </pbs-tab>
+  </pbs-tabs>
 </pbs-spinner>
+<pbs-modal id="editUserFlexibleSeatingGuest" title="Edit {{ $ctrl.editTitle }}">
+  <pbs-form>
+    <pbs-tabs>
+      <pbs-tab label="Profile">
+        <pbs-form-field-horizontal label="Is Assigned">
+          <pbs-input-checkbox
+            ng-model="$ctrl.editSettings.service.assigned"
+            ng-change="$ctrl.onCheckIsAssigned()"
+          ></pbs-input-checkbox>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Is Active">
+          <pbs-input-checkbox
+            ng-model="$ctrl.editSettings.data.isActive"
+            ng-change="$ctrl.onCheckIsActive()"
+          ></pbs-input-checkbox>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Unlock Phone Pin">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.editSettings.data.unlockPhonePINCode"
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Line Port">
+          <select-user-id
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            user-id="$ctrl.editSettings.data.accessDeviceEndpoint.linePort"
+            on-update="$ctrl.onSetLinePort($event)"
+            required="$ctrl.editSettings.data.endpointType === 'accessDeviceEndpoint'"
+          >
+          </select-user-id>
+        </pbs-form-field-horizontal>
+        <!-- device below -->
+        <pbs-form-field-horizontal label="Device">
+          <div class="field has-addons">
+            <p class="control is-expanded">
+              <input
+                type="text"
+                class="input"
+                ng-model="$ctrl.editSettings.data.accessDeviceEndpoint.accessDevice.deviceName"
+                placeholder="No Device Selected"
+                readonly
+                ng-required="$ctrl.editSettings.data.endpointType === 'accessDeviceEndpoint'"
+              />
+            </p>
+            <p class="control">
+              <button
+                class="button"
+                ng-click="$ctrl.createDevice()"
+                title="Create a Device"
+              >
+                <span class="icon">
+                  <i class="fas fa-plus"></i>
+                </span>
+              </button>
+            </p>
+            <p class="control">
+              <button
+                class="button"
+                ng-click="$ctrl.selectDevice()"
+                title="Select a Device"
+              >
+                <span class="icon">
+                  <i class="fas fa-list"></i>
+                </span>
+              </button>
+            </p>
+          </div>
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+      <pbs-tab label="Host Association">
+        <pbs-form-field-horizontal label="Enable Association Limit">
+          <pbs-input-checkbox
+            ng-model="$ctrl.editSettings.data.enableAssociationLimit"
+            label="enableAssociationLimit"
+          ></pbs-input-checkbox>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Association Limit Hours">
+          <input
+            type="number"
+            class="input"
+            ng-min="1"
+            ng-max="$ctrl.editSettings.hostAssociationLimitHours"
+            ng-model="$ctrl.editSettings.data.associationLimitHours"
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Hosts">
+          <pbs-input-select
+            ng-model="$ctrl.editSettings.data.hostUserId"
+            ng-options="host.serviceUserId as host.serviceUserId for host in $ctrl.hosts"
+            ng-change="$ctrl.onChangeHost($ctrl.editSettings.data.hostUserId)"
+          >
+            <option value="">--NONE--</option>
+          </pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Host Association Limit Hours">
+          {{ $ctrl.editSettings.data.hostAssociationLimitHours }}
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+    </pbs-tabs>
+  </pbs-form>
+</pbs-modal>
 <group-flexible-seating-host-create
   service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
   on-create="$ctrl.onCreate($event)"
 >
 </group-flexible-seating-host-create>
+<device-update
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onDeviceUpdate($event)"
+></device-update>
+<device-select
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onDeviceSelect($event)"
+></device-select>
+<device-create
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onDeviceSelect($event)"
+></device-create>
