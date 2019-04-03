@@ -2,7 +2,7 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular.module('odin.common').component('userVoiceMessagingAdvanced', {
+angular.module('odin.user').component('userVoiceMessagingAdvanced', {
   template,
   controller,
   bindings: { userId: '=', readOnly: '<' }
