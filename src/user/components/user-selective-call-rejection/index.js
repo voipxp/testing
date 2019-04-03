@@ -10,14 +10,14 @@ angular.module('odin.user').component('userSelectiveCallRejection', {
 controller.$inject = [
   'Alert',
   '$q',
-  'SelectiveCallRejectionService',
+  'UserSelectiveCallRejectionService',
   'UserScheduleService',
   'Module'
 ]
 function controller(
   Alert,
   $q,
-  SelectiveCallRejectionService,
+  UserSelectiveCallRejectionService,
   UserScheduleService,
   Module
 ) {
@@ -30,11 +30,11 @@ function controller(
   ctrl.selectiveCallRejectionCriteria = {}
   ctrl.editSelectCallRejectionCriteria = editSelectCallRejectionCriteria
   ctrl.fromDnCriteriaSelections =
-    SelectiveCallRejectionService.options.fromDnCriteriaSelections
+    UserSelectiveCallRejectionService.options.fromDnCriteriaSelections
   ctrl.fromDnCriteriaMin =
-    SelectiveCallRejectionService.options.fromDnCriteriaMin
+    UserSelectiveCallRejectionService.options.fromDnCriteriaMin
   ctrl.fromDnCriteriaMax =
-    SelectiveCallRejectionService.options.fromDnCriteriaMax
+    UserSelectiveCallRejectionService.options.fromDnCriteriaMax
   ctrl.saveSelectiveCallRejectionCriteria = saveSelectiveCallRejectionCriteria
   ctrl.addSelectCallRejectionCriteria = addSelectCallRejectionCriteria
 
@@ -63,7 +63,7 @@ function controller(
   }
 
   function loadSelectiveCallRejectionList() {
-    return SelectiveCallRejectionService.index(ctrl.userId).then(function(
+    return UserSelectiveCallRejectionService.index(ctrl.userId).then(function(
       data
     ) {
       ctrl.selectiveCallRejection = data
@@ -85,11 +85,12 @@ function controller(
     })
   }
   function getSelectCallRejectionCriteria(userId, sca) {
-    return SelectiveCallRejectionService.show(userId, sca.criteriaName).then(
-      function(data) {
-        return data
-      }
-    )
+    return UserSelectiveCallRejectionService.show(
+      userId,
+      sca.criteriaName
+    ).then(function(data) {
+      return data
+    })
   }
 
   function addSelectCallRejectionCriteria() {
@@ -167,7 +168,7 @@ function controller(
       )
     }
 
-    SelectiveCallRejectionService.store(
+    UserSelectiveCallRejectionService.store(
       ctrl.userId,
       ctrl.selectiveCallRejectionCriteria
     )
@@ -177,7 +178,10 @@ function controller(
           userId: ctrl.userId,
           criteria: [{ criteriaName: sca.criteriaName, isActive: sca.isActive }]
         }
-        return SelectiveCallRejectionService.activation(ctrl.userId, criteria)
+        return UserSelectiveCallRejectionService.activation(
+          ctrl.userId,
+          criteria
+        )
       })
       .then(loadSelectiveCallRejectionList)
       .then(function() {
@@ -207,14 +211,17 @@ function controller(
       })
     }
 
-    SelectiveCallRejectionService.update(ctrl.userId, sca.criteriaName, sca)
+    UserSelectiveCallRejectionService.update(ctrl.userId, sca.criteriaName, sca)
       .then(function() {
         ctrl.selectiveCallRejectionCriteria = sca
         criteria = {
           userId: ctrl.userId,
           criteria: [{ criteriaName: sca.criteriaName, isActive: sca.isActive }]
         }
-        return SelectiveCallRejectionService.activation(ctrl.userId, criteria)
+        return UserSelectiveCallRejectionService.activation(
+          ctrl.userId,
+          criteria
+        )
       })
       .then(loadSelectiveCallRejectionList)
       .then(function() {
@@ -239,7 +246,7 @@ function controller(
 
   function doDeleteSelectiveCallRejectionCriteria(sca, callback) {
     Alert.spinner.open()
-    SelectiveCallRejectionService.destroy(ctrl.userId, sca.criteriaName)
+    UserSelectiveCallRejectionService.destroy(ctrl.userId, sca.criteriaName)
       .then(loadSelectiveCallRejectionList)
       .then(function() {
         Alert.notify.success('Criteria Removed')

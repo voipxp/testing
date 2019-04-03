@@ -11,13 +11,13 @@ angular.module('odin.user').component('userBroadWorksAnywhereCriteria', {
 controller.$inject = [
   'Alert',
   'UserBroadworksAnywhereServiceSelectiveCriteria',
-  'PhoneNumberBroadWorksAnywhereService',
+  'UserBroadWorksAnywherePhoneNumberService',
   'HashService'
 ]
 function controller(
   Alert,
   UserBroadworksAnywhereServiceSelectiveCriteria,
-  PhoneNumberBroadWorksAnywhereService,
+  UserBroadWorksAnywherePhoneNumberService,
   HashService
 ) {
   var ctrl = this
@@ -139,7 +139,7 @@ function controller(
         }
       ]
     }
-    return PhoneNumberBroadWorksAnywhereService.update(
+    return UserBroadWorksAnywherePhoneNumberService.update(
       ctrl.userId,
       ctrl.number.phoneNumber,
       activation

@@ -11,12 +11,12 @@ angular.module('odin.user').component('userBroadworksAnywhereQuickSet', {
 controller.$inject = [
   'Alert',
   'UserBroadWorksAnywhereService',
-  'PhoneNumberBroadWorksAnywhereService'
+  'UserBroadWorksAnywherePhoneNumberService'
 ]
 function controller(
   Alert,
   UserBroadWorksAnywhereService,
-  PhoneNumberBroadWorksAnywhereService
+  UserBroadWorksAnywherePhoneNumberService
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -45,7 +45,7 @@ function controller(
 
   function toggle(number) {
     ctrl.loadingNumber[number.phoneNumber] = true
-    PhoneNumberBroadWorksAnywhereService.update(
+    UserBroadWorksAnywherePhoneNumberService.update(
       ctrl.userId,
       number.phoneNumber,
       number

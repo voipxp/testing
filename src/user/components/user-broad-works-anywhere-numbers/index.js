@@ -8,8 +8,8 @@ angular.module('odin.user').component('userBroadWorksAnywhereNumbers', {
   require: { parent: '^userBroadWorksAnywhere' }
 })
 
-controller.$inject = ['Alert', 'PhoneNumberBroadWorksAnywhereService']
-function controller(Alert, PhoneNumberBroadWorksAnywhereService) {
+controller.$inject = ['Alert', 'UserBroadWorksAnywherePhoneNumberService']
+function controller(Alert, UserBroadWorksAnywherePhoneNumberService) {
   var ctrl = this
   ctrl.add = add
   ctrl.edit = edit
@@ -46,7 +46,7 @@ function controller(Alert, PhoneNumberBroadWorksAnywhereService) {
 
   function update(number, callback) {
     Alert.spinner.open()
-    PhoneNumberBroadWorksAnywhereService.update(
+    UserBroadWorksAnywherePhoneNumberService.update(
       ctrl.userId,
       number.phoneNumber,
       number
@@ -64,7 +64,7 @@ function controller(Alert, PhoneNumberBroadWorksAnywhereService) {
 
   function create(number, callback) {
     Alert.spinner.open()
-    PhoneNumberBroadWorksAnywhereService.store(ctrl.userId, number)
+    UserBroadWorksAnywherePhoneNumberService.store(ctrl.userId, number)
       .then(ctrl.parent.reload)
       .then(function() {
         Alert.notify.success('Number Added')
@@ -76,7 +76,7 @@ function controller(Alert, PhoneNumberBroadWorksAnywhereService) {
 
   function destroy(number, callback) {
     Alert.spinner.open()
-    PhoneNumberBroadWorksAnywhereService.destroy(
+    UserBroadWorksAnywherePhoneNumberService.destroy(
       ctrl.userId,
       number.phoneNumber
     )

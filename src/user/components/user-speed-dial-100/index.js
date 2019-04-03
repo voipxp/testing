@@ -8,8 +8,8 @@ angular.module('odin.user').component('userSpeedDial100', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = ['Alert', 'SpeedDial100Service', '$q', 'Module']
-function controller(Alert, SpeedDial100Service, $q, Module) {
+controller.$inject = ['Alert', 'UserSpeedDial100Service', '$q', 'Module']
+function controller(Alert, UserSpeedDial100Service, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -52,7 +52,7 @@ function controller(Alert, SpeedDial100Service, $q, Module) {
   }
 
   function loadSpeedCodes() {
-    return SpeedDial100Service.index(ctrl.userId).then(function(data) {
+    return UserSpeedDial100Service.index(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }
@@ -89,7 +89,7 @@ function controller(Alert, SpeedDial100Service, $q, Module) {
       speedCodes: [speedCode]
     }
     Alert.spinner.open()
-    SpeedDial100Service.store(ctrl.userId, settings)
+    UserSpeedDial100Service.store(ctrl.userId, settings)
       .then(loadSpeedCodes)
       .then(function() {
         Alert.notify.success('SpeedCode Added')
@@ -105,7 +105,7 @@ function controller(Alert, SpeedDial100Service, $q, Module) {
       speedCodes: [speedCode]
     }
     Alert.spinner.open()
-    SpeedDial100Service.update(ctrl.userId, settings)
+    UserSpeedDial100Service.update(ctrl.userId, settings)
       .then(loadSpeedCodes)
       .then(function() {
         Alert.notify.success('SpeedCode Updated')
@@ -121,7 +121,7 @@ function controller(Alert, SpeedDial100Service, $q, Module) {
       speedCodes: [speedCode]
     }
     Alert.spinner.open()
-    SpeedDial100Service.destroy(ctrl.userId, settings)
+    UserSpeedDial100Service.destroy(ctrl.userId, settings)
       .then(loadSpeedCodes)
       .then(function() {
         Alert.notify.warning('SpeedCode Removed')

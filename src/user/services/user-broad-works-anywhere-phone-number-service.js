@@ -2,7 +2,7 @@ import angular from 'angular'
 
 angular
   .module('odin.user')
-  .factory('PhoneNumberBroadWorksAnywhereService', Service)
+  .factory('UserBroadWorksAnywherePhoneNumberService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {

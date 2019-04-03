@@ -2,11 +2,14 @@ import angular from 'angular'
 
 angular
   .module('odin.user')
-  .factory('SelectiveCallRejectionService', SelectiveCallRejectionService)
+  .factory(
+    'UserSelectiveCallAcceptanceService',
+    UserSelectiveCallAcceptanceService
+  )
 
-SelectiveCallRejectionService.$inject = ['$http', 'Route']
-function SelectiveCallRejectionService($http, Route) {
-  var url = Route.api('/users/selective-call-rejection')
+UserSelectiveCallAcceptanceService.$inject = ['$http', 'Route']
+function UserSelectiveCallAcceptanceService($http, Route) {
+  var url = Route.api('/users/selective-call-acceptance')
   var service = {
     index: index,
     show: show,

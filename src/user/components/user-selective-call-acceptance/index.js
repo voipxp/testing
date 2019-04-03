@@ -10,14 +10,14 @@ angular.module('odin.user').component('userSelectiveCallAcceptance', {
 controller.$inject = [
   'Alert',
   '$q',
-  'SelectiveCallAcceptanceService',
+  'UserSelectiveCallAcceptanceService',
   'UserScheduleService',
   'Module'
 ]
 function controller(
   Alert,
   $q,
-  SelectiveCallAcceptanceService,
+  UserSelectiveCallAcceptanceService,
   UserScheduleService,
   Module
 ) {
@@ -28,11 +28,11 @@ function controller(
   ctrl.selectiveCallAcceptanceCriteria = {}
   ctrl.editSelectCallAcceptanceCriteria = editSelectCallAcceptanceCriteria
   ctrl.fromDnCriteriaSelections =
-    SelectiveCallAcceptanceService.options.fromDnCriteriaSelections
+    UserSelectiveCallAcceptanceService.options.fromDnCriteriaSelections
   ctrl.fromDnCriteriaMin =
-    SelectiveCallAcceptanceService.options.fromDnCriteriaMin
+    UserSelectiveCallAcceptanceService.options.fromDnCriteriaMin
   ctrl.fromDnCriteriaMax =
-    SelectiveCallAcceptanceService.options.fromDnCriteriaMax
+    UserSelectiveCallAcceptanceService.options.fromDnCriteriaMax
   ctrl.saveSelectiveCallAcceptanceCriteria = saveSelectiveCallAcceptanceCriteria
   ctrl.addSelectCallAcceptanceCriteria = addSelectCallAcceptanceCriteria
 
@@ -61,7 +61,7 @@ function controller(
   }
 
   function loadSelectiveCallAcceptanceList() {
-    return SelectiveCallAcceptanceService.index(ctrl.userId).then(function(
+    return UserSelectiveCallAcceptanceService.index(ctrl.userId).then(function(
       data
     ) {
       ctrl.selectiveCallAcceptance = data
@@ -82,11 +82,12 @@ function controller(
     })
   }
   function getSelectCallAcceptanceCriteria(userId, sca) {
-    return SelectiveCallAcceptanceService.show(userId, sca.criteriaName).then(
-      function(data) {
-        return data
-      }
-    )
+    return UserSelectiveCallAcceptanceService.show(
+      userId,
+      sca.criteriaName
+    ).then(function(data) {
+      return data
+    })
   }
 
   function addSelectCallAcceptanceCriteria() {
@@ -166,7 +167,7 @@ function controller(
     }
 
     Alert.spinner.open()
-    SelectiveCallAcceptanceService.store(
+    UserSelectiveCallAcceptanceService.store(
       ctrl.userId,
       ctrl.selectiveCallAcceptanceCriteria
     )
@@ -176,7 +177,10 @@ function controller(
           userId: ctrl.userId,
           criteria: [{ criteriaName: sca.criteriaName, isActive: sca.isActive }]
         }
-        return SelectiveCallAcceptanceService.activation(ctrl.userId, criteria)
+        return UserSelectiveCallAcceptanceService.activation(
+          ctrl.userId,
+          criteria
+        )
       })
       .then(loadSelectiveCallAcceptanceList)
       .then(function() {
@@ -206,14 +210,21 @@ function controller(
     }
 
     Alert.spinner.open()
-    SelectiveCallAcceptanceService.update(ctrl.userId, sca.criteriaName, sca)
+    UserSelectiveCallAcceptanceService.update(
+      ctrl.userId,
+      sca.criteriaName,
+      sca
+    )
       .then(function() {
         ctrl.selectiveCallAcceptanceCriteria = sca
         criteria = {
           userId: ctrl.userId,
           criteria: [{ criteriaName: sca.criteriaName, isActive: sca.isActive }]
         }
-        return SelectiveCallAcceptanceService.activation(ctrl.userId, criteria)
+        return UserSelectiveCallAcceptanceService.activation(
+          ctrl.userId,
+          criteria
+        )
       })
       .then(loadSelectiveCallAcceptanceList)
       .then(function() {
@@ -238,7 +249,11 @@ function controller(
 
   function doDeleteSelectiveCallAcceptanceCriteria(sca, callback) {
     Alert.spinner.open()
-    SelectiveCallAcceptanceService.destroy(ctrl.userId, sca.criteriaName, sca)
+    UserSelectiveCallAcceptanceService.destroy(
+      ctrl.userId,
+      sca.criteriaName,
+      sca
+    )
       .then(loadSelectiveCallAcceptanceList)
       .then(function() {
         Alert.notify.success('Criteria Removed')

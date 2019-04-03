@@ -8,11 +8,11 @@ angular.module('odin.user').component('userAlternateNumbers', {
   bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
 })
 
-controller.$inject = ['Alert', 'AlternateNumbersService', 'Module', '$q']
-function controller(Alert, AlternateNumbersService, Module, $q) {
+controller.$inject = ['Alert', 'UserAlternateNumbersService', 'Module', '$q']
+function controller(Alert, UserAlternateNumbersService, Module, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.options = AlternateNumbersService.options
+  ctrl.options = UserAlternateNumbersService.options
   ctrl.selectNumber = selectNumber
   ctrl.edit = edit
   ctrl.editAlternateEntry = editAlternateEntry
@@ -35,7 +35,7 @@ function controller(Alert, AlternateNumbersService, Module, $q) {
   }
 
   function loadSettings() {
-    return AlternateNumbersService.show(ctrl.userId).then(function(data) {
+    return UserAlternateNumbersService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
       return ctrl.settings
     })
@@ -87,7 +87,7 @@ function controller(Alert, AlternateNumbersService, Module, $q) {
 
   function update(settings, callback) {
     Alert.spinner.open()
-    AlternateNumbersService.update(settings)
+    UserAlternateNumbersService.update(settings)
       .then(loadSettings)
       .then(function() {
         Alert.notify.success('Settings Update')

@@ -1,9 +1,11 @@
 import angular from 'angular'
 
-angular.module('odin.user').factory('SpeedDial100Service', SpeedDial100Service)
+angular
+  .module('odin.user')
+  .factory('UserSpeedDial100Service', UserSpeedDial100Service)
 
-SpeedDial100Service.$inject = ['$http', 'Route']
-function SpeedDial100Service($http, Route) {
+UserSpeedDial100Service.$inject = ['$http', 'Route']
+function UserSpeedDial100Service($http, Route) {
   var url = Route.api('/users/speed-dial-100')
   var service = {
     index: index,

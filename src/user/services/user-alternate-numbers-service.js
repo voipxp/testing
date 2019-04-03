@@ -1,11 +1,9 @@
 import angular from 'angular'
 
-angular
-  .module('odin.user')
-  .factory('AlternateNumbersService', AlternateNumbersService)
+angular.module('odin.user').factory('UserAlternateNumbersService', Service)
 
-AlternateNumbersService.$inject = ['$http', 'Route']
-function AlternateNumbersService($http, Route) {
+Service.$inject = ['$http', 'Route']
+function Service($http, Route) {
   var url = Route.api('/users/alternate-numbers')
   var service = { show: show, update: update }
   service.options = {
