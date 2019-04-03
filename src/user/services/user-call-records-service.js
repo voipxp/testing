@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.group').factory('UserCallRecordsService', Service)
+angular.module('odin.user').factory('UserCallRecordsService', Service)
 
 Service.$inject = ['$http', 'Route', 'UtilityService']
 function Service($http, Route, UtilityService) {
