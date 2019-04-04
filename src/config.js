@@ -90,14 +90,8 @@ export function rootScope($rootScope) {
 }
 
 function apiURL() {
+  const version = process.env.API_VERSION || 'v2'
   const port = process.env.API_PORT || location.port
   const prefix = `${location.protocol}//${location.hostname}:${port}`
-  return `${prefix}/api/v2`
-}
-
-export const app = {
-  apiURL,
-  eventURL: process.env.EVENT_URL || process.env.API_URL || '/',
-  loginURL: '/login',
-  sessionKey: 'odin:session'
+  return `${prefix}/api/${version}`
 }

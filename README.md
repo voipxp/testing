@@ -1,8 +1,8 @@
-# odin-web-2
+# odin-web
 
 ## Usage
 
-### Install
+### Install Dependencies
 
 ```
 yarn
@@ -10,8 +10,20 @@ yarn
 
 ### Start in Dev Mode
 
+This will bundle all the files, open up a live instance in the browser, and watch for changes. When a change is detected, it will be re-bundled and the browser reloaded automatically.
+
 ```
-yarn dev
+yarn start
+```
+
+#### Dev Environmental variables
+
+You can create a .env, .env.local, or .env.\$NODE_ENV file with the following variables to be used locally.
+
+```
+API_PORT=8000                     # default same as web
+API_VERSION=v2                    # default v2
+EVENT_URL=http://127.0.0.1:3000/  # default /
 ```
 
 ### Bundle for Production
@@ -20,9 +32,42 @@ yarn dev
 yarn build
 ```
 
+### Build for Docker
+
+```
+docker build -t odin-web .
+```
+
 ## Bundles
 
 The bundler (parcel) starts at index.html and then walks all import statements, href, src, etc... If a file is to be known to angular, it must be imported at some point. Any 3rd party deps (such as lodash) need to be included at the top of the file that will use it. The bundler is smart enough to know not to require it twice.
+
+### Angular Modules
+
+- All API related services should reside in the **odin.api** module.
+- Any top-level UI features not specific to broadworks (eg: bulma related components such as pbs-block) should be in the **odin.UI** module.
+- Anything such as a helper component that could be re-used in multiple places should reside in **odin.common**
+- Anything else should be within the module related to the broadworks higherarchy (user, group, ...) or the particular functionality of those components. Feel free to break them out into sub-components if it gets cluttered. (eg: **odin.group**, **odin.group.trunking**)
+
+### Naming Convention
+
+All components and services should be named with the left-most part being the most generic and increasing specificity on the right. Prefix the component or service with the BW higherarchy if it applies to that component.
+
+eg:
+
+```
+# BAD
+services/auto-attendant.js
+services/create-hunt-group.js
+services/details-auto-attendant.js
+services/hunt-group.js
+
+# GOOD
+services/group-auto-attendant.js
+services/group-auto-attendant-details.js
+services/group-hunt-group.js
+services/group-hunt-group-create.js
+```
 
 ### Module Layout
 
