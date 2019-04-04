@@ -11,7 +11,7 @@ controller.$inject = [
   'GroupAnnouncementService',
   '$scope',
   'Route',
-  '$routeParam'
+  '$routeParams'
 ]
 function controller(
   Alert,
