@@ -71,9 +71,9 @@ services/group-hunt-group-create.js
 
 ### Module Layout
 
-A module should be in its own directory with a subdirectory for the components, services, etc.. The index.js file will be the primary entrypoint for the module. An example directory structure is below.
+A module should be in its own directory with a subdirectory for the components, services, directives, filters, etc.. The index.js file will be the primary entrypoint for the module. An example directory structure is below.
 
-Note: Components and Services should be named the same as they are registered with angular, but converted to **kebab-case**. See the examples below, where the component **pbsCancel** resides in the subdirectory **pbs-cancel**.
+Note: Components and Services file names should be the same as they are registered with angular, but converted to **kebab-case**. See the examples below, where the component **pbsCancel** resides in the subdirectory **pbs-cancel**.
 
 ```
 .
@@ -121,7 +121,7 @@ Note: Components and Services should be named the same as they are registered wi
 
 ### index.js
 
-To create a module make a subdirectory with an index.js file that initializes the module, components, directives, services, etc.. Each component and services directory may also have an index.js that loads the corresponding components, directives, services.
+To create a module make a subdirectory with an index.js file that imports the module, components, directives, services, etc.. Each component and services directory should have an index.js that loads the corresponding components, directives, services.
 
 The module import **MUST** be first.
 
@@ -133,7 +133,7 @@ import './components'
 
 ### module.js
 
-This file is in charge of initializing the module with any dependencies, configurations, routes, run blocks, etc... Any css that needs to be imported for the module can be directly imported.
+This file is in charge of initializing the module with any dependencies, configurations, routes, run blocks, etc... Any css that needs to be imported for the module can be directly imported here.
 
 ```
 import angular from 'angular'
@@ -168,7 +168,7 @@ Components register themselves with angular. Any CSS created for this component 
 
 The directory the component is in should be the same name that is registered with angular but converted to **kebab-case**. For example, **myComponent** should be located in **my-component/index.js** or **my-component.js** if not in a subdirectory.
 
-Be sure to inject the DI dependencies.
+Be sure to inject the DI dependencies using **\$inject**
 
 ```
 import angular from 'angular'
@@ -193,7 +193,7 @@ function controller(SomeDI) {
 
 Services register themselves with angular. The file name should be the same name that is registered with angular but converted to **kebab-case**. For example, **MyService** should be located in **my-service.js**.
 
-Be sure to inject the DI dependencies.
+Be sure to inject the DI dependencies using \$inject.
 
 ```
 import angular from 'angular'
