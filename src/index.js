@@ -12,6 +12,8 @@ import 'angular-truncate-2'
 import 'animate.css/animate.css'
 import 'checklist-model'
 import 'ng-idle'
+
+// CSS
 import './index.css'
 import './index.scss'
 
