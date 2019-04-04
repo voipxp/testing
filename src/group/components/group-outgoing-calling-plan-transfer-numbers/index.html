@@ -1,0 +1,76 @@
+<group-calling-plans-nav
+  calling-plan="Transfer Numbers"
+></group-calling-plans-nav>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Transfer Numbers">
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Department/Group</th>
+          <th>Transfer 1</th>
+          <th>Transfer 2</th>
+          <th>Transfer 3</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="4">
+            No Departments Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          class="hover"
+          ng-click="$ctrl.edit(department)"
+          ng-repeat="department in $ctrl.plan.departments | filter:$ctrl.search as results track by department.departmentName"
+        >
+          <td>{{ department.departmentName || 'Group Default' }}</td>
+          <td>{{ department.transferNumbers.phoneNumber01 }}</td>
+          <td>{{ department.transferNumbers.phoneNumber02 }}</td>
+          <td>{{ department.transferNumbers.phoneNumber03 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal
+  id="editGroupOutgoingCallingPlanTransferNumber"
+  title="{{
+    $ctrl.editDepartment.department.name || 'Group Default'
+  }} - Transfer Numbers"
+>
+  <pbs-form>
+    <pbs-form-field-horizontal label="Transfer Number 1">
+      <input
+        type="text"
+        ng-model="$ctrl.editDepartment.transferNumbers.phoneNumber01"
+        class="input"
+        minlength="1"
+        maxlength="30"
+      />
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal label="Transfer Number 2">
+      <input
+        type="text"
+        ng-model="$ctrl.editDepartment.transferNumbers.phoneNumber02"
+        class="input"
+        minlength="1"
+        maxlength="30"
+      />
+    </pbs-form-field-horizontal>
+
+    <pbs-form-field-horizontal label="Transfer Number 3">
+      <input
+        type="text"
+        ng-model="$ctrl.editDepartment.transferNumbers.phoneNumber03"
+        class="input"
+        minlength="1"
+        maxlength="30"
+      />
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>

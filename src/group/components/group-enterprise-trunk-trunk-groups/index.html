@@ -1,0 +1,120 @@
+<pbs-spinner loading="$ctrl.parent.loading">
+  <pbs-block title="Trunk Groups">
+    <pbs-block-buttons if-module-update="$ctrl.parent.module">
+      <pbs-button-compact-edit
+        ng-click="$ctrl.edit()"
+      ></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Trunk Name</th>
+          <th ng-if="$ctrl.parent.trunk.priorityWeightedRouting">Priority</th>
+          <th ng-if="$ctrl.parent.trunk.priorityWeightedRouting">Weight</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length === 0">
+          <td colspan="3">
+            No Trunks Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          ng-click="$ctrl.editTrunk(trunk)"
+          ng-class="{hover: $ctrl.parent.trunk.priorityWeightedRouting}"
+          ng-repeat="trunk in $ctrl.parent.trunk.trunkGroups | filter:$ctrl.search as results track by ( trunk.trunkGroupName + trunk.groupId ) | orderBy:['groupId', 'trunkGroupName']"
+        >
+          <td>{{ trunk.trunkGroupName }}</td>
+          <td ng-if="$ctrl.parent.trunk.priorityWeightedRouting">
+            {{ trunk.priority }}
+          </td>
+          <td ng-if="$ctrl.parent.trunk.priorityWeightedRouting">
+            {{ trunk.weight }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupEnterpriseTrunkTrunkGroup" title="Edit Trunk Group">
+  <form>
+    <pbs-form-field label="Priority">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.selectedTrunk.priority"
+        min="1"
+        max="10"
+        required
+        string-to-number
+      />
+    </pbs-form-field>
+
+    <pbs-form-field label="Weight">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.selectedTrunk.weight"
+        min="1"
+        max="65536"
+        required
+        string-to-number
+      />
+    </pbs-form-field>
+  </form>
+</pbs-modal>
+<pbs-modal
+  id="editGroupEnterpriseTrunkTrunkGroups"
+  title="Edit Assigned Trunk Groups"
+>
+  <pbs-columns>
+    <pbs-column>
+      <h3>Available Trunks</h3>
+      <pbs-table-search ng-model="$ctrl.searchAvailable"></pbs-table-search>
+      <table pbs-table>
+        <tr
+          class="hover"
+          ng-click="$ctrl.addTrunk(trunk)"
+          ng-repeat="trunk in $ctrl.availableTrunks | filter:$ctrl.searchAvailable | orderBy:['groupId', 'trunkGroupName'] as availableResults track by (trunk.trunkGroupName + trunk.groupId)"
+        >
+          <td>{{ trunk.trunkGroupName }}</td>
+        </tr>
+        <tr ng-show="availableResults.length < 1">
+          <td>
+            No Trunks Available
+            <span ng-show="$ctrl.searchAvailable"
+              >for
+              <strong>{{ $ctrl.searchAvailable }}</strong>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </pbs-column>
+    <pbs-column>
+      <h3>Assigned Trunks</h3>
+      <pbs-table-search ng-model="$ctrl.searchAssigned"></pbs-table-search>
+      <table pbs-table>
+        <tr
+          class="hover"
+          ng-click="$ctrl.removeTrunk(trunk)"
+          ng-repeat="trunk in $ctrl.assignedTrunks | filter:$ctrl.searchAssigned as assignedResults track by (trunk.trunkGroupName + trunk.groupId)"
+        >
+          <td>{{ trunk.trunkGroupName }}</td>
+        </tr>
+        <tr ng-show="assignedResults.length < 1">
+          <td>
+            No Trunks Assigned
+            <span ng-show="$ctrl.searchAssigned"
+              >for
+              <strong>{{ $ctrl.searchAssigned }}</strong>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </pbs-column>
+  </pbs-columns>
+</pbs-modal>

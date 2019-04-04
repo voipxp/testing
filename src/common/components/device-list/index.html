@@ -1,0 +1,51 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Devices">
+    <pbs-block-buttons>
+      <pbs-button-compact-add
+        ng-click="$ctrl.create()"
+      ></pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table class="hover" pbs-table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>MAC</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="100">
+            No Devices Found
+            <strong ng-if="$ctrl.search">for {{ $ctrl.search }}</strong>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          ng-click="$ctrl.edit(device)"
+          ng-repeat="device in $ctrl.devices | filter:$ctrl.search | orderBy:'deviceName' as results track by device.deviceName"
+        >
+          <td>{{ device.deviceName }}</td>
+          <td>{{ device.deviceType }}</td>
+          <td>{{ device.macAddress }}</td>
+          <td>{{ device.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<device-create
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onDeviceUpdate($event)"
+></device-create>
+<device-update
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onDeviceUpdate($event)"
+  can-delete="true"
+  on-delete="$ctrl.onDeviceUpdate($event)"
+></device-update>

@@ -1,13 +1,4 @@
-;(function() {
-  angular
-    .module('odin.common', ['ngPapaParse', 'angular-cache'])
-    .config(function(CacheFactoryProvider) {
-      angular.extend(CacheFactoryProvider.defaults, {
-        maxAge: 5 * 60 * 1000,
-        deleteOnExpire: 'passive',
-        onExpire: function(key) {
-          console.log('expire', key)
-        }
-      })
-    })
-})()
+import './module'
+import './components'
+import './services'
+import './directives'

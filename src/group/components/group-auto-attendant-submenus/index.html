@@ -1,0 +1,67 @@
+<pbs-spinner loading="$ctrl.loading" ng-if="!$ctrl.submenuId">
+  <pbs-block title="Submenus">
+    <pbs-block-buttons>
+      <pbs-button-compact-add
+        title="Add Submenu"
+        ng-click="$ctrl.add()"
+        if-module-create="$ctrl.module"
+      ></pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th class="has-text-centered">In Use</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="2">
+            No Submenus Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          class="hover"
+          ng-click="$ctrl.submenuId = menu.submenuId"
+          ng-repeat="menu in $ctrl.menus | filter:$ctrl.search | orderBy:'submenuId' as results track by menu.submenuId"
+        >
+          <td>{{ menu.submenuId }}</td>
+          <td class="has-text-centered">
+            <pbs-check-box checked="menu.isUsed"></pbs-check-box>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<group-auto-attendant-submenu
+  ng-if="$ctrl.submenuId"
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  service-user-id="$ctrl.serviceUserId"
+  submenu-id="$ctrl.submenuId"
+  module="$ctrl.module"
+  on-destroy="$ctrl.onDestroy()"
+  on-update="$ctrl.onUpdate($event)"
+></group-auto-attendant-submenu>
+
+<pbs-modal id="createAutoAttendantSubmenuProfileModal">
+  <pbs-form>
+    <pbs-form-field-horizontal label="Submenu ID">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.newMenu.submenuId"
+        required
+      />
+    </pbs-form-field-horizontal>
+    <pbs-input-checkbox
+      ng-model="$ctrl.newMenu.enableLevelExtensionDialing"
+      label="Enable Level Extension Dialing"
+    ></pbs-input-checkbox>
+  </pbs-form>
+</pbs-modal>

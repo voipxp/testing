@@ -1,0 +1,85 @@
+<pbs-columns>
+  <pbs-column>
+    <h4 style="margin-bottom: 1rem">
+      Available ({{ $ctrl.available.length }})
+      <small class="is-pulled-right">
+        <a href="" ng-click="$ctrl.addAll()">Select All</a>
+      </small>
+    </h4>
+    <pbs-table-search ng-model="$ctrl.searchAvailable"></pbs-table-search>
+    <table pbs-table>
+      <tr
+        class="hover"
+        ng-click="$ctrl.add(user)"
+        ng-repeat="user in $ctrl.available | filter:$ctrl.searchAvailable | orderBy:'userId' as availableResults track by user.userId"
+      >
+        <td>
+          <user-description user="user"></user-description>
+        </td>
+      </tr>
+      <tr ng-show="availableResults.length < 1">
+        <td>
+          No Users Available
+          <span ng-show="$ctrl.searchAvailable"
+            >for
+            <strong>{{ $ctrl.searchAvailable }}</strong>
+          </span>
+        </td>
+      </tr>
+    </table>
+  </pbs-column>
+  <pbs-column>
+    <h4 style="margin-bottom: 1rem">
+      Selected ({{ $ctrl.selected.length || 0 }})
+      <small class="is-pulled-right">
+        <a href="" ng-click="$ctrl.removeAll()">Select All</a>
+      </small>
+    </h4>
+    <pbs-table-search ng-model="$ctrl.searchSelected"></pbs-table-search>
+    <table pbs-table>
+      <tr
+        ng-repeat="user in $ctrl.selected | filter:$ctrl.searchSelected | orderBy:$ctrl.orderBy as selectedResults track by user.userId"
+      >
+        <td class="hover" ng-click="$ctrl.remove(user)">
+          <div
+            class="field has-addons is-pulled-right"
+            ng-if="$ctrl.sort && !$ctrl.searchSelected"
+          >
+            <p class="control">
+              <a
+                class="button is-small"
+                ng-disabled="$index === $ctrl.selected.length - 1"
+                ng-click="$ctrl.up(user, $event)"
+              >
+                <span class="icon">
+                  <i class="fas fa-chevron-down"></i>
+                </span>
+              </a>
+            </p>
+            <p class="control">
+              <a
+                class="button is-small"
+                ng-disabled="$index === 0"
+                ng-click="$ctrl.down(user, $event)"
+              >
+                <span class="icon">
+                  <i class="fas fa-chevron-up"></i>
+                </span>
+              </a>
+            </p>
+          </div>
+          <user-description user="user"></user-description>
+        </td>
+      </tr>
+      <tr ng-show="selectedResults.length < 1">
+        <td>
+          No Users Selected
+          <span ng-show="$ctrl.searchSelected"
+            >for
+            <strong>{{ $ctrl.searchSelected }}</strong>
+          </span>
+        </td>
+      </tr>
+    </table>
+  </pbs-column>
+</pbs-columns>

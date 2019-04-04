@@ -1,0 +1,48 @@
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+>
+  <pbs-breadcrumb title="'Call Forwarding Not Reachable'"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Call Forwarding Not Reachable Users">
+    <pbs-block-buttons>
+      <pbs-button-compact-cogs
+        ng-click="$ctrl.showSelect = !$ctrl.showSelect"
+      ></pbs-button-compact-cogs>
+    </pbs-block-buttons>
+    <pbs-data-table
+      order-by="user.userId"
+      columns="$ctrl.columns"
+      items="$ctrl.users"
+      show-select="$ctrl.showSelect"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-select="$ctrl.onSelect($event)"
+      on-click="$ctrl.onClick($event)"
+    ></pbs-data-table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal
+  id="editUserCallForwardingNotReachable"
+  title="Edit {{ $ctrl.editTitle }}"
+>
+  <pbs-form>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editSettings.isActive"
+      label="Is Active"
+    ></pbs-input-checkbox>
+    <pbs-form-field-horizontal label="Forward To">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.forwardToPhoneNumber"
+        min="{{ $ctrl.options.outgoingDNorSIPURI.minimum }}"
+        max="{{ $ctrl.options.outgoingDNorSIPURI.maximum }}"
+        ng-required="$ctrl.editSettings.isActive"
+      />
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>

@@ -1,0 +1,32 @@
+<pbs-modal id="{{ $ctrl.modalId }}" title="Select Device">
+  <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+  <table pbs-table>
+    <thead>
+      <tr>
+        <th>Device Name</th>
+        <th>Device Level</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr ng-if="results.length < 1">
+        <td colspan="2">
+          No Devices Found
+          <span ng-show="$ctrl.search"
+            >for
+            <strong>{{ $ctrl.search }}</strong>
+          </span>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr
+        class="hover"
+        ng-repeat="device in $ctrl.devices | filter:$ctrl.search | orderBy:'deviceName' | limitTo:50 as results track by device.deviceName"
+        ng-click="$ctrl.select(device)"
+      >
+        <td>{{ device.deviceName }}</td>
+        <td>{{ device.deviceLevel }}</td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-modal>

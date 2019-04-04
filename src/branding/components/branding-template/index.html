@@ -1,0 +1,108 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Templates">
+    <table class="hover" pbs-table>
+      <tr
+        ng-repeat="field in $ctrl.fields.number"
+        ng-click="$ctrl.edit('number', field)"
+      >
+        <td>{{ field.label }}</td>
+        <td>
+          {{ $ctrl.template[field.key] ? $ctrl.template[field.key] : 'Off' }}
+        </td>
+      </tr>
+      <tr
+        ng-repeat="field in $ctrl.fields.text"
+        ng-click="$ctrl.edit('text', field)"
+      >
+        <td>{{ field.label }}</td>
+        <td>{{ $ctrl.template[field.key] }}</td>
+      </tr>
+      <tr
+        ng-repeat="field in $ctrl.fields.color"
+        ng-click="$ctrl.edit('color', field)"
+      >
+        <td>{{ field.label }}</td>
+        <td>
+          <label
+            class="button color-label"
+            ng-style="{background: $ctrl.template[field.key]}"
+          >
+            &nbsp;{{ $ctrl.template[field.key] }}&nbsp;
+          </label>
+        </td>
+      </tr>
+      <tr
+        ng-repeat="field in $ctrl.fields.textArea"
+        ng-click="$ctrl.edit('textArea', field)"
+      >
+        <td>{{ field.label }}</td>
+        <td>{{ $ctrl.template[field.key] | words: 8 }}</td>
+      </tr>
+      <tr
+        ng-repeat="field in $ctrl.fields.images"
+        ng-click="$ctrl.edit('image', field)"
+      >
+        <td>{{ field.label }}</td>
+        <td>
+          <img
+            ng-src="{{ $ctrl.imageSource($ctrl.template[field.key]) }}"
+            class="template-image"
+            style="max-width: 50px"
+          />
+        </td>
+      </tr>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editBrandingTemplate-number" title="{{ $ctrl.editField.label }}">
+  <pbs-form>
+    <pbs-form-field label="{{ $ctrl.editField.label }}">
+      <input type="number" class="input" ng-model="$ctrl.editField.value" />
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+<pbs-modal id="editBrandingTemplate-text" title="{{ $ctrl.editField.label }}">
+  <pbs-form>
+    <pbs-form-field label="{{ $ctrl.editField.label }}">
+      <input type="text" class="input" ng-model="$ctrl.editField.value" />
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+<pbs-modal id="editBrandingTemplate-color" title="{{ $ctrl.editField.label }}">
+  <pbs-form>
+    <pbs-form-field label="{{ $ctrl.editField.label }}">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editField.value"
+        ng-style="{background: $ctrl.editField.value}"
+      />
+      <br />
+      <color-picker ng-model="$ctrl.editField.value"></color-picker>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+<pbs-modal
+  id="editBrandingTemplate-textArea"
+  title="{{ $ctrl.editField.label }}"
+>
+  <pbs-form-field label="{{ $ctrl.editField.label }}">
+    <textarea
+      class="textarea"
+      rows="15"
+      ng-model="$ctrl.editField.value"
+    ></textarea>
+  </pbs-form-field>
+</pbs-modal>
+<pbs-modal id="editBrandingTemplate-image" title="{{ $ctrl.editField.label }}">
+  <pbs-form-field label="{{ $ctrl.editField.label }}">
+    <pbs-input-file on-upload="$ctrl.onUpload(file)"></pbs-input-file>
+  </pbs-form-field>
+  <div class="box has-text-centered">
+    <img
+      ng-src="{{ $ctrl.imageSource($ctrl.editField.value) }}"
+      class="template-image"
+      ng-if="$ctrl.editField.type === 'image'"
+    />
+  </div>
+</pbs-modal>

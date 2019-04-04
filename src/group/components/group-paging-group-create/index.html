@@ -1,0 +1,141 @@
+<pbs-modal id="{{ $ctrl.modalId }}" title="New Group">
+  <form name="createGroupPagingGroup">
+    <pbs-tabs>
+      <pbs-tab label="Details">
+        <pbs-form-field-horizontal label="Service User ID*">
+          <input
+            type="text"
+            class="input"
+            placeholder="username"
+            ng-model="$ctrl.group.serviceUserIdPrefix"
+            required
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Service User Domain*">
+          <pbs-input-select
+            ng-model="$ctrl.group.serviceUserIdSuffix"
+            ng-options="domain as domain for domain in $ctrl.domains.domains"
+            required
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Service Profile Name*">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.group.serviceInstanceProfile.name"
+            required
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="CLID Last Name*">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.group.serviceInstanceProfile.callingLineIdLastName"
+            required
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="CLID First Name*">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.group.serviceInstanceProfile.callingLineIdFirstName"
+            required
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Confirmation Timeout">
+          <input
+            type="number"
+            class="input"
+            ng-model="$ctrl.group.confirmationToneTimeoutSeconds"
+            min="1"
+            max="20"
+            required
+          />
+          <small>(Confirmation Tone Timeout in seconds)</small>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="CLID To Deliver">
+          <pbs-input-radio
+            ng-model="$ctrl.group.deliverOriginatorCLIDInstead"
+            ng-change="$ctrl.setDeliveryCLID()"
+            ng-value="false"
+            label="Paging Group CLID"
+          ></pbs-input-radio>
+          <pbs-input-radio
+            ng-model="$ctrl.group.deliverOriginatorCLIDInstead"
+            ng-change="$ctrl.setDeliveryCLID()"
+            ng-value="true"
+            label="Originator CLID"
+          ></pbs-input-radio>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal
+          label="Originator CLID Prefix"
+          ng-show="$ctrl.group.deliverOriginatorCLIDInstead"
+        >
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.group.originatorCLIDPrefix"
+            ng-minlength="1"
+            ng-maxlength="30"
+          />
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+
+      <pbs-tab label="Profile">
+        <pbs-form-field-horizontal label="Phone Number">
+          <pbs-input-select
+            ng-model="$ctrl.group.serviceInstanceProfile.phoneNumber"
+            ng-options="number.min as number.min for number in $ctrl.numbers"
+            ng-change="$ctrl.setExtension()"
+          >
+            <option value="">-- None --</option>
+          </pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Extension">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.group.serviceInstanceProfile.extension"
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Password">
+          <pbs-input-password
+            ng-model="$ctrl.group.serviceInstanceProfile.password"
+            ng-minlength="6"
+            ng-maxlength="60"
+            service-provider-id="$ctrl.parent.serviceProviderId"
+            group-id="$ctrl.parent.groupId"
+          ></pbs-input-password>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Public User Identity">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.group.serviceInstanceProfile.publicUserIdentity"
+          />
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Alias">
+          <alias-list profile="$ctrl.group.serviceInstanceProfile"></alias-list>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Department Name">
+          <pbs-input-select
+            ng-model="$ctrl.group.serviceInstanceProfile.department"
+            ng-options="department as department.name for department in $ctrl.departments track by department.name"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Language">
+          <pbs-input-select
+            ng-model="$ctrl.group.serviceInstanceProfile.language"
+            ng-options="language.language as language.language for language in $ctrl.languages.languages track by language.language"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Timezone">
+          <pbs-input-select
+            ng-model="$ctrl.group.serviceInstanceProfile.timeZone"
+            ng-options="timezone.key as timezone.displayName for timezone in $ctrl.timezones track by timezone.key"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+    </pbs-tabs>
+  </form>
+</pbs-modal>

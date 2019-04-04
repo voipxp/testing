@@ -1,0 +1,361 @@
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+>
+  <pbs-breadcrumb title="'Group Call Processing Policy'"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Group Call Processing Policy">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit
+        title="Edit Policy"
+        ng-click="$ctrl.edit()"
+      ></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-tabs>
+      <pbs-tab label="Calling Line Id">
+        <pbs-list>
+          <pbs-list-section>Calling Line Id</pbs-list-section>
+          <pbs-list-item label="Use Group Name">
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.useGroupName"
+            ></pbs-check-box>
+          </pbs-list-item>
+          <pbs-list-item label="Allow Deparment Name Override">
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.allowDepartmentCLIDNameOverride"
+            ></pbs-check-box>
+          </pbs-list-item>
+          <pbs-list-item label="Use Group Calling Line Id Policy">
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.useGroupCLIDSetting"
+            ></pbs-check-box>
+            <span ng-if="!$ctrl.callProcessingPolicy.useGroupCLIDSetting">
+              Using Enterprise Calling Line Id Policy
+            </span>
+          </pbs-list-item>
+          <pbs-list-item label="External Calls">
+            {{ $ctrl.callProcessingPolicy.clidPolicy }}
+          </pbs-list-item>
+          <pbs-list-item label="Enterprise Calls">
+            {{ $ctrl.callProcessingPolicy.enterpriseCallsCLIDPolicy }}
+          </pbs-list-item>
+          <pbs-list-item label="Group Calls">
+            {{ $ctrl.callProcessingPolicy.groupCallsCLIDPolicy }}
+          </pbs-list-item>
+          <pbs-list-item label="Emergency Calls">
+            {{ $ctrl.callProcessingPolicy.emergencyClidPolicy }}
+          </pbs-list-item>
+
+          <!-- emergencyClidPolicy -->
+          <pbs-list-item
+            label="Allow Alternate Numbers for Redirecting Identity"
+          >
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.allowAlternateNumbersForRedirectingIdentity"
+            ></pbs-check-box>
+          </pbs-list-item>
+          <pbs-list-item
+            label="Allow Configurable CLID for Redirecting Identity"
+          >
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.allowConfigurableCLIDForRedirectingIdentity"
+            ></pbs-check-box>
+          </pbs-list-item>
+          <pbs-list-item label="Block Calling Name for External Calls">
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.blockCallingNameForExternalCalls"
+            ></pbs-check-box>
+          </pbs-list-item>
+          <!-- blockCallingNameForExternalCalls -->
+        </pbs-list>
+      </pbs-tab>
+      <pbs-tab label="Call Limits">
+        <pbs-list>
+          <pbs-list-item label="Use Group Call Limits Policy">
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.useGroupCallLimitsSetting"
+            ></pbs-check-box>
+            <span ng-if="!$ctrl.callProcessingPolicy.useGroupCallLimitsSetting">
+              Use Enterprise Call Limits Policy
+            </span>
+          </pbs-list-item>
+          <pbs-list-item label="Enable Maximum Number of Concurrent Calls">
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.useMaxSimultaneousCalls"
+            ></pbs-check-box>
+            <span ng-if="$ctrl.callProcessingPolicy.useMaxSimultaneousCalls">
+              {{ $ctrl.callProcessingPolicy.maxSimultaneousCalls }}
+            </span>
+          </pbs-list-item>
+
+          <pbs-list-item
+            label="Enable Maximum Number of Concurrent Video Calls"
+          >
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.useMaxSimultaneousVideoCalls"
+            ></pbs-check-box>
+            <span
+              ng-if="$ctrl.callProcessingPolicy.useMaxSimultaneousVideoCalls"
+            >
+              {{ $ctrl.callProcessingPolicy.maxSimultaneousVideoCalls }}
+            </span>
+          </pbs-list-item>
+          <pbs-list-item label="Enable Maximum Duration for Answered Calls">
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.useMaxCallTimeForAnsweredCalls"
+            ></pbs-check-box>
+            <span
+              ng-if="$ctrl.callProcessingPolicy.useMaxCallTimeForAnsweredCalls"
+            >
+              {{ $ctrl.callProcessingPolicy.maxCallTimeForAnsweredCallsMinutes
+              }}
+            </span>
+          </pbs-list-item>
+          <pbs-list-item label="Enable Maximum Duration for Unanswered Calls">
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.useMaxCallTimeForUnansweredCalls"
+            ></pbs-check-box>
+            <span
+              ng-if="$ctrl.callProcessingPolicy.useMaxCallTimeForUnansweredCalls"
+            >
+              {{ $ctrl.callProcessingPolicy.maxCallTimeForUnansweredCallsMinutes
+              }}
+            </span>
+          </pbs-list-item>
+
+          <pbs-list-item
+            label="Enable Maximum Number of Concurrent Redirected Calls"
+          >
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.useMaxConcurrentRedirectedCalls"
+            ></pbs-check-box>
+            <span
+              ng-if="$ctrl.callProcessingPolicy.useMaxConcurrentRedirectedCalls"
+            >
+              {{ $ctrl.callProcessingPolicy.maxConcurrentRedirectedCalls }}
+            </span>
+          </pbs-list-item>
+          <pbs-list-item
+            label="Enable Maximum Number of Concurrent Find Me/Follow Me Invocations"
+          >
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.useMaxConcurrentFindMeFollowMeInvocations"
+            ></pbs-check-box>
+            <span
+              ng-if="$ctrl.callProcessingPolicy.useMaxConcurrentFindMeFollowMeInvocations"
+            >
+              {{ $ctrl.callProcessingPolicy
+              .maxConcurrentFindMeFollowMeInvocations }}
+            </span>
+          </pbs-list-item>
+          <pbs-list-item label="Enable Maximum Find Me/Follow Me Depth">
+            <pbs-check-box
+              checked="$ctrl.callProcessingPolicy.useMaxFindMeFollowMeDepth"
+            ></pbs-check-box>
+            <span ng-if="$ctrl.callProcessingPolicy.useMaxFindMeFollowMeDepth">
+              {{ $ctrl.callProcessingPolicy.maxFindMeFollowMeDepth }}
+            </span>
+          </pbs-list-item>
+          <pbs-list-item label="Maximum Redirection Depth">
+            {{ $ctrl.callProcessingPolicy.maxRedirectionDepth }}
+          </pbs-list-item>
+        </pbs-list>
+      </pbs-tab>
+    </pbs-tabs>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal
+  id="editGroupCallProcessingPolicyModal"
+  title="Edit Group Call Processing Policy"
+>
+  <form name="editGroupCallProcessingPolicyForm">
+    <pbs-tabs>
+      <pbs-tab label="Calling Line Id">
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCallProcessingPolicy.useGroupName"
+          label="Use Group Name"
+        ></pbs-input-checkbox>
+        <pbs-input-checkbox
+          label="Allow Deparment Name Override"
+          ng-model="$ctrl.editCallProcessingPolicy.allowDepartmentCLIDNameOverride"
+        ></pbs-input-checkbox>
+        <pbs-input-checkbox
+          label="Use Group Calling Line Id Policy"
+          ng-model="$ctrl.editCallProcessingPolicy.useGroupCLIDSetting"
+        ></pbs-input-checkbox>
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCallProcessingPolicy.allowAlternateNumbersForRedirectingIdentity"
+          label="Allow Alternate Numbers for Redirecting Identity"
+        ></pbs-input-checkbox>
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCallProcessingPolicy.allowConfigurableCLIDForRedirectingIdentity"
+          label="Allow Configurable CLID for Redirecting Identity"
+        ></pbs-input-checkbox>
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCallProcessingPolicy.blockCallingNameForExternalCalls"
+          label="Block Calling Name for External Calls"
+        ></pbs-input-checkbox>
+        <pbs-form-field-horizontal label="External Calls">
+          <pbs-input-select
+            ng-model="$ctrl.editCallProcessingPolicy.clidPolicy"
+            ng-options="opt for opt in $ctrl.options.clidPolicy"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Enterprise Calls">
+          <pbs-input-select
+            ng-model="$ctrl.editCallProcessingPolicy.enterpriseCallsCLIDPolicy"
+            ng-options="opt for opt in $ctrl.options.enterpriseCallsCLIDPolicy"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Group Calls">
+          <pbs-input-select
+            ng-model="$ctrl.editCallProcessingPolicy.groupCallsCLIDPolicy"
+            ng-options="opt for opt in $ctrl.options.groupCallsCLIDPolicy"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+        <pbs-form-field-horizontal label="Emergency Calls">
+          <pbs-input-select
+            ng-model="$ctrl.editCallProcessingPolicy.emergencyClidPolicy"
+            ng-options="opt for opt in $ctrl.options.emergencyClidPolicy"
+          ></pbs-input-select>
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+      <pbs-tab label="Call Limits">
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCallProcessingPolicy.useGroupCallLimitsSetting"
+          label="Use Group Call Limits Policy"
+        ></pbs-input-checkbox>
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCallProcessingPolicy.useMaxSimultaneousCalls"
+          label="Enable Maximum Number of Concurrent Calls"
+        ></pbs-input-checkbox>
+        <pbs-form-field-horizontal
+          label="Concurrent Calls"
+          ng-if="$ctrl.editCallProcessingPolicy.useMaxSimultaneousCalls"
+        >
+          <input
+            class="input"
+            type="number"
+            ng-model="$ctrl.editCallProcessingPolicy.maxSimultaneousCalls"
+            min="1"
+            max="999999"
+          />
+        </pbs-form-field-horizontal>
+
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCallProcessingPolicy.useMaxSimultaneousVideoCalls"
+          label="Enable Maximum Number of Concurrent Video Calls"
+        ></pbs-input-checkbox>
+
+        <pbs-form-field-horizontal
+          label="Concurrent Video Calls"
+          ng-if="$ctrl.editCallProcessingPolicy.useMaxSimultaneousVideoCalls"
+        >
+          <input
+            class="input"
+            type="number"
+            ng-model="$ctrl.editCallProcessingPolicy.maxSimultaneousVideoCalls"
+            min="1"
+            max="999999"
+          />
+        </pbs-form-field-horizontal>
+
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCallProcessingPolicy.useMaxCallTimeForAnsweredCalls"
+          label="Enable Maximum Duration for Answered Calls"
+        ></pbs-input-checkbox>
+        <pbs-form-field-horizontal
+          label="Maximum Answered Duration"
+          ng-if="$ctrl.editCallProcessingPolicy.useMaxCallTimeForAnsweredCalls"
+        >
+          <input
+            class="input"
+            type="number"
+            ng-model="$ctrl.editCallProcessingPolicy.maxCallTimeForAnsweredCallsMinutes"
+            min="3"
+            max="2880"
+          />
+        </pbs-form-field-horizontal>
+
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCallProcessingPolicy.useMaxCallTimeForUnansweredCalls"
+          label="Enable Maximum Duration for Unanswered Calls"
+        ></pbs-input-checkbox>
+        <pbs-form-field-horizontal
+          label="Maximum Unanswered Duration"
+          ng-if="$ctrl.editCallProcessingPolicy.useMaxCallTimeForUnansweredCalls"
+        >
+          <input
+            class="input"
+            type="number"
+            ng-model="$ctrl.editCallProcessingPolicy.maxCallTimeForUnansweredCallsMinutes"
+            min="1"
+            max="2880"
+          />
+        </pbs-form-field-horizontal>
+
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCallProcessingPolicy.useMaxConcurrentRedirectedCalls"
+          label="Enable Maximum Number of Concurrent Redirected Calls"
+        ></pbs-input-checkbox>
+        <pbs-form-field-horizontal
+          label="Concurrent Redirected"
+          ng-if="$ctrl.editCallProcessingPolicy.useMaxConcurrentRedirectedCalls"
+        >
+          <input
+            class="input"
+            type="number"
+            ng-model="$ctrl.editCallProcessingPolicy.maxConcurrentRedirectedCalls"
+            min="1"
+            max="999999"
+          />
+        </pbs-form-field-horizontal>
+
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCallProcessingPolicy.useMaxConcurrentFindMeFollowMeInvocations"
+          label="Enable Maximum Number of Concurrent Find Me/Follow Me Invocations"
+        ></pbs-input-checkbox>
+        <pbs-form-field-horizontal
+          label="Maximum Invocations"
+          ng-if="$ctrl.editCallProcessingPolicy.useMaxConcurrentFindMeFollowMeInvocations"
+        >
+          <input
+            class="input"
+            type="number"
+            ng-model="$ctrl.editCallProcessingPolicy.maxConcurrentFindMeFollowMeInvocations"
+            min="1"
+            max="999999"
+          />
+        </pbs-form-field-horizontal>
+
+        <pbs-input-checkbox
+          ng-model="$ctrl.editCallProcessingPolicy.useMaxFindMeFollowMeDepth"
+          label="Enable Maximum Find Me/Follow Me Depth"
+        ></pbs-input-checkbox>
+        <pbs-form-field-horizontal
+          label="Maximum Depth"
+          ng-if="$ctrl.editCallProcessingPolicy.useMaxFindMeFollowMeDepth"
+        >
+          <input
+            class="input"
+            type="number"
+            ng-model="$ctrl.editCallProcessingPolicy.maxFindMeFollowMeDepth"
+            min="1"
+            max="100"
+          />
+        </pbs-form-field-horizontal>
+
+        <pbs-form-field-horizontal label="Maximum Redirection Depth">
+          <input
+            class="input"
+            type="number"
+            ng-model="$ctrl.editCallProcessingPolicy.maxRedirectionDepth"
+            min="1"
+            max="100"
+          />
+        </pbs-form-field-horizontal>
+      </pbs-tab>
+    </pbs-tabs>
+  </form>
+</pbs-modal>

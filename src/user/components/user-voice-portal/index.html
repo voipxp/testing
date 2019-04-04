@@ -1,0 +1,74 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Voice Portal" class="margin-top">
+    <pbs-block-buttons ng-if="!$ctrl.readOnly">
+      <pbs-button-compact-edit
+        title="Edit Voice Portal"
+        ng-click="$ctrl.edit()"
+      >
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Auto Login">
+        <pbs-check-box
+          checked="$ctrl.portal.voicePortalAutoLogin"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Use Personalized Name">
+        <pbs-check-box
+          checked="$ctrl.portal.usePersonalizedName"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item
+        label="Audio Description"
+        ng-show="$ctrl.portal.usePersonalizedName"
+      >
+        {{ $ctrl.portal.audioFile.description }}
+      </pbs-list-item>
+      <pbs-list-item
+        label="Auto Type"
+        ng-show="$ctrl.portal.usePersonalizedName"
+      >
+        {{ $ctrl.portal.audioFile.mediaType }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserVoicePortal" title="Edit Voice Portal">
+  <form name="editUserVoicePortalForm">
+    <pbs-form-field label="Auto Login">
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPortal.voicePortalAutoLogin"
+        label="Auto-login When Calling From Your Phone"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+
+    <pbs-form-field label="Personalized Name">
+      <pbs-input-checkbox
+        ng-model="$ctrl.editPortal.usePersonalizedName"
+        label="Use Personalized Name"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+
+    <pbs-form-field
+      label="Upload File"
+      ng-show="$ctrl.editPortal.usePersonalizedName"
+    >
+      <pbs-input-file
+        on-upload="$ctrl.audioFileSelected(file)"
+        ng-required="$ctrl.editPortal.usePersonalizedName"
+      ></pbs-input-file>
+    </pbs-form-field>
+
+    <pbs-form-field
+      label="Audio Description"
+      ng-show="$ctrl.editPortal.audioFile.content"
+    >
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editPortal.audioFile.description"
+        ng-required="$ctrl.editPortal.usePersonalizedName"
+      />
+    </pbs-form-field>
+  </form>
+</pbs-modal>

@@ -1,0 +1,69 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Call Recording Settings">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit
+        title="Edit Call Recording"
+        ng-click="$ctrl.edit()"
+      >
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Record Call">
+        {{ $ctrl.settings.recordingOption }}
+      </pbs-list-item>
+      <pbs-list-item label="Pause Resume Notification">
+        {{ $ctrl.settings.pauseResumeNotification }}
+      </pbs-list-item>
+      <pbs-list-item label="Enable Call Recording Announcement">
+        {{ $ctrl.settings.enableCallRecordingAnnouncement }}
+      </pbs-list-item>
+      <pbs-list-item label="Enable Record Call Repeat Warning Tone">
+        {{ $ctrl.settings.enableRecordCallRepeatWarningTone }}
+      </pbs-list-item>
+      <pbs-list-item label="Record Call Repeat Warning Tone Timer Seconds">
+        {{ $ctrl.settings.recordCallRepeatWarningToneTimerSeconds }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserCallRecording" title="Edit Settings">
+  <pbs-form>
+    <pbs-form-field label="Record Call">
+      <pbs-input-select
+        ng-model="$ctrl.editSettings.recordingOption"
+        ng-options="x for x in $ctrl.options.recordingOptions"
+      >
+      </pbs-input-select>
+    </pbs-form-field>
+    <pbs-form-field label="Pause Resume Notification">
+      <pbs-input-select
+        ng-model="$ctrl.editSettings.pauseResumeNotification"
+        ng-options="x for x in $ctrl.options.pauseResumeNotification"
+      >
+      </pbs-input-select>
+    </pbs-form-field>
+    <pbs-form-field label="Enable Call Recording Announcement">
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.enableCallRecordingAnnouncement"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+    <pbs-form-field label="Enable Record Call Repeat Warning Tone">
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.enableRecordCallRepeatWarningTone"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+    <pbs-form-field label="Repeat Warning Tone Timer Seconds">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.editSettings.recordCallRepeatWarningToneTimerSeconds"
+        min="{{
+          $ctrl.options.recordCallRepeatWarningToneTimerSeconds.minimum
+        }}"
+        max="{{
+          $ctrl.options.recordCallRepeatWarningToneTimerSeconds.maximum
+        }}"
+      />
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

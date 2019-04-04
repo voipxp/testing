@@ -1,0 +1,84 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Overflow">
+    <pbs-block-buttons if-module-update="'Call Center'">
+      <pbs-button-compact-edit title="Edit Overflow" ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Action">
+        {{ $ctrl.service.action }}
+      </pbs-list-item>
+      <pbs-list-item
+        label="Transfer To"
+        ng-show="$ctrl.service.action === 'Transfer'"
+      >
+        {{ $ctrl.service.transferPhoneNumber }}
+      </pbs-list-item>
+      <pbs-list-item label="Overflow after Timeout">
+        <pbs-check-box
+          checked="$ctrl.service.overflowAfterTimeout"
+        ></pbs-check-box>
+        <span ng-show="$ctrl.service.overflowAfterTimeout">
+          of {{ $ctrl.service.timeoutSeconds }} seconds
+        </span>
+      </pbs-list-item>
+      <pbs-list-item label="Play Announcement Before Overflow">
+        <pbs-check-box
+          checked="$ctrl.service.playAnnouncementBeforeOverflowProcessing"
+        ></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+
+    <group-call-center-audio-settings-view
+      service="$ctrl.service"
+      user-id="$ctrl.serviceUserId"
+    ></group-call-center-audio-settings-view>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupCallCenterOverflow" title="Edit Overflow">
+  <pbs-form-section>Settings</pbs-form-section>
+
+  <pbs-input-checkbox
+    ng-model="$ctrl.editService.overflowAfterTimeout"
+    label="Enable Overflow after Waiting"
+  ></pbs-input-checkbox>
+
+  <pbs-input-checkbox
+    ng-model="$ctrl.editService.playAnnouncementBeforeOverflowProcessing"
+    label="Play announcement before overflow processing"
+  ></pbs-input-checkbox>
+
+  <pbs-form-field-horizontal label="Action">
+    <pbs-input-select
+      ng-model="$ctrl.editService.action"
+      ng-options="opt for opt in $ctrl.options.action"
+    ></pbs-input-select>
+  </pbs-form-field-horizontal>
+
+  <pbs-form-field-horizontal
+    label="Transfer To"
+    ng-show="$ctrl.editService.action === 'Transfer'"
+  >
+    <input
+      type="text"
+      class="input"
+      ng-model="$ctrl.editService.transferPhoneNumber"
+    />
+  </pbs-form-field-horizontal>
+
+  <pbs-form-field-horizontal
+    label="Overflow After Waiting Seconds"
+    ng-show="$ctrl.editService.overflowAfterTimeout"
+  >
+    <input
+      type="number"
+      class="input"
+      ng-model="$ctrl.editService.timeoutSeconds"
+    />
+  </pbs-form-field-horizontal>
+
+  <group-call-center-audio-settings-edit
+    service="$ctrl.editService"
+    user-id="$ctrl.serviceUserId"
+  ></group-call-center-audio-settings-edit>
+</pbs-modal>

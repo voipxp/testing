@@ -1,0 +1,51 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Stranded Call">
+    <pbs-block-buttons if-module-update="'Call Center'">
+      <pbs-button-compact-edit
+        title="Edit Stranded Call"
+        ng-click="$ctrl.edit()"
+      >
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Action">
+        {{ $ctrl.actionDescription($ctrl.service.action) }}
+      </pbs-list-item>
+      <pbs-list-item
+        label="Transfer To"
+        ng-show="$ctrl.service.action === 'Transfer'"
+      >
+        {{ $ctrl.service.transferPhoneNumber }}
+      </pbs-list-item>
+    </pbs-list>
+
+    <group-call-center-audio-settings-view
+      service="$ctrl.service"
+      user-id="$ctrl.serviceUserId"
+    ></group-call-center-audio-settings-view>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupCallCenterStrandedCall" title="Edit Stranded Call">
+  <pbs-form-field-horizontal label="Action">
+    <pbs-input-select
+      ng-model="$ctrl.editService.action"
+      ng-options="opt.key as opt.description for opt in $ctrl.options.action"
+    ></pbs-input-select>
+  </pbs-form-field-horizontal>
+
+  <pbs-form-field-horizontal
+    label="Transfer To"
+    ng-show="$ctrl.editService.action === 'Transfer'"
+  >
+    <input
+      type="text"
+      class="input"
+      ng-model="$ctrl.editService.transferPhoneNumber"
+    />
+  </pbs-form-field-horizontal>
+
+  <group-call-center-audio-settings-edit
+    service="$ctrl.editService"
+    user-id="$ctrl.serviceUserId"
+  ></group-call-center-audio-settings-edit>
+</pbs-modal>

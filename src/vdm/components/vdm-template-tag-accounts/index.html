@@ -1,0 +1,62 @@
+<pbs-block title="Accounts">
+  <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+  <table pbs-table>
+    <thead>
+      <th>Account</th>
+      <th>Enabled</th>
+      <th>Primary</th>
+      <th ng-show="false">Number</th>
+      <th>Ringtone</th>
+    </thead>
+    <tfoot>
+      <tr ng-show="results.length < 1">
+        <td colspan="99">
+          No Accounts Found
+          <span ng-show="$ctrl.search"
+            >for
+            <strong>{{ $ctrl.search }}</strong>
+          </span>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr
+        class="hover"
+        ng-repeat="account in $ctrl.accounts as results track by account.id"
+        ng-click="$ctrl.edit(account)"
+      >
+        <td>Account {{ account.id }}</td>
+        <td>
+          <pbs-check-box checked="account.enabled"></pbs-check-box>
+        </td>
+        <td>
+          <pbs-check-box checked="account.primary"></pbs-check-box>
+        </td>
+        <td ng-show="false">{{ account.line }}</td>
+        <td>{{ account.ringtone }}</td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-block>
+<pbs-modal id="vdmTemplateAccountModal" title="Edit Account">
+  <pbs-form-field label="Settings">
+    <pbs-input-checkbox
+      ng-model="$ctrl.editAccount.enabled"
+      ng-click="$ctrl.editEnabled($ctrl.editAccount)"
+      label="Account Enabled"
+    ></pbs-input-checkbox>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editAccount.primary"
+      ng-click="$ctrl.editPrimary($ctrl.editAccount)"
+      label="Primary Account"
+    ></pbs-input-checkbox>
+  </pbs-form-field>
+  <pbs-form-field label="Ringtone">
+    <pbs-input-select
+      ng-model="$ctrl.editAccount.ringtone"
+      ng-options="tone for tone in $ctrl.options.ringtones"
+    >
+      <option value="">-- None --</option>
+    </pbs-input-select>
+  </pbs-form-field>
+</pbs-modal>

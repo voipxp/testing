@@ -1,0 +1,25 @@
+<pbs-block title="Call Control Applications" class="margin-top">
+  <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+  <table class="margin-top" pbs-table>
+    <thead>
+      <tr>
+        <th>ID</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr ng-if="results.length === 0">
+        <td colspan="1">
+          No Applications Found
+          <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr
+        ng-repeat="application in $ctrl.applications as results track by application.applicationId"
+      >
+        <td>{{ application.applicationId }}</td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-block>

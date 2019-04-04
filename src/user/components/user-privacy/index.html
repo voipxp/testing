@@ -1,0 +1,46 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Settings">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit
+        ng-click="$ctrl.edit()"
+        label="Edit Settings"
+      ></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list-builder
+      data="$ctrl.settings"
+      schema="$ctrl.schema"
+    ></pbs-list-builder>
+  </pbs-block>
+
+  <pbs-block title="Monitors" pbs-margin-top>
+    <pbs-block-buttons>
+      <pbs-button-compact-edit
+        ng-click="$ctrl.editMonitors()"
+        label="Edit Monitors"
+      ></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-data-table
+      columns="$ctrl.columns"
+      items="$ctrl.settings.permittedMonitors"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="50"
+      on-click="$ctrl.editMonitors()"
+    ></pbs-data-table>
+  </pbs-block>
+</pbs-spinner>
+
+<pbs-modal id="editUserPrivacySettings" title="Edit Settings">
+  <pbs-form-builder
+    data="$ctrl.editSettings"
+    schema="$ctrl.schema"
+  ></pbs-form-builder>
+</pbs-modal>
+
+<pbs-modal id="editUserPrivacyMonitors" title="Edit Monitors">
+  <select-users
+    available="$ctrl.availableMonitors"
+    selected="$ctrl.selectedMonitors"
+  ></select-users>
+</pbs-modal>

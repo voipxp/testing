@@ -1,0 +1,24 @@
+<div class="field has-addons">
+  <p class="control is-expanded">
+    <input
+      type="text"
+      class="input"
+      placeholder="Username"
+      ng-model="$ctrl.prefix"
+      ng-change="$ctrl.update()"
+      ng-required="$ctrl.required"
+    />
+  </p>
+  <p class="control">
+    <a class="button is-static">@</a>
+  </p>
+  <p class="control">
+    <pbs-input-select
+      ng-model="$ctrl.suffix"
+      loading="$ctrl.loading"
+      ng-options="domain as domain for domain in $ctrl.domains.domains"
+      ng-change="$ctrl.update()"
+      ng-required="$ctrl.required"
+    ></pbs-input-select>
+  </p>
+</div>

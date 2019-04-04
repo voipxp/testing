@@ -1,0 +1,30 @@
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  module="$ctrl.module"
+>
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-tabs delay="true">
+  <pbs-tab label="Templates">
+    <vdm-templates
+      module="$ctrl.module"
+      service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+    ></vdm-templates>
+  </pbs-tab>
+  <pbs-tab label="Devices" ng-if="$ctrl.serviceProviderId && $ctrl.groupId">
+    <vdm-devices
+      module="$ctrl.module"
+      service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+    ></vdm-devices>
+  </pbs-tab>
+  <pbs-tab
+    label="Device Types"
+    ng-if="!$ctrl.serviceProviderId && !$ctrl.groupId"
+  >
+    <vdm-device-types module="$ctrl.module"></vdm-device-types>
+  </pbs-tab>
+</pbs-tabs>

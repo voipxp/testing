@@ -1,0 +1,116 @@
+<pbs-spinner loading="$ctrl.parent.loading">
+  <pbs-block title="Settings">
+    <pbs-block-buttons ng-if="$ctrl.canUpdate">
+      <pbs-button-compact-edit
+        title="Edit Settings"
+        ng-click="$ctrl.edit()"
+        if-module-update="$ctrl.parent.module"
+      >
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-section>General Settings</pbs-list-section>
+      <pbs-list-item label="Allow Call Waiting on Agents">
+        <pbs-check-box
+          checked="$ctrl.parent.huntGroup.allowCallWaitingForAgents"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item
+        label="Allow Members to Control Busy"
+        ng-if="$ctrl.hasVersion20"
+      >
+        <pbs-check-box
+          checked="$ctrl.parent.huntGroup.allowMembersToControlGroupBusy"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Enable Group Busy" ng-if="$ctrl.hasVersion20">
+        <pbs-check-box
+          checked="$ctrl.parent.huntGroup.enableGroupBusy"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item
+        label="Apply Group Busy When Terminating Call"
+        ng-if="$ctrl.hasVersion20"
+        ng-show="$ctrl.parent.huntGroup.enableGroupBusy"
+      >
+        <pbs-check-box
+          checked="$ctrl.parent.huntGroup.applyGroupBusyWhenTerminatingToAgent"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Group Policy">
+        {{ $ctrl.parent.huntGroup.policy }}
+      </pbs-list-item>
+      <pbs-list-item
+        label="Network Class of Service"
+        ng-if="$ctrl.hasVersion20"
+      >
+        {{ $ctrl.parent.huntGroup.networkClassOfService }}
+      </pbs-list-item>
+
+      <pbs-list-section>No Answer Settings</pbs-list-section>
+      <pbs-list-item label="Skip on No Answer">
+        <pbs-check-box
+          checked="$ctrl.parent.huntGroup.huntAfterNoAnswer"
+        ></pbs-check-box>
+        <span ng-show="$ctrl.parent.huntGroup.huntAfterNoAnswer">
+          After
+          <strong>{{ $ctrl.parent.huntGroup.noAnswerNumberOfRings }}</strong>
+          Rings
+        </span>
+      </pbs-list-item>
+      <pbs-list-item label="Forward After Timeout">
+        <pbs-check-box
+          checked="$ctrl.parent.huntGroup.forwardAfterTimeout"
+        ></pbs-check-box>
+        <span ng-show="$ctrl.parent.huntGroup.forwardAfterTimeout">
+          After
+          <strong>{{ $ctrl.parent.huntGroup.forwardTimeoutSeconds }}</strong>
+          Seconds To
+          <strong>{{ $ctrl.parent.huntGroup.forwardToPhoneNumber }}</strong>
+        </span>
+      </pbs-list-item>
+
+      <pbs-list-section>Not Reachable Settings</pbs-list-section>
+      <pbs-list-item label="Enable Call Forwarding Not Reachable">
+        <pbs-check-box
+          checked="$ctrl.parent.huntGroup.enableNotReachableForwarding"
+        ></pbs-check-box>
+        <span ng-show="$ctrl.parent.huntGroup.enableNotReachableForwarding">
+          To
+          <strong
+            >{{ $ctrl.parent.huntGroup.notReachableForwardToPhoneNumber
+            }}</strong
+          >
+        </span>
+      </pbs-list-item>
+      <pbs-list-item label="Make busy when not reachable">
+        <pbs-check-box
+          checked="$ctrl.parent.huntGroup.makeBusyWhenNotReachable"
+        ></pbs-check-box>
+      </pbs-list-item>
+
+      <pbs-list-section>Calling Line ID Settings</pbs-list-section>
+      <pbs-list-item label="Use Custom CLID configuration">
+        <pbs-check-box
+          checked="!$ctrl.parent.huntGroup.useSystemHuntGroupCLIDSetting"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item
+        label="Include Huntgroup Name in CLID"
+        ng-show="!$ctrl.parent.huntGroup.useSystemHuntGroupCLIDSetting"
+      >
+        <pbs-check-box
+          checked="$ctrl.parent.huntGroup.includeHuntGroupNameInCLID"
+        ></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="groupHuntGroupEditSettingsModal">
+  <group-hunt-group-edit-settings
+    hunt-group="$ctrl.editHuntGroup"
+    service-provider-id="$ctrl.parent.serviceProviderId"
+    group-id="$ctrl.parent.groupId"
+  >
+  </group-hunt-group-edit-settings>
+</pbs-modal>

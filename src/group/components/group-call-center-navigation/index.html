@@ -1,0 +1,14 @@
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  module="$ctrl.module"
+>
+  <pbs-breadcrumb
+    module="$ctrl.module"
+    ng-click="$ctrl.open()"
+  ></pbs-breadcrumb>
+  <pbs-breadcrumb
+    title="$ctrl.serviceUserId"
+    ng-if="$ctrl.serviceUserId"
+  ></pbs-breadcrumb>
+</pbs-navigation>

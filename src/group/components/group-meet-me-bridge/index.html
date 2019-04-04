@@ -1,0 +1,35 @@
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  module="$ctrl.module"
+>
+  <pbs-breadcrumb module="$ctrl.module" ng-click="$ctrl.open($ctrl.groupId)">
+  </pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.serviceUserId"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-spinner loading="$ctrl.loading">
+  <virtual-user-menu
+    service-provider-id="$ctrl.serviceProviderId"
+    group-id="$ctrl.groupId"
+    user-id="$ctrl.serviceUserId"
+    module="$ctrl.module"
+  >
+    <pbs-menu-item label="Settings">
+      <group-meet-me-bridge-details></group-meet-me-bridge-details>
+    </pbs-menu-item>
+    <pbs-menu-item label="Profile">
+      <service-instance-profile
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        service-user-id="$ctrl.serviceUserId"
+        profile="$ctrl.bridge.serviceInstanceProfile"
+        on-update="$ctrl.onUpdateProfile($event)"
+        read-only="!$ctrl.module.permissions.update"
+      ></service-instance-profile>
+    </pbs-menu-item>
+    <pbs-menu-item label="Users">
+      <group-meet-me-bridge-users></group-meet-me-bridge-users>
+    </pbs-menu-item>
+  </virtual-user-menu>
+</pbs-spinner>

@@ -1,9 +1,0 @@
-<div class="margin-top">
-  <label class="label">Weekly On</label>
-  <span ng-repeat="day in $ctrl.days">
-    <pbs-input-checkbox label="{{ day.label }}"
-      checklist-model="$ctrl.rrule.byweekday"
-      checklist-value="day.value"
-      checklist-comparator=".weekday"></pbs-input-checkbox>
-  </span>
-</div>

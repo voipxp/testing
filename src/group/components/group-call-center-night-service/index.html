@@ -1,0 +1,120 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Night Service">
+    <pbs-block-buttons if-module-update="'Call Center'">
+      <pbs-button-compact-edit
+        title="Edit Night Service"
+        ng-click="$ctrl.edit()"
+      >
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Action">
+        {{ $ctrl.service.action }}
+      </pbs-list-item>
+      <pbs-list-item
+        label="Transfer Calls To"
+        ng-show="$ctrl.service.action === 'Transfer'"
+      >
+        {{ $ctrl.service.transferPhoneNumber }}
+      </pbs-list-item>
+      <pbs-list-item label="Forced On Now">
+        <pbs-check-box
+          checked="$ctrl.service.forceNightService"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Business Hours">
+        {{ $ctrl.service.businessHours.name || 'All Day Every Day' }}
+      </pbs-list-item>
+      <pbs-list-item label="Feature Access Code Override">
+        <pbs-check-box
+          checked="$ctrl.service.allowManualOverrideViaFAC"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Announcement Before Action">
+        <pbs-check-box
+          checked="$ctrl.service.playAnnouncementBeforeAction"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Announcement Mode">
+        {{ $ctrl.service.announcementMode }}
+      </pbs-list-item>
+    </pbs-list>
+
+    <group-call-center-audio-settings-view
+      service="$ctrl.service.normalMode"
+      label="Normal"
+      user-id="$ctrl.serviceUserId"
+    ></group-call-center-audio-settings-view>
+
+    <group-call-center-audio-settings-view
+      service="$ctrl.service.manualMode"
+      label="Manual"
+      user-id="$ctrl.serviceUserId"
+    ></group-call-center-audio-settings-view>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editGroupCallCenterNightService" title="Edit Night Service">
+  <pbs-form-section>Settings</pbs-form-section>
+  <pbs-input-checkbox
+    ng-model="$ctrl.editService.forceNightService"
+    label="Force night service now regardless of business hours schedule"
+  ></pbs-input-checkbox>
+
+  <pbs-input-checkbox
+    ng-model="$ctrl.editService.allowManualOverrideViaFAC"
+    label="Allow feature access codes to manually override night service"
+  ></pbs-input-checkbox>
+
+  <pbs-input-checkbox
+    ng-model="$ctrl.editService.playAnnouncementBeforeAction"
+    label="Play announcment before night service action"
+  ></pbs-input-checkbox>
+
+  <pbs-form-field-horizontal label="Action">
+    <pbs-input-select
+      ng-model="$ctrl.editService.action"
+      ng-options="opt for opt in $ctrl.options.action"
+    ></pbs-input-select>
+  </pbs-form-field-horizontal>
+
+  <pbs-form-field-horizontal
+    label="Transfer To"
+    ng-show="$ctrl.editService.action === 'Transfer'"
+  >
+    <input
+      type="text"
+      class="input"
+      ng-model="$ctrl.editService.transferPhoneNumber"
+    />
+  </pbs-form-field-horizontal>
+
+  <pbs-form-field-horizontal label="Business Hours">
+    <pbs-input-select
+      ng-model="$ctrl.editService.businessHours"
+      ng-options="schedule as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Time'} track by schedule.name"
+    >
+      <option value="">All Day Every Day</option>
+    </pbs-input-select>
+  </pbs-form-field-horizontal>
+
+  <pbs-form-field-horizontal label="Announcement Mode">
+    <pbs-input-select
+      ng-model="$ctrl.editService.announcementMode"
+      ng-options="opt for opt in $ctrl.options.announcementMode"
+    ></pbs-input-select>
+  </pbs-form-field-horizontal>
+
+  <group-call-center-audio-settings-edit
+    service="$ctrl.editService.normalMode"
+    user-id="$ctrl.serviceUserId"
+    label="Normal"
+  ></group-call-center-audio-settings-edit>
+
+  <group-call-center-audio-settings-edit
+    service="$ctrl.editService.manualMode"
+    user-id="$ctrl.serviceUserId"
+    label="Manual"
+    style="display: block"
+    class="large-margin-top"
+  ></group-call-center-audio-settings-edit>
+</pbs-modal>

@@ -1,0 +1,47 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <div class="tabs">
+      <ul>
+        <li ng-class="{'is-active': $ctrl.tab === 'placed'}">
+          <a ng-click="$ctrl.tab = 'placed'">Placed</a>
+        </li>
+        <li ng-class="{'is-active': $ctrl.tab === 'received'}">
+          <a ng-click="$ctrl.tab = 'received'">Received</a>
+        </li>
+        <li ng-class="{'is-active': $ctrl.tab === 'missed'}">
+          <a ng-click="$ctrl.tab = 'missed'">Missed</a>
+        </li>
+      </ul>
+    </div>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Name</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-show="!$ctrl.logs[$ctrl.tab] || results.length < 1">
+          <td colspan="3">
+            No {{ $ctrl.tab | capitalize }} Calls Found
+            <span ng-show="$ctrl.search"
+              >for
+              <strong>{{ $ctrl.search }}</strong>
+            </span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          ng-repeat="call in $ctrl.logs[$ctrl.tab] | filter:$ctrl.search as results track by call.callLogId"
+        >
+          <td>{{ call.phoneNumber }}</td>
+          <td>{{ call.name }}</td>
+          <td>{{ call.time | pbsDate:'{long}' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>

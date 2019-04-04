@@ -1,0 +1,204 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit
+        title="Edit Simultaneous Ring Personal"
+        ng-click="$ctrl.edit()"
+      ></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Active">
+        <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Do Not Ring If On Call">
+        <pbs-check-box
+          checked="$ctrl.settings.doNotRingIfOnCall"
+        ></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+  <pbs-block title="Locations" class="margin-top">
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Answer Confirmation</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="$ctrl.settings.locations < 1">
+          <td colspan="6">No Location Found</td>
+        </tr>
+      </tfoot>
+      <tbody ng-repeat="location in $ctrl.settings.locations">
+        <tr>
+          <td>{{ location.phoneNumber }}</td>
+          <td>
+            <pbs-check-box
+              checked="location.answerConfirmationRequired"
+            ></pbs-check-box>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+  <pbs-block title="Simultaneous Ring Personal Criteria" class="margin-top">
+    <pbs-block-buttons>
+      <pbs-block-buttons>
+        <pbs-button-compact-add
+          if-module-create="$ctrl.module"
+          ng-click="$ctrl.addCriteria($ctrl.userId)"
+          title="Add New Criteria"
+        >
+        </pbs-button-compact-add>
+      </pbs-block-buttons>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Active</th>
+          <th>Name</th>
+          <th>Time Schedule</th>
+          <th>Holiday Schedule</th>
+          <th>Do Not Ring Sequentially</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length === 0">
+          <td colspan="6">
+            No Simultaneous Ring Personal Criteria Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }} </span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          class="hover"
+          ng-repeat="criteria in $ctrl.settings.criteria| filter:$ctrl.search as results track by criteria.criteriaName"
+          ng-click="$ctrl.doEditCriteria(criteria.criteriaName,criteria.isActive)"
+        >
+          <td><pbs-check-box checked="criteria.isActive"></pbs-check-box></td>
+          <td>{{ criteria.criteriaName }}</td>
+          <td>{{ criteria.timeSchedule }}</td>
+          <td>{{ criteria.holidaySchedule }}</td>
+          <td>
+            <pbs-check-box checked="criteria.blacklisted"></pbs-check-box>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserSimultaneousRingPersonal" validate>
+  <pbs-form>
+    <pbs-form-field label="General Settings">
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.isActive"
+        label="Is Active"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.doNotRingIfOnCall"
+        label="Do Not Ring If On Call"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+    <table class="margin-top" pbs-table>
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Answer Confirmation</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]">
+        <tr>
+          <td>
+            <input
+              type="text"
+              class="input"
+              ng-model="$ctrl.editSettings.locations[i].phoneNumber"
+            />
+          </td>
+          <td class="has-text-centered">
+            <pbs-input-checkbox
+              ng-model="$ctrl.editSettings.locations[i].answerConfirmationRequired"
+            ></pbs-input-checkbox>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-form>
+</pbs-modal>
+
+<pbs-modal id="editUserSimultaneousRingPersonalCriteria" title="Edit Criteria">
+  <pbs-spinner loading="$ctrl.loadingCriteria">
+    <pbs-form>
+      <pbs-form-field label="Active">
+        <pbs-input-checkbox
+          label="Enable Simultaneous Ring Personal"
+          ng-model="$ctrl.editCriteria.isActive"
+        ></pbs-input-checkbox>
+      </pbs-form-field>
+      <pbs-form-field label="Description">
+        <input
+          type="text"
+          class="input"
+          ng-model="$ctrl.editCriteria.name"
+          required
+        />
+      </pbs-form-field>
+      <pbs-form-field label="Do Not Ring Sequentially">
+        <pbs-input-checkbox
+          label="Blacklisted"
+          ng-model="$ctrl.editCriteria.blacklisted"
+        ></pbs-input-checkbox>
+      </pbs-form-field>
+      <pbs-form-field label="Time Schedule">
+        <pbs-input-select
+          ng-model="$ctrl.editCriteria.timeSchedule.name"
+          ng-options="schedule.name as schedule.name for schedule in $ctrl.schedules | filter:{type: 'Time'}"
+        >
+          <option value="">All Day Every Day</option>
+        </pbs-input-select>
+      </pbs-form-field>
+      <pbs-form-field label="Holiday Schedule">
+        <pbs-input-select
+          ng-model="$ctrl.editCriteria.holidaySchedule.name"
+          ng-options="schedule.name as schedule.name for schedule in $ctrl.holidaySchedules"
+        >
+          <option value="">None</option>
+        </pbs-input-select>
+      </pbs-form-field>
+      <pbs-form-field label="Calls From">
+        <pbs-input-select
+          ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
+          ng-options="x for x in $ctrl.criteriaOptions.fromDnCriteriaSelection"
+          required
+        >
+        </pbs-input-select>
+      </pbs-form-field>
+      <pbs-form-field label="Anonymous Callers">
+        <pbs-input-checkbox
+          label="Any Private Number"
+          ng-model="$ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers"
+        >
+        </pbs-input-checkbox>
+      </pbs-form-field>
+      <pbs-form-field label="Unavailable Callers">
+        <pbs-input-checkbox
+          label="Any Unavailable Number"
+          ng-model="$ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers"
+        >
+        </pbs-input-checkbox>
+      </pbs-form-field>
+      <pbs-form-field label="Specific Numbers">
+        <input
+          class="input"
+          style="margin-bottom: .5em"
+          ng-repeat="value in [1,2,3,4,5,6,7,8,9,10,11,12] track by $index"
+          type="text"
+          ng-model="$ctrl.editCriteria.fromDnCriteria.phoneNumbers[$index]"
+        />
+      </pbs-form-field>
+    </pbs-form>
+  </pbs-spinner>
+</pbs-modal>

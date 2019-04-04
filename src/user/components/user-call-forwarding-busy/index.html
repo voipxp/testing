@@ -1,0 +1,46 @@
+<pbs-spinner loading="$ctrl.loading" ng-show="!$ctrl.showQuick">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit title="Edit Settings" ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Forward to Phone Number">
+        {{ $ctrl.settings.forwardToPhoneNumber }}
+      </pbs-list-item>
+      <pbs-list-item label="Is Active">
+        <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<div ng-show="$ctrl.showQuick">
+  <label class="label hover" ng-click="$ctrl.edit()">
+    <a href="" ng-click="$ctrl.edit()">Call Forwarding Busy</a>
+  </label>
+  <pbs-input-switch
+    ng-label="$ctrl.settings.forwardToPhoneNumber || 'N/A'"
+    ng-model="$ctrl.settings.isActive"
+    ng-change="$ctrl.toggle()"
+    ng-disabled="$ctrl.loading"
+  ></pbs-input-switch>
+</div>
+<pbs-modal id="editUserCallForwardingBusy" title="Edit Call Forwarding Busy">
+  <pbs-form>
+    <pbs-form-field label="General Settings">
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.isActive"
+        label="Is Active"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+    <pbs-form-field label="Forward To">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.forwardToPhoneNumber"
+        min="{{ $ctrl.options.outgoingDNorSIPURI.minimum }}"
+        max="{{ $ctrl.options.outgoingDNorSIPURI.maximum }}"
+      />
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

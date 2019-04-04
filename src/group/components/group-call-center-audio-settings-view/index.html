@@ -1,0 +1,18 @@
+<pbs-list>
+  <pbs-list-item label="{{ $ctrl.label }} Audio Selection">
+    {{ $ctrl.service.audioMessageSource }}
+  </pbs-list-item>
+  <pbs-list-item label="{{ $ctrl.label }} Audio URLs" ng-show="$ctrl.isUrl()">
+    <span ng-repeat="url in $ctrl.service.audioUrlList">
+      {{ url }}
+      <br />
+    </span>
+  </pbs-list-item>
+  <pbs-list-item label="{{ $ctrl.label }} Audio Files" ng-show="$ctrl.isFile()">
+    <span ng-repeat="file in $ctrl.service.audioFileList">
+      {{ file.name }}
+      <span ng-show="file.level">({{ file.level }})</span>
+      <br />
+    </span>
+  </pbs-list-item>
+</pbs-list>

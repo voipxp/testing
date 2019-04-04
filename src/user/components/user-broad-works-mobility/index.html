@@ -1,0 +1,128 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit
+        title="Edit BroadWorks Mobility"
+        ng-click="$ctrl.edit()"
+      >
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Active">
+        <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Phone To Ring">
+        {{$ctrl.settings.phonesToRing}}
+      </pbs-list-item>
+      <pbs-list-item label="Mobile Phone Number">
+        {{$ctrl.settings.mobilePhoneNumber}}
+      </pbs-list-item>
+      <pbs-list-item label="Alert Click To Dial Calls">
+        <pbs-check-box
+          checked="$ctrl.settings.alertClickToDialCalls"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Alert Group Paging Calls">
+        <pbs-check-box
+          checked="$ctrl.settings.alertGroupPagingCalls"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Enable Diversion Inhibitor">
+        <pbs-check-box
+          checked="$ctrl.settings.enableDiversionInhibitor"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Require Answer Confirmation">
+        <pbs-check-box
+          checked="$ctrl.settings.requireAnswerConfirmation"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="BroadWorks Call Control">
+        <pbs-check-box
+          checked="$ctrl.settings.broadworksCallControl"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Uses Setting Level">
+        {{$ctrl.settings.useSettingLevel}}
+      </pbs-list-item>
+      <pbs-list-item label="Deny Call Originations">
+        <pbs-check-box
+          checked="$ctrl.settings.denyCallOriginations"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Deny Call Terminations">
+        <pbs-check-box
+          checked="$ctrl.settings.denyCallTerminations"
+        ></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserBroadworksMobility" title="Edit Settings">
+  <pbs-form>
+    <pbs-form-field
+      label="Mobile Phone Number"
+      ng-if="$ctrl.hasPermission('Group')"
+    >
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.mobilePhoneNumber"
+      />
+    </pbs-form-field>
+    <pbs-form-field
+      label="Use Setting Level"
+      ng-if="$ctrl.hasPermission('Group')"
+    >
+      <pbs-input-select
+        ng-model="$ctrl.editSettings.useSettingLevel"
+        ng-options="x for x in $ctrl.options.userSettingLevel"
+      >
+      </pbs-input-select>
+    </pbs-form-field>
+    <pbs-form-field label="Phones to Ring">
+      <pbs-input-select
+        ng-model="$ctrl.editSettings.phonesToRing"
+        ng-options="x for x in $ctrl.options.phonesToRing"
+      >
+      </pbs-input-select>
+    </pbs-form-field>
+    <pbs-form-field label="Other Settings">
+      <pbs-input-checkbox
+        ng-if="$ctrl.hasPermission('Group')"
+        ng-model="$ctrl.editSettings.isActive"
+        label="Active"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-if="$ctrl.hasPermission('Group')"
+        ng-model="$ctrl.editSettings.denyCallOriginations"
+        label="Deny Call Originations"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-if="$ctrl.hasPermission('Group')"
+        ng-model="$ctrl.editSettings.denyCallTerminations"
+        label="Deny Call Terminations"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.alertClickToDialCalls"
+        label="Alert Click To Dial Calls"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.alertGroupPagingCalls"
+        label="Alert Group Paging Calls"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.enableDiversionInhibitor"
+        label="Enable Diversion Inhibitor"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.requireAnswerConfirmation"
+        label="Require Answer Confirmation"
+      ></pbs-input-checkbox>
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.broadworksCallControl"
+        label="BroadWorks Call Control"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

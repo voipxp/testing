@@ -1,0 +1,105 @@
+<pbs-spinner loading="$ctrl.parent.loading">
+  <pbs-block title="Details" class="margin-top">
+    <pbs-block-buttons if-module-update="$ctrl.parent.module">
+      <pbs-button-compact-edit title="Edit Details" ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Trunk Name">
+        {{ $ctrl.parent.trunkName }}
+      </pbs-list-item>
+      <pbs-list-item label="Max Reroute Attempts">
+        {{ $ctrl.parent.trunk.maximumRerouteAttempts }}
+      </pbs-list-item>
+      <pbs-list-item label="Exhaustion Action">
+        {{ $ctrl.parent.trunk.routeExhaustionAction }}
+        <span ng-show="$ctrl.parent.trunk.routeExhaustionAction === 'Forward'">
+          To
+          <strong
+            >{{ $ctrl.parent.trunk.routeExhaustionForwardAddress }}</strong
+          >
+        </span>
+      </pbs-list-item>
+      <pbs-list-item label="Routing">
+        {{ $ctrl.parent.trunk.priorityWeightedRouting ? 'Priority Weighted
+        Routing' : 'Ordered Routing' }}
+      </pbs-list-item>
+      <pbs-list-item
+        label="Max Reroutes in Priority"
+        ng-show="$ctrl.parent.trunk.priorityWeightedRouting"
+      >
+        {{
+        $ctrl.parent.trunk.priorityWeightedRouting.maximumRerouteAttemptsWithinPriority
+        }}
+      </pbs-list-item>
+      <pbs-list-item
+        label="Ordering Algorithm"
+        ng-show="$ctrl.parent.trunk.orderedRouting"
+      >
+        {{ $ctrl.parent.trunk.orderedRouting.orderingAlgorithm }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editEnterpriseEnterpriseTrunkDetails" title="Edit Trunk Details">
+  <pbs-form-field label="Trunk Name">
+    <p ng-if="$ctrl.isDisabled.enterpriseTrunkName">
+      {{ $ctrl.editTrunk.newEnterpriseTrunkName }}
+    </p>
+    <input
+      type="text"
+      class="input"
+      ng-model="$ctrl.editTrunk.newEnterpriseTrunkName"
+      ng-if="!$ctrl.isDisabled.enterpriseTrunkName"
+    />
+  </pbs-form-field>
+  <pbs-form-field label="Max Reroute Attempts">
+    <input
+      class="input"
+      type="number"
+      min="1"
+      max="10"
+      ng-model="$ctrl.editTrunk.maximumRerouteAttempts"
+      string-to-number
+    />
+  </pbs-form-field>
+  <pbs-form-field label="Exhaustion Action">
+    <pbs-input-select
+      ng-model="$ctrl.editTrunk.routeExhaustionAction"
+      ng-options="opt as opt for opt in $ctrl.options.routeExhaustionAction"
+      ng-change="$ctrl.updateConfirm('routeExhaustionAction')"
+    ></pbs-input-select>
+  </pbs-form-field>
+  <pbs-form-field
+    label="Forward To"
+    ng-show="$ctrl.editTrunk.routeExhaustionAction === 'Forward'"
+  >
+    <input
+      class="input"
+      type="text"
+      ng-model="$ctrl.editTrunk.routeExhaustionForwardAddress"
+    />
+  </pbs-form-field>
+  <pbs-form-field
+    label="Max Reroutes in Priority"
+    ng-if="$ctrl.editTrunk.priorityWeightedRouting"
+  >
+    <input
+      class="input"
+      type="number"
+      min="1"
+      max="10"
+      ng-model="$ctrl.editTrunk.priorityWeightedRouting.maximumRerouteAttemptsWithinPriority"
+      string-to-number
+    />
+  </pbs-form-field>
+  <pbs-form-field
+    label="Ordering Algorithm"
+    ng-if="$ctrl.editTrunk.orderedRouting"
+  >
+    <pbs-input-select
+      ng-model="$ctrl.editTrunk.orderedRouting.orderingAlgorithm"
+      ng-options="opt as opt for opt in $ctrl.options.orderingAlgorithm"
+    ></pbs-input-select>
+  </pbs-form-field>
+</pbs-modal>

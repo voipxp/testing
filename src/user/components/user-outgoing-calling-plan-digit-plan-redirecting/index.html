@@ -1,0 +1,42 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Digit Plan Redirecting">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit
+        title="Edit Plan"
+        ng-click="$ctrl.edit()"
+      ></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-section>Custom Settings</pbs-list-section>
+      <pbs-list-item label="Use Custom Settings">
+        <pbs-check-box checked="$ctrl.plan.useCustomSettings"></pbs-check-box>
+      </pbs-list-item>
+
+      <pbs-list-section>Digit Patterns</pbs-list-section>
+      <pbs-list-item
+        ng-repeat="pattern in $ctrl.plan.userPermissions"
+        label="{{ pattern.digitPatternName }}"
+      >
+        <pbs-check-box checked="pattern.permission"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserOutgoingCallingPlanDigitPlanRedirecting">
+  <pbs-form>
+    <pbs-form-section>Custom Settings</pbs-form-section>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editPlan.useCustomSettings"
+      label="Use Custom Settings"
+    ></pbs-input-checkbox>
+
+    <div ng-show="$ctrl.editPlan.useCustomSettings">
+      <pbs-form-section>Permissions</pbs-form-section>
+      <pbs-input-checkbox
+        ng-repeat="pattern in $ctrl.editPlan.userPermissions"
+        label="Allow {{ pattern.digitPatternName }}"
+        ng-model="pattern.permission"
+      ></pbs-input-checkbox>
+    </div>
+  </pbs-form>
+</pbs-modal>

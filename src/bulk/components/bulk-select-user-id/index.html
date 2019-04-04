@@ -1,0 +1,30 @@
+<pbs-block title="User ID Template" class="large-margin-bottom">
+  <pbs-spinner loading="$ctrl.loading">
+    <form name="selectUserIdForm" novalidate>
+      <pbs-form-section>User ID Template</pbs-form-section>
+      <bulk-tag-input
+        ng-model="$ctrl.userIdPrefix"
+        tag-required="$ctrl.userCount > 1"
+        is-required="true"
+        hide-tags="['userId', 'userIdPrefix']"
+      >
+        <p class="control">
+          <a class="button is-static">@</a>
+        </p>
+        <p class="control">
+          <pbs-input-select
+            ng-model="$ctrl.domain"
+            ng-options="domain as domain for domain in $ctrl.domains.domains"
+            required
+          ></pbs-input-select>
+        </p>
+      </bulk-tag-input>
+    </form>
+    <div class="has-text-right margin-top">
+      <pbs-button-next
+        ng-disabled="selectUserIdForm.$invalid"
+        ng-click="$ctrl.complete()"
+      ></pbs-button-next>
+    </div>
+  </pbs-spinner>
+</pbs-block>

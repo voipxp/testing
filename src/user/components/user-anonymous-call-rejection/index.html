@@ -1,0 +1,29 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons if-module-update="$ctrl.module">
+      <pbs-button-compact-edit
+        title="Edit Anonymous Call Rejection"
+        ng-click="$ctrl.edit()"
+      ></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Enabled">
+        <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+
+<pbs-modal
+  id="editUserAnonymousCallRejection"
+  title="Edit Anonymous Call Rejection"
+>
+  <pbs-form>
+    <pbs-form-field label="Enabled">
+      <pbs-input-checkbox
+        ng-model="$ctrl.editSettings.isActive"
+        label="Enable Anonymous Call Rejection"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

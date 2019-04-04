@@ -1,0 +1,27 @@
+<pbs-block title="User ID">
+  <pbs-block-buttons ng-if="$ctrl.canEdit">
+    <pbs-button-compact-edit
+      title="Change User ID"
+      ng-click="$ctrl.edit()"
+    ></pbs-button-compact-edit>
+  </pbs-block-buttons>
+  <pbs-list>
+    <pbs-list-item label="Current User ID">{{ $ctrl.userId }}</pbs-list-item>
+  </pbs-list>
+</pbs-block>
+<pbs-modal id="editUserIdModal" title="Edit User ID">
+  <pbs-form>
+    <pbs-form-field label="Current User ID">
+      <input type="text" class="input" ng-model="$ctrl.userId" disabled />
+    </pbs-form-field>
+    <pbs-form-field label="New User ID">
+      <select-user-id
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.userId"
+        on-update="$ctrl.setUserId($event)"
+        required="true"
+      ></select-user-id>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

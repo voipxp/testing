@@ -1,0 +1,51 @@
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+>
+</pbs-navigation>
+
+<pbs-spinner loading="$ctrl.loading">
+  <div class="columns">
+    <div class="column">
+      <pbs-dashboard-cards
+        title="Provisioning"
+        cards="$ctrl.cards"
+        filter="{type: 'provisioning', active: true}"
+        ng-if="$ctrl.isAdmin"
+        class="margin-bottom"
+      ></pbs-dashboard-cards>
+      <pbs-dashboard-cards
+        title="Reports"
+        cards="$ctrl.cards"
+        filter="{type: 'report', active: true}"
+      ></pbs-dashboard-cards>
+    </div>
+    <div class="column">
+      <pbs-dashboard-cards
+        title="Group Services"
+        cards="$ctrl.cards"
+        filter="{type: 'service', active: true}"
+        class="margin-bottom"
+      ></pbs-dashboard-cards>
+      <pbs-dashboard-cards
+        title="User Services"
+        cards="$ctrl.cards"
+        filter="{type: 'user', active: true}"
+      ></pbs-dashboard-cards>
+    </div>
+    <div class="column">
+      <pbs-dashboard-cards
+        title="Management"
+        cards="$ctrl.cards"
+        filter="{type: 'management', active: true}"
+      ></pbs-dashboard-cards>
+    </div>
+    <div class="column">
+      <group-users-panel
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        limit-to="15"
+      ></group-users-panel>
+    </div>
+  </div>
+</pbs-spinner>

@@ -1,0 +1,51 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="{{ $ctrl.template.deviceType }} Devices">
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <th>Device Name</th>
+        <th>MAC Address</th>
+        <th>Status</th>
+        <th>Assigned</th>
+        <th class="has-text-centered">Actions</th>
+      </thead>
+      <tfoot>
+        <tr ng-show="results.length < 1">
+          <td colspan="99">
+            No Assignments Found
+            <span ng-show="$ctrl.search"
+              >for
+              <strong>{{ $ctrl.search }}</strong>
+            </span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          ng-repeat="device in $ctrl.devices | orderBy:['+template.id','deviceName'] as results track by device.deviceName"
+        >
+          <td>{{ device.deviceName }}</td>
+          <td>{{ device.macAddress }}</td>
+          <td>{{ device.status }}</td>
+          <td>
+            <pbs-check-box checked="device.template.id"></pbs-check-box>
+          </td>
+          <td class="has-text-centered">
+            <button class="button is-small" ng-click="$ctrl.assign(device)">
+              Assign
+            </button>
+            <button
+              class="button is-small"
+              ng-click="$ctrl.rebuildReset(device)"
+            >
+              Rebuild/Reset
+            </button>
+            <button class="button is-small" ng-click="$ctrl.edit(device)">
+              Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>

@@ -1,0 +1,49 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Number">
+    <pbs-block-buttons ng-if="$ctrl.canEdit">
+      <pbs-button-compact-edit title="Edit Number" ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Phone Number">
+        {{ $ctrl.user.phoneNumber }}
+        <pbs-check-box
+          class="is-pulled-right"
+          checked="$ctrl.isActivated()"
+          ng-if="$ctrl.user.phoneNumber"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Extension">
+        {{ $ctrl.user.extension }}
+      </pbs-list-item>
+      <pbs-list-item label="CLID Phone Number">
+        {{ $ctrl.user.callingLineIdPhoneNumber }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserNumberModal" title="Edit Number">
+  <pbs-form>
+    <pbs-form-field label="Number">
+      <select-phone-number
+        service-provider-id="$ctrl.user.serviceProviderId"
+        group-id="$ctrl.user.groupId"
+        phone-number="$ctrl.editUser.phoneNumber"
+        on-update="$ctrl.selectPhoneNumber($event)"
+      ></select-phone-number>
+    </pbs-form-field>
+    <pbs-form-field label="Extension">
+      <input type="text" class="input" ng-model="$ctrl.editUser.extension" />
+    </pbs-form-field>
+    <pbs-form-field label="CLID Phone Number">
+      <select-phone-number
+        service-provider-id="$ctrl.user.serviceProviderId"
+        group-id="$ctrl.user.groupId"
+        phone-number="$ctrl.editUser.callingLineIdPhoneNumber"
+        show-all="true"
+        allow-manual="$ctrl.editCLID"
+        on-update="$ctrl.selectCLIDPhoneNumber($event)"
+      ></select-phone-number>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
