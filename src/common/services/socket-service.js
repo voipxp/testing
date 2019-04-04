@@ -6,8 +6,6 @@ angular.module('odin.common').factory('SocketService', Service)
 Service.$inject = ['$rootScope']
 function Service($rootScope) {
   return function(url) {
-    console.log('url', url)
-    console.log('eventURL', $rootScope.eventURL)
     const socket = io(url || $rootScope.eventURL)
 
     function on(eventName, callback) {
