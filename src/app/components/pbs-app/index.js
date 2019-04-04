@@ -56,7 +56,7 @@ function controller(
 
   function loadTemplate() {
     ctrl.template = UiTemplateService.data()
-    $rootScope.pageTitle = UiTemplateService.data('pageTitle') || 'ODiN'
+    $rootScope.pageTitle = UiTemplateService.data('pageTitle') || 'odin Web'
     setGoogleUA()
   }
 
