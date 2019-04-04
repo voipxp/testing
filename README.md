@@ -57,16 +57,16 @@ eg:
 
 ```
 # BAD
-services/auto-attendant.js
-services/create-hunt-group.js
-services/details-auto-attendant.js
-services/hunt-group.js
+components/auto-attendant
+components/create-hunt-group
+components/details-auto-attendant
+components/hunt-group
 
 # GOOD
-services/group-auto-attendant.js
-services/group-auto-attendant-details.js
-services/group-hunt-group.js
-services/group-hunt-group-create.js
+components/group-auto-attendant
+components/group-auto-attendant-details
+components/group-hunt-group
+components/group-hunt-group-create
 ```
 
 ### Module Layout
