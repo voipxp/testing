@@ -1,7 +1,6 @@
 .DS_Store
 .cache/
 .env
-.cache/
 .idea/
 dist/
 node_modules/
