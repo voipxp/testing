@@ -21,9 +21,8 @@ yarn start
 You can create a .env, .env.local, or .env.\$NODE_ENV file with the following variables to be used locally.
 
 ```
-API_PORT=8000                     # default same as web
-API_VERSION=v2                    # default v2
-EVENT_URL=http://127.0.0.1:3000/  # default /
+API_PORT=8000    # default same as web
+EVENT_PORT=4000  # default same as web
 ```
 
 ### Bundle for Production

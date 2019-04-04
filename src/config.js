@@ -83,10 +83,15 @@ export function idleConfig(IdleProvider, TitleProvider) {
 
 rootScope.$inject = ['$rootScope']
 export function rootScope($rootScope) {
-  $rootScope.eventURL = process.env.EVENT_URL || '/'
+  $rootScope.eventURL = eventURL()
   $rootScope.apiURL = apiURL()
   $rootScope.loginURL = '/login'
   $rootScope.sessionKey = 'odin:session'
+}
+
+function eventURL() {
+  const port = process.env.EVENT_PORT || location.port
+  return `${location.protocol}//${location.hostname}:${port}`
 }
 
 function apiURL() {
