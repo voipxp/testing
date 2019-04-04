@@ -121,7 +121,7 @@ Note: Components and Services file names should be the same as they are register
 
 ### index.js
 
-To create a module make a subdirectory with an index.js file that imports the module, components, directives, services, etc.. Each component and services directory should have an index.js that loads the corresponding components, directives, services.
+To create a module make a subdirectory with an index.js file that imports the module, components, directives, services, etc.. Each component and services directory should have an index.js that loads the corresponding components, directives, services, so you can simply import the directory name.
 
 The module import **MUST** be first.
 
@@ -133,15 +133,31 @@ import './components'
 
 ### module.js
 
-This file is in charge of initializing the module with any dependencies, configurations, routes, run blocks, etc... Any css that needs to be imported for the module can be directly imported here.
+This file is in charge of initializing and registering the angular module with any dependencies, configurations, routes, run blocks, etc... Any css that needs to be imported for the module can be directly imported here.
 
 ```
 import angular from 'angular'
 import routes from './routes'
-import 'angular-somedep'
-import 'angular-somedep/css/style.css'
+import 'some-angular-module-from-node-modules'
+import './index.css'
 
-angular.module('odin.module', ['angular.somedep']).config(routes)
+angular
+  .module('odin.module', ['angular.some-module'])
+  .config(['PbsRouteProvider', P => P.set(routes)])
+```
+
+### routes.js
+
+If the module contains routes, those should be a default export which is just an array of routes. These routes will be initilized in the module.js config block by passing them to PbsRouteProvider.
+
+```
+export default [
+  {
+    path: '/groups/:serviceProviderId/:groupId',
+    component: 'groupDashboard',
+    acl: 'Group'
+  }
+]
 ```
 
 ### component/index.js
@@ -166,7 +182,7 @@ import './that-service'
 
 Components register themselves with angular. Any CSS created for this component can be imported directly. Templates can be imported from a file or created as a constant using template literals (``). Do not use templateUrl.
 
-The directory the component is in should be the same name that is registered with angular but converted to **kebab-case**. For example, **myComponent** should be located in **my-component/index.js** or **my-component.js** if not in a subdirectory.
+The directory the component resides in should be the same name that the component is registered with angular but converted to **kebab-case**. For example, **myComponent** should be located in **my-component/index.js** or **my-component.js** if not in a subdirectory.
 
 Be sure to inject the DI dependencies using **\$inject**
 
@@ -212,7 +228,9 @@ function MyService(SomeDI) {
 
 ### Tips
 
-You can use the command-line to generate includes in services directories. For example, this will find all the files in the directory and add them to an index.js file
+You can use the command-line to generate an index.js file to import all the services or components.
+
+For example, to include all the service files.
 
 ```
 for i in $(find . -type f | grep -v index.js | sort | awk -F '.js' '{print $1}'); do
@@ -220,7 +238,7 @@ for i in $(find . -type f | grep -v index.js | sort | awk -F '.js' '{print $1}')
 done
 ```
 
-This will render a file with something like...
+That will create an index.js file with something like...
 
 ```
 import './a-service.js'
@@ -228,10 +246,17 @@ import './b-service.js'
 import './c-service.js'
 ```
 
-For directories
+To include all the component directories
 
 ```
 for i in $(find . -type d | sort | grep -v '^.$'); do
   echo "import '$i'" >> index.js
 done
+```
+
+That will create an index.js file with something like ...
+
+```
+import './a-component'
+import './b-component'
 ```
