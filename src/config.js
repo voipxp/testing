@@ -87,7 +87,6 @@ export function rootScope($rootScope) {
   $rootScope.apiURL = apiURL()
   $rootScope.loginURL = '/login'
   $rootScope.sessionKey = 'odin:session'
-  console.log('rootScope', $rootScope)
 }
 
 function getPrefix(port) {
