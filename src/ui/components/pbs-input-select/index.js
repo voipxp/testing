@@ -1,7 +1,7 @@
 import angular from 'angular'
 
-angular.module('odin.UI').directive('pbsInputSelect', Wrap)
-angular.module('odin.UI').directive('pbsInputSelect', Directive)
+angular.module('odin.ui').directive('pbsInputSelect', Wrap)
+angular.module('odin.ui').directive('pbsInputSelect', Directive)
 
 function Wrap() {
   return {

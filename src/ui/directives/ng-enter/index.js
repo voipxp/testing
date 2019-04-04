@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').directive('ngEnter', ngEnter)
+angular.module('odin.ui').directive('ngEnter', ngEnter)
 
 function ngEnter() {
   return function(scope, element, attributes) {

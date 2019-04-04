@@ -29,7 +29,7 @@ import './group'
 import './service-provider'
 import './settings'
 import './system'
-import './UI'
+import './ui'
 import './user'
 import './vdm'
 
@@ -59,7 +59,7 @@ angular
     'odin.serviceProvider',
     'odin.settings',
     'odin.system',
-    'odin.UI',
+    'odin.ui',
     'odin.user',
     'odin.vdm'
   ])

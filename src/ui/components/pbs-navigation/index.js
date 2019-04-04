@@ -15,7 +15,7 @@ import angular from 'angular'
 import template from './index.html'
 import './index.css'
 
-angular.module('odin.UI').component('pbsNavigation', {
+angular.module('odin.ui').component('pbsNavigation', {
   template,
   controller,
   transclude: true,

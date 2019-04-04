@@ -45,7 +45,7 @@ The bundler (parcel) starts at index.html and then walks all import statements, 
 ### Angular Modules
 
 - All API related services should reside in the **odin.api** module.
-- Any top-level UI features not specific to broadworks (eg: bulma related components such as pbs-block) should be in the **odin.UI** module.
+- Any top-level UI features not specific to broadworks (eg: bulma related components such as pbs-block) should be in the **odin.ui** module.
 - Anything such as a helper component that could be re-used in multiple places should reside in **odin.common**
 - Anything else should be within the module related to the broadworks higherarchy (user, group, ...) or the particular functionality of those components. Feel free to break them out into sub-components if it gets cluttered. (eg: **odin.group**, **odin.group.trunking**)
 

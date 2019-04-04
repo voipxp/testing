@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').factory('Alert', Alert)
+angular.module('odin.ui').factory('Alert', Alert)
 
 Alert.$inject = ['Modal', 'Spinner', 'Confirm', 'Notification']
 function Alert(Modal, Spinner, Confirm, Notification) {

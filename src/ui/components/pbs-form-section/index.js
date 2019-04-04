@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').directive('pbsFormSection', pbsFormSection)
+angular.module('odin.ui').directive('pbsFormSection', pbsFormSection)
 
 const template = `<h4 class="subtitle">{{ title }}<span ng-transclude></span></h4>`
 

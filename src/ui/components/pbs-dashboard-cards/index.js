@@ -2,7 +2,7 @@ import angular from 'angular'
 import template from './index.html'
 import './index.css'
 
-angular.module('odin.UI').component('pbsDashboardCards', {
+angular.module('odin.ui').component('pbsDashboardCards', {
   template,
   controller,
   bindings: { cards: '<', title: '@', filter: '<', limitTo: '<' }

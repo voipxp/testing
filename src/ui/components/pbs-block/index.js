@@ -11,7 +11,7 @@ import './index.css'
     <p>The Content Goes Here</p>
   </pbs-block>
 */
-angular.module('odin.UI').component('pbsBlock', {
+angular.module('odin.ui').component('pbsBlock', {
   template,
   transclude: { buttons: '?pbsBlockButtons' },
   bindings: { title: '@', module: '<' },

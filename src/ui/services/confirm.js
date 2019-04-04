@@ -6,7 +6,7 @@
 
 import angular from 'angular'
 
-angular.module('odin.UI').factory('Confirm', Confirm)
+angular.module('odin.ui').factory('Confirm', Confirm)
 
 Confirm.$inject = ['$q']
 function Confirm($q) {

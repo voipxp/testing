@@ -1,5 +1,5 @@
 import angular from 'angular'
 import { Wrap, Directive } from '../pbs-input-helper'
 
-angular.module('odin.UI').directive('pbsInputRadio', Wrap('radio'))
-angular.module('odin.UI').directive('pbsInputRadio', Directive)
+angular.module('odin.ui').directive('pbsInputRadio', Wrap('radio'))
+angular.module('odin.ui').directive('pbsInputRadio', Directive)

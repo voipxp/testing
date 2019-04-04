@@ -1,7 +1,7 @@
 import angular from 'angular'
 import './index.css'
 
-angular.module('odin.UI').directive('pbsListItem', pbsListItem)
+angular.module('odin.ui').directive('pbsListItem', pbsListItem)
 
 const template = `
 <tr>

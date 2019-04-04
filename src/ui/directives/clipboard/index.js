@@ -1,7 +1,7 @@
 import angular from 'angular'
 import ClipboardJS from 'clipboard'
 
-angular.module('odin.UI').directive('pbsClipboard', pbsClipboard)
+angular.module('odin.ui').directive('pbsClipboard', pbsClipboard)
 
 pbsClipboard.$inject = ['Alert']
 function pbsClipboard(Alert) {

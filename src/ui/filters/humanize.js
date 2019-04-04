@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').filter('humanize', Humanize)
+angular.module('odin.ui').filter('humanize', Humanize)
 
 function Humanize() {
   return function(input) {

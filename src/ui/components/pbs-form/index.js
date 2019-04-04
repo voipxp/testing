@@ -1,7 +1,7 @@
 import angular from 'angular'
 import './index.css'
 
-angular.module('odin.UI').directive('pbsForm', pbsForm)
+angular.module('odin.ui').directive('pbsForm', pbsForm)
 
 const template = '<form novalidate ng-transclude></form>'
 

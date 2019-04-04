@@ -5,7 +5,7 @@
 */
 import angular from 'angular'
 
-angular.module('odin.UI').filter('paginate', Paginate)
+angular.module('odin.ui').filter('paginate', Paginate)
 
 Paginate.$inject = ['limitToFilter']
 function Paginate(limitToFilter) {

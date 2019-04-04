@@ -1,7 +1,7 @@
 import angular from 'angular'
 import './index.css'
 
-angular.module('odin.UI').directive('pbsSubtitle', pbsSubtitle)
+angular.module('odin.ui').directive('pbsSubtitle', pbsSubtitle)
 
 function pbsSubtitle() {
   return {

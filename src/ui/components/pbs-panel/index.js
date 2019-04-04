@@ -11,7 +11,7 @@ import _ from 'lodash'
 import template from './index.html'
 import './index.css'
 
-angular.module('odin.UI').component('pbsPanel', {
+angular.module('odin.ui').component('pbsPanel', {
   template,
   controller,
   bindings: {

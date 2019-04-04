@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').directive('pbsCheckBox', pbsCheckBox)
+angular.module('odin.ui').directive('pbsCheckBox', pbsCheckBox)
 
 const template = `
 <span class="icon"><i class="fas" ng-class="class()"></i></span>

@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').directive('pbsFormField', pbsFormField)
+angular.module('odin.ui').directive('pbsFormField', pbsFormField)
 
 const template = `
 <div class="field">

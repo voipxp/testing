@@ -1,7 +1,7 @@
 import angular from 'angular'
 
 angular
-  .module('odin.UI')
+  .module('odin.ui')
   .directive('pbsButtonCompact', pbsButtonCompact())
   .directive('pbsButtonCompactAdd', pbsButtonCompact('fa-plus'))
   .directive('pbsButtonCompactCheck', pbsButtonCompact('fa-check'))

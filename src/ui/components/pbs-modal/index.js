@@ -19,7 +19,7 @@ import _ from 'lodash'
 import template from './index.html'
 import './index.css'
 
-angular.module('odin.UI').directive('pbsModal', pbsModal)
+angular.module('odin.ui').directive('pbsModal', pbsModal)
 
 pbsModal.$inject = ['Modal']
 function pbsModal(Modal) {

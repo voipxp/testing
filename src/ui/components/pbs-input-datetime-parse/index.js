@@ -3,7 +3,7 @@ import Sugar from 'sugar-date'
 import _ from 'lodash'
 import template from './index.html'
 
-angular.module('odin.UI').component('pbsInputDatetimeParse', {
+angular.module('odin.ui').component('pbsInputDatetimeParse', {
   template,
   controller,
   bindings: { ngModel: '=', isDate: '<', placeholder: '@', ngRequired: '=' }

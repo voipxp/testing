@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').factory('Spinner', Spinner)
+angular.module('odin.ui').factory('Spinner', Spinner)
 
 function Spinner() {
   const service = { register: register, open: open, close: close }

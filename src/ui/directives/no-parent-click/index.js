@@ -7,7 +7,7 @@
 
 import angular from 'angular'
 
-angular.module('odin.UI').directive('noParentClick', Directive)
+angular.module('odin.ui').directive('noParentClick', Directive)
 
 function Directive() {
   return {

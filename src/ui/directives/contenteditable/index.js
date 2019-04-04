@@ -1,7 +1,7 @@
 import angular from 'angular'
 import './index.css'
 
-angular.module('odin.UI').directive('contenteditable', ContentEditable)
+angular.module('odin.ui').directive('contenteditable', ContentEditable)
 
 ContentEditable.$inject = ['$sce', '$timeout']
 function ContentEditable($sce, $timeout) {

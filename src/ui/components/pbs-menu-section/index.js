@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 const template = '<div ng-transclude></div>'
 
-angular.module('odin.UI').component('pbsMenuSection', {
+angular.module('odin.ui').component('pbsMenuSection', {
   bindings: { label: '@', delay: '<' },
   require: { menu: '^pbsMenu' },
   transclude: true,

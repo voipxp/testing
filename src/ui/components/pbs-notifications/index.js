@@ -3,7 +3,7 @@ import template from './index.html'
 import './index.css'
 
 angular
-  .module('odin.UI')
+  .module('odin.ui')
   .component('pbsNotifications', { template, controller })
 
 controller.$inject = ['Notification']

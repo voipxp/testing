@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').directive('pbsListSection', pbsListSection)
+angular.module('odin.ui').directive('pbsListSection', pbsListSection)
 
 const template = `
 <tr>

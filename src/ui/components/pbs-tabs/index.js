@@ -12,7 +12,7 @@ const template = `
     <div class="tabs-content" ng-transclude></div>
   `
 
-angular.module('odin.UI').component('pbsTabs', {
+angular.module('odin.ui').component('pbsTabs', {
   template: template,
   transclude: true,
   bindings: { delay: '<', class: '@' },

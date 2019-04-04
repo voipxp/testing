@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').directive('pbsCancel', Directive)
+angular.module('odin.ui').directive('pbsCancel', Directive)
 
 const template = `
 <span style="position: relative; width: 0; height: 0;">

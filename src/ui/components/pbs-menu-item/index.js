@@ -6,7 +6,7 @@ const template = `
 </div>
 `
 
-angular.module('odin.UI').component('pbsMenuItem', {
+angular.module('odin.ui').component('pbsMenuItem', {
   template,
   controller,
   bindings: { label: '@', delay: '<' },

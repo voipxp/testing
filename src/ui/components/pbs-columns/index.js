@@ -7,7 +7,7 @@
 */
 import angular from 'angular'
 
-angular.module('odin.UI').directive('pbsColumns', pbsColumns)
+angular.module('odin.ui').directive('pbsColumns', pbsColumns)
 
 const template = '<div class="columns" ng-transclude></div>'
 

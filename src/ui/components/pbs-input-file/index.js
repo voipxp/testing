@@ -4,7 +4,7 @@ import angular from 'angular'
 import template from './index.html'
 import './index.css'
 
-angular.module('odin.UI').directive('pbsInputFile', Directive)
+angular.module('odin.ui').directive('pbsInputFile', Directive)
 
 //  TODO: add some css on drop effects
 

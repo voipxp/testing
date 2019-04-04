@@ -1,7 +1,7 @@
 import angular from 'angular'
 import _ from 'lodash'
 
-angular.module('odin.UI').directive('pbsComponent', Directive)
+angular.module('odin.ui').directive('pbsComponent', Directive)
 
 Directive.$inject = ['$compile', '$parse']
 function Directive($compile, $parse) {

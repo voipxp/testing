@@ -1,7 +1,7 @@
 import angular from 'angular'
 
 angular
-  .module('odin.UI')
+  .module('odin.ui')
   .directive('pbsButton', pbsButton())
   .directive('pbsButtonNext', pbsButton('fa-chevron-right', 'is-link', 'Next'))
   .directive(

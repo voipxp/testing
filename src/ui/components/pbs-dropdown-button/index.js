@@ -1,7 +1,7 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular.module('odin.UI').component('pbsButtonDropdown', {
+angular.module('odin.ui').component('pbsButtonDropdown', {
   template,
   controller,
   bindings: { icon: '@', items: '<', onSelect: '&' }

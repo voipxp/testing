@@ -3,7 +3,7 @@ import _ from 'lodash'
 import template from './index.html'
 import './index.css'
 
-angular.module('odin.UI').component('pbsDataTable', {
+angular.module('odin.ui').component('pbsDataTable', {
   template,
   controller,
   bindings: {

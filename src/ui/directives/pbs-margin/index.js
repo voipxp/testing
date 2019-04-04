@@ -1,7 +1,7 @@
 import angular from 'angular'
 
-angular.module('odin.UI').directive('pbsMarginTop', pbsMarginTop)
-angular.module('odin.UI').directive('pbsMarginBottom', pbsMarginBottom)
+angular.module('odin.ui').directive('pbsMarginTop', pbsMarginTop)
+angular.module('odin.ui').directive('pbsMarginBottom', pbsMarginBottom)
 
 function pbsMarginTop() {
   return {

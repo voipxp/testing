@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').factory('Modal', Modal)
+angular.module('odin.ui').factory('Modal', Modal)
 
 function Modal() {
   const service = {

@@ -2,7 +2,7 @@ import angular from 'angular'
 import _ from 'lodash'
 import Sugar from 'sugar-date'
 
-angular.module('odin.UI').filter('pbsDate', Controller)
+angular.module('odin.ui').filter('pbsDate', Controller)
 
 function Controller() {
   return function(input, format) {

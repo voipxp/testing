@@ -1,2 +1,2 @@
 import angular from 'angular'
-angular.module('odin.UI', [])
+angular.module('odin.ui', [])

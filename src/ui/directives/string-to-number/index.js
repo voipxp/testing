@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').directive('stringToNumber', stringToNumber)
+angular.module('odin.ui').directive('stringToNumber', stringToNumber)
 
 function stringToNumber() {
   return {

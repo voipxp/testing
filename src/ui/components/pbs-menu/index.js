@@ -3,7 +3,7 @@ import _ from 'lodash'
 import template from './index.html'
 import './index.css'
 
-angular.module('odin.UI').component('pbsMenu', {
+angular.module('odin.ui').component('pbsMenu', {
   template,
   controller,
   transclude: true,

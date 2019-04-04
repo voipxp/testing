@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import angular from 'angular'
 
-angular.module('odin.UI').factory('Notification', Notification)
+angular.module('odin.ui').factory('Notification', Notification)
 
 Notification.$inject = ['$timeout']
 function Notification($timeout) {

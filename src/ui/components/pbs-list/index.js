@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').directive('pbsList', pbsList)
+angular.module('odin.ui').directive('pbsList', pbsList)
 
 const template = '<table class="table is-fullwidth" ng-transclude></table>'
 

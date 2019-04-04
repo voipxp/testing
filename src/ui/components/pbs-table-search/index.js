@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').directive('pbsTableSearch', pbsTableSearch)
+angular.module('odin.ui').directive('pbsTableSearch', pbsTableSearch)
 
 function pbsTableSearch() {
   return {

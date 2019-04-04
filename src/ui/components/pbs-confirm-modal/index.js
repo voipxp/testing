@@ -2,7 +2,7 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular.module('odin.UI').component('pbsConfirmModal', { template, controller })
+angular.module('odin.ui').component('pbsConfirmModal', { template, controller })
 
 controller.$inject = ['Confirm', '$q']
 function controller(Confirm, $q) {

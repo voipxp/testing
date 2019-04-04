@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.UI').directive('pbsButtonStatic', pbsButtonStatic)
+angular.module('odin.ui').directive('pbsButtonStatic', pbsButtonStatic)
 
 const template = `
 <a class="button is-static pbs-button-static" ng-transclude></a>

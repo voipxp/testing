@@ -17,7 +17,7 @@ const template = `
 />
 `
 
-angular.module('odin.UI').component('pbsInputDatetime', {
+angular.module('odin.ui').component('pbsInputDatetime', {
   template: template,
   bindings: { isDate: '<', ngRequired: '<', ngModel: '=' }
 })

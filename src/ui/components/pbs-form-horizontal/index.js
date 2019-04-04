@@ -1,7 +1,7 @@
 import angular from 'angular'
 
 angular
-  .module('odin.UI')
+  .module('odin.ui')
   .directive('pbsFormFieldHorizontal', pbsFormFieldHorizontal)
 
 const template = `

@@ -2,7 +2,7 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular.module('odin.UI').component('pbsListBuilder', {
+angular.module('odin.ui').component('pbsListBuilder', {
   template,
   controller,
   bindings: { data: '=', schema: '<' }
