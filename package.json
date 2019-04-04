@@ -12,7 +12,6 @@
     "lint": "eslint 'src/**/*.js'",
     "browsers": "npx browserslist"
   },
-  "assetsPath": "assets",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.7.2",
     "angular": ">=1.x <2",
@@ -56,6 +55,7 @@
     "parcel-plugin-clean-dist": "^0.0.6",
     "sass": "^1.17.2"
   },
+  "assetsPath": "assets",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
