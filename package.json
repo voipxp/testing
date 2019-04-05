@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel serve src/index.html --no-source-maps --open",
-    "build": "NODE_ENV=production parcel build src/index.html --public-url /app --detailed-report --no-source-maps",
+    "build": "NODE_ENV=production parcel build src/index.html --public-url /app --no-source-maps",
     "prettier": "prettier \"src/**/*\" -l",
     "format": "yarn prettier --write",
     "fix": "eslint --fix 'src/**/*.js'",
