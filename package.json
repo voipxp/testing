@@ -13,6 +13,7 @@
     "browsers": "npx browserslist"
   },
   "dependencies": {
+    "@babel/runtime": "^7.4.3",
     "@fortawesome/fontawesome-free": "^5.7.2",
     "angular": ">=1.x <2",
     "angular-animate": "^1.7.7",
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
+    "@babel/plugin-transform-runtime": "^7.4.3",
     "@babel/preset-env": "^7.3.4",
     "babel-eslint": "^10.0.1",
     "babel-plugin-transform-html-import-require-to-string": "^0.0.3",
