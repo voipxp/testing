@@ -1,11 +1,11 @@
 /* NOTIFICATIONS */
 .notification.ng-leave {
   animation-name: lightSpeedOut;
-  animation-duration: 500ms;
+  animation-duration: 300ms;
 }
 .notification.ng-enter {
   animation-name: lightSpeedIn;
-  animation-duration: 500ms;
+  animation-duration: 300ms;
 }
 
 .quickview-block {
