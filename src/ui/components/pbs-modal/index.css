@@ -28,7 +28,7 @@
 }
 
 .modal.ng-enter .modal-card {
-  animation-name: bounceInDown;
+  animation-name: zoomIn;
   animation-duration: 500ms;
 }
 
@@ -39,6 +39,6 @@
 }
 
 .modal.ng-leave .modal-card {
-  animation-name: bounceOutUp;
+  animation-name: zoomOut;
   animation-duration: 500ms;
 }

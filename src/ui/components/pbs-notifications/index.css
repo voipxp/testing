@@ -1,10 +1,10 @@
 /* NOTIFICATIONS */
 .notification.ng-leave {
-  animation-name: bounceOutRight;
+  animation-name: lightSpeedOut;
   animation-duration: 500ms;
 }
 .notification.ng-enter {
-  animation-name: bounceInRight;
+  animation-name: lightSpeedIn;
   animation-duration: 500ms;
 }
 
