@@ -4,7 +4,7 @@ angular
   .module('odin.api')
   .factory('UserCallingNameRetrievalService', UserCallingNameRetrievalService)
 
-UserCallingNameRetrievalService.$inject = ['http', 'Route']
+UserCallingNameRetrievalService.$inject = ['$http', 'Route']
 function UserCallingNameRetrievalService($http, Route) {
   var url = Route.api('/users/calling-name-retrieval')
   var service = { show: show, update: update }
