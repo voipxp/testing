@@ -18,11 +18,17 @@ yarn start
 
 #### Dev Environmental variables
 
-You can create a .env, .env.local, or .env.\$NODE_ENV file with the following variables to be used locally.
+You can create a .env, .env.local, or .env.\$NODE_ENV file with the following variables to be point the API and EVENT calls to a local or remote instance.
+
+For example, if you are developing locally and you have the API server listening on port 8000 and the event server on port 4000, you can simply set API_PORT=8000, and EVENT_PORT=4000. This will automatically infer the hostname of what is in the browser (localhost, a-host-in-etc-hosts.com). In this case, comment out the API_BASE setting.
+
+If you are developing locally, but you want to point the API calls to a remote server, you can set API_BASE=https://someurl.com/. This will send all the API and EVENT calls to the remote **odin** instance at someurl.com. In this case, comment out the API_PORT and EVENT_PORT settings.
 
 ```
-API_PORT=8000    # default same as web
-EVENT_PORT=4000  # default same as web
+#API_BASE=https://someurl.com/  # defaults to /
+# OR
+#API_PORT=8000                  # default same as web
+#EVENT_PORT=4000                # default same as web
 ```
 
 ### Bundle for Production
