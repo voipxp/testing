@@ -22,20 +22,18 @@ export function authInterceptorConfig($httpProvider) {
   $httpProvider.interceptors.push([
     '$q',
     'Session',
-    function($q, Session) {
+    ($q, Session) => {
       return {
-        responseError: function(response) {
+        responseError: async response => {
           const status = response.status
           if (status === -1) {
-            return Session.clear().then(function() {
-              return $q.reject('Connection Failed')
-            })
+            await Session.clear
+            return $q.reject('Connection Failed')
           }
           // If a 401 or 403 from API remove local JWT Token
           if (status === 401 || status === 402 || status === 403) {
-            return Session.clear().then(function() {
-              return $q.reject(response)
-            })
+            await Session.clear()
+            return $q.reject(response)
           }
           // Pass through the rejection
           return $q.reject(response)
@@ -47,14 +45,23 @@ export function authInterceptorConfig($httpProvider) {
 
 jwtInterceptorConfig.$inject = ['$httpProvider', 'jwtOptionsProvider']
 export function jwtInterceptorConfig($httpProvider, jwtOptionsProvider) {
+  const domains = new Set()
+  domains.add('localhost')
+  domains.add(location.hostname)
+  if (process.env.API_BASE) {
+    const a = document.createElement('a')
+    a.href = process.env.API_BASE
+    domains.add(a.hostname)
+  }
+  const whiteListedDomains = [...domains]
   jwtOptionsProvider.config({
-    whiteListedDomains: [location.hostname, 'localhost'],
+    whiteListedDomains,
     tokenGetter: [
       'options',
       'Session',
-      function(options, Session) {
+      (options, Session) => {
         const url = (options && options.url) || ''
-        // Skip if we are requesting a templateCache page
+        // Skip if we are requesting an html page
         if (url.substr(url.length - 5) === '.html') return null
         // return the token from the session
         return Session.data('token')
@@ -69,9 +76,7 @@ export function cacheFactoryConfig(CacheFactoryProvider) {
   angular.extend(CacheFactoryProvider.defaults, {
     maxAge: 5 * 60 * 1000,
     deleteOnExpire: 'passive',
-    onExpire: function(key) {
-      console.log('expire', key)
-    }
+    onExpire: key => console.log('expire', key)
   })
 }
 
@@ -90,6 +95,7 @@ export function rootScope($rootScope) {
 }
 
 function getPrefix(port) {
+  if (process.env.API_BASE) return process.env.API_BASE
   return port ? `${location.protocol}//${location.hostname}:${port}/` : '/'
 }
 

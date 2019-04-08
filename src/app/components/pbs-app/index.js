@@ -16,7 +16,8 @@ controller.$inject = [
   'CacheFactory',
   'Alert',
   'Idle',
-  'Route'
+  'Route',
+  '$timeout'
 ]
 function controller(
   UiTemplateService,
@@ -30,7 +31,8 @@ function controller(
   CacheFactory,
   Alert,
   Idle,
-  Route
+  Route,
+  $timeout
 ) {
   const ctrl = this
   ctrl.$onInit = onInit
@@ -132,7 +134,7 @@ function controller(
 
   $rootScope.$on('Session:cleared', function() {
     Idle.unwatch()
-    Route.login()
+    $timeout(() => Route.login(), 0)
   })
 
   $rootScope.$on('Session:loaded', function() {
