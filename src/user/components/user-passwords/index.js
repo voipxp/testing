@@ -84,9 +84,6 @@ function controller(Alert, UserService, $q, Session, AuthService) {
 
   // so we don't have to login again
   function updateSession(userId, password) {
-    return AuthService.token(userId, password)
-      .then(Session.set)
-      .then(AuthService.session)
-      .then(Session.update)
+    return AuthService.token(userId, password).then(Session.set)
   }
 }

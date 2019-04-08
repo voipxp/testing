@@ -19,18 +19,16 @@ function Session(StorageService, $rootScope, $q, jwtHelper) {
   return service
 
   // load the saved data into memory
-  function load() {
-    return StorageService.get($rootScope.sessionKey).then(function(data) {
-      _data = data || {}
-      $rootScope.$emit('Session:loaded')
-      return _data
-    })
+  async function load() {
+    const data = await StorageService.get($rootScope.sessionKey)
+    _data = data || {}
+    $rootScope.$emit('Session:loaded')
+    return _data
   }
 
   // return the data or a specific property
   function data(property) {
-    if (!property) return _data
-    return _.get(_data, property)
+    return property ? _.get(_data, property) : _data
   }
 
   // replace session data and cache in memory
@@ -40,36 +38,25 @@ function Session(StorageService, $rootScope, $q, jwtHelper) {
 
   // update session data and cache in memory
   function update(data) {
-    return set(_.assign({}, _data, data)).then(function(merged) {
-      $rootScope.$emit('Session:updated')
-      return merged
-    })
+    return set(_.assign({}, _data, data))
   }
 
   // remove the session data
-  function clear() {
-    return StorageService.clear($rootScope.sessionKey)
-      .then(load)
-      .then(function() {
-        $rootScope.$emit('Session:cleared')
-      })
+  async function clear() {
+    await StorageService.clear($rootScope.sessionKey)
+    await load()
+    $rootScope.$emit('Session:cleared')
   }
 
   function expired() {
     return data('token') ? jwtHelper.isTokenExpired(data('token')) : true
   }
 
-  function required() {
-    const promise = _.isEmpty(_data) ? load() : $q.when(_data)
-    return promise
-      .then(function() {
-        if (!expired()) return true
-        return clear().then(function() {
-          return $q.reject('sessionRequired')
-        })
-      })
-      .catch(function(error) {
-        return $q.reject(error)
-      })
+  async function required() {
+    if (_.isEmpty(_data)) await load()
+    if (expired()) {
+      await clear()
+      throw new Error('sessionRequired')
+    }
   }
 }

@@ -29,9 +29,7 @@ function controller(
   ctrl.submit = submit
 
   function onInit() {
-    if (!Session.expired()) {
-      return Route.dashboard()
-    }
+    if (!Session.expired()) return Route.dashboard()
     UiTemplateService.load().then(function() {
       ctrl.loginMessage = UiTemplateService.data('pageLoginMessage')
     })
@@ -78,8 +76,6 @@ function controller(
     Alert.spinner.open()
     return AuthService.token(username, password)
       .then(Session.set)
-      .then(AuthService.session)
-      .then(Session.update)
       .then(Module.load)
       .then(Route.dashboard)
       .catch(function(error) {

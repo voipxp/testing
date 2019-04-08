@@ -20,6 +20,8 @@ function controller(AuthService, Session, Module, Route, Alert, $location) {
     login(token)
   }
 
+  // here we only have the token, so we also need to grab the session
+  // data from the API and update it
   function login(token) {
     Alert.spinner.open()
     return Session.set({ token: token })

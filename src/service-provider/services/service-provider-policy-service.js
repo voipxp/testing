@@ -61,7 +61,6 @@ function Service(AuthService, Session, ACL, $q) {
   function load() {
     // no need if not a system admin
     if (ACL.has('Provisioning')) return $q.resolve()
-    return AuthService.session().then(Session.update)
   }
 
   function accessDeviceAssociationRead() {

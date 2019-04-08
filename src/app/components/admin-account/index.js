@@ -26,9 +26,7 @@ function controller(Session, Alert, AuthService) {
   function changePassword(oldPassword, newPassword, callback) {
     Alert.spinner.open()
     AuthService.password(oldPassword, newPassword)
-      .then(function(data) {
-        return updateSession(data)
-      })
+      .then(Session.set)
       .then(function() {
         Alert.notify.success('Password Changed')
         callback()
@@ -38,15 +36,6 @@ function controller(Session, Alert, AuthService) {
       })
       .finally(function() {
         Alert.spinner.close()
-      })
-  }
-
-  function updateSession(token) {
-    return Session.set(token)
-      .then(AuthService.session)
-      .then(Session.update)
-      .then(function(data) {
-        console.log('session', data)
       })
   }
 }
