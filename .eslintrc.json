@@ -5,19 +5,19 @@
     "parser": "babel-eslint",
     "ecmaFeatures": { "jsx": true }
   },
-  "extends": ["eslint:recommended", "plugin:unicorn/recommended", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "react-app",
+    "plugin:react/recommended",
+    "plugin:unicorn/recommended",
+    "prettier"
+  ],
+  "plugins": ["react-hooks"],
   "rules": {
     "no-console": 0,
-    "unicorn/prevent-abbreviations": [
-      "error",
-      {
-        "replacements": {
-          "e": { "event": false },
-          "res": { "result": false },
-          "props": false
-        }
-      }
-    ]
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "unicorn/prevent-abbreviations": 0
   },
   "globals": {
     "document": true

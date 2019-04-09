@@ -1,0 +1,3 @@
+- use Helmet to initialize the icons?
+- replace app skeleton with react
+- replace routing with react
