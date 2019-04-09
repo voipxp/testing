@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect'
 import angular from 'angular'
 import kebabCase from 'lodash/kebabCase'
-import { injector } from '../angular'
+import { injector } from '/angular'
 
 export default function AngularComponent({
   component,

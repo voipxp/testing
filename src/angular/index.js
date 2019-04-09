@@ -1,5 +1,6 @@
 // DEPS
 import angular from 'angular'
+import ngRedux from 'ng-redux'
 import 'angular-animate'
 import 'angular-cache'
 import 'angular-chart.js'
@@ -52,6 +53,7 @@ angular
     'checklist-model',
     'truncate',
     'chart.js',
+    ngRedux,
     'odin.api',
     'odin.common',
     'odin.app',
@@ -74,7 +76,9 @@ angular
   .config(config.jwtInterceptorConfig)
   .config(config.cacheFactoryConfig)
   .config(config.idleConfig)
+  .config(config.ngRedux)
   .run(config.rootScope)
+  .run(config.reduxDevTools)
   .run(['$injector', i => (_injector = i)])
 
 angular

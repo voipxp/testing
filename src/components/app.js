@@ -1,8 +1,12 @@
 import React from 'react'
+import Alerts from './alerts'
 import AngularComponent from './angular-component'
 
-const App = () => {
-  return <AngularComponent component="pbsApp" />
+export default function App() {
+  return (
+    <>
+      <Alerts />
+      <AngularComponent component="pbsApp" />
+    </>
+  )
 }
-
-export default App

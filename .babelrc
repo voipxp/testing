@@ -3,7 +3,10 @@
     ["@babel/preset-env", { "useBuiltIns": "entry" }],
     "@babel/preset-react"
   ],
-  "plugins": ["@babel/plugin-transform-runtime"],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    ["babel-plugin-styled-components", { "ssr": false }]
+  ],
   "env": {
     "production": {
       "plugins": ["transform-html-import-require-to-string"]

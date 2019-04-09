@@ -1,4 +1,5 @@
 import angular from 'angular'
+import store from '/store'
 
 locationConfig.$inject = ['$locationProvider']
 export function locationConfig($locationProvider) {
@@ -92,6 +93,16 @@ export function rootScope($rootScope) {
   $rootScope.apiURL = apiURL()
   $rootScope.loginURL = '/login'
   $rootScope.sessionKey = 'odin:session'
+}
+
+ngRedux.$inject = ['$ngReduxProvider']
+export function ngRedux($ngReduxProvider) {
+  $ngReduxProvider.provideStore(store)
+}
+
+reduxDevTools.$inject = ['$ngRedux', '$timeout', '$rootScope']
+export function reduxDevTools($ngRedux, $timeout, $rootScope) {
+  $ngRedux.subscribe(() => $timeout(() => $rootScope.$apply(() => {}), 100))
 }
 
 function getPrefix(port) {
