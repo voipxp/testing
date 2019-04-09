@@ -8,6 +8,7 @@ angular.module('odin.user').component('userGroupNightForwarding', {
   bindings: { userId: '<' }
 })
 
+controller.$inject = ['Alert', 'UserNightForwardingService', 'Module', '$q']
 function controller(Alert, UserNightForwardingService, Module, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
