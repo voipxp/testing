@@ -5,11 +5,7 @@ import angular from 'angular'
 import kebabCase from 'lodash/kebabCase'
 import { injector } from '/angular'
 
-export default function AngularComponent({
-  component,
-  location = {},
-  match = {}
-}) {
+export default function Angular({ component, location = {}, match = {} }) {
   const scopeRef = useRef()
   const ref = useRef()
 
@@ -47,7 +43,7 @@ export default function AngularComponent({
   return <div ref={ref} />
 }
 
-AngularComponent.propTypes = {
+Angular.propTypes = {
   component: PropTypes.string,
   location: PropTypes.object,
   match: PropTypes.object

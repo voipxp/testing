@@ -17,6 +17,7 @@ const StyledAlerts = styled.div`
 `
 
 const StyledAlert = styled.div`
+  text-align: centered;
   &.notification-exit {
     animation-name: lightSpeedOut;
     animation-duration: 450ms;

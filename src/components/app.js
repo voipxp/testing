@@ -1,12 +1,14 @@
 import React from 'react'
 import Alerts from './alerts'
-import AngularComponent from './angular-component'
+import Angular from './angular'
+import Footer from './footer'
 
 export default function App() {
   return (
     <>
       <Alerts />
-      <AngularComponent component="pbsApp" />
+      <Angular component="pbsApp" />
+      <Footer />
     </>
   )
 }

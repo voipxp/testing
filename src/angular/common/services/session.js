@@ -1,10 +1,17 @@
 import angular from 'angular'
 import _ from 'lodash'
+import { setSession, clearSession } from '/store/session'
 
 angular.module('odin.common').factory('Session', Session)
 
-Session.$inject = ['StorageService', '$rootScope', '$q', 'jwtHelper']
-function Session(StorageService, $rootScope, $q, jwtHelper) {
+Session.$inject = [
+  'StorageService',
+  '$rootScope',
+  '$q',
+  'jwtHelper',
+  '$ngRedux'
+]
+function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
   let _data = null
   const service = {
     load: load,
@@ -32,8 +39,10 @@ function Session(StorageService, $rootScope, $q, jwtHelper) {
   }
 
   // replace session data and cache in memory
-  function set(data) {
-    return StorageService.set($rootScope.sessionKey, data).then(load)
+  async function set(data) {
+    await StorageService.set($rootScope.sessionKey, data)
+    $ngRedux.dispatch(setSession(data))
+    return load()
   }
 
   // update session data and cache in memory
@@ -44,6 +53,7 @@ function Session(StorageService, $rootScope, $q, jwtHelper) {
   // remove the session data
   async function clear() {
     await StorageService.clear($rootScope.sessionKey)
+    $ngRedux.dispatch(clearSession())
     await load()
     $rootScope.$emit('Session:cleared')
   }
@@ -56,7 +66,7 @@ function Session(StorageService, $rootScope, $q, jwtHelper) {
     if (_.isEmpty(_data)) await load()
     if (expired()) {
       await clear()
-      throw new Error('sessionRequired')
+      return $q.reject('sessionRequired')
     }
   }
 }

@@ -1,5 +1,4 @@
 import angular from 'angular'
-import localforage from 'localforage'
 
 angular.module('odin.common').factory('StorageService', StorageService)
 
@@ -10,25 +9,31 @@ function StorageService($q) {
 
   function clear(key) {
     return $q((resolve, reject) => {
-      localforage.removeItem(key, error => {
-        return error ? reject(error) : resolve(key)
-      })
+      try {
+        resolve(localStorage.removeItem(key))
+      } catch (error) {
+        reject(error)
+      }
     })
   }
 
   function get(key) {
     return $q((resolve, reject) => {
-      localforage.getItem(key, (error, data) => {
-        return error ? reject(error) : resolve(data)
-      })
+      try {
+        resolve(JSON.parse(localStorage.getItem(key)))
+      } catch (error) {
+        reject(error)
+      }
     })
   }
 
   function set(key, value) {
     return $q((resolve, reject) => {
-      localforage.setItem(key, value, error => {
-        return error ? reject(error) : resolve(key)
-      })
+      try {
+        resolve(localStorage.setItem(key, JSON.stringify(value)))
+      } catch (error) {
+        reject(error)
+      }
     })
   }
 }
