@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { removeAlert } from '/store/alerts'
 
 const StyledAlerts = styled.div`
-  text-align: centered;
+  text-align: center;
   position: fixed;
   top: 5px;
   right: 5px;
@@ -17,14 +17,14 @@ const StyledAlerts = styled.div`
 `
 
 const StyledAlert = styled.div`
-  text-align: centered;
+  text-align: center;
   &.notification-exit {
     animation-name: lightSpeedOut;
-    animation-duration: 450ms;
+    animation-duration: 400ms;
   }
   &.notification-enter {
     animation-name: lightSpeedIn;
-    animation-duration: 450ms;
+    animation-duration: 400ms;
   }
   &:hover {
     cursor: pointer;
