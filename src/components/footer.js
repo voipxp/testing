@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { loadTemplate } from '/store/template'
 
 const StyledFooter = styled.footer`
   padding: 1rem;
@@ -11,13 +10,8 @@ const StyledFooter = styled.footer`
 const Footer = ({
   title = 'odin Web',
   version = 'N/A',
-  copyright = 'Park Bench Solutions Inc.',
-  loadTemplate
+  copyright = 'Park Bench Solutions Inc.'
 }) => {
-  useEffect(() => {
-    loadTemplate()
-  }, [loadTemplate])
-
   return (
     <StyledFooter className="footer">
       <div className="content has-text-centered">
@@ -34,18 +28,13 @@ const Footer = ({
 Footer.propTypes = {
   title: PropTypes.string,
   version: PropTypes.string,
-  copyright: PropTypes.string,
-  loadTemplate: PropTypes.func
+  copyright: PropTypes.string
 }
 
 const mapState = state => ({
-  copyright: state.template.pageCopyright,
-  title: state.template.pageFooterTitle,
+  copyright: state.ui.template.pageCopyright,
+  title: state.ui.template.pageFooterTitle,
   version: state.session.version
 })
-const mapDispatch = { loadTemplate }
 
-export default connect(
-  mapState,
-  mapDispatch
-)(Footer)
+export default connect(mapState)(Footer)

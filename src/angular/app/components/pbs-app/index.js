@@ -1,14 +1,10 @@
 import angular from 'angular'
-import _ from 'lodash'
 import template from './index.html'
 
 angular.module('odin.app').component('pbsApp', { template, controller })
 
 controller.$inject = [
-  'UiTemplateService',
-  'UiSettingService',
   'Session',
-  '$q',
   '$rootScope',
   '$scope',
   '$location',
@@ -17,13 +13,11 @@ controller.$inject = [
   'Alert',
   'Idle',
   'Route',
-  '$timeout'
+  '$timeout',
+  '$ngRedux'
 ]
 function controller(
-  UiTemplateService,
-  UiSettingService,
   Session,
-  $q,
   $rootScope,
   $scope,
   $location,
@@ -32,39 +26,34 @@ function controller(
   Alert,
   Idle,
   Route,
-  $timeout
+  $timeout,
+  $ngRedux
 ) {
   const ctrl = this
   ctrl.$onInit = onInit
+  ctrl.$onDestroy = () => unsubscribe()
 
   const TIMEOUT = 30
   // hold warning notifcation so we can clear it
   let NOTIFICATION
+  let unsubscribe
 
   function onInit() {
-    ctrl.loading = true
-    $q.all([
-      CacheFactory.clearAll(),
-      UiTemplateService.load(),
-      Session.load(),
-      UiSettingService.load()
-    ])
-      .then(setIdle)
-      .catch(Alert.notify.danger)
-      .finally(function() {
-        ctrl.loading = false
-      })
-  }
-
-  function loadTemplate() {
-    ctrl.template = UiTemplateService.data()
-    $rootScope.pageTitle = UiTemplateService.data('pageTitle') || 'odin Web'
+    CacheFactory.clearAll()
+    Session.load()
+    const mapState = state => ({
+      session: state.session,
+      template: state.ui.template,
+      settings: state.ui.settings
+    })
+    unsubscribe = $ngRedux.connect(mapState)(this)
+    setIdle()
     setGoogleUA()
   }
 
   function setGoogleUA() {
-    const id = _.get(ctrl.template, 'pageGoogleUA')
-    if (_.isEmpty(id)) return
+    const id = ctrl.template.pageGoogleUA
+    if (!id) return
     $window.ga('create', id, 'auto')
     $window.ga(function(tracker) {
       console.log('Google UA Initialized', tracker.get('clientId'))
@@ -111,7 +100,7 @@ function controller(
 
   // convert from seconds to minutes
   function sessionTimeout() {
-    return (parseInt(UiSettingService.data('sessionTimeout'), 10) || 0) * 60
+    return (parseInt(ctrl.settings.sessionTimeout, 10) || 0) * 60
   }
 
   $rootScope.$on('$routeChangeSuccess', function() {
@@ -128,7 +117,6 @@ function controller(
   })
 
   $rootScope.$on('Template:updated', function() {
-    loadTemplate()
     setGoogleUA()
   })
 
