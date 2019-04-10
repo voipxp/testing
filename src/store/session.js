@@ -4,19 +4,6 @@ import { setToken } from '/services/api'
 
 let initialState = {}
 
-try {
-  const session = JSON.parse(localStorage.getItem('odin:session')) || {}
-  const { token } = session
-  const jwt = decode(token)
-  const now = new Date().getTime() / 1000
-  if (now < jwt.exp) {
-    initialState = session
-    setToken(token)
-  }
-} catch (error) {
-  // skip
-}
-
 const slice = createSlice({
   slice: 'session',
   initialState,
@@ -39,6 +26,23 @@ export function setSession(data = {}) {
   return async dispatch => {
     dispatch(actions.setSession(data))
     setToken(data.token)
+  }
+}
+
+export function loadSessionFromStorage() {
+  return async dispatch => {
+    try {
+      const session = JSON.parse(localStorage.getItem('odin:session')) || {}
+      const jwt = decode(session.token)
+      const now = new Date().getTime() / 1000
+      if (now < jwt.exp) {
+        dispatch(setSession(session))
+      } else {
+        dispatch(clearSession())
+      }
+    } catch (error) {
+      dispatch(clearSession())
+    }
   }
 }
 
