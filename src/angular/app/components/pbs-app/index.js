@@ -6,12 +6,10 @@ angular.module('odin.app').component('pbsApp', { template, controller })
 controller.$inject = [
   'Session',
   '$rootScope',
-  '$scope',
   '$location',
   '$window',
   'CacheFactory',
   'Alert',
-  'Idle',
   'Route',
   '$timeout',
   '$ngRedux'
@@ -19,12 +17,10 @@ controller.$inject = [
 function controller(
   Session,
   $rootScope,
-  $scope,
   $location,
   $window,
   CacheFactory,
   Alert,
-  Idle,
   Route,
   $timeout,
   $ngRedux
@@ -33,22 +29,18 @@ function controller(
   ctrl.$onInit = onInit
   ctrl.$onDestroy = () => unsubscribe()
 
-  const TIMEOUT = 30
-  // hold warning notifcation so we can clear it
-  let NOTIFICATION
   let unsubscribe
 
   function onInit() {
     CacheFactory.clearAll()
-    Session.load()
     const mapState = state => ({
       session: state.session,
-      template: state.ui.template,
-      settings: state.ui.settings
+      template: state.ui.template
     })
     unsubscribe = $ngRedux.connect(mapState)(this)
-    setIdle()
-    setGoogleUA()
+    Session.load().then(() => {
+      setGoogleUA()
+    })
   }
 
   function setGoogleUA() {
@@ -76,43 +68,11 @@ function controller(
     }
   }
 
-  function setIdle() {
-    if (sessionTimeout() && !Session.expired()) {
-      console.log('setIdle', sessionTimeout())
-      Idle.setTimeout(TIMEOUT)
-      Idle.setIdle(sessionTimeout())
-      Idle.watch()
-    }
-  }
-
-  function notifyTimeout(seconds) {
-    NOTIFICATION = Alert.notify.warning(
-      'This session is about to expire',
-      seconds * 1000
-    )
-  }
-
-  function cancelNotify() {
-    if (NOTIFICATION) {
-      Alert.notify.remove(NOTIFICATION)
-    }
-  }
-
-  // convert from seconds to minutes
-  function sessionTimeout() {
-    return (parseInt(ctrl.settings.sessionTimeout, 10) || 0) * 60
-  }
-
   $rootScope.$on('$routeChangeSuccess', function() {
     sendGoogleUA()
   })
 
-  $rootScope.$on('$routeChangeError', function(
-    event,
-    current,
-    previous,
-    rejection
-  ) {
+  $rootScope.$on('$routeChangeError', function(e, c, p, rejection) {
     handleRouteError(rejection)
   })
 
@@ -121,38 +81,6 @@ function controller(
   })
 
   $rootScope.$on('Session:cleared', function() {
-    Idle.unwatch()
     $timeout(() => Route.login(), 0)
-  })
-
-  $rootScope.$on('Session:loaded', function() {
-    if (Session.expired()) {
-      Idle.unwatch()
-    } else {
-      setIdle()
-    }
-  })
-
-  $scope.$on('IdleStart', function() {
-    ctrl.idleWarn = false
-  })
-
-  $scope.$on('IdleWarn', function(event, countdown) {
-    console.log('IdleWarn', countdown)
-    if (countdown <= TIMEOUT && !ctrl.idleWarn) {
-      ctrl.idleWarn = true
-      notifyTimeout(countdown)
-    }
-  })
-
-  $scope.$on('IdleTimeout', function() {
-    console.log('IdleTimeout')
-    cancelNotify()
-    Session.clear()
-  })
-
-  $scope.$on('IdleEnd', function() {
-    console.log('IdleEnd')
-    cancelNotify()
   })
 }

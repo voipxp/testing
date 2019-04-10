@@ -1,6 +1,7 @@
 import { createSlice } from 'redux-starter-kit'
 import uiSettings from '/services/api/ui-settings'
 import uiTemplate from '/services/api/ui-template'
+import { apiUrl } from '/services/api'
 
 const initialState = {
   settings: {},
@@ -12,6 +13,9 @@ const slice = createSlice({
   slice: 'ui',
   initialState,
   reducers: {
+    setApiUrl: (state, { payload }) => {
+      state.apiUrl = payload || apiUrl()
+    },
     setInitialized: (state, { payload }) => {
       state.initialized = payload
     },
@@ -25,7 +29,7 @@ const slice = createSlice({
 })
 
 const { actions, reducer } = slice
-export const { setSettings, setTemplate, setInitialized } = actions
+export const { setApiUrl, setSettings, setTemplate, setInitialized } = actions
 
 export const loadSettings = () => async dispatch => {
   const settings = await uiSettings.get()

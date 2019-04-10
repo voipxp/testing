@@ -37,15 +37,16 @@ function alert(type, msg, timeout = 3000) {
     const alert = { id: cuid(), type, message: parse(msg) }
     dispatch(actions.addAlert(alert))
     setTimeout(() => dispatch(actions.removeAlert(alert)), timeout)
+    return alert
   }
 }
 
 export const { removeAlert } = actions
-export const alertPrimary = msg => alert('primary', msg)
-export const alertLink = msg => alert('link', msg)
-export const alertInfo = msg => alert('info', msg)
-export const alertSuccess = msg => alert('success', msg)
-export const alertWarning = msg => alert('warning', msg, 5000)
-export const alertDanger = msg => alert('danger', msg, 10000)
+export const alertPrimary = (msg, ms) => alert('primary', msg, ms)
+export const alertLink = (msg, ms) => alert('link', msg, ms)
+export const alertInfo = (msg, ms) => alert('info', msg, ms)
+export const alertSuccess = (msg, ms) => alert('success', msg, ms)
+export const alertWarning = (msg, ms = 5000) => alert('warning', msg, ms)
+export const alertDanger = (msg, ms = 10000) => alert('danger', msg, ms)
 
 export default reducer

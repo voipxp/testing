@@ -27,8 +27,10 @@ function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
 
   // load the saved data into memory
   async function load() {
-    const data = await StorageService.get($rootScope.sessionKey)
-    _data = data || {}
+    let data = $ngRedux.getState().session
+    _data = data
+      ? data
+      : (await StorageService.get($rootScope.sessionKey)) || {}
     $rootScope.$emit('Session:loaded')
     return _data
   }

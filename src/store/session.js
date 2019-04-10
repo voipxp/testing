@@ -19,6 +19,7 @@ export function clearSession() {
   return async dispatch => {
     dispatch(actions.clearSession())
     setToken()
+    localStorage.removeItem('odin:session')
   }
 }
 
@@ -26,6 +27,7 @@ export function setSession(data = {}) {
   return async dispatch => {
     dispatch(actions.setSession(data))
     setToken(data.token)
+    localStorage.setItem('odin:session', JSON.stringify(data))
   }
 }
 
