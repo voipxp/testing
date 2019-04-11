@@ -1,9 +1,3 @@
-/*
-  state.alerts: [
-    { id, type, message }
-  ]
-*/
-
 import { createSlice } from 'redux-starter-kit'
 import cuid from 'cuid'
 

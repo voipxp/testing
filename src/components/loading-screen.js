@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Loading = () => (
+const LoadingScreen = () => (
   <section className="hero is-fullheight is-link">
     <div className="hero-body">
       <div className="spinner" />
@@ -8,4 +8,4 @@ const Loading = () => (
   </section>
 )
 
-export default Loading
+export default LoadingScreen

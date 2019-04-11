@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import auth from '/services/api/auth'
-import { alertWarning, alertDanger } from '../store/alerts'
-import { setSession } from '../store/session'
+import LoadingModal from './loading-modal'
+import { alertWarning, alertDanger } from '/store/alerts'
+import { setSession } from '/store/session'
 
 const Section = styled.section`
   position: absolute;
@@ -62,7 +63,6 @@ const Login = ({
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log('state', state)
     state.needsChange ? setPassword() : login()
   }
 
@@ -70,12 +70,16 @@ const Login = ({
     setState({ loading: true })
     try {
       const session = await auth.token(state.username, state.password)
-      setSession(session)
-    } catch (error) {
-      console.log(error.message, error.status)
-      alertDanger(error)
-    } finally {
       setState({ loading: false })
+      await setSession(session)
+    } catch (error) {
+      if (error.status === 402) {
+        alertWarning(error)
+        setState({ loading: false, needsChange: true })
+      } else {
+        setState({ loading: false })
+        alertDanger(error)
+      }
     }
   }
 
@@ -85,114 +89,113 @@ const Login = ({
     }
     setState({ loading: true })
     try {
-      const session = await auth.password(
-        state.password,
-        state.newPassword1,
-        state.username
-      )
-      setSession(session)
-    } catch (error) {
-      console.log(error)
-      alertWarning(error)
-    } finally {
+      await auth.password(state.password, state.newPassword1, state.username)
+      const session = await auth.token(state.username, state.newPassword1)
       setState({ loading: false })
+      await setSession(session)
+    } catch (error) {
+      setState({ loading: false })
+      alertDanger(error)
     }
   }
 
   return (
-    <Section className="hero is-fullheight is-link">
-      <div className="hero-body has-text-centered">
-        <div className="box">
-          <img src={`${apiUrl}/ui/images/imageLoginLogo.png`} alt="logo" />
+    <>
+      <Section className="hero is-fullheight is-link">
+        <div className="hero-body has-text-centered">
+          <div className="box">
+            <img src={`${apiUrl}/ui/images/imageLoginLogo.png`} alt="logo" />
 
-          <form className="margin-top" onSubmit={handleSubmit}>
-            <div className="field">
-              <p className="control has-icons-left">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Username"
-                  name="username"
-                  onChange={handleUpdate}
-                  value={state.username}
-                  autoCapitalize="off"
-                  required
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-envelope" />
-                </span>
-              </p>
-            </div>
+            <form className="margin-top" onSubmit={handleSubmit}>
+              <div className="field">
+                <p className="control has-icons-left">
+                  <input
+                    className="input"
+                    type="text"
+                    placeholder="Username"
+                    name="username"
+                    onChange={handleUpdate}
+                    value={state.username}
+                    autoCapitalize="off"
+                    required
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-envelope" />
+                  </span>
+                </p>
+              </div>
 
-            <div className="field">
-              <p className="control has-icons-left">
-                <input
-                  className="input"
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  onChange={handleUpdate}
-                  value={state.password}
-                  required
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-lock" />
-                </span>
-              </p>
-            </div>
+              <div className="field">
+                <p className="control has-icons-left">
+                  <input
+                    className="input"
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    onChange={handleUpdate}
+                    value={state.password}
+                    required
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-lock" />
+                  </span>
+                </p>
+              </div>
 
-            {state.needsChange && (
-              <>
-                <div className="field">
-                  <p className="control has-icons-left">
-                    <input
-                      className="input"
-                      type="password"
-                      placeholder="New Password"
-                      name="newPassword1"
-                      onChange={handleUpdate}
-                      value={state.newPassword1}
-                      required
-                    />
-                    <span className="icon is-small is-left">
-                      <i className="fas fa-lock" />
-                    </span>
-                  </p>
-                </div>
-                <div className="field">
-                  <p className="control has-icons-left">
-                    <input
-                      className="input"
-                      type="password"
-                      placeholder="New Password"
-                      name="newPassword2"
-                      onChange={handleUpdate}
-                      value={state.newPassword2}
-                      required
-                    />
-                    <span className="icon is-small is-left">
-                      <i className="fas fa-lock" />
-                    </span>
-                  </p>
-                </div>
-              </>
-            )}
+              {state.needsChange && (
+                <>
+                  <div className="field">
+                    <p className="control has-icons-left">
+                      <input
+                        className="input"
+                        type="password"
+                        placeholder="New Password"
+                        name="newPassword1"
+                        onChange={handleUpdate}
+                        value={state.newPassword1}
+                        required
+                      />
+                      <span className="icon is-small is-left">
+                        <i className="fas fa-lock" />
+                      </span>
+                    </p>
+                  </div>
+                  <div className="field">
+                    <p className="control has-icons-left">
+                      <input
+                        className="input"
+                        type="password"
+                        placeholder="New Password"
+                        name="newPassword2"
+                        onChange={handleUpdate}
+                        value={state.newPassword2}
+                        required
+                      />
+                      <span className="icon is-small is-left">
+                        <i className="fas fa-lock" />
+                      </span>
+                    </p>
+                  </div>
+                </>
+              )}
 
-            <button className="margin-top button is-link" type="submit">
-              Login
-            </button>
-          </form>
-        </div>
-      </div>
-
-      {loginMessage && (
-        <div className="hero-foot">
-          <div className="message">
-            <div className="message-body">{loginMessage}</div>
+              <button className="margin-top button is-link" type="submit">
+                Login
+              </button>
+            </form>
           </div>
         </div>
-      )}
-    </Section>
+
+        {loginMessage && (
+          <div className="hero-foot">
+            <div className="message">
+              <div className="message-body">{loginMessage}</div>
+            </div>
+          </div>
+        )}
+      </Section>
+      <LoadingModal isOpen={state.loading} />
+    </>
   )
 }
 

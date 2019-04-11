@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -6,12 +6,12 @@ import createActivityDetector from 'activity-detector'
 import Alerts from './alerts'
 import Angular from './angular'
 import Footer from './footer'
-import Loading from './loading'
+import LoadingScreen from './loading-screen'
 import Login from './login'
 import { alertWarning, removeAlert } from '/store/alerts'
 import { clearSession } from '/store/session'
 
-const TIMEOUT = 3000
+const TIMEOUT = 30000
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
@@ -24,23 +24,29 @@ const App = ({
   clearSession,
   userId
 }) => {
+  const alertRef = useRef()
+  const timerRef = useRef()
+
   useEffect(() => {
     if (!initialized || !sessionTimeout || !userId) return
-    let timer
-    let warning
-    // const timeToIdle = sessionTimeout * 60 * 1000
-    const timeToIdle = 1000
-    const activityDetector = createActivityDetector({ timeToIdle })
+    const timeToIdle = sessionTimeout * 60 * 1000
+    const activityDetector = createActivityDetector({
+      timeToIdle,
+      inactivityEvents: []
+    })
     activityDetector.on('idle', async () => {
-      warning = await alertWarning('Your session is about to expire', TIMEOUT)
-      timer = setTimeout(() => clearSession(), TIMEOUT)
+      alertRef.current = await alertWarning(
+        'Your session is about to expire',
+        TIMEOUT
+      )
+      timerRef.current = setTimeout(() => clearSession(), TIMEOUT)
     })
     activityDetector.on('active', () => {
-      removeAlert(warning)
-      clearTimeout(timer)
+      removeAlert(alertRef.current)
+      clearTimeout(timerRef.current)
     })
     return () => {
-      clearTimeout(timer)
+      clearTimeout(timerRef.current)
       activityDetector.stop()
     }
   }, [
@@ -52,7 +58,7 @@ const App = ({
     userId
   ])
 
-  if (!initialized) return <Loading />
+  if (!initialized) return <LoadingScreen />
 
   return (
     <>
