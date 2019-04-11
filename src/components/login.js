@@ -72,8 +72,8 @@ const Login = ({
       const session = await auth.token(state.username, state.password)
       setSession(session)
     } catch (error) {
-      console.log(error)
-      alertWarning(error)
+      console.log(error.message, error.status)
+      alertDanger(error)
     } finally {
       setState({ loading: false })
     }

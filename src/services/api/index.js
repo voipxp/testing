@@ -1,30 +1,10 @@
 import axios from 'axios'
 
-let token
+export const api = axios.create({})
 
-const api = axios.create({ baseURL: apiUrl() })
-
-export function apiUrl() {
-  if (process.env.API_BASE) return process.env.API_BASE
-  const port = process.env.API_PORT
-  return port
-    ? `${window.location.protocol}//${window.location.hostname}:${port}/api/v2`
-    : '/api/v2'
-}
-
-export function setToken(_token) {
-  token = _token
-}
-
-async function send(config) {
-  if (token) {
-    config.headers = config.headers || {}
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  try {
-    const response = await api.request(config)
-    return response.data
-  } catch (error) {
+api.interceptors.response.use(
+  response => response.data,
+  error => {
     let err
     if (error.response) {
       err = new Error(error.response.data.error || error.response.data)
@@ -36,24 +16,18 @@ async function send(config) {
       err = error
       err.status = 500
     }
-    throw err
+    return Promise.reject(err)
+  }
+)
+
+export function setToken(token) {
+  if (token) {
+    api.defaults.headers.common.Authorization = `Bearer ${token}`
+  } else {
+    delete api.defaults.headers.common.Authorization
   }
 }
 
-function get(url, params) {
-  return send({ method: 'GET', url, params })
+export function setBaseUrl(url) {
+  api.defaults.baseURL = url
 }
-
-function post(url, data, params) {
-  return send({ method: 'POST', url, data, params })
-}
-
-function put(url, data, params) {
-  return send({ method: 'PUT', url, data, params })
-}
-
-function destroy(url, data, params) {
-  return send({ method: 'DELETE', url, data, params })
-}
-
-export default { get, post, put, delete: destroy }

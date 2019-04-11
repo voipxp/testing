@@ -1,12 +1,13 @@
 import { createSlice } from 'redux-starter-kit'
+import { setBaseUrl } from '/services/api'
 import uiSettings from '/services/api/ui-settings'
 import uiTemplate from '/services/api/ui-template'
-import { apiUrl } from '/services/api'
 
 const initialState = {
+  apiUrl: '/api/v2',
+  initialized: false,
   settings: {},
-  template: {},
-  initialized: false
+  template: {}
 }
 
 const slice = createSlice({
@@ -29,17 +30,37 @@ const slice = createSlice({
 })
 
 const { actions, reducer } = slice
-export const { setApiUrl, setSettings, setTemplate, setInitialized } = actions
+export const { setSettings, setTemplate, setInitialized } = actions
 
-export const loadSettings = () => async dispatch => {
-  const settings = await uiSettings.get()
-  dispatch(setSettings(settings))
+export function loadSettings() {
+  return async dispatch => {
+    const settings = await uiSettings.get()
+    dispatch(setSettings(settings))
+  }
 }
 
-export const loadTemplate = () => async dispatch => {
-  const template = await uiTemplate.get()
-  document.title = template.pageTitle || 'odin Web'
-  dispatch(setTemplate(template))
+export function loadTemplate() {
+  return async dispatch => {
+    const template = await uiTemplate.get()
+    document.title = template.pageTitle || 'odin Web'
+    dispatch(setTemplate(template))
+  }
+}
+
+export function loadApiUrl() {
+  return async dispatch => {
+    const url = apiUrl()
+    dispatch(actions.setApiUrl(url))
+    setBaseUrl(url)
+  }
+}
+
+export function apiUrl() {
+  if (process.env.API_BASE) return process.env.API_BASE
+  const port = process.env.API_PORT
+  return port
+    ? `${window.location.protocol}//${window.location.hostname}:${port}/api/v2`
+    : '/api/v2'
 }
 
 export default reducer
