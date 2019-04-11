@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
+import { BrowserRouter as Router } from 'react-router-dom'
 import Alerts from './alerts'
 import Angular from './angular'
 import Footer from './footer'
 import LoadingScreen from './loading-screen'
 import Login from './login'
+import Navbar from './navbar'
 import { alertWarning, removeAlert } from '/store/alerts'
 import { clearSession } from '/store/session'
 
@@ -61,10 +63,11 @@ const App = ({
   if (!initialized) return <LoadingScreen />
 
   return (
-    <>
+    <Router>
       <Alerts />
       {userId ? (
         <>
+          <Navbar />
           <Wrapper>
             <Angular component="pbsApp" />
           </Wrapper>
@@ -73,7 +76,7 @@ const App = ({
       ) : (
         <Login />
       )}
-    </>
+    </Router>
   )
 }
 

@@ -1,11 +1,13 @@
 import { createSlice } from 'redux-starter-kit'
 import { setBaseUrl } from '/services/api'
+import uiApplications from '/services/api/ui-applications'
 import uiSettings from '/services/api/ui-settings'
 import uiTemplate from '/services/api/ui-template'
 
 const initialState = {
   apiUrl: '/api/v2',
   initialized: false,
+  applications: [],
   settings: {},
   template: {}
 }
@@ -20,6 +22,9 @@ const slice = createSlice({
     setInitialized: (state, { payload }) => {
       state.initialized = payload
     },
+    setApplications: (state, { payload }) => {
+      state.applications = payload || []
+    },
     setSettings: (state, { payload }) => {
       state.settings = payload || {}
     },
@@ -30,7 +35,19 @@ const slice = createSlice({
 })
 
 const { actions, reducer } = slice
-export const { setSettings, setTemplate, setInitialized } = actions
+export const {
+  setApplications,
+  setSettings,
+  setTemplate,
+  setInitialized
+} = actions
+
+export function loadApplications() {
+  return async dispatch => {
+    const applications = await uiApplications.get()
+    dispatch(setApplications(applications))
+  }
+}
 
 export function loadSettings() {
   return async dispatch => {

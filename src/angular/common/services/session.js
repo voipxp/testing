@@ -66,9 +66,6 @@ function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
 
   async function required() {
     if (_.isEmpty(_data)) await load()
-    if (expired()) {
-      await clear()
-      return $q.reject('sessionRequired')
-    }
+    if (expired()) return $q.reject('sessionRequired')
   }
 }
