@@ -43,6 +43,7 @@
     "papa": "^0.0.0",
     "papaparse": "^4.6.3",
     "prop-types": "^15.7.2",
+    "rbx": "^2.1.0",
     "react": ">=15",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.1",

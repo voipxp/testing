@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
-import { BrowserRouter as Router } from 'react-router-dom'
 import Alerts from './alerts'
 import Angular from './angular'
 import Footer from './footer'
@@ -16,7 +15,7 @@ import { clearSession } from '/store/session'
 const TIMEOUT = 30000
 
 const Wrapper = styled.div`
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh - 105px);
 `
 const App = ({
   initialized,
@@ -63,7 +62,7 @@ const App = ({
   if (!initialized) return <LoadingScreen />
 
   return (
-    <Router>
+    <>
       <Alerts />
       {userId ? (
         <>
@@ -76,7 +75,7 @@ const App = ({
       ) : (
         <Login />
       )}
-    </Router>
+    </>
   )
 }
 

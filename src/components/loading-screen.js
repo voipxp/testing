@@ -1,11 +1,13 @@
 import React from 'react'
+import { Hero } from 'rbx'
+import Spinner from './spinner'
 
 const LoadingScreen = () => (
-  <section className="hero is-fullheight is-link">
-    <div className="hero-body">
-      <div className="spinner" />
-    </div>
-  </section>
+  <Hero color="link" size="fullheight">
+    <Hero.Body>
+      <Spinner />
+    </Hero.Body>
+  </Hero>
 )
 
 export default LoadingScreen

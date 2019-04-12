@@ -1,31 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Footer } from 'rbx'
 import styled from 'styled-components'
 
 const StyledFooter = styled.footer`
   padding: 1rem;
   height: 50px;
 `
-const Footer = ({
+const AppFooter = ({
   title = 'odin Web',
   version = 'N/A',
   copyright = 'Park Bench Solutions Inc.'
 }) => {
   return (
-    <StyledFooter className="footer">
-      <div className="content has-text-centered">
-        <p>
-          <strong>{title}</strong>&nbsp;
-          <span>&copy; {copyright}</span>&nbsp;
-          <small>({version})</small>
-        </p>
-      </div>
-    </StyledFooter>
+    <Footer as={StyledFooter} textAlign="centered">
+      <p>
+        <strong>{title}</strong>&nbsp;
+        <span>&copy; {copyright}</span>&nbsp;
+        <small>({version})</small>
+      </p>
+    </Footer>
   )
 }
 
-Footer.propTypes = {
+AppFooter.propTypes = {
   title: PropTypes.string,
   version: PropTypes.string,
   copyright: PropTypes.string
@@ -37,4 +36,4 @@ const mapState = state => ({
   version: state.session.version
 })
 
-export default connect(mapState)(Footer)
+export default connect(mapState)(AppFooter)

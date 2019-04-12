@@ -5943,6 +5943,14 @@ range-parser@~1.2.0:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
   integrity sha1-9JvmtIeJTdxA3MlKMi9hEJLgDV4=
 
+rbx@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/rbx/-/rbx-2.1.0.tgz#546c7112feaf583d4ff934dbf70653f69215ed4b"
+  integrity sha512-Z60SDUGm0WR7dfth6xF/yfEISol/s34AtXM/Njfi9FXUzvczU2YbS09Lif0lrtJgS9gFfcfyuHCjxKDDmgBP4w==
+  dependencies:
+    classnames "^2.2.6"
+    prop-types "^15.6.2"
+
 rc@^1.2.7:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.8.tgz#cd924bf5200a075b83c188cd6b9e211b7fc0d3ed"

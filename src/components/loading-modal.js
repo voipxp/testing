@@ -1,15 +1,17 @@
 import React from 'react'
+import { Modal } from 'rbx'
+import Spinner from './spinner'
 import PropTypes from 'prop-types'
 
 const LoadingModal = ({ isOpen }) => {
   if (!isOpen) return null
   return (
-    <div className="modal pbs-modal-spinner is-active">
-      <div className="modal-background" />
-      <div className="modal-content">
-        <div className="spinner" />
-      </div>
-    </div>
+    <Modal active={isOpen}>
+      <Modal.Background />
+      <Modal.Content>
+        <Spinner />
+      </Modal.Content>
+    </Modal>
   )
 }
 

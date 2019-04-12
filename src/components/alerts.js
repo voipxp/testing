@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
+import { Notification, Delete } from 'rbx'
 import styled from 'styled-components'
 import { removeAlert } from '/store/alerts'
 
@@ -39,13 +40,14 @@ const Alerts = ({ alerts, removeAlert }) => {
     <TransitionGroup component={StyledAlerts}>
       {alerts.map(alert => (
         <CSSTransition key={alert.id} classNames="notification" timeout={400}>
-          <StyledAlert
-            className={`notification is-${alert.type}`}
+          <Notification
+            as={StyledAlert}
+            color={alert.type}
             onClick={() => removeAlert(alert)}
           >
-            <button className="delete" />
+            <Delete as="button" />
             {alert.message}
-          </StyledAlert>
+          </Notification>
         </CSSTransition>
       ))}
     </TransitionGroup>
