@@ -3,27 +3,20 @@ import template from './index.html'
 
 angular.module('odin.serviceProvider').component('serviceProviderDashboard', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'ServiceProviderDashboardService',
-  '$routeParams',
   'Route',
   'ACL'
 ]
-function controller(
-  Alert,
-  ServiceProviderDashboardService,
-  $routeParams,
-  Route,
-  ACL
-) {
+function controller(Alert, ServiceProviderDashboardService, Route, ACL) {
   var ctrl = this
 
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
 
   function onInit() {
     ctrl.loading = true

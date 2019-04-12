@@ -4,13 +4,13 @@ import template from './index.html'
 
 angular.module('odin.bulk').component('bulkTask', {
   template,
-  controller
+  controller,
+  bindings: { id: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'TaskService',
-  '$routeParams',
   'CsvService',
   'DownloadService',
   'Route',
@@ -21,7 +21,6 @@ controller.$inject = [
 function controller(
   Alert,
   TaskService,
-  $routeParams,
   CsvService,
   DownloadService,
   Route,
@@ -38,7 +37,6 @@ function controller(
   ctrl.open = open
   ctrl.filterStatus = filterStatus
   ctrl.searchStatus = ''
-  ctrl.id = $routeParams.id
   ctrl.retryTask = retryTask
   ctrl.retryJobs = retryJobs
   ctrl.status = status

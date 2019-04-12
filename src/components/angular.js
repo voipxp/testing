@@ -1,11 +1,16 @@
+/*
+  TODO:
+    allow ...rest that might come from bindings
+*/
 import React, { useRef } from 'react'
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect'
 import angular from 'angular'
 import kebabCase from 'lodash/kebabCase'
 import { injector } from '/angular'
 
-export default function Angular({ component, location = {}, match = {} }) {
+const Angular = ({ component, location = {}, match = {} }) => {
   const scopeRef = useRef()
   const ref = useRef()
 
@@ -48,3 +53,5 @@ Angular.propTypes = {
   location: PropTypes.object,
   match: PropTypes.object
 }
+
+export default withRouter(Angular)

@@ -12,7 +12,6 @@ Session.$inject = [
   '$ngRedux'
 ]
 function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
-  let _data = null
   const service = {
     load: load,
     data: data,
@@ -27,36 +26,31 @@ function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
 
   // load the saved data into memory
   async function load() {
-    let data = $ngRedux.getState().session
-    _data = data
-      ? data
-      : (await StorageService.get($rootScope.sessionKey)) || {}
-    $rootScope.$emit('Session:loaded')
-    return _data
+    return $ngRedux.getState().session
   }
 
   // return the data or a specific property
   function data(property) {
-    return property ? _.get(_data, property) : _data
+    const session = $ngRedux.getState().session
+    return property ? _.get(session, property) : session
   }
 
   // replace session data and cache in memory
   async function set(data) {
     await StorageService.set($rootScope.sessionKey, data)
     $ngRedux.dispatch(setSession(data))
-    return load()
   }
 
   // update session data and cache in memory
   function update(data) {
-    return set(_.assign({}, _data, data))
+    const current = $ngRedux.getState().session
+    set({ ...current, data })
   }
 
   // remove the session data
   async function clear() {
     await StorageService.clear($rootScope.sessionKey)
     $ngRedux.dispatch(clearSession())
-    await load()
     $rootScope.$emit('Session:cleared')
   }
 
@@ -65,7 +59,6 @@ function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
   }
 
   async function required() {
-    if (_.isEmpty(_data)) await load()
     if (expired()) return $q.reject('sessionRequired')
   }
 }

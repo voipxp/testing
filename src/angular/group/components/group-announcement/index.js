@@ -4,7 +4,8 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupAnnouncement', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
@@ -12,16 +13,16 @@ controller.$inject = [
   'GroupAnnouncementService',
   'Route',
   '$scope',
-  '$routeParams',
-  '$route'
+  '$route',
+  '$location'
 ]
 function controller(
   Alert,
   GroupAnnouncementService,
   Route,
   $scope,
-  $routeParams,
-  $route
+  $route,
+  $location
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -31,10 +32,8 @@ function controller(
   ctrl.onDelete = onDelete
 
   function onInit() {
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.name = $routeParams.name
-    ctrl.mediaType = $routeParams.mediaType
+    ctrl.name = $location.search().name
+    ctrl.mediaType = $location.search().mediaType
     ctrl.loading = true
     return loadAnnouncement()
       .catch(function(error) {

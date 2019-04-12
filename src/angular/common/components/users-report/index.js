@@ -5,14 +5,13 @@ import template from './index.html'
 angular.module('odin.common').component('usersReport', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'GroupUserReportService',
   'Route',
-  '$routeParams',
   'CsvService',
   'DownloadService',
   '$location'
@@ -21,7 +20,6 @@ function controller(
   Alert,
   GroupUserReportService,
   Route,
-  $routeParams,
   CsvService,
   DownloadService,
   $location
@@ -30,8 +28,6 @@ function controller(
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
   ctrl.download = download
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
 
   ctrl.columns = [
     {

@@ -11,6 +11,7 @@
 
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
+import Dashboard from './dashboard'
 import Angular from './angular'
 
 // angular routes
@@ -52,10 +53,12 @@ const angularRoutes = [
 const Router = () => {
   return (
     <Switch>
+      <Route path="/" exact component={Dashboard} />
       {angularRoutes.map(route => (
         <Route
           key={route.path}
           path={route.path}
+          exact
           render={() => (
             <Angular
               component={route.component}

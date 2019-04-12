@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { Section } from 'rbx'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -15,7 +16,7 @@ import { clearSession } from '/store/session'
 const TIMEOUT = 30000
 
 const Wrapper = styled.div`
-  min-height: calc(100vh - 105px);
+  min-height: calc(100vh - 50px);
 `
 const App = ({
   alertWarning,
@@ -66,9 +67,11 @@ const App = ({
       <Alerts />
       {userId ? (
         <>
-          <Navbar />
           <Wrapper>
-            <Routes />
+            <Navbar />
+            <Section>
+              <Routes />
+            </Section>
           </Wrapper>
           <Footer />
         </>

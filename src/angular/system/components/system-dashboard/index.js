@@ -10,7 +10,6 @@ controller.$inject = ['Route', 'SystemDashboardService', 'Alert']
 function controller(Route, SystemDashboardService, Alert) {
   var ctrl = this
   var route = Route.path()
-  ctrl.open = open
 
   ctrl.$onInit = function() {
     ctrl.loading = true
@@ -105,9 +104,5 @@ function controller(Route, SystemDashboardService, Alert) {
         path: route('vdm')
       }
     ]
-  }
-
-  function open(card) {
-    Route.open(card.path)
   }
 }

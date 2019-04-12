@@ -10,8 +10,8 @@ angular.module('odin.ui').component('pbsMenu', {
   bindings: { delay: '<' }
 })
 
-controller.$inject = ['$timeout', '$window', '$location']
-function controller($timeout, $window, $location) {
+controller.$inject = ['$timeout', '$window']
+function controller($timeout, $window) {
   const ctrl = this
   ctrl.$onInit = onInit
   ctrl.$postLink = postLink
@@ -38,37 +38,14 @@ function controller($timeout, $window, $location) {
       })
     })
     $timeout(function() {
-      $location.search('menu', generateHash(item))
-      $location.search('tab', null)
       item.selected = true
       $window.scrollTo(0, 0)
     }, 1)
   }
 
-  function generateHash(item) {
-    return `${item.section}:${item.label}`
-  }
-
-  function parseHash(hash) {
-    if (!hash) return
-    const split = hash.split(':')
-    return { _section: split[0], _item: split[1] }
-  }
-
   function postLink() {
     $timeout(function() {
-      const search = $location.search().menu
-      let item
-      if (search) {
-        const { _section, _item } = parseHash(search)
-        if (_section && _item) {
-          const section = ctrl.sections.find(s => s.label === _section)
-          if (section) {
-            item = section.items.find(i => i.label === _item)
-          }
-        }
-      }
-      select(item || _.get(ctrl.sections, '0.items.0'))
+      select(_.get(ctrl.sections, '0.items.0'))
     }, 5)
   }
 }

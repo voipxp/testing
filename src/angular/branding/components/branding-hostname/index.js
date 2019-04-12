@@ -3,16 +3,16 @@ import template from './index.html'
 
 angular.module('odin.branding').component('brandingHostname', {
   template,
-  controller
+  controller,
+  bindings: { hostnameId: '<' }
 })
 
-controller.$inject = ['$routeParams', 'Route']
-function controller($routeParams, Route) {
+controller.$inject = ['Route']
+function controller(Route) {
   var ctrl = this
 
   ctrl.hostname = 'Loading...'
   ctrl.onUpdate = onUpdate
-  ctrl.hostnameId = $routeParams.hostnameId
   ctrl.back = back
 
   function onUpdate(event) {

@@ -3,13 +3,5 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupCallCenterCallRecords', {
   template,
-  controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
-
-controller.$inject = ['$routeParams']
-function controller($routeParams) {
-  var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-}

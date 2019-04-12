@@ -4,18 +4,16 @@ import template from './index.html'
 angular.module('odin.group').component('groupAutomaticCallback', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
-  '$routeParams',
   'Alert',
   'UserAutomaticCallbackService',
   'UserServiceService',
   'Route'
 ]
 function controller(
-  $routeParams,
   Alert,
   UserAutomaticCallbackService,
   UserServiceService,
@@ -23,8 +21,6 @@ function controller(
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.open = open
   ctrl.toggle = toggle
 

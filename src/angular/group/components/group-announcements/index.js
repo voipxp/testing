@@ -3,30 +3,17 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupAnnouncements', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupAnnouncementService',
-  '$scope',
-  'Route',
-  '$routeParams'
-]
-function controller(
-  Alert,
-  GroupAnnouncementService,
-  $scope,
-  Route,
-  $routeParams
-) {
+controller.$inject = ['Alert', 'GroupAnnouncementService', '$scope', 'Route']
+function controller(Alert, GroupAnnouncementService, $scope, Route) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
   ctrl.open = open
   ctrl.onUpdate = onUpdate
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
 
   function onInit() {
     ctrl.repository = { announcements: [] }

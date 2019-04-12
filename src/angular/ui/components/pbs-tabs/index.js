@@ -19,8 +19,8 @@ angular.module('odin.ui').component('pbsTabs', {
   controller
 })
 
-controller.$inject = ['$timeout', '$location']
-function controller($timeout, $location) {
+controller.$inject = ['$timeout']
+function controller($timeout) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
@@ -44,15 +44,13 @@ function controller($timeout, $location) {
       _tab.selected = false
     })
     $timeout(function() {
-      $location.search('tab', tab.label)
       tab.selected = true
     }, 1)
   }
 
   ctrl.$postLink = function() {
     $timeout(function() {
-      var search = $location.search().tab
-      select(_.find(ctrl.tabs, { label: search }) || ctrl.tabs[0])
+      select(ctrl.tabs[0])
     }, 5)
   }
 }

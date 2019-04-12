@@ -5,25 +5,17 @@ import template from './index.html'
 angular.module('odin.group').component('autoAttendantCallRecords', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
-  '$routeParams',
   'Alert',
   'GroupAutoAttendantService',
   'UserCallRecordsService'
 ]
-function controller(
-  $routeParams,
-  Alert,
-  GroupAutoAttendantService,
-  UserCallRecordsService
-) {
+function controller(Alert, GroupAutoAttendantService, UserCallRecordsService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.search = {}
   ctrl.editSearch = {}
   ctrl.input = {}
