@@ -1,14 +1,14 @@
 /*
   Ideas:
     - render prop with onDelete, onSave, onCancel
-
-  Transitions
 */
-import React from 'react'
+import React, { useEffect, useReducer } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import cx from 'classnames'
+import { Modal, Delete } from 'rbx'
 import { CSSTransition } from 'react-transition-group'
+
+const TIMEOUT = 300
 
 const StyledModal = styled.div`
   flex-direction: column;
@@ -40,29 +40,66 @@ const StyledModal = styled.div`
   }
 `
 
-const Modal = ({ isOpen, onClose, title, children }) => {
+/*
+  Modal is immediately removed from the DOM when active is set
+  to false.  In order to apply a transition we need to delay
+  that.
+
+  So, we are syncing the isOpen prop to the local state. When
+  isOpen is false we set the transitionIn to false and then
+  set showModal after a delay.
+*/
+const AnimatedModal = ({ isOpen, onClose, title, children }) => {
+  const [state, setState] = useReducer(
+    (state, newState) => ({
+      ...state,
+      ...newState
+    }),
+    {
+      showModal: null,
+      transitionIn: null
+    }
+  )
+
+  useEffect(() => {
+    let timer
+    if (!isOpen) {
+      setState({ transitionIn: false })
+      timer = setTimeout(() => setState({ showModal: false }), TIMEOUT)
+    } else {
+      setState({ transitionIn: true, showModal: true })
+    }
+    return () => clearTimeout(timer)
+  }, [isOpen])
+
   return (
-    <CSSTransition classNames="modal" timeout={300} in={isOpen}>
-      <StyledModal className={cx('modal', { 'is-active': isOpen })}>
-        <div className="modal-background" onClick={onClose} />
-        <div className="modal-card animated">
-          <header className="modal-card-head">
-            <p className="modal-card-title">{title}</p>
-            <button className="delete" aria-label="close" onClick={onClose} />
-          </header>
-          <section className="modal-card-body">{isOpen && children}</section>
-          <footer className="modal-card-foot" />
-        </div>
-      </StyledModal>
+    <CSSTransition classNames="modal" timeout={TIMEOUT} in={state.transitionIn}>
+      <Modal
+        active={state.showModal}
+        as={StyledModal}
+        closeOnEsc={true}
+        closeOnBlur={true}
+        onClose={onClose}
+      >
+        <Modal.Background />
+        <Modal.Card>
+          <Modal.Card.Head>
+            <Modal.Card.Title>{title}</Modal.Card.Title>
+            <Delete />
+          </Modal.Card.Head>
+          <Modal.Card.Body>{isOpen && children}</Modal.Card.Body>
+          <Modal.Card.Foot />
+        </Modal.Card>
+      </Modal>
     </CSSTransition>
   )
 }
 
-Modal.propTypes = {
+AnimatedModal.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
   title: PropTypes.string.isRequired,
   children: PropTypes.any
 }
 
-export default Modal
+export default AnimatedModal

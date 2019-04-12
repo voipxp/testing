@@ -1,38 +1,13 @@
 import React, { useReducer } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import auth from '/services/api/auth'
 import LoadingModal from './loading-modal'
 import { alertWarning, alertDanger } from '/store/alerts'
 import { setSession } from '/store/session'
-
-const Section = styled.section`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-
-  .box {
-    width: 400px;
-    margin: auto;
-  }
-
-  button {
-    width: 100%;
-  }
-
-  .hero-foot .message {
-    border-radius: 0;
-  }
-
-  .hero-foot .message-body {
-    text-align: center;
-    padding: 0.75rem;
-    border: none;
-  }
-`
 
 const Login = ({
   apiUrl,
@@ -57,8 +32,18 @@ const Login = ({
     }
   )
 
+  // FIND AN EASIER WAY TO DO VALIDATIONS
   const handleUpdate = e => {
-    setState({ [e.target.name]: e.target.value })
+    const currentState = state
+    currentState[e.target.name] = e.target.value
+    currentState.valid = currentState.username && currentState.password
+    if (currentState.needsChange) {
+      currentState.valid =
+        currentState.valid &&
+        currentState.newPassword1 &&
+        currentState.newPassword2
+    }
+    setState(currentState)
   }
 
   const handleSubmit = e => {
@@ -109,16 +94,14 @@ const Login = ({
 
   return (
     <>
-      <Section className="hero is-fullheight is-link">
-        <div className="hero-body has-text-centered">
-          <div className="box">
+      <Hero color="link" size="fullheight">
+        <Hero.Body textAlign="centered">
+          <Box style={{ width: '400px', margin: 'auto' }}>
             <img src={`${apiUrl}/ui/images/imageLoginLogo.png`} alt="logo" />
-
-            <form className="margin-top" onSubmit={handleSubmit}>
-              <div className="field">
-                <p className="control has-icons-left">
-                  <input
-                    className="input"
+            <form onSubmit={handleSubmit}>
+              <Field>
+                <Control iconLeft>
+                  <Input
                     type="text"
                     placeholder="Username"
                     name="username"
@@ -127,16 +110,15 @@ const Login = ({
                     autoCapitalize="off"
                     required
                   />
-                  <span className="icon is-small is-left">
-                    <i className="fas fa-envelope" />
-                  </span>
-                </p>
-              </div>
+                  <Icon size="small" align="left">
+                    <FontAwesomeIcon icon={faEnvelope} />
+                  </Icon>
+                </Control>
+              </Field>
 
-              <div className="field">
-                <p className="control has-icons-left">
-                  <input
-                    className="input"
+              <Field>
+                <Control iconLeft>
+                  <Input
                     type="password"
                     placeholder="Password"
                     name="password"
@@ -144,18 +126,17 @@ const Login = ({
                     value={state.password}
                     required
                   />
-                  <span className="icon is-small is-left">
-                    <i className="fas fa-lock" />
-                  </span>
-                </p>
-              </div>
+                  <Icon size="small" align="left">
+                    <FontAwesomeIcon icon={faLock} />
+                  </Icon>
+                </Control>
+              </Field>
 
               {state.needsChange && (
                 <>
-                  <div className="field">
-                    <p className="control has-icons-left">
-                      <input
-                        className="input"
+                  <Field>
+                    <Control iconLeft>
+                      <Input
                         type="password"
                         placeholder="New Password"
                         name="newPassword1"
@@ -163,15 +144,15 @@ const Login = ({
                         value={state.newPassword1}
                         required
                       />
-                      <span className="icon is-small is-left">
-                        <i className="fas fa-lock" />
-                      </span>
-                    </p>
-                  </div>
-                  <div className="field">
-                    <p className="control has-icons-left">
-                      <input
-                        className="input"
+                      <Icon size="small" align="left">
+                        <FontAwesomeIcon icon={faLock} />
+                      </Icon>
+                    </Control>
+                  </Field>
+
+                  <Field>
+                    <Control iconLeft>
+                      <Input
                         type="password"
                         placeholder="New Password"
                         name="newPassword2"
@@ -179,29 +160,34 @@ const Login = ({
                         value={state.newPassword2}
                         required
                       />
-                      <span className="icon is-small is-left">
-                        <i className="fas fa-lock" />
-                      </span>
-                    </p>
-                  </div>
+                      <Icon size="small" align="left">
+                        <FontAwesomeIcon icon={faLock} />
+                      </Icon>
+                    </Control>
+                  </Field>
                 </>
               )}
 
-              <button className="margin-top button is-link" type="submit">
+              <Button
+                color="link"
+                fullwidth
+                type="submit"
+                disabled={!state.valid}
+              >
                 Login
-              </button>
+              </Button>
             </form>
-          </div>
-        </div>
+          </Box>
+        </Hero.Body>
 
         {loginMessage && (
-          <div className="hero-foot">
-            <div className="message">
-              <div className="message-body">{loginMessage}</div>
-            </div>
-          </div>
+          <Hero.Foot>
+            <Message radiusless>
+              <Message.Body textAlign="centered">{loginMessage}</Message.Body>
+            </Message>
+          </Hero.Foot>
         )}
-      </Section>
+      </Hero>
       <LoadingModal isOpen={state.loading} />
     </>
   )

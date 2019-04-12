@@ -3,11 +3,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Navbar } from 'rbx'
 import cx from 'classnames'
 import { clearSession, hasLevel } from '/store/session'
 import Modal from './modal'
 
-const Navbar = ({
+const AppNavbar = ({
   pageTitle,
   userId,
   apiUrl,
@@ -32,6 +33,7 @@ const Navbar = ({
   }
 
   const openApplication = application => {
+    updateShowMenu(false)
     // TODO: add token getter
     const url = application.url
     if (application.window) {
@@ -43,94 +45,74 @@ const Navbar = ({
 
   return (
     <>
-      <nav
-        className="navbar is-link"
-        role="navigation"
-        aria-label="main navigation"
-      >
-        <div className="navbar-brand">
-          <a className="navbar-item" href="/">
+      <Navbar color="link" managed={true} active={showMenu}>
+        <Navbar.Brand>
+          <Navbar.Item href="/">
             <img
               src={`${apiUrl}/ui/images/imageIcon.png?size=50x51`}
               alt="odin Web"
             />
-          </a>
-          <a className="button navbar-burger is-link" onClick={toggleMenu}>
-            <span />
-            <span />
-            <span />
-          </a>
-        </div>
-        <div className={cx('navbar-menu', { 'is-active': showMenu })}>
-          <div className="navbar-start">
-            <div className="navbar-item">
+          </Navbar.Item>
+          <Navbar.Burger color="link" onClick={toggleMenu} />
+        </Navbar.Brand>
+        <Navbar.Menu>
+          <Navbar.Segment align="start">
+            <Navbar.Item href="/">
               {pageTitle} ({userId})
-            </div>
-          </div>
-          <div className="navbar-end">
+            </Navbar.Item>
+          </Navbar.Segment>
+          <Navbar.Segment align="end">
             {applications.length > 0 && (
-              <div className="navbar-item has-dropdown is-hoverable">
-                <a className="navbar-link">Applications</a>
-                <div className="navbar-dropdown is-boxed">
-                  {applications.map(application => {
-                    return (
-                      <a
-                        key={application.id}
-                        className="navbar-item"
-                        onClick={() => openApplication(application)}
-                      >
-                        {application.name}
-                      </a>
-                    )
-                  })}
-                </div>
-              </div>
-            )}
-            {hasGroup && (
-              <div className="navbar-item has-dropdown is-hoverable">
-                <a className="navbar-link">Search</a>
-                <div className="navbar-dropdown is-boxed">
-                  <a className="navbar-item" onClick={() => openSearch('user')}>
-                    Users
-                  </a>
-                  {hasServiceProvider && (
-                    <>
-                      <a
-                        className="navbar-item"
-                        onClick={() => openSearch('group')}
-                      >
-                        Groups
-                      </a>
-                      <a
-                        className="navbar-item"
-                        onClick={() => openSearch('service')}
-                      >
-                        Services
-                      </a>
-                    </>
-                  )}
-                  <a className="navbar-item" onClick={() => openSearch('dn')}>
-                    Phone Numbers
-                  </a>
-                </div>
-              </div>
+              <Navbar.Item dropdown hoverable>
+                <Navbar.Link>Applications</Navbar.Link>
+                <Navbar.Dropdown boxed>
+                  {applications.map(application => (
+                    <Navbar.Item
+                      key={application.id}
+                      onClick={() => openApplication(application)}
+                    >
+                      {application.name}
+                    </Navbar.Item>
+                  ))}
+                </Navbar.Dropdown>
+              </Navbar.Item>
             )}
 
-            <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">My Account</a>
-              <div className="navbar-dropdown is-boxed">
-                <a className="navbar-item" onClick={openAccount}>
-                  Profile
-                </a>
-                <hr className="navbar-divider" />
-                <a className="navbar-item" onClick={clearSession}>
-                  Logout
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+            {hasGroup && (
+              <Navbar.Item dropdown hoverable>
+                <Navbar.Link>Search</Navbar.Link>
+                <Navbar.Dropdown boxed>
+                  <Navbar.Item onClick={() => openSearch('user')}>
+                    Users
+                  </Navbar.Item>
+                  <Navbar.Item onClick={() => openSearch('dn')}>
+                    Phone Numbers
+                  </Navbar.Item>
+                  {hasServiceProvider && (
+                    <>
+                      <Navbar.Item onClick={() => openSearch('group')}>
+                        Groups
+                      </Navbar.Item>
+                      <Navbar.Item onClick={() => openSearch('service')}>
+                        Services
+                      </Navbar.Item>
+                    </>
+                  )}
+                </Navbar.Dropdown>
+              </Navbar.Item>
+            )}
+
+            <Navbar.Item dropdown hoverable>
+              <Navbar.Link>My Account</Navbar.Link>
+              <Navbar.Dropdown boxed>
+                <Navbar.Item onClick={openAccount}>Profile</Navbar.Item>
+                <Navbar.Divider />
+                <Navbar.Item onClick={clearSession}>Logout</Navbar.Item>
+              </Navbar.Dropdown>
+            </Navbar.Item>
+          </Navbar.Segment>
+        </Navbar.Menu>
+      </Navbar>
 
       {hasGroup && (
         <>
@@ -172,7 +154,7 @@ const Navbar = ({
   )
 }
 
-Navbar.propTypes = {
+AppNavbar.propTypes = {
   apiUrl: PropTypes.string,
   userId: PropTypes.string,
   pageTitle: PropTypes.string,
@@ -196,4 +178,4 @@ const mapDispatch = { clearSession }
 export default connect(
   mapState,
   mapDispatch
-)(Navbar)
+)(AppNavbar)
