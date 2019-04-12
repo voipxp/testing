@@ -51,19 +51,12 @@ const Login = ({
     state.needsChange ? setPassword() : login()
   }
 
-  function redirect() {
-    const current = document.location.hash
-    document.location.hash = '#!/'
-    document.location.hash = current
-  }
-
   async function login() {
     setState({ loading: true })
     try {
       const session = await auth.token(state.username, state.password)
       setState({ loading: false })
       await setSession(session)
-      redirect()
     } catch (error) {
       if (error.status === 402) {
         alertWarning(error)
@@ -85,7 +78,6 @@ const Login = ({
       const session = await auth.token(state.username, state.newPassword1)
       setState({ loading: false })
       await setSession(session)
-      redirect()
     } catch (error) {
       setState({ loading: false })
       alertDanger(error)

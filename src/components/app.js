@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
 import Alerts from './alerts'
@@ -18,11 +19,11 @@ const Wrapper = styled.div`
   min-height: calc(100vh - 105px);
 `
 const App = ({
-  initialized,
-  sessionTimeout,
   alertWarning,
-  removeAlert,
   clearSession,
+  initialized,
+  removeAlert,
+  sessionTimeout,
   userId
 }) => {
   const alertRef = useRef()
@@ -68,7 +69,9 @@ const App = ({
         <>
           <Navbar />
           <Wrapper>
-            <Angular component="pbsApp" />
+            <Switch>
+              <Route render={() => <Angular component="pbsApp" />} />
+            </Switch>
           </Wrapper>
           <Footer />
         </>
@@ -80,18 +83,18 @@ const App = ({
 }
 
 App.propTypes = {
-  initialized: PropTypes.bool,
-  userId: PropTypes.string,
-  sessionTimeout: PropTypes.number,
   alertWarning: PropTypes.func,
+  clearSession: PropTypes.func,
+  initialized: PropTypes.bool,
   removeAlert: PropTypes.func,
-  clearSession: PropTypes.func
+  sessionTimeout: PropTypes.number,
+  userId: PropTypes.string
 }
 
 const mapState = state => ({
-  userId: state.session.userId,
+  initialized: state.ui.initialized,
   sessionTimeout: state.ui.settings.sessionTimeout,
-  initialized: state.ui.initialized
+  userId: state.session.userId
 })
 const mapDispatch = { alertWarning, removeAlert, clearSession }
 export default connect(

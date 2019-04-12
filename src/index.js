@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { HashRouter } from 'react-router-dom'
+
 import App from './components/app'
 import store from './store'
 import { Provider } from 'react-redux'
@@ -8,7 +10,9 @@ import './angular'
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <HashRouter hashType="hashbang">
+      <App />
+    </HashRouter>
   </Provider>,
   document.querySelector('#root')
 )

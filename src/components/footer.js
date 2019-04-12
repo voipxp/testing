@@ -9,9 +9,9 @@ const StyledFooter = styled.footer`
   height: 50px;
 `
 const AppFooter = ({
+  copyright = 'Park Bench Solutions Inc.',
   title = 'odin Web',
-  version = 'N/A',
-  copyright = 'Park Bench Solutions Inc.'
+  version = 'N/A'
 }) => {
   return (
     <Footer as={StyledFooter} textAlign="centered">
@@ -25,9 +25,9 @@ const AppFooter = ({
 }
 
 AppFooter.propTypes = {
+  copyright: PropTypes.string,
   title: PropTypes.string,
-  version: PropTypes.string,
-  copyright: PropTypes.string
+  version: PropTypes.string
 }
 
 const mapState = state => ({

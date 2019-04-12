@@ -1,21 +1,20 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
-import cx from 'classnames'
 import { clearSession, hasLevel } from '/store/session'
 import Modal from './modal'
 
 const AppNavbar = ({
-  pageTitle,
-  userId,
   apiUrl,
   applications,
   clearSession,
   hasGroup,
-  hasServiceProvider
+  hasServiceProvider,
+  history,
+  pageTitle,
+  userId
 }) => {
   const [showMenu, updateShowMenu] = useState(false)
   const [search, setSearch] = useState()
@@ -24,7 +23,7 @@ const AppNavbar = ({
 
   const openAccount = () => {
     updateShowMenu(false)
-    document.location.hash = '#!/account'
+    history.push('/account')
   }
 
   const openSearch = type => {
@@ -156,26 +155,29 @@ const AppNavbar = ({
 
 AppNavbar.propTypes = {
   apiUrl: PropTypes.string,
-  userId: PropTypes.string,
-  pageTitle: PropTypes.string,
   applications: PropTypes.array,
   clearSession: PropTypes.func,
   hasGroup: PropTypes.bool,
-  hasServiceProvider: PropTypes.bool
+  hasServiceProvider: PropTypes.bool,
+  history: PropTypes.object,
+  pageTitle: PropTypes.string,
+  userId: PropTypes.string
 }
 
 const mapState = state => ({
   apiUrl: state.ui.apiUrl,
-  userId: state.session.userId,
-  pageTitle: state.ui.template.pageTitle,
   applications: state.ui.applications,
   hasGroup: hasLevel(state.session.loginType, 'Group'),
-  hasServiceProvider: hasLevel(state.session.loginType, 'Service Provider')
+  hasServiceProvider: hasLevel(state.session.loginType, 'Service Provider'),
+  pageTitle: state.ui.template.pageTitle,
+  userId: state.session.userId
 })
 
 const mapDispatch = { clearSession }
 
-export default connect(
-  mapState,
-  mapDispatch
-)(AppNavbar)
+export default withRouter(
+  connect(
+    mapState,
+    mapDispatch
+  )(AppNavbar)
+)
