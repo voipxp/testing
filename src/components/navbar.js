@@ -44,7 +44,7 @@ const AppNavbar = ({
 
   return (
     <>
-      <Navbar color="link" managed={true} active={showMenu}>
+      <Navbar color="link" managed active={showMenu}>
         <Navbar.Brand>
           <Navbar.Item href="/">
             <img

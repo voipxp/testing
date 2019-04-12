@@ -52,6 +52,7 @@ const Router = () => {
             <Angular
               component={route.component}
               acl={route.acl}
+              module={route.module}
               {...route.bindings}
             />
           )}

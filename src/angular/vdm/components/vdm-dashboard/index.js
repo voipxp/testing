@@ -3,13 +3,15 @@ import template from './index.html'
 
 angular.module('odin.vdm').component('vdmDashboard', {
   template,
-  controller,
-  bindings: { module: '<' }
+  controller
 })
 
-controller.$inject = ['$routeParams']
-function controller($routeParams) {
+controller.$inject = ['$routeParams', 'Module']
+function controller($routeParams, Module) {
   var ctrl = this
   ctrl.serviceProviderId = $routeParams.serviceProviderId
   ctrl.groupId = $routeParams.groupId
+  ctrl.$onInit = async () => {
+    ctrl.module = await Module.show('VDM')
+  }
 }
