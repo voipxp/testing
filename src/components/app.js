@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
+import Routes from './routes'
 import Alerts from './alerts'
-import Angular from './angular'
 import Footer from './footer'
 import LoadingScreen from './loading-screen'
 import Login from './login'
@@ -69,9 +68,7 @@ const App = ({
         <>
           <Navbar />
           <Wrapper>
-            <Switch>
-              <Route render={() => <Angular component="pbsApp" />} />
-            </Switch>
+            <Routes />
           </Wrapper>
           <Footer />
         </>

@@ -68,7 +68,7 @@ angular
     'odin.user',
     'odin.vdm'
   ])
-  .config(routes)
+  // .config(routes)
   .config(config.locationConfig)
   .config(config.httpSyncConfig)
   .config(config.deleteHttpConfig)
