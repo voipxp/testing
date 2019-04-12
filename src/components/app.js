@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
+import Angular from './angular'
 import Routes from './routes'
 import Alerts from './alerts'
 import Footer from './footer'
 import LoadingScreen from './loading-screen'
+import LoadingModal from './loading-modal'
 import Login from './login'
 import Navbar from './navbar'
 import { alertWarning, removeAlert } from '/store/alerts'
@@ -78,6 +80,8 @@ const App = ({
       ) : (
         <Login />
       )}
+      <Angular component="pbsConfirmModal" />
+      <LoadingModal />
     </>
   )
 }

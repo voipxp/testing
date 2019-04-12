@@ -71,7 +71,6 @@ function Provider($routeProvider) {
   }
 
   function set(routes, prefix) {
-    console.log('skip')
     // angular.copy(routes).forEach(function(route) {
     //   $routeProvider.when(getPath(prefix, route.path), getConfig(route))
     // })

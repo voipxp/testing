@@ -1,12 +1,12 @@
 import React from 'react'
 import { Modal } from 'rbx'
+import { connect } from 'react-redux'
 import Spinner from './spinner'
 import PropTypes from 'prop-types'
 
-const LoadingModal = ({ isOpen }) => {
-  if (!isOpen) return null
+const LoadingModal = ({ showLoadingModal }) => {
   return (
-    <Modal active={isOpen}>
+    <Modal active={showLoadingModal}>
       <Modal.Background />
       <Modal.Content>
         <Spinner />
@@ -16,7 +16,10 @@ const LoadingModal = ({ isOpen }) => {
 }
 
 LoadingModal.propTypes = {
-  isOpen: PropTypes.bool
+  showLoadingModal: PropTypes.bool
 }
 
-export default LoadingModal
+const mapState = ({ ui }) => ({
+  showLoadingModal: ui.showLoadingModal
+})
+export default connect(mapState)(LoadingModal)

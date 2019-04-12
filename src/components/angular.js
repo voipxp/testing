@@ -1,7 +1,3 @@
-/*
-  TODO:
-    allow ...rest that might come from bindings
-*/
 import React, { useRef } from 'react'
 import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'

@@ -1,13 +1,3 @@
-/*
-TODO:
-  group events by event_id
-
-  add filter options by status
-
-  click on webhook, shows modal with all the related webhooks as well as the event
-  maybe go to new page if needed
-*/
-
 import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'

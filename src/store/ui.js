@@ -7,6 +7,7 @@ import uiTemplate from '/services/api/ui-template'
 const initialState = {
   apiUrl: '/api/v2',
   initialized: false,
+  showLoadingModal: false,
   applications: [],
   settings: {},
   template: {}
@@ -22,6 +23,12 @@ const slice = createSlice({
     setInitialized: (state, { payload }) => {
       state.initialized = payload
     },
+    showLoadingModal: state => {
+      state.showLoadingModal = true
+    },
+    hideLoadingModal: state => {
+      state.showLoadingModal = false
+    },
     setApplications: (state, { payload }) => {
       state.applications = payload || []
     },
@@ -36,6 +43,8 @@ const slice = createSlice({
 
 const { actions, reducer } = slice
 export const {
+  showLoadingModal,
+  hideLoadingModal,
   setApplications,
   setSettings,
   setTemplate,

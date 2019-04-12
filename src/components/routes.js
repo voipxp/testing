@@ -1,14 +1,3 @@
-/*
-  TODO
-  - grab all the props of all the routes to see what we are dealing with
-  - change the bulk data resolve
-    - use redux instead for storage
-    - render the select users if none are selected
-    - otherwise render the actual page
-    - eliminate the redirect
-  - handle sso in the login component
-*/
-
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Dashboard from './dashboard'
