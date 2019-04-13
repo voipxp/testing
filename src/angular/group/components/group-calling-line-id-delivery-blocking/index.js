@@ -5,23 +5,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallingLineIdDeliveryBlocking', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  '$routeParams',
-  'Alert',
-  'UserCallingLineIdDeliveryBlockingService'
-]
-function controller(
-  $routeParams,
-  Alert,
-  UserCallingLineIdDeliveryBlockingService
-) {
+controller.$inject = ['Alert', 'UserCallingLineIdDeliveryBlockingService']
+function controller(Alert, UserCallingLineIdDeliveryBlockingService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
 

@@ -5,11 +5,5 @@ angular
   .module('odin.serviceProvider')
   .component('serviceProviderServicePacks', {
     template,
-    controller
+    bindings: { serviceProviderId: '<' }
   })
-
-controller.$inject = ['$routeParams']
-function controller($routeParams) {
-  var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-}

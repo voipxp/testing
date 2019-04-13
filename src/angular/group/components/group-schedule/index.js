@@ -3,27 +3,20 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupSchedule', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  '$routeParams',
-  'Alert',
-  'GroupScheduleService',
-  'Route',
-  '$route'
-]
-function controller($routeParams, Alert, GroupScheduleService, Route, $route) {
+controller.$inject = ['Alert', 'GroupScheduleService', 'Route', '$location']
+function controller(Alert, GroupScheduleService, Route, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.back = back
   ctrl.edit = edit
 
   function onInit() {
-    ctrl.type = $routeParams.type
-    ctrl.name = $routeParams.name
+    ctrl.type = $location.search().type
+    ctrl.name = $location.search().name
     ctrl.loading = true
     loadSchedule()
       .catch(Alert.notify.danger)
@@ -67,9 +60,7 @@ function controller($routeParams, Alert, GroupScheduleService, Route, $route) {
       .then(function() {
         Alert.notify.success('Schedule Updated')
         callback()
-        schedule.newName === ctrl.name
-          ? loadSchedule()
-          : open(schedule) && $route.reload()
+        schedule.newName === ctrl.name ? loadSchedule() : open(schedule)
       })
       .catch(Alert.notify.danger)
       .finally(Alert.spinner.close)

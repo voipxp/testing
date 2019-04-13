@@ -4,27 +4,20 @@ import template from './index.html'
 angular.module('odin.group').component('groupMusicOnHold', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupMusicOnHoldService',
-  'Route',
-  '$routeParams'
-]
-function controller(Alert, GroupMusicOnHoldService, Route, $routeParams) {
+controller.$inject = ['Alert', 'GroupMusicOnHoldService', 'Route', '$location']
+function controller(Alert, GroupMusicOnHoldService, Route, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.update = update
   ctrl.destroy = destroy
   ctrl.back = back
 
   function onInit() {
-    ctrl.departmentName = $routeParams.departmentName
-    ctrl.isEnterpriseDepartment = $routeParams.isEnterpriseDepartment
+    ctrl.departmentName = $location.search().departmentName
+    ctrl.isEnterpriseDepartment = $location.search().isEnterpriseDepartment
     ctrl.title = ctrl.departmentName || 'Group'
     ctrl.loading = true
     loadMoh()

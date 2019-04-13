@@ -5,16 +5,17 @@ angular
   .module('odin.serviceProvider')
   .component('enterpriseEnterpriseTrunkNavigation', {
     template,
-    controller
+    controller,
+    bindings: { serviceProviderId: '<', groupId: '<' }
   })
 
-controller.$inject = ['$routeParams', 'Route']
-function controller($routeParams, Route) {
+controller.$inject = ['Route', '$location']
+function controller(Route, $location) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.trunkName = $routeParams.trunkName
   ctrl.open = open
+  ctrl.$onInit = function() {
+    ctrl.trunkName = $location.search().trunkName
+  }
 
   function open(trunk) {
     var trunkName = (trunk && trunk.enterpriseTrunkName) || trunk

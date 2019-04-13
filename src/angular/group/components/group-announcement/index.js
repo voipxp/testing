@@ -13,17 +13,9 @@ controller.$inject = [
   'GroupAnnouncementService',
   'Route',
   '$scope',
-  '$route',
   '$location'
 ]
-function controller(
-  Alert,
-  GroupAnnouncementService,
-  Route,
-  $scope,
-  $route,
-  $location
-) {
+function controller(Alert, GroupAnnouncementService, Route, $scope, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -79,7 +71,7 @@ function controller(
   function onUpdate(event) {
     return event.announcement.newName === ctrl.announcement.name
       ? onInit()
-      : open(event.announcement) && $route.reload()
+      : open(event.announcement)
   }
 
   function onDelete() {

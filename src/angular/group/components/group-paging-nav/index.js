@@ -4,15 +4,15 @@ import template from './index.html'
 angular.module('odin.group').component('groupPagingNav', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$routeParams', 'Route']
-function controller($routeParams, Route) {
+controller.$inject = ['$location', 'Route']
+function controller($location, Route) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.serviceUserId = $routeParams.serviceUserId
+  ctrl.$onInit = function() {
+    ctrl.serviceUserId = $location.search().serviceUserId
+  }
   ctrl.open = open
 
   function open(serviceUserId) {

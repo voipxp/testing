@@ -4,14 +4,12 @@ import template from './index.html'
 angular.module('odin.group').component('groupMeetMe', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$routeParams', 'Route', 'Session']
-function controller($routeParams, Route, Session) {
+controller.$inject = ['Route', 'Session']
+function controller(Route, Session) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.loginType = Session.data('loginType')
   ctrl.open = open
   ctrl.state = 'list'

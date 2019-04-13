@@ -5,15 +5,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupVoiceMessagingUser', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$routeParams', 'Alert', 'UserVoiceMessagingService']
-function controller($routeParams, Alert, UserVoiceMessagingService) {
+controller.$inject = ['Alert', 'UserVoiceMessagingService']
+function controller(Alert, UserVoiceMessagingService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
   ctrl.options = UserVoiceMessagingService.options

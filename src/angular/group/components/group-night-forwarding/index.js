@@ -4,15 +4,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupNightForwarding', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$routeParams', 'Alert', 'GroupNightForwardingService']
-function controller($routeParams, Alert, GroupNightForwardingService) {
+controller.$inject = ['Alert', 'GroupNightForwardingService']
+function controller(Alert, GroupNightForwardingService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.edit = edit
   ctrl.options = GroupNightForwardingService.options
 

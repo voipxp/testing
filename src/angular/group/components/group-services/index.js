@@ -5,13 +5,12 @@ import template from './index.html'
 angular.module('odin.group').component('groupServices', {
   template,
   controller,
-  bindings: { serviceType: '@' }
+  bindings: { serviceType: '@', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'GroupServiceService',
-  '$routeParams',
   '$filter',
   '$scope',
   'ACL',
@@ -21,7 +20,6 @@ controller.$inject = [
 function controller(
   Alert,
   GroupServiceService,
-  $routeParams,
   $filter,
   $scope,
   ACL,
@@ -30,9 +28,6 @@ function controller(
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-
   ctrl.onClick = onClick
   ctrl.onUserClick = onUserClick
   ctrl.onSelect = onSelect

@@ -6,30 +6,23 @@ angular.module('odin.serviceProvider').component('serviceProviderServices', {
   template,
   controller,
   bindings: {
-    serviceType: '@'
+    serviceType: '@',
+    serviceProviderId: '<'
   }
 })
 
 controller.$inject = [
   'Alert',
   'ServiceProviderServiceService',
-  '$routeParams',
   '$filter',
   'ACL'
 ]
-function controller(
-  Alert,
-  ServiceProviderServiceService,
-  $routeParams,
-  $filter,
-  ACL
-) {
+function controller(Alert, ServiceProviderServiceService, $filter, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.$onChanges = onChanges
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
 
   ctrl.quantity = function(value) {
     return value === -1 ? 'Unlimited' : value

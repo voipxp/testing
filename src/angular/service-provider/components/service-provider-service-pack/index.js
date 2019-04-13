@@ -4,29 +4,28 @@ import template from './index.html'
 
 angular.module('odin.serviceProvider').component('serviceProviderServicePack', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'ServiceProviderServicePackService',
-  '$routeParams',
   'Route',
   'Module',
-  '$q'
+  '$q',
+  '$location'
 ]
 function controller(
   Alert,
   ServiceProviderServicePackService,
-  $routeParams,
   Route,
   Module,
-  $q
+  $q,
+  $location
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.servicePackName = $routeParams.servicePackName
   ctrl.open = open
   ctrl.edit = edit
 
@@ -39,6 +38,7 @@ function controller(
   }
 
   function onInit() {
+    ctrl.servicePackName = $location.search().servicePackName
     ctrl.loading = true
     $q.all([loadServicePack(), loadPermissions()])
       .catch(function(error) {

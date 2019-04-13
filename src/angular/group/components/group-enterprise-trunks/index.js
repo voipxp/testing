@@ -4,28 +4,18 @@ import template from './index.html'
 angular.module('odin.group').component('groupEnterpriseTrunks', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
-  '$routeParams',
   'Route',
   'Alert',
   'GroupEnterpriseTrunkService',
   '$scope',
   'ACL'
 ]
-function controller(
-  $routeParams,
-  Route,
-  Alert,
-  GroupEnterpriseTrunkService,
-  $scope,
-  ACL
-) {
+function controller(Route, Alert, GroupEnterpriseTrunkService, $scope, ACL) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.open = open
   ctrl.add = add
   ctrl.onSave = onSave

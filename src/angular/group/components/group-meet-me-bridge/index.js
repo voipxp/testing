@@ -5,27 +5,24 @@ import template from './index.html'
 angular.module('odin.group').component('groupMeetMeBridge', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
-  '$routeParams',
   'Alert',
   'Route',
   'GroupMeetMeConferencingBridgeService',
-  'Session'
+  'Session',
+  '$location'
 ]
 function controller(
-  $routeParams,
   Alert,
   Route,
   GroupMeetMeConferencingBridgeService,
-  Session
+  Session,
+  $location
 ) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.serviceUserId = $routeParams.serviceUserId
   ctrl.onUpdateProfile = onUpdateProfile
   ctrl.update = update
   ctrl.remove = remove
@@ -43,6 +40,7 @@ function controller(
   }
 
   function onInit() {
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     return loadBridge()
       .catch(Alert.notify.danger)

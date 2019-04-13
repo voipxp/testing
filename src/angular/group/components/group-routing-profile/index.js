@@ -4,27 +4,23 @@ import template from './index.html'
 angular.module('odin.group').component('groupRoutingProfile', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
   '$q',
-  '$routeParams',
   'Alert',
   'SystemRoutingProfileService',
   'GroupRoutingProfileService'
 ]
 function controller(
   $q,
-  $routeParams,
   Alert,
   SystemRoutingProfileService,
   GroupRoutingProfileService
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.edit = edit
   ctrl.options = {}
 

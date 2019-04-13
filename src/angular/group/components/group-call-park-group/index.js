@@ -5,32 +5,27 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallParkGroup', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
   'Alert',
-  '$routeParams',
   'GroupCallParkService',
   'GroupCallParkGroupService',
   'Route',
   'Module',
-  '$route'
+  '$location'
 ]
 function controller(
   Alert,
-  $routeParams,
   GroupCallParkService,
   GroupCallParkGroupService,
   Route,
   Module,
-  $route
+  $location
 ) {
   var ctrl = this
 
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.name = $routeParams.name
   ctrl.open = open
   ctrl.options = GroupCallParkGroupService.options
   ctrl.$onInit = onInit
@@ -40,6 +35,7 @@ function controller(
   ctrl.selectUsers = selectUsers
 
   function onInit() {
+    ctrl.name = $location.search().name
     ctrl.loading = true
     loadGroup()
       .catch(Alert.notify.danger)
@@ -125,7 +121,7 @@ function controller(
     GroupCallParkGroupService.update(group)
       .then(function() {
         return group.newName && group.newName !== ctrl.group.name
-          ? open(group.newName) && $route.reload()
+          ? open(group.newName)
           : loadGroup()
       })
       .then(function() {

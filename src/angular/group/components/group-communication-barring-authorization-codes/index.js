@@ -6,25 +6,21 @@ angular
   .module('odin.group')
   .component('groupCommunicationBarringAuthorizationCodes', {
     template,
-    controller
+    controller,
+    bindings: {
+      serviceProviderId: '<',
+      groupId: '<'
+    }
   })
 
 controller.$inject = [
   'Alert',
-  'GroupCommunicationBarringAuthorizationCodeService',
-  '$routeParams'
+  'GroupCommunicationBarringAuthorizationCodeService'
 ]
-function controller(
-  Alert,
-  GroupCommunicationBarringAuthorizationCodeService,
-  $routeParams
-) {
+function controller(Alert, GroupCommunicationBarringAuthorizationCodeService) {
   var ctrl = this
 
   ctrl.$onInit = activate
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-
   ctrl.add = add
   ctrl.remove = remove
 

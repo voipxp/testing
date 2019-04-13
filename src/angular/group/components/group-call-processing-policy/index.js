@@ -4,19 +4,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallProcessingPolicy', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  '$routeParams',
-  'Alert',
-  'GroupCallProcessingPolicyService'
-]
-function controller($routeParams, Alert, GroupCallProcessingPolicyService) {
+controller.$inject = ['Alert', 'GroupCallProcessingPolicyService']
+function controller(Alert, GroupCallProcessingPolicyService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.edit = edit
   ctrl.options = GroupCallProcessingPolicyService.options
   function onInit() {

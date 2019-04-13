@@ -5,19 +5,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallForwardingAlways', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  '$routeParams',
-  'Alert',
-  'UserCallForwardingAlwaysService'
-]
-function controller($routeParams, Alert, UserCallForwardingAlwaysService) {
+controller.$inject = ['Alert', 'UserCallForwardingAlwaysService']
+function controller(Alert, UserCallForwardingAlwaysService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
   ctrl.options = UserCallForwardingAlwaysService.options

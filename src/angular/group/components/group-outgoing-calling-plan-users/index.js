@@ -3,14 +3,13 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupOutgoingCallingPlanUsers', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$routeParams', 'Route', 'GroupServiceService', 'Module']
-function controller($routeParams, Route, GroupServiceService, Module) {
+controller.$inject = ['Route', 'GroupServiceService', 'Module']
+function controller(Route, GroupServiceService, Module) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.open = open
   ctrl.$onInit = onInit
 

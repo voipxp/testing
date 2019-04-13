@@ -3,15 +3,14 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupSchedules', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$routeParams', 'Alert', 'GroupScheduleService', 'Route']
-function controller($routeParams, Alert, GroupScheduleService, Route) {
+controller.$inject = ['Alert', 'GroupScheduleService', 'Route']
+function controller(Alert, GroupScheduleService, Route) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.open = open
   ctrl.add = add
 

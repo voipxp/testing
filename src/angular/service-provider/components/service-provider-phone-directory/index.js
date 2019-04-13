@@ -3,26 +3,27 @@ import template from './index.html'
 
 angular
   .module('odin.serviceProvider')
-  .component('serviceProviderPhoneDirectory', { template, controller })
+  .component('serviceProviderPhoneDirectory', {
+    template,
+    controller,
+    bindings: { serviceProviderId: '<' }
+  })
 
 controller.$inject = [
   'Alert',
   'ServiceProviderPhoneDirectoryService',
-  '$routeParams',
   'CsvService',
   'DownloadService'
 ]
 function controller(
   Alert,
   ServiceProviderPhoneDirectoryService,
-  $routeParams,
   CsvService,
   DownloadService
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onPagination = onPagination
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
   ctrl.download = download
 
   ctrl.columns = [

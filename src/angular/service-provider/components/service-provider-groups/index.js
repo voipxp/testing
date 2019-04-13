@@ -3,14 +3,14 @@ import template from './index.html'
 
 angular.module('odin.serviceProvider').component('serviceProviderGroups', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'GroupService',
   'Route',
-  '$routeParams',
   '$scope',
   '$q',
   'ServiceProviderPolicyService',
@@ -20,7 +20,6 @@ function controller(
   Alert,
   GroupService,
   Route,
-  $routeParams,
   $scope,
   $q,
   ServiceProviderPolicyService,
@@ -33,7 +32,6 @@ function controller(
   ctrl.onCreate = onCreate
   ctrl.open = open
   ctrl.onPagination = onPagination
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
 
   function onPagination(event) {
     ctrl.pager = event.pager

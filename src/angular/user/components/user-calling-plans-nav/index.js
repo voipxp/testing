@@ -4,14 +4,16 @@ import template from './index.html'
 angular.module('odin.user').component('userCallingPlansNav', {
   template,
   controller,
-  bindings: { callingPlan: '@' }
+  bindings: {
+    callingPlan: '@',
+    serviceProviderId: '<',
+    groupId: '<',
+    userId: '<'
+  }
 })
 
-function controller($routeParams, Route) {
+function controller(Route) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.userId = $routeParams.userId
   ctrl.open = open
 
   function open(callingPlan) {

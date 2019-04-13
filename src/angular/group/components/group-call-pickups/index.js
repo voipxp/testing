@@ -4,20 +4,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallPickups', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupCallPickupService',
-  '$routeParams',
-  'Route'
-]
-function controller(Alert, GroupCallPickupService, $routeParams, Route) {
+controller.$inject = ['Alert', 'GroupCallPickupService', 'Route']
+function controller(Alert, GroupCallPickupService, Route) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.open = open
   ctrl.add = add
 

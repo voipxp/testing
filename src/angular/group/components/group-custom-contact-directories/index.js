@@ -4,25 +4,13 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupCustomContactDirectories', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupCustomContactDirectoryService',
-  '$routeParams',
-  '$q'
-]
-function controller(
-  Alert,
-  GroupCustomContactDirectoryService,
-  $routeParams,
-  $q
-) {
+controller.$inject = ['Alert', 'GroupCustomContactDirectoryService', '$q']
+function controller(Alert, GroupCustomContactDirectoryService, $q) {
   var ctrl = this
-
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
 
   ctrl.$onInit = onInit
   ctrl.edit = edit

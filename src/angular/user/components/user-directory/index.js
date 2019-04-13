@@ -3,16 +3,14 @@ import template from './index.html'
 
 angular.module('odin.user').component('userDirectory', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserPhoneDirectoryService', '$routeParams']
-function controller(Alert, UserPhoneDirectoryService, $routeParams) {
+controller.$inject = ['Alert', 'UserPhoneDirectoryService']
+function controller(Alert, UserPhoneDirectoryService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.userId = $routeParams.userId
 
   ctrl.columns = [
     {

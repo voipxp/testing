@@ -5,35 +5,25 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallPickup', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'GroupCallPickupService',
-  '$routeParams',
   'Route',
   'Module',
-  '$route'
+  '$location'
 ]
-function controller(
-  Alert,
-  GroupCallPickupService,
-  $routeParams,
-  Route,
-  Module,
-  $route
-) {
+function controller(Alert, GroupCallPickupService, Route, Module, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.name = $routeParams.name
   ctrl.open = open
   ctrl.edit = edit
   ctrl.users = users
 
   function onInit() {
+    ctrl.name = $location.search().name
     ctrl.loading = true
     loadGroup()
       .catch(Alert.notify.danger)
@@ -122,7 +112,7 @@ function controller(
     GroupCallPickupService.update(group)
       .then(function() {
         return group.newName && group.newName !== ctrl.group.name
-          ? open(group.newName) && $route.reload()
+          ? open(group.newName)
           : loadGroup()
       })
       .then(function() {

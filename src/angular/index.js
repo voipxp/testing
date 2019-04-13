@@ -7,7 +7,6 @@ import 'angular-chart.js'
 import 'angular-color-picker'
 import 'angular-color-picker/angular-color-picker.css'
 import 'angular-jwt'
-import 'angular-route'
 import 'angular-sanitize'
 import 'angular-truncate-2'
 import 'animate.css/animate.css'
@@ -36,14 +35,12 @@ import './user'
 import './vdm'
 
 // CONFIGS
-import routes from './routes'
 import * as config from './config'
 
 let _injector
 
 angular
   .module('odin', [
-    'ngRoute',
     'ngAnimate',
     'ngSanitize',
     'ngIdle',

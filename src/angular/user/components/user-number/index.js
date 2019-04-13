@@ -12,7 +12,6 @@ controller.$inject = [
   'Alert',
   'UserNumberService',
   'UserService',
-  '$routeParams',
   '$q',
   'ACL',
   'UiSettingService'
@@ -21,7 +20,6 @@ function controller(
   Alert,
   UserNumberService,
   UserService,
-  $routeParams,
   $q,
   ACL,
   UiSettingService
@@ -32,10 +30,6 @@ function controller(
   ctrl.selectPhoneNumber = selectPhoneNumber
   ctrl.selectCLIDPhoneNumber = selectCLIDPhoneNumber
   ctrl.isActivated = isActivated
-
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.userId = $routeParams.userId
   ctrl.editCLID = UiSettingService.data('editCLID')
   ctrl.$onInit = onInit
 

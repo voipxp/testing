@@ -5,19 +5,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallForwardingNoAnswer', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  '$routeParams',
-  'Alert',
-  'UserCallForwardingNoAnswerService'
-]
-function controller($routeParams, Alert, UserCallForwardingNoAnswerService) {
+controller.$inject = ['Alert', 'UserCallForwardingNoAnswerService']
+function controller(Alert, UserCallForwardingNoAnswerService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
   ctrl.options = UserCallForwardingNoAnswerService.options

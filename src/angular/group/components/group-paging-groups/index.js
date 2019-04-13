@@ -4,14 +4,12 @@ import template from './index.html'
 angular.module('odin.group').component('groupPagingGroups', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$routeParams', 'Route']
-function controller($routeParams, Route) {
+controller.$inject = ['Route']
+function controller(Route) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.open = open
 
   function open(serviceUserId) {

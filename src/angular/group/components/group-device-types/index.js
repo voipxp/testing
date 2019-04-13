@@ -3,21 +3,15 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupDeviceTypes', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupDeviceTypeService',
-  '$routeParams',
-  'Route'
-]
-function controller(Alert, GroupDeviceTypeService, $routeParams, Route) {
+controller.$inject = ['Alert', 'GroupDeviceTypeService', 'Route']
+function controller(Alert, GroupDeviceTypeService, Route) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
 
   function onInit() {
     ctrl.loading = true

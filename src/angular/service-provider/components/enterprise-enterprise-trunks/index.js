@@ -4,25 +4,17 @@ import template from './index.html'
 angular.module('odin.serviceProvider').component('enterpriseEnterpriseTrunks', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<' }
 })
 
 controller.$inject = [
-  '$routeParams',
   'Route',
   'Alert',
   'EnterpriseEnterpriseTrunkService',
   '$scope'
 ]
-function controller(
-  $routeParams,
-  Route,
-  Alert,
-  EnterpriseEnterpriseTrunkService,
-  $scope
-) {
+function controller(Route, Alert, EnterpriseEnterpriseTrunkService, $scope) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
   ctrl.open = open
   ctrl.add = add
   ctrl.onSave = onSave

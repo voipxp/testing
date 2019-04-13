@@ -6,24 +6,21 @@ angular
   .module('odin.group')
   .component('groupOutgoingCallingPlanPinholeDigitPatterns', {
     template,
-    controller
+    controller,
+    bindings: { serviceProviderId: '<', groupId: '<' }
   })
 
 controller.$inject = [
-  '$routeParams',
   'Alert',
   'GroupOutgoingCallingPlanPinholeDigitPatternService',
   '$scope'
 ]
 function controller(
-  $routeParams,
   Alert,
   GroupOutgoingCallingPlanPinholeDigitPatternService,
   $scope
 ) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.$onInit = activate
   ctrl.add = add
   ctrl.edit = edit

@@ -4,24 +4,13 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupCallingPlanDigitPatterns', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  '$routeParams',
-  'Alert',
-  'GroupCallingPlanDigitPatternService',
-  '$scope'
-]
-function controller(
-  $routeParams,
-  Alert,
-  GroupCallingPlanDigitPatternService,
-  $scope
-) {
+controller.$inject = ['Alert', 'GroupCallingPlanDigitPatternService', '$scope']
+function controller(Alert, GroupCallingPlanDigitPatternService, $scope) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.$onInit = activate
   ctrl.add = add
   ctrl.edit = edit

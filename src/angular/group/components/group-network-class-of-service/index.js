@@ -4,11 +4,11 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupNetworkClassOfServices', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
-  '$routeParams',
   'Alert',
   'GroupNetworkClassOfServiceService',
   'ServiceProviderNetworkClassOfServiceService',
@@ -16,7 +16,6 @@ controller.$inject = [
   '$q'
 ]
 function controller(
-  $routeParams,
   Alert,
   GroupNetworkClassOfServiceService,
   ServiceProviderNetworkClassOfServiceService,
@@ -27,8 +26,6 @@ function controller(
   ctrl.$onInit = onInit
   ctrl.select = select
   ctrl.edit = edit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
 
   function onInit() {
     ctrl.isAdmin = ACL.has('Service Provider')

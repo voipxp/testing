@@ -4,7 +4,8 @@ import template from './index.html'
 
 angular.module('odin.serviceProvider').component('serviceProviderProfile', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<' }
 })
 
 controller.$inject = [
@@ -12,7 +13,6 @@ controller.$inject = [
   'SystemDomainService',
   'SystemStateService',
   'Alert',
-  '$routeParams',
   '$q',
   'ServiceProviderPolicyService'
 ]
@@ -21,7 +21,6 @@ function controller(
   SystemDomainService,
   SystemStateService,
   Alert,
-  $routeParams,
   $q,
   ServiceProviderPolicyService
 ) {
@@ -33,7 +32,6 @@ function controller(
   ctrl.toggleOptional = toggleOptional
   ctrl.selectType = selectType
   ctrl.edit = edit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
 
   function onInit() {
     ctrl.loading = true

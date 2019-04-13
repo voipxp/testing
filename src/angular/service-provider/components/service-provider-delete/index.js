@@ -1,21 +1,16 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.serviceProvider')
-  .component('serviceProviderDelete', { template, controller })
+angular.module('odin.serviceProvider').component('serviceProviderDelete', {
+  template,
+  controller,
+  bindings: { serviceProviderId: '<' }
+})
 
-controller.$inject = [
-  'Alert',
-  'ServiceProviderService',
-  'Route',
-  '$routeParams'
-]
-function controller(Alert, ServiceProviderService, Route, $routeParams) {
+controller.$inject = ['Alert', 'ServiceProviderService', 'Route']
+function controller(Alert, ServiceProviderService, Route) {
   var ctrl = this
   ctrl.remove = remove
-
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
 
   function remove() {
     Alert.confirm

@@ -11,8 +11,8 @@ angular.module('odin.group').component('groupDepartmentDetails', {
   }
 })
 
-controller.$inject = ['GroupDepartmentService', 'Alert', 'Route', '$route']
-function controller(GroupDepartmentService, Alert, Route, $route) {
+controller.$inject = ['GroupDepartmentService', 'Alert', 'Route']
+function controller(GroupDepartmentService, Alert, Route) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -59,7 +59,7 @@ function controller(GroupDepartmentService, Alert, Route, $route) {
       .then(function() {
         return department.newName === ctrl.name
           ? loadDepartment()
-          : open(department.newName) && $route.reload()
+          : open(department.newName)
       })
       .then(function() {
         Alert.notify.success('Department Updated')

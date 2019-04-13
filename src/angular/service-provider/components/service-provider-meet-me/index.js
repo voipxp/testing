@@ -5,22 +5,13 @@ import template from './index.html'
 angular.module('odin.serviceProvider').component('serviceProviderMeetMe', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<' }
 })
 
-controller.$inject = [
-  '$routeParams',
-  'Alert',
-  'ServiceProviderMeetMeConferencingPortsService'
-]
-function controller(
-  $routeParams,
-  Alert,
-  ServiceProviderMeetMeConferencingPortsService
-) {
+controller.$inject = ['Alert', 'ServiceProviderMeetMeConferencingPortsService']
+function controller(Alert, ServiceProviderMeetMeConferencingPortsService) {
   var ctrl = this
 
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
   ctrl.edit = edit
   ctrl.update = update
   ctrl.$onInit = activate

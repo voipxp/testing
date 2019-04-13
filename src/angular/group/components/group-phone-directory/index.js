@@ -3,15 +3,14 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupPhoneDirectory', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupPhoneDirectoryService', '$routeParams']
-function controller(Alert, GroupPhoneDirectoryService, $routeParams) {
+controller.$inject = ['Alert', 'GroupPhoneDirectoryService']
+function controller(Alert, GroupPhoneDirectoryService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
 
   ctrl.columns = [
     {

@@ -3,24 +3,18 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupDeviceType', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupDeviceTypeService',
-  '$routeParams',
-  'Route'
-]
-function controller(Alert, GroupDeviceTypeService, $routeParams, Route) {
+controller.$inject = ['Alert', 'GroupDeviceTypeService', 'Route', '$location']
+function controller(Alert, GroupDeviceTypeService, Route, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.deviceType = $routeParams.deviceType
   ctrl.back = back
 
   function onInit() {
+    ctrl.deviceType = $location.search().deviceType
     ctrl.loading = true
     loadDevice()
       .catch(Alert.notify.danger)

@@ -148,19 +148,19 @@ import './index.css'
 
 angular
   .module('odin.module', ['angular.some-module'])
-  .config(['PbsRouteProvider', P => P.set(routes)])
 ```
 
 ### routes.js
 
-If the module contains routes, those should be a default export which is just an array of routes. These routes will be initilized in the module.js config block by passing them to PbsRouteProvider.
+If the module contains routes, those should be a default export which is just an array of routes.
 
 ```
 export default [
   {
     path: '/groups/:serviceProviderId/:groupId',
     component: 'groupDashboard',
-    acl: 'Group'
+    acl: 'Group',
+    module: 'SomeModule'
   }
 ]
 ```

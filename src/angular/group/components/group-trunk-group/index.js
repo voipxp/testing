@@ -5,25 +5,18 @@ import template from './index.html'
 angular.module('odin.group').component('groupTrunkGroup', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  '$routeParams',
-  'Alert',
-  'GroupTrunkGroupService',
-  'Route'
-]
-function controller($routeParams, Alert, GroupTrunkGroupService, Route) {
+controller.$inject = ['$location', 'Alert', 'GroupTrunkGroupService', 'Route']
+function controller($location, Alert, GroupTrunkGroupService, Route) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.trunkName = $routeParams.trunkName
   ctrl.$onInit = onInit
   ctrl.update = update
   ctrl.destroy = destroy
 
   function onInit() {
+    ctrl.trunkName = $location.search().trunkName
     ctrl.loading = true
     loadTrunk()
       .then(loadTrunks)

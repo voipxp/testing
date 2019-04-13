@@ -5,23 +5,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallForwardingNotReachable', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  '$routeParams',
-  'Alert',
-  'UserCallForwardingNotReachableService'
-]
-function controller(
-  $routeParams,
-  Alert,
-  UserCallForwardingNotReachableService
-) {
+controller.$inject = ['Alert', 'UserCallForwardingNotReachableService']
+function controller(Alert, UserCallForwardingNotReachableService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
   ctrl.options = UserCallForwardingNotReachableService.options

@@ -5,15 +5,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallRecording', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$routeParams', 'Alert', 'UserCallRecordingService']
-function controller($routeParams, Alert, UserCallRecordingService) {
+controller.$inject = ['Alert', 'UserCallRecordingService']
+function controller(Alert, UserCallRecordingService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
   ctrl.options = UserCallRecordingService.options

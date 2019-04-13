@@ -4,18 +4,17 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupNumbers', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
-  '$routeParams',
   'Alert',
   'ServiceProviderNumberService',
   'GroupNumberService',
   'NumberService'
 ]
 function controller(
-  $routeParams,
   Alert,
   ServiceProviderNumberService,
   GroupNumberService,
@@ -23,8 +22,6 @@ function controller(
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.add = add
   ctrl.filter = {}
   ctrl.toggleFilter = toggleFilter

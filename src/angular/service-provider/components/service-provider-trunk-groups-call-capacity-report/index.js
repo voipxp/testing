@@ -13,19 +13,16 @@ angular
 controller.$inject = [
   'Alert',
   'ServiceProviderTrunkGroupCallCapacityReportService',
-  '$routeParams',
   'Route',
   '$location'
 ]
 function controller(
   Alert,
   ServiceProviderTrunkGroupCallCapacityReportService,
-  $routeParams,
   Route,
   $location
 ) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
   ctrl.displayMax = displayMax
@@ -61,7 +58,6 @@ function controller(
   ]
 
   function onInit() {
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.loading = true
     loadCallCapacityReport()
       .catch(function(error) {

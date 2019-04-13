@@ -5,30 +5,27 @@ import template from './index.html'
 angular.module('odin.group').component('groupFlexibleSeatingHost', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
-  '$routeParams',
   'Alert',
   'GroupFlexibleSeatingHostService',
   'Route',
   '$q',
-  'GroupPolicyService'
+  'GroupPolicyService',
+  '$location'
 ]
 function controller(
-  $routeParams,
   Alert,
   GroupFlexibleSeatingHostService,
   Route,
   $q,
-  GroupPolicyService
+  GroupPolicyService,
+  $location
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceUserId = $routeParams.serviceUserId
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.back = back
   ctrl.update = update
   ctrl.destroy = destroy
@@ -36,6 +33,7 @@ function controller(
   ctrl.onDeleteProfile = onDeleteProfile
   ctrl.showReporting = false
   function onInit() {
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     return $q
       .all([loadGroupFlexibleSeatingHost(), GroupPolicyService.load()])

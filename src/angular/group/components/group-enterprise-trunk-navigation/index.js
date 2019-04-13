@@ -4,15 +4,15 @@ import template from './index.html'
 angular.module('odin.group').component('groupEnterpriseTrunkNavigation', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$routeParams', 'Route']
-function controller($routeParams, Route) {
+controller.$inject = ['Route', '$location']
+function controller(Route, $location) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.trunkName = $routeParams.trunkName
+  ctrl.$onInit = function() {
+    ctrl.trunkName = $location.search().trunkName
+  }
   ctrl.open = open
 
   function open(trunk) {

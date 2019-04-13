@@ -5,15 +5,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupHotelingHost', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$routeParams', 'Alert', 'UserHotelingHostService']
-function controller($routeParams, Alert, UserHotelingHostService) {
+controller.$inject = ['Alert', 'UserHotelingHostService']
+function controller(Alert, UserHotelingHostService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
   ctrl.options = UserHotelingHostService.options

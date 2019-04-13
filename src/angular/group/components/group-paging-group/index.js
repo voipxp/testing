@@ -5,26 +5,19 @@ import template from './index.html'
 angular.module('odin.group').component('groupPagingGroup', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  '$routeParams',
-  'Alert',
-  'Route',
-  'GroupPagingGroupService'
-]
-function controller($routeParams, Alert, Route, GroupPagingGroupService) {
+controller.$inject = ['Alert', 'Route', 'GroupPagingGroupService', '$location']
+function controller(Alert, Route, GroupPagingGroupService, $location) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.serviceUserId = $routeParams.serviceUserId
   ctrl.$onInit = activate
   ctrl.open = open
 
   ctrl.update = update
 
   function activate() {
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     return loadInstance()
       .catch(Alert.notify.danger)

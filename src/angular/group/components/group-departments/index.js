@@ -4,13 +4,13 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupDepartments', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'GroupDepartmentService',
-  '$routeParams',
   'Route',
   'GroupPolicyService',
   '$q'
@@ -18,15 +18,11 @@ controller.$inject = [
 function controller(
   Alert,
   GroupDepartmentService,
-  $routeParams,
   Route,
   GroupPolicyService,
   $q
 ) {
   var ctrl = this
-
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
 
   ctrl.$onInit = onInit
   ctrl.add = add

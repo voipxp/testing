@@ -26,7 +26,6 @@
     "angular-color-picker": "^1.0.11",
     "angular-jwt": "^0.1.10",
     "angular-papaparse": "^1.0.0",
-    "angular-route": "^1.7.7",
     "angular-sanitize": "^1.7.7",
     "angular-truncate-2": "^0.4.2",
     "animate.css": "^3.7.0",
@@ -82,6 +81,7 @@
     "parcel-bundler": "^1.12.3",
     "parcel-plugin-asset-copier": "^1.0.0",
     "parcel-plugin-clean-dist": "^0.0.6",
+    "prettier": "^1.17.0",
     "sass": "^1.17.2"
   },
   "assetsPath": "assets",

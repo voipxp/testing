@@ -4,11 +4,11 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupUsers', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
-  '$routeParams',
   'Alert',
   'UserService',
   '$scope',
@@ -18,7 +18,6 @@ controller.$inject = [
   '$q'
 ]
 function controller(
-  $routeParams,
   Alert,
   UserService,
   $scope,
@@ -29,8 +28,6 @@ function controller(
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.add = add
   ctrl.bulk = bulk
   ctrl.onCreate = onCreate

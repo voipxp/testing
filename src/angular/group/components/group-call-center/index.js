@@ -5,31 +5,28 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallCenter', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
-  '$routeParams',
   'Route',
   'Alert',
   'GroupCallCenterService',
   'UserServiceService',
   'ACL',
-  'Module'
+  'Module',
+  '$location'
 ]
 function controller(
-  $routeParams,
   Route,
   Alert,
   GroupCallCenterService,
   UserServiceService,
   ACL,
-  Module
+  Module,
+  $location
 ) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.serviceUserId = $routeParams.serviceUserId
   ctrl.$onInit = activate
   ctrl.update = update
   ctrl.updateProfile = updateProfile
@@ -40,6 +37,7 @@ function controller(
   ctrl.loadAssigned = loadAssigned
 
   function activate() {
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     ctrl.hasBasicBounced = ACL.hasVersion('20')
     ctrl.hasMonitoring = Module.read('Call Center Monitoring')

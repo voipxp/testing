@@ -4,26 +4,19 @@ import template from './index.html'
 
 angular.module('odin.serviceProvider').component('serviceProviderNumbers', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'ServiceProviderNumberService',
   'NumberService',
-  '$routeParams',
   'ACL'
 ]
-function controller(
-  Alert,
-  ServiceProviderNumberService,
-  NumberService,
-  $routeParams,
-  ACL
-) {
+function controller(Alert, ServiceProviderNumberService, NumberService, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
   ctrl.add = add
   ctrl.edit = edit
   ctrl.remove = remove

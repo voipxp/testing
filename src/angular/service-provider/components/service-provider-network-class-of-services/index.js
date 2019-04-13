@@ -6,11 +6,13 @@ angular
   .module('odin.serviceProvider')
   .component('serviceProviderNetworkClassOfServices', {
     template,
-    controller
+    controller,
+    bindings: {
+      serviceProviderId: '<'
+    }
   })
 
 controller.$inject = [
-  '$routeParams',
   'Alert',
   'ServiceProviderNetworkClassOfServiceService',
   'SystemNetworkClassOfServiceService',
@@ -18,7 +20,6 @@ controller.$inject = [
   '$q'
 ]
 function controller(
-  $routeParams,
   Alert,
   ServiceProviderNetworkClassOfServiceService,
   SystemNetworkClassOfServiceService,
@@ -29,7 +30,6 @@ function controller(
   ctrl.$onInit = onInit
   ctrl.select = select
   ctrl.edit = edit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
 
   function onInit() {
     ctrl.isAdmin = ACL.has('System')

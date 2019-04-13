@@ -6,18 +6,16 @@ angular
   .component('groupVirtualOnNetEnterpriseExtensions', {
     template,
     controller,
-    bindings: { module: '<' }
+    bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
   })
 
 controller.$inject = [
-  '$routeParams',
   'Alert',
   'GroupVirtualOnNetEnterpriseExtensionsService',
   'SystemVirtualOnNetEnterpriseExtensionsService',
   '$q'
 ]
 function controller(
-  $routeParams,
   Alert,
   GroupVirtualOnNetEnterpriseExtensionsService,
   SystemVirtualOnNetEnterpriseExtensionsService,
@@ -25,8 +23,6 @@ function controller(
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.edit = edit
   ctrl.add = add
 

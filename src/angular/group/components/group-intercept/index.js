@@ -4,15 +4,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupIntercept', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$routeParams', 'Alert', 'GroupInterceptService']
-function controller($routeParams, Alert, GroupInterceptService) {
+controller.$inject = ['Alert', 'GroupInterceptService']
+function controller(Alert, GroupInterceptService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.edit = edit
   ctrl.options = GroupInterceptService.options
   ctrl.setOutboundCallOptions = setOutboundCallOptions

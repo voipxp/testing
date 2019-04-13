@@ -1,5 +1,7 @@
 TODO
 
+- announcement reload() on name change
+- move GoogleUA to react
 - implement PaasAdmin
 - navbar search modals
 - add SSO to login screen

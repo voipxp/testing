@@ -5,11 +5,10 @@ import template from './index.html'
 angular.module('odin.group').component('groupFlexibleSeatingHosts', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
-  '$routeParams',
   'Alert',
   'GroupFlexibleSeatingHostService',
   'UserFlexibleSeatingGuestService',
@@ -21,7 +20,6 @@ controller.$inject = [
   'GroupPolicyService'
 ]
 function controller(
-  $routeParams,
   Alert,
   GroupFlexibleSeatingHostService,
   UserFlexibleSeatingGuestService,
@@ -34,8 +32,6 @@ function controller(
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.open = open
   ctrl.add = add
   ctrl.onCreate = onCreate

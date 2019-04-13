@@ -4,25 +4,17 @@ import template from './index.html'
 angular.module('odin.system').component('serviceProviderReport', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'ServiceProviderReportsService',
-  '$routeParams',
   'Route',
   '$location'
 ]
-function controller(
-  Alert,
-  ServiceProviderReportsService,
-  $routeParams,
-  Route,
-  $location
-) {
+function controller(Alert, ServiceProviderReportsService, Route, $location) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
   ctrl.settings = {}
@@ -54,7 +46,6 @@ function controller(
     }
   ]
   function onInit() {
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
     ctrl.loading = true
     loadServiceProviderReport()
       .catch(function(error) {

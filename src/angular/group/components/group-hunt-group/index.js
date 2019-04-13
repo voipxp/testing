@@ -4,32 +4,29 @@ import template from './index.html'
 angular.module('odin.group').component('groupHuntGroup', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'GroupHuntGroupService',
   'Route',
-  '$routeParams',
   'UserPermissionService',
   'GroupHuntGroupWeightedCallDistributionService',
-  '$q'
+  '$q',
+  '$location'
 ]
 function controller(
   Alert,
   GroupHuntGroupService,
   Route,
-  $routeParams,
   UserPermissionService,
   GroupHuntGroupWeightedCallDistributionService,
-  $q
+  $q,
+  $location
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.serviceUserId = $routeParams.serviceUserId
   ctrl.options = GroupHuntGroupService.options
   ctrl.back = back
   ctrl.reload = loadHuntGroup
@@ -39,6 +36,7 @@ function controller(
   ctrl.updateWeight = updateWeight
 
   function onInit() {
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     return $q
       .all([loadHuntGroup(), UserPermissionService.load(ctrl.serviceUserId)])

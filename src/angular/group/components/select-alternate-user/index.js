@@ -7,11 +7,9 @@ angular.module('odin.group').component('selectAlternateUser', {
   bindings: { serviceProviderId: '<', groupId: '<', settings: '=' }
 })
 
-controller.$inject = ['Alert', 'GroupCallParkService', '$routeParams']
-function controller(Alert, GroupCallParkService, $routeParams) {
+controller.$inject = ['Alert', 'GroupCallParkService']
+function controller(Alert, GroupCallParkService) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.select = select
   ctrl.onSelect = onSelect
 

@@ -4,7 +4,7 @@ import template from './index.html'
 angular.module('odin.vdm').component('vdmTemplate', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
@@ -12,26 +12,24 @@ controller.$inject = [
   'Route',
   'VdmGroupTemplateService',
   'VdmSystemTemplateService',
-  '$routeParams'
+  '$location'
 ]
 function controller(
   Alert,
   Route,
   VdmGroupTemplateService,
   VdmSystemTemplateService,
-  $routeParams
+  $location
 ) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.id = $routeParams.id
-  ctrl.templateName = $routeParams.name
   ctrl.back = back
   ctrl.$onInit = onInit
   ctrl.update = update
   ctrl.destroy = destroy
 
   function onInit() {
+    ctrl.id = $location.search().id
+    ctrl.templateName = $location.search().name
     ctrl.loading = true
     loadTemplate()
       .catch(Alert.notify.danger)

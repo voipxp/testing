@@ -4,26 +4,15 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupCommonPhoneList', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupCommonPhoneListService',
-  '$routeParams',
-  'CsvService'
-]
-function controller(
-  Alert,
-  GroupCommonPhoneListService,
-  $routeParams,
-  CsvService
-) {
+controller.$inject = ['Alert', 'GroupCommonPhoneListService', 'CsvService']
+function controller(Alert, GroupCommonPhoneListService, CsvService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onPagination = onPagination
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.edit = edit
   ctrl.add = add
   ctrl.csv = csv

@@ -4,35 +4,33 @@ import template from './index.html'
 angular.module('odin.vdm').component('vdmDevice', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'Route',
-  '$routeParams',
   'VdmGroupTemplateService',
   'Module',
-  '$q'
+  '$q',
+  '$location'
 ]
 function controller(
   Alert,
   Route,
-  $routeParams,
   VdmGroupTemplateService,
   Module,
-  $q
+  $q,
+  $location
 ) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
-  ctrl.templateId = $routeParams.id
-  ctrl.deviceName = $routeParams.deviceName
-  ctrl.templateName = $routeParams.name
   ctrl.$onInit = onInit
   ctrl.open = open
 
   function onInit() {
+    ctrl.templateId = $location.search().id
+    ctrl.deviceName = $location.search().deviceName
+    ctrl.templateName = $location.search().name
     ctrl.loading = true
     $q.all([loadTemplate(), loadPermissions()])
       .catch(Alert.notify.danger)

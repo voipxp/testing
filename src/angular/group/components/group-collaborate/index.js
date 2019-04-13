@@ -5,21 +5,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupCollaborate', {
   template,
   controller,
-  bindings: { module: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  '$routeParams',
-  'Alert',
-  'GroupCollaborateService',
-  'Route',
-  '$q'
-]
-function controller($routeParams, Alert, GroupCollaborateService, Route, $q) {
+controller.$inject = ['Alert', 'GroupCollaborateService', 'Route', '$q']
+function controller(Alert, GroupCollaborateService, Route, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.add = add
   ctrl.onClick = onClick
   ctrl.onUserClick = onUserClick

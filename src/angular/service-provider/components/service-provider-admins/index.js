@@ -4,7 +4,8 @@ import template from './index.html'
 
 angular.module('odin.serviceProvider').component('serviceProviderAdmins', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<' }
 })
 
 controller.$inject = [
@@ -13,8 +14,7 @@ controller.$inject = [
   'ServiceProviderAdminPolicyService',
   'ServiceProviderPolicyService',
   'SystemLanguageService',
-  '$q',
-  '$routeParams'
+  '$q'
 ]
 function controller(
   Alert,
@@ -22,14 +22,11 @@ function controller(
   ServiceProviderAdminPolicyService,
   ServiceProviderPolicyService,
   SystemLanguageService,
-  $q,
-  $routeParams
+  $q
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.$onChanges = onChanges
-
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
   ctrl.add = add
   ctrl.edit = edit
   ctrl.policies = ServiceProviderAdminPolicyService.options.policies

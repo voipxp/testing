@@ -5,11 +5,13 @@ angular
   .module('odin.system')
   .component('systemNetworkClassOfService', { template, controller })
 
-controller.$inject = ['$routeParams', 'Route']
-function controller($routeParams, Route) {
+controller.$inject = ['$location', 'Route']
+function controller($location, Route) {
   var ctrl = this
-  ctrl.name = $routeParams.name
   ctrl.back = back
+  ctrl.$onInit = function() {
+    ctrl.name = $location.search().name
+  }
 
   function back() {
     Route.open('system', 'networkClassOfServices')

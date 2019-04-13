@@ -5,14 +5,13 @@ angular
   .module('odin.group')
   .component('groupOutgoingCallingPlanPinholeDigitPlan', {
     template,
-    controller
+    controller,
+    bindings: { serviceProviderId: '<', groupId: '<' }
   })
 
-controller.$inject = ['$routeParams', 'GroupServiceService']
-function controller($routeParams, GroupServiceService) {
+controller.$inject = ['GroupServiceService']
+function controller(GroupServiceService) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
 
   ctrl.$onInit = onInit
 

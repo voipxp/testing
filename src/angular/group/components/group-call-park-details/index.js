@@ -7,12 +7,10 @@ angular.module('odin.group').component('groupCallParkDetails', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupCallParkService', '$routeParams']
-function controller(Alert, GroupCallParkService, $routeParams) {
+controller.$inject = ['Alert', 'GroupCallParkService']
+function controller(Alert, GroupCallParkService) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
 
   ctrl.edit = edit
   ctrl.options = GroupCallParkService.options

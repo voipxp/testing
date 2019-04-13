@@ -5,22 +5,13 @@ angular
   .module('odin.group')
   .component('groupOutgoingCallingPlanTransferNumbers', {
     template,
-    controller
+    controller,
+    bindings: { serviceProviderId: '<', groupId: '<' }
   })
 
-controller.$inject = [
-  '$routeParams',
-  'Alert',
-  'GroupOutgoingCallingPlanTransferNumberService'
-]
-function controller(
-  $routeParams,
-  Alert,
-  GroupOutgoingCallingPlanTransferNumberService
-) {
+controller.$inject = ['Alert', 'GroupOutgoingCallingPlanTransferNumberService']
+function controller(Alert, GroupOutgoingCallingPlanTransferNumberService) {
   var ctrl = this
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.$onInit = activate
   ctrl.edit = edit
 
