@@ -1,24 +1,21 @@
 import { createSlice } from 'redux-starter-kit'
-import camelCase from 'lodash/camelCase'
 import { setBaseUrl } from '/services/api'
 import uiApplications from '/services/api/ui-applications'
 import uiSettings from '/services/api/ui-settings'
 import uiTemplate from '/services/api/ui-template'
 import uiModules from '../services/api/ui-modules'
 
-const initialState = {
-  apiUrl: '/api/v2',
-  initialized: false,
-  showLoadingModal: false,
-  applications: [],
-  modules: {},
-  settings: {},
-  template: {}
-}
-
 const slice = createSlice({
   slice: 'ui',
-  initialState,
+  initialState: {
+    apiUrl: '/api/v2',
+    initialized: false,
+    showLoadingModal: false,
+    applications: [],
+    modules: {},
+    settings: {},
+    template: {}
+  },
   reducers: {
     setApiUrl: (state, { payload }) => {
       state.apiUrl = payload || apiUrl()
@@ -48,26 +45,22 @@ const slice = createSlice({
 })
 
 const { actions, reducer } = slice
-export const {
-  showLoadingModal,
-  hideLoadingModal,
-  setApplications,
-  setSettings,
-  setTemplate,
-  setInitialized
-} = actions
+
+export default reducer
+
+export const { showLoadingModal, hideLoadingModal, setInitialized } = actions
 
 export function loadApplications() {
   return async dispatch => {
     const applications = await uiApplications.get()
-    dispatch(setApplications(applications))
+    dispatch(actions.setApplications(applications))
   }
 }
 
 export function loadSettings() {
   return async dispatch => {
     const settings = await uiSettings.get()
-    dispatch(setSettings(settings))
+    dispatch(actions.setSettings(settings))
   }
 }
 
@@ -75,7 +68,7 @@ export function loadTemplate() {
   return async dispatch => {
     const template = await uiTemplate.get()
     document.title = template.pageTitle || 'odin Web'
-    dispatch(setTemplate(template))
+    dispatch(actions.setTemplate(template))
   }
 }
 
@@ -105,5 +98,3 @@ export function apiUrl() {
     ? `${window.location.protocol}//${window.location.hostname}:${port}/api/v2`
     : '/api/v2'
 }
-
-export default reducer

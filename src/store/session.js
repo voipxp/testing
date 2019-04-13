@@ -4,11 +4,9 @@ import { setToken } from '/services/api'
 
 const STORAGE_KEY = 'odin:session'
 
-let initialState = {}
-
 const slice = createSlice({
   slice: 'session',
-  initialState,
+  initialState: {},
   reducers: {
     setSession: (state, { payload }) => payload || {},
     clearSession: () => ({})
@@ -16,6 +14,8 @@ const slice = createSlice({
 })
 
 const { actions, reducer } = slice
+
+export default reducer
 
 export function clearSession() {
   return async dispatch => {
@@ -53,16 +53,14 @@ export function loadSessionFromStorage() {
 // TODO: implement PaasAdmin
 export function hasLevel(loginType, requiredType) {
   const types = {
-    User: 1,
-    Group: 2,
+    'User': 1,
+    'Group': 2,
     'Service Provider': 3,
     'Provisioning-PaasAdmin': 3.5,
-    Provisioning: 4,
-    System: 5
+    'Provisioning': 4,
+    'System': 5
   }
   const user = types[loginType] || 0
   const required = types[requiredType] || 10
   return user >= required
 }
-
-export default reducer

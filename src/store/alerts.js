@@ -1,11 +1,9 @@
 import { createSlice } from 'redux-starter-kit'
 import cuid from 'cuid'
 
-const initialState = []
-
 const slice = createSlice({
   slice: 'alerts',
-  initialState,
+  initialState: [],
   reducers: {
     addAlert: (state, { payload }) => {
       state.push(payload)
@@ -18,6 +16,8 @@ const slice = createSlice({
 })
 
 const { actions, reducer } = slice
+
+export default reducer
 
 function parse(message) {
   if (!message) return 'Unknown Error'
@@ -42,5 +42,3 @@ export const alertInfo = (msg, ms) => alert('info', msg, ms)
 export const alertSuccess = (msg, ms) => alert('success', msg, ms)
 export const alertWarning = (msg, ms = 5000) => alert('warning', msg, ms)
 export const alertDanger = (msg, ms = 10000) => alert('danger', msg, ms)
-
-export default reducer
