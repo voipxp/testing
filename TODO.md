@@ -1,18 +1,13 @@
 TODO
 
-- announcement reload() on name change
+- try transitions if passing a ref to modal portal
+- evaluate function declarations and eslint
+- test announcement reload() on name change
 - move GoogleUA to react
 - implement PaasAdmin
 - navbar search modals
 - add SSO to login screen
 - add SSO token retrieval to navbar.js
-- Modules
-  - load Modules after session enabled
-  - move to redux
-- Angular component Routes
-  - do an ACL and Module check
-  - pass actual module to component
-- UiModuleService to redux
 - change the bulk data resolve
   - use redux instead for storage
   - render the select users if none are selected
