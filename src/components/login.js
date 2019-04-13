@@ -197,6 +197,7 @@ const mapState = state => ({
   apiUrl: state.ui.apiUrl,
   loginMessage: state.ui.template.pageLoginMessage
 })
+
 const mapDispatch = {
   alertWarning,
   alertDanger,

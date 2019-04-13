@@ -100,7 +100,9 @@ const mapState = state => ({
   sessionTimeout: state.ui.settings.sessionTimeout,
   userId: state.session.userId
 })
+
 const mapDispatch = { alertWarning, removeAlert, clearSession }
+
 export default connect(
   mapState,
   mapDispatch

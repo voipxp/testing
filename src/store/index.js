@@ -14,6 +14,7 @@ const store = configureStore({
   reducer: { alerts, session, ui }
 })
 
+// TODO: Move this to app component
 async function loadInitialState() {
   await store.dispatch(loadApiUrl())
   store.dispatch(loadSessionFromStorage())

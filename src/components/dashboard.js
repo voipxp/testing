@@ -22,9 +22,9 @@ const Dashboard = ({ loginType, serviceProviderId, groupId, userId }) => {
     default:
       route = '/notFound'
   }
-
   return <Redirect to={route} />
 }
+
 Dashboard.propTypes = {
   loginType: PropTypes.string,
   serviceProviderId: PropTypes.string,
@@ -38,4 +38,5 @@ const mapState = ({ session }) => ({
   groupId: session.groupId,
   userId: session.userId
 })
+
 export default connect(mapState)(Dashboard)

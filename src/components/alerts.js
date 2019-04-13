@@ -60,7 +60,9 @@ Alerts.propTypes = {
 }
 
 const mapState = ({ alerts }) => ({ alerts })
+
 const mapDispatch = { removeAlert }
+
 export default connect(
   mapState,
   mapDispatch

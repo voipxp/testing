@@ -22,4 +22,5 @@ LoadingModal.propTypes = {
 const mapState = ({ ui }) => ({
   showLoadingModal: ui.showLoadingModal
 })
+
 export default connect(mapState)(LoadingModal)

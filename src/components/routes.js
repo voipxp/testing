@@ -99,4 +99,5 @@ const mapState = state => ({
   loginType: state.session.loginType,
   modules: state.ui.modules
 })
+
 export default connect(mapState)(Router)

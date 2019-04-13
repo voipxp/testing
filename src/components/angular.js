@@ -41,7 +41,6 @@ const Angular = ({ component, location = {}, match = {}, ...props }) => {
       ])
     }, 0)
   }
-
   return <div ref={ref} />
 }
 
