@@ -3,34 +3,25 @@ import template from './index.html'
 
 angular.module('odin.group').component('groupDashboard', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
   'Alert',
   'GroupDashboardService',
-  '$routeParams',
   'Route',
   '$location',
   'ACL'
 ]
-function controller(
-  Alert,
-  GroupDashboardService,
-  $routeParams,
-  Route,
-  $location,
-  ACL
-) {
+function controller(Alert, GroupDashboardService, Route, $location, ACL) {
   var ctrl = this
 
   ctrl.$onInit = onInit
-  ctrl.serviceProviderId = $routeParams.serviceProviderId
-  ctrl.groupId = $routeParams.groupId
   ctrl.open = GroupDashboardService.open
-  ctrl.isAdmin = ACL.has('Service Provider')
 
   function onInit() {
+    ctrl.isAdmin = ACL.has('Service Provider')
     ctrl.loading = true
     $location.hash(null)
     return GroupDashboardService.load(ctrl.serviceProviderId, ctrl.groupId)

@@ -3,25 +3,18 @@ import template from './index.html'
 
 angular.module('odin.user').component('userDashboard', {
   template,
-  controller
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
 })
 
 controller.$inject = [
-  '$routeParams',
   'ACL',
   'Module',
   'UserPermissionService',
   'Alert',
   '$rootScope'
 ]
-function controller(
-  $routeParams,
-  ACL,
-  Module,
-  UserPermissionService,
-  Alert,
-  $rootScope
-) {
+function controller(ACL, Module, UserPermissionService, Alert, $rootScope) {
   const ctrl = this
   ctrl.$onInit = onInit
 
@@ -35,9 +28,6 @@ function controller(
   ]
 
   function onInit() {
-    ctrl.serviceProviderId = $routeParams.serviceProviderId
-    ctrl.groupId = $routeParams.groupId
-    ctrl.userId = $routeParams.userId
     ctrl.isAdmin = ACL.has('Group')
     ctrl.hasAnnouncements = ACL.hasVersion('20')
     ctrl.loading = true

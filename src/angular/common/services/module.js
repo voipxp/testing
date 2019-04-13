@@ -86,8 +86,6 @@ function Module(Session, $q, $ngRedux) {
   }
 
   function read(name) {
-    console.log('read', name)
-    console.log(findByName(name))
     return get(findByName(name), 'permissions.read', false)
   }
 
