@@ -1,7 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
+import camelCase from 'lodash/camelCase'
+import { connect } from 'react-redux'
 import Dashboard from './dashboard'
 import Angular from './angular'
+import NotFound from './notfound'
+import { hasLevel } from '/store/session'
 
 // angular routes
 import appRoutes from '/angular/app/routes'
@@ -39,27 +44,59 @@ const angularRoutes = [
   ]"
 */
 
-const Router = () => {
+const Router = ({ loginType, modules }) => {
+  function getModule(name) {
+    const module = modules[name]
+    return module
+      ? { ...module, permissions: module.permissions[camelCase(loginType)] }
+      : null
+  }
+
+  function generateRoute(route) {
+    const module = getModule(route.module)
+    if (module && !module.permissions.read) {
+      return (
+        <Route exact key={route.path} path={route.path} component={NotFound} />
+      )
+    }
+    if (route.acl && !hasLevel(loginType, route.acl)) {
+      return (
+        <Route exact key={route.path} path={route.path} component={NotFound} />
+      )
+    }
+    return (
+      <Route
+        key={route.path}
+        path={route.path}
+        exact
+        render={() => (
+          <Angular
+            component={route.component}
+            acl={route.acl}
+            module={module}
+            {...route.bindings}
+          />
+        )}
+      />
+    )
+  }
+
   return (
     <Switch>
       <Route path="/" exact component={Dashboard} />
-      {angularRoutes.map(route => (
-        <Route
-          key={route.path}
-          path={route.path}
-          exact
-          render={() => (
-            <Angular
-              component={route.component}
-              acl={route.acl}
-              module={route.module}
-              {...route.bindings}
-            />
-          )}
-        />
-      ))}
+      {angularRoutes.map(route => generateRoute(route))}
+      <Route component={NotFound} />
     </Switch>
   )
 }
 
-export default Router
+Router.propTypes = {
+  loginType: PropTypes.string,
+  modules: PropTypes.object
+}
+
+const mapState = state => ({
+  loginType: state.session.loginType,
+  modules: state.ui.modules
+})
+export default connect(mapState)(Router)

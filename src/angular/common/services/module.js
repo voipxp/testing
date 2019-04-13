@@ -14,13 +14,14 @@ Filter
   on the permissions
 
 */
-import _ from 'lodash'
+import get from 'lodash/get'
+import camelCase from 'lodash/camelCase'
 import angular from 'angular'
 
 angular.module('odin.common').factory('Module', Module)
 
-Module.$inject = ['UiModuleService', 'Session', '$q']
-function Module(UiModuleService, Session, $q) {
+Module.$inject = ['Session', '$q', '$ngRedux']
+function Module(Session, $q, $ngRedux) {
   const service = {
     load,
     allow,
@@ -35,78 +36,71 @@ function Module(UiModuleService, Session, $q) {
     update,
     delete: destroy
   }
-  let _modules = {}
   return service
 
-  function load() {
-    return UiModuleService.index().then(function(response) {
-      return mapModules(response.data)
-    })
+  function modules() {
+    return $ngRedux.getState().ui.modules
   }
 
-  // turn into an easy to access hash
-  // { 'Auto Attendant': { name: '', alias: '', permissions: { read: true } }}
-  function mapModules(modules) {
-    const newModules = {}
-    modules.forEach(function(module) {
-      module.permissions =
-        module.permissions[_.camelCase(Session.data('loginType'))]
-      newModules[module.name] = module
-    })
-    _modules = newModules
-    return _modules
+  function load() {
+    return $q.when(modules())
   }
 
   function show(name) {
-    return load().then(function() {
-      return get(name)
-    })
+    return $q.when(findByName(name))
   }
 
-  function get(name) {
-    const theName = name.serviceName || name.name || name
-    return _.get(_modules, theName, { permissions: {} })
+  // find the module by name and then map it to the
+  // user for this session
+  // TODO: map it this way in redux
+  function findByName(name) {
+    const moduleName = name.serviceName || name.name || name
+    const module = modules()[moduleName]
+    if (!module) return { permissions: {} }
+    const permissions = module.permissions[camelCase(Session.data('loginType'))]
+    return { ...module, permissions }
   }
 
   function name(name) {
-    return _.get(get(name), 'name')
+    return get(findByName(name), 'name')
   }
 
   function alias(name) {
-    return _.get(get(name), 'alias', name)
+    return get(findByName(name), 'alias', name)
   }
 
   function description(name) {
-    return _.get(get(name), 'description')
+    return get(findByName(name), 'description')
   }
 
   function url(name) {
-    return _.get(get(name), 'url')
+    return get(findByName(name), 'url')
   }
 
   function permissions(name) {
-    return _.get(get(name), 'permissions', {})
+    return get(findByName(name), 'permissions', {})
   }
 
   function create(name) {
-    return _.get(get(name), 'permissions.create', false)
+    return get(findByName(name), 'permissions.create', false)
   }
 
   function read(name) {
-    return _.get(get(name), 'permissions.read', false)
+    console.log('read', name)
+    console.log(findByName(name))
+    return get(findByName(name), 'permissions.read', false)
   }
 
   function update(name) {
-    return _.get(get(name), 'permissions.update', false)
+    return get(findByName(name), 'permissions.update', false)
   }
 
   function destroy(name) {
-    return _.get(get(name), 'permissions.delete', false)
+    return get(findByName(name), 'permissions.delete', false)
   }
 
-  function allow(name) {
-    return load().then(function() {
-      return read(name) ? get(name) : $q.reject('moduleAllow')
-    })
+  async function allow(name) {
+    await load()
+    return read(name) ? findByName(name) : $q.reject('moduleAllow')
   }
 }

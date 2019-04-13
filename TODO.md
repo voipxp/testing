@@ -1,12 +1,15 @@
 TODO
 
+- implement PaasAdmin
 - navbar search modals
 - add SSO to login screen
 - add SSO token retrieval to navbar.js
-- load Modules after session enabled
+- Modules
+  - load Modules after session enabled
+  - move to redux
 - Angular component Routes
-  - pass in the actual module
   - do an ACL and Module check
+  - pass actual module to component
 - UiModuleService to redux
 - change the bulk data resolve
   - use redux instead for storage
@@ -15,7 +18,7 @@ TODO
   - eliminate the redirect
 - use Helmet to initialize the icons?
 
-FUTURE
+LATER
 
 - rip out unused angular code
 - figure out a good folder structure/naming convention for react components

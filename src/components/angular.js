@@ -20,12 +20,11 @@ const Angular = ({ component, location = {}, match = {}, ...props }) => {
   }
 
   function renderAngular() {
-    console.log('renderAngular', component, props)
     setTimeout(() => {
       destroyScope()
       const element = kebabCase(component)
       const matchParams = match.params || {}
-      const params = { ...props, matchParams }
+      const params = { ...props, ...matchParams }
       const attrs = Object.keys(params).map(key => `${kebabCase(key)}="${key}"`)
       const template = `<${element} ${attrs.join('')}></${element}>`
       const el = angular.element(ref.current)

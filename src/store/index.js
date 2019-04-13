@@ -6,7 +6,8 @@ import ui, {
   loadSettings,
   loadApiUrl,
   setInitialized,
-  loadApplications
+  loadApplications,
+  loadModules
 } from './ui'
 
 const store = configureStore({
@@ -15,8 +16,9 @@ const store = configureStore({
 
 async function loadInitialState() {
   await store.dispatch(loadApiUrl())
-  await store.dispatch(loadSessionFromStorage())
+  store.dispatch(loadSessionFromStorage())
   await Promise.all([
+    store.dispatch(loadModules()),
     store.dispatch(loadApplications()),
     store.dispatch(loadTemplate()),
     store.dispatch(loadSettings())

@@ -50,11 +50,13 @@ export function loadSessionFromStorage() {
   }
 }
 
+// TODO: implement PaasAdmin
 export function hasLevel(loginType, requiredType) {
   const types = {
     User: 1,
     Group: 2,
     'Service Provider': 3,
+    'Provisioning-PaasAdmin': 3.5,
     Provisioning: 4,
     System: 5
   }

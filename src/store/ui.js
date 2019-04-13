@@ -1,14 +1,17 @@
 import { createSlice } from 'redux-starter-kit'
+import camelCase from 'lodash/camelCase'
 import { setBaseUrl } from '/services/api'
 import uiApplications from '/services/api/ui-applications'
 import uiSettings from '/services/api/ui-settings'
 import uiTemplate from '/services/api/ui-template'
+import uiModules from '../services/api/ui-modules'
 
 const initialState = {
   apiUrl: '/api/v2',
   initialized: false,
   showLoadingModal: false,
   applications: [],
+  modules: {},
   settings: {},
   template: {}
 }
@@ -31,6 +34,9 @@ const slice = createSlice({
     },
     setApplications: (state, { payload }) => {
       state.applications = payload || []
+    },
+    setModules: (state, { payload }) => {
+      state.modules = payload || {}
     },
     setSettings: (state, { payload }) => {
       state.settings = payload || {}
@@ -78,6 +84,17 @@ export function loadApiUrl() {
     const url = apiUrl()
     dispatch(actions.setApiUrl(url))
     setBaseUrl(url)
+  }
+}
+
+export function loadModules() {
+  return async dispatch => {
+    const modules = await uiModules.get()
+    const map = modules.reduce((obj, module) => {
+      obj[module.name] = module
+      return obj
+    }, {})
+    dispatch(actions.setModules(map))
   }
 }
 
