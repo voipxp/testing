@@ -19,14 +19,14 @@ const { actions, reducer } = slice
 
 export default reducer
 
-function parse(message) {
+const parse = message => {
   if (!message) return 'Unknown Error'
   if (message.data) return parse(message.data)
   const error = message.error || message.message || message
   return error.toString()
 }
 
-function alert(type, msg, timeout = 3000) {
+const alert = (type, msg, timeout = 3000) => {
   return async dispatch => {
     const alert = { id: cuid(), type, message: parse(msg) }
     dispatch(actions.addAlert(alert))

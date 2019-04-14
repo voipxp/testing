@@ -33,15 +33,15 @@ const angularRoutes = [
   ...vdmRoutes
 ]
 
-function Router({ loginType, modules }) {
-  function getModule(name) {
+const Router = ({ loginType, modules }) => {
+  const getModule = name => {
     const module = modules[name]
     return module
       ? { ...module, permissions: module.permissions[camelCase(loginType)] }
       : null
   }
 
-  function generateRoute(route) {
+  const generateRoute = route => {
     const module = getModule(route.module)
     if (module && !module.permissions.read) {
       return (

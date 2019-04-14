@@ -26,12 +26,10 @@ const Wrapper = styled.div`
   overflow: hidden;
 `
 
-function Spinner() {
-  return (
-    <Wrapper>
-      <StyledSpinner />
-    </Wrapper>
-  )
-}
+const Spinner = () => (
+  <Wrapper>
+    <StyledSpinner />
+  </Wrapper>
+)
 
 export default Spinner

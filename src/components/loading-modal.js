@@ -4,16 +4,14 @@ import { connect } from 'react-redux'
 import Spinner from './spinner'
 import PropTypes from 'prop-types'
 
-function LoadingModal({ showLoadingModal }) {
-  return (
-    <Modal active={showLoadingModal}>
-      <Modal.Background />
-      <Modal.Content>
-        <Spinner />
-      </Modal.Content>
-    </Modal>
-  )
-}
+const LoadingModal = ({ showLoadingModal }) => (
+  <Modal active={showLoadingModal}>
+    <Modal.Background />
+    <Modal.Content>
+      <Spinner />
+    </Modal.Content>
+  </Modal>
+)
 
 LoadingModal.propTypes = {
   showLoadingModal: PropTypes.bool

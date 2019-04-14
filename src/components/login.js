@@ -9,7 +9,7 @@ import { showLoadingModal, hideLoadingModal } from '/store/ui'
 import { alertWarning, alertDanger } from '/store/alerts'
 import { setSession } from '/store/session'
 
-function Login({
+const Login = ({
   apiUrl,
   loginMessage,
   alertWarning,
@@ -17,7 +17,7 @@ function Login({
   setSession,
   showLoadingModal,
   hideLoadingModal
-}) {
+}) => {
   const [state, setState] = useReducer(
     (state, newState) => ({
       ...state,

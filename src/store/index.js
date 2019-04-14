@@ -15,7 +15,7 @@ const store = configureStore({
 })
 
 // TODO: Move this to app component
-async function loadInitialState() {
+const loadInitialState = async () => {
   await store.dispatch(loadApiUrl())
   store.dispatch(loadSessionFromStorage())
   await Promise.all([

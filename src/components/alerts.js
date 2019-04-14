@@ -35,24 +35,22 @@ const StyledAlert = styled.div`
   }
 `
 
-function Alerts({ alerts, removeAlert }) {
-  return (
-    <TransitionGroup component={StyledAlerts}>
-      {alerts.map(alert => (
-        <CSSTransition key={alert.id} classNames="notification" timeout={400}>
-          <Notification
-            as={StyledAlert}
-            color={alert.type}
-            onClick={() => removeAlert(alert)}
-          >
-            <Delete as="button" />
-            {alert.message}
-          </Notification>
-        </CSSTransition>
-      ))}
-    </TransitionGroup>
-  )
-}
+const Alerts = ({ alerts, removeAlert }) => (
+  <TransitionGroup component={StyledAlerts}>
+    {alerts.map(alert => (
+      <CSSTransition key={alert.id} classNames="notification" timeout={400}>
+        <Notification
+          as={StyledAlert}
+          color={alert.type}
+          onClick={() => removeAlert(alert)}
+        >
+          <Delete as="button" />
+          {alert.message}
+        </Notification>
+      </CSSTransition>
+    ))}
+  </TransitionGroup>
+)
 
 Alerts.propTypes = {
   alerts: PropTypes.array.isRequired,

@@ -5,6 +5,14 @@ import uiSettings from '/services/api/ui-settings'
 import uiTemplate from '/services/api/ui-template'
 import uiModules from '../services/api/ui-modules'
 
+export const apiUrl = () => {
+  if (process.env.API_BASE) return process.env.API_BASE
+  const port = process.env.API_PORT
+  return port
+    ? `${window.location.protocol}//${window.location.hostname}:${port}/api/v2`
+    : '/api/v2'
+}
+
 const slice = createSlice({
   slice: 'ui',
   initialState: {
@@ -50,51 +58,33 @@ export default reducer
 
 export const { showLoadingModal, hideLoadingModal, setInitialized } = actions
 
-export function loadApplications() {
-  return async dispatch => {
-    const applications = await uiApplications.get()
-    dispatch(actions.setApplications(applications))
-  }
+export const loadApplications = () => async dispatch => {
+  const applications = await uiApplications.get()
+  dispatch(actions.setApplications(applications))
 }
 
-export function loadSettings() {
-  return async dispatch => {
-    const settings = await uiSettings.get()
-    dispatch(actions.setSettings(settings))
-  }
+export const loadSettings = () => async dispatch => {
+  const settings = await uiSettings.get()
+  dispatch(actions.setSettings(settings))
 }
 
-export function loadTemplate() {
-  return async dispatch => {
-    const template = await uiTemplate.get()
-    document.title = template.pageTitle || 'odin Web'
-    dispatch(actions.setTemplate(template))
-  }
+export const loadTemplate = () => async dispatch => {
+  const template = await uiTemplate.get()
+  document.title = template.pageTitle || 'odin Web'
+  dispatch(actions.setTemplate(template))
 }
 
-export function loadApiUrl() {
-  return async dispatch => {
-    const url = apiUrl()
-    dispatch(actions.setApiUrl(url))
-    setBaseUrl(url)
-  }
+export const loadApiUrl = () => async dispatch => {
+  const url = apiUrl()
+  dispatch(actions.setApiUrl(url))
+  setBaseUrl(url)
 }
 
-export function loadModules() {
-  return async dispatch => {
-    const modules = await uiModules.get()
-    const map = modules.reduce((obj, module) => {
-      obj[module.name] = module
-      return obj
-    }, {})
-    dispatch(actions.setModules(map))
-  }
-}
-
-export function apiUrl() {
-  if (process.env.API_BASE) return process.env.API_BASE
-  const port = process.env.API_PORT
-  return port
-    ? `${window.location.protocol}//${window.location.hostname}:${port}/api/v2`
-    : '/api/v2'
+export const loadModules = () => async dispatch => {
+  const modules = await uiModules.get()
+  const map = modules.reduce((obj, module) => {
+    obj[module.name] = module
+    return obj
+  }, {})
+  dispatch(actions.setModules(map))
 }

@@ -49,7 +49,7 @@ const StyledModal = styled.div`
   isOpen is false we set the transitionIn to false and then
   set showModal after a delay.
 */
-function AnimatedModal({ children, isOpen, onClose, title }) {
+const AnimatedModal = ({ children, isOpen, onClose, title }) => {
   const [state, setState] = useReducer(
     (state, newState) => ({
       ...state,

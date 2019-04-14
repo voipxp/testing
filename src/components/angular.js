@@ -6,7 +6,7 @@ import angular from 'angular'
 import kebabCase from 'lodash/kebabCase'
 import { injector } from '/angular'
 
-function Angular({ component, location = {}, match = {}, ...props }) {
+const Angular = ({ component, location = {}, match = {}, ...props }) => {
   const scopeRef = useRef()
   const ref = useRef()
 

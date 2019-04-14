@@ -14,44 +14,37 @@ const slice = createSlice({
 })
 
 const { actions, reducer } = slice
-
 export default reducer
 
-export function clearSession() {
-  return async dispatch => {
-    dispatch(actions.clearSession())
-    setToken()
-    localStorage.removeItem(STORAGE_KEY)
-  }
+const clearSession = () => async dispatch => {
+  dispatch(actions.clearSession())
+  setToken()
+  localStorage.removeItem(STORAGE_KEY)
 }
 
-export function setSession(data = {}) {
-  return async dispatch => {
-    dispatch(actions.setSession(data))
-    setToken(data.token)
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-  }
+const setSession = (data = {}) => async dispatch => {
+  dispatch(actions.setSession(data))
+  setToken(data.token)
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
 }
 
-export function loadSessionFromStorage() {
-  return async dispatch => {
-    try {
-      const session = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}
-      const jwt = decode(session.token)
-      const now = new Date().getTime() / 1000
-      if (now < jwt.exp) {
-        dispatch(setSession(session))
-      } else {
-        dispatch(clearSession())
-      }
-    } catch (error) {
+export const loadSessionFromStorage = () => async dispatch => {
+  try {
+    const session = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}
+    const jwt = decode(session.token)
+    const now = new Date().getTime() / 1000
+    if (now < jwt.exp) {
+      dispatch(setSession(session))
+    } else {
       dispatch(clearSession())
     }
+  } catch (error) {
+    dispatch(clearSession())
   }
 }
 
 // TODO: implement PaasAdmin
-export function hasLevel(loginType, requiredType) {
+export const hasLevel = (loginType, requiredType) => {
   const types = {
     'User': 1,
     'Group': 2,
