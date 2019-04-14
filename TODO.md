@@ -1,6 +1,14 @@
 TODO
 
-- try transitions if passing a ref to modal portal
+- rework session/localstorage
+
+  - only save token to localstorage
+  - on app init, if token exists, send to refresh token api
+    - should return new token w/ session data
+    - save new token to localstorage
+    - save session data to redux
+  - on logout, remove token from localstorage
+
 - evaluate function declarations and eslint
 - test announcement reload() on name change
 - move GoogleUA to react
