@@ -35,7 +35,7 @@ const StyledAlert = styled.div`
   }
 `
 
-const Alerts = ({ alerts, removeAlert }) => {
+function Alerts({ alerts, removeAlert }) {
   return (
     <TransitionGroup component={StyledAlerts}>
       {alerts.map(alert => (

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Spinner from './spinner'
 import PropTypes from 'prop-types'
 
-const LoadingModal = ({ showLoadingModal }) => {
+function LoadingModal({ showLoadingModal }) {
   return (
     <Modal active={showLoadingModal}>
       <Modal.Background />

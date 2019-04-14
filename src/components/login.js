@@ -9,7 +9,7 @@ import { showLoadingModal, hideLoadingModal } from '/store/ui'
 import { alertWarning, alertDanger } from '/store/alerts'
 import { setSession } from '/store/session'
 
-const Login = ({
+function Login({
   apiUrl,
   loginMessage,
   alertWarning,
@@ -17,7 +17,7 @@ const Login = ({
   setSession,
   showLoadingModal,
   hideLoadingModal
-}) => {
+}) {
   const [state, setState] = useReducer(
     (state, newState) => ({
       ...state,
@@ -34,7 +34,7 @@ const Login = ({
   )
 
   // FIND AN EASIER WAY TO DO VALIDATIONS
-  const handleUpdate = e => {
+  function handleUpdate(e) {
     const currentState = state
     currentState[e.target.name] = e.target.value
     currentState.valid = currentState.username && currentState.password
@@ -47,7 +47,7 @@ const Login = ({
     setState(currentState)
   }
 
-  const handleSubmit = e => {
+  function handleSubmit(e) {
     e.preventDefault()
     state.needsChange ? setPassword() : login()
   }

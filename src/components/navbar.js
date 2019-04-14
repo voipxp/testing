@@ -6,7 +6,7 @@ import { Navbar } from 'rbx'
 import { clearSession, hasLevel } from '/store/session'
 import Modal from './modal'
 
-const AppNavbar = ({
+function AppNavbar({
   apiUrl,
   applications,
   clearSession,
@@ -15,23 +15,25 @@ const AppNavbar = ({
   history,
   pageTitle,
   userId
-}) => {
+}) {
   const [showMenu, updateShowMenu] = useState(false)
   const [search, setSearch] = useState()
 
-  const toggleMenu = () => updateShowMenu(!showMenu)
+  function toggleMenu() {
+    updateShowMenu(!showMenu)
+  }
 
-  const openAccount = () => {
+  function openAccount() {
     updateShowMenu(false)
     history.push('/account')
   }
 
-  const openSearch = type => {
+  function openSearch(type) {
     updateShowMenu(false)
     setSearch(type)
   }
 
-  const openApplication = application => {
+  function openApplication(application) {
     updateShowMenu(false)
     // TODO: add token getter
     const url = application.url

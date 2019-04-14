@@ -2,12 +2,14 @@ import React from 'react'
 import { Hero } from 'rbx'
 import Spinner from './spinner'
 
-const LoadingScreen = () => (
-  <Hero color="link" size="fullheight">
-    <Hero.Body>
-      <Spinner />
-    </Hero.Body>
-  </Hero>
-)
+function LoadingScreen() {
+  return (
+    <Hero color="link" size="fullheight">
+      <Hero.Body>
+        <Spinner />
+      </Hero.Body>
+    </Hero>
+  )
+}
 
 export default LoadingScreen

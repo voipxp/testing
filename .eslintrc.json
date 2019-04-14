@@ -18,7 +18,8 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "unicorn/prevent-abbreviations": 0,
-    "prefer-const": "warn"
+    "prefer-const": "warn",
+    "func-style": ["error", "declaration", { "allowArrowFunctions": true }]
   },
   "globals": {
     "document": true

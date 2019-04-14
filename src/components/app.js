@@ -20,14 +20,14 @@ const TIMEOUT = 30000
 const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
 `
-const App = ({
+function App({
   alertWarning,
   clearSession,
   initialized,
   removeAlert,
   sessionTimeout,
   userId
-}) => {
+}) {
   const alertRef = useRef()
   const timerRef = useRef()
 

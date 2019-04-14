@@ -33,18 +33,7 @@ const angularRoutes = [
   ...vdmRoutes
 ]
 
-/*
-  Route Attributes:
-  [
-    "path",
-    "component",
-    "acl",
-    "module",
-    "bindings"
-  ]"
-*/
-
-const Router = ({ loginType, modules }) => {
+function Router({ loginType, modules }) {
   function getModule(name) {
     const module = modules[name]
     return module

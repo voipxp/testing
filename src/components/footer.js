@@ -8,11 +8,11 @@ const StyledFooter = styled.footer`
   padding: 1rem;
   height: 50px;
 `
-const AppFooter = ({
+function AppFooter({
   copyright = 'Park Bench Solutions Inc.',
   title = 'odin Web',
   version = 'N/A'
-}) => {
+}) {
   return (
     <Footer as={StyledFooter} textAlign="centered">
       <p>

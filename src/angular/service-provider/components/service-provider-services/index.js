@@ -69,7 +69,7 @@ function controller(Alert, ServiceProviderServiceService, $filter, ACL) {
     if (!ctrl.canUpdate) return
     ctrl.editService = angular.copy(service)
     Alert.modal.open('editServiceProviderService', function onSave(close) {
-      var runUpdate = function() {
+      const runUpdate = () => {
         var singleService = {}
         singleService[ctrl.serviceType] = [ctrl.editService]
         update(singleService, close)

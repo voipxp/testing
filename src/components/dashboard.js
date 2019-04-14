@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-const Dashboard = ({ loginType, serviceProviderId, groupId, userId }) => {
+function Dashboard({ loginType, serviceProviderId, groupId, userId }) {
   let route
   switch (loginType) {
     case 'System':

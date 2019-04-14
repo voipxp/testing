@@ -152,7 +152,7 @@ function controller(
           }
           ctrl.editService.isUnlimited = ctrl.editService.quantity === -1
           Alert.modal.open('editGroupService', function onSave(close) {
-            var runUpdate = function() {
+            const runUpdate = () => {
               var singleService = {}
               singleService[ctrl.serviceType] = [ctrl.editService]
               update(singleService, close)
@@ -178,7 +178,7 @@ function controller(
       }
       ctrl.editService.isUnlimited = ctrl.editService.quantity === -1
       Alert.modal.open('editGroupService', function onSave(close) {
-        var runUpdate = function() {
+        const runUpdate = () => {
           var singleService = {}
           singleService[ctrl.serviceType] = [ctrl.editService]
           update(singleService, close)
