@@ -17,7 +17,8 @@
     "no-console": 0,
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "unicorn/prevent-abbreviations": 0
+    "unicorn/prevent-abbreviations": 0,
+    "prefer-const": "warn"
   },
   "globals": {
     "document": true

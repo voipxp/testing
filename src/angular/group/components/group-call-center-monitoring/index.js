@@ -25,9 +25,9 @@ function controller(
   ctrl.toMinutes = toMinutes
 
   let _socket
-  let _subscriptions = {}
   let _agents = []
-  let _agentStats = {}
+  const _subscriptions = {}
+  const _agentStats = {}
 
   function fullUserId(userId) {
     if (/@/.test(userId)) return userId
