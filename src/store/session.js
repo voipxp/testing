@@ -16,13 +16,13 @@ const slice = createSlice({
 const { actions, reducer } = slice
 export default reducer
 
-const clearSession = () => async dispatch => {
+export const clearSession = () => async dispatch => {
   dispatch(actions.clearSession())
   setToken()
   localStorage.removeItem(STORAGE_KEY)
 }
 
-const setSession = (data = {}) => async dispatch => {
+export const setSession = (data = {}) => async dispatch => {
   dispatch(actions.setSession(data))
   setToken(data.token)
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
