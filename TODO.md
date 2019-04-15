@@ -9,7 +9,6 @@ TODO
     - save session data to redux
   - on logout, remove token from localstorage
 
-- evaluate function declarations and eslint
 - test announcement reload() on name change
 - move GoogleUA to react
 - implement PaasAdmin
