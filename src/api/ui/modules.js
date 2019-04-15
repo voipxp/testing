@@ -1,4 +1,4 @@
-import { api } from '.'
+import { api } from '..'
 
 function get() {
   return api.get('ui/modules')
