@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
-import { Field, Control, Button, Input, Select, Icon, Table } from 'rbx'
+import React, { useReducer } from 'react'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router'
+import { Field, Control, Button, Input, Select, Icon } from 'rbx'
+import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import PropTypes from 'prop-types'
-import Spinner from './spinner'
+import { Modal, Spinner, Table } from '/components/ui'
+import User from '/api/users'
+import { alertDanger } from '/store/alerts'
 
 const searchTypes = [
   { key: 'dn', name: 'Phone Number' },
@@ -15,48 +19,72 @@ const searchTypes = [
   { key: 'macAddress', name: 'MAC Address' }
 ]
 
-const UserSearch = ({ isOpen }) => {
-  const [searchKey, setSearchKey] = useState(searchTypes[0].key)
-  const [search, setSearch] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [users, setUsers] = useState([])
+const columns = [
+  { key: 'userIdShort', label: 'Id' },
+  { key: 'lastName', label: 'Last' },
+  { key: 'firstName', label: 'First' },
+  { key: 'phoneNumber', label: 'Phone' },
+  { key: 'extension', label: 'Ext' },
+  { key: 'serviceProviderId', label: 'Service Provider' },
+  { key: 'groupId', label: 'Group' }
+]
 
-  const handleSearchKey = e => {
-    console.log('handleSearchKey', e.target.value)
-    setSearchKey(e.target.value)
-  }
-
-  const handleSearch = e => {
-    setSearch(e.target.value)
-  }
-
-  const runSearch = () => {
-    console.log('searchKey', searchKey)
-    console.log('search', search)
-    setLoading(true)
-    console.log('runSearch')
-    const users = []
-    for (let i = 0; i < 20; i++) {
-      users.push({
-        userId: `user-${i}`,
-        firstName: `first-${i}`,
-        lastName: `last=${i}`
-      })
+const UserSearch = ({ isOpen, onClose, dispatch, history }) => {
+  const [state, setState] = useReducer(
+    (state, newState) => ({
+      ...state,
+      ...newState
+    }),
+    {
+      searchKey: 'lastName',
+      searchString: '',
+      loading: false,
+      users: [],
+      initialized: false
     }
-    setUsers(users)
-    setTimeout(() => setLoading(false), 2000)
+  )
+
+  const handleInput = e => {
+    setState({ [e.target.name]: e.target.value })
+  }
+
+  const openUser = user => {
+    const path = [
+      '/users',
+      user.serviceProviderId,
+      user.groupId,
+      user.userId
+    ].join('/')
+    history.push(path)
+    onClose()
+  }
+
+  const search = async () => {
+    const { searchKey, searchString } = state
+    setState({ loading: true, initialized: true })
+    try {
+      const query =
+        searchKey === 'macAddress' ? searchString : `*${searchString}*`
+      const users = await User.search({ [searchKey]: query })
+      setState({ users })
+    } catch (error) {
+      dispatch(alertDanger(error))
+    } finally {
+      setState({ loading: false })
+    }
   }
 
   return (
-    <>
+    <Modal title="User Search" isOpen={isOpen} onCancel={onClose}>
       <form style={{ marginBottom: '1rem' }}>
         <Field kind="addons">
           <Control>
             <Select.Container>
               <Select
-                disabled={loading}
-                value={searchKey}
-                onChange={handleSearchKey}
+                disabled={state.loading}
+                value={state.searchKey}
+                onChange={handleInput}
+                name="searchKey"
               >
                 {searchTypes.map(searchType => (
                   <Select.Option key={searchType.key} value={searchType.key}>
@@ -70,18 +98,21 @@ const UserSearch = ({ isOpen }) => {
             <Input
               type="search"
               placeholder="search"
-              onChange={handleSearch}
-              disabled={loading}
-              value={search}
+              onChange={handleInput}
+              disabled={state.loading}
+              name="searchString"
+              value={state.searchString}
               autoFocus
             />
           </Control>
           <Control>
             <Button
               type="submit"
-              state={loading ? 'loading' : ''}
-              disabled={!search || loading}
-              onClick={runSearch}
+              state={state.loading ? 'loading' : ''}
+              disabled={
+                !state.searchString || !state.searchKey || state.loading
+              }
+              onClick={search}
             >
               <Icon size="small" align="left">
                 <FontAwesomeIcon icon={faSearch} />
@@ -90,62 +121,28 @@ const UserSearch = ({ isOpen }) => {
           </Control>
         </Field>
       </form>
-
-      {loading ? (
+      {!state.initialized ? (
+        ''
+      ) : state.loading ? (
         <Spinner />
       ) : (
-        <>
-          <Table fullwidth bordered striped hoverable>
-            <Table.Head>
-              <Table.Row>
-                <Table.Heading>ID</Table.Heading>
-                <Table.Heading>Last</Table.Heading>
-                <Table.Heading>First</Table.Heading>
-                <Table.Heading>Phone</Table.Heading>
-                <Table.Heading>Ext</Table.Heading>
-                <Table.Heading>Service Provider</Table.Heading>
-                <Table.Heading>Group</Table.Heading>
-              </Table.Row>
-            </Table.Head>
-            <Table.Body>
-              {users.length === 0 ? (
-                <Table.Row>
-                  <Table.Cell colSpan="100">No Users Found</Table.Cell>
-                </Table.Row>
-              ) : (
-                users.map(user => (
-                  <Table.Row key={user.userId}>
-                    <Table.Cell>{user.userId}</Table.Cell>
-                    <Table.Cell>{user.firstName}</Table.Cell>
-                    <Table.Cell>{user.lastName}</Table.Cell>
-                    <Table.Cell>{user.phoneNumber}</Table.Cell>
-                    <Table.Cell>{user.extension}</Table.Cell>
-                    <Table.Cell>{user.serviceProviderId}</Table.Cell>
-                    <Table.Cell>{user.groupId}</Table.Cell>
-                  </Table.Row>
-                ))
-              )}
-            </Table.Body>
-          </Table>
-          <p>Pagination</p>
-        </>
+        <Table
+          columns={columns}
+          rows={state.users}
+          rowKey="userId"
+          pageSize={25}
+          onClick={openUser}
+        />
       )}
-    </>
+    </Modal>
   )
 }
 
 UserSearch.propTypes = {
-  isOpen: PropTypes.bool
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  dispatch: PropTypes.func,
+  history: PropTypes.object
 }
 
-export default UserSearch
-
-/*
-  <td>{user.userIdShort || user.userId}</td>
-  <td>{user.lastName}</td>
-  <td>{user.firstName}</td>
-  <td>{user.phoneNumber}</td>
-  <td>{user.extension}</td>
-  <td>{user.serviceProviderId}</td>
-  <td>{user.groupId}</td>
-*/
+export default withRouter(connect()(UserSearch))

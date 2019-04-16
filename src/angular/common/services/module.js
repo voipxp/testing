@@ -14,8 +14,7 @@ Filter
   on the permissions
 
 */
-import get from 'lodash/get'
-import camelCase from 'lodash/camelCase'
+import { get, camelCase } from 'lodash'
 import angular from 'angular'
 
 angular.module('odin.common').factory('Module', Module)

@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect'
 import angular from 'angular'
-import kebabCase from 'lodash/kebabCase'
+import { kebabCase } from 'lodash'
 import { injector } from '/angular'
 
 const Angular = ({ component, location = {}, match = {}, ...props }) => {

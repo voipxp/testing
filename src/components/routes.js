@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
-import camelCase from 'lodash/camelCase'
+import { camelCase } from 'lodash'
 import { connect } from 'react-redux'
 import Dashboard from './dashboard'
 import Angular from './angular'

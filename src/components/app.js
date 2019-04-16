@@ -8,8 +8,7 @@ import Angular from './angular'
 import Routes from './routes'
 import Alerts from './alerts'
 import Footer from './footer'
-import LoadingScreen from './loading-screen'
-import LoadingModal from './loading-modal'
+import { LoadingPage, LoadingModal } from '/components/ui'
 import Login from './login'
 import Navbar from './navbar'
 import { alertWarning, removeAlert } from '/store/alerts'
@@ -62,7 +61,7 @@ const App = ({
     userId
   ])
 
-  if (!initialized) return <LoadingScreen />
+  if (!initialized) return <LoadingPage />
 
   return (
     <>

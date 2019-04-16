@@ -5,7 +5,25 @@
   ],
   "plugins": [
     "@babel/plugin-transform-runtime",
-    ["babel-plugin-styled-components", { "ssr": false }]
+    ["babel-plugin-styled-components", { "ssr": false }],
+    [
+      "import",
+      {
+        "libraryName": "react-use",
+        "libraryDirectory": "lib",
+        "camel2DashComponentName": false
+      },
+      "react-use"
+    ],
+    [
+      "import",
+      {
+        "libraryName": "lodash",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "lodash"
+    ]
   ],
   "env": {
     "production": {
