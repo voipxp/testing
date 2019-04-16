@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { clearSession, hasLevel } from '/store/session'
+import UserSearch from './user-search'
 import Modal from './modal'
 
 const AppNavbar = ({
@@ -120,7 +121,7 @@ const AppNavbar = ({
             isOpen={search === 'user'}
             onClose={() => setSearch()}
           >
-            <p>User Search</p>
+            <UserSearch />
           </Modal>
           <Modal
             title="DN Search"

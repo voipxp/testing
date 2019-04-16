@@ -1,4 +1,4 @@
-import { api } from '.'
+import { api } from '..'
 
 function token(username, password) {
   return api.post('auth/token', { username, password })

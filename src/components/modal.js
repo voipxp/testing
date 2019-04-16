@@ -12,6 +12,9 @@ const TIMEOUT = 300
 
 const StyledModal = styled.div`
   flex-direction: column;
+  &modal {
+    flex-direction: column;
+  }
   &.modal-card {
     overflow-y: visible;
   }
@@ -37,6 +40,15 @@ const StyledModal = styled.div`
   &.modal-exit .modal-card {
     animation-name: zoomOut;
     animation-duration: 350ms;
+  }
+  @media (min-width: 769px) {
+    .modal-content,
+    .modal-card {
+      margin: 0 auto;
+      max-height: calc(100vh - 40px);
+      max-width: calc(100% - 80px);
+      width: 800px;
+    }
   }
 `
 
