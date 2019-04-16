@@ -1,10 +1,11 @@
 // TODO: form validity check
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { isFunction } from 'lodash'
 import { Modal, Delete, Button } from 'rbx'
 import { CSSTransition } from 'react-transition-group'
+import { useSetState } from '/hooks'
 
 const TIMEOUT = 300
 
@@ -70,16 +71,7 @@ const AnimatedModal = ({
   saveText = 'Save',
   deleteText = 'Delete'
 }) => {
-  const [state, setState] = useReducer(
-    (state, newState) => ({
-      ...state,
-      ...newState
-    }),
-    {
-      showModal: null,
-      transitionIn: null
-    }
-  )
+  const [state, setState] = useSetState({ showModal: null, transitionIn: null })
 
   useEffect(() => {
     let timer

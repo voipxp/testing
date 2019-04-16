@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { Field, Control, Button, Input, Select, Icon } from 'rbx'
@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Modal, Spinner, Table } from '/components/ui'
+import { useSetState } from '/hooks'
 import User from '/api/users'
 import { alertDanger } from '/store/alerts'
 
@@ -30,19 +31,13 @@ const columns = [
 ]
 
 const UserSearch = ({ isOpen, onClose, dispatch, history }) => {
-  const [state, setState] = useReducer(
-    (state, newState) => ({
-      ...state,
-      ...newState
-    }),
-    {
-      searchKey: 'lastName',
-      searchString: '',
-      loading: false,
-      users: [],
-      initialized: false
-    }
-  )
+  const [state, setState] = useSetState({
+    searchKey: 'lastName',
+    searchString: '',
+    loading: false,
+    users: [],
+    initialized: false
+  })
 
   const handleInput = e => {
     setState({ [e.target.name]: e.target.value })

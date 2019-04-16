@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
@@ -8,6 +8,7 @@ import auth from '/api/auth'
 import { showLoadingModal, hideLoadingModal } from '/store/ui'
 import { alertWarning, alertDanger } from '/store/alerts'
 import { setSession } from '/store/session'
+import { useSetState } from '/hooks'
 
 const Login = ({
   apiUrl,
@@ -18,20 +19,14 @@ const Login = ({
   showLoadingModal,
   hideLoadingModal
 }) => {
-  const [state, setState] = useReducer(
-    (state, newState) => ({
-      ...state,
-      ...newState
-    }),
-    {
-      username: '',
-      password: '',
-      newPassword1: '',
-      newPassword2: '',
-      needsChange: false,
-      valid: false
-    }
-  )
+  const [state, setState] = useSetState({
+    username: '',
+    password: '',
+    newPassword1: '',
+    newPassword2: '',
+    needsChange: false,
+    valid: false
+  })
 
   // FIND AN EASIER WAY TO DO VALIDATIONS
   function handleUpdate(e) {
