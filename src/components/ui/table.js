@@ -9,9 +9,14 @@ import PropTypes from 'prop-types'
 import { orderBy } from 'natural-orderby'
 import { get, isFunction } from 'lodash'
 import styled from 'styled-components'
-import { Table, Input, Icon } from 'rbx'
+import { Table, Input, Icon, Checkbox, Button, Field, Control } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
+import {
+  faSortUp,
+  faSortDown,
+  faTimes,
+  faCheck
+} from '@fortawesome/free-solid-svg-icons'
 import paginate from 'jw-paginate'
 import Pagination from './pagination'
 import { useSetState } from '/hooks'
@@ -34,56 +39,25 @@ const UiTable = ({
   rowKey,
   rows = [],
   pageSize = 10,
+  showSelect = false,
   hideSearch = false,
-  onClick
+  onClick,
+  onSelect
 }) => {
   const [state, setState] = useSetState({
     currentPage: 0,
     totalPages: 0,
     filteredItems: [],
     pagedItems: [],
+    selectedItems: {},
     search: '',
     sortBy: null,
     sortOrder: 'asc'
   })
 
-  const handleSort = useCallback(
-    column => {
-      if (state.sortBy === column.key) {
-        setState({ sortOrder: state.sortOrder === 'asc' ? 'desc' : 'asc' })
-      } else {
-        setState({ sortBy: column.key })
-      }
-    },
-    [setState, state.sortBy, state.sortOrder]
-  )
-
-  const filterItems = useCallback(() => {
-    const sortKey = state.sortBy || rowKey
-    const sorted = orderBy(rows, v => v[sortKey], state.sortOrder)
-    if (hideSearch || !state.search) {
-      return setState({ filteredItems: sorted })
-    }
-    const regex = new RegExp(state.search, 'i')
-    const newItems = sorted.filter(row => {
-      for (const key of Object.keys(row)) {
-        if (regex.test(row[key])) return true
-      }
-      return false
-    })
-    setState({ filteredItems: newItems })
-  }, [
-    hideSearch,
-    rowKey,
-    rows,
-    setState,
-    state.search,
-    state.sortBy,
-    state.sortOrder
-  ])
-
   const paginateItems = useCallback(
     currentPage => {
+      console.log('paginate')
       const pager = paginate(state.filteredItems.length, currentPage, pageSize)
       setState({
         currentPage: pager.currentPage,
@@ -102,19 +76,89 @@ const UiTable = ({
   }, [rowKey, setState])
 
   useEffect(() => {
-    filterItems()
-  }, [filterItems])
+    console.log('filter')
+    const sortKey = state.sortBy || rowKey
+    const sorted = orderBy(rows, v => v[sortKey], state.sortOrder)
+    if (!state.search) return setState({ filteredItems: sorted })
+    const regex = new RegExp(state.search, 'i')
+    const newItems = sorted.filter(row => {
+      for (const key of Object.keys(row)) {
+        if (regex.test(row[key])) return true
+      }
+      return false
+    })
+    setState({ filteredItems: newItems })
+  }, [
+    hideSearch,
+    rowKey,
+    rows,
+    setState,
+    state.search,
+    state.sortBy,
+    state.sortOrder
+  ])
 
   useEffect(() => {
     paginateItems()
   }, [paginateItems])
 
+  const handleSort = column => {
+    if (state.sortBy === column.key) {
+      setState({ sortOrder: state.sortOrder === 'asc' ? 'desc' : 'asc' })
+    } else {
+      setState({ sortBy: column.key })
+    }
+  }
+
   const onFirst = () => paginateItems(1)
   const onPrevious = () => paginateItems(state.currentPage - 1)
   const onNext = () => paginateItems(state.currentPage + 1)
   const onLast = () => paginateItems(state.totalPages)
+
   const canClick = isFunction(onClick)
-  const handleClick = row => canClick && onClick(row)
+  const canSelect = showSelect && isFunction(onSelect)
+  const isAllSelected =
+    Object.keys(state.selectedItems).length === state.filteredItems.length
+
+  const handleClick = row => {
+    if (canSelect) {
+      selectRow(row)
+    } else if (canClick) {
+      onClick(row)
+    }
+  }
+
+  const handleSelectAll = () => {
+    if (isAllSelected) {
+      setState({ selectedItems: {} })
+    } else {
+      const selectedItems = state.filteredItems.reduce((obj, item) => {
+        obj[item[rowKey]] = true
+        return obj
+      }, {})
+      setState({ selectedItems })
+    }
+  }
+
+  const isSelected = row => {
+    return !!state.selectedItems[row[rowKey]]
+  }
+
+  const selectRow = row => {
+    const id = row[rowKey]
+    const { selectedItems } = { ...state }
+    if (selectedItems[id]) {
+      delete selectedItems[id]
+    } else {
+      selectedItems[id] = true
+    }
+    setState({ selectedItems })
+  }
+
+  const sendSelected = () => {
+    const selectedKeys = Object.keys(state.selectedItems)
+    onSelect(rows.filter(row => selectedKeys.includes(row[rowKey])))
+  }
 
   const headingIcon = column => {
     if (column.key !== state.sortBy) return null
@@ -138,16 +182,48 @@ const UiTable = ({
           style={{ marginBottom: '1rem' }}
         />
       )}
+      {canSelect && (
+        <Field kind="addons">
+          <Control>
+            <Button onClick={() => onSelect([])}>
+              <Icon size="small">
+                <FontAwesomeIcon icon={faTimes} />
+              </Icon>
+            </Button>
+          </Control>
+          <Control expanded>
+            <Button static fullwidth>
+              Items Selected:&nbsp;
+              <strong>{Object.keys(state.selectedItems).length}</strong>
+            </Button>
+          </Control>
+          <Control>
+            <Button color="primary" onClick={() => sendSelected()}>
+              <Icon size="small">
+                <FontAwesomeIcon icon={faCheck} />
+              </Icon>
+            </Button>
+          </Control>
+        </Field>
+      )}
       <WrappedTable>
         <Table
           fullwidth
           bordered
           striped
           narrow
-          className={cx({ tableHover: canClick })}
+          className={cx({ tableHover: canClick || canSelect })}
         >
           <Table.Head>
             <Table.Row>
+              {canSelect && (
+                <Table.Heading
+                  className="has-text-centered"
+                  onClick={() => handleSelectAll()}
+                >
+                  <Checkbox checked={isAllSelected} onChange={() => {}} />
+                </Table.Heading>
+              )}
               {columns.map(column => (
                 <Table.Heading
                   key={column.key}
@@ -174,6 +250,11 @@ const UiTable = ({
             <Table.Body>
               {state.pagedItems.map(row => (
                 <Table.Row key={row[rowKey]} onClick={() => handleClick(row)}>
+                  {canSelect && (
+                    <Table.Cell className="has-text-centered">
+                      <Checkbox checked={isSelected(row)} onChange={() => {}} />
+                    </Table.Cell>
+                  )}
                   {columns.map(column => (
                     <Table.Cell
                       key={column.key}
@@ -215,6 +296,8 @@ UiTable.propTypes = {
   rowKey: PropTypes.string.isRequired,
   pageSize: PropTypes.number,
   hideSearch: PropTypes.bool,
-  onClick: PropTypes.func
+  showSelect: PropTypes.bool,
+  onClick: PropTypes.func,
+  onSelect: PropTypes.func
 }
 export default UiTable
