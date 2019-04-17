@@ -4,13 +4,14 @@
     selectable
     sortable
 */
-import React, { useEffect, useCallback, useState } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { get, orderBy, isFunction } from 'lodash'
 import styled from 'styled-components'
 import { Table, Input } from 'rbx'
 import paginate from 'jw-paginate'
 import Pagination from './pagination'
+import { useSetState } from '/hooks'
 
 const WrappedTable = styled.div`
   display: block;
@@ -26,50 +27,57 @@ const UiTable = ({
   hideSearch = false,
   onClick
 }) => {
-  const [pagination, setPagination] = useState({})
-  const [searchTerm, setSearchTerm] = useState('')
-
-  const [filteredItems, setFilteredItems] = useState([])
-  const [pageItems, setPageItems] = useState([])
-
-  const paginateItems = useCallback(
-    currentPage => {
-      const pager = paginate(filteredItems.length, currentPage, pageSize)
-      setPagination(pager)
-      setPageItems(filteredItems.slice(pager.startIndex, pager.endIndex + 1))
-    },
-    [filteredItems, pageSize]
-  )
+  const [state, setState] = useSetState({
+    currentPage: 0,
+    totalPages: 0,
+    filteredItems: [],
+    pagedItems: [],
+    search: ''
+  })
 
   const filterItems = useCallback(() => {
     const ordered = orderBy(rows, rowKey)
-    if (hideSearch || !searchTerm) return setFilteredItems(ordered)
-    const regex = new RegExp(searchTerm, 'i')
+    if (hideSearch || !state.search) {
+      return setState({ filteredItems: ordered })
+    }
+    const regex = new RegExp(state.search, 'i')
     const newItems = ordered.filter(row => {
       for (const key of Object.keys(row)) {
         if (regex.test(row[key])) return true
       }
       return false
     })
-    setFilteredItems(newItems)
-  }, [hideSearch, rowKey, rows, searchTerm])
+    setState({ filteredItems: newItems })
+  }, [hideSearch, rowKey, rows, setState, state.search])
 
-  const onFirst = () => paginateItems(1)
-  const onPrevious = () => paginateItems(pagination.currentPage - 1)
-  const onNext = () => paginateItems(pagination.currentPage + 1)
-  const onLast = () => paginateItems(pagination.totalPages)
-
-  const handleClick = row => {
-    if (isFunction(onClick)) onClick(row)
-  }
+  const paginateItems = useCallback(
+    currentPage => {
+      const pager = paginate(state.filteredItems.length, currentPage, pageSize)
+      setState({
+        currentPage: pager.currentPage,
+        totalPages: pager.totalPages,
+        pagedItems: state.filteredItems.slice(
+          pager.startIndex,
+          pager.endIndex + 1
+        )
+      })
+    },
+    [pageSize, setState, state.filteredItems]
+  )
 
   useEffect(() => {
     filterItems()
   }, [filterItems])
 
   useEffect(() => {
-    paginateItems(1)
+    paginateItems()
   }, [paginateItems])
+
+  const onFirst = () => paginateItems(1)
+  const onPrevious = () => paginateItems(state.currentPage - 1)
+  const onNext = () => paginateItems(state.currentPage + 1)
+  const onLast = () => paginateItems(state.totalPages)
+  const handleClick = row => isFunction(onClick) && onClick(row)
 
   return (
     <>
@@ -77,8 +85,8 @@ const UiTable = ({
         <Input
           type="search"
           placeholder="Filter Results"
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
+          value={state.search}
+          onChange={e => setState({ search: e.target.value })}
           style={{ marginBottom: '1rem' }}
         />
       )}
@@ -97,12 +105,12 @@ const UiTable = ({
             </Table.Row>
           </Table.Head>
           <Table.Body>
-            {pageItems.length === 0 ? (
+            {state.pagedItems.length === 0 ? (
               <Table.Row>
                 <Table.Cell colSpan="100">No Data Found</Table.Cell>
               </Table.Row>
             ) : (
-              pageItems.map(row => (
+              state.pagedItems.map(row => (
                 <Table.Row key={row[rowKey]} onClick={() => handleClick(row)}>
                   {columns.map(column => (
                     <Table.Cell
@@ -120,8 +128,8 @@ const UiTable = ({
       </WrappedTable>
       <Pagination
         align="right"
-        pages={pagination.totalPages}
-        page={pagination.currentPage}
+        pages={state.totalPages}
+        page={state.currentPage}
         onFirst={onFirst}
         onNext={onNext}
         onPrevious={onPrevious}

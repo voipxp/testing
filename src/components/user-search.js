@@ -30,14 +30,21 @@ const columns = [
   { key: 'groupId', label: 'Group' }
 ]
 
-const UserSearch = ({ isOpen, onClose, dispatch, history }) => {
-  const [state, setState] = useSetState({
-    searchKey: 'lastName',
-    searchString: '',
-    loading: false,
-    users: [],
-    initialized: false
-  })
+const initialState = {
+  searchKey: 'lastName',
+  searchString: '',
+  loading: false,
+  users: [],
+  initialized: false
+}
+
+const UserSearch = ({ isOpen, onClose, alertDanger, history }) => {
+  const [state, setState] = useSetState(initialState)
+
+  const handleClose = () => {
+    onClose()
+    setState(initialState)
+  }
 
   const handleInput = e => {
     setState({ [e.target.name]: e.target.value })
@@ -51,7 +58,7 @@ const UserSearch = ({ isOpen, onClose, dispatch, history }) => {
       user.userId
     ].join('/')
     history.push(path)
-    onClose()
+    handleClose()
   }
 
   const search = async () => {
@@ -63,14 +70,14 @@ const UserSearch = ({ isOpen, onClose, dispatch, history }) => {
       const users = await User.search({ [searchKey]: query })
       setState({ users })
     } catch (error) {
-      dispatch(alertDanger(error))
+      alertDanger(error)
     } finally {
       setState({ loading: false })
     }
   }
 
   return (
-    <Modal title="User Search" isOpen={isOpen} onCancel={onClose}>
+    <Modal title="User Search" isOpen={isOpen} onCancel={handleClose}>
       <form style={{ marginBottom: '1rem' }}>
         <Field kind="addons">
           <Control>
@@ -136,8 +143,13 @@ const UserSearch = ({ isOpen, onClose, dispatch, history }) => {
 UserSearch.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
-  dispatch: PropTypes.func,
+  alertDanger: PropTypes.func,
   history: PropTypes.object
 }
 
-export default withRouter(connect()(UserSearch))
+export default withRouter(
+  connect(
+    null,
+    { alertDanger }
+  )(UserSearch)
+)
