@@ -1,10 +1,5 @@
-/*
-  Notes:
-    selectable
-    test render prop
-*/
 /* eslint-disable jsx-a11y/anchor-is-valid,no-script-url */
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { orderBy } from 'natural-orderby'
 import { get, isFunction } from 'lodash'
@@ -55,52 +50,47 @@ const UiTable = ({
     sortOrder: 'asc'
   })
 
-  const paginateItems = useCallback(
-    currentPage => {
-      console.log('paginate')
-      const pager = paginate(state.filteredItems.length, currentPage, pageSize)
-      setState({
-        currentPage: pager.currentPage,
-        totalPages: pager.totalPages,
-        pagedItems: state.filteredItems.slice(
-          pager.startIndex,
-          pager.endIndex + 1
-        )
-      })
-    },
-    [pageSize, setState, state.filteredItems]
-  )
+  useEffect(() => {
+    console.log('useEffect:sortBy')
+    if (!state.sortBy) setState({ sortBy: rowKey })
+  }, [rowKey, setState, state.sortBy])
 
   useEffect(() => {
-    setState({ sortBy: rowKey })
-  }, [rowKey, setState])
-
-  useEffect(() => {
-    console.log('filter')
+    console.log('useEffect:filter')
     const sortKey = state.sortBy || rowKey
-    const sorted = orderBy(rows, v => v[sortKey], state.sortOrder)
-    if (!state.search) return setState({ filteredItems: sorted })
+    if (!state.search) {
+      return setState({
+        filteredItems: orderBy(rows, v => v[sortKey], state.sortOrder)
+      })
+    }
     const regex = new RegExp(state.search, 'i')
-    const newItems = sorted.filter(row => {
+    const newItems = rows.filter(row => {
       for (const key of Object.keys(row)) {
         if (regex.test(row[key])) return true
       }
       return false
     })
-    setState({ filteredItems: newItems })
-  }, [
-    hideSearch,
-    rowKey,
-    rows,
-    setState,
-    state.search,
-    state.sortBy,
-    state.sortOrder
-  ])
+    setState({
+      filteredItems: orderBy(newItems, v => v[sortKey], state.sortOrder)
+    })
+  }, [rowKey, rows, setState, state.search, state.sortBy, state.sortOrder])
 
   useEffect(() => {
-    paginateItems()
-  }, [paginateItems])
+    console.log('useEffect:paginate')
+    const pager = paginate(
+      state.filteredItems.length,
+      state.currentPage,
+      pageSize
+    )
+    setState({
+      currentPage: pager.currentPage,
+      totalPages: pager.totalPages,
+      pagedItems: state.filteredItems.slice(
+        pager.startIndex,
+        pager.endIndex + 1
+      )
+    })
+  }, [pageSize, setState, state.currentPage, state.filteredItems])
 
   const handleSort = column => {
     if (state.sortBy === column.key) {
@@ -110,10 +100,10 @@ const UiTable = ({
     }
   }
 
-  const onFirst = () => paginateItems(1)
-  const onPrevious = () => paginateItems(state.currentPage - 1)
-  const onNext = () => paginateItems(state.currentPage + 1)
-  const onLast = () => paginateItems(state.totalPages)
+  const onFirst = () => setState({ currentPage: 1 })
+  const onPrevious = () => setState({ currentPage: state.currentPage - 1 })
+  const onNext = () => setState({ currentPage: state.currentPage + 1 })
+  const onLast = () => setState({ currentPage: state.totalPages })
 
   const canClick = isFunction(onClick)
   const canSelect = showSelect && isFunction(onSelect)
@@ -218,7 +208,7 @@ const UiTable = ({
             <Table.Row>
               {canSelect && (
                 <Table.Heading
-                  className="has-text-centered"
+                  textAlign="centered"
                   onClick={() => handleSelectAll()}
                 >
                   <Checkbox checked={isAllSelected} onChange={() => {}} />
@@ -251,7 +241,7 @@ const UiTable = ({
               {state.pagedItems.map(row => (
                 <Table.Row key={row[rowKey]} onClick={() => handleClick(row)}>
                   {canSelect && (
-                    <Table.Cell className="has-text-centered">
+                    <Table.Cell textAlign="centered">
                       <Checkbox checked={isSelected(row)} onChange={() => {}} />
                     </Table.Cell>
                   )}

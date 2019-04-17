@@ -62,7 +62,7 @@ const TestBed = () => {
         onClick={onClick}
         onSelect={onSelect}
         showSelect={showSelect}
-        pageSize={10}
+        pageSize={3}
       />
     </>
   )

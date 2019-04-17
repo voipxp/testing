@@ -21,7 +21,7 @@ const Pagination = ({
   if (pages < 2) return null
 
   return (
-    <Button.Group hasAddons align={align}>
+    <Button.Group hasAddons align={align} style={{ marginTop: '1rem' }}>
       <Button size="small" onClick={onFirst} disabled={page === 1}>
         <Icon size="small">
           <FontAwesomeIcon icon={faAngleDoubleLeft} />
