@@ -1,22 +1,32 @@
 /*
   Notes:
-    hoverable based on onClick?
     selectable
-    sortable
+    test render prop
 */
+/* eslint-disable jsx-a11y/anchor-is-valid,no-script-url */
 import React, { useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { get, orderBy, isFunction } from 'lodash'
+import { orderBy } from 'natural-orderby'
+import { get, isFunction } from 'lodash'
 import styled from 'styled-components'
-import { Table, Input } from 'rbx'
+import { Table, Input, Icon } from 'rbx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
 import paginate from 'jw-paginate'
 import Pagination from './pagination'
 import { useSetState } from '/hooks'
+import cx from 'classnames'
 
 const WrappedTable = styled.div`
   display: block;
   width: 100%;
   overflow-x: auto;
+
+  table.tableHover tbody > tr:hover {
+    cursor: pointer;
+    background-color: hsl(217, 71%, 53%) !important;
+    color: #fff;
+  }
 `
 
 const UiTable = ({
@@ -32,23 +42,45 @@ const UiTable = ({
     totalPages: 0,
     filteredItems: [],
     pagedItems: [],
-    search: ''
+    search: '',
+    sortBy: null,
+    sortOrder: 'asc'
   })
 
+  const handleSort = useCallback(
+    column => {
+      if (state.sortBy === column.key) {
+        setState({ sortOrder: state.sortOrder === 'asc' ? 'desc' : 'asc' })
+      } else {
+        setState({ sortBy: column.key })
+      }
+    },
+    [setState, state.sortBy, state.sortOrder]
+  )
+
   const filterItems = useCallback(() => {
-    const ordered = orderBy(rows, rowKey)
+    const sortKey = state.sortBy || rowKey
+    const sorted = orderBy(rows, v => v[sortKey], state.sortOrder)
     if (hideSearch || !state.search) {
-      return setState({ filteredItems: ordered })
+      return setState({ filteredItems: sorted })
     }
     const regex = new RegExp(state.search, 'i')
-    const newItems = ordered.filter(row => {
+    const newItems = sorted.filter(row => {
       for (const key of Object.keys(row)) {
         if (regex.test(row[key])) return true
       }
       return false
     })
     setState({ filteredItems: newItems })
-  }, [hideSearch, rowKey, rows, setState, state.search])
+  }, [
+    hideSearch,
+    rowKey,
+    rows,
+    setState,
+    state.search,
+    state.sortBy,
+    state.sortOrder
+  ])
 
   const paginateItems = useCallback(
     currentPage => {
@@ -66,6 +98,10 @@ const UiTable = ({
   )
 
   useEffect(() => {
+    setState({ sortBy: rowKey })
+  }, [rowKey, setState])
+
+  useEffect(() => {
     filterItems()
   }, [filterItems])
 
@@ -77,7 +113,19 @@ const UiTable = ({
   const onPrevious = () => paginateItems(state.currentPage - 1)
   const onNext = () => paginateItems(state.currentPage + 1)
   const onLast = () => paginateItems(state.totalPages)
-  const handleClick = row => isFunction(onClick) && onClick(row)
+  const canClick = isFunction(onClick)
+  const handleClick = row => canClick && onClick(row)
+
+  const headingIcon = column => {
+    if (column.key !== state.sortBy) return null
+    return (
+      <Icon size="small" align="left">
+        <FontAwesomeIcon
+          icon={state.sortOrder === 'asc' ? faSortUp : faSortDown}
+        />
+      </Icon>
+    )
+  }
 
   return (
     <>
@@ -91,7 +139,13 @@ const UiTable = ({
         />
       )}
       <WrappedTable>
-        <Table fullwidth bordered striped hoverable narrow>
+        <Table
+          fullwidth
+          bordered
+          striped
+          narrow
+          className={cx({ tableHover: canClick })}
+        >
           <Table.Head>
             <Table.Row>
               {columns.map(column => (
@@ -99,31 +153,41 @@ const UiTable = ({
                   key={column.key}
                   style={{ whiteSpace: 'nowrap' }}
                 >
-                  {column.label}
+                  <a
+                    href="javascript:void(0)"
+                    onClick={() => handleSort(column)}
+                  >
+                    {column.label}
+                    {headingIcon(column)}
+                  </a>
                 </Table.Heading>
               ))}
             </Table.Row>
           </Table.Head>
-          <Table.Body>
-            {state.pagedItems.length === 0 ? (
+          {state.pagedItems.length === 0 ? (
+            <Table.Foot>
               <Table.Row>
                 <Table.Cell colSpan="100">No Data Found</Table.Cell>
               </Table.Row>
-            ) : (
-              state.pagedItems.map(row => (
+            </Table.Foot>
+          ) : (
+            <Table.Body>
+              {state.pagedItems.map(row => (
                 <Table.Row key={row[rowKey]} onClick={() => handleClick(row)}>
                   {columns.map(column => (
                     <Table.Cell
                       key={column.key}
                       style={{ whiteSpace: 'nowrap' }}
                     >
-                      {get(row, column.key)}
+                      {isFunction(column.render)
+                        ? column.render(row)
+                        : get(row, column.key)}
                     </Table.Cell>
                   ))}
                 </Table.Row>
-              ))
-            )}
-          </Table.Body>
+              ))}
+            </Table.Body>
+          )}
         </Table>
       </WrappedTable>
       <Pagination

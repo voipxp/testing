@@ -1,5 +1,6 @@
 TODO
 
+- look for usage of lodash orderBy and replace it with natural
 - rework session/localstorage
 
   - only save token to localstorage

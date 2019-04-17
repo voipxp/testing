@@ -21,7 +21,7 @@ const searchTypes = [
 ]
 
 const columns = [
-  { key: 'userIdShort', label: 'Id' },
+  { key: 'userIdShort', label: 'User Id' },
   { key: 'lastName', label: 'Last' },
   { key: 'firstName', label: 'First' },
   { key: 'phoneNumber', label: 'Phone' },
@@ -76,6 +76,20 @@ const UserSearch = ({ isOpen, onClose, alertDanger, history }) => {
     }
   }
 
+  const SearchResults = () => {
+    return state.loading ? (
+      <Spinner />
+    ) : (
+      <Table
+        columns={columns}
+        rows={state.users}
+        rowKey="userId"
+        pageSize={25}
+        onClick={openUser}
+      />
+    )
+  }
+
   return (
     <Modal title="User Search" isOpen={isOpen} onCancel={handleClose}>
       <form style={{ marginBottom: '1rem' }}>
@@ -123,19 +137,7 @@ const UserSearch = ({ isOpen, onClose, alertDanger, history }) => {
           </Control>
         </Field>
       </form>
-      {!state.initialized ? (
-        ''
-      ) : state.loading ? (
-        <Spinner />
-      ) : (
-        <Table
-          columns={columns}
-          rows={state.users}
-          rowKey="userId"
-          pageSize={25}
-          onClick={openUser}
-        />
-      )}
+      {state.initialized && <SearchResults />}
     </Modal>
   )
 }
