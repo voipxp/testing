@@ -17,8 +17,6 @@ LoadingModal.propTypes = {
   showLoadingModal: PropTypes.bool
 }
 
-const mapState = ({ ui }) => ({
-  showLoadingModal: ui.showLoadingModal
-})
+const mapState = ({ ui }) => ({ showLoadingModal: ui.showLoadingModal })
 
 export default connect(mapState)(LoadingModal)

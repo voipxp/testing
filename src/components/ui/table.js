@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid,no-script-url */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { orderBy } from 'natural-orderby'
 import { get, isFunction } from 'lodash'
@@ -14,7 +14,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import paginate from 'jw-paginate'
 import Pagination from './pagination'
-import { useSetState } from '/hooks'
 import cx from 'classnames'
 
 const WrappedTable = styled.div`
@@ -39,76 +38,53 @@ const UiTable = ({
   onClick,
   onSelect
 }) => {
-  const [state, setState] = useSetState({
-    currentPage: 0,
-    totalPages: 0,
-    filteredItems: [],
-    pagedItems: [],
-    selectedItems: {},
-    search: '',
-    sortBy: null,
-    sortOrder: 'asc'
-  })
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [filteredItems, setFilteredItems] = useState([])
+  const [pagedItems, setPagedItems] = useState([])
+  const [selectedItems, setSelectedItems] = useState({})
+  const [search, setSearch] = useState('')
+  const [sortBy, setSortBy] = useState(rowKey)
+  const [sortOrder, setSortOrder] = useState('asc')
 
   useEffect(() => {
-    console.log('useEffect:sortBy')
-    if (!state.sortBy) setState({ sortBy: rowKey })
-  }, [rowKey, setState, state.sortBy])
-
-  useEffect(() => {
-    console.log('useEffect:filter')
-    const sortKey = state.sortBy || rowKey
-    if (!state.search) {
-      return setState({
-        filteredItems: orderBy(rows, v => v[sortKey], state.sortOrder)
-      })
+    if (!search) {
+      return setFilteredItems(orderBy(rows, v => v[sortBy], sortOrder))
     }
-    const regex = new RegExp(state.search, 'i')
+    const regex = new RegExp(search, 'i')
     const newItems = rows.filter(row => {
       for (const key of Object.keys(row)) {
         if (regex.test(row[key])) return true
       }
       return false
     })
-    setState({
-      filteredItems: orderBy(newItems, v => v[sortKey], state.sortOrder)
-    })
-  }, [rowKey, rows, setState, state.search, state.sortBy, state.sortOrder])
+    setFilteredItems(orderBy(newItems, v => v[sortBy], sortOrder))
+  }, [rows, search, sortBy, sortOrder])
 
   useEffect(() => {
-    console.log('useEffect:paginate')
-    const pager = paginate(
-      state.filteredItems.length,
-      state.currentPage,
-      pageSize
-    )
-    setState({
-      currentPage: pager.currentPage,
-      totalPages: pager.totalPages,
-      pagedItems: state.filteredItems.slice(
-        pager.startIndex,
-        pager.endIndex + 1
-      )
-    })
-  }, [pageSize, setState, state.currentPage, state.filteredItems])
+    const pager = paginate(filteredItems.length, currentPage, pageSize)
+    setCurrentPage(pager.currentPage || 1)
+    setTotalPages(pager.totalPages)
+    setPagedItems(filteredItems.slice(pager.startIndex, pager.endIndex + 1))
+  }, [currentPage, filteredItems, pageSize])
 
   const handleSort = column => {
-    if (state.sortBy === column.key) {
-      setState({ sortOrder: state.sortOrder === 'asc' ? 'desc' : 'asc' })
+    if (sortBy === column.key) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
     } else {
-      setState({ sortBy: column.key })
+      setSortBy(column.key)
     }
   }
 
-  const onFirst = () => setState({ currentPage: 1 })
-  const onPrevious = () => setState({ currentPage: state.currentPage - 1 })
-  const onNext = () => setState({ currentPage: state.currentPage + 1 })
-  const onLast = () => setState({ currentPage: state.totalPages })
+  const onFirst = () => setCurrentPage(1)
+  const onPrevious = () => setCurrentPage(currentPage - 1)
+  const onNext = () => setCurrentPage(currentPage + 1)
+  const onLast = () => setCurrentPage(totalPages)
 
   const canClick = isFunction(onClick)
   const canSelect = showSelect && isFunction(onSelect)
   const isAllSelected =
-    Object.keys(state.selectedItems).length === state.filteredItems.length
+    Object.keys(selectedItems).length === filteredItems.length
 
   const handleClick = row => {
     if (canSelect) {
@@ -120,55 +96,52 @@ const UiTable = ({
 
   const handleSelectAll = () => {
     if (isAllSelected) {
-      setState({ selectedItems: {} })
+      setSelectedItems({})
     } else {
-      const selectedItems = state.filteredItems.reduce((obj, item) => {
-        obj[item[rowKey]] = true
-        return obj
-      }, {})
-      setState({ selectedItems })
+      setSelectedItems(
+        filteredItems.reduce((obj, item) => {
+          obj[item[rowKey]] = true
+          return obj
+        }, {})
+      )
     }
   }
 
-  const isSelected = row => {
-    return !!state.selectedItems[row[rowKey]]
-  }
+  const isSelected = row => !!selectedItems[row[rowKey]]
 
   const selectRow = row => {
     const id = row[rowKey]
-    const { selectedItems } = { ...state }
-    if (selectedItems[id]) {
-      delete selectedItems[id]
+    const newSelectedItems = { ...selectedItems }
+    if (newSelectedItems[id]) {
+      delete newSelectedItems[id]
     } else {
-      selectedItems[id] = true
+      newSelectedItems[id] = true
     }
-    setState({ selectedItems })
+    setSelectedItems(newSelectedItems)
   }
 
   const sendSelected = () => {
-    const selectedKeys = Object.keys(state.selectedItems)
+    const selectedKeys = Object.keys(selectedItems)
     onSelect(rows.filter(row => selectedKeys.includes(row[rowKey])))
   }
 
   const headingIcon = column => {
-    if (column.key !== state.sortBy) return null
+    if (column.key !== sortBy) return null
     return (
       <Icon size="small" align="left">
-        <FontAwesomeIcon
-          icon={state.sortOrder === 'asc' ? faSortUp : faSortDown}
-        />
+        <FontAwesomeIcon icon={sortOrder === 'asc' ? faSortUp : faSortDown} />
       </Icon>
     )
   }
 
   return (
     <>
-      {!hideSearch && (
+      {!hideSearch && rows.length > 0 && (
         <Input
           type="search"
           placeholder="Filter Results"
-          value={state.search}
-          onChange={e => setState({ search: e.target.value })}
+          value={search}
+          onChange={e => setSearch(e.target.value)}
           style={{ marginBottom: '1rem' }}
         />
       )}
@@ -184,7 +157,7 @@ const UiTable = ({
           <Control expanded>
             <Button static fullwidth>
               Items Selected:&nbsp;
-              <strong>{Object.keys(state.selectedItems).length}</strong>
+              <strong>{Object.keys(selectedItems).length}</strong>
             </Button>
           </Control>
           <Control>
@@ -230,7 +203,7 @@ const UiTable = ({
               ))}
             </Table.Row>
           </Table.Head>
-          {state.pagedItems.length === 0 ? (
+          {pagedItems.length === 0 ? (
             <Table.Foot>
               <Table.Row>
                 <Table.Cell colSpan="100">No Data Found</Table.Cell>
@@ -238,7 +211,7 @@ const UiTable = ({
             </Table.Foot>
           ) : (
             <Table.Body>
-              {state.pagedItems.map(row => (
+              {pagedItems.map(row => (
                 <Table.Row key={row[rowKey]} onClick={() => handleClick(row)}>
                   {canSelect && (
                     <Table.Cell textAlign="centered">
@@ -263,8 +236,8 @@ const UiTable = ({
       </WrappedTable>
       <Pagination
         align="right"
-        pages={state.totalPages}
-        page={state.currentPage}
+        pages={totalPages}
+        page={currentPage}
         onFirst={onFirst}
         onNext={onNext}
         onPrevious={onPrevious}

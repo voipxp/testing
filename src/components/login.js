@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
@@ -8,7 +8,6 @@ import auth from '/api/auth'
 import { showLoadingModal, hideLoadingModal } from '/store/ui'
 import { alertWarning, alertDanger } from '/store/alerts'
 import { setSession } from '/store/session'
-import { useSetState } from '/hooks'
 
 const Login = ({
   apiUrl,
@@ -19,43 +18,36 @@ const Login = ({
   showLoadingModal,
   hideLoadingModal
 }) => {
-  const [state, setState] = useSetState({
+  const formRef = useRef()
+  const [form, setForm] = useState({
     username: '',
     password: '',
     newPassword1: '',
-    newPassword2: '',
-    needsChange: false,
-    valid: false
+    newPassword2: ''
   })
-
-  // FIND AN EASIER WAY TO DO VALIDATIONS
-  function handleUpdate(e) {
-    const currentState = state
-    currentState[e.target.name] = e.target.value
-    currentState.valid = currentState.username && currentState.password
-    if (currentState.needsChange) {
-      currentState.valid =
-        currentState.valid &&
-        currentState.newPassword1 &&
-        currentState.newPassword2
-    }
-    setState(currentState)
-  }
+  const [needsChange, setNeedsChange] = useState(false)
+  const [valid, setValid] = useState(false)
 
   function handleSubmit(e) {
     e.preventDefault()
-    state.needsChange ? setPassword() : login()
+    needsChange ? changePassword() : login()
+  }
+
+  function handleInput(e) {
+    setForm({ ...form, [e.target.name]: e.target.value })
+    setValid(formRef.current.checkValidity())
   }
 
   async function login() {
     try {
       showLoadingModal()
-      const session = await auth.token(state.username, state.password)
+      const session = await auth.token(form.username, form.password)
       await setSession(session)
     } catch (error) {
       if (error.status === 402) {
         alertWarning(error)
-        setState({ needsChange: true })
+        setNeedsChange(true)
+        setValid(false)
       } else {
         alertDanger(error)
       }
@@ -64,14 +56,14 @@ const Login = ({
     }
   }
 
-  async function setPassword() {
-    if (state.newPassword1 !== state.newPassword2) {
+  async function changePassword() {
+    if (form.newPassword1 !== form.newPassword2) {
       return alertWarning('New Passwords Do Not Match')
     }
     try {
       showLoadingModal()
-      await auth.password(state.password, state.newPassword1, state.username)
-      const session = await auth.token(state.username, state.newPassword1)
+      await auth.password(form.password, form.newPassword1, form.username)
+      const session = await auth.token(form.username, form.newPassword1)
       await setSession(session)
     } catch (error) {
       alertDanger(error)
@@ -85,15 +77,15 @@ const Login = ({
       <Hero.Body textAlign="centered">
         <Box style={{ width: '400px', margin: 'auto' }}>
           <img src={`${apiUrl}/ui/images/imageLoginLogo.png`} alt="logo" />
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} ref={formRef}>
             <Field>
               <Control iconLeft>
                 <Input
                   type="text"
                   placeholder="Username"
                   name="username"
-                  onChange={handleUpdate}
-                  value={state.username}
+                  onChange={handleInput}
+                  value={form.username}
                   autoCapitalize="off"
                   required
                 />
@@ -109,8 +101,8 @@ const Login = ({
                   type="password"
                   placeholder="Password"
                   name="password"
-                  onChange={handleUpdate}
-                  value={state.password}
+                  onChange={handleInput}
+                  value={form.password}
                   required
                 />
                 <Icon size="small" align="left">
@@ -119,7 +111,7 @@ const Login = ({
               </Control>
             </Field>
 
-            {state.needsChange && (
+            {needsChange && (
               <>
                 <Field>
                   <Control iconLeft>
@@ -127,8 +119,8 @@ const Login = ({
                       type="password"
                       placeholder="New Password"
                       name="newPassword1"
-                      onChange={handleUpdate}
-                      value={state.newPassword1}
+                      onChange={handleInput}
+                      value={form.newPassword1}
                       required
                     />
                     <Icon size="small" align="left">
@@ -143,8 +135,8 @@ const Login = ({
                       type="password"
                       placeholder="New Password"
                       name="newPassword2"
-                      onChange={handleUpdate}
-                      value={state.newPassword2}
+                      onChange={handleInput}
+                      value={form.newPassword2}
                       required
                     />
                     <Icon size="small" align="left">
@@ -155,12 +147,7 @@ const Login = ({
               </>
             )}
 
-            <Button
-              color="link"
-              fullwidth
-              type="submit"
-              disabled={!state.valid}
-            >
+            <Button color="link" fullwidth type="submit" disabled={!valid}>
               Login
             </Button>
           </form>

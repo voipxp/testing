@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import { isFunction } from 'lodash'
 import { Modal, Delete, Button } from 'rbx'
 import { CSSTransition } from 'react-transition-group'
-import { useSetState } from '/hooks'
 
 const TIMEOUT = 300
 
@@ -51,15 +50,6 @@ const StyledModal = styled.div`
   }
 `
 
-/*
-  Modal is immediately removed from the DOM when active is set
-  to false.  In order to apply a transition we need to delay
-  that.
-
-  So, we are syncing the isOpen prop to the local state. When
-  isOpen is false we set the transitionIn to false and then
-  set showModal after a delay.
-*/
 const AnimatedModal = ({
   children,
   isOpen,
@@ -70,53 +60,39 @@ const AnimatedModal = ({
   cancelText = 'Cancel',
   saveText = 'Save',
   deleteText = 'Delete'
-}) => {
-  const [state, setState] = useSetState({ showModal: null, transitionIn: null })
-
-  useEffect(() => {
-    let timer
-    if (!isOpen) {
-      setState({ transitionIn: false })
-      timer = setTimeout(() => setState({ showModal: false }), TIMEOUT)
-    } else {
-      setState({ transitionIn: true, showModal: true })
-    }
-    return () => clearTimeout(timer)
-  }, [isOpen, setState])
-
-  return (
-    <CSSTransition classNames="modal" timeout={TIMEOUT} in={state.transitionIn}>
-      <Modal
-        active={state.showModal}
-        as={StyledModal}
-        closeOnBlur={true}
-        onClose={onCancel}
-      >
-        <Modal.Background />
-        <Modal.Card>
-          <Modal.Card.Head>
-            <Modal.Card.Title>{title}</Modal.Card.Title>
-            <Delete />
-          </Modal.Card.Head>
-          <Modal.Card.Body>{isOpen && children}</Modal.Card.Body>
-          <Modal.Card.Foot>
-            {isFunction(onDelete) && (
-              <Button color="danger" onClick={onDelete}>
-                {deleteText}
-              </Button>
-            )}
-            <Button onClick={onCancel}>{cancelText}</Button>
-            {isFunction(onSave) && (
-              <Button color="success" onClick={onSave}>
-                {saveText}
-              </Button>
-            )}
-          </Modal.Card.Foot>
-        </Modal.Card>
-      </Modal>
-    </CSSTransition>
-  )
-}
+}) => (
+  <CSSTransition
+    classNames="modal"
+    timeout={TIMEOUT}
+    in={isOpen}
+    mountOnEnter={true}
+    unmountOnExit={true}
+  >
+    <StyledModal className="modal is-active">
+      <Modal.Background />
+      <Modal.Card>
+        <Modal.Card.Head>
+          <Modal.Card.Title>{title}</Modal.Card.Title>
+          <Delete onClick={() => onCancel()} />
+        </Modal.Card.Head>
+        <Modal.Card.Body>{children}</Modal.Card.Body>
+        <Modal.Card.Foot>
+          {isFunction(onDelete) && (
+            <Button color="danger" onClick={() => onDelete()}>
+              {deleteText}
+            </Button>
+          )}
+          <Button onClick={onCancel}>{cancelText}</Button>
+          {isFunction(onSave) && (
+            <Button color="success" onClick={() => onSave()}>
+              {saveText}
+            </Button>
+          )}
+        </Modal.Card.Foot>
+      </Modal.Card>
+    </StyledModal>
+  </CSSTransition>
+)
 
 AnimatedModal.propTypes = {
   children: PropTypes.any,
@@ -130,4 +106,4 @@ AnimatedModal.propTypes = {
   deleteText: PropTypes.string
 }
 
-export default AnimatedModal
+export default React.memo(AnimatedModal)

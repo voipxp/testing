@@ -8,8 +8,6 @@ import Angular from './angular'
 import NotFound from './notfound'
 import { hasLevel } from '/store/session'
 
-import TestBed from './testbed'
-
 // angular routes
 import appRoutes from '/angular/app/routes'
 import brandingRoutes from '/angular/branding/routes'
@@ -75,7 +73,6 @@ const Router = ({ loginType, modules }) => {
   return (
     <Switch>
       <Route path="/" exact component={Dashboard} />
-      <Route path="/testbed" exact component={TestBed} />
       {angularRoutes.map(route => generateRoute(route))}
       <Route component={NotFound} />
     </Switch>

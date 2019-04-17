@@ -43,6 +43,17 @@ const AppNavbar = ({
     }
   }
 
+  const openUser = user => {
+    setSearch(null)
+    const path = [
+      '/users',
+      user.serviceProviderId,
+      user.groupId,
+      user.userId
+    ].join('/')
+    history.push(path)
+  }
+
   return (
     <>
       <Navbar color="link" managed active={showMenu}>
@@ -116,7 +127,13 @@ const AppNavbar = ({
 
       {hasGroup && (
         <>
-          <UserSearch isOpen={search === 'user'} onClose={() => setSearch()} />
+          <Modal
+            title="User Search"
+            isOpen={search === 'user'}
+            onCancel={() => setSearch()}
+          >
+            <UserSearch onSelect={openUser} />
+          </Modal>
           <Modal
             title="DN Search"
             isOpen={search === 'dn'}
