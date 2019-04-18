@@ -8,15 +8,15 @@ import { UiDataTable } from './ui-data-table'
 
 # UiDataTable
 
-Renders a data table. You must pass in the **columns** prop which contains the schema for the data. The **rows** which are an array of objects to display in the table. The **rowKey** which is the unique identifier for each row.
+Renders a data table. You must pass in the **columns** prop which contains the data schema. The **rows** which are an array of objects to display in the table. The **rowKey** which is the unique identifier in each row.
 
 The table will automatically paginate the data (defaults to 10) and show a filter search bar. You can set **hideSearch** to true to disable the search bar.
 
 If **onClick** is a callback function, the table will be hoverable and the row clicked will be passed back to the callback.
 
-If **onSelect** is a callback function, then the table is selectable. You must set **showSelect** to true, to show the selection. The **onSelect** callback will be passed an array of selected rows. NOTE: Canceling the select will return an empty array.
+If **onSelect** is a callback function, then the table is selectable. You must set **showSelect** to true, to show the selection. The **onSelect** callback will be passed an array of selected rows. NOTE: Canceling the select returns an empty array.
 
-The columns schema defines the **key** for each column and an optional **label** to present in the table header. By default, the value of `row[column.key]` will be displayed. If a **render** prop is passed, the render prop will be executed passing in the **row** instead.
+The columns schema defines the **key** in each column and an optional **label** to present in the table header. By default, the value of `row[column.key]` will be displayed. If a **render** prop is passed, the render prop will be executed passing in the **row** instead.
 
 ## Example
 
