@@ -136,7 +136,7 @@ const UiTable = ({
 
   return (
     <>
-      {!hideSearch && pagedItems.length > 1 && (
+      {!hideSearch && rows.length > 1 && (
         <Input
           type="search"
           placeholder="Filter Results"
