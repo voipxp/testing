@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import { camelCase } from 'lodash'
-import { connect } from 'react-redux'
+import { useReduxState } from 'reactive-react-redux'
 import Dashboard from './dashboard'
 import Angular from './angular'
 import NotFound from './notfound'
@@ -33,7 +32,11 @@ const angularRoutes = [
   ...vdmRoutes
 ]
 
-const Router = ({ loginType, modules }) => {
+const Router = () => {
+  const state = useReduxState()
+  const { loginType } = state.session
+  const { modules } = state.ui
+
   const getModule = name => {
     const module = modules[name]
     return module
@@ -79,14 +82,4 @@ const Router = ({ loginType, modules }) => {
   )
 }
 
-Router.propTypes = {
-  loginType: PropTypes.string,
-  modules: PropTypes.object
-}
-
-const mapState = state => ({
-  loginType: state.session.loginType,
-  modules: state.ui.modules
-})
-
-export default connect(mapState)(Router)
+export default Router

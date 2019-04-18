@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { connect } from 'react-redux'
+import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { Notification, Delete } from 'rbx'
 import styled from 'styled-components'
 import { removeAlert } from '/store/alerts'
@@ -35,33 +34,27 @@ const StyledAlert = styled.div`
   }
 `
 
-const Alerts = ({ alerts, removeAlert }) => (
-  <TransitionGroup component={StyledAlerts}>
-    {alerts.map(alert => (
-      <CSSTransition key={alert.id} classNames="notification" timeout={400}>
-        <Notification
-          as={StyledAlert}
-          color={alert.type}
-          onClick={() => removeAlert(alert)}
-        >
-          <Delete as="button" />
-          {alert.message}
-        </Notification>
-      </CSSTransition>
-    ))}
-  </TransitionGroup>
-)
+const Alerts = () => {
+  const state = useReduxState()
+  const dispatch = useReduxDispatch()
+  const { alerts } = state
 
-Alerts.propTypes = {
-  alerts: PropTypes.array.isRequired,
-  removeAlert: PropTypes.func.isRequired
+  return (
+    <TransitionGroup component={StyledAlerts}>
+      {alerts.map(alert => (
+        <CSSTransition key={alert.id} classNames="notification" timeout={400}>
+          <Notification
+            as={StyledAlert}
+            color={alert.type}
+            onClick={() => dispatch(removeAlert(alert))}
+          >
+            <Delete as="button" />
+            {alert.message}
+          </Notification>
+        </CSSTransition>
+      ))}
+    </TransitionGroup>
+  )
 }
 
-const mapState = ({ alerts }) => ({ alerts })
-
-const mapDispatch = { removeAlert }
-
-export default connect(
-  mapState,
-  mapDispatch
-)(Alerts)
+export default Alerts

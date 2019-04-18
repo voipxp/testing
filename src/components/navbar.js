@@ -1,26 +1,32 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { clearSession, hasLevel } from '/store/session'
 import { UiModalCard } from '/components/ui'
 import UserSearch from './user-search'
 
-const AppNavbar = ({
-  apiUrl,
-  applications,
-  clearSession,
-  hasGroup,
-  hasServiceProvider,
-  history,
-  pageTitle,
-  userId
-}) => {
+const AppNavbar = ({ history }) => {
+  const state = useReduxState()
+  const dispatch = useReduxDispatch()
+
+  const { apiUrl, applications } = state.ui
+  const { loginType, userId } = state.session
+  const { pageTitle } = state.ui.template
+
+  const hasGroup = hasLevel(loginType, 'Group')
+  const hasServiceProvider = hasLevel(loginType, 'Service Provider')
+
   const [showMenu, updateShowMenu] = useState(false)
   const [search, setSearch] = useState()
 
   const toggleMenu = () => updateShowMenu(!showMenu)
+
+  const logout = () => {
+    console.log('logout')
+    dispatch(clearSession())
+  }
 
   const openAccount = () => {
     updateShowMenu(false)
@@ -118,7 +124,7 @@ const AppNavbar = ({
               <Navbar.Dropdown boxed>
                 <Navbar.Item onClick={openAccount}>Profile</Navbar.Item>
                 <Navbar.Divider />
-                <Navbar.Item onClick={clearSession}>Logout</Navbar.Item>
+                <Navbar.Item onClick={logout}>Logout</Navbar.Item>
               </Navbar.Dropdown>
             </Navbar.Item>
           </Navbar.Segment>
@@ -166,30 +172,7 @@ const AppNavbar = ({
 }
 
 AppNavbar.propTypes = {
-  apiUrl: PropTypes.string,
-  applications: PropTypes.array,
-  clearSession: PropTypes.func,
-  hasGroup: PropTypes.bool,
-  hasServiceProvider: PropTypes.bool,
-  history: PropTypes.object,
-  pageTitle: PropTypes.string,
-  userId: PropTypes.string
+  history: PropTypes.object
 }
 
-const mapState = state => ({
-  apiUrl: state.ui.apiUrl,
-  applications: state.ui.applications,
-  hasGroup: hasLevel(state.session.loginType, 'Group'),
-  hasServiceProvider: hasLevel(state.session.loginType, 'Service Provider'),
-  pageTitle: state.ui.template.pageTitle,
-  userId: state.session.userId
-})
-
-const mapDispatch = { clearSession }
-
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(AppNavbar)
-)
+export default withRouter(AppNavbar)

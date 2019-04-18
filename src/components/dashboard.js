@@ -1,9 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useReduxState } from 'reactive-react-redux'
 import { Redirect } from 'react-router-dom'
 
-const Dashboard = ({ loginType, serviceProviderId, groupId, userId }) => {
+const Dashboard = () => {
+  const state = useReduxState()
+  const { loginType, serviceProviderId, groupId, userId } = state.session
+
   let route
   switch (loginType) {
     case 'System':
@@ -25,18 +27,4 @@ const Dashboard = ({ loginType, serviceProviderId, groupId, userId }) => {
   return <Redirect to={route} />
 }
 
-Dashboard.propTypes = {
-  loginType: PropTypes.string,
-  serviceProviderId: PropTypes.string,
-  groupId: PropTypes.string,
-  userId: PropTypes.string
-}
-
-const mapState = ({ session }) => ({
-  loginType: session.loginType,
-  serviceProviderId: session.serviceProviderId,
-  groupId: session.groupId,
-  userId: session.userId
-})
-
-export default connect(mapState)(Dashboard)
+export default Dashboard

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { Section } from 'rbx'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
 import Angular from './angular'
@@ -20,14 +19,13 @@ const TIMEOUT = 30000
 const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
 `
-const App = ({
-  alertWarning,
-  clearSession,
-  initialized,
-  removeAlert,
-  sessionTimeout,
-  userId
-}) => {
+const App = () => {
+  const state = useReduxState()
+  const dispatch = useReduxDispatch()
+  const { initialized } = state.ui
+  const { sessionTimeout } = state.ui.settings
+  const { userId } = state.session
+
   const alertRef = useRef()
   const timerRef = useRef()
 
@@ -39,28 +37,19 @@ const App = ({
       inactivityEvents: []
     })
     activityDetector.on('idle', async () => {
-      alertRef.current = await alertWarning(
-        'Your session is about to expire',
-        TIMEOUT
-      )
-      timerRef.current = setTimeout(() => clearSession(), TIMEOUT)
+      const msg = 'Your session is about to expire'
+      alertRef.current = await dispatch(alertWarning(msg, TIMEOUT))
+      timerRef.current = setTimeout(() => dispatch(clearSession()), TIMEOUT)
     })
     activityDetector.on('active', () => {
-      removeAlert(alertRef.current)
+      dispatch(removeAlert(alertRef.current))
       clearTimeout(timerRef.current)
     })
     return () => {
       clearTimeout(timerRef.current)
       activityDetector.stop()
     }
-  }, [
-    sessionTimeout,
-    alertWarning,
-    removeAlert,
-    initialized,
-    clearSession,
-    userId
-  ])
+  }, [dispatch, initialized, sessionTimeout, userId])
 
   if (!initialized) return <UiLoadingPage />
 
@@ -86,24 +75,4 @@ const App = ({
   )
 }
 
-App.propTypes = {
-  alertWarning: PropTypes.func,
-  clearSession: PropTypes.func,
-  initialized: PropTypes.bool,
-  removeAlert: PropTypes.func,
-  sessionTimeout: PropTypes.number,
-  userId: PropTypes.string
-}
-
-const mapState = state => ({
-  initialized: state.ui.initialized,
-  sessionTimeout: state.ui.settings.sessionTimeout,
-  userId: state.session.userId
-})
-
-const mapDispatch = { alertWarning, removeAlert, clearSession }
-
-export default connect(
-  mapState,
-  mapDispatch
-)(App)
+export default App

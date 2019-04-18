@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
@@ -9,15 +8,13 @@ import { showLoadingModal, hideLoadingModal } from '/store/ui'
 import { alertWarning, alertDanger } from '/store/alerts'
 import { setSession } from '/store/session'
 
-const Login = ({
-  apiUrl,
-  loginMessage,
-  alertWarning,
-  alertDanger,
-  setSession,
-  showLoadingModal,
-  hideLoadingModal
-}) => {
+const Login = () => {
+  const state = useReduxState()
+  const dispatch = useReduxDispatch()
+
+  const { apiUrl } = state.ui
+  const { pageLoginMessage } = state.ui.template
+
   const formRef = useRef()
   const [form, setForm] = useState({
     username: '',
@@ -40,35 +37,35 @@ const Login = ({
 
   async function login() {
     try {
-      showLoadingModal()
+      dispatch(showLoadingModal())
       const session = await auth.token(form.username, form.password)
-      await setSession(session)
+      await dispatch(setSession(session))
     } catch (error) {
       if (error.status === 402) {
-        alertWarning(error)
+        dispatch(alertWarning(error))
         setNeedsChange(true)
         setValid(false)
       } else {
-        alertDanger(error)
+        dispatch(alertDanger(error))
       }
     } finally {
-      hideLoadingModal()
+      dispatch(hideLoadingModal())
     }
   }
 
   async function changePassword() {
     if (form.newPassword1 !== form.newPassword2) {
-      return alertWarning('New Passwords Do Not Match')
+      return dispatch(alertWarning('New Passwords Do Not Match'))
     }
     try {
-      showLoadingModal()
+      dispatch(showLoadingModal())
       await auth.password(form.password, form.newPassword1, form.username)
       const session = await auth.token(form.username, form.newPassword1)
-      await setSession(session)
+      await dispatch(setSession(session))
     } catch (error) {
-      alertDanger(error)
+      dispatch(alertDanger(error))
     } finally {
-      hideLoadingModal()
+      dispatch(hideLoadingModal())
     }
   }
 
@@ -154,10 +151,10 @@ const Login = ({
         </Box>
       </Hero.Body>
 
-      {loginMessage && (
+      {pageLoginMessage && (
         <Hero.Foot>
           <Message radiusless>
-            <Message.Body textAlign="centered">{loginMessage}</Message.Body>
+            <Message.Body textAlign="centered">{pageLoginMessage}</Message.Body>
           </Message>
         </Hero.Foot>
       )}
@@ -165,30 +162,4 @@ const Login = ({
   )
 }
 
-Login.propTypes = {
-  apiUrl: PropTypes.string,
-  loginMessage: PropTypes.string,
-  alertWarning: PropTypes.func,
-  alertDanger: PropTypes.func,
-  setSession: PropTypes.func,
-  showLoadingModal: PropTypes.func,
-  hideLoadingModal: PropTypes.func
-}
-
-const mapState = state => ({
-  apiUrl: state.ui.apiUrl,
-  loginMessage: state.ui.template.pageLoginMessage
-})
-
-const mapDispatch = {
-  alertWarning,
-  alertDanger,
-  setSession,
-  showLoadingModal,
-  hideLoadingModal
-}
-
-export default connect(
-  mapState,
-  mapDispatch
-)(Login)
+export default Login

@@ -54,10 +54,9 @@
     "rbx": "^2.1.0",
     "react": ">=15",
     "react-dom": "^16.8.6",
-    "react-redux": "^7.0.1",
     "react-router-dom": "^5.0.0",
     "react-transition-group": "4.0.0",
-    "react-use": "^8.1.2",
+    "reactive-react-redux": "^2.0.1",
     "redux": "^4.0.1",
     "redux-starter-kit": "^0.4.3",
     "rrule": "^2.6.0",
@@ -66,8 +65,7 @@
     "style-loader": "^0.23.1",
     "styled-components": "^4.2.0",
     "sugar-date": "^2.0.6",
-    "use-deep-compare-effect": "^1.2.0",
-    "why-did-you-update-redux": "^1.0.3"
+    "use-deep-compare-effect": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",

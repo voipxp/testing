@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Control, Button, Input, Select, Icon } from 'rbx'
-import { connect } from 'react-redux'
+import { useReduxDispatch } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiSpinner, UiDataTable } from '/components/ui'
@@ -28,7 +28,9 @@ const columns = [
   { key: 'groupId', label: 'Group' }
 ]
 
-const UserSearch = ({ alertDanger, onSelect }) => {
+const UserSearch = ({ onSelect }) => {
+  const dispatch = useReduxDispatch()
+
   const [searchKey, setSearchKey] = useState('lastName')
   const [searchString, setSearchString] = useState('')
   const [users, setUsers] = useState([])
@@ -51,7 +53,7 @@ const UserSearch = ({ alertDanger, onSelect }) => {
       const users = await User.search({ [searchKey]: query })
       setUsers(users)
     } catch (error) {
-      alertDanger(error)
+      dispatch(alertDanger(error))
       setUsers([])
     } finally {
       setLoading(false)
@@ -121,11 +123,7 @@ const UserSearch = ({ alertDanger, onSelect }) => {
 }
 
 UserSearch.propTypes = {
-  alertDanger: PropTypes.func,
   onSelect: PropTypes.func
 }
 
-export default connect(
-  null,
-  { alertDanger }
-)(UserSearch)
+export default UserSearch

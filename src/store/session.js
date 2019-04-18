@@ -57,3 +57,9 @@ export const hasLevel = (loginType, requiredType) => {
   const required = types[requiredType] || 10
   return user >= required
 }
+
+export const hasGroup = loginType => hasLevel(loginType, 'Group')
+export const hasServiceProvider = loginType =>
+  hasLevel(loginType, 'Service Provider')
+export const hasProvisioning = loginType => hasLevel(loginType, 'Provisioning')
+export const hasSystem = loginType => hasLevel(loginType, 'System')
