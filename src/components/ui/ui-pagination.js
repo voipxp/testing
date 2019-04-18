@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button, Icon } from 'rbx'
 import PropTypes from 'prop-types'
+import { Button, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faAngleDoubleLeft,
@@ -9,7 +9,7 @@ import {
   faAngleRight
 } from '@fortawesome/free-solid-svg-icons'
 
-const Pagination = ({
+export const UiPagination = ({
   align = 'left',
   pages = 1,
   page = 1,
@@ -53,14 +53,14 @@ const Pagination = ({
   )
 }
 
-Pagination.propTypes = {
-  align: PropTypes.string,
-  pages: PropTypes.number,
-  page: PropTypes.number,
+UiPagination.propTypes = {
+  align: PropTypes.oneOf(['left', 'centered', 'right']),
+  pages: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
   onFirst: PropTypes.func,
   onNext: PropTypes.func,
   onPrevious: PropTypes.func,
   onLast: PropTypes.func
 }
 
-export default Pagination
+export default UiPagination

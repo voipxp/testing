@@ -4,7 +4,7 @@ import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { Spinner, Table } from '/components/ui'
+import { UiSpinner, UiDataTable } from '/components/ui'
 import User from '/api/users'
 import { alertDanger } from '/store/alerts'
 
@@ -106,9 +106,9 @@ const UserSearch = ({ alertDanger, onSelect }) => {
       {!initialized ? (
         ''
       ) : loading ? (
-        <Spinner />
+        <UiSpinner />
       ) : (
-        <Table
+        <UiDataTable
           columns={columns}
           rows={users}
           rowKey="userId"

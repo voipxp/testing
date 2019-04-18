@@ -1,5 +1,5 @@
 // TODO: form validity check
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { isFunction } from 'lodash'
@@ -50,7 +50,7 @@ const StyledModal = styled.div`
   }
 `
 
-const AnimatedModal = ({
+export const UiModalCard = ({
   children,
   isOpen,
   onCancel,
@@ -94,16 +94,16 @@ const AnimatedModal = ({
   </CSSTransition>
 )
 
-AnimatedModal.propTypes = {
-  children: PropTypes.any,
-  isOpen: PropTypes.bool,
+UiModalCard.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
   onSave: PropTypes.func,
   onDelete: PropTypes.func,
-  title: PropTypes.string.isRequired,
   cancelText: PropTypes.string,
   saveText: PropTypes.string,
-  deleteText: PropTypes.string
+  deleteText: PropTypes.string,
+  children: PropTypes.any
 }
 
-export default React.memo(AnimatedModal)
+export default UiModalCard

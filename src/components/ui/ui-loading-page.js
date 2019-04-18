@@ -1,13 +1,13 @@
 import React from 'react'
 import { Hero } from 'rbx'
-import Spinner from './spinner'
+import { UiSpinner } from './ui-spinner'
 
-const LoadingPage = () => (
+export const UiLoadingPage = () => (
   <Hero color="link" size="fullheight">
     <Hero.Body>
-      <Spinner />
+      <UiSpinner />
     </Hero.Body>
   </Hero>
 )
 
-export default LoadingPage
+export default UiLoadingPage

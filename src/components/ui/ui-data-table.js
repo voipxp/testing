@@ -1,10 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid,no-script-url */
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import paginate from 'jw-paginate'
+import cx from 'classnames'
 import { orderBy } from 'natural-orderby'
 import { get, isFunction } from 'lodash'
-import styled from 'styled-components'
 import { Table, Input, Icon, Checkbox, Button, Field, Control } from 'rbx'
+import UiPagination from './ui-pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faSortUp,
@@ -12,9 +15,6 @@ import {
   faTimes,
   faCheck
 } from '@fortawesome/free-solid-svg-icons'
-import paginate from 'jw-paginate'
-import Pagination from './pagination'
-import cx from 'classnames'
 
 const WrappedTable = styled.div`
   display: block;
@@ -28,7 +28,7 @@ const WrappedTable = styled.div`
   }
 `
 
-const UiTable = ({
+export const UiDataTable = ({
   columns,
   rowKey,
   rows = [],
@@ -196,7 +196,7 @@ const UiTable = ({
                     href="javascript:void(0)"
                     onClick={() => handleSort(column)}
                   >
-                    {column.label}
+                    {column.label || column.key}
                     {headingIcon(column)}
                   </a>
                 </Table.Heading>
@@ -234,7 +234,7 @@ const UiTable = ({
           )}
         </Table>
       </WrappedTable>
-      <Pagination
+      <UiPagination
         align="right"
         pages={totalPages}
         page={currentPage}
@@ -247,11 +247,11 @@ const UiTable = ({
   )
 }
 
-UiTable.propTypes = {
+UiDataTable.propTypes = {
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
+      label: PropTypes.string,
       render: PropTypes.func
     })
   ).isRequired,
@@ -263,4 +263,5 @@ UiTable.propTypes = {
   onClick: PropTypes.func,
   onSelect: PropTypes.func
 }
-export default UiTable
+
+export default UiDataTable

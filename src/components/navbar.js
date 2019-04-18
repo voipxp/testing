@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { clearSession, hasLevel } from '/store/session'
-import { Modal } from '/components/ui'
+import { UiModalCard } from '/components/ui'
 import UserSearch from './user-search'
 
 const AppNavbar = ({
@@ -127,38 +127,38 @@ const AppNavbar = ({
 
       {hasGroup && (
         <>
-          <Modal
+          <UiModalCard
             title="User Search"
             isOpen={search === 'user'}
             onCancel={() => setSearch()}
           >
             <UserSearch onSelect={openUser} />
-          </Modal>
-          <Modal
+          </UiModalCard>
+          <UiModalCard
             title="DN Search"
             isOpen={search === 'dn'}
             onCancel={() => setSearch()}
           >
             <p>DN Search</p>
-          </Modal>
+          </UiModalCard>
         </>
       )}
       {hasServiceProvider && (
         <>
-          <Modal
+          <UiModalCard
             title="Group Search"
             isOpen={search === 'group'}
             onCancel={() => setSearch()}
           >
             <p>Group Search</p>
-          </Modal>
-          <Modal
+          </UiModalCard>
+          <UiModalCard
             title="Service Service"
             isOpen={search === 'service'}
             onCancel={() => setSearch()}
           >
             <p>Group Search</p>
-          </Modal>
+          </UiModalCard>
         </>
       )}
     </>
