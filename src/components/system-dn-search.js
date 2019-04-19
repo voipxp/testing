@@ -8,25 +8,9 @@ import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { UiSpinner, UiDataTable, UiModalCard } from '/components/ui'
 import { hasLevel } from '/store/session'
 import { alertDanger } from '/store/alerts'
+import { userPath } from '/utils/routes'
 import phoneNumberApi from '/api/phone-numbers/system'
 import ServiceProviderSelect from './service-provider-select'
-
-const userTypes = {
-  'Normal': 'users',
-  'Auto Attendant': 'autoAttendants/autoAttendant',
-  'Call Center': 'callCenters/callCenter',
-  'Collaborate Bridge': 'collaborate/bridge',
-  'Meet-Me Conferencing': 'meetMe/bridge',
-  'Group Paging': 'paging/group',
-  'Hunt Group': 'huntGroups/huntGroup',
-  'BroadWorks Anywhere': null,
-  'Find-me/Follow-me': null,
-  'Flexible Seating Host': null,
-  'Instant Group Call': null,
-  'Music On Hold': null,
-  'Route Point': null,
-  'Voice Messaging': null
-}
 
 const columns = [
   { key: 'userIdShort', label: 'User Id' },
@@ -79,7 +63,7 @@ const SystemDnSearch = ({ onSelect }) => {
         serviceProviderId: _serviceProviderId
       })
       // strip out users we can't link to
-      const filtered = users.filter(user => userTypes[user.userType])
+      const filtered = users.filter(user => userPath[user.userType])
       setUsers(filtered)
     } catch (error) {
       dispatch(alertDanger(error))

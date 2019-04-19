@@ -5,44 +5,11 @@ import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { clearSession, hasLevel } from '/store/session'
 import { UiModalCard } from '/components/ui'
-import { stringify } from 'query-string'
+import { userPath, groupPath } from '/utils/routes'
 import UserSearch from './user-search'
 import SystemDnSearch from './system-dn-search'
 import GroupSearch from './group-search'
-
-const userTypes = {
-  'Normal': 'users',
-  'Auto Attendant': 'autoAttendants/autoAttendant',
-  'Call Center': 'callCenters/callCenter',
-  'Collaborate Bridge': 'collaborate/bridge',
-  'Meet-Me Conferencing': 'meetMe/bridge',
-  'Group Paging': 'paging/group',
-  'Hunt Group': 'huntGroups/huntGroup',
-  'BroadWorks Anywhere': null,
-  'Find-me/Follow-me': null,
-  'Flexible Seating Host': null,
-  'Instant Group Call': null,
-  'Music On Hold': null,
-  'Route Point': null,
-  'Voice Messaging': null
-}
-
-// TODO: Extract this into a helper
-const userPath = user => {
-  const path = userTypes[user.userType || 'Normal']
-  if (!path) return
-  if (path === 'users') {
-    return `/users/${user.serviceProviderId}/${user.groupId}/${user.userId}`
-  } else {
-    return `/groups/${user.serviceProviderId}/${
-      user.groupId
-    }/${path}?${stringify({ serviceUserId: user.userId })}`
-  }
-}
-
-const groupPath = group => {
-  return `/groups/${group.serviceProviderId}/${group.groupId}`
-}
+import UserServiceSearch from './user-service-search'
 
 const AppNavbar = ({ history }) => {
   const state = useReduxState()
@@ -192,11 +159,11 @@ const AppNavbar = ({ history }) => {
             <GroupSearch onSelect={openGroup} />
           </UiModalCard>
           <UiModalCard
-            title="Service Service"
+            title="User Service Service"
             isOpen={search === 'service'}
             onCancel={() => setSearch()}
           >
-            <p>Group Search</p>
+            <UserServiceSearch onSelect={openUser} />
           </UiModalCard>
         </>
       )}
