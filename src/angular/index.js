@@ -9,7 +9,6 @@ import 'angular-color-picker/angular-color-picker.css'
 import 'angular-jwt'
 import 'angular-sanitize'
 import 'angular-truncate-2'
-import 'animate.css/animate.css'
 import 'checklist-model'
 import 'ng-idle'
 

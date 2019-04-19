@@ -5,6 +5,7 @@ import App from './components/app'
 import store from './store'
 import { ReduxProvider } from 'reactive-react-redux'
 import './index.scss'
+import 'animate.css/animate.css'
 import './angular'
 
 ReactDOM.render(
