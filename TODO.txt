@@ -1,5 +1,4 @@
 TODO
-
 - navbar search modals
 - rework session/localstorage
   - only save token to localstorage
@@ -21,6 +20,6 @@ TODO
 - use Helmet to initialize the icons?
 
 LATER
-
+- fontawesome buttons
 - figure out a good folder structure/naming convention for react components
 - take a look at the redux structure

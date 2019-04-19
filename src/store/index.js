@@ -1,6 +1,7 @@
 import { configureStore } from 'redux-starter-kit'
 import alerts from './alerts'
 import session, { loadSessionFromStorage } from './session'
+import serviceProviders from './service-providers'
 import ui, {
   loadTemplate,
   loadSettings,
@@ -11,7 +12,7 @@ import ui, {
 } from './ui'
 
 const store = configureStore({
-  reducer: { alerts, session, ui }
+  reducer: { alerts, serviceProviders, session, ui }
 })
 
 // TODO: Move this to app component

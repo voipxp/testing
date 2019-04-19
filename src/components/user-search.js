@@ -5,7 +5,7 @@ import { useReduxDispatch } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiSpinner, UiDataTable } from '/components/ui'
-import User from '/api/users'
+import user from '/api/users'
 import { alertDanger } from '/store/alerts'
 
 const searchTypes = [
@@ -23,7 +23,7 @@ const columns = [
   { key: 'lastName', label: 'Last' },
   { key: 'firstName', label: 'First' },
   { key: 'phoneNumber', label: 'Phone' },
-  { key: 'extension', label: 'Ext' },
+  { key: 'extension', label: 'Extension' },
   { key: 'serviceProviderId', label: 'Service Provider' },
   { key: 'groupId', label: 'Group' }
 ]
@@ -44,13 +44,14 @@ const UserSearch = ({ onSelect }) => {
     setSearchString(e.target.value)
   }
 
-  const search = async () => {
+  const search = async e => {
+    e.preventDefault()
     setLoading(true)
     setInitialized(true)
     try {
       const query =
         searchKey === 'macAddress' ? searchString : `*${searchString}*`
-      const users = await User.search({ [searchKey]: query })
+      const users = await user.search({ [searchKey]: query })
       setUsers(users)
     } catch (error) {
       dispatch(alertDanger(error))
@@ -62,7 +63,7 @@ const UserSearch = ({ onSelect }) => {
 
   return (
     <>
-      <form style={{ marginBottom: '1rem' }}>
+      <form style={{ marginBottom: '1rem' }} onSubmit={search}>
         <Field kind="addons">
           <Control>
             <Select.Container>
@@ -96,7 +97,6 @@ const UserSearch = ({ onSelect }) => {
               type="submit"
               state={loading ? 'loading' : ''}
               disabled={!searchString || !searchKey || loading}
-              onClick={search}
             >
               <Icon size="small" align="left">
                 <FontAwesomeIcon icon={faSearch} />

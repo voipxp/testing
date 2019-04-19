@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "parcel serve src/index.html --open --no-source-maps",
+    "start": "parcel serve src/index.html --open",
     "build": "NODE_ENV=production parcel build src/index.html --public-url /app --no-source-maps",
     "prettier": "prettier \"src/**/*\" -l",
     "format": "yarn prettier --write",
@@ -51,6 +51,7 @@
     "papa": "^0.0.0",
     "papaparse": "^4.6.3",
     "prop-types": "^15.7.2",
+    "query-string": "^6.4.2",
     "rbx": "^2.1.0",
     "react": ">=15",
     "react-dom": "^16.8.6",
