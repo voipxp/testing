@@ -16,7 +16,6 @@ export default reducer
 export const loadServiceProviders = () => {
   return async dispatch => {
     const providers = await serviceProviders.list()
-    console.log('return', providers)
     dispatch(actions.setServiceProviders(providers))
     return providers
   }
