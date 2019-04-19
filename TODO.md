@@ -1,4 +1,5 @@
 TODO
+
 - navbar search modals
 - rework session/localstorage
   - only save token to localstorage
@@ -20,6 +21,14 @@ TODO
 - use Helmet to initialize the icons?
 
 LATER
+
 - fontawesome buttons
 - figure out a good folder structure/naming convention for react components
 - take a look at the redux structure
+- redo the virtual services page to use pbsComponent
+- maybe use Permissions on user service view
+
+ANGULAR DYNAMICALLY RENDER PAGE
+
+- /:spId/:gpId/:uId/:component?/:subcomponent?
+  `<pbs-component component="component" />`
