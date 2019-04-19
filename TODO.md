@@ -1,6 +1,5 @@
 TODO
 
-- navbar search modals
 - rework session/localstorage
   - only save token to localstorage
   - on app init, if token exists, send to refresh token api
@@ -9,7 +8,6 @@ TODO
     - save session data to redux
   - on logout, remove token from localstorage
 - test announcement reload() on name change
-- move GoogleUA to react
 - implement PaasAdmin
 - add SSO to login screen
 - add SSO token retrieval to navbar.js

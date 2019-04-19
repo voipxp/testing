@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import ReactGA from 'react-ga'
 import { Section } from 'rbx'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import styled from 'styled-components'
@@ -24,10 +25,15 @@ const App = () => {
   const dispatch = useReduxDispatch()
   const { initialized } = state.ui
   const { sessionTimeout } = state.ui.settings
+  const { pageGoogleUA } = state.ui.template
   const { userId } = state.session
 
   const alertRef = useRef()
   const timerRef = useRef()
+
+  useEffect(() => {
+    if (pageGoogleUA) ReactGA.initialize(pageGoogleUA)
+  }, [pageGoogleUA])
 
   useEffect(() => {
     if (!initialized || !sessionTimeout || !userId) return

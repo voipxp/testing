@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactGA from 'react-ga'
 import { Switch, Route } from 'react-router-dom'
 import { camelCase } from 'lodash'
 import { useReduxState } from 'reactive-react-redux'
@@ -31,6 +32,11 @@ const angularRoutes = [
   ...userRoutes,
   ...vdmRoutes
 ]
+
+const Analytics = ({ location }) => {
+  ReactGA.pageview(location.pathname + location.search)
+  return null
+}
 
 const Router = () => {
   const state = useReduxState()
@@ -74,11 +80,14 @@ const Router = () => {
   }
 
   return (
-    <Switch>
-      <Route path="/" exact component={Dashboard} />
-      {angularRoutes.map(route => generateRoute(route))}
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <Switch>
+        <Route path="/" exact component={Dashboard} />
+        {angularRoutes.map(route => generateRoute(route))}
+        <Route component={NotFound} />
+      </Switch>
+      <Route component={Analytics} />
+    </>
   )
 }
 

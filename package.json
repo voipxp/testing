@@ -50,6 +50,7 @@
     "rbx": "^2.1.0",
     "react": ">=15",
     "react-dom": "^16.8.6",
+    "react-ga": "^2.5.7",
     "react-router-dom": "^5.0.0",
     "react-transition-group": "4.0.0",
     "reactive-react-redux": "^2.0.1",
