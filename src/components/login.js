@@ -3,7 +3,7 @@ import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
-import auth from '/api/auth'
+import authApi from '/api/auth'
 import { showLoadingModal, hideLoadingModal } from '/store/ui'
 import { alertWarning, alertDanger } from '/store/alerts'
 import { setSession } from '/store/session'
@@ -38,7 +38,7 @@ const Login = () => {
   async function login() {
     try {
       dispatch(showLoadingModal())
-      const session = await auth.token(form.username, form.password)
+      const session = await authApi.token(form.username, form.password)
       await dispatch(setSession(session))
     } catch (error) {
       if (error.status === 402) {
@@ -59,8 +59,8 @@ const Login = () => {
     }
     try {
       dispatch(showLoadingModal())
-      await auth.password(form.password, form.newPassword1, form.username)
-      const session = await auth.token(form.username, form.newPassword1)
+      await authApi.password(form.password, form.newPassword1, form.username)
+      const session = await authApi.token(form.username, form.newPassword1)
       await dispatch(setSession(session))
     } catch (error) {
       dispatch(alertDanger(error))

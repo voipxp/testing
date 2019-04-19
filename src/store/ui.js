@@ -1,9 +1,9 @@
 import { createSlice } from 'redux-starter-kit'
 import { setBaseUrl } from '/api'
-import uiApplications from '/api/ui/applications'
-import uiSettings from '/api/ui/settings'
-import uiTemplate from '/api/ui/template'
-import uiModules from '/api/ui/modules'
+import uiApplicationsApi from '/api/ui/applications'
+import uiSettingsApi from '/api/ui/settings'
+import uiTemplateApi from '/api/ui/template'
+import uiModulesApi from '/api/ui/modules'
 
 export const apiUrl = () => {
   if (process.env.API_BASE) return process.env.API_BASE
@@ -59,17 +59,17 @@ export default reducer
 export const { showLoadingModal, hideLoadingModal, setInitialized } = actions
 
 export const loadApplications = () => async dispatch => {
-  const applications = await uiApplications.get()
+  const applications = await uiApplicationsApi.get()
   dispatch(actions.setApplications(applications))
 }
 
 export const loadSettings = () => async dispatch => {
-  const settings = await uiSettings.get()
+  const settings = await uiSettingsApi.get()
   dispatch(actions.setSettings(settings))
 }
 
 export const loadTemplate = () => async dispatch => {
-  const template = await uiTemplate.get()
+  const template = await uiTemplateApi.get()
   document.title = template.pageTitle || 'odin Web'
   dispatch(actions.setTemplate(template))
 }
@@ -81,7 +81,7 @@ export const loadApiUrl = () => async dispatch => {
 }
 
 export const loadModules = () => async dispatch => {
-  const modules = await uiModules.get()
+  const modules = await uiModulesApi.get()
   const map = modules.reduce((obj, module) => {
     obj[module.name] = module
     return obj

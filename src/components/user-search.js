@@ -5,8 +5,8 @@ import { useReduxDispatch } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiSpinner, UiDataTable } from '/components/ui'
-import user from '/api/users'
 import { alertDanger } from '/store/alerts'
+import userApi from '/api/users'
 
 const searchTypes = [
   { key: 'dn', name: 'Phone Number' },
@@ -51,7 +51,7 @@ const UserSearch = ({ onSelect }) => {
     try {
       const query =
         searchKey === 'macAddress' ? searchString : `*${searchString}*`
-      const users = await user.search({ [searchKey]: query })
+      const users = await userApi.search({ [searchKey]: query })
       setUsers(users)
     } catch (error) {
       dispatch(alertDanger(error))

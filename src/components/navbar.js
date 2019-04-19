@@ -8,6 +8,7 @@ import { UiModalCard } from '/components/ui'
 import { stringify } from 'query-string'
 import UserSearch from './user-search'
 import SystemDnSearch from './system-dn-search'
+import GroupSearch from './group-search'
 
 const userTypes = {
   'Normal': 'users',
@@ -37,6 +38,10 @@ const userPath = user => {
       user.groupId
     }/${path}?${stringify({ serviceUserId: user.userId })}`
   }
+}
+
+const groupPath = group => {
+  return `/groups/${group.serviceProviderId}/${group.groupId}`
 }
 
 const AppNavbar = ({ history }) => {
@@ -83,9 +88,9 @@ const AppNavbar = ({ history }) => {
     history.push(userPath(user))
   }
 
-  const openUserDn = user => {
+  const openGroup = group => {
     setSearch(null)
-    history.push(userPath(user))
+    history.push(groupPath(group))
   }
 
   return (
@@ -173,7 +178,7 @@ const AppNavbar = ({ history }) => {
             isOpen={search === 'dn'}
             onCancel={() => setSearch()}
           >
-            <SystemDnSearch onSelect={openUserDn} />
+            <SystemDnSearch onSelect={openUser} />
           </UiModalCard>
         </>
       )}
@@ -184,7 +189,7 @@ const AppNavbar = ({ history }) => {
             isOpen={search === 'group'}
             onCancel={() => setSearch()}
           >
-            <p>Group Search</p>
+            <GroupSearch onSelect={openGroup} />
           </UiModalCard>
           <UiModalCard
             title="Service Service"

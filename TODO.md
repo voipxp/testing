@@ -19,6 +19,7 @@ TODO
   - otherwise render the actual page
   - eliminate the redirect
 - use Helmet to initialize the icons?
+- add default assets to assets dir (logo, favicon)
 
 LATER
 

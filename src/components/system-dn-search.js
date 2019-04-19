@@ -6,10 +6,10 @@ import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { UiSpinner, UiDataTable, UiModalCard } from '/components/ui'
-import ServiceProviderSelect from './service-provider-select'
-import phoneNumbers from '/api/phone-numbers/system'
 import { hasLevel } from '/store/session'
 import { alertDanger } from '/store/alerts'
+import phoneNumberApi from '/api/phone-numbers/system'
+import ServiceProviderSelect from './service-provider-select'
 
 const userTypes = {
   'Normal': 'users',
@@ -45,7 +45,7 @@ const SystemDnSearch = ({ onSelect }) => {
   const { loginType } = state.session
 
   const [searchString, setSearchString] = useState('')
-  const [serviceProviderId, setServiceProviderId] = useState('')
+  const [serviceProviderId, setServiceProviderId] = useState()
   const [showServiceProvider, setShowServiceProvider] = useState(false)
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
@@ -72,8 +72,12 @@ const SystemDnSearch = ({ onSelect }) => {
     setLoading(true)
     setInitialized(true)
     try {
-      const dn = serviceProviderId ? `*${searchString}*` : searchString
-      const users = await phoneNumbers.search({ dn, serviceProviderId })
+      const _serviceProviderId = state.serviceProviderId || serviceProviderId
+      const dn = _serviceProviderId ? `*${searchString}*` : searchString
+      const users = await phoneNumberApi.search({
+        dn,
+        serviceProviderId: _serviceProviderId
+      })
       // strip out users we can't link to
       const filtered = users.filter(user => userTypes[user.userType])
       setUsers(filtered)
