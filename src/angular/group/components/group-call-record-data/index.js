@@ -1,4 +1,5 @@
 import angular from 'angular'
+import Worker from './data.worker.js'
 import template from './index.html'
 
 angular.module('odin.group').component('groupCallRecordData', {
@@ -67,7 +68,7 @@ function controller(Alert, GroupCallRecordsService, $rootScope, $timeout) {
   let worker
 
   function onInit() {
-    worker = new Worker('./data.worker.js')
+    worker = new Worker()
     worker.addEventListener('message', onFilteredRecords)
 
     ctrl.details = []

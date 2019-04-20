@@ -75,12 +75,16 @@ module.exports = {
         ]
       },
       {
-        test: /\.(jpe|jpg|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
+        test: /\.(jpe|jpg|png|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
         loader: 'file-loader'
       },
       {
         test: /.(html)$/,
         use: ['raw-loader']
+      },
+      {
+        test: /\.worker\.js$/,
+        use: { loader: 'worker-loader' }
       }
     ]
   }
