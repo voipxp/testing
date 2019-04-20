@@ -16,8 +16,6 @@ TODO
   - render the select users if none are selected
   - otherwise render the actual page
   - eliminate the redirect
-- use Helmet to initialize the icons?
-- add default assets to assets dir (logo, favicon)
 
 LATER
 

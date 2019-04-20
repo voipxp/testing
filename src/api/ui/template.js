@@ -1,7 +1,5 @@
 import { api } from '..'
 
-function get() {
-  return api.get('ui/templates')
-}
+export const get = () => api.get('ui/templates')
 
 export default { get }

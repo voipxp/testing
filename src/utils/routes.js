@@ -1,6 +1,6 @@
 import { stringify } from 'query-string'
 
-const userTypes = {
+export const userTypes = {
   'Auto Attendant - Standard': 'autoAttendants/autoAttendant',
   'Auto Attendant - Video': 'autoAttendants/autoAttendant',
   'Auto Attendant': 'autoAttendants/autoAttendant',
@@ -46,3 +46,5 @@ export const groupPath = group => {
 export const serviceProviderPath = serviceProvider => {
   return `/serviceProviders/${serviceProvider.serviceProviderId}`
 }
+
+export default { userTypes, userPath, groupPath, serviceProviderPath }

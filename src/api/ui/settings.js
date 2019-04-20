@@ -1,7 +1,5 @@
 import { api } from '..'
 
-function get() {
-  return api.get('ui/settings')
-}
+export const get = () => api.get('ui/settings')
 
 export default { get }
