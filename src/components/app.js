@@ -4,16 +4,16 @@ import { Section } from 'rbx'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
-import Angular from './angular'
+import AngularComponent from './angular-component'
 import Routes from './routes'
 import Alerts from './alerts'
 import Footer from './footer'
-import { UiLoadingPage } from '/components/ui'
 import LoadingModal from './loading-modal'
 import Login from './login'
 import Navbar from './navbar'
-import { alertWarning, removeAlert } from '/store/alerts'
-import { clearSession } from '/store/session'
+import { UiLoadingPage } from '@/components/ui'
+import { alertWarning, removeAlert } from '@/store/alerts'
+import { clearSession } from '@/store/session'
 
 const TIMEOUT = 30000
 
@@ -75,7 +75,7 @@ const App = () => {
       ) : (
         <Login />
       )}
-      <Angular component="pbsConfirmModal" />
+      <AngularComponent component="pbsConfirmModal" />
       <LoadingModal />
     </>
   )

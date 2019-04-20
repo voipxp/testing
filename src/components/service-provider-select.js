@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { UiSpinner, UiDataTable } from '/components/ui'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
-import { loadServiceProviders } from '/store/service-providers'
+import { UiSpinner, UiDataTable } from '@/components/ui'
+import { loadServiceProviders } from '@/store/service-providers'
 
 const columns = [
   { key: 'serviceProviderId', label: 'ID' },

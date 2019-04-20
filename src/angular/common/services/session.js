@@ -1,6 +1,6 @@
 import angular from 'angular'
 import _ from 'lodash'
-import { setSession, clearSession } from '/store/session'
+import { setSession, clearSession } from '@/store/session'
 
 angular.module('odin.common').factory('Session', Session)
 

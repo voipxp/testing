@@ -4,21 +4,21 @@ import { Switch, Route } from 'react-router-dom'
 import { camelCase } from 'lodash'
 import { useReduxState } from 'reactive-react-redux'
 import Dashboard from './dashboard'
-import Angular from './angular'
+import AngularComponent from './angular-component'
 import NotFound from './notfound'
-import { hasLevel } from '/store/session'
+import { hasLevel } from '@/store/session'
 
 // angular routes
-import appRoutes from '/angular/app/routes'
-import brandingRoutes from '/angular/branding/routes'
-import bulkRoutes from '/angular/bulk/routes'
-import eventsRoutes from '/angular/events/routes'
-import groupRoutes from '/angular/group/routes'
-import serviceProviderRoutes from '/angular/service-provider/routes'
-import settingsRoutes from '/angular/settings/routes'
-import systemRoutes from '/angular/system/routes'
-import userRoutes from '/angular/user/routes'
-import vdmRoutes from '/angular/vdm/routes'
+import appRoutes from '@/angular/app/routes'
+import brandingRoutes from '@/angular/branding/routes'
+import bulkRoutes from '@/angular/bulk/routes'
+import eventsRoutes from '@/angular/events/routes'
+import groupRoutes from '@/angular/group/routes'
+import serviceProviderRoutes from '@/angular/service-provider/routes'
+import settingsRoutes from '@/angular/settings/routes'
+import systemRoutes from '@/angular/system/routes'
+import userRoutes from '@/angular/user/routes'
+import vdmRoutes from '@/angular/vdm/routes'
 
 const angularRoutes = [
   ...appRoutes,
@@ -68,7 +68,7 @@ const Router = () => {
         path={route.path}
         exact
         render={() => (
-          <Angular
+          <AngularComponent
             component={route.component}
             acl={route.acl}
             module={module}

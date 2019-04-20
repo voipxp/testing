@@ -1,5 +1,5 @@
 import angular from 'angular'
-import _ from 'lodash'
+import { isEmpty } from 'lodash'
 
 angular
   .module('odin.api')
@@ -13,7 +13,7 @@ function BrandingSettingService($http, Route, $rootScope) {
 
   function show(hostnameId) {
     return $http.get(url(), { params: { hostnameId } }).then(response => {
-      return _.isEmpty(response.data) ? {} : response.data
+      return isEmpty(response.data) ? {} : response.data
     })
   }
 

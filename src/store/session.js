@@ -1,6 +1,6 @@
 import { createSlice } from 'redux-starter-kit'
 import decode from 'jwt-decode'
-import { setToken } from '/api'
+import { setToken } from '@/api'
 
 const STORAGE_KEY = 'odin:session'
 

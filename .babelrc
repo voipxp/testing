@@ -1,20 +1,11 @@
 {
   "presets": [
-    ["@babel/preset-env", { "useBuiltIns": "entry" }],
+    ["@babel/preset-env", { "useBuiltIns": "entry", corejs: '3.0' }],
     "@babel/preset-react"
   ],
   "plugins": [
     "@babel/plugin-transform-runtime",
     ["babel-plugin-styled-components", { "ssr": false }],
-    [
-      "import",
-      {
-        "libraryName": "react-use",
-        "libraryDirectory": "lib",
-        "camel2DashComponentName": false
-      },
-      "react-use"
-    ],
     [
       "import",
       {
@@ -24,10 +15,5 @@
       },
       "lodash"
     ]
-  ],
-  "env": {
-    "production": {
-      "plugins": ["transform-html-import-require-to-string"]
-    }
-  }
+  ]
 }

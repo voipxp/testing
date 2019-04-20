@@ -4,9 +4,9 @@ import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { useReduxDispatch } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { UiSpinner, UiDataTable } from '/components/ui'
-import { alertDanger } from '/store/alerts'
-import userApi from '/api/users'
+import { UiSpinner, UiDataTable } from '@/components/ui'
+import { alertDanger } from '@/store/alerts'
+import userApi from '@/api/users'
 
 const searchTypes = [
   { key: 'dn', name: 'Phone Number' },

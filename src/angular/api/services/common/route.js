@@ -1,5 +1,5 @@
 import angular from 'angular'
-import _ from 'lodash'
+import { compact } from 'lodash'
 
 angular.module('odin.api').factory('Route', Route)
 
@@ -16,7 +16,7 @@ function Route($rootScope, $location, Session) {
     const components = args.map(arg => {
       return arg ? encodeURISegment(arg) : null
     })
-    return _.compact(prefixes.concat(components)).join('/')
+    return compact(prefixes.concat(components)).join('/')
   }
   function encodeURISegment(value) {
     return encodeURIQuery(value, true)
@@ -51,7 +51,7 @@ function Route($rootScope, $location, Session) {
   function open() {
     const parts = Array.prototype.slice.call(arguments)
     return $location
-      .path(_.compact(parts).join('/'))
+      .path(compact(parts).join('/'))
       .search({})
       .hash(null)
   }

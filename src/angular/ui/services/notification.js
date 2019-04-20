@@ -8,7 +8,7 @@ import {
   alertSuccess,
   alertWarning,
   alertDanger
-} from '/store/alerts'
+} from '@/store/alerts'
 
 angular.module('odin.ui').factory('Notification', Notification)
 

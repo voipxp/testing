@@ -1,5 +1,5 @@
 import { createSlice } from 'redux-starter-kit'
-import serviceProviderApi from '/api/service-providers'
+import serviceProviderApi from '@/api/service-providers'
 
 const slice = createSlice({
   slice: 'serviceProviders',

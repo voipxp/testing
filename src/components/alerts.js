@@ -3,7 +3,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { Notification, Delete } from 'rbx'
 import styled from 'styled-components'
-import { removeAlert } from '/store/alerts'
+import { removeAlert } from '@/store/alerts'
 
 const StyledAlerts = styled.div`
   text-align: center;

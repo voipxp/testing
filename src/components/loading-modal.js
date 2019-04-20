@@ -1,6 +1,6 @@
 import React from 'react'
 import { useReduxState } from 'reactive-react-redux'
-import { UiModalLoading } from '/components/ui'
+import { UiModalLoading } from '@/components/ui'
 
 const LoadingModal = () => {
   const state = useReduxState()

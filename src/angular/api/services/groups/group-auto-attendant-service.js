@@ -1,5 +1,5 @@
 import angular from 'angular'
-import _ from 'lodash'
+import { get } from 'lodash'
 
 angular
   .module('odin.api')
@@ -107,16 +107,16 @@ function GroupAutoAttendantService($http, Route) {
       'Transfer To Mailbox': false,
       'Play Announcement': false,
       'Repeat Menu': false,
-      Exit: false
+      'Exit': false
     }
-    return map[_.get(key, 'action', key)]
+    return map[get(key, 'action', key)]
   }
 
   function requiresAnnouncement(key) {
-    return _.get(key, 'action', key) === 'Play Announcement'
+    return get(key, 'action', key) === 'Play Announcement'
   }
 
   function requiresSubmenu(key) {
-    return _.get(key, 'action', key) === 'Transfer To Submenu'
+    return get(key, 'action', key) === 'Transfer To Submenu'
   }
 }

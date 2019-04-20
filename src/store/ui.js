@@ -1,9 +1,9 @@
 import { createSlice } from 'redux-starter-kit'
-import { setBaseUrl } from '/api'
-import uiApplicationsApi from '/api/ui/applications'
-import uiSettingsApi from '/api/ui/settings'
-import uiTemplateApi from '/api/ui/template'
-import uiModulesApi from '/api/ui/modules'
+import { setBaseUrl } from '@/api'
+import uiApplicationsApi from '@/api/ui/applications'
+import uiSettingsApi from '@/api/ui/settings'
+import uiTemplateApi from '@/api/ui/template'
+import uiModulesApi from '@/api/ui/modules'
 
 export const apiUrl = () => {
   if (process.env.API_BASE) return process.env.API_BASE

@@ -21,6 +21,7 @@ TODO
 
 LATER
 
+- make lodash require modular
 - fontawesome buttons
 - figure out a good folder structure/naming convention for react components
 - take a look at the redux structure

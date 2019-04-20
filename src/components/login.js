@@ -3,10 +3,10 @@ import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
-import authApi from '/api/auth'
-import { showLoadingModal, hideLoadingModal } from '/store/ui'
-import { alertWarning, alertDanger } from '/store/alerts'
-import { setSession } from '/store/session'
+import authApi from '@/api/auth'
+import { showLoadingModal, hideLoadingModal } from '@/store/ui'
+import { alertWarning, alertDanger } from '@/store/alerts'
+import { setSession } from '@/store/session'
 
 const Login = () => {
   const state = useReduxState()

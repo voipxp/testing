@@ -1,5 +1,5 @@
 import angular from 'angular'
-import { showLoadingModal, hideLoadingModal } from '/store/ui'
+import { showLoadingModal, hideLoadingModal } from '@/store/ui'
 
 angular.module('odin.ui').factory('Spinner', Spinner)
 
