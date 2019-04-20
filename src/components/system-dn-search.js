@@ -29,7 +29,7 @@ const SystemDnSearch = ({ onSelect }) => {
   const { loginType } = state.session
 
   const [searchString, setSearchString] = useState('')
-  const [serviceProviderId, setServiceProviderId] = useState()
+  const [serviceProviderId, setServiceProviderId] = useState('')
   const [showServiceProvider, setShowServiceProvider] = useState(false)
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
@@ -63,7 +63,7 @@ const SystemDnSearch = ({ onSelect }) => {
         serviceProviderId: _serviceProviderId
       })
       // strip out users we can't link to
-      const filtered = users.filter(user => userPath[user.userType])
+      const filtered = users.filter(u => userPath(u))
       setUsers(filtered)
     } catch (error) {
       dispatch(alertDanger(error))
