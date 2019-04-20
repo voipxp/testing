@@ -6,7 +6,7 @@ import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { UiSpinner, UiDataTable, UiModalCard } from '@/components/ui'
-import { hasLevel } from '@/store/session'
+import acl from '@/utils/acl'
 import { alertDanger } from '@/store/alerts'
 import { userPath } from '@/utils/routes'
 import phoneNumberApi from '@/api/phone-numbers/system'
@@ -35,7 +35,7 @@ const SystemDnSearch = ({ onSelect }) => {
   const [loading, setLoading] = useState(false)
   const [initialized, setInitialized] = useState(false)
 
-  const hasProvisioning = hasLevel(loginType, 'Provisioning')
+  const hasProvisioning = acl.hasProvisioning(loginType)
 
   const handleSearchString = e => {
     setSearchString(e.target.value)

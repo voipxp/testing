@@ -42,24 +42,3 @@ export const loadSessionFromStorage = () => async dispatch => {
     dispatch(clearSession())
   }
 }
-
-// TODO: implement PaasAdmin
-export const hasLevel = (loginType, requiredType) => {
-  const types = {
-    'User': 1,
-    'Group': 2,
-    'Service Provider': 3,
-    'Provisioning-PaasAdmin': 3.5,
-    'Provisioning': 4,
-    'System': 5
-  }
-  const user = types[loginType] || 0
-  const required = types[requiredType] || 10
-  return user >= required
-}
-
-export const hasGroup = loginType => hasLevel(loginType, 'Group')
-export const hasServiceProvider = loginType =>
-  hasLevel(loginType, 'Service Provider')
-export const hasProvisioning = loginType => hasLevel(loginType, 'Provisioning')
-export const hasSystem = loginType => hasLevel(loginType, 'System')

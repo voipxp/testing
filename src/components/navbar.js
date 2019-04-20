@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
-import { clearSession, hasLevel } from '@/store/session'
+import { clearSession } from '@/store/session'
 import { UiModalCard } from '@/components/ui'
 import { userPath, groupPath } from '@/utils/routes'
+import acl from '@/utils/acl'
 import UserSearch from './user-search'
 import SystemDnSearch from './system-dn-search'
 import GroupSearch from './group-search'
@@ -19,8 +20,8 @@ const AppNavbar = ({ history }) => {
   const { loginType, userId } = state.session
   const { pageTitle } = state.ui.template
 
-  const hasGroup = hasLevel(loginType, 'Group')
-  const hasServiceProvider = hasLevel(loginType, 'Service Provider')
+  const hasGroup = acl.hasGroup(loginType)
+  const hasServiceProvider = acl.hasServiceProvider(loginType)
 
   const [showMenu, updateShowMenu] = useState(false)
   const [search, setSearch] = useState()
