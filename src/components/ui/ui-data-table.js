@@ -16,6 +16,8 @@ import {
   faCheck
 } from '@fortawesome/free-solid-svg-icons'
 
+const noop = () => {}
+
 const WrappedTable = styled.div`
   display: block;
   width: 100%;
@@ -76,6 +78,10 @@ export const UiDataTable = ({
     }
   }
 
+  const handleSearch = e => {
+    setSearch(e.target.value)
+  }
+
   const onFirst = () => setCurrentPage(1)
   const onPrevious = () => setCurrentPage(currentPage - 1)
   const onNext = () => setCurrentPage(currentPage + 1)
@@ -120,6 +126,11 @@ export const UiDataTable = ({
     setSelectedItems(newSelectedItems)
   }
 
+  const cancelSelection = () => {
+    setSelectedItems([])
+    sendSelected()
+  }
+
   const sendSelected = () => {
     const selectedKeys = Object.keys(selectedItems)
     onSelect(rows.filter(row => selectedKeys.includes(row[rowKey])))
@@ -141,14 +152,14 @@ export const UiDataTable = ({
           type="search"
           placeholder="Filter Results"
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={handleSearch}
           style={{ marginBottom: '1rem' }}
         />
       )}
       {canSelect && (
         <Field kind="addons">
           <Control>
-            <Button onClick={() => onSelect([])}>
+            <Button onClick={cancelSelection}>
               <Icon size="small">
                 <FontAwesomeIcon icon={faTimes} />
               </Icon>
@@ -161,7 +172,7 @@ export const UiDataTable = ({
             </Button>
           </Control>
           <Control>
-            <Button color="primary" onClick={() => sendSelected()}>
+            <Button color="primary" onClick={sendSelected}>
               <Icon size="small">
                 <FontAwesomeIcon icon={faCheck} />
               </Icon>
@@ -180,11 +191,8 @@ export const UiDataTable = ({
           <Table.Head>
             <Table.Row>
               {canSelect && (
-                <Table.Heading
-                  textAlign="centered"
-                  onClick={() => handleSelectAll()}
-                >
-                  <Checkbox checked={isAllSelected} onChange={() => {}} />
+                <Table.Heading textAlign="centered" onClick={handleSelectAll}>
+                  <Checkbox checked={isAllSelected} onChange={noop} />
                 </Table.Heading>
               )}
               {columns.map(column => (
@@ -215,7 +223,7 @@ export const UiDataTable = ({
                 <Table.Row key={row[rowKey]} onClick={() => handleClick(row)}>
                   {canSelect && (
                     <Table.Cell textAlign="centered">
-                      <Checkbox checked={isSelected(row)} onChange={() => {}} />
+                      <Checkbox checked={isSelected(row)} onChange={noop} />
                     </Table.Cell>
                   )}
                   {columns.map(column => (
