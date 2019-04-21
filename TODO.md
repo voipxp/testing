@@ -1,5 +1,6 @@
 TODO
 
+- react-redux props vs reactive-react-redux?
 - rework session/localstorage
   - only save token to localstorage
   - on app init, if token exists, send to refresh token api
@@ -14,8 +15,8 @@ TODO
 - change the bulk data resolve
   - use redux instead for storage
   - render the select users if none are selected
-  - otherwise render the actual page
-  - eliminate the redirect
+    - otherwise render the actual page
+    - eliminate the redirect
 
 LATER
 

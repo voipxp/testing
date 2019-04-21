@@ -60,6 +60,9 @@ const App = () => {
 
   if (!initialized) return <UiLoadingPage />
 
+  console.log('pageTitle', pageTitle)
+  console.log('apiUrl', apiUrl)
+
   return (
     <>
       <Helmet>

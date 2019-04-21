@@ -18,7 +18,7 @@ const store = configureStore({
 // TODO: Move this to app component
 const loadInitialState = async () => {
   await store.dispatch(loadApiUrl())
-  store.dispatch(loadSessionFromStorage())
+  await store.dispatch(loadSessionFromStorage())
   await Promise.all([
     store.dispatch(loadModules()),
     store.dispatch(loadApplications()),
