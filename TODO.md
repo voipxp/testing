@@ -1,13 +1,6 @@
 TODO
 
 - react-redux props vs reactive-react-redux?
-- rework session/localstorage
-  - only save token to localstorage
-  - on app init, if token exists, send to refresh token api
-    - should return new token w/ session data
-    - save new token to localstorage
-    - save session data to redux
-  - on logout, remove token from localstorage
 - test announcement reload() on name change
 - implement PaasAdmin
 - add SSO to login screen
