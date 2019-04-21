@@ -8,16 +8,7 @@ module.exports = function(api) {
 
   const plugins = [
     '@babel/plugin-transform-runtime',
-    ['babel-plugin-styled-components', { ssr: false }],
-    [
-      'import',
-      {
-        libraryName: 'lodash',
-        libraryDirectory: '',
-        camel2DashComponentName: false
-      },
-      'lodash'
-    ]
+    ['babel-plugin-styled-components', { ssr: false }]
   ]
 
   return { presets, plugins }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { get } from 'lodash'
+import get from 'lodash/get'
 import { Field, Control, Button, Input, Icon } from 'rbx'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

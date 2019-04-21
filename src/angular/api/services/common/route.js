@@ -1,5 +1,5 @@
 import angular from 'angular'
-import { compact } from 'lodash'
+import compact from 'lodash/compact'
 
 angular.module('odin.api').factory('Route', Route)
 

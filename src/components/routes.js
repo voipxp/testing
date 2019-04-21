@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactGA from 'react-ga'
 import { Switch, Route } from 'react-router-dom'
-import { camelCase } from 'lodash'
+import camelCase from 'lodash/camelCase'
 import { useReduxState } from 'reactive-react-redux'
 import Dashboard from './dashboard'
 import AngularComponent from './angular-component'

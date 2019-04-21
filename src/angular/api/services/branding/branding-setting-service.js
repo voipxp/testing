@@ -1,5 +1,5 @@
 import angular from 'angular'
-import { isEmpty } from 'lodash'
+import isEmpty from 'lodash/isEmpty'
 
 angular
   .module('odin.api')

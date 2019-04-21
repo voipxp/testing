@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { isFunction } from 'lodash'
+import isFunction from 'lodash/isFunction'
 import { Modal, Delete, Button } from 'rbx'
 import { CSSTransition } from 'react-transition-group'
 
