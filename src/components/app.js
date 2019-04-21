@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import ReactGA from 'react-ga'
 import { Section } from 'rbx'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
-import { Helmet } from 'react-helmet'
+import { HeadProvider, Link, Meta } from 'react-head'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
 import AngularComponent from './angular-component'
@@ -60,31 +60,28 @@ const App = () => {
 
   if (!initialized) return <UiLoadingPage />
 
-  console.log('pageTitle', pageTitle)
-  console.log('apiUrl', apiUrl)
-
   return (
     <>
-      <Helmet>
-        <meta name="apple-mobile-web-app-title" content={pageTitle} />
-        <link
+      <HeadProvider>
+        <Meta name="apple-mobile-web-app-title" content={pageTitle} />
+        <Link
           href={`${apiUrl}/ui/images/imageIcon.png?size=180x180`}
           sizes="180x180"
           rel="apple-touch-icon"
         />
-        <link
+        <Link
           rel="icon"
           sizes="32x32"
           type="image/png"
           href={`${apiUrl}/ui/images/imageIcon.png?size=32x32`}
         />
-        <link
+        <Link
           rel="icon"
           sizes="16x16"
           type="image/png"
           href={`${apiUrl}/ui/images/imageIcon.png?size=32x32`}
         />
-      </Helmet>
+      </HeadProvider>
       <Alerts />
       {userId ? (
         <>

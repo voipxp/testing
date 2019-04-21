@@ -4,7 +4,10 @@ export const token = (username, password) => {
   return api.post('auth/token', { username, password })
 }
 
-export const refresh = () => api.put('auth/token')
+export const refresh = token => {
+  const opts = token ? { headers: { Authorization: `Bearer ${token}` } } : {}
+  return api.put('auth/token', null, opts)
+}
 
 export const password = (oldPassword, newPassword, userId) => {
   return api.put('auth/password', { userId, newPassword, oldPassword })

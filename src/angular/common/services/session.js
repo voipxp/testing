@@ -37,7 +37,6 @@ function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
 
   // replace session data and cache in memory
   async function set(data) {
-    await StorageService.set($rootScope.sessionKey, data)
     $ngRedux.dispatch(setSession(data))
   }
 
@@ -49,7 +48,6 @@ function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
 
   // remove the session data
   async function clear() {
-    await StorageService.clear($rootScope.sessionKey)
     $ngRedux.dispatch(clearSession())
     $rootScope.$emit('Session:cleared')
   }

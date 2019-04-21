@@ -3,7 +3,7 @@ import decode from 'jwt-decode'
 import { setToken } from '@/api'
 import { refresh } from '@/api/auth'
 
-const STORAGE_KEY = 'odin:session'
+const STORAGE_KEY = 'odin:token'
 
 const slice = createSlice({
   slice: 'session',
@@ -24,31 +24,21 @@ export const clearSession = () => async dispatch => {
 }
 
 export const setSession = (data = {}) => async dispatch => {
-  console.log('setSession', data)
   dispatch(actions.setSession(data))
   setToken(data.token)
   localStorage.setItem(STORAGE_KEY, data.token)
 }
 
 export const loadSessionFromStorage = () => async dispatch => {
-  console.log('loadSessionFromStorage')
   try {
     const token = localStorage.getItem(STORAGE_KEY)
-    console.log('token', token)
-    if (!token) return dispatch(clearSession())
+    if (!token) throw new Error('Token Required')
     const jwt = decode(token)
-    console.log('jwt', jwt)
     const now = new Date().getTime() / 1000
-    if (now < jwt.exp) {
-      setToken(token)
-      const session = await refresh()
-      console.log('refresh', session)
-      return dispatch(setSession(session))
-    } else {
-      return dispatch(clearSession())
-    }
+    if (now >= jwt.exp) throw new Error('Token Expired')
+    const session = await refresh(token)
+    return dispatch(setSession(session))
   } catch (error) {
-    console.log('error', error)
     return dispatch(clearSession())
   }
 }
