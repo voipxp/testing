@@ -1,6 +1,5 @@
 TODO
 
-- react-redux props vs reactive-react-redux?
 - test announcement reload() on name change
 - implement PaasAdmin
 - add SSO to login screen

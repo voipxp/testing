@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root'
 import React, { useEffect, useRef } from 'react'
 import ReactGA from 'react-ga'
 import { Section } from 'rbx'
@@ -81,4 +82,4 @@ const App = () => {
   )
 }
 
-export default App
+export default hot(App)

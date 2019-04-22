@@ -10,6 +10,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
+const production = process.env.NODE_ENV === 'production'
+
 module.exports = {
   devServer: {
     allowedHosts: ['.local'],
@@ -26,11 +28,12 @@ module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].[contenthash].js'
+    filename: production ? '[name].[contenthash].js' : '[name].[hash].js'
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
+      '@': path.resolve(__dirname, 'src'),
+      'react-dom': '@hot-loader/react-dom'
     }
   },
   stats: 'minimal',
