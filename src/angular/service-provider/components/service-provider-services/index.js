@@ -6,7 +6,7 @@ angular.module('odin.serviceProvider').component('serviceProviderServices', {
   template,
   controller,
   bindings: {
-    serviceType: '@',
+    serviceType: '<',
     serviceProviderId: '<'
   }
 })
