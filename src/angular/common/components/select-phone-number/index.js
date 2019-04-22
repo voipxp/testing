@@ -60,9 +60,6 @@ function controller(
   }
 
   function select(phoneNumber) {
-    if (phoneNumber) {
-      phoneNumber.isSelected = true
-    }
     Alert.modal.close(ctrl.modalId)
     sendUpdate(phoneNumber)
   }
