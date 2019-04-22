@@ -12,7 +12,6 @@ const Login = () => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
 
-  const { apiUrl } = state.ui
   const { pageLoginMessage } = state.ui.template
 
   const formRef = useRef()
@@ -73,7 +72,7 @@ const Login = () => {
     <Hero color="link" size="fullheight">
       <Hero.Body textAlign="centered">
         <Box style={{ width: '400px', margin: 'auto' }}>
-          <img src={`${apiUrl}/ui/images/imageLoginLogo.png`} alt="logo" />
+          <img src="/api/v2/ui/images/imageLoginLogo.png" alt="logo" />
           <form onSubmit={handleSubmit} ref={formRef}>
             <Field>
               <Control iconLeft>

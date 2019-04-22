@@ -5,7 +5,6 @@ import serviceProviders from './service-providers'
 import ui, {
   loadTemplate,
   loadSettings,
-  loadApiUrl,
   setInitialized,
   loadApplications,
   loadModules
@@ -16,7 +15,6 @@ const store = configureStore({
 })
 
 const loadInitialState = async () => {
-  await store.dispatch(loadApiUrl())
   await store.dispatch(loadSessionFromStorage())
   await Promise.all([
     store.dispatch(loadModules()),

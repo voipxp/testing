@@ -5,18 +5,9 @@ import uiSettingsApi from '@/api/ui/settings'
 import uiTemplateApi from '@/api/ui/template'
 import uiModulesApi from '@/api/ui/modules'
 
-export const apiUrl = () => {
-  if (process.env.API_BASE) return process.env.API_BASE
-  const port = process.env.API_PORT
-  return port
-    ? `${window.location.protocol}//${window.location.hostname}:${port}/api/v2`
-    : '/api/v2'
-}
-
 const slice = createSlice({
   slice: 'ui',
   initialState: {
-    apiUrl: '/api/v2',
     initialized: false,
     showLoadingModal: false,
     applications: [],
@@ -25,9 +16,6 @@ const slice = createSlice({
     template: {}
   },
   reducers: {
-    setApiUrl: (state, { payload }) => {
-      state.apiUrl = payload || apiUrl()
-    },
     setInitialized: (state, { payload }) => {
       state.initialized = payload
     },
@@ -72,12 +60,6 @@ export const loadTemplate = () => async dispatch => {
   const template = await uiTemplateApi.get()
   document.title = template.pageTitle || 'odin Web'
   dispatch(actions.setTemplate(template))
-}
-
-export const loadApiUrl = () => async dispatch => {
-  const url = apiUrl()
-  dispatch(actions.setApiUrl(url))
-  setBaseUrl(url)
 }
 
 export const loadModules = () => async dispatch => {

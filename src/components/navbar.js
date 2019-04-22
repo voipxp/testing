@@ -16,7 +16,7 @@ const AppNavbar = ({ history }) => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
 
-  const { apiUrl, applications } = state.ui
+  const { applications } = state.ui
   const { loginType, userId } = state.session
   const { pageTitle } = state.ui.template
 
@@ -67,7 +67,7 @@ const AppNavbar = ({ history }) => {
         <Navbar.Brand>
           <Navbar.Item href="/">
             <img
-              src={`${apiUrl}/ui/images/imageIcon.png?size=50x51`}
+              src="/api/v2/ui/images/imageIcon.png?size=50x51"
               alt="odin Web"
             />
           </Navbar.Item>

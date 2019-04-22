@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const api = axios.create({})
+export const api = axios.create({ baseURL: '/api/v2' })
 
 api.interceptors.response.use(
   response => response.data,
@@ -20,7 +20,7 @@ api.interceptors.response.use(
   }
 )
 
-export function setToken(token) {
+export const setToken = token => {
   if (token) {
     api.defaults.headers.common.Authorization = `Bearer ${token}`
   } else {
@@ -28,6 +28,6 @@ export function setToken(token) {
   }
 }
 
-export function setBaseUrl(url) {
+export const setBaseUrl = url => {
   api.defaults.baseURL = url
 }

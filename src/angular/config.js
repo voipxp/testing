@@ -49,9 +49,9 @@ export function jwtInterceptorConfig($httpProvider, jwtOptionsProvider) {
   const domains = new Set()
   domains.add('localhost')
   domains.add(window.location.hostname)
-  if (process.env.API_BASE) {
+  if (process.env.API_URL) {
     const a = document.createElement('a')
-    a.href = process.env.API_BASE
+    a.href = process.env.API_URL
     domains.add(a.hostname)
   }
   const whiteListedDomains = [...domains]
@@ -89,8 +89,7 @@ export function idleConfig(IdleProvider, TitleProvider) {
 
 rootScope.$inject = ['$rootScope']
 export function rootScope($rootScope) {
-  $rootScope.eventURL = eventURL()
-  $rootScope.apiURL = apiURL()
+  $rootScope.apiURL = '/api/v2'
   $rootScope.loginURL = '/login'
   $rootScope.sessionKey = 'odin:session'
 }
@@ -103,19 +102,4 @@ export function ngRedux($ngReduxProvider) {
 reduxDevTools.$inject = ['$ngRedux', '$timeout', '$rootScope']
 export function reduxDevTools($ngRedux, $timeout, $rootScope) {
   $ngRedux.subscribe(() => $timeout(() => $rootScope.$apply(() => {}), 100))
-}
-
-function getPrefix(port) {
-  if (process.env.API_BASE) return process.env.API_BASE
-  return port
-    ? `${window.location.protocol}//${window.location.hostname}:${port}/`
-    : '/'
-}
-
-function eventURL() {
-  return getPrefix(process.env.EVENT_PORT)
-}
-
-function apiURL() {
-  return `${getPrefix(process.env.API_PORT)}api/v2`
 }

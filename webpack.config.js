@@ -1,6 +1,8 @@
+const dotenv = require('dotenv')
+dotenv.config()
+
 const path = require('path')
 const webpack = require('webpack')
-const Dotenv = require('dotenv-webpack')
 const CopyPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -9,6 +11,18 @@ const TerserJSPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
+  devServer: {
+    allowedHosts: ['.local'],
+    proxy: {
+      '/api': {
+        target: process.env.API_URL,
+        changeOrigin: /^https$/.test(process.env.API_URL)
+      },
+      '/socket.io': {
+        target: process.env.EVENT_URL || process.env.API_URL
+      }
+    }
+  },
   entry: path.join(__dirname, 'src', 'index.js'),
   output: {
     path: path.join(__dirname, 'dist'),
@@ -42,7 +56,6 @@ module.exports = {
   },
   plugins: [
     new CopyPlugin([{ from: 'assets' }]),
-    new Dotenv(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
