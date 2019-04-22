@@ -7,7 +7,7 @@ angular.module('odin.group').component('groupTrunkGroupCapacityManagement', {
   require: { parent: '^groupTrunkGroup' }
 })
 
-controller.$inject = ['Alert', 'GroupTrunkGroupSevice']
+controller.$inject = ['Alert', 'GroupTrunkGroupService']
 function controller(Alert, GroupTrunkGroupService) {
   var ctrl = this
   ctrl.options = GroupTrunkGroupService.options

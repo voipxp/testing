@@ -57,7 +57,7 @@ function controller(Alert, UserFlexibleSeatingGuestService, $q, Module) {
   }
 
   function loadHosts() {
-    return UserFlexibleSeatingGuestService.index(ctrl.userId).then(function(
+    return UserFlexibleSeatingGuestService.show(ctrl.userId).then(function(
       data
     ) {
       ctrl.hosts = data.users

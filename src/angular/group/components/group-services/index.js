@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupServices', {
   template,
   controller,
-  bindings: { serviceType: '@', serviceProviderId: '<', groupId: '<' }
+  bindings: { serviceType: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [

@@ -31,7 +31,8 @@ const AngularComponent = ({
       const matchParams = match.params || {}
       const params = { ...props, ...matchParams }
       const attrs = Object.keys(params).map(key => `${kebabCase(key)}="${key}"`)
-      const template = `<${element} ${attrs.join('')}></${element}>`
+      const template = `<${element} ${attrs.join(' ')}></${element}>`
+
       const el = angular.element(ref.current)
       injector().invoke([
         '$compile',
