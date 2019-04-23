@@ -3,10 +3,22 @@ import ReactDOM from 'react-dom'
 import { HashRouter } from 'react-router-dom'
 import App from './components/app'
 import store from './store'
+import api from '@/api'
+import { clearSession } from '@/store/session'
 import { ReduxProvider } from 'reactive-react-redux'
 import './index.scss'
 import 'animate.css/animate.css'
 import './angular'
+
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.status === 401 || error.status === 403) {
+      store.dispatch(clearSession())
+    }
+    return Promise.reject(error)
+  }
+)
 
 ReactDOM.render(
   <ReduxProvider store={store}>

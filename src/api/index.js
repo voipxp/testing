@@ -1,23 +1,8 @@
 import axios from 'axios'
-import hash from 'object-hash'
 
-let errorCallback
+export const api = axios.create({ baseURL: '/api/v2' })
 
-const http = axios.create({ baseURL: '/api/v2' })
-
-export const setBaseUrl = url => {
-  http.defaults.baseURL = url
-}
-
-export const setErrorCallback = fn => {
-  errorCallback = fn
-}
-
-export const setToken = token => {
-  http.defaults.headers.common.Authorization = token ? `Bearer ${token}` : null
-}
-
-http.interceptors.response.use(
+api.interceptors.response.use(
   response => response.data,
   error => {
     let err
@@ -31,27 +16,16 @@ http.interceptors.response.use(
       err = error
       err.status = 500
     }
-    if (errorCallback) errorCallback(err)
     return Promise.reject(err)
   }
 )
 
-// avoid simultaneous get calls with same params
-const inflight = new Map()
-const get = (url, options = {}) => {
-  const key = hash({ url, ...options })
-  if (!inflight.get(key)) {
-    inflight.set(
-      key,
-      http.get(url, options).finally(setTimeout(() => inflight.delete(key)))
-    )
-  }
-  return inflight.get(key)
+export const setBaseUrl = url => {
+  api.defaults.baseURL = url
 }
 
-const post = (url, data, options) => http.post(url, data, options)
-const put = (url, data, options) => http.put(url, data, options)
-const destroy = (url, data, options) => http.delete(url, data, options)
+export const setToken = token => {
+  api.defaults.headers.common.Authorization = token ? `Bearer ${token}` : null
+}
 
-export const api = { get, post, put, delete: destroy }
 export default api

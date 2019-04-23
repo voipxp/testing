@@ -58,7 +58,7 @@ export const loadSettings = () => async dispatch => {
 
 export const loadTemplate = () => async dispatch => {
   const template = await uiTemplateApi.get()
-  document.title = template.pageTitle || 'odin Web'
+  document.title = (template && template.pageTitle) || 'odin Web'
   dispatch(actions.setTemplate(template))
 }
 

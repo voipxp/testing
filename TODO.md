@@ -1,6 +1,5 @@
 TODO
 
-- capture 401 errors and logout
 - test announcement reload() on name change
 - implement PaasAdmin
 - add SSO to login screen
@@ -11,6 +10,7 @@ TODO
   - render the select users if none are selected
     - otherwise render the actual page
     - eliminate the redirect
+- update readme
 
 LATER
 
