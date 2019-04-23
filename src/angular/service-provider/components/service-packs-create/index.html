@@ -44,8 +44,8 @@
         <td>
           {{ service.serviceName }}
           <span class="is-pulled-right">
-            {{ service.available === -1 ? 'Unlimited' : service.available + '
-            Available'}}
+            {{ service.quantity === -1 ? 'Unlimited' : (service.quantity -
+            service.allocated) + ' Available'}}
           </span>
         </td>
       </tr>

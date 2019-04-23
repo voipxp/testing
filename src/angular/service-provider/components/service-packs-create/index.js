@@ -93,9 +93,11 @@ function controller(
     if (selectedServices.length === 0) return unlimited
     if (_.every(selectedServices, { quantity: -1 })) return unlimited
 
-    return _.minBy(selectedServices, function(service) {
-      return service.available === -1 ? unlimited : service.available
-    }).available
+    const min = _.minBy(selectedServices, function(service) {
+      if (service.quantity === -1) return unlimited
+      return service.quantity - service.allocated
+    })
+    return min.quantity - min.allocated
   }
 
   function maxAllowedDescription() {
