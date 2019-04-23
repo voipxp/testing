@@ -51,9 +51,7 @@
           responseError: function(response) {
             var status = response.status
             if (status === -1) {
-              return Session.clear().then(function() {
-                return $q.reject('Connection Failed')
-              })
+              return $q.reject('Connection Failed')
             }
             // If a 401 or 403 from API remove local JWT Token
             if (status === 401 || status === 402 || status === 403) {
