@@ -1,9 +1,11 @@
 TODO
 
+- capture 401 errors and logout
 - test announcement reload() on name change
 - implement PaasAdmin
 - add SSO to login screen
 - add SSO token retrieval to navbar.js
+- empty store on logout
 - change the bulk data resolve
   - use redux instead for storage
   - render the select users if none are selected
