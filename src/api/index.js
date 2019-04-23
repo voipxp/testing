@@ -1,8 +1,6 @@
 import axios from 'axios'
 import hash from 'object-hash'
 
-const inflight = new Map()
-
 const http = axios.create({ baseURL: '/api/v2' })
 
 http.interceptors.response.use(
@@ -36,20 +34,13 @@ export const setBaseUrl = url => {
 }
 
 // avoid simultaneous get calls with same params
+const inflight = new Map()
 const get = (url, options = {}) => {
   const key = hash({ url, ...options })
   if (!inflight.get(key)) {
     inflight.set(
       key,
-      new Promise(async (resolve, reject) => {
-        try {
-          resolve(http.get(url, options))
-        } catch (error) {
-          reject(error)
-        } finally {
-          setTimeout(() => inflight.delete(key))
-        }
-      })
+      http.get(url, options).finally(setTimeout(() => inflight.delete(key)))
     )
   }
   return inflight.get(key)
@@ -61,10 +52,3 @@ const destroy = (url, data, options) => http.delete(url, data, options)
 
 export const api = { get, post, put, delete: destroy }
 export default api
-
-api.get('status').then(() => console.log('1'))
-api.get('status').then(() => console.log('2'))
-api.get('status').then(() => console.log('3'))
-api.get('status').then(() => console.log('4'))
-api.get('status').then(() => console.log('5'))
-api.get('status').then(() => console.log('6'))

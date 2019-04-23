@@ -12,8 +12,6 @@ TODO
 
 LATER
 
-- don't run the same query simultaneously
-- chat window bitches
 - make lodash requires modular
 - fontawesome buttons
 - figure out a good folder structure/naming convention for react components
