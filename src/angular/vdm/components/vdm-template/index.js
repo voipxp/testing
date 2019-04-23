@@ -4,7 +4,7 @@ import template from './index.html'
 angular.module('odin.vdm').component('vdmTemplate', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+  bindings: { module: '<', id: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
@@ -28,7 +28,6 @@ function controller(
   ctrl.destroy = destroy
 
   function onInit() {
-    ctrl.id = $location.search().id
     ctrl.templateName = $location.search().name
     ctrl.loading = true
     loadTemplate()

@@ -88,7 +88,6 @@ function controller(
       keys[i] = key
     }
     ctrl.keys = keys
-    console.log('keys', key)
   }
 
   function loadMulticastGroups() {

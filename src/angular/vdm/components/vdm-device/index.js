@@ -4,7 +4,7 @@ import template from './index.html'
 angular.module('odin.vdm').component('vdmDevice', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+  bindings: { module: '<', id: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
@@ -28,7 +28,6 @@ function controller(
   ctrl.open = open
 
   function onInit() {
-    ctrl.templateId = $location.search().id
     ctrl.deviceName = $location.search().deviceName
     ctrl.templateName = $location.search().name
     ctrl.loading = true
@@ -43,7 +42,7 @@ function controller(
     return VdmGroupTemplateService.show(
       ctrl.serviceProviderId,
       ctrl.groupId,
-      ctrl.templateId
+      ctrl.id
     ).then(function(data) {
       ctrl.template = data
     })
@@ -55,15 +54,15 @@ function controller(
     })
   }
 
-  function open(templateId) {
-    if (templateId) {
+  function open(id) {
+    if (id) {
       Route.open(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
         'vdm',
         'templates',
-        templateId
+        id
       )
     } else {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'vdm')
