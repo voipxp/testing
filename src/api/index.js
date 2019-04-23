@@ -1,8 +1,11 @@
 import axios from 'axios'
+import hash from 'object-hash'
 
-export const api = axios.create({ baseURL: '/api/v2' })
+const inflight = new Map()
 
-api.interceptors.response.use(
+const http = axios.create({ baseURL: '/api/v2' })
+
+http.interceptors.response.use(
   response => response.data,
   error => {
     let err
@@ -22,12 +25,46 @@ api.interceptors.response.use(
 
 export const setToken = token => {
   if (token) {
-    api.defaults.headers.common.Authorization = `Bearer ${token}`
+    http.defaults.headers.common.Authorization = `Bearer ${token}`
   } else {
-    delete api.defaults.headers.common.Authorization
+    delete http.defaults.headers.common.Authorization
   }
 }
 
 export const setBaseUrl = url => {
-  api.defaults.baseURL = url
+  http.defaults.baseURL = url
 }
+
+// avoid simultaneous get calls with same params
+const get = (url, options = {}) => {
+  const key = hash({ url, ...options })
+  if (!inflight.get(key)) {
+    inflight.set(
+      key,
+      new Promise(async (resolve, reject) => {
+        try {
+          resolve(http.get(url, options))
+        } catch (error) {
+          reject(error)
+        } finally {
+          setTimeout(() => inflight.delete(key))
+        }
+      })
+    )
+  }
+  return inflight.get(key)
+}
+
+const post = (url, data, options) => http.post(url, data, options)
+const put = (url, data, options) => http.put(url, data, options)
+const destroy = (url, data, options) => http.delete(url, data, options)
+
+export const api = { get, post, put, delete: destroy }
+export default api
+
+api.get('status').then(() => console.log('1'))
+api.get('status').then(() => console.log('2'))
+api.get('status').then(() => console.log('3'))
+api.get('status').then(() => console.log('4'))
+api.get('status').then(() => console.log('5'))
+api.get('status').then(() => console.log('6'))
