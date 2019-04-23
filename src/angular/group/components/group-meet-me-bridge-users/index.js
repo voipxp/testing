@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupMeetMeBridgeUsers', {
   template,
   controller,
-  require: { parent: '^meetMeBridge' }
+  require: { parent: '^groupMeetMeBridge' }
 })
 
 controller.$inject = ['Alert', '$q', 'GroupMeetMeConferencingUserService']
