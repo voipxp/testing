@@ -4,7 +4,7 @@ import template from './index.html'
 angular.module('odin.user').component('userServices', {
   template,
   controller,
-  bindings: { serviceType: '<', userId: '<', onUpdate: '&' }
+  bindings: { serviceType: '@', userId: '<', onUpdate: '&' }
 })
 
 controller.$inject = ['Alert', 'UserServiceService', '$filter', 'EventEmitter']
