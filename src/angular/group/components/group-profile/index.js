@@ -53,21 +53,11 @@ function controller(
         ctrl.canRead = GroupPolicyService.profileRead()
         ctrl.canUpdate =
           Module.update('Provisioning') && GroupPolicyService.profileUpdate()
-        ctrl.canDelete =
-          Module.delete('Provisioning') &&
-          ServiceProviderPolicyService.groupDelete()
       })
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
       })
-    // return loadGroup()
-    //   .catch(function(error) {
-    //     Alert.notify.danger(error)
-    //   })
-    //   .finally(function() {
-    //     ctrl.loading = false
-    //   })
   }
 
   function loadGroup() {
@@ -95,16 +85,12 @@ function controller(
   }
 
   function edit() {
-    var onDelete =
-      ctrl.isAdmin && ctrl.canDelete ? close => remove(close) : null
     loadHelpers()
       .then(() => {
         ctrl.editGroup = angular.copy(ctrl.group)
         ctrl.editGroup.groupId = ctrl.groupId
-        Alert.modal.open(
-          'editGroupDetailsModal',
-          close => update(ctrl.editGroup, close),
-          onDelete
+        Alert.modal.open('editGroupDetailsModal', close =>
+          update(ctrl.editGroup, close)
         )
       })
       .catch(Alert.notify.danger)
@@ -149,26 +135,6 @@ function controller(
       })
       .finally(function() {
         Alert.spinner.close()
-      })
-  }
-
-  function remove(callback) {
-    Alert.confirm
-      .open('Are you sure you want to delete this group?')
-      .then(function() {
-        Alert.spinner.open()
-        GroupService.destroy(ctrl.serviceProviderId, ctrl.groupId)
-          .then(function() {
-            Alert.notify.success('Group Removed')
-            callback()
-            Route.open('serviceProviders', ctrl.serviceProviderId, 'groups')
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
       })
   }
 

@@ -92,14 +92,10 @@ function controller(
     if (ctrl.groupId) {
       _.remove(ctrl.columns, { key: 'groupId' })
     }
-    Alert.spinner.open()
+    ctrl.loading = true
     loadReport()
-      .catch(function(error) {
-        Alert.notify.danger(error)
-      })
-      .finally(function() {
-        Alert.spinner.close()
-      })
+      .catch(Alert.notify.danger)
+      .finally(() => (ctrl.loading = false))
   }
 
   function loadReport() {

@@ -38,10 +38,8 @@ function controller(Alert, GroupEventService, EventHelper) {
       ctrl.groupId,
       ctrl.name,
       ctrl.type
-    ).then(function(data) {
-      ctrl.events = data.map(function(data) {
-        return EventHelper.parse(data)
-      })
+    ).then(data => {
+      ctrl.events = data.map(EventHelper.parse)
     })
   }
 

@@ -11,7 +11,8 @@ function EventHelper() {
 
   // make startTime and endTime date objects
   // add summary information for view
-  function parse(event) {
+  function parse(_event) {
+    const event = angular.copy(_event)
     event.startTime = Sugar.Date.create(event.startTime)
     event.endTime = Sugar.Date.create(event.endTime)
     var summary = {}

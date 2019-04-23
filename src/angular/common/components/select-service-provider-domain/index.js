@@ -10,12 +10,11 @@ const template = `
   </pbs-input-select>
   `
 
-angular.module('odin.common').component('selectGroupDomain', {
+angular.module('odin.common').component('selectServiceProviderDomain', {
   template,
   controller,
   bindings: {
     serviceProviderId: '<',
-    groupId: '<',
     ngRequired: '<',
     ngModel: '='
   }
