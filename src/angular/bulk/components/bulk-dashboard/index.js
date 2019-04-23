@@ -14,11 +14,7 @@ function controller(BulkTaskService, $location) {
   ctrl.services = BulkTaskService.index
 
   function open(service) {
-    if (service.task === 'user.create') {
-      $location.path('bulk/user.create')
-    } else {
-      $location.path('bulk/users').search({ next: service.task })
-    }
+    $location.path(`bulk/${service.task}`)
   }
 
   function openCsv() {

@@ -17,8 +17,7 @@ const ServiceProviderSelect = ({ onSelect }) => {
   const { serviceProviders } = state
 
   useEffect(() => {
-    const fetchData = async () => dispatch(loadServiceProviders())
-    fetchData()
+    dispatch(loadServiceProviders())
   }, [dispatch])
 
   return serviceProviders.length === 0 ? (

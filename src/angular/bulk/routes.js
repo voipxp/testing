@@ -1,10 +1,3 @@
-// Get last selected set of users to inject into component
-data.$inject = ['BulkUsersService', '$q']
-async function data(BulkUsersService, $q) {
-  const results = await BulkUsersService.get()
-  return results.users.length > 0 ? results : $q.reject('routeToSelect')
-}
-
 export default [
   {
     path: '/bulk',
@@ -52,35 +45,30 @@ export default [
     path: '/bulk/user.delete',
     component: 'bulkUserDelete',
     acl: 'Group',
-    module: 'Provisioning',
-    resolve: { data }
+    module: 'Provisioning'
   },
   {
     path: '/bulk/user.services.update',
     component: 'bulkUserServicesUpdate',
     acl: 'Group',
-    module: 'Provisioning',
-    resolve: { data }
+    module: 'Provisioning'
   },
   {
     path: '/bulk/user.number.update',
     component: 'bulkUserNumberUpdate',
     acl: 'Group',
-    module: 'Provisioning',
-    resolve: { data }
+    module: 'Provisioning'
   },
   {
     path: '/bulk/user.sharedcallappearance.update',
     component: 'bulkUserSharedCallAppearanceUpdate',
     acl: 'Group',
-    module: 'Provisioning',
-    resolve: { data }
+    module: 'Provisioning'
   },
   {
     path: '/bulk/user.ucone.update',
     component: 'bulkUserUcOneUpdate',
     acl: 'Group',
-    module: 'Provisioning',
-    resolve: { data }
+    module: 'Provisioning'
   }
 ]

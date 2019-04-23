@@ -1,11 +1,10 @@
 import angular from 'angular'
-import _ from 'lodash'
+import get from 'lodash/get'
 import template from './index.html'
 
 angular.module('odin.bulk').component('bulkUserNumberUpdate', {
   template,
-  controller,
-  bindings: { data: '<' }
+  controller
 })
 
 controller.$inject = ['BulkImportService']
@@ -15,11 +14,12 @@ function controller(BulkImportService) {
   ctrl.wizardComplete = wizardComplete
   ctrl.onUpdate = onUpdate
   ctrl.next = next
+  ctrl.changeUserId = false
+  ctrl.onSelectUsers = onSelectUsers
+  ctrl.data = { users: [] }
 
-  ctrl.task = 'user.number.update'
-
-  ctrl.$onInit = function() {
-    ctrl.changeUserId = false
+  function onSelectUsers(event) {
+    ctrl.data = event
   }
 
   function wizardReady(event) {
@@ -41,7 +41,7 @@ function controller(BulkImportService) {
         groupId: user.groupId,
         userId: user.userId,
         domain: user.domain,
-        phoneNumber: _.get(ctrl.data, 'phoneNumbers.' + i),
+        phoneNumber: get(ctrl.data, 'phoneNumbers.' + i),
         activatePhoneNumber: ctrl.activatePhoneNumber,
         extension: ctrl.data.extension,
         callingLineIdPhoneNumber: ctrl.data.callingLineIdPhoneNumber
@@ -59,12 +59,11 @@ function controller(BulkImportService) {
 
   // generic assignment
   function onUpdate(event) {
-    _.assign(ctrl.data, event)
+    Object.assign(ctrl.data, event)
     next()
   }
 
   function next() {
-    // console.log(JSON.stringify(ctrl.data, null, 2))
     ctrl.wizard.next()
   }
 }

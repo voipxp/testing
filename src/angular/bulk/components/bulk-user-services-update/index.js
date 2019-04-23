@@ -1,11 +1,9 @@
 import angular from 'angular'
-import _ from 'lodash'
 import template from './index.html'
 
 angular.module('odin.bulk').component('bulkUserServicesUpdate', {
   template,
-  controller,
-  bindings: { data: '<' }
+  controller
 })
 
 controller.$inject = ['BulkImportService', '$scope']
@@ -14,14 +12,19 @@ function controller(BulkImportService, $scope) {
   ctrl.$onInit = onInit
   ctrl.select = select
   ctrl.onSelect = onSelect
+  ctrl.onSelectUsers = onSelectUsers
   ctrl.canComplete = canComplete
   ctrl.complete = complete
   ctrl.clear = clear
-  ctrl.task = 'user.services.update'
-
-  ctrl.serviceTypes = {
+  ctrl.task = ctrl.serviceTypes = {
     userServices: 'User Services',
     servicePackServices: 'Service Packs'
+  }
+
+  ctrl.data = { users: [] }
+
+  function onSelectUsers(event) {
+    ctrl.data = event
   }
 
   function onInit() {
@@ -63,9 +66,9 @@ function controller(BulkImportService, $scope) {
 
   function complete() {
     var data = ctrl.data.users.map(function(user) {
-      return _.assign(
+      return Object.assign(
         {
-          task: ctrl.task,
+          task: 'user.services.update',
           userId: user.userId,
           serviceProviderId: user.serviceProviderId,
           groupId: user.groupId

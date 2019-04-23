@@ -1,15 +1,28 @@
-<bulk-task-header task="$ctrl.task"></bulk-task-header>
-<pbs-block title="Delete Users">
-  <p class="subtitle">This action will delete the following Users.</p>
-  <div class="tags">
-    <div class="tag is-medium" ng-repeat="user in $ctrl.data.users">
-      {{ user.userId }}
+<pbs-navigation>
+  <pbs-breadcrumb title="'Bulk'" href="'#!/bulk'"></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Delete Users'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<bulk-selected-users
+  users="$ctrl.data.users"
+  ng-click="$ctrl.data.users = []"
+></bulk-selected-users>
+
+<bulk-select-users-dashboard
+  ng-show="$ctrl.data.users.length < 1"
+  on-select="$ctrl.onSelectUsers($event)"
+></bulk-select-users-dashboard>
+
+<div ng-if="$ctrl.data.users.length > 0">
+  <pbs-block title="Delete Users">
+    <p class="subtitle">This action will delete the following Users.</p>
+    <div class="tags">
+      <div class="tag is-medium" ng-repeat="user in $ctrl.data.users">
+        {{ user.userId }}
+      </div>
     </div>
-  </div>
-  <div class="large-margin-top has-text-right">
-    <pbs-button-next
-      ng-click="$ctrl.complete()"
-      ng-disabled="!$ctrl.canComplete()"
-    ></pbs-button-next>
-  </div>
-</pbs-block>
+    <div class="large-margin-top has-text-right">
+      <pbs-button-next ng-click="$ctrl.complete()"></pbs-button-next>
+    </div>
+  </pbs-block>
+</div>

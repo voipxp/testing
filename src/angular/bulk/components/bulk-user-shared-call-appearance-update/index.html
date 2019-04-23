@@ -1,5 +1,20 @@
-<bulk-task-header task="$ctrl.task"></bulk-task-header>
+<pbs-navigation>
+  <pbs-breadcrumb title="'Bulk'" href="'#!/bulk'"></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Update Users SCA'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<bulk-selected-users
+  users="$ctrl.data.users"
+  ng-click="$ctrl.data.users = []"
+></bulk-selected-users>
+
+<bulk-select-users-dashboard
+  ng-show="$ctrl.data.users.length < 1"
+  on-select="$ctrl.onSelectUsers($event)"
+></bulk-select-users-dashboard>
+
 <pbs-wizard
+  ng-if="$ctrl.data.users.length > 0"
   on-ready="$ctrl.wizardReady($event)"
   on-complete="$ctrl.wizardComplete($event)"
 >

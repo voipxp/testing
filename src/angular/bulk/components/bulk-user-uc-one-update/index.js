@@ -1,11 +1,9 @@
 import angular from 'angular'
-import _ from 'lodash'
 import template from './index.html'
 
 angular.module('odin.bulk').component('bulkUserUcOneUpdate', {
   template,
-  controller,
-  bindings: { data: '<' }
+  controller
 })
 
 controller.$inject = ['BulkImportService']
@@ -15,7 +13,12 @@ function controller(BulkImportService) {
   ctrl.wizardComplete = wizardComplete
   ctrl.onUpdate = onUpdate
 
-  ctrl.task = 'user.ucone.update'
+  ctrl.onSelectUsers = onSelectUsers
+  ctrl.data = { users: [] }
+
+  function onSelectUsers(event) {
+    ctrl.data = event
+  }
 
   function wizardReady(event) {
     ctrl.wizard = event.wizard
@@ -50,12 +53,11 @@ function controller(BulkImportService) {
 
   // generic assignment
   function onUpdate(event) {
-    _.assign(ctrl.data, event)
+    Object.assign(ctrl.data, event)
     next()
   }
 
   function next() {
-    // console.log(JSON.stringify(ctrl.data, null, 2))
     ctrl.wizard.next()
   }
 }

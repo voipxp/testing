@@ -1,41 +1,5 @@
-<pbs-navigation>
-  <pbs-breadcrumb href="'/#!/bulk'" title="'Bulk'"></pbs-breadcrumb>
-  <pbs-breadcrumb
-    ng-show="!$ctrl.runWizard"
-    title="'Select Users'"
-  ></pbs-breadcrumb>
-  <pbs-breadcrumb
-    ng-show="$ctrl.runWizard"
-    title="'Select Users'"
-    ng-click="$ctrl.runWizard = false"
-  ></pbs-breadcrumb>
-  <pbs-breadcrumb ng-show="$ctrl.runWizard" title="'Wizard'"></pbs-breadcrumb>
-</pbs-navigation>
-
 <pbs-block title="Select Users" ng-show="!$ctrl.runWizard">
-  <pbs-spinner loading="$ctrl.loading"></pbs-spinner>
   <div class="columns">
-    <div class="column" ng-if="$ctrl.data.users.length > 0">
-      <div class="dropdown is-hoverable" style="width: 100%">
-        <div class="dropdown-trigger" style="width: 100%">
-          <button
-            class="button is-fullwidth"
-            ng-click="$ctrl.selectCurrentUsers()"
-          >
-            Currently Selected Users: {{ $ctrl.data.users.length }}
-          </button>
-        </div>
-        <div class="dropdown-menu">
-          <div class="dropdown-content">
-            <div class="dropdown-item">
-              <ul style="width: 100%">
-                <li ng-repeat="user in $ctrl.data.users">{{ user.userId }}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="column">
       <button
         class="button is-info is-fullwidth"
@@ -46,7 +10,7 @@
     </div>
     <div class="column">
       <pbs-input-file
-        on-upload="$ctrl.upload(file)"
+        on-upload="$ctrl.uploadUsers(file)"
         mode="text"
       ></pbs-input-file>
     </div>
@@ -81,7 +45,7 @@
         <tr
           class="hover with-tooltip is-tooltip-multiline"
           ng-repeat="task in $ctrl.tasks | filter:search as results track by task.id"
-          ng-click="$ctrl.select(task)"
+          ng-click="$ctrl.selectTask(task)"
           title="{{ task.userList }}"
         >
           <td>{{ task.userId }}</td>
@@ -106,16 +70,16 @@
   </pbs-wizard-step>
   <pbs-wizard-step label="Group">
     <bulk-select-group-id
-      service-provider-id="$ctrl.data.serviceProviderId"
+      service-provider-id="$ctrl.serviceProviderId"
       on-update="$ctrl.onUpdateGroupId($event)"
     >
     </bulk-select-group-id>
   </pbs-wizard-step>
   <pbs-wizard-step label="Users">
     <bulk-select-users
-      service-provider-id="$ctrl.data.serviceProviderId"
-      group-id="$ctrl.data.groupId"
-      users="$ctrl.data.users"
+      service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      users="$ctrl.users"
       on-update="$ctrl.onUpdateUsers($event)"
     >
     </bulk-select-users>

@@ -18,8 +18,6 @@ function controller(BulkImportService, $location) {
   ctrl.onUpdateGroupId = onUpdateGroupId
   ctrl.onUpdate = onUpdate
 
-  ctrl.task = 'user.create'
-
   function onInit() {
     ctrl.data = {}
     var params = $location.search()
