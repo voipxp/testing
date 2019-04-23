@@ -1,7 +1,21 @@
 import axios from 'axios'
 import hash from 'object-hash'
 
+let errorCallback
+
 const http = axios.create({ baseURL: '/api/v2' })
+
+export const setBaseUrl = url => {
+  http.defaults.baseURL = url
+}
+
+export const setErrorCallback = fn => {
+  errorCallback = fn
+}
+
+export const setToken = token => {
+  http.defaults.headers.common.Authorization = token ? `Bearer ${token}` : null
+}
 
 http.interceptors.response.use(
   response => response.data,
@@ -17,21 +31,10 @@ http.interceptors.response.use(
       err = error
       err.status = 500
     }
+    if (errorCallback) errorCallback(err)
     return Promise.reject(err)
   }
 )
-
-export const setToken = token => {
-  if (token) {
-    http.defaults.headers.common.Authorization = `Bearer ${token}`
-  } else {
-    delete http.defaults.headers.common.Authorization
-  }
-}
-
-export const setBaseUrl = url => {
-  http.defaults.baseURL = url
-}
 
 // avoid simultaneous get calls with same params
 const inflight = new Map()
