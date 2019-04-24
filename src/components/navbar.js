@@ -6,6 +6,9 @@ import { Navbar } from 'rbx'
 import { clearSession } from '@/store/session'
 import { UiModalCard } from '@/components/ui'
 import { userPath, groupPath } from '@/utils/routes'
+import { parseUrl, stringify } from 'query-string'
+import { alertDanger } from '@/store/alerts'
+import authApi from '@/api/auth'
 import acl from '@/utils/acl'
 import UserSearch from './user-search'
 import SystemDnSearch from './system-dn-search'
@@ -40,14 +43,27 @@ const AppNavbar = ({ history }) => {
     setSearch(type)
   }
 
-  const openApplication = application => {
+  const getApplicationToken = async partner => {
+    if (!partner) return
+    const data = await authApi.sso(partner)
+    return data.token
+  }
+
+  const openApplication = async application => {
     updateShowMenu(false)
-    // TODO: add token getter
-    const url = application.url
-    if (application.window) {
-      window.open(url, '_blank', 'noopener')
-    } else {
-      window.open(url, '_self')
+    try {
+      const token = await getApplicationToken(application.partner)
+      const { url, query } = parseUrl(application.url)
+      query.token = token ? token : undefined
+      const search = stringify(query)
+      const finalUrl = search ? `${url}?${search}` : url
+      if (application.window) {
+        window.open(finalUrl, '_blank', 'noopener')
+      } else {
+        window.open(finalUrl, '_self')
+      }
+    } catch (error) {
+      dispatch(alertDanger(error))
     }
   }
 

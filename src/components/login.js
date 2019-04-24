@@ -13,13 +13,13 @@ const Login = () => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
 
-  const ssoLogin = useCallback(() => {
+  const tokenLogin = useCallback(() => {
     const [hash, query] = window.location.hash.split('?')
     if (!query) return
     const search = parse(query)
-    const token = search.sso
+    const token = search.token
     if (!token) return
-    delete search.sso
+    delete search.token
     const newSearch = stringify(search)
     window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
     dispatch(showLoadingModal())
@@ -29,8 +29,8 @@ const Login = () => {
   }, [dispatch])
 
   useEffect(() => {
-    ssoLogin()
-  }, [ssoLogin])
+    tokenLogin()
+  }, [tokenLogin])
 
   const { pageLoginMessage } = state.ui.template
 

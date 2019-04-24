@@ -15,4 +15,6 @@ export const password = (oldPassword, newPassword, userId) => {
 
 export const session = () => api.get('auth/session')
 
-export default { token, refresh, password, session }
+export const sso = partner => api.put(`auth/sso/${partner}`)
+
+export default { token, refresh, password, session, sso }

@@ -2,10 +2,7 @@ TODO
 
 - test announcement reload() on name change
 - implement PaasAdmin
-- add SSO to login screen
-- add SSO token retrieval to navbar.js
 - empty store on logout
-- update readme
 
 LATER
 
