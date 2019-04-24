@@ -11,7 +11,8 @@ import ui, {
 } from './ui'
 
 const store = configureStore({
-  reducer: { alerts, serviceProviders, session, ui }
+  reducer: { alerts, serviceProviders, session, ui },
+  devTools: process.env.NODE_ENV !== 'production'
 })
 
 const loadInitialState = async () => {
