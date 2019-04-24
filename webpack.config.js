@@ -31,6 +31,7 @@ module.exports = {
     filename: production ? '[name].[contenthash].js' : '[name].[hash].js'
   },
   resolve: {
+    mainFields: ['browser', 'main', 'module'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
       'react-dom': '@hot-loader/react-dom'
@@ -38,14 +39,11 @@ module.exports = {
   },
   stats: 'minimal',
   optimization: {
+    runtimeChunk: 'single',
     minimizer: [
-      new TerserJSPlugin({
-        sourceMap: true,
-        parallel: true
-      }),
+      new TerserJSPlugin({ sourceMap: true, parallel: true }),
       new OptimizeCSSAssetsPlugin({})
     ],
-    runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
       cacheGroups: {

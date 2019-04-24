@@ -15,14 +15,18 @@ const store = configureStore({
 })
 
 const loadInitialState = async () => {
-  await store.dispatch(loadSessionFromStorage())
-  await Promise.all([
-    store.dispatch(loadModules()),
-    store.dispatch(loadApplications()),
-    store.dispatch(loadTemplate()),
-    store.dispatch(loadSettings())
-  ])
-  store.dispatch(setInitialized(true))
+  try {
+    await store.dispatch(loadSessionFromStorage())
+    await Promise.all([
+      store.dispatch(loadModules()),
+      store.dispatch(loadApplications()),
+      store.dispatch(loadTemplate()),
+      store.dispatch(loadSettings())
+    ])
+    store.dispatch(setInitialized(true))
+  } catch (error) {
+    console.log('loadInitialState', error)
+  }
 }
 
 loadInitialState()

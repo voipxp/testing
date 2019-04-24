@@ -80,11 +80,11 @@ export function cacheFactoryConfig(CacheFactoryProvider) {
   })
 }
 
-idleConfig.$inject = ['IdleProvider', 'TitleProvider']
-export function idleConfig(IdleProvider, TitleProvider) {
-  IdleProvider.keepalive(false)
-  TitleProvider.enabled(false)
-}
+// idleConfig.$inject = ['IdleProvider', 'TitleProvider']
+// export function idleConfig(IdleProvider, TitleProvider) {
+//   IdleProvider.keepalive(false)
+//   TitleProvider.enabled(false)
+// }
 
 rootScope.$inject = ['$rootScope']
 export function rootScope($rootScope) {

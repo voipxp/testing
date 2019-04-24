@@ -10,7 +10,6 @@ import 'angular-jwt'
 import 'angular-sanitize'
 import 'angular-truncate-2'
 import 'checklist-model'
-import 'ng-idle'
 
 // CSS
 import './index.css'
@@ -42,7 +41,6 @@ angular
   .module('odin', [
     'ngAnimate',
     'ngSanitize',
-    'ngIdle',
     'angular-jwt',
     'angular-cache',
     'mp.colorPicker',
@@ -71,7 +69,6 @@ angular
   .config(config.authInterceptorConfig)
   .config(config.jwtInterceptorConfig)
   .config(config.cacheFactoryConfig)
-  .config(config.idleConfig)
   .config(config.ngRedux)
   .run(config.rootScope)
   .run(config.reduxDevTools)
