@@ -2,18 +2,27 @@ TODO
 
 - test announcement reload() on name change
 - implement PaasAdmin
-- empty store on logout
-
-LATER
-
 - make lodash requires modular
-- fontawesome buttons
-- figure out a good folder structure/naming convention for react components
-- take a look at the redux structure
-- redo the virtual services page to use pbsComponent
-- maybe use Permissions on user service view
 
-ANGULAR DYNAMICALLY RENDER PAGE
+SUB-ROUTES
 
-- /:spId/:gpId/:uId/:component?/:subcomponent?
-  `<pbs-component component="component" />`
+We can use sub-routes for things like the user dashboard. For example, the menu will be built on the UserDashboard component. The view will then be directed by the route below it.
+
+```
+/users/:userId/services
+  <UserDashBoard>
+    <SideBar>
+    </SideBar>
+    <ViewContainer>
+      <Route path="/services" component={UserServices} />
+    </ViewContainer>
+  </UserDashBoard>
+```
+
+Or perhaps we can dynamically render the component?
+
+```
+<Route path="/:component" render={() => {
+  getComponent(path)
+}} />
+```
