@@ -53,7 +53,7 @@ function controller(
     'Instant Conference Bridge': null,
     'Meet-Me Conference Bridge': ['meetMe', 'bridge'],
     'Route Point': null,
-    VoiceXML: null
+    'VoiceXML': null
   }
 
   function onPagination(event) {

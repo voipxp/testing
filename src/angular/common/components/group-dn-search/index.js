@@ -39,7 +39,7 @@ function controller(
   ctrl.types = [{ key: 'dn', name: 'Phone Number' }]
 
   ctrl.userTypes = {
-    Normal: 'users',
+    'Normal': 'users',
     'Auto Attendant': 'autoAttendants',
     'BroadWorks Anywhere': null,
     'Call Center': 'callCenters',

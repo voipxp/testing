@@ -27,11 +27,11 @@ function ACL($q, Session) {
 
   function has(type) {
     const types = {
-      User: 1,
-      Group: 2,
+      'User': 1,
+      'Group': 2,
       'Service Provider': 3,
-      Provisioning: 4,
-      System: 5
+      'Provisioning': 4,
+      'System': 5
     }
     const required = types[type] || 10
     const user = types[Session.data('loginType')] || 0

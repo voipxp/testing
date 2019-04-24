@@ -36,12 +36,12 @@ function controller(Alert, EventService, EventEmitter) {
   function filterData() {
     ctrl.total = ctrl.data.length || 0
     var logins = {
-      System: 0,
-      Provisioning: 0,
+      'System': 0,
+      'Provisioning': 0,
       'Service Provider': 0,
-      Group: 0,
-      User: 0,
-      Other: 0
+      'Group': 0,
+      'User': 0,
+      'Other': 0
     }
     ctrl.data.forEach(item => {
       var loginType = Object.keys(logins).includes(item.loginType)

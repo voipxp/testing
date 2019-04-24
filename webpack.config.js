@@ -14,7 +14,7 @@ const production = process.env.NODE_ENV === 'production'
 
 module.exports = {
   devServer: {
-    allowedHosts: ['.local'],
+    allowedHosts: ['.local', '.ngrok.io'],
     proxy: {
       '/api': {
         target: process.env.API_URL,
@@ -38,7 +38,13 @@ module.exports = {
   },
   stats: 'minimal',
   optimization: {
-    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+    minimizer: [
+      new TerserJSPlugin({
+        sourceMap: true,
+        parallel: true
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ],
     runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',

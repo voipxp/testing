@@ -97,7 +97,7 @@ function Service($http, Route) {
       'Transfer To Mailbox': false,
       'Play Announcement': false,
       'Repeat Menu': false,
-      Exit: false
+      'Exit': false
     }
     return map[_.get(key, 'action', key)]
   }
