@@ -29,16 +29,16 @@ export const setSession = (data = {}) => async dispatch => {
   localStorage.setItem(STORAGE_KEY, data.token)
 }
 
+export const loadSessionFromToken = token => async dispatch => {
+  if (!token) throw new Error('Token Required')
+  const jwt = decode(token)
+  const now = new Date().getTime() / 1000
+  if (now >= jwt.exp) throw new Error('Token Expired')
+  const session = await refresh(token)
+  return dispatch(setSession(session))
+}
+
 export const loadSessionFromStorage = () => async dispatch => {
-  try {
-    const token = localStorage.getItem(STORAGE_KEY)
-    if (!token) throw new Error('Token Required')
-    const jwt = decode(token)
-    const now = new Date().getTime() / 1000
-    if (now >= jwt.exp) throw new Error('Token Expired')
-    const session = await refresh(token)
-    return dispatch(setSession(session))
-  } catch (error) {
-    return dispatch(clearSession())
-  }
+  const token = localStorage.getItem(STORAGE_KEY)
+  return dispatch(loadSessionFromToken(token))
 }

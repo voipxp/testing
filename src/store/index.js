@@ -1,6 +1,6 @@
 import { configureStore } from 'redux-starter-kit'
 import alerts from './alerts'
-import session, { loadSessionFromStorage } from './session'
+import session, { loadSessionFromStorage, clearSession } from './session'
 import serviceProviders from './service-providers'
 import ui, {
   loadTemplate,
@@ -18,6 +18,10 @@ const store = configureStore({
 const loadInitialState = async () => {
   try {
     await store.dispatch(loadSessionFromStorage())
+  } catch (error) {
+    await store.dispatch(clearSession())
+  }
+  try {
     await Promise.all([
       store.dispatch(loadModules()),
       store.dispatch(loadApplications()),

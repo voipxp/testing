@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,11 +6,31 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import authApi from '@/api/auth'
 import { showLoadingModal, hideLoadingModal } from '@/store/ui'
 import { alertWarning, alertDanger } from '@/store/alerts'
-import { setSession } from '@/store/session'
+import { setSession, loadSessionFromToken } from '@/store/session'
+import { parse, stringify } from 'query-string'
 
 const Login = () => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
+
+  const ssoLogin = useCallback(() => {
+    const [hash, query] = window.location.hash.split('?')
+    if (!query) return
+    const search = parse(query)
+    const token = search.sso
+    if (!token) return
+    delete search.sso
+    const newSearch = stringify(search)
+    window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
+    dispatch(showLoadingModal())
+    dispatch(loadSessionFromToken(token))
+      .catch(error => dispatch(alertDanger(error)))
+      .finally(() => dispatch(hideLoadingModal()))
+  }, [dispatch])
+
+  useEffect(() => {
+    ssoLogin()
+  }, [ssoLogin])
 
   const { pageLoginMessage } = state.ui.template
 
