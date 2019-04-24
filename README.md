@@ -45,6 +45,66 @@ docker build -t odin-web .
 
 The bundler (parcel) starts at index.html and then walks all import statements, href, src, etc... If a file is to be known to angular, it must be imported at some point. Any 3rd party deps (such as lodash) need to be included at the top of the file that will use it. The bundler is smart enough to know not to require it twice.
 
+## React
+
+The application is running React with old angular code inside it being render via the AngularComponent (**src/components/angular-component**). New components _should_ be written in React.
+
+### Directory structure
+
+The current directory structure is as follows
+
+```
+├── angular        # stores old angular code
+├── api            # the API library (eventually extract to module)
+├── components     # view components
+├── store          # redux related files
+└── utils          # libraries and helper functions
+```
+
+### Naming Convention
+
+All components should be named with the left-most part being the most generic and increasing specificity on the right. Prefix the component or service with the BW higherarchy if it applies to that component. You are free to make sub-directories in order to combine related components. All files should be **kebab-case** to avoid capitalization issues with OSX and windows file systems.
+
+eg:
+
+```
+# BAD
+components/AutoAttendant.js
+components/create-hunt-group.js
+components/details-auto-attendant.js
+components/hunt-group.js
+
+# GOOD
+components/group-auto-attendant.js
+components/group-auto-attendant-details.js
+components/group-hunt-group.js
+components/group-hunt-group-create.js
+
+# ALSO GOOD
+components/auto-attendant/group-auto-attendant.js
+components/auto-attendant/group-auto-attendant-details.js
+components/hunt-group/group-hunt-group.js
+components/hunt-group/group-hunt-group-create.js
+```
+
+### Redux
+
+We are using redux for state management. In general, store temporary or ephemeral data locally in the component. For example, form state, search results, error messages. Anything else that can be shared and re-used could be stored in the redux store. The angular module **\$ngRedux** is provided that can be used to share state with the angular side of the application.
+
+We haven't yet determined the best schema design of the redux store, this is an ongoing experiment. This document will be updated when this is solidified.
+
+### Documentation
+
+Re-usable components should be documented using [docz](https://www.docz.site/). Examples exist in the **src/components/ui** directory and are files with a suffix of **.mdx**. The documentation for a component should be included next to the component.
+
+## Angular
+
+All the old Angular code resides in the subdirectory **src/angular**. The intention is to eventually replace all that code with a react version. However, the general rule of thumb is:
+
+- If simply injecting \$ngRedux into the component would solve the problem, just do that.
+- If < 30% of the file has to be changed, just patch it and move on
+- If > 30% of the file has to be changed, then rewrite it in react.
+
 ### Angular Modules
 
 - All API related services should reside in the **odin.api** module.
@@ -150,7 +210,7 @@ angular
 
 ### routes.js
 
-If the module contains routes, those should be a default export which is just an array of routes.
+If the module contains routes, those should be a default export which is just an array of routes. They may include an acl and module parameter that indicates what loginType and Module.read permissions are required for the route.
 
 ```
 export default [
