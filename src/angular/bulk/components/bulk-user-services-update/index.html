@@ -1,0 +1,49 @@
+<pbs-navigation>
+  <pbs-breadcrumb title="'Bulk'" href="'#!/bulk'"></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Update User Services'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<bulk-selected-users
+  users="$ctrl.data.users"
+  ng-click="$ctrl.data.users = []"
+></bulk-selected-users>
+
+<bulk-select-users-dashboard
+  ng-show="$ctrl.data.users.length < 1"
+  on-select="$ctrl.onSelectUsers($event)"
+></bulk-select-users-dashboard>
+
+<pbs-block title="Update User Services" ng-if="$ctrl.data.users.length > 0">
+  <div
+    ng-repeat="(type, description) in $ctrl.serviceTypes"
+    class="large-margin-bottom"
+  >
+    <p class="subtitle">
+      Add, Remove, or Replace {{ description }}
+      <span class="is-pulled-right" ng-show="$ctrl.services[type].length > 0">
+        ({{ $ctrl.services[type].length }} Selected)
+      </span>
+    </p>
+    <pbs-input-radio
+      value="skip"
+      ng-model="$ctrl.actions[type]"
+      ng-click="$ctrl.clear(type)"
+      label="Skip {{ description }}"
+    ></pbs-input-radio>
+    <pbs-input-radio
+      ng-repeat="action in ['add', 'remove', 'replace']"
+      ng-value="action"
+      ng-change="$ctrl.clear(type)"
+      ng-model="$ctrl.actions[type]"
+      ng-click="$ctrl.select(type, action)"
+      label="{{ action | capitalize }} {{ description }}"
+    ></pbs-input-radio>
+  </div>
+  <div class="has-text-right">
+    <pbs-button-next
+      ng-disabled="!$ctrl.canComplete()"
+      ng-click="$ctrl.complete()"
+    ></pbs-button-next>
+  </div>
+</pbs-block>
+<bulk-select-services on-update="$ctrl.onSelect($event)"></bulk-select-services>

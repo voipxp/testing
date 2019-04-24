@@ -1,0 +1,49 @@
+<pbs-navigation>
+  <pbs-breadcrumb title="'Bulk'" href="'#!/bulk'"></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Update Users Uc-One'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<bulk-selected-users
+  users="$ctrl.data.users"
+  ng-click="$ctrl.data.users = []"
+></bulk-selected-users>
+
+<bulk-select-users-dashboard
+  ng-show="$ctrl.data.users.length < 1"
+  on-select="$ctrl.onSelectUsers($event)"
+></bulk-select-users-dashboard>
+
+<pbs-wizard
+  ng-if="$ctrl.data.users.length > 0"
+  on-ready="$ctrl.wizardReady($event)"
+  on-complete="$ctrl.wizardComplete($event)"
+>
+  <pbs-wizard-step label="Devices">
+    <bulk-select-uc-one-devices
+      devices="$ctrl.data.devices"
+      on-update="$ctrl.onUpdate($event)"
+    ></bulk-select-uc-one-devices>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Endpoints">
+    <bulk-select-uc-one-endpoints
+      devices="$ctrl.data.devices"
+      endpoints="$ctrl.data.endpoints"
+      on-update="$ctrl.onUpdate($event)"
+    ></bulk-select-uc-one-endpoints>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Services">
+    <bulk-select-uc-one-services
+      endpoints="$ctrl.data.endpoints"
+      service-provider-id="$ctrl.data.serviceProviderId"
+      group-id="$ctrl.data.groupId"
+      user-count="$ctrl.data.users.length"
+      on-update="$ctrl.onUpdate($event)"
+    ></bulk-select-uc-one-services>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Settings">
+    <bulk-select-uc-one-settings
+      settings="$ctrl.data.settings"
+      on-update="$ctrl.onUpdate($event)"
+    ></bulk-select-uc-one-settings>
+  </pbs-wizard-step>
+</pbs-wizard>

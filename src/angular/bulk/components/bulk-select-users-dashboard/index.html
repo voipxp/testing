@@ -1,0 +1,87 @@
+<pbs-block title="Select Users" ng-show="!$ctrl.runWizard">
+  <div class="columns">
+    <div class="column">
+      <button
+        class="button is-info is-fullwidth"
+        ng-click="$ctrl.runWizard = true"
+      >
+        Run User Wizard
+      </button>
+    </div>
+    <div class="column">
+      <pbs-input-file
+        on-upload="$ctrl.uploadUsers(file)"
+        mode="text"
+      ></pbs-input-file>
+    </div>
+  </div>
+
+  <pbs-spinner class="margin-top" loading="$ctrl.loadingTasks">
+    <p class="subtitle">Select from Recent Tasks</p>
+    <input
+      type="search"
+      placeholder="Search"
+      class="input margin-bottom"
+      ng-model="search"
+      ng-show="false"
+    />
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Task</th>
+          <th>Count</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="4">
+            No Tasks Found <span ng-if="search">for {{ search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          class="hover with-tooltip is-tooltip-multiline"
+          ng-repeat="task in $ctrl.tasks | filter:search as results track by task.id"
+          ng-click="$ctrl.selectTask(task)"
+          title="{{ task.userList }}"
+        >
+          <td>{{ task.userId }}</td>
+          <td>{{ task.type }}</td>
+          <td>{{ task.data.length }}</td>
+          <td>{{ task.updatedAt | pbsDate: 'relative' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-spinner>
+</pbs-block>
+<pbs-wizard
+  ng-show="$ctrl.runWizard"
+  on-ready="$ctrl.wizardReady($event)"
+  on-complete="$ctrl.wizardComplete($event)"
+>
+  <pbs-wizard-step label="Service Provider">
+    <bulk-select-service-provider-id
+      on-update="$ctrl.onUpdateServiceProviderId($event)"
+    >
+    </bulk-select-service-provider-id>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Group">
+    <bulk-select-group-id
+      service-provider-id="$ctrl.serviceProviderId"
+      on-update="$ctrl.onUpdateGroupId($event)"
+    >
+    </bulk-select-group-id>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Users">
+    <bulk-select-users
+      service-provider-id="$ctrl.serviceProviderId"
+      group-id="$ctrl.groupId"
+      users="$ctrl.users"
+      on-update="$ctrl.onUpdateUsers($event)"
+    >
+    </bulk-select-users>
+  </pbs-wizard-step>
+</pbs-wizard>

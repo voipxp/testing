@@ -18,17 +18,15 @@ yarn start
 
 #### Dev Environmental variables
 
-You can create a .env, .env.local, or .env.\$NODE_ENV file with the following variables to be point the API and EVENT calls to a local or remote instance.
+You can create a .env file with the following variables to point the API and EVENT calls to a local or remote instance.
 
-For example, if you are developing locally and you have the API server listening on port 8000 and the event server on port 4000, you can simply set API_PORT=8000, and EVENT_PORT=4000. This will automatically infer the hostname of what is in the browser (localhost, a-host-in-etc-hosts.com). In this case, comment out the API_BASE setting.
+For example, if you are developing locally and you have the API server listening on port 8000 and the event server on port 4000 you can set API_URL=http://localhost:8000 and EVENT_URL=http://localhost:4000.
 
-If you are developing locally, but you want to point the API calls to a remote server, you can set API_BASE=https://someurl.com/. This will send all the API and EVENT calls to the remote **odin** instance at someurl.com. In this case, comment out the API_PORT and EVENT_PORT settings.
+If you are developing locally, but you want to point the API calls to a remote API instance, you can set API_URL=https://someurl.com. This will send all the API and EVENT calls to the remote **odin** instance at someurl.com.
 
 ```
-#API_BASE=https://someurl.com/  # defaults to /
-# OR
-#API_PORT=8000                  # default same as web
-#EVENT_PORT=4000                # default same as web
+#API_URL=http://localhost:8000
+#EVENT_URL=http://localhost:4000
 ```
 
 ### Bundle for Production
@@ -46,6 +44,66 @@ docker build -t odin-web .
 ## Bundles
 
 The bundler (parcel) starts at index.html and then walks all import statements, href, src, etc... If a file is to be known to angular, it must be imported at some point. Any 3rd party deps (such as lodash) need to be included at the top of the file that will use it. The bundler is smart enough to know not to require it twice.
+
+## React
+
+The application is running React with old angular code inside it being render via the AngularComponent (**src/components/angular-component**). New components _should_ be written in React.
+
+### Directory structure
+
+The current directory structure is as follows
+
+```
+├── angular        # stores old angular code
+├── api            # the API library (eventually extract to module)
+├── components     # view components
+├── store          # redux related files
+└── utils          # libraries and helper functions
+```
+
+### Naming Convention
+
+All components should be named with the left-most part being the most generic and increasing specificity on the right. Prefix the component or service with the BW higherarchy if it applies to that component. You are free to make sub-directories in order to combine related components. All files should be **kebab-case** to avoid capitalization issues with OSX and windows file systems.
+
+eg:
+
+```
+# BAD
+components/AutoAttendant.js
+components/create-hunt-group.js
+components/details-auto-attendant.js
+components/hunt-group.js
+
+# GOOD
+components/group-auto-attendant.js
+components/group-auto-attendant-details.js
+components/group-hunt-group.js
+components/group-hunt-group-create.js
+
+# ALSO GOOD
+components/auto-attendant/group-auto-attendant.js
+components/auto-attendant/group-auto-attendant-details.js
+components/hunt-group/group-hunt-group.js
+components/hunt-group/group-hunt-group-create.js
+```
+
+### Redux
+
+We are using redux for state management. In general, store temporary or ephemeral data locally in the component. For example, form state, search results, error messages. Anything else that can be shared and re-used could be stored in the redux store. The angular module **\$ngRedux** is provided that can be used to share state with the angular side of the application.
+
+We haven't yet determined the best schema design of the redux store, this is an ongoing experiment. This document will be updated when this is solidified.
+
+### Documentation
+
+Re-usable components should be documented using [docz](https://www.docz.site/). Examples exist in the **src/components/ui** directory and are files with a suffix of **.mdx**. The documentation for a component should be included next to the component.
+
+## Angular
+
+All the old Angular code resides in the subdirectory **src/angular**. The intention is to eventually replace all that code with a react version. However, the general rule of thumb is:
+
+- If simply injecting \$ngRedux into the component would solve the problem, just do that.
+- If < 30% of the file has to be changed, just patch it and move on
+- If > 30% of the file has to be changed, then rewrite it in react.
 
 ### Angular Modules
 
@@ -148,19 +206,19 @@ import './index.css'
 
 angular
   .module('odin.module', ['angular.some-module'])
-  .config(['PbsRouteProvider', P => P.set(routes)])
 ```
 
 ### routes.js
 
-If the module contains routes, those should be a default export which is just an array of routes. These routes will be initilized in the module.js config block by passing them to PbsRouteProvider.
+If the module contains routes, those should be a default export which is just an array of routes. They may include an acl and module parameter that indicates what loginType and Module.read permissions are required for the route.
 
 ```
 export default [
   {
     path: '/groups/:serviceProviderId/:groupId',
     component: 'groupDashboard',
-    acl: 'Group'
+    acl: 'Group',
+    module: 'SomeModule'
   }
 ]
 ```

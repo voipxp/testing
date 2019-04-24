@@ -1,0 +1,100 @@
+<pbs-spinner loading="$ctrl.parent.loading">
+  <pbs-block title="Agents">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit
+        title="Config Weighted Users"
+        ng-click="$ctrl.editAgentWeight()"
+        ng-show="$ctrl.parent.huntGroup.policy === 'Weighted'"
+        if-module-update="$ctrl.parent.module"
+      >
+      </pbs-button-compact-edit>
+      <pbs-button-compact-users
+        ng-click="$ctrl.edit()"
+        if-module-update="$ctrl.parent.module"
+      ></pbs-button-compact-users>
+    </pbs-block-buttons>
+
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Number</th>
+          <th>Department</th>
+          <th ng-if="$ctrl.parent.huntGroup.policy === 'Weighted'">weight</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="5">
+            No Agents Found
+            <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          class="hover"
+          ng-repeat="agent in $ctrl.parent.huntGroup.agents | filter:$ctrl.search | orderBy:['lastName','firstName'] as results track by agent.userId"
+          ng-click="$ctrl.edit()"
+        >
+          <td>{{ agent.userId }}</td>
+          <td>{{ agent.lastName }}</td>
+          <td>{{ agent.firstName }}</td>
+          <td>{{ agent.phoneNumber }}</td>
+          <td>{{ agent.department }}</td>
+          <td ng-if="$ctrl.parent.huntGroup.policy === 'Weighted'">
+            {{ agent.weight }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="groupHuntGroupAgentsModal" title="Edit Assigned Agents">
+  <select-users
+    available="$ctrl.availableAgents"
+    selected="$ctrl.assignedAgents"
+    sort="true"
+  ></select-users>
+</pbs-modal>
+
+<pbs-modal
+  id="groupHuntGroupAgentsWeightedModal"
+  title="Agented Weighted Value"
+>
+  <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+  <table pbs-table>
+    <thead>
+      <tr>
+        <th>UserId</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Weight</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr ng-if="$ctrl.assignedAgents < 1">
+        <td colspan="3">
+          No Agents Found
+          <span ng-if="$ctrl.search">for {{ $ctrl.search }}</span>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr
+        class="hover"
+        ng-repeat="agent in $ctrl.assignedAgents| filter:$ctrl.filter | filter:$ctrl.search | orderBy:['lastName','firstName'] as results track by agent.userId"
+      >
+        <td>{{ agent.userId }}</td>
+        <td>{{ agent.firstName }}</td>
+        <td>{{ agent.lastName }}</td>
+        <td>
+          <input type="text" class="input" ng-model="agent.weight" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</pbs-modal>
