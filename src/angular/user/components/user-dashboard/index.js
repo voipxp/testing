@@ -37,6 +37,7 @@ function controller(ACL, Module, UserPermissionService, Alert, $rootScope) {
   }
 
   function loadPermissions() {
+    console.log('UserDashboard.loadPermissions()->UserPermissionService.load()')
     return UserPermissionService.load(ctrl.userId).then(Permission => {
       ctrl.hasProvisioning = Module.read('Provisioning')
       ctrl.hasViewablePacks = Module.read('Viewable Service Packs')

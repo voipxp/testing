@@ -151,6 +151,7 @@ function controller(
   ]
 
   function onInit() {
+    console.log('UserServicesDashboard.onInit()')
     ctrl.loading = true
     return $q
       .all([loadServices(), Module.load()])
@@ -169,6 +170,9 @@ function controller(
   }
 
   function loadServices() {
+    console.log(
+      'UserServicesDashboard.loadServices()->UserPermissionService.load()'
+    )
     return UserPermissionService.load(ctrl.userId).then(Permission => {
       const services = Permission.assigned()
         .filter(service => {

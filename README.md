@@ -49,6 +49,8 @@ The bundler (parcel) starts at index.html and then walks all import statements, 
 
 The application is running React with old angular code inside it being render via the AngularComponent (**src/components/angular-component**). New components _should_ be written in React.
 
+The preference for react components is to use functional components and utilize hooks (useState, useReducer) for local state management and lifecycle (useEffect). For global storage we are currently utilizing Redux. The stores are located in **src/store**.
+
 ### Directory structure
 
 The current directory structure is as follows

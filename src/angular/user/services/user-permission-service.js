@@ -9,6 +9,7 @@ function Service(Module, UserServiceService, ACL, $q) {
   return service
 
   function load(userId) {
+    console.log('UserPermissionService.load(userId)')
     return $q
       .all([loadAssigned(userId), loadViewable(userId), Module.load()])
       .then(function(response) {
