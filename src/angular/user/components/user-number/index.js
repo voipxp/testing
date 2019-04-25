@@ -65,10 +65,16 @@ function controller(
   }
 
   function edit() {
-    ctrl.editUser = angular.copy(ctrl.user)
+    ctrl.loadingUser = true
     Alert.modal.open('editUserNumberModal', function(close) {
       update(ctrl.editUser, close)
     })
+    loadUser()
+      .then(() => {
+        ctrl.editUser = angular.copy(ctrl.user)
+      })
+      .catch(Alert.notify.danger)
+      .finally(() => (ctrl.loadingUser = false))
   }
 
   function selectPhoneNumber(event) {

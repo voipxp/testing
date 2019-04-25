@@ -80,163 +80,165 @@
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="userDeviceSelectModal" title="Select Device">
-  <pbs-form>
-    <pbs-form-field-horizontal label="Endpoint Type">
-      <pbs-input-select
-        ng-model="$ctrl.editUser.endpointType"
-        ng-options="key as value for (key, value) in $ctrl.endpointTypes"
-      ></pbs-input-select>
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal
-      label="Device"
-      ng-show="$ctrl.editUser.endpointType === 'accessDeviceEndpoint'"
-    >
-      <div class="field has-addons">
-        <p class="control is-expanded">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.editUser.accessDeviceEndpoint.accessDevice.deviceName"
-            placeholder="No Device Selected"
-            readonly
-            ng-required="$ctrl.editUser.endpointType === 'accessDeviceEndpoint'"
-          />
-        </p>
-        <p class="control">
-          <button
-            class="button"
-            ng-click="$ctrl.createDevice()"
-            title="Create a Device"
-          >
-            <span class="icon">
-              <i class="fas fa-plus"></i>
-            </span>
-          </button>
-        </p>
-        <p class="control">
-          <button
-            class="button"
-            ng-click="$ctrl.selectDevice()"
-            title="Select a Device"
-          >
-            <span class="icon">
-              <i class="fas fa-list"></i>
-            </span>
-          </button>
-        </p>
-      </div>
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal
-      label="Line Port"
-      ng-if="$ctrl.editUser.endpointType === 'accessDeviceEndpoint'"
-    >
-      <select-user-id
-        service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
-        user-id="$ctrl.editUser.accessDeviceEndpoint.linePort"
-        on-update="$ctrl.onSetLinePort($event)"
-        required="$ctrl.editUser.endpointType === 'accessDeviceEndpoint'"
+  <pbs-spinner loading="$ctrl.loadingUser">
+    <pbs-form>
+      <pbs-form-field-horizontal label="Endpoint Type">
+        <pbs-input-select
+          ng-model="$ctrl.editUser.endpointType"
+          ng-options="key as value for (key, value) in $ctrl.endpointTypes"
+        ></pbs-input-select>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal
+        label="Device"
+        ng-show="$ctrl.editUser.endpointType === 'accessDeviceEndpoint'"
       >
-      </select-user-id>
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal
-      label="Trunk Group"
-      ng-show="$ctrl.editUser.endpointType === 'trunkAddressing'"
-    >
-      <div class="field has-addons">
-        <p class="control is-expanded">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.name"
-            placeholder="No Trunk Group"
-            readonly
-            ng-click="$ctrl.selectTrunkGroup()"
-          />
-        </p>
-        <p
-          class="control"
-          ng-show="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.name"
-        >
-          <button
-            class="button"
-            ng-click="$ctrl.onSelectTrunkGroup()"
-            title="Remove Trunk Group"
-          >
-            <span class="icon">
-              <i class="fas fa-trash"></i>
-            </span>
-          </button>
-        </p>
-        <p class="control">
-          <button
-            class="button"
-            ng-click="$ctrl.selectTrunkGroup()"
-            title="Add a Trunk Group"
-          >
-            <span class="icon">
-              <i class="fas fa-plus"></i>
-            </span>
-          </button>
-        </p>
-      </div>
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal
-      label="Line Port"
-      ng-show="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.name"
-    >
-      <select-user-id
-        service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
-        user-id="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.linePort"
-        on-update="$ctrl.onSetTrunkLinePort($event)"
-        required="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.name"
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <input
+              type="text"
+              class="input"
+              ng-model="$ctrl.editUser.accessDeviceEndpoint.accessDevice.deviceName"
+              placeholder="No Device Selected"
+              readonly
+              ng-required="$ctrl.editUser.endpointType === 'accessDeviceEndpoint'"
+            />
+          </p>
+          <p class="control">
+            <button
+              class="button"
+              ng-click="$ctrl.createDevice()"
+              title="Create a Device"
+            >
+              <span class="icon">
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+          </p>
+          <p class="control">
+            <button
+              class="button"
+              ng-click="$ctrl.selectDevice()"
+              title="Select a Device"
+            >
+              <span class="icon">
+                <i class="fas fa-list"></i>
+              </span>
+            </button>
+          </p>
+        </div>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal
+        label="Line Port"
+        ng-if="$ctrl.editUser.endpointType === 'accessDeviceEndpoint'"
       >
-      </select-user-id>
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal
-      label="Enterprise Trunk"
-      ng-show="$ctrl.editUser.endpointType === 'trunkAddressing'"
-    >
-      <div class="field has-addons">
-        <p class="control is-expanded">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.editUser.trunkAddressing.enterpriseTrunkName"
-            placeholder="No Enterprise Trunk"
-            readonly
-            ng-click="$ctrl.selectEnterpriseTrunk()"
-          />
-        </p>
-        <p
-          class="control"
-          ng-show="$ctrl.editUser.trunkAddressing.enterpriseTrunkName"
+        <select-user-id
+          service-provider-id="$ctrl.serviceProviderId"
+          group-id="$ctrl.groupId"
+          user-id="$ctrl.editUser.accessDeviceEndpoint.linePort"
+          on-update="$ctrl.onSetLinePort($event)"
+          required="$ctrl.editUser.endpointType === 'accessDeviceEndpoint'"
         >
-          <button
-            class="button"
-            ng-click="$ctrl.onSelectEnterpriseTrunk()"
-            title="Remove Enterprise Trunk"
+        </select-user-id>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal
+        label="Trunk Group"
+        ng-show="$ctrl.editUser.endpointType === 'trunkAddressing'"
+      >
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <input
+              type="text"
+              class="input"
+              ng-model="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.name"
+              placeholder="No Trunk Group"
+              readonly
+              ng-click="$ctrl.selectTrunkGroup()"
+            />
+          </p>
+          <p
+            class="control"
+            ng-show="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.name"
           >
-            <span class="icon">
-              <i class="fas fa-trash"></i>
-            </span>
-          </button>
-        </p>
-        <p class="control">
-          <button
-            class="button"
-            ng-click="$ctrl.selectEnterpriseTrunk()"
-            title="Add an Enterprise Trunk"
+            <button
+              class="button"
+              ng-click="$ctrl.onSelectTrunkGroup()"
+              title="Remove Trunk Group"
+            >
+              <span class="icon">
+                <i class="fas fa-trash"></i>
+              </span>
+            </button>
+          </p>
+          <p class="control">
+            <button
+              class="button"
+              ng-click="$ctrl.selectTrunkGroup()"
+              title="Add a Trunk Group"
+            >
+              <span class="icon">
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+          </p>
+        </div>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal
+        label="Line Port"
+        ng-show="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.name"
+      >
+        <select-user-id
+          service-provider-id="$ctrl.serviceProviderId"
+          group-id="$ctrl.groupId"
+          user-id="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.linePort"
+          on-update="$ctrl.onSetTrunkLinePort($event)"
+          required="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.name"
+        >
+        </select-user-id>
+      </pbs-form-field-horizontal>
+      <pbs-form-field-horizontal
+        label="Enterprise Trunk"
+        ng-show="$ctrl.editUser.endpointType === 'trunkAddressing'"
+      >
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <input
+              type="text"
+              class="input"
+              ng-model="$ctrl.editUser.trunkAddressing.enterpriseTrunkName"
+              placeholder="No Enterprise Trunk"
+              readonly
+              ng-click="$ctrl.selectEnterpriseTrunk()"
+            />
+          </p>
+          <p
+            class="control"
+            ng-show="$ctrl.editUser.trunkAddressing.enterpriseTrunkName"
           >
-            <span class="icon">
-              <i class="fas fa-plus"></i>
-            </span>
-          </button>
-        </p>
-      </div>
-    </pbs-form-field-horizontal>
-  </pbs-form>
+            <button
+              class="button"
+              ng-click="$ctrl.onSelectEnterpriseTrunk()"
+              title="Remove Enterprise Trunk"
+            >
+              <span class="icon">
+                <i class="fas fa-trash"></i>
+              </span>
+            </button>
+          </p>
+          <p class="control">
+            <button
+              class="button"
+              ng-click="$ctrl.selectEnterpriseTrunk()"
+              title="Add an Enterprise Trunk"
+            >
+              <span class="icon">
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+          </p>
+        </div>
+      </pbs-form-field-horizontal>
+    </pbs-form>
+  </pbs-spinner>
 </pbs-modal>
 <device-update
   service-provider-id="$ctrl.serviceProviderId"

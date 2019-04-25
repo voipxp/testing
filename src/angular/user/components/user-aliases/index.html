@@ -15,28 +15,30 @@
 </pbs-spinner>
 
 <pbs-modal id="userProfileAliasModal" title="Edit Aliases">
-  <pbs-form-field label="Alias 1">
-    <select-user-id
-      service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-      user-id="$ctrl.editUser.aliases[0]"
-      on-update="$ctrl.setAlias1($event)"
-    ></select-user-id>
-  </pbs-form-field>
-  <pbs-form-field label="Alias 2">
-    <select-user-id
-      service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-      user-id="$ctrl.editUser.aliases[1]"
-      on-update="$ctrl.setAlias2($event)"
-    ></select-user-id>
-  </pbs-form-field>
-  <pbs-form-field label="Alias 3">
-    <select-user-id
-      service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-      user-id="$ctrl.editUser.aliases[2]"
-      on-update="$ctrl.setAlias3($event)"
-    ></select-user-id>
-  </pbs-form-field>
+  <pbs-spinner loading="$ctrl.loadingUser">
+    <pbs-form-field label="Alias 1">
+      <select-user-id
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.editUser.aliases[0]"
+        on-update="$ctrl.setAlias1($event)"
+      ></select-user-id>
+    </pbs-form-field>
+    <pbs-form-field label="Alias 2">
+      <select-user-id
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.editUser.aliases[1]"
+        on-update="$ctrl.setAlias2($event)"
+      ></select-user-id>
+    </pbs-form-field>
+    <pbs-form-field label="Alias 3">
+      <select-user-id
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.editUser.aliases[2]"
+        on-update="$ctrl.setAlias3($event)"
+      ></select-user-id>
+    </pbs-form-field>
+  </pbs-spinner>
 </pbs-modal>
