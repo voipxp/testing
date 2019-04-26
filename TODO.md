@@ -1,6 +1,5 @@
 TODO
 
-- test announcement reload() on name change
 - implement PaasAdmin
 - make lodash requires modular
 
