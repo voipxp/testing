@@ -36,10 +36,16 @@ function controller(Alert, Module, UserService, ACL) {
   }
 
   function edit() {
-    ctrl.editUser = angular.copy(ctrl.user)
+    ctrl.loadingUser = true
     Alert.modal.open('userProfileAliasModal', function(close) {
       update(ctrl.editUser, close)
     })
+    loadUser()
+      .then(() => {
+        ctrl.editUser = angular.copy(ctrl.user)
+      })
+      .catch(Alert.notify.danger)
+      .finally(() => (ctrl.loadingUser = false))
   }
 
   function setAlias1(event) {
