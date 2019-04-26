@@ -31,7 +31,10 @@ const AppNavbar = ({ history }) => {
 
   const toggleMenu = () => updateShowMenu(!showMenu)
 
-  const logout = () => dispatch(clearSession())
+  const logout = () => {
+    dispatch(clearSession())
+    history.push('/')
+  }
 
   const openAccount = () => {
     updateShowMenu(false)
