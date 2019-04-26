@@ -13,17 +13,9 @@ controller.$inject = [
   'UserPermissionService',
   'Module',
   '$q',
-  '$window',
-  '$rootScope'
+  '$window'
 ]
-function controller(
-  Alert,
-  UserPermissionService,
-  Module,
-  $q,
-  $window,
-  $rootScope
-) {
+function controller(Alert, UserPermissionService, Module, $q, $window) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.module = Module
@@ -151,14 +143,10 @@ function controller(
   ]
 
   function onInit() {
-    console.log('UserServicesDashboard.onInit()')
-    ctrl.loading = true
     return $q
       .all([loadServices(), Module.load()])
+      .then(() => loadServices(false))
       .catch(Alert.notify.danger)
-      .finally(function() {
-        ctrl.loading = false
-      })
   }
 
   function select(service) {
@@ -166,37 +154,36 @@ function controller(
     ctrl.selectedService = name
       ? allowedServices[name].component || _.camelCase(`User ${name}`)
       : null
+    if (!ctrl.selectedService) loadServices(false)
     $window.scrollTo(0, 0)
   }
 
-  function loadServices() {
-    console.log(
-      'UserServicesDashboard.loadServices()->UserPermissionService.load()'
+  function loadServices(useCache) {
+    return UserPermissionService.load(ctrl.userId, useCache).then(
+      Permission => {
+        const services = Permission.assigned()
+          .filter(service => {
+            const allowed = allowedServices[service.serviceName]
+            return (
+              allowed && Permission.read(allowed.module || service.serviceName)
+            )
+          })
+          .map(service => {
+            const allowed = allowedServices[service.serviceName]
+            const serviceName = allowed.module || service.serviceName
+            return {
+              ...service,
+              alias: Module.alias(serviceName),
+              description: Module.description(serviceName),
+              isActive: service.isActive === 'true' || service.isActive === true
+            }
+          })
+        // remove dups such as Call Center - Basic and Call Center - Standard
+        ctrl.services = _.uniqBy(services, service => {
+          const allowed = allowedServices[service.serviceName]
+          return allowed.module || service.serviceName
+        })
+      }
     )
-    return UserPermissionService.load(ctrl.userId).then(Permission => {
-      const services = Permission.assigned()
-        .filter(service => {
-          const allowed = allowedServices[service.serviceName]
-          return (
-            allowed && Permission.read(allowed.module || service.serviceName)
-          )
-        })
-        .map(service => {
-          const allowed = allowedServices[service.serviceName]
-          const serviceName = allowed.module || service.serviceName
-          return {
-            ...service,
-            alias: Module.alias(serviceName),
-            description: Module.description(serviceName),
-            isActive: service.isActive === 'true' || service.isActive === true
-          }
-        })
-      // remove dups such as Call Center - Basic and Call Center - Standard
-      ctrl.services = _.uniqBy(services, service => {
-        const allowed = allowedServices[service.serviceName]
-        return allowed.module || service.serviceName
-      })
-    })
   }
-  $rootScope.$on('UserServiceService:updated', loadServices)
 }

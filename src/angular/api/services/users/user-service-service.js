@@ -15,34 +15,26 @@ function UserServiceService($http, Route, $rootScope) {
   return service
 
   function show(userId) {
-    return $http.get(url(), { params: { userId: userId } }).then(({ data }) => {
-      console.log('UserServiceService.show()', data)
-      return data
-    })
+    return $http
+      .get(url(), { params: { userId: userId } })
+      .then(({ data }) => data)
   }
 
   function assigned(userId) {
     return $http
       .get(url('assigned'), { params: { userId: userId } })
-      .then(({ data }) => {
-        console.log('UserServiceService.assigned()', data)
-        return data
-      })
+      .then(({ data }) => data)
   }
 
   function viewable(userId) {
     return $http
       .get(url('viewable'), { params: { userId: userId } })
-      .then(({ data }) => {
-        console.log('UserServiceService.viewable()', data)
-        return data
-      })
+      .then(({ data }) => data)
   }
 
   function update(service) {
     return $http.put(url(), service).then(({ data }) => {
-      $rootScope.$broadcast('UserServiceService:updated')
-      console.log('UserServiceService.update()', data)
+      $rootScope.$broadcast('UserServiceService:updated', service)
       return data
     })
   }

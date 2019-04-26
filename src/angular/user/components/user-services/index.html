@@ -1,4 +1,4 @@
-<pbs-spinner loading="$ctrl.loading">
+<pbs-spinner loading="!$ctrl.services">
   <pbs-block title="{{ $ctrl.title }}">
     <pbs-columns>
       <pbs-column>
@@ -50,28 +50,27 @@
       </tfoot>
       <tbody>
         <tr
-          ng-repeat="service in $ctrl.services | filter:$ctrl.filterService | filter:$ctrl.search | orderBy:'serviceName' as results track by service.serviceName"
+          ng-repeat="service in $ctrl.services[$ctrl.serviceType] | filter:$ctrl.filterService | filter:$ctrl.search | orderBy:'serviceName' as results track by service.serviceName"
         >
-          <td>{{ service.alias }}</td>
-          <td>
-            <pbs-input-switch
-              ng-model="service.assigned"
-              ng-change="$ctrl.toggle(service)"
-              ng-disabled="service.isLoading"
-            ></pbs-input-switch>
+          <td style="vertical-align: middle">{{ service.alias }}</td>
+          <td class="has-text-centered" style="vertical-align: middle">
+            <button
+              class="button"
+              ng-class="{'is-success': service.assigned}"
+              ng-click="$ctrl.toggle(service)"
+              ng-disabled="$ctrl.loadingServices[service.serviceName]"
+              title="{{ service.serviceName }}"
+            >
+              <span class="icon">
+                <i
+                  class="fas"
+                  ng-class="{'fa-check': service.assigned, 'fa-times': !service.assigned}"
+                ></i>
+              </span>
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal id="userServicesEditModal" title="Edit Services">
-  <pbs-form>
-    <pbs-form-field label="Assigned">
-      <pbs-input-checkbox
-        label="Service Assigned"
-        ng-model="$ctrl.editService.assigned"
-      ></pbs-input-checkbox>
-    </pbs-form-field>
-  </pbs-form>
-</pbs-modal>

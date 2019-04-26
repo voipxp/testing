@@ -1,5 +1,6 @@
 import angular from 'angular'
 import template from './index.html'
+import { loadUserServices, updateUserServices } from '@/store/user-services'
 
 angular.module('odin.user').component('userServices', {
   template,
@@ -7,21 +8,33 @@ angular.module('odin.user').component('userServices', {
   bindings: { serviceType: '@', userId: '<', onUpdate: '&' }
 })
 
-controller.$inject = ['Alert', 'UserServiceService', '$filter', 'EventEmitter']
-function controller(Alert, UserServiceService, $filter, EventEmitter) {
-  var ctrl = this
+controller.$inject = [
+  'Alert',
+  '$filter',
+  'EventEmitter',
+  '$ngRedux',
+  '$rootScope'
+]
+function controller(Alert, $filter, EventEmitter, $ngRedux, $rootScope) {
+  const ctrl = this
   ctrl.$onInit = onInit
+  ctrl.$onDestroy = onDestroy
   ctrl.toggle = toggle
   ctrl.filterService = filterService
 
+  let unsubscribe
+
+  ctrl.loadingServices = {}
+
   function onInit() {
     ctrl.title = $filter('humanize')(ctrl.serviceType)
-    ctrl.loading = true
-    return loadServices()
-      .catch(Alert.notify.danger)
-      .finally(function() {
-        ctrl.loading = false
-      })
+    const mapState = state => ({ services: state.userServices[ctrl.userId] })
+    unsubscribe = $ngRedux.connect(mapState)(this)
+    $ngRedux.dispatch(loadUserServices(ctrl.userId))
+  }
+
+  function onDestroy() {
+    if (unsubscribe) unsubscribe()
   }
 
   function filterService(item) {
@@ -31,38 +44,27 @@ function controller(Alert, UserServiceService, $filter, EventEmitter) {
     if (ctrl.filter === 'unassigned') return !item.assigned
   }
 
-  function loadServices() {
-    return UserServiceService.show(ctrl.userId).then(function(data) {
-      ctrl.services = data[ctrl.serviceType]
-    })
-  }
-
-  function toggle(service) {
-    service.isLoading = true
-
+  function toggle(editService) {
+    const service = angular.copy(editService)
+    service.assigned = !service.assigned
+    ctrl.loadingServices[service.serviceName] = true
     // format as an array to fit API requirements
-    var singleService = {
-      userId: ctrl.userId
-    }
+    const singleService = { userId: ctrl.userId }
     singleService[ctrl.serviceType] = [service]
 
-    // Update service
-    UserServiceService.update(singleService)
-      .then(function() {
-        var message = service.assigned ? 'Assigned' : 'Unassigned'
-        var action = service.assigned
+    $ngRedux
+      .dispatch(updateUserServices(singleService))
+      .then(() => {
+        const message = service.assigned ? 'Assigned' : 'Unassigned'
+        const action = service.assigned
           ? Alert.notify.success
           : Alert.notify.warning
-        action(service.serviceName + ' ' + message)
+        action(`${service.serviceName} ${message}`)
+        $rootScope.$broadcast('UserServiceService:updated')
         sendUpdate(singleService)
       })
-      .catch(function(error) {
-        Alert.notify.danger(error)
-        service.assigned = !service.assigned
-      })
-      .finally(function() {
-        service.isLoading = false
-      })
+      .catch(Alert.notify.danger)
+      .finally(() => (ctrl.loadingServices[service.serviceName] = false))
   }
 
   function sendUpdate(service) {

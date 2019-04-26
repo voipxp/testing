@@ -1,4 +1,4 @@
-<pbs-spinner loading="$ctrl.loading" ng-show="!$ctrl.selectedService">
+<pbs-spinner loading="!$ctrl.services" ng-if="!$ctrl.selectedService">
   <pbs-block title="Configure Services">
     <pbs-data-table
       columns="$ctrl.columns"

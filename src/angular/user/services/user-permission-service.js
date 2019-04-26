@@ -1,17 +1,23 @@
 import angular from 'angular'
 import _ from 'lodash'
+import { loadUserServices } from '@/store/user-services'
+import { loadUserViewableServices } from '@/store/user-viewable-services'
 
 angular.module('odin.user').factory('UserPermissionService', Service)
 
-Service.$inject = ['Module', 'UserServiceService', 'ACL', '$q']
-function Service(Module, UserServiceService, ACL, $q) {
+Service.$inject = ['Module', 'UserServiceService', 'ACL', '$q', '$ngRedux']
+function Service(Module, UserServiceService, ACL, $q, $ngRedux) {
   var service = { load: load }
+
   return service
 
-  function load(userId) {
-    console.log('UserPermissionService.load(userId)')
+  function load(userId, useCache) {
     return $q
-      .all([loadAssigned(userId), loadViewable(userId), Module.load()])
+      .all([
+        loadServices(userId, useCache),
+        loadViewable(userId),
+        Module.load()
+      ])
       .then(function(response) {
         return Permission(response[0], response[1])
       })
@@ -103,18 +109,27 @@ function Service(Module, UserServiceService, ACL, $q) {
     }
   }
 
-  function loadAssigned(userId) {
-    return UserServiceService.assigned(userId)
+  function loadServices(userId, useCache = true) {
+    const services = $ngRedux.getState().userServices[userId]
+    return useCache && services
+      ? $q.when(services)
+      : $ngRedux.dispatch(loadUserServices(userId))
   }
 
+  // doesn't change often, use cache always
   function loadViewable(userId) {
-    return UserServiceService.viewable(userId)
+    const services = $ngRedux.getState().userViewableServices[userId]
+    return services
+      ? $q.when(services)
+      : $ngRedux.dispatch(loadUserViewableServices(userId))
   }
 
   function mapServices(assigned) {
     var services = {}
     assigned.userServices.forEach(function(service) {
-      services[service.serviceName] = true
+      if (service.assigned) {
+        services[service.serviceName] = true
+      }
     })
     return services
   }
