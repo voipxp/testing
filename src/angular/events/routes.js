@@ -2,16 +2,16 @@ export default [
   {
     path: '/events',
     component: 'odinEvents',
-    acl: 'Provisioning-PaasAdmin'
+    acl: 'PaaS Admin'
   },
   {
     path: '/events/logins',
     component: 'odinUserLoginIndex',
-    acl: 'Provisioning-PaasAdmin'
+    acl: 'PaaS Admin'
   },
   {
     path: '/webhooks',
     component: 'odinWebhooks',
-    acl: 'Provisioning-PaasAdmin'
+    acl: 'PaaS Admin'
   }
 ]

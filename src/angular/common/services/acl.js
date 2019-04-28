@@ -26,10 +26,14 @@ function ACL($q, Session) {
   }
 
   function has(type) {
+    if (type === 'PaaS Admin' && isPaasAdmin()) {
+      return true
+    }
     const types = {
       'User': 1,
       'Group': 2,
       'Service Provider': 3,
+      'PaaS Admin': 3.5,
       'Provisioning': 4,
       'System': 5
     }

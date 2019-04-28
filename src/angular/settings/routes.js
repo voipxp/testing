@@ -2,6 +2,6 @@ export default [
   {
     path: '/settings',
     component: 'odinSettings',
-    acl: 'Provisioning-PaasAdmin'
+    acl: 'PaaS Admin'
   }
 ]

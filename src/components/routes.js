@@ -40,7 +40,7 @@ const Analytics = ({ location }) => {
 
 const Router = () => {
   const state = useReduxState()
-  const { loginType } = state.session
+  const { loginType, isPaasAdmin } = state.session
   const { modules } = state.ui
 
   const getModule = name => {
@@ -57,7 +57,7 @@ const Router = () => {
         <Route exact key={route.path} path={route.path} component={NotFound} />
       )
     }
-    if (route.acl && !hasLevel(loginType, route.acl)) {
+    if (route.acl && !hasLevel(loginType, route.acl, isPaasAdmin)) {
       return (
         <Route exact key={route.path} path={route.path} component={NotFound} />
       )

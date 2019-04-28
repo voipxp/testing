@@ -2,11 +2,11 @@ export default [
   {
     path: '/branding',
     component: 'brandingHostnames',
-    acl: 'Provisioning-PaasAdmin'
+    acl: 'PaaS Admin'
   },
   {
     path: '/branding/:hostnameId',
     component: 'brandingHostname',
-    acl: 'Provisioning-PaasAdmin'
+    acl: 'PaaS Admin'
   }
 ]

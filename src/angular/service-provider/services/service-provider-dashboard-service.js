@@ -61,9 +61,6 @@ function Service(
     // check for acl requirements
     if (card.acl && !ACL.has(card.acl)) return
 
-    // check for legacyPaas
-    if (card.isPaasAdmin && !ACL.isPaasAdmin()) return
-
     // check service cards
     if (card.service) {
       // check it is assigned and accessible

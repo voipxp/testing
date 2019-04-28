@@ -132,25 +132,25 @@ function controller(Alert, ServiceProviderDashboardService, Route, ACL) {
       {
         type: 'system',
         name: 'Branding',
-        isPaasAdmin: true,
+        acl: 'PaaS Admin',
         path: baseRoute('branding')
       },
       {
         type: 'system',
         name: 'Event History',
-        isPaasAdmin: true,
+        acl: 'PaaS Admin',
         path: baseRoute('events')
       },
       {
         type: 'system',
         name: 'Webhook History',
-        isPaasAdmin: true,
+        acl: 'PaaS Admin',
         path: baseRoute('webhooks')
       },
       {
         type: 'system',
         name: 'Settings',
-        isPaasAdmin: true,
+        acl: 'PaaS Admin',
         path: baseRoute('settings')
       }
     ]

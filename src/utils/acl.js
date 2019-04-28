@@ -1,10 +1,10 @@
-// TODO: implement PaasAdmin
-export const hasLevel = (loginType, requiredType) => {
+export const hasLevel = (loginType, requiredType, isPaasAdmin) => {
+  if (requiredType === 'PaaS Admin' && isPaasAdmin) return true
   const types = {
     'User': 1,
     'Group': 2,
     'Service Provider': 3,
-    'Provisioning-PaasAdmin': 3.5,
+    'PaaS Admin': 3.5,
     'Provisioning': 4,
     'System': 5
   }
