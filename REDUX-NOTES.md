@@ -1,7 +1,3 @@
-## TODO
-
-- Look for all UserServiceService calls
-
 ## Angular Services Using Redux
 
 - Module
@@ -23,5 +19,7 @@
 
   - store/ui
 
-- UserServiceService
-  - store/user-services
+- User Permission Service
+  - src/angular/users/services/user-permission-service.js
+  - store/user-assigned-services
+  - store/user-viewable-services
