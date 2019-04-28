@@ -4,7 +4,9 @@ TODO
   - individual components can be angular still
   - utilize routing to render components
 - acl helper custom hook
-- make lodash requires modular
+- make lodash requires modular (https://github.com/ant-design/babel-plugin-import#readme)
+  - perhaps move to dot-prop with regular ES6
+- remove angular-animate when modal is moved to react
 
 SUB-ROUTES
 
