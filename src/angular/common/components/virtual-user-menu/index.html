@@ -35,16 +35,16 @@
         group-id="$ctrl.groupId"
       ></user-announcements>
     </pbs-menu-item>
-    <pbs-menu-item label="Assign Services" ng-if="$ctrl.showAssignServices">
+    <pbs-menu-item label="Service Assignment" ng-if="$ctrl.showAssignServices">
       <user-services service-type="userServices" user-id="$ctrl.userId">
       </user-services>
     </pbs-menu-item>
-    <pbs-menu-item label="Configure Services">
-      <virtual-user-services
-        service-provider-id="$ctrl.serviceProviderId"
-        group-id="$ctrl.groupId"
+    <pbs-menu-item label="Service Settings">
+      <user-services-dashboard
         user-id="$ctrl.userId"
-      ></virtual-user-services>
+        group-id="$ctrl.groupId"
+        service-provider-id="$ctrl.serviceProviderId"
+      ></user-services-dashboard>
     </pbs-menu-item>
     <pbs-menu-item label="Utilities">
       <user-feature-access-codes

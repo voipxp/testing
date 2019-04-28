@@ -48,8 +48,6 @@ function controller(Alert, Module, ACL, $ngRedux) {
   }
 
   // Can we simplify this with UserPermissionService?
-  // Also move virtual-user-services to pbs-component
-
   function loadPermissions(services) {
     if (ctrl.module.name === 'Meet-Me Conferencing') {
       ctrl.isMeetMe = true
