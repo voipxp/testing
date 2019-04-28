@@ -55,8 +55,8 @@
           <td style="vertical-align: middle">{{ service.alias }}</td>
           <td class="has-text-centered" style="vertical-align: middle">
             <button
-              class="button"
-              ng-class="{'is-success': service.assigned}"
+              class="button is-small"
+              ng-class="{'is-success': service.assigned, 'is-loading': $ctrl.loadingServices[service.serviceName]}"
               ng-click="$ctrl.toggle(service)"
               ng-disabled="$ctrl.loadingServices[service.serviceName]"
               title="{{ service.serviceName }}"

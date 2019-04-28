@@ -54,8 +54,9 @@
             <pbs-input-switch
               ng-model="user.service.assigned"
               ng-change="$ctrl.toggle(user)"
+              ng-disabled="user.isLoading"
             ></pbs-input-switch>
-            (assign {{user.service.serviceName}})
+            (assign {{ user.service.serviceName }})
           </td>
         </tr>
       </tbody>

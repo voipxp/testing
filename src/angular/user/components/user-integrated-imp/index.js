@@ -10,26 +10,18 @@ angular.module('odin.user').component('userIntegratedImp', {
   }
 })
 
-controller.$inject = ['Alert', 'UserIntegratedIMPService', 'UserServiceService']
-function controller(Alert, UserIntegratedIMPService, UserServiceService) {
+controller.$inject = ['Alert', 'UserIntegratedIMPService']
+function controller(Alert, UserIntegratedIMPService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.$onChanges = onChanges
   ctrl.edit = edit
-  ctrl.isAssigned = isAssigned
 
   function onInit() {
     ctrl.loading = true
-    return loadServices()
-      .then(function() {
-        if (isAssigned()) return loadIntegratedImp()
-      })
-      .catch(function(error) {
-        Alert.notify.danger(error)
-      })
-      .finally(function() {
-        ctrl.loading = false
-      })
+    return loadIntegratedImp()
+      .catch(Alert.notify.danger)
+      .finally(() => (ctrl.loading = false))
   }
 
   function onChanges(changes) {
@@ -44,46 +36,22 @@ function controller(Alert, UserIntegratedIMPService, UserServiceService) {
     })
   }
 
-  function loadServices() {
-    return UserServiceService.assigned(ctrl.userId).then(function(data) {
-      ctrl.assignedServices = data
-    })
-  }
-
-  function isAssigned() {
-    if (!ctrl.assignedServices) return
-    return _.find(ctrl.assignedServices.userServices, {
-      serviceName: 'Integrated IMP'
-    })
-  }
-
   function edit() {
-    if (!isAssigned()) {
-      Alert.notify.danger(
-        'Integrated IMP must be assigned before it can be enabled'
-      )
-      return
-    }
     ctrl.editIntegratedImp = angular.copy(ctrl.integratedImp)
-    Alert.modal.open('userIntegratedImpEditModal', function onSave(close) {
+    Alert.modal.open('userIntegratedImpEditModal', close =>
       update(ctrl.editIntegratedImp, close)
-    })
+    )
   }
 
   function update(service, callback) {
     Alert.spinner.open()
-
     UserIntegratedIMPService.update(ctrl.userId, service)
       .then(loadIntegratedImp)
-      .then(function() {
+      .then(() => {
         Alert.notify.success('Integrated Imp Updated')
         callback()
       })
-      .catch(function(error) {
-        Alert.notify.danger(error)
-      })
-      .finally(function() {
-        Alert.spinner.close()
-      })
+      .catch(Alert.notify.danger)
+      .finally(Alert.spinner.close)
   }
 }

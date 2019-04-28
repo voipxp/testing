@@ -12,7 +12,6 @@ controller.$inject = [
   'Route',
   'Alert',
   'GroupCallCenterService',
-  'UserServiceService',
   'ACL',
   'Module',
   '$location'
@@ -21,7 +20,6 @@ function controller(
   Route,
   Alert,
   GroupCallCenterService,
-  UserServiceService,
   ACL,
   Module,
   $location
@@ -32,54 +30,41 @@ function controller(
   ctrl.updateProfile = updateProfile
   ctrl.destroy = destroy
   ctrl.hasPermission = hasPermission
-  ctrl.assigned = assigned
-  ctrl.hasIncoming = hasIncoming
-  ctrl.loadAssigned = loadAssigned
 
   function activate() {
     ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     ctrl.hasBasicBounced = ACL.hasVersion('20')
     ctrl.hasMonitoring = Module.read('Call Center Monitoring')
-    loadAssigned()
-      .then(loadCallCenter)
-      .catch(function(error) {
-        Alert.notify.danger(error)
-      })
-      .finally(function() {
-        ctrl.loading = false
-      })
+    loadCallCenter
+      .catch(Alert.notify.danger)
+      .finally(() => (ctrl.loading = false))
   }
 
   function loadCallCenter() {
-    return GroupCallCenterService.show(ctrl.serviceUserId).then(function(data) {
-      ctrl.center = data
-      return data
-    })
+    return GroupCallCenterService.show(ctrl.serviceUserId).then(
+      data => (ctrl.center = data)
+    )
   }
 
   function update(center, callback) {
     Alert.spinner.open()
     GroupCallCenterService.update(ctrl.serviceUserId, center)
       .then(loadCallCenter)
-      .then(function() {
+      .then(() => {
         Alert.notify.success('Call Center Updated')
         if (_.isFunction(callback)) {
           callback()
         }
       })
-      .catch(function(error) {
-        Alert.notify.danger(error)
-      })
-      .finally(function() {
-        Alert.spinner.close()
-      })
+      .catch(Alert.notify.danger)
+      .finally(Alert.spinner.close)
   }
 
   function destroy(callback) {
     Alert.spinner.open()
     GroupCallCenterService.destroy(ctrl.serviceUserId)
-      .then(function() {
+      .then(() => {
         Alert.notify.success('Call Center Removed')
         callback()
         Route.open(
@@ -89,12 +74,8 @@ function controller(
           'callCenters'
         )
       })
-      .catch(function(error) {
-        Alert.notify.danger(error)
-      })
-      .finally(function() {
-        Alert.spinner.close()
-      })
+      .catch(Alert.notify.danger)
+      .finally(Alert.spinner.close)
   }
 
   function updateProfile(event) {
@@ -105,36 +86,5 @@ function controller(
 
   function hasPermission(attribute) {
     return GroupCallCenterService.hasPermission(ctrl.center, attribute)
-  }
-
-  function loadAssigned() {
-    return UserServiceService.assigned(ctrl.serviceUserId)
-      .then(mapServices)
-      .then(function(data) {
-        ctrl._assigned = data
-      })
-  }
-
-  function mapServices(assigned) {
-    var services = {}
-    assigned.userServices.forEach(function(service) {
-      services[service.serviceName] = true
-    })
-    return services
-  }
-
-  function assigned(name) {
-    return !!ctrl._assigned[name]
-  }
-
-  function hasIncoming() {
-    var services = [
-      'Call Forwarding Always',
-      'Call Forwarding Busy',
-      'Calling Name Retrieval',
-      'Call Forwarding Selective',
-      'Priority Alert'
-    ]
-    return _.find(services, assigned)
   }
 }

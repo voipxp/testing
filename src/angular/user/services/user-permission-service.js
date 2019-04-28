@@ -5,8 +5,8 @@ import { loadUserViewableServices } from '@/store/user-viewable-services'
 
 angular.module('odin.user').factory('UserPermissionService', Service)
 
-Service.$inject = ['Module', 'UserServiceService', 'ACL', '$q', '$ngRedux']
-function Service(Module, UserServiceService, ACL, $q, $ngRedux) {
+Service.$inject = ['Module', 'ACL', '$q', '$ngRedux']
+function Service(Module, ACL, $q, $ngRedux) {
   var service = { load: load }
 
   return service

@@ -1,5 +1,6 @@
 import angular from 'angular'
 import template from './index.html'
+import { updateUserServices } from '@/store/user-services'
 
 angular.module('odin.group').component('groupAnonymousCallRejection', {
   template,
@@ -10,15 +11,10 @@ angular.module('odin.group').component('groupAnonymousCallRejection', {
 controller.$inject = [
   'Alert',
   'UserAnonymousCallRejectionService',
-  'UserServiceService',
-  'Route'
+  'Route',
+  '$ngRedux'
 ]
-function controller(
-  Alert,
-  UserAnonymousCallRejectionService,
-  UserServiceService,
-  Route
-) {
+function controller(Alert, UserAnonymousCallRejectionService, Route, $ngRedux) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -27,21 +23,15 @@ function controller(
   function onInit() {
     ctrl.loading = true
     return load()
-      .catch(function(error) {
-        Alert.notify.danger(error)
-      })
-      .finally(function() {
-        ctrl.loading = false
-      })
+      .catch(Alert.notify.danger)
+      .finally(() => (ctrl.loading = false))
   }
 
   function load() {
     return UserAnonymousCallRejectionService.index(
       ctrl.serviceProviderId,
       ctrl.groupId
-    ).then(function(data) {
-      ctrl.users = data
-    })
+    ).then(data => (ctrl.users = data))
   }
 
   function open(user) {
@@ -55,24 +45,22 @@ function controller(
   }
 
   function toggle(user) {
-    var singleService = {
+    const singleService = {
       userId: user.profile.userId,
       userServices: [user.service]
     }
-    UserServiceService.update(singleService)
+    user.isLoading = true
+    $ngRedux
+      .dispatch(updateUserServices(singleService))
       .then(load)
       .then(function() {
-        var message = user.service.assigned ? 'Assigned' : 'Unassigned'
-        var action = user.service.assigned
+        const message = user.service.assigned ? 'Assigned' : 'Unassigned'
+        const action = user.service.assigned
           ? Alert.notify.success
           : Alert.notify.warning
-        action(
-          user.profile.userId + ' ' + user.service.serviceName + ' ' + message
-        )
+        action(`${user.profile.userId} ${user.service.serviceName} ${message}`)
       })
-      .catch(function(error) {
-        Alert.notify.danger(error)
-      })
-      .finally(function() {})
+      .catch(Alert.notify.danger)
+      .finally(() => (user.isLoading = false))
   }
 }

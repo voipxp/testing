@@ -24,7 +24,7 @@
       </pbs-menu-item>
     </pbs-menu-section>
     <pbs-menu-section label="Management">
-      <pbs-menu-item label="Profile">
+      <pbs-menu-item label="User Profile">
         <user-profile user-id="$ctrl.userId"></user-profile>
       </pbs-menu-item>
       <pbs-menu-item label="Passwords">
@@ -46,7 +46,7 @@
           group-id="$ctrl.groupId"
         ></user-announcements>
       </pbs-menu-item>
-      <pbs-menu-item label="Services">
+      <pbs-menu-item label="Service Settings">
         <user-services-dashboard
           user-id="$ctrl.userId"
           group-id="$ctrl.groupId"
@@ -74,7 +74,7 @@
           user-id="$ctrl.userId"
         ></user-communication-barring-authorization-codes>
       </pbs-menu-item>
-      <pbs-menu-item label="Services" ng-if="$ctrl.hasProvisioning">
+      <pbs-menu-item label="Service Assignment" ng-if="$ctrl.hasProvisioning">
         <user-services service-type="userServices" user-id="$ctrl.userId">
         </user-services>
       </pbs-menu-item>
