@@ -36,7 +36,7 @@ function controller(
     ctrl.loading = true
     ctrl.hasBasicBounced = ACL.hasVersion('20')
     ctrl.hasMonitoring = Module.read('Call Center Monitoring')
-    loadCallCenter
+    loadCallCenter()
       .catch(Alert.notify.danger)
       .finally(() => (ctrl.loading = false))
   }

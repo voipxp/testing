@@ -9,8 +9,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-
 const production = process.env.NODE_ENV === 'production'
+const showStats = process.env.SHOW_STATS
 
 module.exports = {
   devServer: {
@@ -21,7 +21,8 @@ module.exports = {
         changeOrigin: /^https$/.test(process.env.API_URL)
       },
       '/socket.io': {
-        target: process.env.EVENT_URL || process.env.API_URL
+        target: process.env.EVENT_URL || process.env.API_URL,
+        ws: true
       }
     }
   },
@@ -34,10 +35,11 @@ module.exports = {
     mainFields: ['browser', 'main', 'module'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      'react-dom': '@hot-loader/react-dom'
+      'react-dom': '@hot-loader/react-dom',
+      'chart.js': 'chart.js/dist/Chart.js'
     }
   },
-  stats: 'minimal',
+  stats: showStats ? 'normal' : 'minimal',
   optimization: {
     runtimeChunk: 'single',
     minimizer: [
