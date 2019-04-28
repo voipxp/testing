@@ -175,7 +175,7 @@ function controller(Alert, UserPermissionService, Module, $q, $window) {
               ...service,
               alias: Module.alias(serviceName),
               description: Module.description(serviceName),
-              isActive: service.isActive === 'true' || service.isActive === true
+              isActive: service.isActive
             }
           })
         // remove dups such as Call Center - Basic and Call Center - Standard

@@ -12,11 +12,10 @@ controller.$inject = [
   'Module',
   'UserPermissionService',
   'Alert',
-  '$rootScope'
+  '$ngRedux'
 ]
-function controller(ACL, Module, UserPermissionService, Alert, $rootScope) {
+function controller(ACL, Module, UserPermissionService, Alert, $ngRedux) {
   const ctrl = this
-  ctrl.$onInit = onInit
 
   const quickActions = [
     'Call Forwarding Always',
@@ -27,13 +26,21 @@ function controller(ACL, Module, UserPermissionService, Alert, $rootScope) {
     'BroadWorks Anywhere'
   ]
 
-  function onInit() {
+  let unsubscribe
+  ctrl.$onDestroy = () => {
+    if (unsubscribe) unsubscribe()
+  }
+
+  ctrl.$onInit = () => {
     ctrl.isAdmin = ACL.has('Group')
     ctrl.hasAnnouncements = ACL.hasVersion('20')
     ctrl.loading = true
-    loadPermissions()
-      .catch(error => Alert.notify.danger(error))
-      .finally(() => (ctrl.loading = false))
+    const mapState = state => ({
+      services: state.userAssignedServices[ctrl.userId]
+    })
+    unsubscribe = $ngRedux.connect(mapState)(
+      state => state && loadPermissions()
+    )
   }
 
   function loadPermissions() {
@@ -46,8 +53,7 @@ function controller(ACL, Module, UserPermissionService, Alert, $rootScope) {
       )
       ctrl.hasSCA = Permission.read('Shared Call Appearance')
       ctrl.showQuick = quickActions.find(service => Permission.read(service))
+      ctrl.loading = false
     })
   }
-
-  $rootScope.$on('UserServiceService:updated', loadPermissions)
 }

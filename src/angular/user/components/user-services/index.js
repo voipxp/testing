@@ -60,7 +60,6 @@ function controller(Alert, $filter, EventEmitter, $ngRedux, $rootScope) {
           ? Alert.notify.success
           : Alert.notify.warning
         action(`${service.serviceName} ${message}`)
-        $rootScope.$broadcast('UserServiceService:updated')
         sendUpdate(singleService)
       })
       .catch(Alert.notify.danger)

@@ -33,9 +33,6 @@ function UserServiceService($http, Route, $rootScope) {
   }
 
   function update(service) {
-    return $http.put(url(), service).then(({ data }) => {
-      $rootScope.$broadcast('UserServiceService:updated', service)
-      return data
-    })
+    return $http.put(url(), service).then(({ data }) => data)
   }
 }

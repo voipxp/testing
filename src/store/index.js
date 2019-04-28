@@ -1,6 +1,7 @@
 import { configureStore } from 'redux-starter-kit'
 import alerts from './alerts'
 import userServices from './user-services'
+import userAssignedServices from './user-assigned-services'
 import userViewableServices from './user-viewable-services'
 import session, { loadSessionFromStorage, clearSession } from './session'
 import serviceProviders from './service-providers'
@@ -18,6 +19,7 @@ const store = configureStore({
     serviceProviders,
     session,
     userServices,
+    userAssignedServices,
     userViewableServices,
     ui
   },

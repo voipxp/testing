@@ -1,6 +1,6 @@
 import angular from 'angular'
 import _ from 'lodash'
-import { loadUserServices } from '@/store/user-services'
+import { loadUserAssignedServices } from '@/store/user-assigned-services'
 import { loadUserViewableServices } from '@/store/user-viewable-services'
 
 angular.module('odin.user').factory('UserPermissionService', Service)
@@ -14,7 +14,7 @@ function Service(Module, UserServiceService, ACL, $q, $ngRedux) {
   function load(userId, useCache) {
     return $q
       .all([
-        loadServices(userId, useCache),
+        loadAssigned(userId, useCache),
         loadViewable(userId),
         Module.load()
       ])
@@ -109,11 +109,11 @@ function Service(Module, UserServiceService, ACL, $q, $ngRedux) {
     }
   }
 
-  function loadServices(userId, useCache = true) {
-    const services = $ngRedux.getState().userServices[userId]
+  function loadAssigned(userId, useCache = true) {
+    const services = $ngRedux.getState().userAssignedServices[userId]
     return useCache && services
       ? $q.when(services)
-      : $ngRedux.dispatch(loadUserServices(userId))
+      : $ngRedux.dispatch(loadUserAssignedServices(userId))
   }
 
   // doesn't change often, use cache always
@@ -125,12 +125,9 @@ function Service(Module, UserServiceService, ACL, $q, $ngRedux) {
   }
 
   function mapServices(assigned) {
-    var services = {}
-    assigned.userServices.forEach(function(service) {
-      if (service.assigned) {
-        services[service.serviceName] = true
-      }
-    })
-    return services
+    return assigned.userServices.reduce((obj, service) => {
+      obj[service.serviceName] = true
+      return obj
+    }, {})
   }
 }
