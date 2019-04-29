@@ -78,8 +78,11 @@ const Login = () => {
     }
     try {
       dispatch(showLoadingModal())
-      await authApi.password(form.password, form.newPassword1, form.username)
-      const session = await authApi.token(form.username, form.newPassword1)
+      const session = await authApi.tokenPassword(
+        form.password,
+        form.newPassword1,
+        form.username
+      )
       await dispatch(setSession(session))
     } catch (error) {
       dispatch(alertDanger(error))

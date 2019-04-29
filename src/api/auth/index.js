@@ -9,6 +9,10 @@ export const refresh = token => {
   return api.put('auth/token', null, opts)
 }
 
+export const tokenPassword = (oldPassword, newPassword, userId) => {
+  return api.put('auth/token/password', { userId, newPassword, oldPassword })
+}
+
 export const password = (oldPassword, newPassword, userId) => {
   return api.put('auth/password', { userId, newPassword, oldPassword })
 }
@@ -17,4 +21,4 @@ export const session = () => api.get('auth/session')
 
 export const sso = partner => api.put(`auth/sso/${partner}`)
 
-export default { token, refresh, password, session, sso }
+export default { token, tokenPassword, refresh, password, session, sso }
