@@ -92,95 +92,99 @@ const Login = () => {
   }
 
   return (
-    <Hero color="link" size="fullheight">
-      <Hero.Body textAlign="centered">
-        <Box style={{ width: '400px', margin: 'auto' }}>
-          <img src="/api/v2/ui/images/imageLoginLogo.png" alt="logo" />
-          <form onSubmit={handleSubmit} ref={formRef}>
-            <Field>
-              <Control iconLeft>
-                <Input
-                  type="text"
-                  placeholder="Username"
-                  name="username"
-                  onChange={handleInput}
-                  value={form.username}
-                  autoCapitalize="off"
-                  required
-                />
-                <Icon size="small" align="left">
-                  <FontAwesomeIcon icon={faEnvelope} />
-                </Icon>
-              </Control>
-            </Field>
+    <div id="pbs-login">
+      <Hero color="link" size="fullheight">
+        <Hero.Body textAlign="centered">
+          <Box style={{ width: '400px', margin: 'auto' }}>
+            <img src="/api/v2/ui/images/imageLoginLogo.png" alt="logo" />
+            <form onSubmit={handleSubmit} ref={formRef}>
+              <Field>
+                <Control iconLeft>
+                  <Input
+                    type="text"
+                    placeholder="Username"
+                    name="username"
+                    onChange={handleInput}
+                    value={form.username}
+                    autoCapitalize="off"
+                    required
+                  />
+                  <Icon size="small" align="left">
+                    <FontAwesomeIcon icon={faEnvelope} />
+                  </Icon>
+                </Control>
+              </Field>
 
-            <Field>
-              <Control iconLeft>
-                <Input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  onChange={handleInput}
-                  value={form.password}
-                  required
-                />
-                <Icon size="small" align="left">
-                  <FontAwesomeIcon icon={faLock} />
-                </Icon>
-              </Control>
-            </Field>
+              <Field>
+                <Control iconLeft>
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    onChange={handleInput}
+                    value={form.password}
+                    required
+                  />
+                  <Icon size="small" align="left">
+                    <FontAwesomeIcon icon={faLock} />
+                  </Icon>
+                </Control>
+              </Field>
 
-            {needsChange && (
-              <>
-                <Field>
-                  <Control iconLeft>
-                    <Input
-                      type="password"
-                      placeholder="New Password"
-                      name="newPassword1"
-                      onChange={handleInput}
-                      value={form.newPassword1}
-                      required
-                    />
-                    <Icon size="small" align="left">
-                      <FontAwesomeIcon icon={faLock} />
-                    </Icon>
-                  </Control>
-                </Field>
+              {needsChange && (
+                <>
+                  <Field>
+                    <Control iconLeft>
+                      <Input
+                        type="password"
+                        placeholder="New Password"
+                        name="newPassword1"
+                        onChange={handleInput}
+                        value={form.newPassword1}
+                        required
+                      />
+                      <Icon size="small" align="left">
+                        <FontAwesomeIcon icon={faLock} />
+                      </Icon>
+                    </Control>
+                  </Field>
 
-                <Field>
-                  <Control iconLeft>
-                    <Input
-                      type="password"
-                      placeholder="New Password"
-                      name="newPassword2"
-                      onChange={handleInput}
-                      value={form.newPassword2}
-                      required
-                    />
-                    <Icon size="small" align="left">
-                      <FontAwesomeIcon icon={faLock} />
-                    </Icon>
-                  </Control>
-                </Field>
-              </>
-            )}
+                  <Field>
+                    <Control iconLeft>
+                      <Input
+                        type="password"
+                        placeholder="New Password"
+                        name="newPassword2"
+                        onChange={handleInput}
+                        value={form.newPassword2}
+                        required
+                      />
+                      <Icon size="small" align="left">
+                        <FontAwesomeIcon icon={faLock} />
+                      </Icon>
+                    </Control>
+                  </Field>
+                </>
+              )}
 
-            <Button color="link" fullwidth type="submit" disabled={!valid}>
-              Login
-            </Button>
-          </form>
-        </Box>
-      </Hero.Body>
+              <Button color="link" fullwidth type="submit" disabled={!valid}>
+                Login
+              </Button>
+            </form>
+          </Box>
+        </Hero.Body>
 
-      {pageLoginMessage && (
-        <Hero.Foot>
-          <Message radiusless>
-            <Message.Body textAlign="centered">{pageLoginMessage}</Message.Body>
-          </Message>
-        </Hero.Foot>
-      )}
-    </Hero>
+        {pageLoginMessage && (
+          <Hero.Foot>
+            <Message radiusless>
+              <Message.Body textAlign="centered">
+                {pageLoginMessage}
+              </Message.Body>
+            </Message>
+          </Hero.Foot>
+        )}
+      </Hero>
+    </div>
   )
 }
 

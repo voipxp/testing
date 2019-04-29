@@ -81,7 +81,7 @@ const AppNavbar = ({ history }) => {
   }
 
   return (
-    <>
+    <div id="pbs-navbar">
       <Navbar color="link" managed active={showMenu}>
         <Navbar.Brand>
           <Navbar.Item href="#!/">
@@ -187,7 +187,7 @@ const AppNavbar = ({ history }) => {
           </UiModalCard>
         </>
       )}
-    </>
+    </div>
   )
 }
 
