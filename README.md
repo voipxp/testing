@@ -41,22 +41,18 @@ yarn build
 docker build -t odin-web .
 ```
 
-## Bundles
-
-The bundler (parcel) starts at index.html and then walks all import statements, href, src, etc... If a file is to be known to angular, it must be imported at some point. Any 3rd party deps (such as lodash) need to be included at the top of the file that will use it. The bundler is smart enough to know not to require it twice.
-
 ## React
 
-The application is running React with old angular code inside it being render via the AngularComponent (**src/components/angular-component**). New components _should_ be written in React.
+The application is running React with previous angular code inside it being render via the AngularComponent (**src/components/angular-component**). New components _should_ be written in React.
 
-The preference for react components is to use functional components and utilize hooks (useState, useReducer) for local state management and lifecycle (useEffect). For global storage we are currently utilizing Redux. The stores are located in **src/store**.
+The preference for react components is to use functional components and utilize hooks (useState, useReducer) for local state management and lifecycle methods (useEffect). For global storage we are currently utilizing Redux. The stores are located in **src/store**.
 
 ### Directory structure
 
 The current directory structure is as follows
 
 ```
-├── angular        # stores old angular code
+├── angular        # stores angular code
 ├── api            # the API library (eventually extract to module)
 ├── components     # view components
 ├── store          # redux related files
@@ -91,27 +87,27 @@ components/hunt-group/group-hunt-group-create.js
 
 ### Redux
 
-We are using redux for state management. In general, store temporary or ephemeral data locally in the component. For example, form state, search results, error messages. Anything else that can be shared and re-used could be stored in the redux store. The angular module **\$ngRedux** is provided that can be used to share state with the angular side of the application.
+We are using redux for global state management. In general, store temporary or ephemeral data locally in the component. For example, form state, search results, error messages. Anything else that can be shared and re-used in other components _should_ be stored in the redux store. The angular module **\$ngRedux** is can be utilized to share state and dispatch actions within the angular side of the application.
 
-We haven't yet determined the best schema design of the redux store, this is an ongoing experiment. This document will be updated when this is solidified.
+We haven't yet determined the best schema design of the redux store, this is an ongoing experiment. This document will be updated as it progresses.
 
 ### Documentation
 
-Re-usable components should be documented using [docz](https://www.docz.site/). Examples exist in the **src/components/ui** directory and are files with a suffix of **.mdx**. The documentation for a component should be included next to the component.
+Re-usable components should be documented using [docz](https://www.docz.site/). Examples exist in the **src/components/ui** directory. The documentation for a component should be included next to the component in a file with the same name as the component and a suffix of **.mdx**.
 
 ## Angular
 
-All the old Angular code resides in the subdirectory **src/angular**. The intention is to eventually replace all that code with a react version. However, the general rule of thumb is:
+All the Angular code resides in the subdirectory **src/angular**. The intention is to eventually replace all that code with a react version. However, the general rule of thumb is:
 
-- If simply injecting \$ngRedux into the component would solve the problem, just do that.
-- If < 30% of the file has to be changed, just patch it and move on
-- If > 30% of the file has to be changed, then rewrite it in react.
+- If simply injecting \$ngRedux into the component would solve the problem, then do that.
+- If < 30% of the file has to be changed, then patch it and move on.
+- If > 30% of the file has to be changed, then rewrite the component in react.
 
 ### Angular Modules
 
-- All API related services should reside in the **odin.api** module.
-- Any top-level UI features not specific to broadworks (eg: bulma related components such as pbs-block) should be in the **odin.ui** module.
-- Anything such as a helper component that could be re-used in multiple places should reside in **odin.common**
+- All API related services reside in the **odin.api** module.
+- Any top-level UI features not specific to broadworks (eg: bulma related components such as pbs-block) are located in the **odin.ui** module.
+- Anything such as a helper component that can be re-used in multiple places resides in **odin.common**
 - Anything else should be within the module related to the broadworks higherarchy (user, group, ...) or the particular functionality of those components. Feel free to break them out into sub-components if it gets cluttered. (eg: **odin.group**, **odin.group.trunking**)
 
 ### Naming Convention
@@ -295,7 +291,7 @@ function MyService(SomeDI) {
 
 You can use the command-line to generate an index.js file to import all the services or components.
 
-For example, to include all the service files.
+For example, to include all the service files in a directory.
 
 ```
 for i in $(find . -type f | grep -v index.js | sort | awk -F '.js' '{print $1}'); do
@@ -311,7 +307,7 @@ import './b-service.js'
 import './c-service.js'
 ```
 
-To include all the component directories
+To include all the component directories that are expected to contain an index.js file within.
 
 ```
 for i in $(find . -type d | sort | grep -v '^.$'); do
