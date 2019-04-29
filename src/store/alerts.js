@@ -1,6 +1,11 @@
 import { createSlice } from 'redux-starter-kit'
 import cuid from 'cuid'
 
+/*
+  state.alerts = [
+    { id, type, message }
+  ]
+*/
 const slice = createSlice({
   slice: 'alerts',
   initialState: [],

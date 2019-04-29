@@ -1,6 +1,11 @@
 import { createSlice } from 'redux-starter-kit'
 import serviceProviderApi from '@/api/service-providers'
 
+/*
+  state.serviceProviders = [
+    { serviceProviderId, ... }
+  ]
+*/
 const slice = createSlice({
   slice: 'serviceProviders',
   initialState: [],

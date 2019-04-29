@@ -5,6 +5,12 @@ import { refresh } from '@/api/auth'
 
 const STORAGE_KEY = 'odin:token'
 
+/*
+  state.session = {
+    userId,
+    ...
+  }
+*/
 const slice = createSlice({
   slice: 'session',
   initialState: {},

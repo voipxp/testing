@@ -1,6 +1,13 @@
 import { createSlice } from 'redux-starter-kit'
 import userServicesApi from '@/api/user-services'
 
+/*
+  state.userViewableServices = {
+    [userId]: {
+      userServices
+    }
+  }
+*/
 const slice = createSlice({
   slice: 'userViewableServices',
   initialState: {},

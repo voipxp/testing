@@ -4,6 +4,20 @@ import uiSettingsApi from '@/api/ui/settings'
 import uiTemplateApi from '@/api/ui/template'
 import uiModulesApi from '@/api/ui/modules'
 
+/*
+  state.ui = {
+    initialized: false,
+    showLoadingModal: false,
+    applications: [
+      {id, ...}
+    ],
+    modules: {
+      [serviceName]: {}
+    },
+    settings: {},
+    template: {}
+  }
+*/
 const slice = createSlice({
   slice: 'ui',
   initialState: {

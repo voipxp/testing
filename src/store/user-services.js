@@ -2,6 +2,14 @@ import { createSlice } from 'redux-starter-kit'
 import { loadUserAssignedServices } from './user-assigned-services'
 import userServicesApi from '@/api/user-services'
 
+/*
+  state.userServices = {
+    [userId]: {
+      userServices,
+      servicePackServices
+    }
+  }
+*/
 const slice = createSlice({
   slice: 'userServices',
   initialState: {},
