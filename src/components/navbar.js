@@ -84,7 +84,7 @@ const AppNavbar = ({ history }) => {
     <>
       <Navbar color="link" managed active={showMenu}>
         <Navbar.Brand>
-          <Navbar.Item href="/">
+          <Navbar.Item href="#!/">
             <img
               src="/api/v2/ui/images/imageIcon.png?size=50x51"
               alt="odin Web"
@@ -94,7 +94,7 @@ const AppNavbar = ({ history }) => {
         </Navbar.Brand>
         <Navbar.Menu>
           <Navbar.Segment align="start">
-            <Navbar.Item href="/">
+            <Navbar.Item href="#!/">
               {pageTitle} ({userId})
             </Navbar.Item>
           </Navbar.Segment>
