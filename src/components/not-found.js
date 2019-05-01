@@ -9,7 +9,7 @@ const BreadcrumbStyled = styled.div`
 const NotFound = () => (
   <>
     <Breadcrumb as={BreadcrumbStyled}>
-      <Breadcrumb.Item href="/">Dashboard</Breadcrumb.Item>
+      <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
       <Breadcrumb.Item>Error</Breadcrumb.Item>
     </Breadcrumb>
 

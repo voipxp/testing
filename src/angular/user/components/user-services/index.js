@@ -5,7 +5,7 @@ import { loadUserServices, updateUserServices } from '@/store/user-services'
 angular.module('odin.user').component('userServices', {
   template,
   controller,
-  bindings: { serviceType: '@', userId: '<', onUpdate: '&' }
+  bindings: { serviceType: '<', userId: '<', onUpdate: '&' }
 })
 
 controller.$inject = [

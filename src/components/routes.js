@@ -6,7 +6,7 @@ import { useReduxState } from 'reactive-react-redux'
 import Dashboard from './dashboard'
 import UserDashboard from './user-dashboard'
 import AngularComponent from './angular-component'
-import NotFound from './notfound'
+import NotFound from './not-found'
 import { hasLevel } from '@/utils/acl'
 
 // angular routes
