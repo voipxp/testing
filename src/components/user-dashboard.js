@@ -5,7 +5,8 @@ import { Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import AngularComponent from './angular-component'
 import Breadcrumb from './breadcrumb'
-import components from './user-dashboard-menu'
+import components from './user-dashboard-components'
+import { useAcl } from '@/utils/acl'
 
 const StyledMenu = styled.div`
   background-color: white;
@@ -45,34 +46,44 @@ renderComponent.propTypes = {
 }
 
 const UserDashboard = ({ match, location }) => {
+  const { hasVersion, hasLevel } = useAcl()
+
+  const renderItem = (label, path) => {
+    const component = components[label][path]
+
+    // check permissions
+    if (component.version && !hasVersion(component.version)) return null
+    if (component.acl && !hasLevel(component.acl)) return null
+
+    const componentPath = `${match.url}/${path}`
+    return (
+      <Menu.List.Item
+        key={path}
+        active={location.pathname === componentPath}
+        href={`#!${componentPath}`}
+      >
+        {component.name}
+      </Menu.List.Item>
+    )
+  }
+  const renderSection = label => {
+    return (
+      <React.Fragment key={label}>
+        <Menu.Label>{label}</Menu.Label>
+        <Menu.List>
+          {Object.keys(components[label]).map(path => renderItem(label, path))}
+        </Menu.List>
+      </React.Fragment>
+    )
+  }
+
   return (
     <>
       <Breadcrumb />
       <Column.Group>
         <Column size="one-quarter">
           <Menu as={StyledMenu}>
-            {Object.keys(components).map(label => {
-              return (
-                <React.Fragment key={label}>
-                  <Menu.Label>{label}</Menu.Label>
-                  <Menu.List>
-                    {Object.keys(components[label]).map(path => {
-                      const component = components[label][path]
-                      const componentPath = `${match.url}/${path}`
-                      return (
-                        <Menu.List.Item
-                          key={path}
-                          active={location.pathname === componentPath}
-                          href={`#!${componentPath}`}
-                        >
-                          {component.name}
-                        </Menu.List.Item>
-                      )
-                    })}
-                  </Menu.List>
-                </React.Fragment>
-              )
-            })}
+            {Object.keys(components).map(label => renderSection(label))}
           </Menu>
         </Column>
         <Column size="three-quarters">

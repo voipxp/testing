@@ -1,6 +1,26 @@
-import React from 'react'
+export const tester = [
+  {
+    path: 'call-records',
+    name: 'Call Records',
+    section: 'Dashboard',
+    angularComponent: 'userCallRecordDashboard'
+  },
+  {
+    path: 'feature-quick-set',
+    name: 'Feature Quick Set',
+    section: 'Dashboard',
+    angularComponent: 'userQuickSet'
+  },
+  {
+    path: 'announcements',
+    name: 'Announcements',
+    section: 'Management',
+    angularComponent: 'userAnnouncements',
+    version: '20'
+  }
+]
 
-const components = {
+export const components = {
   Dashboard: {
     'call-records': {
       name: 'Call Records',
@@ -22,7 +42,8 @@ const components = {
     },
     'announcements': {
       name: 'Announcements',
-      angularComponent: 'userAnnouncements'
+      angularComponent: 'userAnnouncements',
+      version: '20'
     },
     'service-settings': {
       name: 'Service Settings',
