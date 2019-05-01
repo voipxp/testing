@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import camelCase from 'lodash/camelCase'
 import { useReduxState } from 'reactive-react-redux'
 import Dashboard from './dashboard'
+import UserDashboard from './user-dashboard'
 import AngularComponent from './angular-component'
 import NotFound from './notfound'
 import { hasLevel } from '@/utils/acl'
@@ -84,6 +85,10 @@ const Router = () => {
       <Switch>
         <Route path="/" exact component={Dashboard} />
         {angularRoutes.map(route => generateRoute(route))}
+        <Route
+          path="/users/:serviceProviderId/:groupId/:userId/dashboard"
+          component={UserDashboard}
+        />
         <Route component={NotFound} />
       </Switch>
       <Route component={Analytics} />
