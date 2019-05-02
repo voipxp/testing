@@ -9,6 +9,12 @@ const routes = [
     angularComponent: 'userCallRecordDashboard'
   },
   {
+    path: 'basic-call-logs',
+    name: 'Basic Call Logs',
+    section: 'Dashboard',
+    angularComponent: 'userBasicCallLogs'
+  },
+  {
     path: 'feature-quick-set',
     name: 'Feature Quick Set',
     section: 'Dashboard',
