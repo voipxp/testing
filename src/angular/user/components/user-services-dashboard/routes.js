@@ -196,7 +196,7 @@ export default {
     module: 'Selective Call Rejection'
   },
   'Sequential Ring': {
-    component: 'Sequential Ring',
+    component: 'userSequentialRing',
     module: 'Sequential Ring'
   },
   'Shared Call Appearance': {
