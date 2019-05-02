@@ -53,6 +53,10 @@ function controller(ACL, Module, UserPermissionService, Alert, $ngRedux) {
       )
       ctrl.hasSCA = Permission.read('Shared Call Appearance')
       ctrl.showQuick = quickActions.find(service => Permission.read(service))
+      ctrl.showBasicCallLogs = Permission.read('Basic Call Logs')
+      ctrl.showPremiumCallRecords = Module.read('Premium Call Records')
+      ctrl.showDashboardSection =
+        ctrl.showBasicCallLogs || ctrl.showPremiumCallRecords || ctrl.showQuick
       ctrl.loading = false
     })
   }
