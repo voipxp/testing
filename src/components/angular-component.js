@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect'
@@ -12,8 +12,8 @@ const AngularComponent = ({
   match = {},
   ...props
 }) => {
-  const scopeRef = useRef()
-  const ref = useRef()
+  const scopeRef = React.useRef()
+  const ref = React.useRef()
 
   useDeepCompareEffectNoCheck(() => {
     renderAngular()

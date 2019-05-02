@@ -1,5 +1,5 @@
 import { hot } from 'react-hot-loader/root'
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import ReactGA from 'react-ga'
 import { Section } from 'rbx'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
@@ -29,14 +29,14 @@ const App = () => {
   const { pageGoogleUA } = state.ui.template
   const { userId } = state.session
 
-  const alertRef = useRef()
-  const timerRef = useRef()
+  const alertRef = React.useRef()
+  const timerRef = React.useRef()
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (pageGoogleUA) ReactGA.initialize(pageGoogleUA)
   }, [pageGoogleUA])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!initialized || !sessionTimeout || !userId) return
     const timeToIdle = sessionTimeout * 60 * 1000
     const activityDetector = createActivityDetector({

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { useReduxDispatch } from 'reactive-react-redux'
@@ -31,11 +31,11 @@ const columns = [
 const UserSearch = ({ onSelect }) => {
   const dispatch = useReduxDispatch()
 
-  const [searchKey, setSearchKey] = useState('lastName')
-  const [searchString, setSearchString] = useState('')
-  const [users, setUsers] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [initialized, setInitialized] = useState(false)
+  const [searchKey, setSearchKey] = React.useState('lastName')
+  const [searchString, setSearchString] = React.useState('')
+  const [users, setUsers] = React.useState([])
+  const [loading, setLoading] = React.useState(false)
+  const [initialized, setInitialized] = React.useState(false)
 
   const handleSearchKey = e => {
     setSearchKey(e.target.value)

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { UiSpinner, UiDataTable } from '@/components/ui'
@@ -16,7 +16,7 @@ const ServiceProviderSelect = ({ onSelect }) => {
 
   const { serviceProviders } = state
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(loadServiceProviders())
   }, [dispatch])
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import { Field, Control, Button, Input, Icon } from 'rbx'
@@ -28,12 +28,12 @@ const SystemDnSearch = ({ onSelect }) => {
   const state = useReduxState()
   const { loginType } = state.session
 
-  const [searchString, setSearchString] = useState('')
-  const [serviceProviderId, setServiceProviderId] = useState('')
-  const [showServiceProvider, setShowServiceProvider] = useState(false)
-  const [users, setUsers] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [initialized, setInitialized] = useState(false)
+  const [searchString, setSearchString] = React.useState('')
+  const [serviceProviderId, setServiceProviderId] = React.useState('')
+  const [showServiceProvider, setShowServiceProvider] = React.useState(false)
+  const [users, setUsers] = React.useState([])
+  const [loading, setLoading] = React.useState(false)
+  const [initialized, setInitialized] = React.useState(false)
 
   const hasProvisioning = acl.hasProvisioning(loginType)
 

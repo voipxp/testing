@@ -2,12 +2,12 @@ TODO
 
 - replace user dashboard with react
 
-  - perhaps extract route filtering from UiMenu
   - add Module permissions checks
   - add Service checks
 
+- add feature flag for call center queue
+
 - add integrated IMP check to SCA page
-- acl helper custom hook
 - make lodash requires modular (https://github.com/ant-design/babel-plugin-import#readme)
   - perhaps move to dot-prop with regular ES6
 - remove angular-animate when modal is moved to react

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { useReduxDispatch } from 'reactive-react-redux'
@@ -22,11 +22,11 @@ const columns = [
 const GroupSearch = ({ onSelect }) => {
   const dispatch = useReduxDispatch()
 
-  const [searchKey, setSearchKey] = useState('groupName')
-  const [searchString, setSearchString] = useState('')
-  const [groups, setGroups] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [initialized, setInitialized] = useState(false)
+  const [searchKey, setSearchKey] = React.useState('groupName')
+  const [searchString, setSearchString] = React.useState('')
+  const [groups, setGroups] = React.useState([])
+  const [loading, setLoading] = React.useState(false)
+  const [initialized, setInitialized] = React.useState(false)
 
   const handleSearchKey = e => {
     setSearchKey(e.target.value)

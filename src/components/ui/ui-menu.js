@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import uniq from 'lodash/uniq'
-import sortBy from 'lodash/sortBy'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Menu, Column, Message } from 'rbx'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import { UiSpinner } from '@/components/ui'
-import { useAcl } from '@/utils/acl'
 import AngularComponent from '@/components/angular-component'
 
 const StyledMenu = styled.div`
@@ -23,40 +20,13 @@ const NotFound = () => (
   </Message>
 )
 
-export const UiMenu = ({ match, location, routes = [] }) => {
-  const { hasVersion, hasLevel } = useAcl()
-  const [menuRoutes, setMenuRoutes] = useState([])
-  const [menuSections, setMenuSections] = useState([])
-  const [menuItems, setMenuItems] = useState([])
-
-  // filter out routes based on permissions of the user
-  useEffect(() => {
-    const items = routes.filter(route => {
-      if (route.version && !hasVersion(route.version)) return false
-      if (route.acl && !hasLevel(route.acl)) return false
-      return true
-    })
-    setMenuRoutes(items)
-  }, [hasLevel, hasVersion, routes])
-
-  // order the sections by name
-  useEffect(() => {
-    const sortedSections = uniq(menuRoutes.map(i => i.section)).sort()
-    setMenuSections(sortedSections)
-  }, [menuRoutes])
-
-  // create a map of routes to sections
-  useEffect(() => {
-    const mappedRoutes = sortBy(menuRoutes, 'name').reduce((obj, item) => {
-      obj[item.section] = obj[item.section] || []
-      obj[item.section].push(item)
-      return obj
-    }, {})
-    setMenuItems(mappedRoutes)
-  }, [menuRoutes])
-
+export const UiMenu = ({ match, location, menu = [] }) => {
   const renderRoute = path => {
-    const route = menuRoutes.find(route => route.path === path)
+    let route
+    for (const section of menu) {
+      route = section.items.find(item => item.path === path)
+      if (route) break
+    }
     if (!route) return <NotFound />
     if (route.angularComponent) {
       const props = { ...route.bindings }
@@ -69,8 +39,8 @@ export const UiMenu = ({ match, location, routes = [] }) => {
 
   // select the first route from the first section
   const renderDefault = () => {
-    const section = menuSections[0]
-    const route = section && menuItems[section][0]
+    const section = menu[0]
+    const route = section && section.items[0]
     return route ? (
       <Redirect to={`${match.url}/${route.path}`} />
     ) : (
@@ -83,11 +53,11 @@ export const UiMenu = ({ match, location, routes = [] }) => {
       <Column.Group>
         <Column size="one-quarter">
           <Menu as={StyledMenu}>
-            {menuSections.map(section => (
-              <React.Fragment key={section}>
-                <Menu.Label>{section}</Menu.Label>
+            {menu.map(section => (
+              <React.Fragment key={section.section}>
+                <Menu.Label>{section.section}</Menu.Label>
                 <Menu.List>
-                  {menuItems[section].map(item => {
+                  {section.items.map(item => {
                     const path = `${match.url}/${item.path}`
                     return (
                       <Menu.List.Item
@@ -122,7 +92,19 @@ export const UiMenu = ({ match, location, routes = [] }) => {
 UiMenu.propTypes = {
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  routes: PropTypes.array.isRequired
+  menu: PropTypes.arrayOf(
+    PropTypes.shape({
+      section: PropTypes.string.isRequired,
+      items: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          path: PropTypes.string.isRequired,
+          component: PropTypes.any,
+          angularComponent: PropTypes.string
+        })
+      )
+    })
+  ).isRequired
 }
 
 export default withRouter(UiMenu)

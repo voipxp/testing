@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React from 'react'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,7 +13,7 @@ const Login = () => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
 
-  const tokenLogin = useCallback(() => {
+  const tokenLogin = React.useCallback(() => {
     const [hash, query] = window.location.hash.split('?')
     if (!query) return
     const search = parse(query)
@@ -28,21 +28,21 @@ const Login = () => {
       .finally(() => dispatch(hideLoadingModal()))
   }, [dispatch])
 
-  useEffect(() => {
+  React.useEffect(() => {
     tokenLogin()
   }, [tokenLogin])
 
   const { pageLoginMessage } = state.ui.template
 
-  const formRef = useRef()
-  const [form, setForm] = useState({
+  const formRef = React.useRef()
+  const [form, setForm] = React.useState({
     username: '',
     password: '',
     newPassword1: '',
     newPassword2: ''
   })
-  const [needsChange, setNeedsChange] = useState(false)
-  const [valid, setValid] = useState(false)
+  const [needsChange, setNeedsChange] = React.useState(false)
+  const [valid, setValid] = React.useState(false)
 
   function handleSubmit(e) {
     e.preventDefault()

@@ -3,53 +3,44 @@ name: UiMenu
 route: '/ui-menu'
 ---
 
+import { HashRouter } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { Playground, Props } from 'docz'
 import { UiMenu } from './ui-menu'
-import { MyExample1, MyExample2 } from './ui-doc-helpers'
+import { ExampleBox } from './ui-doc-helpers'
 
 # UiMenu
 
-Renders a bulma menu based on routes. You must pass in the **routes** prop which contains an array of routes and the section that each route belongs to.
+Renders a bulma menu based on routes. You must pass in the **menu** prop which contains an array of sections and menu items. The Menu sections and items within each section will be in the same order that is passed in via the menu prop.
 
-The route may contain permission checks on **acl**, **version**, and **module**. Angular components may also pass in a **bindings** prop, which will pass through whatever is listed.
-
-```
-const routes = [
-  {
-    path: 'my-service',
-    name: 'My Service',
-    component: MyComponent
-    acl: 'Provisioning'
-    version: '20'
-    module: 'My Service'
-  },
-  {
-    path: 'my-angular-service',
-    name: 'My Angular Service',
-    angularComponent: 'myAngularComponent',
-    bindings: { serviceType: 'userServices' },
-    acl: 'Provisioning'
-  }
-]
-```
+UiMenu relies on react-router for navigation and must be within a Router context.
 
 ## Example
 
 <Playground>
-  <UiMenu
-    routes={[
-      {
-        path: 'my-example-1',
-        name: 'My Example 1',
-        component: MyExample1
-      },
-      {
-        path: 'my-example-2',
-        name: 'My Example 2',
-        component: MyExample2
-      }
-    ]}
-  />
+  <HashRouter hashType="hashbang">
+    <Route
+      path="/"
+      render={props => (
+        <UiMenu
+          {...props}
+          menu={[
+            {
+              section: 'First',
+              items: [
+                { name: 'Link 1', path: 'link-1', component: ExampleBox },
+                { name: 'Link 2', path: 'link-2', component: ExampleBox }
+              ]
+            },
+            {
+              section: 'Second',
+              items: [{ name: 'Link 3', path: 'link-3', component: ExampleBox }]
+            }
+          ]}
+        />
+      )}
+    />
+  </HashRouter>
 </Playground>
 
 ## Props

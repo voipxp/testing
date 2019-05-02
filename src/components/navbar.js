@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { withRouter } from 'react-router-dom'
@@ -27,8 +27,8 @@ const AppNavbar = ({ history }) => {
   const { userId } = state.session
   const { pageTitle } = state.ui.template
 
-  const [showMenu, updateShowMenu] = useState(false)
-  const [search, setSearch] = useState()
+  const [showMenu, updateShowMenu] = React.useState(false)
+  const [search, setSearch] = React.useState()
 
   const toggleMenu = () => updateShowMenu(!showMenu)
 

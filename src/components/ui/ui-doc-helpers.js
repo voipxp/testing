@@ -1,4 +1,4 @@
 import React from 'react'
+import { Box } from 'rbx'
 
-export const MyExample1 = () => <p>My Example 1</p>
-export const MyExample2 = () => <p>My Example 2</p>
+export const ExampleBox = () => <Box>Example Box</Box>

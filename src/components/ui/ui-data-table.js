@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid,no-script-url */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import paginate from 'jw-paginate'
@@ -41,16 +41,16 @@ export const UiDataTable = ({
   onClick,
   onSelect
 }) => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
-  const [filteredItems, setFilteredItems] = useState([])
-  const [pagedItems, setPagedItems] = useState([])
-  const [selectedItems, setSelectedItems] = useState({})
-  const [search, setSearch] = useState('')
-  const [sortBy, setSortBy] = useState(rowKey)
-  const [sortOrder, setSortOrder] = useState('asc')
+  const [currentPage, setCurrentPage] = React.useState(1)
+  const [totalPages, setTotalPages] = React.useState(1)
+  const [filteredItems, setFilteredItems] = React.useState([])
+  const [pagedItems, setPagedItems] = React.useState([])
+  const [selectedItems, setSelectedItems] = React.useState({})
+  const [search, setSearch] = React.useState('')
+  const [sortBy, setSortBy] = React.useState(rowKey)
+  const [sortOrder, setSortOrder] = React.useState('asc')
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!search) {
       return setFilteredItems(orderBy(rows, v => v[sortBy], sortOrder))
     }
@@ -64,7 +64,7 @@ export const UiDataTable = ({
     setFilteredItems(orderBy(newItems, v => v[sortBy], sortOrder))
   }, [rows, search, sortBy, sortOrder])
 
-  useEffect(() => {
+  React.useEffect(() => {
     const pager = paginate(filteredItems.length, currentPage, pageSize)
     setCurrentPage(pager.currentPage || 1)
     setTotalPages(pager.totalPages)
