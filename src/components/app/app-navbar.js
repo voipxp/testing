@@ -4,7 +4,7 @@ import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { clearSession } from '@/store/session'
-import { UiModalCard } from '@/components/ui'
+import { UiCardModal } from '@/components/ui'
 import { userPath, groupPath } from '@/utils/routes'
 import { parseUrl, stringify } from 'query-string'
 import { alertDanger } from '@/store/alerts'
@@ -154,38 +154,38 @@ const AppNavbar = ({ history }) => {
 
       {hasGroup && (
         <>
-          <UiModalCard
+          <UiCardModal
             title="User Search"
             isOpen={search === 'user'}
             onCancel={() => setSearch()}
           >
             <UserSearch onSelect={openUser} />
-          </UiModalCard>
-          <UiModalCard
+          </UiCardModal>
+          <UiCardModal
             title="DN Search"
             isOpen={search === 'dn'}
             onCancel={() => setSearch()}
           >
             <SystemDnSearch onSelect={openUser} />
-          </UiModalCard>
+          </UiCardModal>
         </>
       )}
       {hasServiceProvider && (
         <>
-          <UiModalCard
+          <UiCardModal
             title="Group Search"
             isOpen={search === 'group'}
             onCancel={() => setSearch()}
           >
             <GroupSearch onSelect={openGroup} />
-          </UiModalCard>
-          <UiModalCard
+          </UiCardModal>
+          <UiCardModal
             title="User Service Service"
             isOpen={search === 'service'}
             onCancel={() => setSearch()}
           >
             <UserServiceSearch onSelect={openUser} />
-          </UiModalCard>
+          </UiCardModal>
         </>
       )}
     </div>

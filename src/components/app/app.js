@@ -9,7 +9,7 @@ import AngularComponent from '../angular-component'
 import {
   AppAlerts,
   AppFooter,
-  AppModalLoading,
+  AppLoadingModal,
   AppLogin,
   AppNavbar,
   AppRoutes
@@ -79,7 +79,7 @@ const App = () => {
         <AppLogin />
       )}
       <AngularComponent component="pbsConfirmModal" />
-      <AppModalLoading />
+      <AppLoadingModal />
     </>
   )
 }

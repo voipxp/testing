@@ -17,7 +17,6 @@ import groupRoutes from '@/angular/group/routes'
 import serviceProviderRoutes from '@/angular/service-provider/routes'
 import settingsRoutes from '@/angular/settings/routes'
 import systemRoutes from '@/angular/system/routes'
-import userRoutes from '@/angular/user/routes'
 import vdmRoutes from '@/angular/vdm/routes'
 
 const angularRoutes = [
@@ -29,7 +28,6 @@ const angularRoutes = [
   ...serviceProviderRoutes,
   ...settingsRoutes,
   ...systemRoutes,
-  ...userRoutes,
   ...vdmRoutes
 ]
 
@@ -95,7 +93,7 @@ const Router = () => {
         <Route path="/" exact component={AppDashboard} />
         {angularRoutes.map(route => generateRoute(route))}
         <Route
-          path="/users/:serviceProviderId/:groupId/:userId/dashboard"
+          path="/users/:serviceProviderId/:groupId/:userId"
           component={UserDashboard}
         />
         <Route component={AppNotFound} />

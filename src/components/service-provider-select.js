@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
-import { UiSpinner, UiDataTable } from '@/components/ui'
+import { UiLoading, UiDataTable } from '@/components/ui'
 import { loadServiceProviders } from '@/store/service-providers'
 
 const columns = [
@@ -21,7 +21,7 @@ const ServiceProviderSelect = ({ onSelect }) => {
   }, [dispatch])
 
   return serviceProviders.length === 0 ? (
-    <UiSpinner />
+    <UiLoading />
   ) : (
     <UiDataTable
       columns={columns}

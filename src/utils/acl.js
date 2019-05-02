@@ -40,28 +40,32 @@ export default {
 
 export const useAcl = () => {
   const { session } = useReduxState()
-  const { loginType, isPaasAdmin, softwareVersion } = session
   return {
-    hasLevel: useCallback(level => hasLevel(loginType, level, isPaasAdmin), [
-      isPaasAdmin,
-      loginType
+    hasLevel: useCallback(
+      level => hasLevel(session.loginType, level, session.isPaasAdmin),
+      [session.isPaasAdmin, session.loginType]
+    ),
+    hasGroup: useCallback(() => hasGroup(session.loginType, 'Group'), [
+      session.loginType
     ]),
-    hasGroup: useCallback(() => hasGroup(loginType, 'Group'), [loginType]),
     hasServiceProvider: useCallback(
-      () => hasServiceProvider(loginType, 'ServiceProvider'),
-      [loginType]
+      () => hasServiceProvider(session.loginType, 'ServiceProvider'),
+      [session.loginType]
     ),
     hasPaasAdmin: useCallback(
-      () => hasPaasAdmin(loginType, 'Paas Admin', isPaasAdmin),
-      [isPaasAdmin, loginType]
+      () => hasPaasAdmin(session.loginType, 'Paas Admin', session.isPaasAdmin),
+      [session.isPaasAdmin, session.loginType]
     ),
     hasProvisioning: useCallback(
-      () => hasProvisioning(loginType, 'Provisioning'),
-      [loginType]
+      () => hasProvisioning(session.loginType, 'Provisioning'),
+      [session.loginType]
     ),
-    hasSystem: useCallback(() => hasSystem(loginType, 'System'), [loginType]),
-    hasVersion: useCallback(version => hasVersion(softwareVersion, version), [
-      softwareVersion
-    ])
+    hasSystem: useCallback(() => hasSystem(session.loginType, 'System'), [
+      session.loginType
+    ]),
+    hasVersion: useCallback(
+      version => hasVersion(session.softwareVersion, version),
+      [session.softwareVersion]
+    )
   }
 }

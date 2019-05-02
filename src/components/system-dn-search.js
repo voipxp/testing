@@ -5,7 +5,7 @@ import { Field, Control, Button, Input, Icon } from 'rbx'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
-import { UiSpinner, UiDataTable, UiModalCard } from '@/components/ui'
+import { UiLoading, UiDataTable, UiCardModal } from '@/components/ui'
 import acl from '@/utils/acl'
 import { alertDanger } from '@/store/alerts'
 import { userPath } from '@/utils/routes'
@@ -138,7 +138,7 @@ const SystemDnSearch = ({ onSelect }) => {
       {!initialized ? (
         ''
       ) : loading ? (
-        <UiSpinner />
+        <UiLoading />
       ) : (
         <UiDataTable
           columns={columns}
@@ -148,13 +148,13 @@ const SystemDnSearch = ({ onSelect }) => {
           onClick={onSelect}
         />
       )}
-      <UiModalCard
+      <UiCardModal
         title="Select Service Provider"
         isOpen={showServiceProvider}
         onCancel={handleServiceProviderSelect}
       >
         <ServiceProviderSelect onSelect={handleServiceProviderSelect} />
-      </UiModalCard>
+      </UiCardModal>
     </>
   )
 }

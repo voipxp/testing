@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Menu, Column, Message } from 'rbx'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
-import { UiSpinner } from '@/components/ui'
+import { UiLoading } from '@/components/ui'
 import AngularComponent from '@/components/angular-component'
 
 const StyledMenu = styled.div`
@@ -28,12 +28,12 @@ export const UiMenu = ({ match, location, menu = [] }) => {
       if (route) break
     }
     if (!route) return <NotFound />
+    const { component, angularComponent, ...props } = route
     if (route.angularComponent) {
-      const props = { ...route.bindings }
       return <AngularComponent component={route.angularComponent} {...props} />
     } else {
       const Component = route.component
-      return <Component />
+      return <Component {...props} />
     }
   }
 
@@ -44,7 +44,7 @@ export const UiMenu = ({ match, location, menu = [] }) => {
     return route ? (
       <Redirect to={`${match.url}/${route.path}`} />
     ) : (
-      <UiSpinner />
+      <UiLoading />
     )
   }
 
@@ -54,8 +54,8 @@ export const UiMenu = ({ match, location, menu = [] }) => {
         <Column size="one-quarter">
           <Menu as={StyledMenu}>
             {menu.map(section => (
-              <React.Fragment key={section.section}>
-                <Menu.Label>{section.section}</Menu.Label>
+              <React.Fragment key={section.label}>
+                <Menu.Label>{section.label}</Menu.Label>
                 <Menu.List>
                   {section.items.map(item => {
                     const path = `${match.url}/${item.path}`
@@ -94,7 +94,7 @@ UiMenu.propTypes = {
   location: PropTypes.object.isRequired,
   menu: PropTypes.arrayOf(
     PropTypes.shape({
-      section: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
       items: PropTypes.arrayOf(
         PropTypes.shape({
           name: PropTypes.string.isRequired,

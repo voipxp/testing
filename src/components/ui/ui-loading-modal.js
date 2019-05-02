@@ -1,22 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal } from 'rbx'
-import { UiSpinner } from './ui-spinner'
+import { UiLoading } from './ui-loading'
 
-export const UiModalLoading = ({ isOpen = false }) => {
+export const UiLoadingModal = ({ isOpen = false }) => {
   if (!isOpen) return null
   return (
     <div className="modal is-active">
       <Modal.Background />
       <Modal.Content>
-        <UiSpinner />
+        <UiLoading />
       </Modal.Content>
     </div>
   )
 }
 
-UiModalLoading.propTypes = {
+UiLoadingModal.propTypes = {
   isOpen: PropTypes.bool.isRequired
 }
 
-export default UiModalLoading
+export default UiLoadingModal

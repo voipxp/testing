@@ -20,7 +20,7 @@ function controller(
   Alert,
   GroupHuntGroupService,
   Route,
-  UserPermissionService,
+  Module,
   GroupHuntGroupWeightedCallDistributionService,
   $q,
   $location
@@ -39,10 +39,8 @@ function controller(
     ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     return $q
-      .all([loadHuntGroup(), UserPermissionService.load(ctrl.serviceUserId)])
-      .then(function(data) {
-        return loadPermissions(data[1])
-      })
+      .all([loadHuntGroup(), Module.load()])
+      .then(loadPermissions)
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
@@ -56,7 +54,7 @@ function controller(
   }
 
   function loadPermissions(permission) {
-    if (permission.read('Premium Call Records')) {
+    if (Module.read('Premium Call Records')) {
       ctrl.showPremium = true
     }
     ctrl.showReporting = ctrl.showPremium

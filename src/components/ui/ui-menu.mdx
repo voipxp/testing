@@ -13,6 +13,8 @@ import { ExampleBox } from './ui-doc-helpers'
 
 Renders a bulma menu based on routes. You must pass in the **menu** prop which contains an array of sections and menu items. The Menu sections and items within each section will be in the same order that is passed in via the menu prop.
 
+Any props passed to the item objects will be passed through to the component.
+
 UiMenu relies on react-router for navigation and must be within a Router context.
 
 ## Example
@@ -26,15 +28,32 @@ UiMenu relies on react-router for navigation and must be within a Router context
           {...props}
           menu={[
             {
-              section: 'First',
+              label: 'First',
               items: [
-                { name: 'Link 1', path: 'link-1', component: ExampleBox },
-                { name: 'Link 2', path: 'link-2', component: ExampleBox }
+                {
+                  name: 'Link 1',
+                  path: 'link-1',
+                  component: ExampleBox,
+                  text: 'Example 1'
+                },
+                {
+                  name: 'Link 2',
+                  path: 'link-2',
+                  component: ExampleBox,
+                  text: 'Example 2'
+                }
               ]
             },
             {
-              section: 'Second',
-              items: [{ name: 'Link 3', path: 'link-3', component: ExampleBox }]
+              label: 'Second',
+              items: [
+                {
+                  name: 'Link 3',
+                  path: 'link-3',
+                  component: ExampleBox,
+                  text: 'Example 3'
+                }
+              ]
             }
           ]}
         />
