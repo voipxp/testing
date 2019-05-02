@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import uniq from 'lodash/uniq'
 import sortBy from 'lodash/sortBy'
 import PropTypes from 'prop-types'
-import { withRouter } from 'react-router-dom'
 import { Menu, Column, Message } from 'rbx'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import AngularComponent from '../angular-component'
+import { UiSpinner } from '@/components/ui'
 import { useAcl } from '@/utils/acl'
 
 const StyledMenu = styled.div`
@@ -71,7 +71,11 @@ const UiMenu = ({ match, location, routes = [] }) => {
   const renderDefault = () => {
     const section = menuSections[0]
     const route = section && menuItems[section][0]
-    return route ? renderRoute(route.path) : <NotFound />
+    return route ? (
+      <Redirect to={`${match.url}/${route.path}`} />
+    ) : (
+      <UiSpinner />
+    )
   }
 
   return (
