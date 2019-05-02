@@ -6,7 +6,7 @@ const BreadcrumbStyled = styled.div`
   margin-top: -2rem;
   margin-bottom: 1rem;
 `
-const NotFound = () => (
+const AppNotFound = () => (
   <>
     <Breadcrumb as={BreadcrumbStyled}>
       <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
@@ -21,4 +21,4 @@ const NotFound = () => (
   </>
 )
 
-export default NotFound
+export default AppNotFound

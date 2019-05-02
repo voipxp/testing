@@ -2,7 +2,7 @@ import React from 'react'
 import { useReduxState } from 'reactive-react-redux'
 import { Redirect } from 'react-router-dom'
 
-const Dashboard = () => {
+const AppDashboard = () => {
   const state = useReduxState()
   const { loginType, serviceProviderId, groupId, userId } = state.session
 
@@ -27,4 +27,4 @@ const Dashboard = () => {
   return <Redirect to={route} />
 }
 
-export default Dashboard
+export default AppDashboard

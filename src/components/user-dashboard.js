@@ -1,6 +1,5 @@
 import React from 'react'
-import Breadcrumb from './breadcrumb'
-import { AppMenu } from './app-menu'
+import { AppMenu, AppBreadcrumb } from '@/components/app'
 
 const routes = [
   {
@@ -101,7 +100,7 @@ const routes = [
 const UserDashboard = () => {
   return (
     <>
-      <Breadcrumb />
+      <AppBreadcrumb />
       <AppMenu routes={routes} />
     </>
   )

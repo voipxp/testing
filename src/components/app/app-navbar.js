@@ -10,10 +10,10 @@ import { parseUrl, stringify } from 'query-string'
 import { alertDanger } from '@/store/alerts'
 import authApi from '@/api/auth'
 import { useAcl } from '@/utils/acl'
-import UserSearch from './user-search'
-import SystemDnSearch from './system-dn-search'
-import GroupSearch from './group-search'
-import UserServiceSearch from './user-service-search'
+import UserSearch from '../user-search'
+import SystemDnSearch from '../system-dn-search'
+import GroupSearch from '../group-search'
+import UserServiceSearch from '../user-service-search'
 
 const AppNavbar = ({ history }) => {
   const state = useReduxState()

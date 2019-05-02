@@ -3,10 +3,9 @@ import ReactGA from 'react-ga'
 import { Switch, Route } from 'react-router-dom'
 import camelCase from 'lodash/camelCase'
 import { useReduxState } from 'reactive-react-redux'
-import Dashboard from './dashboard'
-import UserDashboard from './user-dashboard'
-import AngularComponent from './angular-component'
-import NotFound from './not-found'
+import { AppDashboard, AppNotFound } from '@/components/app'
+import UserDashboard from '../user-dashboard'
+import AngularComponent from '../angular-component'
 import { hasLevel } from '@/utils/acl'
 
 // angular routes
@@ -55,12 +54,22 @@ const Router = () => {
     const module = getModule(route.module)
     if (module && !module.permissions.read) {
       return (
-        <Route exact key={route.path} path={route.path} component={NotFound} />
+        <Route
+          exact
+          key={route.path}
+          path={route.path}
+          component={AppNotFound}
+        />
       )
     }
     if (route.acl && !hasLevel(loginType, route.acl, isPaasAdmin)) {
       return (
-        <Route exact key={route.path} path={route.path} component={NotFound} />
+        <Route
+          exact
+          key={route.path}
+          path={route.path}
+          component={AppNotFound}
+        />
       )
     }
     return (
@@ -83,13 +92,13 @@ const Router = () => {
   return (
     <>
       <Switch>
-        <Route path="/" exact component={Dashboard} />
+        <Route path="/" exact component={AppDashboard} />
         {angularRoutes.map(route => generateRoute(route))}
         <Route
           path="/users/:serviceProviderId/:groupId/:userId/dashboard"
           component={UserDashboard}
         />
-        <Route component={NotFound} />
+        <Route component={AppNotFound} />
       </Switch>
       <Route component={Analytics} />
     </>

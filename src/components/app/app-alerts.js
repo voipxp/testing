@@ -34,7 +34,7 @@ const StyledAlert = styled.div`
   }
 `
 
-const Alerts = () => {
+const AppAlerts = () => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
   const { alerts } = state
@@ -57,4 +57,4 @@ const Alerts = () => {
   )
 }
 
-export default Alerts
+export default AppAlerts

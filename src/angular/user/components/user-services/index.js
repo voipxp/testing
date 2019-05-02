@@ -8,14 +8,8 @@ angular.module('odin.user').component('userServices', {
   bindings: { serviceType: '<', userId: '<', onUpdate: '&' }
 })
 
-controller.$inject = [
-  'Alert',
-  '$filter',
-  'EventEmitter',
-  '$ngRedux',
-  '$rootScope'
-]
-function controller(Alert, $filter, EventEmitter, $ngRedux, $rootScope) {
+controller.$inject = ['Alert', '$filter', 'EventEmitter', '$ngRedux']
+function controller(Alert, $filter, EventEmitter, $ngRedux) {
   const ctrl = this
   ctrl.$onInit = onInit
   ctrl.$onDestroy = onDestroy

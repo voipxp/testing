@@ -5,13 +5,15 @@ import { Section } from 'rbx'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
-import AngularComponent from './angular-component'
-import Routes from './routes'
-import Alerts from './alerts'
-import Footer from './footer'
-import LoadingModal from './loading-modal'
-import Login from './login'
-import Navbar from './navbar'
+import AngularComponent from '../angular-component'
+import {
+  AppAlerts,
+  AppFooter,
+  AppModalLoading,
+  AppLogin,
+  AppNavbar,
+  AppRoutes
+} from '@/components/app'
 import { UiLoadingPage } from '@/components/ui'
 import { alertWarning, removeAlert } from '@/store/alerts'
 import { clearSession } from '@/store/session'
@@ -62,22 +64,22 @@ const App = () => {
 
   return (
     <>
-      <Alerts />
+      <AppAlerts />
       {userId ? (
         <>
           <Wrapper>
-            <Navbar />
+            <AppNavbar />
             <Section>
-              <Routes />
+              <AppRoutes />
             </Section>
           </Wrapper>
-          <Footer />
+          <AppFooter />
         </>
       ) : (
-        <Login />
+        <AppLogin />
       )}
       <AngularComponent component="pbsConfirmModal" />
-      <LoadingModal />
+      <AppModalLoading />
     </>
   )
 }

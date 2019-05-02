@@ -9,7 +9,7 @@ import { alertWarning, alertDanger } from '@/store/alerts'
 import { setSession, loadSessionFromToken } from '@/store/session'
 import { parse, stringify } from 'query-string'
 
-const Login = () => {
+const AppLogin = () => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
 
@@ -188,4 +188,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default AppLogin
