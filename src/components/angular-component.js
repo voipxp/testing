@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect'
 import angular from 'angular'
 import kebabCase from 'lodash/kebabCase'
-import { injector } from '@/angular'
+import { getInjector } from '@/angular/injector'
 
 const AngularComponent = ({
   component,
@@ -34,7 +34,7 @@ const AngularComponent = ({
       const template = `<${element} ${attrs.join(' ')}></${element}>`
 
       const el = angular.element(ref.current)
-      injector().invoke([
+      getInjector().invoke([
         '$compile',
         '$rootScope',
         ($compile, $rootScope) => {

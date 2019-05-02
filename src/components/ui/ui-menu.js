@@ -5,9 +5,9 @@ import PropTypes from 'prop-types'
 import { Menu, Column, Message } from 'rbx'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
-import AngularComponent from '../angular-component'
 import { UiSpinner } from '@/components/ui'
 import { useAcl } from '@/utils/acl'
+import AngularComponent from '@/components/angular-component'
 
 const StyledMenu = styled.div`
   background-color: white;
@@ -23,7 +23,7 @@ const NotFound = () => (
   </Message>
 )
 
-const UiMenu = ({ match, location, routes = [] }) => {
+export const UiMenu = ({ match, location, routes = [] }) => {
   const { hasVersion, hasLevel } = useAcl()
   const [menuRoutes, setMenuRoutes] = useState([])
   const [menuSections, setMenuSections] = useState([])
