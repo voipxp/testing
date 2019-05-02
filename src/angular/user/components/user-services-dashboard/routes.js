@@ -109,7 +109,7 @@ export default {
   },
   'Collaborate - Audio': {
     component: 'userCollaborate',
-    module: 'Collaborate'
+    module: 'Collaborate - Audio'
   },
   'Connected Line Identification Restriction': {
     component: 'userConnectedLineIdentificationRestriction',
