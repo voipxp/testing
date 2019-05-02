@@ -1,4 +1,5 @@
 import { useReduxState } from 'reactive-react-redux'
+import { useCallback } from 'react'
 
 export const hasLevel = (loginType, requiredType, isPaasAdmin) => {
   if (requiredType === 'PaaS Admin' && isPaasAdmin) return true
@@ -41,12 +42,26 @@ export const useAcl = () => {
   const { session } = useReduxState()
   const { loginType, isPaasAdmin, softwareVersion } = session
   return {
-    hasLevel: level => hasLevel(loginType, level, isPaasAdmin),
-    hasGroup: () => hasGroup(loginType, 'Group'),
-    hasServiceProvider: () => hasServiceProvider(loginType, 'ServiceProvider'),
-    hasPaasAdmin: () => hasPaasAdmin(loginType, 'Paas Admin', isPaasAdmin),
-    hasProvisioning: () => hasProvisioning(loginType, 'Provisioning'),
-    hasSystem: () => hasSystem(loginType, 'System'),
-    hasVersion: version => hasVersion(softwareVersion, version)
+    hasLevel: useCallback(level => hasLevel(loginType, level, isPaasAdmin), [
+      isPaasAdmin,
+      loginType
+    ]),
+    hasGroup: useCallback(() => hasGroup(loginType, 'Group'), [loginType]),
+    hasServiceProvider: useCallback(
+      () => hasServiceProvider(loginType, 'ServiceProvider'),
+      [loginType]
+    ),
+    hasPaasAdmin: useCallback(
+      () => hasPaasAdmin(loginType, 'Paas Admin', isPaasAdmin),
+      [isPaasAdmin, loginType]
+    ),
+    hasProvisioning: useCallback(
+      () => hasProvisioning(loginType, 'Provisioning'),
+      [loginType]
+    ),
+    hasSystem: useCallback(() => hasSystem(loginType, 'System'), [loginType]),
+    hasVersion: useCallback(version => hasVersion(softwareVersion, version), [
+      softwareVersion
+    ])
   }
 }

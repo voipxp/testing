@@ -1,0 +1,57 @@
+---
+name: UiMenu
+route: '/ui-menu'
+---
+
+import { Playground, Props } from 'docz'
+import { UiMenu } from './ui-menu'
+import { MyExample1, MyExample2 } from './ui-doc-helpers'
+
+# UiMenu
+
+Renders a bulma menu based on routes. You must pass in the **routes** prop which contains an array of routes and the section that each route belongs to.
+
+The route may contain permission checks on **acl**, **version**, and **module**. Angular components may also pass in a **bindings** prop, which will pass through whatever is listed.
+
+```
+const routes = [
+  {
+    path: 'my-service',
+    name: 'My Service',
+    component: MyComponent
+    acl: 'Provisioning'
+    version: '20'
+    module: 'My Service'
+  },
+  {
+    path: 'my-angular-service',
+    name: 'My Angular Service',
+    angularComponent: 'myAngularComponent',
+    bindings: { serviceType: 'userServices' },
+    acl: 'Provisioning'
+  }
+]
+```
+
+## Example
+
+<Playground>
+  <UiMenu
+    routes={[
+      {
+        path: 'my-example-1',
+        name: 'My Example 1',
+        component: MyExample1
+      },
+      {
+        path: 'my-example-2',
+        name: 'My Example 2',
+        component: MyExample2
+      }
+    ]}
+  />
+</Playground>
+
+## Props
+
+<Props of={UiMenu} />

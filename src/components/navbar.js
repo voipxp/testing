@@ -9,7 +9,7 @@ import { userPath, groupPath } from '@/utils/routes'
 import { parseUrl, stringify } from 'query-string'
 import { alertDanger } from '@/store/alerts'
 import authApi from '@/api/auth'
-import acl from '@/utils/acl'
+import { useAcl } from '@/utils/acl'
 import UserSearch from './user-search'
 import SystemDnSearch from './system-dn-search'
 import GroupSearch from './group-search'
@@ -19,12 +19,13 @@ const AppNavbar = ({ history }) => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
 
-  const { applications } = state.ui
-  const { loginType, userId } = state.session
-  const { pageTitle } = state.ui.template
+  const acl = useAcl()
+  const hasGroup = acl.hasGroup()
+  const hasServiceProvider = acl.hasServiceProvider()
 
-  const hasGroup = acl.hasGroup(loginType)
-  const hasServiceProvider = acl.hasServiceProvider(loginType)
+  const { applications } = state.ui
+  const { userId } = state.session
+  const { pageTitle } = state.ui.template
 
   const [showMenu, updateShowMenu] = useState(false)
   const [search, setSearch] = useState()
