@@ -4,32 +4,10 @@ import camelCase from 'lodash/camelCase'
 import { Switch, Route } from 'react-router-dom'
 import { useReduxState } from 'reactive-react-redux'
 import { AppDashboard, AppNotFound } from '@/components/app'
-import { UserDashboard } from '@/components/user-dashboard'
 import { AngularComponent } from '@/components/angular-component'
 import { hasLevel } from '@/utils/acl'
 
-// angular routes
-import appRoutes from '@/angular/app/routes'
-import brandingRoutes from '@/angular/branding/routes'
-import bulkRoutes from '@/angular/bulk/routes'
-import eventsRoutes from '@/angular/events/routes'
-import groupRoutes from '@/angular/group/routes'
-import serviceProviderRoutes from '@/angular/service-provider/routes'
-import settingsRoutes from '@/angular/settings/routes'
-import systemRoutes from '@/angular/system/routes'
-import vdmRoutes from '@/angular/vdm/routes'
-
-const angularRoutes = [
-  ...appRoutes,
-  ...brandingRoutes,
-  ...bulkRoutes,
-  ...eventsRoutes,
-  ...groupRoutes,
-  ...serviceProviderRoutes,
-  ...settingsRoutes,
-  ...systemRoutes,
-  ...vdmRoutes
-]
+import { angularRoutes, reactRoutes } from './app-routes-routes'
 
 const Analytics = ({ location }) => {
   ReactGA.pageview(location.pathname + location.search)
@@ -48,41 +26,33 @@ export const AppRoutes = () => {
       : null
   }
 
+  const notFoundRoute = path => (
+    <Route exact key={path} path={path} component={AppNotFound} />
+  )
+
   const generateRoute = route => {
     const module = getModule(route.module)
     if (module && !module.permissions.read) {
-      return (
-        <Route
-          exact
-          key={route.path}
-          path={route.path}
-          component={AppNotFound}
-        />
-      )
+      return notFoundRoute(route.path)
     }
     if (route.acl && !hasLevel(loginType, route.acl, isPaasAdmin)) {
-      return (
-        <Route
-          exact
-          key={route.path}
-          path={route.path}
-          component={AppNotFound}
-        />
-      )
+      return notFoundRoute(route.path)
     }
-    return (
+    const { path, component, Component, ...rest } = route
+    return route.component ? (
       <Route
-        key={route.path}
-        path={route.path}
         exact
+        key={path}
+        path={path}
         render={() => (
-          <AngularComponent
-            component={route.component}
-            acl={route.acl}
-            module={module}
-            {...route.bindings}
-          />
+          <AngularComponent component={component} module={module} {...rest} />
         )}
+      />
+    ) : (
+      <Route
+        key={path}
+        path={path}
+        render={props => <Component module={module} {...rest} {...props} />}
       />
     )
   }
@@ -92,10 +62,7 @@ export const AppRoutes = () => {
       <Switch>
         <Route path="/" exact component={AppDashboard} />
         {angularRoutes.map(route => generateRoute(route))}
-        <Route
-          path="/users/:serviceProviderId/:groupId/:userId"
-          component={UserDashboard}
-        />
+        {reactRoutes.map(route => generateRoute(route))}
         <Route component={AppNotFound} />
       </Switch>
       <Route component={Analytics} />

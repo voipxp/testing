@@ -369,25 +369,19 @@ export default [
     path: '/groups/:serviceProviderId/:groupId/services/group',
     component: 'groupServices',
     acl: 'Service Provider',
-    bindings: {
-      serviceType: 'groupServices'
-    }
+    serviceType: 'groupServices'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/services/user',
     component: 'groupServices',
     acl: 'Service Provider',
-    bindings: {
-      serviceType: 'userServices'
-    }
+    serviceType: 'userServices'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/services/servicePack',
     component: 'groupServices',
     acl: 'Service Provider',
-    bindings: {
-      serviceType: 'servicePackServices'
-    }
+    serviceType: 'servicePackServices'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/numbers',

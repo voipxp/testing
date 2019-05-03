@@ -62,17 +62,13 @@ const routes = [
     path: '/serviceProviders/:serviceProviderId/userServices',
     component: 'serviceProviderServices',
     acl: 'Service Provider',
-    bindings: {
-      serviceType: 'userServices'
-    }
+    serviceType: 'userServices'
   },
   {
     path: '/serviceProviders/:serviceProviderId/groupServices',
     component: 'serviceProviderServices',
     acl: 'Service Provider',
-    bindings: {
-      serviceType: 'groupServices'
-    }
+    serviceType: 'groupServices'
   },
   {
     path: '/serviceProviders/:serviceProviderId/servicePacks',

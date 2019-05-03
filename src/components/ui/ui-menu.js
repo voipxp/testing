@@ -20,7 +20,7 @@ const NotFound = () => (
   </Message>
 )
 
-const UiMenuBase = ({ match, location, menu = [] }) => {
+const UiMenuBase = ({ match, location, menu = [], NotFoundComponent }) => {
   const renderRoute = path => {
     let route
     for (const section of menu) {
@@ -92,6 +92,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
 UiMenuBase.propTypes = {
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  NotFoundComponent: PropTypes.any,
   menu: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
