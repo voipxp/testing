@@ -1,10 +1,13 @@
 TODO
 
-- add integrated IMP check to SCA page
 - replace user dashboard with react
-  - individual components can be angular still
-  - utilize routing to render components
-- acl helper custom hook
+
+  - add Module permissions checks
+  - add Service checks
+
+- add feature flag for call center queue
+
+- add integrated IMP check to SCA page
 - make lodash requires modular (https://github.com/ant-design/babel-plugin-import#readme)
   - perhaps move to dot-prop with regular ES6
 - remove angular-animate when modal is moved to react

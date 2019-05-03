@@ -52,12 +52,12 @@ function Module(Session, $q, $ngRedux) {
 
   // find the module by name and then map it to the
   // user for this session
-  // TODO: map it this way in redux
   function findByName(name) {
     const moduleName = name.serviceName || name.name || name
-    const module = modules()[moduleName]
-    if (!module) return { permissions: {} }
-    const permissions = module.permissions[camelCase(Session.data('loginType'))]
+    const module = modules()[moduleName] || { name, alias: name }
+    const permissions = module.permissions
+      ? module.permissions[camelCase(Session.data('loginType'))]
+      : { create: true, read: true, update: true, delete: true }
     return { ...module, permissions }
   }
 

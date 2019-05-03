@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
-import { UiSpinner, UiDataTable } from '@/components/ui'
+import { UiLoading, UiDataTable } from '@/components/ui'
 import { loadServiceProviders } from '@/store/service-providers'
 
 const columns = [
@@ -10,18 +10,18 @@ const columns = [
   { key: 'isEnterprise', label: 'Enterprise' }
 ]
 
-const ServiceProviderSelect = ({ onSelect }) => {
+export const ServiceProviderSelect = ({ onSelect }) => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
 
   const { serviceProviders } = state
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(loadServiceProviders())
   }, [dispatch])
 
   return serviceProviders.length === 0 ? (
-    <UiSpinner />
+    <UiLoading />
   ) : (
     <UiDataTable
       columns={columns}
@@ -35,4 +35,3 @@ const ServiceProviderSelect = ({ onSelect }) => {
 ServiceProviderSelect.propTypes = {
   onSelect: PropTypes.func
 }
-export default ServiceProviderSelect

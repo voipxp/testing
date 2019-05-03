@@ -10,7 +10,7 @@ const spin = keyframes`
   }
 `
 
-const StyledSpinner = styled.div`
+const StyledLoading = styled.div`
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #3498db; /* Blue */
   border-radius: 50%;
@@ -26,10 +26,8 @@ const Wrapper = styled.div`
   overflow: hidden;
 `
 
-export const UiSpinner = () => (
+export const UiLoading = () => (
   <Wrapper>
-    <StyledSpinner />
+    <StyledLoading />
   </Wrapper>
 )
-
-export default UiSpinner

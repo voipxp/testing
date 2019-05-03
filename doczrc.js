@@ -1,4 +1,5 @@
 import { css } from 'docz-plugin-css'
+import path from 'path'
 
 export default {
   title: 'Odin UI',
@@ -9,5 +10,9 @@ export default {
       preprocessor: 'sass',
       cssmodules: false
     })
-  ]
+  ],
+  modifyBundlerConfig: config => {
+    config.resolve.alias['@'] = path.resolve(__dirname, 'src')
+    return config
+  }
 }

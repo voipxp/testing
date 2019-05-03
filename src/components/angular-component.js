@@ -1,19 +1,19 @@
-import React, { useRef } from 'react'
-import { withRouter } from 'react-router-dom'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect'
 import angular from 'angular'
 import kebabCase from 'lodash/kebabCase'
-import { injector } from '@/angular'
+import { withRouter } from 'react-router-dom'
+import { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect'
+import { getInjector } from '@/angular/injector'
 
-const AngularComponent = ({
+export const AngularComponentBase = ({
   component,
   location = {},
   match = {},
   ...props
 }) => {
-  const scopeRef = useRef()
-  const ref = useRef()
+  const scopeRef = React.useRef()
+  const ref = React.useRef()
 
   useDeepCompareEffectNoCheck(() => {
     renderAngular()
@@ -34,7 +34,7 @@ const AngularComponent = ({
       const template = `<${element} ${attrs.join(' ')}></${element}>`
 
       const el = angular.element(ref.current)
-      injector().invoke([
+      getInjector().invoke([
         '$compile',
         '$rootScope',
         ($compile, $rootScope) => {
@@ -50,10 +50,10 @@ const AngularComponent = ({
   return <div ref={ref} />
 }
 
-AngularComponent.propTypes = {
+AngularComponentBase.propTypes = {
   component: PropTypes.string,
   location: PropTypes.object,
   match: PropTypes.object
 }
 
-export default withRouter(AngularComponent)
+export const AngularComponent = withRouter(AngularComponentBase)

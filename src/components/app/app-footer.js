@@ -1,13 +1,13 @@
 import React from 'react'
+import styled from 'styled-components'
 import { useReduxState } from 'reactive-react-redux'
 import { Footer } from 'rbx'
-import styled from 'styled-components'
 
 const StyledFooter = styled.footer`
   padding: 1rem;
   height: 50px;
 `
-const AppFooter = () => {
+export const AppFooter = () => {
   const state = useReduxState()
   const { version = 'N/A' } = state.session
   const {
@@ -25,5 +25,3 @@ const AppFooter = () => {
     </Footer>
   )
 }
-
-export default AppFooter

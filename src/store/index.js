@@ -3,6 +3,7 @@ import alerts from './alerts'
 import userServices from './user-services'
 import userAssignedServices from './user-assigned-services'
 import userViewableServices from './user-viewable-services'
+import user from './user'
 import session, { loadSessionFromStorage, clearSession } from './session'
 import serviceProviders from './service-providers'
 import ui, {
@@ -18,8 +19,9 @@ const store = configureStore({
     alerts,
     serviceProviders,
     session,
-    userServices,
+    user,
     userAssignedServices,
+    userServices,
     userViewableServices,
     ui
   },

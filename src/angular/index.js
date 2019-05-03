@@ -1,3 +1,5 @@
+import { setInjector } from './injector'
+
 // DEPS
 import angular from 'angular'
 import ngRedux from 'ng-redux'
@@ -35,8 +37,6 @@ import './vdm'
 // CONFIGS
 import * as config from './config'
 
-let _injector
-
 angular
   .module('odin', [
     'ngAnimate',
@@ -72,10 +72,8 @@ angular
   .config(config.ngRedux)
   .run(config.rootScope)
   .run(config.reduxDevTools)
-  .run(['$injector', i => (_injector = i)])
+  .run(['$injector', i => setInjector(i)])
 
 angular
   .element(document.querySelector('#odin'))
   .ready(() => angular.bootstrap(document, ['odin'], { strictDi: true }))
-
-export const injector = () => _injector

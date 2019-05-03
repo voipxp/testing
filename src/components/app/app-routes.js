@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactGA from 'react-ga'
-import { Switch, Route } from 'react-router-dom'
 import camelCase from 'lodash/camelCase'
+import { Switch, Route } from 'react-router-dom'
 import { useReduxState } from 'reactive-react-redux'
-import Dashboard from './dashboard'
-import AngularComponent from './angular-component'
-import NotFound from './notfound'
+import { AppDashboard, AppNotFound } from '@/components/app'
+import { UserDashboard } from '@/components/user-dashboard'
+import { AngularComponent } from '@/components/angular-component'
 import { hasLevel } from '@/utils/acl'
 
 // angular routes
@@ -17,7 +17,6 @@ import groupRoutes from '@/angular/group/routes'
 import serviceProviderRoutes from '@/angular/service-provider/routes'
 import settingsRoutes from '@/angular/settings/routes'
 import systemRoutes from '@/angular/system/routes'
-import userRoutes from '@/angular/user/routes'
 import vdmRoutes from '@/angular/vdm/routes'
 
 const angularRoutes = [
@@ -29,7 +28,6 @@ const angularRoutes = [
   ...serviceProviderRoutes,
   ...settingsRoutes,
   ...systemRoutes,
-  ...userRoutes,
   ...vdmRoutes
 ]
 
@@ -38,7 +36,7 @@ const Analytics = ({ location }) => {
   return null
 }
 
-const Router = () => {
+export const AppRoutes = () => {
   const state = useReduxState()
   const { loginType, isPaasAdmin } = state.session
   const { modules } = state.ui
@@ -54,12 +52,22 @@ const Router = () => {
     const module = getModule(route.module)
     if (module && !module.permissions.read) {
       return (
-        <Route exact key={route.path} path={route.path} component={NotFound} />
+        <Route
+          exact
+          key={route.path}
+          path={route.path}
+          component={AppNotFound}
+        />
       )
     }
     if (route.acl && !hasLevel(loginType, route.acl, isPaasAdmin)) {
       return (
-        <Route exact key={route.path} path={route.path} component={NotFound} />
+        <Route
+          exact
+          key={route.path}
+          path={route.path}
+          component={AppNotFound}
+        />
       )
     }
     return (
@@ -82,13 +90,15 @@ const Router = () => {
   return (
     <>
       <Switch>
-        <Route path="/" exact component={Dashboard} />
+        <Route path="/" exact component={AppDashboard} />
         {angularRoutes.map(route => generateRoute(route))}
-        <Route component={NotFound} />
+        <Route
+          path="/users/:serviceProviderId/:groupId/:userId"
+          component={UserDashboard}
+        />
+        <Route component={AppNotFound} />
       </Switch>
       <Route component={Analytics} />
     </>
   )
 }
-
-export default Router

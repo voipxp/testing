@@ -50,7 +50,7 @@ const StyledModal = styled.div`
   }
 `
 
-export const UiModalCard = ({
+export const UiCardModal = ({
   children,
   isOpen,
   onCancel,
@@ -94,7 +94,7 @@ export const UiModalCard = ({
   </CSSTransition>
 )
 
-UiModalCard.propTypes = {
+UiCardModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
@@ -105,5 +105,3 @@ UiModalCard.propTypes = {
   deleteText: PropTypes.string,
   children: PropTypes.any
 }
-
-export default UiModalCard

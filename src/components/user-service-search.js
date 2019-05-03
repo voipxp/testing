@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { useReduxDispatch } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { UiSpinner, UiDataTable } from '@/components/ui'
+import { UiLoading, UiDataTable } from '@/components/ui'
 import { alertDanger } from '@/store/alerts'
 import userServicesApi from '@/api/user-services'
 
@@ -25,14 +25,14 @@ const columns = [
   { key: 'groupId', label: 'Group' }
 ]
 
-const UserServiceSearch = ({ onSelect }) => {
+export const UserServiceSearch = ({ onSelect }) => {
   const dispatch = useReduxDispatch()
 
-  const [searchKey, setSearchKey] = useState('lastName')
-  const [searchString, setSearchString] = useState('')
-  const [users, setUsers] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [initialized, setInitialized] = useState(false)
+  const [searchKey, setSearchKey] = React.useState('lastName')
+  const [searchString, setSearchString] = React.useState('')
+  const [users, setUsers] = React.useState([])
+  const [loading, setLoading] = React.useState(false)
+  const [initialized, setInitialized] = React.useState(false)
 
   const handleSearchKey = e => {
     setSearchKey(e.target.value)
@@ -105,7 +105,7 @@ const UserServiceSearch = ({ onSelect }) => {
       {!initialized ? (
         ''
       ) : loading ? (
-        <UiSpinner />
+        <UiLoading />
       ) : (
         <UiDataTable
           columns={columns}
@@ -122,5 +122,3 @@ const UserServiceSearch = ({ onSelect }) => {
 UserServiceSearch.propTypes = {
   onSelect: PropTypes.func
 }
-
-export default UserServiceSearch

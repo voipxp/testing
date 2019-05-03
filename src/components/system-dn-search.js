@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import { Field, Control, Button, Input, Icon } from 'rbx'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
-import { UiSpinner, UiDataTable, UiModalCard } from '@/components/ui'
-import acl from '@/utils/acl'
+import { UiLoading, UiDataTable, UiCardModal } from '@/components/ui'
 import { alertDanger } from '@/store/alerts'
 import { userPath } from '@/utils/routes'
+import { ServiceProviderSelect } from '@/components/service-provider-select'
+import { useAcl } from '@/utils/acl'
 import phoneNumberApi from '@/api/phone-numbers/system'
-import ServiceProviderSelect from './service-provider-select'
 
 const columns = [
   { key: 'userIdShort', label: 'User Id' },
@@ -23,19 +23,19 @@ const columns = [
   { key: 'groupId', label: 'Group' }
 ]
 
-const SystemDnSearch = ({ onSelect }) => {
+export const SystemDnSearch = ({ onSelect }) => {
+  const acl = useAcl()
   const dispatch = useReduxDispatch()
   const state = useReduxState()
-  const { loginType } = state.session
 
-  const [searchString, setSearchString] = useState('')
-  const [serviceProviderId, setServiceProviderId] = useState('')
-  const [showServiceProvider, setShowServiceProvider] = useState(false)
-  const [users, setUsers] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [initialized, setInitialized] = useState(false)
+  const [searchString, setSearchString] = React.useState('')
+  const [serviceProviderId, setServiceProviderId] = React.useState('')
+  const [showServiceProvider, setShowServiceProvider] = React.useState(false)
+  const [users, setUsers] = React.useState([])
+  const [loading, setLoading] = React.useState(false)
+  const [initialized, setInitialized] = React.useState(false)
 
-  const hasProvisioning = acl.hasProvisioning(loginType)
+  const hasProvisioning = acl.hasProvisioning()
 
   const handleSearchString = e => {
     setSearchString(e.target.value)
@@ -138,7 +138,7 @@ const SystemDnSearch = ({ onSelect }) => {
       {!initialized ? (
         ''
       ) : loading ? (
-        <UiSpinner />
+        <UiLoading />
       ) : (
         <UiDataTable
           columns={columns}
@@ -148,13 +148,13 @@ const SystemDnSearch = ({ onSelect }) => {
           onClick={onSelect}
         />
       )}
-      <UiModalCard
+      <UiCardModal
         title="Select Service Provider"
         isOpen={showServiceProvider}
         onCancel={handleServiceProviderSelect}
       >
         <ServiceProviderSelect onSelect={handleServiceProviderSelect} />
-      </UiModalCard>
+      </UiCardModal>
     </>
   )
 }
@@ -162,5 +162,3 @@ const SystemDnSearch = ({ onSelect }) => {
 SystemDnSearch.propTypes = {
   onSelect: PropTypes.func
 }
-
-export default SystemDnSearch

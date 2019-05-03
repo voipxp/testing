@@ -1,33 +1,34 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { clearSession } from '@/store/session'
-import { UiModalCard } from '@/components/ui'
+import { UiCardModal } from '@/components/ui'
 import { userPath, groupPath } from '@/utils/routes'
 import { parseUrl, stringify } from 'query-string'
 import { alertDanger } from '@/store/alerts'
+import { useAcl } from '@/utils/acl'
+import { UserSearch } from '@/components/user-search'
+import { SystemDnSearch } from '@/components/system-dn-search'
+import { GroupSearch } from '@/components/group-search'
+import { UserServiceSearch } from '@/components/user-service-search'
 import authApi from '@/api/auth'
-import acl from '@/utils/acl'
-import UserSearch from './user-search'
-import SystemDnSearch from './system-dn-search'
-import GroupSearch from './group-search'
-import UserServiceSearch from './user-service-search'
 
-const AppNavbar = ({ history }) => {
+export const AppNavbar = withRouter(({ history }) => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
 
+  const acl = useAcl()
+  const hasGroup = acl.hasGroup()
+  const hasServiceProvider = acl.hasServiceProvider()
+
   const { applications } = state.ui
-  const { loginType, userId } = state.session
+  const { userId } = state.session
   const { pageTitle } = state.ui.template
 
-  const hasGroup = acl.hasGroup(loginType)
-  const hasServiceProvider = acl.hasServiceProvider(loginType)
-
-  const [showMenu, updateShowMenu] = useState(false)
-  const [search, setSearch] = useState()
+  const [showMenu, updateShowMenu] = React.useState(false)
+  const [search, setSearch] = React.useState()
 
   const toggleMenu = () => updateShowMenu(!showMenu)
 
@@ -153,46 +154,44 @@ const AppNavbar = ({ history }) => {
 
       {hasGroup && (
         <>
-          <UiModalCard
+          <UiCardModal
             title="User Search"
             isOpen={search === 'user'}
             onCancel={() => setSearch()}
           >
             <UserSearch onSelect={openUser} />
-          </UiModalCard>
-          <UiModalCard
+          </UiCardModal>
+          <UiCardModal
             title="DN Search"
             isOpen={search === 'dn'}
             onCancel={() => setSearch()}
           >
             <SystemDnSearch onSelect={openUser} />
-          </UiModalCard>
+          </UiCardModal>
         </>
       )}
       {hasServiceProvider && (
         <>
-          <UiModalCard
+          <UiCardModal
             title="Group Search"
             isOpen={search === 'group'}
             onCancel={() => setSearch()}
           >
             <GroupSearch onSelect={openGroup} />
-          </UiModalCard>
-          <UiModalCard
+          </UiCardModal>
+          <UiCardModal
             title="User Service Service"
             isOpen={search === 'service'}
             onCancel={() => setSearch()}
           >
             <UserServiceSearch onSelect={openUser} />
-          </UiModalCard>
+          </UiCardModal>
         </>
       )}
     </div>
   )
-}
+})
 
 AppNavbar.propTypes = {
   history: PropTypes.object
 }
-
-export default withRouter(AppNavbar)

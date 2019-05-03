@@ -1,27 +1,29 @@
 import { hot } from 'react-hot-loader/root'
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import ReactGA from 'react-ga'
-import { Section } from 'rbx'
-import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
-import AngularComponent from './angular-component'
-import Routes from './routes'
-import Alerts from './alerts'
-import Footer from './footer'
-import LoadingModal from './loading-modal'
-import Login from './login'
-import Navbar from './navbar'
+import { Section } from 'rbx'
+import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
+import { AngularComponent } from '@/components/angular-component'
 import { UiLoadingPage } from '@/components/ui'
 import { alertWarning, removeAlert } from '@/store/alerts'
 import { clearSession } from '@/store/session'
+import {
+  AppAlerts,
+  AppFooter,
+  AppLoadingModal,
+  AppLogin,
+  AppNavbar,
+  AppRoutes
+} from '@/components/app'
 
 const TIMEOUT = 30000
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
 `
-const App = () => {
+export const App = hot(() => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
   const { initialized } = state.ui
@@ -29,14 +31,14 @@ const App = () => {
   const { pageGoogleUA } = state.ui.template
   const { userId } = state.session
 
-  const alertRef = useRef()
-  const timerRef = useRef()
+  const alertRef = React.useRef()
+  const timerRef = React.useRef()
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (pageGoogleUA) ReactGA.initialize(pageGoogleUA)
   }, [pageGoogleUA])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!initialized || !sessionTimeout || !userId) return
     const timeToIdle = sessionTimeout * 60 * 1000
     const activityDetector = createActivityDetector({
@@ -62,24 +64,22 @@ const App = () => {
 
   return (
     <>
-      <Alerts />
+      <AppAlerts />
       {userId ? (
         <>
           <Wrapper>
-            <Navbar />
+            <AppNavbar />
             <Section>
-              <Routes />
+              <AppRoutes />
             </Section>
           </Wrapper>
-          <Footer />
+          <AppFooter />
         </>
       ) : (
-        <Login />
+        <AppLogin />
       )}
       <AngularComponent component="pbsConfirmModal" />
-      <LoadingModal />
+      <AppLoadingModal />
     </>
   )
-}
-
-export default hot(App)
+})

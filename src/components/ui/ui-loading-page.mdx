@@ -9,13 +9,13 @@ import { UiLoadingPage } from './ui-loading-page'
 
 # UiLoadingPage
 
-UiLoadingPage shows a full-screen page with a spinner. There are no props to control visibility, it is expected to replace the rendering of the page based on criteria.
+UiLoadingPage shows a full-screen page with a loading indicator. There are no props to control visibility, it is expected to replace the rendering of the page based on criteria.
 
 ## Example
 
 <Playground>
   <IFramePlayground minHeight={400} maxHeight={800}>
-    <UiLoadingPage isOpen={true} />
+    <UiLoadingPage />
   </IFramePlayground>
 </Playground>
 
@@ -23,7 +23,6 @@ UiLoadingPage shows a full-screen page with a spinner. There are no props to con
 
 ```
 const App = () => {
-  const [isReady, setIsReady] = useState(false)
-  return isReady ? <RealComponent /> : <UiLoadingPage />
+  return isLoading ? <UiLoadingPage /> : <RealComponent />
 }
 ```

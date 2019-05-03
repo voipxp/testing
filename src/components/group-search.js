@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { useReduxDispatch } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { UiSpinner, UiDataTable } from '@/components/ui'
+import { UiLoading, UiDataTable } from '@/components/ui'
 import { alertDanger } from '@/store/alerts'
 import groupApi from '@/api/groups'
 
@@ -19,14 +19,14 @@ const columns = [
   { key: 'serviceProviderId', label: 'Service Provider Id' }
 ]
 
-const GroupSearch = ({ onSelect }) => {
+export const GroupSearch = ({ onSelect }) => {
   const dispatch = useReduxDispatch()
 
-  const [searchKey, setSearchKey] = useState('groupName')
-  const [searchString, setSearchString] = useState('')
-  const [groups, setGroups] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [initialized, setInitialized] = useState(false)
+  const [searchKey, setSearchKey] = React.useState('groupName')
+  const [searchString, setSearchString] = React.useState('')
+  const [groups, setGroups] = React.useState([])
+  const [loading, setLoading] = React.useState(false)
+  const [initialized, setInitialized] = React.useState(false)
 
   const handleSearchKey = e => {
     setSearchKey(e.target.value)
@@ -97,7 +97,7 @@ const GroupSearch = ({ onSelect }) => {
       {!initialized ? (
         ''
       ) : loading ? (
-        <UiSpinner />
+        <UiLoading />
       ) : (
         <UiDataTable
           columns={columns}
@@ -114,5 +114,3 @@ const GroupSearch = ({ onSelect }) => {
 GroupSearch.propTypes = {
   onSelect: PropTypes.func
 }
-
-export default GroupSearch

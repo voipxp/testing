@@ -5,17 +5,11 @@ import { loadUserServices, updateUserServices } from '@/store/user-services'
 angular.module('odin.user').component('userServices', {
   template,
   controller,
-  bindings: { serviceType: '@', userId: '<', onUpdate: '&' }
+  bindings: { serviceType: '<', userId: '<', onUpdate: '&' }
 })
 
-controller.$inject = [
-  'Alert',
-  '$filter',
-  'EventEmitter',
-  '$ngRedux',
-  '$rootScope'
-]
-function controller(Alert, $filter, EventEmitter, $ngRedux, $rootScope) {
+controller.$inject = ['Alert', '$filter', 'EventEmitter', '$ngRedux']
+function controller(Alert, $filter, EventEmitter, $ngRedux) {
   const ctrl = this
   ctrl.$onInit = onInit
   ctrl.$onDestroy = onDestroy

@@ -1,3 +1,6 @@
+import { useReduxState } from 'reactive-react-redux'
+import { useCallback } from 'react'
+
 export const hasLevel = (loginType, requiredType, isPaasAdmin) => {
   if (requiredType === 'PaaS Admin' && isPaasAdmin) return true
   const types = {
@@ -16,12 +19,53 @@ export const hasLevel = (loginType, requiredType, isPaasAdmin) => {
 export const hasGroup = type => hasLevel(type, 'Group')
 export const hasServiceProvider = type => hasLevel(type, 'Service Provider')
 export const hasProvisioning = type => hasLevel(type, 'Provisioning')
+export const hasPaasAdmin = type => hasLevel(type, 'Paas Admin')
 export const hasSystem = type => hasLevel(type, 'System')
+
+export const hasVersion = (current, required) => {
+  const currentVersion = parseFloat(current.replace('sp', '.'))
+  const requiredVersion = parseFloat(required.replace('sp', '.'))
+  return currentVersion >= requiredVersion
+}
 
 export default {
   hasLevel,
   hasGroup,
   hasServiceProvider,
+  hasPaasAdmin,
   hasProvisioning,
-  hasSystem
+  hasSystem,
+  hasVersion
+}
+
+export const useAcl = () => {
+  const { session } = useReduxState()
+  return {
+    hasLevel: useCallback(
+      level => hasLevel(session.loginType, level, session.isPaasAdmin),
+      [session.isPaasAdmin, session.loginType]
+    ),
+    hasGroup: useCallback(() => hasGroup(session.loginType, 'Group'), [
+      session.loginType
+    ]),
+    hasServiceProvider: useCallback(
+      () => hasServiceProvider(session.loginType, 'ServiceProvider'),
+      [session.loginType]
+    ),
+    hasPaasAdmin: useCallback(
+      () => hasPaasAdmin(session.loginType, 'Paas Admin', session.isPaasAdmin),
+      [session.isPaasAdmin, session.loginType]
+    ),
+    hasProvisioning: useCallback(
+      () => hasProvisioning(session.loginType, 'Provisioning'),
+      [session.loginType]
+    ),
+    hasSystem: useCallback(() => hasSystem(session.loginType, 'System'), [
+      session.loginType
+    ]),
+    hasVersion: useCallback(
+      version => hasVersion(session.softwareVersion, version),
+      [session.softwareVersion]
+    )
+  }
 }
