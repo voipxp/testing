@@ -65,12 +65,6 @@ export const dashboardMenu = [
     label: 'Provisioning',
     items: [
       {
-        path: 'addresses',
-        name: 'Addresses',
-        angularComponent: 'userAddresses',
-        acl: 'Group'
-      },
-      {
         path: 'authorization-codes',
         name: 'Authorization Codes',
         angularComponent: 'userCommunicationBarringAuthorizationCodes',
@@ -82,6 +76,12 @@ export const dashboardMenu = [
         name: 'Calling Plans',
         angularComponent: 'userCallingPlans',
         module: 'Provisioning',
+        acl: 'Group'
+      },
+      {
+        path: 'number-and-device',
+        name: 'Number and Device',
+        angularComponent: 'userAddresses',
         acl: 'Group'
       },
       {

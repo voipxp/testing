@@ -20,7 +20,7 @@ const NotFound = () => (
   </Message>
 )
 
-export const UiMenu = withRouter(({ match, location, menu = [] }) => {
+const UiMenuBase = ({ match, location, menu = [] }) => {
   const renderRoute = path => {
     let route
     for (const section of menu) {
@@ -87,9 +87,9 @@ export const UiMenu = withRouter(({ match, location, menu = [] }) => {
       </Column.Group>
     </>
   )
-})
+}
 
-UiMenu.propTypes = {
+UiMenuBase.propTypes = {
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   menu: PropTypes.arrayOf(
@@ -106,3 +106,5 @@ UiMenu.propTypes = {
     })
   ).isRequired
 }
+
+export const UiMenu = withRouter(UiMenuBase)
