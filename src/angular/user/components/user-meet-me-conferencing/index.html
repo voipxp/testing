@@ -1,10 +1,13 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block module="$ctrl.module">
-    <pbs-block-buttons if-module-create="$ctrl.module">
+    <pbs-block-buttons
+      if-module-create="$ctrl.module"
+      ng-show="$ctrl.meetMeConferencingBridges.length > 0"
+    >
       <pbs-button-compact-add ng-click="$ctrl.add()" title="Add New Conference">
       </pbs-button-compact-add>
     </pbs-block-buttons>
-    <table pbs-table>
+    <table pbs-table ng-show="$ctrl.meetMeConferencingBridges.length > 0">
       <thead>
         <tr>
           <th>Title</th>
@@ -37,13 +40,34 @@
         </tr>
       </tbody>
     </table>
+    <div
+      class="message"
+      ng-show="$ctrl.meetMeConferencingBridges.length < 1"
+      pbs-margin-top
+    >
+      <div class="message-body">
+        No Meet-Me Bridges Assigned
+      </div>
+    </div>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editConference" title="Edit Conference">
   <form name="editConferenceForm">
     <pbs-form-section>Details</pbs-form-section>
-    <pbs-form-field-horizontal label="Title">
-      <input type="text" class="input" ng-model="$ctrl.editConference.title" />
+    <pbs-form-field-horizontal label="Title*">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editConference.title"
+        required
+      />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Notification*">
+      <pbs-input-select
+        ng-model="$ctrl.editConference.attendeeNotification"
+        ng-options="opt as opt for opt in $ctrl.conferenceOptions.attendeeNotification"
+        required
+      ></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Account Code">
       <input
@@ -58,12 +82,6 @@
         class="input"
         ng-model="$ctrl.editConference.estimatedParticipants"
       />
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="Notification">
-      <pbs-input-select
-        ng-model="$ctrl.editConference.attendeeNotification"
-        ng-options="opt as opt for opt in $ctrl.conferenceOptions.attendeeNotification"
-      ></pbs-input-select>
     </pbs-form-field-horizontal>
 
     <pbs-form-section>Options</pbs-form-section>
@@ -129,14 +147,27 @@
 <pbs-modal id="addConference" title="Add Conference">
   <form name="addConferenceForm">
     <pbs-form-section>Details</pbs-form-section>
-    <pbs-form-field-horizontal label="Bridge">
+    <pbs-form-field-horizontal label="Bridge*">
       <pbs-input-select
         ng-model="$ctrl.editConference.bridgeId"
         ng-options="opt.bridgeId as opt.bridgeId for opt in $ctrl.meetMeConferencingBridges"
+        required
       ></pbs-input-select>
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="Title">
-      <input type="text" class="input" ng-model="$ctrl.editConference.title" />
+    <pbs-form-field-horizontal label="Notification*">
+      <pbs-input-select
+        ng-model="$ctrl.editConference.attendeeNotification"
+        ng-options="opt as opt for opt in $ctrl.conferenceOptions.attendeeNotification"
+        required
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Title*">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editConference.title"
+        required
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Account Code">
       <input
@@ -151,12 +182,6 @@
         class="input"
         ng-model="$ctrl.editConference.estimatedParticipants"
       />
-    </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="Notification">
-      <pbs-input-select
-        ng-model="$ctrl.editConference.attendeeNotification"
-        ng-options="opt as opt for opt in $ctrl.conferenceOptions.attendeeNotification"
-      ></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-section>Options</pbs-form-section>
     <pbs-input-checkbox
