@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import { Menu, Column, Message } from 'rbx'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
-import styled from 'styled-components'
 import { UiLoading } from '@/components/ui'
-import AngularComponent from '@/components/angular-component'
+import { AngularComponent } from '@/components/angular-component'
 
 const StyledMenu = styled.div`
   background-color: white;
@@ -20,7 +20,7 @@ const NotFound = () => (
   </Message>
 )
 
-export const UiMenu = ({ match, location, menu = [] }) => {
+export const UiMenu = withRouter(({ match, location, menu = [] }) => {
   const renderRoute = path => {
     let route
     for (const section of menu) {
@@ -87,7 +87,7 @@ export const UiMenu = ({ match, location, menu = [] }) => {
       </Column.Group>
     </>
   )
-}
+})
 
 UiMenu.propTypes = {
   match: PropTypes.object.isRequired,
@@ -106,5 +106,3 @@ UiMenu.propTypes = {
     })
   ).isRequired
 }
-
-export default withRouter(UiMenu)

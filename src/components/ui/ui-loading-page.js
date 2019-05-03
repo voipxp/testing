@@ -9,5 +9,3 @@ export const UiLoadingPage = () => (
     </Hero.Body>
   </Hero>
 )
-
-export default UiLoadingPage

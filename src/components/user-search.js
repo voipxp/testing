@@ -28,7 +28,7 @@ const columns = [
   { key: 'groupId', label: 'Group' }
 ]
 
-const UserSearch = ({ onSelect }) => {
+export const UserSearch = ({ onSelect }) => {
   const dispatch = useReduxDispatch()
 
   const [searchKey, setSearchKey] = React.useState('lastName')
@@ -125,5 +125,3 @@ const UserSearch = ({ onSelect }) => {
 UserSearch.propTypes = {
   onSelect: PropTypes.func
 }
-
-export default UserSearch

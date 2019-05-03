@@ -105,5 +105,3 @@ UiCardModal.propTypes = {
   deleteText: PropTypes.string,
   children: PropTypes.any
 }
-
-export default UiCardModal

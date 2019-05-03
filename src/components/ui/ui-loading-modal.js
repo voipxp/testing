@@ -18,5 +18,3 @@ export const UiLoadingModal = ({ isOpen = false }) => {
 UiLoadingModal.propTypes = {
   isOpen: PropTypes.bool.isRequired
 }
-
-export default UiLoadingModal

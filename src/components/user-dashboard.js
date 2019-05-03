@@ -1,17 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { AppBreadcrumb } from '@/components/app'
 import { useReduxDispatch } from 'reactive-react-redux'
 import { useAcl } from '@/utils/acl'
-import { UiMenu, UiLoadingCard } from '@/components/ui'
-import dashboardMenu from './user-dashboard-menu'
+import { UiLoadingCard, UiMenu } from '@/components/ui'
+import { AppBreadcrumb } from '@/components/app'
 import { loadUserViewableServices } from '@/store/user-viewable-services'
 import { loadUserAssignedServices } from '@/store/user-assigned-services'
 import { useUserServicePermissions } from '@/utils/user-services'
 import { useModulePermissions } from '@/utils/module'
 import { loadUser } from '@/store/user'
+import { dashboardMenu } from '@components/user-dashboard-menu'
 
-const UserDashboard = ({ match }) => {
+export const UserDashboard = ({ match }) => {
   const dispatch = useReduxDispatch()
   const [menu, setMenu] = React.useState([])
   const [loading, setLoading] = React.useState(true)
@@ -54,5 +54,3 @@ const UserDashboard = ({ match }) => {
 }
 
 UserDashboard.propTypes = { match: PropTypes.object.isRequired }
-
-export default UserDashboard

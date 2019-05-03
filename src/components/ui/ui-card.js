@@ -23,5 +23,3 @@ UiCard.propTypes = {
   buttons: PropTypes.any,
   children: PropTypes.any
 }
-
-export default UiCard

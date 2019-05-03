@@ -6,11 +6,11 @@ import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable, UiCardModal } from '@/components/ui'
-import acl from '@/utils/acl'
 import { alertDanger } from '@/store/alerts'
 import { userPath } from '@/utils/routes'
+import { ServiceProviderSelect } from '@components/service-provider-select'
+import { useAcl } from '@/utils/acl'
 import phoneNumberApi from '@/api/phone-numbers/system'
-import ServiceProviderSelect from './service-provider-select'
 
 const columns = [
   { key: 'userIdShort', label: 'User Id' },
@@ -23,10 +23,10 @@ const columns = [
   { key: 'groupId', label: 'Group' }
 ]
 
-const SystemDnSearch = ({ onSelect }) => {
+export const SystemDnSearch = ({ onSelect }) => {
+  const acl = useAcl()
   const dispatch = useReduxDispatch()
   const state = useReduxState()
-  const { loginType } = state.session
 
   const [searchString, setSearchString] = React.useState('')
   const [serviceProviderId, setServiceProviderId] = React.useState('')
@@ -35,7 +35,7 @@ const SystemDnSearch = ({ onSelect }) => {
   const [loading, setLoading] = React.useState(false)
   const [initialized, setInitialized] = React.useState(false)
 
-  const hasProvisioning = acl.hasProvisioning(loginType)
+  const hasProvisioning = acl.hasProvisioning()
 
   const handleSearchString = e => {
     setSearchString(e.target.value)
@@ -162,5 +162,3 @@ const SystemDnSearch = ({ onSelect }) => {
 SystemDnSearch.propTypes = {
   onSelect: PropTypes.func
 }
-
-export default SystemDnSearch

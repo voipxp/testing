@@ -31,5 +31,3 @@ export const UiLoading = () => (
     <StyledLoading />
   </Wrapper>
 )
-
-export default UiLoading

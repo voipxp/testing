@@ -1,4 +1,4 @@
-export default [
+export const dashboardMenu = [
   {
     label: 'Dashboard',
     items: [

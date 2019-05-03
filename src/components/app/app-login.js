@@ -3,13 +3,13 @@ import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
-import authApi from '@/api/auth'
+import { parse, stringify } from 'query-string'
 import { showLoadingModal, hideLoadingModal } from '@/store/ui'
 import { alertWarning, alertDanger } from '@/store/alerts'
 import { setSession, loadSessionFromToken } from '@/store/session'
-import { parse, stringify } from 'query-string'
+import authApi from '@/api/auth'
 
-const AppLogin = () => {
+export const AppLogin = () => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
 
@@ -187,5 +187,3 @@ const AppLogin = () => {
     </div>
   )
 }
-
-export default AppLogin

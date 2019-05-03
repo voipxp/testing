@@ -10,7 +10,7 @@ const columns = [
   { key: 'isEnterprise', label: 'Enterprise' }
 ]
 
-const ServiceProviderSelect = ({ onSelect }) => {
+export const ServiceProviderSelect = ({ onSelect }) => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
 
@@ -35,4 +35,3 @@ const ServiceProviderSelect = ({ onSelect }) => {
 ServiceProviderSelect.propTypes = {
   onSelect: PropTypes.func
 }
-export default ServiceProviderSelect

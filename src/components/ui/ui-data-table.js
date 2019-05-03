@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import paginate from 'jw-paginate'
 import cx from 'classnames'
-import { orderBy } from 'natural-orderby'
 import get from 'lodash/get'
 import isFunction from 'lodash/isFunction'
+import { orderBy } from 'natural-orderby'
 import { Table, Input, Icon, Checkbox, Button, Field, Control } from 'rbx'
-import UiPagination from './ui-pagination'
+import { UiPagination } from './ui-pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faSortUp,
@@ -272,5 +272,3 @@ UiDataTable.propTypes = {
   onClick: PropTypes.func,
   onSelect: PropTypes.func
 }
-
-export default UiDataTable

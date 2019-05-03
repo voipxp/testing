@@ -1,8 +1,8 @@
 import React from 'react'
+import styled from 'styled-components'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { Notification, Delete } from 'rbx'
-import styled from 'styled-components'
 import { removeAlert } from '@/store/alerts'
 
 const StyledAlerts = styled.div`
@@ -34,7 +34,7 @@ const StyledAlert = styled.div`
   }
 `
 
-const AppAlerts = () => {
+export const AppAlerts = () => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
   const { alerts } = state
@@ -56,5 +56,3 @@ const AppAlerts = () => {
     </TransitionGroup>
   )
 }
-
-export default AppAlerts

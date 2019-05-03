@@ -62,5 +62,3 @@ UiPagination.propTypes = {
   onPrevious: PropTypes.func,
   onLast: PropTypes.func
 }
-
-export default UiPagination

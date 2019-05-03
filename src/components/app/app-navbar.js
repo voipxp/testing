@@ -8,14 +8,14 @@ import { UiCardModal } from '@/components/ui'
 import { userPath, groupPath } from '@/utils/routes'
 import { parseUrl, stringify } from 'query-string'
 import { alertDanger } from '@/store/alerts'
-import authApi from '@/api/auth'
 import { useAcl } from '@/utils/acl'
-import UserSearch from '../user-search'
-import SystemDnSearch from '../system-dn-search'
-import GroupSearch from '../group-search'
-import UserServiceSearch from '../user-service-search'
+import { UserSearch } from '@/components/user-search'
+import { SystemDnSearch } from '@/components/system-dn-search'
+import { GroupSearch } from '@/components/group-search'
+import { UserServiceSearch } from '@/components/user-service-search'
+import authApi from '@/api/auth'
 
-const AppNavbar = ({ history }) => {
+export const AppNavbar = withRouter(({ history }) => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
 
@@ -190,10 +190,8 @@ const AppNavbar = ({ history }) => {
       )}
     </div>
   )
-}
+})
 
 AppNavbar.propTypes = {
   history: PropTypes.object
 }
-
-export default withRouter(AppNavbar)

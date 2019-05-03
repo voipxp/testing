@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from 'rbx'
-import { UiLoading } from '.'
+import { UiLoading } from './ui-loading'
 
 export const UiLoadingCard = () => (
   <Card>
@@ -9,5 +9,3 @@ export const UiLoadingCard = () => (
     </Card.Content>
   </Card>
 )
-
-export default UiLoadingCard

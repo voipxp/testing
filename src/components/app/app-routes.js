@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactGA from 'react-ga'
-import { Switch, Route } from 'react-router-dom'
 import camelCase from 'lodash/camelCase'
+import { Switch, Route } from 'react-router-dom'
 import { useReduxState } from 'reactive-react-redux'
 import { AppDashboard, AppNotFound } from '@/components/app'
-import UserDashboard from '../user-dashboard'
-import AngularComponent from '../angular-component'
+import { UserDashboard } from '@/components/user-dashboard'
+import { AngularComponent } from '@/components/angular-component'
 import { hasLevel } from '@/utils/acl'
 
 // angular routes
@@ -36,7 +36,7 @@ const Analytics = ({ location }) => {
   return null
 }
 
-const Router = () => {
+export const AppRoutes = () => {
   const state = useReduxState()
   const { loginType, isPaasAdmin } = state.session
   const { modules } = state.ui
@@ -102,5 +102,3 @@ const Router = () => {
     </>
   )
 }
-
-export default Router

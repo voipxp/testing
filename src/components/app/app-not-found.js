@@ -1,12 +1,12 @@
 import React from 'react'
-import { Breadcrumb, Message } from 'rbx'
 import styled from 'styled-components'
+import { Breadcrumb, Message } from 'rbx'
 
 const BreadcrumbStyled = styled.div`
   margin-top: -2rem;
   margin-bottom: 1rem;
 `
-const AppNotFound = () => (
+export const AppNotFound = () => (
   <>
     <Breadcrumb as={BreadcrumbStyled}>
       <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
@@ -20,5 +20,3 @@ const AppNotFound = () => (
     </Message>
   </>
 )
-
-export default AppNotFound

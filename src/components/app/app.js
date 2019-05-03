@@ -1,11 +1,14 @@
 import { hot } from 'react-hot-loader/root'
 import React from 'react'
 import ReactGA from 'react-ga'
-import { Section } from 'rbx'
-import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
-import AngularComponent from '../angular-component'
+import { Section } from 'rbx'
+import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
+import { AngularComponent } from '@/components/angular-component'
+import { UiLoadingPage } from '@/components/ui'
+import { alertWarning, removeAlert } from '@/store/alerts'
+import { clearSession } from '@/store/session'
 import {
   AppAlerts,
   AppFooter,
@@ -14,16 +17,13 @@ import {
   AppNavbar,
   AppRoutes
 } from '@/components/app'
-import { UiLoadingPage } from '@/components/ui'
-import { alertWarning, removeAlert } from '@/store/alerts'
-import { clearSession } from '@/store/session'
 
 const TIMEOUT = 30000
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
 `
-const App = () => {
+export const App = hot(() => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
   const { initialized } = state.ui
@@ -82,6 +82,4 @@ const App = () => {
       <AppLoadingModal />
     </>
   )
-}
-
-export default hot(App)
+})

@@ -9,7 +9,7 @@ const StyledBreadcrumb = styled.div`
   margin-top: -2rem;
   margin-bottom: 1rem;
 `
-const AppBreadcrumb = ({ match, children }) => {
+export const AppBreadcrumb = withRouter(({ match, children }) => {
   const { serviceProviderId, groupId, userId } = match.params
   const acl = useAcl()
   const hasGroup = acl.hasGroup()
@@ -58,11 +58,9 @@ const AppBreadcrumb = ({ match, children }) => {
       {children}
     </Breadcrumb>
   )
-}
+})
 
 AppBreadcrumb.propTypes = {
   match: PropTypes.object,
   children: PropTypes.any
 }
-
-export default withRouter(AppBreadcrumb)
