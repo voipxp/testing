@@ -9,7 +9,7 @@ import { loadUserAssignedServices } from '@/store/user-assigned-services'
 import { useUserServicePermissions } from '@/utils/user-services'
 import { useModulePermissions } from '@/utils/module'
 import { loadUser } from '@/store/user'
-import { dashboardMenu } from '@components/user-dashboard-menu'
+import { dashboardMenu } from '@/components/user-dashboard-menu'
 
 export const UserDashboard = ({ match }) => {
   const dispatch = useReduxDispatch()
