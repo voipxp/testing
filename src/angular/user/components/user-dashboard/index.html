@@ -7,13 +7,20 @@
 
 <pbs-spinner loading="$ctrl.loading">
   <pbs-menu>
-    <pbs-menu-section label="Dashboard">
-      <pbs-menu-item label="Call Records">
+    <pbs-menu-section label="Dashboard" ng-if="$ctrl.showDashboardSection">
+      <pbs-menu-item label="Call Records" ng-if="$ctrl.showPremiumCallRecords">
         <user-call-record-dashboard
           service-provider-id="$ctrl.serviceProviderId"
           group-id="$ctrl.groupId"
           user-id="$ctrl.userId"
         ></user-call-record-dashboard>
+      </pbs-menu-item>
+      <pbs-menu-item label="Basic Call Logs" ng-if="$ctrl.showBasicCallLogs">
+        <user-basic-call-logs
+          service-provider-id="$ctrl.serviceProviderId"
+          group-id="$ctrl.groupId"
+          user-id="$ctrl.userId"
+        ></user-basic-call-logs>
       </pbs-menu-item>
       <pbs-menu-item label="Feature Quick Set" ng-if="$ctrl.showQuick">
         <user-quick-set
@@ -23,7 +30,7 @@
         ></user-quick-set>
       </pbs-menu-item>
     </pbs-menu-section>
-    <pbs-menu-section label="Management">
+    <pbs-menu-section label="Management" ng-if="true">
       <pbs-menu-item label="User Profile">
         <user-profile user-id="$ctrl.userId"></user-profile>
       </pbs-menu-item>
