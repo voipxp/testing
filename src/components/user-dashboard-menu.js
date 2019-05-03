@@ -88,7 +88,7 @@ export default [
         path: 'service-assignment',
         name: 'Service Assignment',
         angularComponent: 'userServices',
-        bindings: { serviceType: 'userServices' },
+        serviceType: 'userServices',
         module: 'Provisioning',
         acl: 'Group'
       },
@@ -96,7 +96,7 @@ export default [
         path: 'service-packs',
         name: 'Service Packs',
         angularComponent: 'userServices',
-        bindings: { serviceType: 'servicePackServices' },
+        serviceType: 'servicePackServices',
         module: 'Provisioning',
         acl: 'Group'
       },
