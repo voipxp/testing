@@ -2,14 +2,18 @@ import camelCase from 'lodash/camelCase'
 import { useReduxState } from 'reactive-react-redux'
 import { useCallback } from 'react'
 
-const getModule = (name, modules) => {
+const getModule = (name, loginType, modules) => {
+  if (!name) return
   const moduleName = name.serviceName || name.name || name
-  return modules[moduleName]
+  const module = modules[moduleName]
+  if (!module) return
+  const permissions = module.permissions[camelCase(loginType)]
+  return { ...module, permissions }
 }
 
 const hasModulePermission = (name, loginType, modules, permission) => {
-  const module = getModule(name, modules)
-  return module ? module.permissions[camelCase(loginType)][permission] : true
+  const module = getModule(name, loginType, modules)
+  return module ? module.permissions[permission] : true
 }
 
 const hasModuleRead = (name, loginType, modules) => {
@@ -41,6 +45,12 @@ const moduleDescription = (name, modules) => {
 export const useModulePermissions = () => {
   const { session, ui } = useReduxState()
   return {
+    getModule: useCallback(
+      name => {
+        return getModule(name, session.loginType, ui.modules)
+      },
+      [session.loginType, ui.modules]
+    ),
     hasModulePermission: useCallback(
       (name, permission) => {
         return hasModulePermission(

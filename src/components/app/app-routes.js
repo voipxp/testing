@@ -1,12 +1,9 @@
 import React from 'react'
 import ReactGA from 'react-ga'
-import camelCase from 'lodash/camelCase'
 import { Switch, Route } from 'react-router-dom'
-import { useReduxState } from 'reactive-react-redux'
 import { AppDashboard, AppNotFound } from '@/components/app'
 import { AngularComponent } from '@/components/angular-component'
-import { hasLevel } from '@/utils/acl'
-
+import { useAcl, useModulePermissions } from '@/utils'
 import { angularRoutes, reactRoutes } from './app-routes-routes'
 
 const Analytics = ({ location }) => {
@@ -15,27 +12,22 @@ const Analytics = ({ location }) => {
 }
 
 export const AppRoutes = () => {
-  const state = useReduxState()
-  const { loginType, isPaasAdmin } = state.session
-  const { modules } = state.ui
-
-  const getModule = name => {
-    const module = modules[name]
-    return module
-      ? { ...module, permissions: module.permissions[camelCase(loginType)] }
-      : null
-  }
+  const { hasLevel, hasVersion } = useAcl()
+  const { getModule } = useModulePermissions()
 
   const notFoundRoute = path => (
     <Route exact key={path} path={path} component={AppNotFound} />
   )
 
   const generateRoute = route => {
-    const module = getModule(route.module)
-    if (module && !module.permissions.read) {
+    if (route.version && !hasVersion(route.version)) {
       return notFoundRoute(route.path)
     }
-    if (route.acl && !hasLevel(loginType, route.acl, isPaasAdmin)) {
+    if (route.acl && !hasLevel(route.acl)) {
+      return notFoundRoute(route.path)
+    }
+    const module = getModule(route.module)
+    if (module && !module.permissions.read) {
       return notFoundRoute(route.path)
     }
     const { path, component, Component, ...rest } = route

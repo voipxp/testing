@@ -1,11 +1,9 @@
 TODO
 
-- replace user dashboard with react
+- Make @/store exports
 
-  - add Module permissions checks
-  - add Service checks
-
-- add feature flag for call center queue
+  - change reducers to named reducers
+  - export \* on the rest
 
 - add integrated IMP check to SCA page
 - make lodash requires modular (https://github.com/ant-design/babel-plugin-import#readme)
