@@ -39,7 +39,7 @@ export const AppRoutes = () => {
       return notFoundRoute(route.path)
     }
     const { path, component, Component, ...rest } = route
-    return route.component ? (
+    return component ? (
       <Route
         exact
         key={path}
