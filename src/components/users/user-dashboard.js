@@ -3,14 +3,16 @@ import PropTypes from 'prop-types'
 import { useReduxDispatch } from 'reactive-react-redux'
 import { UiLoadingCard, UiMenu } from '@/components/ui'
 import { AppBreadcrumb } from '@/components/app'
-import { loadUserViewableServices } from '@/store/user-viewable-services'
-import { loadUserAssignedServices } from '@/store/user-assigned-services'
+import {
+  loadUserAssignedServices,
+  loadUserViewableServices,
+  loadUser
+} from '@/store/actions'
 import {
   useUserServicePermissions,
   useModulePermissions,
   useAcl
 } from '@/utils'
-import { loadUser } from '@/store/user'
 import { dashboardMenu } from './user-dashboard-menu'
 
 export const UserDashboard = ({ match }) => {

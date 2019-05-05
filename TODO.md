@@ -1,12 +1,13 @@
 ORGANIZATION
 
 - @/store/selectors
-- @/store/actions
 - @/store/hooks
 - @/store
   - change reducer exports to named reducers
 - @/api/users
 - @/api/auth
+
+x @/store/actions
 
 ROUTES / MENUS
 

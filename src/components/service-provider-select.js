@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { loadServiceProviders } from '@/store/service-providers'
+import { loadServiceProviders } from '@/store/actions'
 
 const columns = [
   { key: 'serviceProviderId', label: 'ID' },
