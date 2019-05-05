@@ -29,11 +29,10 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
     }
     if (!route) return <NotFound />
     const { component, angularComponent, ...props } = route
-    if (route.angularComponent) {
-      return <AngularComponent component={route.angularComponent} {...props} />
+    if (angularComponent) {
+      return <AngularComponent component={angularComponent} {...props} />
     } else {
-      const Component = route.component
-      return <Component {...props} />
+      return <route.component {...props} />
     }
   }
 

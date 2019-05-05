@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import { AppDashboard, AppNotFound } from '@/components/app'
 import { AngularComponent } from '@/components/angular-component'
 import { useAcl, useModulePermissions } from '@/utils'
-import { angularRoutes, reactRoutes } from './app-routes-routes'
+import { routes } from './app-routes-routes'
 
 const Analytics = ({ location }) => {
   ReactGA.pageview(location.pathname + location.search)
@@ -30,21 +30,28 @@ export const AppRoutes = () => {
     if (module && !module.permissions.read) {
       return notFoundRoute(route.path)
     }
-    const { path, component, Component, ...rest } = route
-    return component ? (
+    const { path, component, angularComponent, exact, ...rest } = route
+    return angularComponent ? (
       <Route
         exact
         key={path}
         path={path}
         render={() => (
-          <AngularComponent component={component} module={module} {...rest} />
+          <AngularComponent
+            component={angularComponent}
+            module={module}
+            {...rest}
+          />
         )}
       />
     ) : (
       <Route
         key={path}
         path={path}
-        render={props => <Component module={module} {...rest} {...props} />}
+        exact={exact}
+        render={props => (
+          <route.component module={module} {...rest} {...props} />
+        )}
       />
     )
   }
@@ -53,8 +60,7 @@ export const AppRoutes = () => {
     <>
       <Switch>
         <Route path="/" exact component={AppDashboard} />
-        {angularRoutes.map(route => generateRoute(route))}
-        {reactRoutes.map(route => generateRoute(route))}
+        {routes.map(route => generateRoute(route))}
         <Route component={AppNotFound} />
       </Switch>
       <Route component={Analytics} />
