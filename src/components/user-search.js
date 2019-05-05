@@ -5,7 +5,7 @@ import { useReduxDispatch } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { alertDanger } from '@/store/actions'
+import { alertDanger } from '@/store/alerts'
 import userApi from '@/api/users'
 
 const searchTypes = [

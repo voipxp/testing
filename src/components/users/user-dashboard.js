@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import { useReduxDispatch } from 'reactive-react-redux'
 import { UiLoadingCard, UiMenu } from '@/components/ui'
 import { AppBreadcrumb } from '@/components/app'
-import {
-  loadUserAssignedServices,
-  loadUserViewableServices,
-  loadUser
-} from '@/store/actions'
+import { loadUserAssignedServices } from '@/store/user-assigned-services'
+import { loadUserViewableServices } from '@/store/user-viewable-services'
+import { loadUser } from '@/store/user'
 import {
   useUserServicePermissions,
   useModulePermissions,

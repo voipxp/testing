@@ -1,14 +1,3 @@
-ORGANIZATION
-
-- @/store/selectors
-- @/store/hooks
-- @/store
-  - change reducer exports to named reducers
-- @/api/users
-- @/api/auth
-
-x @/store/actions
-
 ROUTES / MENUS
 
 - Component, angularComponent

@@ -7,7 +7,8 @@ import { Section } from 'rbx'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { AngularComponent } from '@/components/angular-component'
 import { UiLoadingPage } from '@/components/ui'
-import { alertWarning, removeAlert, clearSession } from '@/store/actions'
+import { alertWarning, removeAlert } from '@/store/alerts'
+import { clearSession } from '@/store/session'
 import {
   AppAlerts,
   AppFooter,
