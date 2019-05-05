@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import { AppDashboard, AppNotFound } from '@/components/app'
 import { AngularComponent } from '@/components/angular-component'
 import { useAcl, useModulePermissions } from '@/utils'
-import { routes } from './app-routes-routes'
+import { routes } from './routes'
 
 const Analytics = ({ location }) => {
   ReactGA.pageview(location.pathname + location.search)

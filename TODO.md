@@ -1,8 +1,3 @@
-ROUTES / MENUS
-
-- Component, angularComponent
-- Pass module, acl, and all props except component, path
-
 TODO
 
 - add integrated IMP check to SCA page
