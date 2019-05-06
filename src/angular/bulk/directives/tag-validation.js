@@ -20,7 +20,7 @@ function tagValidation(BulkTemplateService, $q, EventEmitter, BulkTagService) {
       }
       ctrl.$asyncValidators.bulkTag = function(modelValue) {
         var view = _.isObject(scope.tagView)
-          ? _.assign(defaultView, scope.tagView)
+          ? Object.assign(defaultView, scope.tagView)
           : defaultView
         if (ctrl.$isEmpty(modelValue)) {
           if (scope.isRequired || scope.tagRequired) {

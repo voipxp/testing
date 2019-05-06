@@ -1,5 +1,4 @@
 import angular from 'angular'
-import _ from 'lodash'
 
 angular.module('odin.api').factory('GroupCallProcessingPolicyService', Service)
 
@@ -37,15 +36,10 @@ function Service($http, Route) {
       })
   }
   function update(serviceProviderId, groupId, object) {
-    object = _.assign(
-      {
-        serviceProviderId: serviceProviderId,
-        groupId: groupId
-      },
-      object
-    )
-    return $http.put(url(), object).then(function(response) {
-      return response.data
-    })
+    return $http
+      .put(url(), { serviceProviderId, groupId, ...object })
+      .then(function(response) {
+        return response.data
+      })
   }
 }

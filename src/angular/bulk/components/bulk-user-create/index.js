@@ -108,7 +108,7 @@ function controller(BulkImportService, $location) {
 
   // generic assignment
   function onUpdate(event) {
-    _.assign(ctrl.data, event)
+    Object.assign(ctrl.data, event)
     next()
   }
 

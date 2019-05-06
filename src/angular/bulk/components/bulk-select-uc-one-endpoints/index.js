@@ -77,7 +77,7 @@ function controller(EventEmitter, Alert) {
     Alert.modal.open('userSharedCallAppearanceEndpointModal', function onSave(
       close
     ) {
-      _.assign(endpoint, ctrl.editEndpoint)
+      Object.assign(endpoint, ctrl.editEndpoint)
       endpoint.deviceName = _.get(endpoint, 'accessDevice.deviceName')
       endpoint.deviceLevel = _.get(endpoint, 'accessDevice.deviceLevel')
       close()
