@@ -10,10 +10,17 @@ angular.module('odin.user').component('userSharedCallAppearanceAdmin', {
 controller.$inject = [
   'Alert',
   'UserSharedCallAppearanceService',
+  'UserPermissionService',
   'Module',
   '$q'
 ]
-function controller(Alert, UserSharedCallAppearanceService, Module, $q) {
+function controller(
+  Alert,
+  UserSharedCallAppearanceService,
+  UserPermissionService,
+  Module,
+  $q
+) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -27,7 +34,7 @@ function controller(Alert, UserSharedCallAppearanceService, Module, $q) {
   function onInit() {
     ctrl.loading = true
     return $q
-      .all([loadSharedCallAppearance(), loadModule()])
+      .all([loadSharedCallAppearance(), loadModule(), loadPermissions()])
       .catch(function(error) {
         Alert.notify.danger(error)
       })
@@ -48,6 +55,14 @@ function controller(Alert, UserSharedCallAppearanceService, Module, $q) {
     ) {
       ctrl.sharedCallAppearance = data
     })
+  }
+
+  function loadPermissions() {
+    UserPermissionService.load(ctrl.userId)
+      .then(function(permissions) {
+        ctrl.showIntegratedImp = permissions.isAssigned('Integrated IMP')
+      })
+      .catch(Alert.notify.danger)
   }
 
   function edit() {

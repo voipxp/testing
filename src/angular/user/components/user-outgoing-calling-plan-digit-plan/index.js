@@ -15,7 +15,7 @@ function controller(UserPermissionService, Alert) {
   function onInit() {
     UserPermissionService.load(ctrl.userId)
       .then(function(permissions) {
-        ctrl.showCallMeNow = permissions.assigned('Call Me Now')
+        ctrl.showCallMeNow = permissions.isAssigned('Call Me Now')
       })
       .catch(Alert.notify.danger)
   }
