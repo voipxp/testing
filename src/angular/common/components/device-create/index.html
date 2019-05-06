@@ -11,9 +11,7 @@
         <tr ng-if="results.length < 1">
           <td colspan="1">
             No Device Type Found
-            <span ng-if="$ctrl.filter">
-              for {{ $ctrl.filter }}
-            </span>
+            <span ng-if="$ctrl.filter"> for {{ $ctrl.filter }} </span>
           </td>
         </tr>
       </tfoot>
@@ -57,7 +55,7 @@
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal
           label="Username"
-          ng-show="$ctrl.device.useCustomUserNamePassword"
+          ng-if="$ctrl.device.useCustomUserNamePassword"
         >
           <input
             type="text"
@@ -68,7 +66,7 @@
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal
           label="Password"
-          ng-show="$ctrl.device.useCustomUserNamePassword"
+          ng-if="$ctrl.device.useCustomUserNamePassword"
         >
           <pbs-input-password
             ng-model="$ctrl.device.accessDeviceCredentials.password"

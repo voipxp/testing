@@ -27,7 +27,7 @@
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal
           label="Username"
-          ng-show="$ctrl.device.useCustomUserNamePassword"
+          ng-if="$ctrl.device.useCustomUserNamePassword"
         >
           <input
             type="text"
@@ -38,13 +38,12 @@
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal
           label="Password"
-          ng-show="$ctrl.device.useCustomUserNamePassword"
+          ng-if="$ctrl.device.useCustomUserNamePassword"
         >
           <pbs-input-password
             ng-model="$ctrl.device.accessDeviceCredentials.password"
             ng-minlength="6"
             ng-maxlength="60"
-            ng-required="$ctrl.device.useCustomUserNamePassword"
             service-provider-id="$ctrl.serviceProviderId"
             group-id="$ctrl.groupId"
           ></pbs-input-password>
