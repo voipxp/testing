@@ -7,9 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable, UiCardModal } from '@/components/ui'
 import { alertDanger } from '@/store/alerts'
-import { userPath } from '@/utils/routes'
+import { useAcl, userPath } from '@/utils'
 import { ServiceProviderSelect } from '@/components/service-provider-select'
-import { useAcl } from '@/utils/acl'
 import phoneNumberApi from '@/api/phone-numbers/system'
 
 const columns = [

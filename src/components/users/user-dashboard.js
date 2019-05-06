@@ -1,15 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useReduxDispatch } from 'reactive-react-redux'
-import { useAcl } from '@/utils/acl'
 import { UiLoadingCard, UiMenu } from '@/components/ui'
 import { AppBreadcrumb } from '@/components/app'
-import { loadUserViewableServices } from '@/store/user-viewable-services'
 import { loadUserAssignedServices } from '@/store/user-assigned-services'
-import { useUserServicePermissions } from '@/utils/user-services'
-import { useModulePermissions } from '@/utils/module'
+import { loadUserViewableServices } from '@/store/user-viewable-services'
 import { loadUser } from '@/store/user'
-import { dashboardMenu } from '@/components/user-dashboard-menu'
+import {
+  useUserServicePermissions,
+  useModulePermissions,
+  useAcl
+} from '@/utils'
+import { dashboardMenu } from './user-dashboard-menu'
 
 export const UserDashboard = ({ match }) => {
   const dispatch = useReduxDispatch()

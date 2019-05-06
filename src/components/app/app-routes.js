@@ -1,35 +1,10 @@
 import React from 'react'
 import ReactGA from 'react-ga'
-import camelCase from 'lodash/camelCase'
 import { Switch, Route } from 'react-router-dom'
-import { useReduxState } from 'reactive-react-redux'
 import { AppDashboard, AppNotFound } from '@/components/app'
-import { UserDashboard } from '@/components/user-dashboard'
 import { AngularComponent } from '@/components/angular-component'
-import { hasLevel } from '@/utils/acl'
-
-// angular routes
-import appRoutes from '@/angular/app/routes'
-import brandingRoutes from '@/angular/branding/routes'
-import bulkRoutes from '@/angular/bulk/routes'
-import eventsRoutes from '@/angular/events/routes'
-import groupRoutes from '@/angular/group/routes'
-import serviceProviderRoutes from '@/angular/service-provider/routes'
-import settingsRoutes from '@/angular/settings/routes'
-import systemRoutes from '@/angular/system/routes'
-import vdmRoutes from '@/angular/vdm/routes'
-
-const angularRoutes = [
-  ...appRoutes,
-  ...brandingRoutes,
-  ...bulkRoutes,
-  ...eventsRoutes,
-  ...groupRoutes,
-  ...serviceProviderRoutes,
-  ...settingsRoutes,
-  ...systemRoutes,
-  ...vdmRoutes
-]
+import { useAcl, useModulePermissions } from '@/utils'
+import { routes } from './routes'
 
 const Analytics = ({ location }) => {
   ReactGA.pageview(location.pathname + location.search)
@@ -37,51 +12,45 @@ const Analytics = ({ location }) => {
 }
 
 export const AppRoutes = () => {
-  const state = useReduxState()
-  const { loginType, isPaasAdmin } = state.session
-  const { modules } = state.ui
+  const { hasLevel, hasVersion } = useAcl()
+  const { getModule } = useModulePermissions()
 
-  const getModule = name => {
-    const module = modules[name]
-    return module
-      ? { ...module, permissions: module.permissions[camelCase(loginType)] }
-      : null
-  }
+  const notFoundRoute = path => (
+    <Route exact key={path} path={path} component={AppNotFound} />
+  )
 
   const generateRoute = route => {
+    if (route.version && !hasVersion(route.version)) {
+      return notFoundRoute(route.path)
+    }
+    if (route.acl && !hasLevel(route.acl)) {
+      return notFoundRoute(route.path)
+    }
     const module = getModule(route.module)
     if (module && !module.permissions.read) {
-      return (
-        <Route
-          exact
-          key={route.path}
-          path={route.path}
-          component={AppNotFound}
-        />
-      )
+      return notFoundRoute(route.path)
     }
-    if (route.acl && !hasLevel(loginType, route.acl, isPaasAdmin)) {
-      return (
-        <Route
-          exact
-          key={route.path}
-          path={route.path}
-          component={AppNotFound}
-        />
-      )
-    }
-    return (
+    const { path, component, angularComponent, exact, ...rest } = route
+    return angularComponent ? (
       <Route
-        key={route.path}
-        path={route.path}
         exact
+        key={path}
+        path={path}
         render={() => (
           <AngularComponent
-            component={route.component}
-            acl={route.acl}
+            component={angularComponent}
             module={module}
-            {...route.bindings}
+            {...rest}
           />
+        )}
+      />
+    ) : (
+      <Route
+        key={path}
+        path={path}
+        exact={exact}
+        render={props => (
+          <route.component module={module} {...rest} {...props} />
         )}
       />
     )
@@ -91,11 +60,7 @@ export const AppRoutes = () => {
     <>
       <Switch>
         <Route path="/" exact component={AppDashboard} />
-        {angularRoutes.map(route => generateRoute(route))}
-        <Route
-          path="/users/:serviceProviderId/:groupId/:userId"
-          component={UserDashboard}
-        />
+        {routes.map(route => generateRoute(route))}
         <Route component={AppNotFound} />
       </Switch>
       <Route component={Analytics} />

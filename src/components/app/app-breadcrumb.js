@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { useAcl } from '@/utils/acl'
+import { useAcl } from '@/utils'
 import { withRouter } from 'react-router'
 import { Breadcrumb } from 'rbx'
 

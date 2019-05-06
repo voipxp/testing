@@ -14,5 +14,8 @@ export default {
   modifyBundlerConfig: config => {
     config.resolve.alias['@'] = path.resolve(__dirname, 'src')
     return config
+  },
+  filterComponents: files => {
+    return files.filter(filepath => /[w-]*.(js|jsx|ts|tsx)$/.test(filepath))
   }
 }
