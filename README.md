@@ -45,7 +45,7 @@ docker build -t odin-web .
 
 The application is running React with previous angular code inside it being render via the AngularComponent (**src/components/angular-component**). New components _should_ be written in React.
 
-The preference for react components is to use functional components and utilize hooks (useState, useReducer) for local state management and lifecycle methods (useEffect). For global storage we are currently utilizing Redux. The stores are located in **src/store**.
+The preference for react components is to use functional components and utilize hooks (useState, useReducer) for local state management and lifecycle methods (useEffect). For global state management we are currently utilizing Redux.
 
 ### Directory structure
 
@@ -87,9 +87,9 @@ components/hunt-group/group-hunt-group-create.js
 
 ### Redux
 
-We are using redux for global state management. In general, store temporary or ephemeral data locally in the component. For example, this may include form state, search results, error messages, etc. Anything else that can be shared and re-used in other components _should_ be stored in the redux store. The angular module **\$ngRedux** is can be utilized to share state and dispatch actions within the angular side of the application.
+We are using redux for global state management. In general, store temporary or ephemeral data locally in the component. For example, this may include form state, search results, error messages, etc. Anything else that can be shared and re-used in other components _should_ be stored in the redux store. The angular module **\$ngRedux** can be utilized to share state and dispatch actions with the angular components.
 
-We haven't yet determined the best schema design of the redux store, this is an ongoing experiment. This document will be updated as it progresses.
+The redux store is currently in _experimental_ mode. We will document more as we develop patterns we like.
 
 ### Documentation
 
