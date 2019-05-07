@@ -1,5 +1,4 @@
 import angular from 'angular'
-import _ from 'lodash'
 
 angular.module('odin.api').factory('GroupPermissionService', Service)
 
@@ -48,21 +47,15 @@ function Service(Module, GroupServiceService, $q) {
     function has(name) {
       if (!name) return
       name = name.serviceName || name.name || name
-      // TEMP HACK until #290
-      if (name === 'Call Center') {
-        return _.find(
-          [
+      switch (name) {
+        case 'Call Center':
+          return [
             'Call Center - Basic',
             'Call Center - Standard',
             'Call Center - Premium'
-          ],
-          function(service) {
-            return isAssigned(service)
-          }
-        )
-      } else if (name === 'Shared Call Appearance') {
-        return _.find(
-          [
+          ].find(isAssigned)
+        case 'Shared Call Appearance':
+          return [
             'Shared Call Appearance',
             'Shared Call Appearance 5',
             'Shared Call Appearance 10',
@@ -71,35 +64,21 @@ function Service(Module, GroupServiceService, $q) {
             'Shared Call Appearance 25',
             'Shared Call Appearance 30',
             'Shared Call Appearance 35'
-          ],
-          function(service) {
-            return isAssigned(service)
-          }
-        )
-      } else if (name === 'Auto Attendant') {
-        return _.find(
-          [
+          ].find(isAssigned)
+        case 'Auto Attendant':
+          return [
             'Auto Attendant',
             'Auto Attendant - Standard',
             'Auto Attendant - Video'
-          ],
-          function(service) {
-            return isAssigned(service)
-          }
-        )
-      } else if (name === 'Group Calling Plans') {
-        return _.find(
-          [
+          ].find(isAssigned)
+        case 'Group Calling Plans':
+          return [
             'Outgoing Calling Plan',
             'Enhanced Outgoing Calling Plan',
             'Incoming Calling Plan'
-          ],
-          function(service) {
-            return isAssigned(service)
-          }
-        )
-      } else {
-        return isAssigned(name)
+          ].find(isAssigned)
+        default:
+          return isAssigned(name)
       }
     }
   }

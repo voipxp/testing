@@ -1,5 +1,4 @@
 import angular from 'angular'
-import _ from 'lodash'
 import template from './index.html'
 
 angular.module('odin.branding').component('brandingApplications', {
@@ -67,7 +66,7 @@ function controller(BrandingApplicationService, SettingService, Alert, $q) {
   }
 
   function validateName(application) {
-    var other = _.find(ctrl.applications, { name: application.name })
+    const other = ctrl.applications.find(app => app.name === application.name)
     if (other && other.id !== application.id) {
       Alert.notify.warning('Name is already taken')
       return false

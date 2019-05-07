@@ -1,5 +1,4 @@
 import angular from 'angular'
-import _ from 'lodash'
 import { loadUserAssignedServices } from '@/store/user-assigned-services'
 import { loadUserViewableServices } from '@/store/user-viewable-services'
 
@@ -74,20 +73,15 @@ function Service(Module, ACL, $q, $ngRedux) {
       if (!name) return
       name = name.serviceName || name.name || name
       // TEMP HACK until #290
-      if (name === 'Call Center') {
-        return _.find(
-          [
+      switch (name) {
+        case 'Call Center':
+          return [
             'Call Center - Basic',
             'Call Center - Standard',
             'Call Center - Premium'
-          ],
-          function(service) {
-            return isAssigned(service) && isViewable(service)
-          }
-        )
-      } else if (name === 'Shared Call Appearance') {
-        return _.find(
-          [
+          ].find(service => isAssigned(name) && isViewable(name))
+        case 'Shared Call Appearance':
+          return [
             'Shared Call Appearance',
             'Shared Call Appearance 5',
             'Shared Call Appearance 10',
@@ -96,13 +90,9 @@ function Service(Module, ACL, $q, $ngRedux) {
             'Shared Call Appearance 25',
             'Shared Call Appearance 30',
             'Shared Call Appearance 35'
-          ],
-          function(service) {
-            return isAssigned(service) && isViewable(service)
-          }
-        )
-      } else {
-        return isAssigned(name) && isViewable(name)
+          ].find(service => isAssigned(service) && isViewable(service))
+        default:
+          return isAssigned(name) && isViewable(name)
       }
     }
   }
