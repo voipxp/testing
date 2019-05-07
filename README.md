@@ -41,6 +41,26 @@ yarn build
 docker build -t odin-web .
 ```
 
+## Component Documentation
+
+We are using [docz](https://www.docz.site/docs/introduction) for component documentation. Its not necessary to document every component. However, the ones that are going to be re-used, especially UI components should be documented. Look for example files ending in **.mdx** in the **src/components/ui** directory.
+
+### Documentation Dev Mode
+
+You may run docz in dev mode and it will hot-reload the documentation as you edit the components. This is a nice way to develop a UI component without needing to interface with APIs.
+
+```
+yarn run docz:dev
+```
+
+### Documentation Build
+
+You can build a static version of the documentation. By default the files will be found in **.docz/dist**
+
+```
+yarn run docz:build
+```
+
 ## React
 
 The application is running React with previous angular code inside it being render via the AngularComponent (**src/components/angular-component**). New components _should_ be written in React.
