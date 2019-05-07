@@ -41,26 +41,6 @@ yarn build
 docker build -t odin-web .
 ```
 
-## Component Documentation
-
-We are using [docz](https://www.docz.site/docs/introduction) for component documentation. Its not necessary to document every component. However, the ones that are going to be re-used, especially UI components should be documented. Look for example files ending in **.mdx** in the **src/components/ui** directory.
-
-### Documentation Dev Mode
-
-You may run docz in dev mode and it will hot-reload the documentation as you edit the components. This is a nice way to develop a UI component without needing to interface with APIs.
-
-```
-yarn run docz:dev
-```
-
-### Documentation Build
-
-You can build a static version of the documentation. By default the files will be found in **.docz/dist**
-
-```
-yarn run docz:build
-```
-
 ## React
 
 The application is running React with previous angular code inside it being render via the AngularComponent (**src/components/angular-component**). New components _should_ be written in React.
@@ -81,7 +61,7 @@ The current directory structure is as follows
 
 ### Naming Convention
 
-All components should be named with the left-most part being the most generic and increasing specificity on the right. Prefix the component or service with the BW higherarchy if it applies to that component. You are free to make sub-directories in order to combine related components. All files should be **kebab-case** to avoid capitalization issues with OSX and windows file systems.
+All components should be named with the left-most part being the most generic and increasing specificity on the right. Prefix the component or service with the BW higherarchy if it applies to that component. You are free to make sub-directories in order to combine related components. All files should be **kebab-case** to avoid capitalization issues with OSX and Windows file systems.
 
 eg:
 
@@ -107,13 +87,25 @@ components/hunt-group/group-hunt-group-create.js
 
 ### Redux
 
-We are using redux for global state management. In general, store temporary or ephemeral data locally in the component. For example, form state, search results, error messages. Anything else that can be shared and re-used in other components _should_ be stored in the redux store. The angular module **\$ngRedux** is can be utilized to share state and dispatch actions within the angular side of the application.
+We are using redux for global state management. In general, store temporary or ephemeral data locally in the component. For example, this may include form state, search results, error messages, etc. Anything else that can be shared and re-used in other components _should_ be stored in the redux store. The angular module **\$ngRedux** is can be utilized to share state and dispatch actions within the angular side of the application.
 
 We haven't yet determined the best schema design of the redux store, this is an ongoing experiment. This document will be updated as it progresses.
 
 ### Documentation
 
 Re-usable components should be documented using [docz](https://www.docz.site/). Examples exist in the **src/components/ui** directory. The documentation for a component should be included next to the component in a file with the same name as the component and a suffix of **.mdx**.
+
+You may run docz in dev mode and it will hot-reload the documentation as you edit the components. This is a nice way to develop a UI component in isolation before you plug it into the app.
+
+```
+yarn docz:dev
+```
+
+You can also build a static version of the documentation. By default the files will be found in **.docz/dist**
+
+```
+yarn docz:build
+```
 
 ## Angular
 
