@@ -38,9 +38,9 @@ export const AppRoutes = () => {
         path={path}
         render={() => (
           <AngularComponent
+            {...rest}
             component={angularComponent}
             module={module}
-            {...rest}
           />
         )}
       />
@@ -50,7 +50,7 @@ export const AppRoutes = () => {
         path={path}
         exact={exact}
         render={props => (
-          <route.component module={module} {...rest} {...props} />
+          <route.component {...rest} {...props} module={module} />
         )}
       />
     )
