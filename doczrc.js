@@ -3,8 +3,10 @@ import path from 'path'
 
 export default {
   title: 'Odin UI',
-  files: 'src/**/*.mdx',
+  src: './src',
+  files: '**/*.mdx',
   codeSandbox: false,
+  wrapper: 'components/ui/doc-wrapper',
   plugins: [
     css({
       preprocessor: 'sass',
