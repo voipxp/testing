@@ -61,7 +61,7 @@ The current directory structure is as follows
 
 ### Naming Convention
 
-All components should be named with the left-most part being the most generic and increasing specificity on the right. Prefix the component or service with the BW higherarchy if it applies to that component. You are free to make sub-directories in order to combine related components. All files should be **kebab-case** to avoid capitalization issues with OSX and Windows file systems.
+All components should be named with the left-most part being the most generic and increasing specificity on the right. Prefix the component or service with the BW higherarchy if it applies to that component. You are free to make sub-directories in order to combine related components. All files should be **kebab-case** to avoid capitalization issues with OSX and Windows file systems. For example, a component named **GroupAutoAttendants** should reside in a file named **group-auto-attendants.js**.
 
 eg:
 
