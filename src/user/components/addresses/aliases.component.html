@@ -1,35 +1,44 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Aliases">
     <pbs-block-buttons ng-if="$ctrl.canEdit">
-      <pbs-button-compact-edit ng-click="$ctrl.edit()"
-        title="Edit Aliases"></pbs-button-compact-edit>
+      <pbs-button-compact-edit
+        ng-click="$ctrl.edit()"
+        title="Edit Aliases"
+      ></pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
-      <pbs-list-item label="Alias {{ i + 1 }}"
-        ng-repeat="i in [0,1,2]">
+      <pbs-list-item label="Alias {{ i + 1 }}" ng-repeat="i in [0,1,2]">
         {{ $ctrl.user.aliases[i] }}
       </pbs-list-item>
     </pbs-list>
+  </pbs-block>
 </pbs-spinner>
 
-<pbs-modal id="userProfileAliasModal"
-  title="Edit Aliases">
-  <pbs-form-field label="Alias 1">
-    <select-user-id service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-      user-id="$ctrl.editUser.aliases[0]"
-      on-update="$ctrl.setAlias1($event)"></select-user-id>
-  </pbs-form-field>
-  <pbs-form-field label="Alias 2">
-    <select-user-id service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-      user-id="$ctrl.editUser.aliases[1]"
-      on-update="$ctrl.setAlias2($event)"></select-user-id>
-  </pbs-form-field>
-  <pbs-form-field label="Alias 3">
-    <select-user-id service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-      user-id="$ctrl.editUser.aliases[2]"
-      on-update="$ctrl.setAlias3($event)"></select-user-id>
-  </pbs-form-field>
+<pbs-modal id="userProfileAliasModal" title="Edit Aliases">
+  <pbs-spinner loading="$ctrl.loadingUser">
+    <pbs-form-field label="Alias 1">
+      <select-user-id
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.editUser.aliases[0]"
+        on-update="$ctrl.setAlias1($event)"
+      ></select-user-id>
+    </pbs-form-field>
+    <pbs-form-field label="Alias 2">
+      <select-user-id
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.editUser.aliases[1]"
+        on-update="$ctrl.setAlias2($event)"
+      ></select-user-id>
+    </pbs-form-field>
+    <pbs-form-field label="Alias 3">
+      <select-user-id
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+        user-id="$ctrl.editUser.aliases[2]"
+        on-update="$ctrl.setAlias3($event)"
+      ></select-user-id>
+    </pbs-form-field>
+  </pbs-spinner>
 </pbs-modal>

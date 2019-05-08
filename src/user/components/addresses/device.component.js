@@ -130,10 +130,18 @@
 
     // Select the device
     function select() {
-      ctrl.editUser = angular.copy(ctrl.user)
+      ctrl.loadingUser = true
       Alert.modal.open('userDeviceSelectModal', function onSave(close) {
         update(ctrl.editUser, close)
       })
+      loadUser()
+        .then(function() {
+          ctrl.editUser = angular.copy(ctrl.user)
+        })
+        .catch(Alert.notify.danger)
+        .finally(function() {
+          ctrl.loadingUser = false
+        })
     }
 
     function update(user, callback) {

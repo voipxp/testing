@@ -33,10 +33,18 @@
     }
 
     function edit() {
-      ctrl.editUser = angular.copy(ctrl.user)
+      ctrl.loadingUser = true
       Alert.modal.open('userProfileAliasModal', function(close) {
         update(ctrl.editUser, close)
       })
+      loadUser()
+        .then(function() {
+          ctrl.editUser = angular.copy(ctrl.user)
+        })
+        .catch(Alert.notify.danger)
+        .finally(function() {
+          ctrl.loadingUser = false
+        })
     }
 
     function setAlias1(event) {
