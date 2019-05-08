@@ -50,7 +50,7 @@ function controller(
           })
         }
       })
-      .catch(Alert.notify.error)
+      .catch(Alert.notify.danger)
       .finally(() => (ctrl.loading = false))
   }
 

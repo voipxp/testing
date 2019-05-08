@@ -175,7 +175,7 @@ function controller(
       .then(() => {
         ctrl.editUser = angular.copy(ctrl.user)
       })
-      .catch(Alert.notify.error)
+      .catch(Alert.notify.danger)
       .finally(() => (ctrl.loadingUser = false))
   }
 
