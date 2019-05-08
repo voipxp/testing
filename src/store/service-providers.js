@@ -6,7 +6,7 @@ import serviceProviderApi from '@/api/service-providers'
     { serviceProviderId, ... }
   ]
 */
-const slice = createSlice({
+const { actions, reducer } = createSlice({
   slice: 'serviceProviders',
   initialState: [],
   reducers: {
@@ -14,9 +14,7 @@ const slice = createSlice({
   }
 })
 
-const { actions, reducer } = slice
-
-export default reducer
+export { reducer as serviceProvidersReducer }
 
 export const loadServiceProviders = () => {
   return async dispatch => {

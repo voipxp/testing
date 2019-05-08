@@ -9,7 +9,7 @@ import userServicesApi from '@/api/user-services'
     }
   }
 */
-const slice = createSlice({
+const { actions, reducer } = createSlice({
   slice: 'userAssignedServices',
   initialState: {},
   reducers: {
@@ -21,9 +21,7 @@ const slice = createSlice({
   }
 })
 
-const { actions, reducer } = slice
-
-export default reducer
+export { reducer as userAssignedServicesReducer }
 
 export const loadUserAssignedServices = userId => {
   return async dispatch => {

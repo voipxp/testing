@@ -11,7 +11,7 @@ const STORAGE_KEY = 'odin:token'
     ...
   }
 */
-const slice = createSlice({
+const { actions, reducer } = createSlice({
   slice: 'session',
   initialState: {},
   reducers: {
@@ -20,8 +20,7 @@ const slice = createSlice({
   }
 })
 
-const { actions, reducer } = slice
-export default reducer
+export { reducer as sessionReducer }
 
 export const clearSession = () => async dispatch => {
   dispatch(actions.clearSession())

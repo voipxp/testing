@@ -6,7 +6,7 @@ import userApi from '@/api/users'
     [userId]: { ... }
   }
 */
-const slice = createSlice({
+const { actions, reducer } = createSlice({
   slice: 'user',
   initialState: {},
   reducers: {
@@ -18,9 +18,7 @@ const slice = createSlice({
   }
 })
 
-const { actions, reducer } = slice
-
-export default reducer
+export { reducer as userReducer }
 
 export const loadUser = userId => {
   return async dispatch => {

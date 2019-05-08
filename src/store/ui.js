@@ -18,7 +18,7 @@ import uiModulesApi from '@/api/ui/modules'
     template: {}
   }
 */
-const slice = createSlice({
+const { actions, reducer } = createSlice({
   slice: 'ui',
   initialState: {
     initialized: false,
@@ -53,9 +53,7 @@ const slice = createSlice({
   }
 })
 
-const { actions, reducer } = slice
-
-export default reducer
+export { reducer as uiReducer }
 
 export const { showLoadingModal, hideLoadingModal, setInitialized } = actions
 

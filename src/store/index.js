@@ -1,12 +1,13 @@
 import { configureStore } from 'redux-starter-kit'
-import alerts from './alerts'
-import userServices from './user-services'
-import userAssignedServices from './user-assigned-services'
-import userViewableServices from './user-viewable-services'
-import user from './user'
-import session, { loadSessionFromStorage, clearSession } from './session'
-import serviceProviders from './service-providers'
-import ui, {
+import { alertsReducer } from './alerts'
+import { userServicesReducer } from './user-services'
+import { userAssignedServicesReducer } from './user-assigned-services'
+import { userViewableServicesReducer } from './user-viewable-services'
+import { userReducer } from './user'
+import { sessionReducer, loadSessionFromStorage, clearSession } from './session'
+import { serviceProvidersReducer } from './service-providers'
+import {
+  uiReducer,
   loadTemplate,
   loadSettings,
   setInitialized,
@@ -16,14 +17,14 @@ import ui, {
 
 const store = configureStore({
   reducer: {
-    alerts,
-    serviceProviders,
-    session,
-    user,
-    userAssignedServices,
-    userServices,
-    userViewableServices,
-    ui
+    alerts: alertsReducer,
+    serviceProviders: serviceProvidersReducer,
+    session: sessionReducer,
+    user: userReducer,
+    userAssignedServices: userAssignedServicesReducer,
+    userServices: userServicesReducer,
+    userViewableServices: userViewableServicesReducer,
+    ui: uiReducer
   },
   devTools: process.env.NODE_ENV !== 'production'
 })

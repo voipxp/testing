@@ -6,7 +6,7 @@ import cuid from 'cuid'
     { id, type, message }
   ]
 */
-const slice = createSlice({
+const { actions, reducer } = createSlice({
   slice: 'alerts',
   initialState: [],
   reducers: {
@@ -20,9 +20,7 @@ const slice = createSlice({
   }
 })
 
-const { actions, reducer } = slice
-
-export default reducer
+export { reducer as alertsReducer }
 
 const parse = message => {
   if (!message) return 'Unknown Error'
