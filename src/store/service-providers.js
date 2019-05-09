@@ -1,4 +1,6 @@
 import { createSlice } from 'redux-starter-kit'
+import { useAction } from './hooks'
+import { useReduxState } from 'reactive-react-redux'
 import serviceProviderApi from '@/api/service-providers'
 
 /*
@@ -21,5 +23,13 @@ export const loadServiceProviders = () => {
     const providers = await serviceProviderApi.list()
     dispatch(actions.setServiceProviders(providers))
     return providers
+  }
+}
+
+export const useServiceProviders = () => {
+  const state = useReduxState()
+  return {
+    serviceProviders: state.serviceProviders,
+    loadServiceProviders: useAction(loadServiceProviders)
   }
 }

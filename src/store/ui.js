@@ -1,4 +1,5 @@
 import { createSlice } from 'redux-starter-kit'
+import { useReduxState } from 'reactive-react-redux'
 import { useAction } from './hooks'
 import uiApplicationsApi from '@/api/ui/applications'
 import uiSettingsApi from '@/api/ui/settings'
@@ -84,7 +85,9 @@ export const loadModules = () => async dispatch => {
 }
 
 export const useLoadingModal = () => {
+  const state = useReduxState()
   return {
+    isLoadingModalOpen: state.ui.showLoadingModal,
     showLoadingModal: useAction(showLoadingModal),
     hideLoadingModal: useAction(hideLoadingModal)
   }
