@@ -1,4 +1,6 @@
 import { createSlice } from 'redux-starter-kit'
+import { useReduxDispatch } from 'reactive-react-redux'
+import { useCallback } from 'react'
 import uiApplicationsApi from '@/api/ui/applications'
 import uiSettingsApi from '@/api/ui/settings'
 import uiTemplateApi from '@/api/ui/template'
@@ -80,4 +82,16 @@ export const loadModules = () => async dispatch => {
     return obj
   }, {})
   dispatch(actions.setModules(map))
+}
+
+export const useLoadingModal = () => {
+  const dispatch = useReduxDispatch()
+  return {
+    showLoadingModal: useCallback(() => dispatch(showLoadingModal()), [
+      dispatch
+    ]),
+    hideLoadingModal: useCallback(() => dispatch(hideLoadingModal()), [
+      dispatch
+    ])
+  }
 }

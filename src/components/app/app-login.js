@@ -5,13 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
 import { useAlerts } from '@/store/alerts'
-import { showLoadingModal, hideLoadingModal } from '@/store/ui'
+import { useLoadingModal } from '@/store/ui'
 import { setSession, loadSessionFromToken } from '@/store/session'
 import authApi from '@/api/auth'
 
 export const AppLogin = () => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
+
+  const { showLoadingModal, hideLoadingModal } = useLoadingModal()
 
   const { alertWarning, alertDanger } = useAlerts()
 
@@ -24,11 +26,11 @@ export const AppLogin = () => {
     delete search.token
     const newSearch = stringify(search)
     window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
-    dispatch(showLoadingModal())
+    showLoadingModal()
     dispatch(loadSessionFromToken(token))
       .catch(error => alertDanger(error))
-      .finally(() => dispatch(hideLoadingModal()))
-  }, [alertDanger, dispatch])
+      .finally(() => hideLoadingModal())
+  }, [alertDanger, dispatch, hideLoadingModal, showLoadingModal])
 
   React.useEffect(() => {
     tokenLogin()
@@ -58,7 +60,7 @@ export const AppLogin = () => {
 
   async function login() {
     try {
-      dispatch(showLoadingModal())
+      showLoadingModal()
       const session = await authApi.token(form.username, form.password)
       await dispatch(setSession(session))
     } catch (error) {
@@ -70,7 +72,7 @@ export const AppLogin = () => {
         alertDanger(error)
       }
     } finally {
-      dispatch(hideLoadingModal())
+      hideLoadingModal()
     }
   }
 
@@ -79,7 +81,7 @@ export const AppLogin = () => {
       return alertWarning('New Passwords Do Not Match')
     }
     try {
-      dispatch(showLoadingModal())
+      showLoadingModal()
       const session = await authApi.tokenPassword(
         form.password,
         form.newPassword1,
@@ -89,7 +91,7 @@ export const AppLogin = () => {
     } catch (error) {
       alertDanger(error)
     } finally {
-      dispatch(hideLoadingModal())
+      hideLoadingModal()
     }
   }
 
