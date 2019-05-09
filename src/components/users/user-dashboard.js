@@ -27,7 +27,6 @@ export const UserDashboard = ({ match }) => {
   const { loadUser } = useUser(userId)
 
   React.useEffect(() => {
-    console.log('user-dashboard useEffect')
     setLoading(true)
     Promise.all([
       loadUserAssignedServices(userId),

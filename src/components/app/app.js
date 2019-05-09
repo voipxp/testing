@@ -4,9 +4,9 @@ import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
 import { Section } from 'rbx'
-import { useReduxState } from 'reactive-react-redux'
 import { AngularComponent } from '@/components/angular-component'
 import { UiLoadingPage } from '@/components/ui'
+import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
 import { useSession } from '@/store/session'
 import { useUiSettings } from '@/store/ui-settings'
@@ -26,11 +26,10 @@ const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
 `
 export const App = hot(() => {
-  const state = useReduxState()
   const { session, clearSession } = useSession()
   const { userId } = session
   const { alertWarning, removeAlert } = useAlerts()
-  const { initialized } = state.ui
+  const { initialized } = useUi()
   const { settings } = useUiSettings()
   const { sessionTimeout } = settings
   const { template } = useUiTemplate()

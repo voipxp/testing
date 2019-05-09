@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import { Field, Control, Button, Input, Icon } from 'rbx'
-import { useReduxState } from 'reactive-react-redux'
+import { useSession } from '@/store/session'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable, UiCardModal } from '@/components/ui'
@@ -24,9 +24,8 @@ const columns = [
 
 export const SystemDnSearch = ({ onSelect }) => {
   const acl = useAcl()
-  const state = useReduxState()
   const { alertDanger } = useAlerts()
-
+  const { session } = useSession()
   const [searchString, setSearchString] = React.useState('')
   const [serviceProviderId, setServiceProviderId] = React.useState('')
   const [showServiceProvider, setShowServiceProvider] = React.useState(false)
@@ -55,7 +54,7 @@ export const SystemDnSearch = ({ onSelect }) => {
     setLoading(true)
     setInitialized(true)
     try {
-      const _serviceProviderId = state.serviceProviderId || serviceProviderId
+      const _serviceProviderId = session.serviceProviderId || serviceProviderId
       const dn = _serviceProviderId ? `*${searchString}*` : searchString
       const users = await phoneNumberApi.search({
         dn,

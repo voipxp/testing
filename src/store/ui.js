@@ -25,6 +25,7 @@ export const uiReducer = createReducer(initialState, {
 export const useUi = () => {
   const state = useReduxState()
   return {
+    initialized: state.ui.initialized,
     loading: state.ui.loading,
     showLoadingModal: useAction(showLoadingModal),
     hideLoadingModal: useAction(hideLoadingModal)
