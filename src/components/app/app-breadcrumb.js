@@ -25,7 +25,7 @@ export const AppBreadcrumbBase = ({ match, children }) => {
         </Breadcrumb.Item>
       )}
       {hasServiceProvider && serviceProviderId && (
-        <Breadcrumb.Item href={`#!/serviceProviers/${serviceProviderId}`}>
+        <Breadcrumb.Item href={`#!/serviceProviders/${serviceProviderId}`}>
           {serviceProviderId}
         </Breadcrumb.Item>
       )}
