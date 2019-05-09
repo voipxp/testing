@@ -1,40 +1,31 @@
-import { createSlice } from 'redux-starter-kit'
+import { createAction, createReducer } from 'redux-starter-kit'
 import { useReduxState } from 'reactive-react-redux'
 import { useAction } from './hooks'
 
-/*
-  state.ui = {
-    initialized: false,
-    showLoadingModal: false
-  }
-*/
-const { actions, reducer } = createSlice({
-  slice: 'ui',
-  initialState: {
-    initialized: false,
-    showLoadingModal: false
+const initialState = {
+  initialized: false,
+  loading: false
+}
+export const setInitialized = createAction('UI_INITIALIZED')
+export const showLoadingModal = createAction('UI_LOADING_START')
+export const hideLoadingModal = createAction('UI_LOADING_END')
+
+export const uiReducer = createReducer(initialState, {
+  [setInitialized]: (state, { payload }) => {
+    state.initialized = payload
   },
-  reducers: {
-    setInitialized: (state, { payload }) => {
-      state.initialized = payload
-    },
-    showLoadingModal: state => {
-      state.showLoadingModal = true
-    },
-    hideLoadingModal: state => {
-      state.showLoadingModal = false
-    }
+  [showLoadingModal]: state => {
+    state.loading = true
+  },
+  [hideLoadingModal]: state => {
+    state.loading = false
   }
 })
-
-export { reducer as uiReducer }
-
-export const { showLoadingModal, hideLoadingModal, setInitialized } = actions
 
 export const useUi = () => {
   const state = useReduxState()
   return {
-    isLoadingModalOpen: state.ui.showLoadingModal,
+    loading: state.ui.loading,
     showLoadingModal: useAction(showLoadingModal),
     hideLoadingModal: useAction(hideLoadingModal)
   }

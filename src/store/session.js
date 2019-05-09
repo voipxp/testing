@@ -1,4 +1,4 @@
-import { createSlice } from 'redux-starter-kit'
+import { createAction, createReducer } from 'redux-starter-kit'
 import { useReduxState } from 'reactive-react-redux'
 import { useAction } from './hooks'
 import decode from 'jwt-decode'
@@ -7,31 +7,23 @@ import { refresh } from '@/api/auth'
 
 const STORAGE_KEY = 'odin:token'
 
-/*
-  state.session = {
-    userId,
-    ...
-  }
-*/
-const { actions, reducer } = createSlice({
-  slice: 'session',
-  initialState: {},
-  reducers: {
-    setSession: (state, { payload }) => payload || {},
-    clearSession: () => ({})
-  }
+const initialState = {}
+const set = createAction('SESSION_SET')
+const clear = createAction('SESSION_CLEAR')
+
+export const sessionReducer = createReducer(initialState, {
+  [set]: (state, { payload = {} }) => payload,
+  [clear]: () => ({})
 })
 
-export { reducer as sessionReducer }
-
 export const clearSession = () => async dispatch => {
-  dispatch(actions.clearSession())
+  dispatch(clear())
   setToken()
   localStorage.removeItem(STORAGE_KEY)
 }
 
 export const setSession = (data = {}) => async dispatch => {
-  dispatch(actions.setSession(data))
+  dispatch(set(data))
   setToken(data.token)
   localStorage.setItem(STORAGE_KEY, data.token)
 }

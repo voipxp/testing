@@ -1,25 +1,19 @@
-import { createSlice } from 'redux-starter-kit'
+import { createAction, createReducer } from 'redux-starter-kit'
 import { useReduxState } from 'reactive-react-redux'
 import { useAction } from './hooks'
 import uiTemplateApi from '@/api/ui/template'
 
-/*
-  state.uiTemplate = {}
-*/
-const { actions, reducer } = createSlice({
-  slice: 'ui',
-  initialState: {},
-  reducers: {
-    setTemplate: (state, { payload = {} }) => payload
-  }
-})
+const initialState = {}
+const set = createAction('UI_TEMPLATE_LOAD')
 
-export { reducer as uiTemplateReducer }
+export const uiTemplateReducer = createReducer(initialState, {
+  [set]: (state, { payload = {} }) => payload
+})
 
 export const loadTemplate = () => async dispatch => {
   const template = await uiTemplateApi.get()
   document.title = (template && template.pageTitle) || 'odin Web'
-  dispatch(actions.setTemplate(template))
+  dispatch(set(template))
 }
 
 export const useUiTemplate = () => {

@@ -1,27 +1,19 @@
-import { createSlice } from 'redux-starter-kit'
+import { createAction, createReducer } from 'redux-starter-kit'
 import { useAction } from './hooks'
 import { useReduxState } from 'reactive-react-redux'
 import serviceProviderApi from '@/api/service-providers'
 
-/*
-  state.serviceProviders = [
-    { serviceProviderId, ... }
-  ]
-*/
-const { actions, reducer } = createSlice({
-  slice: 'serviceProviders',
-  initialState: [],
-  reducers: {
-    setServiceProviders: (state, { payload }) => payload || []
-  }
-})
+const initialState = []
+const set = createAction('SERVICE_PROVIDERS_LOAD')
 
-export { reducer as serviceProvidersReducer }
+export const serviceProvidersReducer = createReducer(initialState, {
+  [set]: (state, { payload = [] }) => payload
+})
 
 export const loadServiceProviders = () => {
   return async dispatch => {
     const providers = await serviceProviderApi.list()
-    dispatch(actions.setServiceProviders(providers))
+    dispatch(set(providers))
     return providers
   }
 }

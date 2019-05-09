@@ -1,26 +1,18 @@
-import { createSlice } from 'redux-starter-kit'
+import { createAction, createReducer } from 'redux-starter-kit'
 import { useReduxState } from 'reactive-react-redux'
 import { useAction } from './hooks'
 import uiApplicationsApi from '@/api/ui/applications'
 
-/*
-  state.uiApplications = [
-    {id, ...}
-  ]
-*/
-const { actions, reducer } = createSlice({
-  slice: 'uiApplications',
-  initialState: [],
-  reducers: {
-    setApplications: (state, { payload = [] }) => payload
-  }
-})
+const initialState = []
+const set = createAction('UI_APPLICATIONS_LOAD')
 
-export { reducer as uiApplicationsReducer }
+export const uiApplicationsReducer = createReducer(initialState, {
+  [set]: (state, { payload = [] }) => payload
+})
 
 export const loadApplications = () => async dispatch => {
   const applications = await uiApplicationsApi.get()
-  dispatch(actions.setApplications(applications))
+  dispatch(set(applications))
 }
 
 export const useUiApplications = () => {

@@ -1,22 +1,14 @@
-import { createSlice } from 'redux-starter-kit'
+import { createAction, createReducer } from 'redux-starter-kit'
 import { useReduxState } from 'reactive-react-redux'
 import { useAction } from './hooks'
 import uiModulesApi from '@/api/ui/modules'
 
-/*
-  state.uiModules = {
-    [serviceName]: {}
-  }
-*/
-const { actions, reducer } = createSlice({
-  slice: 'ui',
-  initialState: {},
-  reducers: {
-    setModules: (state, { payload = {} }) => payload
-  }
-})
+const initialState = {}
+const set = createAction('UI_MODULES_LOAD')
 
-export { reducer as uiModulesReducer }
+export const uiModulesReducer = createReducer(initialState, {
+  [set]: (state, { payload = {} }) => payload
+})
 
 export const loadModules = () => async dispatch => {
   const modules = await uiModulesApi.get()
@@ -24,7 +16,7 @@ export const loadModules = () => async dispatch => {
     obj[module.name] = module
     return obj
   }, {})
-  dispatch(actions.setModules(map))
+  dispatch(set(map))
 }
 
 export const useUiModules = () => {

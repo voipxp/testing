@@ -1,24 +1,18 @@
-import { createSlice } from 'redux-starter-kit'
+import { createAction, createReducer } from 'redux-starter-kit'
 import { useReduxState } from 'reactive-react-redux'
 import { useAction } from './hooks'
 import uiSettingsApi from '@/api/ui/settings'
 
-/*
-  state.uiSettings = {}
-*/
-const { actions, reducer } = createSlice({
-  slice: 'ui',
-  initialState: {},
-  reducers: {
-    setSettings: (state, { payload = {} }) => payload
-  }
-})
+const initialState = {}
+const set = createAction('UI_SETTINGS_LOAD')
 
-export { reducer as uiSettingsReducer }
+export const uiSettingsReducer = createReducer(initialState, {
+  [set]: (state, { payload = {} }) => payload
+})
 
 export const loadSettings = () => async dispatch => {
   const settings = await uiSettingsApi.get()
-  dispatch(actions.setSettings(settings))
+  dispatch(set(settings))
 }
 
 export const useUiSettings = () => {
