@@ -1,6 +1,6 @@
 import { createSlice } from 'redux-starter-kit'
-import { useCallback } from 'react'
-import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
+import { useAction } from './hooks'
+import { useReduxState } from 'reactive-react-redux'
 import cuid from 'cuid'
 
 /*
@@ -50,29 +50,14 @@ export const alertDanger = (msg, ms = 10000) => alert('danger', msg, ms)
 
 export const useAlerts = () => {
   const state = useReduxState()
-  const dispatch = useReduxDispatch()
   return {
     alerts: state.alerts,
-    removeAlert: useCallback((...args) => dispatch(removeAlert(...args)), [
-      dispatch
-    ]),
-    alertPrimary: useCallback((...args) => dispatch(alertPrimary(...args)), [
-      dispatch
-    ]),
-    alertLink: useCallback((...args) => dispatch(alertLink(...args)), [
-      dispatch
-    ]),
-    alertInfo: useCallback((...args) => dispatch(alertInfo(...args)), [
-      dispatch
-    ]),
-    alertSuccess: useCallback((...args) => dispatch(alertSuccess(...args)), [
-      dispatch
-    ]),
-    alertWarning: useCallback((...args) => dispatch(alertWarning(...args)), [
-      dispatch
-    ]),
-    alertDanger: useCallback((...args) => dispatch(alertDanger(...args)), [
-      dispatch
-    ])
+    removeAlert: useAction(removeAlert),
+    alertPrimary: useAction(alertPrimary),
+    alertLink: useAction(alertLink),
+    alertInfo: useAction(alertInfo),
+    alertSuccess: useAction(alertSuccess),
+    alertWarning: useAction(alertWarning),
+    alertDanger: useAction(alertDanger)
   }
 }
