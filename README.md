@@ -89,7 +89,25 @@ components/hunt-group/group-hunt-group-create.js
 
 We are using redux for global state management. In general, store temporary or ephemeral data locally in the component. For example, this may include form state, search results, error messages, etc. Anything else that can be shared and re-used in other components _should_ be stored in the redux store. The angular module **\$ngRedux** can be utilized to share state and dispatch actions with the angular components.
 
-The redux store is currently in _experimental_ mode. We will document more as we develop patterns we like.
+There are several helpers from the [redux-starter-kit](https://redux-starter-kit.js.org/) package that we are using for our redux store. Check out the documentation there to get an understanding of **createAction** and **createReducer**. These are simple helpers that remove a lot of the typical boilerplate associated with creating a redux store.
+
+For connecting the store to a component, we are using [reactive-react-redux](https://github.com/dai-shi/reactive-react-redux). This package allows us to create custom hooks to utilize bound dispatchers and state in our components.
+
+Below is an example of how one could use the **useAlerts** hook that is located in **src/store/alerts**.
+
+```
+const Example = () => {
+  const { alerts, alertRemove } = useAlerts()
+  return (
+    <h1>Alerts</h1>
+    <ul>
+    {alerts.map(alert => (
+      <li>{alert.name} <button onClick={() => alertRemove(alert)}></li>
+    ))}
+    </ul>
+  )
+}
+```
 
 ### Documentation
 
