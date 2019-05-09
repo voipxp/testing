@@ -39,7 +39,7 @@ function Module(Session, $q, $ngRedux) {
   return service
 
   function modules() {
-    return $ngRedux.getState().ui.modules
+    return $ngRedux.getState().uiModules
   }
 
   function load() {

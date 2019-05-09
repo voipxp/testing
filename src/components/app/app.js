@@ -4,11 +4,13 @@ import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
 import { Section } from 'rbx'
-import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
+import { useReduxState } from 'reactive-react-redux'
 import { AngularComponent } from '@/components/angular-component'
 import { UiLoadingPage } from '@/components/ui'
-import { alertWarning, removeAlert } from '@/store/alerts'
-import { clearSession } from '@/store/session'
+import { useAlerts } from '@/store/alerts'
+import { useSession } from '@/store/session'
+import { useUiSettings } from '@/store/ui-settings'
+import { useUiTemplate } from '@/store/ui-template'
 import {
   AppAlerts,
   AppFooter,
@@ -25,11 +27,14 @@ const Wrapper = styled.div`
 `
 export const App = hot(() => {
   const state = useReduxState()
-  const dispatch = useReduxDispatch()
+  const { session, clearSession } = useSession()
+  const { userId } = session
+  const { alertWarning, removeAlert } = useAlerts()
   const { initialized } = state.ui
-  const { sessionTimeout } = state.ui.settings
-  const { pageGoogleUA } = state.ui.template
-  const { userId } = state.session
+  const { settings } = useUiSettings()
+  const { sessionTimeout } = settings
+  const { template } = useUiTemplate()
+  const { pageGoogleUA } = template
 
   const alertRef = React.useRef()
   const timerRef = React.useRef()
@@ -47,18 +52,25 @@ export const App = hot(() => {
     })
     activityDetector.on('idle', async () => {
       const msg = 'Your session is about to expire'
-      alertRef.current = await dispatch(alertWarning(msg, TIMEOUT))
-      timerRef.current = setTimeout(() => dispatch(clearSession()), TIMEOUT)
+      alertRef.current = await alertWarning(msg, TIMEOUT)
+      timerRef.current = setTimeout(() => clearSession(), TIMEOUT)
     })
     activityDetector.on('active', () => {
-      dispatch(removeAlert(alertRef.current))
+      removeAlert(alertRef.current)
       clearTimeout(timerRef.current)
     })
     return () => {
       clearTimeout(timerRef.current)
       activityDetector.stop()
     }
-  }, [dispatch, initialized, sessionTimeout, userId])
+  }, [
+    alertWarning,
+    clearSession,
+    initialized,
+    removeAlert,
+    sessionTimeout,
+    userId
+  ])
 
   if (!initialized) return <UiLoadingPage />
 

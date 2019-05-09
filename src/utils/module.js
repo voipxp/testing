@@ -43,60 +43,60 @@ const moduleDescription = (name, modules) => {
 }
 
 export const useModulePermissions = () => {
-  const { session, ui } = useReduxState()
+  const { session, uiModules } = useReduxState()
   return {
     getModule: useCallback(
       name => {
-        return getModule(name, session.loginType, ui.modules)
+        return getModule(name, session.loginType, uiModules)
       },
-      [session.loginType, ui.modules]
+      [session.loginType, uiModules]
     ),
     hasModulePermission: useCallback(
       (name, permission) => {
         return hasModulePermission(
           name,
           session.loginType,
-          ui.modules,
+          uiModules,
           permission
         )
       },
-      [session.loginType, ui.modules]
+      [session.loginType, uiModules]
     ),
     hasModuleRead: useCallback(
       name => {
-        return hasModuleRead(name, session.loginType, ui.modules)
+        return hasModuleRead(name, session.loginType, uiModules)
       },
-      [session.loginType, ui.modules]
+      [session.loginType, uiModules]
     ),
     hasModuleWrite: useCallback(
       name => {
-        return hasModuleWrite(name, session.loginType, ui.modules)
+        return hasModuleWrite(name, session.loginType, uiModules)
       },
-      [session.loginType, ui.modules]
+      [session.loginType, uiModules]
     ),
     hasModuleUpdate: useCallback(
       name => {
-        return hasModuleUpdate(name, session.loginType, ui.modules)
+        return hasModuleUpdate(name, session.loginType, uiModules)
       },
-      [session.loginType, ui.modules]
+      [session.loginType, uiModules]
     ),
     hasModuleDelete: useCallback(
       name => {
-        return hasModuleDelete(name, session.loginType, ui.modules)
+        return hasModuleDelete(name, session.loginType, uiModules)
       },
-      [session.loginType, ui.modules]
+      [session.loginType, uiModules]
     ),
     moduleAlias: useCallback(
       name => {
-        return moduleAlias(name, ui.modules)
+        return moduleAlias(name, uiModules)
       },
-      [ui.modules]
+      [uiModules]
     ),
     moduleDescription: useCallback(
       name => {
-        return moduleDescription(name, ui.modules)
+        return moduleDescription(name, uiModules)
       },
-      [ui.modules]
+      [uiModules]
     )
   }
 }

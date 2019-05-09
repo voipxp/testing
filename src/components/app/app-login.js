@@ -1,17 +1,18 @@
 import React from 'react'
-import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
-import { alertWarning, alertDanger } from '@/store/alerts'
-import { showLoadingModal, hideLoadingModal } from '@/store/ui'
-import { setSession, loadSessionFromToken } from '@/store/session'
+import { useAlerts } from '@/store/alerts'
+import { useUi } from '@/store/ui'
+import { useSession } from '@/store/session'
+import { useUiTemplate } from '@/store/ui-template'
 import authApi from '@/api/auth'
 
 export const AppLogin = () => {
-  const state = useReduxState()
-  const dispatch = useReduxDispatch()
+  const { setSession, loadSessionFromToken } = useSession()
+  const { showLoadingModal, hideLoadingModal } = useUi()
+  const { alertWarning, alertDanger } = useAlerts()
 
   const tokenLogin = React.useCallback(() => {
     const [hash, query] = window.location.hash.split('?')
@@ -22,17 +23,18 @@ export const AppLogin = () => {
     delete search.token
     const newSearch = stringify(search)
     window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
-    dispatch(showLoadingModal())
-    dispatch(loadSessionFromToken(token))
-      .catch(error => dispatch(alertDanger(error)))
-      .finally(() => dispatch(hideLoadingModal()))
-  }, [dispatch])
+    showLoadingModal()
+    loadSessionFromToken(token)
+      .catch(error => alertDanger(error))
+      .finally(() => hideLoadingModal())
+  }, [alertDanger, hideLoadingModal, loadSessionFromToken, showLoadingModal])
 
   React.useEffect(() => {
     tokenLogin()
   }, [tokenLogin])
 
-  const { pageLoginMessage } = state.ui.template
+  const { template } = useUiTemplate()
+  const { pageLoginMessage } = template
 
   const formRef = React.useRef()
   const [form, setForm] = React.useState({
@@ -56,38 +58,38 @@ export const AppLogin = () => {
 
   async function login() {
     try {
-      dispatch(showLoadingModal())
+      showLoadingModal()
       const session = await authApi.token(form.username, form.password)
-      await dispatch(setSession(session))
+      await setSession(session)
     } catch (error) {
       if (error.status === 402) {
-        dispatch(alertWarning(error))
+        alertWarning(error)
         setNeedsChange(true)
         setValid(false)
       } else {
-        dispatch(alertDanger(error))
+        alertDanger(error)
       }
     } finally {
-      dispatch(hideLoadingModal())
+      hideLoadingModal()
     }
   }
 
   async function changePassword() {
     if (form.newPassword1 !== form.newPassword2) {
-      return dispatch(alertWarning('New Passwords Do Not Match'))
+      return alertWarning('New Passwords Do Not Match')
     }
     try {
-      dispatch(showLoadingModal())
+      showLoadingModal()
       const session = await authApi.tokenPassword(
         form.password,
         form.newPassword1,
         form.username
       )
-      await dispatch(setSession(session))
+      await setSession(session)
     } catch (error) {
-      dispatch(alertDanger(error))
+      alertDanger(error)
     } finally {
-      dispatch(hideLoadingModal())
+      hideLoadingModal()
     }
   }
 

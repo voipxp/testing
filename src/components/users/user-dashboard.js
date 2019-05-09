@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useReduxDispatch } from 'reactive-react-redux'
 import { UiLoadingCard, UiMenu } from '@/components/ui'
 import { AppBreadcrumb } from '@/components/app'
-import { loadUserAssignedServices } from '@/store/user-assigned-services'
-import { loadUserViewableServices } from '@/store/user-viewable-services'
-import { loadUser } from '@/store/user'
+import { useUserAssignedServices } from '@/store/user-assigned-services'
+import { useUserViewableServices } from '@/store/user-viewable-services'
+import { useUserServices } from '@/store/user-services'
+import { useUser } from '@/store/user'
 import {
   useUserServicePermissions,
   useModulePermissions,
@@ -14,7 +14,6 @@ import {
 import { dashboardMenu } from './user-dashboard-menu'
 
 export const UserDashboard = ({ match }) => {
-  const dispatch = useReduxDispatch()
   const [menu, setMenu] = React.useState([])
   const [loading, setLoading] = React.useState(true)
   const { userId } = match.params
@@ -22,14 +21,27 @@ export const UserDashboard = ({ match }) => {
   const { hasUserService } = useUserServicePermissions(userId)
   const { hasModuleRead } = useModulePermissions()
 
+  const { loadUserAssignedServices } = useUserAssignedServices(userId)
+  const { loadUserViewableServices } = useUserViewableServices(userId)
+  const { loadUserServices } = useUserServices(userId)
+  const { loadUser } = useUser(userId)
+
   React.useEffect(() => {
+    console.log('user-dashboard useEffect')
     setLoading(true)
     Promise.all([
-      dispatch(loadUserAssignedServices(userId)),
-      dispatch(loadUserViewableServices(userId)),
-      dispatch(loadUser(userId))
+      loadUserAssignedServices(userId),
+      loadUserViewableServices(userId),
+      loadUserServices(userId),
+      loadUser(userId)
     ]).then(() => setLoading(false))
-  }, [dispatch, userId])
+  }, [
+    loadUser,
+    loadUserAssignedServices,
+    loadUserServices,
+    loadUserViewableServices,
+    userId
+  ])
 
   // filter items we should not see
   React.useEffect(() => {

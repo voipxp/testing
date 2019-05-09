@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { UiCardModal } from '@/components/ui'
 import { useAcl, userPath, groupPath } from '@/utils'
+import { useUiApplications } from '@/store/ui-applications'
 import { parseUrl, stringify } from 'query-string'
-import { alertDanger } from '@/store/alerts'
-import { clearSession } from '@/store/session'
+import { useAlerts } from '@/store/alerts'
+import { useSession } from '@/store/session'
+import { useUiTemplate } from '@/store/ui-template'
 import { UserSearch } from '@/components/user-search'
 import { SystemDnSearch } from '@/components/system-dn-search'
 import { GroupSearch } from '@/components/group-search'
@@ -15,16 +16,17 @@ import { UserServiceSearch } from '@/components/user-service-search'
 import authApi from '@/api/auth'
 
 export const AppNavbar = withRouter(({ history }) => {
-  const state = useReduxState()
-  const dispatch = useReduxDispatch()
+  const { alertDanger } = useAlerts()
+  const { session, clearSession } = useSession()
+  const { userId } = session
 
   const acl = useAcl()
   const hasGroup = acl.hasGroup()
   const hasServiceProvider = acl.hasServiceProvider()
 
-  const { applications } = state.ui
-  const { userId } = state.session
-  const { pageTitle } = state.ui.template
+  const { applications } = useUiApplications()
+  const { template } = useUiTemplate()
+  const { pageTitle } = template
 
   const [showMenu, updateShowMenu] = React.useState(false)
   const [search, setSearch] = React.useState()
@@ -32,7 +34,7 @@ export const AppNavbar = withRouter(({ history }) => {
   const toggleMenu = () => updateShowMenu(!showMenu)
 
   const logout = () => {
-    dispatch(clearSession())
+    clearSession()
     history.push('/')
   }
 
@@ -66,7 +68,7 @@ export const AppNavbar = withRouter(({ history }) => {
         window.open(finalUrl, '_self')
       }
     } catch (error) {
-      dispatch(alertDanger(error))
+      alertDanger(error)
     }
   }
 

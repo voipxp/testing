@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import { Field, Control, Button, Input, Icon } from 'rbx'
-import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
+import { useReduxState } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable, UiCardModal } from '@/components/ui'
-import { alertDanger } from '@/store/alerts'
+import { useAlerts } from '@/store/alerts'
 import { useAcl, userPath } from '@/utils'
 import { ServiceProviderSelect } from '@/components/service-provider-select'
 import phoneNumberApi from '@/api/phone-numbers/system'
@@ -24,8 +24,8 @@ const columns = [
 
 export const SystemDnSearch = ({ onSelect }) => {
   const acl = useAcl()
-  const dispatch = useReduxDispatch()
   const state = useReduxState()
+  const { alertDanger } = useAlerts()
 
   const [searchString, setSearchString] = React.useState('')
   const [serviceProviderId, setServiceProviderId] = React.useState('')
@@ -65,7 +65,7 @@ export const SystemDnSearch = ({ onSelect }) => {
       const filtered = users.filter(u => userPath(u))
       setUsers(filtered)
     } catch (error) {
-      dispatch(alertDanger(error))
+      alertDanger(error)
       setUsers([])
     } finally {
       setLoading(false)

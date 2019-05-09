@@ -5,7 +5,7 @@ import { useReduxDispatch } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { alertDanger } from '@/store/alerts'
+import { useAlerts } from '@/store/alerts'
 import userServicesApi from '@/api/user-services'
 
 const searchTypes = [
@@ -26,7 +26,7 @@ const columns = [
 ]
 
 export const UserServiceSearch = ({ onSelect }) => {
-  const dispatch = useReduxDispatch()
+  const { alertDanger } = useAlerts()
 
   const [searchKey, setSearchKey] = React.useState('lastName')
   const [searchString, setSearchString] = React.useState('')
@@ -51,7 +51,7 @@ export const UserServiceSearch = ({ onSelect }) => {
       })
       setUsers(users)
     } catch (error) {
-      dispatch(alertDanger(error))
+      alertDanger(error)
       setUsers([])
     } finally {
       setLoading(false)
