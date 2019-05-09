@@ -4,16 +4,16 @@ import { useAction } from './hooks'
 import uiTemplateApi from '@/api/ui/template'
 
 const initialState = {}
-const set = createAction('UI_TEMPLATE_LOAD')
+const load = createAction('UI_TEMPLATE_LOAD')
 
 export const uiTemplateReducer = createReducer(initialState, {
-  [set]: (state, { payload = {} }) => payload
+  [load]: (state, { payload = {} }) => payload
 })
 
 export const loadTemplate = () => async dispatch => {
   const template = await uiTemplateApi.get()
   document.title = (template && template.pageTitle) || 'odin Web'
-  dispatch(set(template))
+  dispatch(load(template))
 }
 
 export const useUiTemplate = () => {

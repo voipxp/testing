@@ -4,10 +4,10 @@ import { useAction } from './hooks'
 import userApi from '@/api/users'
 
 const initialState = {}
-const set = createAction('USER_LOAD')
+const load = createAction('USER_LOAD')
 
 export const userReducer = createReducer(initialState, {
-  [set]: (state, { payload }) => {
+  [load]: (state, { payload }) => {
     if (payload.userId) state[payload.userId] = payload
   }
 })
@@ -15,7 +15,7 @@ export const userReducer = createReducer(initialState, {
 export const loadUser = userId => {
   return async dispatch => {
     const services = await userApi.show(userId)
-    dispatch(set(services))
+    dispatch(load(services))
     return services
   }
 }

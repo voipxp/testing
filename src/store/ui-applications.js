@@ -4,15 +4,15 @@ import { useAction } from './hooks'
 import uiApplicationsApi from '@/api/ui/applications'
 
 const initialState = []
-const set = createAction('UI_APPLICATIONS_LOAD')
+const load = createAction('UI_APPLICATIONS_LOAD')
 
 export const uiApplicationsReducer = createReducer(initialState, {
-  [set]: (state, { payload = [] }) => payload
+  [load]: (state, { payload = [] }) => payload
 })
 
 export const loadApplications = () => async dispatch => {
   const applications = await uiApplicationsApi.get()
-  dispatch(set(applications))
+  dispatch(load(applications))
 }
 
 export const useUiApplications = () => {

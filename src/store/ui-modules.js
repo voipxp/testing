@@ -4,10 +4,10 @@ import { useAction } from './hooks'
 import uiModulesApi from '@/api/ui/modules'
 
 const initialState = {}
-const set = createAction('UI_MODULES_LOAD')
+const load = createAction('UI_MODULES_LOAD')
 
 export const uiModulesReducer = createReducer(initialState, {
-  [set]: (state, { payload = {} }) => payload
+  [load]: (state, { payload = {} }) => payload
 })
 
 export const loadModules = () => async dispatch => {
@@ -16,7 +16,7 @@ export const loadModules = () => async dispatch => {
     obj[module.name] = module
     return obj
   }, {})
-  dispatch(set(map))
+  dispatch(load(map))
 }
 
 export const useUiModules = () => {

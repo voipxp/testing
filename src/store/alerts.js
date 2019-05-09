@@ -4,20 +4,19 @@ import { useReduxState } from 'reactive-react-redux'
 import cuid from 'cuid'
 
 const initialState = []
-const add = createAction('ALERTS_ADD')
-const remove = createAction('ALERTS_REMOVE')
+const addAlert = createAction('ALERTS_ADD')
+export const removeAlert = createAction('ALERTS_REMOVE')
 
 export const alertsReducer = createReducer(initialState, {
-  [add]: (state, { payload }) => {
+  [addAlert]: (state, { payload }) => {
     state.push(payload)
   },
-  [remove]: (state, { payload }) => {
+  [removeAlert]: (state, { payload }) => {
     const id = payload.id || payload
     state.splice(state.findIndex(alert => alert.id === id), 1)
   }
 })
 
-export { remove as removeAlert }
 export const alertPrimary = (msg, ms) => alert('primary', msg, ms)
 export const alertLink = (msg, ms) => alert('link', msg, ms)
 export const alertInfo = (msg, ms) => alert('info', msg, ms)
@@ -29,7 +28,7 @@ export const useAlerts = () => {
   const state = useReduxState()
   return {
     alerts: state.alerts,
-    removeAlert: useAction(remove),
+    removeAlert: useAction(removeAlert),
     alertPrimary: useAction(alertPrimary),
     alertLink: useAction(alertLink),
     alertInfo: useAction(alertInfo),
@@ -49,8 +48,8 @@ function parse(message) {
 function alert(type, msg, timeout = 3000) {
   return async dispatch => {
     const alert = { id: cuid(), type, message: parse(msg) }
-    dispatch(add(alert))
-    setTimeout(() => dispatch(remove(alert)), timeout)
+    dispatch(addAlert(alert))
+    setTimeout(() => dispatch(removeAlert(alert)), timeout)
     return alert
   }
 }
