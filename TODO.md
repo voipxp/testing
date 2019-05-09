@@ -1,7 +1,5 @@
 TODO
 
-- custom hooks
-- split ui modules out
 - document custom hooks
 - remove ducks pattern from store
 - simplify the dispatch types (alerts/add instead of alerts/addAlert)
