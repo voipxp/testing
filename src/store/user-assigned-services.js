@@ -1,4 +1,6 @@
 import { createSlice } from 'redux-starter-kit'
+import { useReduxState } from 'reactive-react-redux'
+import { useAction } from './hooks'
 import userServicesApi from '@/api/user-services'
 
 /*
@@ -28,5 +30,13 @@ export const loadUserAssignedServices = userId => {
     const services = await userServicesApi.assigned(userId)
     dispatch(actions.setUserAssignedServices(services))
     return services
+  }
+}
+
+export const useUserAssignedServices = userId => {
+  const state = useReduxState()
+  return {
+    userAssignedServices: state.userAssignedServices[userId],
+    loadUserAssignedServices: useAction(loadUserAssignedServices)
   }
 }

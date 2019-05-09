@@ -1,4 +1,6 @@
 import { createSlice } from 'redux-starter-kit'
+import { useReduxState } from 'reactive-react-redux'
+import { useAction } from './hooks'
 import userServicesApi from '@/api/user-services'
 
 /*
@@ -27,5 +29,13 @@ export const loadUserViewableServices = userId => {
     const services = await userServicesApi.viewable(userId)
     dispatch(actions.setUserViewableServices(services))
     return services
+  }
+}
+
+export const useUserViewableServices = userId => {
+  const state = useReduxState()
+  return {
+    userViewableServices: state.userViewableServices[userId],
+    loadUserViewableServices: useAction(loadUserViewableServices)
   }
 }
