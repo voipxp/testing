@@ -102,9 +102,8 @@ function controller(
   //
   // iterate through and update requiredServices
   function analyzeServices() {
-    var spinner
     if (ctrl.services.servicePackServices.length > 0) {
-      spinner = Alert.spinner.open('Analyzing Service Packs')
+      Alert.spinner.open('Analyzing Service Packs')
     }
     return $q
       .all(ctrl.services.servicePackServices.map(loadServicePack))
@@ -119,7 +118,7 @@ function controller(
         return services
       })
       .finally(function() {
-        if (spinner) Alert.spinner.close()
+        Alert.spinner.close()
       })
   }
 
