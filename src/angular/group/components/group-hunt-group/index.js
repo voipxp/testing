@@ -11,7 +11,7 @@ controller.$inject = [
   'Alert',
   'GroupHuntGroupService',
   'Route',
-  'UserPermissionService',
+  'Module',
   'GroupHuntGroupWeightedCallDistributionService',
   '$q',
   '$location'
