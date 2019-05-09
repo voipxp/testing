@@ -1,4 +1,6 @@
 import { createSlice } from 'redux-starter-kit'
+import { useReduxState } from 'reactive-react-redux'
+import { useAction } from './hooks'
 import decode from 'jwt-decode'
 import { setToken } from '@/api'
 import { refresh } from '@/api/auth'
@@ -46,4 +48,15 @@ export const loadSessionFromToken = token => async dispatch => {
 export const loadSessionFromStorage = () => async dispatch => {
   const token = localStorage.getItem(STORAGE_KEY)
   return dispatch(loadSessionFromToken(token))
+}
+
+export const useSession = () => {
+  const state = useReduxState()
+  return {
+    session: state.session,
+    clearSession: useAction(clearSession),
+    setSession: useAction(setSession),
+    loadSessionFromToken: useAction(loadSessionFromStorage),
+    loadSessionFromStorage: useAction(loadSessionFromStorage)
+  }
 }

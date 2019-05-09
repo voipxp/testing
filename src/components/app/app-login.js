@@ -1,20 +1,18 @@
 import React from 'react'
-import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
+import { useReduxState } from 'reactive-react-redux'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
 import { useAlerts } from '@/store/alerts'
 import { useLoadingModal } from '@/store/ui'
-import { setSession, loadSessionFromToken } from '@/store/session'
+import { useSession } from '@/store/session'
 import authApi from '@/api/auth'
 
 export const AppLogin = () => {
   const state = useReduxState()
-  const dispatch = useReduxDispatch()
-
+  const { setSession, loadSessionFromToken } = useSession()
   const { showLoadingModal, hideLoadingModal } = useLoadingModal()
-
   const { alertWarning, alertDanger } = useAlerts()
 
   const tokenLogin = React.useCallback(() => {
@@ -27,10 +25,10 @@ export const AppLogin = () => {
     const newSearch = stringify(search)
     window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
     showLoadingModal()
-    dispatch(loadSessionFromToken(token))
+    loadSessionFromToken(token)
       .catch(error => alertDanger(error))
       .finally(() => hideLoadingModal())
-  }, [alertDanger, dispatch, hideLoadingModal, showLoadingModal])
+  }, [alertDanger, hideLoadingModal, loadSessionFromToken, showLoadingModal])
 
   React.useEffect(() => {
     tokenLogin()
@@ -62,7 +60,7 @@ export const AppLogin = () => {
     try {
       showLoadingModal()
       const session = await authApi.token(form.username, form.password)
-      await dispatch(setSession(session))
+      await setSession(session)
     } catch (error) {
       if (error.status === 402) {
         alertWarning(error)
@@ -87,7 +85,7 @@ export const AppLogin = () => {
         form.newPassword1,
         form.username
       )
-      await dispatch(setSession(session))
+      await setSession(session)
     } catch (error) {
       alertDanger(error)
     } finally {

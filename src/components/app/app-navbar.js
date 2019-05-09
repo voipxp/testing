@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
+import { useReduxState } from 'reactive-react-redux'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { UiCardModal } from '@/components/ui'
 import { useAcl, userPath, groupPath } from '@/utils'
 import { parseUrl, stringify } from 'query-string'
 import { useAlerts } from '@/store/alerts'
-import { clearSession } from '@/store/session'
+import { useSession } from '@/store/session'
 import { UserSearch } from '@/components/user-search'
 import { SystemDnSearch } from '@/components/system-dn-search'
 import { GroupSearch } from '@/components/group-search'
@@ -17,14 +17,14 @@ import authApi from '@/api/auth'
 export const AppNavbar = withRouter(({ history }) => {
   const { alertDanger } = useAlerts()
   const state = useReduxState()
-  const dispatch = useReduxDispatch()
+  const { session, clearSession } = useSession()
+  const { userId } = session
 
   const acl = useAcl()
   const hasGroup = acl.hasGroup()
   const hasServiceProvider = acl.hasServiceProvider()
 
   const { applications } = state.ui
-  const { userId } = state.session
   const { pageTitle } = state.ui.template
 
   const [showMenu, updateShowMenu] = React.useState(false)
@@ -33,7 +33,7 @@ export const AppNavbar = withRouter(({ history }) => {
   const toggleMenu = () => updateShowMenu(!showMenu)
 
   const logout = () => {
-    dispatch(clearSession())
+    clearSession()
     history.push('/')
   }
 

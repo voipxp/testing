@@ -4,11 +4,11 @@ import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import createActivityDetector from 'activity-detector'
 import { Section } from 'rbx'
-import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
+import { useReduxState } from 'reactive-react-redux'
 import { AngularComponent } from '@/components/angular-component'
 import { UiLoadingPage } from '@/components/ui'
 import { useAlerts } from '@/store/alerts'
-import { clearSession } from '@/store/session'
+import { useSession } from '@/store/session'
 import {
   AppAlerts,
   AppFooter,
@@ -25,12 +25,12 @@ const Wrapper = styled.div`
 `
 export const App = hot(() => {
   const state = useReduxState()
-  const dispatch = useReduxDispatch()
+  const { session, clearSession } = useSession()
+  const { userId } = session
   const { alertWarning, removeAlert } = useAlerts()
   const { initialized } = state.ui
   const { sessionTimeout } = state.ui.settings
   const { pageGoogleUA } = state.ui.template
-  const { userId } = state.session
 
   const alertRef = React.useRef()
   const timerRef = React.useRef()
@@ -49,7 +49,7 @@ export const App = hot(() => {
     activityDetector.on('idle', async () => {
       const msg = 'Your session is about to expire'
       alertRef.current = await alertWarning(msg, TIMEOUT)
-      timerRef.current = setTimeout(() => dispatch(clearSession()), TIMEOUT)
+      timerRef.current = setTimeout(() => clearSession(), TIMEOUT)
     })
     activityDetector.on('active', () => {
       removeAlert(alertRef.current)
@@ -59,7 +59,14 @@ export const App = hot(() => {
       clearTimeout(timerRef.current)
       activityDetector.stop()
     }
-  }, [alertWarning, dispatch, initialized, removeAlert, sessionTimeout, userId])
+  }, [
+    alertWarning,
+    clearSession,
+    initialized,
+    removeAlert,
+    sessionTimeout,
+    userId
+  ])
 
   if (!initialized) return <UiLoadingPage />
 
