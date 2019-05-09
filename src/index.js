@@ -17,8 +17,9 @@ api.interceptors.response.use(
   error => {
     if (error.status === 401 || error.status === 403) {
       store.dispatch(clearSession())
+      return Promise.reject(new Error('Please Login'))
     }
-    return Promise.reject(new Error('Please Login'))
+    return Promise.reject(error)
   }
 )
 
