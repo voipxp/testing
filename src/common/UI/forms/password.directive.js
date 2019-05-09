@@ -7,6 +7,7 @@
       '  <div class="field has-addons">' +
       '    <div class="control is-expanded has-icons-right">' +
       '      <input class="input"' +
+      '         autocomplete="new-password"' +
       '         name="password1"' +
       '         type="{{ inputType }}"' +
       '         placeholder="Password"' +
@@ -33,6 +34,7 @@
       '  <div class="field has-addons">' +
       '    <div class="control is-expanded has-icons-right">' +
       '      <input class="input"' +
+      '        autocomplete="new-password"' +
       '        type="{{ inputType }}"' +
       '        name="password2"' +
       '        placeholder="Repeat Password"' +
