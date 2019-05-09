@@ -9,6 +9,8 @@ import { AngularComponent } from '@/components/angular-component'
 import { UiLoadingPage } from '@/components/ui'
 import { useAlerts } from '@/store/alerts'
 import { useSession } from '@/store/session'
+import { useUiSettings } from '@/store/ui-settings'
+import { useUiTemplate } from '@/store/ui-template'
 import {
   AppAlerts,
   AppFooter,
@@ -29,8 +31,10 @@ export const App = hot(() => {
   const { userId } = session
   const { alertWarning, removeAlert } = useAlerts()
   const { initialized } = state.ui
-  const { sessionTimeout } = state.ui.settings
-  const { pageGoogleUA } = state.ui.template
+  const { settings } = useUiSettings()
+  const { sessionTimeout } = settings
+  const { template } = useUiTemplate()
+  const { pageGoogleUA } = template
 
   const alertRef = React.useRef()
   const timerRef = React.useRef()

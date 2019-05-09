@@ -1,8 +1,8 @@
 import React from 'react'
-import { useLoadingModal } from '@/store/ui'
+import { useUi } from '@/store/ui'
 import { UiLoadingModal } from '@/components/ui'
 
 export const AppLoadingModal = () => {
-  const { isLoadingModalOpen } = useLoadingModal()
+  const { isLoadingModalOpen } = useUi()
   return <UiLoadingModal isOpen={isLoadingModalOpen} />
 }

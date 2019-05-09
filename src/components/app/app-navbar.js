@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useReduxState } from 'reactive-react-redux'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { UiCardModal } from '@/components/ui'
 import { useAcl, userPath, groupPath } from '@/utils'
+import { useUiApplications } from '@/store/ui-applications'
 import { parseUrl, stringify } from 'query-string'
 import { useAlerts } from '@/store/alerts'
 import { useSession } from '@/store/session'
+import { useUiTemplate } from '@/store/ui-template'
 import { UserSearch } from '@/components/user-search'
 import { SystemDnSearch } from '@/components/system-dn-search'
 import { GroupSearch } from '@/components/group-search'
@@ -16,7 +17,6 @@ import authApi from '@/api/auth'
 
 export const AppNavbar = withRouter(({ history }) => {
   const { alertDanger } = useAlerts()
-  const state = useReduxState()
   const { session, clearSession } = useSession()
   const { userId } = session
 
@@ -24,8 +24,9 @@ export const AppNavbar = withRouter(({ history }) => {
   const hasGroup = acl.hasGroup()
   const hasServiceProvider = acl.hasServiceProvider()
 
-  const { applications } = state.ui
-  const { pageTitle } = state.ui.template
+  const { applications } = useUiApplications()
+  const { template } = useUiTemplate()
+  const { pageTitle } = template
 
   const [showMenu, updateShowMenu] = React.useState(false)
   const [search, setSearch] = React.useState()

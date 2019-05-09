@@ -6,14 +6,11 @@ import { userViewableServicesReducer } from './user-viewable-services'
 import { userReducer } from './user'
 import { sessionReducer, loadSessionFromStorage, clearSession } from './session'
 import { serviceProvidersReducer } from './service-providers'
-import {
-  uiReducer,
-  loadTemplate,
-  loadSettings,
-  setInitialized,
-  loadApplications,
-  loadModules
-} from './ui'
+import { uiReducer, setInitialized } from './ui'
+import { loadApplications, uiApplicationsReducer } from './ui-applications'
+import { loadModules, uiModulesReducer } from './ui-modules'
+import { loadSettings, uiSettingsReducer } from './ui-settings'
+import { loadTemplate, uiTemplateReducer } from './ui-template'
 
 const store = configureStore({
   reducer: {
@@ -24,7 +21,11 @@ const store = configureStore({
     userAssignedServices: userAssignedServicesReducer,
     userServices: userServicesReducer,
     userViewableServices: userViewableServicesReducer,
-    ui: uiReducer
+    ui: uiReducer,
+    uiApplications: uiApplicationsReducer,
+    uiModules: uiModulesReducer,
+    uiSettings: uiSettingsReducer,
+    uiTemplate: uiTemplateReducer
   },
   devTools: process.env.NODE_ENV !== 'production'
 })

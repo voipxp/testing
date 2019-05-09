@@ -1,18 +1,17 @@
 import React from 'react'
-import { useReduxState } from 'reactive-react-redux'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
 import { useAlerts } from '@/store/alerts'
-import { useLoadingModal } from '@/store/ui'
+import { useUi } from '@/store/ui'
 import { useSession } from '@/store/session'
+import { useUiTemplate } from '@/store/ui-template'
 import authApi from '@/api/auth'
 
 export const AppLogin = () => {
-  const state = useReduxState()
   const { setSession, loadSessionFromToken } = useSession()
-  const { showLoadingModal, hideLoadingModal } = useLoadingModal()
+  const { showLoadingModal, hideLoadingModal } = useUi()
   const { alertWarning, alertDanger } = useAlerts()
 
   const tokenLogin = React.useCallback(() => {
@@ -34,7 +33,8 @@ export const AppLogin = () => {
     tokenLogin()
   }, [tokenLogin])
 
-  const { pageLoginMessage } = state.ui.template
+  const { template } = useUiTemplate()
+  const { pageLoginMessage } = template
 
   const formRef = React.useRef()
   const [form, setForm] = React.useState({
