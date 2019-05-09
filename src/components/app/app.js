@@ -7,7 +7,7 @@ import { Section } from 'rbx'
 import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { AngularComponent } from '@/components/angular-component'
 import { UiLoadingPage } from '@/components/ui'
-import { alertWarning, removeAlert } from '@/store/alerts'
+import { useAlerts } from '@/store/alerts'
 import { clearSession } from '@/store/session'
 import {
   AppAlerts,
@@ -26,6 +26,7 @@ const Wrapper = styled.div`
 export const App = hot(() => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
+  const { alertWarning, removeAlert } = useAlerts()
   const { initialized } = state.ui
   const { sessionTimeout } = state.ui.settings
   const { pageGoogleUA } = state.ui.template
@@ -47,18 +48,18 @@ export const App = hot(() => {
     })
     activityDetector.on('idle', async () => {
       const msg = 'Your session is about to expire'
-      alertRef.current = await dispatch(alertWarning(msg, TIMEOUT))
+      alertRef.current = await alertWarning(msg, TIMEOUT)
       timerRef.current = setTimeout(() => dispatch(clearSession()), TIMEOUT)
     })
     activityDetector.on('active', () => {
-      dispatch(removeAlert(alertRef.current))
+      removeAlert(alertRef.current)
       clearTimeout(timerRef.current)
     })
     return () => {
       clearTimeout(timerRef.current)
       activityDetector.stop()
     }
-  }, [dispatch, initialized, sessionTimeout, userId])
+  }, [alertWarning, dispatch, initialized, removeAlert, sessionTimeout, userId])
 
   if (!initialized) return <UiLoadingPage />
 

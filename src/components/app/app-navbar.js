@@ -6,7 +6,7 @@ import { Navbar } from 'rbx'
 import { UiCardModal } from '@/components/ui'
 import { useAcl, userPath, groupPath } from '@/utils'
 import { parseUrl, stringify } from 'query-string'
-import { alertDanger } from '@/store/alerts'
+import { useAlerts } from '@/store/alerts'
 import { clearSession } from '@/store/session'
 import { UserSearch } from '@/components/user-search'
 import { SystemDnSearch } from '@/components/system-dn-search'
@@ -15,6 +15,7 @@ import { UserServiceSearch } from '@/components/user-service-search'
 import authApi from '@/api/auth'
 
 export const AppNavbar = withRouter(({ history }) => {
+  const { alertDanger } = useAlerts()
   const state = useReduxState()
   const dispatch = useReduxDispatch()
 
@@ -66,7 +67,7 @@ export const AppNavbar = withRouter(({ history }) => {
         window.open(finalUrl, '_self')
       }
     } catch (error) {
-      dispatch(alertDanger(error))
+      alertDanger(error)
     }
   }
 

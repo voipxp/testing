@@ -4,7 +4,7 @@ import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
-import { alertWarning, alertDanger } from '@/store/alerts'
+import { useAlerts } from '@/store/alerts'
 import { showLoadingModal, hideLoadingModal } from '@/store/ui'
 import { setSession, loadSessionFromToken } from '@/store/session'
 import authApi from '@/api/auth'
@@ -12,6 +12,8 @@ import authApi from '@/api/auth'
 export const AppLogin = () => {
   const state = useReduxState()
   const dispatch = useReduxDispatch()
+
+  const { alertWarning, alertDanger } = useAlerts()
 
   const tokenLogin = React.useCallback(() => {
     const [hash, query] = window.location.hash.split('?')
@@ -24,9 +26,9 @@ export const AppLogin = () => {
     window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
     dispatch(showLoadingModal())
     dispatch(loadSessionFromToken(token))
-      .catch(error => dispatch(alertDanger(error)))
+      .catch(error => alertDanger(error))
       .finally(() => dispatch(hideLoadingModal()))
-  }, [dispatch])
+  }, [alertDanger, dispatch])
 
   React.useEffect(() => {
     tokenLogin()
@@ -61,11 +63,11 @@ export const AppLogin = () => {
       await dispatch(setSession(session))
     } catch (error) {
       if (error.status === 402) {
-        dispatch(alertWarning(error))
+        alertWarning(error)
         setNeedsChange(true)
         setValid(false)
       } else {
-        dispatch(alertDanger(error))
+        alertDanger(error)
       }
     } finally {
       dispatch(hideLoadingModal())
@@ -74,7 +76,7 @@ export const AppLogin = () => {
 
   async function changePassword() {
     if (form.newPassword1 !== form.newPassword2) {
-      return dispatch(alertWarning('New Passwords Do Not Match'))
+      return alertWarning('New Passwords Do Not Match')
     }
     try {
       dispatch(showLoadingModal())
@@ -85,7 +87,7 @@ export const AppLogin = () => {
       )
       await dispatch(setSession(session))
     } catch (error) {
-      dispatch(alertDanger(error))
+      alertDanger(error)
     } finally {
       dispatch(hideLoadingModal())
     }
