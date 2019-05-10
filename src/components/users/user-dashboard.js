@@ -49,7 +49,9 @@ export const UserDashboard = ({ match }) => {
       const items = section.items.filter(item => {
         if (item.version && !hasVersion(item.version)) return false
         if (item.acl && !hasLevel(item.acl)) return false
-        if (item.service && !hasUserService(item.service)) return false
+        if (item.services && !item.services.find(s => hasUserService(s))) {
+          return false
+        }
         if (item.module && !hasModuleRead(item.module)) return false
         return true
       })
