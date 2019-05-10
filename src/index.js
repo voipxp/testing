@@ -4,7 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter } from 'react-router-dom'
 import { App } from '@/components/app'
-import store from '@/store'
+import { store, loadInitialState } from '@/store'
 import api from '@/api'
 import { ReduxProvider } from 'reactive-react-redux'
 import { clearSession } from '@/store/session'
@@ -22,6 +22,8 @@ api.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
+loadInitialState()
 
 ReactDOM.render(
   <ReduxProvider store={store}>
