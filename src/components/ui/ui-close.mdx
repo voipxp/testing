@@ -1,0 +1,33 @@
+---
+name: UiClose
+route: '/ui-close'
+---
+
+import { Playground, Props } from 'docz'
+import { UiClose } from './ui-close'
+import { UiCard } from './ui-card'
+import { ExampleBox } from './doc-helpers'
+
+# UiClose
+
+A simple close button that wraps the child component on the top-left corner.
+
+## Example
+
+<Playground>
+  <UiClose onClick={() => console.log('clicked')}>
+    <UiCard title="Example Card">
+      <p>Hello There!</p>
+    </UiCard>
+  </UiClose>
+  <hr />
+  <UiClose onClick={() => console.log('clicked')} style={{ marginTop: '1rem' }}>
+    <ExampleBox text="Example Box">
+      <p>Example</p>
+    </ExampleBox>
+  </UiClose>
+</Playground>
+
+## Props
+
+<Props of={UiClose} />

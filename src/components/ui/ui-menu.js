@@ -21,8 +21,6 @@ const NotFound = () => (
 )
 
 const UiMenuBase = ({ match, location, menu = [] }) => {
-  console.log('location', location)
-  console.log('match', match)
   const renderRoute = routeProps => {
     const path = routeProps.match.params.path
     let route
@@ -37,6 +35,13 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
     } else {
       return <route.component {...props} {...routeProps} />
     }
+  }
+
+  const isActive = item => {
+    const path = `${match.url}/${item.path}`
+    return (
+      location.pathname === path || location.pathname.startsWith(`${path}/`)
+    )
   }
 
   // select the first route from the first section
@@ -64,7 +69,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
                     return (
                       <Menu.List.Item
                         key={item.path}
-                        active={location.pathname === path}
+                        active={isActive(item)}
                         href={`#!${path}`}
                       >
                         {item.name}

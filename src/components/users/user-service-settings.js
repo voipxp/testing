@@ -2,14 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
-import { UiCancel, UiCard, UiCheckbox, UiDataTable } from '@/components/ui'
+import { UiClose, UiCard, UiCheckbox, UiDataTable } from '@/components/ui'
 import { useModulePermissions, useUserServicePermissions } from '@/utils'
+import { useUserAssignedServices } from '@/store/user-assigned-services'
 import { AngularComponent } from '@/components/angular-component'
 import { userServiceRoutes } from './user-service-routes'
-import {
-  useAssignedServices,
-  useUserAssignedServices
-} from '@/store/user-assigned-services'
 
 /* eslint-disable react/display-name */
 const columns = [
@@ -42,14 +39,24 @@ export const UserServiceSettings = ({ history, match }) => {
 
   const services = React.useMemo(() => {
     if (!userViewableServices) return []
+    // turn this into a map of serviceName => moduleName
+    const allowedServices = userServiceRoutes.reduce((obj, route) => {
+      route.services.forEach(s => (obj[s] = route))
+      return obj
+    }, {})
+    // filter out ones not in our map
     const filtered = userViewableServices.userServices
-      .filter(service => userServiceRoutes[service.serviceName])
-      .filter(service => hasModuleRead(service.serviceName))
+      .filter(service => {
+        const route = allowedServices[service.serviceName]
+        return route && route.module && hasModuleRead(route.module)
+      })
+      // merge the module and the service
       .map(service => {
-        const route = userServiceRoutes[service.serviceName]
+        const route = allowedServices[service.serviceName]
         const module = getModule(route.module)
         return { ...module, ...service, path: route.path }
       })
+    // remove dups such as Shared Call Appearance
     return uniqBy(filtered, 'name')
   }, [getModule, hasModuleRead, userViewableServices])
 
@@ -68,16 +75,14 @@ export const UserServiceSettings = ({ history, match }) => {
     const path = routeProps.match.params.path
     const route = Object.values(userServiceRoutes).find(r => r.path === path)
     const { component, angularComponent, ...props } = route
-    return angularComponent ? (
-      <>
-        <UiCancel onClick={hideService} />
-        <AngularComponent component={angularComponent} {...props} />
-      </>
-    ) : (
-      <>
-        <UiCancel onClick={hideService} />
-        <route.component {...props} {...routeProps} />
-      </>
+    return (
+      <UiClose onClick={hideService}>
+        {angularComponent ? (
+          <AngularComponent component={angularComponent} {...props} />
+        ) : (
+          <route.component {...props} {...routeProps} />
+        )}
+      </UiClose>
     )
   }
 

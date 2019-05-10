@@ -1,307 +1,327 @@
-export const userServiceRoutes = {
-  'Alternate Numbers': {
+export const userServiceRoutes = [
+  {
     angularComponent: 'userAlternateNumbers',
     module: 'Alternate Numbers',
-    path: 'alternate-numbers'
+    path: 'alternate-numbers',
+    services: ['Alternate Numbers']
   },
-  'Advice Of Charge': {
+  {
     angularComponent: 'userAdviceOfCharge',
     module: 'Advice Of Charge',
-    path: 'advice-of-charge'
+    path: 'advice-of-charge',
+    services: ['Advice Of Charge']
   },
-  'Anonymous Call Rejection': {
+  {
     angularComponent: 'userAnonymousCallRejection',
     module: 'Anonymous Call Rejection',
-    path: 'anonymous-call-rejection'
+    path: 'anonymous-call-rejection',
+    services: ['Anonymous Call Rejection']
   },
-  'Authentication': {
+  {
     angularComponent: 'userAuthentication',
     module: 'Authentication',
-    path: 'authentication'
+    path: 'authentication',
+    services: ['Authentication']
   },
-  'Automatic Callback': {
+  {
     angularComponent: 'userAutomaticCallback',
     module: 'Automatic Callback',
-    path: 'automatic-callback'
+    path: 'automatic-callback',
+    services: ['Automatic Callback']
   },
-  'Automatic Hold/Retrieve': {
+  {
     angularComponent: 'userAutomaticHoldRetrieve',
     module: 'Automatic Hold/Retrieve',
-    path: 'automatic-hold-retrieve'
+    path: 'automatic-hold-retrieve',
+    services: ['Automatic Hold/Retrieve']
   },
-  'Barge-in Exempt': {
+  {
     angularComponent: 'userBargeInExempt',
     module: 'Barge-in Exempt',
-    path: 'barge-in-exempt'
+    path: 'barge-in-exempt',
+    services: ['Barge-in Exempt']
   },
-  'BroadWorks Anywhere': {
+  {
     angularComponent: 'userBroadWorksAnywhere',
     module: 'BroadWorks Anywhere',
-    path: 'broadworks-anywhere'
+    path: 'broadworks-anywhere',
+    services: ['BroadWorks Anywhere']
   },
-  'BroadWorks Mobility': {
+  {
     angularComponent: 'userBroadWorksMobility',
     module: 'BroadWorks Mobility',
-    path: 'broadworks-mobility'
+    path: 'broadworks-mobility',
+    services: ['BroadWorks Mobility']
   },
-  'Busy Lamp Field': {
+  {
     angularComponent: 'userBusyLampField',
     module: 'Busy Lamp Field',
-    path: 'busy-lamp-field'
+    path: 'busy-lamp-field',
+    services: ['Busy Lamp Field']
   },
-  'Call Center - Basic': {
+  {
     angularComponent: 'userCallCenter',
     module: 'Call Center',
-    path: 'call-center'
+    path: 'call-center',
+    services: [
+      'Call Center - Basic',
+      'Call Center - Standard',
+      'Call Center - Premium'
+    ]
   },
-  'Call Center - Standard': {
-    angularComponent: 'userCallCenter',
-    module: 'Call Center',
-    path: 'call-center'
-  },
-  'Call Center - Premium': {
-    angularComponent: 'userCallCenter',
-    module: 'Call Center',
-    path: 'call-center'
-  },
-  'Call Forwarding Always': {
+  {
     angularComponent: 'userCallForwardingAlways',
     module: 'Call Forwarding Always',
-    path: 'call-forwarding-always'
+    path: 'call-forwarding-always',
+    services: ['Call Forwarding Always']
   },
-  'Call Forwarding Always Secondary': {
+  {
     angularComponent: 'userCallForwardingAlwaysSecondary',
     module: 'Call Forwarding Always Secondary',
-    path: 'call-forwarding-always-secondary'
+    path: 'call-forwarding-always-secondary',
+    services: ['Call Forwarding Always Secondary']
   },
-  'Call Forwarding Busy': {
+  {
     angularComponent: 'userCallForwardingBusy',
     module: 'Call Forwarding Busy',
-    path: 'call-forwarding-busy'
+    path: 'call-forwarding-busy',
+    services: ['Call Forwarding Busy']
   },
-  'Call Forwarding No Answer': {
+  {
     angularComponent: 'userCallForwardingNoAnswer',
     module: 'Call Forwarding No Answer',
-    path: 'call-forwarding-no-answer'
+    path: 'call-forwarding-no-answer',
+    services: ['Call Forwarding No Answer']
   },
-  'Call Forwarding Not Reachable': {
+  {
     angularComponent: 'userCallForwardingNotReachable',
     module: 'Call Forwarding Not Reachable',
-    path: 'call-forwarding-not-reachable'
+    path: 'call-forwarding-not-reachable',
+    services: ['Call Forwarding Not Reachable']
   },
-  'Call Forwarding Selective': {
+  {
     angularComponent: 'userCallForwardingSelective',
     module: 'Call Forwarding Selective',
-    path: 'call-forwarding-selective'
+    path: 'call-forwarding-selective',
+    services: ['Call Forwarding Selective']
   },
-  'Call Notify': {
+  {
     angularComponent: 'userCallNotify',
     module: 'Call Notify',
-    path: 'call-notify'
+    path: 'call-notify',
+    services: ['Call Notify']
   },
-  'Call Recording': {
+  {
     angularComponent: 'userCallRecording',
     module: 'Call Recording',
-    path: 'call-recording'
+    path: 'call-recording',
+    services: ['Call Recording']
   },
-  'Call Transfer': {
+  {
     angularComponent: 'userCallTransfer',
     module: 'Call Transer',
-    path: 'call-transfer'
+    path: 'call-transfer',
+    services: ['Call Transfer']
   },
-  'Call Waiting': {
+  {
     angularComponent: 'userCallWaiting',
     module: 'Call Waiting',
-    path: 'call-waiting'
+    path: 'call-waiting',
+    services: ['Call Waiting']
   },
-  'Calling Line ID Delivery Blocking': {
+  {
     angularComponent: 'userCallingLineIdDeliveryBlocking',
     module: 'Calling Line ID Delivery Blocking',
-    path: 'calling-line-id-delivery-blocking'
+    path: 'calling-line-id-delivery-blocking',
+    services: ['Calling Line ID Delivery Blocking']
   },
-  'Calling Name Delivery': {
+  {
     angularComponent: 'userCallingNameDelivery',
     module: 'Calling Name Delivery',
-    path: 'calling-name-delivery'
+    path: 'calling-name-delivery',
+    services: ['Calling Name Delivery']
   },
-  'Calling Name Retrieval': {
+  {
     angularComponent: 'userCallingNameRetrieval',
     module: 'Calling Name Retrieval',
-    path: 'calling-name-retrieval'
+    path: 'calling-name-retrieval',
+    services: ['Calling Name Retrieval']
   },
-  'Calling Number Delivery': {
+  {
     angularComponent: 'userCallingNumberDelivery',
     module: 'Calling Number Delivery',
-    path: 'calling-number-delivery'
+    path: 'calling-number-delivery',
+    services: ['Calling Number Delivery']
   },
-  'Collaborate - Audio': {
+  {
     angularComponent: 'userCollaborate',
     module: 'Collaborate - Audio',
-    path: 'collaborate-audio'
+    path: 'collaborate-audio',
+    services: ['Collaborate - Audio']
   },
-  'Connected Line Identification Restriction': {
+  {
     angularComponent: 'userConnectedLineIdentificationRestriction',
     module: 'Connected Line Identification Restriction',
-    path: 'connected-line-identification-restriction'
+    path: 'connected-line-identification-restriction',
+    services: ['Connected Line Identification Restriction']
   },
-  'Directed Call Pickup with Barge-in': {
+  {
     angularComponent: 'userDirectedCallPickupWithBargeIn',
     module: 'Directed Call Pickup with Barge-in',
-    path: 'directed-call-pickup-with-barge-in'
+    path: 'directed-call-pickup-with-barge-in',
+    services: ['Directed Call Pickup with Barge-in']
   },
-  'Directory': {
+  {
     angularComponent: 'userDirectory',
     module: 'Directory',
-    path: 'directory'
+    path: 'directory',
+    services: ['Directory']
   },
-  'Do Not Disturb': {
+  {
     angularComponent: 'userDoNotDisturb',
     module: 'Do Not Disturb',
-    path: 'do-not-disturb'
+    path: 'do-not-disturb',
+    services: ['Do Not Disturb']
   },
-  'External Calling Line ID Delivery': {
+  {
     angularComponent: 'userExternalCallingLineIdDelivery',
     module: 'External Calling Line ID Delivery',
-    path: 'external-calling-line-id-delivery'
+    path: 'external-calling-line-id-delivery',
+    services: ['External Calling Line ID Delivery']
   },
-  'Fax Messaging': {
+  {
     angularComponent: 'userFaxMessaging',
     module: 'Fax Messaging',
-    path: 'fax-messaging'
+    path: 'fax-messaging',
+    services: ['Fax Messaging']
   },
-  'Flexible Seating Guest': {
+  {
     angularComponent: 'userFlexibleSeatingGuest',
     module: 'Flexible Seating Guest',
-    path: 'flexible-seating-guest'
+    path: 'flexible-seating-guest',
+    services: ['Flexible Seating Guest']
   },
-  'Group Night Forwarding': {
+  {
     angularComponent: 'userGroupNightForwarding',
     module: 'Group Night Forwarding',
-    path: 'group-night-forwarding'
+    path: 'group-night-forwarding',
+    services: ['Group Night Forwarding']
   },
-  'Hoteling Guest': {
+  {
     angularComponent: 'userHotelingGuest',
     module: 'Hoteling Guest',
-    path: 'hoteling-guest'
+    path: 'hoteling-guest',
+    services: ['Hoteling Guest']
   },
-  'Hoteling Host': {
+  {
     angularComponent: 'userHotelingHost',
     module: 'Hoteling Host',
-    path: 'hoteling-host'
+    path: 'hoteling-host',
+    services: ['Hoteling Host']
   },
-  'Integrated IMP': {
+  {
     angularComponent: 'userIntegratedImp',
     module: 'Integrated IMP',
-    path: 'integrated-imp'
+    path: 'integrated-imp',
+    services: ['Integrated IMP']
   },
-  'Internal Calling Line ID Delivery': {
+  {
     angularComponent: 'userInternalCallingLineIdDelivery',
     module: 'Internal Calling Line ID Delivery',
-    path: 'internal-calling-line-id-delivery'
+    path: 'internal-calling-line-id-delivery',
+    services: ['Internal Calling Line ID Delivery']
   },
-  'Meet-Me Conferencing': {
+  {
     angularComponent: 'userMeetMeConferencing',
     module: 'Meet-Me Conferencing',
-    path: 'meet-me-conferencing'
+    path: 'meet-me-conferencing',
+    services: ['Meet-Me Conferencing']
   },
-  'Music On Hold User': {
+  {
     angularComponent: 'userMusicOnHold',
     module: 'Music On Hold User',
-    path: 'music-on-hold-user'
+    path: 'music-on-hold-user',
+    services: ['Music On Hold User']
   },
-  'Outlook Integration': {
+  {
     angularComponent: 'userOutlookIntegration',
     module: 'Outlook Integration',
-    path: 'outlook-integration'
+    path: 'outlook-integration',
+    services: ['Outlook Integration']
   },
-  'Priority Alert': {
+  {
     angularComponent: 'userPriorityAlert',
     module: 'Priority Alert',
-    path: 'priority-alert'
+    path: 'priority-alert',
+    services: ['Priority Alert']
   },
-  'Privacy': {
+  {
     angularComponent: 'userPrivacy',
     module: 'Privacy',
-    path: 'privacy'
+    path: 'privacy',
+    services: ['Privacy']
   },
-  'Push to Talk': {
+  {
     angularComponent: 'userPushToTalk',
     module: 'Push to Talk',
-    path: 'push-to-talk'
+    path: 'push-to-talk',
+    services: ['Push to Talk']
   },
-  'Remote Office': {
+  {
     angularComponent: 'userRemoteOffice',
     module: 'Remote Office',
-    path: 'remote-office'
+    path: 'remote-office',
+    services: ['Remote Office']
   },
-  'Selective Call Acceptance': {
+  {
     angularComponent: 'userSelectiveCallAcceptance',
     module: 'Selective Call Acceptance',
-    path: 'selective-call-acceptance'
+    path: 'selective-call-acceptance',
+    services: ['Selective Call Acceptance']
   },
-  'Selective Call Rejection': {
+  {
     angularComponent: 'userSelectiveCallRejection',
     module: 'Selective Call Rejection',
-    path: 'selective-call-rejection'
+    path: 'selective-call-rejection',
+    services: ['Selective Call Rejection']
   },
-  'Sequential Ring': {
+  {
     angularComponent: 'userSequentialRing',
     module: 'Sequential Ring',
-    path: 'sequential-ring'
+    path: 'sequential-ring',
+    services: ['Sequential Ring']
   },
-  'Shared Call Appearance': {
+  {
     angularComponent: 'userSharedCallAppearance',
     module: 'Shared Call Appearance',
-    path: 'shared-call-appearance'
+    path: 'shared-call-appearance',
+    services: [
+      'Shared Call Appearance',
+      'Shared Call Appearance 5',
+      'Shared Call Appearance 10',
+      'Shared Call Appearance 15',
+      'Shared Call Appearance 20',
+      'Shared Call Appearance 25',
+      'Shared Call Appearance 30',
+      'Shared Call Appearance 35'
+    ]
   },
-  'Shared Call Appearance 5': {
-    angularComponent: 'userSharedCallAppearance',
-    module: 'Shared Call Appearance',
-    path: 'shared-call-appearance'
-  },
-  'Shared Call Appearance 10': {
-    angularComponent: 'userSharedCallAppearance',
-    module: 'Shared Call Appearance',
-    path: 'shared-call-appearance'
-  },
-  'Shared Call Appearance 15': {
-    angularComponent: 'userSharedCallAppearance',
-    module: 'Shared Call Appearance',
-    path: 'shared-call-appearance'
-  },
-  'Shared Call Appearance 20': {
-    angularComponent: 'userSharedCallAppearance',
-    module: 'Shared Call Appearance',
-    path: 'shared-call-appearance'
-  },
-  'Shared Call Appearance 25': {
-    angularComponent: 'userSharedCallAppearance',
-    module: 'Shared Call Appearance',
-    path: 'shared-call-appearance'
-  },
-  'Shared Call Appearance 30': {
-    angularComponent: 'userSharedCallAppearance',
-    module: 'Shared Call Appearance',
-    path: 'shared-call-appearance'
-  },
-  'Shared Call Appearance 35': {
-    angularComponent: 'userSharedCallAppearance',
-    module: 'Shared Call Appearance',
-    path: 'shared-call-appearance'
-  },
-  'Simultaneous Ring Personal': {
+  {
     angularComponent: 'userSimultaneousRingPersonal',
     module: 'Simultaneous Ring Personal',
-    path: 'simultaneous-ring-personal'
+    path: 'simultaneous-ring-personal',
+    services: ['Simultaneous Ring Personal']
   },
-  'Speed Dial 100': {
+  {
     angularComponent: 'userSpeedDial100',
     module: 'Speed Dial 100',
-    path: 'speed-dial-100'
+    path: 'speed-dial-100',
+    services: ['Speed Dial 100']
   },
-  'Voice Messaging User': {
+  {
     angularComponent: 'userVoiceMessagingDashboard',
     module: 'Voice Messaging User',
-    path: 'voice-messaging-user'
+    path: 'voice-messaging-user',
+    services: ['Voice Messaging User']
   }
-}
+]
