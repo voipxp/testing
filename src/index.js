@@ -23,8 +23,6 @@ api.interceptors.response.use(
   }
 )
 
-loadInitialState()
-
 ReactDOM.render(
   <ReduxProvider store={store}>
     <HashRouter hashType="hashbang">
@@ -33,3 +31,5 @@ ReactDOM.render(
   </ReduxProvider>,
   document.querySelector('#root')
 )
+
+loadInitialState()
