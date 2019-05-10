@@ -14,7 +14,6 @@ import {
 import { dashboardMenu } from './user-dashboard-menu'
 
 export const UserDashboard = ({ match }) => {
-  const [menu, setMenu] = React.useState([])
   const [loading, setLoading] = React.useState(true)
   const { userId } = match.params
   const { hasVersion, hasLevel } = useAcl()
@@ -43,7 +42,7 @@ export const UserDashboard = ({ match }) => {
   ])
 
   // filter items we should not see
-  React.useEffect(() => {
+  const menu = React.useMemo(() => {
     const filteredMenu = []
     dashboardMenu.forEach(section => {
       const items = section.items.filter(item => {
@@ -57,7 +56,7 @@ export const UserDashboard = ({ match }) => {
       })
       if (items.length > 0) filteredMenu.push({ label: section.label, items })
     })
-    setMenu(filteredMenu)
+    return filteredMenu
   }, [hasLevel, hasModuleRead, hasUserService, hasVersion])
 
   return (
