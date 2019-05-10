@@ -40,14 +40,25 @@ export const UserServiceSettings = ({ history, match }) => {
     history.goBack()
   }
 
+  /*
+  turn our array of routes into a filtered list of components,
+  pulling in module aliases and description, maintaining the route path
+  [{
+    name: 'Service':
+    alias: 'Something',
+    description: 'Something Cool',
+    isActive: true,
+    path: 'some-service'
+  }]
+  */
   const services = React.useMemo(() => {
     if (!userViewableServices) return []
-    // turn this into a map of serviceName => moduleName
+    // turn this into a map of serviceName => route
     const allowedServices = userServiceRoutes.reduce((obj, route) => {
       route.services.forEach(s => (obj[s] = route))
       return obj
     }, {})
-    // filter out ones not in our map
+    // filter out ones not in our map or missing read perms
     const filtered = userViewableServices.userServices
       .filter(service => {
         const route = allowedServices[service.serviceName]
@@ -63,6 +74,7 @@ export const UserServiceSettings = ({ history, match }) => {
     return uniqBy(filtered, 'name')
   }, [getModule, hasModuleRead, userViewableServices])
 
+  // The base view when no sub-component picked
   const UserServiceList = () => (
     <UiCard title="Configure Services">
       <UiDataTable
@@ -74,18 +86,20 @@ export const UserServiceSettings = ({ history, match }) => {
     </UiCard>
   )
 
+  // render the clicked service
   const renderRoute = routeProps => {
     const path = routeProps.match.params.path
     const route = Object.values(userServiceRoutes).find(r => r.path === path)
     const { component, angularComponent, ...props } = route
     return (
-      <UiClose onClick={hideService}>
+      <>
+        <UiClose onClick={hideService} />
         {angularComponent ? (
           <AngularComponent component={angularComponent} {...props} />
         ) : (
           <route.component {...props} {...routeProps} />
         )}
-      </UiClose>
+      </>
     )
   }
 

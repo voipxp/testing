@@ -15,17 +15,15 @@ A simple close button that wraps the child component on the top-left corner.
 ## Example
 
 <Playground>
-  <UiClose onClick={() => console.log('clicked')}>
-    <UiCard title="Example Card">
-      <p>Hello There!</p>
-    </UiCard>
-  </UiClose>
+  <UiClose onClick={() => console.log('closed card')} />
+  <UiCard title="Example Card">
+    <p>Hello There!</p>
+  </UiCard>
   <hr />
-  <UiClose onClick={() => console.log('clicked')} style={{ marginTop: '1rem' }}>
-    <ExampleBox text="Example Box">
-      <p>Example</p>
-    </ExampleBox>
-  </UiClose>
+  <UiClose onClick={() => console.log('closed box')} />
+  <ExampleBox text="Example Box">
+    <p>Example</p>
+  </ExampleBox>
 </Playground>
 
 ## Props
