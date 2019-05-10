@@ -119,7 +119,7 @@ export const userServiceRoutes = [
   },
   {
     angularComponent: 'userCallTransfer',
-    module: 'Call Transer',
+    module: 'Call Transfer',
     path: 'call-transfer',
     services: ['Call Transfer']
   },
