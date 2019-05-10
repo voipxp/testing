@@ -54,11 +54,6 @@ export const dashboardMenu = [
       {
         path: 'service-settings',
         name: 'Service Settings',
-        angularComponent: 'userServicesDashboard'
-      },
-      {
-        path: 'service-settings-2',
-        name: 'Service Settings 2',
         component: UserServiceSettings
       },
       {

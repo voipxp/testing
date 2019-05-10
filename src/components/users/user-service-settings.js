@@ -31,7 +31,10 @@ export const UserServiceSettings = ({ history, match }) => {
   const { userViewableServices } = useUserServicePermissions(userId)
   const { loadUserAssignedServices } = useUserAssignedServices(userId)
 
-  const showService = service => history.push(`${match.url}/${service.path}`)
+  const showService = service => {
+    history.push(`${match.url}/${service.path}`)
+  }
+
   const hideService = () => {
     loadUserAssignedServices(userId)
     history.goBack()
