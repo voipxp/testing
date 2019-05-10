@@ -21,7 +21,10 @@ const NotFound = () => (
 )
 
 const UiMenuBase = ({ match, location, menu = [] }) => {
-  const renderRoute = path => {
+  console.log('location', location)
+  console.log('match', match)
+  const renderRoute = routeProps => {
+    const path = routeProps.match.params.path
     let route
     for (const section of menu) {
       route = section.items.find(item => item.path === path)
@@ -32,7 +35,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
     if (angularComponent) {
       return <AngularComponent component={angularComponent} {...props} />
     } else {
-      return <route.component {...props} />
+      return <route.component {...props} {...routeProps} />
     }
   }
 
@@ -75,11 +78,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
         </Column>
         <Column size="three-quarters">
           <Switch>
-            <Route
-              exact
-              path={`${match.path}/:path`}
-              render={({ match }) => renderRoute(match.params.path)}
-            />
+            <Route path={`${match.path}/:path`} render={renderRoute} />
             <Route render={renderDefault} />
           </Switch>
         </Column>

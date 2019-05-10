@@ -1,3 +1,5 @@
+import { UserServiceSettings } from './user-service-settings'
+
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -53,6 +55,11 @@ export const dashboardMenu = [
         path: 'service-settings',
         name: 'Service Settings',
         angularComponent: 'userServicesDashboard'
+      },
+      {
+        path: 'service-settings-2',
+        name: 'Service Settings 2',
+        component: UserServiceSettings
       },
       {
         path: 'user-profile',

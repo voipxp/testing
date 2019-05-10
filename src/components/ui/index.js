@@ -1,5 +1,7 @@
+export { UiCancel } from './ui-cancel'
 export { UiCard } from './ui-card'
 export { UiCardModal } from './ui-card-modal'
+export { UiCheckbox } from './ui-checkbox'
 export { UiDataTable } from './ui-data-table'
 export { UiLoading } from './ui-loading'
 export { UiLoadingCard } from './ui-loading-card'
