@@ -39,7 +39,7 @@ function controller(
         ServiceProviderPolicyService.load()
       ])
       .then(function() {
-        if (ACL.has('Provisioning')) {
+        if (ACL.has('Provisioning') || ACL.is('User')) {
           ctrl.canRead = true
           ctrl.canUpdate = true
         } else if (ACL.is('Group')) {
