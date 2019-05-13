@@ -42,18 +42,13 @@ export const UiDataTable = ({
   onSelect
 }) => {
   const [currentPage, setCurrentPage] = React.useState(1)
-  const [totalPages, setTotalPages] = React.useState(1)
-  const [filteredItems, setFilteredItems] = React.useState([])
-  const [pagedItems, setPagedItems] = React.useState([])
   const [selectedItems, setSelectedItems] = React.useState({})
   const [search, setSearch] = React.useState('')
   const [sortBy, setSortBy] = React.useState(rowKey)
   const [sortOrder, setSortOrder] = React.useState('asc')
 
-  React.useEffect(() => {
-    if (!search) {
-      return setFilteredItems(orderBy(rows, v => v[sortBy], sortOrder))
-    }
+  const filteredItems = React.useMemo(() => {
+    if (!search) return orderBy(rows, v => v[sortBy], sortOrder)
     const regex = new RegExp(search, 'i')
     const newItems = rows.filter(row => {
       for (const key of Object.keys(row)) {
@@ -61,37 +56,32 @@ export const UiDataTable = ({
       }
       return false
     })
-    setFilteredItems(orderBy(newItems, v => v[sortBy], sortOrder))
+    return orderBy(newItems, v => v[sortBy], sortOrder)
   }, [rows, search, sortBy, sortOrder])
 
-  React.useEffect(() => {
-    const pager = paginate(filteredItems.length, currentPage, pageSize)
-    setCurrentPage(pager.currentPage || 1)
-    setTotalPages(pager.totalPages)
-    setPagedItems(filteredItems.slice(pager.startIndex, pager.endIndex + 1))
-  }, [currentPage, filteredItems, pageSize])
+  const pager = React.useMemo(() => {
+    return paginate(filteredItems.length, currentPage, pageSize)
+  }, [currentPage, filteredItems.length, pageSize])
 
+  const pagedItems = React.useMemo(() => {
+    return filteredItems.slice(pager.startIndex, pager.endIndex + 1)
+  }, [filteredItems, pager])
+
+  const handleSearch = e => setSearch(e.target.value)
   const handleSort = column => {
-    if (sortBy === column.key) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
-    } else {
-      setSortBy(column.key)
-    }
-  }
-
-  const handleSearch = e => {
-    setSearch(e.target.value)
+    sortBy === column.key
+      ? setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+      : setSortBy(column.key)
   }
 
   const onFirst = () => setCurrentPage(1)
-  const onPrevious = () => setCurrentPage(currentPage - 1)
-  const onNext = () => setCurrentPage(currentPage + 1)
-  const onLast = () => setCurrentPage(totalPages)
+  const onPrevious = () => setCurrentPage(page => page - 1)
+  const onNext = () => setCurrentPage(page => page + 1)
+  const onLast = () => setCurrentPage(pager.totalPages)
 
   const canClick = isFunction(onClick)
   const canSelect = showSelect && isFunction(onSelect)
-  const isAllSelected =
-    Object.keys(selectedItems).length === filteredItems.length
+  const allSelected = Object.keys(selectedItems).length === filteredItems.length
 
   const handleClick = row => {
     if (canSelect) {
@@ -102,16 +92,14 @@ export const UiDataTable = ({
   }
 
   const handleSelectAll = () => {
-    if (isAllSelected) {
-      setSelectedItems({})
-    } else {
-      setSelectedItems(
-        filteredItems.reduce((obj, item) => {
-          obj[item[rowKey]] = true
-          return obj
-        }, {})
-      )
-    }
+    allSelected
+      ? setSelectedItems({})
+      : setSelectedItems(
+          filteredItems.reduce((obj, item) => {
+            obj[item[rowKey]] = true
+            return obj
+          }, {})
+        )
   }
 
   const isSelected = row => !!selectedItems[row[rowKey]]
@@ -193,7 +181,7 @@ export const UiDataTable = ({
             <Table.Row>
               {canSelect && (
                 <Table.Heading textAlign="centered" onClick={handleSelectAll}>
-                  <Checkbox checked={isAllSelected} onChange={noop} />
+                  <Checkbox checked={allSelected} onChange={noop} />
                 </Table.Heading>
               )}
               {columns.map(column => (
@@ -245,7 +233,7 @@ export const UiDataTable = ({
       </WrappedTable>
       <UiPagination
         align="right"
-        pages={totalPages}
+        pages={pager.totalPages}
         page={currentPage}
         onFirst={onFirst}
         onNext={onNext}
