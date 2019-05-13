@@ -292,21 +292,6 @@ export const userServiceRoutes = [
     services: ['Sequential Ring']
   },
   {
-    angularComponent: 'userSharedCallAppearance',
-    module: 'Shared Call Appearance',
-    path: 'shared-call-appearance',
-    services: [
-      'Shared Call Appearance',
-      'Shared Call Appearance 5',
-      'Shared Call Appearance 10',
-      'Shared Call Appearance 15',
-      'Shared Call Appearance 20',
-      'Shared Call Appearance 25',
-      'Shared Call Appearance 30',
-      'Shared Call Appearance 35'
-    ]
-  },
-  {
     angularComponent: 'userSimultaneousRingPersonal',
     module: 'Simultaneous Ring Personal',
     path: 'simultaneous-ring-personal',
@@ -325,3 +310,21 @@ export const userServiceRoutes = [
     services: ['Voice Messaging User']
   }
 ]
+
+/*
+{
+  angularComponent: 'userSharedCallAppearance',
+  module: 'Shared Call Appearance',
+  path: 'shared-call-appearance',
+  services: [
+    'Shared Call Appearance',
+    'Shared Call Appearance 5',
+    'Shared Call Appearance 10',
+    'Shared Call Appearance 15',
+    'Shared Call Appearance 20',
+    'Shared Call Appearance 25',
+    'Shared Call Appearance 30',
+    'Shared Call Appearance 35'
+  ]
+}
+*/
