@@ -1,3 +1,5 @@
+import { UserServiceSettings } from './user-service-settings'
+
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -6,7 +8,7 @@ export const dashboardMenu = [
         path: 'basic-call-logs',
         name: 'Basic Call Logs',
         angularComponent: 'userBasicCallLogs',
-        service: 'Basic Call Logs'
+        services: ['Basic Call Logs']
       },
       {
         path: 'call-records',
@@ -18,7 +20,7 @@ export const dashboardMenu = [
         path: 'feature-quick-set',
         name: 'Feature Quick Set',
         angularComponent: 'userQuickSet',
-        service: [
+        services: [
           'Call Forwarding Always',
           'Call Forwarding Busy',
           'Call Forwarding No Answer',
@@ -52,7 +54,7 @@ export const dashboardMenu = [
       {
         path: 'service-settings',
         name: 'Service Settings',
-        angularComponent: 'userServicesDashboard'
+        component: UserServiceSettings
       },
       {
         path: 'user-profile',
@@ -69,7 +71,7 @@ export const dashboardMenu = [
         name: 'Authorization Codes',
         angularComponent: 'userCommunicationBarringAuthorizationCodes',
         acl: 'Group',
-        service: 'Communication Barring User-Control'
+        services: ['Communication Barring User-Control']
       },
       {
         path: 'calling-plans',
@@ -105,7 +107,16 @@ export const dashboardMenu = [
         name: 'Shared Call Appearance',
         angularComponent: 'userSharedCallAppearanceAdmin',
         module: 'Provisioning',
-        service: 'Shared Call Appearance',
+        services: [
+          'Shared Call Appearance',
+          'Shared Call Appearance 5',
+          'Shared Call Appearance 10',
+          'Shared Call Appearance 15',
+          'Shared Call Appearance 20',
+          'Shared Call Appearance 25',
+          'Shared Call Appearance 30',
+          'Shared Call Appearance 35'
+        ],
         acl: 'Group'
       },
       {

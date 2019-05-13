@@ -1,5 +1,5 @@
 import angular from 'angular'
-import store from '@/store'
+import { store } from '@/store'
 
 locationConfig.$inject = ['$locationProvider']
 export function locationConfig($locationProvider) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Menu, Column, Message } from 'rbx'
+import { Menu, Column } from 'rbx'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import { UiLoading } from '@/components/ui'
 import { AngularComponent } from '@/components/angular-component'
@@ -12,28 +12,28 @@ const StyledMenu = styled.div`
   padding: 1rem;
 `
 
-const NotFound = () => (
-  <Message color="dark">
-    <Message.Body>
-      We are sorry, but the page you requested was not found.
-    </Message.Body>
-  </Message>
-)
-
 const UiMenuBase = ({ match, location, menu = [] }) => {
-  const renderRoute = path => {
+  const renderRoute = routeProps => {
+    const path = routeProps.match.params.path
     let route
     for (const section of menu) {
       route = section.items.find(item => item.path === path)
       if (route) break
     }
-    if (!route) return <NotFound />
+    if (!route) return renderDefault()
     const { component, angularComponent, ...props } = route
     if (angularComponent) {
       return <AngularComponent component={angularComponent} {...props} />
     } else {
-      return <route.component {...props} />
+      return <route.component {...props} {...routeProps} />
     }
+  }
+
+  const isActive = item => {
+    const path = `${match.url}/${item.path}`
+    return (
+      location.pathname === path || location.pathname.startsWith(`${path}/`)
+    )
   }
 
   // select the first route from the first section
@@ -61,7 +61,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
                     return (
                       <Menu.List.Item
                         key={item.path}
-                        active={location.pathname === path}
+                        active={isActive(item)}
                         href={`#!${path}`}
                       >
                         {item.name}
@@ -75,11 +75,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
         </Column>
         <Column size="three-quarters">
           <Switch>
-            <Route
-              exact
-              path={`${match.path}/:path`}
-              render={({ match }) => renderRoute(match.params.path)}
-            />
+            <Route path={`${match.path}/:path`} render={renderRoute} />
             <Route render={renderDefault} />
           </Switch>
         </Column>

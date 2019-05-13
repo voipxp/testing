@@ -1,11 +1,12 @@
 import angular from 'angular'
+import { loadModules } from '@/store/ui-modules'
 
 angular
   .module('odin.api')
   .factory('BrandingModuleService', BrandingModuleService)
 
-BrandingModuleService.$inject = ['$http', 'Route', '$rootScope']
-function BrandingModuleService($http, Route, $rootScope) {
+BrandingModuleService.$inject = ['$http', 'Route', '$rootScope', '$ngRedux']
+function BrandingModuleService($http, Route, $rootScope, $ngRedux) {
   var service = { index, show, update }
   var url = Route.api('/branding/modules')
   return service
@@ -24,6 +25,7 @@ function BrandingModuleService($http, Route, $rootScope) {
 
   function update(module) {
     return $http.put(url(), module).then(response => {
+      $ngRedux.dispatch(loadModules())
       $rootScope.$emit('BrandingModuleService:updated')
       return response.data
     })

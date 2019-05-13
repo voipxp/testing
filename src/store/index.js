@@ -12,7 +12,7 @@ import { loadModules, uiModulesReducer } from './ui-modules'
 import { loadSettings, uiSettingsReducer } from './ui-settings'
 import { loadTemplate, uiTemplateReducer } from './ui-template'
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     alerts: alertsReducer,
     serviceProviders: serviceProvidersReducer,
@@ -30,7 +30,7 @@ const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production'
 })
 
-const loadInitialState = async () => {
+export const loadInitialState = async () => {
   try {
     await store.dispatch(loadSessionFromStorage())
   } catch (error) {
@@ -48,7 +48,3 @@ const loadInitialState = async () => {
     console.log('loadInitialState', error)
   }
 }
-
-loadInitialState()
-
-export default store

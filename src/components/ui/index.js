@@ -1,5 +1,7 @@
 export { UiCard } from './ui-card'
 export { UiCardModal } from './ui-card-modal'
+export { UiCheckbox } from './ui-checkbox'
+export { UiClose } from './ui-close'
 export { UiDataTable } from './ui-data-table'
 export { UiLoading } from './ui-loading'
 export { UiLoadingCard } from './ui-loading-card'
