@@ -1,0 +1,45 @@
+---
+name: UiButton
+route: '/ui-button'
+---
+
+import { Playground, Props } from 'docz'
+import { Button } from 'rbx'
+import { UiButton } from './ui-button'
+
+# UiButton
+
+Wrapper around the [rbx](https://dfee.github.io/rbx/) **Button** element.
+
+- Provides a standard set of icon names to choose from.
+- Automatically builds the FontAwesome icon if included
+- Adds the children to a span.
+- All other props are passed through to **Button**.
+
+## Example
+
+<Playground>
+  <Button.Group>
+    <UiButton icon="check" color="success">
+      Save
+    </UiButton>
+    <UiButton icon="add" size="small" color="link" />
+    <UiButton icon="edit" color="warning" />
+    <UiButton icon="edit" size="medium" color="link">
+      Monkey
+    </UiButton>
+    <UiButton icon="delete" color="danger" outlined>
+      Delete
+    </UiButton>
+    <UiButton static>Static</UiButton>
+    <UiButton disabled color="info">
+      Disabled
+    </UiButton>
+    <UiButton icon="check" color="dark" state="loading" />
+  </Button.Group>
+  <UiButton fullwidth>This is Full Width</UiButton>
+</Playground>
+
+## Props
+
+<Props of={UiButton} />
