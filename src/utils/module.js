@@ -13,7 +13,7 @@ const getModule = (name, loginType, modules) => {
 
 const hasModulePermission = (name, loginType, modules, permission) => {
   const module = getModule(name, loginType, modules)
-  return module ? module.permissions[permission] : true
+  return module ? module.permissions[permission] : false
 }
 
 const hasModuleRead = (name, loginType, modules) => {

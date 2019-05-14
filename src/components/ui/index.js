@@ -1,3 +1,4 @@
+export { UiButton } from './ui-button'
 export { UiCard } from './ui-card'
 export { UiCardModal } from './ui-card-modal'
 export { UiCheckbox } from './ui-checkbox'
