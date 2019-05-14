@@ -28,12 +28,11 @@ export function authInterceptorConfig($httpProvider) {
         responseError: async response => {
           const status = response.status
           if (status === -1) {
-            return $q.reject('Connection Failed')
+            return $q.reject(new Error('Connection Failed'))
           }
           // If a 401 or 403 from API remove local JWT Token
           if (status === 401 || status === 403) {
             await Session.clear()
-            return $q.reject(new Error('Please Login'))
           }
           // Pass through the rejection
           return $q.reject(response)
