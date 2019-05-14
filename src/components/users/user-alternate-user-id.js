@@ -30,7 +30,8 @@ export const UserAlternateUserId = ({ match }) => {
     setLoading(true)
     const fetchData = async () => {
       try {
-        setAlternateUserIds(await apiUserService.show(userId))
+        const data = await apiUserService.show(userId)
+        setAlternateUserIds(data.users)
       } catch (error) {
         alertDanger(error)
       } finally {
