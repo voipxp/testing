@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Field, Control, Button, Input, Select, Icon } from 'rbx'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Field, Input, Column, Control } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import {
   UiCard,
@@ -12,57 +11,74 @@ import {
 } from '@/components/ui'
 import apiUserService from '@/api/user-alternate-user-id'
 export const UserAlternateUserId = ({ match }) => {
-  const [loading, setLoading] = useState(true)
-  const [alternateUserUd, setAlternateUserId] = React.useState('')
-  const [maxAltnerateUsers, setMaxAltenateUsers] = useState(false)
   const { userId } = match.params
   const { alertSuccess, alertDanger } = useAlerts()
-  const [isModal, setModal] = useState(false)
-  const [isError, setIsError] = useState(false)
-  const [savedAlternateUserIds, setAlternateUserIds] = useState([])
+  const [alternateUserIds, setAlternateUserIds] = React.useState([])
+  const [loading, setLoading] = useState(true)
+  const [form, setForm] = React.useState([])
+  const [showModal, setShowModal] = useState(false)
+
   const columns = [
     { key: 'userId', label: 'Alternate User Id' },
     { key: 'description', label: 'Description' }
   ]
 
-  const handleAlternateUserId = (e, index) => {
-    console.log(e.target.value, index)
-    setAlternateUserId(e.target.value)
-  }
-
-  function edit(alternateUserId) {
-    setModal(true)
-    console.log(alternateUserId)
-  }
-
-  function save(shitballs) {
-    console.log(shitballs)
-    setAlternateUserIds(savedAlternateUserIds)
-    alertSuccess('Saved Alternate User IDs')
-    setModal(false)
-  }
+  /*
+    Load the alternate Ids, alert on error
+  */
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
-        const result = await apiUserService.show(userId)
-        console.log('result', result)
-        if (result.users.length >= 4) {
-          setMaxAltenateUsers(true)
-          console.log(result.users.length)
-        }
-        setAlternateUserIds(result.users)
+        setAlternateUserIds(await apiUserService.show(userId))
       } catch (error) {
-        setIsError(true)
+        alertDanger(error)
+      } finally {
+        setLoading(false)
       }
-      setLoading(false)
     }
     fetchData()
-  }, [userId])
+  }, [alertDanger, userId])
+
+  /*
+    Create a copy of the original list
+    Create a copy of the new object and update the attribute
+    Set the new form data which will update the input fields
+  */
+  function handleInput(index, attribute, value) {
+    const editForm = form.slice(0)
+    const newObj = { ...editForm[index], [attribute]: value }
+    editForm[index] = newObj
+    setForm(editForm)
+  }
+
+  /*
+    Create an array of alternateUserIds with a length of 4
+    Make a copy so we aren't modifying the original data
+    in the edit screen
+  */
+  function edit() {
+    setShowModal(true)
+    const editForm = []
+    for (let i = 0; i < 4; i++) {
+      const altId = alternateUserIds[i] || { userId: '', description: '' }
+      editForm.push({ ...altId })
+    }
+    setForm(editForm)
+  }
+
+  /*
+    Filter out any alternate ids that had the userId removed
+  */
+  function save() {
+    const newIds = form.filter(alternateId => alternateId.userId)
+    setAlternateUserIds(newIds)
+    alertSuccess('Alternate User IDs Updated')
+    setShowModal(false)
+  }
 
   return (
     <>
-      {isError && <div>Error loading Alternate User IDs</div>}
       {loading ? (
         <UiLoadingCard />
       ) : (
@@ -70,67 +86,67 @@ export const UserAlternateUserId = ({ match }) => {
           <UiCard
             title="Alternate User IDs"
             buttons={
-              <UiButton
-                enabled="false"
-                color="info"
-                icon="add"
-                size="small"
-                onClick={() => setModal(true)}
-              />
+              <UiButton color="info" icon="add" size="small" onClick={edit} />
             }
           >
             <UiDataTable
               columns={columns}
-              rows={savedAlternateUserIds}
+              rows={alternateUserIds}
               rowKey="userId"
               hideSearch={true}
-              onClick={alternateUserId => edit(alternateUserId)}
+              onClick={edit}
             />
           </UiCard>
           <UiCardModal
             title="Alternate User IDs"
-            isOpen={isModal}
-            onCancel={() => setModal(false)}
-            onSave={() => save(savedAlternateUserIds)}
+            isOpen={showModal}
+            onCancel={() => setShowModal(false)}
+            onSave={save}
           >
-            <form style={{ marginBottom: '1rem' }} onSubmit={save}>
-              <Field>
-                <Control>
-                  <Input
-                    type="text"
-                    name="user1"
-                    value={
-                      savedAlternateUserIds[0] &&
-                      savedAlternateUserIds[0].userId
-                    }
-                    onChange={handleAlternateUserId}
-                  />
-                </Control>
-                <Control>
-                  <Input
-                    type="text"
-                    name="description1"
-                    value={
-                      savedAlternateUserIds[0] &&
-                      savedAlternateUserIds[0].description
-                    }
-                    onChange={e => handleAlternateUserId(e, 0)}
-                  />
-                </Control>
-              </Field>
-              <Field>
-                <Control>
-                  <Input
-                    type="text"
-                    name="user2"
-                    value={
-                      savedAlternateUserIds[1] &&
-                      savedAlternateUserIds[1].userId
-                    }
-                    onChange={handleAlternateUserId}
-                  />
-                </Control>
-              </Field>
+            <form style={{ marginBottom: '1rem' }}>
+              {form.map((alternateId, index) => (
+                <Column.Group key={index}>
+                  <Column size="one-quarter">
+                    <Field>
+                      <Control>
+                        <UiButton static fullwidth>
+                          Alternate ID {index + 1}
+                        </UiButton>
+                      </Control>
+                    </Field>
+                  </Column>
+                  <Column>
+                    <Field>
+                      <Control>
+                        <Input
+                          type="text"
+                          name="userId"
+                          value={alternateId.userId}
+                          onChange={e =>
+                            handleInput(index, 'userId', e.target.value)
+                          }
+                          placeholder="userId"
+                        />
+                      </Control>
+                    </Field>
+                  </Column>
+                  <Column>
+                    <Field>
+                      <Control>
+                        <Input
+                          type="text"
+                          name="description"
+                          value={alternateId.description}
+                          onChange={e =>
+                            handleInput(index, 'description', e.target.value)
+                          }
+                          placeholder="description"
+                        />
+                      </Control>
+                    </Field>
+                  </Column>
+                </Column.Group>
+              ))}
             </form>
           </UiCardModal>
         </>
