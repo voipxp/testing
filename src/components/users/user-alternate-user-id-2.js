@@ -43,16 +43,27 @@ export const UserAlternateUserId2 = ({ match }) => {
     fetchData()
   }, [alertDanger, userId])
 
+  /*
+    Leave the userId blank so we know this is a new
+    one.  We will copy newUserId over on save.
+  */
   function add() {
-    setForm({ userId: '', newUserId: '', description: '' })
+    setForm({ newUserId: '', description: '' })
     setShowModal(true)
   }
 
+  /*
+    Copy userId to newUserId and edit that so we can
+    keep track of this object
+  */
   function edit(row) {
     setForm({ ...row, newUserId: row.userId })
     setShowModal(true)
   }
 
+  /*
+    Still need to call the API
+  */
   function remove() {
     setShowConfirm(false)
     const newIds = alternateUserIds.filter(
@@ -64,8 +75,9 @@ export const UserAlternateUserId2 = ({ match }) => {
   }
 
   /*
-    If this is a new altId, then append to the existing
-    If this is a existing, then update with the newUserId and description
+    Check for duplicates first.
+    If this is a new altId, then append to the existing array
+    If this is existing, then update with the new data
   */
   function save() {
     // check for dups
