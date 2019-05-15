@@ -13,7 +13,7 @@ COPY . /app
 RUN yarn lint && yarn build
 
 # FINAL STAGE
-FROM quay.io/parkbench/caddy-base
+FROM gcr.io/odin-dev-208422/odin-proxy
 WORKDIR /app
 COPY --from=app /app/dist /app/html
 
