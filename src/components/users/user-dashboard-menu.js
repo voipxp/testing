@@ -65,12 +65,6 @@ export const dashboardMenu = [
         version: '20'
       },
       {
-        path: 'user-alternate-user-ids-2',
-        name: 'Alternate User ID 2',
-        component: UserAlternateUserId2,
-        version: '20'
-      },
-      {
         path: 'user-profile',
         name: 'User Profile',
         angularComponent: 'userProfile'
