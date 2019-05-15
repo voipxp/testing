@@ -36,7 +36,7 @@ steps:
     args:
       - set
       - image
-      - statefulset
+      - deployment
       - web
       - '*=gcr.io/odin-dev-208422/odin-web:$TAG_NAME'
     env:
