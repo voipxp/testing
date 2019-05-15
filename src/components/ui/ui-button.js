@@ -70,5 +70,5 @@ export const UiButton = ({ icon, children, ...rest }) => {
 
 UiButton.propTypes = {
   icon: PropTypes.oneOf(Object.keys(icons)),
-  children: PropTypes.string
+  children: PropTypes.any
 }
