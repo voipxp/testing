@@ -180,7 +180,7 @@ export const UserAlternateUserId2 = ({ match }) => {
             onDelete={remove}
           >
             <blockquote>
-              Are you sure you want to Remove this Alternate Id?
+              Are you sure you want to Remove this Alternate User Id?
             </blockquote>
           </UiCardModal>
         </>
