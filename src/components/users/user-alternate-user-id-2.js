@@ -113,7 +113,7 @@ export const UserAlternateUserId2 = ({ match }) => {
             title="Alternate User IDs"
             buttons={
               <UiButton
-                color="info"
+                color="link"
                 icon="add"
                 size="small"
                 onClick={add}

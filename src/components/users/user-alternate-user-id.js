@@ -87,7 +87,7 @@ export const UserAlternateUserId = ({ match }) => {
           <UiCard
             title="Alternate User IDs"
             buttons={
-              <UiButton color="info" icon="edit" size="small" onClick={edit} />
+              <UiButton color="link" icon="edit" size="small" onClick={edit} />
             }
           >
             <UiDataTable
