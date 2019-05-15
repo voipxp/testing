@@ -1,6 +1,6 @@
 import { UserServiceSettings } from './user-service-settings'
 import { UserAlternateUserId } from './user-alternate-user-id'
-import { UserAlternateUserId2 } from './user-alternate-user-id-2'
+import { UserAlternateUserId2 } from './user-alternate-user-id'
 
 export const dashboardMenu = [
   {
@@ -62,12 +62,6 @@ export const dashboardMenu = [
         path: 'user-alternate-user-ids',
         name: 'Alternate User ID',
         component: UserAlternateUserId,
-        version: '20'
-      },
-      {
-        path: 'user-alternate-user-ids-2',
-        name: 'Alternate User ID 2',
-        component: UserAlternateUserId2,
         version: '20'
       },
       {

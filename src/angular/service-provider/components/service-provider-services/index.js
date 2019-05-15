@@ -32,7 +32,8 @@ function controller(Alert, ServiceProviderServiceService, $filter, ACL) {
     { key: 'alias', label: 'Service' },
     { key: 'quantityView', label: 'Limit' },
     { key: 'allocatedView', label: 'Allocated' },
-    { key: 'authorized', label: 'Authorized', type: 'boolean' }
+    { key: 'authorized', label: 'Authorized', type: 'boolean' },
+    { key: 'assigned', label: 'Assigned' }
   ]
 
   function onInit() {
