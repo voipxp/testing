@@ -53,7 +53,7 @@ export const UserAlternateUserId2 = ({ match }) => {
   }
 
   /*
-    Copy userId to newUserId and edit that so we can
+    Copy userId to newUserId for editing that so we can
     keep track of this object
   */
   function edit(row) {
@@ -62,14 +62,15 @@ export const UserAlternateUserId2 = ({ match }) => {
   }
 
   /*
-    Still need to call the API
+    Remove the current selected altId
   */
   function remove() {
     setShowConfirm(false)
-    const newIds = alternateUserIds.filter(
+    const newAltIds = alternateUserIds.filter(
       altId => altId.userId !== form.userId
     )
-    setAlternateUserIds(newIds)
+    // TODO: send to API
+    setAlternateUserIds(newAltIds)
     alertWarning('Alternate User ID Removed')
     setShowModal(false)
   }
@@ -90,15 +91,14 @@ export const UserAlternateUserId2 = ({ match }) => {
 
     // update
     const newAltId = { userId: form.newUserId, description: form.description }
-    if (form.userId) {
-      const newAltIds = alternateUserIds.map(altId => {
-        return altId.userId !== form.userId ? altId : newAltId
-      })
-      setAlternateUserIds(newAltIds)
-    } else {
-      setAlternateUserIds([...alternateUserIds, newAltId])
-    }
+    const newAltIds = form.userId
+      ? alternateUserIds.map(altId =>
+          altId.userId !== form.userId ? altId : newAltId
+        )
+      : [...alternateUserIds, newAltId]
 
+    // TODO: send to API
+    setAlternateUserIds(newAltIds)
     alertSuccess('Alternate User IDs Updated')
     setShowModal(false)
   }
