@@ -22,7 +22,11 @@ export const UserSpeedDial8 = ({ match }) => {
   const [form, setForm] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const { loadUserSpeedDial8, updateUserSpeedDial8 } = useUserSpeedDial8(userId)
+  const {
+    userSpeedDial8,
+    loadUserSpeedDial8,
+    updateUserSpeedDial8
+  } = useUserSpeedDial8(userId)
 
   const columns = [
     { key: 'speedCode', label: 'Speed Code' },
@@ -36,10 +40,7 @@ export const UserSpeedDial8 = ({ match }) => {
     setLoading(true)
     const fetchData = async () => {
       try {
-        // const data = await apiUserService.show(userId)
-        // setSpeedDial8(data.speedCodes)
-        const data = await loadUserSpeedDial8(userId)
-        setSpeedDial8(data.speedCodes)
+        if (!userSpeedDial8) await loadUserSpeedDial8(userId)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -47,7 +48,7 @@ export const UserSpeedDial8 = ({ match }) => {
       }
     }
     fetchData()
-  }, [alertDanger, loadUserSpeedDial8, userId])
+  }, [alertDanger, loadUserSpeedDial8, userId, userSpeedDial8])
 
   /*
     Make a copy of the row for the form
@@ -64,7 +65,7 @@ export const UserSpeedDial8 = ({ match }) => {
   */
   function remove() {
     setShowConfirm(false)
-    const newSpeedCodes = speedDial8.map(code =>
+    const newSpeedCodes = userSpeedDial8.speedCodes.map(code =>
       code.speedCode === form.speedCode ? { ...form, phoneNumber: '' } : code
     )
     update(newSpeedCodes)
@@ -75,25 +76,20 @@ export const UserSpeedDial8 = ({ match }) => {
     new value, otherwise pass the original.
   */
   function save() {
-    const newSpeedCodes = speedDial8.map(code =>
+    const newSpeedCodes = userSpeedDial8.speedCodes.map(code =>
       code.speedCode === form.speedCode ? { ...form } : code
     )
     update(newSpeedCodes)
   }
 
-  async function update(speedCodes) {
+  function update(speedCodes) {
     showLoadingModal()
     try {
-      // const data = await apiUserService.update({
-      //   userId: userId,
-      //   speedCodes: speedCodes
-      // })
-      const data = await updateUserSpeedDial8({
+      updateUserSpeedDial8({
         userId: userId,
         speedCodes: speedCodes
       })
       alertSuccess('Speed Dial 8 Code Updated')
-      setSpeedDial8(data.speedCodes)
       setShowModal(false)
     } catch (error) {
       alertDanger(error)
@@ -111,7 +107,7 @@ export const UserSpeedDial8 = ({ match }) => {
           <UiCard title="Speed Dial 8">
             <UiDataTable
               columns={columns}
-              rows={speedDial8}
+              rows={userSpeedDial8.speedCodes}
               rowKey="speedCode"
               hideSearch={true}
               onClick={edit}
