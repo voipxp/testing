@@ -1,3 +1,4 @@
+import { UserSpeedDial8 } from './user-speed-dial-8'
 export const userServiceRoutes = [
   {
     angularComponent: 'userAlternateNumbers',
@@ -302,6 +303,12 @@ export const userServiceRoutes = [
     module: 'Speed Dial 100',
     path: 'speed-dial-100',
     services: ['Speed Dial 100']
+  },
+  {
+    component: UserSpeedDial8,
+    module: 'Speed Dial 8',
+    path: 'speed-dial-8',
+    services: ['Speed Dial 8']
   },
   {
     angularComponent: 'userVoiceMessagingDashboard',
