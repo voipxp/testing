@@ -100,7 +100,7 @@ export const UserSpeedDial8 = ({ match }) => {
         <UiLoadingCard />
       ) : (
         <>
-          <UiCard title="User Speed Dial 8">
+          <UiCard title="Speed Dial 8">
             <UiDataTable
               columns={columns}
               rows={speedDial8}
@@ -110,7 +110,7 @@ export const UserSpeedDial8 = ({ match }) => {
             />
           </UiCard>
           <UiCardModal
-            title={`Edit Speed Code ${form.speedCode}`}
+            title={`Edit Speed Code ${form.speedCode}  ${form.phoneNumber}`}
             isOpen={showModal}
             onCancel={() => setShowModal(false)}
             onSave={save}
@@ -154,7 +154,8 @@ export const UserSpeedDial8 = ({ match }) => {
             deleteText="Unset"
           >
             <blockquote>
-              Are you sure you want to unset Speed Code {form.speedCode} ?
+              Are you sure you want to unset Speed Code {form.speedCode}{' '}
+              {form.phoneNumber}?
             </blockquote>
           </UiCardModal>
         </>
