@@ -43,6 +43,11 @@ function controller(Route, SystemDashboardService, Alert) {
       },
       {
         type: 'system',
+        name: 'Service Pack Utilization Report',
+        path: route('system', 'servicePackUtilizationReport')
+      },
+      {
+        type: 'system',
         name: 'DN Reports',
         path: route('system', 'dn')
       },
