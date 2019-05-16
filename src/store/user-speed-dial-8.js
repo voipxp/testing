@@ -14,9 +14,9 @@ export const userSpeedDial8Reducer = createReducer(initialState, {
 
 export const loadUserSpeedDial8 = userId => {
   return async dispatch => {
-    const speedDial8 = await api.show(userId)
-    dispatch(load(speedDial8))
-    return speedDial8
+    const userSpeedDial8 = await api.show(userId)
+    dispatch(load(userSpeedDial8))
+    return userSpeedDial8
   }
 }
 
@@ -31,7 +31,7 @@ export const updateUserSpeedDial8 = speedCodes => {
 export const useUserSpeedDial8 = userId => {
   const state = useReduxState()
   return {
-    user: state.user[userId],
+    user: state.userSpeedDial8[userId],
     loadUserSpeedDial8: useAction(loadUserSpeedDial8),
     updateUserSpeedDial8: useAction(updateUserSpeedDial8)
   }
