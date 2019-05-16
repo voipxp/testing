@@ -4,6 +4,7 @@ import { useUi } from '@/store/ui'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
 import { useAlerts } from '@/store/alerts'
+import { useUserSpeedDial8 } from '@/store/user-speed-dial-8'
 import {
   UiCard,
   UiLoadingCard,
@@ -21,6 +22,7 @@ export const UserSpeedDial8 = ({ match }) => {
   const [form, setForm] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const { loadUserSpeedDial8, updateUserSpeedDial8 } = useUserSpeedDial8(userId)
 
   const columns = [
     { key: 'speedCode', label: 'Speed Code' },
@@ -34,7 +36,9 @@ export const UserSpeedDial8 = ({ match }) => {
     setLoading(true)
     const fetchData = async () => {
       try {
-        const data = await apiUserService.show(userId)
+        // const data = await apiUserService.show(userId)
+        // setSpeedDial8(data.speedCodes)
+        const data = await loadUserSpeedDial8(userId)
         setSpeedDial8(data.speedCodes)
       } catch (error) {
         alertDanger(error)
@@ -43,7 +47,7 @@ export const UserSpeedDial8 = ({ match }) => {
       }
     }
     fetchData()
-  }, [alertDanger, userId])
+  }, [alertDanger, loadUserSpeedDial8, userId])
 
   /*
     Make a copy of the row for the form
@@ -80,7 +84,11 @@ export const UserSpeedDial8 = ({ match }) => {
   async function update(speedCodes) {
     showLoadingModal()
     try {
-      const data = await apiUserService.update({
+      // const data = await apiUserService.update({
+      //   userId: userId,
+      //   speedCodes: speedCodes
+      // })
+      const data = await updateUserSpeedDial8({
         userId: userId,
         speedCodes: speedCodes
       })
