@@ -17,7 +17,6 @@ export const UserSpeedDial8 = ({ match }) => {
   const { userId } = match.params
   const { alertSuccess, alertDanger } = useAlerts()
   const { showLoadingModal, hideLoadingModal } = useUi()
-  const [speedDial8, setSpeedDial8] = useState([])
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)
