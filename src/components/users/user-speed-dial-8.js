@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import apiUserService from '@/api/user-speed-dial-8'
 import { useUi } from '@/store/ui'
 import PropTypes from 'prop-types'
-import { Field, Input, Column, Control, Label } from 'rbx'
+import { Field, Input, Column, Control } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import {
   UiCard,
@@ -14,7 +14,7 @@ import {
 
 export const UserSpeedDial8 = ({ match }) => {
   const { userId } = match.params
-  const { alertSuccess, alertWarning, alertDanger } = useAlerts()
+  const { alertSuccess, alertDanger } = useAlerts()
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [speedDial8, setSpeedDial8] = useState([])
   const [loading, setLoading] = useState(true)
@@ -24,7 +24,7 @@ export const UserSpeedDial8 = ({ match }) => {
 
   const columns = [
     { key: 'speedCode', label: 'Speed Code' },
-    { key: 'phoneNumber', label: 'phoneNumber' }
+    { key: 'phoneNumber', label: 'Phone Number' }
   ]
 
   /*
@@ -45,50 +45,35 @@ export const UserSpeedDial8 = ({ match }) => {
     fetchData()
   }, [alertDanger, userId])
 
-  function add() {
-    setForm({ newSpeedCode: '', phoneNumber: '' })
-    console.log('add()', form)
-    setShowModal(true)
-  }
-
+  /*
+    Make a copy of the row for the form
+    Make sure phoneNumber is at least an empty string
+  */
   function edit(row) {
-    setForm({ ...row, newSpeedCode: row.speedCode })
-    console.log('edit() form', form)
-    console.log('edit() row', row)
+    setForm({ phoneNumber: '', ...row })
     setShowModal(true)
   }
 
+  /*
+    Map through and update the one matching the form to
+    have a blank phoneNumber, otherwise pass the original
+  */
   function remove() {
     setShowConfirm(false)
-    // const newSpeedCodes = speedDial8.filter(
-    //   code => code.speedCode !== form.speedCode
-    // )
-    const newSpeedCode = {
-      speedCode: form.newSpeedCode,
-      phoneNumber: ''
-    }
-    const newSpeedCodes = form.speedCode
-      ? speedDial8.map(code =>
-          code.speedCode !== form.speedCode ? code : newSpeedCode
-        )
-      : [...speedDial8, newSpeedCode]
-    console.log('save() newSpeedCodes', newSpeedCodes)
-
+    const newSpeedCodes = speedDial8.map(code =>
+      code.speedCode === form.speedCode ? { ...form, phoneNumber: '' } : code
+    )
     update(newSpeedCodes)
   }
 
+  /*
+    Map through and update the one matching the form to the
+    new value, otherwise pass the original.
+  */
   function save() {
-    // update
-    const newSpeedCode = {
-      speedCode: form.newSpeedCode,
-      phoneNumber: form.phoneNumber
-    }
-    const newSpeedCodes = form.speedCode
-      ? speedDial8.map(code =>
-          code.speedCode !== form.speedCode ? code : newSpeedCode
-        )
-      : [...speedDial8, newSpeedCode]
-    console.log('save() newSpeedCodes', newSpeedCodes)
+    const newSpeedCodes = speedDial8.map(code =>
+      code.speedCode === form.speedCode ? { ...form } : code
+    )
     update(newSpeedCodes)
   }
 
@@ -99,14 +84,12 @@ export const UserSpeedDial8 = ({ match }) => {
         userId: userId,
         speedCodes: speedCodes
       })
-      alertSuccess('User Speed Dial 8')
+      alertSuccess('Speed Dial 8 Code Updated')
       setSpeedDial8(data.speedCodes)
       setShowModal(false)
     } catch (error) {
       alertDanger(error)
-      setShowModal(true)
     } finally {
-      setLoading(false)
       hideLoadingModal()
     }
   }
@@ -117,18 +100,7 @@ export const UserSpeedDial8 = ({ match }) => {
         <UiLoadingCard />
       ) : (
         <>
-          <UiCard
-            title="User Speed Dial 8"
-            buttons={
-              <UiButton
-                color="link"
-                icon="add"
-                size="small"
-                onClick={add}
-                disabled={speedDial8.length > 7}
-              />
-            }
-          >
+          <UiCard title="User Speed Dial 8">
             <UiDataTable
               columns={columns}
               rows={speedDial8}
@@ -138,35 +110,26 @@ export const UserSpeedDial8 = ({ match }) => {
             />
           </UiCard>
           <UiCardModal
-            title="Speed Dial 8"
+            title={`Edit Speed Code ${form.speedCode}`}
             isOpen={showModal}
             onCancel={() => setShowModal(false)}
             onSave={save}
             onDelete={form.speedCode ? () => setShowConfirm(true) : null}
             deleteText="Unset"
           >
-            <form style={{ marginBottom: '1rem' }}>
+            <form>
               <Column.Group>
                 <Column>
                   <Field>
-                    <Label>Speed Code</Label>
                     <Control>
-                      <Input
-                        type="text"
-                        name="speedCode"
-                        value={form.speedCode}
-                        onChange={e =>
-                          setForm({ ...form, newSpeedCode: e.target.value })
-                        }
-                        placeholder="speedCode"
-                        disabled
-                      />
+                      <UiButton fullwidth static>
+                        Speed Code {form.speedCode}
+                      </UiButton>
                     </Control>
                   </Field>
                 </Column>
                 <Column>
                   <Field>
-                    <Label>Phone Number</Label>
                     <Control>
                       <Input
                         type="text"
@@ -175,7 +138,7 @@ export const UserSpeedDial8 = ({ match }) => {
                         onChange={e =>
                           setForm({ ...form, phoneNumber: e.target.value })
                         }
-                        placeholder="phoneNumber"
+                        placeholder="Phone Number"
                       />
                     </Control>
                   </Field>
@@ -191,7 +154,7 @@ export const UserSpeedDial8 = ({ match }) => {
             deleteText="Unset"
           >
             <blockquote>
-              Are you sure you want to Unset the Speed Dial 8 code?
+              Are you sure you want to unset Speed Code {form.speedCode} ?
             </blockquote>
           </UiCardModal>
         </>

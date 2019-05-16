@@ -153,7 +153,7 @@ export const UserAlternateUserId = ({ match }) => {
             onSave={save}
             onDelete={form.userId ? () => setShowConfirm(true) : null}
           >
-            <form style={{ marginBottom: '1rem' }}>
+            <form>
               <Column.Group>
                 <Column>
                   <Field>
