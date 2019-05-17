@@ -701,6 +701,12 @@ export const routes = [
     module: 'User Report'
   },
   {
+    path: '/system/systemServiceUtilizationReport',
+    angularComponent: 'systemServiceUtilizationReport',
+    acl: 'Provisioning',
+    module: 'User Report'
+  },
+  {
     path: '/serviceProviders',
     angularComponent: 'serviceProviders',
     acl: 'Provisioning'
