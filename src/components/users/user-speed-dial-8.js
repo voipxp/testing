@@ -113,7 +113,7 @@ export const UserSpeedDial8 = ({ match }) => {
             />
           </UiCard>
           <UiCardModal
-            title={`Edit Speed Code ${form.speedCode}  ${form.phoneNumber}`}
+            title={`Edit Speed Code ${form.speedCode}`}
             isOpen={showModal}
             onCancel={() => setShowModal(false)}
             onSave={save}
