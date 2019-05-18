@@ -10,6 +10,7 @@ const TIMEOUT = 30000
 export const AppTimer = () => {
   const alertRef = React.useRef()
   const timerRef = React.useRef()
+  const detectorRef = React.useRef()
   const { clearSession } = useSession()
   const { alertWarning, removeAlert } = useAlerts()
   const { initialized } = useUi()
@@ -27,20 +28,26 @@ export const AppTimer = () => {
     timerRef.current = setTimeout(() => clearSession(), TIMEOUT)
   }, [alertWarning, clearSession, clearSessionLogout])
 
-  React.useEffect(() => {
-    if (!initialized || !sessionTimeout) return
+  const stopDetector = React.useCallback(() => {
+    if (detectorRef.current) detectorRef.current.stop()
+    clearSessionLogout()
+  }, [clearSessionLogout])
+
+  const startDetector = React.useCallback(() => {
+    stopDetector()
     const timeToIdle = sessionTimeout * 60 * 1000
-    const activityDetector = createActivityDetector({
+    detectorRef.current = createActivityDetector({
       timeToIdle,
       inactivityEvents: []
     })
-    activityDetector.on('idle', startSessionLogout)
-    activityDetector.on('active', clearSessionLogout)
-    return () => {
-      activityDetector.stop()
-      clearSessionLogout()
-    }
-  }, [clearSessionLogout, initialized, sessionTimeout, startSessionLogout])
+    detectorRef.current.on('idle', startSessionLogout)
+    detectorRef.current.on('active', clearSessionLogout)
+  }, [clearSessionLogout, sessionTimeout, startSessionLogout, stopDetector])
+
+  React.useEffect(() => {
+    initialized && sessionTimeout ? startDetector() : stopDetector()
+    return () => stopDetector()
+  }, [initialized, sessionTimeout, startDetector, stopDetector])
 
   return null
 }
