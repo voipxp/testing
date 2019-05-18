@@ -1,4 +1,3 @@
-import { hot } from 'react-hot-loader/root'
 import React from 'react'
 import styled from 'styled-components'
 import { Section } from 'rbx'
@@ -18,7 +17,7 @@ import {
 const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
 `
-export const App = hot(() => {
+export const App = () => {
   const { session } = useSession()
   const { initialized } = useUi()
 
@@ -44,4 +43,4 @@ export const App = hot(() => {
       <AppLoadingModal />
     </>
   )
-})
+}
