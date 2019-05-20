@@ -91,7 +91,7 @@ We are using redux for global state management. In general, store temporary or e
 
 There are several helpers from the [redux-starter-kit](https://redux-starter-kit.js.org/) package that we are using for our redux store. Check out the documentation there to get an understanding of **createAction** and **createReducer**. These are simple helpers that remove a lot of the typical boilerplate associated with creating a redux store.
 
-For connecting the store to a component, we are using [reactive-react-redux](https://github.com/dai-shi/reactive-react-redux). This package allows us to create custom hooks to utilize bound dispatchers and state in our components.
+For connecting the store to a component, we are using [react-redux](https://react-redux.js.org/next/api/hooks).
 
 Below is an example of how one could use the **useAlerts** hook that is located in **src/store/alerts**.
 

@@ -1,4 +1,4 @@
-import { useReduxState } from 'reactive-react-redux'
+import { useSelector } from 'react-redux'
 import { useCallback, useMemo } from 'react'
 
 const isAssigned = (serviceName, assigned = {}) => {
@@ -21,11 +21,13 @@ const hasUserService = (service, assigned, viewable, loginType) => {
 }
 
 export const useUserServicePermissions = userId => {
-  const {
-    session,
-    userViewableServices,
-    userAssignedServices
-  } = useReduxState()
+  const { session, userViewableServices, userAssignedServices } = useSelector(
+    state => ({
+      session: state.session,
+      userViewableServices: state.userViewableServices,
+      userAssignedServices: state.userAssignedServices
+    })
+  )
   return {
     userViewableServices: useMemo(() => {
       return session.loginType !== 'User'

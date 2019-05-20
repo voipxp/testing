@@ -1,5 +1,5 @@
 import { createAction, createReducer } from 'redux-starter-kit'
-import { useReduxState } from 'reactive-react-redux'
+import { useSelector } from 'react-redux'
 import { useAction } from './hooks'
 import api from '@/api/user-speed-dial-8'
 
@@ -29,10 +29,8 @@ export const updateUserSpeedDial8 = speedCodes => {
 }
 
 export const useUserSpeedDial8 = userId => {
-  const state = useReduxState()
   return {
-    // user: state.userSpeedDial8[userId],
-    userSpeedDial8: state.userSpeedDial8[userId],
+    userSpeedDial8: useSelector(state => state.userSpeedDial8[userId]),
     loadUserSpeedDial8: useAction(loadUserSpeedDial8),
     updateUserSpeedDial8: useAction(updateUserSpeedDial8)
   }

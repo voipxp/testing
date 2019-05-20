@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
-import { useReduxDispatch } from 'reactive-react-redux'
+import { useDispatch } from 'react-redux'
 
 export const useAction = action => {
-  const dispatch = useReduxDispatch()
+  const dispatch = useDispatch()
   return useCallback((...args) => dispatch(action(...args)), [action, dispatch])
 }
