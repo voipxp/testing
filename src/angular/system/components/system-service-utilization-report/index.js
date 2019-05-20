@@ -1,7 +1,7 @@
 import angular from 'angular'
 import template from './index.html'
 import Sugar from 'sugar-date'
-
+import _ from 'lodash'
 angular.module('odin.system').component('systemServiceUtilizationReport', {
   template,
   controller,
@@ -160,6 +160,39 @@ function controller(
     }
   ]
 
+  ctrl.columnsGroupServicesSummary = [
+    {
+      key: 'serviceName',
+      label: 'Service Name'
+    },
+    {
+      key: 'usage',
+      label: 'Usage'
+    }
+  ]
+
+  ctrl.columnsServicePacksSummary = [
+    {
+      key: 'servicePackName',
+      label: 'Service Name'
+    },
+    {
+      key: 'usage',
+      label: 'Usage'
+    }
+  ]
+
+  ctrl.columnsUserServicesSummary = [
+    {
+      key: 'serviceName',
+      label: 'Service Name'
+    },
+    {
+      key: 'usage',
+      label: 'Usage'
+    }
+  ]
+
   function onInit() {
     ctrl.loading = true
     loadServicePackReport()
@@ -173,6 +206,28 @@ function controller(
   function loadServicePackReport() {
     return SystemServiceUtilization.index().then(function(data) {
       ctrl.items = data
+      ctrl.groupServicesSummary = _(data.groupServices)
+        .groupBy('serviceName')
+        .map((objs, key) => ({
+          serviceName: key,
+          usage: _.sumBy(objs, 'usage')
+        }))
+        .value()
+      ctrl.servicePackServicesSummary = _(data.servicePackServices)
+        .groupBy('servicePackName')
+        .map((objs, key) => ({
+          servicePackName: key,
+          usage: _.sumBy(objs, 'usage')
+        }))
+        .value()
+      ctrl.userServicesSummary = _(data.userServices)
+        .groupBy('serviceName')
+        .map((objs, key) => ({
+          serviceName: key,
+          usage: _.sumBy(objs, 'usage')
+        }))
+        .value()
+
       return ctrl.items
     })
   }
@@ -184,9 +239,13 @@ function controller(
   }
   function download() {
     var now = Sugar.Date.format(new Date(), '%Y-%m-%d')
-    var filename1 = 'odin-group-service-summary-' + now + '.csv'
-    var filename2 = 'odin-service-pack-summary-' + now + '.csv'
-    var filename3 = 'odin-user-service-summary-' + now + '.csv'
+    var filename1 = 'odin-group-service-details-' + now + '.csv'
+    var filename2 = 'odin-service-pack-details-' + now + '.csv'
+    var filename3 = 'odin-user-service-details-' + now + '.csv'
+    var filename4 = 'odin-group-service-summary-' + now + '.csv'
+    var filename5 = 'odin-service-pack-summary-' + now + '.csv'
+    var filename6 = 'odin-user-service-summary-' + now + '.csv'
+
     CsvService.export(ctrl.items.groupServices).then(function(csv) {
       DownloadService.download(csv, filename1)
     })
@@ -195,6 +254,15 @@ function controller(
     })
     CsvService.export(ctrl.items.userServices).then(function(csv) {
       DownloadService.download(csv, filename3)
+    })
+    CsvService.export(ctrl.groupServicesSummary).then(function(csv) {
+      DownloadService.download(csv, filename4)
+    })
+    CsvService.export(ctrl.servicePackServicesSummary).then(function(csv) {
+      DownloadService.download(csv, filename5)
+    })
+    CsvService.export(ctrl.userServicesSummary).then(function(csv) {
+      DownloadService.download(csv, filename6)
     })
   }
 }

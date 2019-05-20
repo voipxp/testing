@@ -49,7 +49,7 @@ function alert(type, msg, timeout = 3000) {
   return async dispatch => {
     const alert = { id: cuid(), type, message: parse(msg) }
     dispatch(addAlert(alert))
-    setTimeout(() => dispatch(removeAlert(alert)), timeout)
+    if (timeout !== 0) setTimeout(() => dispatch(removeAlert(alert)), timeout)
     return alert
   }
 }
