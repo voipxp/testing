@@ -46,6 +46,42 @@
           on-click="$ctrl.onClick($event)"
         ></pbs-data-table>
       </pbs-tab>
+
+      <pbs-tab label="Group Services Summary">
+        <pbs-data-table
+          columns="$ctrl.columnsGroupServicesSummary"
+          items="$ctrl.groupServicesSummary"
+          is-compact="true"
+          is-bordered="true"
+          is-striped="true"
+          limit-to="25"
+          hide-search="false"
+        ></pbs-data-table>
+      </pbs-tab>
+
+      <pbs-tab label="Service Packs Summary">
+        <pbs-data-table
+          columns="$ctrl.columnsServicePacksSummary"
+          items="$ctrl.servicePackServicesSummary"
+          is-compact="true"
+          is-bordered="true"
+          is-striped="true"
+          limit-to="25"
+          hide-search="false"
+        ></pbs-data-table>
+      </pbs-tab>
+
+      <pbs-tab label="User Services Summary">
+        <pbs-data-table
+          columns="$ctrl.columnsUserServicesSummary"
+          items="$ctrl.userServicesSummary"
+          is-compact="true"
+          is-bordered="true"
+          is-striped="true"
+          limit-to="25"
+          hide-search="false"
+        ></pbs-data-table>
+      </pbs-tab>
     </pbs-tabs>
   </pbs-block>
 </pbs-spinner>
