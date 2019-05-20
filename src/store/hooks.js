@@ -1,5 +1,6 @@
-import { useCallback, useMemo, bindActionCreators } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useDispatch, shallowEqual, useSelector } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 export const useAction = action => {
   const dispatch = useDispatch()
