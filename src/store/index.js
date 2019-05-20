@@ -1,6 +1,7 @@
 import { configureStore } from 'redux-starter-kit'
 import { alertsReducer } from './alerts'
 import { userServicesReducer } from './user-services'
+import { userSpeedDial8Reducer } from './user-speed-dial-8'
 import { userAssignedServicesReducer } from './user-assigned-services'
 import { userViewableServicesReducer } from './user-viewable-services'
 import { userReducer } from './user'
@@ -21,6 +22,7 @@ export const store = configureStore({
     userAssignedServices: userAssignedServicesReducer,
     userServices: userServicesReducer,
     userViewableServices: userViewableServicesReducer,
+    userSpeedDial8: userSpeedDial8Reducer,
     ui: uiReducer,
     uiApplications: uiApplicationsReducer,
     uiModules: uiModulesReducer,
