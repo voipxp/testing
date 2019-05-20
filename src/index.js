@@ -1,12 +1,13 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
+import { hot } from 'react-hot-loader/root'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter } from 'react-router-dom'
 import { App } from '@/components/app'
 import { store, loadInitialState } from '@/store'
-import api from '@/api'
 import { ReduxProvider } from 'reactive-react-redux'
+import { HashRouter } from 'react-router-dom'
+import api from '@/api'
 import { clearSession } from '@/store/session'
 import './index.scss'
 import 'animate.css/animate.css'
@@ -22,13 +23,14 @@ api.interceptors.response.use(
   }
 )
 
-ReactDOM.render(
+const Root = hot(() => (
   <ReduxProvider store={store}>
     <HashRouter hashType="hashbang">
       <App />
     </HashRouter>
-  </ReduxProvider>,
-  document.querySelector('#root')
-)
+  </ReduxProvider>
+))
+
+ReactDOM.render(<Root />, document.querySelector('#root'))
 
 loadInitialState()
