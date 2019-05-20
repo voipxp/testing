@@ -255,13 +255,13 @@ function controller(
     CsvService.export(ctrl.items.userServices).then(function(csv) {
       DownloadService.download(csv, filename3)
     })
-    CsvService.export(ctrl.items.groupServices).then(function(csv) {
+    CsvService.export(ctrl.groupServicesSummary).then(function(csv) {
       DownloadService.download(csv, filename4)
     })
-    CsvService.export(ctrl.items.servicePackServices).then(function(csv) {
+    CsvService.export(ctrl.servicePackServicesSummary).then(function(csv) {
       DownloadService.download(csv, filename5)
     })
-    CsvService.export(ctrl.items.userServices).then(function(csv) {
+    CsvService.export(ctrl.userServicesSummary).then(function(csv) {
       DownloadService.download(csv, filename6)
     })
   }
