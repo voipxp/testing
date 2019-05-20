@@ -1,5 +1,5 @@
 import { createAction, createReducer } from 'redux-starter-kit'
-import { useReduxState } from 'reactive-react-redux'
+import { useSelector } from 'react-redux'
 import { useAction } from './hooks'
 import decode from 'jwt-decode'
 import { setToken } from '@/api'
@@ -43,9 +43,8 @@ export const loadSessionFromStorage = () => async dispatch => {
 }
 
 export const useSession = () => {
-  const state = useReduxState()
   return {
-    session: state.session,
+    session: useSelector(state => state.session),
     clearSession: useAction(clearSession),
     setSession: useAction(setSession),
     loadSessionFromToken: useAction(loadSessionFromStorage),

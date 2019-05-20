@@ -5,7 +5,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from '@/components/app'
 import { store, loadInitialState } from '@/store'
-import { ReduxProvider } from 'reactive-react-redux'
+import { Provider } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
 import api from '@/api'
 import { clearSession } from '@/store/session'
@@ -24,11 +24,11 @@ api.interceptors.response.use(
 )
 
 const Root = hot(() => (
-  <ReduxProvider store={store}>
+  <Provider store={store}>
     <HashRouter hashType="hashbang">
       <App />
     </HashRouter>
-  </ReduxProvider>
+  </Provider>
 ))
 
 ReactDOM.render(<Root />, document.querySelector('#root'))

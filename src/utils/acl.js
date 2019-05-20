@@ -1,4 +1,4 @@
-import { useReduxState } from 'reactive-react-redux'
+import { useSelector } from 'react-redux'
 import { useCallback } from 'react'
 
 export const hasLevel = (loginType, requiredType, isPaasAdmin) => {
@@ -39,7 +39,7 @@ export default {
 }
 
 export const useAcl = () => {
-  const { session } = useReduxState()
+  const session = useSelector(state => state.session)
   return {
     hasLevel: useCallback(
       level => hasLevel(session.loginType, level, session.isPaasAdmin),

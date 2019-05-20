@@ -1,6 +1,6 @@
 import { createAction, createReducer } from 'redux-starter-kit'
 import { useAction } from './hooks'
-import { useReduxState } from 'reactive-react-redux'
+import { useSelector } from 'react-redux'
 import serviceProviderApi from '@/api/service-providers'
 
 const initialState = []
@@ -19,9 +19,8 @@ export const loadServiceProviders = () => {
 }
 
 export const useServiceProviders = () => {
-  const state = useReduxState()
   return {
-    serviceProviders: state.serviceProviders,
+    serviceProviders: useSelector(state => state.serviceProviders),
     loadServiceProviders: useAction(loadServiceProviders)
   }
 }

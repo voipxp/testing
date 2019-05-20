@@ -1,5 +1,5 @@
 import { createAction, createReducer } from 'redux-starter-kit'
-import { useReduxState } from 'reactive-react-redux'
+import { useSelector } from 'react-redux'
 import { useAction } from './hooks'
 import uiModulesApi from '@/api/ui/modules'
 
@@ -20,9 +20,8 @@ export const loadModules = () => async dispatch => {
 }
 
 export const useUiModules = () => {
-  const state = useReduxState()
   return {
-    modules: state.uiModules,
+    modules: useSelector(state => state.uiModules),
     loadModules: useAction(loadModules)
   }
 }
