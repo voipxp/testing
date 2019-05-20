@@ -1,5 +1,5 @@
 import { createAction, createReducer } from 'redux-starter-kit'
-import { useReduxState } from 'reactive-react-redux'
+import { useSelector } from 'react-redux'
 import { useAction } from './hooks'
 import userServicesApi from '@/api/user-services'
 
@@ -21,9 +21,10 @@ export const loadUserAssignedServices = userId => {
 }
 
 export const useUserAssignedServices = userId => {
-  const state = useReduxState()
   return {
-    userAssignedServices: state.userAssignedServices[userId],
+    userAssignedServices: useSelector(
+      state => state.userAssignedServices[userId]
+    ),
     loadUserAssignedServices: useAction(loadUserAssignedServices)
   }
 }

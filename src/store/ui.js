@@ -1,5 +1,5 @@
 import { createAction, createReducer } from 'redux-starter-kit'
-import { useReduxState } from 'reactive-react-redux'
+import { useSelector } from 'react-redux'
 import { useAction } from './hooks'
 
 const initialState = {
@@ -23,10 +23,9 @@ export const uiReducer = createReducer(initialState, {
 })
 
 export const useUi = () => {
-  const state = useReduxState()
   return {
-    initialized: state.ui.initialized,
-    loading: state.ui.loading,
+    initialized: useSelector(state => state.ui.initialized),
+    loading: useSelector(state => state.ui.loading),
     showLoadingModal: useAction(showLoadingModal),
     hideLoadingModal: useAction(hideLoadingModal)
   }

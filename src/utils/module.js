@@ -1,5 +1,5 @@
 import camelCase from 'lodash/camelCase'
-import { useReduxState } from 'reactive-react-redux'
+import { useSelector } from 'react-redux'
 import { useCallback } from 'react'
 
 const getModule = (name, loginType, modules) => {
@@ -43,7 +43,10 @@ const moduleDescription = (name, modules) => {
 }
 
 export const useModulePermissions = () => {
-  const { session, uiModules } = useReduxState()
+  const { session, uiModules } = useSelector(state => ({
+    session: state.session,
+    uiModules: state.uiModules
+  }))
   return {
     getModule: useCallback(
       name => {

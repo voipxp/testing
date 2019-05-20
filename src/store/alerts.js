@@ -1,6 +1,6 @@
 import { createAction, createReducer } from 'redux-starter-kit'
 import { useAction } from './hooks'
-import { useReduxState } from 'reactive-react-redux'
+import { useSelector } from 'react-redux'
 import cuid from 'cuid'
 
 const initialState = []
@@ -25,9 +25,8 @@ export const alertWarning = (msg, ms = 5000) => alert('warning', msg, ms)
 export const alertDanger = (msg, ms = 10000) => alert('danger', msg, ms)
 
 export const useAlerts = () => {
-  const state = useReduxState()
   return {
-    alerts: state.alerts,
+    alerts: useSelector(state => state.alerts),
     removeAlert: useAction(removeAlert),
     alertPrimary: useAction(alertPrimary),
     alertLink: useAction(alertLink),
@@ -49,7 +48,7 @@ function alert(type, msg, timeout = 3000) {
   return async dispatch => {
     const alert = { id: cuid(), type, message: parse(msg) }
     dispatch(addAlert(alert))
-    setTimeout(() => dispatch(removeAlert(alert)), timeout)
+    if (timeout !== 0) setTimeout(() => dispatch(removeAlert(alert)), timeout)
     return alert
   }
 }

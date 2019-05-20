@@ -1,5 +1,5 @@
 import { createAction, createReducer } from 'redux-starter-kit'
-import { useReduxState } from 'reactive-react-redux'
+import { useSelector } from 'react-redux'
 import { useAction } from './hooks'
 import uiTemplateApi from '@/api/ui/template'
 
@@ -17,9 +17,8 @@ export const loadTemplate = () => async dispatch => {
 }
 
 export const useUiTemplate = () => {
-  const state = useReduxState()
   return {
-    template: state.uiTemplate,
+    template: useSelector(state => state.uiTemplate),
     loadTemplate: useAction(loadTemplate)
   }
 }
