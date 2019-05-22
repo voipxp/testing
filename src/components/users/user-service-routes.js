@@ -1,4 +1,5 @@
 import { UserSpeedDial8 } from './user-speed-dial-8'
+import { UserIntercept } from './user-intercept'
 export const userServiceRoutes = [
   {
     angularComponent: 'userAlternateNumbers',
@@ -309,6 +310,12 @@ export const userServiceRoutes = [
     module: 'Speed Dial 8',
     path: 'speed-dial-8',
     services: ['Speed Dial 8']
+  },
+  {
+    component: UserIntercept,
+    module: 'Intercept User',
+    path: 'user-intercept',
+    services: ['Intercept User']
   },
   {
     angularComponent: 'userVoiceMessagingDashboard',
