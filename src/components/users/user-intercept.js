@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Input, Checkbox, Select, Column } from 'rbx'
+import { Input, Table, Checkbox, Select, Column, Field } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useUserIntercept } from '@/store/user-intercept'
 import {
@@ -9,9 +9,7 @@ import {
   UiLoadingCard,
   UiButton,
   UiCardModal,
-  UiCheckbox,
-  UiList,
-  UiListItem
+  UiCheckbox
 } from '@/components/ui'
 
 export const UserIntercept = ({ match }) => {
@@ -25,13 +23,11 @@ export const UserIntercept = ({ match }) => {
     loadUserIntercept,
     updateUserIntercept
   } = useUserIntercept(userId)
-
   const inboundCallModeTypes = [
     { key: 'Intercept All', name: 'Intercept All' },
     { key: 'Allow All', name: 'Allow All' },
     { key: 'Allow System Dns', name: 'Allow System Dns' }
   ]
-
   const outboundCallModeTypes = [
     { key: 'Block All', name: 'Block All' },
     { key: 'Allow Outbound Local Calls', name: 'Allow Outbound Local Calls' },
@@ -83,71 +79,118 @@ export const UserIntercept = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-        <UiList>
-          <UiListItem label="Active">
-            <UiCheckbox isChecked={userUserIntercept.isActive} />
-          </UiListItem>
-          <UiListItem label="Announcement Selection">
-            {userUserIntercept.announcementSelection}
-          </UiListItem>
-        </UiList>
+        <Table striped fullwidth>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Active</Table.Cell>
+              <Table.Cell>
+                <UiCheckbox isChecked={userUserIntercept.isActive} />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Announcement Selection</Table.Cell>
+              <Table.Cell>{userUserIntercept.announcementSelection}</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell colSpan="2" style={{ textAlign: 'center' }}>
+                <b>Inbound Call Options</b>
+              </Table.Cell>
+            </Table.Row>
 
-        <UiList title="Inbound Call Options">
-          <UiListItem label="Inbound Call Mode">
-            {userUserIntercept.inboundCallMode}
-          </UiListItem>
-          <UiListItem label="Alternate Blocking Announcement">
-            <UiCheckbox
-              isChecked={userUserIntercept.alternateBlockingAnnouncement}
-            />
-          </UiListItem>
-          <UiListItem label="Exempt Inbound Mobility Calls">
-            <UiCheckbox
-              isChecked={userUserIntercept.exemptInboundMobilityCalls}
-            />
-          </UiListItem>
-          <UiListItem label="Disable Parallel Ringing To Network Locations">
-            <UiCheckbox
-              isChecked={
-                userUserIntercept.disableParallelRingingToNetworkLocations
-              }
-            />
-          </UiListItem>
-          <UiListItem label="Route To Voice Mail">
-            <UiCheckbox isChecked={userUserIntercept.routeToVoiceMail} />
-          </UiListItem>
-          <UiListItem label="Play New Phone Number">
-            <UiCheckbox isChecked={userUserIntercept.playNewPhoneNumber} />
-          </UiListItem>
-          <UiListItem label="New Phone Number">
-            {userUserIntercept.newPhoneNumber}
-          </UiListItem>
-          <UiListItem label="Transfer on 0 Phone Number">
-            <UiCheckbox
-              isChecked={userUserIntercept.transferOnZeroToPhoneNumber}
-            />
-          </UiListItem>
-          <UiListItem label="Transfer on 0 to Phone Number">
-            {userUserIntercept.transferPhoneNumber}
-          </UiListItem>
-        </UiList>
+            <Table.Row>
+              <Table.Cell>Inbound Call Mode</Table.Cell>
+              <Table.Cell>{userUserIntercept.inboundCallMode}</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Alternate Blocking Announcement</Table.Cell>
+              <Table.Cell>
+                <UiCheckbox
+                  isChecked={userUserIntercept.alternateBlockingAnnouncement}
+                />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Exempt Inbound Mobility Calls</Table.Cell>
+              <Table.Cell>
+                <UiCheckbox
+                  isChecked={userUserIntercept.exemptInboundMobilityCalls}
+                />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>
+                Disable Parallel Ringing To Network Locations
+              </Table.Cell>
+              <Table.Cell>
+                <UiCheckbox
+                  isChecked={
+                    userUserIntercept.disableParallelRingingToNetworkLocations
+                  }
+                />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Route To Voice Mail</Table.Cell>
+              <Table.Cell>
+                <UiCheckbox isChecked={userUserIntercept.routeToVoiceMail} />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Play New Phone Number</Table.Cell>
+              <Table.Cell>
+                <UiCheckbox isChecked={userUserIntercept.playNewPhoneNumber} />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>New Phone Number</Table.Cell>
+              <Table.Cell>{userUserIntercept.newPhoneNumber}</Table.Cell>
+            </Table.Row>
 
-        <UiList title="Outbound Call Options">
-          <UiListItem label="Outbound Call Mode">
-            {userUserIntercept.outboundCallMode}
-          </UiListItem>
-          <UiListItem label="Exempt Outbound Mobility Calls">
-            <UiCheckbox
-              isChecked={userUserIntercept.exemptOutboundMobilityCalls}
-            />
-          </UiListItem>
-          <UiListItem label="Reroute Outbound Calls">
-            <UiCheckbox isChecked={userUserIntercept.rerouteOutboundCalls} />
-          </UiListItem>
-          <UiListItem label="Outbound Reroute PhoneNumber">
-            {userUserIntercept.outboundReroutePhoneNumber}
-          </UiListItem>
-        </UiList>
+            <Table.Row>
+              <Table.Cell>Transfer on 0 Phone Number</Table.Cell>
+              <Table.Cell>
+                <UiCheckbox
+                  isChecked={userUserIntercept.transferOnZeroToPhoneNumber}
+                />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Transfer on 0 to Phone Number</Table.Cell>
+              <Table.Cell>{userUserIntercept.transferPhoneNumber}</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell colSpan="2" style={{ textAlign: 'center' }}>
+                <b>Outbound Call Options</b>
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Outbound Call Mode</Table.Cell>
+              <Table.Cell>{userUserIntercept.outboundCallMode}</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Exempt Outbound Mobility Calls</Table.Cell>
+              <Table.Cell>
+                <UiCheckbox
+                  isChecked={userUserIntercept.exemptOutboundMobilityCalls}
+                />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Reroute Outbound Calls</Table.Cell>
+              <Table.Cell>
+                <UiCheckbox
+                  isChecked={userUserIntercept.rerouteOutboundCalls}
+                />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Outbound Reroute PhoneNumber</Table.Cell>
+              <Table.Cell>
+                {userUserIntercept.outboundReroutePhoneNumber}
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
       </UiCard>
       <UiCardModal
         title={`Edit User Intercept`}
@@ -168,7 +211,8 @@ export const UserIntercept = ({ match }) => {
                 value={form.isActive}
                 checked={form.isActive}
                 onChange={handleInput}
-              />
+              />{' '}
+              Is Active
             </Column>
             <Column size="half" narrow>
               <UiButton fullwidth static>
@@ -209,7 +253,8 @@ export const UserIntercept = ({ match }) => {
                 value={form.alternateBlockingAnnouncement}
                 checked={form.alternateBlockingAnnouncement}
                 onChange={handleInput}
-              />
+              />{' '}
+              Alternate Blocking Announcement
             </Column>
             <Column size="half" narrow>
               <UiButton fullwidth static>
@@ -222,7 +267,8 @@ export const UserIntercept = ({ match }) => {
                 value={form.exemptInboundMobilityCalls}
                 checked={form.exemptInboundMobilityCalls}
                 onChange={handleInput}
-              />
+              />{' '}
+              Exempt Inbound Mobility Calls
             </Column>
             <Column size="half" narrow>
               <UiButton fullwidth static>
@@ -235,7 +281,8 @@ export const UserIntercept = ({ match }) => {
                 value={form.disableParallelRingingToNetworkLocations}
                 checked={form.disableParallelRingingToNetworkLocations}
                 onChange={handleInput}
-              />
+              />{' '}
+              Disable Parallel Ringing To Network Locations
             </Column>
             <Column size="half" narrow>
               <UiButton fullwidth static>
@@ -248,7 +295,8 @@ export const UserIntercept = ({ match }) => {
                 value={form.routeToVoiceMail}
                 checked={form.routeToVoiceMail}
                 onChange={handleInput}
-              />
+              />{' '}
+              Route To Voice Mail
             </Column>
             <Column size="half" narrow>
               <UiButton fullwidth static>
@@ -261,7 +309,8 @@ export const UserIntercept = ({ match }) => {
                 value={form.playNewPhoneNumber}
                 checked={form.playNewPhoneNumber}
                 onChange={handleInput}
-              />
+              />{' '}
+              Play New Phone Number
             </Column>
             <Column size="half" narrow>
               <UiButton fullwidth static>
@@ -290,6 +339,8 @@ export const UserIntercept = ({ match }) => {
                 checked={form.transferOnZeroToPhoneNumber}
                 onChange={handleInput}
               />
+              {'  '}
+              Transfer on 0 Phone Number
             </Column>
             <Column size="half" narrow>
               <UiButton fullwidth static>
@@ -337,7 +388,8 @@ export const UserIntercept = ({ match }) => {
                 value={form.exemptOutboundMobilityCalls}
                 checked={form.exemptOutboundMobilityCalls}
                 onChange={handleInput}
-              />
+              />{' '}
+              Exempt Outbound Mobility Calls
             </Column>
             <Column size="half" narrow>
               <UiButton fullwidth static>
@@ -350,7 +402,8 @@ export const UserIntercept = ({ match }) => {
                 value={form.rerouteOutboundCalls}
                 checked={form.rerouteOutboundCalls}
                 onChange={handleInput}
-              />
+              />{' '}
+              Reroute Outbound Calls
             </Column>
             <Column size="half" narrow>
               <UiButton fullwidth static>
