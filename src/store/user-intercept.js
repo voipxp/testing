@@ -15,7 +15,6 @@ export const userUserInterceptReducer = createReducer(initialState, {
 export const loadUserIntercept = userId => {
   return async dispatch => {
     const intercept = await api.show(userId)
-    console.log(intercept)
     dispatch(load(intercept))
     return intercept
   }
