@@ -98,12 +98,23 @@ export const UserIntercept = ({ match }) => {
               <Table.Cell>Announcement Selection</Table.Cell>
               <Table.Cell>{userUserIntercept.announcementSelection}</Table.Cell>
             </Table.Row>
+          </Table.Body>
+        </Table>
+
+        <Table striped fullwidth>
+          <Table.Head>
+            <Table.Row>
+              <Table.Heading>Inbound Call Options</Table.Heading>
+              <Table.Heading />
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
             <Table.Row>
               <Table.Cell>Inbound Call Mode</Table.Cell>
               <Table.Cell>{userUserIntercept.inboundCallMode}</Table.Cell>
             </Table.Row>
             <Table.Row>
-              <Table.Cell>alternateBlockingAnnouncement</Table.Cell>
+              <Table.Cell>Alternate Blocking Announcement</Table.Cell>
               <Table.Cell>
                 <UiCheckbox
                   isChecked={userUserIntercept.alternateBlockingAnnouncement}
@@ -140,6 +151,60 @@ export const UserIntercept = ({ match }) => {
               <Table.Cell>Play New Phone Number</Table.Cell>
               <Table.Cell>
                 <UiCheckbox isChecked={userUserIntercept.playNewPhoneNumber} />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>New Phone Number</Table.Cell>
+              <Table.Cell>{userUserIntercept.newPhoneNumber}</Table.Cell>
+            </Table.Row>
+
+            <Table.Row>
+              <Table.Cell>Transfer on 0 Phone Number</Table.Cell>
+              <Table.Cell>
+                <UiCheckbox
+                  isChecked={userUserIntercept.transferOnZeroToPhoneNumber}
+                />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Transfer on 0 to Phone Number</Table.Cell>
+              <Table.Cell>{userUserIntercept.transferPhoneNumber}</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
+
+        <Table striped fullwidth>
+          <Table.Head>
+            <Table.Row>
+              <Table.Heading>Outbound Call Options</Table.Heading>
+              <Table.Heading />
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Outbound Call Mode</Table.Cell>
+              <Table.Cell>{userUserIntercept.outboundCallMode}</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Exempt Outbound Mobility Calls</Table.Cell>
+              <Table.Cell>
+                <UiCheckbox
+                  isChecked={userUserIntercept.exemptOutboundMobilityCalls}
+                />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Reroute Outbound Calls</Table.Cell>
+              <Table.Cell>
+                <UiCheckbox
+                  isChecked={userUserIntercept.rerouteOutboundCalls}
+                />
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Outbound Reroute PhoneNumber</Table.Cell>
+              <Table.Cell>
+                {userUserIntercept.outboundReroutePhoneNumber}
               </Table.Cell>
             </Table.Row>
           </Table.Body>
