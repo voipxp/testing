@@ -344,7 +344,7 @@ export const UserIntercept = ({ match }) => {
                 type="text"
                 name="transferPhoneNumber"
                 value={form.transferPhoneNumber}
-                placeholder="New Phone Number"
+                placeholder="Transfer on 0 Phone Number"
                 onChange={handleInput}
                 disabled={!form.transferOnZeroToPhoneNumber}
               />
@@ -405,7 +405,7 @@ export const UserIntercept = ({ match }) => {
                 type="text"
                 name="outboundReroutePhoneNumber"
                 value={form.outboundReroutePhoneNumber}
-                placeholder="Outbound Reroute PhoneNumber"
+                placeholder="Outbound Reroute Phone Number"
                 onChange={handleInput}
                 disabled={!form.rerouteOutboundCalls}
               />
