@@ -1,0 +1,39 @@
+---
+name: UiList
+route: '/ui-list'
+---
+
+import { Playground, Props } from 'docz'
+import { UiList } from './ui-list'
+import { UiListItem } from './ui-list'
+
+# UiList
+
+UiList is used to wrap UiListItems and add some padding below it. You may pass an optional **title** prop to add a title to the list. The intention is to use UiList to seperate different sections of UiListItems.
+
+# UiListItem
+
+UiListItem splits the page into 3/5 for the label of the list item and 2/5 for the value. Any child may be passed into the value.
+
+## Example
+
+<Playground>
+  <UiList title="Section 1">
+    <UiListItem label="Section 1 - Label 1">Section 1 - Value 1</UiListItem>
+    <UiListItem label="Section 1 - Label 2">Section 1 - Value 2</UiListItem>
+  </UiList>
+  <UiList title="Section 2">
+    <UiListItem label="Section 2 - Label 1">Section 2 - Value 1</UiListItem>
+    <UiListItem label="Section 2 - Label 2">Section 2 - Value 2</UiListItem>
+  </UiList>
+</Playground>
+
+## Props
+
+### UiList
+
+<Props of={UiList} />
+
+### UiListItem
+
+<Props of={UiListItem} />
