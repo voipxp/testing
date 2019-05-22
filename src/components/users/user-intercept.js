@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Field, Input, Column, Control, Table } from 'rbx'
+import { Input, Table, Checkbox, Select } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useUserIntercept } from '@/store/user-intercept'
 import {
@@ -11,68 +11,56 @@ import {
   UiCardModal,
   UiCheckbox
 } from '@/components/ui'
-import userIntercept from '@/api/user-intercept'
 
 export const UserIntercept = ({ match }) => {
   const { userId } = match.params
   const { alertSuccess, alertDanger } = useAlerts()
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
-  const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const {
     userUserIntercept,
     loadUserIntercept,
     updateUserIntercept
   } = useUserIntercept(userId)
+  const inboundCallModeTypes = [
+    { key: 'Intercept All', name: 'Intercept All' },
+    { key: 'Allow All', name: 'Allow All' },
+    { key: 'Allow System Dns', name: 'Allow System Dns' }
+  ]
+  const outboundCallModeTypes = [
+    { key: 'Block All', name: 'Block All' },
+    { key: 'Allow Outbound Local Calls', name: 'Allow Outbound Local Calls' },
+    {
+      key: 'Allow Outbound Enterprise And Group Calls',
+      name: 'Allow Outbound Enterprise And Group Calls'
+    }
+  ]
 
-  /*
-    Load the speed dial 8, alert on error
-  */
+  function handleInput(event) {
+    const target = event.target
+    const value = target.type === 'checkbox' ? target.checked : target.value
+    const name = target.name
+    setForm({ ...form, [name]: value })
+  }
   useEffect(() => {
     loadUserIntercept(userId).catch(alertDanger)
   }, [alertDanger, loadUserIntercept, userId])
 
-  /*
-    Make a copy of the row for the form
-    Make sure phoneNumber is at least an empty string
-  */
-  function edit(row) {
-    setForm({ phoneNumber: '', ...row })
+  function edit() {
+    setForm({ ...userUserIntercept })
     setShowModal(true)
   }
 
-  /*
-    Map through and update the one matching the form to
-    have a blank phoneNumber, otherwise pass the original
-  */
-  function remove() {
-    setShowConfirm(false)
-    const newSpeedCodes = userIntercept.speedCodes.map(code =>
-      code.speedCode === form.speedCode ? { ...form, phoneNumber: '' } : code
-    )
-    update(newSpeedCodes)
-  }
-
-  /*
-    Map through and update the one matching the form to the
-    new value, otherwise pass the original.
-  */
   function save() {
-    const newSpeedCodes = userIntercept.speedCodes.map(code =>
-      code.speedCode === form.speedCode ? { ...form } : code
-    )
-    update(newSpeedCodes)
+    update(form)
   }
 
-  async function update(speedCodes) {
+  async function update(userIntercept) {
     showLoadingModal()
     try {
-      await updateUserIntercept({
-        userId: userId,
-        speedCodes: speedCodes
-      })
-      alertSuccess('Speed Dial 8 Code Updated')
+      await updateUserIntercept(userIntercept)
+      alertSuccess('Intercept User Updated')
       setShowModal(false)
     } catch (error) {
       alertDanger(error)
@@ -85,7 +73,12 @@ export const UserIntercept = ({ match }) => {
 
   return (
     <>
-      <UiCard title="Intercept User">
+      <UiCard
+        title="Intercept User"
+        buttons={
+          <UiButton color="link" icon="edit" size="small" onClick={edit} />
+        }
+      >
         <Table striped fullwidth>
           <Table.Body>
             <Table.Row>
@@ -98,17 +91,12 @@ export const UserIntercept = ({ match }) => {
               <Table.Cell>Announcement Selection</Table.Cell>
               <Table.Cell>{userUserIntercept.announcementSelection}</Table.Cell>
             </Table.Row>
-          </Table.Body>
-        </Table>
-
-        <Table striped fullwidth>
-          <Table.Head>
             <Table.Row>
-              <Table.Heading>Inbound Call Options</Table.Heading>
-              <Table.Heading />
+              <Table.Cell colSpan="2" style={{ textAlign: 'center' }}>
+                <b>Inbound Call Options</b>
+              </Table.Cell>
             </Table.Row>
-          </Table.Head>
-          <Table.Body>
+
             <Table.Row>
               <Table.Cell>Inbound Call Mode</Table.Cell>
               <Table.Cell>{userUserIntercept.inboundCallMode}</Table.Cell>
@@ -170,17 +158,11 @@ export const UserIntercept = ({ match }) => {
               <Table.Cell>Transfer on 0 to Phone Number</Table.Cell>
               <Table.Cell>{userUserIntercept.transferPhoneNumber}</Table.Cell>
             </Table.Row>
-          </Table.Body>
-        </Table>
-
-        <Table striped fullwidth>
-          <Table.Head>
             <Table.Row>
-              <Table.Heading>Outbound Call Options</Table.Heading>
-              <Table.Heading />
+              <Table.Cell colSpan="2" style={{ textAlign: 'center' }}>
+                <b>Outbound Call Options</b>
+              </Table.Cell>
             </Table.Row>
-          </Table.Head>
-          <Table.Body>
             <Table.Row>
               <Table.Cell>Outbound Call Mode</Table.Cell>
               <Table.Cell>{userUserIntercept.outboundCallMode}</Table.Cell>
@@ -215,55 +197,212 @@ export const UserIntercept = ({ match }) => {
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={save}
-        onDelete={form.speedCode ? () => setShowConfirm(true) : null}
-        deleteText="Unset"
       >
         <form>
-          <Column.Group>
-            <Column>
-              <Field>
-                <Control>
+          <Table fullwidth>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell>Active</Table.Cell>
+                <Table.Cell>
+                  <Checkbox
+                    name="isActive"
+                    value={form.isActive}
+                    checked={form.isActive}
+                    onChange={handleInput}
+                  />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Announcement Selection</Table.Cell>
+                <Table.Cell>
+                  {userUserIntercept.announcementSelection}
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell colSpan="2" style={{ textAlign: 'center' }}>
+                  <b>Inbound Call Options</b>
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Inbound Call Mode</Table.Cell>
+                <Table.Cell>
+                  <Select.Container>
+                    <Select
+                      value={form.inboundCallMode}
+                      onChange={handleInput}
+                      name="inboundCallMode"
+                    >
+                      {inboundCallModeTypes.map(searchType => (
+                        <Select.Option
+                          key={searchType.key}
+                          value={searchType.key}
+                        >
+                          {searchType.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Alternate Blocking Announcement</Table.Cell>
+                <Table.Cell>
+                  <Checkbox
+                    name="alternateBlockingAnnouncement"
+                    value={form.alternateBlockingAnnouncement}
+                    checked={form.alternateBlockingAnnouncement}
+                    onChange={handleInput}
+                  />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Exempt Inbound Mobility Calls</Table.Cell>
+                <Table.Cell>
+                  <Checkbox
+                    name="exemptInboundMobilityCalls"
+                    value={form.exemptInboundMobilityCalls}
+                    checked={form.exemptInboundMobilityCalls}
+                    onChange={handleInput}
+                  />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>
+                  Disable Parallel Ringing To Network Locations
+                </Table.Cell>
+                <Table.Cell>
+                  <Checkbox
+                    name="disableParallelRingingToNetworkLocations"
+                    value={form.disableParallelRingingToNetworkLocations}
+                    checked={form.disableParallelRingingToNetworkLocations}
+                    onChange={handleInput}
+                  />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Route To Voice Mail</Table.Cell>
+                <Table.Cell>
+                  <Checkbox
+                    name="routeToVoiceMail"
+                    value={form.routeToVoiceMail}
+                    checked={form.routeToVoiceMail}
+                    onChange={handleInput}
+                  />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Play New Phone Number</Table.Cell>
+                <Table.Cell>
+                  <Checkbox
+                    name="playNewPhoneNumber"
+                    value={form.playNewPhoneNumber}
+                    checked={form.playNewPhoneNumber}
+                    onChange={handleInput}
+                  />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>New Phone Number</Table.Cell>
+                <Table.Cell>
                   <Input
                     type="text"
-                    name="userId"
-                    value={form.newUserId}
-                    onChange={e =>
-                      setForm({ ...form, newUserId: e.target.value })
-                    }
-                    placeholder="userId"
+                    name="newPhoneNumber"
+                    value={form.newPhoneNumber}
+                    placeholder="New Phone Number"
+                    onChange={handleInput}
+                    disabled={!form.playNewPhoneNumber}
                   />
-                </Control>
-              </Field>
-            </Column>
-            <Column>
-              <Field>
-                <Control>
+                </Table.Cell>
+              </Table.Row>
+
+              <Table.Row>
+                <Table.Cell>Transfer on 0 Phone Number</Table.Cell>
+                <Table.Cell>
+                  <Checkbox
+                    name="transferOnZeroToPhoneNumber"
+                    value={form.transferOnZeroToPhoneNumber}
+                    checked={form.transferOnZeroToPhoneNumber}
+                    onChange={handleInput}
+                  />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Transfer on 0 to Phone Number</Table.Cell>
+                <Table.Cell>
                   <Input
                     type="text"
-                    name="phoneNumber"
-                    value={form.phoneNumber}
-                    onChange={e =>
-                      setForm({ ...form, phoneNumber: e.target.value })
-                    }
-                    placeholder="Phone Number"
+                    name="transferPhoneNumber"
+                    value={form.transferPhoneNumber}
+                    placeholder="Transfer Phone Number"
+                    onChange={handleInput}
+                    disabled={!form.transferOnZeroToPhoneNumber}
                   />
-                </Control>
-              </Field>
-            </Column>
-          </Column.Group>
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell colSpan="2" style={{ textAlign: 'center' }}>
+                  <b>Outbound Call Options</b>
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Outbound Call Mode</Table.Cell>
+                <Table.Cell>
+                  <Select.Container>
+                    <Select
+                      value={form.outboundCallMode}
+                      onChange={handleInput}
+                      name="outboundCallMode"
+                    >
+                      {outboundCallModeTypes.map(searchType => (
+                        <Select.Option
+                          key={searchType.key}
+                          value={searchType.key}
+                        >
+                          {searchType.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Exempt Outbound Mobility Calls</Table.Cell>
+                <Table.Cell>
+                  <Checkbox
+                    name="exemptOutboundMobilityCalls"
+                    value={form.exemptOutboundMobilityCalls}
+                    checked={form.exemptOutboundMobilityCalls}
+                    onChange={handleInput}
+                  />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Reroute Outbound Calls</Table.Cell>
+                <Table.Cell>
+                  <Checkbox
+                    name="rerouteOutboundCalls"
+                    value={form.rerouteOutboundCalls}
+                    checked={form.rerouteOutboundCalls}
+                    onChange={handleInput}
+                  />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Outbound Reroute PhoneNumber</Table.Cell>
+                <Table.Cell>
+                  <Input
+                    type="text"
+                    name="outboundReroutePhoneNumber"
+                    value={form.outboundReroutePhoneNumber}
+                    placeholder="Outbound Reroute PhoneNumber"
+                    onChange={handleInput}
+                    disabled={!form.rerouteOutboundCalls}
+                  />
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table>
         </form>
-      </UiCardModal>
-      <UiCardModal
-        title="Please Confirm"
-        isOpen={showConfirm}
-        onCancel={() => setShowConfirm(false)}
-        onDelete={remove}
-        deleteText="Unset"
-      >
-        <blockquote>
-          Are you sure you want to unset Speed Code {form.speedCode}{' '}
-          {form.phoneNumber}?
-        </blockquote>
       </UiCardModal>
     </>
   )
