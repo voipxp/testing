@@ -23,7 +23,7 @@ export const UserRegistration = ({ match }) => {
   const columns = [
     { key: 'deviceLevel', label: 'Level' },
     { key: 'deviceName', label: 'Name' },
-    { key: 'line/Port', label: 'Line Port' },
+    { key: 'linePort', label: 'Line Port' },
     { key: 'expiration', label: 'Expiration' },
     { key: 'endpointType', label: 'Type' },
     { key: 'userAgent', label: 'User Agent' }
@@ -56,13 +56,14 @@ export const UserRegistration = ({ match }) => {
         onCancel={() => setShowModal(false)}
       >
         <UiSection>
+          <UiListItem label="Order">{form.order}</UiListItem>
+          <UiListItem label="Endpoint Type">{form.endpointType}</UiListItem>
           <UiListItem label="Device Level">{form.deviceLevel}</UiListItem>
           <UiListItem label="Device Name">{form.deviceName}</UiListItem>
-          <UiListItem label="Order">{form.order}</UiListItem>
-          <UiListItem label="URI ">{form.uRI}</UiListItem>
+          <UiListItem label="Line Port ">{form.linePort}</UiListItem>
           <UiListItem label="Expiration ">{form.expiration}</UiListItem>
-          <UiListItem label="Line/Port ">{form.linePort}</UiListItem>
-          <UiListItem label="Endpoint Type">{form.endpointType}</UiListItem>
+          <UiListItem label="URI ">{form.uRI}</UiListItem>
+          <UiListItem label="userAgent">{form.userAgent}</UiListItem>
           <UiListItem label="publicNetAddress">
             {form.publicNetAddress}
           </UiListItem>
@@ -71,10 +72,7 @@ export const UserRegistration = ({ match }) => {
             {form.privateNetAddress}
           </UiListItem>
           <UiListItem label="privatePort">{form.privatePort}</UiListItem>
-          <UiListItem label="userAgent">{form.userAgent}</UiListItem>
-          <UiListItem label="lockoutStarted" disabled={!form.lockoutStarted}>
-            {form.lockoutStarted}
-          </UiListItem>
+          <UiListItem label="lockoutStarted">{form.lockoutStarted}</UiListItem>
           <UiListItem label="lockoutExpires">{form.lockoutExpires}</UiListItem>
           <UiListItem label="lockoutCount">{form.lockoutCount}</UiListItem>
           <UiListItem label="accessInfo">{form.accessInfo}</UiListItem>
