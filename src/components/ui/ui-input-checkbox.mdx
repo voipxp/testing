@@ -8,7 +8,7 @@ import { UiInputCheckbox } from './ui-input-checkbox'
 
 # UiInputCheckbox
 
-Displays a form checkbox, styled according to Odin styles.
+Displays a form checkbox, styled according to Odin styles. If **checked** is undefined, it will display as indeterminate.
 
 ## Example
 
@@ -17,20 +17,25 @@ Displays a form checkbox, styled according to Odin styles.
     name="check1"
     label="Not Checked"
     checked={false}
-    onChange={() => console.log('changed')}
+    onChange={() => console.log('check1')}
   />
   <UiInputCheckbox
-    name="check1"
+    name="check2"
+    label="Indeterminate"
+    onChange={() => console.log('check2')}
+  />
+  <UiInputCheckbox
+    name="check3"
     label="Checked"
     checked={true}
-    onChange={() => console.log('changed')}
+    onChange={() => console.log('check3')}
   />
   <UiInputCheckbox
     disabled
-    name="check1"
-    label="Disabled Checked"
-    checked={true}
-    onChange={() => console.log('changed')}
+    name="check4"
+    label="Disabled"
+    checked={false}
+    onChange={() => console.log('check4')}
   />
 </Playground>
 

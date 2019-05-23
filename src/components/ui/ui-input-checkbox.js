@@ -6,7 +6,7 @@ import cuid from 'cuid'
 export const UiInputCheckbox = ({
   label,
   name,
-  checked = false,
+  checked,
   onChange,
   children,
   ...rest
@@ -17,6 +17,10 @@ export const UiInputCheckbox = ({
   React.useEffect(() => {
     setId(cuid())
   }, [])
+
+  React.useEffect(() => {
+    ref.current.indeterminate = checked === undefined
+  }, [checked])
 
   return (
     <Field>
@@ -35,9 +39,9 @@ export const UiInputCheckbox = ({
   )
 }
 UiInputCheckbox.propTypes = {
-  name: PropTypes.string.isRequired,
-  checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
+  checked: PropTypes.bool.isRequired,
+  name: PropTypes.string,
   label: PropTypes.string,
   children: PropTypes.any
 }
