@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Input, Checkbox, Select, Column } from 'rbx'
+import { Input, Select } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useUserIntercept } from '@/store/user-intercept'
 import {
@@ -10,8 +10,10 @@ import {
   UiButton,
   UiCardModal,
   UiCheckbox,
-  UiList,
-  UiListItem
+  UiInputCheckbox,
+  UiSection,
+  UiListItem,
+  UiFormField
 } from '@/components/ui'
 
 export const UserIntercept = ({ match }) => {
@@ -83,16 +85,16 @@ export const UserIntercept = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-        <UiList>
+        <UiSection>
           <UiListItem label="Active">
             <UiCheckbox isChecked={userUserIntercept.isActive} />
           </UiListItem>
           <UiListItem label="Announcement Selection">
             {userUserIntercept.announcementSelection}
           </UiListItem>
-        </UiList>
+        </UiSection>
 
-        <UiList title="Inbound Call Options">
+        <UiSection title="Inbound Call Options">
           <UiListItem label="Inbound Call Mode">
             {userUserIntercept.inboundCallMode}
           </UiListItem>
@@ -130,9 +132,9 @@ export const UserIntercept = ({ match }) => {
           <UiListItem label="Transfer on 0 to Phone Number">
             {userUserIntercept.transferPhoneNumber}
           </UiListItem>
-        </UiList>
+        </UiSection>
 
-        <UiList title="Outbound Call Options">
+        <UiSection title="Outbound Call Options">
           <UiListItem label="Outbound Call Mode">
             {userUserIntercept.outboundCallMode}
           </UiListItem>
@@ -147,7 +149,7 @@ export const UserIntercept = ({ match }) => {
           <UiListItem label="Outbound Reroute PhoneNumber">
             {userUserIntercept.outboundReroutePhoneNumber}
           </UiListItem>
-        </UiList>
+        </UiSection>
       </UiCard>
       <UiCardModal
         title={`Edit User Intercept`}
@@ -156,228 +158,124 @@ export const UserIntercept = ({ match }) => {
         onSave={save}
       >
         <form>
-          <Column.Group vcentered multiline gapsize="1">
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Active
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Checkbox
-                name="isActive"
-                value={form.isActive}
-                checked={form.isActive}
+          <UiSection title="Settings">
+            <UiInputCheckbox
+              name="isActive"
+              label="Is Active"
+              checked={form.isActive}
+              onChange={handleInput}
+            />
+            <UiInputCheckbox
+              name="alternateBlockingAnnouncement"
+              label="Alternate Blocking Announcement"
+              checked={form.alternateBlockingAnnouncement}
+              onChange={handleInput}
+            />
+            <UiInputCheckbox
+              name="exemptInboundMobilityCalls"
+              checked={form.exemptInboundMobilityCalls}
+              onChange={handleInput}
+              label="Exempt Inbound Mobility Calls"
+            />
+            <UiInputCheckbox
+              name="disableParallelRingingToNetworkLocations"
+              checked={form.disableParallelRingingToNetworkLocations}
+              onChange={handleInput}
+              label="Disable Parallel Ringing To Network Locations"
+            />
+            <UiInputCheckbox
+              name="routeToVoiceMail"
+              checked={form.routeToVoiceMail}
+              onChange={handleInput}
+              label="Route To Voice Mail"
+            />
+            <UiInputCheckbox
+              name="playNewPhoneNumber"
+              checked={form.playNewPhoneNumber}
+              onChange={handleInput}
+              label="Play New Phone Number"
+            />
+            <UiInputCheckbox
+              name="transferOnZeroToPhoneNumber"
+              label="Transfer on 0 Phone Number"
+              checked={form.transferOnZeroToPhoneNumber}
+              onChange={handleInput}
+            />
+            <UiInputCheckbox
+              name="exemptOutboundMobilityCalls"
+              label="Exempt Outbound Mobility Calls"
+              checked={form.exemptOutboundMobilityCalls}
+              onChange={handleInput}
+            />
+            <UiInputCheckbox
+              name="rerouteOutboundCalls"
+              label="Reroute Outbound Calls"
+              checked={form.rerouteOutboundCalls}
+              onChange={handleInput}
+            />
+          </UiSection>
+
+          <UiFormField horizontal label="Inbound Call Mode">
+            <Select.Container>
+              <Select
+                value={form.inboundCallMode}
                 onChange={handleInput}
-              />{' '}
-              Is Active
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Announcement Selection
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              {userUserIntercept.announcementSelection}
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Inbound Call Mode
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Select.Container>
-                <Select
-                  value={form.inboundCallMode}
-                  onChange={handleInput}
-                  name="inboundCallMode"
-                >
-                  {inboundCallModeTypes.map(searchType => (
-                    <Select.Option key={searchType.key} value={searchType.key}>
-                      {searchType.name}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </Select.Container>
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Alternate Blocking Announcement
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Checkbox
-                name="alternateBlockingAnnouncement"
-                value={form.alternateBlockingAnnouncement}
-                checked={form.alternateBlockingAnnouncement}
+                name="inboundCallMode"
+              >
+                {inboundCallModeTypes.map(searchType => (
+                  <Select.Option key={searchType.key} value={searchType.key}>
+                    {searchType.name}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Select.Container>
+          </UiFormField>
+          <UiFormField label="New Phone Number" horizontal>
+            <Input
+              type="text"
+              name="newPhoneNumber"
+              value={form.newPhoneNumber}
+              placeholder="New Phone Number"
+              onChange={handleInput}
+              disabled={!form.playNewPhoneNumber}
+            />
+          </UiFormField>
+          <UiFormField label="Transfer on 0 Phone Number" horizontal>
+            <Input
+              type="text"
+              name="transferPhoneNumber"
+              value={form.transferPhoneNumber}
+              placeholder="Transfer on 0 Phone Number"
+              onChange={handleInput}
+              disabled={!form.transferOnZeroToPhoneNumber}
+            />
+          </UiFormField>
+
+          <UiFormField label="Outbound Call Mode" horizontal>
+            <Select.Container>
+              <Select
+                value={form.outboundCallMode}
                 onChange={handleInput}
-              />{' '}
-              Alternate Blocking Announcement
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Exempt Inbound Mobility Calls
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Checkbox
-                name="exemptInboundMobilityCalls"
-                value={form.exemptInboundMobilityCalls}
-                checked={form.exemptInboundMobilityCalls}
-                onChange={handleInput}
-              />{' '}
-              Exempt Inbound Mobility Calls
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Disable Parallel Ringing To Network Locations
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Checkbox
-                name="disableParallelRingingToNetworkLocations"
-                value={form.disableParallelRingingToNetworkLocations}
-                checked={form.disableParallelRingingToNetworkLocations}
-                onChange={handleInput}
-              />{' '}
-              Disable Parallel Ringing To Network Locations
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Route To Voice Mail
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Checkbox
-                name="routeToVoiceMail"
-                value={form.routeToVoiceMail}
-                checked={form.routeToVoiceMail}
-                onChange={handleInput}
-              />{' '}
-              Route To Voice Mail
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Play New Phone Number
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Checkbox
-                name="playNewPhoneNumber"
-                value={form.playNewPhoneNumber}
-                checked={form.playNewPhoneNumber}
-                onChange={handleInput}
-              />{' '}
-              Play New Phone Number
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                New Phone Number
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Input
-                type="text"
-                name="newPhoneNumber"
-                value={form.newPhoneNumber}
-                placeholder="New Phone Number"
-                onChange={handleInput}
-                disabled={!form.playNewPhoneNumber}
-              />
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Transfer on 0 Phone Number
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Checkbox
-                name="transferOnZeroToPhoneNumber"
-                value={form.transferOnZeroToPhoneNumber}
-                checked={form.transferOnZeroToPhoneNumber}
-                onChange={handleInput}
-              />
-              {'  '}
-              Transfer on 0 Phone Number
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Transfer on 0 To Phone Number
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Input
-                type="text"
-                name="transferPhoneNumber"
-                value={form.transferPhoneNumber}
-                placeholder="Transfer on 0 Phone Number"
-                onChange={handleInput}
-                disabled={!form.transferOnZeroToPhoneNumber}
-              />
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Outbound Call Mode
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Select.Container>
-                <Select
-                  value={form.outboundCallMode}
-                  onChange={handleInput}
-                  name="outboundCallMode"
-                >
-                  {outboundCallModeTypes.map(searchType => (
-                    <Select.Option key={searchType.key} value={searchType.key}>
-                      {searchType.name}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </Select.Container>
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Exempt Outbound Mobility Calls
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Checkbox
-                name="exemptOutboundMobilityCalls"
-                value={form.exemptOutboundMobilityCalls}
-                checked={form.exemptOutboundMobilityCalls}
-                onChange={handleInput}
-              />{' '}
-              Exempt Outbound Mobility Calls
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Reroute Outbound Calls
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Checkbox
-                name="rerouteOutboundCalls"
-                value={form.rerouteOutboundCalls}
-                checked={form.rerouteOutboundCalls}
-                onChange={handleInput}
-              />{' '}
-              Reroute Outbound Calls
-            </Column>
-            <Column size="half" narrow>
-              <UiButton fullwidth static>
-                Reroute Outbound Calls Phone Number
-              </UiButton>
-            </Column>
-            <Column size="half" narrow>
-              <Input
-                type="text"
-                name="outboundReroutePhoneNumber"
-                value={form.outboundReroutePhoneNumber}
-                placeholder="Outbound Reroute Phone Number"
-                onChange={handleInput}
-                disabled={!form.rerouteOutboundCalls}
-              />
-            </Column>
-          </Column.Group>
+                name="outboundCallMode"
+              >
+                {outboundCallModeTypes.map(searchType => (
+                  <Select.Option key={searchType.key} value={searchType.key}>
+                    {searchType.name}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Select.Container>
+          </UiFormField>
+          <UiFormField label="Reroute Outbound Calls Phone Number" horizontal>
+            <Input
+              type="text"
+              name="outboundReroutePhoneNumber"
+              value={form.outboundReroutePhoneNumber}
+              placeholder="Outbound Reroute Phone Number"
+              onChange={handleInput}
+              disabled={!form.rerouteOutboundCalls}
+            />
+          </UiFormField>
         </form>
       </UiCardModal>
     </>
