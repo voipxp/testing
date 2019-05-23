@@ -12,8 +12,14 @@ export const UiInputCheckbox = ({
 }) => (
   <div>
     <Label>
-      <Checkbox name={name} checked={checked} onChange={onChange} {...rest} />
-      &nbsp; {label}
+      <Checkbox
+        name={name}
+        checked={checked}
+        onChange={onChange}
+        {...rest}
+        style={{ transform: 'scale(1.5)' }}
+      />
+      <span style={{ marginLeft: '.75rem' }}>{label}</span>
     </Label>
   </div>
 )

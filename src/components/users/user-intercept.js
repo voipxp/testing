@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Input, Select } from 'rbx'
+import { Input, Select, Column } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useUserIntercept } from '@/store/user-intercept'
 import {
@@ -215,67 +215,90 @@ export const UserIntercept = ({ match }) => {
             />
           </UiSection>
 
-          <UiFormField horizontal label="Inbound Call Mode">
-            <Select.Container>
-              <Select
-                value={form.inboundCallMode}
-                onChange={handleInput}
-                name="inboundCallMode"
-              >
-                {inboundCallModeTypes.map(searchType => (
-                  <Select.Option key={searchType.key} value={searchType.key}>
-                    {searchType.name}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
-          <UiFormField label="New Phone Number" horizontal>
-            <Input
-              type="text"
-              name="newPhoneNumber"
-              value={form.newPhoneNumber}
-              placeholder="New Phone Number"
-              onChange={handleInput}
-              disabled={!form.playNewPhoneNumber}
-            />
-          </UiFormField>
-          <UiFormField label="Transfer on 0 Phone Number" horizontal>
-            <Input
-              type="text"
-              name="transferPhoneNumber"
-              value={form.transferPhoneNumber}
-              placeholder="Transfer on 0 Phone Number"
-              onChange={handleInput}
-              disabled={!form.transferOnZeroToPhoneNumber}
-            />
-          </UiFormField>
+          <Column.Group>
+            <Column>
+              <UiFormField label="Inbound Call Mode">
+                <Select.Container fullwidth>
+                  <Select
+                    value={form.inboundCallMode}
+                    onChange={handleInput}
+                    name="inboundCallMode"
+                  >
+                    {inboundCallModeTypes.map(searchType => (
+                      <Select.Option
+                        key={searchType.key}
+                        value={searchType.key}
+                      >
+                        {searchType.name}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Select.Container>
+              </UiFormField>
+            </Column>
+            <Column />
+          </Column.Group>
+          <Column.Group>
+            <Column>
+              <UiFormField label="New Phone Number">
+                <Input
+                  type="text"
+                  name="newPhoneNumber"
+                  value={form.newPhoneNumber}
+                  placeholder="New Phone Number"
+                  onChange={handleInput}
+                  disabled={!form.playNewPhoneNumber}
+                />
+              </UiFormField>
+            </Column>
+            <Column>
+              <UiFormField label="Transfer on 0 Phone Number">
+                <Input
+                  type="text"
+                  name="transferPhoneNumber"
+                  value={form.transferPhoneNumber}
+                  placeholder="Transfer on 0 Phone Number"
+                  onChange={handleInput}
+                  disabled={!form.transferOnZeroToPhoneNumber}
+                />
+              </UiFormField>
+            </Column>
+          </Column.Group>
 
-          <UiFormField label="Outbound Call Mode" horizontal>
-            <Select.Container>
-              <Select
-                value={form.outboundCallMode}
-                onChange={handleInput}
-                name="outboundCallMode"
-              >
-                {outboundCallModeTypes.map(searchType => (
-                  <Select.Option key={searchType.key} value={searchType.key}>
-                    {searchType.name}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
-          <UiFormField label="Reroute Outbound Calls Phone Number" horizontal>
-            <Input
-              type="text"
-              name="outboundReroutePhoneNumber"
-              value={form.outboundReroutePhoneNumber}
-              placeholder="Outbound Reroute Phone Number"
-              onChange={handleInput}
-              disabled={!form.rerouteOutboundCalls}
-            />
-          </UiFormField>
+          <Column.Group>
+            <Column>
+              <UiFormField label="Outbound Call Mode">
+                <Select.Container fullwidth>
+                  <Select
+                    value={form.outboundCallMode}
+                    onChange={handleInput}
+                    name="outboundCallMode"
+                  >
+                    {outboundCallModeTypes.map(searchType => (
+                      <Select.Option
+                        key={searchType.key}
+                        value={searchType.key}
+                      >
+                        {searchType.name}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Select.Container>
+              </UiFormField>
+            </Column>
+            <Column>
+              <UiFormField label="Reroute Outbound Calls Phone Number">
+                <Input
+                  type="text"
+                  name="outboundReroutePhoneNumber"
+                  value={form.outboundReroutePhoneNumber}
+                  placeholder="Outbound Reroute Phone Number"
+                  onChange={handleInput}
+                  disabled={!form.rerouteOutboundCalls}
+                />
+              </UiFormField>
+            </Column>
+          </Column.Group>
         </form>
       </UiCardModal>
     </>
