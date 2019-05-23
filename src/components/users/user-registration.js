@@ -25,8 +25,7 @@ export const UserRegistration = ({ match }) => {
     { key: 'deviceName', label: 'Name' },
     { key: 'linePort', label: 'Line Port' },
     { key: 'expiration', label: 'Expiration' },
-    { key: 'endpointType', label: 'Type' },
-    { key: 'userAgent', label: 'User Agent' }
+    { key: 'endpointType', label: 'Type' }
   ]
 
   useEffect(() => {
@@ -60,22 +59,22 @@ export const UserRegistration = ({ match }) => {
           <UiListItem label="Endpoint Type">{form.endpointType}</UiListItem>
           <UiListItem label="Device Level">{form.deviceLevel}</UiListItem>
           <UiListItem label="Device Name">{form.deviceName}</UiListItem>
-          <UiListItem label="Line Port ">{form.linePort}</UiListItem>
-          <UiListItem label="Expiration ">{form.expiration}</UiListItem>
-          <UiListItem label="URI ">{form.uRI}</UiListItem>
-          <UiListItem label="userAgent">{form.userAgent}</UiListItem>
-          <UiListItem label="publicNetAddress">
+          <UiListItem label="Line Port">{form.linePort}</UiListItem>
+          <UiListItem label="Expiration">{form.expiration}</UiListItem>
+          <UiListItem label="URI">{form.uRI}</UiListItem>
+          <UiListItem label="User Agent">{form.userAgent}</UiListItem>
+          <UiListItem label="Public Net Address">
             {form.publicNetAddress}
           </UiListItem>
-          <UiListItem label="publicPort">{form.publicPort}</UiListItem>
-          <UiListItem label="privateNetAddress">
+          <UiListItem label="Public Port">{form.publicPort}</UiListItem>
+          <UiListItem label="Private Net Address">
             {form.privateNetAddress}
           </UiListItem>
-          <UiListItem label="privatePort">{form.privatePort}</UiListItem>
-          <UiListItem label="lockoutStarted">{form.lockoutStarted}</UiListItem>
-          <UiListItem label="lockoutExpires">{form.lockoutExpires}</UiListItem>
-          <UiListItem label="lockoutCount">{form.lockoutCount}</UiListItem>
-          <UiListItem label="accessInfo">{form.accessInfo}</UiListItem>
+          <UiListItem label="Private Port">{form.privatePort}</UiListItem>
+          <UiListItem label="Lockout Started">{form.lockoutStarted}</UiListItem>
+          <UiListItem label="Lockout Expires">{form.lockoutExpires}</UiListItem>
+          <UiListItem label="Lockout Count">{form.lockoutCount}</UiListItem>
+          <UiListItem label="Access Info">{form.accessInfo}</UiListItem>
         </UiSection>
       </UiCardModal>
     </>

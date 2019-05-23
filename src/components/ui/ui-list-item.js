@@ -11,7 +11,7 @@ const StyledColumnGroup = styled.div`
 
 export const UiListItem = ({ label, children }) => (
   <Column.Group as={StyledColumnGroup}>
-    <Column size="three-fifths">{label}</Column>
+    <Column size="two-fifths">{label}</Column>
     <Column>{children}</Column>
   </Column.Group>
 )
