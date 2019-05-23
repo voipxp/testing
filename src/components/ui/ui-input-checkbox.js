@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Label, Checkbox } from 'rbx'
+import { Label, Checkbox, Field } from 'rbx'
+import cuid from 'cuid'
 
 export const UiInputCheckbox = ({
   label,
@@ -9,20 +10,30 @@ export const UiInputCheckbox = ({
   onChange,
   children,
   ...rest
-}) => (
-  <div>
-    <Label>
+}) => {
+  const ref = React.useRef()
+  const [id, setId] = React.useState()
+
+  React.useEffect(() => {
+    setId(cuid())
+  }, [])
+
+  return (
+    <Field>
       <Checkbox
+        className="is-checkradio"
+        id={id}
         name={name}
         checked={checked}
         onChange={onChange}
+        onClick={() => ref.current.blur()}
+        ref={ref}
         {...rest}
-        style={{ transform: 'scale(1.5)' }}
       />
-      <span style={{ marginLeft: '.75rem' }}>{label}</span>
-    </Label>
-  </div>
-)
+      <Label htmlFor={id}>{label}</Label>
+    </Field>
+  )
+}
 UiInputCheckbox.propTypes = {
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
