@@ -7,11 +7,12 @@ export const UiInputCheckbox = ({
   name,
   checked = false,
   onChange,
-  children
+  children,
+  ...rest
 }) => (
   <div>
     <Label>
-      <Checkbox name={name} checked={checked} onChange={onChange} />
+      <Checkbox name={name} checked={checked} onChange={onChange} {...rest} />
       &nbsp; {label}
     </Label>
   </div>
