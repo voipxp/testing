@@ -1,5 +1,6 @@
 import { configureStore } from 'redux-starter-kit'
 import { alertsReducer } from './alerts'
+import { userRegistrationReducer } from './user-registration'
 import { userServicesReducer } from './user-services'
 import { userSpeedDial8Reducer } from './user-speed-dial-8'
 import { userUserInterceptReducer } from './user-intercept'
@@ -21,6 +22,7 @@ export const store = configureStore({
     session: sessionReducer,
     user: userReducer,
     userAssignedServices: userAssignedServicesReducer,
+    userRegistration: userRegistrationReducer,
     userServices: userServicesReducer,
     userViewableServices: userViewableServicesReducer,
     userSpeedDial8: userSpeedDial8Reducer,
