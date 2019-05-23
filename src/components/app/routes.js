@@ -1,5 +1,6 @@
 import { UserDashboard } from '@/components/users'
-
+import { UiCard } from '@/components/ui'
+import { UserSpeedDial8 } from '../users/user-speed-dial-8'
 export const routes = [
   {
     path: '/account',
@@ -744,5 +745,9 @@ export const routes = [
   {
     path: '/users/:serviceProviderId/:groupId/:userId',
     component: UserDashboard
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/speedDial8',
+    component: UiCard
   }
 ]

@@ -360,6 +360,12 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         name: 'Voice Messaging',
         service: 'Voice Messaging User',
         path: route('voiceMessagingUser')
+      },
+      {
+        type: 'user',
+        name: 'Speed Dial 8',
+        service: 'Speed Dial 8',
+        path: route('speedDial8')
       }
     ]
   }

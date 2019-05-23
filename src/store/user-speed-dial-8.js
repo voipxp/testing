@@ -11,19 +11,12 @@ const bulk = createAction('USER_SPEED_DIAL_8_BULK')
 export const userSpeedDial8Reducer = createReducer(initialState, {
   [load]: (state, { payload }) => {
     if (payload.userId) state[payload.userId] = payload
-  }
-})
-
-export const userSpeedDial8BulkReducer = createReducer(initialState, {
+  },
   [bulk]: (state, { payload }) => {
-    const users = payload.users.reduce((obj, user) => {
-      obj[user.userId] = user
+    return payload.users.reduce((obj, user) => {
+      obj[user.userId] = user.data
       return obj
     }, {})
-    return {
-      ...state,
-      users
-    }
   }
 })
 
@@ -31,7 +24,7 @@ export const loadUserSpeedDial8Bulk = (serviceProviderId, groupId) => {
   return async dispatch => {
     const userSpeedDial8Bulk = await api.index(serviceProviderId, groupId)
     dispatch(bulk(userSpeedDial8Bulk))
-    return userSpeedDial8
+    return userSpeedDial8Bulk
   }
 }
 
