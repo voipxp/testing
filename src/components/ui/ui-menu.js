@@ -50,7 +50,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
   return (
     <>
       <Column.Group>
-        <Column size="one-quarter">
+        <Column narrow>
           <Menu as={StyledMenu}>
             {menu.map(section => (
               <React.Fragment key={section.label}>
