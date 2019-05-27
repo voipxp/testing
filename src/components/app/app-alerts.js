@@ -19,11 +19,11 @@ const StyledAlert = styled.div`
   text-align: center;
   &.notification-exit {
     animation-name: lightSpeedOut;
-    animation-duration: 400ms;
+    animation-duration: 450ms;
   }
   &.notification-enter {
     animation-name: lightSpeedIn;
-    animation-duration: 400ms;
+    animation-duration: 450ms;
   }
   &:hover {
     cursor: pointer;
