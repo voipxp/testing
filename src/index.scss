@@ -4,6 +4,8 @@ $fa-font-path: '../node_modules/@fortawesome/fontawesome-free/webfonts/';
 
 @import '~bulma/sass/utilities/initial-variables';
 $navbar-breakpoint: $tablet;
+$label-color: $grey-dark;
+$label-weight: $weight-medium;
 
 @import '~bulma/bulma.sass';
 @import '~bulma-switch/dist/css/bulma-switch.sass';
