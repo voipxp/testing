@@ -32,6 +32,7 @@ function controller(
 
   function onInit() {
     ctrl.loading = true
+    ctrl.isAdmin = ACL.has('Group')
     return $q
       .all([
         loadUser(),
