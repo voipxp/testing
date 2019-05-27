@@ -6,9 +6,9 @@ $fa-font-path: '../node_modules/@fortawesome/fontawesome-free/webfonts/';
 $navbar-breakpoint: $tablet;
 
 @import '~bulma/bulma.sass';
-@import '~bulma-extensions/bulma-switch/dist/css/bulma-switch.sass';
-@import '~bulma-extensions/bulma-checkradio/dist/css/bulma-checkradio.sass';
-@import '~bulma-extensions/bulma-tooltip/dist/css/bulma-tooltip.sass';
-@import '~bulma-extensions/bulma-quickview/dist/css/bulma-quickview.sass';
+@import '~bulma-switch/dist/css/bulma-switch.sass';
+@import '~bulma-checkradio/dist/css/bulma-checkradio.sass';
+@import '~bulma-tooltip/dist/css/bulma-tooltip.sass';
+@import '~bulma-quickview/dist/css/bulma-quickview.sass';
 
 @import '~rbx/rbx';
