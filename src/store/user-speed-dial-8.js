@@ -12,14 +12,10 @@ export const userSpeedDial8Reducer = createReducer(initialState, {
     if (payload.userId) state[payload.userId] = payload
   },
   [bulk]: (state, { payload }) => {
-    const { serviceProviderId, groupId } = payload
-    return payload.users.reduce((obj, user) => {
-      obj[user.userId] = {
-        ...user.data,
-        userId: user.userId,
-        serviceProviderId,
-        groupId
-      }
+    const { serviceProviderId, groupId, users } = payload
+    return users.reduce((obj, user) => {
+      const { userId, data } = user
+      obj[userId] = { ...data, userId, serviceProviderId, groupId }
       return obj
     }, {})
   }
