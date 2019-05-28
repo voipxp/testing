@@ -109,7 +109,9 @@ export const GroupSpeedDial8 = ({ match }) => {
       <AppBreadcrumb>
         <Breadcrumb.Item>Speed Dial 8</Breadcrumb.Item>
       </AppBreadcrumb>
-      {rows.length > 0 ? (
+      {rows.length === 0 ? (
+        <UiLoadingCard />
+      ) : (
         <UiCard title="Bulk Speed Dial 8">
           <UiDataTable
             columns={columns}
@@ -119,8 +121,6 @@ export const GroupSpeedDial8 = ({ match }) => {
             onClick={edit}
           />
         </UiCard>
-      ) : (
-        <UiLoadingCard />
       )}
       <UiCardModal
         title={`Edit Speed Code ${form.speedCode}`}
