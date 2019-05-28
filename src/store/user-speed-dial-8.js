@@ -2,7 +2,6 @@ import { createAction, createReducer } from 'redux-starter-kit'
 import { useSelector } from 'react-redux'
 import { useAction } from './hooks'
 import api from '@/api/user-speed-dial-8'
-import userSpeedDial8 from '@/api/user-speed-dial-8'
 
 const initialState = {}
 const load = createAction('USER_SPEED_DIAL_8_LOAD')
@@ -13,8 +12,14 @@ export const userSpeedDial8Reducer = createReducer(initialState, {
     if (payload.userId) state[payload.userId] = payload
   },
   [bulk]: (state, { payload }) => {
+    const { serviceProviderId, groupId } = payload
     return payload.users.reduce((obj, user) => {
-      obj[user.userId] = user.data
+      obj[user.userId] = {
+        ...user.data,
+        userId: user.userId,
+        serviceProviderId,
+        groupId
+      }
       return obj
     }, {})
   }
@@ -37,6 +42,7 @@ export const loadUserSpeedDial8 = userId => {
 }
 
 export const updateUserSpeedDial8Bulk = user => {}
+
 export const updateUserSpeedDial8 = speedCodes => {
   return async dispatch => {
     const data = await api.update(speedCodes)
@@ -47,7 +53,13 @@ export const updateUserSpeedDial8 = speedCodes => {
 
 export const useUserSpeedDial8Bulk = (serviceProviderId, groupId) => {
   return {
-    userSpeedDial8Bulk: useSelector(state => state.userSpeedDial8),
+    userSpeedDial8Bulk: useSelector(state => {
+      return Object.values(state.userSpeedDial8).filter(
+        user =>
+          user.serviceProviderId === serviceProviderId &&
+          user.groupId === groupId
+      )
+    }),
     loadUserSpeedDial8Bulk: useAction(loadUserSpeedDial8Bulk)
   }
 }

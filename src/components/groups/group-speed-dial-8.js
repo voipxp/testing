@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { Breadcrumb } from 'rbx'
+import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Field, Input, Column, Control } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import {
-  useUserSpeedDial8,
-  useUserSpeedDial8Bulk
-} from '@/store/user-speed-dial-8'
+import { useUserSpeedDial8Bulk } from '@/store/user-speed-dial-8'
 import {
   UiCard,
   UiLoadingCard,
@@ -22,11 +21,6 @@ export const GroupSpeedDial8 = ({ match }) => {
   const [form, setForm] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  // const {
-  //   userSpeedDial8,
-  //   loadUserSpeedDial8,
-  //   updateUserSpeedDial8
-  // } = useUserSpeedDial8(userId)
 
   const { userSpeedDial8Bulk, loadUserSpeedDial8Bulk } = useUserSpeedDial8Bulk(
     serviceProviderId,
@@ -34,17 +28,19 @@ export const GroupSpeedDial8 = ({ match }) => {
   )
 
   const columns = [
-    { key: 'speedCode', label: 'Speed Code' },
-    { key: 'phoneNumber', label: 'Phone Number' }
+    { key: 'userId', label: 'User ID' },
+    { key: 2, label: '2' },
+    { key: 3, label: '3' },
+    { key: 4, label: '4' },
+    { key: 5, label: '5' },
+    { key: 6, label: '6' },
+    { key: 7, label: '7' },
+    { key: 8, label: '8' },
+    { key: 9, label: '9' }
   ]
 
-  /*
-    Load the speed dial 8, alert on error
-  */
   useEffect(() => {
-    // loadUserSpeedDial8(userId).catch(alertDanger)
     loadUserSpeedDial8Bulk(serviceProviderId, groupId).catch(alertDanger)
-    console.log('serviceProviderId', serviceProviderId)
   }, [alertDanger, groupId, loadUserSpeedDial8Bulk, serviceProviderId])
 
   /*
@@ -95,19 +91,37 @@ export const GroupSpeedDial8 = ({ match }) => {
     // }
   }
 
-  if (!userSpeedDial8Bulk) return <UiLoadingCard />
+  /*
+    Map the speedCodes into an object with speedcode as key
+  */
+  const rows = userSpeedDial8Bulk.map(({ userId, speedCodes = [] }) => {
+    const row = { userId }
+    for (let i = 2; i < 10; i++) {
+      const codeStr = String(i)
+      const code = speedCodes.find(s => s.speedCode === codeStr)
+      row[codeStr] = code && code.phoneNumber
+    }
+    return row
+  })
 
   return (
     <>
-      <UiCard title="Bulk Speed Dial 8">
-        <UiDataTable
-          columns={columns}
-          rows={userSpeedDial8Bulk}
-          rowKey="speedCode"
-          hideSearch={true}
-          onClick={edit}
-        />
-      </UiCard>
+      <AppBreadcrumb>
+        <Breadcrumb.Item>Speed Dial 8</Breadcrumb.Item>
+      </AppBreadcrumb>
+      {rows.length > 0 ? (
+        <UiCard title="Bulk Speed Dial 8">
+          <UiDataTable
+            columns={columns}
+            rows={rows}
+            rowKey="userId"
+            hideSearch={true}
+            onClick={edit}
+          />
+        </UiCard>
+      ) : (
+        <UiLoadingCard />
+      )}
       <UiCardModal
         title={`Edit Speed Code ${form.speedCode}`}
         isOpen={showModal}
