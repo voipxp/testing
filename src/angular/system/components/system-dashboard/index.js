@@ -48,7 +48,7 @@ function controller(Route, SystemDashboardService, Alert) {
       },
       {
         type: 'system',
-        name: 'System Service Utilization Report',
+        name: 'Service Utilization Report',
         path: route('system', 'systemServiceUtilizationReport')
       },
       {
