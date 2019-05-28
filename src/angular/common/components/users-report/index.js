@@ -75,6 +75,10 @@ function controller(
       label: 'MAC Address'
     },
     {
+      key: 'linePorts',
+      label: 'Line Ports'
+    },
+    {
       key: 'servicePacks',
       label: 'Service Packs'
     },
@@ -124,6 +128,7 @@ function controller(
             'accessDeviceEndpoint.accessDevice.macAddress',
             ''
           ),
+          linePorts: user.userLinePorts.join(','),
           servicePacks: user.servicePacks.join(','),
           userServices: user.userServices.join(','),
           premiumServices: user.premiumServices.join(',')
