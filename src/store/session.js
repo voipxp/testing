@@ -17,14 +17,14 @@ export const sessionReducer = createReducer(initialState, {
 })
 
 export const clearSession = () => async dispatch => {
-  dispatch(clear())
   setToken()
+  dispatch(clear())
   localStorage.removeItem(STORAGE_KEY)
 }
 
 export const setSession = (data = {}) => async dispatch => {
-  dispatch(set(data))
   setToken(data.token)
+  dispatch(set(data))
   localStorage.setItem(STORAGE_KEY, data.token)
 }
 

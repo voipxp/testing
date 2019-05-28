@@ -1,0 +1,44 @@
+---
+name: UiInputCheckbox
+route: '/ui-input-checkbox'
+---
+
+import { Playground, Props } from 'docz'
+import { UiInputCheckbox } from './ui-input-checkbox'
+
+# UiInputCheckbox
+
+Displays a form checkbox, styled according to Odin styles. If **checked** is undefined, it will display as indeterminate.
+
+## Example
+
+<Playground>
+  <UiInputCheckbox
+    name="check1"
+    label="Not Checked"
+    checked={false}
+    onChange={() => console.log('check1')}
+  />
+  <UiInputCheckbox
+    name="check2"
+    label="Indeterminate"
+    onChange={() => console.log('check2')}
+  />
+  <UiInputCheckbox
+    name="check3"
+    label="Checked"
+    checked={true}
+    onChange={() => console.log('check3')}
+  />
+  <UiInputCheckbox
+    disabled
+    name="check4"
+    label="Disabled"
+    checked={false}
+    onChange={() => console.log('check4')}
+  />
+</Playground>
+
+## Props
+
+<Props of={UiInputCheckbox} />

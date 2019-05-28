@@ -50,7 +50,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
   return (
     <>
       <Column.Group>
-        <Column size="one-quarter">
+        <Column narrow>
           <Menu as={StyledMenu}>
             {menu.map(section => (
               <React.Fragment key={section.label}>
@@ -73,7 +73,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
             ))}
           </Menu>
         </Column>
-        <Column size="three-quarters">
+        <Column>
           <Switch>
             <Route path={`${match.path}/:path`} render={renderRoute} />
             <Route render={renderDefault} />
