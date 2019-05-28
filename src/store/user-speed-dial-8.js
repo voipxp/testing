@@ -47,6 +47,7 @@ export const updateUserSpeedDial8 = speedCodes => {
 
 export const useUserSpeedDial8Bulk = (serviceProviderId, groupId) => {
   return {
+    userSpeedDial8Bulk: useSelector(state => state.userSpeedDial8),
     loadUserSpeedDial8Bulk: useAction(loadUserSpeedDial8Bulk)
   }
 }
