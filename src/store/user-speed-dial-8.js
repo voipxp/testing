@@ -2,6 +2,7 @@ import { createAction, createReducer } from 'redux-starter-kit'
 import { useSelector } from 'react-redux'
 import { useAction } from './hooks'
 import api from '@/api/user-speed-dial-8'
+import { userActions } from '@/store/user'
 
 const initialState = {}
 const load = createAction('USER_SPEED_DIAL_8_LOAD')
@@ -13,26 +14,35 @@ export const userSpeedDial8Reducer = createReducer(initialState, {
   },
   [bulk]: (state, { payload }) => {
     const { serviceProviderId, groupId, users } = payload
-    users.forEach(user => {
-      const { userId, data } = user
-      state[userId] = { ...data, userId, serviceProviderId, groupId }
+    users.forEach(u => {
+      if (!u.service.assigned) return
+      const { userId, data, user } = u
+      state[userId] = {
+        ...data,
+        userId,
+        serviceProviderId,
+        groupId,
+        firstName: user.firstName,
+        lastName: user.lastName
+      }
     })
   }
 })
 
 export const loadUserSpeedDial8Bulk = (serviceProviderId, groupId) => {
   return async dispatch => {
-    const userSpeedDial8Bulk = await api.index(serviceProviderId, groupId)
-    dispatch(bulk(userSpeedDial8Bulk))
-    return userSpeedDial8Bulk
+    const data = await api.index(serviceProviderId, groupId)
+    dispatch(bulk(data))
+    dispatch(userActions.bulk(data))
+    return data
   }
 }
 
 export const loadUserSpeedDial8 = userId => {
   return async dispatch => {
-    const userSpeedDial8 = await api.show(userId)
-    dispatch(load(userSpeedDial8))
-    return userSpeedDial8
+    const data = await api.show(userId)
+    dispatch(load(data))
+    return data
   }
 }
 

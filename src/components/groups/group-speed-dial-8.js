@@ -30,6 +30,8 @@ export const GroupSpeedDial8 = ({ match }) => {
 
   const columns = [
     { key: 'userId', label: 'User ID' },
+    { key: 'firstName', label: 'First Name' },
+    { key: 'lastName', label: 'Last Name' },
     { key: '2', label: '2' },
     { key: '3', label: '3' },
     { key: '4', label: '4' },
@@ -44,16 +46,13 @@ export const GroupSpeedDial8 = ({ match }) => {
     loadUserSpeedDial8Bulk(serviceProviderId, groupId).catch(alertDanger)
   }, [alertDanger, groupId, loadUserSpeedDial8Bulk, serviceProviderId])
 
-  function toggle() {
-    showSelect ? setShowSelect(false) : setShowSelect(true)
-  }
   /*
     Make a copy of the row for the form
     Make sure phoneNumber is at least an empty string
   */
-  function onClick(row) {
+  function edit(row) {
     setForm({ phoneNumber: '', ...row })
-    console.log('onClick', onClick)
+    console.log('showSelect', showSelect)
     setShowModal(true)
   }
 
@@ -81,9 +80,7 @@ export const GroupSpeedDial8 = ({ match }) => {
   }
 
   function onSelect(rows) {
-    console.log('showSelect', showSelect)
-    console.log('rows', rows)
-    setShowModal(true)
+    console.log('onSelect', rows)
     setShowSelect(false)
   }
 
@@ -106,8 +103,7 @@ export const GroupSpeedDial8 = ({ match }) => {
   /*
     Map the speedCodes into an object with speedcode as key
   */
-  const rows = userSpeedDial8Bulk.map(({ userId, speedCodes = [] }) => {
-    const row = { userId }
+  const rows = userSpeedDial8Bulk.map(({ speedCodes = [], ...row }) => {
     for (let i = 2; i < 10; i++) {
       const codeStr = String(i)
       const code = speedCodes.find(s => s.speedCode === codeStr)
@@ -127,7 +123,12 @@ export const GroupSpeedDial8 = ({ match }) => {
         <UiCard
           title="Bulk Speed Dial 8"
           buttons={
-            <UiButton color="link" icon="cogs" size="small" onClick={toggle} />
+            <UiButton
+              color="link"
+              icon="cogs"
+              size="small"
+              onClick={() => setShowSelect(!showSelect)}
+            />
           }
         >
           <UiDataTable
@@ -135,9 +136,9 @@ export const GroupSpeedDial8 = ({ match }) => {
             rows={rows}
             rowKey="userId"
             hideSearch={true}
+            onClick={edit}
             showSelect={showSelect}
             onSelect={onSelect}
-            onClick={onClick}
           />
         </UiCard>
       )}
