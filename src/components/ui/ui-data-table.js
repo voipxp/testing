@@ -7,8 +7,9 @@ import cx from 'classnames'
 import get from 'lodash/get'
 import isFunction from 'lodash/isFunction'
 import { orderBy } from 'natural-orderby'
-import { Table, Input, Icon, Checkbox, Button, Field, Control } from 'rbx'
+import { Table, Input, Icon, Button, Field, Control } from 'rbx'
 import { UiPagination } from './ui-pagination'
+import { UiInputCheckbox } from './ui-input-checkbox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faSortUp,
@@ -16,8 +17,6 @@ import {
   faTimes,
   faCheck
 } from '@fortawesome/free-solid-svg-icons'
-
-const noop = () => {}
 
 const WrappedTable = styled.div`
   display: block;
@@ -123,6 +122,7 @@ export const UiDataTable = ({
   const sendSelected = () => {
     const selectedKeys = Object.keys(selectedItems)
     onSelect(rows.filter(row => selectedKeys.includes(row[rowKey])))
+    setSelectedItems([])
   }
 
   const headingIcon = column => {
@@ -181,7 +181,7 @@ export const UiDataTable = ({
             <Table.Row>
               {canSelect && (
                 <Table.Heading textAlign="centered" onClick={handleSelectAll}>
-                  <Checkbox checked={allSelected} onChange={noop} />
+                  <UiInputCheckbox checked={allSelected} />
                 </Table.Heading>
               )}
               {columns.map(column => (
@@ -212,7 +212,7 @@ export const UiDataTable = ({
                 <Table.Row key={row[rowKey]} onClick={() => handleClick(row)}>
                   {canSelect && (
                     <Table.Cell textAlign="centered">
-                      <Checkbox checked={isSelected(row)} onChange={noop} />
+                      <UiInputCheckbox checked={isSelected(row)} />
                     </Table.Cell>
                   )}
                   {columns.map(column => (
