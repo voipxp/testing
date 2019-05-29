@@ -127,7 +127,7 @@ export const GroupSpeedDial8 = ({ match }) => {
               color="link"
               icon="cogs"
               size="small"
-              onClick={() => setShowSelect()}
+              onClick={() => setShowSelect(!showSelect)}
             />
           }
         >
