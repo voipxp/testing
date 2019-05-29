@@ -21,7 +21,7 @@ export const GroupSpeedDial8 = ({ match }) => {
   const [form, setForm] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [showSelect, setShowSelect] = useState(true)
+  const [showSelect, setShowSelect] = useState(false)
 
   const { userSpeedDial8Bulk, loadUserSpeedDial8Bulk } = useUserSpeedDial8Bulk(
     serviceProviderId,
@@ -44,13 +44,16 @@ export const GroupSpeedDial8 = ({ match }) => {
     loadUserSpeedDial8Bulk(serviceProviderId, groupId).catch(alertDanger)
   }, [alertDanger, groupId, loadUserSpeedDial8Bulk, serviceProviderId])
 
+  function toggle() {
+    showSelect ? setShowSelect(false) : setShowSelect(true)
+  }
   /*
     Make a copy of the row for the form
     Make sure phoneNumber is at least an empty string
   */
-  function edit(row) {
+  function onClick(row) {
     setForm({ phoneNumber: '', ...row })
-    console.log('showSelect', showSelect)
+    console.log('onClick', onClick)
     setShowModal(true)
   }
 
@@ -77,8 +80,11 @@ export const GroupSpeedDial8 = ({ match }) => {
     // update(newSpeedCodes)
   }
 
-  function onSelect() {
+  function onSelect(rows) {
     console.log('showSelect', showSelect)
+    console.log('rows', rows)
+    setShowModal(true)
+    setShowSelect(false)
   }
 
   async function update(speedCodes) {
@@ -121,12 +127,7 @@ export const GroupSpeedDial8 = ({ match }) => {
         <UiCard
           title="Bulk Speed Dial 8"
           buttons={
-            <UiButton
-              color="link"
-              icon="cogs"
-              size="small"
-              onClick={() => setShowSelect(true)}
-            />
+            <UiButton color="link" icon="cogs" size="small" onClick={toggle} />
           }
         >
           <UiDataTable
@@ -134,8 +135,9 @@ export const GroupSpeedDial8 = ({ match }) => {
             rows={rows}
             rowKey="userId"
             hideSearch={true}
-            onClick={edit}
             showSelect={showSelect}
+            onSelect={onSelect}
+            onClick={onClick}
           />
         </UiCard>
       )}
