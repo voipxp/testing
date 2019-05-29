@@ -21,6 +21,7 @@ export const GroupSpeedDial8 = ({ match }) => {
   const [form, setForm] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [showSelect, setShowSelect] = useState(true)
 
   const { userSpeedDial8Bulk, loadUserSpeedDial8Bulk } = useUserSpeedDial8Bulk(
     serviceProviderId,
@@ -49,6 +50,7 @@ export const GroupSpeedDial8 = ({ match }) => {
   */
   function edit(row) {
     setForm({ phoneNumber: '', ...row })
+    console.log('showSelect', showSelect)
     setShowModal(true)
   }
 
@@ -73,6 +75,10 @@ export const GroupSpeedDial8 = ({ match }) => {
     //   code.speedCode === form.speedCode ? { ...form } : code
     // )
     // update(newSpeedCodes)
+  }
+
+  function onSelect() {
+    console.log('showSelect', showSelect)
   }
 
   async function update(speedCodes) {
@@ -112,13 +118,24 @@ export const GroupSpeedDial8 = ({ match }) => {
       {rows.length === 0 ? (
         <UiLoadingCard />
       ) : (
-        <UiCard title="Bulk Speed Dial 8">
+        <UiCard
+          title="Bulk Speed Dial 8"
+          buttons={
+            <UiButton
+              color="link"
+              icon="cogs"
+              size="small"
+              onClick={() => setShowSelect(true)}
+            />
+          }
+        >
           <UiDataTable
             columns={columns}
             rows={rows}
             rowKey="userId"
             hideSearch={true}
             onClick={edit}
+            showSelect={showSelect}
           />
         </UiCard>
       )}
@@ -136,7 +153,7 @@ export const GroupSpeedDial8 = ({ match }) => {
               <Field>
                 <Control>
                   <UiButton fullwidth static>
-                    Speed Code {form.speedCode}
+                    Speed Code 2
                   </UiButton>
                 </Control>
               </Field>
