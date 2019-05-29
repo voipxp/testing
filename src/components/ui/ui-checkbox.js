@@ -7,7 +7,7 @@ import { faTimes, faCheck, faMinus } from '@fortawesome/free-solid-svg-icons'
 export const UiCheckbox = ({ isChecked }) => {
   const isUndefined = typeof isChecked === 'undefined'
   const icon = isUndefined ? faMinus : isChecked ? faCheck : faTimes
-  const color = isUndefined ? 'light' : isChecked ? 'success' : 'dark'
+  const color = isUndefined ? 'light' : isChecked ? 'success' : 'grey-light'
   return (
     <Icon color={color}>
       <FontAwesomeIcon icon={icon} />
