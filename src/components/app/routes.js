@@ -1,5 +1,4 @@
 import { UserDashboard } from '@/components/users'
-import { UiCard } from '@/components/ui'
 import { GroupSpeedDial8 } from '../groups/group-speed-dial-8'
 export const routes = [
   {

@@ -8,10 +8,8 @@ import {
   UiDataTable,
   UiCardModal,
   UiSection,
-  UiListItem,
-  UiButton
+  UiListItem
 } from '@/components/ui'
-import { Field, Column } from 'rbx'
 
 export const UserRegistration = ({ match }) => {
   const { userId } = match.params

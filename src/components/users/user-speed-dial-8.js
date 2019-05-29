@@ -3,10 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Field, Input, Column, Control } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import {
-  useUserSpeedDial8,
-  useUserSpeedDial8Bulk
-} from '@/store/user-speed-dial-8'
+import { useUserSpeedDial8 } from '@/store/user-speed-dial-8'
 import {
   UiCard,
   UiLoadingCard,
@@ -28,11 +25,6 @@ export const UserSpeedDial8 = ({ match }) => {
     updateUserSpeedDial8
   } = useUserSpeedDial8(userId)
 
-  // const { loadUserSpeedDial8Bulk } = useUserSpeedDial8Bulk(
-  //   'ent.odin',
-  //   'grp.odin'
-  // )
-
   const columns = [
     { key: 'speedCode', label: 'Speed Code' },
     { key: 'phoneNumber', label: 'Phone Number' }
@@ -43,7 +35,6 @@ export const UserSpeedDial8 = ({ match }) => {
   */
   useEffect(() => {
     loadUserSpeedDial8(userId).catch(alertDanger)
-    // loadUserSpeedDial8Bulk('ent.odin', 'grp.odin').catch(alertDanger)
   }, [alertDanger, loadUserSpeedDial8, userId])
 
   /*
