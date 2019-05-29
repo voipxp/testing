@@ -1,47 +1,81 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Label, Checkbox, Field } from 'rbx'
-import cuid from 'cuid'
+import { Button, Icon, Label } from 'rbx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faTimes, faMinus } from '@fortawesome/free-solid-svg-icons'
+import styled from 'styled-components'
+
+const StyledLabel = styled.label`
+  :hover {
+    cursor: pointer;
+  }
+`
 
 export const UiInputCheckbox = ({
-  label,
   name,
+  label,
   checked,
+  loading,
+  disabled,
   onChange,
-  children,
   ...rest
 }) => {
   const ref = React.useRef()
-  const [id, setId] = React.useState()
+  const isUndefined = typeof checked === 'undefined'
+  const icon = isUndefined ? faMinus : checked ? faCheck : faTimes
+  const color = checked ? 'success' : 'grey-light'
+  const iconColor = checked ? null : 'grey-light'
+  const state = loading ? 'loading' : null
 
-  React.useEffect(() => {
-    setId(cuid())
-  }, [])
+  const sendChanges = () => {
+    if (onChange) {
+      onChange({ target: { type: 'checkbox', name, checked: !checked } })
+    }
+  }
 
-  React.useEffect(() => {
-    ref.current.indeterminate = checked === undefined
-  }, [checked])
+  const handleClick = e => {
+    e.preventDefault()
+    sendChanges()
+    ref.current.blur()
+  }
+
+  const handleKeyDown = e => {
+    if (e.keyCode === 32 || e.keyCode === 13) {
+      e.preventDefault()
+      sendChanges()
+    }
+  }
 
   return (
-    <Field>
-      <Checkbox
-        className="is-checkradio"
-        id={id}
-        name={name}
-        checked={checked}
-        onChange={onChange}
-        onClick={() => ref.current.blur()}
+    <Label as={StyledLabel}>
+      <Button
         ref={ref}
+        size="small"
+        state={state}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        disabled={!!disabled}
+        aria-pressed={!!checked}
+        title={label || name}
+        outlined
+        color={color}
         {...rest}
-      />
-      <Label htmlFor={id}>{label}</Label>
-    </Field>
+      >
+        <Icon color={iconColor}>
+          {!loading && <FontAwesomeIcon icon={icon} />}
+        </Icon>
+      </Button>
+      {label && <span style={{ paddingLeft: '1rem' }}>{label}</span>}
+    </Label>
   )
 }
+
 UiInputCheckbox.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  checked: PropTypes.bool.isRequired,
   name: PropTypes.string,
   label: PropTypes.string,
-  children: PropTypes.any
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
+  title: PropTypes.string
 }
