@@ -19,6 +19,7 @@ export const GroupSpeedDial8 = ({ match }) => {
   const { alertSuccess, alertDanger } = useAlerts()
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
+  const [users, setUsers] = useState([])
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [showSelect, setShowSelect] = useState(false)
@@ -51,6 +52,7 @@ export const GroupSpeedDial8 = ({ match }) => {
     Make sure phoneNumber is at least an empty string
   */
   function edit(row) {
+    console.log('row', row)
     setForm({ phoneNumber: '', ...row })
     console.log('showSelect', showSelect)
     setShowModal(true)
@@ -73,18 +75,39 @@ export const GroupSpeedDial8 = ({ match }) => {
     new value, otherwise pass the original.
   */
   function save() {
-    // const newSpeedCodes = userSpeedDial8.speedCodes.map(code =>
+    console.log('save().form', form)
+    console.log('users()', users)
+    const bulk = {
+      serviceProviderId: form.serviceProviderId,
+      groupId: form.groupId,
+      speedCodes: [
+        { speedCode: '2', phoneNumber: form.phoneNumber2 },
+        { speedCode: '3', phoneNumber: form.phoneNumber3 },
+        { speedCode: '4', phoneNumber: form.phoneNumber4 },
+        { speedCode: '5', phoneNumber: form.phoneNumber5 },
+        { speedCode: '6', phoneNumber: form.phoneNumber6 },
+        { speedCode: '7', phoneNumber: form.phoneNumber7 },
+        { speedCode: '8', phoneNumber: form.phoneNumber8 },
+        { speedCode: '9', phoneNumber: form.phoneNumber9 }
+      ]
+    }
+    // const newSpeedCodes = userSpeedDial8Bulk.speedCodes.map(code =>
     //   code.speedCode === form.speedCode ? { ...form } : code
     // )
+    console.log(bulk)
     // update(newSpeedCodes)
   }
 
   function onSelect(rows) {
-    console.log('onSelect', rows)
+    console.log('rows', rows)
     setShowSelect(false)
+    console.log('rows.length', rows.length)
+    if (rows.length > 0) setShowModal(true)
+    setUsers(...users, rows)
   }
 
-  async function update(speedCodes) {
+  async function update(bulk) {
+    console.log('update(bulk)', bulk)
     showLoadingModal()
     // try {
     //   await updateUserSpeedDial8({
@@ -136,7 +159,7 @@ export const GroupSpeedDial8 = ({ match }) => {
             rows={rows}
             rowKey="userId"
             hideSearch={true}
-            onClick={edit}
+            // onClick={edit}
             showSelect={showSelect}
             onSelect={onSelect}
           />
@@ -147,8 +170,6 @@ export const GroupSpeedDial8 = ({ match }) => {
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={save}
-        onDelete={form.speedCode ? () => setShowConfirm(true) : null}
-        deleteText="Unset"
       >
         <form>
           <Column.Group>
@@ -160,18 +181,158 @@ export const GroupSpeedDial8 = ({ match }) => {
                   </UiButton>
                 </Control>
               </Field>
+              <Field>
+                <Control>
+                  <UiButton fullwidth static>
+                    Speed Code 3
+                  </UiButton>
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <UiButton fullwidth static>
+                    Speed Code 4
+                  </UiButton>
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <UiButton fullwidth static>
+                    Speed Code 5
+                  </UiButton>
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <UiButton fullwidth static>
+                    Speed Code 6
+                  </UiButton>
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <UiButton fullwidth static>
+                    Speed Code 7
+                  </UiButton>
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <UiButton fullwidth static>
+                    Speed Code 8
+                  </UiButton>
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <UiButton fullwidth static>
+                    Speed Code 9
+                  </UiButton>
+                </Control>
+              </Field>
             </Column>
             <Column>
               <Field>
                 <Control>
                   <Input
                     type="text"
-                    name="phoneNumber"
-                    value={form.phoneNumber}
+                    name="phoneNumber2"
+                    value={form.phoneNumber2}
                     onChange={e =>
-                      setForm({ ...form, phoneNumber: e.target.value })
+                      setForm({ ...form, phoneNumber2: e.target.value })
                     }
-                    placeholder="Phone Number"
+                    placeholder="Phone Number 2"
+                  />
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <Input
+                    type="text"
+                    name="phoneNumber3"
+                    value={form.phoneNumber3}
+                    onChange={e =>
+                      setForm({ ...form, phoneNumber3: e.target.value })
+                    }
+                    placeholder="Phone Number 3"
+                  />
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <Input
+                    type="text"
+                    name="phoneNumber4"
+                    value={form.phoneNumber4}
+                    onChange={e =>
+                      setForm({ ...form, phoneNumber4: e.target.value })
+                    }
+                    placeholder="Phone Number 4"
+                  />
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <Input
+                    type="text"
+                    name="phoneNumber5"
+                    value={form.phoneNumber5}
+                    onChange={e =>
+                      setForm({ ...form, phoneNumber5: e.target.value })
+                    }
+                    placeholder="Phone Number 5"
+                  />
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <Input
+                    type="text"
+                    name="phoneNumber6"
+                    value={form.phoneNumber6}
+                    onChange={e =>
+                      setForm({ ...form, phoneNumber6: e.target.value })
+                    }
+                    placeholder="Phone Number 6"
+                  />
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <Input
+                    type="text"
+                    name="phoneNumber7"
+                    value={form.phoneNumber7}
+                    onChange={e =>
+                      setForm({ ...form, phoneNumber7: e.target.value })
+                    }
+                    placeholder="Phone Number 7"
+                  />
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <Input
+                    type="text"
+                    name="phoneNumber8"
+                    value={form.phoneNumber8}
+                    onChange={e =>
+                      setForm({ ...form, phoneNumber8: e.target.value })
+                    }
+                    placeholder="Phone Number 8"
+                  />
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <Input
+                    type="text"
+                    name="phoneNumber9"
+                    value={form.phoneNumber9}
+                    onChange={e =>
+                      setForm({ ...form, phoneNumber9: e.target.value })
+                    }
+                    placeholder="Phone Number 9"
                   />
                 </Control>
               </Field>
