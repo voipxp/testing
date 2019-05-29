@@ -103,7 +103,7 @@ export const GroupSpeedDial8 = ({ match }) => {
     setShowSelect(false)
     console.log('rows.length', rows.length)
     if (rows.length > 0) setShowModal(true)
-    setUsers(...users, rows)
+    setUsers(rows, ...users)
   }
 
   async function update(bulk) {
@@ -166,7 +166,7 @@ export const GroupSpeedDial8 = ({ match }) => {
         </UiCard>
       )}
       <UiCardModal
-        title={`Edit Speed Code ${form.speedCode}`}
+        title={'Edit Speed Codes'}
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={save}
