@@ -5,18 +5,28 @@ import userApi from '@/api/users'
 
 const initialState = {}
 const load = createAction('USER_LOAD')
+const bulk = createAction('USER_BULK')
+
+export const userActions = { bulk, load }
 
 export const userReducer = createReducer(initialState, {
   [load]: (state, { payload }) => {
     if (payload.userId) state[payload.userId] = payload
+  },
+  [bulk]: (state, { payload }) => {
+    const { serviceProviderId, groupId, users } = payload
+    users.forEach(u => {
+      const { userId, user } = u
+      state[userId] = { ...user, userId, serviceProviderId, groupId }
+    })
   }
 })
 
 export const loadUser = userId => {
   return async dispatch => {
-    const services = await userApi.show(userId)
-    dispatch(load(services))
-    return services
+    const data = await userApi.show(userId)
+    dispatch(load(data))
+    return data
   }
 }
 

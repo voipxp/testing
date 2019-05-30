@@ -1,5 +1,5 @@
 import { UserDashboard } from '@/components/users'
-
+import { GroupSpeedDial8 } from '../groups/group-speed-dial-8'
 export const routes = [
   {
     path: '/account',
@@ -744,5 +744,9 @@ export const routes = [
   {
     path: '/users/:serviceProviderId/:groupId/:userId',
     component: UserDashboard
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/speedDial8',
+    component: GroupSpeedDial8
   }
 ]

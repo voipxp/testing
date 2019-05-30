@@ -1,7 +1,6 @@
 import { UserServiceSettings } from './user-service-settings'
 import { UserAlternateUserId } from './user-alternate-user-id'
 import { UserRegistration } from './user-registration'
-import { UserAlternateUserId2 } from './user-alternate-user-id'
 
 export const dashboardMenu = [
   {
