@@ -76,6 +76,5 @@ UiInputCheckbox.propTypes = {
   checked: PropTypes.bool,
   onChange: PropTypes.func,
   loading: PropTypes.bool,
-  disabled: PropTypes.bool,
-  title: PropTypes.string
+  disabled: PropTypes.bool
 }
