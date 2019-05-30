@@ -46,7 +46,14 @@ export const loadUserSpeedDial8 = userId => {
   }
 }
 
-export const updateUserSpeedDial8Bulk = user => {}
+export const updateUserSpeedDial8Bulk = bulkData => {
+  return async dispatch => {
+    const data = await api.bulk(bulkData)
+    dispatch(bulk(data))
+    dispatch(userActions.bulk(data))
+    return data
+  }
+}
 
 export const updateUserSpeedDial8 = speedCodes => {
   return async dispatch => {
@@ -65,7 +72,8 @@ export const useUserSpeedDial8Bulk = (serviceProviderId, groupId) => {
           user.groupId === groupId
       )
     }),
-    loadUserSpeedDial8Bulk: useAction(loadUserSpeedDial8Bulk)
+    loadUserSpeedDial8Bulk: useAction(loadUserSpeedDial8Bulk),
+    updateUserSpeedDial8Bulk: useAction(updateUserSpeedDial8Bulk)
   }
 }
 
