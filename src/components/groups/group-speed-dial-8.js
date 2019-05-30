@@ -49,7 +49,6 @@ export const GroupSpeedDial8 = ({ match }) => {
   }, [alertDanger, groupId, loadUserSpeedDial8Bulk, serviceProviderId])
 
   function edit(row) {
-    console.log('row', row)
     setForm({
       phoneNumber2: row[2] ? row[2] : '',
       phoneNumber3: row[3] ? row[3] : '',
@@ -86,6 +85,7 @@ export const GroupSpeedDial8 = ({ match }) => {
   }
 
   function onSelect(rows) {
+    setShowSelect(false)
     setForm({
       phoneNumber2: '',
       phoneNumber3: '',
@@ -96,8 +96,19 @@ export const GroupSpeedDial8 = ({ match }) => {
       phoneNumber8: '',
       phoneNumber9: ''
     })
-    setShowSelect(false)
-    console.log(rows.length)
+    if (rows.length === 1) {
+      const row = rows[0]
+      setForm({
+        phoneNumber2: row[2] ? row[2] : '',
+        phoneNumber3: row[3] ? row[3] : '',
+        phoneNumber4: row[4] ? row[4] : '',
+        phoneNumber5: row[5] ? row[5] : '',
+        phoneNumber6: row[6] ? row[6] : '',
+        phoneNumber7: row[7] ? row[7] : '',
+        phoneNumber8: row[8] ? row[8] : '',
+        phoneNumber9: row[9] ? row[9] : ''
+      })
+    }
     if (rows.length > 0) setShowModal(true)
     setUsers(
       rows.map(u => {
@@ -336,11 +347,6 @@ export const GroupSpeedDial8 = ({ match }) => {
           </Column.Group>
         </form>
       </UiCardModal>
-      <UiCardModal
-        title="Please Confirm"
-        isOpen={showConfirm}
-        onCancel={() => setShowConfirm(false)}
-      />
     </>
   )
 }
