@@ -116,7 +116,7 @@ export const UiDataTable = ({
 
   const cancelSelection = () => {
     setSelectedItems([])
-    sendSelected()
+    onSelect([])
   }
 
   const sendSelected = () => {
