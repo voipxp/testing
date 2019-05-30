@@ -19,7 +19,8 @@ export const AppBreadcrumbBase = ({ match, children }) => {
   return (
     <Breadcrumb as={StyledBreadcrumb}>
       <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
-      {hasProvisioning && (
+
+      {hasProvisioning && serviceProviderId && (
         <Breadcrumb.Item href="#!/serviceProviders">
           Service Providers
         </Breadcrumb.Item>
@@ -29,7 +30,8 @@ export const AppBreadcrumbBase = ({ match, children }) => {
           {serviceProviderId}
         </Breadcrumb.Item>
       )}
-      {hasServiceProvider && (
+
+      {hasServiceProvider && groupId && (
         <Breadcrumb.Item
           href={`#!/serviceProviders/${serviceProviderId}/groups`}
         >
@@ -41,13 +43,15 @@ export const AppBreadcrumbBase = ({ match, children }) => {
           {groupId}
         </Breadcrumb.Item>
       )}
-      {hasGroup && (
+
+      {hasGroup && userId && (
         <Breadcrumb.Item
           href={`#!/groups/${serviceProviderId}/${groupId}/users`}
         >
           Users
         </Breadcrumb.Item>
       )}
+
       {userId && (
         <Breadcrumb.Item
           href={`#!/users/${serviceProviderId}/${groupId}/${userId}`}
