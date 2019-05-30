@@ -97,6 +97,7 @@ export const GroupSpeedDial8 = ({ match }) => {
       phoneNumber9: ''
     })
     setShowSelect(false)
+    console.log(rows.length)
     if (rows.length > 0) setShowModal(true)
     setUsers(
       rows.map(u => {
