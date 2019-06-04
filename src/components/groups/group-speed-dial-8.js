@@ -20,7 +20,6 @@ export const GroupSpeedDial8 = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [users, setUsers] = useState([])
-  const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [showSelect, setShowSelect] = useState(false)
 

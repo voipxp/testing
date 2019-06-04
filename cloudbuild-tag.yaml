@@ -32,16 +32,16 @@ steps:
       - quay.io/parkbench/odin-web:$TAG_NAME
 
   # deploy to kubenetes demo cluster
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args:
-      - set
-      - image
-      - deployment
-      - web
-      - '*=gcr.io/odin-dev-208422/odin-web:$TAG_NAME'
-    env:
-      - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=odin-1'
+  # - name: 'gcr.io/cloud-builders/kubectl'
+  #   args:
+  #     - set
+  #     - image
+  #     - deployment
+  #     - web
+  #     - '*=gcr.io/odin-dev-208422/odin-web:$TAG_NAME'
+  #   env:
+  #     - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
+  #     - 'CLOUDSDK_CONTAINER_CLUSTER=odin-1'
 
 # images to show in cloud builder
 images:

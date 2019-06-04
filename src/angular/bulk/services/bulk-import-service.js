@@ -71,6 +71,7 @@ function BulkImportService(
 
   function addIndex(data) {
     return $q(function(resolve) {
+      /* eslint-disable-next-line unicorn/no-for-loop */
       for (var i = 0; i < data.length; i++) {
         data[i]['index'] = i + 1
       }
