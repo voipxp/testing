@@ -15,7 +15,9 @@ export const userSpeedDial8Reducer = createReducer(initialState, {
   [bulk]: (state, { payload }) => {
     const { serviceProviderId, groupId, users } = payload
     users.forEach(u => {
-      if (!u.service.assigned) return
+      if (!u.service.assigned) {
+        return delete state[u.userId]
+      }
       const { userId, data, user } = u
       state[userId] = {
         ...data,

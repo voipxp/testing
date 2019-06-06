@@ -22,6 +22,7 @@ export const GroupSpeedDial8 = ({ match }) => {
   const [users, setUsers] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [showSelect, setShowSelect] = useState(false)
+  const [hasRun, setHasRun] = useState(false)
 
   const {
     userSpeedDial8Bulk,
@@ -44,7 +45,11 @@ export const GroupSpeedDial8 = ({ match }) => {
   ]
 
   useEffect(() => {
-    loadUserSpeedDial8Bulk(serviceProviderId, groupId).catch(alertDanger)
+    let isOpen = true
+    loadUserSpeedDial8Bulk(serviceProviderId, groupId)
+      .then(() => isOpen && setHasRun(true))
+      .catch(alertDanger)
+    return () => (isOpen = false)
   }, [alertDanger, groupId, loadUserSpeedDial8Bulk, serviceProviderId])
 
   function edit(row) {
@@ -146,25 +151,26 @@ export const GroupSpeedDial8 = ({ match }) => {
       <AppBreadcrumb>
         <Breadcrumb.Item>Speed Dial 8</Breadcrumb.Item>
       </AppBreadcrumb>
-      {rows.length === 0 ? (
+      {rows.length === 0 && !hasRun ? (
         <UiLoadingCard />
       ) : (
         <UiCard
           title="Bulk Speed Dial 8"
           buttons={
-            <UiButton
-              color="link"
-              icon="cogs"
-              size="small"
-              onClick={() => setShowSelect(!showSelect)}
-            />
+            rows.length > 0 && (
+              <UiButton
+                color="link"
+                icon="cogs"
+                size="small"
+                onClick={() => setShowSelect(!showSelect)}
+              />
+            )
           }
         >
           <UiDataTable
             columns={columns}
             rows={rows}
             rowKey="userId"
-            hideSearch={true}
             onClick={edit}
             showSelect={showSelect}
             onSelect={onSelect}
