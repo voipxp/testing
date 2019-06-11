@@ -140,6 +140,11 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         name: 'Feature Access Codes',
         path: route('featureAccessCodes')
       },
+      {
+        type: 'management',
+        name: 'Comm Barring',
+        path: route('groupCommunicationBarring')
+      },
 
       {
         type: 'service',
