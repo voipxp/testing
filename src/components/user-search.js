@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field, Control, Button, Input, Select, Icon } from 'rbx'
-import { useReduxDispatch } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { alertDanger } from '@/store/alerts'
+import { useAlerts } from '@/store/alerts'
 import userApi from '@/api/users'
 
 const searchTypes = [
@@ -29,8 +28,7 @@ const columns = [
 ]
 
 export const UserSearch = ({ onSelect }) => {
-  const dispatch = useReduxDispatch()
-
+  const { alertDanger } = useAlerts()
   const [searchKey, setSearchKey] = React.useState('lastName')
   const [searchString, setSearchString] = React.useState('')
   const [users, setUsers] = React.useState([])
@@ -54,7 +52,7 @@ export const UserSearch = ({ onSelect }) => {
       const users = await userApi.search({ [searchKey]: query })
       setUsers(users)
     } catch (error) {
-      dispatch(alertDanger(error))
+      alertDanger(error)
       setUsers([])
     } finally {
       setLoading(false)

@@ -2,12 +2,12 @@
   "name": "odin Web",
   "icons": [
     {
-      "src": "/ui/images/imageIcon.png?size=192x192",
+      "src": "/api/v2/ui/images/imageIcon.png?size=192x192",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/ui/images/imageIcon.png?size=512x512",
+      "src": "/api/v2/ui/images/imageIcon.png?size=512x512",
       "sizes": "512x512",
       "type": "image/png"
     }

@@ -1,15 +1,14 @@
 import React from 'react'
-import ReactGA from 'react-ga'
 import { Switch, Route } from 'react-router-dom'
-import { AppDashboard, AppNotFound } from '@/components/app'
+import {
+  AppAnalytics,
+  AppDashboard,
+  AppNotFound,
+  AppTimer
+} from '@/components/app'
 import { AngularComponent } from '@/components/angular-component'
 import { useAcl, useModulePermissions } from '@/utils'
 import { routes } from './routes'
-
-const Analytics = ({ location }) => {
-  ReactGA.pageview(location.pathname + location.search)
-  return null
-}
 
 export const AppRoutes = () => {
   const { hasLevel, hasVersion } = useAcl()
@@ -38,9 +37,9 @@ export const AppRoutes = () => {
         path={path}
         render={() => (
           <AngularComponent
+            {...rest}
             component={angularComponent}
             module={module}
-            {...rest}
           />
         )}
       />
@@ -50,7 +49,7 @@ export const AppRoutes = () => {
         path={path}
         exact={exact}
         render={props => (
-          <route.component module={module} {...rest} {...props} />
+          <route.component {...rest} {...props} module={module} />
         )}
       />
     )
@@ -63,7 +62,8 @@ export const AppRoutes = () => {
         {routes.map(route => generateRoute(route))}
         <Route component={AppNotFound} />
       </Switch>
-      <Route component={Analytics} />
+      <Route component={AppAnalytics} />
+      <Route component={AppTimer} />
     </>
   )
 }

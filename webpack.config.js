@@ -1,16 +1,18 @@
 const dotenv = require('dotenv')
 dotenv.config()
-
+const https = require('https')
+const http = require('http')
 const path = require('path')
 const webpack = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const production = process.env.NODE_ENV === 'production'
 const showStats = process.env.SHOW_STATS
+const isHttps = process.env.API_URL && process.env.API_URL.startsWith('https')
 
 module.exports = {
   devServer: {
@@ -18,11 +20,15 @@ module.exports = {
     proxy: {
       '/api': {
         target: process.env.API_URL,
-        changeOrigin: /^https$/.test(process.env.API_URL)
+        changeOrigin: isHttps,
+        agent: isHttps ? https.globalAgent : http.globalAgent
       },
       '/socket.io': {
         target: process.env.EVENT_URL || process.env.API_URL,
-        ws: true
+        ws: true,
+        onError(err) {
+          console.log('Suppressing WDS proxy upgrade error:', err)
+        }
       }
     }
   },

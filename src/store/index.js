@@ -1,34 +1,42 @@
 import { configureStore } from 'redux-starter-kit'
-import alerts from './alerts'
-import userServices from './user-services'
-import userAssignedServices from './user-assigned-services'
-import userViewableServices from './user-viewable-services'
-import user from './user'
-import session, { loadSessionFromStorage, clearSession } from './session'
-import serviceProviders from './service-providers'
-import ui, {
-  loadTemplate,
-  loadSettings,
-  setInitialized,
-  loadApplications,
-  loadModules
-} from './ui'
+import { alertsReducer } from './alerts'
+import { userRegistrationReducer } from './user-registration'
+import { userServicesReducer } from './user-services'
+import { userSpeedDial8Reducer } from './user-speed-dial-8'
+import { userUserInterceptReducer } from './user-intercept'
+import { userAssignedServicesReducer } from './user-assigned-services'
+import { userViewableServicesReducer } from './user-viewable-services'
+import { userReducer } from './user'
+import { sessionReducer, loadSessionFromStorage, clearSession } from './session'
+import { serviceProvidersReducer } from './service-providers'
+import { uiReducer, setInitialized } from './ui'
+import { loadApplications, uiApplicationsReducer } from './ui-applications'
+import { loadModules, uiModulesReducer } from './ui-modules'
+import { loadSettings, uiSettingsReducer } from './ui-settings'
+import { loadTemplate, uiTemplateReducer } from './ui-template'
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    alerts,
-    serviceProviders,
-    session,
-    user,
-    userAssignedServices,
-    userServices,
-    userViewableServices,
-    ui
+    alerts: alertsReducer,
+    serviceProviders: serviceProvidersReducer,
+    session: sessionReducer,
+    user: userReducer,
+    userAssignedServices: userAssignedServicesReducer,
+    userRegistration: userRegistrationReducer,
+    userServices: userServicesReducer,
+    userViewableServices: userViewableServicesReducer,
+    userSpeedDial8: userSpeedDial8Reducer,
+    userIntercept: userUserInterceptReducer,
+    ui: uiReducer,
+    uiApplications: uiApplicationsReducer,
+    uiModules: uiModulesReducer,
+    uiSettings: uiSettingsReducer,
+    uiTemplate: uiTemplateReducer
   },
   devTools: process.env.NODE_ENV !== 'production'
 })
 
-const loadInitialState = async () => {
+export const loadInitialState = async () => {
   try {
     await store.dispatch(loadSessionFromStorage())
   } catch (error) {
@@ -46,7 +54,3 @@ const loadInitialState = async () => {
     console.log('loadInitialState', error)
   }
 }
-
-loadInitialState()
-
-export default store

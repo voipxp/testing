@@ -1,10 +1,10 @@
 import React from 'react'
-import { useReduxState } from 'reactive-react-redux'
+import { useSession } from '@/store/session'
 import { Redirect } from 'react-router-dom'
 
 export const AppDashboard = () => {
-  const state = useReduxState()
-  const { loginType, serviceProviderId, groupId, userId } = state.session
+  const { session } = useSession()
+  const { loginType, serviceProviderId, groupId, userId } = session
 
   let route
   switch (loginType) {

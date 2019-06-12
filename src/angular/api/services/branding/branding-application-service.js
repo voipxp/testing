@@ -1,11 +1,17 @@
 import angular from 'angular'
+import { loadApplications } from '@/store/ui-applications'
 
 angular
   .module('odin.api')
   .factory('BrandingApplicationService', BrandingApplicationService)
 
-BrandingApplicationService.$inject = ['$http', 'Route', '$rootScope']
-function BrandingApplicationService($http, Route, $rootScope) {
+BrandingApplicationService.$inject = [
+  '$http',
+  'Route',
+  '$rootScope',
+  '$ngRedux'
+]
+function BrandingApplicationService($http, Route, $rootScope, $ngRedux) {
   var service = { index, store, show, update, destroy }
   var url = Route.api('/branding/applications')
 
@@ -19,6 +25,7 @@ function BrandingApplicationService($http, Route, $rootScope) {
 
   function store(application) {
     return $http.post(url(), application).then(response => {
+      $ngRedux.dispatch(loadApplications())
       $rootScope.$emit('BrandingApplicationService:updated')
       return response.data
     })
@@ -30,6 +37,7 @@ function BrandingApplicationService($http, Route, $rootScope) {
 
   function update(application) {
     return $http.put(url(), application).then(response => {
+      $ngRedux.dispatch(loadApplications())
       $rootScope.$emit('BrandingApplicationService:updated')
       return response.data
     })
@@ -37,6 +45,7 @@ function BrandingApplicationService($http, Route, $rootScope) {
 
   function destroy(id) {
     return $http.delete(url(), { params: { id } }).then(response => {
+      $ngRedux.dispatch(loadApplications())
       $rootScope.$emit('BrandingApplicationService:updated')
       return response.data
     })

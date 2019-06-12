@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import { Field, Control, Button, Input, Icon } from 'rbx'
-import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
+import { useSession } from '@/store/session'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable, UiCardModal } from '@/components/ui'
-import { alertDanger } from '@/store/alerts'
+import { useAlerts } from '@/store/alerts'
 import { useAcl, userPath } from '@/utils'
 import { ServiceProviderSelect } from '@/components/service-provider-select'
 import phoneNumberApi from '@/api/phone-numbers/system'
@@ -24,9 +24,8 @@ const columns = [
 
 export const SystemDnSearch = ({ onSelect }) => {
   const acl = useAcl()
-  const dispatch = useReduxDispatch()
-  const state = useReduxState()
-
+  const { alertDanger } = useAlerts()
+  const { session } = useSession()
   const [searchString, setSearchString] = React.useState('')
   const [serviceProviderId, setServiceProviderId] = React.useState('')
   const [showServiceProvider, setShowServiceProvider] = React.useState(false)
@@ -55,7 +54,7 @@ export const SystemDnSearch = ({ onSelect }) => {
     setLoading(true)
     setInitialized(true)
     try {
-      const _serviceProviderId = state.serviceProviderId || serviceProviderId
+      const _serviceProviderId = session.serviceProviderId || serviceProviderId
       const dn = _serviceProviderId ? `*${searchString}*` : searchString
       const users = await phoneNumberApi.search({
         dn,
@@ -65,7 +64,7 @@ export const SystemDnSearch = ({ onSelect }) => {
       const filtered = users.filter(u => userPath(u))
       setUsers(filtered)
     } catch (error) {
-      dispatch(alertDanger(error))
+      alertDanger(error)
       setUsers([])
     } finally {
       setLoading(false)

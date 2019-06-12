@@ -85,9 +85,8 @@ function controller(
   }
 
   function loadServices() {
-    var spinner
     if (ctrl.services.servicePackServices.length > 0) {
-      spinner = Alert.spinner.open()
+      Alert.spinner.open()
     }
     return $q
       .all(ctrl.services.servicePackServices.map(loadServicePack))
@@ -99,7 +98,7 @@ function controller(
         setMaxEndpoints(services)
       })
       .finally(function() {
-        if (spinner) Alert.spinner.close()
+        Alert.spinner.close()
       })
   }
 
