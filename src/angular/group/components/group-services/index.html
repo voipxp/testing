@@ -79,7 +79,10 @@
           ng-if="$ctrl.isGroupServices()"
           ng-model="$ctrl.editService.assigned"
         ></pbs-input-checkbox>
-        <service-licensing service="$ctrl.editService"></service-licensing>
+        <service-licensing
+          service="$ctrl.editService"
+          ng-if="$ctrl.editService.limited !== 'none'"
+        ></service-licensing>
       </pbs-tab>
       <pbs-tab label="Users" ng-if="$ctrl.users">
         <pbs-data-table
