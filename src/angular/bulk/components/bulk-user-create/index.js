@@ -24,10 +24,6 @@ function controller(BulkImportService, $location) {
     ctrl.data.serviceProviderId = params.serviceProviderId
     ctrl.data.groupId = params.groupId
     ctrl.data.userCount = parseInt(params.userCount, 10) || 0
-    delete params.serviceProviderId
-    delete params.groupId
-    delete params.userCount
-    $location.search(params)
   }
 
   function wizardReady(event) {
