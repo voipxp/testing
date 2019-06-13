@@ -6,6 +6,7 @@ import userViewableServices from './user-viewable-services'
 import user from './user'
 import session, { loadSessionFromStorage, clearSession } from './session'
 import serviceProviders from './service-providers'
+import autoAttendant from './auto-attendant'
 import ui, {
   loadTemplate,
   loadSettings,
@@ -18,6 +19,7 @@ const store = configureStore({
   reducer: {
     alerts,
     serviceProviders,
+    autoAttendant,
     session,
     user,
     userAssignedServices,

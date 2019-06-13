@@ -1,6 +1,12 @@
 import { UserDashboard } from '@/components/users'
+import { CreateAutoAttendant } from '@/components/autoAttendant'
 
 export const routes = [
+  {
+    path:
+      '/groups/:serviceProviderId/:groupId/autoAttendants/createAutoAttendant',
+    component: CreateAutoAttendant
+  },
   {
     path: '/account',
     angularComponent: 'myAccount'
