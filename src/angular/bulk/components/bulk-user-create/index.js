@@ -62,22 +62,28 @@ function controller(BulkImportService, $location) {
         pagerPhoneNumber: ctrl.data.pagerPhoneNumber,
         emailAddress: ctrl.data.emailAddress,
         addressLocation: ctrl.data.addressLocation,
-        department: ctrl.data.department || {},
+        department: _.isEmpty(ctrl.data.department) ? '' : ctrl.data.department,
         address: ctrl.data.address,
         endpointType: ctrl.data.endpointType,
         domain: ctrl.data.domain
       }
+
       // make strings so they are editable in review page
       if (ctrl.data.activatePhoneNumber) {
         task.activatePhoneNumber = 'true'
       } else if (ctrl.data.activatePhoneNumber === false) {
         task.activatePhoneNumber = 'false'
       }
+
       if (task.endpointType === 'accessDeviceEndpoint') {
+        task.allowAccessDeviceUpdate = ctrl.data.allowAccessDeviceUpdate
+          ? 'true'
+          : 'false'
         task.accessDeviceEndpoint = ctrl.data.accessDeviceEndpoint
       } else if (task.endpointType === 'trunkAddressing') {
         task.trunkAddressing = ctrl.data.trunkAddressing
       }
+
       tasks.push(task)
     }
     return tasks
