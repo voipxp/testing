@@ -5,55 +5,40 @@ angular.module('odin.common').factory('CsvService', CsvService)
 
 CsvService.$inject = ['$q', 'UtilityService']
 function CsvService($q, UtilityService) {
-  var service = { import: importCsv, export: exportCsv }
+  const service = { import: importCsv, export: exportCsv }
   return service
 
   function importCsv(content, addIndex) {
-    return $q(function(resolve, reject) {
-      if (!content) {
-        return reject('File is empty')
-      }
-      var csvResults = []
-      // strip non unicode characters
-      /* eslint no-control-regex: 0 */
+    return $q((resolve, reject) => {
+      if (!content) return reject('File is empty')
+
+      /* strip non unicode characters and fix windows returns */
+      /* eslint-disable-next-line no-control-regex */
       content = content.replace(/[^\u0000-\u007F]/g, '')
-      // fix windows returns
       content = content.replace(/\r\r/gm, '\r')
+
       Papa.parse(content, {
         header: true,
         dynamicTyping: false,
-        skipEmptyLines: true,
-        step: function(results) {
-          var row = results.data[0]
-          if (addIndex) {
-            row.index = csvResults.length + 1
-          }
-          csvResults.push(row)
+        skipEmptyLines: 'greedy',
+        complete: ({ data }) => {
+          if (data.length === 0) return reject('No Rows Found')
+          resolve(data)
         },
-        complete: function() {
-          if (csvResults.length === 0) {
-            return reject('No Users Found')
-          }
-          resolve(csvResults)
-        },
-        error: function() {
-          // console.log('CsvService#import', error)
-          return reject('CSV Parse Error')
-        }
+        error: () => reject('CSV Parse Error')
       })
     })
   }
 
   function exportCsv(data) {
-    return $q(function(resolve, reject) {
+    return $q((resolve, reject) => {
       try {
-        var options = { delimiter: ',', newline: '\r\n', quotes: true }
         data = UtilityService.castArray(data)
-        var flattened = UtilityService.flatten(data)
-        var stripped = UtilityService.stripSpecial(flattened)
+        const options = { delimiter: ',', newline: '\r\n', quotes: true }
+        const flattened = UtilityService.flatten(data)
+        const stripped = UtilityService.stripSpecial(flattened)
         resolve(Papa.unparse(stripped, options))
       } catch (error) {
-        // console.log('CsvService#export', error)
         reject('CSV Generation Error')
       }
     })
