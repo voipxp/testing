@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useReduxDispatch } from 'reactive-react-redux'
-import { Control, Box, Button, Tag, Icon } from 'rbx'
+import { Column, Control, Box, Button, Tag, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faUserFriends,
@@ -41,7 +41,7 @@ export const CreateAutoAttendantOptions = props => {
   }
 
   return (
-    <>
+    <Column size={6}>
       {showOptions ? (
         <Box>
           <Button.Group>
@@ -73,7 +73,7 @@ export const CreateAutoAttendantOptions = props => {
             ) : null
           })
         : null}
-    </>
+    </Column>
   )
 }
 

@@ -60,7 +60,7 @@ export const CreateAutoAttendantMenu = props => {
       ) : null}
 
       {openMenuBox ? (
-        <Box>
+        <Box style={{ width: '250px' }}>
           <Menu>
             <Menu.List>
               <Menu.List.Item

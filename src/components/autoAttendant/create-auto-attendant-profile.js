@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useReduxDispatch } from 'reactive-react-redux'
-import { Field, Control, Button, Input, Select } from 'rbx'
+import { Field, Control, Button, Input, Select, Tag } from 'rbx'
 import { UiCard } from '@/components/ui'
 import { saveUserProfile } from '@/store/auto-attendant'
 
@@ -92,9 +92,9 @@ export const CreateAutoAttendantProfile = props => {
         <form style={{ marginBottom: '1rem' }} onSubmit={next}>
           <Field horizontal kind="addons">
             <Field.Label>
-              <Button state={loading ? 'loading' : ''} static>
+              <Tag color="link" size="medium">
                 Type
-              </Button>
+              </Tag>
             </Field.Label>
             <Field.Body>
               <Control>
@@ -118,9 +118,9 @@ export const CreateAutoAttendantProfile = props => {
 
           <Field horizontal>
             <Field.Label>
-              <Button state={loading ? 'loading' : ''} static>
+              <Tag color="link" size="medium">
                 Service ID
-              </Button>
+              </Tag>
             </Field.Label>
             <Field.Body>
               <Control>
@@ -134,9 +134,9 @@ export const CreateAutoAttendantProfile = props => {
                 />
               </Control>
               <Control>
-                <Button state={loading ? 'loading' : ''} static>
+                <Tag color="link" size="medium">
                   @
-                </Button>
+                </Tag>
               </Control>
               <Control>
                 <Select.Container>
@@ -159,9 +159,9 @@ export const CreateAutoAttendantProfile = props => {
 
           <Field horizontal>
             <Field.Label>
-              <Button state={loading ? 'loading' : ''} static>
+              <Tag color="link" size="medium">
                 Phone Number
-              </Button>
+              </Tag>
             </Field.Label>
             <Field.Body>
               <Control>
@@ -185,9 +185,9 @@ export const CreateAutoAttendantProfile = props => {
 
           <Field horizontal>
             <Field.Label>
-              <Button state={loading ? 'loading' : ''} static>
+              <Tag color="link" size="medium">
                 Extension
-              </Button>
+              </Tag>
             </Field.Label>
             <Field.Body>
               <Control>
@@ -205,9 +205,9 @@ export const CreateAutoAttendantProfile = props => {
 
           <Field horizontal>
             <Field.Label>
-              <Button state={loading ? 'loading' : ''} static>
+              <Tag color="link" size="medium">
                 Service
-              </Button>
+              </Tag>
             </Field.Label>
             <Field.Body>
               <Control>
@@ -240,7 +240,7 @@ export const CreateAutoAttendantProfile = props => {
               <Button
                 type="submit"
                 state={loading ? 'loading' : ''}
-                color="link"
+                color="success"
               >
                 Next
               </Button>

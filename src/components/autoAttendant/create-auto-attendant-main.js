@@ -64,13 +64,12 @@ export const CreateAutoAttendantMain = props => {
         : null
     )
     return (
-      <Field key={`${digit.digit}_${digit.menu}`}>
-        <CreateAutoAttendantSummary
-          digit={digit}
-          action={actionValue}
-          option={optionValue}
-        />
-      </Field>
+      <CreateAutoAttendantSummary
+        digit={digit}
+        action={actionValue}
+        option={optionValue}
+        key={`${digit.digit}_${digit.menu}`}
+      />
     )
   }
 
@@ -78,7 +77,7 @@ export const CreateAutoAttendantMain = props => {
     <UiCard title="Create Auto Attendant">
       <Field horizontal>
         <Field.Body>
-          <Column.Group gapSize={2}>
+          <Column.Group>
             <Level>
               <Column>
                 <Level.Item>
@@ -102,31 +101,40 @@ export const CreateAutoAttendantMain = props => {
                 <Level.Item>
                   <Box style={{ maxHeight: '110px' }}>
                     <Control>
-                      <Button state={loading ? 'loading' : ''} static>
+                      <Tag color="link" size="medium">
                         {state.autoAttendant.profile.username}
-                      </Button>
+                      </Tag>
                     </Control>
                     <Control>
-                      <Button state={loading ? 'loading' : ''} static>
+                      <Tag color="link" size="medium">
                         {state.autoAttendant.profile.number}
-                      </Button>
+                      </Tag>
                     </Control>
                   </Box>
                 </Level.Item>
               </Column>
 
               {showMenu ? (
-                <Column>
-                  <Level.Item>
-                    <Control>
-                      <UiRightArrow />
-                    </Control>
-                    <CreateAutoAttendantMenu
-                      setDownArrow={setDownArrowValue}
-                      setMenuValue={setMenuValue}
-                    />
-                  </Level.Item>
-                </Column>
+                <>
+                  <Column>
+                    <Level.Item>
+                      <Control>
+                        <UiRightArrow />
+                      </Control>
+                    </Level.Item>
+                  </Column>
+
+                  <Column>
+                    <Level.Item>
+                      <Control>
+                        <CreateAutoAttendantMenu
+                          setDownArrow={setDownArrowValue}
+                          setMenuValue={setMenuValue}
+                        />
+                      </Control>
+                    </Level.Item>
+                  </Column>
+                </>
               ) : null}
             </Level>
           </Column.Group>
@@ -135,23 +143,39 @@ export const CreateAutoAttendantMain = props => {
 
       <Column.Group>
         {isDownArrow ? (
-          <Column size="three-fifths" offset="one-fifth">
-            <Control>
-              <UiDownArrow />
-            </Control>
-            <Control>
-              <Tag size="large">{menuTag}</Tag>
-            </Control>
-            {showNumpad ? (
-              <CreateAutoAttendantDigits optionSelect={optionSelect} />
-            ) : null}
-            {showSummary
-              ? state.autoAttendant.digits.map(digit =>
-                  digit.menu === state.autoAttendant.latestMenu
-                    ? autoAttendantSummary(digit)
-                    : null
-                )
-              : null}
+          <Column>
+            <Column.Group>
+              <Column narrow />
+              <Column offset={2}>
+                <UiDownArrow />
+              </Column>
+            </Column.Group>
+
+            <Column.Group>
+              <Column narrow />
+              <Column narrow />
+              <Column narrow />
+              <Column offset={1}>
+                <Tag size="large" color="link">
+                  {menuTag}
+                </Tag>
+              </Column>
+            </Column.Group>
+
+            <Column.Group>
+              <Column narrow />
+              <Column narrow />
+              {showNumpad ? (
+                <CreateAutoAttendantDigits optionSelect={optionSelect} />
+              ) : null}
+              {showSummary
+                ? state.autoAttendant.digits.map(digit =>
+                    digit.menu === state.autoAttendant.latestMenu
+                      ? autoAttendantSummary(digit)
+                      : null
+                  )
+                : null}
+            </Column.Group>
           </Column>
         ) : null}
       </Column.Group>

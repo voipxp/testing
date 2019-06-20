@@ -19,35 +19,36 @@ const optionsData = [
 
 export const CreateAutoAttendantSummary = props => {
   return (
-    <Column.Group>
-      <Column>
-        <Control>
-          <UiDownArrow />
-        </Control>
-        <Control kind="addons">
-          <Tag>{props.action.action}</Tag>
-          <Button static rounded outlined color="link">
-            {props.digit.digit}
-          </Button>
-        </Control>
-        <Control>
-          <UiDownArrow />
-        </Control>
-        <Control>
-          <Button static rounded outlined color="link">
-            <Icon>
-              <FontAwesomeIcon
-                icon={
-                  optionsData.find(element =>
-                    element.tag === props.option.option ? element.icon : null
-                  ).icon
-                }
-              />
-            </Icon>
-          </Button>
-        </Control>
-      </Column>
-    </Column.Group>
+    <Column narrow offset={1}>
+      <Control>
+        <UiDownArrow />
+      </Control>
+
+      <Control kind="addons">
+        <Tag>{props.action.action}</Tag>
+        <Button static rounded outlined color="link">
+          {props.digit.digit}
+        </Button>
+      </Control>
+
+      <Control>
+        <UiDownArrow />
+      </Control>
+
+      <Control>
+        <Button static rounded outlined color="link">
+          <Icon>
+            <FontAwesomeIcon
+              icon={
+                optionsData.find(element =>
+                  element.tag === props.option.option ? element.icon : null
+                ).icon
+              }
+            />
+          </Icon>
+        </Button>
+      </Control>
+    </Column>
   )
 }
 

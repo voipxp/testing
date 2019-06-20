@@ -13,7 +13,7 @@ to {
 const StyledRightArrow = styled.svg`
   width: 20px;
   height: 40px;
-  animation: ${rotate} 2s ease;
+  animation: ${rotate} 1s ease;
   animation-fill-mode: forwards;
   overflow: visible;
 `

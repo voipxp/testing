@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useReduxDispatch } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { Tag, Button, Control, Input, Icon } from 'rbx'
+import { Tag, Button, Input, Icon, Column } from 'rbx'
 import { UiPolyArrow, UiRightArrow } from '@/components/ui'
 import { CreateAutoAttendantOptions } from './create-auto-attendant-options'
 import { saveAction } from '@/store/auto-attendant'
@@ -35,29 +35,33 @@ export const CreateAutoAttendantActions = props => {
 
   const add = () => {
     setShowOptions(true)
+    setShowAddActionButton(false)
   }
 
   const optionSelect = () => {
-    setShowAddActionButton(false)
     props.optionSelect()
   }
 
   return (
-    <>
-      <Control>
-        {/* <UiPolyArrow />*/}
+    <Column.Group vcentered centered>
+      <Column narrow />
+      <Column narrow />
+      <Column narrow />
+      <Column>
         <UiRightArrow />
-      </Control>
+      </Column>
 
-      <Control>
-        {showActionTag ? <Tag size="normal">{showActionTagValue}</Tag> : null}
+      <Column>
+        {showActionTag ? (
+          <Tag color="link" size="normal">
+            {showActionTagValue}
+          </Tag>
+        ) : null}
         <Button rounded outlined color="link" onClick={setActionMenuVisible}>
           {props.digitPressed}
         </Button>
-      </Control>
 
-      {showActionMenu ? (
-        <Control>
+        {showActionMenu ? (
           <Input
             rounded
             size="small"
@@ -66,22 +70,22 @@ export const CreateAutoAttendantActions = props => {
             placeholder="Enter Action"
             onBlur={selectValue}
           />
-        </Control>
-      ) : null}
+        ) : null}
+      </Column>
 
       {showActionTag ? (
         <>
-          <Control>
+          <Column>
             <UiRightArrow />
-          </Control>
+          </Column>
           {showAddActionButton ? (
-            <Control>
+            <Column>
               <Button rounded size="large" onClick={add}>
                 <Icon size="large">
                   <FontAwesomeIcon icon={faPlus} />
                 </Icon>
               </Button>
-            </Control>
+            </Column>
           ) : null}
         </>
       ) : null}
@@ -92,7 +96,7 @@ export const CreateAutoAttendantActions = props => {
           digitPressed={props.digitPressed}
         />
       ) : null}
-    </>
+    </Column.Group>
   )
 }
 

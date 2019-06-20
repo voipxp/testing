@@ -13,7 +13,7 @@ to {
 const StyledDownArrow = styled.svg`
   width: 20px;
   height: 20px;
-  animation: ${rotate} 2s ease;
+  animation: ${rotate} 1s ease;
   animation-fill-mode: forwards;
   overflow: visible;
 `
@@ -31,7 +31,13 @@ export const UiDownArrow = () => {
           viewBox="0 0 1 2"
           orient="auto-start-reverse"
         >
-          <polygon points="0,0 2,0 1,2" fill="#3273dc" stroke="none" />
+          <polygon points="0,0 0,2 1,2" fill="#3273dc" stroke="none" />
+          {/* <path
+            d="M 100 100 L 300 100 L 200 300 z"
+            fill="#3273dc"
+            stroke="#3273dc"
+            strokeWidth="1"
+          />*/}
         </marker>
       </defs>
       <line

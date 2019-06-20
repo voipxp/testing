@@ -9,7 +9,8 @@ import {
   Icon,
   Box,
   Button,
-  Level
+  Level,
+  Tag
 } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { UiLoadingCard, UiRightArrow, UiDownArrow } from '@/components/ui'
@@ -64,11 +65,11 @@ export const CreateAutoAttendant = () => {
       ) : lastSlide ? (
         <Container fluid>
           <Title>Auto Attendant</Title>
-          <Field>
+          <Field horizontal>
             <Field.Body>
-              <Column.Group>
+              <Column.Group centered offset={6}>
                 <Level>
-                  <Column>
+                  <Column size="half">
                     <Level.Item>
                       <Control>
                         <Icon size="large">
@@ -78,7 +79,7 @@ export const CreateAutoAttendant = () => {
                     </Level.Item>
                   </Column>
 
-                  <Column>
+                  <Column size="half">
                     <Level.Item>
                       <Control>
                         <UiRightArrow />
@@ -86,47 +87,50 @@ export const CreateAutoAttendant = () => {
                     </Level.Item>
                   </Column>
 
-                  <Column>
+                  <Column size="half">
                     <Level.Item>
                       <Box style={{ maxHeight: '110px' }}>
                         <Control>
-                          <Button static>
+                          <Tag color="link" size="medium">
                             {state.autoAttendant.profile.username}
-                          </Button>
+                          </Tag>
                         </Control>
                         <Control>
-                          <Button static>
+                          <Tag color="link" size="medium">
                             {state.autoAttendant.profile.number}
-                          </Button>
+                          </Tag>
                         </Control>
                       </Box>
                     </Level.Item>
                   </Column>
-
-                  <Column.Group>
-                    <Column size="three-fifths" offset="one-fifth">
-                      <Control>
-                        <UiDownArrow />
-                      </Control>
-
-                      {state.autoAttendant.menu.map(menuValue =>
-                        autoAttendantLast(menuValue)
-                      )}
-                      <Control>
-                        <Button
-                          state={loading ? 'loading' : ''}
-                          color="link"
-                          onClick={completeSave}
-                        >
-                          Save
-                        </Button>
-                      </Control>
-                    </Column>
-                  </Column.Group>
                 </Level>
               </Column.Group>
             </Field.Body>
           </Field>
+
+          <Column.Group>
+            <Column>
+              <Column.Group>
+                <Column narrow />
+                <Column size="half" offset={4}>
+                  <UiDownArrow />
+                </Column>
+              </Column.Group>
+
+              {state.autoAttendant.menu.map(menuValue =>
+                autoAttendantLast(menuValue)
+              )}
+              <Control>
+                <Button
+                  state={loading ? 'loading' : ''}
+                  color="link"
+                  onClick={completeSave}
+                >
+                  Save
+                </Button>
+              </Control>
+            </Column>
+          </Column.Group>
         </Container>
       ) : null}
     </>
