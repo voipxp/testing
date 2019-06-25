@@ -3,23 +3,22 @@ import isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
 import gql from 'graphql-tag'
 import { Button } from 'rbx'
-import { UiLoadingCard, UiButton, UiCard, UiCheckbox, UiListItem } from '../ui'
+import { UiLoadingCard, UiButton, UiCard, UiListItem } from '../ui'
 
 import { useQuery, useApolloClient } from '@apollo/react-hooks'
 
-const GET_SERVICE_PROVIDERS = gql`
-  query getServiceProviders {
-    serviceProvider(serviceProviderId: "odin_test") {
+const GET_GROUP = gql`
+  query getGroup {
+    group(serviceProviderId: "odin_test", groupId: "odin_grp1") {
       _id
-      serviceProviderId
-      serviceProviderName
-      isEnterprise
+      groupId
+      groupName
     }
   }
 `
 
 export const Test1 = ({ history }) => {
-  const { loading, data } = useQuery(GET_SERVICE_PROVIDERS, {
+  const { loading, data } = useQuery(GET_GROUP, {
     onError: err => console.log(err),
     onCompleted: data => console.log(data),
     fetchPolicy: 'cache-and-network'
@@ -40,15 +39,8 @@ export const Test1 = ({ history }) => {
         <UiLoadingCard />
       ) : (
         <UiCard title="Cache And Network">
-          <UiListItem label="Service Provider Id">
-            {data.serviceProvider.serviceProviderId}
-          </UiListItem>
-          <UiListItem label="Service Provider Name">
-            {data.serviceProvider.serviceProviderName}
-          </UiListItem>
-          <UiListItem label="Enterprise">
-            <UiCheckbox isChecked={data.serviceProvider.isEnterprise} />
-          </UiListItem>
+          <UiListItem label="Group Id">{data.group.groupId}</UiListItem>
+          <UiListItem label="Group Name">{data.group.groupName}</UiListItem>
         </UiCard>
       )}
     </>
