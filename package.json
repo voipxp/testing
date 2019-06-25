@@ -72,6 +72,7 @@
     "socket.io": "^2.2.0",
     "styled-components": "^4.2.0",
     "sugar-date": "^2.0.6",
+    "unstated-next": "^1.1.0",
     "use-deep-compare-effect": "^1.2.0"
   },
   "devDependencies": {

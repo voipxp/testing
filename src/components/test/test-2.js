@@ -19,6 +19,8 @@ const GET_SERVICE_PROVIDERS = gql`
 
 export const Test2 = ({ history }) => {
   const { loading, data } = useQuery(GET_SERVICE_PROVIDERS, {
+    onError: err => console.log(err),
+    onCompleted: data => console.log(data),
     fetchPolicy: 'cache-first'
   })
   const client = useApolloClient()
@@ -27,7 +29,7 @@ export const Test2 = ({ history }) => {
     <>
       <Button.Group style={{ marginBottom: '1rem' }}>
         <UiButton icon="link" onClick={() => history.push('/test-1')}>
-          Go To Page 1
+          Go To Cache and Network
         </UiButton>
         <UiButton icon="delete" onClick={() => client.clearStore()}>
           Reset Cache
@@ -36,7 +38,7 @@ export const Test2 = ({ history }) => {
       {loading && isEmpty(data) ? (
         <UiLoadingCard />
       ) : (
-        <UiCard title="Test 2 Page (cache-first)">
+        <UiCard title="Cache First">
           <UiListItem label="Service Provider Id">
             {data.serviceProvider.serviceProviderId}
           </UiListItem>
