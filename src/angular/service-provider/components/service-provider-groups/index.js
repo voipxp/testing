@@ -14,8 +14,7 @@ controller.$inject = [
   '$scope',
   '$q',
   'ServiceProviderPolicyService',
-  'Module',
-  'apollo'
+  'Module'
 ]
 function controller(
   Alert,

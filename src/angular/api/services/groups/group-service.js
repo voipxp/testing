@@ -27,7 +27,7 @@ function GroupService($http, Route, CacheFactory, $rootScope, apollo) {
     return apollo
       .query({
         query: gql`
-          query getGroups($serviceProviderId: String!) {
+          query groups($serviceProviderId: String!) {
             groups(serviceProviderId: $serviceProviderId) {
               _id
               groupId
@@ -39,7 +39,7 @@ function GroupService($http, Route, CacheFactory, $rootScope, apollo) {
         variables: { serviceProviderId },
         fetchPolicy: 'network-only'
       })
-      .then(data => data.data.groups)
+      .then(res => res.data.groups)
   }
 
   // function index(serviceProviderId) {

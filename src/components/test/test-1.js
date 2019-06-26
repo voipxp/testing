@@ -4,12 +4,11 @@ import PropTypes from 'prop-types'
 import gql from 'graphql-tag'
 import { Button } from 'rbx'
 import { UiLoadingCard, UiButton, UiCard, UiListItem } from '../ui'
-
 import { useQuery, useApolloClient } from '@apollo/react-hooks'
 
-const GET_GROUP = gql`
-  query getGroup {
-    group(serviceProviderId: "odin_test", groupId: "odin_grp1") {
+const GROUP_SHOW = gql`
+  query group($serviceProviderId: String!, $groupId: String!) {
+    group(serviceProviderId: $serviceProviderId, groupId: $groupId) {
       _id
       groupId
       groupName
@@ -18,7 +17,8 @@ const GET_GROUP = gql`
 `
 
 export const Test1 = ({ history }) => {
-  const { loading, data } = useQuery(GET_GROUP, {
+  const { loading, data } = useQuery(GROUP_SHOW, {
+    variables: { serviceProviderId: 'odin_test', groupId: 'odin_grp1' },
     onError: err => console.log(err),
     onCompleted: data => console.log(data),
     fetchPolicy: 'cache-and-network'
