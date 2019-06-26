@@ -1,6 +1,7 @@
 import { UserServiceSettings } from './user-service-settings'
 import { UserAlternateUserId } from './user-alternate-user-id'
 import { UserRegistration } from './user-registration'
+import { UserSchedules } from './user-schedules'
 
 export const dashboardMenu = [
   {
@@ -68,6 +69,11 @@ export const dashboardMenu = [
         path: 'user-registration',
         name: 'User Registration',
         component: UserRegistration
+      },
+      {
+        path: 'user-schedules',
+        name: 'Schedules',
+        component: UserSchedules
       },
       {
         path: 'user-profile',
