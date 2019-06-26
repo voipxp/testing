@@ -1,15 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useReduxDispatch } from 'reactive-react-redux'
+import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { Tag, Button, Input, Icon, Column } from 'rbx'
-import { UiPolyArrow, UiRightArrow } from '@/components/ui'
+import { Tag, Button, Input, Icon, Column, Field, Control, Help } from 'rbx'
+import { UiPolyRightArrow, UiRightArrow } from '@/components/ui'
 import { CreateAutoAttendantOptions } from './create-auto-attendant-options'
 import { saveAction } from '@/store/auto-attendant'
 
 export const CreateAutoAttendantActions = props => {
   const dispatch = useReduxDispatch()
+  const state = useReduxState()
 
   const [showActionMenu, setShowActionMenu] = React.useState(false)
   const [showActionTag, setShowActionTag] = React.useState(false)
@@ -17,11 +18,20 @@ export const CreateAutoAttendantActions = props => {
   const [showOptions, setShowOptions] = React.useState(false)
   const [showAddActionButton, setShowAddActionButton] = React.useState(true)
 
+  React.useEffect(() => {
+    if (document.querySelector('#actionInput') !== null) {
+      document.querySelector('#actionInput').focus()
+    }
+  }, [showActionMenu])
+
   const selectValue = e => {
-    e.preventDefault()
-    setActionTag(e.target.value)
-    setShowActionMenu(false)
-    dispatch(saveAction({ action: e.target.value, digit: props.digitPressed }))
+    if (e.key === 'Enter') {
+      setActionTag(e.target.value)
+      setShowActionMenu(false)
+      dispatch(
+        saveAction({ action: e.target.value, digit: props.digitPressed })
+      )
+    }
   }
 
   const setActionMenuVisible = () => {
@@ -42,44 +52,67 @@ export const CreateAutoAttendantActions = props => {
     props.optionSelect()
   }
 
+  const findValue = () => {
+    const latestMenuArray = state.autoAttendant.digits.filter(
+      digit => digit.menu === state.autoAttendant.latestMenu
+    )
+    const value = latestMenuArray.findIndex(
+      digit =>
+        digit.menu === state.autoAttendant.latestMenu &&
+        digit.digit === props.digitPressed
+    )
+    return value
+  }
+
   return (
-    <Column.Group vcentered centered>
-      <Column narrow />
-      <Column narrow />
-      <Column narrow />
-      <Column>
-        <UiRightArrow />
+    <Column.Group>
+      <Column size={2}>
+        <UiPolyRightArrow arrowNumber={findValue()} />
       </Column>
 
-      <Column>
-        {showActionTag ? (
-          <Tag color="link" size="normal">
-            {showActionTagValue}
-          </Tag>
-        ) : null}
-        <Button rounded outlined color="link" onClick={setActionMenuVisible}>
-          {props.digitPressed}
-        </Button>
+      <Column narrow>
+        {showActionTag ? <Tag color="link">{showActionTagValue}</Tag> : null}
+        <Field kind="group">
+          <Control expanded>
+            <Button
+              rounded
+              outlined
+              color="link"
+              onClick={setActionMenuVisible}
+            >
+              {props.digitPressed}
+            </Button>
+          </Control>
 
-        {showActionMenu ? (
-          <Input
-            rounded
-            size="small"
-            type="text"
-            color="link"
-            placeholder="Enter Action"
-            onBlur={selectValue}
-          />
-        ) : null}
+          <Control>
+            {showActionMenu ? (
+              <>
+                <Input
+                  id="actionInput"
+                  rounded
+                  size="small"
+                  type="text"
+                  color="link"
+                  state="focused"
+                  placeholder="Enter a value"
+                  onKeyPress={selectValue}
+                />
+                <Help color="info" size="small">
+                  Press Enter after giving the value of Action
+                </Help>
+              </>
+            ) : null}
+          </Control>
+        </Field>
       </Column>
 
       {showActionTag ? (
         <>
-          <Column>
+          <Column narrow>
             <UiRightArrow />
           </Column>
           {showAddActionButton ? (
-            <Column>
+            <Column narrow>
               <Button rounded size="large" onClick={add}>
                 <Icon size="large">
                   <FontAwesomeIcon icon={faPlus} />

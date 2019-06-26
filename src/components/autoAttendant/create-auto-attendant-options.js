@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useReduxDispatch } from 'reactive-react-redux'
-import { Column, Control, Box, Button, Tag, Icon } from 'rbx'
+import { Title, Dropdown, Column, Box, Button, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faUserFriends,
   faUsersCog,
   faSmileBeam,
-  faEnvelope
+  faEnvelope,
+  faAngleDown,
+  faCheck
 } from '@fortawesome/free-solid-svg-icons'
 import { saveOption } from '@/store/auto-attendant'
 
@@ -23,55 +25,134 @@ export const CreateAutoAttendantOptions = props => {
 
   const [showOptions, setShowOptions] = React.useState(true)
   const [showOptionsValue, setShowOptionsValue] = React.useState(false)
+  const [showOptionsIcon, setShowOptionsIcon] = React.useState(false)
   const [optionsValue, setOptionsValue] = React.useState(0)
+  const [nameDropdownValue, setNameDropdownValue] = React.useState('')
 
-  const optionSelect = e => {
-    e.preventDefault()
-    setOptionsValue(e.target.value)
+  const optionSelect = key => {
+    const textContent = optionsData.find(element =>
+      element.key === key ? element : null
+    ).tag
+    setOptionsValue(textContent)
     setShowOptionsValue(true)
     setShowOptions(false)
+  }
+
+  const nameSelect = e => {
+    e.preventDefault()
+    setNameDropdownValue(e.target.textContent)
+  }
+
+  const saveNameNumber = () => {
     optionsData.map(option =>
-      option.key === parseInt(e.target.value)
+      option.tag === optionsValue
         ? dispatch(
-            saveOption({ option: option.tag, digit: props.digitPressed })
+            saveOption({
+              option: nameDropdownValue,
+              digit: props.digitPressed,
+              key: option.key
+            })
           )
         : null
     )
+    setShowOptionsValue(false)
+    setShowOptionsIcon(true)
     props.optionSelect()
   }
 
   return (
-    <Column size={6}>
+    <Column>
       {showOptions ? (
-        <Box>
+        <Box style={{ width: '350px' }}>
           <Button.Group>
             {optionsData.map(option => (
-              <Control key={`${props.digitPressed}_${option.key}`}>
-                <Button value={option.key} onClick={optionSelect}>
-                  <Icon>
-                    <FontAwesomeIcon icon={option.icon} />
-                  </Icon>
-                </Button>
-                <Tag>{option.tag}</Tag>
-              </Control>
+              <Button
+                rounded
+                outlined
+                color="link"
+                key={`${props.digitPressed}_${option.key}`}
+                onClick={() => optionSelect(option.key)}
+              >
+                <Icon>
+                  <FontAwesomeIcon icon={option.icon} />
+                </Icon>
+                <span>{option.tag}</span>
+              </Button>
             ))}
           </Button.Group>
         </Box>
       ) : null}
 
-      {showOptionsValue
-        ? optionsData.map(option => {
-            return option.key === parseInt(optionsValue) ? (
-              <Control key={`${props.digitPressed}_${option.key}`}>
-                <Button static value={option.key}>
-                  <Icon>
-                    <FontAwesomeIcon icon={option.icon} />
-                  </Icon>
-                </Button>
-                <Tag>{option.tag}</Tag>
-              </Control>
+      {showOptionsValue ? (
+        <Box style={{ maxWidth: '250px' }}>
+          <Column.Group>
+            <Column>
+              <Column.Group>
+                <Column>
+                  <Title align="center">{optionsValue}</Title>
+                </Column>
+              </Column.Group>
+
+              <Column.Group>
+                <Column>
+                  <Dropdown align="centered">
+                    <Dropdown.Trigger>
+                      <Button>
+                        <span>
+                          {nameDropdownValue || `Select ${optionsValue}...`}
+                        </span>
+                        <Icon size="small">
+                          <FontAwesomeIcon icon={faAngleDown} />
+                        </Icon>
+                      </Button>
+                    </Dropdown.Trigger>
+                    <Dropdown.Menu onClick={nameSelect}>
+                      <Dropdown.Content>
+                        <Dropdown.Item>Name 1 (Number 1)</Dropdown.Item>
+                        <Dropdown.Item>Name 2 (Number 2)</Dropdown.Item>
+                        <Dropdown.Item>Name 3 (Number 3)</Dropdown.Item>
+                        <Dropdown.Item>Name 4 (Number 4)</Dropdown.Item>
+                      </Dropdown.Content>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Column>
+              </Column.Group>
+
+              {nameDropdownValue ? (
+                <Column.Group>
+                  <Column offset={3}>
+                    <Button color="success" onClick={saveNameNumber}>
+                      <Icon size="small">
+                        <FontAwesomeIcon icon={faCheck} />
+                      </Icon>
+                      <span>Save</span>
+                    </Button>
+                  </Column>
+                </Column.Group>
+              ) : null}
+            </Column>
+          </Column.Group>
+        </Box>
+      ) : null}
+
+      {showOptionsIcon
+        ? optionsData.map(option =>
+            option.tag === optionsValue ? (
+              <Button
+                static
+                value={option.key}
+                rounded
+                outlined
+                color="link"
+                key={`${props.digitPressed}_${option.key}`}
+              >
+                <Icon>
+                  <FontAwesomeIcon icon={option.icon} />
+                </Icon>
+                <span>{nameDropdownValue}</span>
+              </Button>
             ) : null
-          })
+          )
         : null}
     </Column>
   )

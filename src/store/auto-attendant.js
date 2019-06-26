@@ -8,7 +8,9 @@ const slice = createSlice({
     menu: [],
     digits: [],
     actions: [],
-    options: []
+    options: [],
+    greeting: [],
+    announcement: []
   },
   reducers: {
     saveUserProfile: (state, { payload }) => {
@@ -19,6 +21,19 @@ const slice = createSlice({
         ...state,
         latestMenu: payload,
         menu: [...state.menu, payload]
+      }
+    },
+    saveAnnouncementGreeting: (state, { payload }) => {
+      return {
+        ...state,
+        greeting: [
+          ...state.greeting,
+          { menu: state.latestMenu, greeting: payload.greeting }
+        ],
+        announcement: [
+          ...state.announcement,
+          { menu: state.latestMenu, announcement: payload.announcement }
+        ]
       }
     },
     saveDigits: (state, { payload }) => {
@@ -48,7 +63,8 @@ const slice = createSlice({
           {
             option: payload.option,
             menu: state.latestMenu,
-            digit: payload.digit
+            digit: payload.digit,
+            key: payload.key
           }
         ]
       }
@@ -70,6 +86,13 @@ export const saveUserProfile = data => {
 export const saveMenu = data => {
   return async dispatch => {
     dispatch(actions.saveMenu(data))
+    return data
+  }
+}
+
+export const saveAnnouncementGreeting = data => {
+  return async dispatch => {
+    dispatch(actions.saveAnnouncementGreeting(data))
     return data
   }
 }
