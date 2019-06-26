@@ -1,17 +1,5 @@
 import angular from 'angular'
 import template from './index.html'
-import gql from 'graphql-tag'
-
-const query = gql`
-  query getGroup($serviceProviderId: String!) {
-    groups(serviceProviderId: $serviceProviderId) {
-      _id
-      groupId
-      groupName
-      userLimit
-    }
-  }
-`
 
 angular.module('odin.serviceProvider').component('serviceProviderGroups', {
   template,
@@ -36,8 +24,7 @@ function controller(
   $scope,
   $q,
   ServiceProviderPolicyService,
-  Module,
-  apollo
+  Module
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -65,13 +52,9 @@ function controller(
   }
 
   function loadGroups() {
-    return apollo
-      .query({
-        query,
-        variables: { serviceProviderId: ctrl.serviceProviderId },
-        fetchPolicy: 'network-only'
-      })
-      .then(data => (ctrl.groups = data.data.groups))
+    return GroupService.index(ctrl.serviceProviderId).then(
+      data => (ctrl.groups = data)
+    )
   }
 
   function clone() {

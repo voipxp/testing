@@ -1,9 +1,16 @@
 import angular from 'angular'
+import gql from 'graphql-tag'
 
 angular.module('odin.api').factory('GroupService', GroupService)
 
-GroupService.$inject = ['$http', 'Route', 'CacheFactory', '$rootScope']
-function GroupService($http, Route, CacheFactory, $rootScope) {
+GroupService.$inject = [
+  '$http',
+  'Route',
+  'CacheFactory',
+  '$rootScope',
+  'apollo'
+]
+function GroupService($http, Route, CacheFactory, $rootScope, apollo) {
   var service = { index, store, show, update, destroy }
   var cache = CacheFactory('GroupService')
   var url = Route.api('/groups')
@@ -17,10 +24,29 @@ function GroupService($http, Route, CacheFactory, $rootScope) {
   }
 
   function index(serviceProviderId) {
-    return $http
-      .get(url(), { cache, params: { serviceProviderId } })
-      .then(response => response.data)
+    return apollo
+      .query({
+        query: gql`
+          query getGroup($serviceProviderId: String!) {
+            groups(serviceProviderId: $serviceProviderId) {
+              _id
+              groupId
+              groupName
+              userLimit
+            }
+          }
+        `,
+        variables: { serviceProviderId },
+        fetchPolicy: 'network-only'
+      })
+      .then(data => data.data.groups)
   }
+
+  // function index(serviceProviderId) {
+  //   return $http
+  //     .get(url(), { cache, params: { serviceProviderId } })
+  //     .then(response => response.data)
+  // }
 
   function store(serviceProviderId, group) {
     return $http.post(url(), group).then(response => {
