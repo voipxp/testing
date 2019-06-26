@@ -3,6 +3,7 @@ import { setInjector } from './injector'
 // DEPS
 import angular from 'angular'
 import ngRedux from 'ng-redux'
+import AngularApollo from 'angular1-apollo'
 import 'angular-animate'
 import 'angular-cache'
 import 'angular-chart.js'
@@ -48,6 +49,7 @@ angular
     'truncate',
     'chart.js',
     ngRedux,
+    AngularApollo,
     'odin.api',
     'odin.common',
     'odin.app',
@@ -70,6 +72,7 @@ angular
   .config(config.jwtInterceptorConfig)
   .config(config.cacheFactoryConfig)
   .config(config.ngRedux)
+  .config(config.apollo)
   .run(config.rootScope)
   .run(config.reduxDevTools)
   .run(['$injector', i => setInjector(i)])

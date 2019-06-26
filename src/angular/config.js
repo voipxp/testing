@@ -1,5 +1,6 @@
 import angular from 'angular'
 import { store } from '@/store'
+import { client } from '@/apollo'
 
 locationConfig.$inject = ['$locationProvider']
 export function locationConfig($locationProvider) {
@@ -100,4 +101,9 @@ export function ngRedux($ngReduxProvider) {
 reduxDevTools.$inject = ['$ngRedux', '$timeout', '$rootScope']
 export function reduxDevTools($ngRedux, $timeout, $rootScope) {
   $ngRedux.subscribe(() => $timeout(() => $rootScope.$apply(() => {}), 100))
+}
+
+apollo.$inject = ['apolloProvider']
+export function apollo(apolloProvider) {
+  apolloProvider.defaultClient(client)
 }
