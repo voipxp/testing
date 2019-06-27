@@ -93,20 +93,6 @@ There are several helpers from the [redux-starter-kit](https://redux-starter-kit
 
 For connecting the store to a component, we are using [react-redux](https://react-redux.js.org/next/api/hooks).
 
-Below is an example of how one could use the **useAlerts** hook that is located in **src/store/alerts**.
-
-```
-const Example = () => {
-  const { alerts, alertRemove } = useAlerts()
-  return (
-    <h1>Alerts</h1>
-    <ul>
-    {alerts.map(alert => (
-      <li>{alert.name} <button onClick={() => alertRemove(alert)}></li>
-    ))}
-    </ul>
-  )
-}
 ```
 
 ### Documentation
@@ -116,13 +102,17 @@ Re-usable components should be documented using [docz](https://www.docz.site/). 
 You may run docz in dev mode and it will hot-reload the documentation as you edit the components. This is a nice way to develop a UI component in isolation before you plug it into the app.
 
 ```
+
 yarn docz:dev
+
 ```
 
 You can also build a static version of the documentation. By default the files will be found in **.docz/dist**
 
 ```
+
 yarn docz:build
+
 ```
 
 ## Angular
@@ -147,17 +137,21 @@ All components and services should be named with the left-most part being the mo
 eg:
 
 ```
+
 # BAD
+
 components/auto-attendant
 components/create-hunt-group
 components/details-auto-attendant
 components/hunt-group
 
 # GOOD
+
 components/group-auto-attendant
 components/group-auto-attendant-details
 components/group-hunt-group
 components/group-hunt-group-create
+
 ```
 
 ### Module Layout
@@ -167,6 +161,7 @@ A module should be in its own directory with a subdirectory for the components, 
 Note: Components and Services file names should be the same as they are registered with angular, but converted to **kebab-case**. See the examples below, where the component **pbsCancel** resides in the subdirectory **pbs-cancel**.
 
 ```
+
 .
 ├── components
 │   ├── index.js
@@ -197,17 +192,18 @@ Note: Components and Services file names should be the same as they are register
 │   │   ├── index.html
 │   │   └── index.js
 │   └── pbs-spinner-modal
-│       ├── index.html
-│       └── index.js
+│   ├── index.html
+│   └── index.js
 ├── index.js
 ├── module.js
 └── services
-    ├── alert.js
-    ├── confirm.js
-    ├── index.js
-    ├── modal.js
-    ├── notification.js
-    └── spinner.js
+├── alert.js
+├── confirm.js
+├── index.js
+├── modal.js
+├── notification.js
+└── spinner.js
+
 ```
 
 ### index.js
@@ -217,9 +213,11 @@ To create a module make a subdirectory with an index.js file that imports the mo
 The module import **MUST** be first.
 
 ```
+
 import './module'
 import './services'
 import './components'
+
 ```
 
 ### module.js
@@ -227,13 +225,15 @@ import './components'
 This file is in charge of initializing and registering the angular module with any dependencies, configurations, routes, run blocks, etc... Any css that needs to be imported for the module can be directly imported here.
 
 ```
+
 import angular from 'angular'
 import routes from './routes'
 import 'some-angular-module-from-node-modules'
 import './index.css'
 
 angular
-  .module('odin.module', ['angular.some-module'])
+.module('odin.module', ['angular.some-module'])
+
 ```
 
 ### routes.js
@@ -241,14 +241,16 @@ angular
 If the module contains routes, those should be a default export which is just an array of routes. They may include an acl and module parameter that indicates what loginType and Module.read permissions are required for the route.
 
 ```
+
 export default [
-  {
-    path: '/groups/:serviceProviderId/:groupId',
-    component: 'groupDashboard',
-    acl: 'Group',
-    module: 'SomeModule'
-  }
+{
+path: '/groups/:serviceProviderId/:groupId',
+component: 'groupDashboard',
+acl: 'Group',
+module: 'SomeModule'
+}
 ]
+
 ```
 
 ### component/index.js
@@ -256,8 +258,10 @@ export default [
 This file requires all the components that will be used in the module.
 
 ```
+
 import './this-component'
 import './that-component'
+
 ```
 
 ### services/index.js
@@ -265,8 +269,10 @@ import './that-component'
 This file requires all the services that will be used in the module.
 
 ```
+
 import './this-service'
 import './that-service'
+
 ```
 
 ### Component Structure
@@ -278,6 +284,7 @@ The directory the component resides in should be the same name that the componen
 Be sure to inject the DI dependencies using **\$inject**
 
 ```
+
 import angular from 'angular'
 import template from './index.html'
 import './index.css'
@@ -290,10 +297,11 @@ function controller(SomeDI) {
   const ctrl = this
   ctrl.$onInit = onInit
 
-  function onInit() {
-    console.log(SomeDI.hello)
-  }
+function onInit() {
+console.log(SomeDI.hello)
 }
+}
+
 ```
 
 ### Service Structure
@@ -303,18 +311,20 @@ Services register themselves with angular. The file name should be the same name
 Be sure to inject the DI dependencies using \$inject.
 
 ```
+
 import angular from 'angular'
-import _ from 'lodash'
+import \_ from 'lodash'
 
 angular.module('odin.module').factory('MyService', MyService)
 
-MyService.$inject = ['SomeDI']
+MyService.\$inject = ['SomeDI']
 function MyService(SomeDI) {
-  return {
-    hello: SomeDI.hello,
-    goodbye: _.get(SomeDI, 'goodbye', 'Adios')
-  }
+return {
+hello: SomeDI.hello,
+goodbye: \_.get(SomeDI, 'goodbye', 'Adios')
 }
+}
+
 ```
 
 ### Tips
@@ -324,30 +334,40 @@ You can use the command-line to generate an index.js file to import all the serv
 For example, to include all the service files in a directory.
 
 ```
+
 for i in $(find . -type f | grep -v index.js | sort | awk -F '.js' '{print $1}'); do
-  echo "import '$i'" >> index.js
+echo "import '\$i'" >> index.js
 done
+
 ```
 
 That will create an index.js file with something like...
 
 ```
+
 import './a-service.js'
 import './b-service.js'
 import './c-service.js'
+
 ```
 
 To include all the component directories that are expected to contain an index.js file within.
 
 ```
+
 for i in $(find . -type d | sort | grep -v '^.$'); do
-  echo "import '$i'" >> index.js
+echo "import '\$i'" >> index.js
 done
+
 ```
 
 That will create an index.js file with something like ...
 
 ```
+
 import './a-component'
 import './b-component'
+
+```
+
 ```
