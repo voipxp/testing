@@ -2,7 +2,6 @@ import { createAction, createReducer } from 'redux-starter-kit'
 import { useSelector } from 'react-redux'
 import { useAction } from './hooks'
 import api from '@/api/user-speed-dial-8'
-import { userActions } from '@/store/user'
 
 const initialState = {}
 const load = createAction('USER_SPEED_DIAL_8_LOAD')
@@ -35,7 +34,6 @@ export const loadUserSpeedDial8Bulk = (serviceProviderId, groupId) => {
   return async dispatch => {
     const data = await api.index(serviceProviderId, groupId)
     dispatch(bulk(data))
-    dispatch(userActions.bulk(data))
     return data
   }
 }
@@ -52,7 +50,6 @@ export const updateUserSpeedDial8Bulk = bulkData => {
   return async dispatch => {
     const data = await api.bulk(bulkData)
     dispatch(bulk(data))
-    dispatch(userActions.bulk(data))
     return data
   }
 }

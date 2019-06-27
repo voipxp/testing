@@ -74,13 +74,6 @@ function controller(
       .finally(function() {
         ctrl.loading = false
       })
-    // loadUsers()
-    //   .catch(function(error) {
-    //     Alert.notify.danger(error)
-    //   })
-    //   .finally(function() {
-    //     ctrl.loading = false
-    //   })
   }
 
   function loadUsers(extended) {
@@ -89,7 +82,11 @@ function controller(
       ctrl.groupId,
       extended
     ).then(function(data) {
-      ctrl.users = data
+      ctrl.users = data.map(user => {
+        const clid = _.get(user, 'user.callingLineIdPhoneNumber')
+        user.callingLineIdPhoneNumber = clid
+        return user
+      })
     })
   }
 
@@ -120,7 +117,7 @@ function controller(
 
   function edit() {
     Alert.spinner.open()
-    loadUsers(true)
+    loadUsers(['callingLineIdPhoneNumber'])
       .then(function() {
         var column = _.find(ctrl.columns, { key: 'callingLineIdPhoneNumber' })
         column.hidden = false
@@ -142,7 +139,7 @@ function controller(
     Alert.spinner.open()
     UserService.bulk({ users: users, data: data })
       .then(function() {
-        return loadUsers(true)
+        return loadUsers(['callingLineIdPhoneNumber'])
       })
       .then(function() {
         Alert.notify.success('Users Updated')
