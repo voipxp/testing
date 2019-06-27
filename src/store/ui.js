@@ -15,7 +15,6 @@ export const uiReducer = createReducer(initialState, {
 
 export const useUi = () => {
   return {
-    initialized: useSelector(state => state.ui.initialized),
-    loading: useSelector(state => state.ui.loading)
+    initialized: useSelector(state => state.ui.initialized)
   }
 }
