@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { Notification, Delete } from 'rbx'
-import { useAlerts } from '@/store/alerts'
+import { AlertEmitter } from '@/utils/alerts'
 
 const StyledAlerts = styled.div`
   text-align: center;
@@ -33,8 +33,33 @@ const StyledAlert = styled.div`
   }
 `
 
+const removeAlert = payload => ({ type: 'ALERT_REMOVE', payload })
+const addAlert = payload => ({ type: 'ALERT_ADD', payload })
+
+const reducer = (alerts = [], { type, payload }) => {
+  switch (type) {
+    case 'ALERT_ADD':
+      return alerts.concat(payload)
+    case 'ALERT_REMOVE':
+      return alerts.filter(alert => alert.id !== (payload.id || payload))
+    default:
+      return alerts
+  }
+}
+
 export const AppAlerts = () => {
-  const { alerts, removeAlert } = useAlerts()
+  const [alerts, dispatch] = React.useReducer(reducer, [])
+
+  React.useEffect(() => {
+    AlertEmitter.on('ALERT_ADD', alert => {
+      dispatch(addAlert(alert))
+      if (alert.timeout > 0) {
+        setTimeout(() => dispatch(removeAlert(alert)), alert.timeout)
+      }
+    })
+    AlertEmitter.on('ALERT_REMOVE', alert => dispatch(removeAlert(alert)))
+    return () => AlertEmitter.removeAllListeners()
+  }, [])
 
   return (
     <TransitionGroup component={StyledAlerts}>
@@ -43,7 +68,7 @@ export const AppAlerts = () => {
           <Notification
             as={StyledAlert}
             color={alert.type}
-            onClick={() => removeAlert(alert)}
+            onClick={() => dispatch(removeAlert(alert))}
           >
             <Delete as="button" />
             {alert.message}

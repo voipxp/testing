@@ -4,7 +4,7 @@ import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { useAlerts } from '@/store/alerts'
+import { alertDanger } from '@/utils/alerts'
 import groupApi from '@/api/groups'
 
 const searchTypes = [
@@ -19,7 +19,6 @@ const columns = [
 ]
 
 export const GroupSearch = ({ onSelect }) => {
-  const { alertDanger } = useAlerts()
   const [searchKey, setSearchKey] = React.useState('groupName')
   const [searchString, setSearchString] = React.useState('')
   const [groups, setGroups] = React.useState([])

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useUi } from '@/store/ui'
 import { Field, Input, Column, Control } from 'rbx'
-import { useAlerts } from '@/store/alerts'
+import { alertSuccess, alertDanger } from '@/utils/alerts'
+import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
 import { useUserSpeedDial8 } from '@/store/user-speed-dial-8'
 import {
   UiCard,
@@ -14,8 +14,6 @@ import {
 
 export const UserSpeedDial8 = ({ match }) => {
   const { userId } = match.params
-  const { alertSuccess, alertDanger } = useAlerts()
-  const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -35,7 +33,7 @@ export const UserSpeedDial8 = ({ match }) => {
   */
   useEffect(() => {
     loadUserSpeedDial8(userId).catch(alertDanger)
-  }, [alertDanger, loadUserSpeedDial8, userId])
+  }, [loadUserSpeedDial8, userId])
 
   /*
     Make a copy of the row for the form

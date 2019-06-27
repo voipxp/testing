@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useUserRegistration } from '@/store/user-registration'
-import { useAlerts } from '@/store/alerts'
+import { alertDanger } from '@/utils/alerts'
 import {
   UiCard,
   UiLoadingCard,
@@ -14,7 +14,6 @@ import {
 export const UserRegistration = ({ match }) => {
   const { userId } = match.params
   const { userRegistration, loadUserRegistration } = useUserRegistration(userId)
-  const { alertDanger } = useAlerts()
   const [showModal, setShowModal] = useState(false)
   const [form, setForm] = useState({})
 
@@ -28,7 +27,7 @@ export const UserRegistration = ({ match }) => {
 
   useEffect(() => {
     loadUserRegistration(userId).catch(alertDanger)
-  }, [alertDanger, loadUserRegistration, userId])
+  }, [loadUserRegistration, userId])
 
   function show(row) {
     setForm({ ...row })

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useUi } from '@/store/ui'
 import { Input, Select, Column } from 'rbx'
-import { useAlerts } from '@/store/alerts'
+import { alertSuccess, alertDanger } from '@/utils/alerts'
+import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
 import { useUserIntercept } from '@/store/user-intercept'
 import {
   UiCard,
@@ -18,8 +18,6 @@ import {
 
 export const UserIntercept = ({ match }) => {
   const { userId } = match.params
-  const { alertSuccess, alertDanger } = useAlerts()
-  const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const {
@@ -49,9 +47,10 @@ export const UserIntercept = ({ match }) => {
     const name = target.name
     setForm({ ...form, [name]: value })
   }
+
   useEffect(() => {
     loadUserIntercept(userId).catch(alertDanger)
-  }, [alertDanger, loadUserIntercept, userId])
+  }, [loadUserIntercept, userId])
 
   function edit() {
     setForm({ ...userUserIntercept })

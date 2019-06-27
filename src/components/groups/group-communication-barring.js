@@ -4,10 +4,8 @@ import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
 import apiCommProfile from '@/api/group-communication-barring-profiles'
 import apiComm from '@/api/group-communication-barring'
-import { useUi, hideLoadingModal } from '@/store/ui'
-import { Field, Input, Column, Control, Select } from 'rbx'
-import { useAlerts, alertDanger } from '@/store/alerts'
-import { useUserSpeedDial8Bulk } from '@/store/user-speed-dial-8'
+import { Select } from 'rbx'
+import { alertSuccess, alertDanger } from '@/utils/alerts'
 import {
   UiCard,
   UiLoadingCard,
@@ -19,11 +17,9 @@ import {
   UiCardModal,
   UiFormField
 } from '@/components/ui'
-import { async } from 'q'
 
 export const GroupCommunicationBarring = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
-  const { alertSuccess, alertDanger } = useAlerts()
   const [loading, setLoading] = useState(true)
   const [communicationProfiles, setCommunicationProfiles] = useState([])
   const [communicationBarring, setCommunicationBarring] = useState({})
@@ -45,7 +41,7 @@ export const GroupCommunicationBarring = ({ match }) => {
       }
     }
     fetchData()
-  }, [serviceProviderId, groupId, alertDanger])
+  }, [serviceProviderId, groupId])
 
   function handleInput(event) {
     const target = event.target
@@ -75,7 +71,6 @@ export const GroupCommunicationBarring = ({ match }) => {
       setShowModal(true)
     } finally {
       setLoading(false)
-      hideLoadingModal()
     }
   }
   return (

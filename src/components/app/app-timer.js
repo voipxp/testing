@@ -1,6 +1,6 @@
 import React from 'react'
 import createActivityDetector from 'activity-detector'
-import { useAlerts } from '@/store/alerts'
+import { alertWarning, removeAlert } from '@/utils/alerts'
 import { useSession } from '@/store/session'
 import { useUi } from '@/store/ui'
 import { useUiSettings } from '@/store/ui-settings'
@@ -12,7 +12,6 @@ export const AppTimer = () => {
   const timerRef = React.useRef()
   const detectorRef = React.useRef()
   const { clearSession } = useSession()
-  const { alertWarning, removeAlert } = useAlerts()
   const { initialized } = useUi()
   const { settings } = useUiSettings()
   const { sessionTimeout } = settings
@@ -20,13 +19,13 @@ export const AppTimer = () => {
   const clearSessionLogout = React.useCallback(async () => {
     if (timerRef.current) clearTimeout(timerRef.current)
     if (alertRef.current) await removeAlert(alertRef.current)
-  }, [removeAlert])
+  }, [])
 
   const startSessionLogout = React.useCallback(async () => {
     await clearSessionLogout()
     alertRef.current = await alertWarning('Your session is about to expire', 0)
     timerRef.current = setTimeout(() => clearSession(), TIMEOUT)
-  }, [alertWarning, clearSession, clearSessionLogout])
+  }, [clearSession, clearSessionLogout])
 
   const stopDetector = React.useCallback(() => {
     if (detectorRef.current) detectorRef.current.stop()

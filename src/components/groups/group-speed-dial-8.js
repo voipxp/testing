@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
-import { useUi } from '@/store/ui'
 import { Field, Input, Column, Control } from 'rbx'
-import { useAlerts } from '@/store/alerts'
+import { alertSuccess, alertDanger } from '@/utils/alerts'
+import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
 import { useUserSpeedDial8Bulk } from '@/store/user-speed-dial-8'
 import {
   UiCard,
@@ -16,8 +16,6 @@ import {
 
 export const GroupSpeedDial8 = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
-  const { alertSuccess, alertDanger } = useAlerts()
-  const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [users, setUsers] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -50,7 +48,7 @@ export const GroupSpeedDial8 = ({ match }) => {
       .then(() => isOpen && setHasRun(true))
       .catch(alertDanger)
     return () => (isOpen = false)
-  }, [alertDanger, groupId, loadUserSpeedDial8Bulk, serviceProviderId])
+  }, [groupId, loadUserSpeedDial8Bulk, serviceProviderId])
 
   function edit(row) {
     setForm({

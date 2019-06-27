@@ -1,16 +1,12 @@
 import angular from 'angular'
-import { showLoadingModal, hideLoadingModal } from '@/store/ui'
+import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
 
 angular.module('odin.ui').factory('Spinner', Spinner)
 
-Spinner.$inject = ['$ngRedux']
-function Spinner($ngRedux) {
-  return { open, close }
-  function open() {
-    $ngRedux.dispatch(showLoadingModal())
-  }
-  function close() {
-    $ngRedux.dispatch(hideLoadingModal())
+function Spinner() {
+  return {
+    open: () => showLoadingModal(),
+    close: () => hideLoadingModal()
   }
 }
 

@@ -1,8 +1,12 @@
 import React from 'react'
-import { useUi } from '@/store/ui'
 import { UiLoadingModal } from '@/components/ui'
+import { LoadingEmitter } from '@/utils/loading'
 
 export const AppLoadingModal = () => {
-  const { loading } = useUi()
+  const [loading, setLoading] = React.useState(false)
+  React.useEffect(() => {
+    LoadingEmitter.on('SHOW_LOADING_MODAL', () => setLoading(true))
+    LoadingEmitter.on('HIDE_LOADING_MODAL', () => setLoading(false))
+  }, [])
   return <UiLoadingModal isOpen={loading} />
 }

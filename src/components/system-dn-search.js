@@ -6,7 +6,7 @@ import { useSession } from '@/store/session'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable, UiCardModal } from '@/components/ui'
-import { useAlerts } from '@/store/alerts'
+import { alertDanger } from '@/utils/alerts'
 import { useAcl, userPath } from '@/utils'
 import { ServiceProviderSelect } from '@/components/service-provider-select'
 import phoneNumberApi from '@/api/phone-numbers/system'
@@ -24,7 +24,6 @@ const columns = [
 
 export const SystemDnSearch = ({ onSelect }) => {
   const acl = useAcl()
-  const { alertDanger } = useAlerts()
   const { session } = useSession()
   const [searchString, setSearchString] = React.useState('')
   const [serviceProviderId, setServiceProviderId] = React.useState('')

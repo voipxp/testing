@@ -6,7 +6,7 @@ import { UiCardModal } from '@/components/ui'
 import { useAcl, userPath, groupPath } from '@/utils'
 import { useUiApplications } from '@/store/ui-applications'
 import { parseUrl, stringify } from 'query-string'
-import { useAlerts } from '@/store/alerts'
+import { alertDanger } from '@/utils/alerts'
 import { useSession } from '@/store/session'
 import { useUiTemplate } from '@/store/ui-template'
 import { UserSearch } from '@/components/user-search'
@@ -16,7 +16,6 @@ import { UserServiceSearch } from '@/components/user-service-search'
 import authApi from '@/api/auth'
 
 export const AppNavbar = withRouter(({ history }) => {
-  const { alertDanger } = useAlerts()
   const { session, clearSession } = useSession()
   const { userId } = session
 

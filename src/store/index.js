@@ -1,5 +1,4 @@
 import { configureStore } from 'redux-starter-kit'
-import { alertsReducer } from './alerts'
 import { userRegistrationReducer } from './user-registration'
 import { userServicesReducer } from './user-services'
 import { userSpeedDial8Reducer } from './user-speed-dial-8'
@@ -17,7 +16,6 @@ import { loadTemplate, uiTemplateReducer } from './ui-template'
 
 export const store = configureStore({
   reducer: {
-    alerts: alertsReducer,
     serviceProviders: serviceProvidersReducer,
     session: sessionReducer,
     user: userReducer,

@@ -8,21 +8,19 @@ import {
   alertSuccess,
   alertWarning,
   alertDanger
-} from '@/store/alerts'
+} from '@/utils/alerts'
 
 angular.module('odin.ui').factory('Notification', Notification)
 
-Notification.$inject = ['$ngRedux']
-
-function Notification($ngRedux) {
+function Notification() {
   return {
-    primary: msg => $ngRedux.dispatch(alertPrimary(msg)),
-    link: msg => $ngRedux.dispatch(alertLink(msg)),
-    info: msg => $ngRedux.dispatch(alertInfo(msg)),
-    success: msg => $ngRedux.dispatch(alertSuccess(msg)),
-    warning: msg => $ngRedux.dispatch(alertWarning(msg)),
-    danger: msg => $ngRedux.dispatch(alertDanger(msg)),
-    remove: alert => $ngRedux.dispatch(removeAlert(alert))
+    primary: msg => alertPrimary(msg),
+    link: msg => alertLink(msg),
+    info: msg => alertInfo(msg),
+    success: msg => alertSuccess(msg),
+    warning: msg => alertWarning(msg),
+    danger: msg => alertDanger(msg),
+    remove: alert => removeAlert(alert)
   }
 }
 

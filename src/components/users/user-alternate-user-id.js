@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import apiUserService from '@/api/user-alternate-user-id'
-import { useUi } from '@/store/ui'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
-import { useAlerts } from '@/store/alerts'
+import { alertSuccess, alertWarning, alertDanger } from '@/utils/alerts'
+import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
 import {
   UiCard,
   UiLoadingCard,
@@ -14,8 +14,6 @@ import {
 
 export const UserAlternateUserId = ({ match }) => {
   const { userId } = match.params
-  const { alertSuccess, alertWarning, alertDanger } = useAlerts()
-  const { showLoadingModal, hideLoadingModal } = useUi()
   const [alternateUserIds, setAlternateUserIds] = useState([])
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({})
@@ -43,7 +41,7 @@ export const UserAlternateUserId = ({ match }) => {
       }
     }
     fetchData()
-  }, [alertDanger, userId])
+  }, [userId])
 
   /*
     Leave the userId blank so we know this is a new
