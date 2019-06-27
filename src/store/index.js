@@ -7,7 +7,6 @@ import { userAssignedServicesReducer } from './user-assigned-services'
 import { userViewableServicesReducer } from './user-viewable-services'
 import { userReducer } from './user'
 import { sessionReducer, loadSessionFromStorage, clearSession } from './session'
-import { serviceProvidersReducer } from './service-providers'
 import { uiReducer, setInitialized } from './ui'
 import { loadApplications, uiApplicationsReducer } from './ui-applications'
 import { loadModules, uiModulesReducer } from './ui-modules'
@@ -16,7 +15,6 @@ import { loadTemplate, uiTemplateReducer } from './ui-template'
 
 export const store = configureStore({
   reducer: {
-    serviceProviders: serviceProvidersReducer,
     session: sessionReducer,
     user: userReducer,
     userAssignedServices: userAssignedServicesReducer,

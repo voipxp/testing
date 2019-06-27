@@ -24,29 +24,24 @@ function GroupService($http, Route, CacheFactory, $rootScope, apollo) {
   }
 
   function index(serviceProviderId) {
+    const query = gql`
+      query groups($serviceProviderId: String!) {
+        groups(serviceProviderId: $serviceProviderId) {
+          _id
+          groupId
+          groupName
+          userLimit
+        }
+      }
+    `
     return apollo
       .query({
-        query: gql`
-          query groups($serviceProviderId: String!) {
-            groups(serviceProviderId: $serviceProviderId) {
-              _id
-              groupId
-              groupName
-              userLimit
-            }
-          }
-        `,
+        query,
         variables: { serviceProviderId },
         fetchPolicy: 'network-only'
       })
       .then(res => res.data.groups)
   }
-
-  // function index(serviceProviderId) {
-  //   return $http
-  //     .get(url(), { cache, params: { serviceProviderId } })
-  //     .then(response => response.data)
-  // }
 
   function store(serviceProviderId, group) {
     return $http.post(url(), group).then(response => {
@@ -56,9 +51,45 @@ function GroupService($http, Route, CacheFactory, $rootScope, apollo) {
   }
 
   function show(serviceProviderId, groupId) {
-    return $http
-      .get(url(), { cache, params: { serviceProviderId, groupId } })
-      .then(response => response.data)
+    const query = gql`
+      query group($serviceProviderId: String!, $groupId: String!) {
+        group(serviceProviderId: $serviceProviderId, groupId: $groupId) {
+          _id
+          groupId
+          groupName
+          userLimit
+          serviceProviderId
+          defaultDomain
+          callingLineIdName
+          callingLineIdPhoneNumber
+          callingLineIdDisplayPhoneNumber
+          timeZone
+          timeZoneDisplayName
+          locationDialingCode
+          contact {
+            contactName
+            contactNumber
+            contactEmail
+          }
+          address {
+            addressLine1
+            addressLine2
+            city
+            stateOrProvince
+            stateOrProvinceDisplayName
+            zipOrPostalCode
+            country
+          }
+        }
+      }
+    `
+    return apollo
+      .query({
+        query,
+        variables: { serviceProviderId, groupId },
+        fetchPolicy: 'network-only'
+      })
+      .then(res => res.data.group)
   }
 
   function update(serviceProviderId, group) {

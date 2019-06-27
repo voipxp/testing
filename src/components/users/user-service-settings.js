@@ -8,7 +8,6 @@ import { useUserAssignedServices } from '@/store/user-assigned-services'
 import { AngularComponent } from '@/components/angular-component'
 import { userServiceRoutes } from './user-service-routes'
 
-/* eslint-disable react/display-name */
 const columns = [
   {
     key: 'alias',
@@ -21,6 +20,7 @@ const columns = [
   {
     key: 'isActive',
     label: 'Active',
+    // eslint-disable-next-line react/display-name
     render: row => <UiCheckbox isChecked={row.isActive} />
   }
 ]

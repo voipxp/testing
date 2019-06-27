@@ -38,7 +38,6 @@ function UserCallRecordingService($http, Route) {
     return $http
       .get(url(), { params: { userId: userId } })
       .then(function(response) {
-        console.log(response.data)
         return response.data
       })
   }
