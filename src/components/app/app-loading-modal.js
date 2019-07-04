@@ -7,6 +7,7 @@ export const AppLoadingModal = () => {
   React.useEffect(() => {
     LoadingEmitter.on('SHOW_LOADING_MODAL', () => setLoading(true))
     LoadingEmitter.on('HIDE_LOADING_MODAL', () => setLoading(false))
+    return () => LoadingEmitter.removeAllListeners()
   }, [])
   return <UiLoadingModal isOpen={loading} />
 }
