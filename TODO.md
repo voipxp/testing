@@ -1,17 +1,3 @@
-Apollo
-
-- Move branding to a microservice
-- Create a function to loadSessionFromStorage
-- Initialize Query
-  - modules
-  - applications
-  - template
-  - settings
-- Create a session context - or local in <App/>
-- Can we remove this from app-timer (initialized)
-- Update login to use Graphql
-  - Add a session query
-
 TODO
 
 - create a bulk user copy UI
