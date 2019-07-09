@@ -1,6 +1,6 @@
 {
   "name": "odin-web",
-  "version": "1.0.0",
+  "version": "4.6.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
