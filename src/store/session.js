@@ -47,7 +47,7 @@ export const useSession = () => {
     session: useSelector(state => state.session),
     clearSession: useAction(clearSession),
     setSession: useAction(setSession),
-    loadSessionFromToken: useAction(loadSessionFromStorage),
+    loadSessionFromToken: useAction(loadSessionFromToken),
     loadSessionFromStorage: useAction(loadSessionFromStorage)
   }
 }
