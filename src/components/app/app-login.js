@@ -20,10 +20,10 @@ export const AppLogin = () => {
     const search = parse(query)
     const token = search.token
     if (!token) return
+    showLoadingModal()
     delete search.token
     const newSearch = stringify(search)
     window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
-    showLoadingModal()
     loadSessionFromToken(token)
       .catch(error => alertDanger(error))
       .finally(() => hideLoadingModal())
