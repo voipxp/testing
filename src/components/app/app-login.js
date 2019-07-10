@@ -53,7 +53,8 @@ export const AppLogin = () => {
 
   function handleInput(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
-    setValid(formRef.current.checkValidity())
+    /* wrapped in a setTimeout to handle autofill */
+    setTimeout(() => setValid(formRef.current.checkValidity()), 0)
   }
 
   async function login() {
