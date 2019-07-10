@@ -26,7 +26,6 @@ export const App = () => {
   return (
     <>
       <AppAlerts />
-      <AppLoadingModal />
       {session.userId ? (
         <>
           <Wrapper>
@@ -40,6 +39,7 @@ export const App = () => {
       ) : (
         <AppLogin />
       )}
+      <AppLoadingModal />
       <AngularComponent component="pbsConfirmModal" />
     </>
   )
