@@ -14,7 +14,7 @@ function parse(message) {
   if (!message) return 'Unknown Error'
   if (message.data) return parse(message.data)
   const error = message.error || message.message || message
-  return error.toString()
+  return error.toString().replace('GraphQL error: ', '')
 }
 
 function alert(type, msg, timeout = 3000) {
