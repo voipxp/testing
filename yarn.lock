@@ -2822,6 +2822,11 @@ bulma-divider@^0.2.0:
   resolved "https://registry.yarnpkg.com/bulma-divider/-/bulma-divider-0.2.0.tgz#a9b4d9fe8b270c7cb7573023c575062bc62616f3"
   integrity sha512-REe3k56GECRfDaqFjC8cwLhV4RxXmV0RubuzDJqwior9wlJcdHlN0qfW0tvUX+qphikaTQegIeRuhjRIAqkjkw==
 
+bulma-extensions@6.2.4:
+  version "6.2.4"
+  resolved "https://registry.yarnpkg.com/bulma-extensions/-/bulma-extensions-6.2.4.tgz#28f5589055b1c6bf894994f8e8260426e9ac1f0b"
+  integrity sha512-AaG3/OfGgdx03fQDabLadagATVpBvXXhFjiv7lnOd9DzTHRPC3fjlNL3qnVQ8IFS9t428FvS3lAmBmtfQh7ylA==
+
 bulma-pageloader@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/bulma-pageloader/-/bulma-pageloader-2.1.0.tgz#2c48c32bac98109bb59e46489b4e90292ec25e31"
