@@ -89,8 +89,17 @@ function controller(
         var services = filterServices(data[ctrl.serviceType])
         services.forEach(function(service) {
           service.allowedView = ctrl.quantity(service.allowed)
-          service.quantityView = ctrl.quantity(service.quantity)
           service.usageView = ctrl.quantity(service.usage)
+          switch (service.limited) {
+            case 'none':
+              return (service.quantityView = '-')
+            case 'Unlimited':
+              return (service.quantityView = 'Unlimited')
+            case 'Limited':
+              return (service.quantityView = service.quantity)
+            default:
+              console.log('invalid service.limited value')
+          }
         })
         ctrl.services = services
       }

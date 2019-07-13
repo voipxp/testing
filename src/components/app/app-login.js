@@ -20,10 +20,10 @@ export const AppLogin = () => {
     const search = parse(query)
     const token = search.token
     if (!token) return
+    showLoadingModal()
     delete search.token
     const newSearch = stringify(search)
     window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
-    showLoadingModal()
     loadSessionFromToken(token)
       .catch(error => alertDanger(error))
       .finally(() => hideLoadingModal())
@@ -53,7 +53,8 @@ export const AppLogin = () => {
 
   function handleInput(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
-    setValid(formRef.current.checkValidity())
+    /* wrapped in a setTimeout to handle autofill */
+    setTimeout(() => setValid(formRef.current.checkValidity()), 0)
   }
 
   async function login() {
