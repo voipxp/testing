@@ -49,7 +49,7 @@ function BulkImportService(
         return StorageService.set(localStorageKey, users)
       })
       .then(function() {
-        return $location.path('bulk/import')
+        return $location.path('bulk/import').search({})
       })
       .catch(function(error) {
         Alert.notify.danger(error || 'Data Import Error')
@@ -71,6 +71,7 @@ function BulkImportService(
 
   function addIndex(data) {
     return $q(function(resolve) {
+      /* eslint-disable-next-line unicorn/no-for-loop */
       for (var i = 0; i < data.length; i++) {
         data[i]['index'] = i + 1
       }

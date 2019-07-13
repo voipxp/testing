@@ -1,0 +1,87 @@
+<pbs-navigation>
+  <pbs-breadcrumb title="'Service Utilization Report'"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Service Utilization Report">
+    <pbs-block-buttons>
+      <pbs-button-compact-download
+        title="Download"
+        ng-click="$ctrl.download()"
+      ></pbs-button-compact-download>
+    </pbs-block-buttons>
+    <pbs-tabs>
+      <pbs-tab label="Group Services">
+        <pbs-data-table
+          columns="$ctrl.columnsGroupServices"
+          items="$ctrl.items.groupServices"
+          is-compact="true"
+          is-bordered="true"
+          is-striped="true"
+          limit-to="25"
+          hide-search="false"
+          on-click="$ctrl.onClick($event)"
+        ></pbs-data-table>
+      </pbs-tab>
+      <pbs-tab label="Service Packs">
+        <pbs-data-table
+          columns="$ctrl.columnsServicePacks"
+          items="$ctrl.items.servicePackServices"
+          is-compact="true"
+          is-bordered="true"
+          is-striped="true"
+          limit-to="25"
+          hide-search="false"
+          on-click="$ctrl.onClick($event)"
+        ></pbs-data-table>
+      </pbs-tab>
+      <pbs-tab label="User Services">
+        <pbs-data-table
+          columns="$ctrl.columnsUserServices"
+          items="$ctrl.items.userServices"
+          is-compact="true"
+          is-bordered="true"
+          is-striped="true"
+          limit-to="25"
+          hide-search="false"
+          on-click="$ctrl.onClick($event)"
+        ></pbs-data-table>
+      </pbs-tab>
+
+      <pbs-tab label="Group Services Summary">
+        <pbs-data-table
+          columns="$ctrl.columnsGroupServicesSummary"
+          items="$ctrl.groupServicesSummary"
+          is-compact="true"
+          is-bordered="true"
+          is-striped="true"
+          limit-to="25"
+          hide-search="false"
+        ></pbs-data-table>
+      </pbs-tab>
+
+      <pbs-tab label="Service Packs Summary">
+        <pbs-data-table
+          columns="$ctrl.columnsServicePacksSummary"
+          items="$ctrl.servicePackServicesSummary"
+          is-compact="true"
+          is-bordered="true"
+          is-striped="true"
+          limit-to="25"
+          hide-search="false"
+        ></pbs-data-table>
+      </pbs-tab>
+
+      <pbs-tab label="User Services Summary">
+        <pbs-data-table
+          columns="$ctrl.columnsUserServicesSummary"
+          items="$ctrl.userServicesSummary"
+          is-compact="true"
+          is-bordered="true"
+          is-striped="true"
+          limit-to="25"
+          hide-search="false"
+        ></pbs-data-table>
+      </pbs-tab>
+    </pbs-tabs>
+  </pbs-block>
+</pbs-spinner>

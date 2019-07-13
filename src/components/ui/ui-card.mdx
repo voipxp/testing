@@ -4,8 +4,8 @@ route: '/ui-card'
 ---
 
 import { Playground, Props } from 'docz'
+import { UiButton } from './ui-button'
 import { UiCard } from './ui-card'
-import { ExampleButtonCog, ExampleButtonSearch } from './doc-helpers'
 
 # UiCard
 
@@ -18,8 +18,8 @@ Renders a uniform Card with a title, optional buttons, and the content.
     title="Card Title"
     buttons={
       <>
-        <ExampleButtonCog />
-        <ExampleButtonSearch />
+        <UiButton color="info" icon="add" size="small" />
+        <UiButton color="light" icon="cancel" size="small" />
       </>
     }
   >

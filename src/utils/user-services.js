@@ -1,5 +1,5 @@
-import { useReduxState } from 'reactive-react-redux'
-import { useCallback } from 'react'
+import { useSelector } from 'react-redux'
+import { useCallback, useMemo } from 'react'
 
 const isAssigned = (serviceName, assigned = {}) => {
   const userServices = assigned.userServices || []
@@ -12,55 +12,28 @@ const isViewable = (serviceName, viewable = {}, loginType) => {
   return viewableServices.find(service => service.serviceName === serviceName)
 }
 
-const hasUserService = (services, assigned, viewable, loginType) => {
-  if (!services) return false
-  if (Array.isArray(services)) {
-    return services.find(service => {
-      return hasUserService(service, assigned, viewable, loginType)
-    })
-  }
-  const serviceName = services.serviceName || services.name || services
-  switch (serviceName) {
-    case 'Call Center':
-      return [
-        'Call Center - Basic',
-        'Call Center - Standard',
-        'Call Center - Premium'
-      ].find(
-        service =>
-          isAssigned(service, assigned) &&
-          isViewable(service, viewable, loginType)
-      )
-    case 'Shared Call Appearance':
-      return [
-        'Shared Call Appearance',
-        'Shared Call Appearance 5',
-        'Shared Call Appearance 10',
-        'Shared Call Appearance 15',
-        'Shared Call Appearance 20',
-        'Shared Call Appearance 25',
-        'Shared Call Appearance 30',
-        'Shared Call Appearance 35'
-      ].find(
-        service =>
-          isAssigned(service, assigned) &&
-          isViewable(service, viewable, loginType)
-      )
-    default:
-      return (
-        isAssigned(serviceName, assigned) &&
-        isViewable(serviceName, viewable, loginType)
-      )
-  }
+const hasUserService = (service, assigned, viewable, loginType) => {
+  const serviceName = service.serviceName || service.name || service
+  return (
+    isAssigned(serviceName, assigned) &&
+    isViewable(serviceName, viewable, loginType)
+  )
 }
 
 export const useUserServicePermissions = userId => {
-  const {
-    session,
-    userViewableServices,
-    userAssignedServices
-  } = useReduxState()
+  const { session, userViewableServices, userAssignedServices } = useSelector(
+    state => ({
+      session: state.session,
+      userViewableServices: state.userViewableServices,
+      userAssignedServices: state.userAssignedServices
+    })
+  )
   return {
+    userViewableServices: useMemo(() => {
+      return session.loginType !== 'User'
+        ? userAssignedServices[userId]
+        : userViewableServices[userId]
+    }, [session.loginType, userAssignedServices, userId, userViewableServices]),
     hasUserService: useCallback(
       service => {
         return hasUserService(

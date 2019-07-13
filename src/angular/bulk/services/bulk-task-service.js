@@ -54,8 +54,9 @@ function BulkTaskService() {
             zipOrPostalCode: 'string',
             country: 'string'
           },
-          endpointType: 'none|accessDeviceEndpoint|trunkAddressing',
           domain: 'string',
+          endpointType: 'none|accessDeviceEndpoint|trunkAddressing',
+          allowAccessDeviceUpdate: 'false',
           accessDeviceEndpoint: {
             linePort: 'string',
             accessDevice: {

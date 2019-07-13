@@ -76,18 +76,20 @@ export const UiCardModal = ({
           <Delete onClick={() => onCancel()} />
         </Modal.Card.Head>
         <Modal.Card.Body>{children}</Modal.Card.Body>
-        <Modal.Card.Foot>
-          {isFunction(onDelete) && (
-            <Button color="danger" onClick={() => onDelete()}>
-              {deleteText}
-            </Button>
-          )}
-          <Button onClick={onCancel}>{cancelText}</Button>
-          {isFunction(onSave) && (
-            <Button color="success" onClick={() => onSave()}>
-              {saveText}
-            </Button>
-          )}
+        <Modal.Card.Foot style={{ justifyContent: 'flex-end' }}>
+          <Button.Group align="right">
+            {isFunction(onDelete) && (
+              <Button color="danger" onClick={() => onDelete()}>
+                {deleteText}
+              </Button>
+            )}
+            <Button onClick={onCancel}>{cancelText}</Button>
+            {isFunction(onSave) && (
+              <Button color="success" onClick={() => onSave()}>
+                {saveText}
+              </Button>
+            )}
+          </Button.Group>
         </Modal.Card.Foot>
       </Modal.Card>
     </StyledModal>

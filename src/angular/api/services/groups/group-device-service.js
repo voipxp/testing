@@ -36,17 +36,13 @@ function GroupDeviceService($http, Route) {
 
   function rebuild(serviceProviderId, groupId, deviceName) {
     return $http
-      .post(url('rebuild'), {
-        params: { serviceProviderId, groupId, deviceName }
-      })
+      .post(url('rebuild'), { serviceProviderId, groupId, deviceName })
       .then(response => response.data)
   }
 
   function reset(serviceProviderId, groupId, deviceName) {
     return $http
-      .post(url('reset'), {
-        params: { serviceProviderId, groupId, deviceName }
-      })
+      .post(url('reset'), { serviceProviderId, groupId, deviceName })
       .then(response => response.data)
   }
 }

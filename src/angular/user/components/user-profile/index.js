@@ -32,6 +32,7 @@ function controller(
 
   function onInit() {
     ctrl.loading = true
+    ctrl.isAdmin = ACL.has('Group')
     return $q
       .all([
         loadUser(),
@@ -39,7 +40,7 @@ function controller(
         ServiceProviderPolicyService.load()
       ])
       .then(function() {
-        if (ACL.has('Provisioning')) {
+        if (ACL.has('Provisioning') || ACL.is('User')) {
           ctrl.canRead = true
           ctrl.canUpdate = true
         } else if (ACL.is('Group')) {

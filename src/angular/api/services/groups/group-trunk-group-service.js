@@ -108,12 +108,13 @@ function Service($http, Route) {
 
   return service
 
-  function index(serviceProviderId, groupId) {
+  function index(serviceProviderId, groupId, opts) {
     return $http
       .get(url(), {
         params: {
           serviceProviderId: serviceProviderId,
-          groupId: groupId
+          groupId: groupId,
+          ...opts
         }
       })
       .then(function(response) {

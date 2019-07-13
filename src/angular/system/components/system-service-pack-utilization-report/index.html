@@ -1,0 +1,23 @@
+<pbs-navigation>
+  <pbs-breadcrumb title="'Service Pack Utilization Report'"></pbs-breadcrumb>
+</pbs-navigation>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Service Pack Utilization Report">
+    <pbs-block-buttons>
+      <pbs-button-compact-download
+        title="Download"
+        ng-click="$ctrl.download()"
+      ></pbs-button-compact-download>
+    </pbs-block-buttons>
+    <pbs-data-table
+      columns="$ctrl.columns"
+      items="$ctrl.items"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      hide-search="false"
+      on-click="$ctrl.onClick($event)"
+    ></pbs-data-table>
+  </pbs-block>
+</pbs-spinner>

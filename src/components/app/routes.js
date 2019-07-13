@@ -1,4 +1,7 @@
 import { UserDashboard } from '@/components/users'
+import { GroupSpeedDial8 } from '../groups/group-speed-dial-8'
+import { GroupCommunicationBarring } from '../groups/group-communication-barring'
+
 import { CreateAutoAttendant } from '@/components/autoAttendant'
 
 export const routes = [
@@ -701,6 +704,18 @@ export const routes = [
     module: 'User Report'
   },
   {
+    path: '/system/servicePackUtilizationReport',
+    angularComponent: 'systemServicePackUtilizationReport',
+    acl: 'Provisioning',
+    module: 'User Report'
+  },
+  {
+    path: '/system/systemServiceUtilizationReport',
+    angularComponent: 'systemServiceUtilizationReport',
+    acl: 'Provisioning',
+    module: 'User Report'
+  },
+  {
     path: '/serviceProviders',
     angularComponent: 'serviceProviders',
     acl: 'Provisioning'
@@ -738,5 +753,13 @@ export const routes = [
   {
     path: '/users/:serviceProviderId/:groupId/:userId',
     component: UserDashboard
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/speedDial8',
+    component: GroupSpeedDial8
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/groupCommunicationBarring',
+    component: GroupCommunicationBarring
   }
 ]

@@ -1,85 +1,32 @@
-import { createSlice } from 'redux-starter-kit'
-import uiApplicationsApi from '@/api/ui/applications'
-import uiSettingsApi from '@/api/ui/settings'
-import uiTemplateApi from '@/api/ui/template'
-import uiModulesApi from '@/api/ui/modules'
+import { createAction, createReducer } from 'redux-starter-kit'
+import { useSelector } from 'react-redux'
+import { useAction } from './hooks'
 
-/*
-  state.ui = {
-    initialized: false,
-    showLoadingModal: false,
-    applications: [
-      {id, ...}
-    ],
-    modules: {
-      [serviceName]: {}
-    },
-    settings: {},
-    template: {}
-  }
-*/
-const slice = createSlice({
-  slice: 'ui',
-  initialState: {
-    initialized: false,
-    showLoadingModal: false,
-    applications: [],
-    modules: {},
-    settings: {},
-    template: {}
+const initialState = {
+  initialized: false,
+  loading: false
+}
+export const setInitialized = createAction('UI_INITIALIZED')
+export const showLoadingModal = createAction('UI_LOADING_START')
+export const hideLoadingModal = createAction('UI_LOADING_END')
+
+export const uiReducer = createReducer(initialState, {
+  [setInitialized]: (state, { payload }) => {
+    state.initialized = payload
   },
-  reducers: {
-    setInitialized: (state, { payload }) => {
-      state.initialized = payload
-    },
-    showLoadingModal: state => {
-      state.showLoadingModal = true
-    },
-    hideLoadingModal: state => {
-      state.showLoadingModal = false
-    },
-    setApplications: (state, { payload }) => {
-      state.applications = payload || []
-    },
-    setModules: (state, { payload }) => {
-      state.modules = payload || {}
-    },
-    setSettings: (state, { payload }) => {
-      state.settings = payload || {}
-    },
-    setTemplate: (state, { payload }) => {
-      state.template = payload || {}
-    }
+  [showLoadingModal]: state => {
+    state.loading = true
+  },
+  [hideLoadingModal]: state => {
+    state.loading = false
   }
 })
 
-const { actions, reducer } = slice
-
-export default reducer
-
-export const { showLoadingModal, hideLoadingModal, setInitialized } = actions
-
-export const loadApplications = () => async dispatch => {
-  const applications = await uiApplicationsApi.get()
-  dispatch(actions.setApplications(applications))
-}
-
-export const loadSettings = () => async dispatch => {
-  const settings = await uiSettingsApi.get()
-  dispatch(actions.setSettings(settings))
-}
-
-export const loadTemplate = () => async dispatch => {
-  const template = await uiTemplateApi.get()
-  document.title = (template && template.pageTitle) || 'odin Web'
-  dispatch(actions.setTemplate(template))
-}
-
-export const loadModules = () => async dispatch => {
-  const modules = await uiModulesApi.get()
-  const map = modules.reduce((obj, module) => {
-    obj[module.name] = module
-    return obj
-  }, {})
-  dispatch(actions.setModules(map))
+export const useUi = () => {
+  return {
+    initialized: useSelector(state => state.ui.initialized),
+    loading: useSelector(state => state.ui.loading),
+    showLoadingModal: useAction(showLoadingModal),
+    hideLoadingModal: useAction(hideLoadingModal)
+  }
 }

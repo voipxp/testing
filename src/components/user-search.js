@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field, Control, Button, Input, Select, Icon } from 'rbx'
-import { useReduxDispatch } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { alertDanger } from '@/store/alerts'
+import { useAlerts } from '@/store/alerts'
+import { useSession } from '@/store/session'
 import userApi from '@/api/users'
 
 const searchTypes = [
@@ -29,13 +29,14 @@ const columns = [
 ]
 
 export const UserSearch = ({ onSelect }) => {
-  const dispatch = useReduxDispatch()
-
+  const { alertDanger } = useAlerts()
   const [searchKey, setSearchKey] = React.useState('lastName')
   const [searchString, setSearchString] = React.useState('')
   const [users, setUsers] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [initialized, setInitialized] = React.useState(false)
+  const { session } = useSession()
+  const { serviceProviderId, groupId } = session
 
   const handleSearchKey = e => {
     setSearchKey(e.target.value)
@@ -51,10 +52,14 @@ export const UserSearch = ({ onSelect }) => {
     try {
       const query =
         searchKey === 'macAddress' ? searchString : `*${searchString}*`
-      const users = await userApi.search({ [searchKey]: query })
+      const users = await userApi.search({
+        [searchKey]: query,
+        serviceProviderId,
+        groupId
+      })
       setUsers(users)
     } catch (error) {
-      dispatch(alertDanger(error))
+      alertDanger(error)
       setUsers([])
     } finally {
       setLoading(false)

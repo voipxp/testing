@@ -1,37 +1,30 @@
-import { createSlice } from 'redux-starter-kit'
+import { createAction, createReducer } from 'redux-starter-kit'
+import { useSelector } from 'react-redux'
+import { useAction } from './hooks'
 import decode from 'jwt-decode'
 import { setToken } from '@/api'
 import { refresh } from '@/api/auth'
 
 const STORAGE_KEY = 'odin:token'
 
-/*
-  state.session = {
-    userId,
-    ...
-  }
-*/
-const slice = createSlice({
-  slice: 'session',
-  initialState: {},
-  reducers: {
-    setSession: (state, { payload }) => payload || {},
-    clearSession: () => ({})
-  }
+const initialState = {}
+const set = createAction('SESSION_SET')
+const clear = createAction('SESSION_CLEAR')
+
+export const sessionReducer = createReducer(initialState, {
+  [set]: (state, { payload = {} }) => payload,
+  [clear]: () => ({})
 })
 
-const { actions, reducer } = slice
-export default reducer
-
 export const clearSession = () => async dispatch => {
-  dispatch(actions.clearSession())
   setToken()
+  dispatch(clear())
   localStorage.removeItem(STORAGE_KEY)
 }
 
 export const setSession = (data = {}) => async dispatch => {
-  dispatch(actions.setSession(data))
   setToken(data.token)
+  dispatch(set(data))
   localStorage.setItem(STORAGE_KEY, data.token)
 }
 
@@ -47,4 +40,14 @@ export const loadSessionFromToken = token => async dispatch => {
 export const loadSessionFromStorage = () => async dispatch => {
   const token = localStorage.getItem(STORAGE_KEY)
   return dispatch(loadSessionFromToken(token))
+}
+
+export const useSession = () => {
+  return {
+    session: useSelector(state => state.session),
+    clearSession: useAction(clearSession),
+    setSession: useAction(setSession),
+    loadSessionFromToken: useAction(loadSessionFromToken),
+    loadSessionFromStorage: useAction(loadSessionFromStorage)
+  }
 }

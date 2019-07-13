@@ -1,9 +1,8 @@
 import React from 'react'
-import { useReduxState } from 'reactive-react-redux'
+import { useUi } from '@/store/ui'
 import { UiLoadingModal } from '@/components/ui'
 
 export const AppLoadingModal = () => {
-  const state = useReduxState()
-  const { showLoadingModal } = state.ui
-  return <UiLoadingModal isOpen={showLoadingModal} />
+  const { loading } = useUi()
+  return <UiLoadingModal isOpen={loading} />
 }
