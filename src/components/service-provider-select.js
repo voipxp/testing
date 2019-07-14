@@ -18,7 +18,7 @@ const columns = [
 ]
 
 const query = gql`
-  query {
+  query serviceProviders {
     serviceProviders {
       _id
       serviceProviderId
