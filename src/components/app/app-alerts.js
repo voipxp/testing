@@ -2,9 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { Notification, Delete } from 'rbx'
-import { AlertEmitter } from '@/utils/alerts'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { ALERTS, ALERT_CREATE, ALERT_REMOVE } from '@/graphql/alerts'
+import { ALERTS, ALERT_REMOVE } from '@/graphql/alerts'
 
 const StyledAlerts = styled.div`
   text-align: center;
@@ -38,13 +37,6 @@ const StyledAlert = styled.div`
 export const AppAlerts = () => {
   const { data } = useQuery(ALERTS)
   const [alertRemove] = useMutation(ALERT_REMOVE)
-  const [alertCreate] = useMutation(ALERT_CREATE)
-
-  React.useEffect(() => {
-    AlertEmitter.on('ALERT_ADD', data => alertCreate(data))
-    AlertEmitter.on('ALERT_REMOVE', alert => alertRemove({ variables: alert }))
-    return () => AlertEmitter.removeAllListeners()
-  }, [alertCreate, alertRemove])
 
   return (
     <TransitionGroup component={StyledAlerts}>
@@ -53,7 +45,7 @@ export const AppAlerts = () => {
           <Notification
             as={StyledAlert}
             color={alert.type.toLowerCase()}
-            onClick={() => alertRemove({ variables: { id: alert.id } })}
+            onClick={() => alertRemove({ variables: alert })}
           >
             <Delete as="button" />
             {alert.message}
