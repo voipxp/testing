@@ -1,26 +1,24 @@
 // import _ from 'lodash'
 import angular from 'angular'
-import {
-  removeAlert,
-  alertPrimary,
-  alertLink,
-  alertInfo,
-  alertSuccess,
-  alertWarning,
-  alertDanger
-} from '@/utils/alerts'
+import { ALERT_CREATE } from '@/graphql/alerts'
 
 angular.module('odin.ui').factory('Notification', Notification)
 
-function Notification() {
+Notification.$inject = ['apollo']
+function Notification(apollo) {
+  function alert(type, message, timeout = 3000) {
+    apollo.mutate({
+      mutation: ALERT_CREATE,
+      variables: { type, message, timeout }
+    })
+  }
   return {
-    primary: msg => alertPrimary(msg),
-    link: msg => alertLink(msg),
-    info: msg => alertInfo(msg),
-    success: msg => alertSuccess(msg),
-    warning: msg => alertWarning(msg),
-    danger: msg => alertDanger(msg),
-    remove: alert => removeAlert(alert)
+    primary: msg => alert('PRIMARY', msg),
+    link: msg => alert('LINK', msg),
+    info: msg => alert('INFO', msg),
+    success: msg => alert('SUCCESS', msg),
+    warning: msg => alert('WARNING', msg, 5000),
+    danger: msg => alert('DANGER', msg, 10000)
   }
 }
 

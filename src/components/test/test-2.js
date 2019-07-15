@@ -18,7 +18,7 @@ const GROUP_SHOW = gql`
 
 export const Test2 = ({ history }) => {
   const { loading, data } = useQuery(GROUP_SHOW, {
-    variables: { serviceProviderId: 'odin_test', groupId: 'odin_grp1' },
+    variables: { serviceProviderId: 'ent.odin', groupId: 'group.odin' },
     onError: err => console.log(err),
     onCompleted: data => console.log(data),
     fetchPolicy: 'cache-first'

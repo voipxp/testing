@@ -5,6 +5,7 @@ import gql from 'graphql-tag'
 import { Button } from 'rbx'
 import { UiLoadingCard, UiButton, UiCard, UiListItem } from '../ui'
 import { useQuery, useApolloClient } from '@apollo/react-hooks'
+import { useAlerts } from '@/graphql/alerts'
 
 const GROUP_SHOW = gql`
   query group($serviceProviderId: String!, $groupId: String!) {
@@ -17,10 +18,10 @@ const GROUP_SHOW = gql`
 `
 
 export const Test1 = ({ history }) => {
-  const { loading, data } = useQuery(GROUP_SHOW, {
-    variables: { serviceProviderId: 'odin_test', groupId: 'odin_grp1' },
-    onError: err => console.log(err),
-    onCompleted: data => console.log(data),
+  const { alertSuccess, alertDanger } = useAlerts()
+  const { loading, data, error } = useQuery(GROUP_SHOW, {
+    variables: { serviceProviderId: 'ent.odin', groupId: 'group.odin' },
+    onError: alertDanger,
     fetchPolicy: 'cache-and-network'
   })
   const client = useApolloClient()
@@ -34,8 +35,11 @@ export const Test1 = ({ history }) => {
         <UiButton icon="delete" onClick={() => client.clearStore()}>
           Reset Cache
         </UiButton>
+        <UiButton icon="add" onClick={() => alertSuccess('Test345')}>
+          Add Alert
+        </UiButton>
       </Button.Group>
-      {loading && isEmpty(data) ? (
+      {(loading && isEmpty(data)) || error ? (
         <UiLoadingCard />
       ) : (
         <UiCard title="Cache And Network">
