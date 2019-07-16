@@ -41,10 +41,7 @@ function controller(Alert, Module, ACL, apollo) {
   ctrl.$onInit = () => {
     ctrl.hasAnnouncements = ACL.hasVersion('20')
     ctrl.loading = true
-    loadAssignedServices().then(services => {
-      console.log('virtualUserMenu#loadAssignedServices', services)
-      loadPermissions(services.userServices)
-    })
+    loadAssignedServices().then(services => loadPermissions(services))
   }
 
   function loadAssignedServices() {
@@ -53,11 +50,14 @@ function controller(Alert, Module, ACL, apollo) {
         query: USER_SERVICES_ASSIGNED,
         variables: { userId: ctrl.userId }
       })
-      .then(({ data }) => data.userServicesAssigned)
+      .then(({ data }) => {
+        return data.userServicesAssigned.userServices.map(s => s.serviceName)
+      })
   }
 
   // Can we simplify this with UserPermissionService?
   function loadPermissions(services) {
+    console.log('loadPermissions**', services)
     if (ctrl.module.name === 'Meet-Me Conferencing') {
       ctrl.isMeetMe = true
     }
@@ -71,6 +71,7 @@ function controller(Alert, Module, ACL, apollo) {
 
     ctrl.showCallRecords = Module.read('Premium Call Records')
 
+    console.log('WTF', services.includes('Basic Call Logs'))
     ctrl.showBasicCallLogs =
       services.includes('Basic Call Logs') && Module.read('Basic Call Logs')
 
