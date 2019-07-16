@@ -1,11 +1,24 @@
 import angular from 'angular'
-import { loadUserAssignedServices } from '@/store/user-assigned-services'
+import gql from 'graphql-tag'
 import { loadUserViewableServices } from '@/store/user-viewable-services'
 
 angular.module('odin.user').factory('UserPermissionService', Service)
 
-Service.$inject = ['Module', 'ACL', '$q', '$ngRedux']
-function Service(Module, ACL, $q, $ngRedux) {
+const USER_SERVICES_ASSIGNED = gql`
+  query userServicesAssigned($userId: String!) {
+    userServicesAssigned(userId: $userId) {
+      _id
+      userId
+      userServices {
+        serviceName
+        isActive
+      }
+    }
+  }
+`
+
+Service.$inject = ['Module', 'ACL', '$q', '$ngRedux', 'apollo']
+function Service(Module, ACL, $q, $ngRedux, apollo) {
   var service = { load: load }
 
   return service
@@ -98,10 +111,9 @@ function Service(Module, ACL, $q, $ngRedux) {
   }
 
   function loadAssigned(userId, useCache = true) {
-    const services = $ngRedux.getState().userAssignedServices[userId]
-    return useCache && services
-      ? $q.when(services)
-      : $ngRedux.dispatch(loadUserAssignedServices(userId))
+    return apollo
+      .query({ query: USER_SERVICES_ASSIGNED, variables: { userId } })
+      .then(({ data }) => data.userServicesAssigned)
   }
 
   // doesn't change often, use cache always

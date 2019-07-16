@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { UiLoadingCard, UiMenu } from '@/components/ui'
 import { AppBreadcrumb } from '@/components/app'
-import { useUserAssignedServices } from '@/store/user-assigned-services'
 import { useUserViewableServices } from '@/store/user-viewable-services'
 import { useUserServices } from '@/store/user-services'
 import {
@@ -19,23 +18,16 @@ export const UserDashboard = ({ match }) => {
   const { hasUserService } = useUserServicePermissions(userId)
   const { hasModuleRead } = useModulePermissions()
 
-  const { loadUserAssignedServices } = useUserAssignedServices(userId)
   const { loadUserViewableServices } = useUserViewableServices(userId)
   const { loadUserServices } = useUserServices(userId)
 
   React.useEffect(() => {
     setLoading(true)
     Promise.all([
-      loadUserAssignedServices(userId),
       loadUserViewableServices(userId),
       loadUserServices(userId)
     ]).then(() => setLoading(false))
-  }, [
-    loadUserAssignedServices,
-    loadUserServices,
-    loadUserViewableServices,
-    userId
-  ])
+  }, [loadUserServices, loadUserViewableServices, userId])
 
   // filter items we should not see
   const menu = React.useMemo(() => {

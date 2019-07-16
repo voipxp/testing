@@ -1,6 +1,19 @@
 import angular from 'angular'
 import template from './index.html'
-import { loadUserAssignedServices } from '@/store/user-assigned-services'
+import gql from 'graphql-tag'
+
+const USER_SERVICES_ASSIGNED = gql`
+  query userServicesAssigned($userId: String!) {
+    userServicesAssigned(userId: $userId) {
+      _id
+      userId
+      userServices {
+        serviceName
+        isActive
+      }
+    }
+  }
+`
 
 angular.module('odin.common').directive('virtualUserMenu', Directive)
 
@@ -21,30 +34,26 @@ function Directive() {
   }
 }
 
-controller.$inject = ['Alert', 'Module', 'ACL', '$ngRedux']
-function controller(Alert, Module, ACL, $ngRedux) {
+controller.$inject = ['Alert', 'Module', 'ACL', 'apollo']
+function controller(Alert, Module, ACL, apollo) {
   const ctrl = this
 
-  let unsubscribe
   ctrl.$onInit = () => {
     ctrl.hasAnnouncements = ACL.hasVersion('20')
     ctrl.loading = true
-    $ngRedux.dispatch(loadUserAssignedServices(ctrl.userId))
-    const mapState = state => ({
-      services: state.userAssignedServices[ctrl.userId]
-    })
-    unsubscribe = $ngRedux.connect(mapState)(state => {
-      if (state.services) {
-        const assigned = (state.services.userServices || []).map(
-          s => s.serviceName
-        )
-        loadPermissions(assigned)
-      }
+    loadAssignedServices().then(services => {
+      console.log('virtualUserMenu#loadAssignedServices', services)
+      loadPermissions(services.userServices)
     })
   }
 
-  ctrl.$onDestroy = () => {
-    if (unsubscribe) unsubscribe()
+  function loadAssignedServices() {
+    return apollo
+      .query({
+        query: USER_SERVICES_ASSIGNED,
+        variables: { userId: ctrl.userId }
+      })
+      .then(({ data }) => data.userServicesAssigned)
   }
 
   // Can we simplify this with UserPermissionService?

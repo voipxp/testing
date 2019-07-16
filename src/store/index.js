@@ -3,7 +3,6 @@ import { userRegistrationReducer } from './user-registration'
 import { userServicesReducer } from './user-services'
 import { userSpeedDial8Reducer } from './user-speed-dial-8'
 import { userUserInterceptReducer } from './user-intercept'
-import { userAssignedServicesReducer } from './user-assigned-services'
 import { userViewableServicesReducer } from './user-viewable-services'
 import { sessionReducer, loadSessionFromStorage, clearSession } from './session'
 import { loadApplications, uiApplicationsReducer } from './ui-applications'
@@ -14,7 +13,6 @@ import { loadTemplate, uiTemplateReducer } from './ui-template'
 export const store = configureStore({
   reducer: {
     session: sessionReducer,
-    userAssignedServices: userAssignedServicesReducer,
     userRegistration: userRegistrationReducer,
     userServices: userServicesReducer,
     userViewableServices: userViewableServicesReducer,

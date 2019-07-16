@@ -1,7 +1,6 @@
 import { createAction, createReducer } from 'redux-starter-kit'
 import { useSelector } from 'react-redux'
 import { useAction } from './hooks'
-import { loadUserAssignedServices } from './user-assigned-services'
 import userServicesApi from '@/api/user-services'
 
 const initialState = {}
@@ -25,7 +24,6 @@ export const updateUserServices = services => {
   return async dispatch => {
     const data = await userServicesApi.update(services)
     dispatch(load(data))
-    dispatch(loadUserAssignedServices(services.userId))
     return data
   }
 }

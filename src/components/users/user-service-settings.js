@@ -4,7 +4,6 @@ import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiCheckbox, UiDataTable } from '@/components/ui'
 import { useModulePermissions, useUserServicePermissions } from '@/utils'
-import { useUserAssignedServices } from '@/store/user-assigned-services'
 import { AngularComponent } from '@/components/angular-component'
 import { userServiceRoutes } from './user-service-routes'
 
@@ -29,16 +28,12 @@ export const UserServiceSettings = ({ history, match }) => {
   const { userId } = match.params
   const { getModule, hasModuleRead } = useModulePermissions()
   const { userViewableServices } = useUserServicePermissions(userId)
-  const { loadUserAssignedServices } = useUserAssignedServices(userId)
 
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
   }
 
-  const hideService = () => {
-    loadUserAssignedServices(userId)
-    history.goBack()
-  }
+  const hideService = () => history.goBack()
 
   /*
   turn our array of routes into a filtered list of components,
