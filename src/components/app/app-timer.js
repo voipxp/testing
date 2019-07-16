@@ -2,7 +2,6 @@ import React from 'react'
 import createActivityDetector from 'activity-detector'
 import { alertWarning, removeAlert } from '@/utils/alerts'
 import { useSession } from '@/store/session'
-import { useUi } from '@/store/ui'
 import { useUiSettings } from '@/store/ui-settings'
 
 const TIMEOUT = 30000
@@ -12,7 +11,6 @@ export const AppTimer = () => {
   const timerRef = React.useRef()
   const detectorRef = React.useRef()
   const { clearSession } = useSession()
-  const { initialized } = useUi()
   const { settings } = useUiSettings()
   const { sessionTimeout } = settings
 
@@ -44,9 +42,9 @@ export const AppTimer = () => {
   }, [clearSessionLogout, sessionTimeout, startSessionLogout, stopDetector])
 
   React.useEffect(() => {
-    initialized && sessionTimeout ? startDetector() : stopDetector()
+    sessionTimeout ? startDetector() : stopDetector()
     return () => stopDetector()
-  }, [initialized, sessionTimeout, startDetector, stopDetector])
+  }, [sessionTimeout, startDetector, stopDetector])
 
   return null
 }

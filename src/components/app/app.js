@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import { Section } from 'rbx'
 import { AngularComponent } from '@/components/angular-component'
 import { UiLoadingPage } from '@/components/ui'
-import { useUi } from '@/store/ui'
 import { useSession } from '@/store/session'
 import {
   AppAlerts,
@@ -17,9 +17,8 @@ import {
 const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
 `
-export const App = () => {
+export const App = ({ initialized }) => {
   const { session } = useSession()
-  const { initialized } = useUi()
 
   if (!initialized) return <UiLoadingPage />
 
@@ -43,4 +42,8 @@ export const App = () => {
       <AngularComponent component="pbsConfirmModal" />
     </>
   )
+}
+
+App.propTypes = {
+  initialized: PropTypes.bool
 }

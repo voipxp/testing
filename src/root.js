@@ -19,14 +19,18 @@ api.interceptors.response.use(
   }
 )
 
-loadInitialState()
-
-export const Root = hot(() => (
-  <ApolloProvider client={client}>
-    <Provider store={store}>
-      <HashRouter hashType="hashbang">
-        <App />
-      </HashRouter>
-    </Provider>
-  </ApolloProvider>
-))
+export const Root = hot(() => {
+  const [initialized, setInitialized] = React.useState(false)
+  React.useEffect(() => {
+    loadInitialState().then(() => setInitialized(true))
+  }, [])
+  return (
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <HashRouter hashType="hashbang">
+          <App initialized={initialized} />
+        </HashRouter>
+      </Provider>
+    </ApolloProvider>
+  )
+})

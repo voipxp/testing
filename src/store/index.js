@@ -6,7 +6,6 @@ import { userUserInterceptReducer } from './user-intercept'
 import { userAssignedServicesReducer } from './user-assigned-services'
 import { userViewableServicesReducer } from './user-viewable-services'
 import { sessionReducer, loadSessionFromStorage, clearSession } from './session'
-import { uiReducer, setInitialized } from './ui'
 import { loadApplications, uiApplicationsReducer } from './ui-applications'
 import { loadModules, uiModulesReducer } from './ui-modules'
 import { loadSettings, uiSettingsReducer } from './ui-settings'
@@ -21,7 +20,6 @@ export const store = configureStore({
     userViewableServices: userViewableServicesReducer,
     userSpeedDial8: userSpeedDial8Reducer,
     userIntercept: userUserInterceptReducer,
-    ui: uiReducer,
     uiApplications: uiApplicationsReducer,
     uiModules: uiModulesReducer,
     uiSettings: uiSettingsReducer,
@@ -43,7 +41,7 @@ export const loadInitialState = async () => {
       store.dispatch(loadTemplate()),
       store.dispatch(loadSettings())
     ])
-    store.dispatch(setInitialized(true))
+    return true
   } catch (error) {
     console.log('loadInitialState', error)
   }
