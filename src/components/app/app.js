@@ -38,8 +38,8 @@ export const App = ({ initialized }) => {
       ) : (
         <AppLogin />
       )}
-      <AppLoadingModal />
       <AngularComponent component="pbsConfirmModal" />
+      <AppLoadingModal />
     </>
   )
 }
