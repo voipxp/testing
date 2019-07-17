@@ -20,8 +20,12 @@ export const UserDashboard = ({ match }) => {
   const { loadUserServices } = useUserServices(userId)
 
   React.useEffect(() => {
+    let isActive = true
     setLoading(true)
-    Promise.all([loadUserServices(userId)]).then(() => setLoading(false))
+    Promise.all([loadUserServices(userId)]).then(() => {
+      isActive && setLoading(false)
+    })
+    return () => (isActive = false)
   }, [loadUserServices, userId])
 
   // filter items we should not see
