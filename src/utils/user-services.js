@@ -3,8 +3,8 @@ import { useCallback, useMemo } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-const USER_SERVICES_ASSIGNED = gql`
-  query userServicesAssigned($userId: String!) {
+const USER_SERVICES = gql`
+  query userServicesAssignedAndViewable($userId: String!) {
     userServicesAssigned(userId: $userId) {
       _id
       userId
@@ -15,6 +15,13 @@ const USER_SERVICES_ASSIGNED = gql`
       groupServices {
         serviceName
         isActive
+      }
+    }
+    userServicesViewable(userId: $userId) {
+      _id
+      userId
+      userServices {
+        serviceName
       }
     }
   }
@@ -40,28 +47,24 @@ const hasUserService = (service, assigned, viewable, loginType) => {
 }
 
 export const useUserServicePermissions = userId => {
-  const { session, userViewableServices } = useSelector(state => ({
-    session: state.session,
-    userViewableServices: state.userViewableServices
-  }))
-  const { data } = useQuery(USER_SERVICES_ASSIGNED, { variables: { userId } })
-  const userAssignedServices = data && data.userServicesAssigned
+  const { session } = useSelector(state => ({ session: state.session }))
+  const { data } = useQuery(USER_SERVICES, { variables: { userId } })
+  const assigned = data.userServicesAssigned || { userServices: [] }
+  const viewable = data.userServicesViewable || { userServices: [] }
   return {
     userViewableServices: useMemo(() => {
-      return session.loginType !== 'User'
-        ? userAssignedServices
-        : userViewableServices[userId]
-    }, [session.loginType, userAssignedServices, userId, userViewableServices]),
+      return {
+        ...assigned,
+        userServices: assigned.userServices.filter(service => {
+          return hasUserService(service, assigned, viewable, session.loginType)
+        })
+      }
+    }, [assigned, session.loginType, viewable]),
     hasUserService: useCallback(
       service => {
-        return hasUserService(
-          service,
-          userAssignedServices,
-          userViewableServices[userId],
-          session.loginType
-        )
+        return hasUserService(service, assigned, viewable, session.loginType)
       },
-      [session.loginType, userAssignedServices, userId, userViewableServices]
+      [assigned, session.loginType, viewable]
     )
   }
 }

@@ -1,17 +1,23 @@
 import angular from 'angular'
 import gql from 'graphql-tag'
-import { loadUserViewableServices } from '@/store/user-viewable-services'
 
 angular.module('odin.user').factory('UserPermissionService', Service)
 
-const USER_SERVICES_ASSIGNED = gql`
-  query userServicesAssigned($userId: String!) {
+const USER_SERVICES = gql`
+  query userServicesAssignedAndViewable($userId: String!) {
     userServicesAssigned(userId: $userId) {
       _id
       userId
       userServices {
         serviceName
         isActive
+      }
+    }
+    userServicesViewable(userId: $userId) {
+      _id
+      userId
+      userServices {
+        serviceName
       }
     }
   }
@@ -24,15 +30,9 @@ function Service(Module, ACL, $q, $ngRedux, apollo) {
   return service
 
   function load(userId, useCache) {
-    return $q
-      .all([
-        loadAssigned(userId, useCache),
-        loadViewable(userId),
-        Module.load()
-      ])
-      .then(function(response) {
-        return Permission(response[0], response[1])
-      })
+    return loadServices(userId).then(function(data) {
+      return Permission(data.userServicesAssigned, data.userServicesViewable)
+    })
   }
 
   function Permission(_assigned, _viewable) {
@@ -110,18 +110,8 @@ function Service(Module, ACL, $q, $ngRedux, apollo) {
     }
   }
 
-  function loadAssigned(userId, useCache = true) {
-    return apollo
-      .query({ query: USER_SERVICES_ASSIGNED, variables: { userId } })
-      .then(({ data }) => data.userServicesAssigned)
-  }
-
-  // doesn't change often, use cache always
-  function loadViewable(userId) {
-    const services = $ngRedux.getState().userViewableServices[userId]
-    return services
-      ? $q.when(services)
-      : $ngRedux.dispatch(loadUserViewableServices(userId))
+  function loadServices(userId) {
+    return apollo.query({ query: USER_SERVICES, variables: { userId } })
   }
 
   function mapServices(assigned) {

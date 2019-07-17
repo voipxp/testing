@@ -3,7 +3,6 @@ import { userRegistrationReducer } from './user-registration'
 import { userServicesReducer } from './user-services'
 import { userSpeedDial8Reducer } from './user-speed-dial-8'
 import { userUserInterceptReducer } from './user-intercept'
-import { userViewableServicesReducer } from './user-viewable-services'
 import { sessionReducer, loadSessionFromStorage, clearSession } from './session'
 import { loadApplications, uiApplicationsReducer } from './ui-applications'
 import { loadModules, uiModulesReducer } from './ui-modules'
@@ -15,7 +14,6 @@ export const store = configureStore({
     session: sessionReducer,
     userRegistration: userRegistrationReducer,
     userServices: userServicesReducer,
-    userViewableServices: userViewableServicesReducer,
     userSpeedDial8: userSpeedDial8Reducer,
     userIntercept: userUserInterceptReducer,
     uiApplications: uiApplicationsReducer,
