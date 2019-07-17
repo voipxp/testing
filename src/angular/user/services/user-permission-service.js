@@ -25,8 +25,7 @@ const USER_SERVICES = gql`
 
 Service.$inject = ['Module', 'ACL', '$q', '$ngRedux', 'apollo']
 function Service(Module, ACL, $q, $ngRedux, apollo) {
-  var service = { load: load }
-
+  const service = { load: load }
   return service
 
   function load(userId, useCache) {
@@ -36,10 +35,10 @@ function Service(Module, ACL, $q, $ngRedux, apollo) {
   }
 
   function Permission(_assigned, _viewable) {
-    var _assignedMap = mapServices(_assigned)
-    var _viewableMap = mapServices(_viewable)
+    const _assignedMap = mapServices(_assigned)
+    const _viewableMap = mapServices(_viewable)
 
-    var service = {
+    const service = {
       assigned,
       viewable,
       create,
@@ -111,10 +110,12 @@ function Service(Module, ACL, $q, $ngRedux, apollo) {
   }
 
   function loadServices(userId) {
-    return apollo.query({ query: USER_SERVICES, variables: { userId } })
+    return apollo
+      .query({ query: USER_SERVICES, variables: { userId } })
+      .then(({ data }) => data)
   }
 
-  function mapServices(assigned) {
+  function mapServices(assigned = { userServices: [] }) {
     return assigned.userServices.reduce((obj, service) => {
       obj[service.serviceName] = true
       return obj
