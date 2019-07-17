@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useCallback, useMemo } from 'react'
 import { useQuery } from '@apollo/react-hooks'
+import get from 'lodash/get'
 import gql from 'graphql-tag'
 
 const USER_SERVICES = gql`
@@ -49,8 +50,8 @@ const hasUserService = (service, assigned, viewable, loginType) => {
 export const useUserServicePermissions = userId => {
   const { session } = useSelector(state => ({ session: state.session }))
   const { data } = useQuery(USER_SERVICES, { variables: { userId } })
-  const assigned = data.userServicesAssigned || { userServices: [] }
-  const viewable = data.userServicesViewable || { userServices: [] }
+  const assigned = get(data, 'userServicesAssigned', { userServices: [] })
+  const viewable = get(data, 'userServicesViewable', { userServices: [] })
   return {
     userViewableServices: useMemo(() => {
       return {
