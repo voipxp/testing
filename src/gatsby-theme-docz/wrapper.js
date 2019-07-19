@@ -1,4 +1,4 @@
-import '../../index.scss'
+import '../../../src/index.scss'
 
 const DocWrapper = ({ children }) => children
 
