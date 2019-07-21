@@ -41,11 +41,15 @@ export const AppNavbar = withRouter(({ history }) => {
   const hasServiceProvider = acl.hasServiceProvider()
 
   const { data } = useQuery(UI_QUERY, { fetchPolicy: 'cache-and-network' })
-  const pageTitle = get(data, 'uiTemplate.pageTitle', 'loading...')
+  const pageTitle = get(data, 'uiTemplate.pageTitle')
   const applications = get(data, 'uiApplications', [])
 
   const [showMenu, updateShowMenu] = React.useState(false)
   const [search, setSearch] = React.useState()
+
+  React.useEffect(() => {
+    if (pageTitle) document.title = pageTitle
+  }, [pageTitle])
 
   const toggleMenu = () => updateShowMenu(!showMenu)
 

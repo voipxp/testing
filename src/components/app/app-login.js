@@ -44,6 +44,10 @@ export const AppLogin = () => {
     tokenLogin()
   }, [tokenLogin])
 
+  React.useEffect(() => {
+    document.title = 'Please Login'
+  })
+
   const formRef = React.useRef()
   const [form, setForm] = React.useState({
     username: '',
