@@ -2,7 +2,19 @@ import React from 'react'
 import createActivityDetector from 'activity-detector'
 import { alertWarning, removeAlert } from '@/utils/alerts'
 import { useSession } from '@/store/session'
-import { useUiSettings } from '@/store/ui-settings'
+
+import gql from 'graphql-tag'
+import get from 'lodash/get'
+import { useQuery } from '@apollo/react-hooks'
+
+const UI_QUERY = gql`
+  query uiSettings {
+    uiSettings {
+      _id
+      sessionTimeout
+    }
+  }
+`
 
 const TIMEOUT = 30000
 
@@ -11,8 +23,9 @@ export const AppTimer = () => {
   const timerRef = React.useRef()
   const detectorRef = React.useRef()
   const { clearSession } = useSession()
-  const { settings } = useUiSettings()
-  const { sessionTimeout } = settings
+
+  const { data } = useQuery(UI_QUERY, { fetchPolicy: 'cache-and-network' })
+  const sessionTimeout = get(data, 'uiSettings.sessionTimeout')
 
   const clearSessionLogout = React.useCallback(async () => {
     if (timerRef.current) clearTimeout(timerRef.current)

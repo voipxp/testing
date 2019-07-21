@@ -1,6 +1,5 @@
 import angular from 'angular'
 import isEmpty from 'lodash/isEmpty'
-import { loadSettings } from '@/store/ui-settings'
 
 angular
   .module('odin.api')
@@ -20,7 +19,6 @@ function BrandingSettingService($http, Route, $rootScope, $ngRedux) {
 
   function update(template) {
     return $http.put(url(), template).then(response => {
-      $ngRedux.dispatch(loadSettings())
       $rootScope.$emit('BrandingSettingService:updated')
       return response.data
     })
