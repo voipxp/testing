@@ -3,8 +3,8 @@ import gql from 'graphql-tag'
 
 angular.module('odin.api').factory('ServiceProviderService', service)
 
-service.$inject = ['$http', 'Route', '$rootScope', 'CacheFactory', 'apollo']
-function service($http, Route, $rootScope, CacheFactory, apollo) {
+service.$inject = ['$http', 'Route', '$rootScope', 'CacheFactory', 'GraphQL']
+function service($http, Route, $rootScope, CacheFactory, GraphQL) {
   var url = Route.api('/service-providers')
   var service = { index, show, store, update, destroy }
   var cache = CacheFactory('ServiceProviderService')
@@ -28,12 +28,10 @@ function service($http, Route, $rootScope, CacheFactory, apollo) {
         }
       }
     `
-    return apollo
-      .query({
-        query,
-        fetchPolicy: 'network-only'
-      })
-      .then(res => res.data.serviceProviders)
+    return GraphQL.query({
+      query,
+      fetchPolicy: 'network-only'
+    }).then(res => res.data.serviceProviders)
   }
 
   function store(serviceProvider) {
@@ -72,13 +70,11 @@ function service($http, Route, $rootScope, CacheFactory, apollo) {
         }
       }
     `
-    return apollo
-      .query({
-        query,
-        variables: { serviceProviderId },
-        fetchPolicy: 'network-only'
-      })
-      .then(res => res.data.serviceProvider)
+    return GraphQL.query({
+      query,
+      variables: { serviceProviderId },
+      fetchPolicy: 'network-only'
+    }).then(res => res.data.serviceProvider)
   }
 
   function update(serviceProviderId, serviceProvider) {

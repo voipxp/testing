@@ -1958,11 +1958,6 @@ angular-truncate-2@^0.4.2:
   resolved "https://registry.yarnpkg.com/angular-truncate-2/-/angular-truncate-2-0.4.2.tgz#89b3957f8668702d53d0d26130f015ef0886bf74"
   integrity sha1-ibOVf4ZocC1T0NJhMPAV7wiGv3Q=
 
-angular1-apollo@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/angular1-apollo/-/angular1-apollo-0.3.0.tgz#5e9056b8ab376a8bac2d44c968c5f61fd3e30faa"
-  integrity sha512-MVHOz7/J7Fdmt7g//PUmcry0qbMhnDgihfrWccrqa5yV1pzO9kuSpRS6RB0YXCZGiKplN9mUVRAyaeyKAsoZng==
-
 angular@1.x, "angular@>=1.x <2":
   version "1.7.8"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.7.8.tgz#b77ede272ce1b261e3be30c1451a0b346905a3c9"

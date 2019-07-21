@@ -23,8 +23,8 @@ const USER_SERVICES = gql`
   }
 `
 
-Service.$inject = ['Module', 'ACL', '$q', '$ngRedux', 'apollo']
-function Service(Module, ACL, $q, $ngRedux, apollo) {
+Service.$inject = ['Module', 'ACL', '$q', '$ngRedux', 'GraphQL']
+function Service(Module, ACL, $q, $ngRedux, GraphQL) {
   const service = { load: load }
   return service
 
@@ -110,9 +110,9 @@ function Service(Module, ACL, $q, $ngRedux, apollo) {
   }
 
   function loadServices(userId) {
-    return apollo
-      .query({ query: USER_SERVICES, variables: { userId } })
-      .then(({ data }) => data)
+    return GraphQL.query({ query: USER_SERVICES, variables: { userId } }).then(
+      ({ data }) => data
+    )
   }
 
   function mapServices(assigned = { userServices: [] }) {

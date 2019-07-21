@@ -8,9 +8,9 @@ GroupService.$inject = [
   'Route',
   'CacheFactory',
   '$rootScope',
-  'apollo'
+  'GraphQL'
 ]
-function GroupService($http, Route, CacheFactory, $rootScope, apollo) {
+function GroupService($http, Route, CacheFactory, $rootScope, GraphQL) {
   var service = { index, store, show, update, destroy }
   var cache = CacheFactory('GroupService')
   var url = Route.api('/groups')
@@ -34,13 +34,11 @@ function GroupService($http, Route, CacheFactory, $rootScope, apollo) {
         }
       }
     `
-    return apollo
-      .query({
-        query,
-        variables: { serviceProviderId },
-        fetchPolicy: 'network-only'
-      })
-      .then(res => res.data.groups)
+    return GraphQL.query({
+      query,
+      variables: { serviceProviderId },
+      fetchPolicy: 'network-only'
+    }).then(res => res.data.groups)
   }
 
   function store(serviceProviderId, group) {
@@ -83,13 +81,11 @@ function GroupService($http, Route, CacheFactory, $rootScope, apollo) {
         }
       }
     `
-    return apollo
-      .query({
-        query,
-        variables: { serviceProviderId, groupId },
-        fetchPolicy: 'network-only'
-      })
-      .then(res => res.data.group)
+    return GraphQL.query({
+      query,
+      variables: { serviceProviderId, groupId },
+      fetchPolicy: 'network-only'
+    }).then(res => res.data.group)
   }
 
   function update(serviceProviderId, group) {

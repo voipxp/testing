@@ -3,8 +3,8 @@ import gql from 'graphql-tag'
 
 angular.module('odin.api').factory('UserService', UserService)
 
-UserService.$inject = ['$http', 'Route', 'apollo']
-function UserService($http, Route, apollo) {
+UserService.$inject = ['$http', 'Route', 'GraphQL']
+function UserService($http, Route, GraphQL) {
   var service = {
     index,
     store,
@@ -47,13 +47,11 @@ function UserService($http, Route, apollo) {
         }
       }
     `
-    return apollo
-      .query({
-        query,
-        variables: { serviceProviderId, groupId },
-        fetchPolicy: 'network-only'
-      })
-      .then(res => res.data.users)
+    return GraphQL.query({
+      query,
+      variables: { serviceProviderId, groupId },
+      fetchPolicy: 'network-only'
+    }).then(res => res.data.users)
   }
 
   function info(userId) {

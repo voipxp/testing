@@ -11,9 +11,8 @@ const cache = new InMemoryCache()
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem(STORAGE_KEY)
-  operation.setContext({
-    headers: { authorization: token ? `Bearer ${token}` : null }
-  })
+  const headers = token ? { authorization: `Bearer ${token}` } : {}
+  operation.setContext({ headers })
   return forward(operation)
 })
 

@@ -34,8 +34,8 @@ function Directive() {
   }
 }
 
-controller.$inject = ['Alert', 'Module', 'ACL', 'apollo']
-function controller(Alert, Module, ACL, apollo) {
+controller.$inject = ['Alert', 'Module', 'ACL', 'GraphQL']
+function controller(Alert, Module, ACL, GraphQL) {
   const ctrl = this
 
   ctrl.$onInit = () => {
@@ -45,14 +45,12 @@ function controller(Alert, Module, ACL, apollo) {
   }
 
   function loadAssignedServices() {
-    return apollo
-      .query({
-        query: USER_SERVICES_ASSIGNED,
-        variables: { userId: ctrl.userId }
-      })
-      .then(({ data }) => {
-        return data.userServicesAssigned.userServices.map(s => s.serviceName)
-      })
+    return GraphQL.query({
+      query: USER_SERVICES_ASSIGNED,
+      variables: { userId: ctrl.userId }
+    }).then(({ data }) => {
+      return data.userServicesAssigned.userServices.map(s => s.serviceName)
+    })
   }
 
   // Can we simplify this with UserPermissionService?
