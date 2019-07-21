@@ -1,5 +1,4 @@
 import angular from 'angular'
-import { loadTemplate } from '@/store/ui-template'
 
 angular
   .module('odin.api')
@@ -19,7 +18,6 @@ function BrandingTemplateService($http, Route, $rootScope, $ngRedux) {
 
   function update(template) {
     return $http.put(url(), template).then(response => {
-      $ngRedux.dispatch(loadTemplate())
       $rootScope.$emit('BrandingTemplateService:updated')
       return response.data
     })

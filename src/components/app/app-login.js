@@ -6,11 +6,24 @@ import { parse, stringify } from 'query-string'
 import { alertWarning, alertDanger } from '@/utils/alerts'
 import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
 import { useSession } from '@/store/session'
-import { useUiTemplate } from '@/store/ui-template'
 import authApi from '@/api/auth'
+import gql from 'graphql-tag'
+import get from 'lodash/get'
+import { useQuery } from '@apollo/react-hooks'
+
+const UI_QUERY = gql`
+  query uiSettings {
+    uiTemplate {
+      _id
+      pageLoginMessage
+    }
+  }
+`
 
 export const AppLogin = () => {
   const { setSession, loadSessionFromToken } = useSession()
+  const { data } = useQuery(UI_QUERY, { fetchPolicy: 'cache-and-network' })
+  const pageLoginMessage = get(data, 'uiTemplate.pageLoginMessage')
 
   const tokenLogin = React.useCallback(() => {
     const [hash, query] = window.location.hash.split('?')
@@ -30,9 +43,6 @@ export const AppLogin = () => {
   React.useEffect(() => {
     tokenLogin()
   }, [tokenLogin])
-
-  const { template } = useUiTemplate()
-  const { pageLoginMessage } = template
 
   const formRef = React.useRef()
   const [form, setForm] = React.useState({

@@ -1,20 +1,37 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import get from 'lodash/get'
+import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { UiCardModal } from '@/components/ui'
 import { useAcl, userPath, groupPath } from '@/utils'
-import { useUiApplications } from '@/store/ui-applications'
 import { parseUrl, stringify } from 'query-string'
 import { alertDanger } from '@/utils/alerts'
 import { useSession } from '@/store/session'
-import { useUiTemplate } from '@/store/ui-template'
 import { UserSearch } from '@/components/user-search'
 import { SystemDnSearch } from '@/components/system-dn-search'
 import { GroupSearch } from '@/components/group-search'
 import { UserServiceSearch } from '@/components/user-service-search'
+import { useQuery } from '@apollo/react-hooks'
 import authApi from '@/api/auth'
 
+const UI_QUERY = gql`
+  query uiSettings {
+    uiTemplate {
+      _id
+      pageTitle
+    }
+    uiApplications {
+      _id
+      description
+      name
+      partner
+      url
+      window
+    }
+  }
+`
 export const AppNavbar = withRouter(({ history }) => {
   const { session, clearSession } = useSession()
   const { userId } = session
@@ -23,9 +40,9 @@ export const AppNavbar = withRouter(({ history }) => {
   const hasGroup = acl.hasGroup()
   const hasServiceProvider = acl.hasServiceProvider()
 
-  const { applications } = useUiApplications()
-  const { template } = useUiTemplate()
-  const { pageTitle } = template
+  const { data } = useQuery(UI_QUERY, { fetchPolicy: 'cache-and-network' })
+  const pageTitle = get(data, 'uiTemplate.pageTitle', 'loading...')
+  const applications = get(data, 'uiApplications', [])
 
   const [showMenu, updateShowMenu] = React.useState(false)
   const [search, setSearch] = React.useState()
@@ -106,7 +123,7 @@ export const AppNavbar = withRouter(({ history }) => {
                 <Navbar.Dropdown boxed>
                   {applications.map(application => (
                     <Navbar.Item
-                      key={application.id}
+                      key={application._id}
                       onClick={() => openApplication(application)}
                     >
                       {application.name}
