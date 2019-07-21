@@ -15,7 +15,7 @@ const UI_QUERY = gql`
 `
 
 export const AppAnalytics = ({ location }) => {
-  const { data } = useQuery(UI_QUERY, { fetchPolicy: 'cache-and-network' })
+  const { data } = useQuery(UI_QUERY)
   const pageGoogleUA = get(data, 'uiTemplate.pageGoogleUA')
 
   React.useEffect(() => {

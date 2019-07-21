@@ -40,7 +40,7 @@ export const AppNavbar = withRouter(({ history }) => {
   const hasGroup = acl.hasGroup()
   const hasServiceProvider = acl.hasServiceProvider()
 
-  const { data } = useQuery(UI_QUERY, { fetchPolicy: 'cache-and-network' })
+  const { data } = useQuery(UI_QUERY)
   const pageTitle = get(data, 'uiTemplate.pageTitle')
   const applications = get(data, 'uiApplications', [])
 

@@ -4,7 +4,6 @@ import { userServicesReducer } from './user-services'
 import { userSpeedDial8Reducer } from './user-speed-dial-8'
 import { userUserInterceptReducer } from './user-intercept'
 import { sessionReducer, loadSessionFromStorage, clearSession } from './session'
-import { loadModules, uiModulesReducer } from './ui-modules'
 
 export const store = configureStore({
   reducer: {
@@ -12,8 +11,7 @@ export const store = configureStore({
     userRegistration: userRegistrationReducer,
     userServices: userServicesReducer,
     userSpeedDial8: userSpeedDial8Reducer,
-    userIntercept: userUserInterceptReducer,
-    uiModules: uiModulesReducer
+    userIntercept: userUserInterceptReducer
   },
   devTools: process.env.NODE_ENV !== 'production'
 })
@@ -23,11 +21,5 @@ export const loadInitialState = async () => {
     await store.dispatch(loadSessionFromStorage())
   } catch (error) {
     await store.dispatch(clearSession())
-  }
-  try {
-    await Promise.all([store.dispatch(loadModules())])
-    return true
-  } catch (error) {
-    console.log('loadInitialState', error)
   }
 }

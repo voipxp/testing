@@ -24,7 +24,7 @@ export const AppFooter = () => {
   const { session } = useSession()
   const { version = 'N/A' } = session
 
-  const { data } = useQuery(UI_QUERY, { fetchPolicy: 'cache-and-network' })
+  const { data } = useQuery(UI_QUERY)
   const pageCopyright = get(data, 'uiTemplate.pageCopyright', '')
   const pageFooterTitle = get(data, 'uiTemplate.pageFooterTitle', '')
 

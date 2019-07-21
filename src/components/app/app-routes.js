@@ -12,7 +12,7 @@ import { routes } from './routes'
 
 export const AppRoutes = () => {
   const { hasLevel, hasVersion } = useAcl()
-  const { getModule } = useModulePermissions()
+  const { getModule, hasModuleRead } = useModulePermissions()
 
   const notFoundRoute = path => (
     <Route exact key={path} path={path} component={AppNotFound} />
@@ -26,7 +26,7 @@ export const AppRoutes = () => {
       return notFoundRoute(route.path)
     }
     const module = getModule(route.module)
-    if (module && !module.permissions.read) {
+    if (module && !hasModuleRead(route.module)) {
       return notFoundRoute(route.path)
     }
     const { path, component, angularComponent, exact, ...rest } = route

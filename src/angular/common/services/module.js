@@ -17,11 +17,40 @@ Filter
 import get from 'lodash/get'
 import camelCase from 'lodash/camelCase'
 import angular from 'angular'
+import gql from 'graphql-tag'
+
+const UI_MODULES = gql`
+  query uiModules {
+    uiModules {
+      _id
+      name
+      alias
+      description
+      url
+      provisioningCreate
+      provisioningRead
+      provisioningUpdate
+      provisioningDelete
+      serviceProviderCreate
+      serviceProviderRead
+      serviceProviderUpdate
+      serviceProviderDelete
+      groupCreate
+      groupRead
+      groupUpdate
+      groupDelete
+      userCreate
+      userRead
+      userUpdate
+      userDelete
+    }
+  }
+`
 
 angular.module('odin.common').factory('Module', Module)
 
-Module.$inject = ['Session', '$q', '$ngRedux']
-function Module(Session, $q, $ngRedux) {
+Module.$inject = ['Session', '$q', 'GraphQL']
+function Module(Session, $q, GraphQL) {
   const service = {
     load,
     allow,
@@ -36,14 +65,15 @@ function Module(Session, $q, $ngRedux) {
     update,
     delete: destroy
   }
+  const _modules = []
   return service
 
   function modules() {
-    return $ngRedux.getState().uiModules
+    return _modules
   }
 
   function load() {
-    return $q.when(modules())
+    return GraphQL.query({ query: UI_MODULES })
   }
 
   function show(name) {
@@ -54,11 +84,24 @@ function Module(Session, $q, $ngRedux) {
   // user for this session
   function findByName(name) {
     const moduleName = name.serviceName || name.name || name
-    const module = modules()[moduleName] || { name, alias: name }
-    const permissions = module.permissions
-      ? module.permissions[camelCase(Session.data('loginType'))]
-      : { create: true, read: true, update: true, delete: true }
-    return { ...module, permissions }
+    const module = modules().find(m => m.name === moduleName)
+    if (!module) {
+      return {
+        name,
+        alias: name,
+        permissions: { create: true, read: true, update: true, delete: true }
+      }
+    }
+    const loginType = Session.data()
+    const permissions = {
+      create: module[camelCase(`${loginType}Create`)],
+      read: module[camelCase(`${loginType}Read`)],
+      update: module[camelCase(`${loginType}Update`)],
+      delete: module[camelCase(`${loginType}Delete`)]
+    }
+    const result = { ...module, permissions }
+    console.log('result', result)
+    return result
   }
 
   function name(name) {

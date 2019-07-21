@@ -24,7 +24,7 @@ export const AppTimer = () => {
   const detectorRef = React.useRef()
   const { clearSession } = useSession()
 
-  const { data } = useQuery(UI_QUERY, { fetchPolicy: 'cache-and-network' })
+  const { data } = useQuery(UI_QUERY)
   const sessionTimeout = get(data, 'uiSettings.sessionTimeout')
 
   const clearSessionLogout = React.useCallback(async () => {

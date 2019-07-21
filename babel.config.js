@@ -6,7 +6,11 @@ module.exports = function(api) {
     ['@babel/preset-react']
   ]
 
-  const plugins = ['react-hot-loader/babel', 'babel-plugin-styled-components']
+  const plugins = [
+    'react-hot-loader/babel',
+    'babel-plugin-styled-components',
+    'graphql-tag'
+  ]
 
   return { presets, plugins }
 }

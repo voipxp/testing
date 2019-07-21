@@ -1,35 +1,64 @@
-import camelCase from 'lodash/camelCase'
 import { useSelector } from 'react-redux'
 import { useCallback } from 'react'
+import { useQuery } from '@apollo/react-hooks'
+import get from 'lodash/get'
+import camelCase from 'lodash/camelCase'
+import gql from 'graphql-tag'
 
-const getModule = (name, loginType, modules) => {
+const UI_QUERY = gql`
+  query uiModules {
+    uiModules {
+      _id
+      name
+      alias
+      description
+      url
+      provisioningCreate
+      provisioningRead
+      provisioningUpdate
+      provisioningDelete
+      serviceProviderCreate
+      serviceProviderRead
+      serviceProviderUpdate
+      serviceProviderDelete
+      groupCreate
+      groupRead
+      groupUpdate
+      groupDelete
+      userCreate
+      userRead
+      userUpdate
+      userDelete
+    }
+  }
+`
+
+const getModule = (name, modules) => {
   if (!name) return
   const moduleName = name.serviceName || name.name || name
-  const module = modules[moduleName]
-  if (!module) return
-  const permissions = module.permissions[camelCase(loginType)]
-  return { ...module, permissions }
+  return modules.find(m => m.name === moduleName)
 }
 
 const hasModulePermission = (name, loginType, modules, permission) => {
-  const module = getModule(name, loginType, modules)
-  return module ? module.permissions[permission] : false
+  const module = getModule(name, modules)
+  const perm = camelCase(`${loginType}${permission}`)
+  return module ? module[perm] : false
+}
+
+const hasModuleCreate = (name, loginType, modules) => {
+  return hasModulePermission(name, loginType, modules, 'Create')
 }
 
 const hasModuleRead = (name, loginType, modules) => {
-  return hasModulePermission(name, loginType, modules, 'read')
-}
-
-const hasModuleWrite = (name, loginType, modules) => {
-  return hasModulePermission(name, loginType, modules, 'write')
+  hasModulePermission(name, loginType, modules, 'Read')
 }
 
 const hasModuleUpdate = (name, loginType, modules) => {
-  return hasModulePermission(name, loginType, modules, 'update')
+  return hasModulePermission(name, loginType, modules, 'Update')
 }
 
 const hasModuleDelete = (name, loginType, modules) => {
-  return hasModulePermission(name, loginType, modules, 'delete')
+  return hasModulePermission(name, loginType, modules, 'Delete')
 }
 
 const moduleAlias = (name, modules) => {
@@ -43,16 +72,15 @@ const moduleDescription = (name, modules) => {
 }
 
 export const useModulePermissions = () => {
-  const { session, uiModules } = useSelector(state => ({
-    session: state.session,
-    uiModules: state.uiModules
-  }))
+  const { session } = useSelector(state => ({ session: state.session }))
+  const { data } = useQuery(UI_QUERY)
+  const uiModules = get(data, 'uiModules', [])
   return {
     getModule: useCallback(
       name => {
-        return getModule(name, session.loginType, uiModules)
+        return getModule(name, uiModules)
       },
-      [session.loginType, uiModules]
+      [uiModules]
     ),
     hasModulePermission: useCallback(
       (name, permission) => {
@@ -65,15 +93,15 @@ export const useModulePermissions = () => {
       },
       [session.loginType, uiModules]
     ),
-    hasModuleRead: useCallback(
+    hasModuleCreate: useCallback(
       name => {
-        return hasModuleRead(name, session.loginType, uiModules)
+        return hasModuleCreate(name, session.loginType, uiModules)
       },
       [session.loginType, uiModules]
     ),
-    hasModuleWrite: useCallback(
+    hasModuleRead: useCallback(
       name => {
-        return hasModuleWrite(name, session.loginType, uiModules)
+        return hasModuleRead(name, session.loginType, uiModules)
       },
       [session.loginType, uiModules]
     ),

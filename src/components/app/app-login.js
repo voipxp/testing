@@ -22,7 +22,7 @@ const UI_QUERY = gql`
 
 export const AppLogin = () => {
   const { setSession, loadSessionFromToken } = useSession()
-  const { data } = useQuery(UI_QUERY, { fetchPolicy: 'cache-and-network' })
+  const { data } = useQuery(UI_QUERY)
   const pageLoginMessage = get(data, 'uiTemplate.pageLoginMessage')
 
   const tokenLogin = React.useCallback(() => {

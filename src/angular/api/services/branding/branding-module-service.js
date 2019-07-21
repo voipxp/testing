@@ -1,5 +1,4 @@
 import angular from 'angular'
-import { loadModules } from '@/store/ui-modules'
 
 angular
   .module('odin.api')
@@ -25,7 +24,6 @@ function BrandingModuleService($http, Route, $rootScope, $ngRedux) {
 
   function update(module) {
     return $http.put(url(), module).then(response => {
-      $ngRedux.dispatch(loadModules())
       $rootScope.$emit('BrandingModuleService:updated')
       return response.data
     })

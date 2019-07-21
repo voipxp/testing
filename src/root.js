@@ -21,9 +21,11 @@ api.interceptors.response.use(
 
 export const Root = hot(() => {
   const [initialized, setInitialized] = React.useState(false)
+
   React.useEffect(() => {
     loadInitialState().then(() => setInitialized(true))
   }, [])
+
   return (
     <ApolloProvider client={client}>
       <Provider store={store}>
