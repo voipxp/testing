@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks'
 import get from 'lodash/get'
 import camelCase from 'lodash/camelCase'
 import gql from 'graphql-tag'
+import { useSession } from '@/graphql'
 
 const UI_QUERY = gql`
   query uiModules {
@@ -50,7 +51,7 @@ const hasModuleCreate = (name, loginType, modules) => {
 }
 
 const hasModuleRead = (name, loginType, modules) => {
-  hasModulePermission(name, loginType, modules, 'Read')
+  return hasModulePermission(name, loginType, modules, 'Read')
 }
 
 const hasModuleUpdate = (name, loginType, modules) => {
@@ -72,7 +73,7 @@ const moduleDescription = (name, modules) => {
 }
 
 export const useModulePermissions = () => {
-  const { session } = useSelector(state => ({ session: state.session }))
+  const { session } = useSession()
   const { data } = useQuery(UI_QUERY)
   const uiModules = get(data, 'uiModules', [])
   return {

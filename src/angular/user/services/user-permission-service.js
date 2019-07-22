@@ -1,44 +1,26 @@
 import angular from 'angular'
-import gql from 'graphql-tag'
+import _ from 'lodash'
 
 angular.module('odin.user').factory('UserPermissionService', Service)
 
-const USER_SERVICES = gql`
-  query userServicesAssignedAndViewable($userId: String!) {
-    userServicesAssigned(userId: $userId) {
-      _id
-      userId
-      userServices {
-        serviceName
-        isActive
-      }
-    }
-    userServicesViewable(userId: $userId) {
-      _id
-      userId
-      userServices {
-        serviceName
-      }
-    }
-  }
-`
-
-Service.$inject = ['Module', 'ACL', '$q', '$ngRedux', 'GraphQL']
-function Service(Module, ACL, $q, $ngRedux, GraphQL) {
-  const service = { load: load }
+Service.$inject = ['Module', 'UserServiceService', 'ACL', '$q']
+function Service(Module, UserServiceService, ACL, $q) {
+  var service = { load: load }
   return service
 
-  function load(userId, useCache) {
-    return loadServices(userId).then(function(data) {
-      return Permission(data.userServicesAssigned, data.userServicesViewable)
-    })
+  function load(userId) {
+    return $q
+      .all([loadAssigned(userId), loadViewable(userId), Module.load()])
+      .then(function(response) {
+        return Permission(response[0], response[1])
+      })
   }
 
   function Permission(_assigned, _viewable) {
-    const _assignedMap = mapServices(_assigned)
-    const _viewableMap = mapServices(_viewable)
+    var _assignedMap = mapServices(_assigned)
+    var _viewableMap = mapServices(_viewable)
 
-    const service = {
+    var service = {
       assigned,
       viewable,
       create,
@@ -85,15 +67,20 @@ function Service(Module, ACL, $q, $ngRedux, GraphQL) {
       if (!name) return
       name = name.serviceName || name.name || name
       // TEMP HACK until #290
-      switch (name) {
-        case 'Call Center':
-          return [
+      if (name === 'Call Center') {
+        return _.find(
+          [
             'Call Center - Basic',
             'Call Center - Standard',
             'Call Center - Premium'
-          ].find(service => isAssigned(name) && isViewable(name))
-        case 'Shared Call Appearance':
-          return [
+          ],
+          function(service) {
+            return isAssigned(service) && isViewable(service)
+          }
+        )
+      } else if (name === 'Shared Call Appearance') {
+        return _.find(
+          [
             'Shared Call Appearance',
             'Shared Call Appearance 5',
             'Shared Call Appearance 10',
@@ -102,23 +89,32 @@ function Service(Module, ACL, $q, $ngRedux, GraphQL) {
             'Shared Call Appearance 25',
             'Shared Call Appearance 30',
             'Shared Call Appearance 35'
-          ].find(service => isAssigned(service) && isViewable(service))
-        default:
-          return isAssigned(name) && isViewable(name)
+          ],
+          function(service) {
+            return isAssigned(service) && isViewable(service)
+          }
+        )
+      } else if (name === 'Premium Call Records') {
+        return true
+      } else {
+        return isAssigned(name) && isViewable(name)
       }
     }
   }
 
-  function loadServices(userId) {
-    return GraphQL.query({ query: USER_SERVICES, variables: { userId } }).then(
-      ({ data }) => data
-    )
+  function loadAssigned(userId) {
+    return UserServiceService.assigned(userId)
   }
 
-  function mapServices(assigned = { userServices: [] }) {
-    return assigned.userServices.reduce((obj, service) => {
-      obj[service.serviceName] = true
-      return obj
-    }, {})
+  function loadViewable(userId) {
+    return UserServiceService.viewable(userId)
+  }
+
+  function mapServices(assigned) {
+    var services = {}
+    assigned.userServices.forEach(function(service) {
+      services[service.serviceName] = true
+    })
+    return services
   }
 }

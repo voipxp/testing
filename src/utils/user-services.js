@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import get from 'lodash/get'
 import gql from 'graphql-tag'
+import { useSession } from '@/graphql'
 
 const USER_SERVICES = gql`
   query userServicesAssignedAndViewable($userId: String!) {
@@ -48,7 +49,7 @@ const hasUserService = (service, assigned, viewable, loginType) => {
 }
 
 export const useUserServicePermissions = userId => {
-  const { session } = useSelector(state => ({ session: state.session }))
+  const { session } = useSession()
   const { data } = useQuery(USER_SERVICES, { variables: { userId } })
   const assigned = get(data, 'userServicesAssigned', { userServices: [] })
   const viewable = get(data, 'userServicesViewable', { userServices: [] })

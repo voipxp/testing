@@ -1,10 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import { Section } from 'rbx'
 import { AngularComponent } from '@/components/angular-component'
 import { UiLoadingPage } from '@/components/ui'
-import { useSession } from '@/store/session'
+import { useSession } from '@/graphql'
+import {
+  UI_APPLICATIONS_FRAGMENT,
+  UI_MODULES_FRAGMENT,
+  UI_SETTINGS_FRAGMENT,
+  UI_TEMPLATE_FRAGMENT
+} from '@/graphql'
+import gql from 'graphql-tag'
+import { useQuery } from '@apollo/react-hooks'
+
 import {
   AppAlerts,
   AppFooter,
@@ -14,68 +22,45 @@ import {
   AppRoutes
 } from '@/components/app'
 
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
-
 const UI_QUERY = gql`
   query uiSettings {
     uiApplications {
-      _id
-      description
-      name
-      partner
-      url
-      window
+      ...UiApplicationsFragment
     }
     uiModules {
-      _id
-      alias
-      description
-      groupCreate
-      groupDelete
-      groupRead
-      groupUpdate
-      name
-      provisioningCreate
-      provisioningDelete
-      provisioningRead
-      provisioningUpdate
-      serviceProviderCreate
-      serviceProviderDelete
-      serviceProviderRead
-      serviceProviderUpdate
-      url
-      userCreate
-      userDelete
-      userRead
-      userUpdate
+      ...UiModulesFragment
     }
     uiSettings {
-      _id
-      editCLID
-      sessionTimeout
+      ...UiSettingsFragment
     }
     uiTemplate {
-      _id
-      pageCopyright
-      pageFooterTitle
-      pageGoogleUA
-      pageLoginMessage
-      pageTitle
-      styleCustomCss
-      styleMenuColor
+      ...UiTemplateFragment
     }
   }
+  ${UI_APPLICATIONS_FRAGMENT}
+  ${UI_MODULES_FRAGMENT}
+  ${UI_SETTINGS_FRAGMENT}
+  ${UI_TEMPLATE_FRAGMENT}
 `
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
 `
-export const App = ({ initialized }) => {
-  const { session } = useSession()
-  const { data } = useQuery(UI_QUERY, { fetchPolicy: 'network-only' })
+export const App = () => {
+  const [sessionLoaded, setSessionLoaded] = React.useState(false)
+  const { session, sessionRefresh } = useSession()
+  const { loading: loadingUi } = useQuery(UI_QUERY, {
+    fetchPolicy: 'network-only'
+  })
 
-  if (!initialized || !data) return <UiLoadingPage />
+  React.useEffect(() => {
+    sessionRefresh()
+      .then(() => setSessionLoaded(true))
+      .catch(() => setSessionLoaded(true))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  if (!sessionLoaded || loadingUi) return <UiLoadingPage />
 
   return (
     <>
@@ -97,8 +82,4 @@ export const App = ({ initialized }) => {
       <AppLoadingModal />
     </>
   )
-}
-
-App.propTypes = {
-  initialized: PropTypes.bool
 }

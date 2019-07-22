@@ -88,7 +88,6 @@ export function cacheFactoryConfig(CacheFactoryProvider) {
 rootScope.$inject = ['$rootScope']
 export function rootScope($rootScope) {
   $rootScope.apiURL = '/api/v2'
-  $rootScope.loginURL = '/login'
   $rootScope.sessionKey = 'odin:session'
 }
 

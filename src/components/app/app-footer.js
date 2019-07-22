@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import gql from 'graphql-tag'
 import get from 'lodash/get'
-import { useSession } from '@/store/session'
+import { useSession } from '@/graphql'
 import { Footer } from 'rbx'
 import { useQuery } from '@apollo/react-hooks'
 

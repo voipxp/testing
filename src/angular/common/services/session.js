@@ -1,17 +1,11 @@
 import angular from 'angular'
 import _ from 'lodash'
-import { setSession, clearSession } from '@/store/session'
 
 angular.module('odin.common').factory('Session', Session)
 
-Session.$inject = [
-  'StorageService',
-  '$rootScope',
-  '$q',
-  'jwtHelper',
-  '$ngRedux'
-]
-function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
+Session.$inject = ['StorageService', '$rootScope', '$q', 'jwtHelper']
+function Session(StorageService, $rootScope, $q, jwtHelper) {
+  let _data = null
   const service = {
     load: load,
     data: data,
@@ -26,29 +20,34 @@ function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
 
   // load the saved data into memory
   async function load() {
-    return $ngRedux.getState().session
+    const data = await StorageService.get($rootScope.sessionKey)
+    _data = data || {}
+    $rootScope.$emit('Session:loaded')
+    console.log('Session:loaded', _data)
+    return _data
   }
 
   // return the data or a specific property
   function data(property) {
-    const session = $ngRedux.getState().session
-    return property ? _.get(session, property) : session
+    if (_.isEmpty(_data)) {
+      _data = JSON.parse(localStorage.getItem($rootScope.sessionKey))
+    }
+    return property ? _.get(_data, property) : _data
   }
-
   // replace session data and cache in memory
-  async function set(data) {
-    $ngRedux.dispatch(setSession(data))
+  function set(data) {
+    return StorageService.set($rootScope.sessionKey, data).then(load)
   }
 
   // update session data and cache in memory
   function update(data) {
-    const current = $ngRedux.getState().session
-    set({ ...current, data })
+    return set(_.assign({}, _data, data))
   }
 
   // remove the session data
   async function clear() {
-    $ngRedux.dispatch(clearSession())
+    await StorageService.clear($rootScope.sessionKey)
+    await load()
     $rootScope.$emit('Session:cleared')
   }
 
@@ -57,6 +56,10 @@ function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
   }
 
   async function required() {
-    if (expired()) return $q.reject('sessionRequired')
+    if (_.isEmpty(_data)) await load()
+    if (expired()) {
+      await clear()
+      throw new Error('sessionRequired')
+    }
   }
 }

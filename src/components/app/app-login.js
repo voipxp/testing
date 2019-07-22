@@ -5,7 +5,7 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
 import { alertWarning, alertDanger } from '@/utils/alerts'
 import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
-import { useSession } from '@/store/session'
+import { useSession } from '@/graphql'
 import authApi from '@/api/auth'
 import gql from 'graphql-tag'
 import get from 'lodash/get'
@@ -21,9 +21,9 @@ const UI_QUERY = gql`
 `
 
 export const AppLogin = () => {
-  const { setSession, loadSessionFromToken } = useSession()
   const { data } = useQuery(UI_QUERY)
   const pageLoginMessage = get(data, 'uiTemplate.pageLoginMessage')
+  const { sessionLogin } = useSession()
 
   const tokenLogin = React.useCallback(() => {
     const [hash, query] = window.location.hash.split('?')
@@ -35,10 +35,10 @@ export const AppLogin = () => {
     delete search.token
     const newSearch = stringify(search)
     window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
-    loadSessionFromToken(token)
-      .catch(error => alertDanger(error))
-      .finally(() => hideLoadingModal())
-  }, [loadSessionFromToken])
+    // loadSessionFromToken(token)
+    //   .catch(error => alertDanger(error))
+    //   .finally(() => hideLoadingModal())
+  }, [])
 
   React.useEffect(() => {
     tokenLogin()
@@ -71,8 +71,10 @@ export const AppLogin = () => {
   async function login() {
     try {
       showLoadingModal()
-      const session = await authApi.token(form.username, form.password)
-      await setSession(session)
+      await sessionLogin({
+        variables: { username: form.username, password: form.password }
+      })
+      // await setSession(session)
     } catch (error) {
       if (error.status === 402) {
         alertWarning(error)
@@ -92,12 +94,11 @@ export const AppLogin = () => {
     }
     try {
       showLoadingModal()
-      const session = await authApi.tokenPassword(
+      await authApi.tokenPassword(
         form.password,
         form.newPassword1,
         form.username
       )
-      await setSession(session)
     } catch (error) {
       alertDanger(error)
     } finally {

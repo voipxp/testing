@@ -1,7 +1,7 @@
 import React from 'react'
 import createActivityDetector from 'activity-detector'
 import { alertWarning, removeAlert } from '@/utils/alerts'
-import { useSession } from '@/store/session'
+import { useSession } from '@/graphql'
 
 import gql from 'graphql-tag'
 import get from 'lodash/get'
@@ -22,7 +22,7 @@ export const AppTimer = () => {
   const alertRef = React.useRef()
   const timerRef = React.useRef()
   const detectorRef = React.useRef()
-  const { clearSession } = useSession()
+  const { sessionLogout } = useSession()
 
   const { data } = useQuery(UI_QUERY)
   const sessionTimeout = get(data, 'uiSettings.sessionTimeout')
@@ -35,8 +35,8 @@ export const AppTimer = () => {
   const startSessionLogout = React.useCallback(async () => {
     await clearSessionLogout()
     alertRef.current = await alertWarning('Your session is about to expire', 0)
-    timerRef.current = setTimeout(() => clearSession(), TIMEOUT)
-  }, [clearSession, clearSessionLogout])
+    timerRef.current = setTimeout(() => sessionLogout(), TIMEOUT)
+  }, [clearSessionLogout, sessionLogout])
 
   const stopDetector = React.useCallback(() => {
     if (detectorRef.current) detectorRef.current.stop()

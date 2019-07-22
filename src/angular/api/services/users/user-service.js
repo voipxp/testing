@@ -1,10 +1,9 @@
 import angular from 'angular'
-import gql from 'graphql-tag'
 
 angular.module('odin.api').factory('UserService', UserService)
 
-UserService.$inject = ['$http', 'Route', 'GraphQL']
-function UserService($http, Route, GraphQL) {
+UserService.$inject = ['$http', 'Route']
+function UserService($http, Route) {
   var service = {
     index,
     store,
@@ -18,40 +17,10 @@ function UserService($http, Route, GraphQL) {
 
   return service
 
-  function index(serviceProviderId, groupId, extended = []) {
-    let extendedQuery = ''
-    if (extended.length > 0) {
-      extendedQuery = `
-        user {
-          ${extended.join('\n')}
-        }
-      `
-    }
-    const query = gql`
-      query users($serviceProviderId: String!, $groupId: String!) {
-        users(serviceProviderId: $serviceProviderId, groupId: $groupId) {
-          _id
-          userId
-          serviceProviderId
-          groupId
-          lastName
-          firstName
-          department
-          phoneNumber
-          phoneNumberActivated
-          emailAddress
-          extension
-          countryCode
-          nationalPrefix
-          ${extendedQuery}
-        }
-      }
-    `
-    return GraphQL.query({
-      query,
-      variables: { serviceProviderId, groupId },
-      fetchPolicy: 'network-only'
-    }).then(res => res.data.users)
+  function index(serviceProviderId, groupId, extended) {
+    return $http
+      .get(url(), { params: { serviceProviderId, groupId, extended } })
+      .then(response => response.data)
   }
 
   function info(userId) {
