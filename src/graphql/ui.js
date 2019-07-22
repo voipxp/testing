@@ -57,3 +57,24 @@ export const UI_MODULES_FRAGMENT = gql`
     userUpdate
   }
 `
+
+export const UI_QUERY = gql`
+  query uiSettings {
+    uiApplications {
+      ...UiApplicationsFragment
+    }
+    uiModules {
+      ...UiModulesFragment
+    }
+    uiSettings {
+      ...UiSettingsFragment
+    }
+    uiTemplate {
+      ...UiTemplateFragment
+    }
+  }
+  ${UI_APPLICATIONS_FRAGMENT}
+  ${UI_MODULES_FRAGMENT}
+  ${UI_SETTINGS_FRAGMENT}
+  ${UI_TEMPLATE_FRAGMENT}
+`

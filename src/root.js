@@ -12,9 +12,7 @@ import { sessionLogout } from '@/graphql'
 api.interceptors.response.use(
   response => response,
   error => {
-    if (error.status === 401 || error.status === 403) {
-      sessionLogout(client)
-    }
+    if (error.status === 401 || error.status === 403) sessionLogout()
     return Promise.reject(error)
   }
 )

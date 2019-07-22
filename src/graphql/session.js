@@ -2,6 +2,7 @@ import gql from 'graphql-tag'
 import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks'
 import { useCallback } from 'react'
 import { setToken } from '@/api'
+import { client } from '@/apollo'
 
 const SESSION_KEY = 'odin:session'
 const TOKEN_KEY = 'odin:token'
@@ -50,8 +51,10 @@ const SESSION_REFRESH = gql`
   ${SESSION_FRAGMENT}
 `
 
-export const sessionLogout = client => {
-  client.writeQuery({
+export const sessionLogout = () => {
+  localStorage.removeItem(SESSION_KEY)
+  localStorage.removeItem(TOKEN_KEY)
+  return client.writeQuery({
     query: SESSION_QUERY,
     data: {
       session: {
@@ -71,12 +74,9 @@ export const sessionLogout = client => {
       }
     }
   })
-  localStorage.removeItem(SESSION_KEY)
-  localStorage.removeItem(TOKEN_KEY)
 }
 
 export const useSession = () => {
-  const client = useApolloClient()
   const session = useQuery(SESSION_QUERY, { fetchPolicy: 'cache-only' })
   /* Saving to localstorage because this is where angular pulls from */
   const [sessionLogin] = useMutation(SESSION_LOGIN, {
@@ -96,7 +96,7 @@ export const useSession = () => {
   })
   return {
     session: session.data.session || {},
-    sessionLogout: useCallback(() => sessionLogout(client), [client]),
+    sessionLogout,
     sessionLogin,
     sessionRefresh
   }
