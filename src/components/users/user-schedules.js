@@ -5,6 +5,7 @@ import apiUserEvents from '@/api/user-schedules/events'
 import apiGroupEvents from '@/api/group-schedules/events'
 import apiUserSearch from '@/api/users'
 import { useAlerts, alertDanger } from '@/store/alerts'
+import { Field, Input, Column, Control, Select } from 'rbx'
 import {
   UiCard,
   UiLoadingCard,
@@ -12,21 +13,28 @@ import {
   UiButton,
   UiCardModal,
   UiSection,
-  UiListItem
+  UiListItem,
+  UiInputCheckbox,
+  UiFormField
 } from '@/components/ui'
-import { Field, Input, Column, Control, Label } from 'rbx'
 export const UserSchedules = ({ match }) => {
   const { userId } = match.params
   const { alertSuccess, alertDanger } = useAlerts()
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({})
   const [userSchedules, setUserSchedules] = useState([])
-  const [schedule, setSchedule] = useState()
+  const [schedule, setSchedule] = useState({})
   const [user, setUser] = useState({})
   const [userEvents, setUserEvents] = useState([])
   const [showEvents, setShowEvents] = useState(false)
   const [showSchedule, setShowSchedule] = useState(false)
   const [scheduleTypeGroup, setScheduleTypeGroup] = useState(false)
+  const [scheduleForm, setScheduleForm] = useState({
+    name: '',
+    level: '',
+    type: ''
+  })
+  const [showScheduleModal, setShowScheduleModal] = useState(false)
   const columns = [
     { key: 'name', label: 'Name' },
     { key: 'type', label: 'Type' },
@@ -59,6 +67,8 @@ export const UserSchedules = ({ match }) => {
     console.log('event.item', item)
   }
   async function onClick(item) {
+    setScheduleForm({ ...item })
+    console.log('onClick.scheduleForm', schedule.form)
     setSchedule(item)
     setShowEvents(true)
     setShowSchedule(true)
@@ -83,6 +93,14 @@ export const UserSchedules = ({ match }) => {
       console.log('finally')
     }
   }
+  function editSchedule() {
+    setScheduleForm({ ...showSchedule })
+    setShowScheduleModal(true)
+    console.log('showSchedule', showSchedule)
+    console.log('scheduleForm', scheduleForm)
+  }
+  function addSchedule(item) {}
+  function saveSchedule() {}
 
   function handleInput(event) {
     const target = event.target
@@ -100,7 +118,14 @@ export const UserSchedules = ({ match }) => {
         <>
           <UiCard
             title="User Schedules"
-            buttons={<UiButton color="link" icon="add" size="small" />}
+            buttons={
+              <UiButton
+                color="link"
+                icon="add"
+                size="small"
+                onClick={addSchedule}
+              />
+            }
           >
             <UiDataTable
               columns={columns}
@@ -122,6 +147,7 @@ export const UserSchedules = ({ match }) => {
                 color="link"
                 icon="edit"
                 size="small"
+                onClick={editSchedule}
                 disabled={scheduleTypeGroup}
               />
             }
@@ -165,6 +191,61 @@ export const UserSchedules = ({ match }) => {
           </UiCard>
         </>
       )}
+      <UiCardModal
+        title={'Edit Schedule'}
+        isOpen={showScheduleModal}
+        onCancel={() => setShowScheduleModal(false)}
+        onSave={saveSchedule}
+      >
+        <form>
+          <Column.Group>
+            <Column>
+              <Field>
+                <Control>
+                  <UiButton fullwidth static>
+                    Schedule Name
+                  </UiButton>
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <UiButton fullwidth static>
+                    Schedule Type
+                  </UiButton>
+                </Control>
+              </Field>
+              <Field>
+                <Control>
+                  <UiButton fullwidth static>
+                    Schedule Level
+                  </UiButton>
+                </Control>
+              </Field>
+            </Column>
+            <Column>
+              <Field>
+                <Control>
+                  <Input
+                    type="text"
+                    name="name"
+                    value={scheduleForm.name}
+                    onChange={e =>
+                      setScheduleForm({ ...scheduleForm, name: e.target.value })
+                    }
+                    placeholder="name"
+                  />
+                </Control>
+              </Field>
+              <Field>
+                <Control>Schedule Type</Control>
+              </Field>
+              <Field>
+                <Control>Schedule Level</Control>
+              </Field>
+            </Column>
+          </Column.Group>
+        </form>
+      </UiCardModal>
     </>
   )
 }
