@@ -1,6 +1,18 @@
-ideas
+## GRAPHQL NOTES
 
-common queries can be inside custom hooks that call out to graphql
+### TO CREATE IN GRAPHQL
+
+- all store items
+- all existing items that are missing mutations
+
+### THINGS TO DO
+
+permission services should be simplified
+
+- call all needed objects in one query
+- do a mutation for assigning services, which should force an update on servicesAssigned
+
+### Idea: Custom Hooks with passable fragments
 
 ```
 export const defaultFragment = gql`
@@ -33,9 +45,3 @@ export const useUserServicesAssigned = (userId, fragment) {
 import { useUserServicesAssigned } from '.'
 const { loading, data, error } = useUserServicesAssigned('dusty')
 ```
-
-permission services should be simplified
-
-- call all needed objects in one query
-
-do a mutation for assigning services, which should force an update on servicesAssigned
