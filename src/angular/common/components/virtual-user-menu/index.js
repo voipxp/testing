@@ -1,5 +1,19 @@
 import angular from 'angular'
 import template from './index.html'
+import gql from 'graphql-tag'
+
+const USER_SERVICES_ASSIGNED = gql`
+  query userServicesAssigned($userId: String!) {
+    userServicesAssigned(userId: $userId) {
+      _id
+      userId
+      userServices {
+        serviceName
+        isActive
+      }
+    }
+  }
+`
 
 angular.module('odin.common').directive('virtualUserMenu', Directive)
 
@@ -20,30 +34,28 @@ function Directive() {
   }
 }
 
-controller.$inject = ['Alert', 'Module', 'UserServiceService', 'ACL']
-function controller(Alert, Module, UserServiceService, ACL) {
-  var ctrl = this
-  ctrl.$onInit = onInit
+controller.$inject = ['Alert', 'Module', 'ACL', 'GraphQL']
+function controller(Alert, Module, ACL, GraphQL) {
+  const ctrl = this
 
-  function onInit() {
+  ctrl.$onInit = () => {
     ctrl.hasAnnouncements = ACL.hasVersion('20')
     ctrl.loading = true
-    Module.load()
-      .then(loadServices)
-      .then(loadPermissions)
-      .catch(Alert.notify.danger)
-      .finally(function() {
-        ctrl.loading = false
-      })
+    loadAssignedServices().then(services => loadPermissions(services))
   }
 
-  function loadServices() {
-    return UserServiceService.assigned(ctrl.userId).then(data => {
-      ctrl.services = (data.userServices || []).map(s => s.serviceName)
+  function loadAssignedServices() {
+    return GraphQL.query({
+      query: USER_SERVICES_ASSIGNED,
+      variables: { userId: ctrl.userId }
+    }).then(({ data }) => {
+      return data.userServicesAssigned.userServices.map(s => s.serviceName)
     })
   }
 
-  function loadPermissions() {
+  // Can we simplify this with UserPermissionService?
+  function loadPermissions(services) {
+    console.log('loadPermissions**', services)
     if (ctrl.module.name === 'Meet-Me Conferencing') {
       ctrl.isMeetMe = true
     }
@@ -54,21 +66,27 @@ function controller(Alert, Module, UserServiceService, ACL) {
     if (ctrl.module.name === 'Call Center') {
       ctrl.showCallCenterReport = Module.read('Premium Call Records')
     }
+
     ctrl.showCallRecords = Module.read('Premium Call Records')
+
+    console.log('WTF', services.includes('Basic Call Logs'))
     ctrl.showBasicCallLogs =
-      ctrl.services.includes('Basic Call Logs') &&
-      Module.read('Basic Call Logs')
+      services.includes('Basic Call Logs') && Module.read('Basic Call Logs')
+
     ctrl.showAssignServices = Module.read('Provisioning')
+
     ctrl.showReporting =
       ctrl.showBasicCallLogs ||
       ctrl.showCallRecords ||
       ctrl.showAutoAttendantReport ||
       ctrl.showCallCenterReport
+
     if (ctrl.module.name === 'Flexible Seating Guest') {
       ctrl.isMeetMe = false
       ctrl.hasAnnouncements = false
       ctrl.showCallRecords = false
       ctrl.showReporting = false
     }
+    ctrl.loading = false
   }
 }

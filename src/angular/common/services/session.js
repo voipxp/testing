@@ -1,10 +1,11 @@
 import angular from 'angular'
 import _ from 'lodash'
+import { SESSION_QUERY } from '@/graphql'
 
 angular.module('odin.common').factory('Session', Session)
 
-Session.$inject = ['StorageService', '$rootScope', '$q', 'jwtHelper']
-function Session(StorageService, $rootScope, $q, jwtHelper) {
+Session.$inject = ['StorageService', '$rootScope', '$q', 'jwtHelper', 'GraphQL']
+function Session(StorageService, $rootScope, $q, jwtHelper, GraphQL) {
   let _data = null
   const service = {
     load: load,
@@ -14,6 +15,10 @@ function Session(StorageService, $rootScope, $q, jwtHelper) {
     expired: expired,
     required: required
   }
+
+  GraphQL.watchQuery({ query: SESSION_QUERY }, data => {
+    console.log('inCallback', data)
+  })
 
   return service
 

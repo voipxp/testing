@@ -1,9 +1,10 @@
 import angular from 'angular'
+import gql from 'graphql-tag'
 
 angular.module('odin.api').factory('ServiceProviderService', service)
 
-service.$inject = ['$http', 'Route', '$rootScope', 'CacheFactory']
-function service($http, Route, $rootScope, CacheFactory) {
+service.$inject = ['$http', 'Route', '$rootScope', 'CacheFactory', 'GraphQL']
+function service($http, Route, $rootScope, CacheFactory, GraphQL) {
   var url = Route.api('/service-providers')
   var service = { index, show, store, update, destroy }
   var cache = CacheFactory('ServiceProviderService')
@@ -17,7 +18,20 @@ function service($http, Route, $rootScope, CacheFactory) {
   }
 
   function index() {
-    return $http.get(url(), { cache }).then(response => response.data)
+    const query = gql`
+      query serviceProviders {
+        serviceProviders {
+          _id
+          serviceProviderId
+          serviceProviderName
+          isEnterprise
+        }
+      }
+    `
+    return GraphQL.query({
+      query,
+      fetchPolicy: 'network-only'
+    }).then(res => res.data.serviceProviders)
   }
 
   function store(serviceProvider) {
@@ -28,9 +42,39 @@ function service($http, Route, $rootScope, CacheFactory) {
   }
 
   function show(serviceProviderId) {
-    return $http
-      .get(url(), { params: { serviceProviderId }, cache })
-      .then(response => response.data)
+    const query = gql`
+      query serviceProvider($serviceProviderId: String!) {
+        serviceProvider(serviceProviderId: $serviceProviderId) {
+          _id
+          serviceProviderId
+          serviceProviderName
+          isEnterprise
+          defaultDomain
+          supportEmail
+          useCustomRoutingProfile
+          useServiceProviderLanguages
+          contact {
+            contactName
+            contactNumber
+            contactEmail
+          }
+          address {
+            addressLine1
+            addressLine2
+            city
+            stateOrProvince
+            stateOrProvinceDisplayName
+            zipOrPostalCode
+            country
+          }
+        }
+      }
+    `
+    return GraphQL.query({
+      query,
+      variables: { serviceProviderId },
+      fetchPolicy: 'network-only'
+    }).then(res => res.data.serviceProvider)
   }
 
   function update(serviceProviderId, serviceProvider) {

@@ -14,13 +14,43 @@ Filter
   on the permissions
 
 */
-import _ from 'lodash'
+import get from 'lodash/get'
+import camelCase from 'lodash/camelCase'
 import angular from 'angular'
+import gql from 'graphql-tag'
+
+const UI_MODULES = gql`
+  query uiModules {
+    uiModules {
+      _id
+      name
+      alias
+      description
+      url
+      provisioningCreate
+      provisioningRead
+      provisioningUpdate
+      provisioningDelete
+      serviceProviderCreate
+      serviceProviderRead
+      serviceProviderUpdate
+      serviceProviderDelete
+      groupCreate
+      groupRead
+      groupUpdate
+      groupDelete
+      userCreate
+      userRead
+      userUpdate
+      userDelete
+    }
+  }
+`
 
 angular.module('odin.common').factory('Module', Module)
 
-Module.$inject = ['UiModuleService', 'Session', '$q']
-function Module(UiModuleService, Session, $q) {
+Module.$inject = ['Session', '$q', 'GraphQL']
+function Module(Session, $q, GraphQL) {
   const service = {
     load,
     allow,
@@ -35,78 +65,83 @@ function Module(UiModuleService, Session, $q) {
     update,
     delete: destroy
   }
-  let _modules = {}
+  const _modules = []
   return service
 
-  function load() {
-    return UiModuleService.index().then(function(response) {
-      return mapModules(response.data)
-    })
-  }
-
-  // turn into an easy to access hash
-  // { 'Auto Attendant': { name: '', alias: '', permissions: { read: true } }}
-  function mapModules(modules) {
-    const newModules = {}
-    modules.forEach(function(module) {
-      module.permissions =
-        module.permissions[_.camelCase(Session.data('loginType'))]
-      newModules[module.name] = module
-    })
-    _modules = newModules
+  function modules() {
     return _modules
   }
 
-  function show(name) {
-    return load().then(function() {
-      return get(name)
-    })
+  function load() {
+    return GraphQL.query({ query: UI_MODULES })
   }
 
-  function get(name) {
-    const theName = name.serviceName || name.name || name
-    return _.get(_modules, theName, { permissions: {} })
+  function show(name) {
+    return $q.when(findByName(name))
+  }
+
+  // find the module by name and then map it to the
+  // user for this session
+  function findByName(name) {
+    const moduleName = name.serviceName || name.name || name
+    const module = modules().find(m => m.name === moduleName)
+    if (!module) {
+      return {
+        name,
+        alias: name,
+        permissions: { create: true, read: true, update: true, delete: true }
+      }
+    }
+    const loginType = Session.data()
+    const permissions = {
+      create: module[camelCase(`${loginType}Create`)],
+      read: module[camelCase(`${loginType}Read`)],
+      update: module[camelCase(`${loginType}Update`)],
+      delete: module[camelCase(`${loginType}Delete`)]
+    }
+    const result = { ...module, permissions }
+    console.log('result', result)
+    return result
   }
 
   function name(name) {
-    return _.get(get(name), 'name')
+    return get(findByName(name), 'name')
   }
 
   function alias(name) {
-    return _.get(get(name), 'alias', name)
+    return get(findByName(name), 'alias', name)
   }
 
   function description(name) {
-    return _.get(get(name), 'description')
+    return get(findByName(name), 'description')
   }
 
   function url(name) {
-    return _.get(get(name), 'url')
+    return get(findByName(name), 'url')
   }
 
   function permissions(name) {
-    return _.get(get(name), 'permissions', {})
+    return get(findByName(name), 'permissions', {})
   }
 
   function create(name) {
-    return _.get(get(name), 'permissions.create', false)
+    return get(findByName(name), 'permissions.create', false)
   }
 
   function read(name) {
-    return _.get(get(name), 'permissions.read', false)
+    return get(findByName(name), 'permissions.read', false)
   }
 
   function update(name) {
-    return _.get(get(name), 'permissions.update', false)
+    return get(findByName(name), 'permissions.update', false)
   }
 
   function destroy(name) {
-    return _.get(get(name), 'permissions.delete', false)
+    return get(findByName(name), 'permissions.delete', false)
   }
 
-  function allow(name) {
-    return load().then(function() {
-      return read(name) ? get(name) : $q.reject('moduleAllow')
-    })
+  async function allow(name) {
+    await load()
+    return read(name) ? findByName(name) : $q.reject('moduleAllow')
   }
 }
