@@ -1,6 +1,5 @@
 import gql from 'graphql-tag'
-import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks'
-import { useCallback } from 'react'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 import { setToken } from '@/api'
 import { client } from '@/apollo'
 
