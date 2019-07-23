@@ -21,7 +21,7 @@ const StyledFooter = styled.footer`
   height: 50px;
 `
 export const AppFooter = () => {
-  const { session } = useSession()
+  const session = useSession()
   const { version = 'N/A' } = session
 
   const { data } = useQuery(UI_QUERY)

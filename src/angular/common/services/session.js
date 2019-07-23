@@ -10,7 +10,6 @@ function Session(StorageService, $rootScope, $q, jwtHelper) {
     load: load,
     data: data,
     set: set,
-    update: update,
     clear: clear,
     expired: expired,
     required: required
@@ -36,18 +35,15 @@ function Session(StorageService, $rootScope, $q, jwtHelper) {
   }
   // replace session data and cache in memory
   function set(data) {
-    return StorageService.set($rootScope.sessionKey, data).then(load)
-  }
-
-  // update session data and cache in memory
-  function update(data) {
-    return set(_.assign({}, _data, data))
+    console.log('Session.set DEPRECATED')
+    // return StorageService.set($rootScope.sessionKey, data).then(load)
   }
 
   // remove the session data
   async function clear() {
-    await StorageService.clear($rootScope.sessionKey)
-    await load()
+    console.log('Session.clear DEPRECATED')
+    // await StorageService.clear($rootScope.sessionKey)
+    // await load()
     $rootScope.$emit('Session:cleared')
   }
 

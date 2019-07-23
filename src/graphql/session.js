@@ -51,9 +51,10 @@ const SESSION_REFRESH = gql`
   ${SESSION_FRAGMENT}
 `
 
-export const sessionLogout = () => {
+export const clearSession = () => {
   localStorage.removeItem(SESSION_KEY)
   localStorage.removeItem(TOKEN_KEY)
+  setToken()
   return client.writeQuery({
     query: SESSION_QUERY,
     data: {
@@ -76,28 +77,28 @@ export const sessionLogout = () => {
   })
 }
 
+const saveSession = session => {
+  localStorage.setItem(SESSION_KEY, JSON.stringify(session))
+  localStorage.setItem(TOKEN_KEY, session.token)
+  setToken(session.token)
+}
+
 export const useSession = () => {
   const session = useQuery(SESSION_QUERY, { fetchPolicy: 'cache-only' })
-  /* Saving to localstorage because this is where angular pulls from */
-  const [sessionLogin] = useMutation(SESSION_LOGIN, {
-    update(cache, res) {
-      const session = res.data.sessionLogin
-      localStorage.setItem(SESSION_KEY, JSON.stringify(session))
-      setToken(session.token)
-    }
+  return session.data.session || {}
+}
+
+export const useSessionLogin = () => {
+  return useMutation(SESSION_LOGIN, {
+    update: (cache, res) => saveSession(res.data.sessionLogin)
   })
-  /* Saving to localstorage because this is where angular pulls from */
-  const [sessionRefresh] = useMutation(SESSION_REFRESH, {
-    update(cache, res) {
-      const session = res.data.sessionRefresh
-      localStorage.setItem(SESSION_KEY, JSON.stringify(session))
-      setToken(session.token)
-    }
+}
+
+export const useSessionLogout = () => clearSession
+
+export const useSessionRefresh = () => {
+  return useMutation(SESSION_REFRESH, {
+    update: (cache, res) => saveSession(res.data.sessionRefresh),
+    onError: err => {}
   })
-  return {
-    session: session.data.session || {},
-    sessionLogout,
-    sessionLogin,
-    sessionRefresh
-  }
 }

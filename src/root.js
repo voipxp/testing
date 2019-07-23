@@ -7,12 +7,12 @@ import { App } from '@/components/app'
 import { store } from '@/store'
 import api from '@/api'
 import { client } from './apollo'
-import { sessionLogout } from '@/graphql'
+import { clearSession } from '@/graphql'
 
 api.interceptors.response.use(
   response => response,
   error => {
-    if (error.status === 401 || error.status === 403) sessionLogout()
+    if (error.status === 401 || error.status === 403) clearSession()
     return Promise.reject(error)
   }
 )

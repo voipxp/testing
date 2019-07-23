@@ -3,7 +3,7 @@ import { useSession } from '@/graphql'
 import { Redirect } from 'react-router-dom'
 
 export const AppDashboard = () => {
-  const { session } = useSession()
+  const session = useSession()
   const { loginType, serviceProviderId, groupId, userId } = session
 
   let route

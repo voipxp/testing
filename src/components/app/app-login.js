@@ -5,7 +5,7 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
 import { alertWarning, alertDanger } from '@/utils/alerts'
 import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
-import { useSession } from '@/graphql'
+import { useSessionLogin } from '@/graphql'
 import authApi from '@/api/auth'
 import gql from 'graphql-tag'
 import get from 'lodash/get'
@@ -23,7 +23,7 @@ const UI_QUERY = gql`
 export const AppLogin = () => {
   const { data } = useQuery(UI_QUERY)
   const pageLoginMessage = get(data, 'uiTemplate.pageLoginMessage')
-  const { sessionLogin } = useSession()
+  const [login] = useSessionLogin()
 
   const tokenLogin = React.useCallback(() => {
     const [hash, query] = window.location.hash.split('?')
@@ -60,7 +60,7 @@ export const AppLogin = () => {
 
   function handleSubmit(e) {
     e.preventDefault()
-    needsChange ? changePassword() : login()
+    needsChange ? changePassword() : loginUser()
   }
 
   function handleInput(e) {
@@ -68,13 +68,11 @@ export const AppLogin = () => {
     setValid(formRef.current.checkValidity())
   }
 
-  async function login() {
+  async function loginUser() {
     try {
       showLoadingModal()
-      await sessionLogin({
-        variables: { username: form.username, password: form.password }
-      })
-      // await setSession(session)
+      const { username, password } = form
+      await login({ variables: { username, password } })
     } catch (error) {
       if (error.status === 402) {
         alertWarning(error)

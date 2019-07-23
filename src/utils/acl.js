@@ -39,7 +39,7 @@ export default {
 }
 
 export const useAcl = () => {
-  const { session } = useSession()
+  const session = useSession()
   return {
     hasLevel: useCallback(
       level => hasLevel(session.loginType, level, session.isPaasAdmin),

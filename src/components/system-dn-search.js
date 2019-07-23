@@ -24,7 +24,7 @@ const columns = [
 
 export const SystemDnSearch = ({ onSelect }) => {
   const acl = useAcl()
-  const { session } = useSession()
+  const session = useSession()
   const [searchString, setSearchString] = React.useState('')
   const [serviceProviderId, setServiceProviderId] = React.useState('')
   const [showServiceProvider, setShowServiceProvider] = React.useState(false)

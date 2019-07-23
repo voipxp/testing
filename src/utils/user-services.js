@@ -49,7 +49,7 @@ const hasUserService = (service, assigned, viewable, loginType) => {
 }
 
 export const useUserServicePermissions = userId => {
-  const { session } = useSession()
+  const session = useSession()
   const { data } = useQuery(USER_SERVICES, { variables: { userId } })
   const assigned = get(data, 'userServicesAssigned', { userServices: [] })
   const viewable = get(data, 'userServicesViewable', { userServices: [] })

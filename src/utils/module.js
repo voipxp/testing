@@ -73,7 +73,7 @@ const moduleDescription = (name, modules) => {
 }
 
 export const useModulePermissions = () => {
-  const { session } = useSession()
+  const session = useSession()
   const { data } = useQuery(UI_QUERY)
   const uiModules = get(data, 'uiModules', [])
   return {

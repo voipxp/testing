@@ -8,7 +8,7 @@ import { UiCardModal } from '@/components/ui'
 import { useAcl, userPath, groupPath } from '@/utils'
 import { parseUrl, stringify } from 'query-string'
 import { alertDanger } from '@/utils/alerts'
-import { useSession } from '@/graphql'
+import { useSession, useSessionLogout } from '@/graphql'
 import { UserSearch } from '@/components/user-search'
 import { SystemDnSearch } from '@/components/system-dn-search'
 import { GroupSearch } from '@/components/group-search'
@@ -33,7 +33,8 @@ const UI_QUERY = gql`
   }
 `
 export const AppNavbar = withRouter(({ history }) => {
-  const { session, sessionLogout } = useSession()
+  const logoutUser = useSessionLogout()
+  const session = useSession()
   const { userId } = session
 
   const acl = useAcl()
@@ -54,7 +55,7 @@ export const AppNavbar = withRouter(({ history }) => {
   const toggleMenu = () => updateShowMenu(!showMenu)
 
   const logout = () => {
-    sessionLogout()
+    logoutUser()
     history.push('/')
   }
 
