@@ -43,7 +43,7 @@ function UserService($http, Route, GraphQL) {
           extension
           countryCode
           nationalPrefix
-          ${extendedQuery}
+          ${extendedQuery && extendedQuery}
         }
       }
     `

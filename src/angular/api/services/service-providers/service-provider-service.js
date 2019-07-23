@@ -11,6 +11,46 @@ function service($http, Route, $rootScope, CacheFactory, GraphQL) {
 
   $rootScope.$on('ServiceProviderService:updated', clearCache)
 
+  const SERVICE_PROVIDER_LIST = gql`
+    query serviceProviders {
+      serviceProviders {
+        _id
+        serviceProviderId
+        serviceProviderName
+        isEnterprise
+      }
+    }
+  `
+
+  const SERVICE_PROVIDER_SHOW = gql`
+    query serviceProvider($serviceProviderId: String!) {
+      serviceProvider(serviceProviderId: $serviceProviderId) {
+        _id
+        serviceProviderId
+        serviceProviderName
+        isEnterprise
+        defaultDomain
+        supportEmail
+        useCustomRoutingProfile
+        useServiceProviderLanguages
+        contact {
+          contactName
+          contactNumber
+          contactEmail
+        }
+        address {
+          addressLine1
+          addressLine2
+          city
+          stateOrProvince
+          stateOrProvinceDisplayName
+          zipOrPostalCode
+          country
+        }
+      }
+    }
+  `
+
   return service
 
   function clearCache() {
@@ -18,18 +58,8 @@ function service($http, Route, $rootScope, CacheFactory, GraphQL) {
   }
 
   function index() {
-    const query = gql`
-      query serviceProviders {
-        serviceProviders {
-          _id
-          serviceProviderId
-          serviceProviderName
-          isEnterprise
-        }
-      }
-    `
     return GraphQL.query({
-      query,
+      query: SERVICE_PROVIDER_LIST,
       fetchPolicy: 'network-only'
     }).then(res => res.data.serviceProviders)
   }
@@ -42,36 +72,8 @@ function service($http, Route, $rootScope, CacheFactory, GraphQL) {
   }
 
   function show(serviceProviderId) {
-    const query = gql`
-      query serviceProvider($serviceProviderId: String!) {
-        serviceProvider(serviceProviderId: $serviceProviderId) {
-          _id
-          serviceProviderId
-          serviceProviderName
-          isEnterprise
-          defaultDomain
-          supportEmail
-          useCustomRoutingProfile
-          useServiceProviderLanguages
-          contact {
-            contactName
-            contactNumber
-            contactEmail
-          }
-          address {
-            addressLine1
-            addressLine2
-            city
-            stateOrProvince
-            stateOrProvinceDisplayName
-            zipOrPostalCode
-            country
-          }
-        }
-      }
-    `
     return GraphQL.query({
-      query,
+      query: SERVICE_PROVIDER_SHOW,
       variables: { serviceProviderId },
       fetchPolicy: 'network-only'
     }).then(res => res.data.serviceProvider)

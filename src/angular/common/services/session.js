@@ -4,8 +4,8 @@ import { SESSION_QUERY } from '@/graphql'
 
 angular.module('odin.common').factory('Session', Session)
 
-Session.$inject = ['StorageService', '$rootScope', '$q', 'jwtHelper', 'GraphQL']
-function Session(StorageService, $rootScope, $q, jwtHelper, GraphQL) {
+Session.$inject = ['$rootScope', '$q', 'jwtHelper', 'GraphQL']
+function Session($rootScope, $q, jwtHelper, GraphQL) {
   let _data = null
   const service = {
     load: load,
@@ -16,39 +16,39 @@ function Session(StorageService, $rootScope, $q, jwtHelper, GraphQL) {
     required: required
   }
 
-  GraphQL.watchQuery({ query: SESSION_QUERY }, data => {
-    console.log('inCallback', data)
-  })
+  GraphQL.watchQuery(
+    {
+      query: SESSION_QUERY,
+      fetchPolicy: 'cache-only',
+      notifyOnNetworkStatusChange: true,
+      returnPartialData: true
+    },
+    data => (_data = data.session || {})
+  )
+
+  $rootScope.$on()
 
   return service
 
-  // load the saved data into memory
+  // this is now a noop because we are subscribing
   async function load() {
-    const data = await StorageService.get($rootScope.sessionKey)
-    _data = data || {}
+    console.log('Session.load DEPRECATED')
     $rootScope.$emit('Session:loaded')
-    console.log('Session:loaded', _data)
     return _data
   }
 
   // return the data or a specific property
   function data(property) {
-    if (_.isEmpty(_data)) {
-      _data = JSON.parse(localStorage.getItem($rootScope.sessionKey))
-    }
     return property ? _.get(_data, property) : _data
   }
   // replace session data and cache in memory
   function set(data) {
     console.log('Session.set DEPRECATED')
-    // return StorageService.set($rootScope.sessionKey, data).then(load)
   }
 
   // remove the session data
   async function clear() {
     console.log('Session.clear DEPRECATED')
-    // await StorageService.clear($rootScope.sessionKey)
-    // await load()
     $rootScope.$emit('Session:cleared')
   }
 

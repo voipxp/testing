@@ -3,13 +3,63 @@ import gql from 'graphql-tag'
 
 angular.module('odin.api').factory('GroupService', GroupService)
 
-GroupService.$inject = ['$http', 'Route', 'CacheFactory', '$rootScope']
-function GroupService($http, Route, CacheFactory, $rootScope) {
+GroupService.$inject = [
+  '$http',
+  'Route',
+  'CacheFactory',
+  '$rootScope',
+  'GraphQL'
+]
+function GroupService($http, Route, CacheFactory, $rootScope, GraphQL) {
   var service = { index, store, show, update, destroy }
   var cache = CacheFactory('GroupService')
   var url = Route.api('/groups')
 
   $rootScope.$on('GroupService:updated', clearCache)
+
+  const GROUP_LIST = gql`
+    query groups($serviceProviderId: String!) {
+      groups(serviceProviderId: $serviceProviderId) {
+        _id
+        groupId
+        groupName
+        userLimit
+      }
+    }
+  `
+
+  const GROUP_SHOW = gql`
+    query group($serviceProviderId: String!, $groupId: String!) {
+      group(serviceProviderId: $serviceProviderId, groupId: $groupId) {
+        _id
+        groupId
+        groupName
+        userLimit
+        serviceProviderId
+        defaultDomain
+        callingLineIdName
+        callingLineIdPhoneNumber
+        callingLineIdDisplayPhoneNumber
+        timeZone
+        timeZoneDisplayName
+        locationDialingCode
+        contact {
+          contactName
+          contactNumber
+          contactEmail
+        }
+        address {
+          addressLine1
+          addressLine2
+          city
+          stateOrProvince
+          stateOrProvinceDisplayName
+          zipOrPostalCode
+          country
+        }
+      }
+    }
+  `
 
   return service
 
@@ -18,9 +68,11 @@ function GroupService($http, Route, CacheFactory, $rootScope) {
   }
 
   function index(serviceProviderId) {
-    return $http
-      .get(url(), { cache, params: { serviceProviderId } })
-      .then(response => response.data)
+    return GraphQL.query({
+      query: GROUP_LIST,
+      variables: { serviceProviderId },
+      fetchPolicy: 'network-only'
+    }).then(res => res.data.groups)
   }
 
   function store(serviceProviderId, group) {
@@ -31,9 +83,11 @@ function GroupService($http, Route, CacheFactory, $rootScope) {
   }
 
   function show(serviceProviderId, groupId) {
-    return $http
-      .get(url(), { cache, params: { serviceProviderId, groupId } })
-      .then(response => response.data)
+    return GraphQL.query({
+      query: GROUP_SHOW,
+      variables: { serviceProviderId, groupId },
+      fetchPolicy: 'network-only'
+    }).then(res => res.data.group)
   }
 
   function update(serviceProviderId, group) {

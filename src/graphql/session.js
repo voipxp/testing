@@ -3,8 +3,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { setToken } from '@/api'
 import { client } from '@/apollo'
 
-const SESSION_KEY = 'odin:session'
-const TOKEN_KEY = 'odin:token'
+export const TOKEN_KEY = 'odin:token'
 
 export const SESSION_FRAGMENT = gql`
   fragment SessionFragment on Session {
@@ -51,7 +50,6 @@ const SESSION_REFRESH = gql`
 `
 
 export const clearSession = () => {
-  localStorage.removeItem(SESSION_KEY)
   localStorage.removeItem(TOKEN_KEY)
   setToken()
   return client.writeQuery({
@@ -77,7 +75,6 @@ export const clearSession = () => {
 }
 
 const saveSession = session => {
-  localStorage.setItem(SESSION_KEY, JSON.stringify(session))
   localStorage.setItem(TOKEN_KEY, session.token)
   setToken(session.token)
 }

@@ -18,8 +18,7 @@ function GraphQL($q, $timeout) {
 
   function watchQuery(args, callback) {
     client.watchQuery(args).subscribe(result => {
-      console.log('got result', result)
-      $timeout(callback, 0)
+      $timeout(() => callback(result.data), 0)
     })
   }
 }

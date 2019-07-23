@@ -29,6 +29,11 @@ module.exports = {
         onError(err) {
           console.log('Suppressing WDS proxy upgrade error:', err)
         }
+      },
+      '/graphql': {
+        target: process.env.GRAPHQL_URL,
+        changeOrigin: isHttps,
+        agent: isHttps ? https.globalAgent : http.globalAgent
       }
     }
   },

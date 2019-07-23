@@ -2,16 +2,15 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { ApolloLink, concat } from 'apollo-link'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { TOKEN_KEY } from '@/graphql'
 import gql from 'graphql-tag'
 
-const STORAGE_KEY = 'odin:token'
-
-const httpLink = new HttpLink({ uri: 'http://localhost:10000/graphql' })
+const httpLink = new HttpLink({ uri: '/graphql' })
 
 const cache = new InMemoryCache()
 
 const authMiddleware = new ApolloLink((operation, forward) => {
-  const token = localStorage.getItem(STORAGE_KEY)
+  const token = localStorage.getItem(TOKEN_KEY)
   const headers = token ? { authorization: `Bearer ${token}` } : {}
   operation.setContext({ headers })
   return forward(operation)
