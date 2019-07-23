@@ -74,7 +74,7 @@ export const AppLogin = () => {
       const { username, password } = form
       await login({ variables: { username, password } })
     } catch (error) {
-      if (error.status === 402) {
+      if (error.message === 'GraphQL error: Password Expired') {
         alertWarning(error)
         setNeedsChange(true)
         setValid(false)

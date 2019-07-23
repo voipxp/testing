@@ -10,6 +10,8 @@
 Authentication
 
 - handle auth errors and clear session
+  - use apollo-link-error for finding auth errors and handling
+  - https://www.apollographql.com/docs/link/links/error/
 - loginWithToken for SSO
 - initial refresh only if a jwt token exists and is not expired
 - handle password change error

@@ -18,7 +18,7 @@ function parse(error) {
     const msg = get(error, 'networkError.result.errors.0.message')
     return msg
       ? msg.replace('Context creation failed: ', '')
-      : error.networkError.message
+      : error.networkError.message.replace('Network error: ', '')
   }
   if (error.graphQLErrors) {
     return error.message.replace('GraphQL error: ', '')
