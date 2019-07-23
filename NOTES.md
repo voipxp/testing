@@ -7,6 +7,13 @@
 
 ### THINGS TO DO
 
+Authentication
+
+- handle auth errors and clear session
+- loginWithToken for SSO
+- initial refresh only if a jwt token exists and is not expired
+- handle password change error
+
 permission services should be simplified
 
 - call all needed objects in one query

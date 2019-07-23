@@ -2,7 +2,7 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { ApolloLink, concat } from 'apollo-link'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import { TOKEN_KEY } from '@/graphql'
+import { AUTH_WHITELIST, TOKEN_KEY } from '@/graphql'
 import gql from 'graphql-tag'
 
 const httpLink = new HttpLink({ uri: '/graphql' })
@@ -10,9 +10,13 @@ const httpLink = new HttpLink({ uri: '/graphql' })
 const cache = new InMemoryCache()
 
 const authMiddleware = new ApolloLink((operation, forward) => {
+  if (AUTH_WHITELIST.includes(operation.operationName)) {
+    return forward(operation)
+  }
   const token = localStorage.getItem(TOKEN_KEY)
-  const headers = token ? { authorization: `Bearer ${token}` } : {}
-  operation.setContext({ headers })
+  if (token) {
+    operation.setContext({ headers: { authorization: `Bearer ${token}` } })
+  }
   return forward(operation)
 })
 

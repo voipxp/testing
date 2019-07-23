@@ -1,4 +1,5 @@
 import cuid from 'cuid'
+import get from 'lodash/get'
 import EventEmitter from 'eventemitter3'
 
 export const AlertEmitter = new EventEmitter()
@@ -10,11 +11,19 @@ export const alertSuccess = (msg, ms) => alert('success', msg, ms)
 export const alertWarning = (msg, ms = 5000) => alert('warning', msg, ms)
 export const alertDanger = (msg, ms = 10000) => alert('danger', msg, ms)
 
-function parse(message) {
-  if (!message) return 'Unknown Error'
-  if (message.data) return parse(message.data)
-  const error = message.error || message.message || message
-  return error.toString().replace('GraphQL error: ', '')
+function parse(error) {
+  if (!error) return 'Unknown Error'
+  if (error.data) return parse(error.data)
+  if (error.networkError) {
+    const msg = get(error, 'networkError.result.errors.0.message')
+    return msg
+      ? msg.replace('Context creation failed: ', '')
+      : error.networkError.message
+  }
+  if (error.graphQLErrors) {
+    return error.message.replace('GraphQL error: ', '')
+  }
+  return error.error || error.message || error
 }
 
 function alert(type, msg, timeout = 3000) {
