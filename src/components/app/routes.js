@@ -65,6 +65,12 @@ export const routes = [
     module: 'Provisioning'
   },
   {
+    path: '/bulk/user.move',
+    angularComponent: 'bulkUserMove',
+    acl: 'Provisioning',
+    module: 'Provisioning'
+  },
+  {
     path: '/bulk/user.services.update',
     angularComponent: 'bulkUserServicesUpdate',
     acl: 'Group',
