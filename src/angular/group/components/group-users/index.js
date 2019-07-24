@@ -76,11 +76,11 @@ function controller(
       })
   }
 
-  function loadUsers(extended) {
+  function loadUsers(includeClid) {
     return UserService.index(
       ctrl.serviceProviderId,
       ctrl.groupId,
-      extended
+      includeClid
     ).then(function(data) {
       ctrl.users = data.map(user => {
         const clid = _.get(user, 'user.callingLineIdPhoneNumber')
@@ -117,7 +117,7 @@ function controller(
 
   function edit() {
     Alert.spinner.open()
-    loadUsers(['callingLineIdPhoneNumber'])
+    loadUsers(true)
       .then(function() {
         var column = _.find(ctrl.columns, { key: 'callingLineIdPhoneNumber' })
         column.hidden = false

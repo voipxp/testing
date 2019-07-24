@@ -18,17 +18,13 @@ function UserService($http, Route, GraphQL) {
 
   return service
 
-  function index(serviceProviderId, groupId, extended = []) {
-    let extendedQuery = ''
-    if (extended.length > 0) {
-      extendedQuery = `
-        user {
-          ${extended.join('\n')}
-        }
-      `
-    }
+  function index(serviceProviderId, groupId, includeUser = false) {
     const query = gql`
-      query users($serviceProviderId: String!, $groupId: String!) {
+      query users(
+        $serviceProviderId: String!
+        $groupId: String!
+        $includeUser: Boolean!
+      ) {
         users(serviceProviderId: $serviceProviderId, groupId: $groupId) {
           _id
           userId
@@ -43,13 +39,15 @@ function UserService($http, Route, GraphQL) {
           extension
           countryCode
           nationalPrefix
-          ${extendedQuery && extendedQuery}
+          user @include(if: $includeUser) {
+            callingLineIdPhoneNumber
+          }
         }
       }
     `
     return GraphQL.query({
       query,
-      variables: { serviceProviderId, groupId },
+      variables: { serviceProviderId, groupId, includeUser },
       fetchPolicy: 'network-only'
     }).then(res => res.data.users)
   }
