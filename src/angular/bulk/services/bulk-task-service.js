@@ -102,18 +102,18 @@ function BulkTaskService() {
         }
       ]
     },
-    {
-      task: 'user.move',
-      name: 'Move Users',
-      description: 'Move users in bulk',
-      required: ['userId'],
-      example: [
-        {
-          task: 'user.move',
-          userId: 'userId'
-        }
-      ]
-    },
+    // {
+    //   task: 'user.move',
+    //   name: 'Move Users',
+    //   description: 'Move users in bulk',
+    //   required: ['userId'],
+    //   example: [
+    //     {
+    //       task: 'user.move',
+    //       userId: 'userId'
+    //     }
+    //   ]
+    // },
     {
       task: 'user.services.update',
       name: 'User Services',
