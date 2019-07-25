@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 import { useCallback } from 'react'
 import { useSession } from '@/graphql'
 export const hasLevel = (loginType, requiredType, isPaasAdmin) => {
