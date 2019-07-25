@@ -1,6 +1,7 @@
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { ApolloLink, concat } from 'apollo-link'
+import { onError } from 'apollo-link-error'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { AUTH_WHITELIST, TOKEN_KEY } from '@/graphql'
 import gql from 'graphql-tag'
@@ -20,8 +21,17 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation)
 })
 
+const logger = (type, err) => console.log(type, JSON.stringify(err, null, 2))
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    graphQLErrors.forEach(err => logger('[GraphQL error];', err))
+  }
+  if (networkError) logger(['Network error]:', networkError])
+})
+
 export const client = new ApolloClient({
-  link: concat(authMiddleware, httpLink),
+  link: ApolloLink.from([authMiddleware, errorLink, httpLink]),
   cache
 })
 
