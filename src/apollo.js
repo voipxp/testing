@@ -1,6 +1,6 @@
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
-import { ApolloLink, concat } from 'apollo-link'
+import { ApolloLink } from 'apollo-link'
 import { onError } from 'apollo-link-error'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { AUTH_WHITELIST, TOKEN_KEY } from '@/graphql'
