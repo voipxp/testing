@@ -756,13 +756,5 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/groupCommunicationBarring',
     component: GroupCommunicationBarring
-  },
-  {
-    path: '/test-1',
-    component: Test1
-  },
-  {
-    path: '/test-2',
-    component: Test2
   }
 ]

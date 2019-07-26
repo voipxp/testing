@@ -1,11 +1,12 @@
 import angular from 'angular'
 import { client } from '@/apollo'
+import set from 'lodash/set'
 
 angular.module('odin.common').factory('GraphQL', GraphQL)
 
 GraphQL.$inject = ['$q', '$timeout']
 function GraphQL($q, $timeout) {
-  return { query, watchQuery }
+  return { query, mutate, watchQuery }
 
   function query(args) {
     return $q((resolve, reject) =>
@@ -14,6 +15,15 @@ function GraphQL($q, $timeout) {
         .then(resolve)
         .catch(reject)
     )
+  }
+
+  function mutate(args) {
+    return $q((resolve, reject) => {
+      client
+        .mutate(args)
+        .then(resolve)
+        .catch(reject)
+    })
   }
 
   function watchQuery(args, callback) {

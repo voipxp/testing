@@ -30,8 +30,27 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) logger(['Network error]:', networkError])
 })
 
+const omitTypename = (key, value) => {
+  return key === '__typename' || key === '_id' ? undefined : value
+}
+
+const omitTypenameLink = new ApolloLink((operation, forward) => {
+  if (operation.variables) {
+    operation.variables = JSON.parse(
+      JSON.stringify(operation.variables),
+      omitTypename
+    )
+  }
+  return forward ? forward(operation) : null
+})
+
 export const client = new ApolloClient({
-  link: ApolloLink.from([authMiddleware, errorLink, httpLink]),
+  link: ApolloLink.from([
+    authMiddleware,
+    errorLink,
+    omitTypenameLink,
+    httpLink
+  ]),
   cache
 })
 
