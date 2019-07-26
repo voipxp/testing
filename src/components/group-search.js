@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
 import { alertDanger } from '@/utils/alerts'
+import { useSession } from '@/graphql'
 import groupApi from '@/api/groups'
 
 const searchTypes = [
@@ -24,6 +25,8 @@ export const GroupSearch = ({ onSelect }) => {
   const [groups, setGroups] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [initialized, setInitialized] = React.useState(false)
+  const { session } = useSession()
+  const { serviceProviderId } = session
 
   const handleSearchKey = e => {
     setSearchKey(e.target.value)
@@ -37,7 +40,10 @@ export const GroupSearch = ({ onSelect }) => {
     setLoading(true)
     setInitialized(true)
     try {
-      const groups = await groupApi.search({ [searchKey]: `*${searchString}*` })
+      const groups = await groupApi.search({
+        [searchKey]: `*${searchString}*`,
+        serviceProviderId
+      })
       setGroups(groups)
     } catch (error) {
       alertDanger(error)

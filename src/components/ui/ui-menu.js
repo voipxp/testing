@@ -73,7 +73,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
             ))}
           </Menu>
         </Column>
-        <Column>
+        <Column style={{ overflow: 'auto' }}>
           <Switch>
             <Route path={`${match.path}/:path`} render={renderRoute} />
             <Route render={renderDefault} />
