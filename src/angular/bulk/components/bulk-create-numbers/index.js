@@ -74,7 +74,7 @@ function controller(
         sendUpdate(numbers, callback)
       })
       .catch(function(error) {
-        Alert.notify.danger(error.data || error)
+        Alert.notify.danger(error)
       })
       .finally(function() {
         Alert.spinner.close()

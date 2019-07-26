@@ -90,7 +90,7 @@ function controller(BrandingApplicationService, SettingService, Alert, $q) {
         callback()
       })
       .catch(function(error) {
-        Alert.notify.danger(error.data)
+        Alert.notify.danger(error)
       })
       .finally(function() {
         Alert.spinner.close()

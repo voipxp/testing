@@ -25,7 +25,7 @@ function controller(Alert, HashService, SettingService, $q, EventService) {
     ctrl.loading = true
     $q.all([loadSettings(), loadEvents()])
       .catch(function(error) {
-        Alert.notify.danger(error.data)
+        Alert.notify.danger(error)
       })
       .finally(function() {
         ctrl.loading = false

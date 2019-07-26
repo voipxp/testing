@@ -35,7 +35,7 @@ function controller(ServiceProviderService, EventEmitter, $scope, Alert) {
         sendUpdate(ctrl.serviceProvider)
       })
       .catch(function(error) {
-        Alert.notify.danger(error.data)
+        Alert.notify.danger(error)
       })
       .finally(function() {
         Alert.spinner.close()

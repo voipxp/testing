@@ -25,9 +25,9 @@ const logger = (type, err) => console.log(type, JSON.stringify(err, null, 2))
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
-    graphQLErrors.forEach(err => logger('[GraphQL error];', err))
+    graphQLErrors.forEach(err => logger('[GraphQL error]:', err))
   }
-  if (networkError) logger(['Network error]:', networkError])
+  if (networkError) logger(['[Network error]:', networkError])
 })
 
 const omitTypename = (key, value) => {

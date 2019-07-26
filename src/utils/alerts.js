@@ -14,14 +14,14 @@ export const alertDanger = (msg, ms = 10000) => alert('danger', msg, ms)
 function parse(error) {
   if (!error) return 'Unknown Error'
   if (error.data) return parse(error.data)
+  if (error.graphQLErrors && error.graphQLErrors.length > 0) {
+    return error.message.replace('GraphQL error: ', '')
+  }
   if (error.networkError) {
     const msg = get(error, 'networkError.result.errors.0.message')
     return msg
       ? msg.replace('Context creation failed: ', '')
       : error.networkError.message.replace('Network error: ', '')
-  }
-  if (error.graphQLErrors) {
-    return error.message.replace('GraphQL error: ', '')
   }
   return error.error || error.message || error
 }

@@ -9,8 +9,7 @@ angular.module('odin.api').factory('ServiceProviderService', service)
 
 service.$inject = ['$http', 'Route', '$rootScope', 'GraphQL']
 function service($http, Route, $rootScope, GraphQL) {
-  var url = Route.api('/service-providers')
-  var service = { index, show, store, update, destroy }
+  const service = { index, show, store, update, destroy }
 
   $rootScope.$on('ServiceProviderService:updated', () => index())
 
@@ -32,12 +31,29 @@ function service($http, Route, $rootScope, GraphQL) {
     }
   `
 
+  const SERVICE_PROVIDER_CREATE_MUTATION = gql`
+  mutation serviceProviderCreate($input: ServiceProviderCreateInput!) {
+    serviceProviderCreate(input: $input) {
+      ...ServiceProviderShowFragment
+    }
+    ${SERVICE_PROVIDER_SHOW_FRAGMENT}
+  }
+`
+
   const SERVICE_PROVIDER_UPDATE_MUTATION = gql`
     mutation serviceProviderUpdate($input: ServiceProviderUpdateInput!) {
       serviceProviderUpdate(input: $input) {
         ...ServiceProviderShowFragment
       }
       ${SERVICE_PROVIDER_SHOW_FRAGMENT}
+    }
+  `
+
+  const SERVICE_PROVIDER_DELETE_MUTATION = gql`
+    mutation serviceProviderDelete($serviceProviderId: String!) {
+      serviceProviderDelete(serviceProviderId: $serviceProviderId) {
+        serviceProviderId
+      }
     }
   `
 
@@ -50,9 +66,11 @@ function service($http, Route, $rootScope, GraphQL) {
   }
 
   function store(serviceProvider) {
-    return $http.post(url(), serviceProvider).then(response => {
-      return response.data
-    })
+    return GraphQL.mutate({
+      mutation: SERVICE_PROVIDER_CREATE_MUTATION,
+      variables: { input: serviceProvider },
+      refetchQueries: [{ query: SERVICE_PROVIDER_LIST_QUERY }]
+    }).then(res => res.data.serviceProviderCreate)
   }
 
   function show(serviceProviderId) {
@@ -71,10 +89,10 @@ function service($http, Route, $rootScope, GraphQL) {
   }
 
   function destroy(serviceProviderId) {
-    return $http
-      .delete(url(), { params: { serviceProviderId } })
-      .then(response => {
-        return response.data
-      })
+    return GraphQL.mutate({
+      mutation: SERVICE_PROVIDER_DELETE_MUTATION,
+      variables: { serviceProviderId },
+      refetchQueries: [{ query: SERVICE_PROVIDER_LIST_QUERY }]
+    }).then(res => res.data.serviceProviderDelete)
   }
 }

@@ -19,7 +19,7 @@ function controller(BrandingHostnameService, Route, Alert) {
     ctrl.loading = true
     loadHostnames()
       .catch(function(error) {
-        Alert.notify.danger(error.data)
+        Alert.notify.danger(error)
       })
       .finally(function() {
         ctrl.loading = false
