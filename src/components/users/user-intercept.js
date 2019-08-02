@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import get from 'lodash/get'
 import { Input, Select, Column } from 'rbx'
 import { alertSuccess, alertDanger } from '@/utils/alerts'
 import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
-import { useUserIntercept } from '@/store/user-intercept'
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { USER_INTERCEPT_QUERY, USER_INTERCEPT_MUTATION } from '@/graphql'
 import {
   UiCard,
   UiLoadingCard,
@@ -20,11 +22,17 @@ export const UserIntercept = ({ match }) => {
   const { userId } = match.params
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const {
-    userUserIntercept,
-    loadUserIntercept,
-    updateUserIntercept
-  } = useUserIntercept(userId)
+
+  const { loading, data, error } = useQuery(USER_INTERCEPT_QUERY, {
+    variables: { userId },
+    fetchPolicy: 'cache-and-network'
+  })
+  const userIntercept = get(data, 'userIntercept', {})
+
+  const [update] = useMutation(USER_INTERCEPT_MUTATION)
+
+  if (error) alertDanger(error)
+  if (loading) return <UiLoadingCard />
 
   const inboundCallModeTypes = [
     { key: 'Intercept All', name: 'Intercept All' },
@@ -48,33 +56,23 @@ export const UserIntercept = ({ match }) => {
     setForm({ ...form, [name]: value })
   }
 
-  useEffect(() => {
-    loadUserIntercept(userId).catch(alertDanger)
-  }, [loadUserIntercept, userId])
-
   function edit() {
-    setForm({ ...userUserIntercept })
+    setForm({ ...userIntercept })
     setShowModal(true)
   }
 
-  function save() {
-    update(form)
-  }
-
-  async function update(userIntercept) {
+  async function save() {
     showLoadingModal()
     try {
-      await updateUserIntercept(userIntercept)
+      await update({ variables: { input: form } })
       alertSuccess('Intercept User Updated')
       setShowModal(false)
-    } catch (error) {
-      alertDanger(error)
+    } catch (error_) {
+      alertDanger(error_)
     } finally {
       hideLoadingModal()
     }
   }
-
-  if (!userUserIntercept) return <UiLoadingCard />
 
   return (
     <>
@@ -86,67 +84,59 @@ export const UserIntercept = ({ match }) => {
       >
         <UiSection>
           <UiListItem label="Active">
-            <UiCheckbox isChecked={userUserIntercept.isActive} />
+            <UiCheckbox isChecked={userIntercept.isActive} />
           </UiListItem>
           <UiListItem label="Announcement Selection">
-            {userUserIntercept.announcementSelection}
+            {userIntercept.announcementSelection}
           </UiListItem>
         </UiSection>
 
         <UiSection title="Inbound Call Options">
           <UiListItem label="Inbound Call Mode">
-            {userUserIntercept.inboundCallMode}
+            {userIntercept.inboundCallMode}
           </UiListItem>
           <UiListItem label="Alternate Blocking Announcement">
             <UiCheckbox
-              isChecked={userUserIntercept.alternateBlockingAnnouncement}
+              isChecked={userIntercept.alternateBlockingAnnouncement}
             />
           </UiListItem>
           <UiListItem label="Exempt Inbound Mobility Calls">
-            <UiCheckbox
-              isChecked={userUserIntercept.exemptInboundMobilityCalls}
-            />
+            <UiCheckbox isChecked={userIntercept.exemptInboundMobilityCalls} />
           </UiListItem>
           <UiListItem label="Disable Parallel Ringing To Network Locations">
             <UiCheckbox
-              isChecked={
-                userUserIntercept.disableParallelRingingToNetworkLocations
-              }
+              isChecked={userIntercept.disableParallelRingingToNetworkLocations}
             />
           </UiListItem>
           <UiListItem label="Route To Voice Mail">
-            <UiCheckbox isChecked={userUserIntercept.routeToVoiceMail} />
+            <UiCheckbox isChecked={userIntercept.routeToVoiceMail} />
           </UiListItem>
           <UiListItem label="Play New Phone Number">
-            <UiCheckbox isChecked={userUserIntercept.playNewPhoneNumber} />
+            <UiCheckbox isChecked={userIntercept.playNewPhoneNumber} />
           </UiListItem>
           <UiListItem label="New Phone Number">
-            {userUserIntercept.newPhoneNumber}
+            {userIntercept.newPhoneNumber}
           </UiListItem>
           <UiListItem label="Transfer on 0 Phone Number">
-            <UiCheckbox
-              isChecked={userUserIntercept.transferOnZeroToPhoneNumber}
-            />
+            <UiCheckbox isChecked={userIntercept.transferOnZeroToPhoneNumber} />
           </UiListItem>
           <UiListItem label="Transfer on 0 to Phone Number">
-            {userUserIntercept.transferPhoneNumber}
+            {userIntercept.transferPhoneNumber}
           </UiListItem>
         </UiSection>
 
         <UiSection title="Outbound Call Options">
           <UiListItem label="Outbound Call Mode">
-            {userUserIntercept.outboundCallMode}
+            {userIntercept.outboundCallMode}
           </UiListItem>
           <UiListItem label="Exempt Outbound Mobility Calls">
-            <UiCheckbox
-              isChecked={userUserIntercept.exemptOutboundMobilityCalls}
-            />
+            <UiCheckbox isChecked={userIntercept.exemptOutboundMobilityCalls} />
           </UiListItem>
           <UiListItem label="Reroute Outbound Calls">
-            <UiCheckbox isChecked={userUserIntercept.rerouteOutboundCalls} />
+            <UiCheckbox isChecked={userIntercept.rerouteOutboundCalls} />
           </UiListItem>
           <UiListItem label="Outbound Reroute PhoneNumber">
-            {userUserIntercept.outboundReroutePhoneNumber}
+            {userIntercept.outboundReroutePhoneNumber}
           </UiListItem>
         </UiSection>
       </UiCard>

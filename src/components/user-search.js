@@ -34,7 +34,7 @@ export const UserSearch = ({ onSelect }) => {
   const [users, setUsers] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [initialized, setInitialized] = React.useState(false)
-  const { session } = useSession()
+  const session = useSession()
   const { serviceProviderId, groupId } = session
 
   const handleSearchKey = e => {

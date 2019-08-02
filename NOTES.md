@@ -1,9 +1,22 @@
 ## GRAPHQL NOTES
 
+### THINGS
+
+- Make fragments for most calls OR make custom hooks?
+
 ### TO CREATE IN GRAPHQL
 
 - all store items
 - all existing items that are missing mutations
+  - User, Group, Service Provider
+
+### Errors
+
+Handle NotFound vs AuthenticationRequired vs Forbidden vs PasswordExpired in OCI calls
+
+- prompt for login on AuthenticationRequired
+- prompt for new password on PasswordExpired (and isolate)
+- just show error on Forbidden and NotFound
 
 ### THINGS TO DO
 

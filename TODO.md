@@ -1,13 +1,3 @@
-Apollo
-
-### Errors
-
-Handle NotFound vs AuthenticationRequired vs Forbidden vs PasswordExpired in OCI calls
-
-- prompt for login on AuthenticationRequired
-- prompt for new password on PasswordExpired (and isolate)
-- just show error on Forbidden and NotFound
-
 ### Other
 
 - Move branding to a microservice

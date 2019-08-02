@@ -40,6 +40,7 @@ const getModule = (name, modules) => {
 }
 
 const hasModulePermission = (name, loginType, modules, permission) => {
+  if (loginType === 'System') return true
   const module = getModule(name, modules)
   const perm = camelCase(`${loginType}${permission}`)
   return module ? module[perm] : false

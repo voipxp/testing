@@ -25,7 +25,7 @@ export const GroupSearch = ({ onSelect }) => {
   const [groups, setGroups] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [initialized, setInitialized] = React.useState(false)
-  const { session } = useSession()
+  const session = useSession()
   const { serviceProviderId } = session
 
   const handleSearchKey = e => {

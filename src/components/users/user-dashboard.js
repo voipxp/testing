@@ -22,7 +22,7 @@ export const UserDashboard = ({ match }) => {
   React.useEffect(() => {
     let isActive = true
     setLoading(true)
-    Promise.all([loadUserServices(userId)]).then(() => {
+    loadUserServices(userId).then(() => {
       isActive && setLoading(false)
     })
     return () => (isActive = false)
