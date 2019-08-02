@@ -10,6 +10,10 @@ const httpLink = new HttpLink({ uri: '/graphql' })
 
 const cache = new InMemoryCache()
 
+/*
+  Set the auth token unless its in a whitelist.  This is to
+  prevent sending an old auth token along with a login request
+*/
 const authMiddleware = new ApolloLink((operation, forward) => {
   if (AUTH_WHITELIST.includes(operation.operationName)) {
     return forward(operation)
@@ -23,6 +27,11 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
 const logger = (type, err) => console.log(type, JSON.stringify(err, null, 2))
 
+/*
+  Error interceptor.
+
+  TODO: catch unauthorized, password expired errors and show login page
+*/
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach(err => logger('[GraphQL error]:', err))
@@ -34,6 +43,13 @@ const omitTypename = (key, value) => {
   return key === '__typename' || key === '_id' ? undefined : value
 }
 
+/*
+  Apollo automatically sends _typename in the query.  This causes
+  a failure on the server-side because _typename is not specified
+  in the schema.  WTF?
+
+  This middleware removes it.
+*/
 const omitTypenameLink = new ApolloLink((operation, forward) => {
   if (operation.variables) {
     operation.variables = JSON.parse(
