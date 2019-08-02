@@ -5,7 +5,13 @@ import { Input, Select, Column } from 'rbx'
 import { alertSuccess, alertDanger } from '@/utils/alerts'
 import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { USER_INTERCEPT_QUERY, USER_INTERCEPT_MUTATION } from '@/graphql'
+import {
+  ANNOUNCEMENT_SELECTIONS,
+  USER_INTERCEPT_QUERY,
+  USER_INTERCEPT_MUTATION,
+  USER_INTERCEPT_INBOUND_CALL_MODES,
+  USER_INTERCEPT_OUTBOUND_CALL_MODES
+} from '@/graphql'
 import {
   UiCard,
   UiLoadingCard,
@@ -33,21 +39,6 @@ export const UserIntercept = ({ match }) => {
 
   if (error) alertDanger(error)
   if (loading) return <UiLoadingCard />
-
-  const inboundCallModeTypes = [
-    { key: 'Intercept All', name: 'Intercept All' },
-    { key: 'Allow All', name: 'Allow All' },
-    { key: 'Allow System Dns', name: 'Allow System Dns' }
-  ]
-
-  const outboundCallModeTypes = [
-    { key: 'Block All', name: 'Block All' },
-    { key: 'Allow Outbound Local Calls', name: 'Allow Outbound Local Calls' },
-    {
-      key: 'Allow Outbound Enterprise And Group Calls',
-      name: 'Allow Outbound Enterprise And Group Calls'
-    }
-  ]
 
   function handleInput(event) {
     const target = event.target
@@ -87,13 +78,13 @@ export const UserIntercept = ({ match }) => {
             <UiCheckbox isChecked={userIntercept.isActive} />
           </UiListItem>
           <UiListItem label="Announcement Selection">
-            {userIntercept.announcementSelection}
+            {ANNOUNCEMENT_SELECTIONS[userIntercept.announcementSelection]}
           </UiListItem>
         </UiSection>
 
         <UiSection title="Inbound Call Options">
           <UiListItem label="Inbound Call Mode">
-            {userIntercept.inboundCallMode}
+            {USER_INTERCEPT_INBOUND_CALL_MODES[userIntercept.inboundCallMode]}
           </UiListItem>
           <UiListItem label="Alternate Blocking Announcement">
             <UiCheckbox
@@ -127,7 +118,7 @@ export const UserIntercept = ({ match }) => {
 
         <UiSection title="Outbound Call Options">
           <UiListItem label="Outbound Call Mode">
-            {userIntercept.outboundCallMode}
+            {USER_INTERCEPT_OUTBOUND_CALL_MODES[userIntercept.outboundCallMode]}
           </UiListItem>
           <UiListItem label="Exempt Outbound Mobility Calls">
             <UiCheckbox isChecked={userIntercept.exemptOutboundMobilityCalls} />
@@ -213,12 +204,9 @@ export const UserIntercept = ({ match }) => {
                     onChange={handleInput}
                     name="inboundCallMode"
                   >
-                    {inboundCallModeTypes.map(searchType => (
-                      <Select.Option
-                        key={searchType.key}
-                        value={searchType.key}
-                      >
-                        {searchType.name}
+                    {Object.keys(USER_INTERCEPT_INBOUND_CALL_MODES).map(key => (
+                      <Select.Option key={key} value={key}>
+                        {USER_INTERCEPT_INBOUND_CALL_MODES[key]}
                       </Select.Option>
                     ))}
                   </Select>
@@ -263,14 +251,13 @@ export const UserIntercept = ({ match }) => {
                     onChange={handleInput}
                     name="outboundCallMode"
                   >
-                    {outboundCallModeTypes.map(searchType => (
-                      <Select.Option
-                        key={searchType.key}
-                        value={searchType.key}
-                      >
-                        {searchType.name}
-                      </Select.Option>
-                    ))}
+                    {Object.keys(USER_INTERCEPT_OUTBOUND_CALL_MODES).map(
+                      key => (
+                        <Select.Option key={key} value={key}>
+                          {USER_INTERCEPT_OUTBOUND_CALL_MODES[key]}
+                        </Select.Option>
+                      )
+                    )}
                   </Select>
                 </Select.Container>
               </UiFormField>
