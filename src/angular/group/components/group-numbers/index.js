@@ -23,6 +23,7 @@ function controller(
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
+  ctrl.bulk = bulk
   ctrl.filter = {}
   ctrl.toggleFilter = toggleFilter
   ctrl.select = select
@@ -127,6 +128,41 @@ function controller(
     })
   }
 
+  function bulk() {
+    Alert.modal.open('groupNumbersBulkModal', function onSave(close) {
+      bulkAssignNumbers(ctrl.bulkNumbers, close)
+    })
+  }
+  function bulkAssignNumbers(bulkNumbers, callback) {
+    Alert.spinner.open()
+    var numbers = bulkNumbers.split('\n')
+    var dns = _.map(numbers, function(number) {
+      if (number.includes(' - ')) {
+        var [min, max] = number.split(' - ')
+        return {
+          min: min.trim(),
+          max: max.trim()
+        }
+      } else {
+        return {
+          min: number
+        }
+      }
+    })
+    return GroupNumberService.bulkAssign(
+      ctrl.serviceProviderId,
+      ctrl.groupId,
+      dns
+    )
+      .then(loadNumbers)
+      .then(function() {
+        ctrl.filter = {}
+        Alert.notify.success('Bulk Assigned Number ')
+        callback()
+      })
+      .catch(Alert.notify.danger)
+      .finally(Alert.spinner.close)
+  }
   function add() {
     Alert.spinner.open()
     loadAvailableNumbers()
