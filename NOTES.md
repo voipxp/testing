@@ -9,6 +9,7 @@
 - all store items
 - all existing items that are missing mutations
   - User, Group, Service Provider
+- user services
 
 ### Errors
 

@@ -33,3 +33,47 @@ export const SERVICE_PROVIDER_SHOW_FRAGMENT = gql`
     }
   }
 `
+
+export const SERVICE_PROVIDER_LIST_QUERY = gql`
+    query serviceProviders {
+      serviceProviders {
+        ...ServiceProviderListFragment
+      }
+      ${SERVICE_PROVIDER_LIST_FRAGMENT}
+    }
+  `
+
+export const SERVICE_PROVIDER_SHOW_QUERY = gql`
+    query serviceProvider($serviceProviderId: String!) {
+      serviceProvider(serviceProviderId: $serviceProviderId) {
+        ...ServiceProviderShowFragment
+      }
+      ${SERVICE_PROVIDER_SHOW_FRAGMENT}
+    }
+  `
+
+export const SERVICE_PROVIDER_CREATE_MUTATION = gql`
+  mutation serviceProviderCreate($input: ServiceProviderCreateInput!) {
+    serviceProviderCreate(input: $input) {
+      ...ServiceProviderShowFragment
+    }
+    ${SERVICE_PROVIDER_SHOW_FRAGMENT}
+  }
+`
+
+export const SERVICE_PROVIDER_UPDATE_MUTATION = gql`
+    mutation serviceProviderUpdate($input: ServiceProviderUpdateInput!) {
+      serviceProviderUpdate(input: $input) {
+        ...ServiceProviderShowFragment
+      }
+      ${SERVICE_PROVIDER_SHOW_FRAGMENT}
+    }
+  `
+
+export const SERVICE_PROVIDER_DELETE_MUTATION = gql`
+  mutation serviceProviderDelete($serviceProviderId: String!) {
+    serviceProviderDelete(serviceProviderId: $serviceProviderId) {
+      serviceProviderId
+    }
+  }
+`
