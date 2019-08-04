@@ -5,8 +5,8 @@ angular
   .module('odin.api')
   .factory('BrandingSettingService', BrandingSettingService)
 
-BrandingSettingService.$inject = ['$http', 'Route', '$rootScope', '$ngRedux']
-function BrandingSettingService($http, Route, $rootScope, $ngRedux) {
+BrandingSettingService.$inject = ['$http', 'Route', '$rootScope']
+function BrandingSettingService($http, Route, $rootScope) {
   var service = { show, update }
   var url = Route.api('/branding/settings')
   return service
