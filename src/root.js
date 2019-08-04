@@ -9,6 +9,7 @@ import api from '@/api'
 import { client } from './apollo'
 import { clearSession } from '@/graphql'
 
+const asdf = asdf
 
 api.interceptors.response.use(
   response => response,
