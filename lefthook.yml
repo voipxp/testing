@@ -10,4 +10,5 @@ pre-commit:
 pre-push:
   commands:
     audit:
+      tags: audit
       run: yarn audit
