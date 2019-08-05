@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 import { useCallback, useMemo } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import get from 'lodash/get'

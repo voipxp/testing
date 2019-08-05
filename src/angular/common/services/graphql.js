@@ -1,6 +1,5 @@
 import angular from 'angular'
 import { client } from '@/apollo'
-import set from 'lodash/set'
 
 angular.module('odin.common').factory('GraphQL', GraphQL)
 

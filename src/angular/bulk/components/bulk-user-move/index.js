@@ -1,5 +1,4 @@
 import angular from 'angular'
-import get from 'lodash/get'
 import template from './index.html'
 
 angular.module('odin.bulk').component('bulkUserMove', {
