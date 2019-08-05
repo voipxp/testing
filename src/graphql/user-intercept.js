@@ -1,4 +1,7 @@
 import gql from 'graphql-tag'
+import get from 'lodash/get'
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY } from '.'
 
 export const USER_INTERCEPT_FRAGMENT = gql`
   fragment UserInterceptFragment on UserIntercept {
@@ -39,7 +42,7 @@ export const USER_INTERCEPT_QUERY = gql`
   }
 `
 
-export const USER_INTERCEPT_MUTATION = gql`
+const USER_INTERCEPT_UPDATE_MUTATION = gql`
   mutation userInterceptUpdate($input: UserInterceptInput!) {
     userInterceptUpdate(input: $input) {
       ...UserInterceptFragment
@@ -59,4 +62,23 @@ export const USER_INTERCEPT_OUTBOUND_CALL_MODES = {
   ALLOW_OUTBOUND_LOCAL_CALLS: 'Allow Outbound Local Calls',
   ALLOW_OUTBOUND_ENTERPRISE_AND_GROUP_CALLS:
     'Allow Outbound Enterprise And Group Calls'
+}
+
+export const useUserIntercept = (userId, fetchPolicy = 'cache-and-network') => {
+  const query = useQuery(USER_INTERCEPT_QUERY, {
+    variables: { userId },
+    fetchPolicy
+  })
+  return { ...query, data: get(query, 'data.userIntercept') }
+}
+
+export const useUserInterceptUpdate = userId => {
+  return useMutation(USER_INTERCEPT_UPDATE_MUTATION, {
+    refetchQueries: [
+      {
+        query: USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY,
+        variables: { userId }
+      }
+    ]
+  })
 }

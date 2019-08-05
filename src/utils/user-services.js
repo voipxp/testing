@@ -1,32 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import { useQuery } from '@apollo/react-hooks'
-import get from 'lodash/get'
-import gql from 'graphql-tag'
-import { useSession } from '@/graphql'
-
-const USER_SERVICES = gql`
-  query userServicesAssignedAndViewable($userId: String!) {
-    userServicesAssigned(userId: $userId) {
-      _id
-      userId
-      userServices {
-        serviceName
-        isActive
-      }
-      groupServices {
-        serviceName
-        isActive
-      }
-    }
-    userServicesViewable(userId: $userId) {
-      _id
-      userId
-      userServices {
-        serviceName
-      }
-    }
-  }
-`
+import { useSession, useUserServicesAssignedAndViewable } from '@/graphql'
 
 const isAssigned = (serviceName, assigned = {}) => {
   const userServices = assigned.userServices || []
@@ -48,24 +21,22 @@ const hasUserService = (service, assigned, viewable, loginType) => {
 }
 
 export const useUserServicePermissions = userId => {
-  const session = useSession()
-  const { data } = useQuery(USER_SERVICES, { variables: { userId } })
-  const assigned = get(data, 'userServicesAssigned', { userServices: [] })
-  const viewable = get(data, 'userServicesViewable', { userServices: [] })
+  const { loginType } = useSession()
+  const { assigned, viewable } = useUserServicesAssignedAndViewable(userId)
   return {
     userViewableServices: useMemo(() => {
       return {
         ...assigned,
         userServices: assigned.userServices.filter(service => {
-          return hasUserService(service, assigned, viewable, session.loginType)
+          return hasUserService(service, assigned, viewable, loginType)
         })
       }
-    }, [assigned, session.loginType, viewable]),
+    }, [assigned, loginType, viewable]),
     hasUserService: useCallback(
       service => {
-        return hasUserService(service, assigned, viewable, session.loginType)
+        return hasUserService(service, assigned, viewable, loginType)
       },
-      [assigned, session.loginType, viewable]
+      [assigned, loginType, viewable]
     )
   }
 }

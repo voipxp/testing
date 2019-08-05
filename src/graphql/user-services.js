@@ -1,4 +1,31 @@
 import gql from 'graphql-tag'
+import get from 'lodash/get'
+import { useQuery } from '@apollo/react-hooks'
+
+export const USER_SERVICES_ASSIGNED_FRAGMENT = gql`
+  fragment UserServicesAssignedFragment on UserServicesAssigned {
+    _id
+    userId
+    userServices {
+      serviceName
+      isActive
+    }
+    groupServices {
+      serviceName
+      isActive
+    }
+  }
+`
+
+export const USER_SERVICES_VIEWABLE_FRAGMENT = gql`
+  fragment UserServicesViewableFragment on UserServicesViewable {
+    _id
+    userId
+    userServices {
+      serviceName
+    }
+  }
+`
 
 export const USER_SERVICES_FRAGMENT = gql`
   fragment UserServicesFragment on UserServices {
@@ -24,3 +51,28 @@ export const USER_SERVICES_QUERY = gql`
     ${USER_SERVICES_FRAGMENT}
   }
 `
+
+export const USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY = gql`
+  query userServicesAssignedAndViewable($userId: String!) {
+    userServicesAssigned(userId: $userId) {
+      ...UserServicesAssignedFragment
+    }
+    userServicesViewable(userId: $userId) {
+      ...UserServicesViewableFragment
+    }
+    ${USER_SERVICES_ASSIGNED_FRAGMENT}
+    ${USER_SERVICES_VIEWABLE_FRAGMENT}
+  }
+`
+
+export const useUserServicesAssignedAndViewable = userId => {
+  const { data, loading, error } = useQuery(
+    USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY,
+    {
+      variables: { userId }
+    }
+  )
+  const assigned = get(data, 'userServicesAssigned', { userServices: [] })
+  const viewable = get(data, 'userServicesViewable', { userServices: [] })
+  return { assigned, viewable, loading, error }
+}
