@@ -43,29 +43,31 @@ function controller(BulkImportService, $location) {
     for (var i = 0; i < ctrl.data.userCount; i++) {
       var task = {
         task: 'user.create',
-        serviceProviderId: ctrl.data.serviceProviderId,
-        groupId: ctrl.data.groupId,
-        userId: ctrl.data.userId,
-        firstName: ctrl.data.firstName,
-        lastName: ctrl.data.lastName,
-        callingLineIdFirstName: ctrl.data.callingLineIdFirstName,
-        callingLineIdLastName: ctrl.data.callingLineIdLastName,
-        password: ctrl.data.password,
-        passcode: ctrl.data.passcode,
-        phoneNumber: _.get(ctrl.data, 'phoneNumbers.' + i),
-        extension: ctrl.data.extension,
-        callingLineIdPhoneNumber: ctrl.data.callingLineIdPhoneNumber,
-        timeZone: ctrl.data.timeZone,
-        language: ctrl.data.language,
-        networkClassOfService: ctrl.data.networkClassOfService,
-        mobilePhoneNumber: ctrl.data.mobilePhoneNumber,
-        pagerPhoneNumber: ctrl.data.pagerPhoneNumber,
-        emailAddress: ctrl.data.emailAddress,
-        addressLocation: ctrl.data.addressLocation,
-        department: _.isEmpty(ctrl.data.department) ? '' : ctrl.data.department,
+        serviceProviderId: ctrl.data.serviceProviderId || null,
+        groupId: ctrl.data.groupId || null,
+        userId: ctrl.data.userId || null,
+        firstName: ctrl.data.firstName || null,
+        lastName: ctrl.data.lastName || null,
+        callingLineIdFirstName: ctrl.data.callingLineIdFirstName || null,
+        callingLineIdLastName: ctrl.data.callingLineIdLastName || null,
+        password: ctrl.data.password || '__CHANGEME__',
+        passcode: ctrl.data.passcode || '',
+        phoneNumber: _.get(ctrl.data, 'phoneNumbers.' + i, null),
+        extension: ctrl.data.extension || null,
+        callingLineIdPhoneNumber: ctrl.data.callingLineIdPhoneNumber || null,
+        timeZone: ctrl.data.timeZone || null,
+        language: ctrl.data.language || null,
+        networkClassOfService: ctrl.data.networkClassOfService || null,
+        mobilePhoneNumber: ctrl.data.mobilePhoneNumber || null,
+        pagerPhoneNumber: ctrl.data.pagerPhoneNumber || null,
+        emailAddress: ctrl.data.emailAddress || null,
+        addressLocation: ctrl.data.addressLocation || null,
+        department: _.isEmpty(ctrl.data.department)
+          ? null
+          : ctrl.data.department,
         address: ctrl.data.address,
-        endpointType: ctrl.data.endpointType,
-        domain: ctrl.data.domain
+        endpointType: ctrl.data.endpointType || null,
+        domain: ctrl.data.domain || null
       }
 
       // make strings so they are editable in review page
