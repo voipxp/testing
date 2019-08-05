@@ -47,8 +47,7 @@ function UserService($http, Route, GraphQL) {
     `
     return GraphQL.query({
       query,
-      variables: { serviceProviderId, groupId, includeUser },
-      fetchPolicy: 'network-only'
+      variables: { serviceProviderId, groupId, includeUser }
     }).then(res => res.data.users)
   }
 

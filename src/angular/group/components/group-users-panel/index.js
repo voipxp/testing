@@ -61,9 +61,8 @@ function controller(
   function loadUsers() {
     return UserService.index(ctrl.serviceProviderId, ctrl.groupId).then(
       function(data) {
-        ctrl.users = data.map(function(user) {
-          user.name = [user.firstName, user.lastName].join(' ')
-          return user
+        ctrl.users = data.map(user => {
+          return { ...user, name: [user.firstName, user.lastName].join(' ') }
         })
       }
     )

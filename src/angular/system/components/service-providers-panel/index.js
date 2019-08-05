@@ -35,9 +35,11 @@ function controller(Alert, ServiceProviderService, $scope, Route) {
 
   function loadServiceProviders() {
     return ServiceProviderService.index().then(function(data) {
-      ctrl.serviceProviders = data.map(function(item) {
-        item.name = _.trim(item.serviceProviderName) || item.serviceProviderId
-        return item
+      ctrl.serviceProviders = data.map(item => {
+        return {
+          ...item,
+          name: _.trim(item.serviceProviderName) || item.serviceProviderId
+        }
       })
     })
   }

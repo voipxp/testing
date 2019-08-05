@@ -17,9 +17,7 @@ const columns = [
 ]
 
 export const ServiceProviderSelect = ({ onSelect }) => {
-  const { loading, data, error } = useQuery(SERVICE_PROVIDER_LIST_QUERY, {
-    fetchPolicy: 'cache-and-network'
-  })
+  const { loading, data, error } = useQuery(SERVICE_PROVIDER_LIST_QUERY)
 
   if (error) alertDanger(error)
   if (loading) return <UiLoading />

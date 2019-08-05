@@ -64,10 +64,9 @@ export const USER_INTERCEPT_OUTBOUND_CALL_MODES = {
     'Allow Outbound Enterprise And Group Calls'
 }
 
-export const useUserIntercept = (userId, fetchPolicy = 'cache-and-network') => {
+export const useUserIntercept = userId => {
   const query = useQuery(USER_INTERCEPT_QUERY, {
-    variables: { userId },
-    fetchPolicy
+    variables: { userId }
   })
   return { ...query, data: get(query, 'data.userIntercept') }
 }

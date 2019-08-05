@@ -8,7 +8,7 @@ import gql from 'graphql-tag'
 
 const httpLink = new HttpLink({ uri: '/graphql' })
 
-const cache = new InMemoryCache()
+const cache = new InMemoryCache({ freezeResults: true })
 
 /*
   Set the auth token unless its in a whitelist.  This is to
@@ -60,14 +60,17 @@ const omitTypenameLink = new ApolloLink((operation, forward) => {
   return forward ? forward(operation) : null
 })
 
+const link = ApolloLink.from([
+  authMiddleware,
+  errorLink,
+  omitTypenameLink,
+  httpLink
+])
+
 export const client = new ApolloClient({
-  link: ApolloLink.from([
-    authMiddleware,
-    errorLink,
-    omitTypenameLink,
-    httpLink
-  ]),
-  cache
+  link,
+  cache,
+  assumeImmutableResults: true
 })
 
 // init cache

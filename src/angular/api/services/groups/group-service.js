@@ -70,8 +70,7 @@ function GroupService($http, Route, CacheFactory, $rootScope, GraphQL) {
   function index(serviceProviderId) {
     return GraphQL.query({
       query: GROUP_LIST,
-      variables: { serviceProviderId },
-      fetchPolicy: 'network-only'
+      variables: { serviceProviderId }
     }).then(res => res.data.groups)
   }
 
@@ -85,8 +84,7 @@ function GroupService($http, Route, CacheFactory, $rootScope, GraphQL) {
   function show(serviceProviderId, groupId) {
     return GraphQL.query({
       query: GROUP_SHOW,
-      variables: { serviceProviderId, groupId },
-      fetchPolicy: 'network-only'
+      variables: { serviceProviderId, groupId }
     }).then(res => res.data.group)
   }
 
