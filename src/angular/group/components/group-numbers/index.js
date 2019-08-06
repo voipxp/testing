@@ -12,13 +12,15 @@ controller.$inject = [
   'Alert',
   'ServiceProviderNumberService',
   'GroupNumberService',
-  'NumberService'
+  'NumberService',
+  'ACL'
 ]
 function controller(
   Alert,
   ServiceProviderNumberService,
   GroupNumberService,
-  NumberService
+  NumberService,
+  ACL
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -57,6 +59,7 @@ function controller(
 
   function onInit() {
     ctrl.loading = true
+    ctrl.isProvisioning = ACL.has('Provisioning')
     loadNumbers()
       .catch(Alert.notify.danger)
       .finally(function() {

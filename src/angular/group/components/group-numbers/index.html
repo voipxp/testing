@@ -11,6 +11,7 @@
       <pbs-button-compact-add ng-click="$ctrl.add()" title="Assign Numbers">
       </pbs-button-compact-add>
       <pbs-button-compact-bulk
+        ng-if="$ctrl.isProvisioning"
         ng-click="$ctrl.bulk()"
         title="Bulk Assign Numbers"
       >
