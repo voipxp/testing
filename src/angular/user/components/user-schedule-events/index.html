@@ -1,0 +1,118 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Events" class="margin-top">
+    <pbs-block-buttons>
+      <pbs-button-compact-add
+        title="Add Event"
+        ng-click="$ctrl.add()"
+      ></pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Start Time</th>
+          <th>Duration</th>
+          <th>Recurrence</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="100">
+            No Events Found
+            <strong ng-if="$ctrl.search">for {{ $ctrl.search }}</strong>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          class="hover"
+          ng-click="$ctrl.edit(event)"
+          ng-repeat="event in results = ($ctrl.events | filter:$ctrl.search | orderBy:'eventName') track by event.eventName"
+        >
+          <td>{{ event.eventName }}</td>
+          <td>{{ event.summary.startTime }}</td>
+          <td>{{ event.summary.duration }}</td>
+          <td>{{ event.summary.recurrence }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+
+<pbs-modal id="editUserEventModal" title="Edit Event">
+  <pbs-form>
+    <pbs-columns>
+      <pbs-column>
+        <pbs-form-field label="Event Name">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.editEvent.eventName"
+            required
+          />
+        </pbs-form-field>
+      </pbs-column>
+      <pbs-column>
+        <pbs-form-field label="Options">
+          <pbs-input-checkbox
+            ng-model="$ctrl.editEvent.allDayEvent"
+            label="All Day Event"
+          ></pbs-input-checkbox>
+        </pbs-form-field>
+      </pbs-column>
+    </pbs-columns>
+
+    <pbs-columns>
+      <pbs-column>
+        <pbs-form-field label="Starts At">
+          <pbs-input-datetime-parse
+            ng-model="$ctrl.editEvent.startTime"
+            is-date="$ctrl.editEvent.allDayEvent"
+            ng-required="true"
+          >
+          </pbs-input-datetime-parse>
+        </pbs-form-field>
+      </pbs-column>
+      <pbs-column>
+        <pbs-form-field label="Ends At">
+          <pbs-input-datetime-parse
+            ng-model="$ctrl.editEvent.endTime"
+            is-date="$ctrl.editEvent.allDayEvent"
+            ng-required="true"
+          >
+          </pbs-input-datetime-parse>
+        </pbs-form-field>
+      </pbs-column>
+    </pbs-columns>
+
+    <rrule-select
+      start-time="$ctrl.editEvent.startTime"
+      rrule="$ctrl.rrule"
+    ></rrule-select>
+
+    <rrule-weekly
+      ng-if="$ctrl.rrule.freq === $ctrl.RRule.WEEKLY"
+      start-time="$ctrl.editEvent.startTime"
+      rrule="$ctrl.rrule"
+    ></rrule-weekly>
+
+    <rrule-monthly
+      ng-if="$ctrl.rrule.freq === $ctrl.RRule.MONTHLY"
+      start-time="$ctrl.editEvent.startTime"
+      rrule="$ctrl.rrule"
+    ></rrule-monthly>
+
+    <rrule-yearly
+      ng-if="$ctrl.rrule.freq === $ctrl.RRule.YEARLY"
+      start-time="$ctrl.editEvent.startTime"
+      rrule="$ctrl.rrule"
+    ></rrule-yearly>
+
+    <rrule-ends
+      ng-if="$ctrl.rrule.freq || $ctrl.rrule.freq === 0"
+      start-time="$ctrl.editEvent.startTime"
+      rrule="$ctrl.rrule"
+    ></rrule-ends>
+  </pbs-form>
+</pbs-modal>
