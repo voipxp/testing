@@ -43,6 +43,9 @@ function controller(
     ctrl.loading = true
     loadData()
       .then(function() {
+        return clean(ctrl.users)
+      })
+      .then(function() {
         return validate(ctrl.users)
       })
       .then(function() {
@@ -53,8 +56,19 @@ function controller(
       })
       .catch(function(error) {
         console.log(error)
-        Alert.notify.danger(error || 'Data Error')
+        Alert.notify.warning(error || 'Data Error')
       })
+  }
+
+  function clean(users) {
+    return $q.when(
+      users.map(user => {
+        if (user.password === '__CHANGEME__') {
+          user.password = null
+        }
+        return user
+      })
+    )
   }
 
   function loadData() {
