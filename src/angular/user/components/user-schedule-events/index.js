@@ -36,7 +36,6 @@ function controller(
 
   function onInit() {
     ctrl.loading = true
-    console.log('onInit() ctrl.scheduleName', ctrl.scheduleName)
     loadEvents()
       .catch(function(error) {
         Alert.notify.danger(error)
@@ -94,7 +93,6 @@ function controller(
   function create(event, _rrule, callback) {
     event.rrule = EventHelper.toRRule(_rrule)
     Alert.spinner.open()
-    console.log('event function create()', event)
     UserEventService.store(event)
       .then(loadEvents)
       .then(function() {
