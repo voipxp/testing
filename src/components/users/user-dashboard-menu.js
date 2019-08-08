@@ -59,6 +59,11 @@ export const dashboardMenu = [
         component: UserServiceSettings
       },
       {
+        path: 'user-schedules',
+        name: 'User Schedules',
+        angularComponent: 'userSchedules'
+      },
+      {
         path: 'user-alternate-user-ids',
         name: 'Alternate User ID',
         component: UserAlternateUserId,

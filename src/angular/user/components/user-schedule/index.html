@@ -1,0 +1,37 @@
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+>
+  <pbs-breadcrumb title="'Schedules'" ng-click="$ctrl.back()"></pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.name"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Details">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit title="Edit Schedule" ng-click="$ctrl.edit()">
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Name">
+        {{ $ctrl.schedule.name }}
+      </pbs-list-item>
+      <pbs-list-item label="Type">
+        {{ $ctrl.schedule.type }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+
+<pbs-modal id="editUserScheduleModal" title="Edit Schedule">
+  <pbs-form>
+    <pbs-form-field label="Schedule Name">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editSchedule.newName"
+        required
+      />
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
