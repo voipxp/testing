@@ -12,19 +12,22 @@ controller.$inject = [
   'UserScheduleService',
   'UserEventService',
   'Route',
-  '$scope'
+  '$scope',
+  '$timeout'
 ]
 function controller(
   Alert,
   UserScheduleService,
   UserEventService,
   Route,
-  $scope
+  $scope,
+  $timeout
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
   ctrl.add = add
+  ctrl.edit = edit
 
   function onInit() {
     ctrl.loading = true
@@ -40,20 +43,17 @@ function controller(
   function loadSchedules() {
     return UserScheduleService.index(ctrl.userId).then(function(data) {
       ctrl.schedules = data
-      console.log('ctrl.schedules', ctrl.schedules)
     })
   }
 
   function add() {
     ctrl.newSchedule = { userId: ctrl.userId }
     Alert.modal.open('createScheduleModal', function(close) {
-      console.log('ctrl.newSchedule', ctrl.newSchedule)
       create(ctrl.newSchedule, close)
     })
   }
 
   function create(schedule, callback) {
-    console.log('create()', schedule)
     Alert.spinner.open()
     UserScheduleService.store(schedule)
       .then(loadSchedules)
@@ -65,12 +65,30 @@ function controller(
       .finally(Alert.spinner.close)
   }
 
+  function edit() {
+    ctrl.editSchedule = angular.copy(ctrl.schedule)
+    ctrl.editSchedule.newName = ctrl.schedule.name
+    Alert.modal.open(
+      'editUserScheduleModal',
+      function(close) {
+        update(ctrl.editSchedule, close)
+      },
+      function(close) {
+        Alert.confirm
+          .open('Are you sure you want to remove this Schedule?')
+          .then(function() {
+            destroy(close)
+          })
+      }
+    )
+  }
+
   function update(schedule, callback) {
     Alert.spinner.open()
     UserScheduleService.update(schedule)
       .then(loadSchedules)
       .then(function() {
-        Alert.notify.success('Schedule Addred')
+        Alert.notify.success('Schedule Added')
         callback()
       })
       .catch(Alert.notify.danger)
@@ -82,16 +100,17 @@ function controller(
     UserScheduleService.destroy(ctrl.schedule)
       .then(loadSchedules)
       .then(function() {
+        ctrl.schedule.level = 'Group'
         Alert.notify.warning('Schedule Removed')
+        callback()
       })
       .catch(Alert.notify.danger)
       .finally(Alert.spinner.close)
   }
 
   function open(schedule) {
-    console.log('schedule', schedule)
-    ctrl.schedule = schedule
-    console.log('ctrl.schedule', ctrl.schedule)
-    $scope.$broadcast('userScheduleEvents:load')
+    ctrl.schedule = {}
+    if (schedule.level !== 'User') return
+    $timeout(() => (ctrl.schedule = schedule), 0)
   }
 }

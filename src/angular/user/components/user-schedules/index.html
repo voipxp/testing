@@ -63,7 +63,7 @@
         <tr
           class="hover"
           ng-click="$ctrl.open(schedule)"
-          ng-repeat="schedule in results = ($ctrl.schedules | filter:$ctrl.filter | filter:$ctrl.search | orderBy:'name') track by [schedule.name, schedule.type]"
+          ng-repeat="schedule in results = ($ctrl.schedules | filter:{level: 'User'} | filter:$ctrl.filter | filter:$ctrl.search | orderBy:'name') track by [schedule.name, schedule.type]"
         >
           <td>{{ schedule.name }}</td>
           <td>{{ schedule.type }}</td>
@@ -73,6 +73,28 @@
     </table>
   </pbs-block>
 </pbs-spinner>
+<div ng-if="$ctrl.schedule.level === 'User'">
+  <pbs-block title="Schedule {{ $ctrl.schuduleName }}" class="margin-top">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit
+        ng-click="$ctrl.edit()"
+        title="Edit Schedule"
+      ></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Schedule Name">
+        {{ $ctrl.schedule.name }}
+      </pbs-list-item>
+      <pbs-list-item label="Schedule Type">
+        {{ $ctrl.schedule.type }}
+      </pbs-list-item>
+      <pbs-list-item label="Schedule Level">
+        {{ $ctrl.schedule.level }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</div>
+
 <pbs-modal id="createScheduleModal">
   <pbs-form>
     <pbs-form-field label="Name">
@@ -92,10 +114,24 @@
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>
-<user-schedule-events
-  ng-if="$ctrl.schedule.level === 'User'"
-  user-id="$ctrl.userId"
-  schedule-name="$ctrl.schedule.name"
-  schedule-type="$ctrl.schedule.type"
-  schedule-level="$ctrl.schedule.level"
-></user-schedule-events>
+<pbs-modal id="editUserScheduleModal">
+  <pbs-form>
+    <pbs-form-field label="Schedule Name">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editSchedule.newName"
+        required
+      />
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+
+<div ng-if="$ctrl.schedule.level === 'User'">
+  <user-schedule-events
+    user-id="$ctrl.userId"
+    schedule-name="$ctrl.schedule.name"
+    schedule-type="$ctrl.schedule.type"
+    schedule-level="$ctrl.schedule.level"
+  ></user-schedule-events>
+</div>

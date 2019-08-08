@@ -36,7 +36,7 @@ function controller(
 
   function onInit() {
     ctrl.loading = true
-    console.log('ctrl.scheduleName', ctrl.scheduleName)
+    console.log('onInit() ctrl.scheduleName', ctrl.scheduleName)
     loadEvents()
       .catch(function(error) {
         Alert.notify.danger(error)
