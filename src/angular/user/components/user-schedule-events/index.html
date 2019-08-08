@@ -1,5 +1,5 @@
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Events" class="margin-top">
+  <pbs-block title="{{ $ctrl.scheduleName }} Events" class="margin-top">
     <pbs-block-buttons>
       <pbs-button-compact-add
         title="Add Event"
@@ -40,7 +40,7 @@
   </pbs-block>
 </pbs-spinner>
 
-<pbs-modal id="editUserEventModal" title="Edit Event">
+<pbs-modal id="editUserEventModal" title="{{ $ctrl.schedueName }} Edit Event">
   <pbs-form>
     <pbs-columns>
       <pbs-column>

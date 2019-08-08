@@ -11,9 +11,16 @@ controller.$inject = [
   'Alert',
   'UserScheduleService',
   'UserEventService',
-  'Route'
+  'Route',
+  '$scope'
 ]
-function controller(Alert, UserScheduleService, UserEventService, Route) {
+function controller(
+  Alert,
+  UserScheduleService,
+  UserEventService,
+  Route,
+  $scope
+) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -46,31 +53,45 @@ function controller(Alert, UserScheduleService, UserEventService, Route) {
   }
 
   function create(schedule, callback) {
+    console.log('create()', schedule)
     Alert.spinner.open()
-    console.log('schedule', schedule)
     UserScheduleService.store(schedule)
+      .then(loadSchedules)
       .then(function() {
         Alert.notify.success('Schedule Created')
         callback()
-        loadSchedules()
-        // open(schedule)
+      })
+      .catch(Alert.notify.danger)
+      .finally(Alert.spinner.close)
+  }
+
+  function update(schedule, callback) {
+    Alert.spinner.open()
+    UserScheduleService.update(schedule)
+      .then(loadSchedules)
+      .then(function() {
+        Alert.notify.success('Schedule Addred')
+        callback()
+      })
+      .catch(Alert.notify.danger)
+      .finally(Alert.spinner.close)
+  }
+
+  function destroy(callback) {
+    Alert.spinner.open()
+    UserScheduleService.destroy(ctrl.schedule)
+      .then(loadSchedules)
+      .then(function() {
+        Alert.notify.warning('Schedule Removed')
       })
       .catch(Alert.notify.danger)
       .finally(Alert.spinner.close)
   }
 
   function open(schedule) {
-    ctrl.showEvents = true
-    console.log('show events for schedule', schedule)
-    // Route.open(
-    //   'groups',
-    //   ctrl.serviceProviderId,
-    //   ctrl.groupId,
-    //   'schedules',
-    //   'schedule'
-    // ).search({
-    //   name: schedule.name,
-    //   type: schedule.type
-    // })
+    console.log('schedule', schedule)
+    ctrl.schedule = schedule
+    console.log('ctrl.schedule', ctrl.schedule)
+    $scope.$broadcast('userScheduleEvents:load')
   }
 }

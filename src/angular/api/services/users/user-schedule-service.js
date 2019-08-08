@@ -12,13 +12,12 @@ function UserScheduleService($http, Route, CacheFactory) {
     update: update,
     destroy: destroy
   }
-  var cache = CacheFactory('UserScheduleService')
   var url = Route.api('/users/schedules')
   return service
 
   function index(userId) {
     return $http
-      .get(url(), { params: { userId: userId }, cache: cache })
+      .get(url(), { params: { userId: userId } })
       .then(function(response) {
         return response.data
       })
@@ -66,7 +65,7 @@ function UserScheduleService($http, Route, CacheFactory) {
 
   function holidays(userId) {
     return $http
-      .get(url('holidays'), { params: { userId: userId }, cache: cache })
+      .get(url('holidays'), { params: { userId: userId } })
       .then(function(response) {
         return response.data
       })

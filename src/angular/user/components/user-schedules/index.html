@@ -92,3 +92,10 @@
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>
+<user-schedule-events
+  ng-if="$ctrl.schedule.level === 'User'"
+  user-id="$ctrl.userId"
+  schedule-name="$ctrl.schedule.name"
+  schedule-type="$ctrl.schedule.type"
+  schedule-level="$ctrl.schedule.level"
+></user-schedule-events>

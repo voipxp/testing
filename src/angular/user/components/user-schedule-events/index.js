@@ -7,13 +7,27 @@ angular.module('odin.user').component('userScheduleEvents', {
   controller,
   bindings: {
     userId: '<',
-    name: '<',
-    type: '<'
+    scheduleName: '<',
+    scheduleType: '<',
+    scheduleLevel: '<',
+    onUpdate: '&'
   }
 })
 
-controller.$inject = ['Alert', 'UserEventService', 'EventHelper']
-function controller(Alert, UserEventService, EventHelper) {
+controller.$inject = [
+  'EventEmitter',
+  'Alert',
+  'UserEventService',
+  'EventHelper',
+  '$scope'
+]
+function controller(
+  EventEmitter,
+  Alert,
+  UserEventService,
+  EventHelper,
+  $scope
+) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
@@ -22,7 +36,7 @@ function controller(Alert, UserEventService, EventHelper) {
 
   function onInit() {
     ctrl.loading = true
-    console.log('ctrl.name', ctrl.name)
+    console.log('ctrl.scheduleName', ctrl.scheduleName)
     loadEvents()
       .catch(function(error) {
         Alert.notify.danger(error)
@@ -33,18 +47,20 @@ function controller(Alert, UserEventService, EventHelper) {
   }
 
   function loadEvents() {
-    return UserEventService.index(ctrl.userId, ctrl.name, ctrl.type).then(
-      data => {
-        ctrl.events = data.map(EventHelper.parse)
-      }
-    )
+    return UserEventService.index(
+      ctrl.userId,
+      ctrl.scheduleName,
+      ctrl.scheduleType
+    ).then(data => {
+      ctrl.events = data.map(EventHelper.parse)
+    })
   }
 
   function add() {
     ctrl.editEvent = {
       userId: ctrl.userId,
-      name: ctrl.name,
-      type: ctrl.type
+      name: ctrl.scheduleName,
+      type: ctrl.scheduleType
     }
     ctrl.rrule = {}
     Alert.modal.open('editUserEventModal', function(close) {
@@ -78,11 +94,13 @@ function controller(Alert, UserEventService, EventHelper) {
   function create(event, _rrule, callback) {
     event.rrule = EventHelper.toRRule(_rrule)
     Alert.spinner.open()
+    console.log('event function create()', event)
     UserEventService.store(event)
       .then(loadEvents)
       .then(function() {
         Alert.notify.success('Event Created')
         callback()
+        sendUpdate(event)
       })
       .catch(Alert.notify.danger)
       .finally(Alert.spinner.close)
@@ -112,4 +130,8 @@ function controller(Alert, UserEventService, EventHelper) {
       .catch(Alert.notify.danger)
       .finally(Alert.spinner.close)
   }
+  function sendUpdate(userEvent) {
+    ctrl.onUpdate(EventEmitter({ userEvent: userEvent }))
+  }
+  $scope.$on('userScheduleEvents:load', onInit)
 }
