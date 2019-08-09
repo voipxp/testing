@@ -1,0 +1,137 @@
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+>
+  <pbs-breadcrumb title="'Schedules'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Schedules">
+    <pbs-block-buttons>
+      <pbs-button-compact-add
+        ng-click="$ctrl.add()"
+        title="Add Schedule"
+      ></pbs-button-compact-add>
+    </pbs-block-buttons>
+    <pbs-columns>
+      <pbs-column>
+        <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
+      </pbs-column>
+      <pbs-column class="is-narrow">
+        <div class="buttons has-addons">
+          <button
+            class="button"
+            ng-class="{'is-link': !$ctrl.filter}"
+            ng-click="$ctrl.filter = undefined"
+          >
+            All
+          </button>
+          <button
+            class="button"
+            ng-class="{'is-link': $ctrl.filter.type === 'Holiday'}"
+            ng-click="$ctrl.filter = {type: 'Holiday'}"
+          >
+            Holiday
+          </button>
+          <button
+            class="button"
+            ng-class="{'is-link': $ctrl.filter.type === 'Time'}"
+            ng-click="$ctrl.filter = {type: 'Time'}"
+          >
+            Time
+          </button>
+        </div>
+      </pbs-column>
+    </pbs-columns>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Level</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="100">
+            No Schedules Found
+            <strong ng-if="$ctrl.search">for {{ $ctrl.search }}</strong>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          class="hover"
+          ng-click="$ctrl.open(schedule)"
+          ng-repeat="schedule in results = ($ctrl.schedules | filter:{level: 'User'} | filter:$ctrl.filter | filter:$ctrl.search | orderBy:'name') track by [schedule.name, schedule.type]"
+        >
+          <td>{{ schedule.name }}</td>
+          <td>{{ schedule.type }}</td>
+          <td>{{ schedule.level }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>
+<div ng-if="$ctrl.schedule.level === 'User'">
+  <pbs-block title="Schedule {{ $ctrl.schuduleName }}" class="margin-top">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit
+        ng-click="$ctrl.edit()"
+        title="Edit Schedule"
+      ></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Schedule Name">
+        {{ $ctrl.schedule.name }}
+      </pbs-list-item>
+      <pbs-list-item label="Schedule Type">
+        {{ $ctrl.schedule.type }}
+      </pbs-list-item>
+      <pbs-list-item label="Schedule Level">
+        {{ $ctrl.schedule.level }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</div>
+
+<pbs-modal id="createScheduleModal">
+  <pbs-form>
+    <pbs-form-field label="Name">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.newSchedule.name"
+        required
+      />
+    </pbs-form-field>
+    <pbs-form-field label="Type">
+      <pbs-input-select
+        ng-model="$ctrl.newSchedule.type"
+        ng-options="type for type in ['Time', 'Holiday']"
+        required
+      ></pbs-input-select>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+<pbs-modal id="editUserScheduleModal">
+  <pbs-form>
+    <pbs-form-field label="Schedule Name">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editSchedule.newName"
+        required
+      />
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+
+<div ng-if="$ctrl.schedule.level === 'User'">
+  <user-schedule-events
+    user-id="$ctrl.userId"
+    schedule-name="$ctrl.schedule.name"
+    schedule-type="$ctrl.schedule.type"
+    schedule-level="$ctrl.schedule.level"
+  ></user-schedule-events>
+</div>

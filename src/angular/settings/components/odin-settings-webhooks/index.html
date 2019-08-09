@@ -32,7 +32,7 @@
           <td>{{ endpoint.url }}</td>
           <td>{{ endpoint.key }}</td>
           <td>
-            {{ endpoint.unlimited ? 'All' : (endpoint.events.length || 0) }}
+            {{ endpoint.unlimited ? 'All' : endpoint.events.length || 0 }}
             Events
           </td>
         </tr>
@@ -98,6 +98,12 @@
         placeholder="eg: SOMERANDOMKEY"
         ng-required="$ctrl.hasHeader"
       />
+    </pbs-form-field>
+    <pbs-form-field label="Send User Token">
+      <pbs-input-checkbox
+        label="Send User Authorization Token with Payload"
+        ng-model="$ctrl.editEndpoint.sendToken"
+      ></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Events">
       <pbs-input-checkbox

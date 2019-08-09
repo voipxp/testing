@@ -20,6 +20,7 @@ function controller(Alert, ServiceProviderNumberService, NumberService, ACL) {
   ctrl.add = add
   ctrl.edit = edit
   ctrl.remove = remove
+  ctrl.bulk = bulk
 
   function onInit() {
     ctrl.loading = true
@@ -82,6 +83,38 @@ function controller(Alert, ServiceProviderNumberService, NumberService, ACL) {
       .then(loadNumbers)
       .then(function() {
         Alert.notify.success('Number Removed')
+        callback()
+      })
+      .catch(Alert.notify.danger)
+      .finally(Alert.spinner.close)
+  }
+
+  function bulk() {
+    Alert.modal.open('serviceProviderNumbersBulkModal', function onSave(close) {
+      bulkAssignNumbers(ctrl.bulkNumbers, close)
+    })
+  }
+  function bulkAssignNumbers(bulkNumbers, callback) {
+    Alert.spinner.open()
+    var numbers = bulkNumbers.split('\n')
+    var dns = _.map(numbers, function(number) {
+      if (number.includes(' - ')) {
+        var [min, max] = number.split(' - ')
+        return {
+          min: min.trim(),
+          max: max.trim()
+        }
+      } else {
+        return {
+          min: number
+        }
+      }
+    })
+    return ServiceProviderNumberService.store(ctrl.serviceProviderId, dns)
+      .then(loadNumbers)
+      .then(function() {
+        ctrl.filter = {}
+        Alert.notify.success('Bulk Assigned Numbers ')
         callback()
       })
       .catch(Alert.notify.danger)
