@@ -1,3 +1,7 @@
+## Lefthook configuration
+##   TO SKIP
+## LEFTHOOK=0 git commit
+## LEFTHOOK_EXCLUDE=audit git commit
 pre-commit:
   parallel: true
   commands:
