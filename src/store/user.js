@@ -19,7 +19,8 @@ export const userReducer = createReducer(initialState, {
       const { userId, user } = u
       state[userId] = { ...user, userId, serviceProviderId, groupId }
     })
-  }
+  },
+  SESSION_CLEAR: () => initialState
 })
 
 export const loadUser = userId => {

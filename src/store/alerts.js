@@ -14,7 +14,8 @@ export const alertsReducer = createReducer(initialState, {
   [removeAlert]: (state, { payload }) => {
     const id = payload.id || payload
     state.splice(state.findIndex(alert => alert.id === id), 1)
-  }
+  },
+  SESSION_CLEAR: () => initialState
 })
 
 export const alertPrimary = (msg, ms) => alert('primary', msg, ms)

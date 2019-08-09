@@ -7,7 +7,8 @@ const initialState = []
 const load = createAction('SERVICE_PROVIDERS_LOAD')
 
 export const serviceProvidersReducer = createReducer(initialState, {
-  [load]: (state, { payload = [] }) => payload
+  [load]: (state, { payload = [] }) => payload,
+  SESSION_CLEAR: () => initialState
 })
 
 export const loadServiceProviders = () => {
