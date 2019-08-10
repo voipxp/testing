@@ -73,6 +73,12 @@ export const client = new ApolloClient({
   assumeImmutableResults: true
 })
 
+/*
+  We need to set initial state here on the global session
+  object because the rest of the app is querying it using
+  cache-only, using it as local state.
+  https://www.apollographql.com/docs/react/essentials/local-state/#initializing-the-cache
+*/
 export const setInitialState = () => {
   cache.writeQuery({
     query: gql`
@@ -86,5 +92,8 @@ export const setInitialState = () => {
   })
 }
 
+// if we reset the store, also reset initialState
 client.onResetStore(setInitialState)
+
+// now run it on app load
 setInitialState()

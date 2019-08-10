@@ -52,6 +52,8 @@ const SESSION_REFRESH = gql`
 export const clearSession = () => {
   localStorage.removeItem(TOKEN_KEY)
   setToken()
+  // clear out the session so the app knows
+  // to show the login page
   client.writeQuery({
     query: SESSION_QUERY,
     data: {
@@ -72,6 +74,7 @@ export const clearSession = () => {
       }
     }
   })
+  // reset the store to remove anything from the local cache
   return client.resetStore()
 }
 
