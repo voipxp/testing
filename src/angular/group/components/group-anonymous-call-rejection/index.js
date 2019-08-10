@@ -1,6 +1,5 @@
 import angular from 'angular'
 import template from './index.html'
-import { updateUserServices } from '@/store/user-services'
 
 angular.module('odin.group').component('groupAnonymousCallRejection', {
   template,
@@ -12,9 +11,14 @@ controller.$inject = [
   'Alert',
   'UserAnonymousCallRejectionService',
   'Route',
-  '$ngRedux'
+  'UserServiceService'
 ]
-function controller(Alert, UserAnonymousCallRejectionService, Route, $ngRedux) {
+function controller(
+  Alert,
+  UserAnonymousCallRejectionService,
+  Route,
+  UserServiceService
+) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -50,8 +54,7 @@ function controller(Alert, UserAnonymousCallRejectionService, Route, $ngRedux) {
       userServices: [user.service]
     }
     user.isLoading = true
-    $ngRedux
-      .dispatch(updateUserServices(singleService))
+    UserServiceService.update(singleService)
       .then(load)
       .then(function() {
         const message = user.service.assigned ? 'Assigned' : 'Unassigned'

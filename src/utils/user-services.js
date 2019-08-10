@@ -22,8 +22,11 @@ const hasUserService = (service, assigned, viewable, loginType) => {
 
 export const useUserServicePermissions = userId => {
   const { loginType } = useSession()
-  const { assigned, viewable } = useUserServicesAssignedAndViewable(userId)
+  const { assigned, viewable, loading } = useUserServicesAssignedAndViewable(
+    userId
+  )
   return {
+    loadingServices: loading,
     userViewableServices: useMemo(() => {
       return {
         ...assigned,

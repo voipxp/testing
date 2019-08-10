@@ -74,9 +74,10 @@ const moduleDescription = (name, modules) => {
 
 export const useModulePermissions = () => {
   const session = useSession()
-  const { data } = useQuery(UI_QUERY)
+  const { data, loading } = useQuery(UI_QUERY)
   const uiModules = get(data, 'uiModules', [])
   return {
+    loadingModules: loading,
     getModule: useCallback(
       name => {
         return getModule(name, uiModules)

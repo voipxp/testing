@@ -1,7 +1,6 @@
 import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
-import { updateUserServices } from '@/store/user-services'
 
 angular.module('odin.group').component('groupFlexibleSeatingHosts', {
   template,
@@ -18,7 +17,7 @@ controller.$inject = [
   '$scope',
   '$q',
   'GroupPolicyService',
-  '$ngRedux'
+  'UserServiceService'
 ]
 function controller(
   Alert,
@@ -29,7 +28,7 @@ function controller(
   $scope,
   $q,
   GroupPolicyService,
-  $ngRedux
+  UserServiceService
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -192,7 +191,7 @@ function controller(
       userId: ctrl.editSettings.userId,
       userServices: [ctrl.editSettings.service]
     }
-    return $ngRedux.dispatch(updateUserServices(singleService))
+    return UserServiceService.update(singleService)
   }
 
   function updateUserFlexibleSeatingGuest() {

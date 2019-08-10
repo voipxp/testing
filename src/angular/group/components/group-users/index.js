@@ -83,9 +83,10 @@ function controller(
       includeClid
     ).then(function(data) {
       ctrl.users = data.map(user => {
-        const clid = _.get(user, 'user.callingLineIdPhoneNumber')
-        user.callingLineIdPhoneNumber = clid
-        return user
+        return {
+          ...user,
+          callingLineIdPhoneNumber: _.get(user, 'user.callingLineIdPhoneNumber')
+        }
       })
     })
   }
