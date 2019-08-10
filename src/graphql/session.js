@@ -52,7 +52,7 @@ const SESSION_REFRESH = gql`
 export const clearSession = () => {
   localStorage.removeItem(TOKEN_KEY)
   setToken()
-  return client.writeQuery({
+  client.writeQuery({
     query: SESSION_QUERY,
     data: {
       session: {
@@ -72,6 +72,7 @@ export const clearSession = () => {
       }
     }
   })
+  return client.resetStore()
 }
 
 const saveSession = session => {

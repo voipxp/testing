@@ -73,14 +73,18 @@ export const client = new ApolloClient({
   assumeImmutableResults: true
 })
 
-// init cache
-cache.writeQuery({
-  query: gql`
-    query session @client {
-      session {
-        _id
+export const setInitialState = () => {
+  cache.writeQuery({
+    query: gql`
+      query session @client {
+        session {
+          _id
+        }
       }
-    }
-  `,
-  data: { session: { __typename: 'Session', _id: '_session' } }
-})
+    `,
+    data: { session: { __typename: 'Session', _id: '_session' } }
+  })
+}
+
+client.onResetStore(setInitialState)
+setInitialState()
