@@ -1,5 +1,5 @@
-<pbs-spinner loading="!$ctrl.services">
-  <pbs-block title="User Service Assignment">
+<pbs-spinner loading="!$ctrl.servicePacks">
+  <pbs-block title="Service Pack Assignment">
     <pbs-columns>
       <pbs-column>
         <pbs-table-search
@@ -36,7 +36,8 @@
     <table pbs-table>
       <thead>
         <tr>
-          <th>Service</th>
+          <th>Service Pack</th>
+          <th>Description</th>
           <th class="has-text-centered">Assigned</th>
         </tr>
       </thead>
@@ -50,16 +51,17 @@
       </tfoot>
       <tbody>
         <tr
-          ng-repeat="service in $ctrl.services | filter:$ctrl.filterService | filter:$ctrl.search | orderBy:'serviceName' as results track by service.serviceName"
+          ng-repeat="service in $ctrl.servicePacks | filter:$ctrl.filterService | filter:$ctrl.search | orderBy:'servicePackName' as results track by service.servicePackName"
         >
-          <td style="vertical-align: middle">{{ service.serviceName }}</td>
+          <td style="vertical-align: middle">{{ service.servicePackName }}</td>
+          <td>{{ service.description }}</td>
           <td class="has-text-centered" style="vertical-align: middle">
             <button
               class="button is-small"
-              ng-class="{'is-success': service.assigned, 'is-loading': $ctrl.loadingServices[service.serviceName]}"
+              ng-class="{'is-success': service.assigned, 'is-loading': $ctrl.loadingServices[service.servicePackName]}"
               ng-click="$ctrl.toggle(service)"
-              ng-disabled="$ctrl.loadingServices[service.serviceName]"
-              title="{{ service.serviceName }}"
+              ng-disabled="$ctrl.loadingServices[service.servicePackName]"
+              title="{{ service.servicePackName }}"
             >
               <span class="icon">
                 <i

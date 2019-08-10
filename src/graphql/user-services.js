@@ -52,6 +52,24 @@ export const USER_SERVICES_QUERY = gql`
   }
 `
 
+export const USER_SERVICES_ASSIGNED_QUERY = gql`
+  query userServicesAssigned($userId: String!) {
+    userServicesAssigned(userId: $userId) {
+      ...UserServicesAssignedFragment
+    }
+    ${USER_SERVICES_ASSIGNED_FRAGMENT}
+  }
+`
+
+export const USER_SERVICES_VIEWABLE_QUERY = gql`
+  query userServicesViewable($userId: String!) {
+    userServicesViewable(userId: $userId) {
+      ...UserServicesViewableFragment
+    }
+    ${USER_SERVICES_VIEWABLE_FRAGMENT}
+  }
+`
+
 export const USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY = gql`
   query userServicesAssignedAndViewable($userId: String!) {
     userServicesAssigned(userId: $userId) {
@@ -75,4 +93,13 @@ export const useUserServicesAssignedAndViewable = userId => {
   const assigned = get(data, 'userServicesAssigned', { userServices: [] })
   const viewable = get(data, 'userServicesViewable', { userServices: [] })
   return { assigned, viewable, loading, error }
+}
+
+export const useUserServices = userId => {
+  const { data, loading, error } = useQuery(USER_SERVICES_QUERY, {
+    variables: { userId }
+  })
+  const userServices = get(data, 'userServices', { userServices: [] })
+  const servicePacks = get(data, 'userServices', { servicePacks: [] })
+  return { userServices, servicePacks, loading, error }
 }

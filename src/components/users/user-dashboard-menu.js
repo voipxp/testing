@@ -108,15 +108,13 @@ export const dashboardMenu = [
         path: 'service-assignment',
         name: 'Service Assignment',
         angularComponent: 'userServices',
-        serviceType: 'userServices',
         module: 'Provisioning',
         acl: 'Group'
       },
       {
         path: 'service-packs',
         name: 'Service Packs',
-        angularComponent: 'userServices',
-        serviceType: 'servicePackServices',
+        angularComponent: 'userServicePacks',
         module: 'Provisioning',
         acl: 'Group'
       },

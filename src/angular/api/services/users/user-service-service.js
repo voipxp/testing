@@ -1,9 +1,13 @@
 import angular from 'angular'
-
+import {
+  USER_SERVICES_QUERY,
+  USER_SERVICES_ASSIGNED_QUERY,
+  USER_SERVICES_VIEWABLE_QUERY
+} from '@/graphql'
 angular.module('odin.api').factory('UserServiceService', UserServiceService)
 
-UserServiceService.$inject = ['$http', 'Route', '$rootScope']
-function UserServiceService($http, Route, $rootScope) {
+UserServiceService.$inject = ['$http', 'Route', 'GraphQL']
+function UserServiceService($http, Route, GraphQL) {
   var service = {
     show: show,
     update: update,
@@ -15,21 +19,24 @@ function UserServiceService($http, Route, $rootScope) {
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(({ data }) => data)
+    return GraphQL.query({
+      query: USER_SERVICES_QUERY,
+      variables: { userId }
+    }).then(res => res.data.userServices)
   }
 
   function assigned(userId) {
-    return $http
-      .get(url('assigned'), { params: { userId: userId } })
-      .then(({ data }) => data)
+    return GraphQL.query({
+      query: USER_SERVICES_ASSIGNED_QUERY,
+      variables: { userId }
+    }).then(res => res.data.userServicesAssigned)
   }
 
   function viewable(userId) {
-    return $http
-      .get(url('viewable'), { params: { userId: userId } })
-      .then(({ data }) => data)
+    return GraphQL.query({
+      query: USER_SERVICES_VIEWABLE_QUERY,
+      variables: { userId }
+    }).then(res => res.data.userServicesViewable)
   }
 
   function update(service) {

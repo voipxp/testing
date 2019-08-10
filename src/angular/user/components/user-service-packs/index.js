@@ -1,7 +1,7 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular.module('odin.user').component('userServices', {
+angular.module('odin.user').component('userServicePacks', {
   template,
   controller,
   bindings: { userId: '<' }
@@ -18,7 +18,7 @@ function controller(Alert, $filter, UserServiceService) {
 
   function onInit() {
     UserServiceService.show(ctrl.userId)
-      .then(data => (ctrl.services = data.userServices))
+      .then(data => (ctrl.servicePacks = data.servicePacks))
       .catch(Alert.error)
   }
 
