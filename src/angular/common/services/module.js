@@ -93,15 +93,16 @@ function Module(Session, $q, GraphQL) {
       }
     }
     const loginType = Session.data()
-    const permissions = {
-      create: module[camelCase(`${loginType}Create`)],
-      read: module[camelCase(`${loginType}Read`)],
-      update: module[camelCase(`${loginType}Update`)],
-      delete: module[camelCase(`${loginType}Delete`)]
-    }
-    const result = { ...module, permissions }
-    console.log('result', result)
-    return result
+    const permissions =
+      loginType === 'System'
+        ? { create: true, read: true, update: true, delete: true }
+        : {
+            create: module[camelCase(`${loginType}Create`)],
+            read: module[camelCase(`${loginType}Read`)],
+            update: module[camelCase(`${loginType}Update`)],
+            delete: module[camelCase(`${loginType}Delete`)]
+          }
+    return { ...module, permissions }
   }
 
   function name(name) {

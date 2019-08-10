@@ -8,14 +8,23 @@ angular.module('odin.group').component('groupMeetMeBridgeUsers', {
   require: { parent: '^groupMeetMeBridge' }
 })
 
-controller.$inject = ['Alert', '$q', 'GroupMeetMeConferencingUserService']
-function controller(Alert, $q, GroupMeetMeConferencingUserService) {
+controller.$inject = [
+  'Alert',
+  '$q',
+  'GroupMeetMeConferencingUserService',
+  'Module'
+]
+function controller(Alert, $q, GroupMeetMeConferencingUserService, Module) {
   var ctrl = this
 
   ctrl.edit = edit
   ctrl.users = []
   ctrl.availableUsers = []
   ctrl.assignedUsers = []
+
+  ctrl.$onInit = () => {
+    Module.show(ctrl.parent.module).then(mod => (ctrl.module = mod))
+  }
 
   function activate() {
     Alert.spinner.open()
