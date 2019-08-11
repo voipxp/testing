@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import apiUserService from '@/api/user-alternate-user-id'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
-import { alertSuccess, alertWarning, alertDanger } from '@/utils/alerts'
-import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
+import Alert from '@/utils/alerts'
+import Loading from '@/utils/loading'
 import {
   UiCard,
   UiLoadingCard,
@@ -35,7 +35,7 @@ export const UserAlternateUserId = ({ match }) => {
         const data = await apiUserService.show(userId)
         setAlternateUserIds(data.users)
       } catch (error) {
-        alertDanger(error)
+        Alert.danger(error)
       } finally {
         setLoading(false)
       }
@@ -84,7 +84,7 @@ export const UserAlternateUserId = ({ match }) => {
       const match = alternateUserIds.filter(altId => {
         return altId.userId.toLowerCase() === form.newUserId.toLowerCase()
       })
-      if (match.length > 0) return alertWarning('This User ID already exists')
+      if (match.length > 0) return Alert.warning('This User ID already exists')
     }
 
     // update
@@ -100,21 +100,21 @@ export const UserAlternateUserId = ({ match }) => {
   }
 
   async function saveAlternateUserIds(newAltIds) {
-    showLoadingModal()
+    Loading.show()
     try {
       const data = await apiUserService.update({
         userId: userId,
         users: newAltIds
       })
-      alertSuccess('Alternate User IDs Updated')
+      Alert.success('Alternate User IDs Updated')
       setAlternateUserIds(data.users)
       setShowModal(false)
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
       setShowModal(true)
     } finally {
       setLoading(false)
-      hideLoadingModal()
+      Loading.hide()
     }
   }
 

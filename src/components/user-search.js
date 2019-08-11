@@ -4,7 +4,7 @@ import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { alertDanger } from '@/utils/alerts'
+import Alert from '@/utils/alerts'
 import { useSession } from '@/graphql'
 import userApi from '@/api/users'
 
@@ -58,7 +58,7 @@ export const UserSearch = ({ onSelect }) => {
       })
       setUsers(users)
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
       setUsers([])
     } finally {
       setLoading(false)

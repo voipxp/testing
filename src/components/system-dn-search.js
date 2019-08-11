@@ -6,7 +6,7 @@ import { useSession } from '@/graphql'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable, UiCardModal } from '@/components/ui'
-import { alertDanger } from '@/utils/alerts'
+import Alert from '@/utils/alerts'
 import { useAcl, userPath } from '@/utils'
 import { ServiceProviderSelect } from '@/components/service-provider-select'
 import phoneNumberApi from '@/api/phone-numbers/system'
@@ -63,7 +63,7 @@ export const SystemDnSearch = ({ onSelect }) => {
       const filtered = users.filter(u => userPath(u))
       setUsers(filtered)
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
       setUsers([])
     } finally {
       setLoading(false)

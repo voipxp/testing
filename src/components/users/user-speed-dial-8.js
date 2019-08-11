@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
-import { alertSuccess, alertDanger } from '@/utils/alerts'
-import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
+import Alert from '@/utils/alerts'
+import Loading from '@/utils/loading'
 import { useUserSpeedDial8 } from '@/store/user-speed-dial-8'
 import {
   UiCard,
@@ -32,7 +32,7 @@ export const UserSpeedDial8 = ({ match }) => {
     Load the speed dial 8, alert on error
   */
   useEffect(() => {
-    loadUserSpeedDial8(userId).catch(alertDanger)
+    loadUserSpeedDial8(userId).catch(Alert.danger)
   }, [loadUserSpeedDial8, userId])
 
   /*
@@ -68,18 +68,18 @@ export const UserSpeedDial8 = ({ match }) => {
   }
 
   async function update(speedCodes) {
-    showLoadingModal()
+    Loading.show()
     try {
       await updateUserSpeedDial8({
         userId: userId,
         speedCodes: speedCodes
       })
-      alertSuccess('Speed Dial 8 Code Updated')
+      Alert.success('Speed Dial 8 Code Updated')
       setShowModal(false)
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
     } finally {
-      hideLoadingModal()
+      Loading.hide()
     }
   }
 

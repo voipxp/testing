@@ -3,6 +3,7 @@ import get from 'lodash/get'
 import EventEmitter from 'eventemitter3'
 
 export const AlertEmitter = new EventEmitter()
+
 export const removeAlert = payload => AlertEmitter.emit('ALERT_REMOVE', payload)
 export const alertPrimary = (msg, ms) => alert('primary', msg, ms)
 export const alertLink = (msg, ms) => alert('link', msg, ms)
@@ -10,6 +11,16 @@ export const alertInfo = (msg, ms) => alert('info', msg, ms)
 export const alertSuccess = (msg, ms) => alert('success', msg, ms)
 export const alertWarning = (msg, ms = 5000) => alert('warning', msg, ms)
 export const alertDanger = (msg, ms = 10000) => alert('danger', msg, ms)
+
+export default {
+  primary: alertPrimary,
+  link: alertLink,
+  info: alertInfo,
+  success: alertSuccess,
+  warning: alertWarning,
+  danger: alertDanger,
+  remove: removeAlert
+}
 
 function parse(error) {
   if (!error) return 'Unknown Error'

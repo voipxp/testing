@@ -3,8 +3,8 @@ import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
-import { alertSuccess, alertDanger } from '@/utils/alerts'
-import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
+import Alert from '@/utils/alerts'
+import Loading from '@/utils/loading'
 import { useUserSpeedDial8Bulk } from '@/store/user-speed-dial-8'
 import {
   UiCard,
@@ -46,7 +46,7 @@ export const GroupSpeedDial8 = ({ match }) => {
     let isOpen = true
     loadUserSpeedDial8Bulk(serviceProviderId, groupId)
       .then(() => isOpen && setHasRun(true))
-      .catch(alertDanger)
+      .catch(Alert.danger)
     return () => (isOpen = false)
   }, [groupId, loadUserSpeedDial8Bulk, serviceProviderId])
 
@@ -120,15 +120,15 @@ export const GroupSpeedDial8 = ({ match }) => {
   }
 
   async function update(data) {
-    showLoadingModal()
+    Loading.show()
     try {
       await updateUserSpeedDial8Bulk(data)
-      alertSuccess('Speed Dial 8 Code Updated')
+      Alert.success('Speed Dial 8 Code Updated')
       setShowModal(false)
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
     } finally {
-      hideLoadingModal()
+      Loading.hide()
     }
   }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useUserRegistration } from '@/store/user-registration'
-import { alertDanger } from '@/utils/alerts'
+import Alert from '@/utils/alerts'
 import {
   UiCard,
   UiLoadingCard,
@@ -26,7 +26,7 @@ export const UserRegistration = ({ match }) => {
   ]
 
   useEffect(() => {
-    loadUserRegistration(userId).catch(alertDanger)
+    loadUserRegistration(userId).catch(Alert.danger)
   }, [loadUserRegistration, userId])
 
   function show(row) {

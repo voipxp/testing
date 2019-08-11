@@ -1,6 +1,6 @@
 import React from 'react'
 import createActivityDetector from 'activity-detector'
-import { alertWarning, removeAlert } from '@/utils/alerts'
+import Alert from '@/utils/alerts'
 import { useSessionLogout } from '@/graphql'
 
 import gql from 'graphql-tag'
@@ -30,12 +30,12 @@ export const AppTimer = () => {
 
   const clearSessionLogout = React.useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current)
-    if (alertRef.current) removeAlert(alertRef.current)
+    if (alertRef.current) Alert.remove(alertRef.current)
   }, [])
 
   const startSessionLogout = React.useCallback(() => {
     clearSessionLogout()
-    alertRef.current = alertWarning('Your session is about to expire', 0)
+    alertRef.current = Alert.warning('Your session is about to expire', 0)
     timerRef.current = setTimeout(() => logoutUser(), TIMEOUT)
   }, [clearSessionLogout, logoutUser])
 

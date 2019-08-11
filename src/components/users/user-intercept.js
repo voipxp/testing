@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Input, Select, Column } from 'rbx'
-import { alertSuccess, alertDanger } from '@/utils/alerts'
-import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
+import Alert from '@/utils/alerts'
+import Loading from '@/utils/loading'
 import {
   useUserIntercept,
   useUserInterceptUpdate,
@@ -31,7 +31,7 @@ export const UserIntercept = ({ match }) => {
   const { data, loading, error } = useUserIntercept(userId)
   const [update] = useUserInterceptUpdate(userId)
 
-  if (error) alertDanger(error)
+  if (error) Alert.danger(error)
   if (loading || !data) return <UiLoadingCard />
 
   function handleInput(event) {
@@ -48,14 +48,14 @@ export const UserIntercept = ({ match }) => {
 
   async function save() {
     try {
-      showLoadingModal()
+      Loading.show()
       await update({ variables: { input: form } })
-      alertSuccess('Intercept User Updated')
+      Alert.success('Intercept User Updated')
       setShowModal(false)
     } catch (error_) {
-      alertDanger(error_)
+      Alert.danger(error_)
     } finally {
-      hideLoadingModal()
+      Loading.hide()
     }
   }
 

@@ -3,8 +3,8 @@ import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
-import { alertWarning, alertDanger } from '@/utils/alerts'
-import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
+import Alert from '@/utils/alerts'
+import Loading from '@/utils/loading'
 import { useSessionLogin } from '@/graphql'
 import authApi from '@/api/auth'
 import gql from 'graphql-tag'
@@ -31,13 +31,13 @@ export const AppLogin = () => {
     const search = parse(query)
     const token = search.token
     if (!token) return
-    showLoadingModal()
+    Loading.show()
     delete search.token
     const newSearch = stringify(search)
     window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
     // loadSessionFromToken(token)
     //   .catch(error => alertDanger(error))
-    //   .finally(() => hideLoadingModal())
+    //   .finally(() => Loading.hide())
   }, [])
 
   React.useEffect(() => {
@@ -71,37 +71,37 @@ export const AppLogin = () => {
 
   async function loginUser() {
     try {
-      showLoadingModal()
+      Loading.show()
       const { username, password } = form
       await login({ variables: { username, password } })
     } catch (error) {
       if (error.message === 'GraphQL error: Password Expired') {
-        alertWarning(error)
+        Alert.warning(error)
         setNeedsChange(true)
         setValid(false)
       } else {
-        alertDanger(error)
+        Alert.danger(error)
       }
     } finally {
-      hideLoadingModal()
+      Loading.hide()
     }
   }
 
   async function changePassword() {
     if (form.newPassword1 !== form.newPassword2) {
-      return alertWarning('New Passwords Do Not Match')
+      return Alert.warning('New Passwords Do Not Match')
     }
     try {
-      showLoadingModal()
+      Loading.show()
       await authApi.tokenPassword(
         form.password,
         form.newPassword1,
         form.username
       )
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
     } finally {
-      hideLoadingModal()
+      Loading.hide()
     }
   }
 
