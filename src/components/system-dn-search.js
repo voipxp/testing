@@ -23,7 +23,7 @@ const columns = [
 ]
 
 export const SystemDnSearch = ({ onSelect }) => {
-  const acl = useAcl()
+  const Acl = useAcl()
   const session = useSession()
   const [searchString, setSearchString] = React.useState('')
   const [serviceProviderId, setServiceProviderId] = React.useState('')
@@ -32,7 +32,7 @@ export const SystemDnSearch = ({ onSelect }) => {
   const [loading, setLoading] = React.useState(false)
   const [initialized, setInitialized] = React.useState(false)
 
-  const hasProvisioning = acl.hasProvisioning()
+  const hasProvisioning = Acl.hasProvisioning()
 
   const handleSearchString = e => {
     setSearchString(e.target.value)

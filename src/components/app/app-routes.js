@@ -11,22 +11,22 @@ import { useAcl, useModulePermissions } from '@/utils'
 import { routes } from './routes'
 
 export const AppRoutes = () => {
-  const { hasLevel, hasVersion } = useAcl()
-  const { getModule, hasModuleRead } = useModulePermissions()
+  const Acl = useAcl()
+  const Module = useModulePermissions()
 
   const notFoundRoute = path => (
     <Route exact key={path} path={path} component={AppNotFound} />
   )
 
   const generateRoute = route => {
-    if (route.version && !hasVersion(route.version)) {
+    if (route.version && !Acl.hasVersion(route.version)) {
       return notFoundRoute(route.path)
     }
-    if (route.acl && !hasLevel(route.acl)) {
+    if (route.acl && !Acl.hasLevel(route.acl)) {
       return notFoundRoute(route.path)
     }
-    const module = getModule(route.module)
-    if (module && !hasModuleRead(route.module)) {
+    const module = Module.show(route.module)
+    if (module && !Module.hasRead(route.module)) {
       return notFoundRoute(route.path)
     }
     const { path, component, angularComponent, exact, ...rest } = route

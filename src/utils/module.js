@@ -74,17 +74,18 @@ const moduleDescription = (name, modules) => {
 
 export const useModulePermissions = () => {
   const session = useSession()
-  const { data, loading } = useQuery(UI_QUERY)
+  const { data, loading, error } = useQuery(UI_QUERY)
   const uiModules = get(data, 'uiModules', [])
   return {
-    loadingModules: loading,
-    getModule: useCallback(
+    error,
+    loading,
+    show: useCallback(
       name => {
         return getModule(name, uiModules)
       },
       [uiModules]
     ),
-    hasModulePermission: useCallback(
+    hasPermission: useCallback(
       (name, permission) => {
         return hasModulePermission(
           name,
@@ -95,37 +96,37 @@ export const useModulePermissions = () => {
       },
       [session.loginType, uiModules]
     ),
-    hasModuleCreate: useCallback(
+    hasCreate: useCallback(
       name => {
         return hasModuleCreate(name, session.loginType, uiModules)
       },
       [session.loginType, uiModules]
     ),
-    hasModuleRead: useCallback(
+    hasRead: useCallback(
       name => {
         return hasModuleRead(name, session.loginType, uiModules)
       },
       [session.loginType, uiModules]
     ),
-    hasModuleUpdate: useCallback(
+    hasUpdate: useCallback(
       name => {
         return hasModuleUpdate(name, session.loginType, uiModules)
       },
       [session.loginType, uiModules]
     ),
-    hasModuleDelete: useCallback(
+    hasDelete: useCallback(
       name => {
         return hasModuleDelete(name, session.loginType, uiModules)
       },
       [session.loginType, uiModules]
     ),
-    moduleAlias: useCallback(
+    alias: useCallback(
       name => {
         return moduleAlias(name, uiModules)
       },
       [uiModules]
     ),
-    moduleDescription: useCallback(
+    description: useCallback(
       name => {
         return moduleDescription(name, uiModules)
       },

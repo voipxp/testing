@@ -11,32 +11,35 @@ import { dashboardMenu } from './user-dashboard-menu'
 
 export const UserDashboard = ({ match }) => {
   const { userId } = match.params
-  const { hasVersion, hasLevel } = useAcl()
-  const { loadingServices, hasUserService } = useUserServicePermissions(userId)
-  const { loadingModules, hasModuleRead } = useModulePermissions()
+  const Acl = useAcl()
+  const Permissions = useUserServicePermissions(userId)
+  const Module = useModulePermissions()
 
   // filter items we should not see
   const menu = React.useMemo(() => {
     const filteredMenu = []
     dashboardMenu.forEach(section => {
       const items = section.items.filter(item => {
-        if (item.version && !hasVersion(item.version)) return false
-        if (item.acl && !hasLevel(item.acl)) return false
-        if (item.services && !item.services.find(s => hasUserService(s))) {
+        if (item.version && !Acl.hasVersion(item.version)) return false
+        if (item.acl && !Acl.hasLevel(item.acl)) return false
+        if (
+          item.services &&
+          !item.services.find(s => Permissions.hasUserService(s))
+        ) {
           return false
         }
-        if (item.module && !hasModuleRead(item.module)) return false
+        if (item.module && !Module.hasRead(item.module)) return false
         return true
       })
       if (items.length > 0) filteredMenu.push({ label: section.label, items })
     })
     return filteredMenu
-  }, [hasLevel, hasModuleRead, hasUserService, hasVersion])
+  }, [Acl, Module, Permissions])
 
   return (
     <>
       <AppBreadcrumb />
-      {loadingServices || loadingModules ? (
+      {Permissions.loading || Module.loading ? (
         <UiLoadingCard />
       ) : (
         <UiMenu menu={menu} />

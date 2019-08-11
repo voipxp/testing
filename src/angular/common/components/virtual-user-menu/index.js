@@ -55,7 +55,6 @@ function controller(Alert, Module, ACL, GraphQL) {
 
   // Can we simplify this with UserPermissionService?
   function loadPermissions(services) {
-    console.log('loadPermissions**', services)
     if (ctrl.module.name === 'Meet-Me Conferencing') {
       ctrl.isMeetMe = true
     }

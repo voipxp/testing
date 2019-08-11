@@ -37,9 +37,9 @@ export const AppNavbar = withRouter(({ history }) => {
   const session = useSession()
   const { userId } = session
 
-  const acl = useAcl()
-  const hasGroup = acl.hasGroup()
-  const hasServiceProvider = acl.hasServiceProvider()
+  const Acl = useAcl()
+  const hasGroup = Acl.hasGroup()
+  const hasServiceProvider = Acl.hasServiceProvider()
 
   const { data } = useQuery(UI_QUERY)
   const pageTitle = get(data, 'uiTemplate.pageTitle')

@@ -11,10 +11,10 @@ const StyledBreadcrumb = styled.div`
 `
 export const AppBreadcrumbBase = ({ match, children }) => {
   const { serviceProviderId, groupId, userId } = match.params
-  const acl = useAcl()
-  const hasGroup = acl.hasGroup()
-  const hasServiceProvider = acl.hasServiceProvider()
-  const hasProvisioning = acl.hasProvisioning()
+  const Acl = useAcl()
+  const hasGroup = Acl.hasGroup()
+  const hasServiceProvider = Acl.hasServiceProvider()
+  const hasProvisioning = Acl.hasProvisioning()
 
   return (
     <Breadcrumb as={StyledBreadcrumb}>

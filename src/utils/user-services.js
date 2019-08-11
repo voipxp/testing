@@ -26,7 +26,7 @@ export const useUserServicePermissions = userId => {
     userId
   )
   return {
-    loadingServices: loading,
+    loading,
     userViewableServices: useMemo(() => {
       return {
         ...assigned,
