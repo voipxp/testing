@@ -7,6 +7,7 @@ import { useSession } from '@/graphql'
 import { withRouter } from 'react-router-dom'
 import { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect'
 import { getInjector } from '@/angular/injector'
+import { useModulePermissions } from '@/utils'
 
 export const AngularComponentBase = ({
   component,
@@ -17,6 +18,7 @@ export const AngularComponentBase = ({
   const scopeRef = React.useRef()
   const ref = React.useRef()
 
+  const Module = useModulePermissions()
   const { loginType } = useSession()
 
   useDeepCompareEffectNoCheck(() => {
@@ -36,6 +38,9 @@ export const AngularComponentBase = ({
 
       // add a permissions attr to match what angular is used to
       if (props.module) {
+        if (typeof props.module === String) {
+          props.module = Module.show(props.module)
+        }
         const permissions =
           loginType === 'System'
             ? { create: true, read: true, update: true, delete: true }
@@ -73,7 +78,7 @@ AngularComponentBase.propTypes = {
   component: PropTypes.string,
   location: PropTypes.object,
   match: PropTypes.object,
-  module: PropTypes.object
+  module: PropTypes.any
 }
 
 export const AngularComponent = withRouter(AngularComponentBase)
