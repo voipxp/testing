@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Input, Select, Column } from 'rbx'
-import Alert from '@/utils/alerts'
-import Loading from '@/utils/loading'
+import { Alert } from '@/utils/alerts'
+import { Loading } from '@/utils/loading'
 import {
   useUserIntercept,
   useUserInterceptUpdate,

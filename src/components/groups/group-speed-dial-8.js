@@ -3,8 +3,8 @@ import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
-import Alert from '@/utils/alerts'
-import Loading from '@/utils/loading'
+import { Alert } from '@/utils/alerts'
+import { Loading } from '@/utils/loading'
 import { useUserSpeedDial8Bulk } from '@/store/user-speed-dial-8'
 import {
   UiCard,

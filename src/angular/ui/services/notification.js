@@ -1,28 +1,8 @@
 // import _ from 'lodash'
 import angular from 'angular'
-import {
-  removeAlert,
-  alertPrimary,
-  alertLink,
-  alertInfo,
-  alertSuccess,
-  alertWarning,
-  alertDanger
-} from '@/utils/alerts'
+import { Alert } from '@/utils/alerts'
 
-angular.module('odin.ui').factory('Notification', Notification)
-
-function Notification() {
-  return {
-    primary: msg => alertPrimary(msg),
-    link: msg => alertLink(msg),
-    info: msg => alertInfo(msg),
-    success: msg => alertSuccess(msg),
-    warning: msg => alertWarning(msg),
-    danger: msg => alertDanger(msg),
-    remove: alert => removeAlert(alert)
-  }
-}
+angular.module('odin.ui').factory('Notification', () => Alert)
 
 // Notification.$inject = ['$timeout', '$ngRedux']
 // function Notification($timeout, $ngRedux) {

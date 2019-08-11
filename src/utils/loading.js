@@ -8,7 +8,7 @@ export const hideLoadingModal = () => {
   setTimeout(() => LoadingEmitter.emit('HIDE_LOADING_MODAL'), 0)
 }
 
-export default {
+export const Loading = {
   show: showLoadingModal,
   hide: hideLoadingModal
 }
