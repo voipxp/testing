@@ -1,4 +1,6 @@
 export * from './acl'
+export * from './alerts'
+export * from './loading'
 export * from './module'
 export * from './routes'
 export * from './user-services'
