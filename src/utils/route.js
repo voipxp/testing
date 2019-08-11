@@ -1,6 +1,6 @@
 import { stringify } from 'query-string'
 
-export const userTypes = {
+const userTypes = {
   'Auto Attendant - Standard': 'autoAttendants/autoAttendant',
   'Auto Attendant - Video': 'autoAttendants/autoAttendant',
   'Auto Attendant': 'autoAttendants/autoAttendant',
@@ -26,7 +26,7 @@ export const userTypes = {
   'VoiceXML': null
 }
 
-export const userPath = (user, type) => {
+const userPath = (user, type) => {
   const userType = type || user.userType || user.serviceType || 'Normal'
   const path = userTypes[userType]
   if (!path) return
@@ -39,12 +39,12 @@ export const userPath = (user, type) => {
   }
 }
 
-export const groupPath = group => {
+const groupPath = group => {
   return `/groups/${group.serviceProviderId}/${group.groupId}`
 }
 
-export const serviceProviderPath = serviceProvider => {
+const serviceProviderPath = serviceProvider => {
   return `/serviceProviders/${serviceProvider.serviceProviderId}`
 }
 
-export default { userTypes, userPath, groupPath, serviceProviderPath }
+export const Route = { userTypes, userPath, groupPath, serviceProviderPath }

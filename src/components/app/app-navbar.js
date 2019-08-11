@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { UiCardModal } from '@/components/ui'
-import { useAcl, userPath, groupPath, Alert } from '@/utils'
+import { useAcl, Route, Alert } from '@/utils'
 import { parseUrl, stringify } from 'query-string'
 import { useSession, useSessionLogout } from '@/graphql'
 import { UserSearch } from '@/components/user-search'
@@ -94,12 +94,12 @@ export const AppNavbar = withRouter(({ history }) => {
 
   const openUser = user => {
     setSearch(null)
-    history.push(userPath(user))
+    history.push(Route.userPath(user))
   }
 
   const openGroup = group => {
     setSearch(null)
-    history.push(groupPath(group))
+    history.push(Route.groupPath(group))
   }
 
   return (
