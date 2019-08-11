@@ -1,6 +1,6 @@
 import React from 'react'
 import { UiLoadingModal } from '@/components/ui'
-import { LoadingEmitter } from '@/utils/loading'
+import { LoadingEmitter } from '@/utils'
 
 export const AppLoadingModal = () => {
   const [loading, setLoading] = React.useState(false)

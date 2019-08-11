@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useUserRegistration } from '@/store/user-registration'
-import { Alert } from '@/utils/alerts'
+import { Alert } from '@/utils'
 import {
   UiCard,
   UiLoadingCard,

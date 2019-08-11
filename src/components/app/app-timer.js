@@ -1,6 +1,6 @@
 import React from 'react'
 import createActivityDetector from 'activity-detector'
-import { Alert } from '@/utils/alerts'
+import { Alert } from '@/utils'
 import { useSessionLogout } from '@/graphql'
 
 import gql from 'graphql-tag'

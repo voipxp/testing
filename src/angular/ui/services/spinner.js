@@ -1,5 +1,5 @@
 import angular from 'angular'
-import { Loading } from '@/utils/loading'
+import { Loading } from '@/utils'
 
 angular
   .module('odin.ui')

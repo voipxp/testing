@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { UiLoading, UiDataTable, UiCheckbox } from '@/components/ui'
-import { Alert } from '@/utils/alerts'
+import { Alert } from '/utils'
 import { useQuery } from '@apollo/react-hooks'
 import { SERVICE_PROVIDER_LIST_QUERY } from '@/graphql'
 

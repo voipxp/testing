@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import apiUserService from '@/api/user-alternate-user-id'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
-import { Alert } from '@/utils/alerts'
-import { Loading } from '@/utils/loading'
+import { Alert, Loading } from '@/utils'
 import {
   UiCard,
   UiLoadingCard,
