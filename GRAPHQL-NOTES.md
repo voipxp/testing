@@ -6,6 +6,12 @@
 - all existing items that are missing mutations
   - User, Group, Service Provider
 
+### THEN....
+
+Figure out the best format for hooks for both queries and mutations. Do we want it to be uniform {data, loading, error}? Also, do we want to use the second part of mutations [update, {error, loading}]?
+
+Export the queries when needed, but try to use hooks instead of actual graphql inside the components. In angular put them in services.
+
 ### Errors
 
 Handle NotFound vs AuthenticationRequired vs Forbidden vs PasswordExpired in OCI calls
