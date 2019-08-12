@@ -9,12 +9,9 @@ import {
 
 angular.module('odin.api').factory('ServiceProviderService', service)
 
-service.$inject = ['$http', 'Route', '$rootScope', 'GraphQL']
-function service($http, Route, $rootScope, GraphQL) {
+service.$inject = ['GraphQL']
+function service(GraphQL) {
   const service = { index, show, store, update, destroy }
-
-  $rootScope.$on('ServiceProviderService:updated', () => index())
-
   return service
 
   function index() {

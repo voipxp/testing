@@ -1,4 +1,3 @@
-import angular from 'angular'
 import { store } from '@/store'
 
 locationConfig.$inject = ['$locationProvider']
@@ -68,15 +67,6 @@ export function jwtInterceptorConfig($httpProvider, jwtOptionsProvider) {
     ]
   })
   $httpProvider.interceptors.push('jwtInterceptor')
-}
-
-cacheFactoryConfig.$inject = ['CacheFactoryProvider']
-export function cacheFactoryConfig(CacheFactoryProvider) {
-  angular.extend(CacheFactoryProvider.defaults, {
-    maxAge: 5 * 60 * 1000,
-    deleteOnExpire: 'passive',
-    onExpire: key => console.log('expire', key)
-  })
 }
 
 // idleConfig.$inject = ['IdleProvider', 'TitleProvider']

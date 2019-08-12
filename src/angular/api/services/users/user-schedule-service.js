@@ -2,8 +2,8 @@ import angular from 'angular'
 
 angular.module('odin.api').factory('UserScheduleService', UserScheduleService)
 
-UserScheduleService.$inject = ['$http', 'Route', 'CacheFactory']
-function UserScheduleService($http, Route, CacheFactory) {
+UserScheduleService.$inject = ['$http', 'Route']
+function UserScheduleService($http, Route) {
   var service = {
     index: index,
     holidays: holidays,

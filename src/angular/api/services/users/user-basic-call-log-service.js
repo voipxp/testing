@@ -4,19 +4,15 @@ angular
   .module('odin.api')
   .factory('UserBasicCallLogService', UserBasicCallLogService)
 
-UserBasicCallLogService.$inject = ['$http', 'Route', 'CacheFactory']
-function UserBasicCallLogService($http, Route, CacheFactory) {
+UserBasicCallLogService.$inject = ['$http', 'Route']
+function UserBasicCallLogService($http, Route) {
   var service = { show: show }
   var url = Route.api('/users/basic-call-logs')
-  var cache = CacheFactory('UserBasicCallLogService', {
-    maxAge: 5 * 60 * 1000
-  })
   return service
 
-  function show(userId, noCache) {
-    if (noCache) cache.remove(url(userId))
+  function show(userId) {
     return $http
-      .get(url(), { params: { userId: userId }, cache: cache })
+      .get(url(), { params: { userId: userId } })
       .then(function(response) {
         return response.data
       })

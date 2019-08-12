@@ -4,14 +4,13 @@ angular
   .module('odin.api')
   .factory('SystemVirtualOnNetEnterpriseExtensionsService', System)
 
-System.$inject = ['$http', 'CacheFactory', 'Route']
-function System($http, CacheFactory, Route) {
+System.$inject = ['$http', 'Route']
+function System($http, Route) {
   var url = Route.api('/system/virtual-on-net-enterprise-extensions')
-  var cache = CacheFactory('SystemVirtualOnNetEnterpriseExtensionsService')
   var service = { index }
   return service
 
   function index() {
-    return $http.get(url(), { cache }).then(response => response.data)
+    return $http.get(url()).then(response => response.data)
   }
 }

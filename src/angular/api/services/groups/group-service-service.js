@@ -2,25 +2,16 @@ import angular from 'angular'
 
 angular.module('odin.api').factory('GroupServiceService', Service)
 
-Service.$inject = ['$http', 'Route', 'CacheFactory', '$rootScope']
-function Service($http, Route, CacheFactory, $rootScope) {
+Service.$inject = ['$http', 'Route', '$rootScope']
+function Service($http, Route, $rootScope) {
   var service = { show, authorized, available, update, assigned }
   var url = Route.api('/groups/services')
-  var cache = CacheFactory('GroupServiceService')
-
-  $rootScope.$on('ServiceProviderServiceService:updated', clearCache)
-  $rootScope.$on('BrandingModuleService:updated', clearCache)
-  $rootScope.$on('GroupServiceService:updated', clearCache)
 
   return service
 
-  function clearCache() {
-    cache.removeAll()
-  }
-
   function show(serviceProviderId, groupId) {
     return $http
-      .get(url(), { cache, params: { serviceProviderId, groupId } })
+      .get(url(), { params: { serviceProviderId, groupId } })
       .then(response => response.data)
   }
 
@@ -28,7 +19,6 @@ function Service($http, Route, CacheFactory, $rootScope) {
   function available(serviceProviderId, groupId) {
     return $http
       .get(url('available'), {
-        cache,
         params: { serviceProviderId, groupId }
       })
       .then(response => response.data)
@@ -43,7 +33,6 @@ function Service($http, Route, CacheFactory, $rootScope) {
   function assigned(serviceProviderId, groupId, serviceType, serviceName) {
     return $http
       .get(url('assigned'), {
-        cache,
         params: { serviceProviderId, groupId, serviceType, serviceName }
       })
       .then(response => response.data)
@@ -51,7 +40,6 @@ function Service($http, Route, CacheFactory, $rootScope) {
   function authorized(serviceProviderId, groupId) {
     return $http
       .get(url('authorized'), {
-        cache,
         params: { serviceProviderId, groupId }
       })
       .then(response => response.data)
@@ -61,7 +49,6 @@ function Service($http, Route, CacheFactory, $rootScope) {
     return $http
       .put(url(), { ...service, serviceProviderId, groupId })
       .then(response => {
-        cache.removeAll()
         $rootScope.$emit('GroupServiceService:updated')
         return response.data
       })

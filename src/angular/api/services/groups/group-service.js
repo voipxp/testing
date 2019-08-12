@@ -3,19 +3,10 @@ import gql from 'graphql-tag'
 
 angular.module('odin.api').factory('GroupService', GroupService)
 
-GroupService.$inject = [
-  '$http',
-  'Route',
-  'CacheFactory',
-  '$rootScope',
-  'GraphQL'
-]
-function GroupService($http, Route, CacheFactory, $rootScope, GraphQL) {
+GroupService.$inject = ['$http', 'Route', 'GraphQL']
+function GroupService($http, Route, GraphQL) {
   var service = { index, store, show, update, destroy }
-  var cache = CacheFactory('GroupService')
   var url = Route.api('/groups')
-
-  $rootScope.$on('GroupService:updated', clearCache)
 
   const GROUP_LIST = gql`
     query groups($serviceProviderId: String!) {
@@ -63,10 +54,6 @@ function GroupService($http, Route, CacheFactory, $rootScope, GraphQL) {
 
   return service
 
-  function clearCache() {
-    cache.removeAll()
-  }
-
   function index(serviceProviderId) {
     return GraphQL.query({
       query: GROUP_LIST,
@@ -76,7 +63,6 @@ function GroupService($http, Route, CacheFactory, $rootScope, GraphQL) {
 
   function store(serviceProviderId, group) {
     return $http.post(url(), group).then(response => {
-      clearCache()
       return response.data
     })
   }
@@ -90,7 +76,6 @@ function GroupService($http, Route, CacheFactory, $rootScope, GraphQL) {
 
   function update(serviceProviderId, group) {
     return $http.put(url(), group).then(response => {
-      clearCache()
       return response.data
     })
   }
@@ -99,7 +84,6 @@ function GroupService($http, Route, CacheFactory, $rootScope, GraphQL) {
     return $http
       .delete(url(), { params: { serviceProviderId, groupId } })
       .then(response => {
-        clearCache()
         return response.data
       })
   }
