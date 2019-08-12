@@ -52,6 +52,15 @@ export const USER_SERVICES_QUERY = gql`
   }
 `
 
+export const USER_SERVICES_UPDATE_MUTATION = gql`
+  mutation userServicesUpdate($input: UserServicesInput!) {
+    userServicesUpdate(input: $input) {
+      ...UserServicesFragment
+    }
+    ${USER_SERVICES_FRAGMENT}
+  }
+`
+
 export const USER_SERVICES_ASSIGNED_QUERY = gql`
   query userServicesAssigned($userId: String!) {
     userServicesAssigned(userId: $userId) {

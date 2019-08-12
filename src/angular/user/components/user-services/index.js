@@ -29,23 +29,22 @@ function controller(Alert, $filter, UserServiceService) {
     if (ctrl.filter === 'unassigned') return !item.assigned
   }
 
-  function toggle(editService) {
-    const service = angular.copy(editService)
-    service.assigned = !service.assigned
-    ctrl.loadingServices[service.serviceName] = true
-    // format as an array to fit API requirements
-    const singleService = { userId: ctrl.userId }
-    singleService[ctrl.serviceType] = [service]
+  function toggle(service) {
+    const editService = angular.copy(service)
+    editService.assigned = !editService.assigned
+    ctrl.loadingServices[editService.serviceName] = true
+    const singleService = { userId: ctrl.userId, userServices: [editService] }
 
     UserServiceService.update(singleService)
       .then(() => {
-        const message = service.assigned ? 'Assigned' : 'Unassigned'
-        const action = service.assigned
+        const message = editService.assigned ? 'Assigned' : 'Unassigned'
+        const action = editService.assigned
           ? Alert.notify.success
           : Alert.notify.warning
-        action(`${service.serviceName} ${message}`)
+        action(`${editService.serviceName} ${message}`)
       })
+      .then(onInit)
       .catch(Alert.notify.danger)
-      .finally(() => (ctrl.loadingServices[service.serviceName] = false))
+      .finally(() => (ctrl.loadingServices[editService.serviceName] = false))
   }
 }
