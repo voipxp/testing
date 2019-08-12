@@ -3,8 +3,7 @@ import {
   USER_SERVICES_QUERY,
   USER_SERVICES_ASSIGNED_QUERY,
   USER_SERVICES_VIEWABLE_QUERY,
-  USER_SERVICES_UPDATE_MUTATION,
-  USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY
+  USER_SERVICES_UPDATE_MUTATION
 } from '@/graphql'
 angular.module('odin.api').factory('UserServiceService', UserServiceService)
 
@@ -45,7 +44,7 @@ function UserServiceService($http, Route, GraphQL) {
       variables: { input: service },
       refetchQueries: [
         {
-          query: USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY,
+          query: USER_SERVICES_ASSIGNED_QUERY,
           variables: { userId: service.userId }
         }
       ]

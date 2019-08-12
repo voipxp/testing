@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
 import { Alert, Loading } from '@/utils'
-import { useUserSpeedDial8 } from '@/store/user-speed-dial-8'
+import { useUserSpeedDial8, useUserSpeedDial8Update } from '@/graphql'
 import {
   UiCard,
   UiLoadingCard,
@@ -16,23 +16,16 @@ export const UserSpeedDial8 = ({ match }) => {
   const [form, setForm] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const {
-    userSpeedDial8,
-    loadUserSpeedDial8,
-    updateUserSpeedDial8
-  } = useUserSpeedDial8(userId)
+  const { data, error, loading } = useUserSpeedDial8(userId)
+  const [update] = useUserSpeedDial8Update(userId)
+
+  if (error) Alert.danger(error)
+  if (loading || !data) return <UiLoadingCard />
 
   const columns = [
     { key: 'speedCode', label: 'Speed Code' },
     { key: 'phoneNumber', label: 'Phone Number' }
   ]
-
-  /*
-    Load the speed dial 8, alert on error
-  */
-  useEffect(() => {
-    loadUserSpeedDial8(userId).catch(Alert.danger)
-  }, [loadUserSpeedDial8, userId])
 
   /*
     Make a copy of the row for the form
@@ -49,47 +42,41 @@ export const UserSpeedDial8 = ({ match }) => {
   */
   function remove() {
     setShowConfirm(false)
-    const newSpeedCodes = userSpeedDial8.speedCodes.map(code =>
-      code.speedCode === form.speedCode ? { ...form, phoneNumber: '' } : code
+    const newSpeedCodes = data.speedCodes.map(code =>
+      code.speedCode === form.speedCode ? { ...form, phoneNumber: null } : code
     )
-    update(newSpeedCodes)
+    return updateSpeedCodes(newSpeedCodes)
   }
 
+  function save() {
+    const newSpeedCodes = data.speedCodes.map(code =>
+      code.speedCode === form.speedCode ? { ...form } : code
+    )
+    return updateSpeedCodes(newSpeedCodes)
+  }
   /*
     Map through and update the one matching the form to the
     new value, otherwise pass the original.
   */
-  function save() {
-    const newSpeedCodes = userSpeedDial8.speedCodes.map(code =>
-      code.speedCode === form.speedCode ? { ...form } : code
-    )
-    update(newSpeedCodes)
-  }
-
-  async function update(speedCodes) {
+  async function updateSpeedCodes(speedCodes) {
     Loading.show()
     try {
-      await updateUserSpeedDial8({
-        userId: userId,
-        speedCodes: speedCodes
-      })
+      await update({ variables: { input: { userId, speedCodes } } })
       Alert.success('Speed Dial 8 Code Updated')
       setShowModal(false)
-    } catch (error) {
-      Alert.danger(error)
+    } catch (error_) {
+      Alert.danger(error_)
     } finally {
       Loading.hide()
     }
   }
-
-  if (!userSpeedDial8) return <UiLoadingCard />
 
   return (
     <>
       <UiCard title="Speed Dial 8">
         <UiDataTable
           columns={columns}
-          rows={userSpeedDial8.speedCodes}
+          rows={data.speedCodes}
           rowKey="speedCode"
           hideSearch={true}
           onClick={edit}
@@ -101,7 +88,6 @@ export const UserSpeedDial8 = ({ match }) => {
         onCancel={() => setShowModal(false)}
         onSave={save}
         onDelete={form.speedCode ? () => setShowConfirm(true) : null}
-        deleteText="Unset"
       >
         <form>
           <Column.Group>
@@ -137,11 +123,10 @@ export const UserSpeedDial8 = ({ match }) => {
         isOpen={showConfirm}
         onCancel={() => setShowConfirm(false)}
         onDelete={remove}
-        deleteText="Unset"
       >
         <blockquote>
-          Are you sure you want to unset Speed Code {form.speedCode}{' '}
-          {form.phoneNumber}?
+          Are you sure you want to remove Speed Code {form.speedCode} (
+          {form.phoneNumber})?
         </blockquote>
       </UiCardModal>
     </>
