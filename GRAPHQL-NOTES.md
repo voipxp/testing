@@ -1,15 +1,10 @@
 ## GRAPHQL NOTES
 
-### THINGS
-
-- Make fragments for most calls OR make custom hooks?
-
 ### TO CREATE IN GRAPHQL
 
 - all store items
 - all existing items that are missing mutations
   - User, Group, Service Provider
-- user services
 
 ### Errors
 

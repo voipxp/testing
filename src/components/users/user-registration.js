@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useUserRegistration } from '@/store/user-registration'
+import { useUserRegistrations } from '@/graphql'
 import { Alert } from '@/utils'
 import {
   UiCard,
@@ -13,9 +13,12 @@ import {
 
 export const UserRegistration = ({ match }) => {
   const { userId } = match.params
-  const { userRegistration, loadUserRegistration } = useUserRegistration(userId)
+  const { data, loading, error } = useUserRegistrations(userId)
   const [showModal, setShowModal] = useState(false)
   const [form, setForm] = useState({})
+
+  if (error) Alert.danger(error)
+  if (loading || !data) return <UiLoadingCard />
 
   const columns = [
     { key: 'deviceLevel', label: 'Level' },
@@ -25,22 +28,16 @@ export const UserRegistration = ({ match }) => {
     { key: 'endpointType', label: 'Type' }
   ]
 
-  useEffect(() => {
-    loadUserRegistration(userId).catch(Alert.danger)
-  }, [loadUserRegistration, userId])
-
   function show(row) {
     setForm({ ...row })
     setShowModal(true)
   }
-  if (!userRegistration) return <UiLoadingCard />
-
   return (
     <>
       <UiCard title="User Registrations">
         <UiDataTable
           columns={columns}
-          rows={userRegistration.registrations}
+          rows={data.registrations}
           rowKey="deviceName"
           hideSearch={true}
           onClick={show}
