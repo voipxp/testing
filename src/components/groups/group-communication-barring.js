@@ -4,10 +4,9 @@ import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
 import apiCommProfile from '@/api/group-communication-barring-profiles'
 import apiComm from '@/api/group-communication-barring'
-import { useUi, hideLoadingModal } from '@/store/ui'
-import { Field, Input, Column, Control, Select } from 'rbx'
-import { useAlerts, alertDanger } from '@/store/alerts'
-import { useUserSpeedDial8Bulk } from '@/store/user-speed-dial-8'
+import { hideLoadingModal } from '@/store/ui'
+import { Select } from 'rbx'
+import { useAlerts } from '@/store/alerts'
 import {
   UiCard,
   UiLoadingCard,
@@ -19,7 +18,6 @@ import {
   UiCardModal,
   UiFormField
 } from '@/components/ui'
-import { async } from 'q'
 
 export const GroupCommunicationBarring = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
