@@ -2,27 +2,21 @@ import angular from 'angular'
 
 angular.module('odin.api').factory('ServiceProviderServiceService', service)
 
-service.$inject = ['$http', 'Route', 'CacheFactory', '$rootScope']
-function service($http, Route, CacheFactory, $rootScope) {
+service.$inject = ['$http', 'Route', '$rootScope']
+function service($http, Route, $rootScope) {
   var service = { show, assignable, update }
-  var cache = CacheFactory('ServiceProviderServiceService')
   var url = Route.api('/service-providers/services')
-  $rootScope.$on('BrandingModuleService:updated', clearCache)
   return service
-
-  function clearCache() {
-    cache.removeAll()
-  }
 
   function show(serviceProviderId) {
     return $http
-      .get(url(), { params: { serviceProviderId }, cache })
+      .get(url(), { params: { serviceProviderId } })
       .then(response => response.data)
   }
 
   function assignable(serviceProviderId) {
     return $http
-      .get(url('assignable'), { params: { serviceProviderId }, cache })
+      .get(url('assignable'), { params: { serviceProviderId } })
       .then(response => response.data)
   }
 
@@ -30,7 +24,6 @@ function service($http, Route, CacheFactory, $rootScope) {
     return $http
       .put(url(), { ...services, serviceProviderId })
       .then(response => {
-        cache.removeAll()
         $rootScope.$emit('ServiceProviderServiceService:updated')
         return response.data
       })

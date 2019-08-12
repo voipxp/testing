@@ -1883,11 +1883,6 @@ angular-animate@^1.7.7:
   resolved "https://registry.yarnpkg.com/angular-animate/-/angular-animate-1.7.8.tgz#c95f237efe7ecfe0e6003adb5e2c7ef0e5a2b9d4"
   integrity sha512-bINtzizq7TbJzfVrDpwLfTxVl0Qd7fRNWFb5jKYI1vaFZobQNX/QONXlLow6ySsDbZ6eLECycB7mvWtfh1YYaw==
 
-angular-cache@^4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/angular-cache/-/angular-cache-4.6.0.tgz#5cc90ad1273fb150205dc1c71b8141ae39e48bff"
-  integrity sha1-XMkK0Sc/sVAgXcHHG4FBrjnki/8=
-
 angular-chart.js@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/angular-chart.js/-/angular-chart.js-1.1.1.tgz#49f0e18d081762b6d4c9791e487aff2fbb30f5ae"

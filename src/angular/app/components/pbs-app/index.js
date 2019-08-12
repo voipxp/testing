@@ -3,8 +3,8 @@
 
 // angular.module('odin.app').component('pbsApp', { template, controller })
 
-// controller.$inject = ['Session', 'CacheFactory', '$ngRedux']
-// function controller(Session, CacheFactory, $ngRedux) {
+// controller.$inject = ['Session', '$ngRedux']
+// function controller(Session, $ngRedux) {
 //   const ctrl = this
 //   ctrl.$onInit = onInit
 //   ctrl.$onDestroy = () => unsubscribe()
@@ -12,7 +12,6 @@
 //   let unsubscribe
 
 //   function onInit() {
-//     CacheFactory.clearAll()
 //     const mapState = state => ({
 //       session: state.session,
 //       template: state.ui.template

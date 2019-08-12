@@ -4,15 +4,14 @@ angular
   .module('odin.api')
   .factory('SystemPasscodeService', SystemPasscodeService)
 
-SystemPasscodeService.$inject = ['$http', 'Route', 'CacheFactory']
-function SystemPasscodeService($http, Route, CacheFactory) {
-  var cache = CacheFactory('SystemPasscodeService')
+SystemPasscodeService.$inject = ['$http', 'Route']
+function SystemPasscodeService($http, Route) {
   var url = Route.api('/system/passcode-rules')
   var service = { show: show, update: update }
   return service
 
   function show() {
-    return $http.get(url(), { cache: cache }).then(response => response.data)
+    return $http.get(url()).then(response => response.data)
   }
 
   function update(object) {
