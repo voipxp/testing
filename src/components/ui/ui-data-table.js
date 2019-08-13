@@ -67,7 +67,8 @@ export const UiDataTable = ({
   }, [filteredItems, pager])
 
   const handleSearch = e => setSearch(e.target.value)
-  const handleSort = column => {
+  const handleSort = (e, column) => {
+    e.preventDefault()
     sortBy === column.key
       ? setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
       : setSortBy(column.key)
@@ -189,10 +190,7 @@ export const UiDataTable = ({
                   key={column.key}
                   style={{ whiteSpace: 'nowrap' }}
                 >
-                  <a
-                    href="javascript:void(0)"
-                    onClick={() => handleSort(column)}
-                  >
+                  <a href="#" onClick={e => handleSort(e, column)}>
                     {column.label || column.key}
                     {headingIcon(column)}
                   </a>
