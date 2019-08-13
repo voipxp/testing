@@ -4,8 +4,8 @@ import { SESSION_QUERY } from '@/graphql'
 
 angular.module('odin.common').factory('Session', Session)
 
-Session.$inject = ['$rootScope', '$q', 'jwtHelper', 'GraphQL']
-function Session($rootScope, $q, jwtHelper, GraphQL) {
+Session.$inject = ['$rootScope', 'jwtHelper', 'GraphQL']
+function Session($rootScope, jwtHelper, GraphQL) {
   let _data = null
   const service = {
     load: load,

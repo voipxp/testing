@@ -1,7 +1,6 @@
 import gql from 'graphql-tag'
 import get from 'lodash/get'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { USER_SERVICES_ASSIGNED_QUERY } from '.'
 
 export const USER_INTERCEPT_FRAGMENT = gql`
   fragment UserInterceptFragment on UserIntercept {
@@ -72,12 +71,5 @@ export const useUserIntercept = userId => {
 }
 
 export const useUserInterceptUpdate = userId => {
-  return useMutation(USER_INTERCEPT_UPDATE_MUTATION, {
-    refetchQueries: [
-      {
-        query: USER_SERVICES_ASSIGNED_QUERY,
-        variables: { userId }
-      }
-    ]
-  })
+  return useMutation(USER_INTERCEPT_UPDATE_MUTATION)
 }

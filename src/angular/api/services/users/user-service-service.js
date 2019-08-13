@@ -7,8 +7,8 @@ import {
 } from '@/graphql'
 angular.module('odin.api').factory('UserServiceService', UserServiceService)
 
-UserServiceService.$inject = ['$http', 'Route', 'GraphQL']
-function UserServiceService($http, Route, GraphQL) {
+UserServiceService.$inject = ['GraphQL']
+function UserServiceService(GraphQL) {
   var service = {
     show: show,
     update: update,

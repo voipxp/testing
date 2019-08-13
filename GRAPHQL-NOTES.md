@@ -3,7 +3,9 @@
 ### TODO
 
 - add all existing items that are missing mutations
-  - User, Group, Service Provider
+  - group-service.js
+  - user-service.js
+  - Branding modules, application, ...
 - Figure out the best format for hooks for both queries and mutations.
   - Do we want it to be uniform {data, loading, error}?
   - Do we want to use the second part of mutations [update, {error, loading}]?
