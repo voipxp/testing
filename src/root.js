@@ -1,10 +1,8 @@
 import { hot } from 'react-hot-loader/root'
 import React from 'react'
-import { Provider } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { App } from '@/components/app'
-import { store } from '@/store'
 import api from '@/api'
 import { client } from './apollo'
 import { clearSession } from '@/graphql'
@@ -20,11 +18,9 @@ api.interceptors.response.use(
 export const Root = hot(() => {
   return (
     <ApolloProvider client={client}>
-      <Provider store={store}>
-        <HashRouter hashType="hashbang">
-          <App />
-        </HashRouter>
-      </Provider>
+      <HashRouter hashType="hashbang">
+        <App />
+      </HashRouter>
     </ApolloProvider>
   )
 })

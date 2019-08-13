@@ -1,16 +1,16 @@
 ## GRAPHQL NOTES
 
-### TO CREATE IN GRAPHQL
+### TODO
 
-- all store items
-- all existing items that are missing mutations
+- add all existing items that are missing mutations
   - User, Group, Service Provider
-
-### THEN....
-
-Figure out the best format for hooks for both queries and mutations. Do we want it to be uniform {data, loading, error}? Also, do we want to use the second part of mutations [update, {error, loading}]?
-
-Export the queries when needed, but try to use hooks instead of actual graphql inside the components. In angular put them in services.
+- Figure out the best format for hooks for both queries and mutations.
+  - Do we want it to be uniform {data, loading, error}?
+  - Do we want to use the second part of mutations [update, {error, loading}]?
+- Export the queries when needed
+  - try to use hooks instead of actual graphql inside the components.
+  - In angular put them in services.
+- Update README.md to show how to use graphql
 
 ### Errors
 

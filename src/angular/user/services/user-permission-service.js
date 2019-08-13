@@ -23,8 +23,8 @@ const USER_SERVICES = gql`
   }
 `
 
-Service.$inject = ['Module', 'ACL', '$q', '$ngRedux', 'GraphQL']
-function Service(Module, ACL, $q, $ngRedux, GraphQL) {
+Service.$inject = ['Module', 'ACL', '$q', 'GraphQL']
+function Service(Module, ACL, $q, GraphQL) {
   const service = { load: load }
   return service
 

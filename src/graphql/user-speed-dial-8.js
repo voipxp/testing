@@ -12,6 +12,11 @@ export const USER_SPEED_DIAL_8_FRAGMENT = gql`
       phoneNumber
       speedCode
     }
+    user {
+      _id
+      lastName
+      firstName
+    }
   }
 `
 
@@ -25,7 +30,7 @@ export const USER_SPEED_DIAL_8_QUERY = gql`
 `
 
 export const USER_SPEED_DIAL_8_MUTATION = gql`
-  mutation UserSpeedDial8Update($input: UserSpeedDial8Input) {
+  mutation UserSpeedDial8Update($input: UserSpeedDial8Input!) {
     userSpeedDial8Update(input: $input) {
       ...UserSpeedDial8Fragment
     }
@@ -33,11 +38,46 @@ export const USER_SPEED_DIAL_8_MUTATION = gql`
   ${USER_SPEED_DIAL_8_FRAGMENT}
 `
 
+export const USER_SPEED_DIAL_8_BULK_FRAGMENT = gql`
+fragment UserSpeedDial8BulkFragment on UserSpeedDial8Bulk {
+  users {
+    ...UserSpeedDial8Fragment
+  }
+  ${USER_SPEED_DIAL_8_FRAGMENT}
+}
+`
+
+export const USER_SPEED_DIAL_8_BULK_QUERY = gql`
+  query UserSpeedDial8Bulk($serviceProviderId: String!, $groupId: String!) {
+    userSpeedDial8Bulk(serviceProviderId: $serviceProviderId, groupId: $groupId) {
+      ...UserSpeedDial8BulkFragment
+    }
+    ${USER_SPEED_DIAL_8_BULK_FRAGMENT}
+  }
+`
+
+export const USER_SPEED_DIAL_8_BULK_MUTATION = gql`
+  mutation UserSpeedDial8BulkUpdate($input: UserSpeedDial8BulkInput!) {
+    userSpeedDial8BulkUpdate(input: $input) {
+      ...UserSpeedDial8BulkFragment
+    }
+  }
+  ${USER_SPEED_DIAL_8_BULK_FRAGMENT}
+`
+
 export const useUserSpeedDial8 = userId => {
   const { data, loading, error } = useQuery(USER_SPEED_DIAL_8_QUERY, {
     variables: { userId }
   })
   const result = get(data, 'userSpeedDial8')
+  return { data: result, loading, error }
+}
+
+export const useUserSpeedDial8Bulk = (serviceProviderId, groupId) => {
+  const { data, loading, error } = useQuery(USER_SPEED_DIAL_8_BULK_QUERY, {
+    variables: { serviceProviderId, groupId }
+  })
+  const result = get(data, 'userSpeedDial8Bulk')
   return { data: result, loading, error }
 }
 
@@ -50,4 +90,9 @@ export const useUserSpeedDial8Update = userId => {
       }
     ]
   })
+}
+
+// add USER_SERVICES_ASSIGNED_BULK refetchQuery
+export const useUserSpeedDial8BulkUpdate = (serviceProviderId, groupId) => {
+  return useMutation(USER_SPEED_DIAL_8_BULK_MUTATION)
 }

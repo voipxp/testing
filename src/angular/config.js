@@ -1,5 +1,3 @@
-import { store } from '@/store'
-
 locationConfig.$inject = ['$locationProvider']
 export function locationConfig($locationProvider) {
   $locationProvider.hashPrefix('!')
@@ -79,14 +77,4 @@ rootScope.$inject = ['$rootScope']
 export function rootScope($rootScope) {
   $rootScope.apiURL = '/api/v2'
   $rootScope.sessionKey = 'odin:session'
-}
-
-ngRedux.$inject = ['$ngReduxProvider']
-export function ngRedux($ngReduxProvider) {
-  $ngReduxProvider.provideStore(store)
-}
-
-reduxDevTools.$inject = ['$ngRedux', '$timeout', '$rootScope']
-export function reduxDevTools($ngRedux, $timeout, $rootScope) {
-  $ngRedux.subscribe(() => $timeout(() => $rootScope.$apply(() => {}), 100))
 }

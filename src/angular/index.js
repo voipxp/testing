@@ -2,7 +2,6 @@ import { setInjector } from './injector'
 
 // DEPS
 import angular from 'angular'
-import ngRedux from 'ng-redux'
 import 'angular-animate'
 import 'angular-chart.js'
 import 'angular-color-picker'
@@ -45,7 +44,6 @@ angular
     'checklist-model',
     'truncate',
     'chart.js',
-    ngRedux,
     'odin.api',
     'odin.common',
     'odin.app',
@@ -65,9 +63,7 @@ angular
   .config(config.deleteHttpConfig)
   .config(config.authInterceptorConfig)
   .config(config.jwtInterceptorConfig)
-  .config(config.ngRedux)
   .run(config.rootScope)
-  .run(config.reduxDevTools)
   .run(['$injector', i => setInjector(i)])
 
 angular
