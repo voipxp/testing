@@ -80,6 +80,12 @@ function controller(Route, SystemDashboardService, Alert) {
       },
       {
         type: 'provisioning',
+        name: 'Resellers',
+        path: route('resellers'),
+        version: '22'
+      },
+      {
+        type: 'provisioning',
         name: 'Branding',
         path: route('branding')
       },
