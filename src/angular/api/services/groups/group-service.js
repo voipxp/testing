@@ -62,7 +62,11 @@ function GroupService(GraphQL) {
       variables: { serviceProviderId, groupId },
       refetchQueries: [
         { query: GROUP_LIST_QUERY, variables: { serviceProviderId, groupId } }
-      ]
+      ],
+      update: cache => {
+        // seems we need to manually delete this
+        cache.data.delete(`GroupList:${serviceProviderId}:${groupId}`)
+      }
     }).then(res => res.data.groupDelete)
   }
 }

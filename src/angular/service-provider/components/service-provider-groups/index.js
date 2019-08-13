@@ -51,9 +51,9 @@ function controller(
   }
 
   function loadGroups() {
-    return GroupService.index(ctrl.serviceProviderId).then(
-      data => (ctrl.groups = data)
-    )
+    return GroupService.index(ctrl.serviceProviderId).then(data => {
+      ctrl.groups = data
+    })
   }
 
   function clone() {
