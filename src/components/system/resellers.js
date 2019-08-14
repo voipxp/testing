@@ -59,7 +59,7 @@ export const Resellers = ({ match }) => {
     setForm({ ...row, resellerId: row.resellerId })
     setShowModal(true)
   }
-  //Undefined variable: resellerId (View: /var/www/html/resources/views/broadworks/reseller/ResellerAddRequest.blade.php)
+
   /*
     Remove the current selected altId
   */

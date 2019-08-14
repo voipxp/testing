@@ -767,7 +767,7 @@ export const routes = [
     acl: 'Provisioning'
   },
   {
-    path: '/reseller',
+    path: '/resellers/:resellerId',
     component: ResellerDashboard,
     acl: 'Reseller'
   }

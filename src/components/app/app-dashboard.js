@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 
 export const AppDashboard = () => {
   const { session } = useSession()
-  const { loginType, serviceProviderId, groupId, userId } = session
+  const { loginType, serviceProviderId, groupId, userId, resellerId } = session
 
   let route
   switch (loginType) {
@@ -13,7 +13,7 @@ export const AppDashboard = () => {
       route = '/system'
       break
     case 'Reseller':
-      route = '/reseller'
+      route = `/resellers/${resellerId}`
       break
     case 'Service Provider':
       route = `/serviceProviders/${serviceProviderId}`

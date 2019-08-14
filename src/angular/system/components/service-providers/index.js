@@ -11,9 +11,9 @@ controller.$inject = [
   'ServiceProviderService',
   '$scope',
   'Route',
-  'ACL'
+  '$location'
 ]
-function controller(Alert, ServiceProviderService, $scope, Route, ACL) {
+function controller(Alert, ServiceProviderService, $scope, Route, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.clone = clone
@@ -24,7 +24,7 @@ function controller(Alert, ServiceProviderService, $scope, Route, ACL) {
 
   function onInit() {
     ctrl.loading = true
-    ctrl.showNav = !ACL.is('Reseller')
+    ctrl.showNav = !/^\/resellers/.test($location.path())
     loadServiceProviders()
       .catch(function(error) {
         Alert.notify.danger(error)
