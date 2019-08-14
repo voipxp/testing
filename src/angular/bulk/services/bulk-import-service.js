@@ -62,9 +62,7 @@ function BulkImportService(
 
   function transform(data) {
     return $q(function(resolve) {
-      var response = _.isString(data)
-        ? CsvService.import(data)
-        : UtilityService.flatten(data)
+      var response = _.isString(data) ? CsvService.import(data) : UtilityService.flatten(data)
       resolve(response)
     })
   }

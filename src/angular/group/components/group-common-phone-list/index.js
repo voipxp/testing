@@ -34,10 +34,9 @@ function controller(Alert, GroupCommonPhoneListService, CsvService) {
   }
 
   function loadContacts() {
-    return GroupCommonPhoneListService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupCommonPhoneListService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.contacts = data.entries
     })
   }
@@ -69,22 +68,16 @@ function controller(Alert, GroupCommonPhoneListService, CsvService) {
         update(ctrl.editContact, close)
       },
       function(close) {
-        Alert.confirm
-          .open('Are you sure you want to delete this contact?')
-          .then(function() {
-            destroy(ctrl.editContact, close)
-          })
+        Alert.confirm.open('Are you sure you want to delete this contact?').then(function() {
+          destroy(ctrl.editContact, close)
+        })
       }
     )
   }
 
   function update(contact, callback) {
     Alert.spinner.open()
-    GroupCommonPhoneListService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      contact
-    )
+    GroupCommonPhoneListService.update(ctrl.serviceProviderId, ctrl.groupId, contact)
       .then(loadContacts)
       .then(function() {
         Alert.notify.success('Contact Updated')
@@ -96,9 +89,7 @@ function controller(Alert, GroupCommonPhoneListService, CsvService) {
 
   function create(contact, callback) {
     Alert.spinner.open()
-    GroupCommonPhoneListService.store(ctrl.serviceProviderId, ctrl.groupId, [
-      contact
-    ])
+    GroupCommonPhoneListService.store(ctrl.serviceProviderId, ctrl.groupId, [contact])
       .then(loadContacts)
       .then(function() {
         Alert.notify.success('Contact Added')
@@ -110,9 +101,7 @@ function controller(Alert, GroupCommonPhoneListService, CsvService) {
 
   function destroy(contact, callback) {
     Alert.spinner.open()
-    GroupCommonPhoneListService.destroy(ctrl.serviceProviderId, ctrl.groupId, [
-      contact
-    ])
+    GroupCommonPhoneListService.destroy(ctrl.serviceProviderId, ctrl.groupId, [contact])
       .then(loadContacts)
       .then(function() {
         Alert.notify.success('Contact Removed')
@@ -135,11 +124,7 @@ function controller(Alert, GroupCommonPhoneListService, CsvService) {
 
   function bulk(contacts, callback) {
     Alert.spinner.open()
-    GroupCommonPhoneListService.store(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      contacts
-    )
+    GroupCommonPhoneListService.store(ctrl.serviceProviderId, ctrl.groupId, contacts)
       .then(loadContacts)
       .then(function() {
         Alert.notify.success('Import Successful')

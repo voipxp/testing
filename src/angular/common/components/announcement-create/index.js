@@ -82,11 +82,7 @@ function controller(
   }
 
   function createGroup(announcement) {
-    return GroupAnnouncementService.store(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      announcement
-    )
+    return GroupAnnouncementService.store(ctrl.serviceProviderId, ctrl.groupId, announcement)
   }
 
   function sendUpdate(announcement) {

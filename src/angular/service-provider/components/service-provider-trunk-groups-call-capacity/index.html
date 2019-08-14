@@ -18,18 +18,10 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editServiceProviderTrunkGroupsCallCapacity"
-  title="Edit Trunk Group Call Capacity"
->
+<pbs-modal id="editServiceProviderTrunkGroupsCallCapacity" title="Edit Trunk Group Call Capacity">
   <form novalidate>
     <pbs-form-field label="Max Active Calls">
-      <input
-        class="input"
-        type="number"
-        ng-model="$ctrl.editSettings.maxActiveCalls"
-        min="-1"
-      />
+      <input class="input" type="number" ng-model="$ctrl.editSettings.maxActiveCalls" min="-1" />
       <small ng-show="$ctrl.editSettings.maxActiveCalls === -1">
         <strong>Unlimited</strong>
       </small>

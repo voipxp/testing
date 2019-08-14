@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupExtensionService', GroupExtensionService)
+angular.module('odin.api').factory('GroupExtensionService', GroupExtensionService)
 
 GroupExtensionService.$inject = ['$http', 'Route']
 function GroupExtensionService($http, Route) {

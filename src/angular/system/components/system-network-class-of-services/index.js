@@ -2,9 +2,7 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.system')
-  .component('systemNetworkClassOfServices', { template, controller })
+angular.module('odin.system').component('systemNetworkClassOfServices', { template, controller })
 
 controller.$inject = [
   'Alert',
@@ -44,9 +42,7 @@ function controller(
   function add() {
     ctrl.editService = {}
     loadProfiles().then(function() {
-      Alert.modal.open('systemNetworkClassOfServiceCreateModal', function(
-        close
-      ) {
+      Alert.modal.open('systemNetworkClassOfServiceCreateModal', function(close) {
         create(ctrl.editService, close)
       })
     })
@@ -55,11 +51,7 @@ function controller(
   function open(service) {
     var name = service && service.name
     if (name) {
-      Route.open(
-        'system',
-        'networkClassOfServices',
-        'networkClassOfService'
-      ).search({ name })
+      Route.open('system', 'networkClassOfServices', 'networkClassOfService').search({ name })
     } else {
       Route.open('system', 'networkClassOfServices')
     }

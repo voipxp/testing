@@ -50,11 +50,9 @@ function controller(
   }
 
   function loadGroupFlexibleSeatingHost() {
-    return GroupFlexibleSeatingHostService.show(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.flexibleSeatingHost = data
-      }
-    )
+    return GroupFlexibleSeatingHostService.show(ctrl.serviceUserId).then(function(data) {
+      ctrl.flexibleSeatingHost = data
+    })
   }
 
   function update(flexibleSeatingHost, callback) {
@@ -99,19 +97,12 @@ function controller(
   function onDeleteProfile(event) {
     var flexibleSeatingHost = angular.copy(ctrl.flexibleSeatingHost)
     flexibleSeatingHost = event.flexibleSeatingHost
-    Alert.confirm
-      .open('Are you sure you want to delete host?')
-      .then(function() {
-        destroy(flexibleSeatingHost, event.callback)
-      })
+    Alert.confirm.open('Are you sure you want to delete host?').then(function() {
+      destroy(flexibleSeatingHost, event.callback)
+    })
   }
 
   function back() {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'flexibleSeatingHosts'
-    )
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'flexibleSeatingHosts')
   }
 }

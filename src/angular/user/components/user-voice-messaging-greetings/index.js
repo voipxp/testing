@@ -26,9 +26,7 @@ function controller(Alert, UserVoiceMessagingGreetingService) {
   }
 
   function loadSettings() {
-    return UserVoiceMessagingGreetingService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserVoiceMessagingGreetingService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }

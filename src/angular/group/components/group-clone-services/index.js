@@ -7,13 +7,7 @@ angular.module('odin.group').component('groupCloneServices', {
   bindings: { serviceProviderId: '<', groupId: '<', onUpdate: '&' }
 })
 
-controller.$inject = [
-  'EventEmitter',
-  'GroupCloneService',
-  '$scope',
-  'Alert',
-  'ACL'
-]
+controller.$inject = ['EventEmitter', 'GroupCloneService', '$scope', 'Alert', 'ACL']
 function controller(EventEmitter, GroupCloneService, $scope, Alert, ACL) {
   var ctrl = this
   ctrl.selectServiceProvider = selectServiceProvider

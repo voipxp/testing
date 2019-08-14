@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserAnnouncementService', UserAnnouncementService)
+angular.module('odin.api').factory('UserAnnouncementService', UserAnnouncementService)
 
 UserAnnouncementService.$inject = ['$http', 'Route']
 function UserAnnouncementService($http, Route) {

@@ -14,20 +14,8 @@ angular.module('odin.user').component('userScheduleEvents', {
   }
 })
 
-controller.$inject = [
-  'EventEmitter',
-  'Alert',
-  'UserEventService',
-  'EventHelper',
-  '$scope'
-]
-function controller(
-  EventEmitter,
-  Alert,
-  UserEventService,
-  EventHelper,
-  $scope
-) {
+controller.$inject = ['EventEmitter', 'Alert', 'UserEventService', 'EventHelper', '$scope']
+function controller(EventEmitter, Alert, UserEventService, EventHelper, $scope) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
@@ -46,11 +34,7 @@ function controller(
   }
 
   function loadEvents() {
-    return UserEventService.index(
-      ctrl.userId,
-      ctrl.scheduleName,
-      ctrl.scheduleType
-    ).then(data => {
+    return UserEventService.index(ctrl.userId, ctrl.scheduleName, ctrl.scheduleType).then(data => {
       ctrl.events = data.map(EventHelper.parse)
     })
   }
@@ -81,11 +65,9 @@ function controller(
         update(ctrl.editEvent, ctrl.rrule, close)
       },
       function(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this Event?')
-          .then(function() {
-            destroy(ctrl.editEvent, close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this Event?').then(function() {
+          destroy(ctrl.editEvent, close)
+        })
       }
     )
   }

@@ -78,11 +78,7 @@ function controller(
   }
 
   function onSelectPhone(event) {
-    _.set(
-      ctrl.autoAttendant,
-      'serviceInstanceProfile.phoneNumber',
-      event.phoneNumber
-    )
+    _.set(ctrl.autoAttendant, 'serviceInstanceProfile.phoneNumber', event.phoneNumber)
   }
 
   function onSelectUserId(event) {

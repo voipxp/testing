@@ -1,9 +1,6 @@
 <pbs-modal id="cloneGroupServicesModal" title="Clone Group Services">
   <pbs-form>
-    <pbs-form-field-horizontal
-      label="Clone Service Provider"
-      ng-if="$ctrl.isProvisioning"
-    >
+    <pbs-form-field-horizontal label="Clone Service Provider" ng-if="$ctrl.isProvisioning">
       <div class="field has-addons">
         <p class="control is-expanded">
           <input
@@ -43,11 +40,7 @@
           />
         </p>
         <p class="control">
-          <button
-            class="button"
-            ng-click="$ctrl.selectGroup()"
-            title="Select a Group"
-          >
+          <button class="button" ng-click="$ctrl.selectGroup()" title="Select a Group">
             <span class="icon">
               <i class="fas fa-search"></i>
             </span>

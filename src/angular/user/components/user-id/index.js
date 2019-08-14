@@ -69,23 +69,21 @@ function controller(
   }
 
   function remove(callback) {
-    Alert.confirm
-      .open('Are you sure you want to remove ' + ctrl.userId + '?')
-      .then(function() {
-        Alert.spinner.open()
-        return UserService.destroy(ctrl.userId)
-          .then(function() {
-            Alert.notify.success('User Removed')
-            callback()
-            Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'users')
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to remove ' + ctrl.userId + '?').then(function() {
+      Alert.spinner.open()
+      return UserService.destroy(ctrl.userId)
+        .then(function() {
+          Alert.notify.success('User Removed')
+          callback()
+          Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'users')
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 
   function update(newUserId, callback) {

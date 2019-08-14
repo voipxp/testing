@@ -55,14 +55,13 @@ function controller(Alert, UserCallForwardingNotReachableService) {
   }
 
   function load() {
-    return UserCallForwardingNotReachableService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
-      ctrl.users = _.filter(data, function(item) {
-        return _.get(item, 'service.assigned')
-      })
-    })
+    return UserCallForwardingNotReachableService.index(ctrl.serviceProviderId, ctrl.groupId).then(
+      function(data) {
+        ctrl.users = _.filter(data, function(item) {
+          return _.get(item, 'service.assigned')
+        })
+      }
+    )
   }
 
   function onClick(event) {

@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserMeetMeConferencingConferencesService', Service)
+angular.module('odin.api').factory('UserMeetMeConferencingConferencesService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
@@ -22,19 +20,15 @@ function Service($http, Route) {
   return service
 
   function bridges(userId) {
-    return $http
-      .get(url('bridges'), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url('bridges'), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function index(userId) {
-    return $http
-      .get(url('conferences'), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url('conferences'), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function store(userId, bridgeId, object) {

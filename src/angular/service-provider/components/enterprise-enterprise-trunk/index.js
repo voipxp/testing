@@ -8,12 +8,7 @@ angular.module('odin.serviceProvider').component('enterpriseEnterpriseTrunk', {
   bindings: { module: '<', serviceProviderId: '<' }
 })
 
-controller.$inject = [
-  '$location',
-  'Route',
-  'Alert',
-  'EnterpriseEnterpriseTrunkService'
-]
+controller.$inject = ['$location', 'Route', 'Alert', 'EnterpriseEnterpriseTrunkService']
 function controller($location, Route, Alert, EnterpriseEnterpriseTrunkService) {
   var ctrl = this
   ctrl.$onInit = activate
@@ -33,22 +28,17 @@ function controller($location, Route, Alert, EnterpriseEnterpriseTrunkService) {
   }
 
   function loadTrunk() {
-    return EnterpriseEnterpriseTrunkService.show(
-      ctrl.serviceProviderId,
-      ctrl.trunkName
-    ).then(function(data) {
-      ctrl.trunk = data
-      return data
-    })
+    return EnterpriseEnterpriseTrunkService.show(ctrl.serviceProviderId, ctrl.trunkName).then(
+      function(data) {
+        ctrl.trunk = data
+        return data
+      }
+    )
   }
 
   function update(trunk, callback) {
     Alert.spinner.open()
-    EnterpriseEnterpriseTrunkService.update(
-      ctrl.serviceProviderId,
-      ctrl.trunkName,
-      trunk
-    )
+    EnterpriseEnterpriseTrunkService.update(ctrl.serviceProviderId, ctrl.trunkName, trunk)
       .then(loadTrunk)
       .then(function() {
         Alert.notify.success('Enterprise Trunk Updated')
@@ -65,31 +55,22 @@ function controller($location, Route, Alert, EnterpriseEnterpriseTrunkService) {
   }
 
   function remove(callback) {
-    Alert.confirm
-      .open('Are you sure you want to remove this Enterprise Trunk?')
-      .then(function() {
-        Alert.spinner.open()
-        EnterpriseEnterpriseTrunkService.destroy(
-          ctrl.serviceProviderId,
-          ctrl.trunkName
-        )
-          .then(function() {
-            Alert.notify.success('Trunk Removed')
-            if (_.isFunction(callback)) {
-              callback()
-            }
-            Route.open(
-              'serviceProviders',
-              ctrl.serviceProviderId,
-              'enterpriseTrunks'
-            )
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to remove this Enterprise Trunk?').then(function() {
+      Alert.spinner.open()
+      EnterpriseEnterpriseTrunkService.destroy(ctrl.serviceProviderId, ctrl.trunkName)
+        .then(function() {
+          Alert.notify.success('Trunk Removed')
+          if (_.isFunction(callback)) {
+            callback()
+          }
+          Route.open('serviceProviders', ctrl.serviceProviderId, 'enterpriseTrunks')
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 }

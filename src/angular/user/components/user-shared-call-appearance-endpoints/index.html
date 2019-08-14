@@ -63,12 +63,7 @@
       </div>
     </pbs-form-field>
     <pbs-form-field label="Line/Port">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editEndpoint.linePort"
-        disabled
-      />
+      <input type="text" class="input" ng-model="$ctrl.editEndpoint.linePort" disabled />
     </pbs-form-field>
     <pbs-form-field label="Settings">
       <pbs-input-checkbox
@@ -100,22 +95,14 @@
           />
         </p>
         <p class="control">
-          <button
-            class="button"
-            ng-click="$ctrl.selectDevice()"
-            title="Select a Device"
-          >
+          <button class="button" ng-click="$ctrl.selectDevice()" title="Select a Device">
             <span class="icon">
               <i class="fas fa-list"></i>
             </span>
           </button>
         </p>
         <p class="control">
-          <button
-            class="button"
-            ng-click="$ctrl.createDevice()"
-            title="Add a Device"
-          >
+          <button class="button" ng-click="$ctrl.createDevice()" title="Add a Device">
             <span class="icon">
               <i class="fas fa-plus"></i>
             </span>

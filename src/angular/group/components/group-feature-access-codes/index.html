@@ -1,7 +1,4 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Feature Access Code Settings'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
@@ -63,10 +60,7 @@
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>
-<pbs-modal
-  id="editFeatureAccessCodeLevel"
-  title="Edit Feature Access Code level"
->
+<pbs-modal id="editFeatureAccessCodeLevel" title="Edit Feature Access Code level">
   <pbs-form>
     <pbs-list-section></pbs-list-section>
     <pbs-form-field-horizontal label="Feature Access Code Level">
@@ -77,24 +71,13 @@
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>
-<pbs-modal
-  id="editFeatureAccessCode"
-  title="Edit {{ $ctrl.editAccessCode.featureAccessCodeName }}"
->
+<pbs-modal id="editFeatureAccessCode" title="Edit {{ $ctrl.editAccessCode.featureAccessCodeName }}">
   <pbs-form>
     <pbs-form-field-horizontal label="Main Code">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editAccessCode.mainCode"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editAccessCode.mainCode" />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Alternate Code">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editAccessCode.alternateCode"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editAccessCode.alternateCode" />
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

@@ -9,9 +9,7 @@ function service($http, Route, $rootScope) {
   return service
 
   function show(serviceProviderId) {
-    return $http
-      .get(url(), { params: { serviceProviderId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { serviceProviderId } }).then(response => response.data)
   }
 
   function assignable(serviceProviderId) {
@@ -21,11 +19,9 @@ function service($http, Route, $rootScope) {
   }
 
   function update(serviceProviderId, services) {
-    return $http
-      .put(url(), { ...services, serviceProviderId })
-      .then(response => {
-        $rootScope.$emit('ServiceProviderServiceService:updated')
-        return response.data
-      })
+    return $http.put(url(), { ...services, serviceProviderId }).then(response => {
+      $rootScope.$emit('ServiceProviderServiceService:updated')
+      return response.data
+    })
   }
 }

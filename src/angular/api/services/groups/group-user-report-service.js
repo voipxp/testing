@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupUserReportService', GroupUserReportService)
+angular.module('odin.api').factory('GroupUserReportService', GroupUserReportService)
 
 GroupUserReportService.$inject = ['$http', 'Route']
 function GroupUserReportService($http, Route) {
@@ -17,8 +15,6 @@ function GroupUserReportService($http, Route) {
   }
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 }

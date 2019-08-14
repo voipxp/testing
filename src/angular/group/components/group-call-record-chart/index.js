@@ -68,26 +68,10 @@ function controller(Alert, GroupCallRecordsService, EventEmitter) {
           }
       ctrl.colors = ['#97BBCD', '#DCDCDC', '#46BFBD', '#949FB1']
       ctrl.labels = [
-        generateLabel(
-          'Placed Answered',
-          ctrl.stats.placedAnswered,
-          ctrl.stats.placedTotal
-        ),
-        generateLabel(
-          'Placed Missed',
-          ctrl.stats.placedMissed,
-          ctrl.stats.placedTotal
-        ),
-        generateLabel(
-          'Received Answered',
-          ctrl.stats.receivedAnswered,
-          ctrl.stats.receivedTotal
-        ),
-        generateLabel(
-          'Received Missed',
-          ctrl.stats.receivedMissed,
-          ctrl.stats.receivedTotal
-        )
+        generateLabel('Placed Answered', ctrl.stats.placedAnswered, ctrl.stats.placedTotal),
+        generateLabel('Placed Missed', ctrl.stats.placedMissed, ctrl.stats.placedTotal),
+        generateLabel('Received Answered', ctrl.stats.receivedAnswered, ctrl.stats.receivedTotal),
+        generateLabel('Received Missed', ctrl.stats.receivedMissed, ctrl.stats.receivedTotal)
       ]
       ctrl.data = [
         ctrl.stats.placedAnswered,

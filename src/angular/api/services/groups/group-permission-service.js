@@ -49,11 +49,9 @@ function Service(Module, GroupServiceService, $q) {
       name = name.serviceName || name.name || name
       switch (name) {
         case 'Call Center':
-          return [
-            'Call Center - Basic',
-            'Call Center - Standard',
-            'Call Center - Premium'
-          ].find(isAssigned)
+          return ['Call Center - Basic', 'Call Center - Standard', 'Call Center - Premium'].find(
+            isAssigned
+          )
         case 'Shared Call Appearance':
           return [
             'Shared Call Appearance',
@@ -66,11 +64,9 @@ function Service(Module, GroupServiceService, $q) {
             'Shared Call Appearance 35'
           ].find(isAssigned)
         case 'Auto Attendant':
-          return [
-            'Auto Attendant',
-            'Auto Attendant - Standard',
-            'Auto Attendant - Video'
-          ].find(isAssigned)
+          return ['Auto Attendant', 'Auto Attendant - Standard', 'Auto Attendant - Video'].find(
+            isAssigned
+          )
         case 'Group Calling Plans':
           return [
             'Outgoing Calling Plan',

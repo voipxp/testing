@@ -7,18 +7,8 @@ angular.module('odin.group').component('groupAutomaticCallback', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserAutomaticCallbackService',
-  'Route',
-  'UserServiceService'
-]
-function controller(
-  Alert,
-  UserAutomaticCallbackService,
-  Route,
-  UserServiceService
-) {
+controller.$inject = ['Alert', 'UserAutomaticCallbackService', 'Route', 'UserServiceService']
+function controller(Alert, UserAutomaticCallbackService, Route, UserServiceService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -32,10 +22,9 @@ function controller(
   }
 
   function load() {
-    return UserAutomaticCallbackService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(data => (ctrl.users = data))
+    return UserAutomaticCallbackService.index(ctrl.serviceProviderId, ctrl.groupId).then(
+      data => (ctrl.users = data)
+    )
   }
 
   function open(user) {
@@ -58,9 +47,7 @@ function controller(
       .then(load)
       .then(() => {
         const message = user.service.assigned ? 'Assigned' : 'Unassigned'
-        const action = user.service.assigned
-          ? Alert.notify.success
-          : Alert.notify.warning
+        const action = user.service.assigned ? Alert.notify.success : Alert.notify.warning
         action(`${user.profile.userId} ${user.service.serviceName} ${message}`)
       })
       .catch(Alert.notify.danger)

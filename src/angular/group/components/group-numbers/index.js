@@ -15,13 +15,7 @@ controller.$inject = [
   'NumberService',
   'ACL'
 ]
-function controller(
-  Alert,
-  ServiceProviderNumberService,
-  GroupNumberService,
-  NumberService,
-  ACL
-) {
+function controller(Alert, ServiceProviderNumberService, GroupNumberService, NumberService, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
@@ -68,21 +62,18 @@ function controller(
   }
 
   function loadNumbers() {
-    return GroupNumberService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.numbers = _.map(data, function(number) {
-          number.expanded = _.map(NumberService.expand(number), 'min')
-          return number
-        })
-      }
-    )
+    return GroupNumberService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      ctrl.numbers = _.map(data, function(number) {
+        number.expanded = _.map(NumberService.expand(number), 'min')
+        return number
+      })
+    })
   }
 
   function loadAvailableNumbers() {
-    return ServiceProviderNumberService.index(
-      ctrl.serviceProviderId,
-      'available'
-    ).then(function(data) {
+    return ServiceProviderNumberService.index(ctrl.serviceProviderId, 'available').then(function(
+      data
+    ) {
       return _.map(data.dns, function(number) {
         number.expanded = _.map(NumberService.expand(number), 'min')
         return number
@@ -101,8 +92,7 @@ function controller(
         ctrl.filter.assigned = undefined
       }
     } else if (type === 'deactivated') {
-      ctrl.filter.activated =
-        ctrl.filter.activated === false ? undefined : false
+      ctrl.filter.activated = ctrl.filter.activated === false ? undefined : false
     }
   }
 
@@ -152,11 +142,7 @@ function controller(
         }
       }
     })
-    return GroupNumberService.bulkAssign(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      dns
-    )
+    return GroupNumberService.bulkAssign(ctrl.serviceProviderId, ctrl.groupId, dns)
       .then(loadNumbers)
       .then(function() {
         ctrl.filter = {}
@@ -233,11 +219,7 @@ function controller(
 
   function update(numbers, callback) {
     Alert.spinner.open()
-    return GroupNumberService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      numbers
-    )
+    return GroupNumberService.update(ctrl.serviceProviderId, ctrl.groupId, numbers)
       .then(loadNumbers)
       .then(function() {
         ctrl.filter = {}

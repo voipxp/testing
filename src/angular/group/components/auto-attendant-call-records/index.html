@@ -1,7 +1,4 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
   <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
 </pbs-navigation>
 <div class="box">
@@ -13,15 +10,12 @@
     {{ $ctrl.search.reportType || 'Auto Attendant' }} Report
     <br />
     <span style="font-size: 85%" ng-show="$ctrl.search.startTime">
-      {{ $ctrl.search.startTime | pbsDate:'{long}' }} - {{ $ctrl.search.endTime
-      | pbsDate:'{long}' }}
+      {{ $ctrl.search.startTime | pbsDate:'{long}' }} - {{ $ctrl.search.endTime | pbsDate:'{long}'
+      }}
     </span>
   </h3>
 </div>
-<div
-  class="box"
-  ng-show="$ctrl.search.startTime && $ctrl.callRecords.length < 1"
->
+<div class="box" ng-show="$ctrl.search.startTime && $ctrl.callRecords.length < 1">
   <p>No Call Records Found for selected Date Range</p>
 </div>
 <div class="box" ng-show="!$ctrl.search.startTime">
@@ -48,18 +42,11 @@
     </auto-attendant-call-records-report>
   </pbs-tab>
   <pbs-tab label="Raw Data">
-    <auto-attendant-call-records-data
-      call-records="$ctrl.callRecords"
-      parameters="$ctrl.search"
-    >
+    <auto-attendant-call-records-data call-records="$ctrl.callRecords" parameters="$ctrl.search">
     </auto-attendant-call-records-data>
   </pbs-tab>
 </pbs-tabs>
-<pbs-modal
-  id="autoAttendantCallRecordsSearch"
-  title="Search Call Records"
-  save-text="Generate"
->
+<pbs-modal id="autoAttendantCallRecordsSearch" title="Search Call Records" save-text="Generate">
   <pbs-form label="Call Records Search">
     <pbs-form-field-horizontal label="Instance">
       <pbs-input-select
@@ -76,10 +63,7 @@
       ></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Start Time">
-      <pbs-input-datetime-parse
-        ng-model="$ctrl.editSearch.startTime"
-        ng-required="true"
-      >
+      <pbs-input-datetime-parse ng-model="$ctrl.editSearch.startTime" ng-required="true">
       </pbs-input-datetime-parse>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="End Time">

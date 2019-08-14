@@ -8,12 +8,7 @@ angular.module('odin.user').component('userCallForwardingNoAnswer', {
   bindings: { userId: '<', showQuick: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserCallForwardingNoAnswerService',
-  'Module',
-  '$q'
-]
+controller.$inject = ['Alert', 'UserCallForwardingNoAnswerService', 'Module', '$q']
 function controller(Alert, UserCallForwardingNoAnswerService, Module, $q) {
   var ctrl = this
 
@@ -40,9 +35,7 @@ function controller(Alert, UserCallForwardingNoAnswerService, Module, $q) {
   }
 
   function loadSettings() {
-    return UserCallForwardingNoAnswerService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserCallForwardingNoAnswerService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }

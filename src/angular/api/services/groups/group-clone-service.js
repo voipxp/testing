@@ -9,20 +9,16 @@ function GroupCloneService($http, Route, $rootScope) {
   return service
 
   function all(serviceProviderId, groupId, object) {
-    return $http
-      .put(url('group'), { ...object, serviceProviderId, groupId })
-      .then(response => {
-        $rootScope.$emit('GroupService:updated')
-        return response.data
-      })
+    return $http.put(url('group'), { ...object, serviceProviderId, groupId }).then(response => {
+      $rootScope.$emit('GroupService:updated')
+      return response.data
+    })
   }
 
   function services(serviceProviderId, groupId, object) {
-    return $http
-      .put(url('services'), { ...object, serviceProviderId, groupId })
-      .then(response => {
-        $rootScope.$emit('GroupServiceService:updated')
-        return response.data
-      })
+    return $http.put(url('services'), { ...object, serviceProviderId, groupId }).then(response => {
+      $rootScope.$emit('GroupServiceService:updated')
+      return response.data
+    })
   }
 }

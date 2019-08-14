@@ -8,22 +8,8 @@ angular.module('odin.user').component('userNumber', {
   bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserNumberService',
-  'UserService',
-  '$q',
-  'ACL',
-  'UiSettingService'
-]
-function controller(
-  Alert,
-  UserNumberService,
-  UserService,
-  $q,
-  ACL,
-  UiSettingService
-) {
+controller.$inject = ['Alert', 'UserNumberService', 'UserService', '$q', 'ACL', 'UiSettingService']
+function controller(Alert, UserNumberService, UserService, $q, ACL, UiSettingService) {
   var ctrl = this
   ctrl.edit = edit
   ctrl.canEdit = ACL.has('Group')
@@ -87,9 +73,7 @@ function controller(
   }
 
   function setExtension() {
-    var extension = ctrl.editUser.phoneNumber
-      ? ctrl.editUser.phoneNumber.slice(-4)
-      : null
+    var extension = ctrl.editUser.phoneNumber ? ctrl.editUser.phoneNumber.slice(-4) : null
     ctrl.editUser.extension = extension
   }
 

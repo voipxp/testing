@@ -7,13 +7,7 @@ angular.module('odin.group').component('groupDashboard', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupDashboardService',
-  'Route',
-  '$location',
-  'ACL'
-]
+controller.$inject = ['Alert', 'GroupDashboardService', 'Route', '$location', 'ACL']
 function controller(Alert, GroupDashboardService, Route, $location, ACL) {
   var ctrl = this
 

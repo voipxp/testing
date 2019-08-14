@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('SystemVirtualOnNetEnterpriseExtensionsService', System)
+angular.module('odin.api').factory('SystemVirtualOnNetEnterpriseExtensionsService', System)
 
 System.$inject = ['$http', 'Route']
 function System($http, Route) {

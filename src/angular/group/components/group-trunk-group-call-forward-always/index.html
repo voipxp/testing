@@ -1,40 +1,25 @@
 <pbs-spinner loading="$ctrl.parent.loading">
   <pbs-block title="Call Forward Always">
     <pbs-block-buttons if-module-update="$ctrl.parent.module">
-      <pbs-button-compact-edit
-        title="Edit Call Forward Always"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Call Forward Always" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Call Forward Always Action">
         {{ $ctrl.parent.trunk.callForwardingAlwaysAction || 'None' }}
-        <span
-          ng-show="$ctrl.parent.trunk.callForwardingAlwaysAction === 'Forward'"
-        >
+        <span ng-show="$ctrl.parent.trunk.callForwardingAlwaysAction === 'Forward'">
           to
-          <strong
-            >{{ $ctrl.parent.trunk.callForwardingAlwaysForwardAddress }}</strong
-          >
+          <strong>{{ $ctrl.parent.trunk.callForwardingAlwaysForwardAddress }}</strong>
         </span>
-        <span
-          ng-show="$ctrl.parent.trunk.callForwardingAlwaysAction === 'Reroute'"
-        >
+        <span ng-show="$ctrl.parent.trunk.callForwardingAlwaysAction === 'Reroute'">
           to
-          <strong
-            >{{ $ctrl.parent.trunk.callForwardingAlwaysRerouteTrunkGroupKey.name
-            }}</strong
-          >
+          <strong>{{ $ctrl.parent.trunk.callForwardingAlwaysRerouteTrunkGroupKey.name }}</strong>
         </span>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editGroupTrunkGroupCallForwardAlways"
-  title="Edit Call Forward Always"
->
+<pbs-modal id="editGroupTrunkGroupCallForwardAlways" title="Edit Call Forward Always">
   <form novalidate>
     <pbs-form-field label="Actions">
       <pbs-input-select

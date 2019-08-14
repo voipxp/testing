@@ -7,20 +7,8 @@ angular.module('odin.system').component('serviceProviderClone', {
   bindings: { onCreate: '&' }
 })
 
-controller.$inject = [
-  'EventEmitter',
-  'ServiceProviderCloneService',
-  '$scope',
-  'Alert',
-  'ACL'
-]
-function controller(
-  EventEmitter,
-  ServiceProviderCloneService,
-  $scope,
-  Alert,
-  ACL
-) {
+controller.$inject = ['EventEmitter', 'ServiceProviderCloneService', '$scope', 'Alert', 'ACL']
+function controller(EventEmitter, ServiceProviderCloneService, $scope, Alert, ACL) {
   var ctrl = this
   ctrl.select = select
   ctrl.onSelect = onSelect

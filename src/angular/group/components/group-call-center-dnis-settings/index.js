@@ -14,11 +14,7 @@ angular.module('odin.group').component('groupCallCenterDnisSettings', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupCallCenterDnisInstanceService',
-  'EventEmitter'
-]
+controller.$inject = ['Alert', 'GroupCallCenterDnisInstanceService', 'EventEmitter']
 function controller(Alert, GroupCallCenterDnisInstanceService, EventEmitter) {
   var ctrl = this
 
@@ -38,10 +34,9 @@ function controller(Alert, GroupCallCenterDnisInstanceService, EventEmitter) {
   }
 
   function loadDnis() {
-    return GroupCallCenterDnisInstanceService.show(
-      ctrl.serviceUserId,
-      ctrl.dnisId
-    ).then(function(data) {
+    return GroupCallCenterDnisInstanceService.show(ctrl.serviceUserId, ctrl.dnisId).then(function(
+      data
+    ) {
       ctrl.service = data
       ctrl.service.name = ctrl.dnisId
       return data
@@ -62,22 +57,16 @@ function controller(Alert, GroupCallCenterDnisInstanceService, EventEmitter) {
         update(ctrl.editService, close)
       },
       function(close) {
-        Alert.confirm
-          .open('Are you sure you want to delete this DNIS?')
-          .then(function() {
-            destroy(ctrl.editService, close)
-          })
+        Alert.confirm.open('Are you sure you want to delete this DNIS?').then(function() {
+          destroy(ctrl.editService, close)
+        })
       }
     )
   }
 
   function update(dnis, callback) {
     Alert.spinner.open()
-    GroupCallCenterDnisInstanceService.update(
-      ctrl.serviceUserId,
-      ctrl.dnisId,
-      dnis
-    )
+    GroupCallCenterDnisInstanceService.update(ctrl.serviceUserId, ctrl.dnisId, dnis)
       .then(loadDnis)
       .then(function() {
         Alert.notify.success('DNIS Instance Updated')

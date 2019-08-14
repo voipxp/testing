@@ -14,13 +14,7 @@ controller.$inject = [
   'UserScheduleService',
   'Module'
 ]
-function controller(
-  Alert,
-  $q,
-  UserSelectiveCallAcceptanceService,
-  UserScheduleService,
-  Module
-) {
+function controller(Alert, $q, UserSelectiveCallAcceptanceService, UserScheduleService, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.userTimeSchedules = []
@@ -29,10 +23,8 @@ function controller(
   ctrl.editSelectCallAcceptanceCriteria = editSelectCallAcceptanceCriteria
   ctrl.fromDnCriteriaSelections =
     UserSelectiveCallAcceptanceService.options.fromDnCriteriaSelections
-  ctrl.fromDnCriteriaMin =
-    UserSelectiveCallAcceptanceService.options.fromDnCriteriaMin
-  ctrl.fromDnCriteriaMax =
-    UserSelectiveCallAcceptanceService.options.fromDnCriteriaMax
+  ctrl.fromDnCriteriaMin = UserSelectiveCallAcceptanceService.options.fromDnCriteriaMin
+  ctrl.fromDnCriteriaMax = UserSelectiveCallAcceptanceService.options.fromDnCriteriaMax
   ctrl.saveSelectiveCallAcceptanceCriteria = saveSelectiveCallAcceptanceCriteria
   ctrl.addSelectCallAcceptanceCriteria = addSelectCallAcceptanceCriteria
 
@@ -61,9 +53,7 @@ function controller(
   }
 
   function loadSelectiveCallAcceptanceList() {
-    return UserSelectiveCallAcceptanceService.index(ctrl.userId).then(function(
-      data
-    ) {
+    return UserSelectiveCallAcceptanceService.index(ctrl.userId).then(function(data) {
       ctrl.selectiveCallAcceptance = data
     })
   }
@@ -82,10 +72,7 @@ function controller(
     })
   }
   function getSelectCallAcceptanceCriteria(userId, sca) {
-    return UserSelectiveCallAcceptanceService.show(
-      userId,
-      sca.criteriaName
-    ).then(function(data) {
+    return UserSelectiveCallAcceptanceService.show(userId, sca.criteriaName).then(function(data) {
       return data
     })
   }
@@ -93,10 +80,7 @@ function controller(
   function addSelectCallAcceptanceCriteria() {
     ctrl.selectiveCallAcceptanceCriteria = { userId: ctrl.userId }
     Alert.modal.open('edit-selectiveCallAcceptanceCriteria', function(close) {
-      _addSelectiveCallAcceptanceCriteria(
-        ctrl.selectiveCallAcceptanceCriteria,
-        close
-      )
+      _addSelectiveCallAcceptanceCriteria(ctrl.selectiveCallAcceptanceCriteria, close)
     })
   }
 
@@ -121,19 +105,13 @@ function controller(
     var onDelete
     if (ctrl.module.permissions.delete) {
       onDelete = function(close) {
-        deleteSelectiveCallAcceptanceCriteria(
-          ctrl.selectiveCallAcceptanceCriteria,
-          close
-        )
+        deleteSelectiveCallAcceptanceCriteria(ctrl.selectiveCallAcceptanceCriteria, close)
       }
     }
     Alert.modal.open(
       'edit-selectiveCallAcceptanceCriteria',
       function onSave(close) {
-        saveSelectiveCallAcceptanceCriteria(
-          ctrl.selectiveCallAcceptanceCriteria,
-          close
-        )
+        saveSelectiveCallAcceptanceCriteria(ctrl.selectiveCallAcceptanceCriteria, close)
       },
       onDelete
     )
@@ -141,46 +119,29 @@ function controller(
 
   function _addSelectiveCallAcceptanceCriteria(sca, callback) {
     var criteria = {}
-    if (
-      typeof ctrl.selectiveCallAcceptanceCriteria.timeSchedule !== 'undefined'
-    ) {
-      ctrl.selectiveCallAcceptanceCriteria.timeSchedule = ctrl.userTimeSchedules.find(
-        function(o) {
-          return (
-            o.name === ctrl.selectiveCallAcceptanceCriteria.timeSchedule.name
-          )
-        }
-      )
+    if (typeof ctrl.selectiveCallAcceptanceCriteria.timeSchedule !== 'undefined') {
+      ctrl.selectiveCallAcceptanceCriteria.timeSchedule = ctrl.userTimeSchedules.find(function(o) {
+        return o.name === ctrl.selectiveCallAcceptanceCriteria.timeSchedule.name
+      })
     }
 
-    if (
-      typeof ctrl.selectiveCallAcceptanceCriteria.holidaySchedule !==
-      'undefined'
-    ) {
-      ctrl.selectiveCallAcceptanceCriteria.holidaySchedule = ctrl.holidaySchedules.find(
-        function(o) {
-          return (
-            o.name === ctrl.selectiveCallAcceptanceCriteria.holidaySchedule.name
-          )
-        }
-      )
+    if (typeof ctrl.selectiveCallAcceptanceCriteria.holidaySchedule !== 'undefined') {
+      ctrl.selectiveCallAcceptanceCriteria.holidaySchedule = ctrl.holidaySchedules.find(function(
+        o
+      ) {
+        return o.name === ctrl.selectiveCallAcceptanceCriteria.holidaySchedule.name
+      })
     }
 
     Alert.spinner.open()
-    UserSelectiveCallAcceptanceService.store(
-      ctrl.userId,
-      ctrl.selectiveCallAcceptanceCriteria
-    )
+    UserSelectiveCallAcceptanceService.store(ctrl.userId, ctrl.selectiveCallAcceptanceCriteria)
       .then(function() {
         ctrl.selectiveCallAcceptanceCriteria = sca
         criteria = {
           userId: ctrl.userId,
           criteria: [{ criteriaName: sca.criteriaName, isActive: sca.isActive }]
         }
-        return UserSelectiveCallAcceptanceService.activation(
-          ctrl.userId,
-          criteria
-        )
+        return UserSelectiveCallAcceptanceService.activation(ctrl.userId, criteria)
       })
       .then(loadSelectiveCallAcceptanceList)
       .then(function() {
@@ -210,21 +171,14 @@ function controller(
     }
 
     Alert.spinner.open()
-    UserSelectiveCallAcceptanceService.update(
-      ctrl.userId,
-      sca.criteriaName,
-      sca
-    )
+    UserSelectiveCallAcceptanceService.update(ctrl.userId, sca.criteriaName, sca)
       .then(function() {
         ctrl.selectiveCallAcceptanceCriteria = sca
         criteria = {
           userId: ctrl.userId,
           criteria: [{ criteriaName: sca.criteriaName, isActive: sca.isActive }]
         }
-        return UserSelectiveCallAcceptanceService.activation(
-          ctrl.userId,
-          criteria
-        )
+        return UserSelectiveCallAcceptanceService.activation(ctrl.userId, criteria)
       })
       .then(loadSelectiveCallAcceptanceList)
       .then(function() {
@@ -249,11 +203,7 @@ function controller(
 
   function doDeleteSelectiveCallAcceptanceCriteria(sca, callback) {
     Alert.spinner.open()
-    UserSelectiveCallAcceptanceService.destroy(
-      ctrl.userId,
-      sca.criteriaName,
-      sca
-    )
+    UserSelectiveCallAcceptanceService.destroy(ctrl.userId, sca.criteriaName, sca)
       .then(loadSelectiveCallAcceptanceList)
       .then(function() {
         Alert.notify.success('Criteria Removed')

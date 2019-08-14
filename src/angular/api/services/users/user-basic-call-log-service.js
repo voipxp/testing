@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserBasicCallLogService', UserBasicCallLogService)
+angular.module('odin.api').factory('UserBasicCallLogService', UserBasicCallLogService)
 
 UserBasicCallLogService.$inject = ['$http', 'Route']
 function UserBasicCallLogService($http, Route) {
@@ -11,10 +9,8 @@ function UserBasicCallLogService($http, Route) {
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 }

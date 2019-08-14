@@ -5,16 +5,12 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Port Allocation">
     <pbs-block-buttons if-module-update="$ctrl.module">
-      <pbs-button-compact-edit
-        title="Edit Port Allocation"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Port Allocation" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Allocated Ports">
-        {{ ($ctrl.ports.allocatedPorts === -1) ? 'Unlimited' :
-        $ctrl.ports.allocatedPorts }}
+        {{ ($ctrl.ports.allocatedPorts === -1) ? 'Unlimited' : $ctrl.ports.allocatedPorts }}
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
@@ -32,8 +28,6 @@
     <span ng-show="$ctrl.editPorts.allocatedPorts === -1">
       <strong>( Unlimited )</strong>
     </span>
-    <small ng-show="$ctrl.editPorts.allocatedPorts !== -1"
-      >( Set to -1 for Unlimited )</small
-    >
+    <small ng-show="$ctrl.editPorts.allocatedPorts !== -1">( Set to -1 for Unlimited )</small>
   </pbs-form-field>
 </pbs-modal>

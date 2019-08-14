@@ -33,14 +33,11 @@ function controller(Alert, GroupEventService, EventHelper) {
   }
 
   function loadEvents() {
-    return GroupEventService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.name,
-      ctrl.type
-    ).then(data => {
-      ctrl.events = data.map(EventHelper.parse)
-    })
+    return GroupEventService.index(ctrl.serviceProviderId, ctrl.groupId, ctrl.name, ctrl.type).then(
+      data => {
+        ctrl.events = data.map(EventHelper.parse)
+      }
+    )
   }
 
   function add() {
@@ -70,11 +67,9 @@ function controller(Alert, GroupEventService, EventHelper) {
         update(ctrl.editEvent, ctrl.rrule, close)
       },
       function(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this Event?')
-          .then(function() {
-            destroy(ctrl.editEvent, close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this Event?').then(function() {
+          destroy(ctrl.editEvent, close)
+        })
       }
     )
   }

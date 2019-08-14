@@ -45,11 +45,9 @@ function controller(Alert, GroupScheduleService, Route, $location) {
         update(ctrl.editSchedule, close)
       },
       function(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this Schedule?')
-          .then(function() {
-            destroy(close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this Schedule?').then(function() {
+          destroy(close)
+        })
       }
     )
   }

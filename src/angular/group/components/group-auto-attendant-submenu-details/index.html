@@ -11,9 +11,7 @@
         {{ $ctrl.parent.menu.submenuId }}
       </pbs-list-item>
       <pbs-list-item label="First Level Extension Dialing">
-        <pbs-check-box
-          checked="$ctrl.parent.menu.enableLevelExtensionDialing"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.menu.enableLevelExtensionDialing"></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
@@ -22,12 +20,7 @@
 <pbs-modal id="editAutoAttendantSubmenuProfileModal">
   <pbs-form>
     <pbs-form-field label="Submenu ID">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editMenu.newSubmenuId"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editMenu.newSubmenuId" required />
     </pbs-form-field>
     <pbs-input-checkbox
       ng-model="$ctrl.editMenu.enableLevelExtensionDialing"

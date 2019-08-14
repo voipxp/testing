@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Call Policies">
     <pbs-block-buttons ng-if="!$ctrl.readOnly">
-      <pbs-button-compact-edit
-        title="Edit Call Policies"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Call Policies" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -15,8 +12,7 @@
         >{{ $ctrl.policies.callBeingForwardedResponseCallType }}</pbs-list-item
       >
       <pbs-list-item ng-if="false" label="CLID For Redirected Calls"
-        >{{ $ctrl.policies.callingLineIdentityForRedirectedCalls
-        }}</pbs-list-item
+        >{{ $ctrl.policies.callingLineIdentityForRedirectedCalls }}</pbs-list-item
       >
     </pbs-list>
   </pbs-block>

@@ -8,13 +8,7 @@ angular.module('odin.user').component('userOutlookIntegration', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserOutlookIntegrationService',
-  'ACL',
-  '$q',
-  'Module'
-]
+controller.$inject = ['Alert', 'UserOutlookIntegrationService', 'ACL', '$q', 'Module']
 function controller(Alert, UserOutlookIntegrationService, ACL, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit

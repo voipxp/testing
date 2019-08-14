@@ -13,10 +13,7 @@
       <pbs-list-item label="Type">
         {{ $ctrl.autoAttendant.type }}
       </pbs-list-item>
-      <pbs-list-item
-        label="First Digit Timeout Seconds"
-        ng-if="$ctrl.hasAnnouncements"
-      >
+      <pbs-list-item label="First Digit Timeout Seconds" ng-if="$ctrl.hasAnnouncements">
         {{ $ctrl.autoAttendant.firstDigitTimeoutSeconds }}
       </pbs-list-item>
       <pbs-list-item label="Scope of Extension Dialog">

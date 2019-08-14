@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('BrandingHostnameService', BrandingHostnameService)
+angular.module('odin.api').factory('BrandingHostnameService', BrandingHostnameService)
 
 BrandingHostnameService.$inject = ['$http', 'Route', '$rootScope']
 function BrandingHostnameService($http, Route, $rootScope) {

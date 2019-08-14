@@ -1,9 +1,7 @@
 /* eslint-disable-next-line no-restricted-globals */
 self.addEventListener('message', ({ data }) => {
   const { filters, records, search, userId } = data
-  const directions = filters
-    .filter(filter => filter.show)
-    .map(filter => filter.value)
+  const directions = filters.filter(filter => filter.show).map(filter => filter.value)
   const filteredRecords = records.filter(record => {
     return (
       filterDirection(record, directions) &&

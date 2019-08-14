@@ -1,11 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Service Instance Profile">
     <pbs-block-buttons>
-      <pbs-button-compact-edit
-        title="Edit Profile"
-        ng-click="$ctrl.edit()"
-        ng-if="!$ctrl.readOnly"
-      >
+      <pbs-button-compact-edit title="Edit Profile" ng-click="$ctrl.edit()" ng-if="!$ctrl.readOnly">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -13,13 +9,10 @@
         {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.name }}
       </pbs-list-item>
       <pbs-list-item label="CLID First Name">
-        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile
-        .callingLineIdFirstName }}
+        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile .callingLineIdFirstName }}
       </pbs-list-item>
       <pbs-list-item label="CLID Last Name">
-        {{
-        $ctrl.flexibleSeatingHost.serviceInstanceProfile.callingLineIdLastName
-        }}
+        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.callingLineIdLastName }}
       </pbs-list-item>
       <pbs-list-item label="Phone Number">
         {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.phoneNumber }}
@@ -34,16 +27,12 @@
         {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.language }}
       </pbs-list-item>
       <pbs-list-item label="Time Zone">
-        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.timeZoneDisplayName
-        }}
+        {{ $ctrl.flexibleSeatingHost.serviceInstanceProfile.timeZoneDisplayName }}
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editServiceInstanceProfile"
-  title="Edit Profile: {{ $ctrl.serviceUserId }}"
->
+<pbs-modal id="editServiceInstanceProfile" title="Edit Profile: {{ $ctrl.serviceUserId }}">
   <pbs-form>
     <pbs-form-field-horizontal label="Service Name">
       <input

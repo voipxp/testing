@@ -8,11 +8,7 @@ angular.module('odin.group').component('groupCallCenterStatisticsReporting', {
   bindings: { serviceUserId: '=' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupCallCenterStatisticsReportingService',
-  'Module'
-]
+controller.$inject = ['Alert', 'GroupCallCenterStatisticsReportingService', 'Module']
 function controller(Alert, GroupCallCenterStatisticsReportingService, Module) {
   var ctrl = this
   ctrl.edit = edit
@@ -31,9 +27,7 @@ function controller(Alert, GroupCallCenterStatisticsReportingService, Module) {
   }
 
   function loadSettings() {
-    return GroupCallCenterStatisticsReportingService.show(
-      ctrl.serviceUserId
-    ).then(function(data) {
+    return GroupCallCenterStatisticsReportingService.show(ctrl.serviceUserId).then(function(data) {
       ctrl.settings = data
       return data
     })
@@ -41,19 +35,14 @@ function controller(Alert, GroupCallCenterStatisticsReportingService, Module) {
 
   function edit() {
     ctrl.editSettings = angular.copy(ctrl.settings)
-    Alert.modal.open('editGroupCallCenterStatisticsReporting', function onSave(
-      close
-    ) {
+    Alert.modal.open('editGroupCallCenterStatisticsReporting', function onSave(close) {
       update(ctrl.editSettings, close)
     })
   }
 
   function update(settings, callback) {
     Alert.spinner.open()
-    GroupCallCenterStatisticsReportingService.update(
-      ctrl.serviceUserId,
-      settings
-    )
+    GroupCallCenterStatisticsReportingService.update(ctrl.serviceUserId, settings)
       .then(loadSettings)
       .then(function() {
         Alert.notify.success('Statistics Reporting Updated')

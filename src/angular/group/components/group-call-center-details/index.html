@@ -15,10 +15,7 @@
       <pbs-list-item label="Type">
         {{ $ctrl.parent.center.type }}
       </pbs-list-item>
-      <pbs-list-item
-        label="Routing Type"
-        ng-if="$ctrl.hasPermission('routingType')"
-      >
+      <pbs-list-item label="Routing Type" ng-if="$ctrl.hasPermission('routingType')">
         {{ $ctrl.parent.center.routingType }}
       </pbs-list-item>
       <pbs-list-item label="Group Policy">
@@ -34,9 +31,7 @@
         {{ $ctrl.parent.center.queueLength }}
       </pbs-list-item>
       <pbs-list-item label="Play Ringing When Offering Call">
-        <pbs-check-box
-          checked="$ctrl.parent.center.playRingingWhenOfferingCall"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.center.playRingingWhenOfferingCall"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Reset Call Statistics on Entry in Queue">
         <pbs-check-box
@@ -44,51 +39,34 @@
         ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Enable Video Support">
-        <pbs-check-box
-          checked="$ctrl.parent.center.enableVideo"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.center.enableVideo"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Escape Digit Enabled">
-        <pbs-check-box
-          checked="$ctrl.parent.center.allowCallerToDialEscapeDigit"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.center.allowCallerToDialEscapeDigit"></pbs-check-box>
         <span ng-show="$ctrl.parent.center.allowCallerToDialEscapeDigit">
           Escape Digit: <strong>{{ $ctrl.parent.center.escapeDigit }}</strong>
         </span>
       </pbs-list-item>
-      <pbs-list-item
-        label="Reporting Enabled"
-        ng-if="$ctrl.hasPermission('enableReporting')"
-      >
-        <pbs-check-box
-          checked="$ctrl.parent.center.enableReporting"
-        ></pbs-check-box>
+      <pbs-list-item label="Reporting Enabled" ng-if="$ctrl.hasPermission('enableReporting')">
+        <pbs-check-box checked="$ctrl.parent.center.enableReporting"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Allow Agent Logoff">
-        <pbs-check-box
-          checked="$ctrl.parent.center.allowAgentLogoff"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.center.allowAgentLogoff"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Allow Call Waiting For Agents">
-        <pbs-check-box
-          checked="$ctrl.parent.center.allowCallWaitingForAgents"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.center.allowCallWaitingForAgents"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item
         label="Enable Calls To Agents in Wrap-up"
         ng-if="$ctrl.hasPermission('allowCallsToAgentsInWrapUp')"
       >
-        <pbs-check-box
-          checked="$ctrl.parent.center.allowCallsToAgentsInWrapUp"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.center.allowCallsToAgentsInWrapUp"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item
         label="Override Agent Wrap-up Time"
         ng-if="$ctrl.hasPermission('overrideAgentWrapUpTime')"
       >
-        <pbs-check-box
-          checked="$ctrl.parent.center.overrideAgentWrapUpTime"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.center.overrideAgentWrapUpTime"></pbs-check-box>
         <span
           ng-if="$ctrl.hasPermission('wrapUpSeconds')"
           ng-show="$ctrl.parent.center.overrideAgentWrapUpTime"
@@ -116,27 +94,20 @@
         label="Force Delivery of Calls"
         ng-if="$ctrl.hasPermission('forceDeliveryOfCalls')"
       >
-        <pbs-check-box
-          checked="$ctrl.parent.center.forceDeliveryOfCalls"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.center.forceDeliveryOfCalls"></pbs-check-box>
         <span
           ng-if="$ctrl.hasPermission('forceDeliveryWaitTimeSeconds')"
           ng-show="$ctrl.parent.center.forceDeliveryOfCalls"
         >
           Force Delivery Seconds:
-          <strong
-            >{{ $ctrl.parent.center.forceDeliveryWaitTimeSeconds }}</strong
-          >
+          <strong>{{ $ctrl.parent.center.forceDeliveryWaitTimeSeconds }}</strong>
         </span>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editGroupCallCenterDetails" title="Edit Details">
-  <pbs-form-field-horizontal
-    label="Route Type"
-    ng-if="$ctrl.hasPermission('routingType')"
-  >
+  <pbs-form-field-horizontal label="Route Type" ng-if="$ctrl.hasPermission('routingType')">
     <pbs-input-select
       ng-model="$ctrl.editCenter.routingType"
       ng-options="opt for opt in $ctrl.options.routingType"

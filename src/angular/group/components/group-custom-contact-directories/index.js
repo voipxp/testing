@@ -26,21 +26,19 @@ function controller(Alert, GroupCustomContactDirectoryService, $q) {
   }
 
   function loadDirectories() {
-    return GroupCustomContactDirectoryService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
-      ctrl.directories = data
-    })
+    return GroupCustomContactDirectoryService.index(ctrl.serviceProviderId, ctrl.groupId).then(
+      function(data) {
+        ctrl.directories = data
+      }
+    )
   }
 
   function loadAvailableUsers() {
-    return GroupCustomContactDirectoryService.users(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
-      ctrl.users = data
-    })
+    return GroupCustomContactDirectoryService.users(ctrl.serviceProviderId, ctrl.groupId).then(
+      function(data) {
+        ctrl.users = data
+      }
+    )
   }
 
   function loadDirectory(directory) {
@@ -73,11 +71,7 @@ function controller(Alert, GroupCustomContactDirectoryService, $q) {
 
   function create(directory, callback) {
     Alert.spinner.open()
-    GroupCustomContactDirectoryService.store(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      directory
-    )
+    GroupCustomContactDirectoryService.store(ctrl.serviceProviderId, ctrl.groupId, directory)
       .then(loadDirectories)
       .then(function() {
         Alert.notify.success('Directory Updated')
@@ -102,11 +96,9 @@ function controller(Alert, GroupCustomContactDirectoryService, $q) {
             update(ctrl.editDirectory, close)
           },
           function onDelete(close) {
-            Alert.confirm
-              .open('Are you sure you want to delete this directory?')
-              .then(function() {
-                destroy(ctrl.editDirectory, close)
-              })
+            Alert.confirm.open('Are you sure you want to delete this directory?').then(function() {
+              destroy(ctrl.editDirectory, close)
+            })
           }
         )
       })
@@ -118,11 +110,7 @@ function controller(Alert, GroupCustomContactDirectoryService, $q) {
 
   function destroy(directory, callback) {
     Alert.spinner.open()
-    GroupCustomContactDirectoryService.destroy(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      directory.name
-    )
+    GroupCustomContactDirectoryService.destroy(ctrl.serviceProviderId, ctrl.groupId, directory.name)
       .then(loadDirectories)
       .then(function() {
         Alert.notify.warning('Directory Deleted')
@@ -138,11 +126,7 @@ function controller(Alert, GroupCustomContactDirectoryService, $q) {
 
   function update(directory, callback) {
     Alert.spinner.open()
-    GroupCustomContactDirectoryService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      directory
-    )
+    GroupCustomContactDirectoryService.update(ctrl.serviceProviderId, ctrl.groupId, directory)
       .then(loadDirectories)
       .then(function() {
         Alert.notify.success('Settings Updated')

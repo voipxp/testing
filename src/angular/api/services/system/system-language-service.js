@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('SystemLanguageService', SystemLanguageService)
+angular.module('odin.api').factory('SystemLanguageService', SystemLanguageService)
 
 SystemLanguageService.$inject = ['$http', 'Route']
 function SystemLanguageService($http, Route) {

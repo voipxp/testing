@@ -40,10 +40,7 @@
         <option value="">-- None --</option>
       </pbs-input-select>
     </pbs-form-field>
-    <pbs-form-field
-      label="Multicast Group"
-      ng-show="$ctrl.showMulticast($ctrl.editKey.type)"
-    >
+    <pbs-form-field label="Multicast Group" ng-show="$ctrl.showMulticast($ctrl.editKey.type)">
       <pbs-input-select
         ng-model="$ctrl.editKey.value"
         ng-options="opt.ip as opt.label for opt in $ctrl.options.multicast"
@@ -52,16 +49,10 @@
         <option value="">-- None --</option>
       </pbs-input-select>
     </pbs-form-field>
-    <pbs-form-field
-      label="Extension"
-      ng-show="$ctrl.showExtension($ctrl.editKey.type)"
-    >
+    <pbs-form-field label="Extension" ng-show="$ctrl.showExtension($ctrl.editKey.type)">
       <input type="text" class="input" ng-model="$ctrl.editKey.extension" />
     </pbs-form-field>
-    <pbs-form-field
-      label="Phonebook"
-      ng-show="$ctrl.showPhonebook($ctrl.editKey.type)"
-    >
+    <pbs-form-field label="Phonebook" ng-show="$ctrl.showPhonebook($ctrl.editKey.type)">
       <pbs-input-select
         ng-model="$ctrl.editKey.phonebook"
         ng-options="opt as opt for opt in $ctrl.options.phonebooks"

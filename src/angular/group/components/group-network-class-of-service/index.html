@@ -1,7 +1,4 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Network Class of Service'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
@@ -47,10 +44,7 @@
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="groupNetworkClassOfServiceModal"
-  title="Assign Network Class of Services"
->
+<pbs-modal id="groupNetworkClassOfServiceModal" title="Assign Network Class of Services">
   <select-things
     property="name"
     order-by="[-default,name]"

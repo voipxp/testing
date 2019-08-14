@@ -16,11 +16,9 @@ function UserScheduleService($http, Route) {
   return service
 
   function index(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function store(schedule) {
@@ -64,10 +62,8 @@ function UserScheduleService($http, Route) {
   }
 
   function holidays(userId) {
-    return $http
-      .get(url('holidays'), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url('holidays'), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 }

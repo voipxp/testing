@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Bounced Calls">
     <pbs-block-buttons if-module-update="'Call Center'">
-      <pbs-button-compact-edit
-        title="Edit Bounced Calls"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Bounced Calls" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -25,22 +22,16 @@
         {{ $ctrl.service.transferPhoneNumber }}
       </pbs-list-item>
       <pbs-list-item label="Bounce if Unavailable" ng-if="$ctrl.hasStandard()">
-        <pbs-check-box
-          checked="$ctrl.service.bounceCallWhenAgentUnavailable"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.service.bounceCallWhenAgentUnavailable"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Alert Agent if on Hold" ng-if="$ctrl.hasStandard()">
-        <pbs-check-box
-          checked="$ctrl.service.alertCallCenterCallOnHold"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.service.alertCallCenterCallOnHold"></pbs-check-box>
         <span ng-show="$ctrl.service.alertCallCenterCallOnHold">
           for {{ $ctrl.service.alertCallCenterCallOnHoldSeconds }} seconds
         </span>
       </pbs-list-item>
       <pbs-list-item label="Bounce if on Hold" ng-if="$ctrl.hasStandard()">
-        <pbs-check-box
-          checked="$ctrl.service.bounceCallCenterCallOnHold"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.service.bounceCallCenterCallOnHold"></pbs-check-box>
         <span ng-show="$ctrl.service.bounceCallCenterCallOnHold">
           for {{ $ctrl.service.bounceCallCenterCallOnHoldSeconds }} seconds
         </span>
@@ -94,17 +85,10 @@
     ng-if="$ctrl.hasPremium()"
     ng-show="$ctrl.editService.enableTransfer"
   >
-    <input
-      type="text"
-      class="input"
-      ng-model="$ctrl.editService.transferPhoneNumber"
-    />
+    <input type="text" class="input" ng-model="$ctrl.editService.transferPhoneNumber" />
   </pbs-form-field-horizontal>
 
-  <pbs-form-field-horizontal
-    label="Seconds before Alerting"
-    ng-if="$ctrl.hasStandard()"
-  >
+  <pbs-form-field-horizontal label="Seconds before Alerting" ng-if="$ctrl.hasStandard()">
     <input
       type="number"
       class="input"

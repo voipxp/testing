@@ -55,21 +55,17 @@ function controller(
   }
 
   function loadMeetMeConferencesUserBridgesList() {
-    return UserMeetMeConferencingConferencesService.bridges(ctrl.userId).then(
-      function(data) {
-        ctrl.meetMeConferencingBridges = data
-        return ctrl.meetMeConferencingBridges
-      }
-    )
+    return UserMeetMeConferencingConferencesService.bridges(ctrl.userId).then(function(data) {
+      ctrl.meetMeConferencingBridges = data
+      return ctrl.meetMeConferencingBridges
+    })
   }
 
   function loadMeetMeConferencingConferencesList() {
-    return UserMeetMeConferencingConferencesService.index(ctrl.userId).then(
-      function(data) {
-        ctrl.meetMeConferencingConferences = data
-        return ctrl.meetMeConferencingConferences
-      }
-    )
+    return UserMeetMeConferencingConferencesService.index(ctrl.userId).then(function(data) {
+      ctrl.meetMeConferencingConferences = data
+      return ctrl.meetMeConferencingConferences
+    })
   }
 
   function add() {
@@ -102,29 +98,22 @@ function controller(
   }
 
   function loadAvailableDelegates(bridgeId, conferenceId) {
-    return UserMeetMeConferencingDelegatesService.users(
-      ctrl.userId,
-      bridgeId,
-      conferenceId
-    ).then(function(data) {
-      // not self or someone already assigned
-      ctrl.availableUsers = _.filter(data, function(user) {
-        return (
-          user.userId !== ctrl.userId &&
-          !_.find(ctrl.assignedUsers, { userId: user.userId })
-        )
-      })
-    })
+    return UserMeetMeConferencingDelegatesService.users(ctrl.userId, bridgeId, conferenceId).then(
+      function(data) {
+        // not self or someone already assigned
+        ctrl.availableUsers = _.filter(data, function(user) {
+          return user.userId !== ctrl.userId && !_.find(ctrl.assignedUsers, { userId: user.userId })
+        })
+      }
+    )
   }
 
   function loadAssignedDelegates(bridgeId, conferenceId) {
-    return UserMeetMeConferencingDelegatesService.index(
-      ctrl.userId,
-      bridgeId,
-      conferenceId
-    ).then(function(data) {
-      ctrl.assignedUsers = data
-    })
+    return UserMeetMeConferencingDelegatesService.index(ctrl.userId, bridgeId, conferenceId).then(
+      function(data) {
+        ctrl.assignedUsers = data
+      }
+    )
   }
 
   function edit(meetMe) {
@@ -132,11 +121,9 @@ function controller(
     var deleteAction
     if (ctrl.module.permissions.delete) {
       deleteAction = function(close) {
-        Alert.confirm
-          .open('Are you sure you want to delete this Conference?')
-          .then(function() {
-            destroy(ctrl.editConference, close)
-          })
+        Alert.confirm.open('Are you sure you want to delete this Conference?').then(function() {
+          destroy(ctrl.editConference, close)
+        })
       }
     }
     Alert.spinner.open()
@@ -225,18 +212,12 @@ function controller(
   }
 
   function getGroupConference(serviceUserId) {
-    return GroupMeetMeConferencingBridgeService.show(serviceUserId).then(
-      function(data) {
-        return data
-      }
-    )
+    return GroupMeetMeConferencingBridgeService.show(serviceUserId).then(function(data) {
+      return data
+    })
   }
 
   function getConference(conferenceId, bridgeId) {
-    return UserMeetMeConferencingConferencesService.show(
-      ctrl.userId,
-      conferenceId,
-      bridgeId
-    )
+    return UserMeetMeConferencingConferencesService.show(ctrl.userId, conferenceId, bridgeId)
   }
 }

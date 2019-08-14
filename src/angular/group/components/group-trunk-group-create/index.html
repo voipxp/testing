@@ -42,22 +42,14 @@
           />
         </p>
         <p class="control" ng-show="$ctrl.trunk.accessDevice.deviceName">
-          <button
-            class="button"
-            ng-click="$ctrl.removeDevice()"
-            title="Remove Device"
-          >
+          <button class="button" ng-click="$ctrl.removeDevice()" title="Remove Device">
             <span class="icon">
               <i class="fas fa-trash"></i>
             </span>
           </button>
         </p>
         <p class="control">
-          <button
-            class="button"
-            ng-click="$ctrl.selectDevice()"
-            title="Add a Device"
-          >
+          <button class="button" ng-click="$ctrl.selectDevice()" title="Add a Device">
             <span class="icon">
               <i class="fas fa-plus"></i>
             </span>
@@ -77,10 +69,7 @@
         label="Require Authentication"
       ></pbs-input-checkbox>
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal
-      label="SIP User Name"
-      ng-show="$ctrl.trunk.requireAuthentication"
-    >
+    <pbs-form-field-horizontal label="SIP User Name" ng-show="$ctrl.trunk.requireAuthentication">
       <input
         type="text"
         class="input"
@@ -88,10 +77,7 @@
         ng-required="$ctrl.trunk.requireAuthentication"
       />
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal
-      label="SIP Password"
-      ng-show="$ctrl.trunk.requireAuthentication"
-    >
+    <pbs-form-field-horizontal label="SIP Password" ng-show="$ctrl.trunk.requireAuthentication">
       <pbs-input-password
         ng-model="$ctrl.trunk.sipAuthenticationPassword"
         ng-minlength="6"
@@ -103,11 +89,7 @@
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal label="Trunk Group Identity">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.trunk.trunkGroupIdentity"
-      />
+      <input type="text" class="input" ng-model="$ctrl.trunk.trunkGroupIdentity" />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="OTG Identity">
       <input type="text" class="input" ng-model="$ctrl.trunk.otgDtgIdentity" />
@@ -118,10 +100,7 @@
         label="Prefix Enabled"
       ></pbs-input-checkbox>
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal
-      label="Prefix"
-      ng-show="$ctrl.trunk.prefixEnabled"
-    >
+    <pbs-form-field-horizontal label="Prefix" ng-show="$ctrl.trunk.prefixEnabled">
       <input type="text" class="input" ng-model="$ctrl.trunk.prefix" />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Other Settings">
@@ -166,10 +145,7 @@
         label="Route to Peering Domain"
       ></pbs-input-checkbox>
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal
-      label="Peering Domain"
-      ng-show="$ctrl.trunk.routeToPeeringDomain"
-    >
+    <pbs-form-field-horizontal label="Peering Domain" ng-show="$ctrl.trunk.routeToPeeringDomain">
       <input
         type="text"
         class="input"

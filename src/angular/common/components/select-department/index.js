@@ -27,10 +27,7 @@ function controller(Alert, GroupDepartmentService) {
   }
 
   function loadDepartments() {
-    return GroupDepartmentService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupDepartmentService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.departments = data
       return data
     })

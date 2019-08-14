@@ -18,9 +18,7 @@
         <tr ng-show="results.length < 1">
           <td colspan="99">
             No Device Types Found
-            <span ng-show="$ctrl.search"
-              >for <strong>{{ $ctrl.search }}</strong>
-            </span>
+            <span ng-show="$ctrl.search">for <strong>{{ $ctrl.search }}</strong> </span>
           </td>
         </tr>
       </tfoot>
@@ -52,11 +50,7 @@
           />
         </p>
         <p class="control" ng-if="!$ctrl.editDevice.id">
-          <button
-            class="button"
-            ng-click="$ctrl.selectDevice()"
-            title="Select a Device"
-          >
+          <button class="button" ng-click="$ctrl.selectDevice()" title="Select a Device">
             <span class="icon"> <i class="fas fa-list"></i> </span>
           </button>
         </p>

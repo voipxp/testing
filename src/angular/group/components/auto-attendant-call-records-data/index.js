@@ -46,14 +46,8 @@ function controller(DownloadService) {
 
   function downloadCsv() {
     var timeformat = '{yyyy}{MM}{dd}-{HH}{mm}{ss}'
-    var startTime = Sugar.Date.format(
-      Sugar.Date.create(ctrl.parameters.startTime),
-      timeformat
-    )
-    var endTime = Sugar.Date.format(
-      Sugar.Date.create(ctrl.parameters.endTime),
-      timeformat
-    )
+    var startTime = Sugar.Date.format(Sugar.Date.create(ctrl.parameters.startTime), timeformat)
+    var endTime = Sugar.Date.format(Sugar.Date.create(ctrl.parameters.endTime), timeformat)
     // generate filename
     var filename = [
       'odin',

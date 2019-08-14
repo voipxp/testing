@@ -1,22 +1,16 @@
 <pbs-tabs delay="true">
   <pbs-tab label="Originating">
-    <user-outgoing-calling-plan-pinhole-digit-plan-originating
-      user-id="$ctrl.userId"
-    >
+    <user-outgoing-calling-plan-pinhole-digit-plan-originating user-id="$ctrl.userId">
     </user-outgoing-calling-plan-pinhole-digit-plan-originating>
   </pbs-tab>
 
   <pbs-tab label="Initiating Forwards">
-    <user-outgoing-calling-plan-pinhole-digit-plan-redirecting
-      user-id="$ctrl.userId"
-    >
+    <user-outgoing-calling-plan-pinhole-digit-plan-redirecting user-id="$ctrl.userId">
     </user-outgoing-calling-plan-pinhole-digit-plan-redirecting>
   </pbs-tab>
 
   <pbs-tab label="Call Me Now" ng-if="$ctrl.showCallMeNow">
-    <user-outgoing-calling-plan-pinhole-digit-plan-call-me-now
-      user-id="$ctrl.userId"
-    >
+    <user-outgoing-calling-plan-pinhole-digit-plan-call-me-now user-id="$ctrl.userId">
     </user-outgoing-calling-plan-pinhole-digit-plan-call-me-now>
   </pbs-tab>
 </pbs-tabs>

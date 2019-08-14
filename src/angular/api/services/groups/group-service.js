@@ -28,9 +28,7 @@ function GroupService(GraphQL) {
     return GraphQL.mutate({
       mutation: GROUP_CREATE_MUTATION,
       variables: { input: group },
-      refetchQueries: [
-        { query: GROUP_LIST_QUERY, variables: { serviceProviderId, groupId } }
-      ]
+      refetchQueries: [{ query: GROUP_LIST_QUERY, variables: { serviceProviderId, groupId } }]
     }).then(res => res.data.groupCreate)
   }
 
@@ -43,16 +41,11 @@ function GroupService(GraphQL) {
 
   function update(_serviceProviderId, _group) {
     const { serviceProviderId, groupId } = _group
-    const group = omit(_group, [
-      'timeZoneDisplayName',
-      'callingLineIdDisplayPhoneNumber'
-    ])
+    const group = omit(_group, ['timeZoneDisplayName', 'callingLineIdDisplayPhoneNumber'])
     return GraphQL.mutate({
       mutation: GROUP_UPDATE_MUTATION,
       variables: { input: group },
-      refetchQueries: [
-        { query: GROUP_LIST_QUERY, variables: { serviceProviderId, groupId } }
-      ]
+      refetchQueries: [{ query: GROUP_LIST_QUERY, variables: { serviceProviderId, groupId } }]
     }).then(res => res.data.groupUpdate)
   }
 
@@ -60,9 +53,7 @@ function GroupService(GraphQL) {
     return GraphQL.mutate({
       mutation: GROUP_DELETE_MUTATION,
       variables: { serviceProviderId, groupId },
-      refetchQueries: [
-        { query: GROUP_LIST_QUERY, variables: { serviceProviderId, groupId } }
-      ],
+      refetchQueries: [{ query: GROUP_LIST_QUERY, variables: { serviceProviderId, groupId } }],
       update: cache => {
         // seems we need to manually delete this
         cache.data.delete(`GroupList:${serviceProviderId}:${groupId}`)

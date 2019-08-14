@@ -6,15 +6,10 @@
     title="{{ $ctrl.tooltip || $ctrl.name }}"
     >{{ $ctrl.name }}</a
   >
-  <a
-    ng-if="!$ctrl.href && $ctrl.ngClick"
-    href=""
-    title="{{ $ctrl.tooltip || $ctrl.name }}"
+  <a ng-if="!$ctrl.href && $ctrl.ngClick" href="" title="{{ $ctrl.tooltip || $ctrl.name }}"
     >{{ $ctrl.name }}</a
   >
-  <a
-    ng-if="!$ctrl.href && !$ctrl.ngClick"
-    title="{{ $ctrl.tooltip || $ctrl.name }}"
+  <a ng-if="!$ctrl.href && !$ctrl.ngClick" title="{{ $ctrl.tooltip || $ctrl.name }}"
     >{{ $ctrl.name }}</a
   >
 </li>

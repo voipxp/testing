@@ -1,20 +1,14 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Stranded Call">
     <pbs-block-buttons if-module-update="'Call Center'">
-      <pbs-button-compact-edit
-        title="Edit Stranded Call"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Stranded Call" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Action">
         {{ $ctrl.actionDescription($ctrl.service.action) }}
       </pbs-list-item>
-      <pbs-list-item
-        label="Transfer To"
-        ng-show="$ctrl.service.action === 'Transfer'"
-      >
+      <pbs-list-item label="Transfer To" ng-show="$ctrl.service.action === 'Transfer'">
         {{ $ctrl.service.transferPhoneNumber }}
       </pbs-list-item>
     </pbs-list>
@@ -33,15 +27,8 @@
     ></pbs-input-select>
   </pbs-form-field-horizontal>
 
-  <pbs-form-field-horizontal
-    label="Transfer To"
-    ng-show="$ctrl.editService.action === 'Transfer'"
-  >
-    <input
-      type="text"
-      class="input"
-      ng-model="$ctrl.editService.transferPhoneNumber"
-    />
+  <pbs-form-field-horizontal label="Transfer To" ng-show="$ctrl.editService.action === 'Transfer'">
+    <input type="text" class="input" ng-model="$ctrl.editService.transferPhoneNumber" />
   </pbs-form-field-horizontal>
 
   <group-call-center-audio-settings-edit

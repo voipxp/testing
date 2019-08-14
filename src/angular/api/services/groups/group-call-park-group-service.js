@@ -15,11 +15,7 @@ function Service($http, Route) {
     users: users
   }
   service.options = {
-    recallTo: [
-      'Parking User Only',
-      'Parking User Then Alternate User',
-      'Alternate User Only'
-    ]
+    recallTo: ['Parking User Only', 'Parking User Then Alternate User', 'Alternate User Only']
   }
   return service
 

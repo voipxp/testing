@@ -17,15 +17,7 @@ controller.$inject = [
   'Route',
   'Module'
 ]
-function controller(
-  Alert,
-  GroupTrunkGroupUserService,
-  UserService,
-  $q,
-  $location,
-  Route,
-  Module
-) {
+function controller(Alert, GroupTrunkGroupUserService, UserService, $q, $location, Route, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.isPilotUser = isPilotUser
@@ -80,11 +72,9 @@ function controller(
     ctrl.availableUsers = []
     ctrl.assignedUsers = angular.copy(ctrl.users)
     Alert.modal.open('editGroupTrunkGroupUsers', function(close) {
-      Alert.confirm
-        .open('Are you sure you want to remove these Users?')
-        .then(function() {
-          removeUsers(ctrl.availableUsers, close)
-        })
+      Alert.confirm.open('Are you sure you want to remove these Users?').then(function() {
+        removeUsers(ctrl.availableUsers, close)
+      })
     })
   }
 
@@ -120,8 +110,7 @@ function controller(
     var message
     var userId
     if (user.isPilotUser) {
-      message =
-        'Are you sure you want to make ' + user.userId + ' the Pilot User?'
+      message = 'Are you sure you want to make ' + user.userId + ' the Pilot User?'
       userId = user.userId
     } else {
       message = 'Are you sure you want to remove the Pilot User?'
@@ -149,11 +138,8 @@ function controller(
 
   function open(user) {
     var returnTo = $location.url()
-    Route.open(
-      'users',
-      ctrl.parent.serviceProviderId,
-      ctrl.parent.groupId,
-      user.userId
-    ).search({ returnTo })
+    Route.open('users', ctrl.parent.serviceProviderId, ctrl.parent.groupId, user.userId).search({
+      returnTo
+    })
   }
 }

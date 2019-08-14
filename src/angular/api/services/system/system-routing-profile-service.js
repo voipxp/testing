@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('SystemRoutingProfileService', SystemRoutingProfileService)
+angular.module('odin.api').factory('SystemRoutingProfileService', SystemRoutingProfileService)
 
 SystemRoutingProfileService.$inject = ['$http', 'Route']
 function SystemRoutingProfileService($http, Route) {

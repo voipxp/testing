@@ -88,31 +88,23 @@ function controller(Alert, GroupCollaborateService, Route, $q) {
   }
 
   function loadBridges() {
-    return GroupCollaborateService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupCollaborateService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.bridges = data
     })
   }
 
   function loadDetails() {
-    return GroupCollaborateService.details(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupCollaborateService.details(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.details = data
     })
   }
 
   function onClick(bridge) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'collaborate',
-      'bridge'
-    ).search({ serviceUserId: bridge.serviceUserId })
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'collaborate', 'bridge').search({
+      serviceUserId: bridge.serviceUserId
+    })
   }
 
   function open(user) {
@@ -137,11 +129,7 @@ function controller(Alert, GroupCollaborateService, Route, $q) {
   }
 
   function onSelectPhone(event) {
-    _.set(
-      ctrl.addBridge,
-      'serviceInstanceProfile.phoneNumber',
-      event.phoneNumber
-    )
+    _.set(ctrl.addBridge, 'serviceInstanceProfile.phoneNumber', event.phoneNumber)
   }
 
   function create(bridge, callback) {

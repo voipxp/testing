@@ -92,11 +92,7 @@ export const AppLogin = () => {
     }
     try {
       Loading.show()
-      await authApi.tokenPassword(
-        form.password,
-        form.newPassword1,
-        form.username
-      )
+      await authApi.tokenPassword(form.password, form.newPassword1, form.username)
     } catch (error) {
       Alert.danger(error)
     } finally {
@@ -190,9 +186,7 @@ export const AppLogin = () => {
         {pageLoginMessage && (
           <Hero.Foot>
             <Message radiusless>
-              <Message.Body textAlign="centered">
-                {pageLoginMessage}
-              </Message.Body>
+              <Message.Body textAlign="centered">{pageLoginMessage}</Message.Body>
             </Message>
           </Hero.Foot>
         )}

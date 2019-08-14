@@ -11,22 +11,15 @@
         ></vdm-template-tag-accounts>
       </pbs-menu-item>
       <pbs-menu-item label="Multicast">
-        <vdm-template-tag-multicast
-          tags="$ctrl.tags"
-        ></vdm-template-tag-multicast>
+        <vdm-template-tag-multicast tags="$ctrl.tags"></vdm-template-tag-multicast>
       </pbs-menu-item>
       <pbs-menu-item label="Directories">
         <vdm-template-tag-ldap tags="$ctrl.tags"></vdm-template-tag-ldap>
       </pbs-menu-item>
       <pbs-menu-item label="Phonebook">
-        <vdm-template-tag-phonebook
-          tags="$ctrl.tags"
-        ></vdm-template-tag-phonebook>
+        <vdm-template-tag-phonebook tags="$ctrl.tags"></vdm-template-tag-phonebook>
       </pbs-menu-item>
-      <pbs-menu-item
-        ng-repeat="pattern in $ctrl.keyPattern"
-        label="{{ pattern.label }}"
-      >
+      <pbs-menu-item ng-repeat="pattern in $ctrl.keyPattern" label="{{ pattern.label }}">
         <vdm-template-tag-keys
           tags="$ctrl.tags"
           device-template="$ctrl.template.deviceTemplate"

@@ -8,18 +8,8 @@ angular.module('odin.user').component('userCallingLineIdDeliveryBlocking', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserCallingLineIdDeliveryBlockingService',
-  'Module',
-  '$q'
-]
-function controller(
-  Alert,
-  UserCallingLineIdDeliveryBlockingService,
-  Module,
-  $q
-) {
+controller.$inject = ['Alert', 'UserCallingLineIdDeliveryBlockingService', 'Module', '$q']
+function controller(Alert, UserCallingLineIdDeliveryBlockingService, Module, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -36,19 +26,15 @@ function controller(
   }
 
   function loadModule() {
-    return Module.show('Calling Line ID Delivery Blocking').then(function(
-      data
-    ) {
+    return Module.show('Calling Line ID Delivery Blocking').then(function(data) {
       ctrl.module = data
     })
   }
 
   function loadSettings() {
-    return UserCallingLineIdDeliveryBlockingService.show(ctrl.userId).then(
-      function(data) {
-        ctrl.settings = data
-      }
-    )
+    return UserCallingLineIdDeliveryBlockingService.show(ctrl.userId).then(function(data) {
+      ctrl.settings = data
+    })
   }
 
   function edit() {

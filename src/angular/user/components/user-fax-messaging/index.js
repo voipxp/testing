@@ -91,12 +91,10 @@ function controller(
       ctrl.domains = []
       return $q.resolve()
     }
-    return GroupDomainService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.domains = data
-        return data
-      }
-    )
+    return GroupDomainService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      ctrl.domains = data
+      return data
+    })
   }
 
   function loadAvailableNumbers() {
@@ -104,28 +102,24 @@ function controller(
       ctrl.availableNumbers = []
       return $q.resolve()
     }
-    return GroupNumberService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'available'
-    ).then(function(data) {
-      ctrl.availableNumbers = data
-      if (ctrl.settings.phoneNumber) {
-        ctrl.availableNumbers.push({
-          assigned: true,
-          activated: true,
-          min: ctrl.settings.phoneNumber,
-          max: null
-        })
+    return GroupNumberService.index(ctrl.serviceProviderId, ctrl.groupId, 'available').then(
+      function(data) {
+        ctrl.availableNumbers = data
+        if (ctrl.settings.phoneNumber) {
+          ctrl.availableNumbers.push({
+            assigned: true,
+            activated: true,
+            min: ctrl.settings.phoneNumber,
+            max: null
+          })
+        }
+        return ctrl.availableNumbers
       }
-      return ctrl.availableNumbers
-    })
+    )
   }
 
   function setExtension() {
-    var extension = ctrl.editSettings.phoneNumber
-      ? ctrl.editSettings.phoneNumber.slice(-4)
-      : null
+    var extension = ctrl.editSettings.phoneNumber ? ctrl.editSettings.phoneNumber.slice(-4) : null
     ctrl.editSettings.extension = extension
   }
 

@@ -55,10 +55,7 @@ function controller(
   }
 
   function loadDepartments() {
-    return GroupDepartmentService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupDepartmentService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.departments = data
       return data
     })
@@ -80,9 +77,7 @@ function controller(
 
   function selectNumber(event) {
     ctrl.editProfile.phoneNumber = event.phoneNumber
-    var extension = ctrl.editProfile.phoneNumber
-      ? ctrl.editProfile.phoneNumber.slice(-4)
-      : null
+    var extension = ctrl.editProfile.phoneNumber ? ctrl.editProfile.phoneNumber.slice(-4) : null
     ctrl.editProfile.extension = extension
   }
 

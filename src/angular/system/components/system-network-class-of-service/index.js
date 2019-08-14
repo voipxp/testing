@@ -1,9 +1,7 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.system')
-  .component('systemNetworkClassOfService', { template, controller })
+angular.module('odin.system').component('systemNetworkClassOfService', { template, controller })
 
 controller.$inject = ['$location', 'Route']
 function controller($location, Route) {

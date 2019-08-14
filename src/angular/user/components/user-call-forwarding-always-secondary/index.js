@@ -8,18 +8,8 @@ angular.module('odin.user').component('userCallForwardingAlwaysSecondary', {
   bindings: { userId: '<', showQuick: '<' }
 })
 
-controller.$inject = [
-  '$q',
-  'Alert',
-  'UserCallForwardingAlwaysSecondaryService',
-  'Module'
-]
-function controller(
-  $q,
-  Alert,
-  UserCallForwardingAlwaysSecondaryService,
-  Module
-) {
+controller.$inject = ['$q', 'Alert', 'UserCallForwardingAlwaysSecondaryService', 'Module']
+function controller($q, Alert, UserCallForwardingAlwaysSecondaryService, Module) {
   var ctrl = this
 
   ctrl.$onInit = onInit
@@ -39,11 +29,9 @@ function controller(
   }
 
   function loadSettings() {
-    return UserCallForwardingAlwaysSecondaryService.show(ctrl.userId).then(
-      function(data) {
-        ctrl.settings = data
-      }
-    )
+    return UserCallForwardingAlwaysSecondaryService.show(ctrl.userId).then(function(data) {
+      ctrl.settings = data
+    })
   }
 
   function loadModule() {
@@ -54,9 +42,7 @@ function controller(
 
   function edit() {
     ctrl.editSettings = angular.copy(ctrl.settings)
-    Alert.modal.open('editUserCallForwardingAlwaysSecondary', function onSave(
-      close
-    ) {
+    Alert.modal.open('editUserCallForwardingAlwaysSecondary', function onSave(close) {
       update(ctrl.editSettings, close)
     })
   }

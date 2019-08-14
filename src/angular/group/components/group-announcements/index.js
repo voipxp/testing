@@ -28,10 +28,9 @@ function controller(Alert, GroupAnnouncementService, $scope, Route) {
   }
 
   function loadAnnouncements() {
-    return GroupAnnouncementService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupAnnouncementService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.repository = data
     })
   }

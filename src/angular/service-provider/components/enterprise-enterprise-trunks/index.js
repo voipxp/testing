@@ -7,12 +7,7 @@ angular.module('odin.serviceProvider').component('enterpriseEnterpriseTrunks', {
   bindings: { module: '<', serviceProviderId: '<' }
 })
 
-controller.$inject = [
-  'Route',
-  'Alert',
-  'EnterpriseEnterpriseTrunkService',
-  '$scope'
-]
+controller.$inject = ['Route', 'Alert', 'EnterpriseEnterpriseTrunkService', '$scope']
 function controller(Route, Alert, EnterpriseEnterpriseTrunkService, $scope) {
   var ctrl = this
   ctrl.open = open
@@ -32,12 +27,10 @@ function controller(Route, Alert, EnterpriseEnterpriseTrunkService, $scope) {
   }
 
   function loadTrunks() {
-    return EnterpriseEnterpriseTrunkService.index(ctrl.serviceProviderId).then(
-      function(data) {
-        ctrl.trunks = data
-        return data
-      }
-    )
+    return EnterpriseEnterpriseTrunkService.index(ctrl.serviceProviderId).then(function(data) {
+      ctrl.trunks = data
+      return data
+    })
   }
 
   function onSave(trunk) {

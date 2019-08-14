@@ -93,12 +93,9 @@ export const USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY = gql`
 `
 
 export const useUserServicesAssignedAndViewable = userId => {
-  const { data, loading, error } = useQuery(
-    USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY,
-    {
-      variables: { userId }
-    }
-  )
+  const { data, loading, error } = useQuery(USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY, {
+    variables: { userId }
+  })
   const assigned = get(data, 'userServicesAssigned', { userServices: [] })
   const viewable = get(data, 'userServicesViewable', { userServices: [] })
   return { assigned, viewable, loading, error }

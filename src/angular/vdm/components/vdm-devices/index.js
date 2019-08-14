@@ -57,19 +57,13 @@ function controller(
   }
 
   function loadDevices() {
-    return VdmGroupDeviceService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return VdmGroupDeviceService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.devices = data
     })
   }
 
   function loadGroupTemplates() {
-    return VdmGroupTemplateService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return VdmGroupTemplateService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.templates = data
     })
   }
@@ -103,26 +97,16 @@ function controller(
   }
 
   function rebuild(device) {
-    return GroupDeviceService.rebuild(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      device.deviceName
-    )
+    return GroupDeviceService.rebuild(ctrl.serviceProviderId, ctrl.groupId, device.deviceName)
   }
 
   function reset(device) {
-    return GroupDeviceService.reset(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      device.deviceName
-    )
+    return GroupDeviceService.reset(ctrl.serviceProviderId, ctrl.groupId, device.deviceName)
   }
 
   function rebuildReset(device) {
     Alert.confirm
-      .open(
-        'Are you sure you want to rebuild and reset ' + device.deviceName + ' ?'
-      )
+      .open('Are you sure you want to rebuild and reset ' + device.deviceName + ' ?')
       .then(function() {
         Alert.spinner.open()
         return rebuild(device)

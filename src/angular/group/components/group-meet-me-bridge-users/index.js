@@ -8,12 +8,7 @@ angular.module('odin.group').component('groupMeetMeBridgeUsers', {
   require: { parent: '^groupMeetMeBridge' }
 })
 
-controller.$inject = [
-  'Alert',
-  '$q',
-  'GroupMeetMeConferencingUserService',
-  'Module'
-]
+controller.$inject = ['Alert', '$q', 'GroupMeetMeConferencingUserService', 'Module']
 function controller(Alert, $q, GroupMeetMeConferencingUserService, Module) {
   var ctrl = this
 

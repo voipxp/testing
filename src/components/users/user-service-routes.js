@@ -65,11 +65,7 @@ export const userServiceRoutes = [
     angularComponent: 'userCallCenter',
     module: 'Call Center',
     path: 'call-center',
-    services: [
-      'Call Center - Basic',
-      'Call Center - Standard',
-      'Call Center - Premium'
-    ]
+    services: ['Call Center - Basic', 'Call Center - Standard', 'Call Center - Premium']
   },
   {
     angularComponent: 'userCallForwardingAlways',

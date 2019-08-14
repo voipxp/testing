@@ -8,24 +8,8 @@ angular.module('odin.group').component('groupServices', {
   bindings: { serviceType: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupServiceService',
-  '$filter',
-  '$scope',
-  'ACL',
-  '$q',
-  'Route'
-]
-function controller(
-  Alert,
-  GroupServiceService,
-  $filter,
-  $scope,
-  ACL,
-  $q,
-  Route
-) {
+controller.$inject = ['Alert', 'GroupServiceService', '$filter', '$scope', 'ACL', '$q', 'Route']
+function controller(Alert, GroupServiceService, $filter, $scope, ACL, $q, Route) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
@@ -84,26 +68,24 @@ function controller(
   }
 
   function loadServices() {
-    return GroupServiceService.show(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        var services = filterServices(data[ctrl.serviceType])
-        services.forEach(function(service) {
-          service.allowedView = ctrl.quantity(service.allowed)
-          service.usageView = ctrl.quantity(service.usage)
-          switch (service.limited) {
-            case 'none':
-              return (service.quantityView = '-')
-            case 'Unlimited':
-              return (service.quantityView = 'Unlimited')
-            case 'Limited':
-              return (service.quantityView = service.quantity)
-            default:
-              console.log('invalid service.limited value')
-          }
-        })
-        ctrl.services = services
-      }
-    )
+    return GroupServiceService.show(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      var services = filterServices(data[ctrl.serviceType])
+      services.forEach(function(service) {
+        service.allowedView = ctrl.quantity(service.allowed)
+        service.usageView = ctrl.quantity(service.usage)
+        switch (service.limited) {
+          case 'none':
+            return (service.quantityView = '-')
+          case 'Unlimited':
+            return (service.quantityView = 'Unlimited')
+          case 'Limited':
+            return (service.quantityView = service.quantity)
+          default:
+            console.log('invalid service.limited value')
+        }
+      })
+      ctrl.services = services
+    })
   }
 
   function filterServices(services) {
@@ -193,9 +175,7 @@ function controller(
           update(singleService, close)
         }
         if (!ctrl.editService.authorized && service.authorized) {
-          Alert.confirm
-            .open('Are you sure you want to de-authorize this service?')
-            .then(runUpdate)
+          Alert.confirm.open('Are you sure you want to de-authorize this service?').then(runUpdate)
         } else {
           runUpdate()
         }

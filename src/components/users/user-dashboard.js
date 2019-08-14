@@ -2,11 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { UiMenu, UiLoadingCard } from '@/components/ui'
 import { AppBreadcrumb } from '@/components/app'
-import {
-  useUserServicePermissions,
-  useModulePermissions,
-  useAcl
-} from '@/utils'
+import { useUserServicePermissions, useModulePermissions, useAcl } from '@/utils'
 import { dashboardMenu } from './user-dashboard-menu'
 
 export const UserDashboard = ({ match }) => {
@@ -22,10 +18,7 @@ export const UserDashboard = ({ match }) => {
       const items = section.items.filter(item => {
         if (item.version && !Acl.hasVersion(item.version)) return false
         if (item.acl && !Acl.hasLevel(item.acl)) return false
-        if (
-          item.services &&
-          !item.services.find(s => Permissions.hasUserService(s))
-        ) {
+        if (item.services && !item.services.find(s => Permissions.hasUserService(s))) {
           return false
         }
         if (item.module && !Module.hasRead(item.module)) return false
@@ -39,11 +32,7 @@ export const UserDashboard = ({ match }) => {
   return (
     <>
       <AppBreadcrumb />
-      {Permissions.loading || Module.loading ? (
-        <UiLoadingCard />
-      ) : (
-        <UiMenu menu={menu} />
-      )}
+      {Permissions.loading || Module.loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
     </>
   )
 }

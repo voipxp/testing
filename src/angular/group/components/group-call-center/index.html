@@ -35,10 +35,7 @@
       call-center-type="$ctrl.center.type"
     ></group-call-center-agents>
   </pbs-menu-item>
-  <pbs-menu-item
-    label="Supervisors"
-    ng-if="$ctrl.center.type && $ctrl.center.type !== 'Basic'"
-  >
+  <pbs-menu-item label="Supervisors" ng-if="$ctrl.center.type && $ctrl.center.type !== 'Basic'">
     <group-call-center-supervisors
       service-provider-id="$ctrl.serviceProviderId"
       group-id="$ctrl.groupId"
@@ -61,10 +58,7 @@
       service-user-id="$ctrl.serviceUserId"
     ></group-call-center-statistics-reporting>
   </pbs-menu-item>
-  <pbs-menu-item
-    label="Thresholds"
-    ng-if="$ctrl.hasPermission('enableReporting')"
-  >
+  <pbs-menu-item label="Thresholds" ng-if="$ctrl.hasPermission('enableReporting')">
     <group-call-center-thresholds
       service-user-id="$ctrl.serviceUserId"
     ></group-call-center-thresholds>

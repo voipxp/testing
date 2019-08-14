@@ -13,12 +13,8 @@ function controller(Route) {
   ctrl.open = open
 
   function open(serviceUserId) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'paging',
-      'group'
-    ).search({ serviceUserId: serviceUserId })
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'paging', 'group').search({
+      serviceUserId: serviceUserId
+    })
   }
 }

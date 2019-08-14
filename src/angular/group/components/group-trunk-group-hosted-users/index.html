@@ -1,9 +1,7 @@
 <pbs-spinner loading="$ctrl.parent.loading">
   <pbs-block title="Hosted Users">
     <pbs-block-buttons if-module-update="$ctrl.parent.module">
-      <pbs-button-compact-edit
-        ng-click="$ctrl.edit()"
-      ></pbs-button-compact-edit>
+      <pbs-button-compact-edit ng-click="$ctrl.edit()"></pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>
@@ -43,8 +41,5 @@
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editGroupTrunkGroupHostedUsers" title="Edit Hosted Users">
-  <select-users
-    available="$ctrl.availableUsers"
-    selected="$ctrl.assignedUsers"
-  ></select-users>
+  <select-users available="$ctrl.availableUsers" selected="$ctrl.assignedUsers"></select-users>
 </pbs-modal>

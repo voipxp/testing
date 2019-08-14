@@ -51,10 +51,9 @@ function controller(Alert, GroupPhoneDirectoryService) {
   }
 
   function loadDirectory() {
-    return GroupPhoneDirectoryService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupPhoneDirectoryService.show(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.users = data
     })
   }

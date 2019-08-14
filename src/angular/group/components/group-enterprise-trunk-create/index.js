@@ -37,11 +37,7 @@ function controller(Alert, GroupEnterpriseTrunkService, $scope) {
 
   function create(trunk, callback) {
     Alert.spinner.open()
-    GroupEnterpriseTrunkService.store(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      trunk
-    )
+    GroupEnterpriseTrunkService.store(ctrl.serviceProviderId, ctrl.groupId, trunk)
       .then(function() {
         Alert.notify.success('Trunk Created')
         if (_.isFunction(ctrl.onSave)) {

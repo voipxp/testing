@@ -8,12 +8,7 @@ angular.module('odin.user').component('userCallForwardingNotReachable', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserCallForwardingNotReachableService',
-  'Module',
-  '$q'
-]
+controller.$inject = ['Alert', 'UserCallForwardingNotReachableService', 'Module', '$q']
 function controller(Alert, UserCallForwardingNotReachableService, Module, $q) {
   var ctrl = this
 
@@ -38,11 +33,9 @@ function controller(Alert, UserCallForwardingNotReachableService, Module, $q) {
   }
 
   function loadSettings() {
-    return UserCallForwardingNotReachableService.show(ctrl.userId).then(
-      function(data) {
-        ctrl.settings = data
-      }
-    )
+    return UserCallForwardingNotReachableService.show(ctrl.userId).then(function(data) {
+      ctrl.settings = data
+    })
   }
 
   function edit() {

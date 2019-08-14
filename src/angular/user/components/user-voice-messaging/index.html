@@ -19,14 +19,10 @@
         {{ $ctrl.messaging.voiceMessageDeliveryEmailAddress }}
       </pbs-list-item>
       <pbs-list-item label="Message Indicator Enabled">
-        <pbs-check-box
-          checked="$ctrl.messaging.usePhoneMessageWaitingIndicator"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.messaging.usePhoneMessageWaitingIndicator"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Send Notification Email">
-        <pbs-check-box
-          checked="$ctrl.messaging.sendVoiceMessageNotifyEmail"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.messaging.sendVoiceMessageNotifyEmail"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item
         label="Notification Email"
@@ -35,9 +31,7 @@
         {{ $ctrl.messaging.voiceMessageNotifyEmailAddress }}
       </pbs-list-item>
       <pbs-list-item label="Carbon Copy Voice Message">
-        <pbs-check-box
-          checked="$ctrl.messaging.sendCarbonCopyVoiceMessage"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.messaging.sendCarbonCopyVoiceMessage"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item
         label="Carbon Copy Email To"
@@ -46,30 +40,19 @@
         {{ $ctrl.messaging.voiceMessageCarbonCopyEmailAddress }}
       </pbs-list-item>
       <pbs-list-item label="Transfer On 0">
-        <pbs-check-box
-          checked="$ctrl.messaging.transferOnZeroToPhoneNumber"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.messaging.transferOnZeroToPhoneNumber"></pbs-check-box>
       </pbs-list-item>
-      <pbs-list-item
-        label="Transfer On 0 To"
-        ng-show="$ctrl.messaging.transferOnZeroToPhoneNumber"
-      >
+      <pbs-list-item label="Transfer On 0 To" ng-show="$ctrl.messaging.transferOnZeroToPhoneNumber">
         {{ $ctrl.messaging.transferPhoneNumber }}
       </pbs-list-item>
       <pbs-list-item label="Always Redirect to Voice Mail">
-        <pbs-check-box
-          checked="$ctrl.messaging.alwaysRedirectToVoiceMail"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.messaging.alwaysRedirectToVoiceMail"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Busy to Voice Mail">
-        <pbs-check-box
-          checked="$ctrl.messaging.busyRedirectToVoiceMail"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.messaging.busyRedirectToVoiceMail"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="No Answer to Voice Mail">
-        <pbs-check-box
-          checked="$ctrl.messaging.noAnswerRedirectToVoiceMail"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.messaging.noAnswerRedirectToVoiceMail"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Out of Primary Zone to Voice Mail" ng-if="false">
         <pbs-check-box
@@ -155,11 +138,7 @@
       label="Transfer To"
       ng-show="$ctrl.editMessaging.transferOnZeroToPhoneNumber"
     >
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editMessaging.transferPhoneNumber"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editMessaging.transferPhoneNumber" />
     </pbs-form-field-horizontal>
   </form>
 </pbs-modal>

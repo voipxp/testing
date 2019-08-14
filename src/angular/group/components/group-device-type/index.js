@@ -24,13 +24,11 @@ function controller(Alert, GroupDeviceTypeService, Route, $location) {
   }
 
   function loadDevice() {
-    return GroupDeviceTypeService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.deviceType
-    ).then(function(data) {
-      ctrl.device = data
-    })
+    return GroupDeviceTypeService.show(ctrl.serviceProviderId, ctrl.groupId, ctrl.deviceType).then(
+      function(data) {
+        ctrl.device = data
+      }
+    )
   }
 
   function back() {

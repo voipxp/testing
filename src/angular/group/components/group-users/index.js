@@ -77,11 +77,9 @@ function controller(
   }
 
   function loadUsers(includeClid) {
-    return UserService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      includeClid
-    ).then(function(data) {
+    return UserService.index(ctrl.serviceProviderId, ctrl.groupId, includeClid).then(function(
+      data
+    ) {
       ctrl.users = data.map(user => {
         return {
           ...user,

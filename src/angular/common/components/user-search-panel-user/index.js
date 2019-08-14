@@ -18,12 +18,8 @@ function controller() {
 
   function onChanges(changes) {
     if (changes.user && changes.user.currentValue) {
-      ctrl.name = _.compact(
-        _.uniq([ctrl.user.firstName, ctrl.user.lastName])
-      ).join(' ')
-      ctrl.phone = _.compact([ctrl.user.phoneNumber, ctrl.user.extension]).join(
-        ', '
-      )
+      ctrl.name = _.compact(_.uniq([ctrl.user.firstName, ctrl.user.lastName])).join(' ')
+      ctrl.phone = _.compact([ctrl.user.phoneNumber, ctrl.user.extension]).join(', ')
     }
   }
 }

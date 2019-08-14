@@ -1,13 +1,11 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.serviceProvider')
-  .component('serviceProviderPhoneDirectory', {
-    template,
-    controller,
-    bindings: { serviceProviderId: '<' }
-  })
+angular.module('odin.serviceProvider').component('serviceProviderPhoneDirectory', {
+  template,
+  controller,
+  bindings: { serviceProviderId: '<' }
+})
 
 controller.$inject = [
   'Alert',
@@ -15,12 +13,7 @@ controller.$inject = [
   'CsvService',
   'DownloadService'
 ]
-function controller(
-  Alert,
-  ServiceProviderPhoneDirectoryService,
-  CsvService,
-  DownloadService
-) {
+function controller(Alert, ServiceProviderPhoneDirectoryService, CsvService, DownloadService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onPagination = onPagination
@@ -70,8 +63,7 @@ function controller(
 
   function download() {
     var now = new Date()
-    var filename =
-      ctrl.serviceProviderId + '-directory-' + now.toJSON() + '.csv'
+    var filename = ctrl.serviceProviderId + '-directory-' + now.toJSON() + '.csv'
     CsvService.export(ctrl.users)
       .then(function(data) {
         DownloadService.download(data, filename)
@@ -82,9 +74,7 @@ function controller(
   }
 
   function loadDirectory() {
-    return ServiceProviderPhoneDirectoryService.show(
-      ctrl.serviceProviderId
-    ).then(function(data) {
+    return ServiceProviderPhoneDirectoryService.show(ctrl.serviceProviderId).then(function(data) {
       ctrl.users = data
     })
   }

@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('BrandingTemplateService', BrandingTemplateService)
+angular.module('odin.api').factory('BrandingTemplateService', BrandingTemplateService)
 
 BrandingTemplateService.$inject = ['$http', 'Route', '$rootScope']
 function BrandingTemplateService($http, Route, $rootScope) {
@@ -11,9 +9,7 @@ function BrandingTemplateService($http, Route, $rootScope) {
   return service
 
   function show(hostnameId) {
-    return $http
-      .get(url(), { params: { hostnameId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { hostnameId } }).then(response => response.data)
   }
 
   function update(template) {

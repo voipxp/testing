@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupPagingGroupTargetService', GroupPagingGroupTargetService)
+angular.module('odin.api').factory('GroupPagingGroupTargetService', GroupPagingGroupTargetService)
 
 GroupPagingGroupTargetService.$inject = ['$http', 'Route']
 function GroupPagingGroupTargetService($http, Route) {
@@ -19,11 +17,9 @@ function GroupPagingGroupTargetService($http, Route) {
   }
 
   function assigned(serviceUserId) {
-    return $http
-      .get(url(), { params: { serviceUserId: serviceUserId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { serviceUserId: serviceUserId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(serviceUserId, users) {

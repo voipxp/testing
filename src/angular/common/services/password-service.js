@@ -11,14 +11,8 @@ function PasswordService() {
     rules = rules || {}
     var config = {
       digits: (rules.restrictMinDigits && parseInt(rules.minDigits, 10)) || 1,
-      upper:
-        (rules.restrictMinUpperCaseLetters &&
-          parseInt(rules.minUpperCaseLetters, 10)) ||
-        1,
-      lower:
-        (rules.restrictMinLowerCaseLetters &&
-          parseInt(rules.minLowerCaseLetters, 10)) ||
-        1,
+      upper: (rules.restrictMinUpperCaseLetters && parseInt(rules.minUpperCaseLetters, 10)) || 1,
+      lower: (rules.restrictMinLowerCaseLetters && parseInt(rules.minLowerCaseLetters, 10)) || 1,
       special:
         (rules.restrictMinNonAlphanumericCharacters &&
           parseInt(rules.minNonAlphanumericCharacters, 10)) ||
@@ -82,22 +76,7 @@ function PasswordService() {
       'Y',
       'Z'
     ]
-    var special = [
-      '!',
-      '@',
-      '#',
-      '$',
-      '^',
-      '&',
-      '{',
-      '}',
-      '*',
-      '.',
-      '-',
-      '(',
-      ')',
-      '_'
-    ]
+    var special = ['!', '@', '#', '$', '^', '&', '{', '}', '*', '.', '-', '(', ')', '_']
     var chars = []
       .concat(_.sampleSize(digits, config.digits))
       .concat(_.sampleSize(upper, config.upper))

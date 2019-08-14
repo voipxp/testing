@@ -28,13 +28,10 @@
         label="Mailbox Limit"
         ng-show="$ctrl.messaging.mailServerSelection == $ctrl.options.mailServerSelection[0]"
       >
-        <span
-          ng-show="$ctrl.messaging.useGroupDefaultMailServerFullMailboxLimit"
+        <span ng-show="$ctrl.messaging.useGroupDefaultMailServerFullMailboxLimit"
           >Group Default</span
         >
-        <span
-          ng-show="!$ctrl.messaging.useGroupDefaultMailServerFullMailboxLimit"
-        >
+        <span ng-show="!$ctrl.messaging.useGroupDefaultMailServerFullMailboxLimit">
           {{ $ctrl.messaging.groupMailServerFullMailboxLimit }}
         </span>
       </pbs-list-item>
@@ -57,12 +54,8 @@
         <pbs-check-box
           checked="$ctrl.messaging.personalMailServerRealDeleteForImap"
         ></pbs-check-box>
-        <span ng-show="$ctrl.messaging.personalMailServerRealDeleteForImap">
-          Delete</span
-        >
-        <span ng-show="!$ctrl.messaging.personalMailServerRealDeleteForImap">
-          Archive</span
-        >
+        <span ng-show="$ctrl.messaging.personalMailServerRealDeleteForImap"> Delete</span>
+        <span ng-show="!$ctrl.messaging.personalMailServerRealDeleteForImap"> Archive</span>
       </pbs-list-item>
       <pbs-list-item
         label="Email Address"
@@ -79,10 +72,7 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editUserVoiceMessagingAdvanced"
-  title="Edit Advanced Voice Messaging"
->
+<pbs-modal id="editUserVoiceMessagingAdvanced" title="Edit Advanced Voice Messaging">
   <form>
     <pbs-form-field-horizontal label="Mail Server">
       <pbs-input-select
@@ -96,22 +86,14 @@
       label="Email Address"
       ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]"
     >
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editMessaging.groupMailServerEmailAddress"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editMessaging.groupMailServerEmailAddress" />
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal
       label="User ID"
       ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[0]"
     >
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editMessaging.groupMailServerUserId"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editMessaging.groupMailServerUserId" />
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal
@@ -189,11 +171,7 @@
       label="User ID"
       ng-show="$ctrl.editMessaging.mailServerSelection === $ctrl.options.mailServerSelection[1]"
     >
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editMessaging.personalMailServerUserId"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editMessaging.personalMailServerUserId" />
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal

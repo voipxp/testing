@@ -16,12 +16,6 @@ function controller($location, Route) {
   ctrl.open = open
 
   function open(serviceUserId) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'paging',
-      serviceUserId
-    )
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'paging', serviceUserId)
   }
 }

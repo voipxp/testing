@@ -77,17 +77,15 @@ function controller(
   }
 
   function loadUser() {
-    return GroupFlexibleSeatingHostService.show(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.flexibleSeatingHost = data
-        if (
-          ctrl.flexibleSeatingHost.accessDeviceEndpoint &&
-          ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice &&
-          ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice.deviceName
-        )
-          ctrl.flexibleSeatingHost.endpointType = 'accessDeviceEndpoint'
-      }
-    )
+    return GroupFlexibleSeatingHostService.show(ctrl.serviceUserId).then(function(data) {
+      ctrl.flexibleSeatingHost = data
+      if (
+        ctrl.flexibleSeatingHost.accessDeviceEndpoint &&
+        ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice &&
+        ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice.deviceName
+      )
+        ctrl.flexibleSeatingHost.endpointType = 'accessDeviceEndpoint'
+    })
   }
 
   function updateEndpointType(flexibleSeatingHost) {
@@ -110,42 +108,26 @@ function controller(
 
   function updateDevice() {
     $scope.$broadcast('deviceUpdate:load', {
-      deviceName:
-        ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice.deviceName,
-      deviceLevel:
-        ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice.deviceLevel
+      deviceName: ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice.deviceName,
+      deviceLevel: ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice.deviceLevel
     })
   }
 
   function onDeviceUpdate(event) {
-    _.set(
-      ctrl.editFlexibleSeatingHost,
-      'accessDeviceEndpoint.accessDevice',
-      event.device
-    )
+    _.set(ctrl.editFlexibleSeatingHost, 'accessDeviceEndpoint.accessDevice', event.device)
   }
 
   function onDeviceSelect(event) {
-    _.set(
-      ctrl.editFlexibleSeatingHost,
-      'accessDeviceEndpoint.accessDevice',
-      event.device
-    )
+    _.set(ctrl.editFlexibleSeatingHost, 'accessDeviceEndpoint.accessDevice', event.device)
   }
 
   function onSetLinePort(event) {
-    _.set(
-      ctrl.editFlexibleSeatingHost,
-      'accessDeviceEndpoint.linePort',
-      event.userId
-    )
+    _.set(ctrl.editFlexibleSeatingHost, 'accessDeviceEndpoint.linePort', event.userId)
   }
 
   function select() {
     ctrl.editFlexibleSeatingHost = angular.copy(ctrl.flexibleSeatingHost)
-    Alert.modal.open('flexibleSeatingHostDeviceSelectModal', function onSave(
-      close
-    ) {
+    Alert.modal.open('flexibleSeatingHostDeviceSelectModal', function onSave(close) {
       update(ctrl.editFlexibleSeatingHost, close)
     })
   }

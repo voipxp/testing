@@ -1,18 +1,12 @@
 <pbs-block title="Select Users" ng-show="!$ctrl.runWizard">
   <div class="columns">
     <div class="column">
-      <button
-        class="button is-info is-fullwidth"
-        ng-click="$ctrl.runWizard = true"
-      >
+      <button class="button is-info is-fullwidth" ng-click="$ctrl.runWizard = true">
         Run User Wizard
       </button>
     </div>
     <div class="column">
-      <pbs-input-file
-        on-upload="$ctrl.uploadUsers(file)"
-        mode="text"
-      ></pbs-input-file>
+      <pbs-input-file on-upload="$ctrl.uploadUsers(file)" mode="text"></pbs-input-file>
     </div>
   </div>
 
@@ -36,9 +30,7 @@
       </thead>
       <tfoot>
         <tr ng-if="results.length < 1">
-          <td colspan="4">
-            No Tasks Found <span ng-if="search">for {{ search }}</span>
-          </td>
+          <td colspan="4">No Tasks Found <span ng-if="search">for {{ search }}</span></td>
         </tr>
       </tfoot>
       <tbody>
@@ -63,9 +55,7 @@
   on-complete="$ctrl.wizardComplete($event)"
 >
   <pbs-wizard-step label="Service Provider">
-    <bulk-select-service-provider-id
-      on-update="$ctrl.onUpdateServiceProviderId($event)"
-    >
+    <bulk-select-service-provider-id on-update="$ctrl.onUpdateServiceProviderId($event)">
     </bulk-select-service-provider-id>
   </pbs-wizard-step>
   <pbs-wizard-step label="Group">

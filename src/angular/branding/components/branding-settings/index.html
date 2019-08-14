@@ -1,19 +1,13 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Settings">
     <table class="hover" pbs-table>
-      <tr
-        ng-repeat="field in $ctrl.fields.checkbox"
-        ng-click="$ctrl.edit('checkbox', field)"
-      >
+      <tr ng-repeat="field in $ctrl.fields.checkbox" ng-click="$ctrl.edit('checkbox', field)">
         <td>{{ field.label }}</td>
         <td>
           <pbs-check-box checked="$ctrl.settings[field.key]"></pbs-check-box>
         </td>
       </tr>
-      <tr
-        ng-repeat="field in $ctrl.fields.number"
-        ng-click="$ctrl.edit('number', field)"
-      >
+      <tr ng-repeat="field in $ctrl.fields.number" ng-click="$ctrl.edit('number', field)">
         <td>{{ field.label }}</td>
         <td>
           {{ $ctrl.settings[field.key] ? $ctrl.settings[field.key] : 'Off' }}
@@ -22,10 +16,7 @@
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editBrandingSetting-checkbox"
-  title="{{ $ctrl.editField.label }}"
->
+<pbs-modal id="editBrandingSetting-checkbox" title="{{ $ctrl.editField.label }}">
   <pbs-form>
     <pbs-input-checkbox
       ng-label="$ctrl.editField.label"

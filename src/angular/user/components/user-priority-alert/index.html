@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block module="$ctrl.module">
     <pbs-block-buttons if-module-create="$ctrl.module">
-      <pbs-button-compact-add
-        ng-click="$ctrl.add($ctrl.userId)"
-        title="Add New Priority Alert"
-      >
+      <pbs-button-compact-add ng-click="$ctrl.add($ctrl.userId)" title="Add New Priority Alert">
       </pbs-button-compact-add>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
@@ -54,12 +51,7 @@
   <pbs-form>
     <pbs-form-section>General Settings</pbs-form-section>
     <pbs-form-field-horizontal label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editCriteria.newCriteriaName"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editCriteria.newCriteriaName" required />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Time Schedule">
       <select-user-schedule

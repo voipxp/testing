@@ -62,9 +62,7 @@ function controller(BulkImportService, $location) {
         pagerPhoneNumber: ctrl.data.pagerPhoneNumber || null,
         emailAddress: ctrl.data.emailAddress || null,
         addressLocation: ctrl.data.addressLocation || null,
-        department: _.isEmpty(ctrl.data.department)
-          ? null
-          : ctrl.data.department,
+        department: _.isEmpty(ctrl.data.department) ? null : ctrl.data.department,
         address: ctrl.data.address,
         endpointType: ctrl.data.endpointType || null,
         domain: ctrl.data.domain || null
@@ -78,9 +76,7 @@ function controller(BulkImportService, $location) {
       }
 
       if (task.endpointType === 'accessDeviceEndpoint') {
-        task.allowAccessDeviceUpdate = ctrl.data.allowAccessDeviceUpdate
-          ? 'true'
-          : 'false'
+        task.allowAccessDeviceUpdate = ctrl.data.allowAccessDeviceUpdate ? 'true' : 'false'
         task.accessDeviceEndpoint = ctrl.data.accessDeviceEndpoint
       } else if (task.endpointType === 'trunkAddressing') {
         task.trunkAddressing = ctrl.data.trunkAddressing

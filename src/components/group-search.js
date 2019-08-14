@@ -8,10 +8,7 @@ import { Alert } from '@/utils'
 import { useSession } from '@/graphql'
 import groupApi from '@/api/groups'
 
-const searchTypes = [
-  { key: 'groupName', name: 'Group Name' },
-  { key: 'groupId', name: 'Group ID' }
-]
+const searchTypes = [{ key: 'groupName', name: 'Group Name' }, { key: 'groupId', name: 'Group ID' }]
 
 const columns = [
   { key: 'groupId', label: 'Group Id' },

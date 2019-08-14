@@ -46,11 +46,9 @@ function Service($http, Route, $rootScope) {
   }
 
   function update(serviceProviderId, groupId, service) {
-    return $http
-      .put(url(), { ...service, serviceProviderId, groupId })
-      .then(response => {
-        $rootScope.$emit('GroupServiceService:updated')
-        return response.data
-      })
+    return $http.put(url(), { ...service, serviceProviderId, groupId }).then(response => {
+      $rootScope.$emit('GroupServiceService:updated')
+      return response.data
+    })
   }
 }

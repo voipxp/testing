@@ -42,18 +42,10 @@ function controller(Alert, GroupCollaborateService, Route) {
   ]
 
   function loadAvailableUsers() {
-    return GroupCollaborateService.users(
-      ctrl.parent.serviceProviderId,
-      ctrl.parent.groupId
-    )
+    return GroupCollaborateService.users(ctrl.parent.serviceProviderId, ctrl.parent.groupId)
   }
   function open(user) {
-    Route.open(
-      'users',
-      ctrl.parent.serviceProviderId,
-      ctrl.parent.groupId,
-      user.userId
-    )
+    Route.open('users', ctrl.parent.serviceProviderId, ctrl.parent.groupId, user.userId)
   }
   function onClick(event) {
     open(event)

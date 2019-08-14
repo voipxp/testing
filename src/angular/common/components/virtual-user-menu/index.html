@@ -17,9 +17,7 @@
       label="{{ $ctrl.autoAttendantReportAlias }}"
       ng-if="$ctrl.showAutoAttendantReport"
     >
-      <user-auto-attendant-call-records
-        user-id="$ctrl.userId"
-      ></user-auto-attendant-call-records>
+      <user-auto-attendant-call-records user-id="$ctrl.userId"></user-auto-attendant-call-records>
     </pbs-menu-item>
     <pbs-menu-item label="Agent Report" ng-if="$ctrl.showCallCenterReport">
       <user-call-center-call-record-dashboard
@@ -46,9 +44,7 @@
       ></user-services-dashboard>
     </pbs-menu-item>
     <pbs-menu-item label="Utilities">
-      <user-feature-access-codes
-        user-id="$ctrl.userId"
-      ></user-feature-access-codes>
+      <user-feature-access-codes user-id="$ctrl.userId"></user-feature-access-codes>
     </pbs-menu-item>
     <pbs-menu-item label="Call Policies">
       <user-call-policies user-id="$ctrl.userId"></user-call-policies>
@@ -62,14 +58,10 @@
   </pbs-menu-section>
   <pbs-menu-section label="Calling Plans">
     <pbs-menu-item label="Incoming Calling Plan">
-      <user-incoming-calling-plan
-        user-id="$ctrl.userId"
-      ></user-incoming-calling-plan>
+      <user-incoming-calling-plan user-id="$ctrl.userId"></user-incoming-calling-plan>
     </pbs-menu-item>
     <pbs-menu-item label="Outgoing Calling Plan" ng-if="$ctrl.isMeetMe">
-      <user-outgoing-calling-plan
-        user-id="$ctrl.userId"
-      ></user-outgoing-calling-plan>
+      <user-outgoing-calling-plan user-id="$ctrl.userId"></user-outgoing-calling-plan>
     </pbs-menu-item>
     <pbs-menu-item label="Authorization Codes" ng-if="$ctrl.isMeetMe">
       <user-outgoing-calling-plan-authorization-codes

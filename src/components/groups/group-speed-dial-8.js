@@ -5,13 +5,7 @@ import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
 import { Alert, Loading } from '@/utils'
 import { useUserSpeedDial8Bulk, useUserSpeedDial8BulkUpdate } from '@/graphql'
-import {
-  UiCard,
-  UiLoadingCard,
-  UiDataTable,
-  UiButton,
-  UiCardModal
-} from '@/components/ui'
+import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const GroupSpeedDial8 = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
@@ -20,10 +14,7 @@ export const GroupSpeedDial8 = ({ match }) => {
   const [showModal, setShowModal] = useState(false)
   const [showSelect, setShowSelect] = useState(false)
 
-  const { data, loading, error } = useUserSpeedDial8Bulk(
-    serviceProviderId,
-    groupId
-  )
+  const { data, loading, error } = useUserSpeedDial8Bulk(serviceProviderId, groupId)
 
   const [update] = useUserSpeedDial8BulkUpdate(serviceProviderId, groupId)
 
@@ -217,9 +208,7 @@ export const GroupSpeedDial8 = ({ match }) => {
                     type="text"
                     name="phoneNumber2"
                     value={form.phoneNumber2}
-                    onChange={e =>
-                      setForm({ ...form, phoneNumber2: e.target.value })
-                    }
+                    onChange={e => setForm({ ...form, phoneNumber2: e.target.value })}
                     placeholder="Phone Number 2"
                   />
                 </Control>
@@ -230,9 +219,7 @@ export const GroupSpeedDial8 = ({ match }) => {
                     type="text"
                     name="phoneNumber3"
                     value={form.phoneNumber3}
-                    onChange={e =>
-                      setForm({ ...form, phoneNumber3: e.target.value })
-                    }
+                    onChange={e => setForm({ ...form, phoneNumber3: e.target.value })}
                     placeholder="Phone Number 3"
                   />
                 </Control>
@@ -243,9 +230,7 @@ export const GroupSpeedDial8 = ({ match }) => {
                     type="text"
                     name="phoneNumber4"
                     value={form.phoneNumber4}
-                    onChange={e =>
-                      setForm({ ...form, phoneNumber4: e.target.value })
-                    }
+                    onChange={e => setForm({ ...form, phoneNumber4: e.target.value })}
                     placeholder="Phone Number 4"
                   />
                 </Control>
@@ -256,9 +241,7 @@ export const GroupSpeedDial8 = ({ match }) => {
                     type="text"
                     name="phoneNumber5"
                     value={form.phoneNumber5}
-                    onChange={e =>
-                      setForm({ ...form, phoneNumber5: e.target.value })
-                    }
+                    onChange={e => setForm({ ...form, phoneNumber5: e.target.value })}
                     placeholder="Phone Number 5"
                   />
                 </Control>
@@ -269,9 +252,7 @@ export const GroupSpeedDial8 = ({ match }) => {
                     type="text"
                     name="phoneNumber6"
                     value={form.phoneNumber6}
-                    onChange={e =>
-                      setForm({ ...form, phoneNumber6: e.target.value })
-                    }
+                    onChange={e => setForm({ ...form, phoneNumber6: e.target.value })}
                     placeholder="Phone Number 6"
                   />
                 </Control>
@@ -282,9 +263,7 @@ export const GroupSpeedDial8 = ({ match }) => {
                     type="text"
                     name="phoneNumber7"
                     value={form.phoneNumber7}
-                    onChange={e =>
-                      setForm({ ...form, phoneNumber7: e.target.value })
-                    }
+                    onChange={e => setForm({ ...form, phoneNumber7: e.target.value })}
                     placeholder="Phone Number 7"
                   />
                 </Control>
@@ -295,9 +274,7 @@ export const GroupSpeedDial8 = ({ match }) => {
                     type="text"
                     name="phoneNumber8"
                     value={form.phoneNumber8}
-                    onChange={e =>
-                      setForm({ ...form, phoneNumber8: e.target.value })
-                    }
+                    onChange={e => setForm({ ...form, phoneNumber8: e.target.value })}
                     placeholder="Phone Number 8"
                   />
                 </Control>
@@ -308,9 +285,7 @@ export const GroupSpeedDial8 = ({ match }) => {
                     type="text"
                     name="phoneNumber9"
                     value={form.phoneNumber9}
-                    onChange={e =>
-                      setForm({ ...form, phoneNumber9: e.target.value })
-                    }
+                    onChange={e => setForm({ ...form, phoneNumber9: e.target.value })}
                     placeholder="Phone Number 9"
                   />
                 </Control>

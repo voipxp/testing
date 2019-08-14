@@ -43,18 +43,8 @@ angular.module('odin.user').component('userCallRecordData', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserCallRecordsService',
-  'DownloadService',
-  '$rootScope'
-]
-function controller(
-  Alert,
-  UserCallRecordsService,
-  DownloadService,
-  $rootScope
-) {
+controller.$inject = ['Alert', 'UserCallRecordsService', 'DownloadService', '$rootScope']
+function controller(Alert, UserCallRecordsService, DownloadService, $rootScope) {
   var ctrl = this
   var viewableFields = [
     'groupId',
@@ -149,11 +139,7 @@ function controller(
   }
 
   function loadDetails() {
-    return UserCallRecordsService.details(
-      ctrl.userId,
-      ctrl.startTime,
-      ctrl.endTime
-    )
+    return UserCallRecordsService.details(ctrl.userId, ctrl.startTime, ctrl.endTime)
       .then(function(data) {
         ctrl.records = data
         setFilters()

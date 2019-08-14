@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupDepartmentService', GroupDepartmentService)
+angular.module('odin.api').factory('GroupDepartmentService', GroupDepartmentService)
 
 GroupDepartmentService.$inject = ['$http', 'Route']
 function GroupDepartmentService($http, Route) {
@@ -37,10 +35,8 @@ function GroupDepartmentService($http, Route) {
   }
 
   function destroy(serviceProviderId, groupId, name) {
-    return $http
-      .delete(url(), { params: { serviceProviderId, groupId, name } })
-      .then(response => {
-        return response.data
-      })
+    return $http.delete(url(), { params: { serviceProviderId, groupId, name } }).then(response => {
+      return response.data
+    })
   }
 }

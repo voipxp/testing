@@ -8,12 +8,7 @@ angular.module('odin.group').component('groupEnterpriseTrunk', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Route',
-  'Alert',
-  'GroupEnterpriseTrunkService',
-  '$location'
-]
+controller.$inject = ['Route', 'Alert', 'GroupEnterpriseTrunkService', '$location']
 function controller(Route, Alert, GroupEnterpriseTrunkService, $location) {
   var ctrl = this
   ctrl.$onInit = activate
@@ -45,12 +40,7 @@ function controller(Route, Alert, GroupEnterpriseTrunkService, $location) {
 
   function update(trunk, callback) {
     Alert.spinner.open()
-    GroupEnterpriseTrunkService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.trunkName,
-      trunk
-    )
+    GroupEnterpriseTrunkService.update(ctrl.serviceProviderId, ctrl.groupId, ctrl.trunkName, trunk)
       .then(loadTrunk)
       .then(function() {
         Alert.notify.success('Enterprise Trunk Updated')
@@ -64,20 +54,11 @@ function controller(Route, Alert, GroupEnterpriseTrunkService, $location) {
 
   function destroy(callback) {
     Alert.spinner.open()
-    GroupEnterpriseTrunkService.destroy(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.trunkName
-    )
+    GroupEnterpriseTrunkService.destroy(ctrl.serviceProviderId, ctrl.groupId, ctrl.trunkName)
       .then(function() {
         Alert.notify.warning('Enterprise Trunk Removed')
         callback()
-        Route.open(
-          'groups',
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          'enterpriseTrunks'
-        )
+        Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'enterpriseTrunks')
       })
       .catch(Alert.notify.danger)
       .finally(Alert.spinner.close)

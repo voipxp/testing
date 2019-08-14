@@ -7,13 +7,7 @@ angular.module('odin.user').component('userBroadWorksAnywhere', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserBroadWorksAnywhereService',
-  'ACL',
-  'Module',
-  '$q'
-]
+controller.$inject = ['Alert', 'UserBroadWorksAnywhereService', 'ACL', 'Module', '$q']
 function controller(Alert, UserBroadWorksAnywhereService, ACL, Module, $q) {
   var ctrl = this
   ctrl.$onInit = onInit

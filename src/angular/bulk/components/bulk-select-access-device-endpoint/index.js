@@ -24,8 +24,6 @@ function controller(EventEmitter, $scope) {
   }
 
   function complete() {
-    return ctrl.onUpdate(
-      EventEmitter({ accessDeviceEndpoint: ctrl.accessDeviceEndpoint })
-    )
+    return ctrl.onUpdate(EventEmitter({ accessDeviceEndpoint: ctrl.accessDeviceEndpoint }))
   }
 }

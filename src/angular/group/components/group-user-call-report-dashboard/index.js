@@ -75,10 +75,7 @@ function controller(Alert, $timeout, UserService) {
   }
 
   function selectDate(search) {
-    if (
-      !Sugar.Date.isValid(search.startTime) ||
-      !Sugar.Date.isValid(search.endTime)
-    ) {
+    if (!Sugar.Date.isValid(search.startTime) || !Sugar.Date.isValid(search.endTime)) {
       Alert.notify.warning('Start or End Time is Invalid')
       return false
     }
@@ -98,11 +95,7 @@ function controller(Alert, $timeout, UserService) {
 
   function searchUsers() {
     ctrl.selectedUsers = angular.copy(ctrl.users)
-    ctrl.availableUsers = _.differenceBy(
-      ctrl.allUsers,
-      ctrl.selectedUsers,
-      'userId'
-    )
+    ctrl.availableUsers = _.differenceBy(ctrl.allUsers, ctrl.selectedUsers, 'userId')
     Alert.modal.open('userCallReportUsersModal', function(close) {
       selectUsers(ctrl.selectedUsers)
       close()

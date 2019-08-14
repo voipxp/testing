@@ -2,13 +2,11 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.serviceProvider')
-  .component('enterpriseEnterpriseTrunkCreate', {
-    template,
-    controller,
-    bindings: { serviceProviderId: '=', onSave: '&' }
-  })
+angular.module('odin.serviceProvider').component('enterpriseEnterpriseTrunkCreate', {
+  template,
+  controller,
+  bindings: { serviceProviderId: '=', onSave: '&' }
+})
 
 controller.$inject = ['Alert', 'EnterpriseEnterpriseTrunkService', '$scope']
 function controller(Alert, EnterpriseEnterpriseTrunkService, $scope) {

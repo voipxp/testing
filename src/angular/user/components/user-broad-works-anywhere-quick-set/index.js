@@ -45,11 +45,7 @@ function controller(
 
   function toggle(number) {
     ctrl.loadingNumber[number.phoneNumber] = true
-    UserBroadWorksAnywherePhoneNumberService.update(
-      ctrl.userId,
-      number.phoneNumber,
-      number
-    )
+    UserBroadWorksAnywherePhoneNumberService.update(ctrl.userId, number.phoneNumber, number)
       .then(loadSettings)
       .then(function() {
         Alert.notify.success(number.phoneNumber + ' Updated')

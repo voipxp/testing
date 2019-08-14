@@ -87,12 +87,7 @@ export const useModulePermissions = () => {
     ),
     hasPermission: useCallback(
       (name, permission) => {
-        return hasModulePermission(
-          name,
-          session.loginType,
-          uiModules,
-          permission
-        )
+        return hasModulePermission(name, session.loginType, uiModules, permission)
       },
       [session.loginType, uiModules]
     ),

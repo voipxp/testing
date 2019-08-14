@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserRemoteOfficeService', UserRemoteOfficeService)
+angular.module('odin.api').factory('UserRemoteOfficeService', UserRemoteOfficeService)
 
 UserRemoteOfficeService.$inject = ['$http', 'Route']
 function UserRemoteOfficeService($http, Route) {
@@ -11,11 +9,9 @@ function UserRemoteOfficeService($http, Route) {
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(userId, object) {

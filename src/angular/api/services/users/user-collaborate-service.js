@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserCollaborateService', UserCollaborateService)
+angular.module('odin.api').factory('UserCollaborateService', UserCollaborateService)
 
 UserCollaborateService.$inject = ['$http', 'Route']
 function UserCollaborateService($http, Route) {
@@ -29,19 +27,15 @@ function UserCollaborateService($http, Route) {
   return service
 
   function bridge(userId) {
-    return $http
-      .get(url('bridge'), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url('bridge'), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function show(userId) {
-    return $http
-      .get(url('my-room'), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url('my-room'), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(userId, object) {

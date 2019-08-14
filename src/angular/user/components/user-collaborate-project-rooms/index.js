@@ -48,9 +48,7 @@ function controller(
   }
 
   function loadProjectRooms() {
-    return UserCollaborateProjectRoomService.index(ctrl.userId).then(function(
-      data
-    ) {
+    return UserCollaborateProjectRoomService.index(ctrl.userId).then(function(data) {
       ctrl.projectRooms = _.filter(data, { roomType: 'Project Room' })
     })
   }
@@ -118,19 +116,17 @@ function controller(
   }
 
   function regenerate(roomId) {
-    Alert.confirm
-      .open('Are you sure you want to regenerate this Room ID?')
-      .then(function() {
-        Alert.spinner.open()
-        UserCollaborateService.regenerate(ctrl.userId, roomId)
-          .then(loadProjectRooms)
-          .then(function() {
-            Alert.notify.success('Project RoomId modified')
-            Alert.modal.closeAll()
-          })
-          .catch(Alert.notify.danger)
-          .finally(Alert.spinner.close)
-      })
+    Alert.confirm.open('Are you sure you want to regenerate this Room ID?').then(function() {
+      Alert.spinner.open()
+      UserCollaborateService.regenerate(ctrl.userId, roomId)
+        .then(loadProjectRooms)
+        .then(function() {
+          Alert.notify.success('Project RoomId modified')
+          Alert.modal.closeAll()
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    })
   }
 
   function create(callback) {

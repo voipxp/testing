@@ -8,18 +8,12 @@
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Name">{{ $ctrl.announcement.name }}</pbs-list-item>
-      <pbs-list-item label="Media Type"
-        >{{ $ctrl.announcement.mediaType }}</pbs-list-item
-      >
-      <pbs-list-item label="Size"
-        >{{ $ctrl.announcement.fileSize }}</pbs-list-item
-      >
+      <pbs-list-item label="Media Type">{{ $ctrl.announcement.mediaType }}</pbs-list-item>
+      <pbs-list-item label="Size">{{ $ctrl.announcement.fileSize }}</pbs-list-item>
       <pbs-list-item label="Uploaded"
         >{{ $ctrl.announcement.lastUploaded | date:'medium' }}</pbs-list-item
       >
-      <pbs-list-item label="Description"
-        >{{ $ctrl.announcement.description }}</pbs-list-item
-      >
+      <pbs-list-item label="Description">{{ $ctrl.announcement.description }}</pbs-list-item>
     </pbs-list>
   </pbs-block>
   <pbs-block title="Usage" class="large-margin-top">

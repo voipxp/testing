@@ -24,9 +24,7 @@ function controller(Alert, UserCollaborateInstantRoomService) {
   }
 
   function loadInstantRoom() {
-    return UserCollaborateInstantRoomService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserCollaborateInstantRoomService.show(ctrl.userId).then(function(data) {
       ctrl.instantRoom = data
     })
   }

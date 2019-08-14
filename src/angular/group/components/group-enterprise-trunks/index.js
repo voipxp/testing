@@ -7,13 +7,7 @@ angular.module('odin.group').component('groupEnterpriseTrunks', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Route',
-  'Alert',
-  'GroupEnterpriseTrunkService',
-  '$scope',
-  'ACL'
-]
+controller.$inject = ['Route', 'Alert', 'GroupEnterpriseTrunkService', '$scope', 'ACL']
 function controller(Route, Alert, GroupEnterpriseTrunkService, $scope, ACL) {
   var ctrl = this
   ctrl.open = open
@@ -35,10 +29,9 @@ function controller(Route, Alert, GroupEnterpriseTrunkService, $scope, ACL) {
   }
 
   function loadTrunks() {
-    return GroupEnterpriseTrunkService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupEnterpriseTrunkService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.trunks = data
       return data
     })
@@ -59,12 +52,7 @@ function controller(Route, Alert, GroupEnterpriseTrunkService, $scope, ACL) {
         'enterpriseTrunk'
       ).search({ trunkName })
     } else {
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'enterpriseTrunks'
-      )
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'enterpriseTrunks')
     }
   }
 

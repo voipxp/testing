@@ -1,14 +1,12 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.user')
-  .component('userCallForwardingAlwaysSecondaryQuickSet', {
-    template,
-    controller,
-    bindings: { serviceProviderId: '<', groupId: '<', userId: '<' },
-    require: { parent: '^^userQuickSet' }
-  })
+angular.module('odin.user').component('userCallForwardingAlwaysSecondaryQuickSet', {
+  template,
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<', userId: '<' },
+  require: { parent: '^^userQuickSet' }
+})
 
 controller.$inject = ['Alert', 'UserCallForwardingAlwaysSecondaryService']
 function controller(Alert, UserCallForwardingAlwaysSecondaryService) {
@@ -26,11 +24,9 @@ function controller(Alert, UserCallForwardingAlwaysSecondaryService) {
   }
 
   function loadSettings() {
-    return UserCallForwardingAlwaysSecondaryService.show(ctrl.userId).then(
-      function(data) {
-        ctrl.settings = data
-      }
-    )
+    return UserCallForwardingAlwaysSecondaryService.show(ctrl.userId).then(function(data) {
+      ctrl.settings = data
+    })
   }
 
   function toggle() {

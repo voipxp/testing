@@ -189,21 +189,14 @@ function BulkParseService(
 
   function loadPasswordRules(user) {
     var defaultRules = {}
-    return GroupPasswordService.show(
-      user.serviceProviderId,
-      user.groupId
-    ).catch(function() {
+    return GroupPasswordService.show(user.serviceProviderId, user.groupId).catch(function() {
       return defaultRules
     })
   }
 
   function loadPasscodeRules(user) {
     var defaultRules = {}
-    return loadGroupPasscodeRules(
-      user.serviceProviderId,
-      user.groupId,
-      defaultRules
-    )
+    return loadGroupPasscodeRules(user.serviceProviderId, user.groupId, defaultRules)
   }
 
   // First try the Group Rules
@@ -227,18 +220,15 @@ function BulkParseService(
 
   // Return the SP rules or the defaultRules passed in
   function loadServiceProviderPasscodeRules(serviceProviderId, defaultRules) {
-    return ServiceProviderPasscodeService.show(serviceProviderId).catch(
-      function() {
-        return defaultRules
-      }
-    )
+    return ServiceProviderPasscodeService.show(serviceProviderId).catch(function() {
+      return defaultRules
+    })
   }
 
   function loadDefaultDomain(user) {
-    return GroupDomainService.index(
-      user['serviceProviderId'],
-      user['groupId']
-    ).then(function(data) {
+    return GroupDomainService.index(user['serviceProviderId'], user['groupId']).then(function(
+      data
+    ) {
       return data.default
     })
   }

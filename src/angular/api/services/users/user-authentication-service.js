@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserAuthenticationService', UserAuthenticationService)
+angular.module('odin.api').factory('UserAuthenticationService', UserAuthenticationService)
 
 UserAuthenticationService.$inject = ['$http', 'Route']
 function UserAuthenticationService($http, Route) {
@@ -12,11 +10,9 @@ function UserAuthenticationService($http, Route) {
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(userId, object) {

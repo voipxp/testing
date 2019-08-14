@@ -1,7 +1,5 @@
 import angular from 'angular'
-angular
-  .module('odin.api')
-  .factory('GroupCallCenterStatisticsReportingService', Service)
+angular.module('odin.api').factory('GroupCallCenterStatisticsReportingService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
@@ -10,21 +8,15 @@ function Service($http, Route) {
 
   service.options = {
     collectionPeriodMinutes: [15, 30, 60],
-    statisticsSource: [
-      'None',
-      'Application Server',
-      'External Reporting Server'
-    ]
+    statisticsSource: ['None', 'Application Server', 'External Reporting Server']
   }
 
   return service
 
   function show(serviceUserId) {
-    return $http
-      .get(url(), { params: { serviceUserId: serviceUserId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { serviceUserId: serviceUserId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(serviceUserId, object) {

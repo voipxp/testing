@@ -1,22 +1,20 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.group')
-  .component('groupFlexibleSeatingHostServiceInstanceProfile', {
-    template,
-    controller,
-    bindings: {
-      serviceProviderId: '<',
-      groupId: '<',
-      serviceUserId: '<',
-      readOnly: '<',
-      flexibleSeatingHost: '<',
-      loading: '<',
-      onUpdate: '&',
-      onDelete: '&'
-    }
-  })
+angular.module('odin.group').component('groupFlexibleSeatingHostServiceInstanceProfile', {
+  template,
+  controller,
+  bindings: {
+    serviceProviderId: '<',
+    groupId: '<',
+    serviceUserId: '<',
+    readOnly: '<',
+    flexibleSeatingHost: '<',
+    loading: '<',
+    onUpdate: '&',
+    onDelete: '&'
+  }
+})
 
 controller.$inject = [
   'Alert',
@@ -60,19 +58,14 @@ function controller(
   }
 
   function loadDevices() {
-    return GroupDeviceService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.devices = data
-        return data
-      }
-    )
+    return GroupDeviceService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      ctrl.devices = data
+      return data
+    })
   }
 
   function loadDepartments() {
-    return GroupDepartmentService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupDepartmentService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.departments = data
       return data
     })
@@ -94,13 +87,9 @@ function controller(
 
   function selectNumber(event) {
     console.log('event', event)
-    ctrl.editFlexibleSeatingHost.serviceInstanceProfile.phoneNumber =
-      event.phoneNumber
-    var extension = ctrl.editFlexibleSeatingHost.serviceInstanceProfile
-      .phoneNumber
-      ? ctrl.editFlexibleSeatingHost.serviceInstanceProfile.phoneNumber.slice(
-          -4
-        )
+    ctrl.editFlexibleSeatingHost.serviceInstanceProfile.phoneNumber = event.phoneNumber
+    var extension = ctrl.editFlexibleSeatingHost.serviceInstanceProfile.phoneNumber
+      ? ctrl.editFlexibleSeatingHost.serviceInstanceProfile.phoneNumber.slice(-4)
       : null
     ctrl.editFlexibleSeatingHost.serviceInstanceProfile.extension = extension
   }

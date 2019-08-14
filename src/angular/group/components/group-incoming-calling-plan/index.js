@@ -27,10 +27,9 @@ function controller(Alert, GroupIncomingCallingPlanService, Module) {
   }
 
   function loadPlan() {
-    return GroupIncomingCallingPlanService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupIncomingCallingPlanService.show(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.plan = data
       return data
     })
@@ -50,11 +49,7 @@ function controller(Alert, GroupIncomingCallingPlanService, Module) {
       departments: [department]
     }
     Alert.spinner.open()
-    GroupIncomingCallingPlanService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      plan
-    )
+    GroupIncomingCallingPlanService.update(ctrl.serviceProviderId, ctrl.groupId, plan)
       .then(loadPlan)
       .then(function() {
         Alert.notify.success('Plan Updated')

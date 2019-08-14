@@ -1,7 +1,5 @@
 import angular from 'angular'
-angular
-  .module('odin.api')
-  .factory('EnterpriseCallCenterThresholdProfileService', Service)
+angular.module('odin.api').factory('EnterpriseCallCenterThresholdProfileService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {

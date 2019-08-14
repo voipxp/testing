@@ -24,9 +24,7 @@ function GroupAdminService($http, Route) {
 
   function show(admin) {
     const userId = getId(admin)
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 
   function update(admin) {
@@ -35,8 +33,6 @@ function GroupAdminService($http, Route) {
 
   function destroy(admin) {
     const userId = getId(admin)
-    return $http
-      .delete(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.delete(url(), { params: { userId } }).then(response => response.data)
   }
 }

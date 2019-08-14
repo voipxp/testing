@@ -14,13 +14,7 @@ controller.$inject = [
   'Module',
   '$q'
 ]
-function controller(
-  Alert,
-  UserSharedCallAppearanceService,
-  UserPermissionService,
-  Module,
-  $q
-) {
+function controller(Alert, UserSharedCallAppearanceService, UserPermissionService, Module, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -50,9 +44,7 @@ function controller(
   }
 
   function loadSharedCallAppearance() {
-    return UserSharedCallAppearanceService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserSharedCallAppearanceService.show(ctrl.userId).then(function(data) {
       ctrl.sharedCallAppearance = data
     })
   }

@@ -9,12 +9,7 @@ import { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect'
 import { getInjector } from '@/angular/injector'
 import { useModulePermissions } from '@/utils'
 
-export const AngularComponentBase = ({
-  component,
-  location = {},
-  match = {},
-  ...props
-}) => {
+export const AngularComponentBase = ({ component, location = {}, match = {}, ...props }) => {
   const scopeRef = React.useRef()
   const ref = React.useRef()
 

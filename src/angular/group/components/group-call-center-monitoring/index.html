@@ -88,9 +88,7 @@
           <td>{{ $ctrl.toMinutes(agent.totalAvailableTime) }}</td>
           <td>{{ $ctrl.toMinutes(agent.averageWrapUpTime.value) }}</td>
         </tr>
-        <tr
-          ng-repeat="agent in $ctrl.agents | filter:{state: 'Sign-out'} | orderBy:['userId']"
-        >
+        <tr ng-repeat="agent in $ctrl.agents | filter:{state: 'Sign-out'} | orderBy:['userId']">
           <td>{{ agent.firstName }}</td>
           <td>{{ agent.lastName }}</td>
           <td>{{ agent.state }}</td>

@@ -32,13 +32,11 @@ function controller(Alert, GroupDeviceFileService, $scope) {
   }
 
   function loadFiles() {
-    return GroupDeviceFileService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.deviceName
-    ).then(function(data) {
-      ctrl.files = data
-    })
+    return GroupDeviceFileService.index(ctrl.serviceProviderId, ctrl.groupId, ctrl.deviceName).then(
+      function(data) {
+        ctrl.files = data
+      }
+    )
   }
 
   function onUpdate() {

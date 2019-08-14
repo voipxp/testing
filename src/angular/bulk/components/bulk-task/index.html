@@ -7,31 +7,21 @@
 <pbs-block title="Task Details">
   <pbs-spinner loading="$ctrl.loading">
     <pbs-list>
-      <pbs-list-item label="Description"
-        >{{ $ctrl.task.description }}</pbs-list-item
-      >
+      <pbs-list-item label="Description">{{ $ctrl.task.description }}</pbs-list-item>
       <pbs-list-item label="User">{{ $ctrl.task.userId }}</pbs-list-item>
-      <pbs-list-item label="Task Status"
-        >{{ $ctrl.task.status | capitalize }}</pbs-list-item
-      >
+      <pbs-list-item label="Task Status">{{ $ctrl.task.status | capitalize }}</pbs-list-item>
       <pbs-list-item label="Error">{{ $ctrl.task.error }}</pbs-list-item>
       <pbs-list-item label="Job Status">
-        Pending: {{ $ctrl.summary.pending }}, Completed: {{
-        $ctrl.summary.completed }}, Failed: {{ $ctrl.summary.failed }}
-        <p
-          ng-show="$ctrl.task.status === 'completed' && $ctrl.summary.failed > 0"
-        >
-          <a href="" ng-click="$ctrl.retryJobs()"
-            >Edit and Retry Failed Users</a
-          >
+        Pending: {{ $ctrl.summary.pending }}, Completed: {{ $ctrl.summary.completed }}, Failed: {{
+        $ctrl.summary.failed }}
+        <p ng-show="$ctrl.task.status === 'completed' && $ctrl.summary.failed > 0">
+          <a href="" ng-click="$ctrl.retryJobs()">Edit and Retry Failed Users</a>
         </p>
         <p ng-show="$ctrl.task.status === 'failed'">
           <a href="" ng-click="$ctrl.retryTask()">Retry Entire Task</a>
         </p>
       </pbs-list-item>
-      <pbs-list-item label="Updated"
-        >{{ $ctrl.task.updatedAt | date:'medium' }}</pbs-list-item
-      >
+      <pbs-list-item label="Updated">{{ $ctrl.task.updatedAt | date:'medium' }}</pbs-list-item>
     </pbs-list>
   </pbs-spinner>
 </pbs-block>
@@ -45,10 +35,7 @@
   <pbs-spinner loading="$ctrl.loading">
     <pbs-columns>
       <pbs-column>
-        <pbs-table-search
-          ng-model="$ctrl.search"
-          style="margin-bottom: 0"
-        ></pbs-table-search>
+        <pbs-table-search ng-model="$ctrl.search" style="margin-bottom: 0"></pbs-table-search>
       </pbs-column>
       <pbs-column class="is-narrow">
         <div class="buttons has-addons">
@@ -96,9 +83,7 @@
         <tr ng-if="results.length < 1">
           <td colspan="4">
             No
-            <strong ng-show="$ctrl.searchStatus"
-              >{{ $ctrl.searchStatus | capitalize }}</strong
-            >
+            <strong ng-show="$ctrl.searchStatus">{{ $ctrl.searchStatus | capitalize }}</strong>
             User Found
             <span ng-show="search"
               >for
@@ -116,9 +101,7 @@
           <td>{{ job.userId }}</td>
           <td>{{ job.task }}</td>
           <td>
-            <span ng-show="job.status !== 'pending'"
-              >{{ job.status | capitalize }}</span
-            >
+            <span ng-show="job.status !== 'pending'">{{ job.status | capitalize }}</span>
             <span ng-show="job.status === 'pending'" class="loader"></span>
           </td>
           <td>{{ job.error }}</td>

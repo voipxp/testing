@@ -41,12 +41,6 @@ function controller(UserBasicCallLogService, Alert, Route) {
   }
 
   function open() {
-    Route.open(
-      'users',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.userId,
-      'basicCallLogs'
-    )
+    Route.open('users', ctrl.serviceProviderId, ctrl.groupId, ctrl.userId, 'basicCallLogs')
   }
 }

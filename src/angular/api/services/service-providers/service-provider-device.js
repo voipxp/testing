@@ -33,10 +33,8 @@ function service($http, Route) {
   }
 
   function destroy(serviceProviderId, deviceName) {
-    return $http
-      .delete(url(), { params: { serviceProviderId, deviceName } })
-      .then(response => {
-        return response.data
-      })
+    return $http.delete(url(), { params: { serviceProviderId, deviceName } }).then(response => {
+      return response.data
+    })
   }
 }

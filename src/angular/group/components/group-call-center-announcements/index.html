@@ -10,14 +10,10 @@
       </pbs-block-buttons>
       <pbs-list>
         <pbs-list-item label="Entrance Message Enabled">
-          <pbs-check-box
-            checked="$ctrl.announcements.entranceMessage.enabled"
-          ></pbs-check-box>
+          <pbs-check-box checked="$ctrl.announcements.entranceMessage.enabled"></pbs-check-box>
         </pbs-list-item>
         <pbs-list-item label="Mandatory Entry Message">
-          <pbs-check-box
-            checked="$ctrl.announcements.entranceMessage.mandatory"
-          ></pbs-check-box>
+          <pbs-check-box checked="$ctrl.announcements.entranceMessage.mandatory"></pbs-check-box>
         </pbs-list-item>
       </pbs-list>
       <group-call-center-audio-settings-view
@@ -38,30 +34,22 @@
       </pbs-block-buttons>
       <pbs-list>
         <pbs-list-item label="Estimated Wait Message Enabled">
-          <pbs-check-box
-            checked="$ctrl.announcements.estimatedWaitMessage.enabled"
-          ></pbs-check-box>
+          <pbs-check-box checked="$ctrl.announcements.estimatedWaitMessage.enabled"></pbs-check-box>
         </pbs-list-item>
         <pbs-list-item label="Play Updated Wait Message">
           <pbs-check-box
             checked="$ctrl.announcements.estimatedWaitMessage.playUpdatedEWM"
           ></pbs-check-box>
-          <span
-            ng-show="$ctrl.announcements.estimatedWaitMessage.playUpdatedEWM"
-          >
-            Every {{ $ctrl.announcements.estimatedWaitMessage
-            .timeBetweenEWMUpdatesSeconds }} seconds
+          <span ng-show="$ctrl.announcements.estimatedWaitMessage.playUpdatedEWM">
+            Every {{ $ctrl.announcements.estimatedWaitMessage .timeBetweenEWMUpdatesSeconds }}
+            seconds
           </span>
         </pbs-list-item>
         <pbs-list-item label="Operating Mode">
-          <span
-            ng-show="$ctrl.announcements.estimatedWaitMessage.operatingMode === 'Position'"
-          >
+          <span ng-show="$ctrl.announcements.estimatedWaitMessage.operatingMode === 'Position'">
             Announce Queue Position
           </span>
-          <span
-            ng-show="$ctrl.announcements.estimatedWaitMessage.operatingMode === 'Time'"
-          >
+          <span ng-show="$ctrl.announcements.estimatedWaitMessage.operatingMode === 'Time'">
             Announce Wait Time
           </span>
         </pbs-list-item>
@@ -69,8 +57,7 @@
           label="Maximum Position"
           ng-show="$ctrl.announcements.estimatedWaitMessage.operatingMode === 'Position'"
         >
-          {{ $ctrl.announcements.estimatedWaitMessage.maximumPositions }} or
-          Lower in Queue
+          {{ $ctrl.announcements.estimatedWaitMessage.maximumPositions }} or Lower in Queue
         </pbs-list-item>
         <pbs-list-item
           label="Play High Volume Message"
@@ -84,8 +71,7 @@
           label="Maximum Waiting Minutes"
           ng-show="$ctrl.announcements.estimatedWaitMessage.operatingMode === 'Time'"
         >
-          {{ $ctrl.announcements.estimatedWaitMessage.maximumWaitingMinutes }}
-          Minutes or Lower
+          {{ $ctrl.announcements.estimatedWaitMessage.maximumWaitingMinutes }} Minutes or Lower
         </pbs-list-item>
         <pbs-list-item
           label="Play High Volume Message"
@@ -99,8 +85,7 @@
           label="Default Handling Time"
           ng-show="$ctrl.announcements.estimatedWaitMessage.operatingMode === 'Time'"
         >
-          {{ $ctrl.announcements.estimatedWaitMessage.defaultCallHandlingMinutes
-          }} Minutes
+          {{ $ctrl.announcements.estimatedWaitMessage.defaultCallHandlingMinutes }} Minutes
         </pbs-list-item>
       </pbs-list>
     </pbs-block>
@@ -117,14 +102,10 @@
       </pbs-block-buttons>
       <pbs-list>
         <pbs-list-item label="Comfort Message Enabled">
-          <pbs-check-box
-            checked="$ctrl.announcements.comfortMessage.enabled"
-          ></pbs-check-box>
+          <pbs-check-box checked="$ctrl.announcements.comfortMessage.enabled"></pbs-check-box>
         </pbs-list-item>
         <pbs-list-item label="Time Between Messages">
-          {{
-          $ctrl.announcements.comfortMessage.timeBetweenComfortMessagesSeconds
-          }} Seconds
+          {{ $ctrl.announcements.comfortMessage.timeBetweenComfortMessagesSeconds }} Seconds
         </pbs-list-item>
       </pbs-list>
       <group-call-center-audio-settings-view
@@ -144,9 +125,7 @@
       </pbs-block-buttons>
       <pbs-list>
         <pbs-list-item label="Music on Hold Message Enabled">
-          <pbs-check-box
-            checked="$ctrl.announcements.musicOnHoldMessage.enabled"
-          ></pbs-check-box>
+          <pbs-check-box checked="$ctrl.announcements.musicOnHoldMessage.enabled"></pbs-check-box>
         </pbs-list-item>
       </pbs-list>
       <group-call-center-audio-settings-view
@@ -168,9 +147,7 @@
       </pbs-block-buttons>
       <pbs-list>
         <pbs-list-item label="Call Whisper Message Enabled">
-          <pbs-check-box
-            checked="$ctrl.announcements.callWhisperMessage.enabled"
-          ></pbs-check-box>
+          <pbs-check-box checked="$ctrl.announcements.callWhisperMessage.enabled"></pbs-check-box>
         </pbs-list-item>
       </pbs-list>
       <group-call-center-audio-settings-view
@@ -181,10 +158,7 @@
   </div>
 </pbs-spinner>
 
-<pbs-modal
-  id="editGroupCallCenterAnnouncementsEntranceMessage"
-  title="{{ $ctrl.modalTitle }}"
->
+<pbs-modal id="editGroupCallCenterAnnouncementsEntranceMessage" title="{{ $ctrl.modalTitle }}">
   <pbs-form-section>Settings</pbs-form-section>
   <pbs-input-checkbox
     ng-model="$ctrl.editAnnouncements.entranceMessage.enabled"
@@ -202,13 +176,8 @@
   ></group-call-center-audio-settings-edit>
 </pbs-modal>
 
-<pbs-modal
-  id="editGroupCallCenterAnnouncementsEstimatedWaitMessage"
-  title="{{ $ctrl.modalTitle }}"
->
-  <pbs-form-field-horizontal-section
-    >Settings</pbs-form-field-horizontal-section
-  >
+<pbs-modal id="editGroupCallCenterAnnouncementsEstimatedWaitMessage" title="{{ $ctrl.modalTitle }}">
+  <pbs-form-field-horizontal-section>Settings</pbs-form-field-horizontal-section>
 
   <pbs-input-checkbox
     ng-model="$ctrl.editAnnouncements.estimatedWaitMessage.enabled"
@@ -292,10 +261,7 @@
   </pbs-form-field-horizontal>
 </pbs-modal>
 
-<pbs-modal
-  id="editGroupCallCenterAnnouncementsComfortMessage"
-  title="{{ $ctrl.modalTitle }}"
->
+<pbs-modal id="editGroupCallCenterAnnouncementsComfortMessage" title="{{ $ctrl.modalTitle }}">
   <pbs-form-section>Settings</pbs-form-section>
   <pbs-input-checkbox
     ng-model="$ctrl.editAnnouncements.comfortMessage.enabled"
@@ -314,10 +280,7 @@
   ></group-call-center-audio-settings-edit>
 </pbs-modal>
 
-<pbs-modal
-  id="editGroupCallCenterAnnouncementsMusicOnHoldMessage"
-  title="{{ $ctrl.modalTitle }}"
->
+<pbs-modal id="editGroupCallCenterAnnouncementsMusicOnHoldMessage" title="{{ $ctrl.modalTitle }}">
   <pbs-form-section>Settings</pbs-form-section>
   <pbs-input-checkbox
     ng-model="$ctrl.editAnnouncements.musicOnHoldMessage.enabled"
@@ -331,10 +294,7 @@
   ></group-call-center-audio-settings-edit>
 </pbs-modal>
 
-<pbs-modal
-  id="editGroupCallCenterAnnouncementsCallWhisperMessage"
-  title="{{ $ctrl.modalTitle }}"
->
+<pbs-modal id="editGroupCallCenterAnnouncementsCallWhisperMessage" title="{{ $ctrl.modalTitle }}">
   <pbs-form-section>Settings</pbs-form-section>
   <pbs-input-checkbox
     ng-model="$ctrl.editAnnouncements.callWhisperMessage.enabled"

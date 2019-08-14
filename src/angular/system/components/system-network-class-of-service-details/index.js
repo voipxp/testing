@@ -37,9 +37,7 @@ function controller(
   }
 
   function loadService() {
-    return SystemNetworkClassOfServiceService.show(ctrl.name).then(function(
-      data
-    ) {
+    return SystemNetworkClassOfServiceService.show(ctrl.name).then(function(data) {
       ctrl.service = data
     })
   }
@@ -75,9 +73,7 @@ function controller(
         },
         function(close) {
           Alert.confirm
-            .open(
-              'Are you sure you want to remove this Network Class of Service?'
-            )
+            .open('Are you sure you want to remove this Network Class of Service?')
             .then(function() {
               destroy(close)
             })

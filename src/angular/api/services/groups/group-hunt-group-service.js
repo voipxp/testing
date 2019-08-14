@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupHuntGroupService', GroupHuntGroupService)
+angular.module('odin.api').factory('GroupHuntGroupService', GroupHuntGroupService)
 
 GroupHuntGroupService.$inject = ['$http', 'Route']
 function GroupHuntGroupService($http, Route) {
@@ -44,19 +42,15 @@ function GroupHuntGroupService($http, Route) {
   }
 
   function status(huntgroup) {
-    return $http
-      .put(url('status'), { instances: [huntgroup] })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.put(url('status'), { instances: [huntgroup] }).then(function(response) {
+      return response.data
+    })
   }
 
   function show(serviceUserId) {
-    return $http
-      .get(url(), { params: { serviceUserId: serviceUserId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { serviceUserId: serviceUserId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(huntgroup) {

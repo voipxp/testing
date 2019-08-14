@@ -12,18 +12,8 @@ angular.module('odin.group').component('groupDepartmentAdmins', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupDepartmentAdminService',
-  'SystemLanguageService',
-  '$q'
-]
-function controller(
-  Alert,
-  GroupDepartmentAdminService,
-  SystemLanguageService,
-  $q
-) {
+controller.$inject = ['Alert', 'GroupDepartmentAdminService', 'SystemLanguageService', '$q']
+function controller(Alert, GroupDepartmentAdminService, SystemLanguageService, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.$onChanges = onChanges
@@ -58,14 +48,12 @@ function controller(
   }
 
   function loadAdmins() {
-    return GroupDepartmentAdminService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.name
-    ).then(function(data) {
-      ctrl.admins = data
-      return data
-    })
+    return GroupDepartmentAdminService.index(ctrl.serviceProviderId, ctrl.groupId, ctrl.name).then(
+      function(data) {
+        ctrl.admins = data
+        return data
+      }
+    )
   }
 
   function loadLanguages() {
@@ -97,11 +85,9 @@ function controller(
         update(ctrl.editAdmin, close)
       },
       function onDelete(close) {
-        Alert.confirm
-          .open('Are you sure you want to delete this Admin?')
-          .then(function() {
-            remove(ctrl.editAdmin, close)
-          })
+        Alert.confirm.open('Are you sure you want to delete this Admin?').then(function() {
+          remove(ctrl.editAdmin, close)
+        })
       }
     )
   }

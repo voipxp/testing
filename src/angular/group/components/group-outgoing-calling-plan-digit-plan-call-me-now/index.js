@@ -2,18 +2,13 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.group')
-  .component('groupOutgoingCallingPlanDigitPlanCallMeNow', {
-    template,
-    controller,
-    bindings: { serviceProviderId: '<', groupId: '<' }
-  })
+angular.module('odin.group').component('groupOutgoingCallingPlanDigitPlanCallMeNow', {
+  template,
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
+})
 
-controller.$inject = [
-  'Alert',
-  'GroupOutgoingCallingPlanDigitPlanCallMeNowService'
-]
+controller.$inject = ['Alert', 'GroupOutgoingCallingPlanDigitPlanCallMeNowService']
 function controller(Alert, GroupOutgoingCallingPlanDigitPlanCallMeNowService) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -48,12 +43,9 @@ function controller(Alert, GroupOutgoingCallingPlanDigitPlanCallMeNowService) {
 
   function edit(department) {
     ctrl.editDepartment = angular.copy(department)
-    Alert.modal.open(
-      'editGroupOutgoingCallingPlanDigitPlanCallMeNow',
-      function onSave(close) {
-        update(ctrl.editDepartment, close)
-      }
-    )
+    Alert.modal.open('editGroupOutgoingCallingPlanDigitPlanCallMeNow', function onSave(close) {
+      update(ctrl.editDepartment, close)
+    })
   }
 
   function update(department, callback) {

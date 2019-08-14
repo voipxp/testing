@@ -17,11 +17,7 @@
               />
             </p>
             <p class="control">
-              <button
-                class="button"
-                ng-click="$ctrl.select()"
-                title="Select a Service Provider"
-              >
+              <button class="button" ng-click="$ctrl.select()" title="Select a Service Provider">
                 <span class="icon">
                   <i class="fas fa-search"></i>
                 </span>
@@ -72,63 +68,31 @@
       </pbs-tab>
       <pbs-tab label="Options">
         <pbs-form-field-horizontal label="Default Domain">
-          <select-domain
-            ng-model="$ctrl.serviceProvider.defaultDomain"
-          ></select-domain>
+          <select-domain ng-model="$ctrl.serviceProvider.defaultDomain"></select-domain>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Support Email">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.serviceProvider.supportEmail"
-          />
+          <input type="text" class="input" ng-model="$ctrl.serviceProvider.supportEmail" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Contact Name">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.serviceProvider.contact.contactName"
-          />
+          <input type="text" class="input" ng-model="$ctrl.serviceProvider.contact.contactName" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Contact Email">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.serviceProvider.contact.contactEmail"
-          />
+          <input type="text" class="input" ng-model="$ctrl.serviceProvider.contact.contactEmail" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Contact Number">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.serviceProvider.contact.contactNumber"
-          />
+          <input type="text" class="input" ng-model="$ctrl.serviceProvider.contact.contactNumber" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Address 1">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.serviceProvider.address.addressLine1"
-          />
+          <input type="text" class="input" ng-model="$ctrl.serviceProvider.address.addressLine1" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Address Line 2">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.serviceProvider.address.addressLine2"
-          />
+          <input type="text" class="input" ng-model="$ctrl.serviceProvider.address.addressLine2" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="City">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.serviceProvider.address.city"
-          />
+          <input type="text" class="input" ng-model="$ctrl.serviceProvider.address.city" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="State/Province">
-          <select-state
-            ng-model="$ctrl.serviceProvider.address.stateOrProvince"
-          ></select-state>
+          <select-state ng-model="$ctrl.serviceProvider.address.stateOrProvince"></select-state>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Postal Code">
           <input
@@ -138,16 +102,10 @@
           />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Country">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.serviceProvider.address.country"
-          />
+          <input type="text" class="input" ng-model="$ctrl.serviceProvider.address.country" />
         </pbs-form-field-horizontal>
       </pbs-tab>
     </pbs-tabs>
   </pbs-form>
 </pbs-modal>
-<select-service-provider
-  on-update="$ctrl.onSelect($event)"
-></select-service-provider>
+<select-service-provider on-update="$ctrl.onSelect($event)"></select-service-provider>

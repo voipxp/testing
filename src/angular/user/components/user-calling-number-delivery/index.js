@@ -8,12 +8,7 @@ angular.module('odin.user').component('userCallingNumberDelivery', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserCallingNumberDeliveryService',
-  '$q',
-  'Module'
-]
+controller.$inject = ['Alert', 'UserCallingNumberDeliveryService', '$q', 'Module']
 function controller(Alert, UserCallingNumberDeliveryService, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -38,9 +33,7 @@ function controller(Alert, UserCallingNumberDeliveryService, $q, Module) {
   }
 
   function loadSettings() {
-    return UserCallingNumberDeliveryService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserCallingNumberDeliveryService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }

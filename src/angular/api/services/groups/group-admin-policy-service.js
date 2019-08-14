@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupAdminPolicyService', GroupAdminPolicyService)
+angular.module('odin.api').factory('GroupAdminPolicyService', GroupAdminPolicyService)
 
 GroupAdminPolicyService.$inject = ['$http', 'Route']
 function GroupAdminPolicyService($http, Route) {
@@ -11,13 +9,7 @@ function GroupAdminPolicyService($http, Route) {
   service.options = {
     policies: {
       profileAccess: ['Full', 'Read-Only', 'None'],
-      userAccess: [
-        'Full',
-        'Full Profile',
-        'Read-Only Profile',
-        'No Profile',
-        'None'
-      ],
+      userAccess: ['Full', 'Full Profile', 'Read-Only Profile', 'No Profile', 'None'],
       adminAccess: ['Full', 'Read-Only', 'None'],
       departmentAccess: ['Full', 'Read-Only', 'None'],
       accessDeviceAccess: ['Full', 'Associate User With Device', 'None'],
@@ -26,12 +18,7 @@ function GroupAdminPolicyService($http, Route) {
       phoneNumberExtensionAccess: ['Full', 'Read-Only'],
       callingLineIdNumberAccess: ['Full', 'Read-Only'],
       serviceAccess: ['Full', 'Read-Only'],
-      trunkGroupAccess: [
-        'Full',
-        'Full Resources',
-        'Read-Only Resources',
-        'None'
-      ],
+      trunkGroupAccess: ['Full', 'Full Resources', 'Read-Only Resources', 'None'],
       sessionAdmissionControlAccess: ['Full', 'Read-Only', 'None'],
       officeZoneAccess: ['Full', 'Read-Only'],
       dialableCallerIDAccess: ['Full', 'Read-Only', 'None'],
@@ -44,9 +31,7 @@ function GroupAdminPolicyService($http, Route) {
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 
   function update(userId, object) {

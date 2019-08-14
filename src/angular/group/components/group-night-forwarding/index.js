@@ -24,10 +24,9 @@ function controller(Alert, GroupNightForwardingService) {
   }
 
   function load() {
-    return GroupNightForwardingService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupNightForwardingService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.settings = data
     })
   }

@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('SystemPasscodeService', SystemPasscodeService)
+angular.module('odin.api').factory('SystemPasscodeService', SystemPasscodeService)
 
 SystemPasscodeService.$inject = ['$http', 'Route']
 function SystemPasscodeService($http, Route) {

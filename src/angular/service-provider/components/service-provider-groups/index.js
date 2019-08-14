@@ -16,15 +16,7 @@ controller.$inject = [
   'ServiceProviderPolicyService',
   'Module'
 ]
-function controller(
-  Alert,
-  GroupService,
-  Route,
-  $scope,
-  $q,
-  ServiceProviderPolicyService,
-  Module
-) {
+function controller(Alert, GroupService, Route, $scope, $q, ServiceProviderPolicyService, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add

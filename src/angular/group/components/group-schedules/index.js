@@ -26,10 +26,7 @@ function controller(Alert, GroupScheduleService, Route) {
   }
 
   function loadSchedules() {
-    return GroupScheduleService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupScheduleService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.schedules = data
     })
   }
@@ -57,13 +54,7 @@ function controller(Alert, GroupScheduleService, Route) {
   }
 
   function open(schedule) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'schedules',
-      'schedule'
-    ).search({
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'schedules', 'schedule').search({
       name: schedule.name,
       type: schedule.type
     })

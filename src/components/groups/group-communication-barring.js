@@ -84,17 +84,11 @@ export const GroupCommunicationBarring = ({ match }) => {
         <>
           <UiCard
             title="Communication Barring Profiles"
-            buttons={
-              <UiButton color="link" icon="edit" size="small" onClick={edit} />
-            }
+            buttons={<UiButton color="link" icon="edit" size="small" onClick={edit} />}
           >
             <UiSection>
               <UiListItem label="Default Service Provider profile">
-                <UiCheckbox
-                  isChecked={
-                    communicationBarring.useDefaultServiceProviderProfile
-                  }
-                />
+                <UiCheckbox isChecked={communicationBarring.useDefaultServiceProviderProfile} />
               </UiListItem>
               <UiListItem label="Use This Communication Barring profile">
                 {communicationBarring.profile}

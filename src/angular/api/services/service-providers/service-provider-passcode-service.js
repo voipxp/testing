@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('ServiceProviderPasscodeService', ServiceProviderPasscodeService)
+angular.module('odin.api').factory('ServiceProviderPasscodeService', ServiceProviderPasscodeService)
 
 ServiceProviderPasscodeService.$inject = ['$http', 'Route']
 function ServiceProviderPasscodeService($http, Route) {
@@ -11,9 +9,7 @@ function ServiceProviderPasscodeService($http, Route) {
   return service
 
   function show(serviceProviderId) {
-    return $http
-      .get(url(), { params: { serviceProviderId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { serviceProviderId } }).then(response => response.data)
   }
 
   function update(serviceProviderId, object) {

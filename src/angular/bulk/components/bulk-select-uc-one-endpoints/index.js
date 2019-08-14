@@ -74,9 +74,7 @@ function controller(EventEmitter, Alert) {
 
   function edit(endpoint) {
     ctrl.editEndpoint = angular.copy(endpoint)
-    Alert.modal.open('userSharedCallAppearanceEndpointModal', function onSave(
-      close
-    ) {
+    Alert.modal.open('userSharedCallAppearanceEndpointModal', function onSave(close) {
       Object.assign(endpoint, ctrl.editEndpoint)
       endpoint.deviceName = _.get(endpoint, 'accessDevice.deviceName')
       endpoint.deviceLevel = _.get(endpoint, 'accessDevice.deviceLevel')

@@ -24,10 +24,7 @@ function controller(Alert, GroupCallPickupService, Route) {
   }
 
   function loadGroups() {
-    return GroupCallPickupService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupCallPickupService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.groups = data
     })
   }
@@ -55,12 +52,8 @@ function controller(Alert, GroupCallPickupService, Route) {
   }
 
   function open(group) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'callPickup',
-      'group'
-    ).search({ name: group.name })
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPickup', 'group').search({
+      name: group.name
+    })
   }
 }

@@ -4,20 +4,10 @@
       <pbs-input-file on-upload="$ctrl.upload(file)" required></pbs-input-file>
     </pbs-form-field>
     <pbs-form-field label="File Name" ng-show="$ctrl.announcement.content">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.announcement.name"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.announcement.name" required />
     </pbs-form-field>
     <pbs-form-field label="Description" ng-show="$ctrl.announcement.content">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.announcement.description"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.announcement.description" required />
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

@@ -83,12 +83,9 @@ function controller(
       serviceProviderId: ctrl.serviceProviderId,
       groupId: ctrl.groupId
     }
-    params[ctrl.type] =
-      ctrl.type === 'dn' ? ctrl.filter : '*' + ctrl.filter + '*'
+    params[ctrl.type] = ctrl.type === 'dn' ? ctrl.filter : '*' + ctrl.filter + '*'
     if (!ctrl.serviceProviderId && !params.dn) {
-      Alert.notify.warning(
-        'You must select a Service Provider for non Phone Number searches'
-      )
+      Alert.notify.warning('You must select a Service Provider for non Phone Number searches')
       return
     }
     ctrl.users = null
@@ -119,21 +116,11 @@ function controller(
     if (path === 'users') {
       Route.open('users', user.serviceProviderId, user.groupId, user.userId)
     } else if (path === 'autoAttendants') {
-      Route.open(
-        'groups',
-        user.serviceProviderId,
-        user.groupId,
-        path,
-        'autoAttendant'
-      ).search({ serviceUserId: user.userId })
+      Route.open('groups', user.serviceProviderId, user.groupId, path, 'autoAttendant').search({
+        serviceUserId: user.userId
+      })
     } else {
-      Route.open(
-        'groups',
-        user.serviceProviderId,
-        user.groupId,
-        path,
-        user.userId
-      )
+      Route.open('groups', user.serviceProviderId, user.groupId, path, user.userId)
     }
   }
 

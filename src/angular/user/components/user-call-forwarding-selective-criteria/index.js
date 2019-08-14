@@ -8,18 +8,8 @@ angular.module('odin.user').component('userCallForwardingSelectiveCriteria', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  '$q',
-  'Alert',
-  'UserCallForwardingSelectiveCriteriaService',
-  'Module'
-]
-function controller(
-  $q,
-  Alert,
-  UserCallForwardingSelectiveCriteriaService,
-  Module
-) {
+controller.$inject = ['$q', 'Alert', 'UserCallForwardingSelectiveCriteriaService', 'Module']
+function controller($q, Alert, UserCallForwardingSelectiveCriteriaService, Module) {
   var ctrl = this
 
   ctrl.$onInit = onInit
@@ -44,18 +34,13 @@ function controller(
   }
 
   function loadCriterias() {
-    return UserCallForwardingSelectiveCriteriaService.index(ctrl.userId).then(
-      function(data) {
-        ctrl.criterias = data
-      }
-    )
+    return UserCallForwardingSelectiveCriteriaService.index(ctrl.userId).then(function(data) {
+      ctrl.criterias = data
+    })
   }
 
   function loadCriteria(criteria) {
-    return UserCallForwardingSelectiveCriteriaService.show(
-      ctrl.userId,
-      criteria.criteriaName
-    )
+    return UserCallForwardingSelectiveCriteriaService.show(ctrl.userId, criteria.criteriaName)
   }
 
   function add() {
@@ -66,9 +51,7 @@ function controller(
         fromDnCriteriaSelection: 'Any'
       }
     }
-    Alert.modal.open('editUserCallForwardingSelectiveCriteria', function(
-      close
-    ) {
+    Alert.modal.open('editUserCallForwardingSelectiveCriteria', function(close) {
       create(ctrl.editCriteria, close)
     })
   }
@@ -87,11 +70,9 @@ function controller(
             update(ctrl.editCriteria, close)
           },
           function(close) {
-            Alert.confirm
-              .open('Are you sure you want to delete this Criteria?')
-              .then(function() {
-                destroy(ctrl.editCriteria, close)
-              })
+            Alert.confirm.open('Are you sure you want to delete this Criteria?').then(function() {
+              destroy(ctrl.editCriteria, close)
+            })
           }
         )
       })
@@ -115,11 +96,7 @@ function controller(
 
   function update(criteria, callback) {
     Alert.spinner.open()
-    UserCallForwardingSelectiveCriteriaService.update(
-      ctrl.userId,
-      criteria.criteriaName,
-      criteria
-    )
+    UserCallForwardingSelectiveCriteriaService.update(ctrl.userId, criteria.criteriaName, criteria)
       .then(loadCriterias)
       .then(ctrl.parent.reload)
       .then(function() {
@@ -146,10 +123,7 @@ function controller(
 
   function destroy(criteria, callback) {
     Alert.spinner.open()
-    UserCallForwardingSelectiveCriteriaService.destroy(
-      ctrl.userId,
-      criteria.criteriaName
-    )
+    UserCallForwardingSelectiveCriteriaService.destroy(ctrl.userId, criteria.criteriaName)
       .then(loadCriterias)
       .then(ctrl.parent.reload)
       .then(function() {

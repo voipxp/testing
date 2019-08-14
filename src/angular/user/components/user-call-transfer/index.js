@@ -16,10 +16,8 @@ function controller(Alert, UserCallTransferService, $q, Module) {
   ctrl.callTransfer = {}
   ctrl.options = UserCallTransferService.options
   ctrl.recallNumberOfRings = UserCallTransferService.options.recallNumberOfRings
-  ctrl.minBusyCampOnSeconds =
-    UserCallTransferService.options.minBusyCampOnSeconds
-  ctrl.maxBusyCampOnSeconds =
-    UserCallTransferService.options.maxBusyCampOnSeconds
+  ctrl.minBusyCampOnSeconds = UserCallTransferService.options.minBusyCampOnSeconds
+  ctrl.maxBusyCampOnSeconds = UserCallTransferService.options.maxBusyCampOnSeconds
 
   function onInit() {
     ctrl.loading = true

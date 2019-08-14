@@ -1,9 +1,7 @@
 import angular from 'angular'
 import get from 'lodash/get'
 
-angular
-  .module('odin.api')
-  .factory('GroupAutoAttendantService', GroupAutoAttendantService)
+angular.module('odin.api').factory('GroupAutoAttendantService', GroupAutoAttendantService)
 
 GroupAutoAttendantService.$inject = ['$http', 'Route']
 function GroupAutoAttendantService($http, Route) {
@@ -36,10 +34,7 @@ function GroupAutoAttendantService($http, Route) {
       'Repeat Menu',
       'Exit'
     ],
-    dialingEntries: [
-      'LastName + FirstName',
-      'LastName + FirstName or FirstName + LastName'
-    ],
+    dialingEntries: ['LastName + FirstName', 'LastName + FirstName or FirstName + LastName'],
     dialingScopes: ['Group', 'Department', 'Enterprise'],
     announcementSelections: ['Default', 'Personal'],
     mediaTypes: ['WMA', 'WAV', '3GP', 'MOV']
@@ -63,11 +58,9 @@ function GroupAutoAttendantService($http, Route) {
   }
 
   function status(aa) {
-    return $http
-      .put(url('status'), { instances: [aa] })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.put(url('status'), { instances: [aa] }).then(function(response) {
+      return response.data
+    })
   }
 
   function show(serviceUserId) {

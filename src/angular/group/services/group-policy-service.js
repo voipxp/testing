@@ -57,18 +57,11 @@ function Service(AuthService, Session, ACL, $q) {
   }
 
   function accessDeviceAssociationRead() {
-    return checkAccess('accessDeviceAccess', [
-      'Full',
-      'Associate User With Device',
-      'Read-Only'
-    ])
+    return checkAccess('accessDeviceAccess', ['Full', 'Associate User With Device', 'Read-Only'])
   }
 
   function accessDeviceAssociationUpdate() {
-    return checkAccess('accessDeviceAccess', [
-      'Full',
-      'Associate User With Device'
-    ])
+    return checkAccess('accessDeviceAccess', ['Full', 'Associate User With Device'])
   }
 
   function accessDeviceCreate() {
@@ -76,11 +69,7 @@ function Service(AuthService, Session, ACL, $q) {
   }
 
   function accessDeviceRead() {
-    return checkAccess('accessDeviceAccess', [
-      'Full',
-      'Associate User With Device',
-      'Read-Only'
-    ])
+    return checkAccess('accessDeviceAccess', ['Full', 'Associate User With Device', 'Read-Only'])
   }
 
   function accessDeviceUpdate() {
@@ -204,11 +193,7 @@ function Service(AuthService, Session, ACL, $q) {
   }
 
   function trunkGroupRead() {
-    return checkAccess('trunkGroupAccess', [
-      'Full',
-      'Full Resources',
-      'Read-Only Resources'
-    ])
+    return checkAccess('trunkGroupAccess', ['Full', 'Full Resources', 'Read-Only Resources'])
   }
 
   function trunkGroupUpdate() {
@@ -220,11 +205,7 @@ function Service(AuthService, Session, ACL, $q) {
   }
 
   function userProfileRead() {
-    return checkAccess('userAccess', [
-      'Full',
-      'Full Profile',
-      'Read-Only Profile'
-    ])
+    return checkAccess('userAccess', ['Full', 'Full Profile', 'Read-Only Profile'])
   }
 
   function userProfileUpdate() {
@@ -232,12 +213,7 @@ function Service(AuthService, Session, ACL, $q) {
   }
 
   function userRead() {
-    return checkAccess('userAccess', [
-      'Full',
-      'Full Profile',
-      'Read-Only Profile',
-      'No Profile'
-    ])
+    return checkAccess('userAccess', ['Full', 'Full Profile', 'Read-Only Profile', 'No Profile'])
   }
 
   function userUpdate() {

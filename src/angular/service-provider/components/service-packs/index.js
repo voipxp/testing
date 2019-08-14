@@ -47,29 +47,23 @@ function controller(
   }
 
   function loadServicePacks() {
-    return ServiceProviderServicePackService.index(
-      ctrl.serviceProviderId,
-      true
-    ).then(function(data) {
+    return ServiceProviderServicePackService.index(ctrl.serviceProviderId, true).then(function(
+      data
+    ) {
       ctrl.servicePacks = data
     })
   }
 
   function loadServices() {
-    return ServiceProviderServiceService.show(ctrl.serviceProviderId).then(
-      function(data) {
-        ctrl.services = data.userServices || []
-      }
-    )
+    return ServiceProviderServiceService.show(ctrl.serviceProviderId).then(function(data) {
+      ctrl.services = data.userServices || []
+    })
   }
 
   function open(servicePackName) {
-    Route.open(
-      'serviceProviders',
-      ctrl.serviceProviderId,
-      'servicePacks',
-      'servicePack'
-    ).search({ servicePackName })
+    Route.open('serviceProviders', ctrl.serviceProviderId, 'servicePacks', 'servicePack').search({
+      servicePackName
+    })
   }
 
   function add() {

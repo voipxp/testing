@@ -52,12 +52,10 @@ function controller(EventEmitter, GroupDomainService, Alert) {
   }
 
   function loadDomains() {
-    return GroupDomainService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.domains = data
-        return data
-      }
-    )
+    return GroupDomainService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      ctrl.domains = data
+      return data
+    })
   }
 
   function complete() {

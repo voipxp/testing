@@ -1,11 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Service Instance Profile">
     <pbs-block-buttons>
-      <pbs-button-compact-edit
-        title="Edit Profile"
-        ng-click="$ctrl.edit()"
-        ng-if="!$ctrl.readOnly"
-      >
+      <pbs-button-compact-edit title="Edit Profile" ng-click="$ctrl.edit()" ng-if="!$ctrl.readOnly">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -42,18 +38,10 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editServiceInstanceProfile"
-  title="Edit Profile: {{ $ctrl.serviceUserId }}"
->
+<pbs-modal id="editServiceInstanceProfile" title="Edit Profile: {{ $ctrl.serviceUserId }}">
   <pbs-form>
     <pbs-form-field-horizontal label="Service Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editProfile.name"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editProfile.name" required />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="CLID Last Name">
       <input
@@ -92,11 +80,7 @@
       ></pbs-input-password>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Public Identity">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editProfile.publicUserIdentity"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editProfile.publicUserIdentity" />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Department">
       <pbs-input-select

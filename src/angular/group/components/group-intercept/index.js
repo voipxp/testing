@@ -26,10 +26,7 @@ function controller(Alert, GroupInterceptService) {
   }
 
   function load() {
-    return GroupInterceptService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupInterceptService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.settings = data
       if (ctrl.settings.allowOutboundLocalCalls === true)
         ctrl.outboundCallOption = 'Allow Outbound Local Calls'

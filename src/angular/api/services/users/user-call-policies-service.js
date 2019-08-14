@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserCallPoliciesService', UserCallPoliciesService)
+angular.module('odin.api').factory('UserCallPoliciesService', UserCallPoliciesService)
 
 UserCallPoliciesService.$inject = ['$http', 'Route']
 function UserCallPoliciesService($http, Route) {
@@ -14,11 +12,7 @@ function UserCallPoliciesService($http, Route) {
       'Privacy For External Calls',
       'Privacy For All Calls'
     ],
-    callBeingForwardedResponseCallType: [
-      'Never',
-      'Internal Calls',
-      'All Calls'
-    ],
+    callBeingForwardedResponseCallType: ['Never', 'Internal Calls', 'All Calls'],
     callingLineIdentityForRedirectedCalls: [
       'Originating Identity',
       'Redirecting User Identity For External Redirections',
@@ -28,11 +22,9 @@ function UserCallPoliciesService($http, Route) {
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(policies) {

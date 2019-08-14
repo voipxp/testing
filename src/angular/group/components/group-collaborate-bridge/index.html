@@ -4,10 +4,7 @@
   service-userId="$ctrl.serviceUserId"
   module="$ctrl.module"
 >
-  <pbs-breadcrumb
-    title="'Collaborate'"
-    ng-click="$ctrl.back()"
-  ></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Collaborate'" ng-click="$ctrl.back()"></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.serviceUserId"></pbs-breadcrumb>
 </pbs-navigation>
 
@@ -24,9 +21,7 @@
             {{ $ctrl.bridge.maxCollaborateRoomParticipants }}
           </pbs-list-item>
           <pbs-list-item label="Support Outdial">
-            <pbs-check-box
-              checked="$ctrl.bridge.supportOutdial"
-            ></pbs-check-box>
+            <pbs-check-box checked="$ctrl.bridge.supportOutdial"></pbs-check-box>
           </pbs-list-item>
           <pbs-list-item label="Max Bridge Participants">
             {{ $ctrl.bridge.maximumBridgeParticipants === -1 ? 'Unlimited' :
@@ -76,11 +71,7 @@
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal label="Allocated Ports*">
-      <input
-        type="number"
-        class="input"
-        ng-model="$ctrl.editBridge.maximumBridgeParticipants"
-      />
+      <input type="number" class="input" ng-model="$ctrl.editBridge.maximumBridgeParticipants" />
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

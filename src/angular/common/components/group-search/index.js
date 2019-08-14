@@ -6,13 +6,7 @@ angular.module('odin.common').component('groupSearch', {
   controller
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupSearchService',
-  'HashService',
-  'Route',
-  '$rootScope'
-]
+controller.$inject = ['Alert', 'GroupSearchService', 'HashService', 'Route', '$rootScope']
 function controller(Alert, GroupSearchService, HashService, Route, $rootScope) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -21,10 +15,7 @@ function controller(Alert, GroupSearchService, HashService, Route, $rootScope) {
   ctrl.onPagination = onPagination
   ctrl.select = select
 
-  ctrl.types = [
-    { key: 'groupName', name: 'Group Name' },
-    { key: 'groupId', name: 'Group ID' }
-  ]
+  ctrl.types = [{ key: 'groupName', name: 'Group Name' }, { key: 'groupId', name: 'Group ID' }]
 
   function onPagination(event) {
     ctrl.pager = event.pager
@@ -58,11 +49,7 @@ function controller(Alert, GroupSearchService, HashService, Route, $rootScope) {
     Alert.modal.close(ctrl.modalId)
     ctrl.filter = null
     ctrl.groups = null
-    Route.open(
-      'groups',
-      group.serviceProviderId || group.organizationId,
-      group.groupId
-    )
+    Route.open('groups', group.serviceProviderId || group.organizationId, group.groupId)
   }
 
   $rootScope.$on('groupSearch:load', function(event, data) {

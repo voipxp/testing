@@ -20,9 +20,7 @@
         Password
         <strong>expired</strong> {{ $ctrl.expiration }} days ago
       </span>
-      <span
-        ng-show="$ctrl.expiration > 0 && $ctrl.expiration !== $ctrl.neverExpires"
-      >
+      <span ng-show="$ctrl.expiration > 0 && $ctrl.expiration !== $ctrl.neverExpires">
         Password expires in
         <strong>{{ $ctrl.expiration }}</strong> days
       </span>
@@ -32,12 +30,7 @@
 <pbs-modal id="changeMyPassword" title="Change Password">
   <pbs-form name="changeMyPasswordForm">
     <pbs-form-field-horizontal label="Current Password">
-      <input
-        type="password"
-        class="input"
-        ng-model="$ctrl.oldPassword"
-        required
-      />
+      <input type="password" class="input" ng-model="$ctrl.oldPassword" required />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="New Password">
       <pbs-input-password

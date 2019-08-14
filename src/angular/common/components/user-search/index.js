@@ -7,13 +7,7 @@ angular.module('odin.common').component('userSearch', {
   controller
 })
 
-controller.$inject = [
-  'Alert',
-  'UserSearchService',
-  'HashService',
-  'Route',
-  '$rootScope'
-]
+controller.$inject = ['Alert', 'UserSearchService', 'HashService', 'Route', '$rootScope']
 function controller(Alert, UserSearchService, HashService, Route, $rootScope) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -55,8 +49,7 @@ function controller(Alert, UserSearchService, HashService, Route, $rootScope) {
       serviceProviderId: ctrl.serviceProviderId,
       groupId: ctrl.groupId
     }
-    params[ctrl.type] =
-      ctrl.type === 'macAddress' ? ctrl.filter : '*' + ctrl.filter + '*'
+    params[ctrl.type] = ctrl.type === 'macAddress' ? ctrl.filter : '*' + ctrl.filter + '*'
     UserSearchService.index(params)
       .then(function(data) {
         ctrl.users = data

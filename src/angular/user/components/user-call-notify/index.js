@@ -72,8 +72,6 @@ function controller(Alert, UserCallNotifyService, Module, $q) {
         }
       ]
     }
-    return UserCallNotifyService.update(ctrl.userId, activation).then(
-      loadSettings
-    )
+    return UserCallNotifyService.update(ctrl.userId, activation).then(loadSettings)
   }
 }

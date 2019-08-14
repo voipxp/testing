@@ -1,7 +1,4 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Calling Line ID Delivery Blocking'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
@@ -25,10 +22,7 @@
     ></pbs-data-table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editUserCallingLineIdDeliveryBlocking"
-  title="Edit {{ $ctrl.editTitle }}"
->
+<pbs-modal id="editUserCallingLineIdDeliveryBlocking" title="Edit {{ $ctrl.editTitle }}">
   <pbs-form>
     <pbs-input-checkbox
       ng-model="$ctrl.editSettings.isActive"

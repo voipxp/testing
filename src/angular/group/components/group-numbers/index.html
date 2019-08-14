@@ -1,7 +1,4 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Numbers'"></pbs-breadcrumb>
 </pbs-navigation>
 
@@ -24,10 +21,7 @@
     </pbs-block-buttons>
     <pbs-columns>
       <pbs-column>
-        <pbs-table-search
-          ng-model="$ctrl.search"
-          style="margin-bottom: 0"
-        ></pbs-table-search>
+        <pbs-table-search ng-model="$ctrl.search" style="margin-bottom: 0"></pbs-table-search>
       </pbs-column>
       <pbs-column class="is-narrow">
         <div class="buttons has-addons is-centered">
@@ -101,17 +95,10 @@
       <br />
       2345678900<br />
       2345678905 - 2345678909<br /><br />
-      <b
-        >Use E164 format to specify country code different from default.<br
-      /></b>
+      <b>Use E164 format to specify country code different from default.<br /></b>
       +1-2345678900<br />
       +1-2345678905 - +1-2345678909<br />
     </pbs-form-field>
-    <textarea
-      class="textarea"
-      rows="15"
-      ng-model="$ctrl.bulkNumbers"
-      required
-    />
+    <textarea class="textarea" rows="15" ng-model="$ctrl.bulkNumbers" required />
   </form>
 </pbs-modal>

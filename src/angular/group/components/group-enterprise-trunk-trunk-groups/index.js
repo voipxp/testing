@@ -8,16 +8,8 @@ angular.module('odin.group').component('groupEnterpriseTrunkTrunkGroups', {
   require: { parent: '^groupEnterpriseTrunk' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupEnterpriseTrunkAvailableTrunkGroupService',
-  '$scope'
-]
-function controller(
-  Alert,
-  GroupEnterpriseTrunkAvailableTrunkGroupService,
-  $scope
-) {
+controller.$inject = ['Alert', 'GroupEnterpriseTrunkAvailableTrunkGroupService', '$scope']
+function controller(Alert, GroupEnterpriseTrunkAvailableTrunkGroupService, $scope) {
   var ctrl = this
   ctrl.edit = edit
   ctrl.addTrunk = addTrunk
@@ -48,9 +40,7 @@ function controller(
     Alert.spinner.open()
     loadAvailableTrunks()
       .then(function() {
-        Alert.modal.open('editGroupEnterpriseTrunkTrunkGroups', function onSave(
-          close
-        ) {
+        Alert.modal.open('editGroupEnterpriseTrunkTrunkGroups', function onSave(close) {
           var editTrunk = angular.copy(ctrl.parent.trunk)
           editTrunk.trunkGroups = ctrl.assignedTrunks
           ctrl.parent.update(editTrunk, close)

@@ -1,15 +1,11 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('EnterpriseEnterpriseTrunkAvailableTrunkGroupService', Service)
+angular.module('odin.api').factory('EnterpriseEnterpriseTrunkAvailableTrunkGroupService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
   var service = { index: index }
-  var url = Route.api(
-    '/service-providers/enterprise-trunks/available-trunk-groups'
-  )
+  var url = Route.api('/service-providers/enterprise-trunks/available-trunk-groups')
   return service
 
   function index(serviceProviderId) {

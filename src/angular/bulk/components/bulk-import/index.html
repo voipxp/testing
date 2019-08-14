@@ -7,12 +7,7 @@
   <pbs-spinner loading="$ctrl.loading">
     <pbs-columns>
       <pbs-column>
-        <input
-          type="search"
-          placeholder="search"
-          class="input"
-          ng-model="$ctrl.search"
-        />
+        <input type="search" placeholder="search" class="input" ng-model="$ctrl.search" />
       </pbs-column>
       <pbs-column>
         <div class="has-text-right">
@@ -20,10 +15,7 @@
             text="Download CSV"
             ng-click="$ctrl.download()"
           ></pbs-button-download>
-          <pbs-button-save
-            text="Submit Task"
-            ng-click="$ctrl.submit()"
-          ></pbs-button-save>
+          <pbs-button-save text="Submit Task" ng-click="$ctrl.submit()"></pbs-button-save>
         </div>
       </pbs-column>
     </pbs-columns>

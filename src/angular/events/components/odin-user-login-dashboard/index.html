@@ -9,9 +9,7 @@
           ng-click="$ctrl.resetDate()"
           ng-show="$ctrl.search.label"
         ></pbs-button-compact-cancel>
-        <pbs-button-compact-search
-          ng-click="$ctrl.searchDate()"
-        ></pbs-button-compact-search>
+        <pbs-button-compact-search ng-click="$ctrl.searchDate()"></pbs-button-compact-search>
       </div>
     </span>
   </header>
@@ -81,19 +79,13 @@
     <pbs-columns>
       <pbs-column>
         <pbs-form-field label="Start Time">
-          <pbs-input-datetime-parse
-            ng-model="$ctrl.editSearch.startTime"
-            ng-required="true"
-          >
+          <pbs-input-datetime-parse ng-model="$ctrl.editSearch.startTime" ng-required="true">
           </pbs-input-datetime-parse>
         </pbs-form-field>
       </pbs-column>
       <pbs-column>
         <pbs-form-field label="End Time">
-          <pbs-input-datetime-parse
-            ng-model="$ctrl.editSearch.endTime"
-            ng-required="true"
-          >
+          <pbs-input-datetime-parse ng-model="$ctrl.editSearch.endTime" ng-required="true">
           </pbs-input-datetime-parse>
         </pbs-form-field>
       </pbs-column>

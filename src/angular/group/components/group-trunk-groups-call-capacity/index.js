@@ -46,13 +46,12 @@ function controller(Alert, GroupTrunkGroupCallCapacityService, ACL) {
   }
 
   function loadCallCapacity() {
-    return GroupTrunkGroupCallCapacityService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
-      ctrl.settings = data
-      return data
-    })
+    return GroupTrunkGroupCallCapacityService.show(ctrl.serviceProviderId, ctrl.groupId).then(
+      function(data) {
+        ctrl.settings = data
+        return data
+      }
+    )
   }
 
   function edit() {
@@ -64,11 +63,7 @@ function controller(Alert, GroupTrunkGroupCallCapacityService, ACL) {
 
   function update(settings, callback) {
     Alert.spinner.open()
-    GroupTrunkGroupCallCapacityService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      settings
-    )
+    GroupTrunkGroupCallCapacityService.update(ctrl.serviceProviderId, ctrl.groupId, settings)
       .then(loadCallCapacity)
       .then(function() {
         Alert.notify.success('Call Capacity Updated')

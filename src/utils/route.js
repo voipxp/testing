@@ -33,9 +33,9 @@ const userPath = (user, type) => {
   if (path === 'users') {
     return `/users/${user.serviceProviderId}/${user.groupId}/${user.userId}`
   } else {
-    return `/groups/${user.serviceProviderId}/${
-      user.groupId
-    }/${path}?${stringify({ serviceUserId: user.userId })}`
+    return `/groups/${user.serviceProviderId}/${user.groupId}/${path}?${stringify({
+      serviceUserId: user.userId
+    })}`
   }
 }
 

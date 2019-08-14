@@ -13,10 +13,8 @@ function controller(GroupServiceService) {
   ctrl.$onInit = onInit
 
   function onInit() {
-    GroupServiceService.available(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(assigned) {
-        ctrl.hasCallMeNow = assigned['Call Me Now']
-      }
-    )
+    GroupServiceService.available(ctrl.serviceProviderId, ctrl.groupId).then(function(assigned) {
+      ctrl.hasCallMeNow = assigned['Call Me Now']
+    })
   }
 }

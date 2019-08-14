@@ -39,15 +39,11 @@ function controller(Alert, $filter, UserServiceService) {
     UserServiceService.update(singleService)
       .then(() => {
         const message = editService.assigned ? 'Assigned' : 'Unassigned'
-        const action = editService.assigned
-          ? Alert.notify.success
-          : Alert.notify.warning
+        const action = editService.assigned ? Alert.notify.success : Alert.notify.warning
         action(`${editService.servicePackName} ${message}`)
       })
       .then(onInit)
       .catch(Alert.notify.danger)
-      .finally(
-        () => (ctrl.loadingServices[editService.servicePackName] = false)
-      )
+      .finally(() => (ctrl.loadingServices[editService.servicePackName] = false))
   }
 }

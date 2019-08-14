@@ -57,13 +57,9 @@ export const UserRegistration = ({ match }) => {
           <UiListItem label="Expiration">{form.expiration}</UiListItem>
           <UiListItem label="URI">{form.uRI}</UiListItem>
           <UiListItem label="User Agent">{form.userAgent}</UiListItem>
-          <UiListItem label="Public Net Address">
-            {form.publicNetAddress}
-          </UiListItem>
+          <UiListItem label="Public Net Address">{form.publicNetAddress}</UiListItem>
           <UiListItem label="Public Port">{form.publicPort}</UiListItem>
-          <UiListItem label="Private Net Address">
-            {form.privateNetAddress}
-          </UiListItem>
+          <UiListItem label="Private Net Address">{form.privateNetAddress}</UiListItem>
           <UiListItem label="Private Port">{form.privatePort}</UiListItem>
           <UiListItem label="Lockout Started">{form.lockoutStarted}</UiListItem>
           <UiListItem label="Lockout Expires">{form.lockoutExpires}</UiListItem>

@@ -28,9 +28,9 @@ function controller(Alert, ServiceProviderMeetMeConferencingPortsService) {
   }
 
   function loadPorts() {
-    return ServiceProviderMeetMeConferencingPortsService.show(
-      ctrl.serviceProviderId
-    ).then(function(data) {
+    return ServiceProviderMeetMeConferencingPortsService.show(ctrl.serviceProviderId).then(function(
+      data
+    ) {
       ctrl.ports = data
       return data
     })

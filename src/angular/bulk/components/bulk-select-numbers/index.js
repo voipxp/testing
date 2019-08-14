@@ -17,12 +17,7 @@ angular.module('odin.bulk').component('bulkSelectNumbers', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupExtensionService',
-  '$scope',
-  'EventEmitter'
-]
+controller.$inject = ['Alert', 'GroupExtensionService', '$scope', 'EventEmitter']
 function controller(Alert, GroupExtensionService, $scope, EventEmitter) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -58,10 +53,7 @@ function controller(Alert, GroupExtensionService, $scope, EventEmitter) {
   }
 
   function loadExtensions() {
-    return GroupExtensionService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupExtensionService.show(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       var min = data.minExtensionLength
       var max = data.maxExtensionLength
       var def = data.defaultExtensionLength
@@ -108,9 +100,7 @@ function controller(Alert, GroupExtensionService, $scope, EventEmitter) {
   }
 
   function canComplete() {
-    return ctrl.phoneNumberAction === 'select'
-      ? ctrl.phoneNumbers.length > 0
-      : true
+    return ctrl.phoneNumberAction === 'select' ? ctrl.phoneNumbers.length > 0 : true
   }
 
   function complete() {

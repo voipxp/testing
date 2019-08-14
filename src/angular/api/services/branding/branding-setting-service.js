@@ -1,9 +1,7 @@
 import angular from 'angular'
 import isEmpty from 'lodash/isEmpty'
 
-angular
-  .module('odin.api')
-  .factory('BrandingSettingService', BrandingSettingService)
+angular.module('odin.api').factory('BrandingSettingService', BrandingSettingService)
 
 BrandingSettingService.$inject = ['$http', 'Route', '$rootScope']
 function BrandingSettingService($http, Route, $rootScope) {

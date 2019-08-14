@@ -2,16 +2,9 @@ import angular from 'angular'
 import template from './index.html'
 import Sugar from 'sugar-date'
 
-angular
-  .module('odin.system')
-  .component('systemDnSummary', { template, controller })
+angular.module('odin.system').component('systemDnSummary', { template, controller })
 
-controller.$inject = [
-  'Alert',
-  'SystemDnService',
-  'CsvService',
-  'DownloadService'
-]
+controller.$inject = ['Alert', 'SystemDnService', 'CsvService', 'DownloadService']
 function controller(Alert, SystemDnService, CsvService, DownloadService) {
   var ctrl = this
 

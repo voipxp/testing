@@ -51,11 +51,9 @@ function controller(Alert, VdmDeviceTypeService, $scope) {
         update(ctrl.editDevice, close)
       },
       function(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this deviceType?')
-          .then(function() {
-            destroy(ctrl.editDevice, close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this deviceType?').then(function() {
+          destroy(ctrl.editDevice, close)
+        })
       }
     )
   }

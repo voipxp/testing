@@ -4,10 +4,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Details">
     <pbs-block-buttons>
-      <pbs-button-compact-edit
-        title="Edit System Collaborate"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit System Collaborate" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -21,9 +18,7 @@
         {{ $ctrl.collaborate.collaborateRoomMaximumDurationMinutes }}
       </pbs-list-item>
       <pbs-list-item label="Support Outdial">
-        <pbs-check-box
-          checked="$ctrl.collaborate.supportOutdial"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.collaborate.supportOutdial"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Max Room Participants">
         {{ $ctrl.collaborate.maxCollaborateRoomParticipants }}
@@ -135,11 +130,7 @@
       ></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="From Address">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editCollaborate.collaborateFromAddress"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editCollaborate.collaborateFromAddress" />
     </pbs-form-field>
   </form>
 </pbs-modal>

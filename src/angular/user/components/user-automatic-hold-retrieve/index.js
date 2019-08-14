@@ -8,12 +8,7 @@ angular.module('odin.user').component('userAutomaticHoldRetrieve', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  '$q',
-  'Alert',
-  'UserAutomaticHoldRetrieveService',
-  'Module'
-]
+controller.$inject = ['$q', 'Alert', 'UserAutomaticHoldRetrieveService', 'Module']
 function controller($q, Alert, UserAutomaticHoldRetrieveService, Module) {
   var ctrl = this
 
@@ -33,9 +28,7 @@ function controller($q, Alert, UserAutomaticHoldRetrieveService, Module) {
   }
 
   function loadSettings() {
-    return UserAutomaticHoldRetrieveService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserAutomaticHoldRetrieveService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }

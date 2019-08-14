@@ -3,9 +3,7 @@
     <pbs-button-compact-add ng-click="$ctrl.add()"></pbs-button-compact-add>
   </pbs-block-buttons>
   <div>
-    <pbs-form-section
-      >Would you like to assign all users to a Department?</pbs-form-section
-    >
+    <pbs-form-section>Would you like to assign all users to a Department?</pbs-form-section>
     <select-department
       service-provider-id="$ctrl.serviceProviderId"
       group-id="$ctrl.groupId"
@@ -19,12 +17,7 @@
 <pbs-modal id="groupDepartmentCreateModal" title="Create a Department">
   <pbs-form>
     <pbs-form-field-horizontal label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.newDepartment.name"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.newDepartment.name" required />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Parent">
       <pbs-input-select

@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('BrandingModuleService', BrandingModuleService)
+angular.module('odin.api').factory('BrandingModuleService', BrandingModuleService)
 
 BrandingModuleService.$inject = ['$http', 'Route', '$rootScope']
 function BrandingModuleService($http, Route, $rootScope) {
@@ -11,15 +9,11 @@ function BrandingModuleService($http, Route, $rootScope) {
   return service
 
   function index(hostnameId) {
-    return $http
-      .get(url(), { params: { hostnameId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { hostnameId } }).then(response => response.data)
   }
 
   function show(hostnameId, id) {
-    return $http
-      .get(url(), { params: { hostnameId, id } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { hostnameId, id } }).then(response => response.data)
   }
 
   function update(module) {

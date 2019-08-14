@@ -62,15 +62,11 @@ function Service($http, Route) {
   }
 
   function status(callcenter) {
-    return $http
-      .put(url('status'), { instances: [callcenter] })
-      .then(response => response.data)
+    return $http.put(url('status'), { instances: [callcenter] }).then(response => response.data)
   }
 
   function show(serviceUserId) {
-    return $http
-      .get(url(), { params: { serviceUserId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { serviceUserId } }).then(response => response.data)
   }
 
   function update(serviceUserId, object) {
@@ -78,9 +74,7 @@ function Service($http, Route) {
   }
 
   function destroy(serviceUserId) {
-    return $http
-      .delete(url(), { params: { serviceUserId } })
-      .then(response => response.data)
+    return $http.delete(url(), { params: { serviceUserId } }).then(response => response.data)
   }
 
   function hasPermission(service, attribute) {

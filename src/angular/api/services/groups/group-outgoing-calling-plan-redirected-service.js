@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupOutgoingCallingPlanRedirectedService', Service)
+angular.module('odin.api').factory('GroupOutgoingCallingPlanRedirectedService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {

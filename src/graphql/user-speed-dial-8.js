@@ -83,9 +83,7 @@ export const useUserSpeedDial8Bulk = (serviceProviderId, groupId) => {
 
 export const useUserSpeedDial8Update = userId => {
   return useMutation(USER_SPEED_DIAL_8_MUTATION, {
-    refetchQueries: [
-      { query: USER_SERVICES_ASSIGNED_QUERY, variables: { userId } }
-    ]
+    refetchQueries: [{ query: USER_SERVICES_ASSIGNED_QUERY, variables: { userId } }]
   })
 }
 

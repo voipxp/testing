@@ -80,12 +80,7 @@ function controller(
 
   function update(file, callback) {
     Alert.spinner.open()
-    GroupDeviceFileService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.deviceName,
-      file
-    )
+    GroupDeviceFileService.update(ctrl.serviceProviderId, ctrl.groupId, ctrl.deviceName, file)
       .then(function() {
         Alert.notify.success('File Updated')
         callback()

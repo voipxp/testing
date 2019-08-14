@@ -47,11 +47,9 @@ function controller(Alert, UserCallRecordsService, EventEmitter) {
   }
 
   function loadStats() {
-    return UserCallRecordsService.stats(
-      ctrl.userId,
-      ctrl.startTime,
-      ctrl.endTime
-    ).then(function(data) {
+    return UserCallRecordsService.stats(ctrl.userId, ctrl.startTime, ctrl.endTime).then(function(
+      data
+    ) {
       ctrl.options = { legend: { display: true, position: 'right' } }
       ctrl.stats = _.get(data, 'total')
         ? data
@@ -66,26 +64,10 @@ function controller(Alert, UserCallRecordsService, EventEmitter) {
           }
       ctrl.colors = ['#97BBCD', '#DCDCDC', '#46BFBD', '#949FB1']
       ctrl.labels = [
-        generateLabel(
-          'Placed Answered',
-          ctrl.stats.placedAnswered,
-          ctrl.stats.placedTotal
-        ),
-        generateLabel(
-          'Placed Missed',
-          ctrl.stats.placedMissed,
-          ctrl.stats.placedTotal
-        ),
-        generateLabel(
-          'Received Answered',
-          ctrl.stats.receivedAnswered,
-          ctrl.stats.receivedTotal
-        ),
-        generateLabel(
-          'Received Missed',
-          ctrl.stats.receivedMissed,
-          ctrl.stats.receivedTotal
-        )
+        generateLabel('Placed Answered', ctrl.stats.placedAnswered, ctrl.stats.placedTotal),
+        generateLabel('Placed Missed', ctrl.stats.placedMissed, ctrl.stats.placedTotal),
+        generateLabel('Received Answered', ctrl.stats.receivedAnswered, ctrl.stats.receivedTotal),
+        generateLabel('Received Missed', ctrl.stats.receivedMissed, ctrl.stats.receivedTotal)
       ]
       ctrl.data = [
         ctrl.stats.placedAnswered,

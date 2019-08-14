@@ -16,10 +16,8 @@ function controller(GroupServiceService, Module) {
     Module.show('Outgoing Calling Plan').then(function(module) {
       ctrl.module = module
     })
-    GroupServiceService.available(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(assigned) {
-        ctrl.hasCallMeNow = assigned['Call Me Now']
-      }
-    )
+    GroupServiceService.available(ctrl.serviceProviderId, ctrl.groupId).then(function(assigned) {
+      ctrl.hasCallMeNow = assigned['Call Me Now']
+    })
   }
 }

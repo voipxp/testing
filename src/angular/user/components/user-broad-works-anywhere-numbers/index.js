@@ -17,9 +17,7 @@ function controller(Alert, UserBroadWorksAnywherePhoneNumberService) {
   function add() {
     if (!ctrl.parent.module.permissions.create) return
     ctrl.editNumber = { userId: ctrl.userId }
-    Alert.modal.open('editUserBroadworksAnywherePhoneNumber', function onSave(
-      close
-    ) {
+    Alert.modal.open('editUserBroadworksAnywherePhoneNumber', function onSave(close) {
       ctrl.editNumber.phoneNumber = ctrl.editNumber.newPhoneNumber
       create(ctrl.editNumber, close)
     })
@@ -35,22 +33,16 @@ function controller(Alert, UserBroadWorksAnywherePhoneNumberService) {
         update(ctrl.editNumber, close)
       },
       function onDelete(close) {
-        Alert.confirm
-          .open('Are you sure you want to delete this phone number?')
-          .then(function() {
-            destroy(number, close)
-          })
+        Alert.confirm.open('Are you sure you want to delete this phone number?').then(function() {
+          destroy(number, close)
+        })
       }
     )
   }
 
   function update(number, callback) {
     Alert.spinner.open()
-    UserBroadWorksAnywherePhoneNumberService.update(
-      ctrl.userId,
-      number.phoneNumber,
-      number
-    )
+    UserBroadWorksAnywherePhoneNumberService.update(ctrl.userId, number.phoneNumber, number)
       .then(function() {
         return ctrl.parent.reload()
       })
@@ -76,10 +68,7 @@ function controller(Alert, UserBroadWorksAnywherePhoneNumberService) {
 
   function destroy(number, callback) {
     Alert.spinner.open()
-    UserBroadWorksAnywherePhoneNumberService.destroy(
-      ctrl.userId,
-      number.phoneNumber
-    )
+    UserBroadWorksAnywherePhoneNumberService.destroy(ctrl.userId, number.phoneNumber)
       .then(ctrl.parent.reload)
       .then(function() {
         Alert.notify.success('Phone Number Deleted')

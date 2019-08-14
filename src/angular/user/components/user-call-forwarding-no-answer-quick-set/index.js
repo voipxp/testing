@@ -23,9 +23,7 @@ function controller(Alert, UserCallForwardingNoAnswerService, Route) {
   }
 
   function loadSettings() {
-    return UserCallForwardingNoAnswerService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserCallForwardingNoAnswerService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }

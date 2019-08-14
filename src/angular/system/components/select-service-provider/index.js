@@ -7,20 +7,8 @@ angular.module('odin.system').component('selectServiceProvider', {
   bindings: { onUpdate: '&' }
 })
 
-controller.$inject = [
-  'Alert',
-  'ServiceProviderService',
-  'EventEmitter',
-  'HashService',
-  '$scope'
-]
-function controller(
-  Alert,
-  ServiceProviderService,
-  EventEmitter,
-  HashService,
-  $scope
-) {
+controller.$inject = ['Alert', 'ServiceProviderService', 'EventEmitter', 'HashService', '$scope']
+function controller(Alert, ServiceProviderService, EventEmitter, HashService, $scope) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.select = select
@@ -49,9 +37,7 @@ function controller(
 
   function select(serviceProvider) {
     Alert.modal.close(ctrl.modalId)
-    ctrl.onUpdate(
-      EventEmitter({ serviceProviderId: serviceProvider.serviceProviderId })
-    )
+    ctrl.onUpdate(EventEmitter({ serviceProviderId: serviceProvider.serviceProviderId }))
   }
 
   $scope.$on('selectServiceProvider:load', function(event, data) {

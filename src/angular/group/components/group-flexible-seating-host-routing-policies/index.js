@@ -1,26 +1,20 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.group')
-  .component('groupFlexibleSeatingHostRoutingPolicies', {
-    template,
-    controller,
-    bindings: {
-      serviceProviderId: '<',
-      groupId: '<',
-      serviceUserId: '<',
-      readOnly: '<',
-      loading: '<',
-      onUpdate: '&'
-    }
-  })
+angular.module('odin.group').component('groupFlexibleSeatingHostRoutingPolicies', {
+  template,
+  controller,
+  bindings: {
+    serviceProviderId: '<',
+    groupId: '<',
+    serviceUserId: '<',
+    readOnly: '<',
+    loading: '<',
+    onUpdate: '&'
+  }
+})
 
-controller.$inject = [
-  'Alert',
-  '$q',
-  'GroupFlexibleSeatingHostRoutingPoliciesService'
-]
+controller.$inject = ['Alert', '$q', 'GroupFlexibleSeatingHostRoutingPoliciesService']
 function controller(Alert, $q, GroupFlexibleSeatingHostRoutingPoliciesService) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -50,9 +44,9 @@ function controller(Alert, $q, GroupFlexibleSeatingHostRoutingPoliciesService) {
   }
 
   function load() {
-    return GroupFlexibleSeatingHostRoutingPoliciesService.show(
-      ctrl.serviceUserId
-    ).then(function(data) {
+    return GroupFlexibleSeatingHostRoutingPoliciesService.show(ctrl.serviceUserId).then(function(
+      data
+    ) {
       ctrl.settings = data
       return data
     })

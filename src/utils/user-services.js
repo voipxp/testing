@@ -14,17 +14,12 @@ const isViewable = (serviceName, viewable = {}, loginType) => {
 
 const hasUserService = (service, assigned, viewable, loginType) => {
   const serviceName = service.serviceName || service.name || service
-  return (
-    isAssigned(serviceName, assigned) &&
-    isViewable(serviceName, viewable, loginType)
-  )
+  return isAssigned(serviceName, assigned) && isViewable(serviceName, viewable, loginType)
 }
 
 export const useUserServicePermissions = userId => {
   const { loginType } = useSession()
-  const { assigned, viewable, loading } = useUserServicesAssignedAndViewable(
-    userId
-  )
+  const { assigned, viewable, loading } = useUserServicesAssignedAndViewable(userId)
   return {
     loading,
     userViewableServices: useMemo(() => {

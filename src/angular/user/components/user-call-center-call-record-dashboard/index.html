@@ -9,9 +9,7 @@
           ng-click="$ctrl.search = {}"
           ng-show="$ctrl.search.label"
         ></pbs-button-compact-cancel>
-        <pbs-button-compact-search
-          ng-click="$ctrl.edit()"
-        ></pbs-button-compact-search>
+        <pbs-button-compact-search ng-click="$ctrl.edit()"></pbs-button-compact-search>
       </div>
     </span>
   </header>
@@ -81,28 +79,18 @@
   </pbs-tab>
 </pbs-tabs>
 
-<pbs-modal
-  id="callRecordSearchModal"
-  title="Search Call Records"
-  save-text="Generate"
->
+<pbs-modal id="callRecordSearchModal" title="Search Call Records" save-text="Generate">
   <pbs-form>
     <pbs-columns>
       <pbs-column>
         <pbs-form-field label="Start Time">
-          <pbs-input-datetime-parse
-            ng-model="$ctrl.editSearch.startTime"
-            ng-required="true"
-          >
+          <pbs-input-datetime-parse ng-model="$ctrl.editSearch.startTime" ng-required="true">
           </pbs-input-datetime-parse>
         </pbs-form-field>
       </pbs-column>
       <pbs-column>
         <pbs-form-field label="End Time">
-          <pbs-input-datetime-parse
-            ng-model="$ctrl.editSearch.endTime"
-            ng-required="true"
-          >
+          <pbs-input-datetime-parse ng-model="$ctrl.editSearch.endTime" ng-required="true">
           </pbs-input-datetime-parse>
         </pbs-form-field>
       </pbs-column>

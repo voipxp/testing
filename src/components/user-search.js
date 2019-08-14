@@ -49,8 +49,7 @@ export const UserSearch = ({ onSelect }) => {
     setLoading(true)
     setInitialized(true)
     try {
-      const query =
-        searchKey === 'macAddress' ? searchString : `*${searchString}*`
+      const query = searchKey === 'macAddress' ? searchString : `*${searchString}*`
       const users = await userApi.search({
         [searchKey]: query,
         serviceProviderId,

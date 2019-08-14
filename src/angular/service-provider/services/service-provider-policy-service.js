@@ -1,9 +1,7 @@
 import angular from 'angular'
 import _ from 'lodash'
 
-angular
-  .module('odin.serviceProvider')
-  .factory('ServiceProviderPolicyService', Service)
+angular.module('odin.serviceProvider').factory('ServiceProviderPolicyService', Service)
 
 Service.$inject = ['AuthService', 'Session', 'ACL', '$q']
 function Service(AuthService, Session, ACL, $q) {
@@ -64,18 +62,11 @@ function Service(AuthService, Session, ACL, $q) {
   }
 
   function accessDeviceAssociationRead() {
-    return checkAccess('accessDeviceAccess', [
-      'Full',
-      'Associate User With Device',
-      'Read-Only'
-    ])
+    return checkAccess('accessDeviceAccess', ['Full', 'Associate User With Device', 'Read-Only'])
   }
 
   function accessDeviceAssociationUpdate() {
-    return checkAccess('accessDeviceAccess', [
-      'Full',
-      'Associate User With Device'
-    ])
+    return checkAccess('accessDeviceAccess', ['Full', 'Associate User With Device'])
   }
 
   function accessDeviceCreate() {
@@ -83,11 +74,7 @@ function Service(AuthService, Session, ACL, $q) {
   }
 
   function accessDeviceRead() {
-    return checkAccess('accessDeviceAccess', [
-      'Full',
-      'Associate User With Device',
-      'Read-Only'
-    ])
+    return checkAccess('accessDeviceAccess', ['Full', 'Associate User With Device', 'Read-Only'])
   }
 
   function accessDeviceUpdate() {
@@ -154,10 +141,7 @@ function Service(AuthService, Session, ACL, $q) {
   }
 
   function groupRead() {
-    return checkAccess('groupAccess', [
-      'Full',
-      'Restricted from Adding or Removing Groups'
-    ])
+    return checkAccess('groupAccess', ['Full', 'Restricted from Adding or Removing Groups'])
   }
 
   function groupUpdate() {
@@ -243,11 +227,7 @@ function Service(AuthService, Session, ACL, $q) {
   }
 
   function userProfileRead() {
-    return checkAccess('userAccess', [
-      'Full',
-      'Full Profile',
-      'Read-Only Profile'
-    ])
+    return checkAccess('userAccess', ['Full', 'Full Profile', 'Read-Only Profile'])
   }
 
   function userProfileUpdate() {
@@ -255,12 +235,7 @@ function Service(AuthService, Session, ACL, $q) {
   }
 
   function userRead() {
-    return checkAccess('userAccess', [
-      'Full',
-      'Full Profile',
-      'Read-Only Profile',
-      'No Profile'
-    ])
+    return checkAccess('userAccess', ['Full', 'Full Profile', 'Read-Only Profile', 'No Profile'])
   }
 
   function userUpdate() {

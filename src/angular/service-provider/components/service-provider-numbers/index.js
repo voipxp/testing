@@ -8,12 +8,7 @@ angular.module('odin.serviceProvider').component('serviceProviderNumbers', {
   bindings: { serviceProviderId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'ServiceProviderNumberService',
-  'NumberService',
-  'ACL'
-]
+controller.$inject = ['Alert', 'ServiceProviderNumberService', 'NumberService', 'ACL']
 function controller(Alert, ServiceProviderNumberService, NumberService, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -35,14 +30,12 @@ function controller(Alert, ServiceProviderNumberService, NumberService, ACL) {
   }
 
   function loadNumbers() {
-    return ServiceProviderNumberService.index(ctrl.serviceProviderId).then(
-      function(data) {
-        ctrl.numbers = _.map(data.dns, function(number) {
-          number.expanded = _.map(NumberService.expand(number), 'min')
-          return number
-        })
-      }
-    )
+    return ServiceProviderNumberService.index(ctrl.serviceProviderId).then(function(data) {
+      ctrl.numbers = _.map(data.dns, function(number) {
+        number.expanded = _.map(NumberService.expand(number), 'min')
+        return number
+      })
+    })
   }
 
   function add() {

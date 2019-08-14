@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserCallRecordingService', UserCallRecordingService)
+angular.module('odin.api').factory('UserCallRecordingService', UserCallRecordingService)
 
 UserCallRecordingService.$inject = ['$http', 'Route']
 function UserCallRecordingService($http, Route) {
@@ -35,11 +33,9 @@ function UserCallRecordingService($http, Route) {
   }
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(userId, object) {

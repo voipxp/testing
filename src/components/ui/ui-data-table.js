@@ -11,12 +11,7 @@ import { Table, Input, Icon, Button, Field, Control } from 'rbx'
 import { UiPagination } from './ui-pagination'
 import { UiInputCheckbox } from './ui-input-checkbox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faSortUp,
-  faSortDown,
-  faTimes,
-  faCheck
-} from '@fortawesome/free-solid-svg-icons'
+import { faSortUp, faSortDown, faTimes, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const WrappedTable = styled.div`
   display: block;
@@ -186,10 +181,7 @@ export const UiDataTable = ({
                 </Table.Heading>
               )}
               {columns.map(column => (
-                <Table.Heading
-                  key={column.key}
-                  style={{ whiteSpace: 'nowrap' }}
-                >
+                <Table.Heading key={column.key} style={{ whiteSpace: 'nowrap' }}>
                   <a href="#" onClick={e => handleSort(e, column)}>
                     {column.label || column.key}
                     {headingIcon(column)}
@@ -214,13 +206,8 @@ export const UiDataTable = ({
                     </Table.Cell>
                   )}
                   {columns.map(column => (
-                    <Table.Cell
-                      key={column.key}
-                      style={{ whiteSpace: 'nowrap' }}
-                    >
-                      {isFunction(column.render)
-                        ? column.render(row)
-                        : get(row, column.key)}
+                    <Table.Cell key={column.key} style={{ whiteSpace: 'nowrap' }}>
+                      {isFunction(column.render) ? column.render(row) : get(row, column.key)}
                     </Table.Cell>
                   ))}
                 </Table.Row>

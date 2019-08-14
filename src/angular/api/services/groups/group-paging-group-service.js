@@ -33,19 +33,15 @@ function Service($http, Route) {
   }
 
   function show(serviceUserId) {
-    return $http
-      .get(url(), { params: { serviceUserId: serviceUserId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { serviceUserId: serviceUserId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function status(instance) {
-    return $http
-      .put(url('status'), { instances: [instance] })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.put(url('status'), { instances: [instance] }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(serviceUserId, object) {

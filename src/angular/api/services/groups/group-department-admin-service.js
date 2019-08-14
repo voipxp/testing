@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupDepartmentAdminService', GroupDepartmentAdminService)
+angular.module('odin.api').factory('GroupDepartmentAdminService', GroupDepartmentAdminService)
 
 GroupDepartmentAdminService.$inject = ['$http', 'Route']
 function GroupDepartmentAdminService($http, Route) {
@@ -37,11 +35,9 @@ function GroupDepartmentAdminService($http, Route) {
   }
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(admin) {
@@ -51,10 +47,8 @@ function GroupDepartmentAdminService($http, Route) {
   }
 
   function destroy(userId) {
-    return $http
-      .delete(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.delete(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 }

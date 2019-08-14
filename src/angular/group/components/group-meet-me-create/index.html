@@ -56,12 +56,10 @@
             required
           />
           <small ng-show="$ctrl.ports.allocatedPorts"
-            >(max: {{ $ctrl.ports.allocatedPorts === -1 ? 'Unlimited' :
-            $ctrl.ports.allocatedPorts }})</small
+            >(max: {{ $ctrl.ports.allocatedPorts === -1 ? 'Unlimited' : $ctrl.ports.allocatedPorts
+            }})</small
           >
-          <strong
-            class="is-pulled-right"
-            ng-show="$ctrl.bridge.allocatedPorts === -1"
+          <strong class="is-pulled-right" ng-show="$ctrl.bridge.allocatedPorts === -1"
             >Unlimited</strong
           >
         </pbs-form-field-horizontal>
@@ -76,11 +74,7 @@
           />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Operator Number">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.bridge.operatorNumber"
-          />
+          <input type="text" class="input" ng-model="$ctrl.bridge.operatorNumber" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Individual Out Dial">
           <pbs-input-checkbox
@@ -214,17 +208,12 @@
           ></pbs-input-select>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Alias">
-          <alias-list
-            profile="$ctrl.bridge.serviceInstanceProfile"
-          ></alias-list>
+          <alias-list profile="$ctrl.bridge.serviceInstanceProfile"></alias-list>
         </pbs-form-field-horizontal>
       </pbs-tab>
 
       <pbs-tab label="Users">
-        <select-users
-          available="$ctrl.users"
-          selected="$ctrl.bridge.users"
-        ></select-users>
+        <select-users available="$ctrl.users" selected="$ctrl.bridge.users"></select-users>
       </pbs-tab>
     </pbs-tabs>
   </form>

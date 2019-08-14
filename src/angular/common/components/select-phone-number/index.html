@@ -10,11 +10,7 @@
     />
   </p>
   <p class="control">
-    <button
-      class="button"
-      ng-click="$ctrl.edit()"
-      title="Select a Phone Number"
-    >
+    <button class="button" ng-click="$ctrl.edit()" title="Select a Phone Number">
       <span class="icon">
         <i class="fas fa-cog"></i>
       </span>
@@ -22,10 +18,7 @@
   </p>
 </div>
 
-<pbs-modal
-  id="{{ $ctrl.modalId }}"
-  title="Select a Phone Number ({{ $ctrl.numbers.length }})"
->
+<pbs-modal id="{{ $ctrl.modalId }}" title="Select a Phone Number ({{ $ctrl.numbers.length }})">
   <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
   <table pbs-table>
     <tr class="hover" ng-click="$ctrl.select(null)">
@@ -42,10 +35,7 @@
       ng-click="$ctrl.select(num.min)"
     >
       <td>
-        <span
-          ng-if="num.min === $ctrl.phoneNumber"
-          class="icon is-pulled-right"
-        >
+        <span ng-if="num.min === $ctrl.phoneNumber" class="icon is-pulled-right">
           <i class="fas fa-check"></i>
         </span>
         {{ num.min }}

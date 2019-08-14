@@ -8,16 +8,11 @@
       <pbs-list-item label="Action">
         {{ $ctrl.service.action }}
       </pbs-list-item>
-      <pbs-list-item
-        label="Transfer To"
-        ng-show="$ctrl.service.action === 'Transfer'"
-      >
+      <pbs-list-item label="Transfer To" ng-show="$ctrl.service.action === 'Transfer'">
         {{ $ctrl.service.transferPhoneNumber }}
       </pbs-list-item>
       <pbs-list-item label="Overflow after Timeout">
-        <pbs-check-box
-          checked="$ctrl.service.overflowAfterTimeout"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.service.overflowAfterTimeout"></pbs-check-box>
         <span ng-show="$ctrl.service.overflowAfterTimeout">
           of {{ $ctrl.service.timeoutSeconds }} seconds
         </span>
@@ -55,26 +50,15 @@
     ></pbs-input-select>
   </pbs-form-field-horizontal>
 
-  <pbs-form-field-horizontal
-    label="Transfer To"
-    ng-show="$ctrl.editService.action === 'Transfer'"
-  >
-    <input
-      type="text"
-      class="input"
-      ng-model="$ctrl.editService.transferPhoneNumber"
-    />
+  <pbs-form-field-horizontal label="Transfer To" ng-show="$ctrl.editService.action === 'Transfer'">
+    <input type="text" class="input" ng-model="$ctrl.editService.transferPhoneNumber" />
   </pbs-form-field-horizontal>
 
   <pbs-form-field-horizontal
     label="Overflow After Waiting Seconds"
     ng-show="$ctrl.editService.overflowAfterTimeout"
   >
-    <input
-      type="number"
-      class="input"
-      ng-model="$ctrl.editService.timeoutSeconds"
-    />
+    <input type="number" class="input" ng-model="$ctrl.editService.timeoutSeconds" />
   </pbs-form-field-horizontal>
 
   <group-call-center-audio-settings-edit

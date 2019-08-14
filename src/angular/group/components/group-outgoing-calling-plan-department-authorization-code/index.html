@@ -1,11 +1,6 @@
 <pbs-modal id="{{ $ctrl.modalId }}" title="Edit Codes">
   <div class="margin-bottom">
-    <input
-      type="search"
-      placeholder="Search"
-      class="input"
-      ng-model="$ctrl.search"
-    />
+    <input type="search" placeholder="Search" class="input" ng-model="$ctrl.search" />
   </div>
   <table pbs-table>
     <thead>
@@ -13,9 +8,7 @@
         <th>Code</th>
         <th>Description</th>
         <th class="action">
-          <pbs-button-compact-add
-            ng-click="$ctrl.add()"
-          ></pbs-button-compact-add>
+          <pbs-button-compact-add ng-click="$ctrl.add()"></pbs-button-compact-add>
         </th>
       </tr>
     </thead>
@@ -34,9 +27,7 @@
         <td>{{ code.code }}</td>
         <td>{{ code.description }}</td>
         <td class="action">
-          <pbs-button-compact-delete
-            ng-click="$ctrl.remove(code)"
-          ></pbs-button-compact-delete>
+          <pbs-button-compact-delete ng-click="$ctrl.remove(code)"></pbs-button-compact-delete>
         </td>
       </tr>
     </tbody>

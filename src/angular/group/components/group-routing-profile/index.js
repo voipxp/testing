@@ -7,18 +7,8 @@ angular.module('odin.group').component('groupRoutingProfile', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  '$q',
-  'Alert',
-  'SystemRoutingProfileService',
-  'GroupRoutingProfileService'
-]
-function controller(
-  $q,
-  Alert,
-  SystemRoutingProfileService,
-  GroupRoutingProfileService
-) {
+controller.$inject = ['$q', 'Alert', 'SystemRoutingProfileService', 'GroupRoutingProfileService']
+function controller($q, Alert, SystemRoutingProfileService, GroupRoutingProfileService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -42,10 +32,9 @@ function controller(
   }
 
   function loadGroupRoutingProfile() {
-    return GroupRoutingProfileService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupRoutingProfileService.show(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.settings = data
     })
   }

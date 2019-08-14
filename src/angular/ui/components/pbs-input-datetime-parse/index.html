@@ -1,10 +1,6 @@
 <div class="field has-addons">
   <div class="control is-expanded">
-    <input
-      type="hidden"
-      ng-model="$ctrl.ngModel"
-      ng-required="$ctrl.ngRequired"
-    />
+    <input type="hidden" ng-model="$ctrl.ngModel" ng-required="$ctrl.ngRequired" />
     <input
       type="text"
       class="input"
@@ -13,9 +9,7 @@
       placeholder="{{ $ctrl.placeholder }}"
       ng-model-options="{ debounce: 200 }"
     />
-    <span
-      class="help has-text-right"
-      ng-class="{'has-text-weight-bold': $ctrl.ngModel}"
+    <span class="help has-text-right" ng-class="{'has-text-weight-bold': $ctrl.ngModel}"
       >{{ $ctrl.help() }}</span
     >
   </div>

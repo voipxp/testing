@@ -2,13 +2,11 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.bulk')
-  .component('bulkSelectSharedCallAppearanceEndpoints', {
-    template,
-    controller,
-    bindings: { endpoints: '<', onUpdate: '&' }
-  })
+angular.module('odin.bulk').component('bulkSelectSharedCallAppearanceEndpoints', {
+  template,
+  controller,
+  bindings: { endpoints: '<', onUpdate: '&' }
+})
 
 controller.$inject = ['Alert', '$scope', 'EventEmitter']
 function controller(Alert, $scope, EventEmitter) {
@@ -42,18 +40,14 @@ function controller(Alert, $scope, EventEmitter) {
 
     if (!isNew) {
       deleteAction = function onDelete(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this Endpoint?')
-          .then(function() {
-            _.remove(ctrl.endpoints, endpoint)
-            close()
-          })
+        Alert.confirm.open('Are you sure you want to remove this Endpoint?').then(function() {
+          _.remove(ctrl.endpoints, endpoint)
+          close()
+        })
       }
     }
 
-    ctrl.modalTitle = isNew
-      ? 'New Endpoint'
-      : 'Edit ' + ctrl.editEndpoint.accessDevice.deviceName
+    ctrl.modalTitle = isNew ? 'New Endpoint' : 'Edit ' + ctrl.editEndpoint.accessDevice.deviceName
 
     Alert.modal.open(
       'userSharedCallAppearanceEndpointModal',

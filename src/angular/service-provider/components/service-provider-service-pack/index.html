@@ -1,8 +1,5 @@
 <pbs-navigation service-provider-id="$ctrl.serviceProviderId">
-  <pbs-breadcrumb
-    title="'Service Packs'"
-    ng-click="$ctrl.open()"
-  ></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Service Packs'" ng-click="$ctrl.open()"></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.servicePackName"></pbs-breadcrumb>
 </pbs-navigation>
 
@@ -18,9 +15,7 @@
         </pbs-block-buttons>
         <pbs-list>
           <pbs-list-item label="Available For Use">
-            <pbs-check-box
-              checked="$ctrl.servicePack.isAvailableForUse"
-            ></pbs-check-box>
+            <pbs-check-box checked="$ctrl.servicePack.isAvailableForUse"></pbs-check-box>
           </pbs-list-item>
           <pbs-list-item label="Description">
             {{ $ctrl.servicePack.servicePackDescription }}
@@ -82,26 +77,16 @@
   <pbs-form>
     <pbs-form-section>Settings</pbs-form-section>
     <pbs-form-field-horizontal label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editServicePack.newServicePackName"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editServicePack.newServicePackName" />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Description">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editServicePack.servicePackDescription"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editServicePack.servicePackDescription" />
     </pbs-form-field-horizontal>
     <pbs-form-section>Availability</pbs-form-section>
     <pbs-input-checkbox
       ng-model="$ctrl.editServicePack.isAvailableForUse"
       label="Available For Use"
     ></pbs-input-checkbox>
-    <service-pack-licensing
-      service="$ctrl.editServicePack"
-    ></service-pack-licensing>
+    <service-pack-licensing service="$ctrl.editServicePack"></service-pack-licensing>
   </pbs-form>
 </pbs-modal>

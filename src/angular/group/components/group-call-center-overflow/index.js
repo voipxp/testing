@@ -36,11 +36,9 @@ function controller(GroupCallCenterOverflowService, Alert, Module) {
   }
 
   function loadService() {
-    return GroupCallCenterOverflowService.show(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.service = data
-      }
-    )
+    return GroupCallCenterOverflowService.show(ctrl.serviceUserId).then(function(data) {
+      ctrl.service = data
+    })
   }
 
   function edit() {

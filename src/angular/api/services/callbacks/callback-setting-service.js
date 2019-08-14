@@ -25,8 +25,6 @@ function Service($http, Route) {
   }
 
   function destroy(id) {
-    return $http
-      .delete(url(), { params: { id } })
-      .then(response => response.data)
+    return $http.delete(url(), { params: { id } }).then(response => response.data)
   }
 }

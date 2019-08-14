@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Stranded Call Unavailable">
     <pbs-block-buttons if-module-update="'Call Center'">
-      <pbs-button-compact-edit
-        title="Edit Stranded Call Unavailable"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Stranded Call Unavailable" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -12,11 +9,9 @@
         <pbs-check-box
           checked="$ctrl.service.conditionPolicyOnNumberOfAgentsWithSpecifiedUnavailableCode"
         ></pbs-check-box>
-        <span
-          ng-show="$ctrl.service.conditionPolicyOnNumberOfAgentsWithSpecifiedUnavailableCode"
-        >
-          when {{ $ctrl.service.numberOfAgentsWithSpecifiedUnavailableCode }}
-          agents have unavailable code {{ $ctrl.service.agentsUnavailableCode }}
+        <span ng-show="$ctrl.service.conditionPolicyOnNumberOfAgentsWithSpecifiedUnavailableCode">
+          when {{ $ctrl.service.numberOfAgentsWithSpecifiedUnavailableCode }} agents have
+          unavailable code {{ $ctrl.service.agentsUnavailableCode }}
         </span>
       </pbs-list-item>
       <pbs-list-item label="Action">
@@ -33,10 +28,7 @@
     ></group-call-center-audio-settings-view>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editGroupCallCenterStrandedCallUnavailable"
-  title="Edit Stranded Call Unavailable"
->
+<pbs-modal id="editGroupCallCenterStrandedCallUnavailable" title="Edit Stranded Call Unavailable">
   <pbs-form-section>Settings</pbs-form-section>
   <pbs-input-checkbox
     ng-change="$ctrl.updateRestrictions()"
@@ -77,15 +69,8 @@
     ></pbs-input-select>
   </pbs-form-field-horizontal>
 
-  <pbs-form-field-horizontal
-    label="Transfer To"
-    ng-show="$ctrl.editService.action === 'Transfer'"
-  >
-    <input
-      type="text"
-      class="input"
-      ng-model="$ctrl.editService.transferPhoneNumber"
-    />
+  <pbs-form-field-horizontal label="Transfer To" ng-show="$ctrl.editService.action === 'Transfer'">
+    <input type="text" class="input" ng-model="$ctrl.editService.transferPhoneNumber" />
   </pbs-form-field-horizontal>
 
   <group-call-center-audio-settings-edit

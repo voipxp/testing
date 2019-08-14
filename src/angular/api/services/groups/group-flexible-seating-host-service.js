@@ -53,11 +53,9 @@ function Service($http, Route) {
   }
 
   function status(object) {
-    return $http
-      .put(url('status'), { instances: [object] })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.put(url('status'), { instances: [object] }).then(function(response) {
+      return response.data
+    })
   }
 
   function show(serviceUserId) {

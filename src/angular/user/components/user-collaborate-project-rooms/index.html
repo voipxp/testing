@@ -2,10 +2,7 @@
   <pbs-block title="Project Rooms">
     <pbs-block-buttons>
       <pbs-block-buttons>
-        <pbs-button-compact-add
-          ng-click="$ctrl.add()"
-          title="Add New Project Room"
-        >
+        <pbs-button-compact-add ng-click="$ctrl.add()" title="Add New Project Room">
         </pbs-button-compact-add>
       </pbs-block-buttons>
     </pbs-block-buttons>
@@ -31,18 +28,10 @@
   }}"
 >
   <pbs-form>
-    <pbs-form-field-horizontal
-      label="Room ID"
-      ng-if="$ctrl.editProjectRoom.roomId"
-    >
+    <pbs-form-field-horizontal label="Room ID" ng-if="$ctrl.editProjectRoom.roomId">
       <div class="field has-addons">
         <p class="control is-expanded">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.editProjectRoom.roomId"
-            readonly
-          />
+          <input type="text" class="input" ng-model="$ctrl.editProjectRoom.roomId" readonly />
         </p>
         <p class="control">
           <button
@@ -58,12 +47,7 @@
       </div>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Room Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editProjectRoom.roomName"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editProjectRoom.roomName" required />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Notification">
       <pbs-input-select

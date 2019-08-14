@@ -8,13 +8,7 @@ angular.module('odin.group').component('groupAnnouncement', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupAnnouncementService',
-  'Route',
-  '$scope',
-  '$location'
-]
+controller.$inject = ['Alert', 'GroupAnnouncementService', 'Route', '$scope', '$location']
 function controller(Alert, GroupAnnouncementService, Route, $scope, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -59,12 +53,7 @@ function controller(Alert, GroupAnnouncementService, Route, $scope, $location) {
         'announcement'
       ).search({ name: name, mediaType: mediaType })
     } else {
-      return Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'announcements'
-      )
+      return Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'announcements')
     }
   }
 

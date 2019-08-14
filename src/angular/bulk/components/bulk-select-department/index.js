@@ -19,11 +19,9 @@ function controller(Alert, EventEmitter, GroupDepartmentService) {
   ctrl.add = add
 
   function loadParents() {
-    return GroupDepartmentService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      true
-    ).then(function(data) {
+    return GroupDepartmentService.index(ctrl.serviceProviderId, ctrl.groupId, true).then(function(
+      data
+    ) {
       ctrl.parents = data
       return data
     })
@@ -47,11 +45,7 @@ function controller(Alert, EventEmitter, GroupDepartmentService) {
 
   function create(department, callback) {
     Alert.spinner.open()
-    GroupDepartmentService.store(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      department
-    )
+    GroupDepartmentService.store(ctrl.serviceProviderId, ctrl.groupId, department)
       .then(function() {
         ctrl.department = department
         complete()

@@ -17,19 +17,14 @@
       {{ $ctrl.parent.bridge.operatorNumber }}
     </pbs-list-item>
     <pbs-list-item label="Individual Out Dial">
-      <pbs-check-box
-        checked="$ctrl.parent.bridge.allowIndividualOutDial"
-      ></pbs-check-box>
+      <pbs-check-box checked="$ctrl.parent.bridge.allowIndividualOutDial"></pbs-check-box>
     </pbs-list-item>
     <pbs-list-item label="Scheduled Conference Limit">
-      {{ $ctrl.parent.bridge.maxScheduledConferenceDurationMinutes.hours }}
-      hours {{ $ctrl.parent.bridge.maxScheduledConferenceDurationMinutes.minutes
-      }} minutes
+      {{ $ctrl.parent.bridge.maxScheduledConferenceDurationMinutes.hours }} hours {{
+      $ctrl.parent.bridge.maxScheduledConferenceDurationMinutes.minutes }} minutes
     </pbs-list-item>
     <pbs-list-item label="Conference Limit Enabled">
-      <pbs-check-box
-        checked="$ctrl.parent.bridge.enableMaxConferenceDuration"
-      ></pbs-check-box>
+      <pbs-check-box checked="$ctrl.parent.bridge.enableMaxConferenceDuration"></pbs-check-box>
     </pbs-list-item>
     <pbs-list-item
       label="Conference Limit"
@@ -39,14 +34,9 @@
       $ctrl.parent.bridge.maxConferenceDurationMinutes.minutes }} minutes
     </pbs-list-item>
     <pbs-list-item label="Play Warning Prompt">
-      <pbs-check-box
-        checked="$ctrl.parent.bridge.playWarningPrompt"
-      ></pbs-check-box>
+      <pbs-check-box checked="$ctrl.parent.bridge.playWarningPrompt"></pbs-check-box>
     </pbs-list-item>
-    <pbs-list-item
-      label="End Warning Minutes"
-      ng-show="$ctrl.parent.bridge.playWarningPrompt"
-    >
+    <pbs-list-item label="End Warning Minutes" ng-show="$ctrl.parent.bridge.playWarningPrompt">
       {{ $ctrl.parent.bridge.conferenceEndWarningPromptMinutes }} minutes
     </pbs-list-item>
   </pbs-list>
@@ -67,8 +57,8 @@
         min="-1"
       />
       <small ng-show="$ctrl.ports.availablePorts"
-        >(max: {{ $ctrl.ports.availablePorts === -1 ? 'Unlimited' :
-        $ctrl.ports.availablePorts }})</small
+        >(max: {{ $ctrl.ports.availablePorts === -1 ? 'Unlimited' : $ctrl.ports.availablePorts
+        }})</small
       >
     </pbs-form-field>
 
@@ -100,10 +90,7 @@
       ></pbs-input-checkbox>
     </pbs-form-field>
 
-    <pbs-form-field
-      label="End Prompt Minutes"
-      ng-show="$ctrl.bridge.playWarningPrompt"
-    >
+    <pbs-form-field label="End Prompt Minutes" ng-show="$ctrl.bridge.playWarningPrompt">
       <input
         type="number"
         class="input"
@@ -143,10 +130,7 @@
       ></pbs-input-checkbox>
     </pbs-form-field>
 
-    <pbs-form-field
-      label="Max Duration Hours"
-      ng-show="$ctrl.bridge.enableMaxConferenceDuration"
-    >
+    <pbs-form-field label="Max Duration Hours" ng-show="$ctrl.bridge.enableMaxConferenceDuration">
       <input
         type="number"
         class="input"
@@ -157,10 +141,7 @@
       />
     </pbs-form-field>
 
-    <pbs-form-field
-      label="Max Duration Minutes"
-      ng-show="$ctrl.bridge.enableMaxConferenceDuration"
-    >
+    <pbs-form-field label="Max Duration Minutes" ng-show="$ctrl.bridge.enableMaxConferenceDuration">
       <input
         type="number"
         class="input"

@@ -41,11 +41,9 @@ function controller(GroupCallCenterBouncedCallService, Alert) {
   }
 
   function loadService() {
-    return GroupCallCenterBouncedCallService.show(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.service = data
-      }
-    )
+    return GroupCallCenterBouncedCallService.show(ctrl.serviceUserId).then(function(data) {
+      ctrl.service = data
+    })
   }
 
   function edit() {

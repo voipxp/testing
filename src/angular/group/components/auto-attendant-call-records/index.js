@@ -8,11 +8,7 @@ angular.module('odin.group').component('autoAttendantCallRecords', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupAutoAttendantService',
-  'UserCallRecordsService'
-]
+controller.$inject = ['Alert', 'GroupAutoAttendantService', 'UserCallRecordsService']
 function controller(Alert, GroupAutoAttendantService, UserCallRecordsService) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -44,10 +40,9 @@ function controller(Alert, GroupAutoAttendantService, UserCallRecordsService) {
   }
 
   function loadAutoAttendants() {
-    return GroupAutoAttendantService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupAutoAttendantService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.autoAttendants = data
       ctrl.search.serviceUserId = data[0] && data[0].serviceUserId
       return data

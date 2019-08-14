@@ -8,22 +8,8 @@ angular.module('odin.group').component('groupCallCenter', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Route',
-  'Alert',
-  'GroupCallCenterService',
-  'ACL',
-  'Module',
-  '$location'
-]
-function controller(
-  Route,
-  Alert,
-  GroupCallCenterService,
-  ACL,
-  Module,
-  $location
-) {
+controller.$inject = ['Route', 'Alert', 'GroupCallCenterService', 'ACL', 'Module', '$location']
+function controller(Route, Alert, GroupCallCenterService, ACL, Module, $location) {
   var ctrl = this
   ctrl.$onInit = activate
   ctrl.update = update
@@ -42,9 +28,7 @@ function controller(
   }
 
   function loadCallCenter() {
-    return GroupCallCenterService.show(ctrl.serviceUserId).then(
-      data => (ctrl.center = data)
-    )
+    return GroupCallCenterService.show(ctrl.serviceUserId).then(data => (ctrl.center = data))
   }
 
   function update(center, callback) {
@@ -67,12 +51,7 @@ function controller(
       .then(() => {
         Alert.notify.success('Call Center Removed')
         callback()
-        Route.open(
-          'groups',
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          'callCenters'
-        )
+        Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
       })
       .catch(Alert.notify.danger)
       .finally(Alert.spinner.close)

@@ -33,9 +33,7 @@ function controller(Alert, UserCallingNameDeliveryService, $q, Module) {
   }
 
   function loadSettings() {
-    return UserCallingNameDeliveryService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserCallingNameDeliveryService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }

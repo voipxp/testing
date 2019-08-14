@@ -31,8 +31,7 @@ function controller(
   ctrl.toggleSelect = toggleSelect
   ctrl.editSpeedDialCode = editSpeedDialCode
   ctrl.speedDial100 = {}
-  ctrl.useFeatureAccessCodeLevels =
-    GroupFeatureAccessCodesService.options.useFeatureAccessCodeLevel
+  ctrl.useFeatureAccessCodeLevels = GroupFeatureAccessCodesService.options.useFeatureAccessCodeLevel
   ctrl.speedDial100 = GroupSpeedDial100Service.options
   ctrl.columns = [
     {
@@ -63,27 +62,21 @@ function controller(
   }
 
   function loadData() {
-    return $q
-      .all([loadSettings(), loadSpeedDial100(), GroupPolicyService.load()])
-      .then(function() {
-        ctrl.canUpdate = GroupPolicyService.featureAccessCodeUpdate()
-      })
+    return $q.all([loadSettings(), loadSpeedDial100(), GroupPolicyService.load()]).then(function() {
+      ctrl.canUpdate = GroupPolicyService.featureAccessCodeUpdate()
+    })
   }
 
   function loadSpeedDial100() {
-    return GroupSpeedDial100Service.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupSpeedDial100Service.show(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.speedDial100.settings = data
     })
   }
 
   function loadSettings() {
-    return GroupFeatureAccessCodesService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupFeatureAccessCodesService.show(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       var sorted = _.sortBy(data.featureAccessCodes, ['featureAccessCodeName'])
       ctrl.settings = data
       ctrl.settings.featureAccessCodes = sorted
@@ -103,23 +96,21 @@ function controller(
   }
 
   function reset() {
-    Alert.confirm
-      .open('Are you sure you want to reset the fac codes?')
-      .then(function() {
-        Alert.spinner.open()
-        var object = {}
-        object.serviceProviderId = ctrl.serviceProviderId
-        object.groupId = ctrl.groupId
-        object.restoreDefaultCodes = true
+    Alert.confirm.open('Are you sure you want to reset the fac codes?').then(function() {
+      Alert.spinner.open()
+      var object = {}
+      object.serviceProviderId = ctrl.serviceProviderId
+      object.groupId = ctrl.groupId
+      object.restoreDefaultCodes = true
 
-        GroupFeatureAccessCodesService.update(object)
-          .then(loadData)
-          .then(function() {
-            Alert.notify.success('Feature Access Codes Reset')
-          })
-          .catch(Alert.notify.danger)
-          .finally(Alert.spinner.close)
-      })
+      GroupFeatureAccessCodesService.update(object)
+        .then(loadData)
+        .then(function() {
+          Alert.notify.success('Feature Access Codes Reset')
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    })
   }
 
   function editSpeedDialCode() {

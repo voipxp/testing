@@ -1,13 +1,11 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.user')
-  .component('userOutgoingCallingPlanPinholeDigitPlan', {
-    template,
-    controller,
-    bindings: { userId: '<' }
-  })
+angular.module('odin.user').component('userOutgoingCallingPlanPinholeDigitPlan', {
+  template,
+  controller,
+  bindings: { userId: '<' }
+})
 
 controller.$inject = ['Alert', 'UserPermissionService']
 function controller(Alert, UserPermissionService) {

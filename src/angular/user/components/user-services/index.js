@@ -38,9 +38,7 @@ function controller(Alert, $filter, UserServiceService) {
     UserServiceService.update(singleService)
       .then(() => {
         const message = editService.assigned ? 'Assigned' : 'Unassigned'
-        const action = editService.assigned
-          ? Alert.notify.success
-          : Alert.notify.warning
+        const action = editService.assigned ? Alert.notify.success : Alert.notify.warning
         action(`${editService.serviceName} ${message}`)
       })
       .then(onInit)

@@ -16,14 +16,7 @@ controller.$inject = [
   'DownloadService',
   '$location'
 ]
-function controller(
-  Alert,
-  GroupUserReportService,
-  Route,
-  CsvService,
-  DownloadService,
-  $location
-) {
+function controller(Alert, GroupUserReportService, Route, CsvService, DownloadService, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
@@ -103,10 +96,7 @@ function controller(
   }
 
   function loadReport() {
-    return GroupUserReportService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupUserReportService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.users = data.map(function(user) {
         return {
           userId: String(user.userId),
@@ -118,16 +108,8 @@ function controller(
           extension: user.extension || '',
           phoneNumberActivated: !!user.phoneNumberActivated,
           inTrunkGroup: !!user.inTrunkGroup,
-          deviceType: _.get(
-            user,
-            'accessDeviceEndpoint.accessDevice.deviceType',
-            ''
-          ),
-          macAddress: _.get(
-            user,
-            'accessDeviceEndpoint.accessDevice.macAddress',
-            ''
-          ),
+          deviceType: _.get(user, 'accessDeviceEndpoint.accessDevice.deviceType', ''),
+          macAddress: _.get(user, 'accessDeviceEndpoint.accessDevice.macAddress', ''),
           linePorts: user.userLinePorts.join(','),
           servicePacks: user.servicePacks.join(','),
           userServices: user.userServices.join(','),
@@ -139,21 +121,14 @@ function controller(
 
   function onClick(user) {
     var returnTo = $location.url()
-    Route.open(
-      'users',
-      user.serviceProviderId,
-      user.groupId,
-      user.userId
-    ).search({ returnTo: returnTo })
+    Route.open('users', user.serviceProviderId, user.groupId, user.userId).search({
+      returnTo: returnTo
+    })
   }
 
   function download() {
     var filename =
-      _.compact([
-        'odin-users-report',
-        ctrl.serviceProviderId,
-        ctrl.groupId
-      ]).join('-') + '.csv'
+      _.compact(['odin-users-report', ctrl.serviceProviderId, ctrl.groupId]).join('-') + '.csv'
     CsvService.export(ctrl.users).then(function(csv) {
       DownloadService.download(csv, filename)
     })

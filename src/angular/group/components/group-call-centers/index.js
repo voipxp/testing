@@ -15,14 +15,7 @@ controller.$inject = [
   'GroupPolicyService',
   '$q'
 ]
-function controller(
-  Route,
-  Alert,
-  GroupCallCenterService,
-  $scope,
-  GroupPolicyService,
-  $q
-) {
+function controller(Route, Alert, GroupCallCenterService, $scope, GroupPolicyService, $q) {
   var ctrl = this
   ctrl.open = open
   ctrl.add = add
@@ -36,8 +29,7 @@ function controller(
     return $q
       .all([loadCallCenters(), GroupPolicyService.load()])
       .then(function() {
-        ctrl.canCreate =
-          GroupPolicyService.enhancedServiceCreate() && ctrl.canCreate
+        ctrl.canCreate = GroupPolicyService.enhancedServiceCreate() && ctrl.canCreate
       })
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -51,10 +43,7 @@ function controller(
   }
 
   function loadCallCenters() {
-    return GroupCallCenterService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupCallCenterService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.centers = data
       return data
     })
@@ -66,13 +55,9 @@ function controller(
 
   function open(object) {
     var serviceUserId = (object && object.serviceUserId) || object
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'callCenters',
-      'callCenter'
-    ).search({ serviceUserId })
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callCenters', 'callCenter').search({
+      serviceUserId
+    })
   }
 
   function add() {

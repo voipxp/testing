@@ -15,14 +15,7 @@ controller.$inject = [
   '$scope',
   '$timeout'
 ]
-function controller(
-  Alert,
-  UserScheduleService,
-  UserEventService,
-  Route,
-  $scope,
-  $timeout
-) {
+function controller(Alert, UserScheduleService, UserEventService, Route, $scope, $timeout) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -74,11 +67,9 @@ function controller(
         update(ctrl.editSchedule, close)
       },
       function(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this Schedule?')
-          .then(function() {
-            destroy(close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this Schedule?').then(function() {
+          destroy(close)
+        })
       }
     )
   }

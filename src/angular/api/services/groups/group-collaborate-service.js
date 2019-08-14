@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupCollaborateService', GroupCollaborateService)
+angular.module('odin.api').factory('GroupCollaborateService', GroupCollaborateService)
 
 GroupCollaborateService.$inject = ['$http', 'Route']
 function GroupCollaborateService($http, Route) {

@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('SystemNetworkClassOfServiceService', Service)
+angular.module('odin.api').factory('SystemNetworkClassOfServiceService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
@@ -21,9 +19,7 @@ function Service($http, Route) {
   }
 
   function show(name) {
-    return $http
-      .get(url(), { params: { name } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { name } }).then(response => response.data)
   }
 
   function update(name, service) {
@@ -39,8 +35,6 @@ function Service($http, Route) {
   }
 
   function usage(name) {
-    return $http
-      .get(url('usage'), { params: { name } })
-      .then(response => response.data)
+    return $http.get(url('usage'), { params: { name } }).then(response => response.data)
   }
 }

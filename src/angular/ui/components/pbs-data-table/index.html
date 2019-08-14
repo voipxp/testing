@@ -46,11 +46,7 @@
   >
     <thead>
       <tr>
-        <th
-          ng-show="$ctrl.showSelect"
-          class="has-text-centered"
-          style="width: 50px"
-        >
+        <th ng-show="$ctrl.showSelect" class="has-text-centered" style="width: 50px">
           <pbs-input-checkbox
             ng-model="$ctrl.selectAll"
             ng-click="$ctrl.toggleAll()"
@@ -108,9 +104,7 @@
         }"
         >
           <span ng-switch-when="boolean">
-            <pbs-check-box
-              checked="$ctrl.getValue(item, column.key)"
-            ></pbs-check-box>
+            <pbs-check-box checked="$ctrl.getValue(item, column.key)"></pbs-check-box>
           </span>
           <span ng-switch-when="date">
             {{ $ctrl.getValue(item, column.key) | date: 'medium' }}

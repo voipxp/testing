@@ -68,8 +68,7 @@ function controller(Alert, Module, ACL, GraphQL) {
 
     ctrl.showCallRecords = Module.read('Premium Call Records')
 
-    ctrl.showBasicCallLogs =
-      services.includes('Basic Call Logs') && Module.read('Basic Call Logs')
+    ctrl.showBasicCallLogs = services.includes('Basic Call Logs') && Module.read('Basic Call Logs')
 
     ctrl.showAssignServices = Module.read('Provisioning')
 

@@ -58,11 +58,7 @@ function controller(
 
   function onChanges(changes) {
     if (changes.autoAttendant) {
-      ctrl.keys = _.get(
-        changes.autoAttendant.currentValue,
-        [ctrl.menu, 'keys'],
-        []
-      )
+      ctrl.keys = _.get(changes.autoAttendant.currentValue, [ctrl.menu, 'keys'], [])
       ctrl.options = angular.copy(GroupAutoAttendantService.options)
       if (isBasic()) {
         _.pull(ctrl.options.actions, 'Transfer To Submenu')
@@ -76,9 +72,9 @@ function controller(
 
   function loadSubmenus() {
     if (isBasic()) return $q.resolve()
-    return GroupAutoAttendantSubmenuService.index(
-      ctrl.autoAttendant.serviceUserId
-    ).then(function(data) {
+    return GroupAutoAttendantSubmenuService.index(ctrl.autoAttendant.serviceUserId).then(function(
+      data
+    ) {
       ctrl.submenus = data
     })
   }
@@ -124,12 +120,10 @@ function controller(
         return update(editKeys, close)
       },
       function onDelete(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this key?')
-          .then(function() {
-            originalKey.action = null
-            update(editKeys, close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this key?').then(function() {
+          originalKey.action = null
+          update(editKeys, close)
+        })
       }
     )
   }

@@ -15,11 +15,8 @@ function controller(Alert, GroupTrunkGroupService) {
 
   function edit() {
     ctrl.editTrunk = angular.copy(ctrl.parent.trunk)
-    Alert.modal.open(
-      'editGroupTrunkGroupCallStatefulRerouting',
-      function onSave(close) {
-        ctrl.parent.update(ctrl.editTrunk, close)
-      }
-    )
+    Alert.modal.open('editGroupTrunkGroupCallStatefulRerouting', function onSave(close) {
+      ctrl.parent.update(ctrl.editTrunk, close)
+    })
   }
 }

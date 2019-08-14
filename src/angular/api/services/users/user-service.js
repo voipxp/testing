@@ -20,11 +20,7 @@ function UserService($http, Route, GraphQL) {
 
   function index(serviceProviderId, groupId, includeUser = false) {
     const query = gql`
-      query users(
-        $serviceProviderId: String!
-        $groupId: String!
-        $includeUser: Boolean!
-      ) {
+      query users($serviceProviderId: String!, $groupId: String!, $includeUser: Boolean!) {
         users(serviceProviderId: $serviceProviderId, groupId: $groupId) {
           _id
           userId
@@ -52,9 +48,7 @@ function UserService($http, Route, GraphQL) {
   }
 
   function info(userId) {
-    return $http
-      .get(url('login'), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url('login'), { params: { userId } }).then(response => response.data)
   }
 
   function store(serviceProviderId, groupId, user) {
@@ -64,9 +58,7 @@ function UserService($http, Route, GraphQL) {
   }
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 
   function update(userId, user) {
@@ -78,8 +70,6 @@ function UserService($http, Route, GraphQL) {
   }
 
   function destroy(userId) {
-    return $http
-      .delete(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.delete(url(), { params: { userId } }).then(response => response.data)
   }
 }

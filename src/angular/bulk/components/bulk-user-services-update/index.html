@@ -14,10 +14,7 @@
 ></bulk-select-users-dashboard>
 
 <pbs-block title="Update User Services" ng-if="$ctrl.data.users.length > 0">
-  <div
-    ng-repeat="(type, description) in $ctrl.serviceTypes"
-    class="large-margin-bottom"
-  >
+  <div ng-repeat="(type, description) in $ctrl.serviceTypes" class="large-margin-bottom">
     <p class="subtitle">
       Add, Remove, or Replace {{ description }}
       <span class="is-pulled-right" ng-show="$ctrl.services[type].length > 0">

@@ -65,16 +65,9 @@
       />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Description">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editApplication.description"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editApplication.description" />
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal
-      ng-if="$ctrl.partners.length > 0"
-      label="SSO Integration"
-    >
+    <pbs-form-field-horizontal ng-if="$ctrl.partners.length > 0" label="SSO Integration">
       <pbs-input-select
         ng-model="$ctrl.editApplication.partner"
         ng-options="opt.key as opt.name for opt in $ctrl.partners"

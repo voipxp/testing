@@ -44,24 +44,22 @@ function controller(Alert, GroupPagingGroupService, $q) {
   }
 
   function remove(callback) {
-    Alert.confirm
-      .open('Are you sure you want to remove this Paging Group?')
-      .then(function() {
-        Alert.spinner.open()
-        GroupPagingGroupService.destroy(ctrl.parent.serviceUserId)
-          .then(function() {
-            Alert.notify.success('Paging Group Removed')
-            if (_.isFunction(callback)) {
-              callback()
-            }
-            ctrl.parent.open()
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to remove this Paging Group?').then(function() {
+      Alert.spinner.open()
+      GroupPagingGroupService.destroy(ctrl.parent.serviceUserId)
+        .then(function() {
+          Alert.notify.success('Paging Group Removed')
+          if (_.isFunction(callback)) {
+            callback()
+          }
+          ctrl.parent.open()
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 }

@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserCallForwardingAlwaysSecondaryService', Service)
+angular.module('odin.api').factory('UserCallForwardingAlwaysSecondaryService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
@@ -24,11 +22,9 @@ function Service($http, Route) {
   }
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(userId, object) {

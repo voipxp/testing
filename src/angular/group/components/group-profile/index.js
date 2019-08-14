@@ -51,8 +51,7 @@ function controller(
       ])
       .then(function() {
         ctrl.canRead = GroupPolicyService.profileRead()
-        ctrl.canUpdate =
-          Module.update('Provisioning') && GroupPolicyService.profileUpdate()
+        ctrl.canUpdate = Module.update('Provisioning') && GroupPolicyService.profileUpdate()
       })
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -61,11 +60,9 @@ function controller(
   }
 
   function loadGroup() {
-    return GroupService.show(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.group = data
-      }
-    )
+    return GroupService.show(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      ctrl.group = data
+    })
   }
 
   function loadHelpers() {
@@ -76,12 +73,10 @@ function controller(
   }
 
   function loadNumbers() {
-    return GroupNumberService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.numbers = data
-        return data
-      }
-    )
+    return GroupNumberService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      ctrl.numbers = data
+      return data
+    })
   }
 
   function edit() {
@@ -89,20 +84,14 @@ function controller(
       .then(() => {
         ctrl.editGroup = angular.copy(ctrl.group)
         ctrl.editGroup.groupId = ctrl.groupId
-        Alert.modal.open('editGroupDetailsModal', close =>
-          update(ctrl.editGroup, close)
-        )
+        Alert.modal.open('editGroupDetailsModal', close => update(ctrl.editGroup, close))
       })
       .catch(Alert.notify.danger)
   }
 
   function contactSummary() {
     var contact = ctrl.group.contact || {}
-    return _.compact([
-      contact.contactName,
-      contact.contactEmail,
-      contact.contactPhone
-    ]).join(', ')
+    return _.compact([contact.contactName, contact.contactEmail, contact.contactPhone]).join(', ')
   }
 
   function addressSummary() {
@@ -110,16 +99,9 @@ function controller(
     if (!address) {
       return
     }
-    var street = _.compact([address.addressLine1, address.addressLine2]).join(
-      ' '
-    )
-    var stateZip = _.compact([
-      address.stateOrProvince,
-      address.zipOrPostalCode
-    ]).join(' ')
-    return _.compact([street, address.city, stateZip, address.country]).join(
-      ', '
-    )
+    var street = _.compact([address.addressLine1, address.addressLine2]).join(' ')
+    var stateZip = _.compact([address.stateOrProvince, address.zipOrPostalCode]).join(' ')
+    return _.compact([street, address.city, stateZip, address.country]).join(', ')
   }
 
   function update(group, callback) {

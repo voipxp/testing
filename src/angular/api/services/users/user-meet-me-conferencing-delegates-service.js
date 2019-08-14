@@ -2,10 +2,7 @@ import angular from 'angular'
 
 angular
   .module('odin.api')
-  .factory(
-    'UserMeetMeConferencingDelegatesService',
-    UserMeetMeConferencingDelegatesService
-  )
+  .factory('UserMeetMeConferencingDelegatesService', UserMeetMeConferencingDelegatesService)
 
 UserMeetMeConferencingDelegatesService.$inject = ['$http', 'Route']
 function UserMeetMeConferencingDelegatesService($http, Route) {

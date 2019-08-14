@@ -55,12 +55,10 @@ function controller(
   }
 
   function loadAdmins() {
-    return ServiceProviderAdminService.index(ctrl.serviceProviderId).then(
-      function(data) {
-        ctrl.admins = data
-        return data
-      }
-    )
+    return ServiceProviderAdminService.index(ctrl.serviceProviderId).then(function(data) {
+      ctrl.admins = data
+      return data
+    })
   }
 
   function loadLanguages() {
@@ -99,11 +97,9 @@ function controller(
               updateBoth(ctrl.editAdmin, ctrl.editPolicies, close)
             },
             function onDelete(close) {
-              Alert.confirm
-                .open('Are you sure you want to delete this Admin?')
-                .then(function() {
-                  remove(ctrl.editAdmin, close)
-                })
+              Alert.confirm.open('Are you sure you want to delete this Admin?').then(function() {
+                remove(ctrl.editAdmin, close)
+              })
             }
           )
         })

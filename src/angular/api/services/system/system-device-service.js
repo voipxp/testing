@@ -25,9 +25,7 @@ function Service($http, Route) {
   }
 
   function show(deviceName) {
-    return $http
-      .get(url(), { params: { deviceName } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { deviceName } }).then(response => response.data)
   }
 
   function destroy(deviceName) {

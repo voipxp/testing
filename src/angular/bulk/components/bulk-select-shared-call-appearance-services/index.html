@@ -1,9 +1,6 @@
 <pbs-block title="Shared Call Appearance Services">
   <pbs-spinner loading="$ctrl.loading">
-    <div
-      ng-repeat="(type, description) in $ctrl.serviceTypes"
-      class="large-margin-bottom"
-    >
+    <div ng-repeat="(type, description) in $ctrl.serviceTypes" class="large-margin-bottom">
       <pbs-form-section>
         Add {{ description }}
         <span class="is-pulled-right" ng-show="$ctrl.services[type].length > 0">
@@ -26,14 +23,10 @@
       ></pbs-input-radio>
     </div>
     <p class="subtitle">
-      Required Licenses: {{ $ctrl.maxEndpoints || 0 }} / {{ $ctrl.endpointCount
-      || 0 }}
+      Required Licenses: {{ $ctrl.maxEndpoints || 0 }} / {{ $ctrl.endpointCount || 0 }}
     </p>
     <div class="large-margin-top has-text-right">
-      <pbs-button-next
-        ng-disabled="!$ctrl.canComplete()"
-        ng-click="$ctrl.next()"
-      ></pbs-button-next>
+      <pbs-button-next ng-disabled="!$ctrl.canComplete()" ng-click="$ctrl.next()"></pbs-button-next>
     </div>
   </pbs-spinner>
 </pbs-block>

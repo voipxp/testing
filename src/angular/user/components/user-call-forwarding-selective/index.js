@@ -60,9 +60,7 @@ function controller(
   }
 
   function loadSettings() {
-    return UserCallForwardingSelectiveService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserCallForwardingSelectiveService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }
@@ -127,9 +125,7 @@ function controller(
         // .then(loadSettings)
         .then(function() {
           var message = criteria.isActive ? 'Activated' : 'Deactivated'
-          var action = criteria.isActive
-            ? Alert.notify.success
-            : Alert.notify.warning
+          var action = criteria.isActive ? Alert.notify.success : Alert.notify.warning
           action(criteria.criteriaName + ' ' + message)
         })
     )

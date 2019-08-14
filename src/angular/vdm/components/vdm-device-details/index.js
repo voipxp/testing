@@ -12,11 +12,7 @@ angular.module('odin.vdm').component('vdmDeviceDetails', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupDeviceService',
-  'VdmGroupTemplateDeviceService'
-]
+controller.$inject = ['Alert', 'GroupDeviceService', 'VdmGroupTemplateDeviceService']
 function controller(Alert, GroupDeviceService, VdmGroupTemplateDeviceService) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -33,13 +29,11 @@ function controller(Alert, GroupDeviceService, VdmGroupTemplateDeviceService) {
   }
 
   function loadDevice() {
-    return GroupDeviceService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.deviceName
-    ).then(function(data) {
-      ctrl.device = data
-    })
+    return GroupDeviceService.show(ctrl.serviceProviderId, ctrl.groupId, ctrl.deviceName).then(
+      function(data) {
+        ctrl.device = data
+      }
+    )
   }
 
   function assign() {
@@ -62,19 +56,11 @@ function controller(Alert, GroupDeviceService, VdmGroupTemplateDeviceService) {
   }
 
   function rebuild() {
-    return GroupDeviceService.rebuild(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.device.deviceName
-    )
+    return GroupDeviceService.rebuild(ctrl.serviceProviderId, ctrl.groupId, ctrl.device.deviceName)
   }
 
   function reset() {
-    return GroupDeviceService.reset(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.device.deviceName
-    )
+    return GroupDeviceService.reset(ctrl.serviceProviderId, ctrl.groupId, ctrl.device.deviceName)
   }
 
   function rebuildReset() {

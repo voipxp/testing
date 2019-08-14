@@ -82,10 +82,7 @@
       ></pbs-input-select>
       <!-- stringToNumber -->
     </pbs-form-field>
-    <pbs-form-field
-      ng-if="$ctrl.editTag.type === 'password'"
-      label="Confirm Password"
-    >
+    <pbs-form-field ng-if="$ctrl.editTag.type === 'password'" label="Confirm Password">
       <input
         ng-if="$ctrl.editTag.type === 'password'"
         type="password"

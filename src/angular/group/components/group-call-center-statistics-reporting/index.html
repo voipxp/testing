@@ -10,9 +10,7 @@
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Generate Daily Reports">
-        <pbs-check-box
-          checked="$ctrl.settings.generateDailyReport"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.generateDailyReport"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Statistics Source">
         {{ $ctrl.settings.statisticsSource }}
@@ -29,10 +27,7 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editGroupCallCenterStatisticsReporting"
-  title="Edit Statistics Reporting"
->
+<pbs-modal id="editGroupCallCenterStatisticsReporting" title="Edit Statistics Reporting">
   <pbs-form-field label="Daily Report">
     <pbs-input-checkbox
       ng-model="$ctrl.editSettings.generateDailyReport"
@@ -55,18 +50,10 @@
   </pbs-form-field>
 
   <pbs-form-field label="Reporting Email 1">
-    <input
-      type="text"
-      class="input"
-      ng-model="$ctrl.editSettings.reportingEmailAddress1"
-    />
+    <input type="text" class="input" ng-model="$ctrl.editSettings.reportingEmailAddress1" />
   </pbs-form-field>
 
   <pbs-form-field label="Reporting Email 2">
-    <input
-      type="text"
-      class="input"
-      ng-model="$ctrl.editSettings.reportingEmailAddress2"
-    />
+    <input type="text" class="input" ng-model="$ctrl.editSettings.reportingEmailAddress2" />
   </pbs-form-field>
 </pbs-modal>

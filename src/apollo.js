@@ -52,20 +52,12 @@ const omitTypename = (key, value) => {
 */
 const omitTypenameLink = new ApolloLink((operation, forward) => {
   if (operation.variables) {
-    operation.variables = JSON.parse(
-      JSON.stringify(operation.variables),
-      omitTypename
-    )
+    operation.variables = JSON.parse(JSON.stringify(operation.variables), omitTypename)
   }
   return forward ? forward(operation) : null
 })
 
-const link = ApolloLink.from([
-  authMiddleware,
-  errorLink,
-  omitTypenameLink,
-  httpLink
-])
+const link = ApolloLink.from([authMiddleware, errorLink, omitTypenameLink, httpLink])
 
 export const client = new ApolloClient({
   link,

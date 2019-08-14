@@ -87,11 +87,9 @@ function Service(Module, ACL, GraphQL) {
       // TEMP HACK until #290
       switch (name) {
         case 'Call Center':
-          return [
-            'Call Center - Basic',
-            'Call Center - Standard',
-            'Call Center - Premium'
-          ].find(service => isAssigned(name) && isViewable(name))
+          return ['Call Center - Basic', 'Call Center - Standard', 'Call Center - Premium'].find(
+            service => isAssigned(name) && isViewable(name)
+          )
         case 'Shared Call Appearance':
           return [
             'Shared Call Appearance',
@@ -110,9 +108,7 @@ function Service(Module, ACL, GraphQL) {
   }
 
   function loadServices(userId) {
-    return GraphQL.query({ query: USER_SERVICES, variables: { userId } }).then(
-      ({ data }) => data
-    )
+    return GraphQL.query({ query: USER_SERVICES, variables: { userId } }).then(({ data }) => data)
   }
 
   function mapServices(assigned = { userServices: [] }) {

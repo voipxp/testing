@@ -29,36 +29,25 @@
       </pbs-block-buttons>
       <pbs-list>
         <pbs-list-item label="Display DNIS Number">
-          <pbs-check-box
-            checked="$ctrl.service.displayDNISNumber"
-          ></pbs-check-box>
+          <pbs-check-box checked="$ctrl.service.displayDNISNumber"></pbs-check-box>
         </pbs-list-item>
         <pbs-list-item label="Display DNIS Name">
-          <pbs-check-box
-            checked="$ctrl.service.displayDNISName"
-          ></pbs-check-box>
+          <pbs-check-box checked="$ctrl.service.displayDNISName"></pbs-check-box>
         </pbs-list-item>
         <pbs-list-item label="Promote Calls from 1 to 0">
-          <pbs-check-box
-            checked="$ctrl.service.promoteCallsFromPriority1to0"
-          ></pbs-check-box>
+          <pbs-check-box checked="$ctrl.service.promoteCallsFromPriority1to0"></pbs-check-box>
           <span ng-show="$ctrl.service.promoteCallsFromPriority1to0">
-            after {{ $ctrl.service.promoteCallsFromPriority1to0Seconds }}
-            seconds
+            after {{ $ctrl.service.promoteCallsFromPriority1to0Seconds }} seconds
           </span>
         </pbs-list-item>
         <pbs-list-item label="Promote Calls from 2 to 1">
-          <pbs-check-box
-            checked="$ctrl.service.promoteCallsFromPriority2to1"
-          ></pbs-check-box>
+          <pbs-check-box checked="$ctrl.service.promoteCallsFromPriority2to1"></pbs-check-box>
           <span ng-show="$ctrl.service.promoteCallsFromPriority2to1">
             after {{ $ctrl.service.promoteCallsFromPriority2to1 }} seconds
           </span>
         </pbs-list-item>
         <pbs-list-item label="Promote Calls from 3 to 2">
-          <pbs-check-box
-            checked="$ctrl.service.promoteCallsFromPriority3to2"
-          ></pbs-check-box>
+          <pbs-check-box checked="$ctrl.service.promoteCallsFromPriority3to2"></pbs-check-box>
           <span ng-show="$ctrl.service.promoteCallsFromPriority3to2">
             after {{ $ctrl.service.promoteCallsFromPriority3to2 }} seconds
           </span>
@@ -175,12 +164,7 @@
   <pbs-modal id="newGroupCallCenterDnisInstance" title="Add DNIS">
     <form novalidate>
       <pbs-form-field-horizontal label="Name*">
-        <input
-          type="text"
-          class="input"
-          ng-model="$ctrl.newService.name"
-          required
-        />
+        <input type="text" class="input" ng-model="$ctrl.newService.name" required />
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Priority*">
         <pbs-input-select
@@ -198,18 +182,10 @@
         ></select-phone-number>
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="Extension">
-        <input
-          type="text"
-          class="input"
-          ng-model="$ctrl.newService.extension"
-        />
+        <input type="text" class="input" ng-model="$ctrl.newService.extension" />
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal label="CLID">
-        <input
-          type="text"
-          class="input"
-          ng-model="$ctrl.newService.callingLineIdPhoneNumber"
-        />
+        <input type="text" class="input" ng-model="$ctrl.newService.callingLineIdPhoneNumber" />
       </pbs-form-field-horizontal>
       <pbs-input-checkbox
         ng-model="$ctrl.newService.useCustomDnisAnnouncementSettings"
@@ -227,21 +203,13 @@
         label="CLID Last Name"
         ng-show="$ctrl.newService.useCustomCLIDSettings"
       >
-        <input
-          type="text"
-          class="input"
-          ng-model="$ctrl.newService.callingLineIdLastName"
-        />
+        <input type="text" class="input" ng-model="$ctrl.newService.callingLineIdLastName" />
       </pbs-form-field-horizontal>
       <pbs-form-field-horizontal
         label="CLID First Name"
         ng-show="$ctrl.newService.useCustomCLIDSettings"
       >
-        <input
-          type="text"
-          class="input"
-          ng-model="$ctrl.newService.callingLineIdFirstName"
-        />
+        <input type="text" class="input" ng-model="$ctrl.newService.callingLineIdFirstName" />
       </pbs-form-field-horizontal>
     </form>
   </pbs-modal>

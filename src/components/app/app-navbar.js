@@ -107,10 +107,7 @@ export const AppNavbar = withRouter(({ history }) => {
       <Navbar color="link" managed active={showMenu}>
         <Navbar.Brand>
           <Navbar.Item href="#!/">
-            <img
-              src="/api/v2/ui/images/imageIcon.png?size=50x51"
-              alt="odin Web"
-            />
+            <img src="/api/v2/ui/images/imageIcon.png?size=50x51" alt="odin Web" />
           </Navbar.Item>
           <Navbar.Burger color="link" onClick={toggleMenu} />
         </Navbar.Brand>
@@ -126,10 +123,7 @@ export const AppNavbar = withRouter(({ history }) => {
                 <Navbar.Link>Applications</Navbar.Link>
                 <Navbar.Dropdown boxed>
                   {applications.map(application => (
-                    <Navbar.Item
-                      key={application._id}
-                      onClick={() => openApplication(application)}
-                    >
+                    <Navbar.Item key={application._id} onClick={() => openApplication(application)}>
                       {application.name}
                     </Navbar.Item>
                   ))}
@@ -141,20 +135,12 @@ export const AppNavbar = withRouter(({ history }) => {
               <Navbar.Item dropdown hoverable>
                 <Navbar.Link>Search</Navbar.Link>
                 <Navbar.Dropdown boxed>
-                  <Navbar.Item onClick={() => openSearch('user')}>
-                    Users
-                  </Navbar.Item>
-                  <Navbar.Item onClick={() => openSearch('dn')}>
-                    Phone Numbers
-                  </Navbar.Item>
+                  <Navbar.Item onClick={() => openSearch('user')}>Users</Navbar.Item>
+                  <Navbar.Item onClick={() => openSearch('dn')}>Phone Numbers</Navbar.Item>
                   {hasServiceProvider && (
                     <>
-                      <Navbar.Item onClick={() => openSearch('group')}>
-                        Groups
-                      </Navbar.Item>
-                      <Navbar.Item onClick={() => openSearch('service')}>
-                        Services
-                      </Navbar.Item>
+                      <Navbar.Item onClick={() => openSearch('group')}>Groups</Navbar.Item>
+                      <Navbar.Item onClick={() => openSearch('service')}>Services</Navbar.Item>
                     </>
                   )}
                 </Navbar.Dropdown>
@@ -175,18 +161,10 @@ export const AppNavbar = withRouter(({ history }) => {
 
       {hasGroup && (
         <>
-          <UiCardModal
-            title="User Search"
-            isOpen={search === 'user'}
-            onCancel={() => setSearch()}
-          >
+          <UiCardModal title="User Search" isOpen={search === 'user'} onCancel={() => setSearch()}>
             <UserSearch onSelect={openUser} />
           </UiCardModal>
-          <UiCardModal
-            title="DN Search"
-            isOpen={search === 'dn'}
-            onCancel={() => setSearch()}
-          >
+          <UiCardModal title="DN Search" isOpen={search === 'dn'} onCancel={() => setSearch()}>
             <SystemDnSearch onSelect={openUser} />
           </UiCardModal>
         </>

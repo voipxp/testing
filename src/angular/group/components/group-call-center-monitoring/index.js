@@ -7,18 +7,8 @@ angular.module('odin.group').component('groupCallCenterMonitoring', {
   bindings: { serviceUserId: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'Session',
-  'SocketService',
-  'GroupCallCenterAgentService'
-]
-function controller(
-  Alert,
-  Session,
-  SocketService,
-  GroupCallCenterAgentService
-) {
+controller.$inject = ['Alert', 'Session', 'SocketService', 'GroupCallCenterAgentService']
+function controller(Alert, Session, SocketService, GroupCallCenterAgentService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.$onDestroy = onDestroy

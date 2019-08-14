@@ -7,18 +7,8 @@ angular.module('odin.vdm').component('vdmTemplateDevices', {
   bindings: { template: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'Route',
-  'VdmGroupTemplateDeviceService',
-  'GroupDeviceService'
-]
-function controller(
-  Alert,
-  Route,
-  VdmGroupTemplateDeviceService,
-  GroupDeviceService
-) {
+controller.$inject = ['Alert', 'Route', 'VdmGroupTemplateDeviceService', 'GroupDeviceService']
+function controller(Alert, Route, VdmGroupTemplateDeviceService, GroupDeviceService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.assign = assign
@@ -65,19 +55,11 @@ function controller(
   }
 
   function rebuild(device) {
-    return GroupDeviceService.rebuild(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      device.deviceName
-    )
+    return GroupDeviceService.rebuild(ctrl.serviceProviderId, ctrl.groupId, device.deviceName)
   }
 
   function reset(device) {
-    return GroupDeviceService.reset(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      device.deviceName
-    )
+    return GroupDeviceService.reset(ctrl.serviceProviderId, ctrl.groupId, device.deviceName)
   }
 
   function rebuildReset(device) {

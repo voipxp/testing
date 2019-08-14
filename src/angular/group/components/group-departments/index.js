@@ -8,20 +8,8 @@ angular.module('odin.group').component('groupDepartments', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupDepartmentService',
-  'Route',
-  'GroupPolicyService',
-  '$q'
-]
-function controller(
-  Alert,
-  GroupDepartmentService,
-  Route,
-  GroupPolicyService,
-  $q
-) {
+controller.$inject = ['Alert', 'GroupDepartmentService', 'Route', 'GroupPolicyService', '$q']
+function controller(Alert, GroupDepartmentService, Route, GroupPolicyService, $q) {
   var ctrl = this
 
   ctrl.$onInit = onInit
@@ -52,11 +40,9 @@ function controller(
   }
 
   function loadDepartments() {
-    return GroupDepartmentService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      true
-    ).then(function(data) {
+    return GroupDepartmentService.index(ctrl.serviceProviderId, ctrl.groupId, true).then(function(
+      data
+    ) {
       ctrl.departments = data
     })
   }
@@ -74,11 +60,7 @@ function controller(
 
   function save(department, callback) {
     Alert.spinner.open()
-    GroupDepartmentService.store(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      department
-    )
+    GroupDepartmentService.store(ctrl.serviceProviderId, ctrl.groupId, department)
       .then(function() {
         if (_.isFunction(callback)) {
           callback()
@@ -98,12 +80,8 @@ function controller(
   }
 
   function open(department) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'departments',
-      'department'
-    ).search({ name: department.name })
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'departments', 'department').search({
+      name: department.name
+    })
   }
 }

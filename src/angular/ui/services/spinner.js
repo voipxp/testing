@@ -1,9 +1,7 @@
 import angular from 'angular'
 import { Loading } from '@/utils'
 
-angular
-  .module('odin.ui')
-  .factory('Spinner', () => ({ open: Loading.show, close: Loading.hide }))
+angular.module('odin.ui').factory('Spinner', () => ({ open: Loading.show, close: Loading.hide }))
 
 // function Spinner() {
 //   const service = { register: register, open: open, close: close }

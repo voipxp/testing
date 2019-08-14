@@ -21,10 +21,7 @@
       group-id="$ctrl.groupId"
     ></vdm-devices>
   </pbs-tab>
-  <pbs-tab
-    label="Device Types"
-    ng-if="!$ctrl.serviceProviderId && !$ctrl.groupId"
-  >
+  <pbs-tab label="Device Types" ng-if="!$ctrl.serviceProviderId && !$ctrl.groupId">
     <vdm-device-types module="$ctrl.module"></vdm-device-types>
   </pbs-tab>
 </pbs-tabs>

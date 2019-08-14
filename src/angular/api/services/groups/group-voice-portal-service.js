@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupVoicePortalService', GroupVoicePortalService)
+angular.module('odin.api').factory('GroupVoicePortalService', GroupVoicePortalService)
 
 GroupVoicePortalService.$inject = ['$http', 'Route']
 function GroupVoicePortalService($http, Route) {

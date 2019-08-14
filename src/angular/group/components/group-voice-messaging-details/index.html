@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Voice Messaging" class="margin-top">
     <pbs-block-buttons if-module-update="$ctrl.module">
-      <pbs-button-compact-edit
-        title="Edit Voice Messaging"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Voice Messaging" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -42,9 +39,7 @@
         label="Delete IMAP Messages"
         ng-show="$ctrl.settings.useMailServerSetting === $ctrl.options.useMailServerSetting[1] && $ctrl.settings.mailServerProtocol === $ctrl.options.mailServerProtocol[1]"
       >
-        <pbs-check-box
-          checked="$ctrl.settings.realDeleteForImap"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.realDeleteForImap"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item
         label="Mailbox Length"
@@ -95,9 +90,7 @@
       label="Allow Send Message to Entire Group"
     ></pbs-input-checkbox>
   </pbs-form-field>
-  <div
-    ng-show="$ctrl.editSettings.useMailServerSetting === $ctrl.options.useMailServerSetting[1]"
-  >
+  <div ng-show="$ctrl.editSettings.useMailServerSetting === $ctrl.options.useMailServerSetting[1]">
     <pbs-form-field label="Server Address">
       <input
         type="text"
@@ -134,10 +127,7 @@
         label="Enable Message Aging"
       ></pbs-input-checkbox>
     </pbs-form-field>
-    <pbs-form-field
-      label="Message Hold Period in Days"
-      ng-show="$ctrl.editSettings.doesMessageAge"
-    >
+    <pbs-form-field label="Message Hold Period in Days" ng-show="$ctrl.editSettings.doesMessageAge">
       <pbs-input-select
         ng-model="$ctrl.editSettings.holdPeriodDays"
         ng-options="opt for opt in $ctrl.options.holdPeriodDays"

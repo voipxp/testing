@@ -1,22 +1,15 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block module="$ctrl.module">
     <pbs-block-buttons if-module-update="$ctrl.module">
-      <pbs-button-compact-edit
-        title="Edit Calling Name Delivery"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Calling Name Delivery" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="External Calling Name Delivery">
-        <pbs-check-box
-          checked="$ctrl.settings.isActiveForExternalCalls"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.isActiveForExternalCalls"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Internal Calling Name Delivery">
-        <pbs-check-box
-          checked="$ctrl.settings.isActiveForInternalCalls"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.isActiveForInternalCalls"></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>

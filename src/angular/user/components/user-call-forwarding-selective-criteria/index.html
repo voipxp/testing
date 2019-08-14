@@ -61,12 +61,7 @@
     <pbs-form-section>General Settings</pbs-form-section>
 
     <pbs-form-field-horizontal label="Description">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editCriteria.newCriteriaName"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editCriteria.newCriteriaName" required />
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal label="Forward To">
@@ -81,11 +76,7 @@
       label="Forward To Specified"
       ng-show="$ctrl.editCriteria.forwardToNumberSelection === 'Forward To Specified Number'"
     >
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editCriteria.forwardToPhoneNumber"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editCriteria.forwardToPhoneNumber" />
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal label="Time Schedule">
@@ -114,9 +105,7 @@
       ></pbs-input-select>
     </pbs-form-field-horizontal>
 
-    <div
-      ng-show="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection === 'Specified Only'"
-    >
+    <div ng-show="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection === 'Specified Only'">
       <pbs-form-section>Allow From</pbs-form-section>
 
       <pbs-input-checkbox

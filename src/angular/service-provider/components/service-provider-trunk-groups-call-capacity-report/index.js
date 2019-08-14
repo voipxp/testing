@@ -2,13 +2,11 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.serviceProvider')
-  .component('serviceProviderTrunkGroupsCallCapacityReport', {
-    template,
-    controller,
-    bindings: { serviceProviderId: '<', module: '<' }
-  })
+angular.module('odin.serviceProvider').component('serviceProviderTrunkGroupsCallCapacityReport', {
+  template,
+  controller,
+  bindings: { serviceProviderId: '<', module: '<' }
+})
 
 controller.$inject = [
   'Alert',
@@ -16,12 +14,7 @@ controller.$inject = [
   'Route',
   '$location'
 ]
-function controller(
-  Alert,
-  ServiceProviderTrunkGroupCallCapacityReportService,
-  Route,
-  $location
-) {
+function controller(Alert, ServiceProviderTrunkGroupCallCapacityReportService, Route, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
@@ -74,35 +67,28 @@ function controller(
   }
 
   function loadCallCapacityReport() {
-    return ServiceProviderTrunkGroupCallCapacityReportService.show(
-      ctrl.serviceProviderId
-    ).then(function(data) {
-      ctrl.settings = data
-      var groupTrunkGroupDetails = _.map(data.groupTrunkGroupDetails, function(
-        groupTrunkGroupDetails
-      ) {
-        groupTrunkGroupDetails.burstingMaxAvailableActiveCalls = displayMax(
-          groupTrunkGroupDetails.burstingMaxAvailableActiveCalls
-        )
-        groupTrunkGroupDetails.quantity = displayMax(
-          groupTrunkGroupDetails.quantity
-        )
-        groupTrunkGroupDetails.allowed = displayMax(
-          groupTrunkGroupDetails.allowed
-        )
-        return groupTrunkGroupDetails
-      })
-      ctrl.settings.groups = groupTrunkGroupDetails
-      return data
-    })
+    return ServiceProviderTrunkGroupCallCapacityReportService.show(ctrl.serviceProviderId).then(
+      function(data) {
+        ctrl.settings = data
+        var groupTrunkGroupDetails = _.map(data.groupTrunkGroupDetails, function(
+          groupTrunkGroupDetails
+        ) {
+          groupTrunkGroupDetails.burstingMaxAvailableActiveCalls = displayMax(
+            groupTrunkGroupDetails.burstingMaxAvailableActiveCalls
+          )
+          groupTrunkGroupDetails.quantity = displayMax(groupTrunkGroupDetails.quantity)
+          groupTrunkGroupDetails.allowed = displayMax(groupTrunkGroupDetails.allowed)
+          return groupTrunkGroupDetails
+        })
+        ctrl.settings.groups = groupTrunkGroupDetails
+        return data
+      }
+    )
   }
   function onClick(group) {
     var returnTo = $location.url()
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      group.groupId,
-      'trunkGroups'
-    ).search({ returnTo: returnTo })
+    Route.open('groups', ctrl.serviceProviderId, group.groupId, 'trunkGroups').search({
+      returnTo: returnTo
+    })
   }
 }

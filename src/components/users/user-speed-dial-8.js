@@ -3,13 +3,7 @@ import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
 import { Alert, Loading } from '@/utils'
 import { useUserSpeedDial8, useUserSpeedDial8Update } from '@/graphql'
-import {
-  UiCard,
-  UiLoadingCard,
-  UiDataTable,
-  UiButton,
-  UiCardModal
-} from '@/components/ui'
+import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const UserSpeedDial8 = ({ match }) => {
   const { userId } = match.params
@@ -107,9 +101,7 @@ export const UserSpeedDial8 = ({ match }) => {
                     type="text"
                     name="phoneNumber"
                     value={form.phoneNumber}
-                    onChange={e =>
-                      setForm({ ...form, phoneNumber: e.target.value })
-                    }
+                    onChange={e => setForm({ ...form, phoneNumber: e.target.value })}
                     placeholder="Phone Number"
                   />
                 </Control>
@@ -125,8 +117,7 @@ export const UserSpeedDial8 = ({ match }) => {
         onDelete={remove}
       >
         <blockquote>
-          Are you sure you want to remove Speed Code {form.speedCode} (
-          {form.phoneNumber})?
+          Are you sure you want to remove Speed Code {form.speedCode} ({form.phoneNumber})?
         </blockquote>
       </UiCardModal>
     </>

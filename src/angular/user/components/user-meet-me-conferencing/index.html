@@ -40,11 +40,7 @@
         </tr>
       </tbody>
     </table>
-    <div
-      class="message"
-      ng-show="$ctrl.meetMeConferencingBridges.length < 1"
-      pbs-margin-top
-    >
+    <div class="message" ng-show="$ctrl.meetMeConferencingBridges.length < 1" pbs-margin-top>
       <div class="message-body">
         No Meet-Me Bridges Assigned
       </div>
@@ -55,12 +51,7 @@
   <form name="editConferenceForm">
     <pbs-form-section>Details</pbs-form-section>
     <pbs-form-field-horizontal label="Title*">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editConference.title"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editConference.title" required />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Notification*">
       <pbs-input-select
@@ -70,18 +61,10 @@
       ></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Account Code">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editConference.accountCode"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editConference.accountCode" />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Estimated Participants">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editConference.estimatedParticipants"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editConference.estimatedParticipants" />
     </pbs-form-field-horizontal>
 
     <pbs-form-section>Options</pbs-form-section>
@@ -108,10 +91,7 @@
 
     <pbs-form-section>Delegate Users</pbs-form-section>
     <div class="box">
-      <select-users
-        available="$ctrl.availableUsers"
-        selected="$ctrl.assignedUsers"
-      ></select-users>
+      <select-users available="$ctrl.availableUsers" selected="$ctrl.assignedUsers"></select-users>
     </div>
 
     <pbs-form-section>Information</pbs-form-section>
@@ -162,26 +142,13 @@
       ></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Title*">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editConference.title"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editConference.title" required />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Account Code">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editConference.accountCode"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editConference.accountCode" />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Estimated Participants">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editConference.estimatedParticipants"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editConference.estimatedParticipants" />
     </pbs-form-field-horizontal>
     <pbs-form-section>Options</pbs-form-section>
     <pbs-input-checkbox

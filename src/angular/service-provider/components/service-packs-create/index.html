@@ -2,18 +2,10 @@
   <pbs-form>
     <pbs-form-section>Settings</pbs-form-section>
     <pbs-form-field-horizontal label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.servicePack.servicePackName"
-      />
+      <input type="text" class="input" ng-model="$ctrl.servicePack.servicePackName" />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Description">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.servicePack.servicePackDescription"
-      />
+      <input type="text" class="input" ng-model="$ctrl.servicePack.servicePackDescription" />
     </pbs-form-field-horizontal>
     <pbs-form-section>Availability</pbs-form-section>
     <pbs-input-checkbox
@@ -21,9 +13,7 @@
       label="Available For Use"
     ></pbs-input-checkbox>
 
-    <service-pack-licensing
-      service="$ctrl.servicePack"
-    ></service-pack-licensing>
+    <service-pack-licensing service="$ctrl.servicePack"></service-pack-licensing>
 
     <pbs-form-section>
       Services
@@ -44,8 +34,8 @@
         <td>
           {{ service.serviceName }}
           <span class="is-pulled-right">
-            {{ service.quantity === -1 ? 'Unlimited' : (service.quantity -
-            service.allocated) + ' Available'}}
+            {{ service.quantity === -1 ? 'Unlimited' : (service.quantity - service.allocated) + '
+            Available'}}
           </span>
         </td>
       </tr>
@@ -59,9 +49,7 @@
       <h4 class="underline thin">
         Available ({{ $ctrl.available.length }})
         <small>
-          <a href="" class="is-pulled-right" ng-click="$ctrl.addAll()"
-            >Select All</a
-          >
+          <a href="" class="is-pulled-right" ng-click="$ctrl.addAll()">Select All</a>
         </small>
       </h4>
       <pbs-table-search ng-model="$ctrl.filterAvailable"></pbs-table-search>
@@ -92,9 +80,7 @@
       <h4 class="underline thin">
         Selected ({{ $ctrl.editServicePack.userServices.length }})
         <small>
-          <a href="" class="is-pulled-right" ng-click="$ctrl.removeAll()"
-            >Select All</a
-          >
+          <a href="" class="is-pulled-right" ng-click="$ctrl.removeAll()">Select All</a>
         </small>
       </h4>
       <pbs-table-search ng-model="$ctrl.filterSelected"></pbs-table-search>

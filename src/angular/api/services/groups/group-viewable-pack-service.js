@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupViewablePackService', GroupViewablePackService)
+angular.module('odin.api').factory('GroupViewablePackService', GroupViewablePackService)
 
 GroupViewablePackService.$inject = ['$http', 'Route', '$rootScope']
 function GroupViewablePackService($http, Route, $rootScope) {
@@ -23,12 +21,10 @@ function GroupViewablePackService($http, Route, $rootScope) {
   }
 
   function store(serviceProviderId, groupId, pack) {
-    return $http
-      .post(url(), { ...pack, serviceProviderId, groupId })
-      .then(response => {
-        $rootScope.$emit('GroupViewablePackService:updated')
-        return response.data
-      })
+    return $http.post(url(), { ...pack, serviceProviderId, groupId }).then(response => {
+      $rootScope.$emit('GroupViewablePackService:updated')
+      return response.data
+    })
   }
 
   function show(serviceProviderId, groupId, id) {
@@ -38,21 +34,17 @@ function GroupViewablePackService($http, Route, $rootScope) {
   }
 
   function update(serviceProviderId, groupId, pack) {
-    return $http
-      .put(url(), { ...pack, serviceProviderId, groupId })
-      .then(response => {
-        $rootScope.$emit('GroupViewablePackService:updated')
-        return response.data
-      })
+    return $http.put(url(), { ...pack, serviceProviderId, groupId }).then(response => {
+      $rootScope.$emit('GroupViewablePackService:updated')
+      return response.data
+    })
   }
 
   function destroy(serviceProviderId, groupId, id) {
-    return $http
-      .delete(url(), { params: { serviceProviderId, groupId, id } })
-      .then(response => {
-        $rootScope.$emit('GroupViewablePackService:updated')
-        return response.data
-      })
+    return $http.delete(url(), { params: { serviceProviderId, groupId, id } }).then(response => {
+      $rootScope.$emit('GroupViewablePackService:updated')
+      return response.data
+    })
   }
 
   function users(serviceProviderId, groupId) {

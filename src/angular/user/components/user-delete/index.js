@@ -13,21 +13,19 @@ function controller(Alert, UserService, Route) {
   ctrl.remove = remove
 
   function remove() {
-    Alert.confirm
-      .open('Are you sure you want to remove ' + ctrl.userId + '?')
-      .then(function() {
-        Alert.spinner.open()
-        return UserService.destroy(ctrl.userId)
-          .then(function() {
-            Alert.notify.success('User Removed')
-            Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'users')
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to remove ' + ctrl.userId + '?').then(function() {
+      Alert.spinner.open()
+      return UserService.destroy(ctrl.userId)
+        .then(function() {
+          Alert.notify.success('User Removed')
+          Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'users')
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 }

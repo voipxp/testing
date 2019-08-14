@@ -6,10 +6,7 @@
         label="Edit Settings"
       ></pbs-button-compact-edit>
     </pbs-block-buttons>
-    <pbs-list-builder
-      data="$ctrl.settings"
-      schema="$ctrl.schema"
-    ></pbs-list-builder>
+    <pbs-list-builder data="$ctrl.settings" schema="$ctrl.schema"></pbs-list-builder>
   </pbs-block>
 
   <pbs-block title="Monitors" pbs-margin-top>
@@ -32,10 +29,7 @@
 </pbs-spinner>
 
 <pbs-modal id="editUserPrivacySettings" title="Edit Settings">
-  <pbs-form-builder
-    data="$ctrl.editSettings"
-    schema="$ctrl.schema"
-  ></pbs-form-builder>
+  <pbs-form-builder data="$ctrl.editSettings" schema="$ctrl.schema"></pbs-form-builder>
 </pbs-modal>
 
 <pbs-modal id="editUserPrivacyMonitors" title="Edit Monitors">

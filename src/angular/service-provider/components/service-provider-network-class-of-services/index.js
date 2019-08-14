@@ -2,15 +2,13 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.serviceProvider')
-  .component('serviceProviderNetworkClassOfServices', {
-    template,
-    controller,
-    bindings: {
-      serviceProviderId: '<'
-    }
-  })
+angular.module('odin.serviceProvider').component('serviceProviderNetworkClassOfServices', {
+  template,
+  controller,
+  bindings: {
+    serviceProviderId: '<'
+  }
+})
 
 controller.$inject = [
   'Alert',
@@ -42,30 +40,25 @@ function controller(
   }
 
   function loadServices() {
-    return ServiceProviderNetworkClassOfServiceService.show(
-      ctrl.serviceProviderId
-    ).then(function(data) {
+    return ServiceProviderNetworkClassOfServiceService.show(ctrl.serviceProviderId).then(function(
+      data
+    ) {
       ctrl.services = data.services
     })
   }
 
   function select(service) {
     if (service.default) return
-    Alert.confirm
-      .open('Are you sure you want to make this service default?')
-      .then(function() {
-        Alert.spinner.open()
-        ServiceProviderNetworkClassOfServiceService.select(
-          ctrl.serviceProviderId,
-          service.name
-        )
-          .then(loadServices)
-          .then(function() {
-            Alert.notify.success('Default Service Update')
-          })
-          .catch(Alert.notify.danger)
-          .finally(Alert.spinner.close)
-      })
+    Alert.confirm.open('Are you sure you want to make this service default?').then(function() {
+      Alert.spinner.open()
+      ServiceProviderNetworkClassOfServiceService.select(ctrl.serviceProviderId, service.name)
+        .then(loadServices)
+        .then(function() {
+          Alert.notify.success('Default Service Update')
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    })
   }
 
   function loadSystemServices() {
@@ -87,9 +80,7 @@ function controller(
         return !_.find(ctrl.services, { name: service.name })
       })
       ctrl.selected = angular.copy(ctrl.services)
-      Alert.modal.open('serviceProviderNetworkClassOfServiceModal', function(
-        close
-      ) {
+      Alert.modal.open('serviceProviderNetworkClassOfServiceModal', function(close) {
         assign(ctrl.selected, close)
       })
     })
@@ -97,10 +88,7 @@ function controller(
 
   function assign(services, close) {
     Alert.spinner.open()
-    ServiceProviderNetworkClassOfServiceService.update(
-      ctrl.serviceProviderId,
-      services
-    )
+    ServiceProviderNetworkClassOfServiceService.update(ctrl.serviceProviderId, services)
       .then(loadServices)
       .then(function() {
         Alert.notify.success('Services Update')

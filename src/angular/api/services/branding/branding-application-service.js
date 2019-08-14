@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('BrandingApplicationService', BrandingApplicationService)
+angular.module('odin.api').factory('BrandingApplicationService', BrandingApplicationService)
 
 BrandingApplicationService.$inject = ['$http', 'Route', '$rootScope']
 function BrandingApplicationService($http, Route, $rootScope) {
@@ -12,9 +10,7 @@ function BrandingApplicationService($http, Route, $rootScope) {
   return service
 
   function index(hostnameId) {
-    return $http
-      .get(url(), { params: { hostnameId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { hostnameId } }).then(response => response.data)
   }
 
   function store(application) {

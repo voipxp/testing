@@ -59,14 +59,13 @@ function controller(Alert, UserCallForwardingNoAnswerService) {
   }
 
   function load() {
-    return UserCallForwardingNoAnswerService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
-      ctrl.users = _.filter(data, function(item) {
-        return _.get(item, 'service.assigned')
-      })
-    })
+    return UserCallForwardingNoAnswerService.index(ctrl.serviceProviderId, ctrl.groupId).then(
+      function(data) {
+        ctrl.users = _.filter(data, function(item) {
+          return _.get(item, 'service.assigned')
+        })
+      }
+    )
   }
 
   function onClick(event) {

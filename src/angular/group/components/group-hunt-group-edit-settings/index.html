@@ -26,10 +26,7 @@
     required
   ></pbs-input-select>
 </pbs-form-field-horizontal>
-<pbs-form-field-horizontal
-  label="Network Class of Service"
-  ng-if="$ctrl.hasVersion20"
->
+<pbs-form-field-horizontal label="Network Class of Service" ng-if="$ctrl.hasVersion20">
   <select-network-class-of-service
     service-provider-id="$ctrl.serviceProviderId"
     group-id="$ctrl.groupId"
@@ -42,15 +39,8 @@
   ng-model="$ctrl.huntGroup.huntAfterNoAnswer"
   label="Skip on No Answer"
 ></pbs-input-checkbox>
-<pbs-form-field-horizontal
-  label="Skip After Rings"
-  ng-show="$ctrl.huntGroup.huntAfterNoAnswer"
->
-  <input
-    type="number"
-    class="input"
-    ng-model="$ctrl.huntGroup.noAnswerNumberOfRings"
-  />
+<pbs-form-field-horizontal label="Skip After Rings" ng-show="$ctrl.huntGroup.huntAfterNoAnswer">
+  <input type="number" class="input" ng-model="$ctrl.huntGroup.noAnswerNumberOfRings" />
 </pbs-form-field-horizontal>
 <pbs-input-checkbox
   ng-model="$ctrl.huntGroup.forwardAfterTimeout"
@@ -60,21 +50,10 @@
   label="Forward After Seconds"
   ng-show="$ctrl.huntGroup.forwardAfterTimeout"
 >
-  <input
-    type="number"
-    class="input"
-    ng-model="$ctrl.huntGroup.forwardTimeoutSeconds"
-  />
+  <input type="number" class="input" ng-model="$ctrl.huntGroup.forwardTimeoutSeconds" />
 </pbs-form-field-horizontal>
-<pbs-form-field-horizontal
-  label="Forward To"
-  ng-show="$ctrl.huntGroup.forwardAfterTimeout"
->
-  <input
-    type="text"
-    class="input"
-    ng-model="$ctrl.huntGroup.forwardToPhoneNumber"
-  />
+<pbs-form-field-horizontal label="Forward To" ng-show="$ctrl.huntGroup.forwardAfterTimeout">
+  <input type="text" class="input" ng-model="$ctrl.huntGroup.forwardToPhoneNumber" />
 </pbs-form-field-horizontal>
 
 <pbs-form-section title="Not Reachable Settings"></pbs-form-section>
@@ -86,11 +65,7 @@
   label="Forward To"
   ng-show="$ctrl.huntGroup.enableNotReachableForwarding"
 >
-  <input
-    type="text"
-    class="input"
-    ng-model="$ctrl.huntGroup.notReachableForwardToPhoneNumber"
-  />
+  <input type="text" class="input" ng-model="$ctrl.huntGroup.notReachableForwardToPhoneNumber" />
 </pbs-form-field-horizontal>
 
 <pbs-input-chekcbox

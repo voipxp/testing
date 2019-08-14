@@ -1,8 +1,6 @@
 <pbs-block title="User Number">
   <pbs-block-buttons>
-    <pbs-button-compact-add
-      ng-click="$ctrl.createNumbers()"
-    ></pbs-button-compact-add>
+    <pbs-button-compact-add ng-click="$ctrl.createNumbers()"></pbs-button-compact-add>
   </pbs-block-buttons>
   <pbs-spinner loading="$ctrl.loading">
     <pbs-form-section
@@ -51,9 +49,7 @@
       label="Set to Phone Number"
     ></pbs-input-radio>
 
-    <pbs-form-section
-      >Do you want to set Activate the phone numbers?</pbs-form-section
-    >
+    <pbs-form-section>Do you want to set Activate the phone numbers?</pbs-form-section>
     <pbs-input-radio
       ng-value="true"
       ng-model="$ctrl.activatePhoneNumber"

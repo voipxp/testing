@@ -25,9 +25,7 @@ export function Directive(HashService) {
         // add id and css classes to input
         const id = HashService.guid()
         element.attr('id', id)
-        const cssClass = angular.isDefined(attributes.pbsInputSwitch)
-          ? 'switch'
-          : 'is-checkradio'
+        const cssClass = angular.isDefined(attributes.pbsInputSwitch) ? 'switch' : 'is-checkradio'
         element.addClass(cssClass)
 
         // create a wrapper

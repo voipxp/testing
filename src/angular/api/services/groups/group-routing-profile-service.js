@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupRoutingProfileService', GroupRoutingProfileService)
+angular.module('odin.api').factory('GroupRoutingProfileService', GroupRoutingProfileService)
 
 GroupRoutingProfileService.$inject = ['$http', 'Route']
 function GroupRoutingProfileService($http, Route) {
@@ -17,10 +15,8 @@ function GroupRoutingProfileService($http, Route) {
   }
 
   function update(serviceProviderId, groupId, routingProfile) {
-    return $http
-      .put(url(), { serviceProviderId, groupId, routingProfile })
-      .then(response => {
-        return response.data
-      })
+    return $http.put(url(), { serviceProviderId, groupId, routingProfile }).then(response => {
+      return response.data
+    })
   }
 }

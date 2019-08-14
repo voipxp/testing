@@ -32,10 +32,7 @@
     </tbody>
   </table>
   <div class="large-margin-top has-text-right">
-    <pbs-button-next
-      ng-click="$ctrl.next()"
-      ng-disabled="!$ctrl.canComplete()"
-    ></pbs-button-next>
+    <pbs-button-next ng-click="$ctrl.next()" ng-disabled="!$ctrl.canComplete()"></pbs-button-next>
   </div>
 </pbs-block>
 
@@ -83,10 +80,7 @@
     </pbs-form-field-horizontal>
     <pbs-form-section>Endpoint Details</pbs-form-section>
     <pbs-form-field-horizontal label="Line Port">
-      <bulk-tag-input
-        ng-model="$ctrl.editEndpoint.linePort"
-        is-required="true"
-      ></bulk-tag-input>
+      <bulk-tag-input ng-model="$ctrl.editEndpoint.linePort" is-required="true"></bulk-tag-input>
     </pbs-form-field-horizontal>
     <pbs-form-section>Options</pbs-form-section>
     <pbs-input-checkbox

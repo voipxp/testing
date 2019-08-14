@@ -14,9 +14,7 @@ export const AppNotFound = () => (
     </Breadcrumb>
 
     <Message color="dark">
-      <Message.Body>
-        We are sorry, but the page you requested was not found.
-      </Message.Body>
+      <Message.Body>We are sorry, but the page you requested was not found.</Message.Body>
     </Message>
   </>
 )

@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('ServiceProviderReportsService', ServiceProviderReportsService)
+angular.module('odin.api').factory('ServiceProviderReportsService', ServiceProviderReportsService)
 
 ServiceProviderReportsService.$inject = ['$http', 'Route']
 function ServiceProviderReportsService($http, Route) {

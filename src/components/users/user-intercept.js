@@ -62,9 +62,7 @@ export const UserIntercept = ({ match }) => {
     <>
       <UiCard
         title="Intercept User"
-        buttons={
-          <UiButton color="link" icon="edit" size="small" onClick={edit} />
-        }
+        buttons={<UiButton color="link" icon="edit" size="small" onClick={edit} />}
       >
         <UiSection>
           <UiListItem label="Active">
@@ -86,9 +84,7 @@ export const UserIntercept = ({ match }) => {
             <UiCheckbox isChecked={data.exemptInboundMobilityCalls} />
           </UiListItem>
           <UiListItem label="Disable Parallel Ringing To Network Locations">
-            <UiCheckbox
-              isChecked={data.disableParallelRingingToNetworkLocations}
-            />
+            <UiCheckbox isChecked={data.disableParallelRingingToNetworkLocations} />
           </UiListItem>
           <UiListItem label="Route To Voice Mail">
             <UiCheckbox isChecked={data.routeToVoiceMail} />
@@ -96,15 +92,11 @@ export const UserIntercept = ({ match }) => {
           <UiListItem label="Play New Phone Number">
             <UiCheckbox isChecked={data.playNewPhoneNumber} />
           </UiListItem>
-          <UiListItem label="New Phone Number">
-            {data.newPhoneNumber}
-          </UiListItem>
+          <UiListItem label="New Phone Number">{data.newPhoneNumber}</UiListItem>
           <UiListItem label="Transfer on 0 Phone Number">
             <UiCheckbox isChecked={data.transferOnZeroToPhoneNumber} />
           </UiListItem>
-          <UiListItem label="Transfer on 0 to Phone Number">
-            {data.transferPhoneNumber}
-          </UiListItem>
+          <UiListItem label="Transfer on 0 to Phone Number">{data.transferPhoneNumber}</UiListItem>
         </UiSection>
 
         <UiSection title="Outbound Call Options">
@@ -242,13 +234,11 @@ export const UserIntercept = ({ match }) => {
                     onChange={handleInput}
                     name="outboundCallMode"
                   >
-                    {Object.keys(USER_INTERCEPT_OUTBOUND_CALL_MODES).map(
-                      key => (
-                        <Select.Option key={key} value={key}>
-                          {USER_INTERCEPT_OUTBOUND_CALL_MODES[key]}
-                        </Select.Option>
-                      )
-                    )}
+                    {Object.keys(USER_INTERCEPT_OUTBOUND_CALL_MODES).map(key => (
+                      <Select.Option key={key} value={key}>
+                        {USER_INTERCEPT_OUTBOUND_CALL_MODES[key]}
+                      </Select.Option>
+                    ))}
                   </Select>
                 </Select.Container>
               </UiFormField>

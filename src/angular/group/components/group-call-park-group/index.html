@@ -1,11 +1,5 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
-  <pbs-breadcrumb
-    module="$ctrl.module"
-    ng-click="$ctrl.open()"
-  ></pbs-breadcrumb>
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
+  <pbs-breadcrumb module="$ctrl.module" ng-click="$ctrl.open()"></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.name"></pbs-breadcrumb>
 </pbs-navigation>
 <div>
@@ -63,9 +57,7 @@
           </tr>
         </tfoot>
         <tbody>
-          <tr
-            ng-repeat="user in $ctrl.group.users as results track by user.userId"
-          >
+          <tr ng-repeat="user in $ctrl.group.users as results track by user.userId">
             <td>{{ user.userId }}</td>
             <td>{{ user.lastName }}</td>
             <td>{{ user.firstName }}</td>
@@ -80,12 +72,7 @@
 <pbs-modal id="groupCallParkGroupEditModal" title="Details">
   <pbs-form>
     <pbs-form-field label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editGroup.newName"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editGroup.newName" required />
     </pbs-form-field>
     <select-alternate-user
       service-provider-id="$ctrl.serviceProviderId"
@@ -102,6 +89,5 @@
   </pbs-form>
 </pbs-modal>
 <pbs-modal id="groupCallParkGroupUsersModal" title="Select Users">
-  <select-users available="$ctrl.availableUsers" selected="$ctrl.selectedUsers">
-  </select-users>
+  <select-users available="$ctrl.availableUsers" selected="$ctrl.selectedUsers"> </select-users>
 </pbs-modal>

@@ -2,14 +2,12 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.group')
-  .component('groupOutgoingCallingPlanDepartmentAuthorizationCodes', {
-    template,
-    controller,
-    bindings: { serviceProviderId: '=', groupId: '=', onSave: '&' },
-    require: { parent: '^^groupOutgoingCallingPlanAuthorizationCodes' }
-  })
+angular.module('odin.group').component('groupOutgoingCallingPlanDepartmentAuthorizationCodes', {
+  template,
+  controller,
+  bindings: { serviceProviderId: '=', groupId: '=', onSave: '&' },
+  require: { parent: '^^groupOutgoingCallingPlanAuthorizationCodes' }
+})
 
 controller.$inject = [
   'Alert',
@@ -17,12 +15,7 @@ controller.$inject = [
   'HashService',
   '$scope'
 ]
-function controller(
-  Alert,
-  GroupOutgoingCallingPlanAuthorizationCodeService,
-  HashService,
-  $scope
-) {
+function controller(Alert, GroupOutgoingCallingPlanAuthorizationCodeService, HashService, $scope) {
   var ctrl = this
 
   ctrl.add = add
@@ -56,8 +49,7 @@ function controller(
 
   function add() {
     ctrl.code = {}
-    $scope.authorizationCodeCreateForm &&
-      $scope.authorizationCodeCreateForm.$setPristine()
+    $scope.authorizationCodeCreateForm && $scope.authorizationCodeCreateForm.$setPristine()
     Alert.modal.open(ctrl.addId, function onSave(close) {
       create(ctrl.code, close)
     })
@@ -93,11 +85,8 @@ function controller(
     })
   }
 
-  $scope.$on(
-    'groupOutgoingCallingPlanDepartmentAuthorizationCodes:load',
-    function(event, data) {
-      ctrl.department = data
-      Alert.modal.open(ctrl.modalId)
-    }
-  )
+  $scope.$on('groupOutgoingCallingPlanDepartmentAuthorizationCodes:load', function(event, data) {
+    ctrl.department = data
+    Alert.modal.open(ctrl.modalId)
+  })
 }

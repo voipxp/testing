@@ -15,14 +15,7 @@ controller.$inject = [
   'GroupPolicyService',
   '$q'
 ]
-function controller(
-  Alert,
-  GroupHuntGroupService,
-  Route,
-  $scope,
-  GroupPolicyService,
-  $q
-) {
+function controller(Alert, GroupHuntGroupService, Route, $scope, GroupPolicyService, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -50,10 +43,7 @@ function controller(
   }
 
   function loadHuntGroups() {
-    return GroupHuntGroupService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupHuntGroupService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.huntGroups = data
     })
   }
@@ -73,13 +63,7 @@ function controller(
   }
 
   function open(huntgroup) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'huntGroups',
-      'huntGroup'
-    ).search({
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups', 'huntGroup').search({
       serviceUserId: huntgroup.serviceUserId
     })
   }

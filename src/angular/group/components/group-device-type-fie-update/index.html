@@ -14,10 +14,7 @@
         ng-model="$ctrl.file.fileSource"
       ></pbs-input-select>
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal
-      label="Custom File"
-      ng-show="$ctrl.file.fileSource === 'Custom'"
-    >
+    <pbs-form-field-horizontal label="Custom File" ng-show="$ctrl.file.fileSource === 'Custom'">
       <pbs-input-file on-upload="$ctrl.onUpload(file)"></pbs-input-file>
     </pbs-form-field-horizontal>
   </pbs-spinner>

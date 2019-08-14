@@ -11,9 +11,7 @@ function TaskService($http, Route) {
 
   function index(limit, status, types) {
     var type = _.isArray(types) ? types.join(',') : types
-    return $http
-      .get(url(), { params: { limit, status, type } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { limit, status, type } }).then(response => response.data)
   }
 
   function create(data) {

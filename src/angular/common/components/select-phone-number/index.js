@@ -15,20 +15,8 @@ angular.module('odin.common').component('selectPhoneNumber', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'NumberService',
-  'GroupNumberService',
-  'EventEmitter',
-  'HashService'
-]
-function controller(
-  Alert,
-  NumberService,
-  GroupNumberService,
-  EventEmitter,
-  HashService
-) {
+controller.$inject = ['Alert', 'NumberService', 'GroupNumberService', 'EventEmitter', 'HashService']
+function controller(Alert, NumberService, GroupNumberService, EventEmitter, HashService) {
   var ctrl = this
   ctrl.numbers = []
   ctrl.$onInit = onInit

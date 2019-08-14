@@ -2,27 +2,18 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.group')
-  .component('groupOutgoingCallingPlanPinholeDigitPlanOriginating', {
-    template,
-    controller,
-    bindings: { serviceProviderId: '<', groupId: '<' }
-  })
+angular.module('odin.group').component('groupOutgoingCallingPlanPinholeDigitPlanOriginating', {
+  template,
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
+})
 
-controller.$inject = [
-  'Alert',
-  'GroupOutgoingCallingPlanPinholeDigitPlanOriginatingService'
-]
-function controller(
-  Alert,
-  GroupOutgoingCallingPlanPinholeDigitPlanOriginatingService
-) {
+controller.$inject = ['Alert', 'GroupOutgoingCallingPlanPinholeDigitPlanOriginatingService']
+function controller(Alert, GroupOutgoingCallingPlanPinholeDigitPlanOriginatingService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
-  ctrl.options =
-    GroupOutgoingCallingPlanPinholeDigitPlanOriginatingService.options
+  ctrl.options = GroupOutgoingCallingPlanPinholeDigitPlanOriginatingService.options
 
   function onInit() {
     ctrl.loading = true
@@ -52,12 +43,11 @@ function controller(
 
   function edit(department) {
     ctrl.editDepartment = angular.copy(department)
-    Alert.modal.open(
-      'editGroupOutgoingCallingPlanPinholeDigitPlanOriginating',
-      function onSave(close) {
-        update(ctrl.editDepartment, close)
-      }
-    )
+    Alert.modal.open('editGroupOutgoingCallingPlanPinholeDigitPlanOriginating', function onSave(
+      close
+    ) {
+      update(ctrl.editDepartment, close)
+    })
   }
 
   function update(department, callback) {

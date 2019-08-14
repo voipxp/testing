@@ -32,11 +32,9 @@ function controller(Alert, GroupEnterpriseTrunkService) {
     var deleteAction
     if (ctrl.parent.module.permissions.delete) {
       deleteAction = function(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this Trunk?')
-          .then(function() {
-            ctrl.parent.destroy(close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this Trunk?').then(function() {
+          ctrl.parent.destroy(close)
+        })
       }
     }
     Alert.modal.open(

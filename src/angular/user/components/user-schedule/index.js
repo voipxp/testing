@@ -26,11 +26,9 @@ function controller(Alert, UserScheduleService, Route, $location) {
   }
 
   function loadSchedule() {
-    return UserScheduleService.show(ctrl.userId, ctrl.name, ctrl.type).then(
-      function(data) {
-        ctrl.schedule = data
-      }
-    )
+    return UserScheduleService.show(ctrl.userId, ctrl.name, ctrl.type).then(function(data) {
+      ctrl.schedule = data
+    })
   }
 
   function edit() {
@@ -42,11 +40,9 @@ function controller(Alert, UserScheduleService, Route, $location) {
         update(ctrl.editSchedule, close)
       },
       function(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this Schedule?')
-          .then(function() {
-            destroy(close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this Schedule?').then(function() {
+          destroy(close)
+        })
       }
     )
   }

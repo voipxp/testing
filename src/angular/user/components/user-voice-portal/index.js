@@ -29,9 +29,7 @@ function controller(Alert, UserVoiceMessagingVoicePortalService, $scope) {
   }
 
   function loadPortal() {
-    return UserVoiceMessagingVoicePortalService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserVoiceMessagingVoicePortalService.show(ctrl.userId).then(function(data) {
       ctrl.portal = data
       return data
     })

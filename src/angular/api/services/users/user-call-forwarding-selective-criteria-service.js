@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserCallForwardingSelectiveCriteriaService', Service)
+angular.module('odin.api').factory('UserCallForwardingSelectiveCriteriaService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
@@ -25,11 +23,9 @@ function Service($http, Route) {
   return service
 
   function index(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function create(userId, object) {

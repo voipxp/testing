@@ -8,12 +8,7 @@ angular.module('odin.user').component('userAnonymousCallRejection', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserAnonymousCallRejectionService',
-  'Module',
-  '$q'
-]
+controller.$inject = ['Alert', 'UserAnonymousCallRejectionService', 'Module', '$q']
 function controller(Alert, UserAnonymousCallRejectionService, Module, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -37,9 +32,7 @@ function controller(Alert, UserAnonymousCallRejectionService, Module, $q) {
   }
 
   function loadSettings() {
-    return UserAnonymousCallRejectionService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserAnonymousCallRejectionService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }

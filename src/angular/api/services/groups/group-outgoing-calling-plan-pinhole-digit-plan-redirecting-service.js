@@ -2,17 +2,12 @@ import angular from 'angular'
 
 angular
   .module('odin.api')
-  .factory(
-    'GroupOutgoingCallingPlanPinholeDigitPlanRedirectingService',
-    Service
-  )
+  .factory('GroupOutgoingCallingPlanPinholeDigitPlanRedirectingService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
   var service = { show, update }
-  var url = Route.api(
-    '/groups/calling-plans/outgoing/pinhole-digit-plan/redirecting'
-  )
+  var url = Route.api('/groups/calling-plans/outgoing/pinhole-digit-plan/redirecting')
   service.options = { permissions: ['Ignore', 'Allow'] }
   return service
 

@@ -43,12 +43,7 @@ function controller(
 
   function onInit() {
     ctrl.loading = true
-    $q.all([
-      loadSettings(),
-      loadUserSchedules(),
-      loadHolidaySchedules(),
-      loadModule()
-    ])
+    $q.all([loadSettings(), loadUserSchedules(), loadHolidaySchedules(), loadModule()])
       .catch(function(error) {
         Alert.notify.danger(error)
       })
@@ -96,9 +91,7 @@ function controller(
           ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers = true
         else ctrl.editCriteria.fromDnCriteria.includeAnonymousCallers = false
 
-        if (
-          ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers === 'true'
-        )
+        if (ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers === 'true')
           ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers = true
         else ctrl.editCriteria.fromDnCriteria.includeUnavailableCallers = false
       })
@@ -126,10 +119,7 @@ function controller(
   }
 
   function loadCriteria(criteriaName) {
-    return UserSequentialRingServiceCriteria.show(
-      ctrl.userId,
-      criteriaName
-    ).then(function(data) {
+    return UserSequentialRingServiceCriteria.show(ctrl.userId, criteriaName).then(function(data) {
       return data
     })
   }
@@ -199,11 +189,7 @@ function controller(
       settings.fromDnCriteria.phoneNumbers = []
     }
 
-    UserSequentialRingServiceCriteria.update(
-      ctrl.userId,
-      criteriaName,
-      settings
-    )
+    UserSequentialRingServiceCriteria.update(ctrl.userId, criteriaName, settings)
       .then(UserSequentialRingService.update(ctrl.userId, object))
       .then(loadSettings)
       .then(function() {
@@ -278,11 +264,9 @@ function controller(
   }
 
   function destroyCriteria(userId, criteriaName, callback) {
-    Alert.confirm
-      .open('Are you sure you want to delete this criteria?')
-      .then(function() {
-        doDestroyPhoneNumber(userId, criteriaName, callback)
-      })
+    Alert.confirm.open('Are you sure you want to delete this criteria?').then(function() {
+      doDestroyPhoneNumber(userId, criteriaName, callback)
+    })
   }
 
   function doDestroyPhoneNumber(userId, criteriaName, callback) {

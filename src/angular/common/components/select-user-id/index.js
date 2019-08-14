@@ -49,13 +49,11 @@ function controller(Alert, GroupDomainService, EventEmitter, $timeout) {
   }
 
   function loadDomains() {
-    return GroupDomainService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.domains = data
-        setDefaultDomain()
-        return data
-      }
-    )
+    return GroupDomainService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      ctrl.domains = data
+      setDefaultDomain()
+      return data
+    })
   }
 
   function update() {

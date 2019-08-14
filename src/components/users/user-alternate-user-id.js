@@ -3,13 +3,7 @@ import apiUserService from '@/api/user-alternate-user-id'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
 import { Alert, Loading } from '@/utils'
-import {
-  UiCard,
-  UiLoadingCard,
-  UiDataTable,
-  UiButton,
-  UiCardModal
-} from '@/components/ui'
+import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const UserAlternateUserId = ({ match }) => {
   const { userId } = match.params
@@ -65,9 +59,7 @@ export const UserAlternateUserId = ({ match }) => {
   */
   function remove() {
     setShowConfirm(false)
-    const newAltIds = alternateUserIds.filter(
-      altId => altId.userId !== form.userId
-    )
+    const newAltIds = alternateUserIds.filter(altId => altId.userId !== form.userId)
     // TODO: send to API
     saveAlternateUserIds(newAltIds)
   }
@@ -89,9 +81,7 @@ export const UserAlternateUserId = ({ match }) => {
     // update
     const newAltId = { userId: form.newUserId, description: form.description }
     const newAltIds = form.userId
-      ? alternateUserIds.map(altId =>
-          altId.userId !== form.userId ? altId : newAltId
-        )
+      ? alternateUserIds.map(altId => (altId.userId !== form.userId ? altId : newAltId))
       : [...alternateUserIds, newAltId]
 
     // TODO: send to API
@@ -160,9 +150,7 @@ export const UserAlternateUserId = ({ match }) => {
                         type="text"
                         name="userId"
                         value={form.newUserId}
-                        onChange={e =>
-                          setForm({ ...form, newUserId: e.target.value })
-                        }
+                        onChange={e => setForm({ ...form, newUserId: e.target.value })}
                         placeholder="userId"
                       />
                     </Control>
@@ -176,9 +164,7 @@ export const UserAlternateUserId = ({ match }) => {
                         type="text"
                         name="description"
                         value={form.description}
-                        onChange={e =>
-                          setForm({ ...form, description: e.target.value })
-                        }
+                        onChange={e => setForm({ ...form, description: e.target.value })}
                         placeholder="description"
                       />
                     </Control>
@@ -193,9 +179,7 @@ export const UserAlternateUserId = ({ match }) => {
             onCancel={() => setShowConfirm(false)}
             onDelete={remove}
           >
-            <blockquote>
-              Are you sure you want to Remove this Alternate User Id?
-            </blockquote>
+            <blockquote>Are you sure you want to Remove this Alternate User Id?</blockquote>
           </UiCardModal>
         </>
       )}

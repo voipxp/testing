@@ -8,12 +8,7 @@ angular.module('odin.user').component('userVoiceMessagingAdvanced', {
   bindings: { userId: '=', readOnly: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserVoiceMessagingAdvancedService',
-  '$q',
-  'Module'
-]
+controller.$inject = ['Alert', 'UserVoiceMessagingAdvancedService', '$q', 'Module']
 function controller(Alert, UserVoiceMessagingAdvancedService, $q, Module) {
   var ctrl = this
 
@@ -42,9 +37,7 @@ function controller(Alert, UserVoiceMessagingAdvancedService, $q, Module) {
   }
 
   function loadVoiceMessaging() {
-    return UserVoiceMessagingAdvancedService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserVoiceMessagingAdvancedService.show(ctrl.userId).then(function(data) {
       ctrl.messaging = data
       return data
     })
@@ -60,10 +53,7 @@ function controller(Alert, UserVoiceMessagingAdvancedService, $q, Module) {
   function update(callback) {
     ctrl.editMessaging.userId = ctrl.userId
     Alert.spinner.open()
-    return UserVoiceMessagingAdvancedService.update(
-      ctrl.userId,
-      ctrl.editMessaging
-    )
+    return UserVoiceMessagingAdvancedService.update(ctrl.userId, ctrl.editMessaging)
       .then(loadVoiceMessaging)
       .then(function() {
         Alert.notify.success('Advanced Voice Messaging Saved')

@@ -13,13 +13,7 @@ controller.$inject = [
   'CsvService',
   'DownloadService'
 ]
-function controller(
-  Alert,
-  BulkTaskService,
-  BulkImportService,
-  CsvService,
-  DownloadService
-) {
+function controller(Alert, BulkTaskService, BulkImportService, CsvService, DownloadService) {
   var ctrl = this
   ctrl.download = download
   ctrl.upload = upload

@@ -8,12 +8,7 @@ angular.module('odin.user').component('userCallForwardingAlways', {
   bindings: { userId: '<', showQuick: '<' }
 })
 
-controller.$inject = [
-  '$q',
-  'Alert',
-  'UserCallForwardingAlwaysService',
-  'Module'
-]
+controller.$inject = ['$q', 'Alert', 'UserCallForwardingAlwaysService', 'Module']
 function controller($q, Alert, UserCallForwardingAlwaysService, Module) {
   var ctrl = this
 
@@ -34,9 +29,7 @@ function controller($q, Alert, UserCallForwardingAlwaysService, Module) {
   }
 
   function loadSettings() {
-    return UserCallForwardingAlwaysService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserCallForwardingAlwaysService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }

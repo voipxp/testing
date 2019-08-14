@@ -17,20 +17,12 @@ function controller(Route, GroupServiceService, Module) {
     Module.show('Outgoing Calling Plan').then(function(module) {
       ctrl.module = module
     })
-    GroupServiceService.available(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(assigned) {
-        ctrl.hasCallMeNow = assigned['Call Me Now']
-      }
-    )
+    GroupServiceService.available(ctrl.serviceProviderId, ctrl.groupId).then(function(assigned) {
+      ctrl.hasCallMeNow = assigned['Call Me Now']
+    })
   }
 
   function open(plan) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'callingPlans',
-      plan
-    )
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callingPlans', plan)
   }
 }

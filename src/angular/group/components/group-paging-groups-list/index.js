@@ -25,13 +25,12 @@ function controller(Alert, GroupPagingGroupService, $scope) {
   }
 
   function loadInstances() {
-    return GroupPagingGroupService.index(
-      ctrl.parent.serviceProviderId,
-      ctrl.parent.groupId
-    ).then(function(data) {
-      ctrl.instances = data
-      return data
-    })
+    return GroupPagingGroupService.index(ctrl.parent.serviceProviderId, ctrl.parent.groupId).then(
+      function(data) {
+        ctrl.instances = data
+        return data
+      }
+    )
   }
 
   function add() {

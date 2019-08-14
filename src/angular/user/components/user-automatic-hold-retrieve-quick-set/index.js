@@ -23,9 +23,7 @@ function controller(Alert, UserAutomaticHoldRetrieveService, Route) {
   }
 
   function loadSettings() {
-    return UserAutomaticHoldRetrieveService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserAutomaticHoldRetrieveService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }

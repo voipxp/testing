@@ -1,18 +1,13 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.user')
-  .component('userOutgoingCallingPlanDigitPlanRedirecting', {
-    template,
-    controller,
-    bindings: { userId: '<' }
-  })
+angular.module('odin.user').component('userOutgoingCallingPlanDigitPlanRedirecting', {
+  template,
+  controller,
+  bindings: { userId: '<' }
+})
 
-controller.$inject = [
-  'Alert',
-  'UserOutgoingCallingPlanDigitPlanRedirectingService'
-]
+controller.$inject = ['Alert', 'UserOutgoingCallingPlanDigitPlanRedirectingService']
 function controller(Alert, UserOutgoingCallingPlanDigitPlanRedirectingService) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -29,21 +24,18 @@ function controller(Alert, UserOutgoingCallingPlanDigitPlanRedirectingService) {
   }
 
   function loadPlan() {
-    return UserOutgoingCallingPlanDigitPlanRedirectingService.show(
-      ctrl.userId
-    ).then(function(data) {
+    return UserOutgoingCallingPlanDigitPlanRedirectingService.show(ctrl.userId).then(function(
+      data
+    ) {
       ctrl.plan = data
     })
   }
 
   function edit() {
     ctrl.editPlan = angular.copy(ctrl.plan)
-    Alert.modal.open(
-      'editUserOutgoingCallingPlanDigitPlanRedirecting',
-      function onSave(close) {
-        update(ctrl.editPlan, close)
-      }
-    )
+    Alert.modal.open('editUserOutgoingCallingPlanDigitPlanRedirecting', function onSave(close) {
+      update(ctrl.editPlan, close)
+    })
   }
 
   function update(plan, callback) {

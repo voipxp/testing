@@ -13,26 +13,12 @@ function Service($http, Route) {
   service.options = {
     policies: {
       profileAccess: ['Full', 'Read-Only', 'None'],
-      groupAccess: [
-        'Full',
-        'Restricted from Adding or Removing Groups',
-        'None'
-      ],
-      userAccess: [
-        'Full',
-        'Full Profile',
-        'Read-Only Profile',
-        'No Profile',
-        'None'
-      ],
+      groupAccess: ['Full', 'Restricted from Adding or Removing Groups', 'None'],
+      userAccess: ['Full', 'Full Profile', 'Read-Only Profile', 'No Profile', 'None'],
       adminAccess: ['Full', 'Read-Only', 'None'],
       departmentAccess: ['Full', 'Read-Only', 'None'],
       accessDeviceAccess: ['Full', 'Associate User With Device', 'None'],
-      phoneNumberExtensionAccess: [
-        'Full',
-        'Assign To Services and Users',
-        'None'
-      ],
+      phoneNumberExtensionAccess: ['Full', 'Assign To Services and Users', 'None'],
       callingLineIdNumberAccess: ['Full', 'Read-Only'],
       serviceAccess: ['Full', 'No Authorization', 'None'],
       servicePackAccess: ['Full', 'None'],
@@ -50,9 +36,7 @@ function Service($http, Route) {
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 
   function update(userId, object) {

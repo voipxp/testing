@@ -66,11 +66,7 @@ function pbsInputPasscode(
 
       function loadPasscodeRules() {
         var defaultRules = {}
-        return loadGroupPasscodeRules(
-          scope.serviceProviderId,
-          scope.groupId,
-          defaultRules
-        )
+        return loadGroupPasscodeRules(scope.serviceProviderId, scope.groupId, defaultRules)
       }
 
       // First try the Group Rules
@@ -78,49 +74,31 @@ function pbsInputPasscode(
       // If the group rules suggest to use the SP rules
       //  - Then try the SP rules, pass in the group rules as default
       // Otherwise, return the group rules
-      function loadGroupPasscodeRules(
-        serviceProviderId,
-        groupId,
-        defaultRules
-      ) {
+      function loadGroupPasscodeRules(serviceProviderId, groupId, defaultRules) {
         if (!serviceProviderId && !groupId) return $q.resolve(defaultRules)
 
         if (!groupId) {
-          return loadServiceProviderPasscodeRules(
-            serviceProviderId,
-            defaultRules
-          )
+          return loadServiceProviderPasscodeRules(serviceProviderId, defaultRules)
         }
 
         return GroupPasscodeService.show(serviceProviderId, groupId)
           .then(function(groupRules) {
             if (groupRules.useRuleLevel === 'Service Provider') {
-              return loadServiceProviderPasscodeRules(
-                serviceProviderId,
-                groupRules
-              )
+              return loadServiceProviderPasscodeRules(serviceProviderId, groupRules)
             } else {
               return groupRules
             }
           })
           .catch(function() {
-            return loadServiceProviderPasscodeRules(
-              serviceProviderId,
-              defaultRules
-            )
+            return loadServiceProviderPasscodeRules(serviceProviderId, defaultRules)
           })
       }
 
       // Return the SP rules or the defaultRules passed in
-      function loadServiceProviderPasscodeRules(
-        serviceProviderId,
-        defaultRules
-      ) {
-        return ServiceProviderPasscodeService.show(serviceProviderId).catch(
-          function() {
-            return defaultRules
-          }
-        )
+      function loadServiceProviderPasscodeRules(serviceProviderId, defaultRules) {
+        return ServiceProviderPasscodeService.show(serviceProviderId).catch(function() {
+          return defaultRules
+        })
       }
     }
   }

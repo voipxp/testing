@@ -1,7 +1,4 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Common Phone List'"></pbs-breadcrumb>
 </pbs-navigation>
 
@@ -48,26 +45,13 @@
     ></pbs-pagination>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="groupCustomPhoneListEditModal"
-  title="{{ $ctrl.action }} Contact"
->
+<pbs-modal id="groupCustomPhoneListEditModal" title="{{ $ctrl.action }} Contact">
   <pbs-form>
     <pbs-form-field-horizontal label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editContact.newName"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editContact.newName" required />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Phone Number">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editContact.phoneNumber"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editContact.phoneNumber" required />
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>
@@ -77,10 +61,7 @@
   </form>
   <div class="columns">
     <div class="column">
-      <pbs-input-file
-        on-upload="$ctrl.upload(file)"
-        mode="text"
-      ></pbs-input-file>
+      <pbs-input-file on-upload="$ctrl.upload(file)" mode="text"></pbs-input-file>
     </div>
     <div class="column has-text-right">
       <p ng-show="$ctrl.uploadContacts">

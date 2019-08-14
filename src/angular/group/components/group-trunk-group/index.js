@@ -29,21 +29,16 @@ function controller($location, Alert, GroupTrunkGroupService, Route) {
   }
 
   function loadTrunk() {
-    return GroupTrunkGroupService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.trunkName
-    ).then(function(data) {
-      ctrl.trunk = data
-      return data
-    })
+    return GroupTrunkGroupService.show(ctrl.serviceProviderId, ctrl.groupId, ctrl.trunkName).then(
+      function(data) {
+        ctrl.trunk = data
+        return data
+      }
+    )
   }
 
   function loadTrunks() {
-    return GroupTrunkGroupService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupTrunkGroupService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.trunks = _.filter(data, function(trunk) {
         return trunk.name !== ctrl.trunkName
       }).map(function(trunk) {
@@ -84,33 +79,22 @@ function controller($location, Alert, GroupTrunkGroupService, Route) {
       Alert.notify.danger('You must first remove the Pilot User')
       return
     }
-    Alert.confirm
-      .open('Are you sure you want to delete this Trunk Group?')
-      .then(function() {
-        Alert.spinner.open()
-        GroupTrunkGroupService.destroy(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          ctrl.trunkName
-        )
-          .then(function() {
-            Alert.notify.success('Trunk Group Removed')
-            if (_.isFunction(callback)) {
-              callback()
-            }
-            Route.open(
-              'groups',
-              ctrl.serviceProviderId,
-              ctrl.groupId,
-              'trunkGroups'
-            )
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to delete this Trunk Group?').then(function() {
+      Alert.spinner.open()
+      GroupTrunkGroupService.destroy(ctrl.serviceProviderId, ctrl.groupId, ctrl.trunkName)
+        .then(function() {
+          Alert.notify.success('Trunk Group Removed')
+          if (_.isFunction(callback)) {
+            callback()
+          }
+          Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'trunkGroups')
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 }

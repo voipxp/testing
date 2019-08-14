@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.parent.loading">
   <pbs-block title="Stateful Rerouting">
     <pbs-block-buttons if-module-update="$ctrl.parent.module">
-      <pbs-button-compact-edit
-        title="Edit Stateful Rerouting"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Stateful Rerouting" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -12,22 +9,16 @@
         {{ $ctrl.parent.trunk.trunkGroupState }}
       </pbs-list-item>
       <pbs-list-item label="Stateful Rerouting Enabled">
-        <pbs-check-box
-          checked="$ctrl.parent.trunk.statefulReroutingEnabled"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.trunk.statefulReroutingEnabled"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Send Continuous Options Message">
-        <pbs-check-box
-          checked="$ctrl.parent.trunk.sendContinuousOptionsMessage"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.trunk.sendContinuousOptionsMessage"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Continuous Options Interval">
-        every {{ $ctrl.parent.trunk.continuousOptionsSendingIntervalSeconds }}
-        seconds
+        every {{ $ctrl.parent.trunk.continuousOptionsSendingIntervalSeconds }} seconds
       </pbs-list-item>
       <pbs-list-item label="Failure Options Interval">
-        every {{ $ctrl.parent.trunk.failureOptionsSendingIntervalSeconds }}
-        seconds
+        every {{ $ctrl.parent.trunk.failureOptionsSendingIntervalSeconds }} seconds
       </pbs-list-item>
       <pbs-list-item label="Failure Threshold Counter">
         {{ $ctrl.parent.trunk.failureThresholdCounter }}
@@ -44,10 +35,7 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editGroupTrunkGroupCallStatefulRerouting"
-  title="Edit Stateful Rerouting"
->
+<pbs-modal id="editGroupTrunkGroupCallStatefulRerouting" title="Edit Stateful Rerouting">
   <form novalidate>
     <pbs-form-field label="Enabled">
       <pbs-input-checkbox

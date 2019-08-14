@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserCommunicationBarringAuthorizationCodeService', Service)
+angular.module('odin.api').factory('UserCommunicationBarringAuthorizationCodeService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
@@ -11,9 +9,7 @@ function Service($http, Route) {
   return service
 
   function index(userId) {
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 
   function create(userId, object) {
@@ -21,8 +17,6 @@ function Service($http, Route) {
   }
 
   function destroy(userId, code) {
-    return $http
-      .delete(url(), { params: { userId, code } })
-      .then(response => response.data)
+    return $http.delete(url(), { params: { userId, code } }).then(response => response.data)
   }
 }

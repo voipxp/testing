@@ -7,12 +7,7 @@ angular.module('odin.system').component('serviceProviderCreate', {
   bindings: { onCreate: '&' }
 })
 
-controller.$inject = [
-  'ServiceProviderService',
-  'EventEmitter',
-  '$scope',
-  'Alert'
-]
+controller.$inject = ['ServiceProviderService', 'EventEmitter', '$scope', 'Alert']
 function controller(ServiceProviderService, EventEmitter, $scope, Alert) {
   var ctrl = this
   ctrl.selectType = selectType

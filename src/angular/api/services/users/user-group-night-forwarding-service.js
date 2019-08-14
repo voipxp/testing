@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserNightForwardingService', UserNightForwardingService)
+angular.module('odin.api').factory('UserNightForwardingService', UserNightForwardingService)
 
 UserNightForwardingService.$inject = ['$http', 'Route']
 function UserNightForwardingService($http, Route) {
@@ -15,11 +13,9 @@ function UserNightForwardingService($http, Route) {
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(userId, object) {

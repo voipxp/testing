@@ -27,9 +27,7 @@ function controller(Alert, UserIncomingCallingPlanService) {
   }
 
   function loadPlan() {
-    return UserIncomingCallingPlanService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserIncomingCallingPlanService.show(ctrl.userId).then(function(data) {
       ctrl.plan = data
       return data
     })

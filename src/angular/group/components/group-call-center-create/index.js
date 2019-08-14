@@ -8,20 +8,8 @@ angular.module('odin.group').component('groupCallCenterCreate', {
   bindings: { serviceProviderId: '=', groupId: '=', onSave: '&' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupCallCenterService',
-  '$scope',
-  'GroupDomainService',
-  '$q'
-]
-function controller(
-  Alert,
-  GroupCallCenterService,
-  $scope,
-  GroupDomainService,
-  $q
-) {
+controller.$inject = ['Alert', 'GroupCallCenterService', '$scope', 'GroupDomainService', '$q']
+function controller(Alert, GroupCallCenterService, $scope, GroupDomainService, $q) {
   var ctrl = this
 
   ctrl.options = GroupCallCenterService.options
@@ -70,19 +58,16 @@ function controller(
   }
 
   function loadDomains() {
-    return GroupDomainService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.domains = data
-        return data
-      }
-    )
+    return GroupDomainService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      ctrl.domains = data
+      return data
+    })
   }
 
   function create(center, callback) {
     center.serviceProviderId = ctrl.serviceProviderId
     center.groupId = ctrl.groupId
-    center.serviceUserId =
-      center.serviceUserIdPrefix + '@' + center.serviceUserIdSuffix
+    center.serviceUserId = center.serviceUserIdPrefix + '@' + center.serviceUserIdSuffix
     Alert.spinner.open()
     GroupCallCenterService.store(ctrl.serviceProviderId, ctrl.groupId, center)
       .then(function() {

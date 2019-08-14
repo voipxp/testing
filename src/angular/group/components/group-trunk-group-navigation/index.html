@@ -3,17 +3,11 @@
   group-id="$ctrl.groupId"
   module="$ctrl.module"
 >
-  <pbs-breadcrumb
-    module="$ctrl.module"
-    ng-show="!$ctrl.trunkName"
-  ></pbs-breadcrumb>
+  <pbs-breadcrumb module="$ctrl.module" ng-show="!$ctrl.trunkName"></pbs-breadcrumb>
   <pbs-breadcrumb
     module="$ctrl.module"
     ng-click="$ctrl.open()"
     ng-show="$ctrl.trunkName"
   ></pbs-breadcrumb>
-  <pbs-breadcrumb
-    title="$ctrl.trunkName"
-    ng-show="$ctrl.trunkName"
-  ></pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.trunkName" ng-show="$ctrl.trunkName"></pbs-breadcrumb>
 </pbs-navigation>

@@ -20,10 +20,7 @@ function controller(ServiceProviderServicePackService, Alert) {
   function select(service) {
     Alert.modal.closeAll()
     Alert.spinner.open()
-    ServiceProviderServicePackService.usage(
-      ctrl.parent.serviceProviderId,
-      service.serviceName
-    )
+    ServiceProviderServicePackService.usage(ctrl.parent.serviceProviderId, service.serviceName)
       .then(function(data) {
         ctrl.service = {
           serviceName: service.serviceName,

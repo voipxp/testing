@@ -1,9 +1,7 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.system')
-  .component('systemCollaborate', { template, controller })
+angular.module('odin.system').component('systemCollaborate', { template, controller })
 
 controller.$inject = ['Alert', 'SystemCollaborateService']
 function controller(Alert, SystemCollaborateService) {

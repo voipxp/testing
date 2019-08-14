@@ -13,9 +13,7 @@ function Service($http, Route) {
   }
 
   function index(serviceProviderId) {
-    return $http
-      .get(url(), { params: { serviceProviderId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { serviceProviderId } }).then(response => response.data)
   }
 
   function store(serviceProviderId, admin) {
@@ -24,9 +22,7 @@ function Service($http, Route) {
 
   function show(serviceProviderId, admin) {
     const userId = getId(admin)
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 
   function update(serviceProviderId, admin) {
@@ -35,8 +31,6 @@ function Service($http, Route) {
 
   function destroy(serviceProviderId, admin) {
     const userId = getId(admin)
-    return $http
-      .delete(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.delete(url(), { params: { userId } }).then(response => response.data)
   }
 }

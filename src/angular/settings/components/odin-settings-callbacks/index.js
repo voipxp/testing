@@ -2,22 +2,10 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.settings')
-  .component('odinSettingsCallbacks', { template, controller })
+angular.module('odin.settings').component('odinSettingsCallbacks', { template, controller })
 
-controller.$inject = [
-  'Alert',
-  'CallbackTemplateService',
-  'CallbackSettingService',
-  '$q'
-]
-function controller(
-  Alert,
-  CallbackTemplateService,
-  CallbackSettingService,
-  $q
-) {
+controller.$inject = ['Alert', 'CallbackTemplateService', 'CallbackSettingService', '$q']
+function controller(Alert, CallbackTemplateService, CallbackSettingService, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -101,11 +89,9 @@ function controller(
         update(ctrl.editCallback, close)
       },
       function(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this callback?')
-          .then(function() {
-            destroy(ctrl.editCallback, close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this callback?').then(function() {
+          destroy(ctrl.editCallback, close)
+        })
       }
     )
   }
@@ -113,9 +99,7 @@ function controller(
   function hasTextField() {
     if (!ctrl.editCallback) return
     const properties = ctrl.editCallback.template.schema.properties
-    return Object.keys(properties).find(
-      property => properties[property].type === 'string'
-    )
+    return Object.keys(properties).find(property => properties[property].type === 'string')
   }
 
   function create(callback, close) {

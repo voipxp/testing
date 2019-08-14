@@ -9,9 +9,7 @@ function Service($http, Route, $rootScope) {
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 
   function update(userId, id) {

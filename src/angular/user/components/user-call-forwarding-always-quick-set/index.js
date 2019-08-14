@@ -24,9 +24,7 @@ function controller(Alert, UserCallForwardingAlwaysService) {
   }
 
   function loadSettings() {
-    return UserCallForwardingAlwaysService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserCallForwardingAlwaysService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }

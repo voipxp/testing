@@ -20,11 +20,9 @@ function Service($http, Route, GroupAutoAttendantService) {
   return service
 
   function index(serviceUserId) {
-    return $http
-      .get(url(), { params: { serviceUserId: serviceUserId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { serviceUserId: serviceUserId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function store(submenu) {

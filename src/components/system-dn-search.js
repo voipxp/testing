@@ -89,11 +89,7 @@ export const SystemDnSearch = ({ onSelect }) => {
               />
             </Control>
             <Control>
-              <Button
-                type="button"
-                disabled={loading}
-                onClick={selectServiceProvider}
-              >
+              <Button type="button" disabled={loading} onClick={selectServiceProvider}>
                 <Icon size="small" align="left">
                   <FontAwesomeIcon icon={faList} />
                 </Icon>

@@ -41,10 +41,7 @@
         ng-repeat="user in $ctrl.selected | filter:$ctrl.searchSelected | orderBy:$ctrl.orderBy as selectedResults track by user.userId"
       >
         <td class="hover" ng-click="$ctrl.remove(user)">
-          <div
-            class="field has-addons is-pulled-right"
-            ng-if="$ctrl.sort && !$ctrl.searchSelected"
-          >
+          <div class="field has-addons is-pulled-right" ng-if="$ctrl.sort && !$ctrl.searchSelected">
             <p class="control">
               <a
                 class="button is-small"

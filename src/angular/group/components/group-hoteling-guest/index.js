@@ -61,10 +61,9 @@ function controller(Alert, UserHotelingGuestService) {
   }
 
   function load() {
-    return UserHotelingGuestService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return UserHotelingGuestService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.users = _.filter(data, function(item) {
         return _.get(item, 'service.assigned')
       })

@@ -14,12 +14,7 @@ angular.module('odin.group').component('groupCallRecordData', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupCallRecordsService',
-  '$rootScope',
-  '$timeout'
-]
+controller.$inject = ['Alert', 'GroupCallRecordsService', '$rootScope', '$timeout']
 function controller(Alert, GroupCallRecordsService, $rootScope, $timeout) {
   var ctrl = this
 
