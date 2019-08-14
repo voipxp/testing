@@ -1,0 +1,20 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-panel
+    title="Resellers"
+    items="$ctrl.resellers"
+    item-key="name"
+    limit-to="$ctrl.limitTo"
+    on-select="$ctrl.open($event)"
+  >
+    <pbs-panel-buttons>
+      <!-- <pbs-button-compact-clone title="Clone Reseller" ng-click="$ctrl.clone()">
+      </pbs-button-compact-clone> -->
+      <pbs-button-compact-add
+        title="Add Reseller"
+        ng-click="$ctrl.add()"
+      ></pbs-button-compact-add>
+    </pbs-panel-buttons>
+  </pbs-panel>
+</pbs-spinner>
+<reseller-create on-create="$ctrl.onCreate($event)"></reseller-create>
+<reseller-update on-update="$ctrl.onUpdate($event)"></reseller-update>
