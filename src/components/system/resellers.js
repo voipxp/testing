@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react'
 import apiResellers from '@/api/resellers'
 import { AppBreadcrumb } from '@/components/app'
 import { Breadcrumb } from 'rbx'
-import { useUi } from '@/store/ui'
+import { Loading } from '@/utils'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
-import { useAlerts } from '@/store/alerts'
+import { Alert } from '@/utils'
 import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const Resellers = ({ match }) => {
-  const { alertSuccess, alertDanger } = useAlerts()
-  const { showLoadingModal, hideLoadingModal } = useUi()
   const [resellers, setResellers] = useState([])
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({})
@@ -40,13 +38,13 @@ export const Resellers = ({ match }) => {
         const data = await apiResellers.list()
         setResellers(data)
       } catch (error) {
-        alertDanger(error)
+        Alert.danger(error)
       } finally {
         setLoading(false)
       }
     }
     fetchData()
-  }, [alertDanger])
+  }, [])
 
   function edit(row) {
     setDisabled('disabled')
@@ -77,52 +75,52 @@ export const Resellers = ({ match }) => {
   }
 
   async function create(reseller) {
-    showLoadingModal()
+    Loading.show()
     try {
       const data = await apiResellers.create(reseller)
       setResellers(data)
-      alertSuccess('Reseller Updated')
+      Alert.success('Reseller Updated')
       setShowModal(false)
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
       setShowModal(true)
     } finally {
       setLoading(false)
-      hideLoadingModal()
+      Loading.hide()
     }
   }
 
   async function update(reseller) {
-    showLoadingModal()
+    Loading.show()
     try {
       const response = await apiResellers.update(reseller)
       const data = await apiResellers.list()
       setResellers(data)
-      alertSuccess('Reseller Updated')
+      Alert.success('Reseller Updated')
       setShowModal(false)
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
       setShowModal(true)
     } finally {
       setLoading(false)
-      hideLoadingModal()
+      Loading.hide()
     }
   }
 
   async function destroy(resellerId) {
-    showLoadingModal()
+    Loading.show()
     try {
       const response = await apiResellers.destroy(resellerId)
       const data = await apiResellers.list()
       setResellers(data)
-      alertSuccess('Reseller Deleted')
+      Alert.warning('Reseller Deleted')
       setShowModal(false)
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
       setShowModal(true)
     } finally {
       setLoading(false)
-      hideLoadingModal()
+      Loading.hide()
     }
   }
 
