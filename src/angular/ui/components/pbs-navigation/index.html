@@ -3,11 +3,7 @@
     class="is-grouped is-pulled-right"
     ng-if="$ctrl.returnTo || $ctrl.module.description || $ctrl.module.url"
   >
-    <button
-      ng-if="$ctrl.returnTo"
-      class="button is-small"
-      ng-click="$ctrl.return()"
-    >
+    <button ng-if="$ctrl.returnTo" class="button is-small" ng-click="$ctrl.return()">
       <span class="icon">
         <i class="fas fa-backward"></i>
       </span>
@@ -26,36 +22,56 @@
     <li>
       <a href="" ng-click="$ctrl.dashboard()">Dashboard</a>
     </li>
+    <!-- reseller -->
     <pbs-breadcrumb
-      ng-show="$ctrl.serviceProviderId && $ctrl.has('Provisioning')"
+      ng-show="$ctrl.resellerId && $ctrl.has('Provisioning')"
+      title='"Resellers"'
+      ng-click="$ctrl.openReseller()"
+    >
+    </pbs-breadcrumb>
+    <pbs-breadcrumb
+      ng-show="$ctrl.resellerId && $ctrl.has('Provisioning')"
+      title="$ctrl.resellerId"
+      ng-click="$ctrl.openReseller($ctrl.resellerId)"
+    >
+    </pbs-breadcrumb>
+
+    <!-- service provider -->
+    <pbs-breadcrumb
+      ng-show="$ctrl.serviceProviderId && $ctrl.has('Reseller')"
       title="'Service Providers'"
       ng-click="$ctrl.openServiceProvider()"
     ></pbs-breadcrumb>
     <pbs-breadcrumb
-      ng-show="$ctrl.serviceProviderId && $ctrl.has('Service Provider')"
+      ng-show="$ctrl.serviceProviderId && $ctrl.has('Reseller')"
       title="$ctrl.serviceProviderId"
       ng-click="$ctrl.openServiceProvider($ctrl.serviceProviderId)"
     ></pbs-breadcrumb>
+
+    <!-- group -->
     <pbs-breadcrumb
       ng-show="$ctrl.groupId && $ctrl.has('Service Provider')"
       title="'Groups'"
       ng-click="$ctrl.openGroup()"
     ></pbs-breadcrumb>
     <pbs-breadcrumb
-      ng-show="$ctrl.groupId && $ctrl.has('Group')"
+      ng-show="$ctrl.groupId && $ctrl.has('Service Provider')"
       title="$ctrl.groupId"
       ng-click="$ctrl.openGroup($ctrl.groupId)"
     ></pbs-breadcrumb>
+
+    <!-- user -->
     <pbs-breadcrumb
       ng-show="$ctrl.userId && $ctrl.has('Group')"
       title="'Users'"
       ng-click="$ctrl.openUser()"
     ></pbs-breadcrumb>
     <pbs-breadcrumb
-      ng-show="$ctrl.userId"
+      ng-show="$ctrl.userId && $ctrl.has('Group')"
       title="$ctrl.userId"
       ng-click="$ctrl.openUser($ctrl.userId)"
     ></pbs-breadcrumb>
+
     <span ng-transclude-replace></span>
   </ul>
 </nav>
@@ -68,10 +84,7 @@
     <div class="quickview-block" style="padding: 1rem">
       <p class="subtitle">
         {{ $ctrl.module.alias }}
-        <button
-          class="button is-small is-pulled-right"
-          ng-click="$ctrl.showHelp = false"
-        >
+        <button class="button is-small is-pulled-right" ng-click="$ctrl.showHelp = false">
           <span class="icon">
             <i class="fas fa-times"></i>
           </span>
@@ -79,11 +92,7 @@
       </p>
       <p>{{ $ctrl.module.description }}</p>
       <div class="large-margin-top" ng-show="$ctrl.module.url">
-        <a
-          href=""
-          ng-href="{{ $ctrl.module.url }}"
-          target="_blank"
-          rel="noreferrer noopener"
+        <a href="" ng-href="{{ $ctrl.module.url }}" target="_blank" rel="noreferrer noopener"
           >More Information</a
         >
       </div>

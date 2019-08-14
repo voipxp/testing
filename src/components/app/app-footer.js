@@ -22,8 +22,7 @@ const StyledFooter = styled.footer`
 `
 export const AppFooter = () => {
   const session = useSession()
-  const { version = 'N/A' } = session
-
+  const { version = 'N/A', loginType, softwareVersion } = session
   const { data } = useQuery(UI_QUERY)
   const pageCopyright = get(data, 'uiTemplate.pageCopyright', '')
   const pageFooterTitle = get(data, 'uiTemplate.pageFooterTitle', '')
@@ -33,7 +32,9 @@ export const AppFooter = () => {
       <p>
         <strong>{pageFooterTitle}</strong>&nbsp;
         <span>&copy; {pageCopyright}</span>&nbsp;
+        <small style={{ float: 'left' }}>{loginType}</small>
         <small>({version})</small>
+        <small style={{ float: 'right' }}>v{softwareVersion}</small>
       </p>
     </Footer>
   )
