@@ -212,8 +212,7 @@ export const routes = [
     acl: 'Group'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPatterns',
+    path: '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPatterns',
     angularComponent: 'groupOutgoingCallingPlanPinholeDigitPatterns',
     acl: 'Group'
   },
@@ -293,8 +292,7 @@ export const routes = [
     acl: 'Group'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/groupCommunicationBarringAuthorizationCodes',
+    path: '/groups/:serviceProviderId/:groupId/groupCommunicationBarringAuthorizationCodes',
     angularComponent: 'groupCommunicationBarringAuthorizationCodes',
     acl: 'Group'
   },
@@ -346,8 +344,7 @@ export const routes = [
     module: 'Trunk Group'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/enterpriseTrunks/enterpriseTrunk',
+    path: '/groups/:serviceProviderId/:groupId/enterpriseTrunks/enterpriseTrunk',
     angularComponent: 'groupEnterpriseTrunk',
     acl: 'Group',
     module: 'Trunk Group'
@@ -539,8 +536,7 @@ export const routes = [
     module: 'Group Night Forwarding'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/virtualOnNetEnterpriseExtensions',
+    path: '/groups/:serviceProviderId/:groupId/virtualOnNetEnterpriseExtensions',
     angularComponent: 'groupVirtualOnNetEnterpriseExtensions',
     acl: 'Group',
     module: 'Virtual On-Net Enterprise Extensions'
@@ -552,8 +548,7 @@ export const routes = [
     module: 'Flexible Seating Guest'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
+    path: '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
     angularComponent: 'groupFlexibleSeatingHost',
     acl: 'Group',
     module: 'Flexible Seating Guest'
@@ -590,8 +585,7 @@ export const routes = [
     module: 'Trunk Group'
   },
   {
-    path:
-      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
+    path: '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
     angularComponent: 'enterpriseEnterpriseTrunk',
     acl: 'Service Provider',
     module: 'Trunk Group'

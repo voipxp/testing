@@ -6,13 +6,7 @@ import { useUi } from '@/store/ui'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import {
-  UiCard,
-  UiLoadingCard,
-  UiDataTable,
-  UiButton,
-  UiCardModal
-} from '@/components/ui'
+import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const Resellers = ({ match }) => {
   const { alertSuccess, alertDanger } = useAlerts()
@@ -208,9 +202,7 @@ export const Resellers = ({ match }) => {
             onCancel={() => setShowConfirm(false)}
             onDelete={remove}
           >
-            <blockquote>
-              Are you sure you want to Remove this Alternate User Id?
-            </blockquote>
+            <blockquote>Are you sure you want to Remove this Alternate User Id?</blockquote>
           </UiCardModal>
         </>
       )}

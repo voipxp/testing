@@ -4,15 +4,9 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Service Providers">
     <pbs-block-buttons>
-      <pbs-button-compact-clone
-        title="Clone Service Provider"
-        ng-click="$ctrl.clone()"
-      >
+      <pbs-button-compact-clone title="Clone Service Provider" ng-click="$ctrl.clone()">
       </pbs-button-compact-clone>
-      <pbs-button-compact-add
-        title="Add Service Provider"
-        ng-click="$ctrl.add()"
-      >
+      <pbs-button-compact-add title="Add Service Provider" ng-click="$ctrl.add()">
       </pbs-button-compact-add>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.filter"></pbs-table-search>
@@ -41,22 +35,13 @@
           <td>{{ serviceProvider.serviceProviderName }}</td>
           <td>{{ serviceProvider.serviceProviderId }}</td>
           <td class="action">
-            <pbs-check-box
-              checked="serviceProvider.isEnterprise"
-            ></pbs-check-box>
+            <pbs-check-box checked="serviceProvider.isEnterprise"></pbs-check-box>
           </td>
         </tr>
       </tbody>
     </table>
-    <pbs-pagination
-      items="results.length"
-      on-update="$ctrl.onPagination($event)"
-    ></pbs-pagination>
+    <pbs-pagination items="results.length" on-update="$ctrl.onPagination($event)"></pbs-pagination>
   </pbs-block>
 </pbs-spinner>
-<service-provider-create
-  on-create="$ctrl.onCreate($event)"
-></service-provider-create>
-<service-provider-clone
-  on-create="$ctrl.onCreate($event)"
-></service-provider-clone>
+<service-provider-create on-create="$ctrl.onCreate($event)"></service-provider-create>
+<service-provider-clone on-create="$ctrl.onCreate($event)"></service-provider-clone>

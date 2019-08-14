@@ -7,13 +7,7 @@ angular.module('odin.system').component('resellerUpdate', {
   bindings: { onUpdate: '&' }
 })
 
-controller.$inject = [
-  'ResellerService',
-  'EventEmitter',
-  '$scope',
-  'Alert',
-  '$timeout'
-]
+controller.$inject = ['ResellerService', 'EventEmitter', '$scope', 'Alert', '$timeout']
 function controller(ResellerService, EventEmitter, $scope, Alert, $timeout) {
   var ctrl = this
   ctrl.selectType = selectType
@@ -72,11 +66,9 @@ function controller(ResellerService, EventEmitter, $scope, Alert, $timeout) {
         modify(close)
       },
       function(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this reseller?')
-          .then(function() {
-            destroy(close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this reseller?').then(function() {
+          destroy(close)
+        })
       }
     )
   })

@@ -48,9 +48,7 @@ function ACL($q, Session) {
 
   function hasVersion(required) {
     try {
-      const currentVersion = parseFloat(
-        Session.data('softwareVersion').replace('sp', '.')
-      )
+      const currentVersion = parseFloat(Session.data('softwareVersion').replace('sp', '.'))
       const requiredVersion = parseFloat(required.replace('sp', '.'))
       return currentVersion >= requiredVersion
     } catch (error) {
