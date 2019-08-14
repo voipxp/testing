@@ -74,6 +74,9 @@ function Route($rootScope, $location, Session) {
       case 'Provisioning':
         route = ['system']
         break
+      case 'Reseller':
+        route = ['reseller']
+        break
       case 'Service Provider':
         route = ['serviceProviders', serviceProviderId]
         break

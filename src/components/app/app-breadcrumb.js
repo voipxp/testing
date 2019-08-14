@@ -14,13 +14,13 @@ export const AppBreadcrumbBase = ({ match, children }) => {
   const acl = useAcl()
   const hasGroup = acl.hasGroup()
   const hasServiceProvider = acl.hasServiceProvider()
-  const hasProvisioning = acl.hasProvisioning()
+  const hasReseller = acl.hasReseller()
 
   return (
     <Breadcrumb as={StyledBreadcrumb}>
       <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
 
-      {hasProvisioning && serviceProviderId && (
+      {hasReseller && serviceProviderId && (
         <Breadcrumb.Item href="#!/serviceProviders">
           Service Providers
         </Breadcrumb.Item>

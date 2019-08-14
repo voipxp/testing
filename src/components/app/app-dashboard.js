@@ -12,6 +12,9 @@ export const AppDashboard = () => {
     case 'Provisioning':
       route = '/system'
       break
+    case 'Reseller':
+      route = '/reseller'
+      break
     case 'Service Provider':
       route = `/serviceProviders/${serviceProviderId}`
       break
