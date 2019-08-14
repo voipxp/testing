@@ -1,0 +1,22 @@
+<pbs-modal id="createResellerModal" title="Create Reseller">
+  <pbs-spinner loading="$ctrl.loading">
+    <pbs-form>
+      <pbs-form-field label="Reseller ID">
+        <input
+          type="text"
+          class="input"
+          ng-model="$ctrl.reseller.resellerId"
+          required
+        />
+      </pbs-form-field>
+      <pbs-form-field label="Reseller Name">
+        <input
+          type="text"
+          class="input"
+          ng-model="$ctrl.reseller.resellerName"
+          required
+        />
+      </pbs-form-field>
+    </pbs-form>
+  </pbs-spinner>
+</pbs-modal>

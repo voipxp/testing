@@ -6,10 +6,11 @@ angular.module('odin.system').component('systemDashboard', {
   controller
 })
 
-controller.$inject = ['Route', 'SystemDashboardService', 'Alert']
-function controller(Route, SystemDashboardService, Alert) {
+controller.$inject = ['Route', 'SystemDashboardService', 'Alert', 'ACL']
+function controller(Route, SystemDashboardService, Alert, ACL) {
   var ctrl = this
   var route = Route.path()
+  ctrl.hasVersion22 = ACL.hasVersion('22')
 
   ctrl.$onInit = function() {
     ctrl.loading = true
@@ -78,12 +79,12 @@ function controller(Route, SystemDashboardService, Alert) {
         name: 'Service Providers',
         path: route('serviceProviders')
       },
-      {
-        type: 'provisioning',
-        name: 'Resellers',
-        path: route('resellers'),
-        version: '22'
-      },
+      // {
+      //   type: 'provisioning',
+      //   name: 'Resellers',
+      //   path: route('resellers'),
+      //   version: '22'
+      // },
       {
         type: 'provisioning',
         name: 'Branding',
