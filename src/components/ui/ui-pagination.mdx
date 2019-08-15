@@ -17,33 +17,50 @@ You may set the **align** prop to control the positioning on the viewport.
 ## Example
 
 <Playground>
-  <UiPagination
-    align="left"
-    pages={8}
-    page={1}
-    onFirst={() => console.log('first clicked')}
-    onNext={() => console.log('next clicked')}
-    onPrevious={() => console.log('previous clicked')}
-    onLast={() => console.log('last clicked')}
-  />
-  <UiPagination
-    align="centered"
-    pages={8}
-    page={4}
-    onFirst={() => console.log('first clicked')}
-    onNext={() => console.log('next clicked')}
-    onPrevious={() => console.log('previous clicked')}
-    onLast={() => console.log('last clicked')}
-  />
-  <UiPagination
-    align="right"
-    pages={8}
-    page={8}
-    onFirst={() => console.log('first clicked')}
-    onNext={() => console.log('next clicked')}
-    onPrevious={() => console.log('previous clicked')}
-    onLast={() => console.log('last clicked')}
-  />
+  {() => {
+    const UiPaginationExample = () => {
+      const pages = 8
+      const [page, setPage] = React.useState(1)
+      const onFirst = () => setPage(1)
+      const onNext = () => setPage(page === pages ? pages : page + 1)
+      const onPrevious = () => setPage(page === 1 ? 1 : page - 1)
+      const onLast = () => setPage(pages)
+
+      return (
+        <>
+          <UiPagination
+            align="left"
+            pages={pages}
+            page={page}
+            onFirst={onFirst}
+            onNext={onNext}
+            onPrevious={onPrevious}
+            onLast={onLast}
+          />
+          <UiPagination
+            align="centered"
+            pages={pages}
+            page={page}
+            onFirst={onFirst}
+            onNext={onNext}
+            onPrevious={onPrevious}
+            onLast={onLast}
+          />
+          <UiPagination
+            align="right"
+            pages={pages}
+            page={page}
+            onFirst={onFirst}
+            onNext={onNext}
+            onPrevious={onPrevious}
+            onLast={onLast}
+          />
+        </>)
+    }
+    return <UiPaginationExample />
+
+}}
+
 </Playground>
 
 ## Props
