@@ -16,15 +16,22 @@ import {
 import { generatePassword } from '@/utils'
 
 export const ResellerAdmins = ({ match }) => {
+  const initialForm = {
+    isCreate: true,
+    userId: '',
+    language: '',
+    password: '',
+    lastName: '',
+    firstName: ''
+  }
   const { resellerId } = match.params
   const { alertSuccess, alertDanger } = useAlerts()
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [resellerAdmins, setResellerAdmins] = useState([])
   const [loading, setLoading] = useState(true)
-  const [form, setForm] = useState({})
+  const [form, setForm] = useState(initialForm)
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [showDisabled, setDisabled] = useState('')
 
   const columns = [
     { key: 'administratorID', label: 'User Id' },
@@ -55,8 +62,12 @@ export const ResellerAdmins = ({ match }) => {
   }, [alertDanger, resellerId])
 
   function edit(row) {
-    setDisabled('disabled')
-    setForm({ ...row, userId: row.administratorID, password: '' })
+    setForm({
+      ...row,
+      userId: row.administratorID,
+      password: '',
+      isCreate: false
+    })
     setShowModal(true)
   }
 
@@ -66,20 +77,12 @@ export const ResellerAdmins = ({ match }) => {
   }
 
   function add() {
-    setForm({
-      userId: '',
-      language: '',
-      password: '',
-      lastName: '',
-      firstName: ''
-    })
-    setDisabled('')
+    setForm(initialForm)
     setShowModal(true)
   }
 
   function save() {
-    if (showDisabled === 'disabled') update(form)
-    else create(form)
+    form.isCreate ? create(form) : update(form)
   }
 
   async function create(admin) {
@@ -154,20 +157,31 @@ export const ResellerAdmins = ({ match }) => {
             />
           </UiCard>
           <UiCardModal
-            title={`Edit ${form.userId}`}
+            title={form.isCreate ? 'New Admin' : `Edit ${form.userId}`}
             isOpen={showModal}
             onCancel={() => setShowModal(false)}
             onSave={save}
-            onDelete={form.resellerId ? () => setShowConfirm(true) : null}
+            onDelete={form.isCreate ? null : () => setShowConfirm(true)}
           >
             <form>
+              {form.isCreate && (
+                <UiFormField label="User ID" horizontal>
+                  <Input
+                    type="text"
+                    name="firstName"
+                    value={form.firstName}
+                    onChange={handleInput}
+                    placeholder="User ID"
+                  />
+                </UiFormField>
+              )}
               <UiFormField label="First Name" horizontal>
                 <Input
                   type="text"
                   name="firstName"
                   value={form.firstName}
                   onChange={handleInput}
-                  placeholder="firstName"
+                  placeholder="First Name"
                 />
               </UiFormField>
               <UiFormField label="Last Name" horizontal>
@@ -176,7 +190,7 @@ export const ResellerAdmins = ({ match }) => {
                   name="lastName"
                   value={form.lastName}
                   onChange={handleInput}
-                  placeholder="lastName"
+                  placeholder="Last Name"
                 />
               </UiFormField>
               <UiFormField label="Password" horizontal>
