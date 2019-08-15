@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { useAlerts } from '@/store/alerts'
 import { useUi } from '@/store/ui'
 import apiResellers from '@/api/resellers'
-import { UiCardModal } from '@/components/ui'
+import { UiCard, UiCardModal, UiButton } from '@/components/ui'
 
-export const ResellerDelete = ({ match }) => {
+export const ResellerDelete = ({ match, history }) => {
   const { resellerId } = match.params
   const { alertWarning, alertDanger } = useAlerts()
   const { showLoadingModal, hideLoadingModal } = useUi()
@@ -21,6 +21,7 @@ export const ResellerDelete = ({ match }) => {
     try {
       await apiResellers.destroy(resellerId)
       alertWarning('Reseller Deleted')
+      history.push('/system/resellers')
     } catch (error) {
       alertDanger(error)
     } finally {
@@ -30,7 +31,19 @@ export const ResellerDelete = ({ match }) => {
 
   return (
     <>
-      <h1>Delete Me</h1>
+      <UiCard>
+        <UiButton
+          style={{ float: 'right' }}
+          icon="delete"
+          color="danger"
+          onClick={() => setShowConfirm(true)}
+        >
+          Delete
+        </UiButton>
+        <p className="subtitle">
+          Click the delete button to permanently remove this Reseller.
+        </p>
+      </UiCard>
 
       <UiCardModal
         title="Please Confirm"
@@ -38,14 +51,13 @@ export const ResellerDelete = ({ match }) => {
         onCancel={() => setShowConfirm(false)}
         onDelete={remove}
       >
-        <blockquote>
-          Are you sure you want to Remove this Alternate User Id?
-        </blockquote>
+        <blockquote>Are you sure you want to Remove this Reseller?</blockquote>
       </UiCardModal>
     </>
   )
 }
 
 ResellerDelete.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 }

@@ -65,7 +65,7 @@ export const SystemResellers = ({ match, history }) => {
       await loadResellers()
       alertSuccess('Reseller Created')
       setShowModal(false)
-      open(form.resellerId)
+      open(form)
     } catch (error) {
       alertDanger(error)
     } finally {
