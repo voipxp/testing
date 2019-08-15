@@ -7,20 +7,28 @@ export const dashboardMenu = [
     label: 'Dashboard',
     items: [
       {
-        path: 'profile',
-        name: 'Business Profile',
-        component: ResellerProfile,
-        acl: 'Provisioning'
-      },
-      {
         path: 'service-providers',
         name: 'Service Providers',
         angularComponent: 'serviceProviders'
       },
       {
         path: 'admins',
-        name: 'Reseller Admins',
+        name: 'Administrators',
         component: ResellerAdmins
+      }
+    ]
+  },
+  {
+    label: 'Provisioning',
+    items: [
+      // TODO:
+      // this is hwere because we can do a getRequest as a reseller
+      // need to figure out a way around this
+      {
+        path: 'profile',
+        name: 'Business Profile',
+        component: ResellerProfile,
+        acl: 'Provisioning'
       },
       {
         path: 'delete-reseller',
