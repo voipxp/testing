@@ -31,7 +31,7 @@ export const ResellerDelete = ({ match, history }) => {
 
   return (
     <>
-      <UiCard>
+      <UiCard title="Delete Reseller">
         <UiButton
           style={{ float: 'right' }}
           icon="delete"

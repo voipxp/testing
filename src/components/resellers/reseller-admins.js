@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import apiResellerAdmins from '@/api/reseller-admins'
-import { AppBreadcrumb } from '@/components/app'
-import { Breadcrumb } from 'rbx'
 import { useUi } from '@/store/ui'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
@@ -38,14 +36,12 @@ export const ResellerAdmins = ({ match }) => {
     setForm({ ...form, [name]: value })
   }
 
-  /*
-    Load the resellerAdmins, alert on error
-  */
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiResellerAdmins.list(resellerId)
+        console.log('data', data)
         setResellerAdmins(data.resellers)
       } catch (error) {
         alertDanger(error)
@@ -61,10 +57,12 @@ export const ResellerAdmins = ({ match }) => {
     setForm({ ...row, userId: row.administratorID, resellerId: resellerId })
     setShowModal(true)
   }
+
   function remove() {
     setShowConfirm(false)
     destroy(form.userId)
   }
+
   function add() {
     setForm({
       resellerId: resellerId,
