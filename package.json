@@ -12,8 +12,9 @@
     "lint": "eslint 'src/**/*.js'",
     "browsers": "npx browserslist",
     "analyze": "SHOW_STATS=true webpack --mode production --json | webpack-bundle-size-analyzer",
-    "docz:dev": "docz dev -o",
-    "docz:build": "docz build"
+    "docs": "npx serve docs",
+    "docs:dev": "docz dev -o",
+    "docs:build": "docz build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.7.2",

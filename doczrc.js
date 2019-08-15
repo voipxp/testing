@@ -5,6 +5,7 @@ export default {
   title: 'Odin UI',
   src: './src',
   files: '**/*.mdx',
+  dest: './docs',
   codeSandbox: false,
   wrapper: 'components/ui/doc-wrapper',
   plugins: [
