@@ -1,1 +1,1 @@
-export * from './resellers'
+export * from './system-resellers'
