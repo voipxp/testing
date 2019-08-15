@@ -1,6 +1,7 @@
 import { ResellerAdmins } from './reseller-admins'
 import { ResellerProfile } from './reseller-profile'
 import { ResellerDelete } from './reseller-delete'
+import { ResellerServiceProviders } from './reseller-service-providers'
 
 export const dashboardMenu = [
   {
@@ -9,7 +10,7 @@ export const dashboardMenu = [
       {
         path: 'service-providers',
         name: 'Service Providers',
-        angularComponent: 'serviceProviders'
+        component: ResellerServiceProviders
       },
       {
         path: 'admins',

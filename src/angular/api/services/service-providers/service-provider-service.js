@@ -9,8 +9,10 @@ function service($http, Route, $rootScope) {
 
   return service
 
-  function index() {
-    return $http.get(url()).then(response => response.data)
+  function index(resellerId) {
+    return $http
+      .get(url(), { params: { resellerId } })
+      .then(response => response.data)
   }
 
   function store(serviceProvider) {
