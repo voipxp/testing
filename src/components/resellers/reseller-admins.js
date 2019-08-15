@@ -137,9 +137,6 @@ export const ResellerAdmins = ({ match }) => {
 
   return (
     <>
-      <AppBreadcrumb>
-        <Breadcrumb.Item>Reseller Admins</Breadcrumb.Item>
-      </AppBreadcrumb>
       {loading ? (
         <UiLoadingCard />
       ) : (
