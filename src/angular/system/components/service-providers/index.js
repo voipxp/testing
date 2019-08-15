@@ -1,5 +1,6 @@
 import angular from 'angular'
 import template from './index.html'
+import _ from 'lodash'
 
 angular.module('odin.system').component('serviceProviders', {
   template,
@@ -39,9 +40,15 @@ function controller(Alert, ServiceProviderService, $scope, Route, $location) {
   }
 
   function loadServiceProviders() {
+    var res = $location.path().split('/')
+    if (res[1] === 'resellers' && res[3] === 'service-providers')
+      ctrl.resellerId = res[2]
+
     return ServiceProviderService.index().then(function(data) {
       ctrl.serviceProviders = data
-      return data
+      if (ctrl.resellerId) {
+        ctrl.serviceProviders = _.filter(data, { resellerId: ctrl.resellerId })
+      }
     })
   }
 
