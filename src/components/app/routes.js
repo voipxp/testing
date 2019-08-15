@@ -1,7 +1,7 @@
 import { UserDashboard } from '@/components/users'
-import { GroupSpeedDial8 } from '../groups/group-speed-dial-8'
-import { GroupCommunicationBarring } from '../groups/group-communication-barring'
-import { Resellers } from '../system/resellers'
+import { GroupCommunicationBarring, GroupSpeedDial8 } from '@/components/groups'
+import { Resellers } from '../system'
+import { ResellerDashboard } from '../resellers'
 export const routes = [
   {
     path: '/account',
@@ -762,8 +762,13 @@ export const routes = [
     component: GroupCommunicationBarring
   },
   {
-    path: '/resellers',
+    path: '/system/resellers',
     component: Resellers,
     acl: 'Provisioning'
+  },
+  {
+    path: '/resellers/:resellerId',
+    component: ResellerDashboard,
+    acl: 'Reseller'
   }
 ]

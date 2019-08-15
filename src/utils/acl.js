@@ -7,9 +7,9 @@ export const hasLevel = (loginType, requiredType, isPaasAdmin) => {
     'User': 1,
     'Group': 2,
     'Service Provider': 3,
-    'PaaS Admin': 3.5,
-    'Provisioning': 4,
-    'System': 5
+    'Reseller': 4,
+    'Provisioning': 5,
+    'System': 6
   }
   const user = types[loginType] || 0
   const required = types[requiredType] || 10
@@ -18,6 +18,7 @@ export const hasLevel = (loginType, requiredType, isPaasAdmin) => {
 
 export const hasGroup = type => hasLevel(type, 'Group')
 export const hasServiceProvider = type => hasLevel(type, 'Service Provider')
+export const hasReseller = type => hasLevel(type, 'Reseller')
 export const hasProvisioning = type => hasLevel(type, 'Provisioning')
 export const hasPaasAdmin = type => hasLevel(type, 'Paas Admin')
 export const hasSystem = type => hasLevel(type, 'System')
@@ -33,6 +34,7 @@ export default {
   hasGroup,
   hasServiceProvider,
   hasPaasAdmin,
+  hasReseller,
   hasProvisioning,
   hasSystem,
   hasVersion
@@ -54,6 +56,10 @@ export const useAcl = () => {
     ),
     hasPaasAdmin: useCallback(
       () => hasPaasAdmin(session.loginType, 'Paas Admin', session.isPaasAdmin),
+      [session.isPaasAdmin, session.loginType]
+    ),
+    hasReseller: useCallback(
+      () => hasReseller(session.loginType, 'Reseller', session.isPaasAdmin),
       [session.isPaasAdmin, session.loginType]
     ),
     hasProvisioning: useCallback(

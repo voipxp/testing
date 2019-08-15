@@ -64,6 +64,7 @@ function Route($rootScope, $location, Session) {
     const serviceProviderId = Session.data('serviceProviderId')
     const groupId = Session.data('groupId')
     const userId = Session.data('userId')
+    const resellerId = Session.data('resellerId')
     const loginType = Session.data('loginType')
     if (!loginType) return login()
     let route
@@ -73,6 +74,9 @@ function Route($rootScope, $location, Session) {
         break
       case 'Provisioning':
         route = ['system']
+        break
+      case 'Reseller':
+        route = ['resellers', resellerId]
         break
       case 'Service Provider':
         route = ['serviceProviders', serviceProviderId]

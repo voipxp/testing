@@ -56,7 +56,6 @@ function controller(Alert, ResellerService, $scope, Route) {
 
   function open(event) {
     var reseller = event.item
-    ctrl.reseller = event.item
-    $scope.$broadcast('resellerUpdate:load', reseller)
+    Route.open('resellers', reseller.resellerId)
   }
 }

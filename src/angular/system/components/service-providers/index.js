@@ -6,8 +6,14 @@ angular.module('odin.system').component('serviceProviders', {
   controller
 })
 
-controller.$inject = ['Alert', 'ServiceProviderService', '$scope', 'Route']
-function controller(Alert, ServiceProviderService, $scope, Route) {
+controller.$inject = [
+  'Alert',
+  'ServiceProviderService',
+  '$scope',
+  'Route',
+  '$location'
+]
+function controller(Alert, ServiceProviderService, $scope, Route, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.clone = clone
@@ -18,6 +24,7 @@ function controller(Alert, ServiceProviderService, $scope, Route) {
 
   function onInit() {
     ctrl.loading = true
+    ctrl.showNav = !/^\/resellers/.test($location.path())
     loadServiceProviders()
       .catch(function(error) {
         Alert.notify.danger(error)

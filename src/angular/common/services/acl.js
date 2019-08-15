@@ -33,9 +33,9 @@ function ACL($q, Session) {
       'User': 1,
       'Group': 2,
       'Service Provider': 3,
-      'PaaS Admin': 3.5,
-      'Provisioning': 4,
-      'System': 5
+      'Reseller': 4,
+      'Provisioning': 5,
+      'System': 6
     }
     const required = types[type] || 10
     const user = types[Session.data('loginType')] || 0
