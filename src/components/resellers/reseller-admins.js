@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react'
 import apiResellerAdmins from '@/api/reseller-admins'
 import { useUi } from '@/store/ui'
 import PropTypes from 'prop-types'
-import { Field, Input, Column, Control } from 'rbx'
+import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import {
   UiCard,
   UiLoadingCard,
   UiDataTable,
   UiButton,
-  UiCardModal
+  UiCardModal,
+  UiFormField,
+  UiInputPassword
 } from '@/components/ui'
+import { generatePassword } from '@/utils'
 
 export const ResellerAdmins = ({ match }) => {
   const { resellerId } = match.params
@@ -54,7 +57,7 @@ export const ResellerAdmins = ({ match }) => {
 
   function edit(row) {
     setDisabled('disabled')
-    setForm({ ...row, userId: row.administratorID, resellerId: resellerId })
+    setForm({ ...row, userId: row.administratorID, password: '' })
     setShowModal(true)
   }
 
@@ -65,7 +68,6 @@ export const ResellerAdmins = ({ match }) => {
 
   function add() {
     setForm({
-      resellerId: resellerId,
       userId: '',
       language: '',
       password: '',
@@ -74,7 +76,6 @@ export const ResellerAdmins = ({ match }) => {
     })
     setDisabled('')
     setShowModal(true)
-    // create(form)
   }
 
   function save() {
@@ -154,111 +155,39 @@ export const ResellerAdmins = ({ match }) => {
             />
           </UiCard>
           <UiCardModal
-            title="ResellerAdmins"
+            title={`Edit ${form.userId}`}
             isOpen={showModal}
             onCancel={() => setShowModal(false)}
             onSave={save}
             onDelete={form.resellerId ? () => setShowConfirm(true) : null}
           >
             <form>
-              <Column.Group>
-                <Column>
-                  <Field>
-                    <Control>
-                      <UiButton fullwidth static>
-                        Reseller ID
-                      </UiButton>
-                    </Control>
-                  </Field>
-                  <Field>
-                    <Control>
-                      <UiButton fullwidth static>
-                        User ID
-                      </UiButton>
-                    </Control>
-                  </Field>
-                  <Field>
-                    <Control>
-                      <UiButton fullwidth static>
-                        First Name
-                      </UiButton>
-                    </Control>
-                  </Field>
-                  <Field>
-                    <Control>
-                      <UiButton fullwidth static>
-                        Last Name
-                      </UiButton>
-                    </Control>
-                  </Field>
-                  <Field>
-                    <Control>
-                      <UiButton fullwidth static>
-                        Password
-                      </UiButton>
-                    </Control>
-                  </Field>
-                </Column>
-                <Column>
-                  <Field>
-                    <Control>
-                      <Input
-                        type="text"
-                        name="resellerId"
-                        value={form.resellerId}
-                        onChange={handleInput}
-                        placeholder="resellerId"
-                        disabled="disabled"
-                      />
-                    </Control>
-                  </Field>
-                  <Field>
-                    <Control>
-                      <Input
-                        type="text"
-                        name="userId"
-                        value={form.userId}
-                        onChange={handleInput}
-                        placeholder="userId"
-                        disabled={showDisabled}
-                      />
-                    </Control>
-                  </Field>
-                  <Field>
-                    <Control>
-                      <Input
-                        type="text"
-                        name="firstName"
-                        value={form.firstName}
-                        onChange={handleInput}
-                        placeholder="firstName"
-                      />
-                    </Control>
-                  </Field>
-                  <Field>
-                    <Control>
-                      <Input
-                        type="text"
-                        name="lastName"
-                        value={form.lastName}
-                        onChange={handleInput}
-                        placeholder="lastName"
-                      />
-                    </Control>
-                  </Field>
-                  <Field>
-                    <Control iconLeft>
-                      <Input
-                        type="password"
-                        name="password"
-                        value={form.password}
-                        onChange={handleInput}
-                        placeholder="Password"
-                      />
-                    </Control>
-                  </Field>
-                </Column>
-              </Column.Group>
+              <UiFormField label="First Name" horizontal>
+                <Input
+                  type="text"
+                  name="firstName"
+                  value={form.firstName}
+                  onChange={handleInput}
+                  placeholder="firstName"
+                />
+              </UiFormField>
+              <UiFormField label="Last Name" horizontal>
+                <Input
+                  type="text"
+                  name="lastName"
+                  value={form.lastName}
+                  onChange={handleInput}
+                  placeholder="lastName"
+                />
+              </UiFormField>
+              <UiFormField label="Password" horizontal>
+                <UiInputPassword
+                  name="password"
+                  value={form.password}
+                  onChange={handleInput}
+                  onGeneratePassword={generatePassword}
+                />
+              </UiFormField>
             </form>
           </UiCardModal>
           <UiCardModal
