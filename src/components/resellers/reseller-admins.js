@@ -1,4 +1,3 @@
-import { useLink } from 'valueLink'
 import React, { useState, useEffect } from 'react'
 import apiResellerAdmins from '@/api/reseller-admins'
 import { useUi } from '@/store/ui'
@@ -42,7 +41,6 @@ export const ResellerAdmins = ({ match }) => {
     const fetchData = async () => {
       try {
         const data = await apiResellerAdmins.list(resellerId)
-        console.log('data', data)
         setResellerAdmins(data.resellers)
       } catch (error) {
         alertDanger(error)
@@ -55,7 +53,12 @@ export const ResellerAdmins = ({ match }) => {
 
   function edit(row) {
     setDisabled('disabled')
-    setForm({ ...row, userId: row.administratorID, resellerId: resellerId })
+    setForm({
+      ...row,
+      userId: row.administratorID,
+      resellerId: resellerId,
+      password: ''
+    })
     setShowModal(true)
   }
 
@@ -255,6 +258,7 @@ export const ResellerAdmins = ({ match }) => {
                         value={form.password}
                         onChange={handleInput}
                         placeholder="Password"
+                        autoComplete="off"
                       />
                     </Control>
                   </Field>
