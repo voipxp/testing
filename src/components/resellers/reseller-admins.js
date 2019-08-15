@@ -44,7 +44,6 @@ export const ResellerAdmins = ({ match }) => {
     const fetchData = async () => {
       try {
         const data = await apiResellerAdmins.list(resellerId)
-        console.log('data', data)
         setResellerAdmins(data.resellers)
       } catch (error) {
         alertDanger(error)
