@@ -42,7 +42,6 @@ function controller(Alert, ServiceProviderService, $scope, Route, $location) {
   function loadServiceProviders() {
     return ServiceProviderService.index(ctrl.resellerId).then(function(data) {
       ctrl.serviceProviders = data
-      return data
     })
   }
 
