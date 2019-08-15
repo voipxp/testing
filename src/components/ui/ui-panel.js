@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Panel } from 'rbx'
-import styled from 'styled-components'
 
 export const UiPanel = ({ title, children, itemKey, items }) => {
   return (
