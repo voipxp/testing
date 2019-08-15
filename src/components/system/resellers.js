@@ -28,22 +28,23 @@ export const Resellers = ({ match }) => {
     setForm({ ...form, [name]: value })
   }
 
+  const loadResellers = async () => {
+    setLoading(true)
+    try {
+      const data = await apiResellers.list()
+      setResellers(data)
+    } catch (error) {
+      Alert.danger(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   /*
     Load the resellers, alert on error
   */
   useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiResellers.list()
-        setResellers(data)
-      } catch (error) {
-        Alert.danger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
+    loadResellers()
   }, [])
 
   function edit(row) {
