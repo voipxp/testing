@@ -25,7 +25,8 @@ export const dashboardMenu = [
       {
         path: 'delete-reseller',
         name: 'Delete Reseller',
-        component: ResellerDelete
+        component: ResellerDelete,
+        acl: 'Provisioning'
       }
     ]
   }
