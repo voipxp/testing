@@ -25,7 +25,7 @@ const [form, onChange, isValid, errors] = useForm(initialState, formRef)
   {() => {
     const UseFormExample = () => {
       const formRef = React.useRef()
-      const initialState = {firstName: '', lastName: '', age: ''}
+      const initialState = { firstName: '', lastName: '', age: '' }
       const [form, onChange, isValid, errors] = useForm(initialState, formRef)
       return (
         <form ref={formRef} onSubmit={e => e.preventDefault()}>
@@ -69,7 +69,5 @@ const [form, onChange, isValid, errors] = useForm(initialState, formRef)
       )
     }
     return <UseFormExample />
-
-}}
-
+  }}
 </Playground>

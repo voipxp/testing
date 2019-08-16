@@ -35,7 +35,7 @@ export const AppLogin = () => {
     const newSearch = stringify(search)
     window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
     // loadSessionFromToken(token)
-    //   .catch(error => alertDanger(error))
+    //   .catch(error => Alert.danger(error))
     //   .finally(() => Loading.hide())
   }, [])
 
