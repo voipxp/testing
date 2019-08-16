@@ -29,7 +29,6 @@ export const USER_REGISTRATION_FRAGMENT = gql`
       supportsVoiceOverPs
       uri
       userAgent
-      userId
     }
   }
 `
