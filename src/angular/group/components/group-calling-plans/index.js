@@ -31,8 +31,7 @@ function controller(Route, GroupPermissionService, Alert) {
       name: 'Pinhole Digit Patterns',
       path: 'pinholeDigitPatterns',
       service: 'Enhanced Outgoing Calling Plan',
-      description:
-        'Configure the digit strings to be used in the Outgoing Pinhole Digit Plan'
+      description: 'Configure the digit strings to be used in the Outgoing Pinhole Digit Plan'
     },
     {
       name: 'Transfer Numbers',
@@ -91,12 +90,6 @@ function controller(Route, GroupPermissionService, Alert) {
   }
 
   function edit(plan) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'callingPlans',
-      plan.path
-    )
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callingPlans', plan.path)
   }
 }

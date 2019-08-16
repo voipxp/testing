@@ -28,23 +28,19 @@ function controller(Alert, GroupPagingGroupTargetService, Module) {
   }
 
   function loadAssigned() {
-    return GroupPagingGroupTargetService.assigned(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.assigned = data
-        return data
-      }
-    )
+    return GroupPagingGroupTargetService.assigned(ctrl.serviceUserId).then(function(data) {
+      ctrl.assigned = data
+      return data
+    })
   }
 
   function loadAvailable() {
-    return GroupPagingGroupTargetService.available(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.available = _.filter(data, function(user) {
-          return !_.find(ctrl.assigned, { userId: user.userId })
-        })
-        return ctrl.available
-      }
-    )
+    return GroupPagingGroupTargetService.available(ctrl.serviceUserId).then(function(data) {
+      ctrl.available = _.filter(data, function(user) {
+        return !_.find(ctrl.assigned, { userId: user.userId })
+      })
+      return ctrl.available
+    })
   }
 
   function edit() {

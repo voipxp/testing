@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block module="$ctrl.module">
     <pbs-block-buttons if-module-update="$ctrl.module">
-      <pbs-button-compact-edit
-        title="Edit Call Forwarding No Answer"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Call Forwarding No Answer" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -14,12 +11,6 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editUserConnectedLineIdentificationRestriction"
-  title="Edit Settings"
->
-  <pbs-input-checkbox
-    ng-model="$ctrl.editSettings.isActive"
-    label="Is Active"
-  ></pbs-input-checkbox>
+<pbs-modal id="editUserConnectedLineIdentificationRestriction" title="Edit Settings">
+  <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive" label="Is Active"></pbs-input-checkbox>
 </pbs-modal>

@@ -24,10 +24,9 @@ function controller(Alert, GroupSpeedDial100Service) {
   }
 
   function load() {
-    return GroupSpeedDial100Service.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupSpeedDial100Service.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.settings = data
     })
   }

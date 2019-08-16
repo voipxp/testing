@@ -44,14 +44,10 @@ function controller(Alert, EventService, EventEmitter) {
       'Other': 0
     }
     ctrl.data.forEach(item => {
-      var loginType = Object.keys(logins).includes(item.loginType)
-        ? item.loginType
-        : 'Other'
+      var loginType = Object.keys(logins).includes(item.loginType) ? item.loginType : 'Other'
       logins[loginType]++
     })
-    ctrl.labels = Object.keys(logins).map(label =>
-      generateLabel(label, logins[label], ctrl.total)
-    )
+    ctrl.labels = Object.keys(logins).map(label => generateLabel(label, logins[label], ctrl.total))
     ctrl.options = { legend: { display: true, position: 'right' } }
     ctrl.loginData = Object.values(logins)
   }

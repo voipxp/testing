@@ -8,13 +8,7 @@ angular.module('odin.user').component('userBusyLampField', {
   bindings: { userId: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  '$q',
-  'Alert',
-  'UserBusyLampFieldService',
-  'ACL',
-  'Module'
-]
+controller.$inject = ['$q', 'Alert', 'UserBusyLampFieldService', 'ACL', 'Module']
 function controller($q, Alert, UserBusyLampFieldService, ACL, Module) {
   var ctrl = this
   ctrl.options = UserBusyLampFieldService.options

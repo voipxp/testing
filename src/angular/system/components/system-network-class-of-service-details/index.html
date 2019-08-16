@@ -36,26 +36,13 @@
   <form>
     <pbs-form-section>Details</pbs-form-section>
     <pbs-form-field-horizontal label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editService.newName"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editService.newName" required />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Description">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editService.description"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editService.description" />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Network Translation Index">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editService.networkTranslationIndex"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editService.networkTranslationIndex" />
     </pbs-form-field-horizontal>
     <pbs-form-section>Communication Barring Profiles</pbs-form-section>
     <div class="field has-addons" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]">

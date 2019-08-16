@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupHuntGroupUserService', GroupHuntGroupUserService)
+angular.module('odin.api').factory('GroupHuntGroupUserService', GroupHuntGroupUserService)
 
 GroupHuntGroupUserService.$inject = ['$http', 'Route']
 function GroupHuntGroupUserService($http, Route) {

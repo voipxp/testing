@@ -11,18 +11,14 @@
     <pbs-list>
       <pbs-list-section>Message Deposit</pbs-list-section>
       <pbs-list-item label="Disable Message Deposit">
-        <pbs-check-box
-          checked="$ctrl.settings.disableMessageDeposit"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.disableMessageDeposit"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item
         label="Disable Message Deposit Action"
         ng-show="$ctrl.settings.disableMessageDeposit"
       >
         {{ $ctrl.settings.disableMessageDepositAction }}
-        <span
-          ng-show="$ctrl.settings.disableMessageDepositAction === 'Forward'"
-        >
+        <span ng-show="$ctrl.settings.disableMessageDepositAction === 'Forward'">
           to {{ $ctrl.settings.greetingOnlyForwardDestination }}
         </span>
       </pbs-list-item>
@@ -35,14 +31,10 @@
       </pbs-list-item>
       <pbs-list-section>Extended Away Settings</pbs-list-section>
       <pbs-list-item label="Extended Away Enabled">
-        <pbs-check-box
-          checked="$ctrl.settings.extendedAwayEnabled"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.extendedAwayEnabled"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Extended Away Disable Message Deposit">
-        <pbs-check-box
-          checked="$ctrl.settings.extendedAwayDisableMessageDeposit"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.extendedAwayDisableMessageDeposit"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Extended Away Greeting">
         {{ $ctrl.settings.extendedAwayAudio.name }}
@@ -62,27 +54,21 @@
         ng-show="$ctrl.settings.noAnswerAlternateGreeting01.name"
       >
         <strong>{{ $ctrl.settings.noAnswerAlternateGreeting01.name }}</strong>
-        <span
-          >({{ $ctrl.settings.noAnswerAlternateGreeting01.audio.name }})</span
-        >
+        <span>({{ $ctrl.settings.noAnswerAlternateGreeting01.audio.name }})</span>
       </pbs-list-item>
       <pbs-list-item
         label="Alternate Greeting 02"
         ng-show="$ctrl.settings.noAnswerAlternateGreeting02.name"
       >
         <strong>{{ $ctrl.settings.noAnswerAlternateGreeting02.name }}</strong>
-        <span
-          >({{ $ctrl.settings.noAnswerAlternateGreeting02.audio.name }})</span
-        >
+        <span>({{ $ctrl.settings.noAnswerAlternateGreeting02.audio.name }})</span>
       </pbs-list-item>
       <pbs-list-item
         label="Alternate Greeting 03"
         ng-show="$ctrl.settings.noAnswerAlternateGreeting03.name"
       >
         <strong>{{ $ctrl.settings.noAnswerAlternateGreeting03.name }}</strong>
-        <span
-          >({{ $ctrl.settings.noAnswerAlternateGreeting03.audio.name }})</span
-        >
+        <span>({{ $ctrl.settings.noAnswerAlternateGreeting03.audio.name }})</span>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
@@ -160,9 +146,7 @@
         audio-file="$ctrl.editSettings.noAnswerPersonalAudio"
       ></select-audio-file>
     </pbs-form-field-horizontal>
-    <pbs-form-section ng-repeat-start="i in [1,2,3]"
-      >Alternate Greeting {{ i }}</pbs-form-section
-    >
+    <pbs-form-section ng-repeat-start="i in [1,2,3]">Alternate Greeting {{ i }}</pbs-form-section>
     <pbs-form-field-horizontal label="Name">
       <input
         type="text"

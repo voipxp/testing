@@ -4,12 +4,7 @@ import template from './index.html'
 
 angular.module('odin.common').directive('pbsInputPassword', pbsInputPassword)
 
-pbsInputPassword.$inject = [
-  'PasswordService',
-  'GroupPasswordService',
-  'Alert',
-  '$q'
-]
+pbsInputPassword.$inject = ['PasswordService', 'GroupPasswordService', 'Alert', '$q']
 function pbsInputPassword(PasswordService, GroupPasswordService, Alert, $q) {
   return {
     template,
@@ -62,10 +57,7 @@ function pbsInputPassword(PasswordService, GroupPasswordService, Alert, $q) {
         if (!scope.serviceProviderId || !scope.groupId) {
           return $q.resolve(defaultRules)
         }
-        return GroupPasswordService.show(
-          scope.serviceProviderId,
-          scope.groupId
-        ).catch(function() {
+        return GroupPasswordService.show(scope.serviceProviderId, scope.groupId).catch(function() {
           return defaultRules
         })
       }

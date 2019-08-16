@@ -1,11 +1,6 @@
 <pbs-modal id="{{ $ctrl.modalId }}" title="Assign and Select New Numbers">
   <form novalidate autocomplete="off">
-    <input
-      type="hidden"
-      ng-model="$ctrl.number.max"
-      ng-pattern="$ctrl.validateNumber"
-      required
-    />
+    <input type="hidden" ng-model="$ctrl.number.max" ng-pattern="$ctrl.validateNumber" required />
     <pbs-form-field-horizontal label="Start Number">
       <input
         type="tel"
@@ -18,13 +13,7 @@
       />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="End Number">
-      <input
-        type="tel"
-        class="input"
-        ng-model="$ctrl.number.max"
-        readonly
-        required
-      />
+      <input type="tel" class="input" ng-model="$ctrl.number.max" readonly required />
     </pbs-form-field-horizontal>
   </form>
 </pbs-modal>

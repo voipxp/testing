@@ -3,8 +3,8 @@ import gql from 'graphql-tag'
 
 angular.module('odin.api').factory('UserService', UserService)
 
-UserService.$inject = ['$http', 'Route', 'apollo']
-function UserService($http, Route, apollo) {
+UserService.$inject = ['$http', 'Route', 'GraphQL']
+function UserService($http, Route, GraphQL) {
   var service = {
     index,
     store,
@@ -18,17 +18,9 @@ function UserService($http, Route, apollo) {
 
   return service
 
-  function index(serviceProviderId, groupId, extended = []) {
-    let extendedQuery = ''
-    if (extended.length > 0) {
-      extendedQuery = `
-        user {
-          ${extended.join('\n')}
-        }
-      `
-    }
+  function index(serviceProviderId, groupId, includeUser = false) {
     const query = gql`
-      query users($serviceProviderId: String!, $groupId: String!) {
+      query users($serviceProviderId: String!, $groupId: String!, $includeUser: Boolean!) {
         users(serviceProviderId: $serviceProviderId, groupId: $groupId) {
           _id
           userId
@@ -43,23 +35,20 @@ function UserService($http, Route, apollo) {
           extension
           countryCode
           nationalPrefix
-          ${extendedQuery}
+          user @include(if: $includeUser) {
+            callingLineIdPhoneNumber
+          }
         }
       }
     `
-    return apollo
-      .query({
-        query,
-        variables: { serviceProviderId, groupId },
-        fetchPolicy: 'network-only'
-      })
-      .then(res => res.data.users)
+    return GraphQL.query({
+      query,
+      variables: { serviceProviderId, groupId, includeUser }
+    }).then(res => res.data.users)
   }
 
   function info(userId) {
-    return $http
-      .get(url('login'), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url('login'), { params: { userId } }).then(response => response.data)
   }
 
   function store(serviceProviderId, groupId, user) {
@@ -69,9 +58,7 @@ function UserService($http, Route, apollo) {
   }
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 
   function update(userId, user) {
@@ -83,8 +70,6 @@ function UserService($http, Route, apollo) {
   }
 
   function destroy(userId) {
-    return $http
-      .delete(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.delete(url(), { params: { userId } }).then(response => response.data)
   }
 }

@@ -7,20 +7,8 @@ angular.module('odin.common').component('serviceSearch', {
   controller
 })
 
-controller.$inject = [
-  'Alert',
-  'UserServiceSearchService',
-  'HashService',
-  'Route',
-  '$rootScope'
-]
-function controller(
-  Alert,
-  UserServiceSearchService,
-  HashService,
-  Route,
-  $rootScope
-) {
+controller.$inject = ['Alert', 'UserServiceSearchService', 'HashService', 'Route', '$rootScope']
+function controller(Alert, UserServiceSearchService, HashService, Route, $rootScope) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.$doCheck = doCheck
@@ -98,13 +86,9 @@ function controller(
   function route(user) {
     var path = ctrl.serviceTypes[user.serviceType]
     if (!path) return
-    Route.open(
-      'groups',
-      user.serviceProviderId,
-      user.groupId,
-      path[0],
-      path[1]
-    ).search({ serviceUserId: user.userId })
+    Route.open('groups', user.serviceProviderId, user.groupId, path[0], path[1]).search({
+      serviceUserId: user.userId
+    })
   }
 
   $rootScope.$on('serviceSearch:load', function(event, data) {

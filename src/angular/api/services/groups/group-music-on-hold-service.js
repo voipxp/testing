@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupMusicOnHoldService', GroupMusicOnHoldService)
+angular.module('odin.api').factory('GroupMusicOnHoldService', GroupMusicOnHoldService)
 
 GroupMusicOnHoldService.$inject = ['$http', 'Route']
 function GroupMusicOnHoldService($http, Route) {
@@ -37,12 +35,7 @@ function GroupMusicOnHoldService($http, Route) {
     })
   }
 
-  function show(
-    serviceProviderId,
-    groupId,
-    departmentName,
-    isEnterpriseDepartment
-  ) {
+  function show(serviceProviderId, groupId, departmentName, isEnterpriseDepartment) {
     return $http
       .get(url(), {
         params: {
@@ -63,12 +56,7 @@ function GroupMusicOnHoldService($http, Route) {
     })
   }
 
-  function destroy(
-    serviceProviderId,
-    groupId,
-    departmentName,
-    isEnterpriseDepartment
-  ) {
+  function destroy(serviceProviderId, groupId, departmentName, isEnterpriseDepartment) {
     return $http
       .delete(url(), {
         params: {

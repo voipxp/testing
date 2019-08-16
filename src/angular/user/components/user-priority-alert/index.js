@@ -53,10 +53,7 @@ function controller(
   }
 
   function loadCriteria(criteria) {
-    return UserPriorityAlertCriteriaService.show(
-      ctrl.userId,
-      criteria.criteriaName
-    )
+    return UserPriorityAlertCriteriaService.show(ctrl.userId, criteria.criteriaName)
   }
 
   function toggle(criteria) {
@@ -68,9 +65,7 @@ function controller(
     })
       .then(function() {
         var message = criteria.isActive ? 'Activated' : 'Deactivated'
-        var action = criteria.isActive
-          ? Alert.notify.success
-          : Alert.notify.warning
+        var action = criteria.isActive ? Alert.notify.success : Alert.notify.warning
         action(criteria.criteriaName + ' ' + message)
       })
       .catch(function(error) {
@@ -87,11 +82,9 @@ function controller(
     var onDelete
     if (ctrl.module.permissions.delete) {
       onDelete = function(close) {
-        Alert.confirm
-          .open('Are you sure you want to delete this criteria?')
-          .then(function() {
-            destroy(criteria, close)
-          })
+        Alert.confirm.open('Are you sure you want to delete this criteria?').then(function() {
+          destroy(criteria, close)
+        })
       }
     }
     Alert.spinner.open()
@@ -113,11 +106,7 @@ function controller(
 
   function update(criteria, callback) {
     Alert.spinner.open()
-    UserPriorityAlertCriteriaService.update(
-      ctrl.userId,
-      criteria.criteriaName,
-      criteria
-    )
+    UserPriorityAlertCriteriaService.update(ctrl.userId, criteria.criteriaName, criteria)
       .then(loadCriterias)
       .then(function() {
         Alert.notify.success('Criteria Updated')

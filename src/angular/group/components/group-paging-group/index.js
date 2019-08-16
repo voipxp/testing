@@ -27,9 +27,7 @@ function controller(Alert, Route, GroupPagingGroupService, $location) {
   }
 
   function loadInstance() {
-    return GroupPagingGroupService.show(ctrl.serviceUserId).then(function(
-      data
-    ) {
+    return GroupPagingGroupService.show(ctrl.serviceUserId).then(function(data) {
       ctrl.instance = data
       return data
     })
@@ -54,12 +52,6 @@ function controller(Alert, Route, GroupPagingGroupService, $location) {
   }
 
   function open(serviceUserId) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'paging',
-      serviceUserId
-    )
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'paging', serviceUserId)
   }
 }

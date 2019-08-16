@@ -1,7 +1,4 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Administrators'"></pbs-breadcrumb>
 </pbs-navigation>
 
@@ -10,9 +7,7 @@
     <pbs-block-buttons ng-if="$ctrl.canCreate">
       <pbs-button-compact-add ng-click="$ctrl.add()" title="Add Administrator">
       </pbs-button-compact-add>
-      <pbs-button-compact-cogs
-        ng-click="$ctrl.toggleSelect()"
-      ></pbs-button-compact-cogs>
+      <pbs-button-compact-cogs ng-click="$ctrl.toggleSelect()"></pbs-button-compact-cogs>
     </pbs-block-buttons>
     <pbs-data-table
       columns="$ctrl.columns"
@@ -46,10 +41,7 @@
         <option value="department">Department</option>
       </pbs-input-select>
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal
-      label="Department"
-      ng-show="$ctrl.newAdminType === 'department'"
-    >
+    <pbs-form-field-horizontal label="Department" ng-show="$ctrl.newAdminType === 'department'">
       <select-department
         service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
@@ -85,18 +77,10 @@
     <pbs-tabs>
       <pbs-tab label="Required">
         <pbs-form-field-horizontal label="Last Name">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.editAdmin.lastName"
-          />
+          <input type="text" class="input" ng-model="$ctrl.editAdmin.lastName" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="First Name">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.editAdmin.firstName"
-          />
+          <input type="text" class="input" ng-model="$ctrl.editAdmin.firstName" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="New Password">
           <pbs-input-password
@@ -108,9 +92,7 @@
           ></pbs-input-password>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Language">
-          <select-language
-            ng-model="$ctrl.editAdmin.language"
-          ></select-language>
+          <select-language ng-model="$ctrl.editAdmin.language"></select-language>
         </pbs-form-field-horizontal>
       </pbs-tab>
 
@@ -210,10 +192,7 @@
   </pbs-form>
 </pbs-modal>
 
-<pbs-modal
-  id="update-GroupAdminBulk"
-  title="Edit {{ $ctrl.selected }} Group Admins"
->
+<pbs-modal id="update-GroupAdminBulk" title="Edit {{ $ctrl.selected }} Group Admins">
   <pbs-form>
     <pbs-form-field-horizontal label="Profile">
       <pbs-input-select

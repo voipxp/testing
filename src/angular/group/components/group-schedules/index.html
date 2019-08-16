@@ -1,17 +1,11 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Schedules'"></pbs-breadcrumb>
 </pbs-navigation>
 
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Schedules">
     <pbs-block-buttons>
-      <pbs-button-compact-add
-        ng-click="$ctrl.add()"
-        title="Add Schedule"
-      ></pbs-button-compact-add>
+      <pbs-button-compact-add ng-click="$ctrl.add()" title="Add Schedule"></pbs-button-compact-add>
     </pbs-block-buttons>
     <pbs-columns>
       <pbs-column>
@@ -76,12 +70,7 @@
 <pbs-modal id="createScheduleModal">
   <pbs-form>
     <pbs-form-field label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.newSchedule.name"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.newSchedule.name" required />
     </pbs-form-field>
     <pbs-form-field label="Type">
       <pbs-input-select

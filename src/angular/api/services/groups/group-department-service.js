@@ -1,12 +1,9 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupDepartmentService', GroupDepartmentService)
+angular.module('odin.api').factory('GroupDepartmentService', GroupDepartmentService)
 
-GroupDepartmentService.$inject = ['$http', 'CacheFactory', 'Route']
-function GroupDepartmentService($http, CacheFactory, Route) {
-  var cache = CacheFactory('GroupDepartmentService')
+GroupDepartmentService.$inject = ['$http', 'Route']
+function GroupDepartmentService($http, Route) {
   var service = { index, store, show, update, destroy }
   var url = Route.api('/groups/departments')
   return service
@@ -14,7 +11,6 @@ function GroupDepartmentService($http, CacheFactory, Route) {
   function index(serviceProviderId, groupId, includeEnterprise) {
     return $http
       .get(url(), {
-        cache,
         params: { serviceProviderId, groupId, includeEnterprise }
       })
       .then(response => response.data)
@@ -22,7 +18,6 @@ function GroupDepartmentService($http, CacheFactory, Route) {
 
   function store(serviceProviderId, groupId, object) {
     return $http.post(url(), object).then(response => {
-      cache.removeAll()
       return response.data
     })
   }
@@ -35,17 +30,13 @@ function GroupDepartmentService($http, CacheFactory, Route) {
 
   function update(department) {
     return $http.put(url(), department).then(response => {
-      cache.removeAll()
       return response.data
     })
   }
 
   function destroy(serviceProviderId, groupId, name) {
-    return $http
-      .delete(url(), { params: { serviceProviderId, groupId, name } })
-      .then(response => {
-        cache.removeAll()
-        return response.data
-      })
+    return $http.delete(url(), { params: { serviceProviderId, groupId, name } }).then(response => {
+      return response.data
+    })
   }
 }

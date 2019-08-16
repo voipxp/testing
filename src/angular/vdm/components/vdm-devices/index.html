@@ -20,9 +20,7 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr
-          ng-repeat="device in $ctrl.devices as results track by device.deviceName"
-        >
+        <tr ng-repeat="device in $ctrl.devices as results track by device.deviceName">
           <td>{{ device.deviceName }}</td>
           <td>{{ device.deviceType }}</td>
           <td>{{ device.template.name }}</td>
@@ -30,10 +28,7 @@
             <button class="button is-small" ng-click="$ctrl.assign(device)">
               Assign
             </button>
-            <button
-              class="button is-small"
-              ng-click="$ctrl.rebuildReset(device)"
-            >
+            <button class="button is-small" ng-click="$ctrl.rebuildReset(device)">
               Rebuild/Reset
             </button>
             <button
@@ -49,10 +44,7 @@
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editVdmDevicesAssignModal"
-  title="Assign {{ $ctrl.editDevice.deviceName }}"
->
+<pbs-modal id="editVdmDevicesAssignModal" title="Assign {{ $ctrl.editDevice.deviceName }}">
   <pbs-form-field-horizontal label="Template">
     <pbs-input-select
       ng-model="$ctrl.editDevice.template"

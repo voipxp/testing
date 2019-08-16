@@ -31,22 +31,20 @@ function controller(Alert, UserService, EventEmitter) {
   }
 
   function loadUsers() {
-    return UserService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        // set selected users to any that were sent in
-        // so long as they still exist
-        ctrl.selectedUsers = []
-        _.forEach(ctrl.users, function(user) {
-          if (_.find(data, { userId: user.userId })) {
-            ctrl.selectedUsers.push(angular.copy(user))
-          }
-        })
-        // set availableUsers to those that aren't already selected
-        ctrl.availableUsers = _.filter(data, function(user) {
-          return !_.find(ctrl.selectedUsers, { userId: user.userId })
-        })
-      }
-    )
+    return UserService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      // set selected users to any that were sent in
+      // so long as they still exist
+      ctrl.selectedUsers = []
+      _.forEach(ctrl.users, function(user) {
+        if (_.find(data, { userId: user.userId })) {
+          ctrl.selectedUsers.push(angular.copy(user))
+        }
+      })
+      // set availableUsers to those that aren't already selected
+      ctrl.availableUsers = _.filter(data, function(user) {
+        return !_.find(ctrl.selectedUsers, { userId: user.userId })
+      })
+    })
   }
 
   function complete() {

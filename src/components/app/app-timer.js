@@ -1,8 +1,20 @@
 import React from 'react'
 import createActivityDetector from 'activity-detector'
-import { alertWarning, removeAlert } from '@/utils/alerts'
-import { useSession } from '@/store/session'
-import { useUiSettings } from '@/store/ui-settings'
+import { Alert } from '@/utils'
+import { useSessionLogout } from '@/graphql'
+
+import gql from 'graphql-tag'
+import get from 'lodash/get'
+import { useQuery } from '@apollo/react-hooks'
+
+const UI_QUERY = gql`
+  query uiSettings {
+    uiSettings {
+      _id
+      sessionTimeout
+    }
+  }
+`
 
 const TIMEOUT = 30000
 
@@ -10,20 +22,22 @@ export const AppTimer = () => {
   const alertRef = React.useRef()
   const timerRef = React.useRef()
   const detectorRef = React.useRef()
-  const { clearSession } = useSession()
-  const { settings } = useUiSettings()
-  const { sessionTimeout } = settings
 
-  const clearSessionLogout = React.useCallback(async () => {
+  const { data } = useQuery(UI_QUERY)
+  const sessionTimeout = get(data, 'uiSettings.sessionTimeout')
+
+  const logoutUser = useSessionLogout()
+
+  const clearSessionLogout = React.useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current)
-    if (alertRef.current) await removeAlert(alertRef.current)
+    if (alertRef.current) Alert.remove(alertRef.current)
   }, [])
 
-  const startSessionLogout = React.useCallback(async () => {
-    await clearSessionLogout()
-    alertRef.current = await alertWarning('Your session is about to expire', 0)
-    timerRef.current = setTimeout(() => clearSession(), TIMEOUT)
-  }, [clearSession, clearSessionLogout])
+  const startSessionLogout = React.useCallback(() => {
+    clearSessionLogout()
+    alertRef.current = Alert.warning('Your session is about to expire', 0)
+    timerRef.current = setTimeout(() => logoutUser(), TIMEOUT)
+  }, [clearSessionLogout, logoutUser])
 
   const stopDetector = React.useCallback(() => {
     if (detectorRef.current) detectorRef.current.stop()

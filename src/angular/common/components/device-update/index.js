@@ -64,22 +64,16 @@ function controller(
   }
 
   function loadGroup(deviceName) {
-    return GroupDeviceService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      deviceName
-    )
+    return GroupDeviceService.show(ctrl.serviceProviderId, ctrl.groupId, deviceName)
   }
 
   function loadModal() {
     var deleteAction
     if (ctrl.canDelete) {
       deleteAction = function(close) {
-        Alert.confirm
-          .open('Are you sure you want to Delete this device?')
-          .then(function() {
-            remove(close)
-          })
+        Alert.confirm.open('Are you sure you want to Delete this device?').then(function() {
+          remove(close)
+        })
       }
     }
     Alert.modal.open(
@@ -118,11 +112,7 @@ function controller(
   }
 
   function updateGroup(device) {
-    return GroupDeviceService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      device
-    )
+    return GroupDeviceService.update(ctrl.serviceProviderId, ctrl.groupId, device)
   }
 
   function updateServiceProvider(device) {
@@ -158,18 +148,11 @@ function controller(
   }
 
   function removeGroup(device) {
-    return GroupDeviceService.destroy(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      device.deviceName
-    )
+    return GroupDeviceService.destroy(ctrl.serviceProviderId, ctrl.groupId, device.deviceName)
   }
 
   function removeServiceProvider(device) {
-    return ServiceProviderDeviceService.destroy(
-      ctrl.serviceProviderId,
-      device.deviceName
-    )
+    return ServiceProviderDeviceService.destroy(ctrl.serviceProviderId, device.deviceName)
   }
 
   function removeSystem(device) {

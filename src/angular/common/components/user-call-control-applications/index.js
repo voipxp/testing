@@ -21,9 +21,7 @@ function controller(Alert, UserOCICallControlApplicationService) {
   }
 
   function loadApplications() {
-    return UserOCICallControlApplicationService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserOCICallControlApplicationService.show(ctrl.userId).then(function(data) {
       ctrl.applications = data.applicationIdList
       return data
     })

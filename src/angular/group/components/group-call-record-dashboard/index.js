@@ -47,10 +47,7 @@ function controller(Alert, $timeout) {
   }
 
   function select(search) {
-    if (
-      !Sugar.Date.isValid(search.startTime) ||
-      !Sugar.Date.isValid(search.endTime)
-    ) {
+    if (!Sugar.Date.isValid(search.startTime) || !Sugar.Date.isValid(search.endTime)) {
       Alert.notify.warning('Start or End Time is Invalid')
       return false
     }

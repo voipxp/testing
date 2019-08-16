@@ -8,22 +8,8 @@ angular.module('odin.bulk').component('bulkSelectUsersDashboard', {
   bindings: { onSelect: '&' }
 })
 
-controller.$inject = [
-  'Alert',
-  'Route',
-  '$location',
-  'TaskService',
-  'CsvService',
-  'EventEmitter'
-]
-function controller(
-  Alert,
-  Route,
-  $location,
-  TaskService,
-  CsvService,
-  EventEmitter
-) {
+controller.$inject = ['Alert', 'Route', '$location', 'TaskService', 'CsvService', 'EventEmitter']
+function controller(Alert, Route, $location, TaskService, CsvService, EventEmitter) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.selectTask = selectTask

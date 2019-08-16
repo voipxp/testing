@@ -20,14 +20,7 @@ controller.$inject = [
   'ACL',
   'Module'
 ]
-function controller(
-  EventEmitter,
-  GroupServiceCloneService,
-  $scope,
-  Alert,
-  ACL,
-  Module
-) {
+function controller(EventEmitter, GroupServiceCloneService, $scope, Alert, ACL, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.selectServiceProvider = selectServiceProvider
@@ -84,11 +77,7 @@ function controller(
   }
 
   function onSelectPhone(event) {
-    _.set(
-      ctrl.autoAttendant,
-      'serviceInstanceProfile.phoneNumber',
-      event.phoneNumber
-    )
+    _.set(ctrl.autoAttendant, 'serviceInstanceProfile.phoneNumber', event.phoneNumber)
   }
 
   function load() {

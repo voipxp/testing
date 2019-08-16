@@ -12,12 +12,7 @@ angular.module('odin.common').component('deviceResetButton', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupDeviceService',
-  'HashService',
-  'EventEmitter'
-]
+controller.$inject = ['Alert', 'GroupDeviceService', 'HashService', 'EventEmitter']
 function controller(Alert, GroupDeviceService, HashService, EventEmitter) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -70,25 +65,15 @@ function controller(Alert, GroupDeviceService, HashService, EventEmitter) {
   }
 
   function confirm(type) {
-    return Alert.confirm.open(
-      'Are you sure you want to ' + type + ' this device?'
-    )
+    return Alert.confirm.open('Are you sure you want to ' + type + ' this device?')
   }
 
   function rebuildDevice() {
-    return GroupDeviceService.rebuild(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.device.deviceName
-    )
+    return GroupDeviceService.rebuild(ctrl.serviceProviderId, ctrl.groupId, ctrl.device.deviceName)
   }
 
   function resetDevice() {
-    return GroupDeviceService.reset(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.device.deviceName
-    )
+    return GroupDeviceService.reset(ctrl.serviceProviderId, ctrl.groupId, ctrl.device.deviceName)
   }
 
   function sendUpdate(message) {

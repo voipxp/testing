@@ -27,10 +27,9 @@ function controller(Alert, GroupAutoAttendantSubmenuService) {
   }
 
   function loadUsage() {
-    return GroupAutoAttendantSubmenuService.usage(
-      ctrl.serviceUserId,
-      ctrl.submenuId
-    ).then(function(data) {
+    return GroupAutoAttendantSubmenuService.usage(ctrl.serviceUserId, ctrl.submenuId).then(function(
+      data
+    ) {
       ctrl.usage = data
     })
   }

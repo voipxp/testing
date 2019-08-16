@@ -1,0 +1,68 @@
+<pbs-navigation>
+  <pbs-breadcrumb title="'Bulk'" href="'#!/bulk'"></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Move Users'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<bulk-selected-users
+  users="$ctrl.data.users"
+  ng-click="$ctrl.data.users = []"
+></bulk-selected-users>
+
+<bulk-select-users-dashboard
+  ng-show="$ctrl.data.users.length < 1"
+  on-select="$ctrl.onSelectUsers($event)"
+></bulk-select-users-dashboard>
+
+<pbs-wizard
+  ng-if="$ctrl.data.users.length > 0"
+  on-ready="$ctrl.wizardReady($event)"
+  on-complete="$ctrl.wizardComplete($event)"
+>
+  <pbs-wizard-step label="Destination Service Provider">
+    <bulk-select-service-provider-id on-update="$ctrl.onUpdateServiceProviderId($event)">
+    </bulk-select-service-provider-id>
+  </pbs-wizard-step>
+  <pbs-wizard-step label="Destination Group">
+    <bulk-select-group-id
+      service-provider-id="$ctrl.data.serviceProviderId"
+      on-update="$ctrl.onUpdateGroupId($event)"
+    >
+    </bulk-select-group-id>
+  </pbs-wizard-step>
+
+  <pbs-wizard-step label="Destination Passwords">
+    <bulk-select-passwords password="$ctrl.data.password" on-update="$ctrl.onUpdate($event)">
+    </bulk-select-passwords>
+  </pbs-wizard-step>
+
+  <pbs-wizard-step label="User ID">
+    <pbs-block title="User ID" class="large-margin-bottom">
+      <pbs-form>
+        <pbs-form-section>Would you like to change the UserID?</pbs-form-section>
+        <pbs-input-radio
+          ng-value="false"
+          ng-model="$ctrl.changeUserId"
+          ng-click="$ctrl.data.userId = null"
+          label="Keep the current User IDs"
+        ></pbs-input-radio>
+        <pbs-input-radio
+          ng-value="true"
+          ng-model="$ctrl.changeUserId"
+          label="Change the User IDs"
+        ></pbs-input-radio>
+      </pbs-form>
+      <div class="has-text-right large-margin-top">
+        <pbs-button-next ng-show="!$ctrl.changeUserId" ng-click="$ctrl.next()"></pbs-button-next>
+      </div>
+    </pbs-block>
+    <bulk-select-user-id
+      service-provider-id="$ctrl.data.serviceProviderId"
+      group-id="$ctrl.data.groupId"
+      user-id="$ctrl.data.userId"
+      domain="$ctrl.data.domain"
+      on-update="$ctrl.onUpdate($event)"
+      ng-show="$ctrl.changeUserId"
+    >
+    </bulk-select-user-id>
+  </pbs-wizard-step>
+</pbs-wizard>

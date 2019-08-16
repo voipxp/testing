@@ -39,10 +39,7 @@
               label="Enterprise"
             ></pbs-input-radio>
           </pbs-form-field>
-          <pbs-form-field
-            label="Routing"
-            ng-show="!$ctrl.serviceProvider.isEnterprise"
-          >
+          <pbs-form-field label="Routing" ng-show="!$ctrl.serviceProvider.isEnterprise">
             <pbs-input-checkbox
               label="Use Custom Routing Profile"
               ng-model="$ctrl.serviceProvider.useCustomRoutingProfile"
@@ -51,18 +48,10 @@
         </pbs-tab>
         <pbs-tab label="Optional">
           <pbs-form-field label="Support Email">
-            <input
-              type="text"
-              class="input"
-              ng-model="$ctrl.serviceProvider.supportEmail"
-            />
+            <input type="text" class="input" ng-model="$ctrl.serviceProvider.supportEmail" />
           </pbs-form-field>
           <pbs-form-field label="Contact Name">
-            <input
-              type="text"
-              class="input"
-              ng-model="$ctrl.serviceProvider.contact.contactName"
-            />
+            <input type="text" class="input" ng-model="$ctrl.serviceProvider.contact.contactName" />
           </pbs-form-field>
           <pbs-form-field label="Contact Email">
             <input
@@ -93,16 +82,10 @@
             />
           </pbs-form-field>
           <pbs-form-field label="City">
-            <input
-              type="text"
-              class="input"
-              ng-model="$ctrl.serviceProvider.address.city"
-            />
+            <input type="text" class="input" ng-model="$ctrl.serviceProvider.address.city" />
           </pbs-form-field>
           <pbs-form-field label="State/Province">
-            <select-state
-              ng-model="$ctrl.serviceProvider.address.stateOrProvince"
-            ></select-state>
+            <select-state ng-model="$ctrl.serviceProvider.address.stateOrProvince"></select-state>
           </pbs-form-field>
           <pbs-form-field label="Postal Code">
             <input
@@ -112,11 +95,7 @@
             />
           </pbs-form-field>
           <pbs-form-field label="Country">
-            <input
-              type="text"
-              class="input"
-              ng-model="$ctrl.serviceProvider.address.country"
-            />
+            <input type="text" class="input" ng-model="$ctrl.serviceProvider.address.country" />
           </pbs-form-field>
         </pbs-tab>
       </pbs-tabs>

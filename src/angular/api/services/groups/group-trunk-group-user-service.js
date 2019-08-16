@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupTrunkGroupUserService', GroupTrunkGroupUserService)
+angular.module('odin.api').factory('GroupTrunkGroupUserService', GroupTrunkGroupUserService)
 
 GroupTrunkGroupUserService.$inject = ['$http', 'Route']
 function GroupTrunkGroupUserService($http, Route) {

@@ -7,11 +7,7 @@ function Service($http, Route) {
   var service = { show, update }
   var url = Route.api('/groups/calling-plans/incoming')
   service.options = {
-    allowFromOutsideGroup: [
-      'Allow',
-      'Allow Only If Redirected From Another User',
-      'Disallow'
-    ]
+    allowFromOutsideGroup: ['Allow', 'Allow Only If Redirected From Another User', 'Disallow']
   }
   return service
 

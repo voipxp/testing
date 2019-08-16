@@ -49,37 +49,31 @@ function controller(
   }
 
   function loadDispositionCodes() {
-    return GroupCallCenterQueueDispositionCodeService.index(
-      ctrl.serviceUserId
-    ).then(function(data) {
+    return GroupCallCenterQueueDispositionCodeService.index(ctrl.serviceUserId).then(function(
+      data
+    ) {
       ctrl.codes = data
     })
   }
 
   function loadSettings() {
-    return GroupCallCenterQueueDispositionCodeSettingsService.show(
-      ctrl.serviceUserId
-    ).then(function(data) {
-      ctrl.settings = data
-    })
-  }
-
-  function edit() {
-    ctrl.editSettings = angular.copy(ctrl.settings)
-    Alert.modal.open(
-      'editGroupCallCenterDispositionCodeSettings',
-      function onSave(close) {
-        update(ctrl.editSettings, close)
+    return GroupCallCenterQueueDispositionCodeSettingsService.show(ctrl.serviceUserId).then(
+      function(data) {
+        ctrl.settings = data
       }
     )
   }
 
+  function edit() {
+    ctrl.editSettings = angular.copy(ctrl.settings)
+    Alert.modal.open('editGroupCallCenterDispositionCodeSettings', function onSave(close) {
+      update(ctrl.editSettings, close)
+    })
+  }
+
   function update(settings, callback) {
     Alert.spinner.open()
-    GroupCallCenterQueueDispositionCodeSettingsService.update(
-      ctrl.serviceUserId,
-      settings
-    )
+    GroupCallCenterQueueDispositionCodeSettingsService.update(ctrl.serviceUserId, settings)
       .then(loadSettings)
       .then(function() {
         Alert.notify.success('Disposition Code Settings Updated')
@@ -105,12 +99,9 @@ function controller(
       description: null,
       isActive: false
     }
-    Alert.modal.open(
-      'createGroupCallCenterQueueDispositionCode',
-      function onSave(close) {
-        createCode(ctrl.newCode, close)
-      }
-    )
+    Alert.modal.open('createGroupCallCenterQueueDispositionCode', function onSave(close) {
+      createCode(ctrl.newCode, close)
+    })
   }
 
   function createCode(code, callback) {
@@ -146,11 +137,7 @@ function controller(
 
   function updateCode(code, callback) {
     Alert.spinner.open()
-    GroupCallCenterQueueDispositionCodeService.update(
-      ctrl.serviceUserId,
-      code.code,
-      code
-    )
+    GroupCallCenterQueueDispositionCodeService.update(ctrl.serviceUserId, code.code, code)
       .then(loadDispositionCodes)
       .then(function() {
         Alert.notify.success('Disposition Code Updated')
@@ -167,27 +154,22 @@ function controller(
   }
 
   function removeCode(code, callback) {
-    Alert.confirm
-      .open('Are you sure you want to remove this Disposition Code?')
-      .then(function() {
-        Alert.spinner.open()
-        GroupCallCenterQueueDispositionCodeService.destroy(
-          ctrl.serviceUserId,
-          code.code
-        )
-          .then(loadDispositionCodes)
-          .then(function() {
-            Alert.notify.success('Disposition Code Updated')
-            if (_.isFunction(callback)) {
-              callback()
-            }
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to remove this Disposition Code?').then(function() {
+      Alert.spinner.open()
+      GroupCallCenterQueueDispositionCodeService.destroy(ctrl.serviceUserId, code.code)
+        .then(loadDispositionCodes)
+        .then(function() {
+          Alert.notify.success('Disposition Code Updated')
+          if (_.isFunction(callback)) {
+            callback()
+          }
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 }

@@ -14,13 +14,7 @@ controller.$inject = [
   'UserScheduleService',
   'Module'
 ]
-function controller(
-  Alert,
-  $q,
-  UserSelectiveCallRejectionService,
-  UserScheduleService,
-  Module
-) {
+function controller(Alert, $q, UserSelectiveCallRejectionService, UserScheduleService, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
 
@@ -29,12 +23,9 @@ function controller(
 
   ctrl.selectiveCallRejectionCriteria = {}
   ctrl.editSelectCallRejectionCriteria = editSelectCallRejectionCriteria
-  ctrl.fromDnCriteriaSelections =
-    UserSelectiveCallRejectionService.options.fromDnCriteriaSelections
-  ctrl.fromDnCriteriaMin =
-    UserSelectiveCallRejectionService.options.fromDnCriteriaMin
-  ctrl.fromDnCriteriaMax =
-    UserSelectiveCallRejectionService.options.fromDnCriteriaMax
+  ctrl.fromDnCriteriaSelections = UserSelectiveCallRejectionService.options.fromDnCriteriaSelections
+  ctrl.fromDnCriteriaMin = UserSelectiveCallRejectionService.options.fromDnCriteriaMin
+  ctrl.fromDnCriteriaMax = UserSelectiveCallRejectionService.options.fromDnCriteriaMax
   ctrl.saveSelectiveCallRejectionCriteria = saveSelectiveCallRejectionCriteria
   ctrl.addSelectCallRejectionCriteria = addSelectCallRejectionCriteria
 
@@ -63,9 +54,7 @@ function controller(
   }
 
   function loadSelectiveCallRejectionList() {
-    return UserSelectiveCallRejectionService.index(ctrl.userId).then(function(
-      data
-    ) {
+    return UserSelectiveCallRejectionService.index(ctrl.userId).then(function(data) {
       ctrl.selectiveCallRejection = data
       return ctrl.selectiveCallRejection
     })
@@ -85,10 +74,7 @@ function controller(
     })
   }
   function getSelectCallRejectionCriteria(userId, sca) {
-    return UserSelectiveCallRejectionService.show(
-      userId,
-      sca.criteriaName
-    ).then(function(data) {
+    return UserSelectiveCallRejectionService.show(userId, sca.criteriaName).then(function(data) {
       return data
     })
   }
@@ -96,10 +82,7 @@ function controller(
   function addSelectCallRejectionCriteria() {
     ctrl.selectiveCallRejectionCriteria = { userId: ctrl.userId }
     Alert.modal.open('edit-selectiveCallRejectionCriteria', function(close) {
-      _addSelectiveCallRejectionCriteria(
-        ctrl.selectiveCallRejectionCriteria,
-        close
-      )
+      _addSelectiveCallRejectionCriteria(ctrl.selectiveCallRejectionCriteria, close)
     })
   }
 
@@ -124,20 +107,14 @@ function controller(
     var onDelete
     if (ctrl.module.permissions.delete) {
       onDelete = function(close) {
-        deleteSelectiveCallRejectionCriteria(
-          ctrl.selectiveCallRejectionCriteria,
-          close
-        )
+        deleteSelectiveCallRejectionCriteria(ctrl.selectiveCallRejectionCriteria, close)
       }
     }
 
     Alert.modal.open(
       'edit-selectiveCallRejectionCriteria',
       function onSave(close) {
-        saveSelectiveCallRejectionCriteria(
-          ctrl.selectiveCallRejectionCriteria,
-          close
-        )
+        saveSelectiveCallRejectionCriteria(ctrl.selectiveCallRejectionCriteria, close)
       },
       onDelete
     )
@@ -146,44 +123,26 @@ function controller(
   function _addSelectiveCallRejectionCriteria(sca, callback) {
     Alert.spinner.open()
     var criteria = {}
-    if (
-      typeof ctrl.selectiveCallRejectionCriteria.timeSchedule !== 'undefined'
-    ) {
-      ctrl.selectiveCallRejectionCriteria.timeSchedule = ctrl.userTimeSchedules.find(
-        function(o) {
-          return (
-            o.name === ctrl.selectiveCallRejectionCriteria.timeSchedule.name
-          )
-        }
-      )
+    if (typeof ctrl.selectiveCallRejectionCriteria.timeSchedule !== 'undefined') {
+      ctrl.selectiveCallRejectionCriteria.timeSchedule = ctrl.userTimeSchedules.find(function(o) {
+        return o.name === ctrl.selectiveCallRejectionCriteria.timeSchedule.name
+      })
     }
 
-    if (
-      typeof ctrl.selectiveCallRejectionCriteria.holidaySchedule !== 'undefined'
-    ) {
-      ctrl.selectiveCallRejectionCriteria.holidaySchedule = ctrl.holidaySchedules.find(
-        function(o) {
-          return (
-            o.name === ctrl.selectiveCallRejectionCriteria.holidaySchedule.name
-          )
-        }
-      )
+    if (typeof ctrl.selectiveCallRejectionCriteria.holidaySchedule !== 'undefined') {
+      ctrl.selectiveCallRejectionCriteria.holidaySchedule = ctrl.holidaySchedules.find(function(o) {
+        return o.name === ctrl.selectiveCallRejectionCriteria.holidaySchedule.name
+      })
     }
 
-    UserSelectiveCallRejectionService.store(
-      ctrl.userId,
-      ctrl.selectiveCallRejectionCriteria
-    )
+    UserSelectiveCallRejectionService.store(ctrl.userId, ctrl.selectiveCallRejectionCriteria)
       .then(function() {
         ctrl.selectiveCallRejectionCriteria = sca
         criteria = {
           userId: ctrl.userId,
           criteria: [{ criteriaName: sca.criteriaName, isActive: sca.isActive }]
         }
-        return UserSelectiveCallRejectionService.activation(
-          ctrl.userId,
-          criteria
-        )
+        return UserSelectiveCallRejectionService.activation(ctrl.userId, criteria)
       })
       .then(loadSelectiveCallRejectionList)
       .then(function() {
@@ -220,10 +179,7 @@ function controller(
           userId: ctrl.userId,
           criteria: [{ criteriaName: sca.criteriaName, isActive: sca.isActive }]
         }
-        return UserSelectiveCallRejectionService.activation(
-          ctrl.userId,
-          criteria
-        )
+        return UserSelectiveCallRejectionService.activation(ctrl.userId, criteria)
       })
       .then(loadSelectiveCallRejectionList)
       .then(function() {

@@ -38,10 +38,7 @@ function controller(Alert, Module, VdmTemplateTagService) {
     ctrl.password2 = null
     ctrl.editTag = angular.copy(tag)
     Alert.modal.open('vdmTemplateTagLdapModal', function(close) {
-      if (
-        tag.type === 'password' &&
-        ctrl.editTag.tag.value !== ctrl.password2
-      ) {
+      if (tag.type === 'password' && ctrl.editTag.tag.value !== ctrl.password2) {
         Alert.notify.warning('Passwords Do Not Match')
         return
       }

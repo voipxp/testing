@@ -1,8 +1,7 @@
 <pbs-block title="{{$ctrl.number.phoneNumber}}">
   <pbs-block-buttons>
     <pbs-block-buttons>
-      <pbs-button-compact-add ng-click="$ctrl.add()" title="Add Criteria">
-      </pbs-button-compact-add>
+      <pbs-button-compact-add ng-click="$ctrl.add()" title="Add Criteria"> </pbs-button-compact-add>
     </pbs-block-buttons>
   </pbs-block-buttons>
   <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
@@ -42,12 +41,7 @@
 <pbs-modal id="{{ $ctrl.modalId }}" title="Edit Criteria">
   <pbs-form>
     <pbs-form-field label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editCriteria.newCriteriaName"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editCriteria.newCriteriaName" required />
     </pbs-form-field>
 
     <pbs-form-field label="General Settings">
@@ -84,9 +78,7 @@
         ng-model="$ctrl.editCriteria.fromDnCriteria.fromDnCriteriaSelection"
         required
       >
-        <option
-          ng-repeat="option in $ctrl.options.fromDnCriteriaSelections"
-          value="{{option}}"
+        <option ng-repeat="option in $ctrl.options.fromDnCriteriaSelections" value="{{option}}"
           >{{option}}</option
         >
       </pbs-input-select>

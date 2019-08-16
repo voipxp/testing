@@ -69,19 +69,15 @@ function controller(
   }
 
   function loadAdmins() {
-    return GroupAdminService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.admins = data.admins
-        return data
-      }
-    )
+    return GroupAdminService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      ctrl.admins = data.admins
+      return data
+    })
   }
 
   function loadAdminPolicies(admin) {
     Alert.spinner.open()
-    var promise = admin.department
-      ? $q.resolve()
-      : GroupAdminPolicyService.show(admin.userId)
+    var promise = admin.department ? $q.resolve() : GroupAdminPolicyService.show(admin.userId)
     return promise
       .then(function(data) {
         ctrl.editPolicies = data
@@ -121,11 +117,9 @@ function controller(
             update(ctrl.editAdmin, ctrl.editPolicies, close)
           },
           function onDelete(close) {
-            Alert.confirm
-              .open('Are you sure you want to delete this Admin?')
-              .then(function() {
-                remove(ctrl.editAdmin, close)
-              })
+            Alert.confirm.open('Are you sure you want to delete this Admin?').then(function() {
+              remove(ctrl.editAdmin, close)
+            })
           }
         )
       })

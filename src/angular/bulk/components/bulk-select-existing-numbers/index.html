@@ -1,23 +1,13 @@
 <pbs-modal id="{{ $ctrl.modalId }}" title="Select Existing Phone Numbers">
   <!-- hack to disable save button -->
   <form novalidate autocomplete="off" style="display: none">
-    <input
-      type="number"
-      ng-model="$ctrl.selectedCount"
-      min="{{ $ctrl.userCount }}"
-    />
+    <input type="number" ng-model="$ctrl.selectedCount" min="{{ $ctrl.userCount }}" />
   </form>
   <pbs-columns>
     <pbs-column>
       <pbs-subtitle>
         Available ({{ $ctrl.availableNumbers.length }})
-        <a
-          href=""
-          ng-href=""
-          class="is-pulled-right"
-          ng-click="$ctrl.autoFill()"
-          >AutoFill</a
-        >
+        <a href="" ng-href="" class="is-pulled-right" ng-click="$ctrl.autoFill()">AutoFill</a>
       </pbs-subtitle>
       <table pbs-table>
         <tr

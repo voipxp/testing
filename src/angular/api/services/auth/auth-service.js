@@ -10,9 +10,7 @@ function AuthService($http, Route) {
 
   // obtain a user token
   function token(username, password) {
-    return $http
-      .post(url('token'), { username, password })
-      .then(response => response.data)
+    return $http.post(url('token'), { username, password }).then(response => response.data)
   }
 
   function password(oldPassword, newPassword, userId) {

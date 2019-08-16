@@ -1,99 +1,53 @@
 import angular from 'angular'
-import gql from 'graphql-tag'
+import {
+  SERVICE_PROVIDER_LIST_QUERY,
+  SERVICE_PROVIDER_CREATE_MUTATION,
+  SERVICE_PROVIDER_SHOW_QUERY,
+  SERVICE_PROVIDER_UPDATE_MUTATION,
+  SERVICE_PROVIDER_DELETE_MUTATION
+} from '@/graphql'
 
 angular.module('odin.api').factory('ServiceProviderService', service)
 
-service.$inject = ['$http', 'Route', '$rootScope', 'CacheFactory', 'apollo']
-function service($http, Route, $rootScope, CacheFactory, apollo) {
-  var url = Route.api('/service-providers')
-  var service = { index, show, store, update, destroy }
-  var cache = CacheFactory('ServiceProviderService')
-
-  $rootScope.$on('ServiceProviderService:updated', clearCache)
-
+service.$inject = ['GraphQL']
+function service(GraphQL) {
+  const service = { index, show, store, update, destroy }
   return service
 
-  function clearCache() {
-    cache.removeAll()
-  }
-
   function index() {
-    const query = gql`
-      query serviceProviders {
-        serviceProviders {
-          _id
-          serviceProviderId
-          serviceProviderName
-          isEnterprise
-        }
-      }
-    `
-    return apollo
-      .query({
-        query,
-        fetchPolicy: 'network-only'
-      })
-      .then(res => res.data.serviceProviders)
+    return GraphQL.query({
+      query: SERVICE_PROVIDER_LIST_QUERY
+    }).then(res => res.data.serviceProviders)
   }
 
   function store(serviceProvider) {
-    return $http.post(url(), serviceProvider).then(response => {
-      clearCache()
-      return response.data
-    })
+    return GraphQL.mutate({
+      mutation: SERVICE_PROVIDER_CREATE_MUTATION,
+      variables: { input: serviceProvider },
+      refetchQueries: [{ query: SERVICE_PROVIDER_LIST_QUERY }]
+    }).then(res => res.data.serviceProviderCreate)
   }
 
   function show(serviceProviderId) {
-    const query = gql`
-      query serviceProvider($serviceProviderId: String!) {
-        serviceProvider(serviceProviderId: $serviceProviderId) {
-          _id
-          serviceProviderId
-          serviceProviderName
-          isEnterprise
-          defaultDomain
-          supportEmail
-          useCustomRoutingProfile
-          useServiceProviderLanguages
-          contact {
-            contactName
-            contactNumber
-            contactEmail
-          }
-          address {
-            addressLine1
-            addressLine2
-            city
-            stateOrProvince
-            stateOrProvinceDisplayName
-            zipOrPostalCode
-            country
-          }
-        }
-      }
-    `
-    return apollo
-      .query({
-        query,
-        variables: { serviceProviderId },
-        fetchPolicy: 'network-only'
-      })
-      .then(res => res.data.serviceProvider)
+    return GraphQL.query({
+      query: SERVICE_PROVIDER_SHOW_QUERY,
+      variables: { serviceProviderId }
+    }).then(res => res.data.serviceProvider)
   }
 
   function update(serviceProviderId, serviceProvider) {
-    return $http.put(url(), serviceProvider).then(response => {
-      clearCache()
-      return response.data
-    })
+    return GraphQL.mutate({
+      mutation: SERVICE_PROVIDER_UPDATE_MUTATION,
+      variables: { input: serviceProvider },
+      refetchQueries: [{ query: SERVICE_PROVIDER_LIST_QUERY }]
+    }).then(res => res.data.serviceProviderUpdate)
   }
 
   function destroy(serviceProviderId) {
-    return $http
-      .delete(url(), { params: { serviceProviderId } })
-      .then(response => {
-        clearCache()
-        return response.data
-      })
+    return GraphQL.mutate({
+      mutation: SERVICE_PROVIDER_DELETE_MUTATION,
+      variables: { serviceProviderId },
+      refetchQueries: [{ query: SERVICE_PROVIDER_LIST_QUERY }]
+    }).then(res => res.data.serviceProviderDelete)
   }
 }

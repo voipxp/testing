@@ -18,12 +18,8 @@ function controller(Route) {
   ctrl.open = open
 
   function open(callingPlan) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'callingPlans',
-      callingPlan
-    ).hash(null)
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callingPlans', callingPlan).hash(
+      null
+    )
   }
 }

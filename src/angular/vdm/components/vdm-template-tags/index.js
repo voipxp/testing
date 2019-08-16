@@ -27,9 +27,7 @@ function controller(
 
   function onInit() {
     ctrl.loading = true
-    ctrl.keyPattern = VdmTemplateTagService.keyPattern(
-      ctrl.template.deviceTemplate
-    )
+    ctrl.keyPattern = VdmTemplateTagService.keyPattern(ctrl.template.deviceTemplate)
     loadTags()
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -53,11 +51,7 @@ function controller(
   }
 
   function loadGroupTags() {
-    return VdmGroupTemplateTagService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.template.id
-    )
+    return VdmGroupTemplateTagService.index(ctrl.serviceProviderId, ctrl.groupId, ctrl.template.id)
   }
 
   function update(tag, callback) {

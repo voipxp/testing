@@ -2,13 +2,11 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.serviceProvider')
-  .component('enterpriseEnterpriseTrunkDetails', {
-    template,
-    controller,
-    require: { parent: '^enterpriseEnterpriseTrunk' }
-  })
+angular.module('odin.serviceProvider').component('enterpriseEnterpriseTrunkDetails', {
+  template,
+  controller,
+  require: { parent: '^enterpriseEnterpriseTrunk' }
+})
 
 controller.$inject = ['Alert', 'EnterpriseEnterpriseTrunkService']
 function controller(Alert, EnterpriseEnterpriseTrunkService) {

@@ -26,13 +26,7 @@ function controller(Route, $location) {
         'entepriseTrunk'
       ).search({ trunkName })
     } else {
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'enterpriseTrunks',
-        trunkName
-      )
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'enterpriseTrunks', trunkName)
     }
   }
 }

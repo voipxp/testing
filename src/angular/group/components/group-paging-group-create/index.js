@@ -42,13 +42,7 @@ function controller(
 
   function activate() {
     Alert.spinner.open()
-    $q.all([
-      loadDepartments(),
-      loadLanguages(),
-      loadTimezones(),
-      loadDomains(),
-      loadNumbers()
-    ])
+    $q.all([loadDepartments(), loadLanguages(), loadTimezones(), loadDomains(), loadNumbers()])
       .then(initGroup)
       .then(function() {
         Alert.modal.open(ctrl.modalId, function(close) {
@@ -60,13 +54,12 @@ function controller(
   }
 
   function loadDepartments() {
-    return GroupDepartmentService.index(
-      ctrl.parent.serviceProviderId,
-      ctrl.parent.groupId
-    ).then(function(data) {
-      ctrl.departments = data
-      return data
-    })
+    return GroupDepartmentService.index(ctrl.parent.serviceProviderId, ctrl.parent.groupId).then(
+      function(data) {
+        ctrl.departments = data
+        return data
+      }
+    )
   }
 
   function loadLanguages() {
@@ -84,13 +77,12 @@ function controller(
   }
 
   function loadDomains() {
-    return GroupDomainService.index(
-      ctrl.parent.serviceProviderId,
-      ctrl.parent.groupId
-    ).then(function(data) {
-      ctrl.domains = data
-      return data
-    })
+    return GroupDomainService.index(ctrl.parent.serviceProviderId, ctrl.parent.groupId).then(
+      function(data) {
+        ctrl.domains = data
+        return data
+      }
+    )
   }
 
   function loadNumbers() {
@@ -129,8 +121,7 @@ function controller(
   function create(group, callback) {
     group.serviceProviderId = ctrl.parent.serviceProviderId
     group.groupId = ctrl.parent.groupId
-    group.serviceUserId =
-      group.serviceUserIdPrefix + '@' + group.serviceUserIdSuffix
+    group.serviceUserId = group.serviceUserIdPrefix + '@' + group.serviceUserIdSuffix
     Alert.spinner.open()
     GroupPagingGroupService.store(group)
       .then(function() {

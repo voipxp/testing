@@ -1,13 +1,11 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.serviceProvider')
-  .component('enterpriseEnterpriseTrunkNavigation', {
-    template,
-    controller,
-    bindings: { serviceProviderId: '<', groupId: '<' }
-  })
+angular.module('odin.serviceProvider').component('enterpriseEnterpriseTrunkNavigation', {
+  template,
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
+})
 
 controller.$inject = ['Route', '$location']
 function controller(Route, $location) {

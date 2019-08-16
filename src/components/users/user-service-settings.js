@@ -26,8 +26,8 @@ const columns = [
 
 export const UserServiceSettings = ({ history, match }) => {
   const { userId } = match.params
-  const { getModule, hasModuleRead } = useModulePermissions()
-  const { userViewableServices } = useUserServicePermissions(userId)
+  const Module = useModulePermissions()
+  const Permissions = useUserServicePermissions(userId)
 
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
@@ -46,28 +46,29 @@ export const UserServiceSettings = ({ history, match }) => {
     path: 'some-service'
   }]
   */
+
   const services = React.useMemo(() => {
-    if (!userViewableServices) return []
+    if (!Permissions.userViewableServices) return []
     // turn this into a map of serviceName => route
     const allowedServices = userServiceRoutes.reduce((obj, route) => {
       route.services.forEach(s => (obj[s] = route))
       return obj
     }, {})
     // filter out ones not in our map or missing read perms
-    const filtered = userViewableServices.userServices
+    const filtered = Permissions.userViewableServices.userServices
       .filter(service => {
         const route = allowedServices[service.serviceName]
-        return route && route.module && hasModuleRead(route.module)
+        return route && route.module && Module.hasRead(route.module)
       })
       // merge the module and the service
       .map(service => {
         const route = allowedServices[service.serviceName]
-        const module = getModule(route.module)
+        const module = Module.show(route.module)
         return { ...module, ...service, path: route.path }
       })
     // remove dups such as Shared Call Appearance
     return uniqBy(filtered, 'name')
-  }, [getModule, hasModuleRead, userViewableServices])
+  }, [Module, Permissions.userViewableServices])
 
   // The base view when no sub-component picked
   const UserServiceList = () => (

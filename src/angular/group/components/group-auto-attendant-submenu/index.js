@@ -15,12 +15,7 @@ angular.module('odin.group').component('groupAutoAttendantSubmenu', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupAutoAttendantSubmenuService',
-  'EventEmitter',
-  '$q'
-]
+controller.$inject = ['Alert', 'GroupAutoAttendantSubmenuService', 'EventEmitter', '$q']
 function controller(Alert, GroupAutoAttendantSubmenuService, EventEmitter, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -39,19 +34,17 @@ function controller(Alert, GroupAutoAttendantSubmenuService, EventEmitter, $q) {
   }
 
   function loadSubmenu() {
-    return GroupAutoAttendantSubmenuService.show(
-      ctrl.serviceUserId,
-      ctrl.submenuId
-    ).then(function(data) {
+    return GroupAutoAttendantSubmenuService.show(ctrl.serviceUserId, ctrl.submenuId).then(function(
+      data
+    ) {
       ctrl.menu = data
     })
   }
 
   function loadUsage() {
-    return GroupAutoAttendantSubmenuService.usage(
-      ctrl.serviceUserId,
-      ctrl.submenuId
-    ).then(function(data) {
+    return GroupAutoAttendantSubmenuService.usage(ctrl.serviceUserId, ctrl.submenuId).then(function(
+      data
+    ) {
       ctrl.usage = data
     })
   }

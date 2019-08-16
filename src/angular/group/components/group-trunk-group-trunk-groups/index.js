@@ -8,12 +8,7 @@ angular.module('odin.group').component('groupTrunkGroupTrunkGroups', {
   bindings: { serviceProviderId: '=', groupId: '=', module: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupTrunkGroupService',
-  'GroupPolicyService',
-  '$q'
-]
+controller.$inject = ['Alert', 'GroupTrunkGroupService', 'GroupPolicyService', '$q']
 function controller(Alert, GroupTrunkGroupService, GroupPolicyService, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -47,10 +42,7 @@ function controller(Alert, GroupTrunkGroupService, GroupPolicyService, $q) {
   // }
 
   function loadTrunks() {
-    return GroupTrunkGroupService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupTrunkGroupService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.trunks = data
       return data
     })

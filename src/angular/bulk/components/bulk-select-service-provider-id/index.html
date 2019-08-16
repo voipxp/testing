@@ -32,15 +32,11 @@
           <td>{{ serviceProvider.serviceProviderName }}</td>
           <td>{{ serviceProvider.serviceProviderId }}</td>
           <td class="action">
-            <pbs-check-box
-              checked="serviceProvider.isEnterprise"
-            ></pbs-check-box>
+            <pbs-check-box checked="serviceProvider.isEnterprise"></pbs-check-box>
           </td>
         </tr>
       </tbody>
     </table>
   </pbs-spinner>
 </pbs-block>
-<service-provider-create
-  on-create="$ctrl.onCreate($event)"
-></service-provider-create>
+<service-provider-create on-create="$ctrl.onCreate($event)"></service-provider-create>

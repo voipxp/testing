@@ -42,12 +42,7 @@
 <pbs-modal id="serviceProviderAdminCreateModal" title="Add Administrator">
   <pbs-form>
     <pbs-form-field-horizontal label="User ID">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.newAdmin.userId"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.newAdmin.userId" required />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Type">
       <pbs-input-select
@@ -84,20 +79,10 @@
     <pbs-tabs>
       <pbs-tab label="Required">
         <pbs-form-field-horizontal label="User ID">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.editAdmin.userId"
-            readonly
-          />
+          <input type="text" class="input" ng-model="$ctrl.editAdmin.userId" readonly />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Type">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.editAdmin.administratorType"
-            readonly
-          />
+          <input type="text" class="input" ng-model="$ctrl.editAdmin.administratorType" readonly />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Password">
           <pbs-input-password
@@ -108,18 +93,10 @@
           ></pbs-input-password>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Last Name">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.editAdmin.lastName"
-          />
+          <input type="text" class="input" ng-model="$ctrl.editAdmin.lastName" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="First Name">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.editAdmin.firstName"
-          />
+          <input type="text" class="input" ng-model="$ctrl.editAdmin.firstName" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Language">
           <pbs-input-select

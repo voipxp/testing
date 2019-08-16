@@ -30,12 +30,10 @@ function controller(Alert, GroupCallCenterThresholdService, Module) {
   }
 
   function loadSettings() {
-    return GroupCallCenterThresholdService.show(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.settings = data
-        return data
-      }
-    )
+    return GroupCallCenterThresholdService.show(ctrl.serviceUserId).then(function(data) {
+      ctrl.settings = data
+      return data
+    })
   }
 
   function edit() {
@@ -67,9 +65,7 @@ function controller(Alert, GroupCallCenterThresholdService, Module) {
     if (!ctrl.editSettings.notificationEmailAddresses) {
       ctrl.editSettings.notificationEmailAddresses = []
     }
-    if (
-      !_.includes(ctrl.editSettings.notificationEmailAddresses, ctrl.newEmail)
-    ) {
+    if (!_.includes(ctrl.editSettings.notificationEmailAddresses, ctrl.newEmail)) {
       ctrl.editSettings.notificationEmailAddresses.push(ctrl.newEmail)
     }
     ctrl.newEmail = ''

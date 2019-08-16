@@ -7,12 +7,7 @@ angular.module('odin.branding').component('brandingDetails', {
   bindings: { hostnameId: '<', onUpdate: '&' }
 })
 
-controller.$inject = [
-  'BrandingHostnameService',
-  'Route',
-  'Alert',
-  'EventEmitter'
-]
+controller.$inject = ['BrandingHostnameService', 'Route', 'Alert', 'EventEmitter']
 function controller(BrandingHostnameService, Route, Alert, EventEmitter) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -71,23 +66,21 @@ function controller(BrandingHostnameService, Route, Alert, EventEmitter) {
   }
 
   function remove(hostname, callback) {
-    Alert.confirm
-      .open('Are you sure you want to remove this hostname?')
-      .then(function() {
-        Alert.spinner.open()
-        BrandingHostnameService.destroy(hostname.id)
-          .then(function() {
-            Alert.notify.warning('Hostname Removed')
-            callback()
-            Route.open('branding')
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to remove this hostname?').then(function() {
+      Alert.spinner.open()
+      BrandingHostnameService.destroy(hostname.id)
+        .then(function() {
+          Alert.notify.warning('Hostname Removed')
+          callback()
+          Route.open('branding')
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 
   function sendUpdate(hostname) {

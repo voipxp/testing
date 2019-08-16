@@ -3,11 +3,12 @@ import template from './index.html'
 
 angular.module('odin.system').component('serviceProviders', {
   template,
-  controller
+  controller,
+  bindings: { resellerId: '<' }
 })
 
-controller.$inject = ['Alert', 'ServiceProviderService', '$scope', 'Route']
-function controller(Alert, ServiceProviderService, $scope, Route) {
+controller.$inject = ['Alert', 'ServiceProviderService', '$scope', 'Route', '$location']
+function controller(Alert, ServiceProviderService, $scope, Route, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.clone = clone
@@ -18,6 +19,7 @@ function controller(Alert, ServiceProviderService, $scope, Route) {
 
   function onInit() {
     ctrl.loading = true
+    ctrl.showNav = !/^\/resellers/.test($location.path())
     loadServiceProviders()
       .catch(function(error) {
         Alert.notify.danger(error)
@@ -32,9 +34,8 @@ function controller(Alert, ServiceProviderService, $scope, Route) {
   }
 
   function loadServiceProviders() {
-    return ServiceProviderService.index().then(function(data) {
+    return ServiceProviderService.index(ctrl.resellerId).then(function(data) {
       ctrl.serviceProviders = data
-      return data
     })
   }
 

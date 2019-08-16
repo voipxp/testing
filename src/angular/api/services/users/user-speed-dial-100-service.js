@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserSpeedDial100Service', UserSpeedDial100Service)
+angular.module('odin.api').factory('UserSpeedDial100Service', UserSpeedDial100Service)
 
 UserSpeedDial100Service.$inject = ['$http', 'Route']
 function UserSpeedDial100Service($http, Route) {
@@ -16,11 +14,9 @@ function UserSpeedDial100Service($http, Route) {
   return service
 
   function index(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(userId, object) {

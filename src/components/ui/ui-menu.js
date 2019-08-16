@@ -31,20 +31,14 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
 
   const isActive = item => {
     const path = `${match.url}/${item.path}`
-    return (
-      location.pathname === path || location.pathname.startsWith(`${path}/`)
-    )
+    return location.pathname === path || location.pathname.startsWith(`${path}/`)
   }
 
   // select the first route from the first section
   const renderDefault = () => {
     const section = menu[0]
     const route = section && section.items[0]
-    return route ? (
-      <Redirect to={`${match.url}/${route.path}`} />
-    ) : (
-      <UiLoading />
-    )
+    return route ? <Redirect to={`${match.url}/${route.path}`} /> : <UiLoading />
   }
 
   return (
@@ -59,11 +53,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
                   {section.items.map(item => {
                     const path = `${match.url}/${item.path}`
                     return (
-                      <Menu.List.Item
-                        key={item.path}
-                        active={isActive(item)}
-                        href={`#!${path}`}
-                      >
+                      <Menu.List.Item key={item.path} active={isActive(item)} href={`#!${path}`}>
                         {item.name}
                       </Menu.List.Item>
                     )
@@ -73,7 +63,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
             ))}
           </Menu>
         </Column>
-        <Column>
+        <Column style={{ overflow: 'auto' }}>
           <Switch>
             <Route path={`${match.path}/:path`} render={renderRoute} />
             <Route render={renderDefault} />

@@ -28,13 +28,12 @@ function controller(Alert, GroupCallingPlanDigitPatternService, $scope) {
   }
 
   function loadPatterns() {
-    return GroupCallingPlanDigitPatternService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
-      ctrl.patterns = data
-      return data
-    })
+    return GroupCallingPlanDigitPatternService.index(ctrl.serviceProviderId, ctrl.groupId).then(
+      function(data) {
+        ctrl.patterns = data
+        return data
+      }
+    )
   }
 
   function edit(pattern) {
@@ -65,11 +64,7 @@ function controller(Alert, GroupCallingPlanDigitPatternService, $scope) {
 
   function create(pattern, callback) {
     Alert.spinner.open()
-    GroupCallingPlanDigitPatternService.store(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      pattern
-    )
+    GroupCallingPlanDigitPatternService.store(ctrl.serviceProviderId, ctrl.groupId, pattern)
       .then(loadPatterns)
       .then(function() {
         Alert.notify.success('Digit Pattern Created')
@@ -87,11 +82,7 @@ function controller(Alert, GroupCallingPlanDigitPatternService, $scope) {
 
   function update(pattern, callback) {
     Alert.spinner.open()
-    GroupCallingPlanDigitPatternService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      pattern
-    )
+    GroupCallingPlanDigitPatternService.update(ctrl.serviceProviderId, ctrl.groupId, pattern)
       .then(loadPatterns)
       .then(function() {
         Alert.notify.success('Digit Pattern Updated')
@@ -108,28 +99,26 @@ function controller(Alert, GroupCallingPlanDigitPatternService, $scope) {
   }
 
   function remove(pattern, callback) {
-    Alert.confirm
-      .open('Are you sure you want to delete ' + pattern.name + '?')
-      .then(function() {
-        Alert.spinner.open()
-        GroupCallingPlanDigitPatternService.destroy(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          pattern.name
-        )
-          .then(loadPatterns)
-          .then(function() {
-            Alert.notify.success('Digit Pattern Removed')
-            if (_.isFunction(callback)) {
-              callback()
-            }
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to delete ' + pattern.name + '?').then(function() {
+      Alert.spinner.open()
+      GroupCallingPlanDigitPatternService.destroy(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        pattern.name
+      )
+        .then(loadPatterns)
+        .then(function() {
+          Alert.notify.success('Digit Pattern Removed')
+          if (_.isFunction(callback)) {
+            callback()
+          }
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 }

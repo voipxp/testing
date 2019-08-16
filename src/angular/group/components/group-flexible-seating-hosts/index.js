@@ -1,7 +1,6 @@
 import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
-import { updateUserServices } from '@/store/user-services'
 
 angular.module('odin.group').component('groupFlexibleSeatingHosts', {
   template,
@@ -18,7 +17,7 @@ controller.$inject = [
   '$scope',
   '$q',
   'GroupPolicyService',
-  '$ngRedux'
+  'UserServiceService'
 ]
 function controller(
   Alert,
@@ -29,7 +28,7 @@ function controller(
   $scope,
   $q,
   GroupPolicyService,
-  $ngRedux
+  UserServiceService
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -108,11 +107,8 @@ function controller(
 
   function onChangeHost(item) {
     if (!item) return
-    GroupFlexibleSeatingHostGuestAssociationService.show(item).then(function(
-      host
-    ) {
-      ctrl.editSettings.data.hostAssociationLimitHours =
-        host.associationLimitHours
+    GroupFlexibleSeatingHostGuestAssociationService.show(item).then(function(host) {
+      ctrl.editSettings.data.hostAssociationLimitHours = host.associationLimitHours
       ctrl.editSettings.data.associationLimitHours = host.associationLimitHours
       ctrl.editSettings.data.hostUserId = item
     })
@@ -132,21 +128,19 @@ function controller(
   }
 
   function loadGroupFlexibleSeatingUsers() {
-    return GroupFlexibleSeatingHostService.bulk(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupFlexibleSeatingHostService.bulk(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.users = data
     })
   }
 
   function loadGroupFlexibleSeatingHosts() {
-    return GroupFlexibleSeatingHostService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
-      ctrl.hosts = data.hosts
-    })
+    return GroupFlexibleSeatingHostService.index(ctrl.serviceProviderId, ctrl.groupId).then(
+      function(data) {
+        ctrl.hosts = data.hosts
+      }
+    )
   }
 
   function open(flexibleSeatingHost) {
@@ -192,12 +186,11 @@ function controller(
       userId: ctrl.editSettings.userId,
       userServices: [ctrl.editSettings.service]
     }
-    return $ngRedux.dispatch(updateUserServices(singleService))
+    return UserServiceService.update(singleService)
   }
 
   function updateUserFlexibleSeatingGuest() {
-    if (!ctrl.editSettings.data.userId)
-      ctrl.editSettings.data.userId = ctrl.editSettings.userId
+    if (!ctrl.editSettings.data.userId) ctrl.editSettings.data.userId = ctrl.editSettings.userId
     return UserFlexibleSeatingGuestService.update(ctrl.editSettings.data)
   }
 
@@ -254,27 +247,17 @@ function controller(
 
   function updateDevice() {
     $scope.$broadcast('deviceUpdate:load', {
-      deviceName:
-        ctrl.editSettings.data.accessDeviceEndpoint.accessDevice.deviceName,
-      deviceLevel:
-        ctrl.editSettings.data.accessDeviceEndpoint.accessDevice.deviceLevel
+      deviceName: ctrl.editSettings.data.accessDeviceEndpoint.accessDevice.deviceName,
+      deviceLevel: ctrl.editSettings.data.accessDeviceEndpoint.accessDevice.deviceLevel
     })
   }
 
   function onDeviceUpdate(event) {
-    _.set(
-      ctrl.editSettings.data,
-      'accessDeviceEndpoint.accessDevice',
-      event.device
-    )
+    _.set(ctrl.editSettings.data, 'accessDeviceEndpoint.accessDevice', event.device)
   }
 
   function onDeviceSelect(event) {
-    _.set(
-      ctrl.editSettings.data,
-      'accessDeviceEndpoint.accessDevice',
-      event.device
-    )
+    _.set(ctrl.editSettings.data, 'accessDeviceEndpoint.accessDevice', event.device)
   }
 
   function onSetLinePort(event) {

@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Collaborate Instant Room">
     <pbs-block-buttons>
-      <pbs-button-compact-edit
-        title="Edit Instant Room"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Instant Room" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -17,9 +14,7 @@
         ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Owner required to start room session">
-        <pbs-check-box
-          checked="$ctrl.instantRoom.ownerRequired"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.instantRoom.ownerRequired"></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>

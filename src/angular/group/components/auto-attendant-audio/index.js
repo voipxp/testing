@@ -21,14 +21,7 @@ controller.$inject = [
   'ACL',
   'Module'
 ]
-function controller(
-  Alert,
-  HashService,
-  GroupAutoAttendantService,
-  $scope,
-  ACL,
-  Module
-) {
+function controller(Alert, HashService, GroupAutoAttendantService, $scope, ACL, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.$onChanges = onChanges
@@ -49,11 +42,7 @@ function controller(
 
   function onChanges(changes) {
     if (changes.autoAttendant) {
-      ctrl.settings = _.get(
-        changes.autoAttendant,
-        ['currentValue', ctrl.menu],
-        {}
-      )
+      ctrl.settings = _.get(changes.autoAttendant, ['currentValue', ctrl.menu], {})
     }
   }
 

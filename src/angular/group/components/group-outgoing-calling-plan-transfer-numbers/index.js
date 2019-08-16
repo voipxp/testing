@@ -1,13 +1,11 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.group')
-  .component('groupOutgoingCallingPlanTransferNumbers', {
-    template,
-    controller,
-    bindings: { serviceProviderId: '<', groupId: '<' }
-  })
+angular.module('odin.group').component('groupOutgoingCallingPlanTransferNumbers', {
+  template,
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
+})
 
 controller.$inject = ['Alert', 'GroupOutgoingCallingPlanTransferNumberService']
 function controller(Alert, GroupOutgoingCallingPlanTransferNumberService) {
@@ -36,12 +34,9 @@ function controller(Alert, GroupOutgoingCallingPlanTransferNumberService) {
 
   function edit(department) {
     ctrl.editDepartment = angular.copy(department)
-    Alert.modal.open(
-      'editGroupOutgoingCallingPlanTransferNumber',
-      function onSave(close) {
-        update(ctrl.editDepartment, close)
-      }
-    )
+    Alert.modal.open('editGroupOutgoingCallingPlanTransferNumber', function onSave(close) {
+      update(ctrl.editDepartment, close)
+    })
   }
 
   function update(department, callback) {
@@ -51,11 +46,7 @@ function controller(Alert, GroupOutgoingCallingPlanTransferNumberService) {
       departments: [department]
     }
     Alert.spinner.open()
-    GroupOutgoingCallingPlanTransferNumberService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      plan
-    )
+    GroupOutgoingCallingPlanTransferNumberService.update(ctrl.serviceProviderId, ctrl.groupId, plan)
       .then(loadDepartments)
       .then(function() {
         Alert.notify.success('Department Updated')

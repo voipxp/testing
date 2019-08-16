@@ -3,14 +3,26 @@ import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
-import { alertWarning, alertDanger } from '@/utils/alerts'
-import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
-import { useSession } from '@/store/session'
-import { useUiTemplate } from '@/store/ui-template'
+import { Alert, Loading } from '@/utils'
+import { useSessionLogin } from '@/graphql'
 import authApi from '@/api/auth'
+import gql from 'graphql-tag'
+import get from 'lodash/get'
+import { useQuery } from '@apollo/react-hooks'
+
+const UI_QUERY = gql`
+  query uiSettings {
+    uiTemplate {
+      _id
+      pageLoginMessage
+    }
+  }
+`
 
 export const AppLogin = () => {
-  const { setSession, loadSessionFromToken } = useSession()
+  const { data } = useQuery(UI_QUERY)
+  const pageLoginMessage = get(data, 'uiTemplate.pageLoginMessage')
+  const [login] = useSessionLogin()
 
   const tokenLogin = React.useCallback(() => {
     const [hash, query] = window.location.hash.split('?')
@@ -18,21 +30,22 @@ export const AppLogin = () => {
     const search = parse(query)
     const token = search.token
     if (!token) return
-    showLoadingModal()
+    Loading.show()
     delete search.token
     const newSearch = stringify(search)
     window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
-    loadSessionFromToken(token)
-      .catch(error => alertDanger(error))
-      .finally(() => hideLoadingModal())
-  }, [loadSessionFromToken])
+    // loadSessionFromToken(token)
+    //   .catch(error => alertDanger(error))
+    //   .finally(() => Loading.hide())
+  }, [])
 
   React.useEffect(() => {
     tokenLogin()
   }, [tokenLogin])
 
-  const { template } = useUiTemplate()
-  const { pageLoginMessage } = template
+  React.useEffect(() => {
+    document.title = 'Please Login'
+  })
 
   const formRef = React.useRef()
   const [form, setForm] = React.useState({
@@ -46,48 +59,44 @@ export const AppLogin = () => {
 
   function handleSubmit(e) {
     e.preventDefault()
-    needsChange ? changePassword() : login()
+    needsChange ? changePassword() : loginUser()
   }
 
   function handleInput(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
-    setValid(formRef.current.checkValidity())
+    /* wrapped in a setTimeout to handle autofill */
+    setTimeout(() => setValid(formRef.current.checkValidity()), 0)
   }
 
-  async function login() {
+  async function loginUser() {
     try {
-      showLoadingModal()
-      const session = await authApi.token(form.username, form.password)
-      await setSession(session)
+      Loading.show()
+      const { username, password } = form
+      await login({ variables: { username, password } })
     } catch (error) {
-      if (error.status === 402) {
-        alertWarning(error)
+      if (error.message === 'GraphQL error: Password Expired') {
+        Alert.warning(error)
         setNeedsChange(true)
         setValid(false)
       } else {
-        alertDanger(error)
+        Alert.danger(error)
       }
     } finally {
-      hideLoadingModal()
+      Loading.hide()
     }
   }
 
   async function changePassword() {
     if (form.newPassword1 !== form.newPassword2) {
-      return alertWarning('New Passwords Do Not Match')
+      return Alert.warning('New Passwords Do Not Match')
     }
     try {
-      showLoadingModal()
-      const session = await authApi.tokenPassword(
-        form.password,
-        form.newPassword1,
-        form.username
-      )
-      await setSession(session)
+      Loading.show()
+      await authApi.tokenPassword(form.password, form.newPassword1, form.username)
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
     } finally {
-      hideLoadingModal()
+      Loading.hide()
     }
   }
 
@@ -177,9 +186,7 @@ export const AppLogin = () => {
         {pageLoginMessage && (
           <Hero.Foot>
             <Message radiusless>
-              <Message.Body textAlign="centered">
-                {pageLoginMessage}
-              </Message.Body>
+              <Message.Body textAlign="centered">{pageLoginMessage}</Message.Body>
             </Message>
           </Hero.Foot>
         )}

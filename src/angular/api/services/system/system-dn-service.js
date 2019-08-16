@@ -13,9 +13,7 @@ function service($http, Route) {
   }
 
   function show(phoneNumber) {
-    return $http
-      .get(url(), { params: { phoneNumber } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { phoneNumber } }).then(response => response.data)
   }
 
   function utilization() {

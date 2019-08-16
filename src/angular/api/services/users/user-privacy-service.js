@@ -9,19 +9,15 @@ function Service($http, Route) {
   return service
 
   function available(userId) {
-    return $http
-      .get(url('monitors'), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url('monitors'), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(data) {

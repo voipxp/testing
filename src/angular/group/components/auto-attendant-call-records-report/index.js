@@ -43,9 +43,7 @@ function controller($filter, DownloadService) {
   }
 
   function initiateData() {
-    ctrl.otherPartyNames = _.uniq(
-      _.map(ctrl.callRecords, 'otherPartyName')
-    ).sort()
+    ctrl.otherPartyNames = _.uniq(_.map(ctrl.callRecords, 'otherPartyName')).sort()
     ctrl.callTimes = _.uniq(_.map(ctrl.callRecords, 'callTime')).sort()
   }
 
@@ -98,14 +96,8 @@ function controller($filter, DownloadService) {
 
   function downloadCsv() {
     var timeformat = '{yyyy}{MM}{dd}-{HH}{mm}{ss}'
-    var startTime = Sugar.Date.format(
-      Sugar.Date.create(ctrl.parameters.startTime),
-      timeformat
-    )
-    var endTime = Sugar.Date.format(
-      Sugar.Date.create(ctrl.parameters.endTime),
-      timeformat
-    )
+    var startTime = Sugar.Date.format(Sugar.Date.create(ctrl.parameters.startTime), timeformat)
+    var endTime = Sugar.Date.format(Sugar.Date.create(ctrl.parameters.endTime), timeformat)
     // generate filename
     var filename = [
       'odin',

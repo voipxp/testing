@@ -14,13 +14,7 @@ controller.$inject = [
   'VdmSystemTemplateService',
   '$location'
 ]
-function controller(
-  Alert,
-  Route,
-  VdmGroupTemplateService,
-  VdmSystemTemplateService,
-  $location
-) {
+function controller(Alert, Route, VdmGroupTemplateService, VdmSystemTemplateService, $location) {
   var ctrl = this
   ctrl.back = back
   ctrl.$onInit = onInit
@@ -39,9 +33,7 @@ function controller(
 
   function back() {
     if (ctrl.template.parentId) {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'vdm').search(
-        {}
-      )
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'vdm').search({})
     } else {
       Route.open('vdm').search({})
     }
@@ -59,11 +51,7 @@ function controller(
   }
 
   function loadGroupTemplate() {
-    return VdmGroupTemplateService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.id
-    )
+    return VdmGroupTemplateService.show(ctrl.serviceProviderId, ctrl.groupId, ctrl.id)
   }
 
   function loadSystemTemplate() {
@@ -75,11 +63,7 @@ function controller(
   }
 
   function updateGroup(template) {
-    return VdmGroupTemplateService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      template
-    )
+    return VdmGroupTemplateService.update(ctrl.serviceProviderId, ctrl.groupId, template)
   }
 
   function destroySystem(template) {
@@ -87,11 +71,7 @@ function controller(
   }
 
   function destroyGroup(template) {
-    return VdmGroupTemplateService.destroy(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      template.id
-    )
+    return VdmGroupTemplateService.destroy(ctrl.serviceProviderId, ctrl.groupId, template.id)
   }
 
   function update(template, callback) {

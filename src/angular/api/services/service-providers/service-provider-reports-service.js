@@ -1,17 +1,14 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('ServiceProviderReportsService', ServiceProviderReportsService)
+angular.module('odin.api').factory('ServiceProviderReportsService', ServiceProviderReportsService)
 
-ServiceProviderReportsService.$inject = ['$http', 'Route', 'CacheFactory']
-function ServiceProviderReportsService($http, Route, CacheFactory) {
+ServiceProviderReportsService.$inject = ['$http', 'Route']
+function ServiceProviderReportsService($http, Route) {
   var url = Route.api('/service-providers/reports')
   var service = { index }
-  var cache = CacheFactory('ServiceProviderReportsService')
   return service
 
   function index() {
-    return $http.get(url(), { cache }).then(response => response.data)
+    return $http.get(url()).then(response => response.data)
   }
 }

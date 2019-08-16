@@ -9,8 +9,6 @@ function UserIdService($http, Route) {
   return service
 
   function update(userId, newUserId) {
-    return $http
-      .put(url(), { userId, newUserId })
-      .then(response => response.data)
+    return $http.put(url(), { userId, newUserId }).then(response => response.data)
   }
 }

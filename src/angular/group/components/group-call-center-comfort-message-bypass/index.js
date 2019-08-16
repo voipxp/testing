@@ -34,28 +34,21 @@ function controller(GroupCallCenterComfortMessageBypassService, Alert) {
   }
 
   function loadService() {
-    return GroupCallCenterComfortMessageBypassService.show(
-      ctrl.serviceUserId
-    ).then(function(data) {
+    return GroupCallCenterComfortMessageBypassService.show(ctrl.serviceUserId).then(function(data) {
       ctrl.service = data
     })
   }
 
   function edit() {
     ctrl.editService = angular.copy(ctrl.service)
-    Alert.modal.open('editGroupCallCenterComfortMessageBypass', function(
-      close
-    ) {
+    Alert.modal.open('editGroupCallCenterComfortMessageBypass', function(close) {
       update(ctrl.editService, close)
     })
   }
 
   function update(service, callback) {
     Alert.spinner.open()
-    GroupCallCenterComfortMessageBypassService.update(
-      ctrl.serviceUserId,
-      service
-    )
+    GroupCallCenterComfortMessageBypassService.update(ctrl.serviceUserId, service)
       .then(loadService)
       .then(function() {
         Alert.notify.success('Comfort Message Bypass Updated')

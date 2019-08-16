@@ -17,16 +17,12 @@ function Service($http, Route) {
       'Transfer To Third Transfer Number'
     ]
   }
-  var url = Route.api(
-    '/users/calling-plans/outgoing/pinhole-digit-plan/originating'
-  )
+  var url = Route.api('/users/calling-plans/outgoing/pinhole-digit-plan/originating')
 
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 
   function update(userId, object) {

@@ -46,19 +46,14 @@ function controller(
   }
 
   function loadSupervisors() {
-    return GroupCallCenterSupervisorService.show(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.supervisors = data.supervisors
-      }
-    )
+    return GroupCallCenterSupervisorService.show(ctrl.serviceUserId).then(function(data) {
+      ctrl.supervisors = data.supervisors
+    })
   }
 
   function loadAvailableSupervisors() {
     Alert.spinner.open()
-    return GroupCallCenterAvailableSupervisorService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    )
+    return GroupCallCenterAvailableSupervisorService.index(ctrl.serviceProviderId, ctrl.groupId)
       .then(function(data) {
         return data.supervisors
       })
@@ -120,10 +115,7 @@ function controller(
   function supervisorDescription(supervisor) {
     if (!supervisor) return
     return (
-      _.uniq([supervisor.firstName, supervisor.lastName]).join(' ') +
-      ' (' +
-      supervisor.userId +
-      ')'
+      _.uniq([supervisor.firstName, supervisor.lastName]).join(' ') + ' (' + supervisor.userId + ')'
     )
   }
 }

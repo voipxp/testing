@@ -40,11 +40,7 @@ function controller(Alert, GroupMusicOnHoldService, Route, $location) {
 
   function update(moh, callback) {
     Alert.spinner.open()
-    return GroupMusicOnHoldService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      moh
-    )
+    return GroupMusicOnHoldService.update(ctrl.serviceProviderId, ctrl.groupId, moh)
       .then(loadMoh)
       .then(function() {
         Alert.notify.success('Music On Hold Instance Updated')
@@ -55,24 +51,22 @@ function controller(Alert, GroupMusicOnHoldService, Route, $location) {
   }
 
   function destroy(callback) {
-    Alert.confirm
-      .open('Are you sure you want to remove this Department?')
-      .then(function() {
-        Alert.spinner.open()
-        return GroupMusicOnHoldService.destroy(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          ctrl.departmentName,
-          ctrl.isEnterpriseDepartment
-        )
-          .then(function() {
-            Alert.notify.success('Music On Hold Department Removed')
-            callback()
-            back()
-          })
-          .catch(Alert.notify.danger)
-          .finally(Alert.spinner.close)
-      })
+    Alert.confirm.open('Are you sure you want to remove this Department?').then(function() {
+      Alert.spinner.open()
+      return GroupMusicOnHoldService.destroy(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        ctrl.departmentName,
+        ctrl.isEnterpriseDepartment
+      )
+        .then(function() {
+          Alert.notify.success('Music On Hold Department Removed')
+          callback()
+          back()
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    })
   }
 
   function back() {

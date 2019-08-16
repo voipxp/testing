@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserDirectedCallPickupWithBargeInService', Controller)
+angular.module('odin.api').factory('UserDirectedCallPickupWithBargeInService', Controller)
 
 Controller.$inject = ['$http', 'Route']
 function Controller($http, Route) {
@@ -15,11 +13,9 @@ function Controller($http, Route) {
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(userId, object) {

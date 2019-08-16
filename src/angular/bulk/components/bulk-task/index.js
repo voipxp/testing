@@ -88,8 +88,7 @@ function controller(
   }
 
   function download() {
-    var filename =
-      'odin-' + ctrl.task.status + '-' + ctrl.id + '-' + ctrl.task.type + '.csv'
+    var filename = 'odin-' + ctrl.task.status + '-' + ctrl.id + '-' + ctrl.task.type + '.csv'
     CsvService.export(ctrl.task.data).then(function(csv) {
       DownloadService.download(csv, filename)
     })
@@ -117,12 +116,9 @@ function controller(
   function open(job) {
     if (!canOpen(job)) return
     var returnTo = $location.url()
-    Route.open(
-      'users',
-      job.serviceProviderId,
-      job.groupId,
-      job.newUserId || job.userId
-    ).search({ returnTo: returnTo })
+    Route.open('users', job.serviceProviderId, job.groupId, job.newUserId || job.userId).search({
+      returnTo: returnTo
+    })
   }
 
   function status(job) {

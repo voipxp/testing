@@ -5,9 +5,7 @@
     </p>
     <span class="card-header-icon">
       <div class="buttons">
-        <pbs-button-compact-search
-          ng-click="$ctrl.edit()"
-        ></pbs-button-compact-search>
+        <pbs-button-compact-search ng-click="$ctrl.edit()"></pbs-button-compact-search>
       </div>
     </span>
   </header>
@@ -45,11 +43,7 @@
   </pbs-tabs>
 </pbs-spinner>
 
-<pbs-modal
-  id="autoAttendantCallRecordsSearch"
-  title="Search Call Records"
-  save-text="Generate"
->
+<pbs-modal id="autoAttendantCallRecordsSearch" title="Search Call Records" save-text="Generate">
   <pbs-form>
     <pbs-form-field-horizontal label="Report Type">
       <pbs-input-select
@@ -59,17 +53,11 @@
       ></pbs-input-select>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Start Time">
-      <pbs-input-datetime-parse
-        ng-model="$ctrl.editSearch.startTime"
-        ng-required="true"
-      >
+      <pbs-input-datetime-parse ng-model="$ctrl.editSearch.startTime" ng-required="true">
       </pbs-input-datetime-parse>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="End Time">
-      <pbs-input-datetime-parse
-        ng-model="$ctrl.editSearch.endTime"
-        ng-required="true"
-      >
+      <pbs-input-datetime-parse ng-model="$ctrl.editSearch.endTime" ng-required="true">
       </pbs-input-datetime-parse>
     </pbs-form-field-horizontal>
   </pbs-form>

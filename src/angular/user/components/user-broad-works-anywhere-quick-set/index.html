@@ -14,11 +14,7 @@
         ng-disabled="$ctrl.loadingNumber[number.phoneNumber]"
       ></pbs-input-switch>
     </div>
-    <a
-      class="panel-block"
-      ng-click="$ctrl.edit()"
-      ng-if="$ctrl.settings.phoneNumbers.length < 1"
-    >
+    <a class="panel-block" ng-click="$ctrl.edit()" ng-if="$ctrl.settings.phoneNumbers.length < 1">
       <p>Setup Numbers</p>
     </a>
   </nav>

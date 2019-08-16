@@ -12,19 +12,10 @@
       </pbs-input-select>
     </div>
     <div class="control is-expanded" ng-if="$ctrl.endsPattern === 'After'">
-      <input
-        type="number"
-        class="input"
-        ng-model="$ctrl.rrule.count"
-        required
-      />
+      <input type="number" class="input" ng-model="$ctrl.rrule.count" required />
     </div>
     <div class="control is-expanded" ng-if="$ctrl.endsPattern === 'On'">
-      <pbs-input-datetime-parse
-        ng-model="$ctrl.rrule.until"
-        is-date="true"
-        ng-required="true"
-      >
+      <pbs-input-datetime-parse ng-model="$ctrl.rrule.until" is-date="true" ng-required="true">
       </pbs-input-datetime-parse>
     </div>
     <div class="control" ng-if="$ctrl.endsPattern === 'After'">

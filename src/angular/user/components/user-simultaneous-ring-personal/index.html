@@ -11,9 +11,7 @@
         <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Do Not Ring If On Call">
-        <pbs-check-box
-          checked="$ctrl.settings.doNotRingIfOnCall"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.doNotRingIfOnCall"></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
@@ -34,9 +32,7 @@
         <tr>
           <td>{{ location.phoneNumber }}</td>
           <td>
-            <pbs-check-box
-              checked="location.answerConfirmationRequired"
-            ></pbs-check-box>
+            <pbs-check-box checked="location.answerConfirmationRequired"></pbs-check-box>
           </td>
         </tr>
       </tbody>
@@ -139,12 +135,7 @@
         ></pbs-input-checkbox>
       </pbs-form-field>
       <pbs-form-field label="Description">
-        <input
-          type="text"
-          class="input"
-          ng-model="$ctrl.editCriteria.name"
-          required
-        />
+        <input type="text" class="input" ng-model="$ctrl.editCriteria.name" required />
       </pbs-form-field>
       <pbs-form-field label="Do Not Ring Sequentially">
         <pbs-input-checkbox

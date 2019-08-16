@@ -43,12 +43,7 @@ function controller(
 
   function onInit() {
     ctrl.loading = true
-    $q.all([
-      loadSettings(),
-      loadUserSchedules(),
-      loadHolidaySchedules(),
-      loadModule()
-    ])
+    $q.all([loadSettings(), loadUserSchedules(), loadHolidaySchedules(), loadModule()])
       .catch(function(error) {
         Alert.notify.danger(error)
       })
@@ -64,9 +59,7 @@ function controller(
   }
 
   function loadSettings() {
-    return UserSimultaneousRingPersonalService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserSimultaneousRingPersonalService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
       return data
     })
@@ -104,22 +97,14 @@ function controller(
     Alert.modal.open(
       'editUserSimultaneousRingPersonalCriteria',
       function onSave(close) {
-        updateCriteria(
-          criteriaName,
-          ctrl.editCriteria,
-          ctrl.editSettings,
-          close
-        )
+        updateCriteria(criteriaName, ctrl.editCriteria, ctrl.editSettings, close)
       },
       onDelete
     )
   }
 
   function loadCriteria(criteriaName) {
-    return UserSimultaneousRingPersonalServiceCriteria.show(
-      ctrl.userId,
-      criteriaName
-    )
+    return UserSimultaneousRingPersonalServiceCriteria.show(ctrl.userId, criteriaName)
   }
 
   function update(settings, callback) {
@@ -170,11 +155,7 @@ function controller(
     ) {
       delete editCriteria.fromDnCriteria.phoneNumbers
     } else {
-      for (
-        var i = 0;
-        i < editCriteria.fromDnCriteria.phoneNumbers.length;
-        i++
-      ) {
+      for (var i = 0; i < editCriteria.fromDnCriteria.phoneNumbers.length; i++) {
         if (
           editCriteria.fromDnCriteria.phoneNumbers !== 'undefined' &&
           editCriteria.fromDnCriteria.phoneNumbers !== null &&
@@ -195,10 +176,7 @@ function controller(
       editCriteria
     )
       .then(function() {
-        return UserSimultaneousRingPersonalService.update(
-          ctrl.userId,
-          editSettings
-        )
+        return UserSimultaneousRingPersonalService.update(ctrl.userId, editSettings)
       })
       .then(loadSettings)
       .then(function() {
@@ -228,13 +206,10 @@ function controller(
 
   function addCriteria() {
     ctrl.editCriteria = { userId: ctrl.userId }
-    Alert.modal.open(
-      'editUserSimultaneousRingPersonalCriteria',
-      function onSave(close) {
-        ctrl.editCriteria.criteriaName = ctrl.criteriaName
-        doAddCriteria(ctrl.editCriteria, close)
-      }
-    )
+    Alert.modal.open('editUserSimultaneousRingPersonalCriteria', function onSave(close) {
+      ctrl.editCriteria.criteriaName = ctrl.criteriaName
+      doAddCriteria(ctrl.editCriteria, close)
+    })
   }
 
   function doAddCriteria(settings, callback) {
@@ -263,10 +238,7 @@ function controller(
     ctrl.editCriteria.holidaySchedule = settings.holidaySchedule
 
     Alert.spinner.open()
-    UserSimultaneousRingPersonalServiceCriteria.store(
-      ctrl.userId,
-      ctrl.editCriteria
-    )
+    UserSimultaneousRingPersonalServiceCriteria.store(ctrl.userId, ctrl.editCriteria)
       // .then(UserSimultaneousRingPersonalService.update(ctrl.userId,obj))
       .then(loadSettings)
       .then(function() {
@@ -282,11 +254,9 @@ function controller(
   }
 
   function destroyCriteria(userId, criteriaName, callback) {
-    Alert.confirm
-      .open('Are you sure you want to delete this criteria?')
-      .then(function() {
-        doDestroyPhoneNumber(userId, criteriaName, callback)
-      })
+    Alert.confirm.open('Are you sure you want to delete this criteria?').then(function() {
+      doDestroyPhoneNumber(userId, criteriaName, callback)
+    })
   }
 
   function doDestroyPhoneNumber(userId, criteriaName, callback) {

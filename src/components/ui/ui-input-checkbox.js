@@ -11,15 +11,7 @@ const StyledLabel = styled.label`
   }
 `
 
-export const UiInputCheckbox = ({
-  name,
-  label,
-  checked,
-  loading,
-  disabled,
-  onChange,
-  ...rest
-}) => {
+export const UiInputCheckbox = ({ name, label, checked, loading, disabled, onChange, ...rest }) => {
   const ref = React.useRef()
   const isUndefined = typeof checked === 'undefined'
   const icon = isUndefined ? faMinus : checked ? faCheck : faTimes
@@ -61,9 +53,7 @@ export const UiInputCheckbox = ({
         color={color}
         {...rest}
       >
-        <Icon color={iconColor}>
-          {!loading && <FontAwesomeIcon icon={icon} />}
-        </Icon>
+        <Icon color={iconColor}>{!loading && <FontAwesomeIcon icon={icon} />}</Icon>
       </Button>
       {label && <span style={{ paddingLeft: '1rem' }}>{label}</span>}
     </Label>

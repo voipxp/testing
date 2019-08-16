@@ -8,12 +8,7 @@ angular.module('odin.user').component('userCallingNameRetrieval', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserCallingNameRetrievalService',
-  'Module',
-  '$q'
-]
+controller.$inject = ['Alert', 'UserCallingNameRetrievalService', 'Module', '$q']
 function controller(Alert, UserCallingNameRetrievalService, Module, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -38,9 +33,7 @@ function controller(Alert, UserCallingNameRetrievalService, Module, $q) {
   }
 
   function loadSettings() {
-    return UserCallingNameRetrievalService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserCallingNameRetrievalService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }

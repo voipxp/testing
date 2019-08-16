@@ -58,10 +58,7 @@ function controller(BulkImportService, $scope) {
   }
 
   function canComplete() {
-    return (
-      ctrl.services.userServices.length > 0 ||
-      ctrl.services.servicePackServices.length > 0
-    )
+    return ctrl.services.userServices.length > 0 || ctrl.services.servicePackServices.length > 0
   }
 
   function complete() {

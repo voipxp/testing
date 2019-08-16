@@ -7,20 +7,8 @@ angular.module('odin.vdm').component('vdmSelectTemplate', {
   bindings: { onUpdate: '&' }
 })
 
-controller.$inject = [
-  'Alert',
-  'VdmSystemTemplateService',
-  'EventEmitter',
-  'HashService',
-  '$scope'
-]
-function controller(
-  Alert,
-  VdmSystemTemplateService,
-  EventEmitter,
-  HashService,
-  $scope
-) {
+controller.$inject = ['Alert', 'VdmSystemTemplateService', 'EventEmitter', 'HashService', '$scope']
+function controller(Alert, VdmSystemTemplateService, EventEmitter, HashService, $scope) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.select = select

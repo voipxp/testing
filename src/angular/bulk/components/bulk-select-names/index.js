@@ -33,10 +33,7 @@ function controller(EventEmitter) {
 
   function canComplete() {
     return (
-      ctrl.firstName &&
-      ctrl.lastName &&
-      ctrl.callingLineIdFirstName &&
-      ctrl.callingLineIdLastName
+      ctrl.firstName && ctrl.lastName && ctrl.callingLineIdFirstName && ctrl.callingLineIdLastName
     )
   }
 

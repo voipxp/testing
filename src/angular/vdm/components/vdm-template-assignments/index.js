@@ -14,13 +14,7 @@ controller.$inject = [
   'VdmGroupTemplateService',
   '$scope'
 ]
-function controller(
-  Alert,
-  Route,
-  VdmSystemTemplateService,
-  VdmGroupTemplateService,
-  $scope
-) {
+function controller(Alert, Route, VdmSystemTemplateService, VdmGroupTemplateService, $scope) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
@@ -40,9 +34,7 @@ function controller(
   }
 
   function loadAssignments() {
-    return VdmSystemTemplateService.assignments(ctrl.template.id).then(function(
-      data
-    ) {
+    return VdmSystemTemplateService.assignments(ctrl.template.id).then(function(data) {
       ctrl.assignments = data
     })
   }
@@ -79,11 +71,7 @@ function controller(
 
   function create(assignment, callback) {
     Alert.spinner.open()
-    VdmGroupTemplateService.store(
-      assignment.serviceProviderId,
-      assignment.groupId,
-      ctrl.template
-    )
+    VdmGroupTemplateService.store(assignment.serviceProviderId, assignment.groupId, ctrl.template)
       .then(loadAssignments)
       .then(function() {
         Alert.notify.success('Assignement Added')

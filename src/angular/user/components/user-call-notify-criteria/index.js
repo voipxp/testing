@@ -16,10 +16,7 @@ function controller(Alert, UserCallNotifyCriteriaService, Module) {
   ctrl.options = UserCallNotifyCriteriaService.options
 
   function loadCriteria(criteria) {
-    return UserCallNotifyCriteriaService.show(
-      ctrl.parent.userId,
-      criteria.criteriaName
-    )
+    return UserCallNotifyCriteriaService.show(ctrl.parent.userId, criteria.criteriaName)
   }
 
   function edit(criteria) {
@@ -27,11 +24,9 @@ function controller(Alert, UserCallNotifyCriteriaService, Module) {
     var deleteAction
     if (Module.delete(ctrl.parent.module)) {
       deleteAction = function(close) {
-        Alert.confirm
-          .open('Are you sure you want to delete this Criteria?')
-          .then(function() {
-            destroy(ctrl.editCriteria, close)
-          })
+        Alert.confirm.open('Are you sure you want to delete this Criteria?').then(function() {
+          destroy(ctrl.editCriteria, close)
+        })
       }
     }
     loadCriteria(criteria)
@@ -66,10 +61,7 @@ function controller(Alert, UserCallNotifyCriteriaService, Module) {
 
   function destroy(criteria, callback) {
     Alert.spinner.open()
-    UserCallNotifyCriteriaService.destroy(
-      ctrl.parent.userId,
-      criteria.criteriaName
-    )
+    UserCallNotifyCriteriaService.destroy(ctrl.parent.userId, criteria.criteriaName)
       .then(ctrl.parent.reload)
       .then(function() {
         Alert.notify.warning('Criteria Removed')

@@ -19,11 +19,7 @@
         />
       </p>
       <p class="control">
-        <button
-          class="button"
-          type="submit"
-          ng-disabled="!$ctrl.filter || $ctrl.isLoading"
-        >
+        <button class="button" type="submit" ng-disabled="!$ctrl.filter || $ctrl.isLoading">
           <span class="icon">
             <i class="fas fa-search"></i>
           </span>
@@ -31,9 +27,7 @@
       </p>
     </div>
   </form>
-  <pbs-subtitle class="large-margin-top" ng-show="$ctrl.users"
-    >Search Results</pbs-subtitle
-  >
+  <pbs-subtitle class="large-margin-top" ng-show="$ctrl.users">Search Results</pbs-subtitle>
   <table pbs-table ng-show="$ctrl.users">
     <thead>
       <tr>

@@ -65,13 +65,10 @@ function controller(
         if (ACL.has('Provisioning')) {
           ctrl.canEdit = true
         } else if (ACL.is('Group')) {
-          ctrl.canEdit =
-            Module.update('Provisioning') &&
-            GroupPolicyService.accessDeviceUpdate()
+          ctrl.canEdit = Module.update('Provisioning') && GroupPolicyService.accessDeviceUpdate()
         } else if (ACL.is('Service Provider')) {
           ctrl.canEdit =
-            Module.update('Provisioning') &&
-            ServiceProviderPolicyService.accessDeviceUpdate()
+            Module.update('Provisioning') && ServiceProviderPolicyService.accessDeviceUpdate()
         }
       })
       .catch(function(error) {
@@ -136,21 +133,13 @@ function controller(
   }
 
   function onSetTrunkLinePort(event) {
-    _.set(
-      ctrl.editUser,
-      'trunkAddressing.trunkGroupDeviceEndpoint.linePort',
-      event.userId
-    )
+    _.set(ctrl.editUser, 'trunkAddressing.trunkGroupDeviceEndpoint.linePort', event.userId)
   }
 
   function onSelectTrunkGroup(event) {
     var name = _.get(event, 'trunk.name')
     if (name) {
-      _.set(
-        ctrl.editUser,
-        'trunkAddressing.trunkGroupDeviceEndpoint.name',
-        name
-      )
+      _.set(ctrl.editUser, 'trunkAddressing.trunkGroupDeviceEndpoint.name', name)
     } else {
       _.set(ctrl.editUser, 'trunkAddressing.trunkGroupDeviceEndpoint', null)
     }

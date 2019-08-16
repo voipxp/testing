@@ -2,12 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import { Field, Control, Button, Input, Icon } from 'rbx'
-import { useSession } from '@/store/session'
+import { useSession } from '@/graphql'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable, UiCardModal } from '@/components/ui'
-import { alertDanger } from '@/utils/alerts'
-import { useAcl, userPath } from '@/utils'
+import { useAcl, Route, Alert } from '@/utils'
 import { ServiceProviderSelect } from '@/components/service-provider-select'
 import phoneNumberApi from '@/api/phone-numbers/system'
 
@@ -23,8 +22,8 @@ const columns = [
 ]
 
 export const SystemDnSearch = ({ onSelect }) => {
-  const acl = useAcl()
-  const { session } = useSession()
+  const Acl = useAcl()
+  const session = useSession()
   const [searchString, setSearchString] = React.useState('')
   const [serviceProviderId, setServiceProviderId] = React.useState('')
   const [showServiceProvider, setShowServiceProvider] = React.useState(false)
@@ -32,7 +31,7 @@ export const SystemDnSearch = ({ onSelect }) => {
   const [loading, setLoading] = React.useState(false)
   const [initialized, setInitialized] = React.useState(false)
 
-  const hasProvisioning = acl.hasProvisioning()
+  const hasProvisioning = Acl.hasProvisioning()
 
   const handleSearchString = e => {
     setSearchString(e.target.value)
@@ -60,10 +59,10 @@ export const SystemDnSearch = ({ onSelect }) => {
         serviceProviderId: _serviceProviderId
       })
       // strip out users we can't link to
-      const filtered = users.filter(u => userPath(u))
+      const filtered = users.filter(u => Route.userPath(u))
       setUsers(filtered)
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
       setUsers([])
     } finally {
       setLoading(false)
@@ -90,11 +89,7 @@ export const SystemDnSearch = ({ onSelect }) => {
               />
             </Control>
             <Control>
-              <Button
-                type="button"
-                disabled={loading}
-                onClick={selectServiceProvider}
-              >
+              <Button type="button" disabled={loading} onClick={selectServiceProvider}>
                 <Icon size="small" align="left">
                   <FontAwesomeIcon icon={faList} />
                 </Icon>

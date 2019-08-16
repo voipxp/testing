@@ -2,13 +2,11 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.group')
-  .component('groupCallCenterQueueStatusNotification', {
-    template,
-    controller,
-    bindings: { serviceUserId: '<' }
-  })
+angular.module('odin.group').component('groupCallCenterQueueStatusNotification', {
+  template,
+  controller,
+  bindings: { serviceUserId: '<' }
+})
 
 controller.$inject = ['GroupCallCenterQueueStatusNotificationService', 'Alert']
 function controller(GroupCallCenterQueueStatusNotificationService, Alert) {
@@ -36,29 +34,23 @@ function controller(GroupCallCenterQueueStatusNotificationService, Alert) {
   }
 
   function loadService() {
-    return GroupCallCenterQueueStatusNotificationService.show(
-      ctrl.serviceUserId
-    ).then(function(data) {
+    return GroupCallCenterQueueStatusNotificationService.show(ctrl.serviceUserId).then(function(
+      data
+    ) {
       ctrl.service = data
     })
   }
 
   function edit() {
     ctrl.editService = angular.copy(ctrl.service)
-    Alert.modal.open(
-      'editGroupCallCenterQueueStatusNotification',
-      function onSave(close) {
-        update(ctrl.editService, close)
-      }
-    )
+    Alert.modal.open('editGroupCallCenterQueueStatusNotification', function onSave(close) {
+      update(ctrl.editService, close)
+    })
   }
 
   function update(service, callback) {
     Alert.spinner.open()
-    GroupCallCenterQueueStatusNotificationService.update(
-      ctrl.serviceUserId,
-      service
-    )
+    GroupCallCenterQueueStatusNotificationService.update(ctrl.serviceUserId, service)
       .then(loadService)
       .then(function() {
         Alert.notify.success('Queue Status Notification Updated')

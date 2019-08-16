@@ -8,20 +8,8 @@ angular.module('odin.bulk').component('bulkSelectServiceProviderId', {
   bindings: { onUpdate: '&' }
 })
 
-controller.$inject = [
-  'Alert',
-  'ServiceProviderService',
-  'EventEmitter',
-  'Session',
-  '$scope'
-]
-function controller(
-  Alert,
-  ServiceProviderService,
-  EventEmitter,
-  Session,
-  $scope
-) {
+controller.$inject = ['Alert', 'ServiceProviderService', 'EventEmitter', 'Session', '$scope']
+function controller(Alert, ServiceProviderService, EventEmitter, Session, $scope) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add

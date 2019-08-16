@@ -59,9 +59,7 @@ function controller(
   }
 
   function setServiceType() {
-    Service = isDnis()
-      ? GroupCallCenterDnisAnnouncementService
-      : GroupCallCenterAnnouncementService
+    Service = isDnis() ? GroupCallCenterDnisAnnouncementService : GroupCallCenterAnnouncementService
     ctrl.options = Service.options
   }
 

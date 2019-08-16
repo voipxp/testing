@@ -8,18 +8,14 @@ angular.module('odin.serviceProvider').component('serviceProviderNumbers', {
   bindings: { serviceProviderId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'ServiceProviderNumberService',
-  'NumberService',
-  'ACL'
-]
+controller.$inject = ['Alert', 'ServiceProviderNumberService', 'NumberService', 'ACL']
 function controller(Alert, ServiceProviderNumberService, NumberService, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
   ctrl.edit = edit
   ctrl.remove = remove
+  ctrl.bulk = bulk
 
   function onInit() {
     ctrl.loading = true
@@ -34,14 +30,12 @@ function controller(Alert, ServiceProviderNumberService, NumberService, ACL) {
   }
 
   function loadNumbers() {
-    return ServiceProviderNumberService.index(ctrl.serviceProviderId).then(
-      function(data) {
-        ctrl.numbers = _.map(data.dns, function(number) {
-          number.expanded = _.map(NumberService.expand(number), 'min')
-          return number
-        })
-      }
-    )
+    return ServiceProviderNumberService.index(ctrl.serviceProviderId).then(function(data) {
+      ctrl.numbers = _.map(data.dns, function(number) {
+        number.expanded = _.map(NumberService.expand(number), 'min')
+        return number
+      })
+    })
   }
 
   function add() {
@@ -82,6 +76,38 @@ function controller(Alert, ServiceProviderNumberService, NumberService, ACL) {
       .then(loadNumbers)
       .then(function() {
         Alert.notify.success('Number Removed')
+        callback()
+      })
+      .catch(Alert.notify.danger)
+      .finally(Alert.spinner.close)
+  }
+
+  function bulk() {
+    Alert.modal.open('serviceProviderNumbersBulkModal', function onSave(close) {
+      bulkAssignNumbers(ctrl.bulkNumbers, close)
+    })
+  }
+  function bulkAssignNumbers(bulkNumbers, callback) {
+    Alert.spinner.open()
+    var numbers = bulkNumbers.split('\n')
+    var dns = _.map(numbers, function(number) {
+      if (number.includes(' - ')) {
+        var [min, max] = number.split(' - ')
+        return {
+          min: min.trim(),
+          max: max.trim()
+        }
+      } else {
+        return {
+          min: number
+        }
+      }
+    })
+    return ServiceProviderNumberService.store(ctrl.serviceProviderId, dns)
+      .then(loadNumbers)
+      .then(function() {
+        ctrl.filter = {}
+        Alert.notify.success('Bulk Assigned Numbers ')
         callback()
       })
       .catch(Alert.notify.danger)

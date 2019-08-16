@@ -25,13 +25,12 @@ function controller(Alert, GroupCallProcessingPolicyService) {
   }
 
   function loadCallProcessingPolicy() {
-    return GroupCallProcessingPolicyService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
-      ctrl.callProcessingPolicy = data
-      return data
-    })
+    return GroupCallProcessingPolicyService.show(ctrl.serviceProviderId, ctrl.groupId).then(
+      function(data) {
+        ctrl.callProcessingPolicy = data
+        return data
+      }
+    )
   }
   function edit() {
     loadCallProcessingPolicy().then(function(data) {

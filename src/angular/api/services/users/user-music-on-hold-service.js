@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserMusicOnHoldService', UserMusicOnHoldService)
+angular.module('odin.api').factory('UserMusicOnHoldService', UserMusicOnHoldService)
 
 UserMusicOnHoldService.$inject = ['$http', 'Route']
 function UserMusicOnHoldService($http, Route) {
@@ -12,11 +10,9 @@ function UserMusicOnHoldService($http, Route) {
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(userId, object) {

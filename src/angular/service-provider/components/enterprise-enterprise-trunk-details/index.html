@@ -15,27 +15,20 @@
         {{ $ctrl.parent.trunk.routeExhaustionAction }}
         <span ng-show="$ctrl.parent.trunk.routeExhaustionAction === 'Forward'">
           To
-          <strong
-            >{{ $ctrl.parent.trunk.routeExhaustionForwardAddress }}</strong
-          >
+          <strong>{{ $ctrl.parent.trunk.routeExhaustionForwardAddress }}</strong>
         </span>
       </pbs-list-item>
       <pbs-list-item label="Routing">
-        {{ $ctrl.parent.trunk.priorityWeightedRouting ? 'Priority Weighted
-        Routing' : 'Ordered Routing' }}
+        {{ $ctrl.parent.trunk.priorityWeightedRouting ? 'Priority Weighted Routing' : 'Ordered
+        Routing' }}
       </pbs-list-item>
       <pbs-list-item
         label="Max Reroutes in Priority"
         ng-show="$ctrl.parent.trunk.priorityWeightedRouting"
       >
-        {{
-        $ctrl.parent.trunk.priorityWeightedRouting.maximumRerouteAttemptsWithinPriority
-        }}
+        {{ $ctrl.parent.trunk.priorityWeightedRouting.maximumRerouteAttemptsWithinPriority }}
       </pbs-list-item>
-      <pbs-list-item
-        label="Ordering Algorithm"
-        ng-show="$ctrl.parent.trunk.orderedRouting"
-      >
+      <pbs-list-item label="Ordering Algorithm" ng-show="$ctrl.parent.trunk.orderedRouting">
         {{ $ctrl.parent.trunk.orderedRouting.orderingAlgorithm }}
       </pbs-list-item>
     </pbs-list>
@@ -70,20 +63,10 @@
       ng-change="$ctrl.updateConfirm('routeExhaustionAction')"
     ></pbs-input-select>
   </pbs-form-field>
-  <pbs-form-field
-    label="Forward To"
-    ng-show="$ctrl.editTrunk.routeExhaustionAction === 'Forward'"
-  >
-    <input
-      class="input"
-      type="text"
-      ng-model="$ctrl.editTrunk.routeExhaustionForwardAddress"
-    />
+  <pbs-form-field label="Forward To" ng-show="$ctrl.editTrunk.routeExhaustionAction === 'Forward'">
+    <input class="input" type="text" ng-model="$ctrl.editTrunk.routeExhaustionForwardAddress" />
   </pbs-form-field>
-  <pbs-form-field
-    label="Max Reroutes in Priority"
-    ng-if="$ctrl.editTrunk.priorityWeightedRouting"
-  >
+  <pbs-form-field label="Max Reroutes in Priority" ng-if="$ctrl.editTrunk.priorityWeightedRouting">
     <input
       class="input"
       type="number"
@@ -93,10 +76,7 @@
       string-to-number
     />
   </pbs-form-field>
-  <pbs-form-field
-    label="Ordering Algorithm"
-    ng-if="$ctrl.editTrunk.orderedRouting"
-  >
+  <pbs-form-field label="Ordering Algorithm" ng-if="$ctrl.editTrunk.orderedRouting">
     <pbs-input-select
       ng-model="$ctrl.editTrunk.orderedRouting.orderingAlgorithm"
       ng-options="opt as opt for opt in $ctrl.options.orderingAlgorithm"

@@ -18,6 +18,9 @@
     </div>
     <div class="column">
       <service-providers-panel limit-to="12"></service-providers-panel>
+      <div class="margin-top" ng-if="$ctrl.hasVersion22">
+        <resellers-panel limit-to="12"></resellers-panel>
+      </div>
     </div>
   </div>
 </pbs-spinner>

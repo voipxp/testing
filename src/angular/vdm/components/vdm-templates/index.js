@@ -15,13 +15,7 @@ controller.$inject = [
   '$scope'
 ]
 
-function controller(
-  Alert,
-  Route,
-  VdmSystemTemplateService,
-  VdmGroupTemplateService,
-  $scope
-) {
+function controller(Alert, Route, VdmSystemTemplateService, VdmGroupTemplateService, $scope) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -89,11 +83,7 @@ function controller(
 
   function assign(template) {
     Alert.spinner.open()
-    VdmGroupTemplateService.store(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      template
-    )
+    VdmGroupTemplateService.store(ctrl.serviceProviderId, ctrl.groupId, template)
       .then(function(data) {
         Alert.notify.success('Template Created')
         open({ id: data.deviceTypeId, parentId: true })

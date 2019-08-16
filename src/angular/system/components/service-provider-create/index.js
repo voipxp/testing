@@ -7,12 +7,7 @@ angular.module('odin.system').component('serviceProviderCreate', {
   bindings: { onCreate: '&' }
 })
 
-controller.$inject = [
-  'ServiceProviderService',
-  'EventEmitter',
-  '$scope',
-  'Alert'
-]
+controller.$inject = ['ServiceProviderService', 'EventEmitter', '$scope', 'Alert']
 function controller(ServiceProviderService, EventEmitter, $scope, Alert) {
   var ctrl = this
   ctrl.selectType = selectType
@@ -35,7 +30,7 @@ function controller(ServiceProviderService, EventEmitter, $scope, Alert) {
         sendUpdate(ctrl.serviceProvider)
       })
       .catch(function(error) {
-        Alert.notify.danger(error.data)
+        Alert.notify.danger(error)
       })
       .finally(function() {
         Alert.spinner.close()

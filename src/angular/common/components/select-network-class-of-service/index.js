@@ -27,12 +27,11 @@ function controller(Alert, GroupNetworkClassOfServiceService) {
   }
 
   function loadNetworkClasses() {
-    return GroupNetworkClassOfServiceService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
-      ctrl.services = data.services
-      return data
-    })
+    return GroupNetworkClassOfServiceService.show(ctrl.serviceProviderId, ctrl.groupId).then(
+      function(data) {
+        ctrl.services = data.services
+        return data
+      }
+    )
   }
 }

@@ -20,11 +20,9 @@ function Service($http, Route) {
   return service
 
   function index(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function show(userId, roomId) {

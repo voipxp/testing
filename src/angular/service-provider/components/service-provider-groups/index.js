@@ -16,15 +16,7 @@ controller.$inject = [
   'ServiceProviderPolicyService',
   'Module'
 ]
-function controller(
-  Alert,
-  GroupService,
-  Route,
-  $scope,
-  $q,
-  ServiceProviderPolicyService,
-  Module
-) {
+function controller(Alert, GroupService, Route, $scope, $q, ServiceProviderPolicyService, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
@@ -51,9 +43,9 @@ function controller(
   }
 
   function loadGroups() {
-    return GroupService.index(ctrl.serviceProviderId).then(
-      data => (ctrl.groups = data)
-    )
+    return GroupService.index(ctrl.serviceProviderId).then(data => {
+      ctrl.groups = data
+    })
   }
 
   function clone() {

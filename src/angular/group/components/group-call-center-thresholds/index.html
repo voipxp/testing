@@ -9,9 +9,7 @@
         <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Notification Email Enabled">
-        <pbs-check-box
-          checked="$ctrl.settings.enableNotificationEmail"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.enableNotificationEmail"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item
         label="Notification Email Addresss"
@@ -78,10 +76,7 @@
     ></pbs-input-checkbox>
   </pbs-form-field>
 
-  <pbs-form-field
-    label="Notification Emails"
-    ng-show="$ctrl.editSettings.isActive"
-  >
+  <pbs-form-field label="Notification Emails" ng-show="$ctrl.editSettings.isActive">
     <pbs-input-checkbox
       ng-model="$ctrl.editSettings.enableNotificationEmail"
       label="Enable Notification Emails"
@@ -94,12 +89,7 @@
   >
     <div class="field has-addons">
       <p class="control is-expanded">
-        <input
-          type="text"
-          class="input"
-          ng-model="$ctrl.newEmail"
-          placeholder="New Email"
-        />
+        <input type="text" class="input" ng-model="$ctrl.newEmail" placeholder="New Email" />
       </p>
       <p class="control">
         <button
@@ -127,10 +117,7 @@
     </table>
   </pbs-form-field>
 
-  <pbs-form-field
-    label="Current Calls in Queue"
-    ng-show="$ctrl.editSettings.isActive"
-  >
+  <pbs-form-field label="Current Calls in Queue" ng-show="$ctrl.editSettings.isActive">
     <div class="field has-addons">
       <p class="control">
         <a class="button is-static" style="width: 75px">Yellow</a>
@@ -161,10 +148,7 @@
     </div>
   </pbs-form-field>
 
-  <pbs-form-field
-    label="Longest Waiting Call Seconds"
-    ng-show="$ctrl.editSettings.isActive"
-  >
+  <pbs-form-field label="Longest Waiting Call Seconds" ng-show="$ctrl.editSettings.isActive">
     <div class="field has-addons">
       <p class="control">
         <a class="button is-static" style="width: 75px">Yellow</a>
@@ -195,10 +179,7 @@
     </div>
   </pbs-form-field>
 
-  <pbs-form-field
-    label="Estimated Wait Time Seconds"
-    ng-show="$ctrl.editSettings.isActive"
-  >
+  <pbs-form-field label="Estimated Wait Time Seconds" ng-show="$ctrl.editSettings.isActive">
     <div class="field has-addons">
       <p class="control">
         <a class="button is-static" style="width: 75px">Yellow</a>
@@ -229,10 +210,7 @@
     </div>
   </pbs-form-field>
 
-  <pbs-form-field
-    label="Avg Handling Time Seconds"
-    ng-show="$ctrl.editSettings.isActive"
-  >
+  <pbs-form-field label="Avg Handling Time Seconds" ng-show="$ctrl.editSettings.isActive">
     <div class="field has-addons">
       <p class="control">
         <a class="button is-static" style="width: 75px">Yellow</a>
@@ -263,10 +241,7 @@
     </div>
   </pbs-form-field>
 
-  <pbs-form-field
-    label="Avg Speed of Answer"
-    ng-show="$ctrl.editSettings.isActive"
-  >
+  <pbs-form-field label="Avg Speed of Answer" ng-show="$ctrl.editSettings.isActive">
     <div class="field has-addons">
       <p class="control">
         <a class="button is-static" style="width: 75px">Yellow</a>

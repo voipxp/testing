@@ -1,9 +1,7 @@
 import { UserDashboard } from '@/components/users'
-import { GroupSpeedDial8 } from '../groups/group-speed-dial-8'
-import { GroupCommunicationBarring } from '../groups/group-communication-barring'
-import { Test1 } from '../test/test-1'
-import { Test2 } from '../test/test-2'
-
+import { GroupCommunicationBarring, GroupSpeedDial8 } from '@/components/groups'
+import { SystemResellers } from '../system'
+import { ResellerDashboard } from '@/components/resellers'
 export const routes = [
   {
     path: '/account',
@@ -65,6 +63,12 @@ export const routes = [
     path: '/bulk/user.delete',
     angularComponent: 'bulkUserDelete',
     acl: 'Group',
+    module: 'Provisioning'
+  },
+  {
+    path: '/bulk/user.move',
+    angularComponent: 'bulkUserMove',
+    acl: 'Provisioning',
     module: 'Provisioning'
   },
   {
@@ -208,8 +212,7 @@ export const routes = [
     acl: 'Group'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPatterns',
+    path: '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPatterns',
     angularComponent: 'groupOutgoingCallingPlanPinholeDigitPatterns',
     acl: 'Group'
   },
@@ -289,8 +292,7 @@ export const routes = [
     acl: 'Group'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/groupCommunicationBarringAuthorizationCodes',
+    path: '/groups/:serviceProviderId/:groupId/groupCommunicationBarringAuthorizationCodes',
     angularComponent: 'groupCommunicationBarringAuthorizationCodes',
     acl: 'Group'
   },
@@ -342,8 +344,7 @@ export const routes = [
     module: 'Trunk Group'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/enterpriseTrunks/enterpriseTrunk',
+    path: '/groups/:serviceProviderId/:groupId/enterpriseTrunks/enterpriseTrunk',
     angularComponent: 'groupEnterpriseTrunk',
     acl: 'Group',
     module: 'Trunk Group'
@@ -535,8 +536,7 @@ export const routes = [
     module: 'Group Night Forwarding'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/virtualOnNetEnterpriseExtensions',
+    path: '/groups/:serviceProviderId/:groupId/virtualOnNetEnterpriseExtensions',
     angularComponent: 'groupVirtualOnNetEnterpriseExtensions',
     acl: 'Group',
     module: 'Virtual On-Net Enterprise Extensions'
@@ -548,8 +548,7 @@ export const routes = [
     module: 'Flexible Seating Guest'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
+    path: '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
     angularComponent: 'groupFlexibleSeatingHost',
     acl: 'Group',
     module: 'Flexible Seating Guest'
@@ -586,8 +585,7 @@ export const routes = [
     module: 'Trunk Group'
   },
   {
-    path:
-      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
+    path: '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
     angularComponent: 'enterpriseEnterpriseTrunk',
     acl: 'Service Provider',
     module: 'Trunk Group'
@@ -758,11 +756,13 @@ export const routes = [
     component: GroupCommunicationBarring
   },
   {
-    path: '/test-1',
-    component: Test1
+    path: '/system/resellers',
+    component: SystemResellers,
+    acl: 'Provisioning'
   },
   {
-    path: '/test-2',
-    component: Test2
+    path: '/resellers/:resellerId',
+    component: ResellerDashboard,
+    acl: 'Reseller'
   }
 ]

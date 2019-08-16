@@ -36,12 +36,9 @@ function PasscodeService() {
       maxLength: rules.maxCodeLength || 10,
       userNumber: rules.disallowUserNumber,
       userNumberReverse: rules.disallowReversedUserNumber,
-      sequenceAscending:
-        rules.disallowContiguousSequences && rules.numberOfAscendingDigits,
-      sequenceDescending:
-        rules.disallowContiguousSequences && rules.numberOfDescendingDigits,
-      repeatingDigits:
-        rules.disallowRepeatedDigits && rules.numberOfRepeatedDigits,
+      sequenceAscending: rules.disallowContiguousSequences && rules.numberOfAscendingDigits,
+      sequenceDescending: rules.disallowContiguousSequences && rules.numberOfDescendingDigits,
+      repeatingDigits: rules.disallowRepeatedDigits && rules.numberOfRepeatedDigits,
       repeatingPatterns: rules.disallowRepeatedPatterns
     }
   }

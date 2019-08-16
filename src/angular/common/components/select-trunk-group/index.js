@@ -7,20 +7,8 @@ angular.module('odin.common').component('selectTrunkGroup', {
   bindings: { serviceProviderId: '<', groupId: '<', onUpdate: '&' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupTrunkGroupService',
-  'HashService',
-  'EventEmitter',
-  '$scope'
-]
-function controller(
-  Alert,
-  GroupTrunkGroupService,
-  HashService,
-  EventEmitter,
-  $scope
-) {
+controller.$inject = ['Alert', 'GroupTrunkGroupService', 'HashService', 'EventEmitter', '$scope']
+function controller(Alert, GroupTrunkGroupService, HashService, EventEmitter, $scope) {
   var ctrl = this
 
   ctrl.$onInit = onInit
@@ -41,10 +29,7 @@ function controller(
   }
 
   function loadTrunks() {
-    return GroupTrunkGroupService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupTrunkGroupService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.trunks = data
     })
   }

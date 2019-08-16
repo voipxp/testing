@@ -1,17 +1,9 @@
-<div
-  class="modal pbs-confirm is-active"
-  ng-if="$ctrl.isOpen"
-  ng-animate-children
->
+<div class="modal pbs-confirm is-active" ng-if="$ctrl.isOpen" ng-animate-children>
   <div class="modal-background"></div>
   <div class="modal-card animated">
     <header class="modal-card-head">
       <p class="modal-card-title">Please Confirm</p>
-      <button
-        class="delete"
-        aria-label="close"
-        ng-click="$ctrl.close()"
-      ></button>
+      <button class="delete" aria-label="close" ng-click="$ctrl.close()"></button>
     </header>
     <section class="modal-card-body">
       <p>{{ $ctrl.message }}</p>

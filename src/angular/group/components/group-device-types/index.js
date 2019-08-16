@@ -23,10 +23,7 @@ function controller(Alert, GroupDeviceTypeService, Route) {
   }
 
   function loadDevices() {
-    return GroupDeviceTypeService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupDeviceTypeService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.devices = data
     })
   }

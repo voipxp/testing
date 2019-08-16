@@ -1,15 +1,7 @@
-<pbs-modal
-  id="editEnterpriseEnterpriseTrunkCreate"
-  title="Add Enterprise Trunk"
->
+<pbs-modal id="editEnterpriseEnterpriseTrunkCreate" title="Add Enterprise Trunk">
   <form novalidate>
     <pbs-form-field label="Trunk Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.trunk.enterpriseTrunkName"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.trunk.enterpriseTrunkName" required />
     </pbs-form-field>
     <pbs-form-field label="Max Reroute Attempts">
       <input
@@ -28,15 +20,8 @@
         required
       ></pbs-input-select>
     </pbs-form-field>
-    <pbs-form-field
-      label="Forward To"
-      ng-show="$ctrl.trunk.routeExhaustionAction === 'Forward'"
-    >
-      <input
-        class="input"
-        type="text"
-        ng-model="$ctrl.trunk.routeExhaustionForwardAddress"
-      />
+    <pbs-form-field label="Forward To" ng-show="$ctrl.trunk.routeExhaustionAction === 'Forward'">
+      <input class="input" type="text" ng-model="$ctrl.trunk.routeExhaustionForwardAddress" />
     </pbs-form-field>
     <pbs-form-field label="Routing Type">
       <pbs-input-select
@@ -46,10 +31,7 @@
         required
       ></pbs-input-select>
     </pbs-form-field>
-    <pbs-form-field
-      label="Max Reroutes in Priority"
-      ng-show="$ctrl.trunk.priorityWeightedRouting"
-    >
+    <pbs-form-field label="Max Reroutes in Priority" ng-show="$ctrl.trunk.priorityWeightedRouting">
       <input
         class="input"
         type="number"
@@ -59,10 +41,7 @@
         ng-required="$ctrl.trunk.priorityWeightedRouting"
       />
     </pbs-form-field>
-    <pbs-form-field
-      label="Ordering Algorithm"
-      ng-show="$ctrl.trunk.orderedRouting"
-    >
+    <pbs-form-field label="Ordering Algorithm" ng-show="$ctrl.trunk.orderedRouting">
       <pbs-input-select
         class=""
         ng-model="$ctrl.trunk.orderedRouting.orderingAlgorithm"

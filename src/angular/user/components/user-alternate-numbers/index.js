@@ -59,11 +59,9 @@ function controller(Alert, UserAlternateNumbersService, Module, $q) {
     var deleteAction
     if (entry.phoneNumber || entry.extension || entry.ringPattern) {
       deleteAction = function(close) {
-        Alert.confirm
-          .open('Are you sure you want to clear this entry?')
-          .then(function() {
-            updateEntry({ alternateEntryId: entry.alternateEntryId }, close)
-          })
+        Alert.confirm.open('Are you sure you want to clear this entry?').then(function() {
+          updateEntry({ alternateEntryId: entry.alternateEntryId }, close)
+        })
       }
     }
     Alert.modal.open(

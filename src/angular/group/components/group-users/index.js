@@ -76,16 +76,15 @@ function controller(
       })
   }
 
-  function loadUsers(extended) {
-    return UserService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      extended
-    ).then(function(data) {
+  function loadUsers(includeClid) {
+    return UserService.index(ctrl.serviceProviderId, ctrl.groupId, includeClid).then(function(
+      data
+    ) {
       ctrl.users = data.map(user => {
-        const clid = _.get(user, 'user.callingLineIdPhoneNumber')
-        user.callingLineIdPhoneNumber = clid
-        return user
+        return {
+          ...user,
+          callingLineIdPhoneNumber: _.get(user, 'user.callingLineIdPhoneNumber')
+        }
       })
     })
   }
@@ -117,7 +116,7 @@ function controller(
 
   function edit() {
     Alert.spinner.open()
-    loadUsers(['callingLineIdPhoneNumber'])
+    loadUsers(true)
       .then(function() {
         var column = _.find(ctrl.columns, { key: 'callingLineIdPhoneNumber' })
         column.hidden = false

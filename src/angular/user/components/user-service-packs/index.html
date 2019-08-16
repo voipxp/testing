@@ -1,0 +1,75 @@
+<pbs-spinner loading="!$ctrl.servicePacks">
+  <pbs-block title="Service Pack Assignment">
+    <pbs-columns>
+      <pbs-column>
+        <pbs-table-search ng-model="$ctrl.search" style="margin-bottom: 0"></pbs-table-search>
+      </pbs-column>
+      <pbs-column class="is-narrow">
+        <div class="buttons has-addons">
+          <button
+            class="button"
+            ng-class="{'is-link': !$ctrl.filter}"
+            ng-click="$ctrl.filter = null"
+          >
+            All
+          </button>
+          <button
+            class="button"
+            ng-class="{'is-link': $ctrl.filter === 'assigned'}"
+            ng-click="$ctrl.filter = 'assigned'"
+          >
+            Assigned
+          </button>
+          <button
+            class="button"
+            ng-class="{'is-link': $ctrl.filter === 'unassigned'}"
+            ng-click="$ctrl.filter = 'unassigned'"
+          >
+            Unassigned
+          </button>
+        </div>
+      </pbs-column>
+    </pbs-columns>
+    <table pbs-table>
+      <thead>
+        <tr>
+          <th>Service Pack</th>
+          <th>Description</th>
+          <th class="has-text-centered">Assigned</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr ng-if="results.length < 1">
+          <td colspan="100">
+            No Services Found
+            <strong ng-if="$ctrl.search">for {{ $ctrl.search }}</strong>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr
+          ng-repeat="service in $ctrl.servicePacks | filter:$ctrl.filterService | filter:$ctrl.search | orderBy:'servicePackName' as results track by service.servicePackName"
+        >
+          <td style="vertical-align: middle">{{ service.servicePackName }}</td>
+          <td>{{ service.description }}</td>
+          <td class="has-text-centered" style="vertical-align: middle">
+            <button
+              class="button is-small"
+              ng-class="{'is-success': service.assigned, 'is-loading': $ctrl.loadingServices[service.servicePackName]}"
+              ng-click="$ctrl.toggle(service)"
+              ng-disabled="$ctrl.loadingServices[service.servicePackName]"
+              title="{{ service.servicePackName }}"
+            >
+              <span class="icon">
+                <i
+                  class="fas"
+                  ng-class="{'fa-check': service.assigned, 'fa-times': !service.assigned}"
+                ></i>
+              </span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pbs-block>
+</pbs-spinner>

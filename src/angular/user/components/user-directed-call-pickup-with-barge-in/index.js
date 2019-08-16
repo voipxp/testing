@@ -8,18 +8,8 @@ angular.module('odin.user').component('userDirectedCallPickupWithBargeIn', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserDirectedCallPickupWithBargeInService',
-  '$q',
-  'Module'
-]
-function controller(
-  Alert,
-  UserDirectedCallPickupWithBargeInService,
-  $q,
-  Module
-) {
+controller.$inject = ['Alert', 'UserDirectedCallPickupWithBargeInService', '$q', 'Module']
+function controller(Alert, UserDirectedCallPickupWithBargeInService, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -36,19 +26,15 @@ function controller(
   }
 
   function loadModule() {
-    return Module.show('Directed Call Pickup with Barge-in').then(function(
-      data
-    ) {
+    return Module.show('Directed Call Pickup with Barge-in').then(function(data) {
       ctrl.module = data
     })
   }
 
   function loadSettings() {
-    return UserDirectedCallPickupWithBargeInService.show(ctrl.userId).then(
-      function(data) {
-        ctrl.settings = data
-      }
-    )
+    return UserDirectedCallPickupWithBargeInService.show(ctrl.userId).then(function(data) {
+      ctrl.settings = data
+    })
   }
 
   function edit() {

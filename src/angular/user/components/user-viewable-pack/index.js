@@ -7,18 +7,8 @@ angular.module('odin.user').component('userViewablePack', {
   bindings: { userId: '<', groupId: '<', serviceProviderId: '< ' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserViewablePackService',
-  'GroupViewablePackService',
-  '$q'
-]
-function controller(
-  Alert,
-  UserViewablePackService,
-  GroupViewablePackService,
-  $q
-) {
+controller.$inject = ['Alert', 'UserViewablePackService', 'GroupViewablePackService', '$q']
+function controller(Alert, UserViewablePackService, GroupViewablePackService, $q) {
   var ctrl = this
 
   ctrl.$onInit = onInit
@@ -48,10 +38,9 @@ function controller(
   }
 
   function loadPacks() {
-    return GroupViewablePackService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupViewablePackService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.packs = data
       ctrl.packs.push(defaultPack)
     })

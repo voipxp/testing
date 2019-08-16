@@ -1,39 +1,27 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Night Service">
     <pbs-block-buttons if-module-update="'Call Center'">
-      <pbs-button-compact-edit
-        title="Edit Night Service"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Night Service" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Action">
         {{ $ctrl.service.action }}
       </pbs-list-item>
-      <pbs-list-item
-        label="Transfer Calls To"
-        ng-show="$ctrl.service.action === 'Transfer'"
-      >
+      <pbs-list-item label="Transfer Calls To" ng-show="$ctrl.service.action === 'Transfer'">
         {{ $ctrl.service.transferPhoneNumber }}
       </pbs-list-item>
       <pbs-list-item label="Forced On Now">
-        <pbs-check-box
-          checked="$ctrl.service.forceNightService"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.service.forceNightService"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Business Hours">
         {{ $ctrl.service.businessHours.name || 'All Day Every Day' }}
       </pbs-list-item>
       <pbs-list-item label="Feature Access Code Override">
-        <pbs-check-box
-          checked="$ctrl.service.allowManualOverrideViaFAC"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.service.allowManualOverrideViaFAC"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Announcement Before Action">
-        <pbs-check-box
-          checked="$ctrl.service.playAnnouncementBeforeAction"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.service.playAnnouncementBeforeAction"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Announcement Mode">
         {{ $ctrl.service.announcementMode }}
@@ -77,15 +65,8 @@
     ></pbs-input-select>
   </pbs-form-field-horizontal>
 
-  <pbs-form-field-horizontal
-    label="Transfer To"
-    ng-show="$ctrl.editService.action === 'Transfer'"
-  >
-    <input
-      type="text"
-      class="input"
-      ng-model="$ctrl.editService.transferPhoneNumber"
-    />
+  <pbs-form-field-horizontal label="Transfer To" ng-show="$ctrl.editService.action === 'Transfer'">
+    <input type="text" class="input" ng-model="$ctrl.editService.transferPhoneNumber" />
   </pbs-form-field-horizontal>
 
   <pbs-form-field-horizontal label="Business Hours">

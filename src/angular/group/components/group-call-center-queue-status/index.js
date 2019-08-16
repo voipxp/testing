@@ -27,20 +27,14 @@ function controller(Alert, GroupCallCenterQueueStatusService) {
   }
 
   function loadStatus() {
-    return GroupCallCenterQueueStatusService.show(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.status = data
-        return data
-      }
-    )
+    return GroupCallCenterQueueStatusService.show(ctrl.serviceUserId).then(function(data) {
+      ctrl.status = data
+      return data
+    })
   }
 
   function numberAgents() {
-    return (
-      (ctrl.status.agentsCurrentlyStaffed &&
-        ctrl.status.agentsCurrentlyStaffed.length) ||
-      0
-    )
+    return (ctrl.status.agentsCurrentlyStaffed && ctrl.status.agentsCurrentlyStaffed.length) || 0
   }
 
   function viewAgents() {

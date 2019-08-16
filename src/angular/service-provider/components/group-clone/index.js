@@ -15,14 +15,7 @@ controller.$inject = [
   'Alert',
   'ACL'
 ]
-function controller(
-  EventEmitter,
-  ServiceProviderService,
-  GroupCloneService,
-  $scope,
-  Alert,
-  ACL
-) {
+function controller(EventEmitter, ServiceProviderService, GroupCloneService, $scope, Alert, ACL) {
   var ctrl = this
   ctrl.selectServiceProvider = selectServiceProvider
   ctrl.selectGroup = selectGroup

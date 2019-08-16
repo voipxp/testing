@@ -16,14 +16,7 @@ controller.$inject = [
   'ServiceProviderPolicyService',
   '$q'
 ]
-function controller(
-  Alert,
-  UserService,
-  ACL,
-  GroupPolicyService,
-  ServiceProviderPolicyService,
-  $q
-) {
+function controller(Alert, UserService, ACL, GroupPolicyService, ServiceProviderPolicyService, $q) {
   var ctrl = this
   ctrl.update = update
   ctrl.$onInit = onInit
@@ -34,11 +27,7 @@ function controller(
     ctrl.loading = true
     ctrl.isAdmin = ACL.has('Group')
     return $q
-      .all([
-        loadUser(),
-        GroupPolicyService.load(),
-        ServiceProviderPolicyService.load()
-      ])
+      .all([loadUser(), GroupPolicyService.load(), ServiceProviderPolicyService.load()])
       .then(function() {
         if (ACL.has('Provisioning') || ACL.is('User')) {
           ctrl.canRead = true
@@ -89,15 +78,8 @@ function controller(
   function addressSummary() {
     var address = _.get(ctrl.user, 'address')
     if (!address) return
-    var street = _.compact([address.addressLine1, address.addressLine2]).join(
-      ' '
-    )
-    var stateZip = _.compact([
-      address.stateOrProvince,
-      address.zipOrPostalCode
-    ]).join(' ')
-    return _.compact([street, address.city, stateZip, address.country]).join(
-      ', '
-    )
+    var street = _.compact([address.addressLine1, address.addressLine2]).join(' ')
+    var stateZip = _.compact([address.stateOrProvince, address.zipOrPostalCode]).join(' ')
+    return _.compact([street, address.city, stateZip, address.country]).join(', ')
   }
 }

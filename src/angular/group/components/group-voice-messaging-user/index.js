@@ -51,10 +51,9 @@ function controller(Alert, UserVoiceMessagingService) {
   }
 
   function load() {
-    return UserVoiceMessagingService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return UserVoiceMessagingService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.users = _.filter(data, function(item) {
         return _.get(item, 'service.assigned')
       })

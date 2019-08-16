@@ -34,10 +34,7 @@
       >
         {{ $ctrl.user.accessDeviceEndpoint.accessDevice.deviceLevel }}
       </pbs-list-item>
-      <pbs-list-item
-        label="Line Port"
-        ng-show="$ctrl.user.endpointType === 'accessDeviceEndpoint'"
-      >
+      <pbs-list-item label="Line Port" ng-show="$ctrl.user.endpointType === 'accessDeviceEndpoint'">
         {{ $ctrl.user.accessDeviceEndpoint.linePort }}
       </pbs-list-item>
       <pbs-list-item
@@ -52,16 +49,10 @@
       >
         {{ $ctrl.user.accessDeviceEndpoint.accessDevice.macAddress }}
       </pbs-list-item>
-      <pbs-list-item
-        label="Status"
-        ng-show="$ctrl.user.endpointType === 'accessDeviceEndpoint'"
-      >
+      <pbs-list-item label="Status" ng-show="$ctrl.user.endpointType === 'accessDeviceEndpoint'">
         {{ $ctrl.user.accessDeviceEndpoint.accessDevice.status }}
       </pbs-list-item>
-      <pbs-list-item
-        label="Trunk Group"
-        ng-show="$ctrl.user.endpointType === 'trunkAddressing'"
-      >
+      <pbs-list-item label="Trunk Group" ng-show="$ctrl.user.endpointType === 'trunkAddressing'">
         {{ $ctrl.user.trunkAddressing.trunkGroupDeviceEndpoint.name }}
       </pbs-list-item>
       <pbs-list-item
@@ -104,22 +95,14 @@
             />
           </p>
           <p class="control">
-            <button
-              class="button"
-              ng-click="$ctrl.createDevice()"
-              title="Create a Device"
-            >
+            <button class="button" ng-click="$ctrl.createDevice()" title="Create a Device">
               <span class="icon">
                 <i class="fas fa-plus"></i>
               </span>
             </button>
           </p>
           <p class="control">
-            <button
-              class="button"
-              ng-click="$ctrl.selectDevice()"
-              title="Select a Device"
-            >
+            <button class="button" ng-click="$ctrl.selectDevice()" title="Select a Device">
               <span class="icon">
                 <i class="fas fa-list"></i>
               </span>
@@ -155,26 +138,15 @@
               ng-click="$ctrl.selectTrunkGroup()"
             />
           </p>
-          <p
-            class="control"
-            ng-show="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.name"
-          >
-            <button
-              class="button"
-              ng-click="$ctrl.onSelectTrunkGroup()"
-              title="Remove Trunk Group"
-            >
+          <p class="control" ng-show="$ctrl.editUser.trunkAddressing.trunkGroupDeviceEndpoint.name">
+            <button class="button" ng-click="$ctrl.onSelectTrunkGroup()" title="Remove Trunk Group">
               <span class="icon">
                 <i class="fas fa-trash"></i>
               </span>
             </button>
           </p>
           <p class="control">
-            <button
-              class="button"
-              ng-click="$ctrl.selectTrunkGroup()"
-              title="Add a Trunk Group"
-            >
+            <button class="button" ng-click="$ctrl.selectTrunkGroup()" title="Add a Trunk Group">
               <span class="icon">
                 <i class="fas fa-plus"></i>
               </span>
@@ -210,10 +182,7 @@
               ng-click="$ctrl.selectEnterpriseTrunk()"
             />
           </p>
-          <p
-            class="control"
-            ng-show="$ctrl.editUser.trunkAddressing.enterpriseTrunkName"
-          >
+          <p class="control" ng-show="$ctrl.editUser.trunkAddressing.enterpriseTrunkName">
             <button
               class="button"
               ng-click="$ctrl.onSelectEnterpriseTrunk()"

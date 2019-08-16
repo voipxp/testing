@@ -9,9 +9,7 @@
   <pbs-tabs>
     <pbs-tab label="Flexible Seating Host">
       <pbs-block title="Flexible Seating Hosts">
-        <pbs-block-buttons
-          ng-if="$ctrl.module.permissions.create && $ctrl.canCreate"
-        >
+        <pbs-block-buttons ng-if="$ctrl.module.permissions.create && $ctrl.canCreate">
           <pbs-button-compact-add
             title="Add Flexible Seating Host"
             ng-click="$ctrl.add()"
@@ -101,11 +99,7 @@
           ></pbs-input-checkbox>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Unlock Phone Pin">
-          <input
-            type="text"
-            class="input"
-            ng-model="$ctrl.editSettings.data.unlockPhonePINCode"
-          />
+          <input type="text" class="input" ng-model="$ctrl.editSettings.data.unlockPhonePINCode" />
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Line Port">
           <select-user-id
@@ -131,22 +125,14 @@
               />
             </p>
             <p class="control">
-              <button
-                class="button"
-                ng-click="$ctrl.createDevice()"
-                title="Create a Device"
-              >
+              <button class="button" ng-click="$ctrl.createDevice()" title="Create a Device">
                 <span class="icon">
                   <i class="fas fa-plus"></i>
                 </span>
               </button>
             </p>
             <p class="control">
-              <button
-                class="button"
-                ng-click="$ctrl.selectDevice()"
-                title="Select a Device"
-              >
+              <button class="button" ng-click="$ctrl.selectDevice()" title="Select a Device">
                 <span class="icon">
                   <i class="fas fa-list"></i>
                 </span>

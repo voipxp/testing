@@ -1,17 +1,11 @@
 <pbs-block title="Recent Tasks">
   <pbs-block-buttons ng-if="$ctrl.limit">
-    <pbs-button-compact-open
-      title="View More"
-      ng-click="$ctrl.open()"
-    ></pbs-button-compact-open>
+    <pbs-button-compact-open title="View More" ng-click="$ctrl.open()"></pbs-button-compact-open>
   </pbs-block-buttons>
   <pbs-spinner loading="$ctrl.loading">
     <pbs-columns>
       <pbs-column>
-        <pbs-table-search
-          ng-model="$ctrl.search"
-          style="margin-bottom: 0"
-        ></pbs-table-search>
+        <pbs-table-search ng-model="$ctrl.search" style="margin-bottom: 0"></pbs-table-search>
       </pbs-column>
       <pbs-column class="is-narrow">
         <div class="buttons has-addons">
@@ -79,9 +73,7 @@
           <td>{{ task.userId }}</td>
           <td>{{ task.type }}</td>
           <td>
-            <span ng-show="task.status !== 'pending'"
-              >{{ task.status | capitalize }}</span
-            >
+            <span ng-show="task.status !== 'pending'">{{ task.status | capitalize }}</span>
             <span ng-show="task.status === 'pending'" class="loader"></span>
           </td>
           <td>

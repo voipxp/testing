@@ -1,38 +1,53 @@
-// import angular from 'angular'
+import angular from 'angular'
+import {
+  USER_SERVICES_QUERY,
+  USER_SERVICES_ASSIGNED_QUERY,
+  USER_SERVICES_VIEWABLE_QUERY,
+  USER_SERVICES_UPDATE_MUTATION
+} from '@/graphql'
+angular.module('odin.api').factory('UserServiceService', UserServiceService)
 
-// angular.module('odin.api').factory('UserServiceService', UserServiceService)
+UserServiceService.$inject = ['GraphQL']
+function UserServiceService(GraphQL) {
+  var service = {
+    show: show,
+    update: update,
+    assigned: assigned,
+    viewable: viewable
+  }
+  return service
 
-// UserServiceService.$inject = ['$http', 'Route', '$rootScope']
-// function UserServiceService($http, Route, $rootScope) {
-//   var service = {
-//     show: show,
-//     update: update,
-//     assigned: assigned,
-//     viewable: viewable
-//   }
-//   var url = Route.api('/users/services')
+  function show(userId) {
+    return GraphQL.query({
+      query: USER_SERVICES_QUERY,
+      variables: { userId }
+    }).then(res => res.data.userServices)
+  }
 
-//   return service
+  function assigned(userId) {
+    return GraphQL.query({
+      query: USER_SERVICES_ASSIGNED_QUERY,
+      variables: { userId }
+    }).then(res => res.data.userServicesAssigned)
+  }
 
-//   function show(userId) {
-//     return $http
-//       .get(url(), { params: { userId: userId } })
-//       .then(({ data }) => data)
-//   }
+  function viewable(userId) {
+    return GraphQL.query({
+      query: USER_SERVICES_VIEWABLE_QUERY,
+      variables: { userId }
+    }).then(res => res.data.userServicesViewable)
+  }
 
-//   function assigned(userId) {
-//     return $http
-//       .get(url('assigned'), { params: { userId: userId } })
-//       .then(({ data }) => data)
-//   }
-
-//   function viewable(userId) {
-//     return $http
-//       .get(url('viewable'), { params: { userId: userId } })
-//       .then(({ data }) => data)
-//   }
-
-//   function update(service) {
-//     return $http.put(url(), service).then(({ data }) => data)
-//   }
-// }
+  function update(service) {
+    return GraphQL.mutate({
+      mutation: USER_SERVICES_UPDATE_MUTATION,
+      variables: { input: service },
+      refetchQueries: [
+        {
+          query: USER_SERVICES_ASSIGNED_QUERY,
+          variables: { userId: service.userId }
+        }
+      ]
+    }).then(res => res.data.serviceProviderCreate)
+  }
+}

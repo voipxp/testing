@@ -12,17 +12,14 @@ controller.$inject = [
   'Alert',
   'ServiceProviderNumberService',
   'GroupNumberService',
-  'NumberService'
+  'NumberService',
+  'ACL'
 ]
-function controller(
-  Alert,
-  ServiceProviderNumberService,
-  GroupNumberService,
-  NumberService
-) {
+function controller(Alert, ServiceProviderNumberService, GroupNumberService, NumberService, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
+  ctrl.bulk = bulk
   ctrl.filter = {}
   ctrl.toggleFilter = toggleFilter
   ctrl.select = select
@@ -56,6 +53,7 @@ function controller(
 
   function onInit() {
     ctrl.loading = true
+    ctrl.isProvisioning = ACL.has('Provisioning')
     loadNumbers()
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -64,21 +62,18 @@ function controller(
   }
 
   function loadNumbers() {
-    return GroupNumberService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.numbers = _.map(data, function(number) {
-          number.expanded = _.map(NumberService.expand(number), 'min')
-          return number
-        })
-      }
-    )
+    return GroupNumberService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      ctrl.numbers = _.map(data, function(number) {
+        number.expanded = _.map(NumberService.expand(number), 'min')
+        return number
+      })
+    })
   }
 
   function loadAvailableNumbers() {
-    return ServiceProviderNumberService.index(
-      ctrl.serviceProviderId,
-      'available'
-    ).then(function(data) {
+    return ServiceProviderNumberService.index(ctrl.serviceProviderId, 'available').then(function(
+      data
+    ) {
       return _.map(data.dns, function(number) {
         number.expanded = _.map(NumberService.expand(number), 'min')
         return number
@@ -97,8 +92,7 @@ function controller(
         ctrl.filter.assigned = undefined
       }
     } else if (type === 'deactivated') {
-      ctrl.filter.activated =
-        ctrl.filter.activated === false ? undefined : false
+      ctrl.filter.activated = ctrl.filter.activated === false ? undefined : false
     }
   }
 
@@ -127,6 +121,37 @@ function controller(
     })
   }
 
+  function bulk() {
+    Alert.modal.open('groupNumbersBulkModal', function onSave(close) {
+      bulkAssignNumbers(ctrl.bulkNumbers, close)
+    })
+  }
+  function bulkAssignNumbers(bulkNumbers, callback) {
+    Alert.spinner.open()
+    var numbers = bulkNumbers.split('\n')
+    var dns = _.map(numbers, function(number) {
+      if (number.includes(' - ')) {
+        var [min, max] = number.split(' - ')
+        return {
+          min: min.trim(),
+          max: max.trim()
+        }
+      } else {
+        return {
+          min: number
+        }
+      }
+    })
+    return GroupNumberService.bulkAssign(ctrl.serviceProviderId, ctrl.groupId, dns)
+      .then(loadNumbers)
+      .then(function() {
+        ctrl.filter = {}
+        Alert.notify.success('Bulk Assigned Number ')
+        callback()
+      })
+      .catch(Alert.notify.danger)
+      .finally(Alert.spinner.close)
+  }
   function add() {
     Alert.spinner.open()
     loadAvailableNumbers()
@@ -194,11 +219,7 @@ function controller(
 
   function update(numbers, callback) {
     Alert.spinner.open()
-    return GroupNumberService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      numbers
-    )
+    return GroupNumberService.update(ctrl.serviceProviderId, ctrl.groupId, numbers)
       .then(loadNumbers)
       .then(function() {
         ctrl.filter = {}

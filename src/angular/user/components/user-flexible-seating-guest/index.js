@@ -8,12 +8,7 @@ angular.module('odin.user').component('userFlexibleSeatingGuest', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserFlexibleSeatingGuestService',
-  '$q',
-  'Module'
-]
+controller.$inject = ['Alert', 'UserFlexibleSeatingGuestService', '$q', 'Module']
 function controller(Alert, UserFlexibleSeatingGuestService, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -57,18 +52,14 @@ function controller(Alert, UserFlexibleSeatingGuestService, $q, Module) {
   }
 
   function loadHosts() {
-    return UserFlexibleSeatingGuestService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserFlexibleSeatingGuestService.show(ctrl.userId).then(function(data) {
       ctrl.hosts = data.users
       console.log('ctrl.hosts', ctrl.hosts)
     })
   }
 
   function loadSettings() {
-    return UserFlexibleSeatingGuestService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserFlexibleSeatingGuestService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
       formatHostAssociationDateTime(data)
     })

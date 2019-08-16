@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.ui')
-  .directive('pbsFormFieldHorizontal', pbsFormFieldHorizontal)
+angular.module('odin.ui').directive('pbsFormFieldHorizontal', pbsFormFieldHorizontal)
 
 const template = `
 <div class="columns is-2 is-variable">

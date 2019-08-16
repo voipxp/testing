@@ -59,11 +59,7 @@ function controller(
 
   function loadAvailableAgents() {
     ctrl.loadingAgents = true
-    return GroupHuntGroupUserService.index(
-      'dummy',
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    )
+    return GroupHuntGroupUserService.index('dummy', ctrl.serviceProviderId, ctrl.groupId)
       .then(function(data) {
         ctrl.availableAgents = data
       })
@@ -88,11 +84,7 @@ function controller(
   }
 
   function onSelectPhone(event) {
-    _.set(
-      ctrl.huntGroup,
-      'serviceInstanceProfile.phoneNumber',
-      event.phoneNumber
-    )
+    _.set(ctrl.huntGroup, 'serviceInstanceProfile.phoneNumber', event.phoneNumber)
   }
 
   function onSelectUserId(event) {

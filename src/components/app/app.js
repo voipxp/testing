@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import { Section } from 'rbx'
 import { AngularComponent } from '@/components/angular-component'
 import { UiLoadingPage } from '@/components/ui'
-import { useSession } from '@/store/session'
+import { useSession, useSessionRefresh, UI_QUERY } from '@/graphql'
+import { useQuery } from '@apollo/react-hooks'
+
 import {
   AppAlerts,
   AppFooter,
@@ -17,10 +18,20 @@ import {
 const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
 `
-export const App = ({ initialized }) => {
-  const { session } = useSession()
+export const App = () => {
+  const session = useSession()
+  const [sessionRefresh, { loading: refreshLoading }] = useSessionRefresh()
+  const { loading: uiLoading } = useQuery(UI_QUERY, {
+    fetchPolicy: 'network-only',
+    onCompleted: () => {}
+  })
 
-  if (!initialized) return <UiLoadingPage />
+  React.useEffect(() => {
+    sessionRefresh()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  if (uiLoading || refreshLoading) return <UiLoadingPage />
 
   return (
     <>
@@ -42,8 +53,4 @@ export const App = ({ initialized }) => {
       <AppLoadingModal />
     </>
   )
-}
-
-App.propTypes = {
-  initialized: PropTypes.bool
 }

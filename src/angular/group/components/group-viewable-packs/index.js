@@ -11,18 +11,8 @@ angular.module('odin.group').component('groupViewablePacks', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupViewablePackService',
-  'UserViewablePackService',
-  '$q'
-]
-function controller(
-  Alert,
-  GroupViewablePackService,
-  UserViewablePackService,
-  $q
-) {
+controller.$inject = ['Alert', 'GroupViewablePackService', 'UserViewablePackService', '$q']
+function controller(Alert, GroupViewablePackService, UserViewablePackService, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -67,30 +57,27 @@ function controller(
   }
 
   function loadViewablePacks() {
-    return GroupViewablePackService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupViewablePackService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.packs = data
       return data
     })
   }
 
   function loadViewableServices() {
-    return GroupViewablePackService.services(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupViewablePackService.services(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.services = data
       return data
     })
   }
 
   function loadUsers() {
-    return GroupViewablePackService.users(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupViewablePackService.users(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.users = data
       return data
     })
@@ -121,11 +108,7 @@ function controller(
       return $q.when()
     }
     Alert.spinner.open()
-    return GroupViewablePackService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      pack.id
-    )
+    return GroupViewablePackService.show(ctrl.serviceProviderId, ctrl.groupId, pack.id)
       .then(function(data) {
         var services = angular.copy(ctrl.services)
         ctrl.editPack = data
@@ -195,27 +178,21 @@ function controller(
   }
 
   function destroy(pack, callback) {
-    Alert.confirm
-      .open('Are you sure you want to remove this Viewable Pack?')
-      .then(function() {
-        Alert.spinner.open()
-        GroupViewablePackService.destroy(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          pack.id
-        )
-          .then(loadViewablePacks)
-          .then(function() {
-            Alert.notify.success('Viewable Pack Removed')
-            callback()
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to remove this Viewable Pack?').then(function() {
+      Alert.spinner.open()
+      GroupViewablePackService.destroy(ctrl.serviceProviderId, ctrl.groupId, pack.id)
+        .then(loadViewablePacks)
+        .then(function() {
+          Alert.notify.success('Viewable Pack Removed')
+          callback()
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 
   function addAllServices() {

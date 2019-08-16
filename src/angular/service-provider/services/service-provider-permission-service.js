@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.serviceProvider')
-  .factory('ServiceProviderPermissionService', Service)
+angular.module('odin.serviceProvider').factory('ServiceProviderPermissionService', Service)
 
 Service.$inject = ['Module', 'ServiceProviderServiceService', '$q']
 function Service(Module, ServiceProviderServiceService, $q) {
@@ -10,11 +8,9 @@ function Service(Module, ServiceProviderServiceService, $q) {
   return service
 
   function load(serviceProviderId) {
-    return $q
-      .all([loadServices(serviceProviderId), Module.load()])
-      .then(function(response) {
-        return Permission(serviceProviderId, response[0])
-      })
+    return $q.all([loadServices(serviceProviderId), Module.load()]).then(function(response) {
+      return Permission(serviceProviderId, response[0])
+    })
   }
 
   function Permission(serviceProviderId, _authorized) {
@@ -54,9 +50,7 @@ function Service(Module, ServiceProviderServiceService, $q) {
   }
 
   function loadServices(serviceProviderId) {
-    return ServiceProviderServiceService.show(serviceProviderId).then(function(
-      data
-    ) {
+    return ServiceProviderServiceService.show(serviceProviderId).then(function(data) {
       var authorized = {}
       data.groupServices.forEach(function(service) {
         if (service.authorized) {

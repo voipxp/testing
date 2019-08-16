@@ -1,13 +1,11 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.group')
-  .component('groupVirtualOnNetEnterpriseExtensions', {
-    template,
-    controller,
-    bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
-  })
+angular.module('odin.group').component('groupVirtualOnNetEnterpriseExtensions', {
+  template,
+  controller,
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+})
 
 controller.$inject = [
   'Alert',
@@ -39,9 +37,7 @@ function controller(
       })
   }
   function loadSystem() {
-    return SystemVirtualOnNetEnterpriseExtensionsService.index().then(function(
-      data
-    ) {
+    return SystemVirtualOnNetEnterpriseExtensionsService.index().then(function(data) {
       ctrl.callTypes = data
     })
   }
@@ -56,9 +52,7 @@ function controller(
 
   function add() {
     ctrl.editSettings = {}
-    Alert.modal.open('editVirtualOnNetEnterpriseExtensionsModal', function(
-      close
-    ) {
+    Alert.modal.open('editVirtualOnNetEnterpriseExtensionsModal', function(close) {
       store(ctrl.editSettings, close)
     })
   }
@@ -73,11 +67,9 @@ function controller(
             update(ctrl.editSettings, close)
           },
           function(close) {
-            Alert.confirm
-              .open('Are you sure you want to delete this User?')
-              .then(function() {
-                destroy(user, close)
-              })
+            Alert.confirm.open('Are you sure you want to delete this User?').then(function() {
+              destroy(user, close)
+            })
           }
         )
       })

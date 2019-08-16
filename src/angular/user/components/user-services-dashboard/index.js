@@ -9,13 +9,7 @@ angular.module('odin.user').component('userServicesDashboard', {
   bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserPermissionService',
-  'Module',
-  '$q',
-  '$window'
-]
+controller.$inject = ['Alert', 'UserPermissionService', 'Module', '$q', '$window']
 function controller(Alert, UserPermissionService, Module, $q, $window) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -54,31 +48,27 @@ function controller(Alert, UserPermissionService, Module, $q, $window) {
   }
 
   function loadServices(useCache) {
-    return UserPermissionService.load(ctrl.userId, useCache).then(
-      Permission => {
-        const services = Permission.assigned()
-          .filter(service => {
-            const allowed = allowedServices[service.serviceName]
-            return (
-              allowed && Permission.read(allowed.module || service.serviceName)
-            )
-          })
-          .map(service => {
-            const allowed = allowedServices[service.serviceName]
-            const serviceName = allowed.module || service.serviceName
-            return {
-              ...service,
-              alias: Module.alias(serviceName),
-              description: Module.description(serviceName),
-              isActive: service.isActive
-            }
-          })
-        // remove dups such as Call Center - Basic and Call Center - Standard
-        ctrl.services = _.uniqBy(services, service => {
+    return UserPermissionService.load(ctrl.userId, useCache).then(Permission => {
+      const services = Permission.assigned()
+        .filter(service => {
           const allowed = allowedServices[service.serviceName]
-          return allowed.module || service.serviceName
+          return allowed && Permission.read(allowed.module || service.serviceName)
         })
-      }
-    )
+        .map(service => {
+          const allowed = allowedServices[service.serviceName]
+          const serviceName = allowed.module || service.serviceName
+          return {
+            ...service,
+            alias: Module.alias(serviceName),
+            description: Module.description(serviceName),
+            isActive: service.isActive
+          }
+        })
+      // remove dups such as Call Center - Basic and Call Center - Standard
+      ctrl.services = _.uniqBy(services, service => {
+        const allowed = allowedServices[service.serviceName]
+        return allowed.module || service.serviceName
+      })
+    })
   }
 }

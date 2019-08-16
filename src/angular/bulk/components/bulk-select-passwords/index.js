@@ -27,8 +27,6 @@ function controller(EventEmitter) {
   }
 
   function complete() {
-    ctrl.onUpdate(
-      EventEmitter({ password: ctrl.password, passcode: ctrl.passcode })
-    )
+    ctrl.onUpdate(EventEmitter({ password: ctrl.password, passcode: ctrl.passcode }))
   }
 }

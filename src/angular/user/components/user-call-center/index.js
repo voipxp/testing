@@ -123,9 +123,7 @@ function controller(
     if (!isAdmin()) {
       delete ctrl.editCenter.skillLevel
     }
-    Alert.modal.open('editUserCallCenterSettingsAvailability', function onSave(
-      close
-    ) {
+    Alert.modal.open('editUserCallCenterSettingsAvailability', function onSave(close) {
       editSettings.callCenters = [ctrl.editCenter]
       update(editSettings, close)
     })

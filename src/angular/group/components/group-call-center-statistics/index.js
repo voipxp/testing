@@ -21,10 +21,7 @@ function controller(Alert, GroupCallCenterStatisticsService, $filter) {
     Alert.spinner.open()
     loadStatistics()
       .then(function() {
-        var start = $filter('date')(
-          ctrl.statistics.statisticsRange.start,
-          'medium'
-        )
+        var start = $filter('date')(ctrl.statistics.statisticsRange.start, 'medium')
         var end = $filter('date')(ctrl.statistics.statisticsRange.end, 'medium')
         ctrl.modalTitle = start + ' - ' + end
         Alert.modal.open('groupCallCenterStatistics')

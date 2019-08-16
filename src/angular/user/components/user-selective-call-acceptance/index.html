@@ -71,9 +71,7 @@
         ng-model="$ctrl.selectiveCallAcceptanceCriteria.timeSchedule.name"
       >
         <option value="">Every Day All Day</option>
-        <option
-          ng-repeat="option in $ctrl.userTimeSchedules"
-          value="{{ option.name }}"
+        <option ng-repeat="option in $ctrl.userTimeSchedules" value="{{ option.name }}"
           >{{ option.name }} ({{ option.level }})</option
         >
       </pbs-input-select>
@@ -85,9 +83,7 @@
         ng-model="$ctrl.selectiveCallAcceptanceCriteria.holidaySchedule.name"
       >
         <option value="">None</option>
-        <option
-          ng-repeat="option in $ctrl.holidaySchedules"
-          value="{{ option.name }}"
+        <option ng-repeat="option in $ctrl.holidaySchedules" value="{{ option.name }}"
           >{{ option.name }} ({{ option.level }})</option
         >
       </pbs-input-select>
@@ -98,9 +94,7 @@
         id="fromDnCriteriaSelection"
         ng-model="$ctrl.selectiveCallAcceptanceCriteria.fromDnCriteria.fromDnCriteriaSelection"
       >
-        <option
-          ng-repeat="option in $ctrl.fromDnCriteriaSelections"
-          value="{{ option }}"
+        <option ng-repeat="option in $ctrl.fromDnCriteriaSelections" value="{{ option }}"
           >{{ option }}</option
         >
       </pbs-input-select>

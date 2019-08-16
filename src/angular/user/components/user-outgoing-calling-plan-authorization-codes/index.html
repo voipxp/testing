@@ -10,16 +10,9 @@
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
-  <pbs-block
-    title="Authorization Codes"
-    ng-show="$ctrl.plan.useCustomSettings"
-    class="margin-top"
-  >
+  <pbs-block title="Authorization Codes" ng-show="$ctrl.plan.useCustomSettings" class="margin-top">
     <pbs-block-buttons>
-      <pbs-button-compact-add
-        title="Add Code"
-        ng-click="$ctrl.add()"
-      ></pbs-button-compact-add>
+      <pbs-button-compact-add title="Add Code" ng-click="$ctrl.add()"></pbs-button-compact-add>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>
@@ -51,10 +44,7 @@
   </pbs-block>
 </pbs-spinner>
 
-<pbs-modal
-  id="addOutgoingCallingPlanAuthorizationCode"
-  title="Add Authorization Code"
->
+<pbs-modal id="addOutgoingCallingPlanAuthorizationCode" title="Add Authorization Code">
   <pbs-form>
     <pbs-form-field label="Code">
       <input

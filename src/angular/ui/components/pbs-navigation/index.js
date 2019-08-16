@@ -27,15 +27,22 @@ angular.module('odin.ui').component('pbsNavigation', {
   }
 })
 
-controller.$inject = ['$location', 'ACL', 'Route', '$window']
-function controller($location, ACL, Route, $window) {
+controller.$inject = ['$location', 'ACL', 'Route', '$window', 'Session']
+function controller($location, ACL, Route, $window, Session) {
   this.$onInit = function() {
     this.returnTo = $location.search().returnTo
   }
   this.has = ACL.has
   this.dashboard = Route.dashboard
   this.openServiceProvider = function(serviceProviderId) {
-    Route.open('serviceProviders', serviceProviderId)
+    if (serviceProviderId || ACL.has('Provisioning')) {
+      Route.open('serviceProviders', serviceProviderId)
+    } else {
+      Route.open('resellers', Session.data('resellerId'), 'service-providers')
+    }
+  }
+  this.openReseller = function(resellerId) {
+    Route.open('resellers', resellerId)
   }
   this.openGroup = function(groupId) {
     if (groupId) {

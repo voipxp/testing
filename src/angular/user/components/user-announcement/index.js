@@ -13,12 +13,7 @@ angular.module('odin.user').component('userAnnouncement', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserAnnouncementService',
-  'EventEmitter',
-  '$scope'
-]
+controller.$inject = ['Alert', 'UserAnnouncementService', 'EventEmitter', '$scope']
 function controller(Alert, UserAnnouncementService, EventEmitter, $scope) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -36,11 +31,9 @@ function controller(Alert, UserAnnouncementService, EventEmitter, $scope) {
   }
 
   function loadAnnouncement() {
-    return UserAnnouncementService.show(
-      ctrl.userId,
-      ctrl.name,
-      ctrl.mediaType
-    ).then(function(data) {
+    return UserAnnouncementService.show(ctrl.userId, ctrl.name, ctrl.mediaType).then(function(
+      data
+    ) {
       ctrl.announcement = data
     })
   }

@@ -2,11 +2,7 @@
   <p class="panel-heading">
     User Search
     <span class="is-pulled-right">
-      <button
-        class="button"
-        ng-show="$ctrl.filter"
-        ng-click="$ctrl.filter = null"
-      >
+      <button class="button" ng-show="$ctrl.filter" ng-click="$ctrl.filter = null">
         <span class="icon">
           <i class="fas fa-times"></i>
         </span>
@@ -22,10 +18,7 @@
     <form ng-submit="$ctrl.search()" style="width: 100%">
       <div class="field has-addons">
         <p class="control">
-          <pbs-input-select
-            ng-model="$ctrl.type"
-            ng-change="$ctrl.changeType()"
-          >
+          <pbs-input-select ng-model="$ctrl.type" ng-change="$ctrl.changeType()">
             <option value="userId">ID</option>
             <option value="lastName">Last Name</option>
             <option value="dn">Phone</option>
@@ -34,10 +27,7 @@
             <option value="macAddress">MAC</option>
           </pbs-input-select>
         </p>
-        <p
-          class="control has-icons-left is-expanded"
-          ng-class="{'is-loading': $ctrl.isLoading}"
-        >
+        <p class="control has-icons-left is-expanded" ng-class="{'is-loading': $ctrl.isLoading}">
           <input
             class="input"
             type="search"
@@ -52,11 +42,7 @@
       </div>
     </form>
   </div>
-  <a
-    class="panel-block"
-    ng-click="$ctrl.open(user)"
-    ng-repeat="user in $ctrl.users as results"
-  >
+  <a class="panel-block" ng-click="$ctrl.open(user)" ng-repeat="user in $ctrl.users as results">
     <user-search-panel-user user="user"></user-search-panel-user>
   </a>
   <a class="panel-block" ng-show="results.length < 1 && $ctrl.filter">
@@ -66,8 +52,8 @@
   <a class="panel-block" ng-show="$ctrl.showHelp">
     <small>
       eg:
-      <strong>name</strong> (equals name), <strong>*name*</strong> (contains
-      name), <strong>name*</strong> (starts with name)
+      <strong>name</strong> (equals name), <strong>*name*</strong> (contains name),
+      <strong>name*</strong> (starts with name)
     </small>
   </a>
 </nav>

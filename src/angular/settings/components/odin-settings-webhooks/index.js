@@ -2,17 +2,9 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.settings')
-  .component('odinSettingsWebhooks', { template, controller })
+angular.module('odin.settings').component('odinSettingsWebhooks', { template, controller })
 
-controller.$inject = [
-  'Alert',
-  'HashService',
-  'SettingService',
-  '$q',
-  'EventService'
-]
+controller.$inject = ['Alert', 'HashService', 'SettingService', '$q', 'EventService']
 function controller(Alert, HashService, SettingService, $q, EventService) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -25,7 +17,7 @@ function controller(Alert, HashService, SettingService, $q, EventService) {
     ctrl.loading = true
     $q.all([loadSettings(), loadEvents()])
       .catch(function(error) {
-        Alert.notify.danger(error.data)
+        Alert.notify.danger(error)
       })
       .finally(function() {
         ctrl.loading = false
@@ -89,14 +81,12 @@ function controller(Alert, HashService, SettingService, $q, EventService) {
   }
 
   function remove(original, callback) {
-    Alert.confirm
-      .open('Are you sure you want to remove this endpoint?')
-      .then(function() {
-        var index = _.indexOf(ctrl.endpoints, original)
-        var endpoints = angular.copy(ctrl.endpoints)
-        endpoints.splice(index, 1)
-        update(endpoints, callback)
-      })
+    Alert.confirm.open('Are you sure you want to remove this endpoint?').then(function() {
+      var index = _.indexOf(ctrl.endpoints, original)
+      var endpoints = angular.copy(ctrl.endpoints)
+      endpoints.splice(index, 1)
+      update(endpoints, callback)
+    })
   }
 
   function validate(endpoints) {

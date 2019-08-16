@@ -8,18 +8,8 @@ angular.module('odin.group').component('groupMusicOnHoldIndex', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupMusicOnHoldService',
-  'GroupDepartmentService',
-  'Route'
-]
-function controller(
-  Alert,
-  GroupMusicOnHoldService,
-  GroupDepartmentService,
-  Route
-) {
+controller.$inject = ['Alert', 'GroupMusicOnHoldService', 'GroupDepartmentService', 'Route']
+function controller(Alert, GroupMusicOnHoldService, GroupDepartmentService, Route) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -36,33 +26,22 @@ function controller(
   }
 
   function loadMusicOnHold() {
-    return GroupMusicOnHoldService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupMusicOnHoldService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.moh = data
     })
   }
 
   function loadDepartments() {
-    return GroupDepartmentService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      true
-    ).then(function(data) {
+    return GroupDepartmentService.index(ctrl.serviceProviderId, ctrl.groupId, true).then(function(
+      data
+    ) {
       return data
     })
   }
 
   function open(department) {
     department = department || {}
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'musicOnHold',
-      'instance'
-    ).search({
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold', 'instance').search({
       departmentName: department.name,
       isEnterpriseDepartment: department.isEnterpriseDepartment
     })

@@ -10,20 +10,8 @@ angular.module('odin.common').component('announcementSelect', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserAnnouncementService',
-  'EventEmitter',
-  '$scope',
-  'HashService'
-]
-function controller(
-  Alert,
-  UserAnnouncementService,
-  EventEmitter,
-  $scope,
-  HashService
-) {
+controller.$inject = ['Alert', 'UserAnnouncementService', 'EventEmitter', '$scope', 'HashService']
+function controller(Alert, UserAnnouncementService, EventEmitter, $scope, HashService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.select = select

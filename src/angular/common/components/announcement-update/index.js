@@ -94,26 +94,24 @@ function controller(
   }
 
   function remove(announcement, callback) {
-    Alert.confirm
-      .open('Are you sure you want to delete this Announcement?')
-      .then(function() {
-        Alert.spinner.open()
-        var action = ctrl.announcement.userId
-          ? removeUser(announcement, callback)
-          : removeGroup(announcement, callback)
-        action
-          .then(function() {
-            Alert.notify.success('Announcement Removed')
-            callback()
-            sendDelete(announcement)
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to delete this Announcement?').then(function() {
+      Alert.spinner.open()
+      var action = ctrl.announcement.userId
+        ? removeUser(announcement, callback)
+        : removeGroup(announcement, callback)
+      action
+        .then(function() {
+          Alert.notify.success('Announcement Removed')
+          callback()
+          sendDelete(announcement)
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 
   function removeUser(announcement) {

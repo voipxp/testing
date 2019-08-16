@@ -30,13 +30,11 @@ function controller(GroupDepartmentService, Alert, Route) {
   }
 
   function loadDepartment() {
-    return GroupDepartmentService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.name
-    ).then(function(data) {
-      ctrl.department = data
-    })
+    return GroupDepartmentService.show(ctrl.serviceProviderId, ctrl.groupId, ctrl.name).then(
+      function(data) {
+        ctrl.department = data
+      }
+    )
   }
 
   function edit() {
@@ -57,9 +55,7 @@ function controller(GroupDepartmentService, Alert, Route) {
     Alert.spinner.open()
     GroupDepartmentService.update(department)
       .then(function() {
-        return department.newName === ctrl.name
-          ? loadDepartment()
-          : open(department.newName)
+        return department.newName === ctrl.name ? loadDepartment() : open(department.newName)
       })
       .then(function() {
         Alert.notify.success('Department Updated')
@@ -74,27 +70,21 @@ function controller(GroupDepartmentService, Alert, Route) {
   }
 
   function remove(callback) {
-    Alert.confirm
-      .open('Are you sure you want to delete this Department?')
-      .then(function() {
-        Alert.spinner.open()
-        GroupDepartmentService.destroy(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          ctrl.name
-        )
-          .then(function() {
-            Alert.notify.success('Department Removed')
-            callback()
-            open()
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to delete this Department?').then(function() {
+      Alert.spinner.open()
+      GroupDepartmentService.destroy(ctrl.serviceProviderId, ctrl.groupId, ctrl.name)
+        .then(function() {
+          Alert.notify.success('Department Removed')
+          callback()
+          open()
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 
   function selectPhoneNumber(event) {
@@ -111,12 +101,7 @@ function controller(GroupDepartmentService, Alert, Route) {
         'department'
       ).search({ name: name })
     } else {
-      return Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'departments'
-      )
+      return Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'departments')
     }
   }
 }

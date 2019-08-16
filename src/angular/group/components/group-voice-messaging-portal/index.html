@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Voice Portal Settings" class="margin-top">
     <pbs-block-buttons if-module-update="$ctrl.module">
-      <pbs-button-compact-edit
-        title="Edit Voice Portal"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Voice Portal" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -15,9 +12,7 @@
         <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Enable Extended Scope">
-        <pbs-check-box
-          checked="$ctrl.settings.enableExtendedScope"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.enableExtendedScope"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Identification by Phone or Aliases">
         <pbs-check-box
@@ -25,17 +20,13 @@
         ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Use Voice Portal Wizard">
-        <pbs-check-box
-          checked="$ctrl.settings.useVoicePortalWizard"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.useVoicePortalWizard"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="External Routing Scope">
         {{ $ctrl.settings.voicePortalExternalRoutingScope }}
       </pbs-list-item>
       <pbs-list-item label="Use External Routing">
-        <pbs-check-box
-          checked="$ctrl.settings.useExternalRouting"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.useExternalRouting"></pbs-check-box>
         <span ng-show="$ctrl.settings.useExternalRouting">
           Address: {{ $ctrl.settings.externalRoutingAddress }}
         </span>
@@ -90,14 +81,7 @@
       label="Use External Routing Address"
     ></pbs-input-checkbox>
   </pbs-form-field>
-  <pbs-form-field
-    label="Routing Address"
-    ng-show="$ctrl.editSettings.useExternalRouting"
-  >
-    <input
-      type="text"
-      class="input"
-      ng-model="$ctrl.editSettings.externalRoutingAddress"
-    />
+  <pbs-form-field label="Routing Address" ng-show="$ctrl.editSettings.useExternalRouting">
+    <input type="text" class="input" ng-model="$ctrl.editSettings.externalRoutingAddress" />
   </pbs-form-field>
 </pbs-modal>

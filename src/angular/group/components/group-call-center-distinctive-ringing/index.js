@@ -35,18 +35,14 @@ function controller(GroupCallCenterDistinctiveRingingService, Alert) {
   }
 
   function loadService() {
-    return GroupCallCenterDistinctiveRingingService.show(
-      ctrl.serviceUserId
-    ).then(function(data) {
+    return GroupCallCenterDistinctiveRingingService.show(ctrl.serviceUserId).then(function(data) {
       ctrl.service = data
     })
   }
 
   function edit() {
     ctrl.editService = angular.copy(ctrl.service)
-    Alert.modal.open('editGroupCallCenterDistinctiveRinging', function onSave(
-      close
-    ) {
+    Alert.modal.open('editGroupCallCenterDistinctiveRinging', function onSave(close) {
       update(ctrl.editService, close)
     })
   }

@@ -1,16 +1,10 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Directories'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Custom Contact Directories">
     <pbs-block-buttons>
-      <pbs-button-compact-add
-        title="Add Custom Directory"
-        ng-click="$ctrl.add()"
-      >
+      <pbs-button-compact-add title="Add Custom Directory" ng-click="$ctrl.add()">
       </pbs-button-compact-add>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.filter"></pbs-table-search>
@@ -43,12 +37,7 @@
 <pbs-modal id="groupDirectoryCreateModal" title="Edit Directory">
   <pbs-form>
     <pbs-form-field label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editDirectory.newName"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editDirectory.newName" required />
     </pbs-form-field>
     <pbs-form-field label="Users">
       <select-users

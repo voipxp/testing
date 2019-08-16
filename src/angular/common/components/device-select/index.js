@@ -12,20 +12,8 @@ angular.module('odin.common').component('deviceSelect', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupDeviceService',
-  'HashService',
-  'EventEmitter',
-  '$scope'
-]
-function controller(
-  Alert,
-  GroupDeviceService,
-  HashService,
-  EventEmitter,
-  $scope
-) {
+controller.$inject = ['Alert', 'GroupDeviceService', 'HashService', 'EventEmitter', '$scope']
+function controller(Alert, GroupDeviceService, HashService, EventEmitter, $scope) {
   var ctrl = this
 
   ctrl.$onInit = onInit

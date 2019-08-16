@@ -10,22 +10,8 @@ angular.module('odin.bulk').component('bulkSelectServices', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'HashService',
-  '$scope',
-  'EventEmitter',
-  'GroupServiceService',
-  '$q'
-]
-function controller(
-  Alert,
-  HashService,
-  $scope,
-  EventEmitter,
-  GroupServiceService,
-  $q
-) {
+controller.$inject = ['Alert', 'HashService', '$scope', 'EventEmitter', 'GroupServiceService', '$q']
+function controller(Alert, HashService, $scope, EventEmitter, GroupServiceService, $q) {
   var ctrl = this
 
   ctrl.$onInit = onInit
@@ -139,9 +125,7 @@ function controller(
       results = services
     }
     callback()
-    return ctrl.onUpdate(
-      EventEmitter({ type: ctrl.type, services: normalize(results) })
-    )
+    return ctrl.onUpdate(EventEmitter({ type: ctrl.type, services: normalize(results) }))
   }
 
   // clean up the data to only return the needed info
@@ -169,12 +153,7 @@ function controller(
     ctrl.type = data.type
     ctrl.count = data.count
     ctrl.filter = data.filter
-    loadServices(
-      data.serviceProviderId,
-      data.groupId,
-      data.type,
-      data.services
-    ).then(function() {
+    loadServices(data.serviceProviderId, data.groupId, data.type, data.services).then(function() {
       open(ctrl.action, ctrl.type)
     })
   })

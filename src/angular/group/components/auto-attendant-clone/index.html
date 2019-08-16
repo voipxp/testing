@@ -1,14 +1,8 @@
-<pbs-modal
-  id="cloneGroupAutoAttendantModal"
-  title="Clone {{ $ctrl.module.alias }}"
->
+<pbs-modal id="cloneGroupAutoAttendantModal" title="Clone {{ $ctrl.module.alias }}">
   <pbs-form>
     <pbs-tabs>
       <pbs-tab label="Details">
-        <pbs-form-field-horizontal
-          label="Clone Service Provider"
-          ng-if="$ctrl.isProvisioning"
-        >
+        <pbs-form-field-horizontal label="Clone Service Provider" ng-if="$ctrl.isProvisioning">
           <div class="field has-addons">
             <p class="control is-expanded">
               <input
@@ -34,10 +28,7 @@
             </p>
           </div>
         </pbs-form-field-horizontal>
-        <pbs-form-field-horizontal
-          label="Clone Group"
-          ng-if="$ctrl.isServiceProvider"
-        >
+        <pbs-form-field-horizontal label="Clone Group" ng-if="$ctrl.isServiceProvider">
           <div class="field has-addons">
             <p class="control is-expanded">
               <input
@@ -51,11 +42,7 @@
               />
             </p>
             <p class="control">
-              <button
-                class="button"
-                ng-click="$ctrl.selectGroup()"
-                title="Select a Group"
-              >
+              <button class="button" ng-click="$ctrl.selectGroup()" title="Select a Group">
                 <span class="icon">
                   <i class="fas fa-search"></i>
                 </span>
@@ -77,11 +64,7 @@
               />
             </p>
             <p class="control">
-              <button
-                class="button"
-                ng-click="$ctrl.selectAutoAttendant()"
-                title="Select"
-              >
+              <button class="button" ng-click="$ctrl.selectAutoAttendant()" title="Select">
                 <span class="icon">
                   <i class="fas fa-search"></i>
                 </span>

@@ -16,14 +16,7 @@ controller.$inject = [
   '$q',
   '$location'
 ]
-function controller(
-  Alert,
-  ServiceProviderServicePackService,
-  Route,
-  Module,
-  $q,
-  $location
-) {
+function controller(Alert, ServiceProviderServicePackService, Route, Module, $q, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -66,12 +59,9 @@ function controller(
 
   function open(servicePackName) {
     if (servicePackName) {
-      Route.open(
-        'serviceProviders',
-        ctrl.serviceProviderId,
-        'servicePacks',
-        'servicePack'
-      ).search({ servicePackName })
+      Route.open('serviceProviders', ctrl.serviceProviderId, 'servicePacks', 'servicePack').search({
+        servicePackName
+      })
     } else {
       Route.open('serviceProviders', ctrl.serviceProviderId, 'servicePacks')
     }
@@ -82,16 +72,13 @@ function controller(
     var deleteAction
     if (ctrl.permissions.delete) {
       deleteAction = function(close) {
-        Alert.confirm
-          .open('Are you sure you want to delete this Service Pack?')
-          .then(function() {
-            remove(close)
-          })
+        Alert.confirm.open('Are you sure you want to delete this Service Pack?').then(function() {
+          remove(close)
+        })
       }
     }
     ctrl.editServicePack = angular.copy(ctrl.servicePack)
-    ctrl.editServicePack.newServicePackName =
-      ctrl.editServicePack.servicePackName
+    ctrl.editServicePack.newServicePackName = ctrl.editServicePack.servicePackName
     Alert.modal.open(
       'editServicePack',
       function onSave(close) {
@@ -102,8 +89,7 @@ function controller(
   }
 
   function update(servicePack, callback) {
-    var wasRenamed =
-      servicePack.newServicePackName !== servicePack.servicePackName
+    var wasRenamed = servicePack.newServicePackName !== servicePack.servicePackName
     Alert.spinner.open()
     ServiceProviderServicePackService.update(
       ctrl.serviceProviderId,
@@ -131,10 +117,7 @@ function controller(
 
   function remove(callback) {
     Alert.spinner.open()
-    ServiceProviderServicePackService.destroy(
-      ctrl.serviceProviderId,
-      ctrl.servicePackName
-    )
+    ServiceProviderServicePackService.destroy(ctrl.serviceProviderId, ctrl.servicePackName)
       .then(function() {
         Alert.notify.success('Service Pack Removed')
         if (_.isFunction(callback)) {

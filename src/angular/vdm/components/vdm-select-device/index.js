@@ -7,20 +7,8 @@ angular.module('odin.vdm').component('vdmSelectDevice', {
   bindings: { onUpdate: '&' }
 })
 
-controller.$inject = [
-  'Alert',
-  'VdmDeviceTypeService',
-  'HashService',
-  'EventEmitter',
-  '$scope'
-]
-function controller(
-  Alert,
-  VdmDeviceTypeService,
-  HashService,
-  EventEmitter,
-  $scope
-) {
+controller.$inject = ['Alert', 'VdmDeviceTypeService', 'HashService', 'EventEmitter', '$scope']
+function controller(Alert, VdmDeviceTypeService, HashService, EventEmitter, $scope) {
   var ctrl = this
 
   ctrl.$onInit = onInit

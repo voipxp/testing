@@ -25,10 +25,9 @@ function controller(Alert, GroupCallParkGroupService, Route) {
   }
 
   function loadGroups() {
-    return GroupCallParkGroupService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupCallParkGroupService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.groups = data
     })
   }
@@ -56,12 +55,8 @@ function controller(Alert, GroupCallParkGroupService, Route) {
   }
 
   function open(group) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'callPark',
-      'group'
-    ).search({ name: group.name })
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPark', 'group').search({
+      name: group.name
+    })
   }
 }

@@ -23,8 +23,8 @@ const USER_SERVICES = gql`
   }
 `
 
-Service.$inject = ['Module', 'ACL', '$q', '$ngRedux', 'apollo']
-function Service(Module, ACL, $q, $ngRedux, apollo) {
+Service.$inject = ['Module', 'ACL', 'GraphQL']
+function Service(Module, ACL, GraphQL) {
   const service = { load: load }
   return service
 
@@ -87,11 +87,9 @@ function Service(Module, ACL, $q, $ngRedux, apollo) {
       // TEMP HACK until #290
       switch (name) {
         case 'Call Center':
-          return [
-            'Call Center - Basic',
-            'Call Center - Standard',
-            'Call Center - Premium'
-          ].find(service => isAssigned(name) && isViewable(name))
+          return ['Call Center - Basic', 'Call Center - Standard', 'Call Center - Premium'].find(
+            service => isAssigned(name) && isViewable(name)
+          )
         case 'Shared Call Appearance':
           return [
             'Shared Call Appearance',
@@ -110,9 +108,7 @@ function Service(Module, ACL, $q, $ngRedux, apollo) {
   }
 
   function loadServices(userId) {
-    return apollo
-      .query({ query: USER_SERVICES, variables: { userId } })
-      .then(({ data }) => data)
+    return GraphQL.query({ query: USER_SERVICES, variables: { userId } }).then(({ data }) => data)
   }
 
   function mapServices(assigned = { userServices: [] }) {

@@ -5,9 +5,7 @@
 import angular from 'angular'
 import _ from 'lodash'
 
-angular
-  .module('odin.group')
-  .factory('GroupDashboardService', GroupDashboardService)
+angular.module('odin.group').factory('GroupDashboardService', GroupDashboardService)
 
 GroupDashboardService.$inject = [
   'Module',

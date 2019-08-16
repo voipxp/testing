@@ -1,39 +1,60 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import get from 'lodash/get'
+import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { UiCardModal } from '@/components/ui'
-import { useAcl, userPath, groupPath } from '@/utils'
-import { useUiApplications } from '@/store/ui-applications'
+import { useAcl, Route, Alert } from '@/utils'
 import { parseUrl, stringify } from 'query-string'
-import { alertDanger } from '@/utils/alerts'
-import { useSession } from '@/store/session'
-import { useUiTemplate } from '@/store/ui-template'
+import { useSession, useSessionLogout } from '@/graphql'
 import { UserSearch } from '@/components/user-search'
 import { SystemDnSearch } from '@/components/system-dn-search'
 import { GroupSearch } from '@/components/group-search'
 import { UserServiceSearch } from '@/components/user-service-search'
+import { useQuery } from '@apollo/react-hooks'
 import authApi from '@/api/auth'
 
+const UI_QUERY = gql`
+  query uiSettings {
+    uiTemplate {
+      _id
+      pageTitle
+    }
+    uiApplications {
+      _id
+      description
+      name
+      partner
+      url
+      window
+    }
+  }
+`
 export const AppNavbar = withRouter(({ history }) => {
-  const { session, clearSession } = useSession()
+  const logoutUser = useSessionLogout()
+  const session = useSession()
   const { userId } = session
 
-  const acl = useAcl()
-  const hasGroup = acl.hasGroup()
-  const hasServiceProvider = acl.hasServiceProvider()
+  const Acl = useAcl()
+  const hasGroup = Acl.hasGroup()
+  const hasServiceProvider = Acl.hasServiceProvider()
 
-  const { applications } = useUiApplications()
-  const { template } = useUiTemplate()
-  const { pageTitle } = template
+  const { data } = useQuery(UI_QUERY)
+  const pageTitle = get(data, 'uiTemplate.pageTitle')
+  const applications = get(data, 'uiApplications', [])
 
   const [showMenu, updateShowMenu] = React.useState(false)
   const [search, setSearch] = React.useState()
 
+  React.useEffect(() => {
+    if (pageTitle) document.title = pageTitle
+  }, [pageTitle])
+
   const toggleMenu = () => updateShowMenu(!showMenu)
 
   const logout = () => {
-    clearSession()
+    logoutUser()
     history.push('/')
   }
 
@@ -67,18 +88,18 @@ export const AppNavbar = withRouter(({ history }) => {
         window.open(finalUrl, '_self')
       }
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
     }
   }
 
   const openUser = user => {
     setSearch(null)
-    history.push(userPath(user))
+    history.push(Route.userPath(user))
   }
 
   const openGroup = group => {
     setSearch(null)
-    history.push(groupPath(group))
+    history.push(Route.groupPath(group))
   }
 
   return (
@@ -86,10 +107,7 @@ export const AppNavbar = withRouter(({ history }) => {
       <Navbar color="link" managed active={showMenu}>
         <Navbar.Brand>
           <Navbar.Item href="#!/">
-            <img
-              src="/api/v2/ui/images/imageIcon.png?size=50x51"
-              alt="odin Web"
-            />
+            <img src="/api/v2/ui/images/imageIcon.png?size=50x51" alt="odin Web" />
           </Navbar.Item>
           <Navbar.Burger color="link" onClick={toggleMenu} />
         </Navbar.Brand>
@@ -105,10 +123,7 @@ export const AppNavbar = withRouter(({ history }) => {
                 <Navbar.Link>Applications</Navbar.Link>
                 <Navbar.Dropdown boxed>
                   {applications.map(application => (
-                    <Navbar.Item
-                      key={application.id}
-                      onClick={() => openApplication(application)}
-                    >
+                    <Navbar.Item key={application._id} onClick={() => openApplication(application)}>
                       {application.name}
                     </Navbar.Item>
                   ))}
@@ -120,20 +135,12 @@ export const AppNavbar = withRouter(({ history }) => {
               <Navbar.Item dropdown hoverable>
                 <Navbar.Link>Search</Navbar.Link>
                 <Navbar.Dropdown boxed>
-                  <Navbar.Item onClick={() => openSearch('user')}>
-                    Users
-                  </Navbar.Item>
-                  <Navbar.Item onClick={() => openSearch('dn')}>
-                    Phone Numbers
-                  </Navbar.Item>
+                  <Navbar.Item onClick={() => openSearch('user')}>Users</Navbar.Item>
+                  <Navbar.Item onClick={() => openSearch('dn')}>Phone Numbers</Navbar.Item>
                   {hasServiceProvider && (
                     <>
-                      <Navbar.Item onClick={() => openSearch('group')}>
-                        Groups
-                      </Navbar.Item>
-                      <Navbar.Item onClick={() => openSearch('service')}>
-                        Services
-                      </Navbar.Item>
+                      <Navbar.Item onClick={() => openSearch('group')}>Groups</Navbar.Item>
+                      <Navbar.Item onClick={() => openSearch('service')}>Services</Navbar.Item>
                     </>
                   )}
                 </Navbar.Dropdown>
@@ -154,18 +161,10 @@ export const AppNavbar = withRouter(({ history }) => {
 
       {hasGroup && (
         <>
-          <UiCardModal
-            title="User Search"
-            isOpen={search === 'user'}
-            onCancel={() => setSearch()}
-          >
+          <UiCardModal title="User Search" isOpen={search === 'user'} onCancel={() => setSearch()}>
             <UserSearch onSelect={openUser} />
           </UiCardModal>
-          <UiCardModal
-            title="DN Search"
-            isOpen={search === 'dn'}
-            onCancel={() => setSearch()}
-          >
+          <UiCardModal title="DN Search" isOpen={search === 'dn'} onCancel={() => setSearch()}>
             <SystemDnSearch onSelect={openUser} />
           </UiCardModal>
         </>

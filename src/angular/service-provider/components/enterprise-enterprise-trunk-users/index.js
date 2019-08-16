@@ -2,13 +2,11 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.serviceProvider')
-  .component('enterpriseEnterpriseTrunkUsers', {
-    template,
-    controller,
-    require: { parent: '^enterpriseEnterpriseTrunk' }
-  })
+angular.module('odin.serviceProvider').component('enterpriseEnterpriseTrunkUsers', {
+  template,
+  controller,
+  require: { parent: '^enterpriseEnterpriseTrunk' }
+})
 
 controller.$inject = [
   'Alert',
@@ -47,24 +45,22 @@ function controller(
   }
 
   function loadAvailableUsers() {
-    return EnterpriseEnterpriseTrunkAvailableUserService.index(
-      ctrl.parent.serviceProviderId
-    ).then(function(data) {
-      ctrl.assignedUsers = angular.copy(ctrl.users)
-      ctrl.availableUsers = _.filter(data.users, function(user) {
-        return !_.find(ctrl.assignedUsers, { userId: user.userId })
-      })
-      return data
-    })
+    return EnterpriseEnterpriseTrunkAvailableUserService.index(ctrl.parent.serviceProviderId).then(
+      function(data) {
+        ctrl.assignedUsers = angular.copy(ctrl.users)
+        ctrl.availableUsers = _.filter(data.users, function(user) {
+          return !_.find(ctrl.assignedUsers, { userId: user.userId })
+        })
+        return data
+      }
+    )
   }
 
   function edit() {
     Alert.spinner.open()
     loadAvailableUsers()
       .then(function() {
-        Alert.modal.open('editEnterpriseEnterpriseTrunkUsers', function onSave(
-          close
-        ) {
+        Alert.modal.open('editEnterpriseEnterpriseTrunkUsers', function onSave(close) {
           update(ctrl.assignedUsers, close)
         })
       })

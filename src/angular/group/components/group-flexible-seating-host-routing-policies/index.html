@@ -10,22 +10,15 @@
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Allow Emergency Calls">
-        <pbs-check-box
-          checked="$ctrl.settings.allowEmergencyCalls"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.allowEmergencyCalls"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Allow Calls To Voice Portal">
-        <pbs-check-box
-          checked="$ctrl.settings.allowCallsToVoicePortal"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.allowCallsToVoicePortal"></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editRoutingPoliciesFlexibleSeating"
-  title="Edit Profile: {{ $ctrl.serviceUserId }}"
->
+<pbs-modal id="editRoutingPoliciesFlexibleSeating" title="Edit Profile: {{ $ctrl.serviceUserId }}">
   <pbs-form>
     <pbs-input-checkbox
       ng-model="$ctrl.editSettings.allowEmergencyCalls"

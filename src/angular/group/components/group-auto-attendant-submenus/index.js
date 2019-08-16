@@ -31,11 +31,9 @@ function controller(Alert, GroupAutoAttendantSubmenuService, $timeout) {
   }
 
   function loadSubmenus() {
-    return GroupAutoAttendantSubmenuService.show(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.menus = data
-      }
-    )
+    return GroupAutoAttendantSubmenuService.show(ctrl.serviceUserId).then(function(data) {
+      ctrl.menus = data
+    })
   }
 
   function add() {

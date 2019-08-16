@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Shared Call Appearance">
     <pbs-block-buttons>
-      <pbs-button-compact-edit
-        ng-click="$ctrl.edit()"
-        title="Edit Shared Call Appearance"
-      >
+      <pbs-button-compact-edit ng-click="$ctrl.edit()" title="Edit Shared Call Appearance">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -12,45 +9,30 @@
         {{ $ctrl.sharedCallAppearance.maxAppearances }}
       </pbs-list-item>
       <pbs-list-item label="Alert All for Click-to-Dial Calls">
-        <pbs-check-box
-          checked="$ctrl.sharedCallAppearance.alertAllAppearancesForClickToDialCalls"
-        >
+        <pbs-check-box checked="$ctrl.sharedCallAppearance.alertAllAppearancesForClickToDialCalls">
         </pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Alert All for Group Paging Calls">
-        <pbs-check-box
-          checked="$ctrl.sharedCallAppearance.alertAllAppearancesForGroupPagingCalls"
-        >
+        <pbs-check-box checked="$ctrl.sharedCallAppearance.alertAllAppearancesForGroupPagingCalls">
         </pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Allow Call Retrieve from Another Location">
-        <pbs-check-box
-          checked="$ctrl.sharedCallAppearance.allowSCACallRetrieve"
-        >
-        </pbs-check-box>
+        <pbs-check-box checked="$ctrl.sharedCallAppearance.allowSCACallRetrieve"> </pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Multiple Call Arrangement Enabled">
-        <pbs-check-box
-          checked="$ctrl.sharedCallAppearance.enableMultipleCallArrangement"
-        >
+        <pbs-check-box checked="$ctrl.sharedCallAppearance.enableMultipleCallArrangement">
         </pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Multiple Call Arrangement Active">
-        <pbs-check-box
-          checked="$ctrl.sharedCallAppearance.multipleCallArrangementIsActive"
-        >
+        <pbs-check-box checked="$ctrl.sharedCallAppearance.multipleCallArrangementIsActive">
         </pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Allow Bridging Between Locations">
-        <pbs-check-box
-          checked="$ctrl.sharedCallAppearance.allowBridgingBetweenLocations"
-        >
+        <pbs-check-box checked="$ctrl.sharedCallAppearance.allowBridgingBetweenLocations">
         </pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Enable Call Park Notification">
-        <pbs-check-box
-          checked="$ctrl.sharedCallAppearance.enableCallParkNotification"
-        >
+        <pbs-check-box checked="$ctrl.sharedCallAppearance.enableCallParkNotification">
         </pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Bridge Warning Tone">
@@ -74,10 +56,7 @@
   pbs-margin-top
 ></user-integrated-imp>
 
-<pbs-modal
-  id="userSharedCallAppearanceEditModal"
-  title="Edit Shared Call Appearance"
->
+<pbs-modal id="userSharedCallAppearanceEditModal" title="Edit Shared Call Appearance">
   <pbs-form>
     <pbs-form-field label="General Settings">
       <pbs-input-checkbox

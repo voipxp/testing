@@ -20,11 +20,9 @@ function controller(Alert) {
     if (ctrl.parent.module.permissions.delete) {
       deleteAction = function(close) {
         if (_.isEmpty(ctrl.parent.usage)) {
-          Alert.confirm
-            .open('Are you sure you want to remove this submenu?')
-            .then(function() {
-              ctrl.parent.destroy(close)
-            })
+          Alert.confirm.open('Are you sure you want to remove this submenu?').then(function() {
+            ctrl.parent.destroy(close)
+          })
         } else {
           Alert.notify.warning('This submenu is in use and cannot be deleted')
         }

@@ -81,13 +81,12 @@ function controller(
   }
 
   function loadDepartments() {
-    return GroupDepartmentService.index(
-      ctrl.parent.serviceProviderId,
-      ctrl.parent.groupId
-    ).then(function(data) {
-      ctrl.departments = data
-      return data
-    })
+    return GroupDepartmentService.index(ctrl.parent.serviceProviderId, ctrl.parent.groupId).then(
+      function(data) {
+        ctrl.departments = data
+        return data
+      }
+    )
   }
 
   function loadLanguages() {
@@ -105,13 +104,12 @@ function controller(
   }
 
   function loadDomains() {
-    return GroupDomainService.index(
-      ctrl.parent.serviceProviderId,
-      ctrl.parent.groupId
-    ).then(function(data) {
-      ctrl.domains = data
-      return data
-    })
+    return GroupDomainService.index(ctrl.parent.serviceProviderId, ctrl.parent.groupId).then(
+      function(data) {
+        ctrl.domains = data
+        return data
+      }
+    )
   }
 
   function loadPorts() {
@@ -155,8 +153,7 @@ function controller(
   function create(bridge, callback) {
     bridge.serviceProviderId = ctrl.parent.serviceProviderId
     bridge.groupId = ctrl.parent.groupId
-    bridge.serviceUserId =
-      bridge.serviceUserIdPrefix + '@' + bridge.serviceUserIdSuffix
+    bridge.serviceUserId = bridge.serviceUserIdPrefix + '@' + bridge.serviceUserIdSuffix
     Alert.spinner.open()
     GroupMeetMeConferencingBridgeService.store(bridge)
       .then(function() {

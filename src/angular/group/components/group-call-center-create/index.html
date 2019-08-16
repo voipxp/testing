@@ -70,10 +70,7 @@
         ></pbs-input-select>
       </pbs-form-field-horizontal>
 
-      <pbs-form-field-horizontal
-        label="Routing Type"
-        ng-if="$ctrl.hasPermission('routingType')"
-      >
+      <pbs-form-field-horizontal label="Routing Type" ng-if="$ctrl.hasPermission('routingType')">
         <pbs-input-select
           ng-model="$ctrl.center.routingType"
           ng-options="opt for opt in $ctrl.options.routingType"

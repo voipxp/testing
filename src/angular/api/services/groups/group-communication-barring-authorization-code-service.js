@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupCommunicationBarringAuthorizationCodeService', Service)
+angular.module('odin.api').factory('GroupCommunicationBarringAuthorizationCodeService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
@@ -17,9 +15,7 @@ function Service($http, Route) {
   }
 
   function create(serviceProviderId, groupId, codes) {
-    return $http
-      .post(url(), { serviceProviderId, groupId, codes })
-      .then(response => response.data)
+    return $http.post(url(), { serviceProviderId, groupId, codes }).then(response => response.data)
   }
 
   function destroy(serviceProviderId, groupId, codes) {

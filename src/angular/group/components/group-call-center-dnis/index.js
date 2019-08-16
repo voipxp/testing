@@ -7,16 +7,8 @@ angular.module('odin.group').component('groupCallCenterDnis', {
   bindings: { serviceProviderId: '<', groupId: '<', serviceUserId: '<' }
 })
 
-controller.$inject = [
-  'GroupCallCenterDnisService',
-  'GroupCallCenterDnisInstanceService',
-  'Alert'
-]
-function controller(
-  GroupCallCenterDnisService,
-  GroupCallCenterDnisInstanceService,
-  Alert
-) {
+controller.$inject = ['GroupCallCenterDnisService', 'GroupCallCenterDnisInstanceService', 'Alert']
+function controller(GroupCallCenterDnisService, GroupCallCenterDnisInstanceService, Alert) {
   var ctrl = this
 
   ctrl.$onInit = onInit
@@ -40,9 +32,7 @@ function controller(
   }
 
   function loadService() {
-    return GroupCallCenterDnisService.show(ctrl.serviceUserId).then(function(
-      data
-    ) {
+    return GroupCallCenterDnisService.show(ctrl.serviceUserId).then(function(data) {
       ctrl.service = data
     })
   }

@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Forced Forwarding">
     <pbs-block-buttons if-module-update="'Call Center'">
-      <pbs-button-compact-edit
-        title="Edit Forced Forwarding"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Forced Forwarding" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -15,14 +12,10 @@
         {{ $ctrl.service.forwardToPhoneNumber }}
       </pbs-list-item>
       <pbs-list-item label="Enable Feature Access Codes">
-        <pbs-check-box
-          checked="$ctrl.service.allowEnableViaFAC"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.service.allowEnableViaFAC"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Announcement Before Forwarding">
-        <pbs-check-box
-          checked="$ctrl.service.playAnnouncementBeforeForwarding"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.service.playAnnouncementBeforeForwarding"></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
 
@@ -32,10 +25,7 @@
     ></group-call-center-audio-settings-view>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editGroupCallCenterForcedForwarding"
-  title="Edit Forced Forwarding"
->
+<pbs-modal id="editGroupCallCenterForcedForwarding" title="Edit Forced Forwarding">
   <pbs-form-section>Settings</pbs-form-section>
 
   <pbs-input-checkbox
@@ -53,15 +43,8 @@
     label="Play announcment before forwarding"
   ></pbs-input-checkbox>
 
-  <pbs-form-field-horizontal
-    label="Forward To"
-    ng-show="$ctrl.editService.enabled"
-  >
-    <input
-      type="text"
-      class="input"
-      ng-model="$ctrl.editService.forwardToPhoneNumber"
-    />
+  <pbs-form-field-horizontal label="Forward To" ng-show="$ctrl.editService.enabled">
+    <input type="text" class="input" ng-model="$ctrl.editService.forwardToPhoneNumber" />
   </pbs-form-field-horizontal>
 
   <group-call-center-audio-settings-edit

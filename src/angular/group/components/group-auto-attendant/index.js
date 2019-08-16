@@ -16,14 +16,7 @@ controller.$inject = [
   'GroupPolicyService',
   '$location'
 ]
-function controller(
-  Alert,
-  GroupAutoAttendantService,
-  Route,
-  $q,
-  GroupPolicyService,
-  $location
-) {
+function controller(Alert, GroupAutoAttendantService, Route, $q, GroupPolicyService, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.serviceUserId = $location.search().serviceUserId
@@ -59,9 +52,7 @@ function controller(
   }
 
   function loadAutoAttendant() {
-    return GroupAutoAttendantService.show(ctrl.serviceUserId).then(function(
-      data
-    ) {
+    return GroupAutoAttendantService.show(ctrl.serviceUserId).then(function(data) {
       ctrl.autoAttendant = data
     })
   }

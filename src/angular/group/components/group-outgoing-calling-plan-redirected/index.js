@@ -37,9 +37,7 @@ function controller(Alert, GroupOutgoingCallingPlanRedirectedService) {
 
   function edit(department) {
     ctrl.editDepartment = angular.copy(department)
-    Alert.modal.open('editGroupOutgoingCallingPlanRedirected', function onSave(
-      close
-    ) {
+    Alert.modal.open('editGroupOutgoingCallingPlanRedirected', function onSave(close) {
       update(ctrl.editDepartment, close)
     })
   }
@@ -51,11 +49,7 @@ function controller(Alert, GroupOutgoingCallingPlanRedirectedService) {
       departments: [department]
     }
     Alert.spinner.open()
-    GroupOutgoingCallingPlanRedirectedService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      plan
-    )
+    GroupOutgoingCallingPlanRedirectedService.update(ctrl.serviceProviderId, ctrl.groupId, plan)
       .then(loadPlan)
       .then(function() {
         Alert.notify.success('Plan Updated')

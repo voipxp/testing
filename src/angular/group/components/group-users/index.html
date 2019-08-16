@@ -1,7 +1,4 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Users'"></pbs-breadcrumb>
 </pbs-navigation>
 
@@ -48,11 +45,7 @@
 <pbs-modal id="bulkEditUserCLID" title="CLID: Edit {{ $ctrl.editCount }} Users">
   <pbs-form>
     <pbs-form-field-horizontal label="Calling Line Id Phone Number">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editSettings.callingLineIdPhoneNumber"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editSettings.callingLineIdPhoneNumber" />
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

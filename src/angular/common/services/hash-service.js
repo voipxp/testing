@@ -14,21 +14,7 @@ function HashService() {
   }
 
   function guid() {
-    return (
-      '_' +
-      (S4() +
-        S4() +
-        '-' +
-        S4() +
-        '-' +
-        S4() +
-        '-' +
-        S4() +
-        '-' +
-        S4() +
-        S4() +
-        S4())
-    )
+    return '_' + (S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4())
   }
 
   function key() {

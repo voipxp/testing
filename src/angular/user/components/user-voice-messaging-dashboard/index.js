@@ -12,10 +12,7 @@ function controller(Module, $q) {
   var ctrl = this
   ctrl.$onInit = function() {
     return $q
-      .all([
-        Module.show('Voice Messaging User'),
-        Module.show('Voice Messaging User - Advanced')
-      ])
+      .all([Module.show('Voice Messaging User'), Module.show('Voice Messaging User - Advanced')])
       .then(function(results) {
         ctrl.module = results[0]
         ctrl.advanced = results[1]

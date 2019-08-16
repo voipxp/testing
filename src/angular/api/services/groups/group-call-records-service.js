@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupCallRecordsService', GroupCallRecordsService)
+angular.module('odin.api').factory('GroupCallRecordsService', GroupCallRecordsService)
 
 GroupCallRecordsService.$inject = ['$http', 'Route', 'Session', '$window']
 function GroupCallRecordsService($http, Route, Session, $window) {
@@ -61,13 +59,7 @@ function GroupCallRecordsService($http, Route, Session, $window) {
       .then(response => response.data)
   }
 
-  function related(
-    serviceProviderId,
-    groupId,
-    startTime,
-    endTime,
-    relatedCallIdReason
-  ) {
+  function related(serviceProviderId, groupId, startTime, endTime, relatedCallIdReason) {
     return $http
       .get(url('related'), {
         params: {

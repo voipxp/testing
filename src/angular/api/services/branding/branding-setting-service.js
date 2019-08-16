@@ -1,13 +1,10 @@
 import angular from 'angular'
 import isEmpty from 'lodash/isEmpty'
-import { loadSettings } from '@/store/ui-settings'
 
-angular
-  .module('odin.api')
-  .factory('BrandingSettingService', BrandingSettingService)
+angular.module('odin.api').factory('BrandingSettingService', BrandingSettingService)
 
-BrandingSettingService.$inject = ['$http', 'Route', '$rootScope', '$ngRedux']
-function BrandingSettingService($http, Route, $rootScope, $ngRedux) {
+BrandingSettingService.$inject = ['$http', 'Route', '$rootScope']
+function BrandingSettingService($http, Route, $rootScope) {
   var service = { show, update }
   var url = Route.api('/branding/settings')
   return service
@@ -20,7 +17,6 @@ function BrandingSettingService($http, Route, $rootScope, $ngRedux) {
 
   function update(template) {
     return $http.put(url(), template).then(response => {
-      $ngRedux.dispatch(loadSettings())
       $rootScope.$emit('BrandingSettingService:updated')
       return response.data
     })

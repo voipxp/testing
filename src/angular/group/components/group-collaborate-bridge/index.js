@@ -43,11 +43,7 @@ function controller(Alert, GroupCollaborateService, Route, $location) {
             .then(() => destroy(ctrl.bridge, close))
         }
     ctrl.editBridge = angular.copy(ctrl.bridge)
-    Alert.modal.open(
-      'editGroupCollaborate',
-      close => update(ctrl.editBridge, close),
-      onDelete
-    )
+    Alert.modal.open('editGroupCollaborate', close => update(ctrl.editBridge, close), onDelete)
   }
 
   function onUpdateProfile(event) {

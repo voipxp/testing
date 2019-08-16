@@ -65,27 +65,16 @@
       ></pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="Description">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.selectedKey.description"
-        maxlength="25"
-      />
+      <input type="text" class="input" ng-model="$ctrl.selectedKey.description" maxlength="25" />
     </pbs-form-field>
-    <pbs-form-field
-      label="Submenu"
-      ng-if="$ctrl.requiresSubmenu($ctrl.selectedKey)"
-    >
+    <pbs-form-field label="Submenu" ng-if="$ctrl.requiresSubmenu($ctrl.selectedKey)">
       <pbs-input-select
         ng-model="$ctrl.selectedKey.submenuId"
         ng-options="submenu.submenuId as submenu.submenuId for submenu in $ctrl.submenus"
         ng-required="$ctrl.requiresSubmenu($ctrl.selectedKey)"
       ></pbs-input-select>
     </pbs-form-field>
-    <pbs-form-field
-      label="Number"
-      ng-if="$ctrl.requiresPhone($ctrl.selectedKey)"
-    >
+    <pbs-form-field label="Number" ng-if="$ctrl.requiresPhone($ctrl.selectedKey)">
       <input
         type="text"
         class="input"
@@ -93,10 +82,7 @@
         ng-required="$ctrl.requiresPhone($ctrl.selectedKey)"
       />
     </pbs-form-field>
-    <pbs-form-field
-      label="Audio File"
-      ng-if="$ctrl.requiresAnnouncement($ctrl.selectedKey)"
-    >
+    <pbs-form-field label="Audio File" ng-if="$ctrl.requiresAnnouncement($ctrl.selectedKey)">
       <div ng-if="!$ctrl.hasRepository">
         <div class="field has-addons">
           <p class="control is-expanded">
@@ -110,11 +96,7 @@
             />
           </p>
           <p class="control">
-            <button
-              class="button"
-              ng-click="$ctrl.selectAudioFile()"
-              title="Upload an Audio File"
-            >
+            <button class="button" ng-click="$ctrl.selectAudioFile()" title="Upload an Audio File">
               <span class="icon">
                 <i class="fas fa-plus"></i>
               </span>

@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserHotelingHostService', UserHotelingHostService)
+angular.module('odin.api').factory('UserHotelingHostService', UserHotelingHostService)
 
 UserHotelingHostService.$inject = ['$http', 'Route']
 function UserHotelingHostService($http, Route) {
@@ -26,11 +24,9 @@ function UserHotelingHostService($http, Route) {
   }
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(userId, object) {

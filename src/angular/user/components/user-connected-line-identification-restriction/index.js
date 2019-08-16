@@ -2,26 +2,14 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.user')
-  .component('userConnectedLineIdentificationRestriction', {
-    template,
-    controller,
-    bindings: { userId: '<' }
-  })
+angular.module('odin.user').component('userConnectedLineIdentificationRestriction', {
+  template,
+  controller,
+  bindings: { userId: '<' }
+})
 
-controller.$inject = [
-  'Alert',
-  'UserConnectedLineIdentificationRestrictionService',
-  '$q',
-  'Module'
-]
-function controller(
-  Alert,
-  UserConnectedLineIdentificationRestrictionService,
-  $q,
-  Module
-) {
+controller.$inject = ['Alert', 'UserConnectedLineIdentificationRestrictionService', '$q', 'Module']
+function controller(Alert, UserConnectedLineIdentificationRestrictionService, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -39,37 +27,27 @@ function controller(
   }
 
   function loadModule() {
-    return Module.show('Connected Line Identification Restriction').then(
-      function(data) {
-        ctrl.module = data
-      }
-    )
+    return Module.show('Connected Line Identification Restriction').then(function(data) {
+      ctrl.module = data
+    })
   }
 
   function loadSettings() {
-    return UserConnectedLineIdentificationRestrictionService.show(
-      ctrl.userId
-    ).then(function(data) {
+    return UserConnectedLineIdentificationRestrictionService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
     })
   }
 
   function edit() {
     ctrl.editSettings = angular.copy(ctrl.settings)
-    Alert.modal.open(
-      'editUserConnectedLineIdentificationRestriction',
-      function onSave(close) {
-        update(ctrl.editSettings, close)
-      }
-    )
+    Alert.modal.open('editUserConnectedLineIdentificationRestriction', function onSave(close) {
+      update(ctrl.editSettings, close)
+    })
   }
 
   function update(settings, callback) {
     Alert.spinner.open()
-    UserConnectedLineIdentificationRestrictionService.update(
-      ctrl.userId,
-      settings
-    )
+    UserConnectedLineIdentificationRestrictionService.update(ctrl.userId, settings)
       .then(loadSettings)
       .then(function() {
         Alert.notify.success('Settings Updated')

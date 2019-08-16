@@ -53,11 +53,7 @@
           />
         </p>
         <p class="control">
-          <button
-            class="button"
-            ng-click="$ctrl.selectDevice()"
-            title="Select a Device"
-          >
+          <button class="button" ng-click="$ctrl.selectDevice()" title="Select a Device">
             <span class="icon">
               <i class="fas fa-list"></i>
             </span>
@@ -66,16 +62,9 @@
       </div>
     </pbs-form-field>
     <pbs-form-field label="Template Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.template.name"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.template.name" required />
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>
-<vdm-select-template
-  on-update="$ctrl.onSelectTemplate($event)"
-></vdm-select-template>
+<vdm-select-template on-update="$ctrl.onSelectTemplate($event)"></vdm-select-template>
 <vdm-select-device on-update="$ctrl.onSelectDevice($event)"></vdm-select-device>

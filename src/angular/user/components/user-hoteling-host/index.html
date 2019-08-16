@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block module="$ctrl.module">
     <pbs-block-buttons if-module-update="$ctrl.module">
-      <pbs-button-compact-edit
-        title="Edit Hoteling Host"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Hoteling Host" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -12,9 +9,7 @@
         <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Enforce Association Limit">
-        <pbs-check-box
-          checked="$ctrl.settings.enforceAssociationLimit"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.enforceAssociationLimit"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Enforce Association Limit Hours">
         {{ $ctrl.settings.associationLimitHours }}

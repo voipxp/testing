@@ -5,9 +5,7 @@
 
 import angular from 'angular'
 
-angular
-  .module('odin.serviceProvider')
-  .factory('ServiceProviderDashboardService', Service)
+angular.module('odin.serviceProvider').factory('ServiceProviderDashboardService', Service)
 
 Service.$inject = [
   'Module',
@@ -16,13 +14,7 @@ Service.$inject = [
   '$q',
   'ACL'
 ]
-function Service(
-  Module,
-  ServiceProviderService,
-  ServiceProviderPermissionService,
-  $q,
-  ACL
-) {
+function Service(Module, ServiceProviderService, ServiceProviderPermissionService, $q, ACL) {
   var service = { load: load, prepareCard: prepareCard }
   var Permission
   var _isEnterprise

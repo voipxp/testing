@@ -1,9 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Supervisors">
     <pbs-block-buttons ng-if="$ctrl.canUpdate">
-      <pbs-button-compact-edit
-        ng-click="$ctrl.edit()"
-      ></pbs-button-compact-edit>
+      <pbs-button-compact-edit ng-click="$ctrl.edit()"></pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>

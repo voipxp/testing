@@ -11,19 +11,14 @@
         <pbs-check-box checked="$ctrl.settings.isActive"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Disable Calling Line Id Delivery">
-        <pbs-check-box
-          checked="$ctrl.settings.disableCallingLineIdDelivery"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.disableCallingLineIdDelivery"></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editUserCallWaiting" title="Edit Settings">
   <pbs-form-section>Settings</pbs-form-section>
-  <pbs-input-checkbox
-    ng-model="$ctrl.editSettings.isActive"
-    label="Is Active"
-  ></pbs-input-checkbox>
+  <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive" label="Is Active"></pbs-input-checkbox>
   <pbs-input-checkbox
     ng-model="$ctrl.editSettings.disableCallingLineIdDelivery"
     label="Disable Calling Line Id Delivery"

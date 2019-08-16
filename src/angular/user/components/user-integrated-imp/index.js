@@ -37,9 +37,7 @@ function controller(Alert, UserIntegratedIMPService) {
 
   function edit() {
     ctrl.editIntegratedImp = angular.copy(ctrl.integratedImp)
-    Alert.modal.open('userIntegratedImpEditModal', close =>
-      update(ctrl.editIntegratedImp, close)
-    )
+    Alert.modal.open('userIntegratedImpEditModal', close => update(ctrl.editIntegratedImp, close))
   }
 
   function update(service, callback) {

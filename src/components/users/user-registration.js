@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useUserRegistration } from '@/store/user-registration'
-import { alertDanger } from '@/utils/alerts'
+import { useUserRegistrations } from '@/graphql'
+import { Alert } from '@/utils'
 import {
   UiCard,
   UiLoadingCard,
@@ -13,9 +13,12 @@ import {
 
 export const UserRegistration = ({ match }) => {
   const { userId } = match.params
-  const { userRegistration, loadUserRegistration } = useUserRegistration(userId)
+  const { data, loading, error } = useUserRegistrations(userId)
   const [showModal, setShowModal] = useState(false)
   const [form, setForm] = useState({})
+
+  if (error) Alert.danger(error)
+  if (loading || !data) return <UiLoadingCard />
 
   const columns = [
     { key: 'deviceLevel', label: 'Level' },
@@ -25,22 +28,16 @@ export const UserRegistration = ({ match }) => {
     { key: 'endpointType', label: 'Type' }
   ]
 
-  useEffect(() => {
-    loadUserRegistration(userId).catch(alertDanger)
-  }, [loadUserRegistration, userId])
-
   function show(row) {
     setForm({ ...row })
     setShowModal(true)
   }
-  if (!userRegistration) return <UiLoadingCard />
-
   return (
     <>
       <UiCard title="User Registrations">
         <UiDataTable
           columns={columns}
-          rows={userRegistration.registrations}
+          rows={data.registrations}
           rowKey="deviceName"
           hideSearch={true}
           onClick={show}
@@ -60,13 +57,9 @@ export const UserRegistration = ({ match }) => {
           <UiListItem label="Expiration">{form.expiration}</UiListItem>
           <UiListItem label="URI">{form.uRI}</UiListItem>
           <UiListItem label="User Agent">{form.userAgent}</UiListItem>
-          <UiListItem label="Public Net Address">
-            {form.publicNetAddress}
-          </UiListItem>
+          <UiListItem label="Public Net Address">{form.publicNetAddress}</UiListItem>
           <UiListItem label="Public Port">{form.publicPort}</UiListItem>
-          <UiListItem label="Private Net Address">
-            {form.privateNetAddress}
-          </UiListItem>
+          <UiListItem label="Private Net Address">{form.privateNetAddress}</UiListItem>
           <UiListItem label="Private Port">{form.privatePort}</UiListItem>
           <UiListItem label="Lockout Started">{form.lockoutStarted}</UiListItem>
           <UiListItem label="Lockout Expires">{form.lockoutExpires}</UiListItem>

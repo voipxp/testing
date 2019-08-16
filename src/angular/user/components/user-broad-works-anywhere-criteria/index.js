@@ -50,11 +50,9 @@ function controller(
             update(ctrl.editCriteria, close)
           },
           function(close) {
-            Alert.confirm
-              .open('Are you sure you want to delete this Criteria?')
-              .then(function() {
-                destroy(ctrl.editCriteria, close)
-              })
+            Alert.confirm.open('Are you sure you want to delete this Criteria?').then(function() {
+              destroy(ctrl.editCriteria, close)
+            })
           }
         )
       })

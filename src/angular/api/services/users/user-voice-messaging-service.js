@@ -7,10 +7,7 @@ function Service($http, Route) {
   var service = { index: index, show: show, update: update, bulk: bulk }
   var url = Route.api('/users/voice-messaging')
   service.options = {
-    processing: [
-      'Unified Voice and Email Messaging',
-      'Deliver To Email Address Only'
-    ]
+    processing: ['Unified Voice and Email Messaging', 'Deliver To Email Address Only']
   }
   return service
 
@@ -24,11 +21,9 @@ function Service($http, Route) {
       })
   }
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function update(userId, object) {

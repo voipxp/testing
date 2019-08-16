@@ -1,9 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Outgoing Redirected">
     <pbs-block-buttons>
-      <pbs-button-compact-edit
-        ng-click="$ctrl.edit()"
-      ></pbs-button-compact-edit>
+      <pbs-button-compact-edit ng-click="$ctrl.edit()"></pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-section>Custom Settings</pbs-list-section>
@@ -12,9 +10,7 @@
       </pbs-list-item>
       <pbs-list-section>Permissions</pbs-list-section>
       <pbs-list-item label="Outside Group">
-        <pbs-check-box
-          checked="$ctrl.plan.userPermissions.outsideGroup"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.plan.userPermissions.outsideGroup"></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>

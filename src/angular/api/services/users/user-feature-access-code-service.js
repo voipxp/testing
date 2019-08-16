@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserFeatureAccessCodeService', UserFeatureAccessCodeService)
+angular.module('odin.api').factory('UserFeatureAccessCodeService', UserFeatureAccessCodeService)
 
 UserFeatureAccessCodeService.$inject = ['$http', 'Route']
 function UserFeatureAccessCodeService($http, Route) {
@@ -11,8 +9,6 @@ function UserFeatureAccessCodeService($http, Route) {
   return service
 
   function index(userId) {
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 }

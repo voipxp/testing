@@ -74,7 +74,7 @@ function controller(
         sendUpdate(numbers, callback)
       })
       .catch(function(error) {
-        Alert.notify.danger(error.data || error)
+        Alert.notify.danger(error)
       })
       .finally(function() {
         Alert.spinner.close()
@@ -82,30 +82,21 @@ function controller(
   }
 
   function loadAvailable() {
-    return GroupNumberService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'available'
-    )
+    return GroupNumberService.index(ctrl.serviceProviderId, ctrl.groupId, 'available')
   }
 
   function assignServiceProvider(numbers) {
-    return ServiceProviderNumberService.store(
-      ctrl.serviceProviderId,
-      numbers
-    ).catch(function() {
+    return ServiceProviderNumberService.store(ctrl.serviceProviderId, numbers).catch(function() {
       return numbers
     })
   }
 
   function assignGroup(numbers) {
-    return GroupNumberService.assign(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      numbers
-    ).catch(function() {
-      return numbers
-    })
+    return GroupNumberService.assign(ctrl.serviceProviderId, ctrl.groupId, numbers).catch(
+      function() {
+        return numbers
+      }
+    )
   }
 
   function validateAssignment(numbers) {

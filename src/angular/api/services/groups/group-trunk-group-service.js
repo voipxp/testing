@@ -87,8 +87,7 @@ function Service($http, Route) {
       inviteFailureThresholdCounter: 1,
       inviteFailureThresholdWindowSeconds: 30,
       pilotUserCallOptimizationPolicy: 'Optimize For User Services',
-      pilotUserCallingLineAssertedIdentityPolicy:
-        'Unscreened Originating Calls',
+      pilotUserCallingLineAssertedIdentityPolicy: 'Unscreened Originating Calls',
       pilotUserCallingLineIdentityForEmergencyCallsPolicy: 'No Calls',
       pilotUserCallingLineIdentityForExternalCallsPolicy: 'No Calls',
       pilotUserChargeNumberPolicy: 'No Calls',

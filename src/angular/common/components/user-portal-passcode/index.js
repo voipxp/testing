@@ -18,13 +18,7 @@ controller.$inject = [
   'Session',
   'UserPermissionService'
 ]
-function controller(
-  Alert,
-  UserPortalPasscodeService,
-  $scope,
-  Session,
-  UserPermissionService
-) {
+function controller(Alert, UserPortalPasscodeService, $scope, Session, UserPermissionService) {
   var ctrl = this
   ctrl.edit = edit
   ctrl.$onInit = activate

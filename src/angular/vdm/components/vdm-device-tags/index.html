@@ -19,10 +19,7 @@
       <pbs-menu-item label="Phonebook">
         <vdm-device-tag-phonebook tags="$ctrl.tags"></vdm-device-tag-phonebook>
       </pbs-menu-item>
-      <pbs-menu-item
-        ng-repeat="pattern in $ctrl.keyPattern"
-        label="{{ pattern.label }}"
-      >
+      <pbs-menu-item ng-repeat="pattern in $ctrl.keyPattern" label="{{ pattern.label }}">
         <vdm-device-tag-keys
           tags="$ctrl.tags"
           device-template="$ctrl.template.deviceTemplate"

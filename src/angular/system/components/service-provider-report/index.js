@@ -7,12 +7,7 @@ angular.module('odin.system').component('serviceProviderReport', {
   bindings: { module: '<', serviceProviderId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'ServiceProviderReportsService',
-  'Route',
-  '$location'
-]
+controller.$inject = ['Alert', 'ServiceProviderReportsService', 'Route', '$location']
 function controller(Alert, ServiceProviderReportsService, Route, $location) {
   var ctrl = this
   ctrl.$onInit = onInit

@@ -6,9 +6,7 @@ function pbsTable() {
   return {
     restrict: 'A',
     link: function(scope, element) {
-      element.addClass(
-        'table is-fullwidth is-striped is-bordered is-narrow pbs-table'
-      )
+      element.addClass('table is-fullwidth is-striped is-bordered is-narrow pbs-table')
       var table = element[0]
       var wrapper = document.createElement('div')
       wrapper.style.display = 'block'

@@ -36,10 +36,8 @@ function Service($http, Route) {
       })
   }
   function update(serviceProviderId, groupId, object) {
-    return $http
-      .put(url(), { serviceProviderId, groupId, ...object })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.put(url(), { serviceProviderId, groupId, ...object }).then(function(response) {
+      return response.data
+    })
   }
 }

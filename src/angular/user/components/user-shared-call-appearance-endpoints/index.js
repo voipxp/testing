@@ -16,11 +16,7 @@ angular.module('odin.user').component('userSharedCallAppearanceEndpoints', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserSharedCallAppearanceEndpointService',
-  '$scope'
-]
+controller.$inject = ['Alert', 'UserSharedCallAppearanceEndpointService', '$scope']
 function controller(Alert, UserSharedCallAppearanceEndpointService, $scope) {
   var ctrl = this
   ctrl.$onChanges = onChanges
@@ -76,12 +72,9 @@ function controller(Alert, UserSharedCallAppearanceEndpointService, $scope) {
       allowOrigination: true,
       allowTermination: true
     }
-    Alert.modal.open(
-      'userSharedCallAppearanceEndpointCreateModal',
-      function onSave(close) {
-        create(ctrl.newEndpoint, close)
-      }
-    )
+    Alert.modal.open('userSharedCallAppearanceEndpointCreateModal', function onSave(close) {
+      create(ctrl.newEndpoint, close)
+    })
   }
 
   function onSetLinePort(event) {
@@ -99,11 +92,9 @@ function controller(Alert, UserSharedCallAppearanceEndpointService, $scope) {
             update(ctrl.editEndpoint, close)
           },
           function onDelete(close) {
-            Alert.confirm
-              .open('Are you sure you want to remove this Endpoint?')
-              .then(function() {
-                remove(ctrl.editEndpoint, close)
-              })
+            Alert.confirm.open('Are you sure you want to remove this Endpoint?').then(function() {
+              remove(ctrl.editEndpoint, close)
+            })
           }
         )
       })
@@ -133,10 +124,7 @@ function controller(Alert, UserSharedCallAppearanceEndpointService, $scope) {
 
   function remove(endpoint, callback) {
     Alert.spinner.open()
-    return UserSharedCallAppearanceEndpointService.destroy(
-      ctrl.userId,
-      endpoint
-    )
+    return UserSharedCallAppearanceEndpointService.destroy(ctrl.userId, endpoint)
       .then(ctrl.parent.reload)
       .then(function() {
         Alert.notify.success('Endpoint Removed')

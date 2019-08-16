@@ -4,17 +4,11 @@ angular
   .module('odin.ui')
   .directive('pbsButton', pbsButton())
   .directive('pbsButtonNext', pbsButton('fa-chevron-right', 'is-link', 'Next'))
-  .directive(
-    'pbsButtonPrevious',
-    pbsButton('fa-chevron-left', 'is-link', 'Previous')
-  )
+  .directive('pbsButtonPrevious', pbsButton('fa-chevron-left', 'is-link', 'Previous'))
   .directive('pbsButtonCancel', pbsButton('fa-times', '', 'Cancel'))
   .directive('pbsButtonDelete', pbsButton('fa-trash', 'is-danger', 'Delete'))
   .directive('pbsButtonAdd', pbsButton('fa-plus', 'is-link', 'Add'))
-  .directive(
-    'pbsButtonDownload',
-    pbsButton('fa-download', 'is-link', 'Download')
-  )
+  .directive('pbsButtonDownload', pbsButton('fa-download', 'is-link', 'Download'))
   .directive('pbsButtonSave', pbsButton('fa-check', 'is-success', 'Save'))
   .directive('pbsButtonUpload', pbsButton('fa-upload', 'is-link', 'Upload'))
   .directive('pbsButtonConfig', pbsButton('fa-cog', 'is-link', 'Config'))

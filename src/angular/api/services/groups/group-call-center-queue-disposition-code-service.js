@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupCallCenterQueueDispositionCodeService', Service)
+angular.module('odin.api').factory('GroupCallCenterQueueDispositionCodeService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
@@ -18,11 +16,9 @@ function Service($http, Route) {
   return service
 
   function index(serviceUserId) {
-    return $http
-      .get(url(), { params: { serviceUserId: serviceUserId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { serviceUserId: serviceUserId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function store(serviceUserId, object) {

@@ -23,9 +23,7 @@ function controller(Alert, SystemNetworkClassOfServiceService, Route) {
   }
 
   function loadUsage() {
-    return SystemNetworkClassOfServiceService.usage(ctrl.name).then(function(
-      data
-    ) {
+    return SystemNetworkClassOfServiceService.usage(ctrl.name).then(function(data) {
       ctrl.usage = data
     })
   }

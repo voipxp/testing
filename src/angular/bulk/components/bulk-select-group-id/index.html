@@ -1,9 +1,6 @@
 <pbs-block title="Group">
   <pbs-block-buttons>
-    <pbs-button-compact-add
-      title="Create a Group"
-      ng-click="$ctrl.add()"
-    ></pbs-button-compact-add>
+    <pbs-button-compact-add title="Create a Group" ng-click="$ctrl.add()"></pbs-button-compact-add>
   </pbs-block-buttons>
   <pbs-spinner loading="$ctrl.loading">
     <pbs-table-search ng-model="search"></pbs-table-search>
@@ -37,8 +34,5 @@
     </table>
   </pbs-spinner>
 </pbs-block>
-<group-create
-  service-provider-id="$ctrl.serviceProviderId"
-  on-update="$ctrl.onCreate($event)"
->
+<group-create service-provider-id="$ctrl.serviceProviderId" on-update="$ctrl.onCreate($event)">
 </group-create>

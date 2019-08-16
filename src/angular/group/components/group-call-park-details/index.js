@@ -25,11 +25,9 @@ function controller(Alert, GroupCallParkService) {
   }
 
   function loadSettings() {
-    return GroupCallParkService.show(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.settings = data
-      }
-    )
+    return GroupCallParkService.show(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      ctrl.settings = data
+    })
   }
 
   function edit() {

@@ -1,7 +1,3 @@
-import angular from 'angular'
-import { store } from '@/store'
-import { client } from '@/apollo'
-
 locationConfig.$inject = ['$locationProvider']
 export function locationConfig($locationProvider) {
   $locationProvider.hashPrefix('!')
@@ -71,15 +67,6 @@ export function jwtInterceptorConfig($httpProvider, jwtOptionsProvider) {
   $httpProvider.interceptors.push('jwtInterceptor')
 }
 
-cacheFactoryConfig.$inject = ['CacheFactoryProvider']
-export function cacheFactoryConfig(CacheFactoryProvider) {
-  angular.extend(CacheFactoryProvider.defaults, {
-    maxAge: 5 * 60 * 1000,
-    deleteOnExpire: 'passive',
-    onExpire: key => console.log('expire', key)
-  })
-}
-
 // idleConfig.$inject = ['IdleProvider', 'TitleProvider']
 // export function idleConfig(IdleProvider, TitleProvider) {
 //   IdleProvider.keepalive(false)
@@ -89,21 +76,5 @@ export function cacheFactoryConfig(CacheFactoryProvider) {
 rootScope.$inject = ['$rootScope']
 export function rootScope($rootScope) {
   $rootScope.apiURL = '/api/v2'
-  $rootScope.loginURL = '/login'
   $rootScope.sessionKey = 'odin:session'
-}
-
-ngRedux.$inject = ['$ngReduxProvider']
-export function ngRedux($ngReduxProvider) {
-  $ngReduxProvider.provideStore(store)
-}
-
-reduxDevTools.$inject = ['$ngRedux', '$timeout', '$rootScope']
-export function reduxDevTools($ngRedux, $timeout, $rootScope) {
-  $ngRedux.subscribe(() => $timeout(() => $rootScope.$apply(() => {}), 100))
-}
-
-apollo.$inject = ['apolloProvider']
-export function apollo(apolloProvider) {
-  apolloProvider.defaultClient(client)
 }

@@ -4,9 +4,7 @@
       <pbs-menu-item label="Viewable Packs">
         <pbs-block title="Viewable Packs">
           <pbs-block-buttons>
-            <pbs-button-compact-add
-              ng-click="$ctrl.edit()"
-            ></pbs-button-compact-add>
+            <pbs-button-compact-add ng-click="$ctrl.edit()"></pbs-button-compact-add>
           </pbs-block-buttons>
           <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
           <table pbs-table>
@@ -62,12 +60,7 @@
 <pbs-modal id="GroupViewablePackEditModal" title="Edit Viewable Pack">
   <pbs-form>
     <pbs-form-field label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editPack.name"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editPack.name" required />
     </pbs-form-field>
   </pbs-form>
   <pbs-columns class="margin-top">
@@ -147,9 +140,7 @@
       <tr class="hover" ng-click="$ctrl.selectedUser.virtualPackId = null">
         <td>-- NONE --</td>
         <td class="action">
-          <pbs-check-box
-            checked="!$ctrl.selectedUser.virtualPackId"
-          ></pbs-check-box>
+          <pbs-check-box checked="!$ctrl.selectedUser.virtualPackId"></pbs-check-box>
         </td>
       </tr>
       <tr
@@ -159,9 +150,7 @@
       >
         <td>{{ pack.name }}</td>
         <td class="action">
-          <pbs-check-box
-            checked="$ctrl.selectedUser.virtualPackId === pack.id"
-          ></pbs-check-box>
+          <pbs-check-box checked="$ctrl.selectedUser.virtualPackId === pack.id"></pbs-check-box>
         </td>
       </tr>
     </tbody>

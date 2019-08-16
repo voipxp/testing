@@ -3,12 +3,7 @@ import _ from 'lodash'
 
 angular.module('odin.bulk').directive('tagValidation', tagValidation)
 
-tagValidation.$inject = [
-  'BulkTemplateService',
-  '$q',
-  'EventEmitter',
-  'BulkTagService'
-]
+tagValidation.$inject = ['BulkTemplateService', '$q', 'EventEmitter', 'BulkTagService']
 function tagValidation(BulkTemplateService, $q, EventEmitter, BulkTagService) {
   return {
     require: 'ngModel',

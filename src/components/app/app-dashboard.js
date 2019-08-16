@@ -1,16 +1,19 @@
 import React from 'react'
-import { useSession } from '@/store/session'
+import { useSession } from '@/graphql'
 import { Redirect } from 'react-router-dom'
 
 export const AppDashboard = () => {
   const { session } = useSession()
-  const { loginType, serviceProviderId, groupId, userId } = session
+  const { loginType, serviceProviderId, groupId, userId, resellerId } = session
 
   let route
   switch (loginType) {
     case 'System':
     case 'Provisioning':
       route = '/system'
+      break
+    case 'Reseller':
+      route = `/resellers/${resellerId}`
       break
     case 'Service Provider':
       route = `/serviceProviders/${serviceProviderId}`

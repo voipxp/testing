@@ -7,21 +7,14 @@
       ></pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
-      <pbs-list-item label="Hostname"
-        >{{ $ctrl.hostname.hostname }}</pbs-list-item
-      >
+      <pbs-list-item label="Hostname">{{ $ctrl.hostname.hostname }}</pbs-list-item>
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editHostnameModal" title="Edit Hostname">
   <form>
     <pbs-form-field label="Hostname">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editHostname.hostname"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editHostname.hostname" required />
     </pbs-form-field>
   </form>
 </pbs-modal>

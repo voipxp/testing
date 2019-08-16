@@ -9,7 +9,6 @@ function Route($rootScope, $location, Session) {
     api: api,
     path: path,
     open: open,
-    login: login,
     dashboard: dashboard
   }
   function encoded(prefixes, args) {
@@ -55,17 +54,14 @@ function Route($rootScope, $location, Session) {
       .search({})
       .hash(null)
   }
-  // redirect to login
-  function login() {
-    return $location.path($rootScope.loginURL)
-  }
+
   // redirect the user based on loginType
   function dashboard() {
     const serviceProviderId = Session.data('serviceProviderId')
     const groupId = Session.data('groupId')
     const userId = Session.data('userId')
+    const resellerId = Session.data('resellerId')
     const loginType = Session.data('loginType')
-    if (!loginType) return login()
     let route
     switch (loginType) {
       case 'System':
@@ -73,6 +69,9 @@ function Route($rootScope, $location, Session) {
         break
       case 'Provisioning':
         route = ['system']
+        break
+      case 'Reseller':
+        route = ['resellers', resellerId]
         break
       case 'Service Provider':
         route = ['serviceProviders', serviceProviderId]
@@ -84,7 +83,7 @@ function Route($rootScope, $location, Session) {
         route = ['users', serviceProviderId, groupId, userId]
         break
       default:
-        route = [$rootScope.loginURL]
+        route = ['notfound']
     }
     return open.apply(null, route).hash(null)
   }

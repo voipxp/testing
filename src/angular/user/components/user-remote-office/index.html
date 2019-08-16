@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.loading" ng-show="!$ctrl.showQuick">
   <pbs-block module="$ctrl.module">
     <pbs-block-buttons if-module-update="$ctrl.module">
-      <pbs-button-compact-edit
-        title="Edit Remote Office"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Remote Office" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -37,11 +34,7 @@
       ></pbs-input-checkbox>
     </pbs-form-field>
     <pbs-form-field label="Remote Office Number">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editSettings.remoteOfficePhoneNumber"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editSettings.remoteOfficePhoneNumber" />
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

@@ -7,20 +7,8 @@ angular.module('odin.group').component('groupCallCenterDetails', {
   require: { parent: '^groupCallCenter' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupCallCenterService',
-  'Module',
-  'GroupPolicyService',
-  '$q'
-]
-function controller(
-  Alert,
-  GroupCallCenterService,
-  Module,
-  GroupPolicyService,
-  $q
-) {
+controller.$inject = ['Alert', 'GroupCallCenterService', 'Module', 'GroupPolicyService', '$q']
+function controller(Alert, GroupCallCenterService, Module, GroupPolicyService, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -33,10 +21,8 @@ function controller(
     return $q
       .all([GroupPolicyService.load()])
       .then(function() {
-        ctrl.canUpdate =
-          GroupPolicyService.enhancedServiceCreate() && ctrl.canUpdate
-        ctrl.canDelete =
-          GroupPolicyService.enhancedServiceCreate() && ctrl.canDelete
+        ctrl.canUpdate = GroupPolicyService.enhancedServiceCreate() && ctrl.canUpdate
+        ctrl.canDelete = GroupPolicyService.enhancedServiceCreate() && ctrl.canDelete
       })
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -49,11 +35,9 @@ function controller(
     var onDelete
     if (ctrl.canDelete) {
       onDelete = function(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this Call Center?')
-          .then(function() {
-            ctrl.parent.destroy(close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this Call Center?').then(function() {
+          ctrl.parent.destroy(close)
+        })
       }
     }
     Alert.modal.open(

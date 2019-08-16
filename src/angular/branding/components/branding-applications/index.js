@@ -7,12 +7,7 @@ angular.module('odin.branding').component('brandingApplications', {
   bindings: { hostnameId: '<' }
 })
 
-controller.$inject = [
-  'BrandingApplicationService',
-  'SettingService',
-  'Alert',
-  '$q'
-]
+controller.$inject = ['BrandingApplicationService', 'SettingService', 'Alert', '$q']
 function controller(BrandingApplicationService, SettingService, Alert, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -31,9 +26,7 @@ function controller(BrandingApplicationService, SettingService, Alert, $q) {
   }
 
   function loadApplications() {
-    return BrandingApplicationService.index(ctrl.hostnameId).then(function(
-      data
-    ) {
+    return BrandingApplicationService.index(ctrl.hostnameId).then(function(data) {
       ctrl.applications = data
     })
   }
@@ -90,7 +83,7 @@ function controller(BrandingApplicationService, SettingService, Alert, $q) {
         callback()
       })
       .catch(function(error) {
-        Alert.notify.danger(error.data)
+        Alert.notify.danger(error)
       })
       .finally(function() {
         Alert.spinner.close()
@@ -98,22 +91,20 @@ function controller(BrandingApplicationService, SettingService, Alert, $q) {
   }
 
   function remove(application, callback) {
-    Alert.confirm
-      .open('Are you sure you want to remove this Application?')
-      .then(function() {
-        Alert.spinner.open()
-        BrandingApplicationService.destroy(application.id)
-          .then(loadApplications)
-          .then(function() {
-            Alert.notify.warning('Application Removed')
-            callback()
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to remove this Application?').then(function() {
+      Alert.spinner.open()
+      BrandingApplicationService.destroy(application.id)
+        .then(loadApplications)
+        .then(function() {
+          Alert.notify.warning('Application Removed')
+          callback()
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 }

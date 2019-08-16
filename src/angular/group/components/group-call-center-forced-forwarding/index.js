@@ -33,18 +33,14 @@ function controller(GroupCallCenterForcedForwardingService, Alert) {
   }
 
   function loadService() {
-    return GroupCallCenterForcedForwardingService.show(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.service = data
-      }
-    )
+    return GroupCallCenterForcedForwardingService.show(ctrl.serviceUserId).then(function(data) {
+      ctrl.service = data
+    })
   }
 
   function edit() {
     ctrl.editService = angular.copy(ctrl.service)
-    Alert.modal.open('editGroupCallCenterForcedForwarding', function onSave(
-      close
-    ) {
+    Alert.modal.open('editGroupCallCenterForcedForwarding', function onSave(close) {
       update(ctrl.editService, close)
     })
   }

@@ -1,6 +1,5 @@
 import angular from 'angular'
 import template from './index.html'
-import { updateUserServices } from '@/store/user-services'
 
 angular.module('odin.group').component('groupAnonymousCallRejection', {
   template,
@@ -8,13 +7,8 @@ angular.module('odin.group').component('groupAnonymousCallRejection', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserAnonymousCallRejectionService',
-  'Route',
-  '$ngRedux'
-]
-function controller(Alert, UserAnonymousCallRejectionService, Route, $ngRedux) {
+controller.$inject = ['Alert', 'UserAnonymousCallRejectionService', 'Route', 'UserServiceService']
+function controller(Alert, UserAnonymousCallRejectionService, Route, UserServiceService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -28,10 +22,9 @@ function controller(Alert, UserAnonymousCallRejectionService, Route, $ngRedux) {
   }
 
   function load() {
-    return UserAnonymousCallRejectionService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(data => (ctrl.users = data))
+    return UserAnonymousCallRejectionService.index(ctrl.serviceProviderId, ctrl.groupId).then(
+      data => (ctrl.users = data)
+    )
   }
 
   function open(user) {
@@ -50,14 +43,11 @@ function controller(Alert, UserAnonymousCallRejectionService, Route, $ngRedux) {
       userServices: [user.service]
     }
     user.isLoading = true
-    $ngRedux
-      .dispatch(updateUserServices(singleService))
+    UserServiceService.update(singleService)
       .then(load)
       .then(function() {
         const message = user.service.assigned ? 'Assigned' : 'Unassigned'
-        const action = user.service.assigned
-          ? Alert.notify.success
-          : Alert.notify.warning
+        const action = user.service.assigned ? Alert.notify.success : Alert.notify.warning
         action(`${user.profile.userId} ${user.service.serviceName} ${message}`)
       })
       .catch(Alert.notify.danger)

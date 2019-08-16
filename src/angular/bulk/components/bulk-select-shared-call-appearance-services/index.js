@@ -2,35 +2,21 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.bulk')
-  .component('bulkSelectSharedCallAppearanceServices', {
-    template,
-    controller,
-    bindings: {
-      serviceProviderId: '<',
-      groupId: '<',
-      userCount: '<',
-      endpointCount: '<',
-      services: '<',
-      onUpdate: '&'
-    }
-  })
+angular.module('odin.bulk').component('bulkSelectSharedCallAppearanceServices', {
+  template,
+  controller,
+  bindings: {
+    serviceProviderId: '<',
+    groupId: '<',
+    userCount: '<',
+    endpointCount: '<',
+    services: '<',
+    onUpdate: '&'
+  }
+})
 
-controller.$inject = [
-  'Alert',
-  '$scope',
-  '$q',
-  'ServiceProviderServicePackService',
-  'EventEmitter'
-]
-function controller(
-  Alert,
-  $scope,
-  $q,
-  ServiceProviderServicePackService,
-  EventEmitter
-) {
+controller.$inject = ['Alert', '$scope', '$q', 'ServiceProviderServicePackService', 'EventEmitter']
+function controller(Alert, $scope, $q, ServiceProviderServicePackService, EventEmitter) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.select = select
@@ -103,13 +89,12 @@ function controller(
   }
 
   function loadServicePack(service) {
-    return ServiceProviderServicePackService.show(
-      ctrl.serviceProviderId,
-      service.serviceName
-    ).then(function(data) {
-      // just return the names of services
-      return _.map(data.userServices || [], 'serviceName')
-    })
+    return ServiceProviderServicePackService.show(ctrl.serviceProviderId, service.serviceName).then(
+      function(data) {
+        // just return the names of services
+        return _.map(data.userServices || [], 'serviceName')
+      }
+    )
   }
 
   // get the number of endpoints based on the number

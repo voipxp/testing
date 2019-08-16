@@ -1,31 +1,21 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.group')
-  .component('groupFlexibleSeatingHostGuestAssociation', {
-    template,
-    controller,
-    bindings: {
-      serviceProviderId: '<',
-      groupId: '<',
-      serviceUserId: '<',
-      readOnly: '<',
-      loading: '<',
-      onUpdate: '&'
-    }
-  })
+angular.module('odin.group').component('groupFlexibleSeatingHostGuestAssociation', {
+  template,
+  controller,
+  bindings: {
+    serviceProviderId: '<',
+    groupId: '<',
+    serviceUserId: '<',
+    readOnly: '<',
+    loading: '<',
+    onUpdate: '&'
+  }
+})
 
-controller.$inject = [
-  'Alert',
-  '$q',
-  'GroupFlexibleSeatingHostGuestAssociationService'
-]
-function controller(
-  Alert,
-  $q,
-  GroupFlexibleSeatingHostGuestAssociationService
-) {
+controller.$inject = ['Alert', '$q', 'GroupFlexibleSeatingHostGuestAssociationService']
+function controller(Alert, $q, GroupFlexibleSeatingHostGuestAssociationService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -55,9 +45,9 @@ function controller(
   }
 
   function load() {
-    return GroupFlexibleSeatingHostGuestAssociationService.show(
-      ctrl.serviceUserId
-    ).then(function(data) {
+    return GroupFlexibleSeatingHostGuestAssociationService.show(ctrl.serviceUserId).then(function(
+      data
+    ) {
       ctrl.settings = data
       return data
     })

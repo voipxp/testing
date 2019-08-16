@@ -2,24 +2,14 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.group')
-  .component('groupOutgoingCallingPlanPinholeDigitPatterns', {
-    template,
-    controller,
-    bindings: { serviceProviderId: '<', groupId: '<' }
-  })
+angular.module('odin.group').component('groupOutgoingCallingPlanPinholeDigitPatterns', {
+  template,
+  controller,
+  bindings: { serviceProviderId: '<', groupId: '<' }
+})
 
-controller.$inject = [
-  'Alert',
-  'GroupOutgoingCallingPlanPinholeDigitPatternService',
-  '$scope'
-]
-function controller(
-  Alert,
-  GroupOutgoingCallingPlanPinholeDigitPatternService,
-  $scope
-) {
+controller.$inject = ['Alert', 'GroupOutgoingCallingPlanPinholeDigitPatternService', '$scope']
+function controller(Alert, GroupOutgoingCallingPlanPinholeDigitPatternService, $scope) {
   var ctrl = this
   ctrl.$onInit = activate
   ctrl.add = add
@@ -68,12 +58,9 @@ function controller(
     if ($scope.addOutgoingCallingPlanPinholeDigitPatternForm) {
       $scope.addOutgoingCallingPlanPinholeDigitPatternForm.$setPristine()
     }
-    Alert.modal.open(
-      'addOutgoingCallingPlanPinholeDigitPattern',
-      function onSave(close) {
-        create(ctrl.addPattern, close)
-      }
-    )
+    Alert.modal.open('addOutgoingCallingPlanPinholeDigitPattern', function onSave(close) {
+      create(ctrl.addPattern, close)
+    })
   }
 
   function create(pattern, callback) {
@@ -121,28 +108,26 @@ function controller(
   }
 
   function remove(pattern, callback) {
-    Alert.confirm
-      .open('Are you sure you want to delete ' + pattern.name + '?')
-      .then(function() {
-        Alert.spinner.open()
-        GroupOutgoingCallingPlanPinholeDigitPatternService.destroy(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          pattern.name
-        )
-          .then(loadPatterns)
-          .then(function() {
-            Alert.notify.success('Pinhole Digit Pattern Removed')
-            if (_.isFunction(callback)) {
-              callback()
-            }
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to delete ' + pattern.name + '?').then(function() {
+      Alert.spinner.open()
+      GroupOutgoingCallingPlanPinholeDigitPatternService.destroy(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        pattern.name
+      )
+        .then(loadPatterns)
+        .then(function() {
+          Alert.notify.success('Pinhole Digit Pattern Removed')
+          if (_.isFunction(callback)) {
+            callback()
+          }
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 }

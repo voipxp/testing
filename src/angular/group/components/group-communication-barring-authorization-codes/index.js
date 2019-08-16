@@ -2,21 +2,16 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.group')
-  .component('groupCommunicationBarringAuthorizationCodes', {
-    template,
-    controller,
-    bindings: {
-      serviceProviderId: '<',
-      groupId: '<'
-    }
-  })
+angular.module('odin.group').component('groupCommunicationBarringAuthorizationCodes', {
+  template,
+  controller,
+  bindings: {
+    serviceProviderId: '<',
+    groupId: '<'
+  }
+})
 
-controller.$inject = [
-  'Alert',
-  'GroupCommunicationBarringAuthorizationCodeService'
-]
+controller.$inject = ['Alert', 'GroupCommunicationBarringAuthorizationCodeService']
 function controller(Alert, GroupCommunicationBarringAuthorizationCodeService) {
   var ctrl = this
 
@@ -48,11 +43,9 @@ function controller(Alert, GroupCommunicationBarringAuthorizationCodeService) {
 
   function addCode(code, callback) {
     Alert.spinner.open()
-    GroupCommunicationBarringAuthorizationCodeService.create(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      [code]
-    )
+    GroupCommunicationBarringAuthorizationCodeService.create(ctrl.serviceProviderId, ctrl.groupId, [
+      code
+    ])
       .then(loadCodes)
       .then(function() {
         Alert.notify.success('Authorization Code Added')
@@ -73,35 +66,30 @@ function controller(Alert, GroupCommunicationBarringAuthorizationCodeService) {
       serviceProviderId: ctrl.serviceProviderId,
       groupId: ctrl.groupId
     }
-    Alert.modal.open(
-      'addGroupCommunicationBarringAuthorizationCode',
-      function onSave(close) {
-        addCode(ctrl.newCode, close)
-      }
-    )
+    Alert.modal.open('addGroupCommunicationBarringAuthorizationCode', function onSave(close) {
+      addCode(ctrl.newCode, close)
+    })
   }
 
   function remove(code) {
     if (ctrl.readOnly) return
-    Alert.confirm
-      .open('Are you sure you want to remove this code?')
-      .then(function() {
-        Alert.spinner.open()
-        GroupCommunicationBarringAuthorizationCodeService.destroy(
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          [code]
-        )
-          .then(loadCodes)
-          .then(function() {
-            Alert.notify.success('Authorization Code Removed')
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to remove this code?').then(function() {
+      Alert.spinner.open()
+      GroupCommunicationBarringAuthorizationCodeService.destroy(
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        [code]
+      )
+        .then(loadCodes)
+        .then(function() {
+          Alert.notify.success('Authorization Code Removed')
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 }

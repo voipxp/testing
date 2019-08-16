@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('UserOutgoingCallingPlanAuthorizationCodeService', Service)
+angular.module('odin.api').factory('UserOutgoingCallingPlanAuthorizationCodeService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
@@ -17,9 +15,7 @@ function Service($http, Route) {
   return service
 
   function show(userId) {
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 
   function update(userId, object) {
@@ -27,9 +23,7 @@ function Service($http, Route) {
   }
 
   function index(userId) {
-    return $http
-      .get(url('codes'), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url('codes'), { params: { userId } }).then(response => response.data)
   }
 
   function create(userId, object) {

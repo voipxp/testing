@@ -2,15 +2,8 @@ import React, { useState, useEffect } from 'react'
 import apiUserService from '@/api/user-alternate-user-id'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
-import { alertSuccess, alertWarning, alertDanger } from '@/utils/alerts'
-import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
-import {
-  UiCard,
-  UiLoadingCard,
-  UiDataTable,
-  UiButton,
-  UiCardModal
-} from '@/components/ui'
+import { Alert, Loading } from '@/utils'
+import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const UserAlternateUserId = ({ match }) => {
   const { userId } = match.params
@@ -35,7 +28,7 @@ export const UserAlternateUserId = ({ match }) => {
         const data = await apiUserService.show(userId)
         setAlternateUserIds(data.users)
       } catch (error) {
-        alertDanger(error)
+        Alert.danger(error)
       } finally {
         setLoading(false)
       }
@@ -66,9 +59,7 @@ export const UserAlternateUserId = ({ match }) => {
   */
   function remove() {
     setShowConfirm(false)
-    const newAltIds = alternateUserIds.filter(
-      altId => altId.userId !== form.userId
-    )
+    const newAltIds = alternateUserIds.filter(altId => altId.userId !== form.userId)
     // TODO: send to API
     saveAlternateUserIds(newAltIds)
   }
@@ -84,15 +75,13 @@ export const UserAlternateUserId = ({ match }) => {
       const match = alternateUserIds.filter(altId => {
         return altId.userId.toLowerCase() === form.newUserId.toLowerCase()
       })
-      if (match.length > 0) return alertWarning('This User ID already exists')
+      if (match.length > 0) return Alert.warning('This User ID already exists')
     }
 
     // update
     const newAltId = { userId: form.newUserId, description: form.description }
     const newAltIds = form.userId
-      ? alternateUserIds.map(altId =>
-          altId.userId !== form.userId ? altId : newAltId
-        )
+      ? alternateUserIds.map(altId => (altId.userId !== form.userId ? altId : newAltId))
       : [...alternateUserIds, newAltId]
 
     // TODO: send to API
@@ -100,21 +89,21 @@ export const UserAlternateUserId = ({ match }) => {
   }
 
   async function saveAlternateUserIds(newAltIds) {
-    showLoadingModal()
+    Loading.show()
     try {
       const data = await apiUserService.update({
         userId: userId,
         users: newAltIds
       })
-      alertSuccess('Alternate User IDs Updated')
+      Alert.success('Alternate User IDs Updated')
       setAlternateUserIds(data.users)
       setShowModal(false)
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
       setShowModal(true)
     } finally {
       setLoading(false)
-      hideLoadingModal()
+      Loading.hide()
     }
   }
 
@@ -161,9 +150,7 @@ export const UserAlternateUserId = ({ match }) => {
                         type="text"
                         name="userId"
                         value={form.newUserId}
-                        onChange={e =>
-                          setForm({ ...form, newUserId: e.target.value })
-                        }
+                        onChange={e => setForm({ ...form, newUserId: e.target.value })}
                         placeholder="userId"
                       />
                     </Control>
@@ -177,9 +164,7 @@ export const UserAlternateUserId = ({ match }) => {
                         type="text"
                         name="description"
                         value={form.description}
-                        onChange={e =>
-                          setForm({ ...form, description: e.target.value })
-                        }
+                        onChange={e => setForm({ ...form, description: e.target.value })}
                         placeholder="description"
                       />
                     </Control>
@@ -194,9 +179,7 @@ export const UserAlternateUserId = ({ match }) => {
             onCancel={() => setShowConfirm(false)}
             onDelete={remove}
           >
-            <blockquote>
-              Are you sure you want to Remove this Alternate User Id?
-            </blockquote>
+            <blockquote>Are you sure you want to Remove this Alternate User Id?</blockquote>
           </UiCardModal>
         </>
       )}

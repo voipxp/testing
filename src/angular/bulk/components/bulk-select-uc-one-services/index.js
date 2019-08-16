@@ -140,12 +140,11 @@ function controller(
 
   // just return the userServices inside the servicePack
   function loadServicePack(service) {
-    return ServiceProviderServicePackService.show(
-      ctrl.serviceProviderId,
-      service.serviceName
-    ).then(function(data) {
-      return _.map(data.userServices || [], 'serviceName')
-    })
+    return ServiceProviderServicePackService.show(ctrl.serviceProviderId, service.serviceName).then(
+      function(data) {
+        return _.map(data.userServices || [], 'serviceName')
+      }
+    )
   }
 
   function canComplete() {

@@ -54,9 +54,7 @@ function controller(
   }
 
   function loadServiceProvider() {
-    return ServiceProviderService.show(ctrl.serviceProviderId).then(function(
-      data
-    ) {
+    return ServiceProviderService.show(ctrl.serviceProviderId).then(function(data) {
       ctrl.serviceProvider = data
     })
   }
@@ -76,26 +74,15 @@ function controller(
   function contactSummary() {
     var contact = ctrl.serviceProvider && ctrl.serviceProvider.contact
     if (!contact) return
-    return _.compact([
-      contact.contactName,
-      contact.contactEmail,
-      contact.contactPhone
-    ]).join(', ')
+    return _.compact([contact.contactName, contact.contactEmail, contact.contactPhone]).join(', ')
   }
 
   function addressSummary() {
     var address = ctrl.serviceProvider && ctrl.serviceProvider.address
     if (!address) return
-    var street = _.compact([address.addressLine1, address.addressLine2]).join(
-      ' '
-    )
-    var stateZip = _.compact([
-      address.stateOrProvince,
-      address.zipOrPostalCode
-    ]).join(' ')
-    return _.compact([street, address.city, stateZip, address.country]).join(
-      ', '
-    )
+    var street = _.compact([address.addressLine1, address.addressLine2]).join(' ')
+    var stateZip = _.compact([address.stateOrProvince, address.zipOrPostalCode]).join(' ')
+    return _.compact([street, address.city, stateZip, address.country]).join(', ')
   }
 
   function loadHelpers() {

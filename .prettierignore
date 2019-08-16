@@ -3,6 +3,7 @@
 .idea/
 dist/
 node_modules/
+docs/
 .DS_Store
 .env*
 stats.json

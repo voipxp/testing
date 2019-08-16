@@ -20,10 +20,7 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editGroupTrunkGroupCallCapacity"
-  title="Edit Trunk Group Call Capacity"
->
+<pbs-modal id="editGroupTrunkGroupCallCapacity" title="Edit Trunk Group Call Capacity">
   <form novalidate>
     <pbs-form-field label="Max Active Calls">
       <input
@@ -43,15 +40,10 @@
         min="{{ $ctrl.calcMin('burstingMaxAvailableActiveCalls') }}"
         max="{{ $ctrl.calcMax('burstingMaxAvailableActiveCalls') }}"
       />
-      <strong
-        class="is-pulled-right"
-        ng-show="$ctrl.editSettings.burstingMaxActiveCalls === -1"
-      >
+      <strong class="is-pulled-right" ng-show="$ctrl.editSettings.burstingMaxActiveCalls === -1">
         Unlimited
       </strong>
-      <small
-        >(max: {{ $ctrl.displayMax('burstingMaxAvailableActiveCalls') }})</small
-      >
+      <small>(max: {{ $ctrl.displayMax('burstingMaxAvailableActiveCalls') }})</small>
     </pbs-form-field>
   </form>
 </pbs-modal>

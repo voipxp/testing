@@ -2,24 +2,14 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.serviceProvider')
-  .component('enterpriseEnterpriseTrunkTrunkGroups', {
-    template,
-    controller,
-    require: { parent: '^enterpriseEnterpriseTrunk' }
-  })
+angular.module('odin.serviceProvider').component('enterpriseEnterpriseTrunkTrunkGroups', {
+  template,
+  controller,
+  require: { parent: '^enterpriseEnterpriseTrunk' }
+})
 
-controller.$inject = [
-  'Alert',
-  'EnterpriseEnterpriseTrunkAvailableTrunkGroupService',
-  '$scope'
-]
-function controller(
-  Alert,
-  EnterpriseEnterpriseTrunkAvailableTrunkGroupService,
-  $scope
-) {
+controller.$inject = ['Alert', 'EnterpriseEnterpriseTrunkAvailableTrunkGroupService', '$scope']
+function controller(Alert, EnterpriseEnterpriseTrunkAvailableTrunkGroupService, $scope) {
   var ctrl = this
   ctrl.$onInit = activate
   ctrl.edit = edit
@@ -54,14 +44,11 @@ function controller(
     Alert.spinner.open()
     loadAvailableTrunks()
       .then(function() {
-        Alert.modal.open(
-          'editEnterpriseEnterpriseTrunkTrunkGroups',
-          function onSave(close) {
-            var editTrunk = angular.copy(ctrl.parent.trunk)
-            editTrunk.trunkGroups = ctrl.assignedTrunks
-            ctrl.parent.update(editTrunk, close)
-          }
-        )
+        Alert.modal.open('editEnterpriseEnterpriseTrunkTrunkGroups', function onSave(close) {
+          var editTrunk = angular.copy(ctrl.parent.trunk)
+          editTrunk.trunkGroups = ctrl.assignedTrunks
+          ctrl.parent.update(editTrunk, close)
+        })
       })
       .finally(function() {
         Alert.spinner.close()
@@ -74,9 +61,7 @@ function controller(
     if ($scope.editEnterpriseEnterpriseTrunkTrunkGroupForm) {
       $scope.editEnterpriseEnterpriseTrunkTrunkGroupForm.$setPristine()
     }
-    Alert.modal.open('editEnterpriseEnterpriseTrunkTrunkGroup', function onSave(
-      close
-    ) {
+    Alert.modal.open('editEnterpriseEnterpriseTrunkTrunkGroup', function onSave(close) {
       ctrl.parent.update(ctrl.parent.trunk, close)
     })
   }

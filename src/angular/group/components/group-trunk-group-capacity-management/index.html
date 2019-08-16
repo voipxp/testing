@@ -1,10 +1,7 @@
 <pbs-spinner loading="$ctrl.parent.loading">
   <pbs-block title="Call Capacity">
     <pbs-block-buttons if-module-update="$ctrl.parent.module">
-      <pbs-button-compact-edit
-        title="Edit Call Capacity"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Call Capacity" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
@@ -18,14 +15,9 @@
         {{ $ctrl.parent.trunk.maxOutgoingCalls }}
       </pbs-list-item>
       <pbs-list-item label="Bursting Enabled">
-        <pbs-check-box
-          checked="$ctrl.parent.trunk.enableBursting"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.trunk.enableBursting"></pbs-check-box>
       </pbs-list-item>
-      <pbs-list-item
-        label="Bursting Max Active Calls"
-        ng-show="$ctrl.parent.trunk.enableBursting"
-      >
+      <pbs-list-item label="Bursting Max Active Calls" ng-show="$ctrl.parent.trunk.enableBursting">
         {{ $ctrl.parent.trunk.burstingMaxActiveCalls }}
       </pbs-list-item>
       <pbs-list-item
@@ -44,16 +36,11 @@
         {{ $ctrl.parent.trunk.capacityExceededAction || 'None' }}
         <span ng-show="$ctrl.parent.trunk.capacityExceededAction === 'Forward'">
           to
-          <strong
-            >{{ $ctrl.parent.trunk.capacityExceededForwardAddress }}</strong
-          >
+          <strong>{{ $ctrl.parent.trunk.capacityExceededForwardAddress }}</strong>
         </span>
         <span ng-show="$ctrl.parent.trunk.capacityExceededAction === 'Reroute'">
           to
-          <strong
-            >{{ $ctrl.parent.trunk.capacityExceededRerouteTrunkGroupKey.name
-            }}</strong
-          >
+          <strong>{{ $ctrl.parent.trunk.capacityExceededRerouteTrunkGroupKey.name }}</strong>
         </span>
       </pbs-list-item>
       <pbs-list-item label="Capacity Exceeded Initial Value">
@@ -65,10 +52,7 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editGroupTrunkGroupCapacityManagement"
-  title="Capacity Management"
->
+<pbs-modal id="editGroupTrunkGroupCapacityManagement" title="Capacity Management">
   <form novalidate>
     <pbs-form-field label="Max Active Calls">
       <input

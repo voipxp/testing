@@ -28,10 +28,7 @@ function controller(Alert, GroupScheduleService) {
   }
 
   function loadSchedules() {
-    return GroupScheduleService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupScheduleService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.schedules = data
     })
   }

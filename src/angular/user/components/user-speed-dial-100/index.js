@@ -74,11 +74,9 @@ function controller(Alert, UserSpeedDial100Service, $q, Module) {
         update(ctrl.editSpeedCode, close)
       },
       function onDelete(close) {
-        Alert.confirm
-          .open('Are you sure you want to delete this SpeedCode?')
-          .then(function() {
-            destroy(ctrl.editSpeedCode, close)
-          })
+        Alert.confirm.open('Are you sure you want to delete this SpeedCode?').then(function() {
+          destroy(ctrl.editSpeedCode, close)
+        })
       }
     )
   }

@@ -51,12 +51,10 @@ function controller(
   }
 
   function loadDomains() {
-    return ServiceProviderDomainService.index(ctrl.serviceProviderId).then(
-      function(data) {
-        ctrl.domains = data
-        return data
-      }
-    )
+    return ServiceProviderDomainService.index(ctrl.serviceProviderId).then(function(data) {
+      ctrl.domains = data
+      return data
+    })
   }
 
   function loadStates() {

@@ -51,12 +51,8 @@ function controller(
   }
 
   function loadAgents() {
-    return GroupCallCenterAgentService.show(ctrl.serviceUserId).then(function(
-      data
-    ) {
-      ctrl.agents = isSkillBased
-        ? $filter('orderBy')(data.agents, 'skillLevel')
-        : data.agents
+    return GroupCallCenterAgentService.show(ctrl.serviceUserId).then(function(data) {
+      ctrl.agents = isSkillBased ? $filter('orderBy')(data.agents, 'skillLevel') : data.agents
     })
   }
 

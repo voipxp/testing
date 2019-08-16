@@ -45,13 +45,11 @@ function controller(
   }
 
   function loadGroup() {
-    return GroupCallParkGroupService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.name
-    ).then(function(data) {
-      ctrl.group = data
-    })
+    return GroupCallParkGroupService.show(ctrl.serviceProviderId, ctrl.groupId, ctrl.name).then(
+      function(data) {
+        ctrl.group = data
+      }
+    )
   }
 
   function edit() {
@@ -60,11 +58,9 @@ function controller(
     var deleteAction
     if (Module.delete(ctrl.module)) {
       deleteAction = function(close) {
-        Alert.confirm
-          .open('Are you sure you want to delete this Group?')
-          .then(function() {
-            remove(ctrl.editGroup, close)
-          })
+        Alert.confirm.open('Are you sure you want to delete this Group?').then(function() {
+          remove(ctrl.editGroup, close)
+        })
       }
     }
     Alert.modal.open(
@@ -94,11 +90,7 @@ function controller(
 
   function selectUsers() {
     Alert.spinner.open()
-    GroupCallParkGroupService.users(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.name
-    )
+    GroupCallParkGroupService.users(ctrl.serviceProviderId, ctrl.groupId, ctrl.name)
       .then(function(data) {
         ctrl.availableUsers = _.filter(data, function(user) {
           return !_.find(ctrl.group.users, { userId: user.userId })
@@ -134,11 +126,7 @@ function controller(
 
   function remove(group, callback) {
     Alert.spinner.open()
-    GroupCallParkGroupService.destroy(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      group.name
-    )
+    GroupCallParkGroupService.destroy(ctrl.serviceProviderId, ctrl.groupId, group.name)
       .then(function() {
         Alert.notify.warning('Group Removed')
         callback()
@@ -150,13 +138,9 @@ function controller(
 
   function open(name) {
     if (name) {
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'callPark',
-        'group'
-      ).search({ name: name })
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPark', 'group').search({
+        name: name
+      })
     } else {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPark')
     }

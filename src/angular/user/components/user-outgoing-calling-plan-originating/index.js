@@ -24,18 +24,14 @@ function controller(Alert, UserOutgoingCallingPlanOriginatingService) {
   }
 
   function loadPlan() {
-    return UserOutgoingCallingPlanOriginatingService.show(ctrl.userId).then(
-      function(data) {
-        ctrl.plan = data
-      }
-    )
+    return UserOutgoingCallingPlanOriginatingService.show(ctrl.userId).then(function(data) {
+      ctrl.plan = data
+    })
   }
 
   function edit() {
     ctrl.editPlan = angular.copy(ctrl.plan)
-    Alert.modal.open('editUserOutgoingCallingPlanOriginating', function onSave(
-      close
-    ) {
+    Alert.modal.open('editUserOutgoingCallingPlanOriginating', function onSave(close) {
       update(ctrl.editPlan, close)
     })
   }

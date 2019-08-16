@@ -1,13 +1,11 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular
-  .module('odin.bulk')
-  .component('bulkSelectSharedCallAppearanceSettings', {
-    template,
-    controller,
-    bindings: { settings: '<', onUpdate: '&' }
-  })
+angular.module('odin.bulk').component('bulkSelectSharedCallAppearanceSettings', {
+  template,
+  controller,
+  bindings: { settings: '<', onUpdate: '&' }
+})
 
 controller.$inject = ['EventEmitter']
 function controller(EventEmitter) {

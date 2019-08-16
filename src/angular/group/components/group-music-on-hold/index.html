@@ -3,18 +3,13 @@
   group-id="$ctrl.groupId"
   module="$ctrl.module"
 >
-  <pbs-breadcrumb
-    module="$ctrl.module"
-    ng-click="$ctrl.back()"
-  ></pbs-breadcrumb>
+  <pbs-breadcrumb module="$ctrl.module" ng-click="$ctrl.back()"></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.title"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-tabs delay="true">
     <pbs-tab label="Settings">
-      <group-music-on-hold-settings
-        moh="$ctrl.moh"
-      ></group-music-on-hold-settings>
+      <group-music-on-hold-settings moh="$ctrl.moh"></group-music-on-hold-settings>
     </pbs-tab>
     <pbs-tab label="General Audio">
       <group-music-on-hold-audio

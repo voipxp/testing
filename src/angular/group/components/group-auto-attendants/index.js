@@ -15,14 +15,7 @@ controller.$inject = [
   '$q',
   'GroupPolicyService'
 ]
-function controller(
-  Alert,
-  GroupAutoAttendantService,
-  Route,
-  $scope,
-  $q,
-  GroupPolicyService
-) {
+function controller(Alert, GroupAutoAttendantService, Route, $scope, $q, GroupPolicyService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -53,10 +46,9 @@ function controller(
   }
 
   function loadAutoAttendants() {
-    return GroupAutoAttendantService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupAutoAttendantService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.autoAttendants = data
     })
   }

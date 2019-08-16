@@ -1,8 +1,6 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('EnterpriseEnterpriseTrunkUserService', Service)
+angular.module('odin.api').factory('EnterpriseEnterpriseTrunkUserService', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {

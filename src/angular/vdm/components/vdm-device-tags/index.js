@@ -35,9 +35,7 @@ function controller(
 
   function onInit() {
     ctrl.loading = true
-    ctrl.keyPattern = VdmTemplateTagService.keyPattern(
-      ctrl.template.deviceTemplate
-    )
+    ctrl.keyPattern = VdmTemplateTagService.keyPattern(ctrl.template.deviceTemplate)
     loadTags()
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -54,19 +52,11 @@ function controller(
   }
 
   function loadDeviceTags() {
-    return GroupDeviceTagService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.deviceName
-    )
+    return GroupDeviceTagService.index(ctrl.serviceProviderId, ctrl.groupId, ctrl.deviceName)
   }
 
   function loadTemplateTags() {
-    return VdmGroupTemplateTagService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.template.id
-    )
+    return VdmGroupTemplateTagService.index(ctrl.serviceProviderId, ctrl.groupId, ctrl.template.id)
   }
 
   function mergeTags(deviceTags, templateTags) {

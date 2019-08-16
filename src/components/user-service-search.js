@@ -4,7 +4,8 @@ import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { alertDanger } from '@/utils/alerts'
+import { Alert } from '@/utils'
+import { useSession } from '@/graphql'
 import userServicesApi from '@/api/user-services'
 
 const searchTypes = [
@@ -30,6 +31,8 @@ export const UserServiceSearch = ({ onSelect }) => {
   const [users, setUsers] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [initialized, setInitialized] = React.useState(false)
+  const session = useSession()
+  const { serviceProviderId } = session
 
   const handleSearchKey = e => {
     setSearchKey(e.target.value)
@@ -44,11 +47,12 @@ export const UserServiceSearch = ({ onSelect }) => {
     setInitialized(true)
     try {
       const users = await userServicesApi.search({
-        [searchKey]: `*${searchString}*`
+        [searchKey]: `*${searchString}*`,
+        serviceProviderId
       })
       setUsers(users)
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
       setUsers([])
     } finally {
       setLoading(false)

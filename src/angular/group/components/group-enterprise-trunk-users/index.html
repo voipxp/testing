@@ -1,9 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Users">
     <pbs-block-buttons if-module-update="$ctrl.parent.module">
-      <pbs-button-compact-edit
-        ng-click="$ctrl.edit()"
-      ></pbs-button-compact-edit>
+      <pbs-button-compact-edit ng-click="$ctrl.edit()"></pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>
@@ -25,9 +23,7 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr
-          ng-repeat="user in $ctrl.users | filter:$ctrl.search as results track by user.userId"
-        >
+        <tr ng-repeat="user in $ctrl.users | filter:$ctrl.search as results track by user.userId">
           <td>{{ user.userId }}</td>
           <td>{{ user.lastName }}</td>
           <td>{{ user.firstName }}</td>
@@ -39,8 +35,5 @@
   </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editGroupEnterpriseTrunkUsers" title="Edit Assigned Users">
-  <select-users
-    available="$ctrl.availableUsers"
-    selected="$ctrl.assignedUsers"
-  ></select-users>
+  <select-users available="$ctrl.availableUsers" selected="$ctrl.assignedUsers"></select-users>
 </pbs-modal>

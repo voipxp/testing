@@ -7,16 +7,8 @@ angular.module('odin.user').component('userCollaborateMyRoom', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserCollaborateService',
-  'UserCollaborateInstantRoomService'
-]
-function controller(
-  Alert,
-  UserCollaborateService,
-  UserCollaborateInstantRoomService
-) {
+controller.$inject = ['Alert', 'UserCollaborateService', 'UserCollaborateInstantRoomService']
+function controller(Alert, UserCollaborateService, UserCollaborateInstantRoomService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -58,18 +50,16 @@ function controller(
   }
 
   function regenerate() {
-    Alert.confirm
-      .open('Are you sure you want to regenerate your room id?')
-      .then(function() {
-        Alert.spinner.open()
-        UserCollaborateService.regenerate(ctrl.userId, ctrl.myRoom.roomId)
-          .then(loadCollaborate)
-          .then(function() {
-            Alert.notify.success('Room ID Updated')
-            Alert.modal.closeAll()
-          })
-          .catch(Alert.notify.danger)
-          .finally(Alert.spinner.close)
-      })
+    Alert.confirm.open('Are you sure you want to regenerate your room id?').then(function() {
+      Alert.spinner.open()
+      UserCollaborateService.regenerate(ctrl.userId, ctrl.myRoom.roomId)
+        .then(loadCollaborate)
+        .then(function() {
+          Alert.notify.success('Room ID Updated')
+          Alert.modal.closeAll()
+        })
+        .catch(Alert.notify.danger)
+        .finally(Alert.spinner.close)
+    })
   }
 }

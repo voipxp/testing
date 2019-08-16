@@ -2,19 +2,13 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.serviceProvider')
-  .component('serviceProviderTrunkGroupsCallCapacity', {
-    template,
-    controller,
-    bindings: { serviceProviderId: '<', module: '<' }
-  })
+angular.module('odin.serviceProvider').component('serviceProviderTrunkGroupsCallCapacity', {
+  template,
+  controller,
+  bindings: { serviceProviderId: '<', module: '<' }
+})
 
-controller.$inject = [
-  'Alert',
-  'ServiceProviderTrunkGroupCallCapacityService',
-  'ACL'
-]
+controller.$inject = ['Alert', 'ServiceProviderTrunkGroupCallCapacityService', 'ACL']
 function controller(Alert, ServiceProviderTrunkGroupCallCapacityService, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -40,9 +34,9 @@ function controller(Alert, ServiceProviderTrunkGroupCallCapacityService, ACL) {
   }
 
   function loadCallCapacity() {
-    return ServiceProviderTrunkGroupCallCapacityService.show(
-      ctrl.serviceProviderId
-    ).then(function(data) {
+    return ServiceProviderTrunkGroupCallCapacityService.show(ctrl.serviceProviderId).then(function(
+      data
+    ) {
       ctrl.settings = data
       return data
     })
@@ -50,20 +44,14 @@ function controller(Alert, ServiceProviderTrunkGroupCallCapacityService, ACL) {
 
   function edit() {
     ctrl.editSettings = angular.copy(ctrl.settings)
-    Alert.modal.open(
-      'editServiceProviderTrunkGroupsCallCapacity',
-      function onSave(close) {
-        update(ctrl.editSettings, close)
-      }
-    )
+    Alert.modal.open('editServiceProviderTrunkGroupsCallCapacity', function onSave(close) {
+      update(ctrl.editSettings, close)
+    })
   }
 
   function update(settings, callback) {
     Alert.spinner.open()
-    ServiceProviderTrunkGroupCallCapacityService.update(
-      ctrl.serviceProviderId,
-      settings
-    )
+    ServiceProviderTrunkGroupCallCapacityService.update(ctrl.serviceProviderId, settings)
       .then(loadCallCapacity)
       .then(function() {
         Alert.notify.success('Call Capacity Updated')

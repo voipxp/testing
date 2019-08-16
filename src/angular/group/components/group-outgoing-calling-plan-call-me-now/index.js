@@ -26,20 +26,17 @@ function controller(Alert, GroupOutgoingCallingPlanCallMeNowService) {
   }
 
   function loadPlan() {
-    return GroupOutgoingCallingPlanCallMeNowService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
-      ctrl.plan = data
-      return data
-    })
+    return GroupOutgoingCallingPlanCallMeNowService.show(ctrl.serviceProviderId, ctrl.groupId).then(
+      function(data) {
+        ctrl.plan = data
+        return data
+      }
+    )
   }
 
   function edit(department) {
     ctrl.editDepartment = angular.copy(department)
-    Alert.modal.open('editGroupOutgoingCallingPlanCallMeNow', function onSave(
-      close
-    ) {
+    Alert.modal.open('editGroupOutgoingCallingPlanCallMeNow', function onSave(close) {
       update(ctrl.editDepartment, close)
     })
   }
@@ -51,11 +48,7 @@ function controller(Alert, GroupOutgoingCallingPlanCallMeNowService) {
       departments: [department]
     }
     Alert.spinner.open()
-    GroupOutgoingCallingPlanCallMeNowService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      plan
-    )
+    GroupOutgoingCallingPlanCallMeNowService.update(ctrl.serviceProviderId, ctrl.groupId, plan)
       .then(loadPlan)
       .then(function() {
         Alert.notify.success('Plan Updated')

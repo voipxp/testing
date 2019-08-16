@@ -16,13 +16,7 @@ angular.module('odin.group').component('groupMusicOnHoldAudio', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'HashService',
-  'ACL',
-  '$scope',
-  'GroupMusicOnHoldService'
-]
+controller.$inject = ['Alert', 'HashService', 'ACL', '$scope', 'GroupMusicOnHoldService']
 function controller(Alert, HashService, ACL, $scope, GroupMusicOnHoldService) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -72,30 +66,18 @@ function controller(Alert, HashService, ACL, $scope, GroupMusicOnHoldService) {
   }
 
   function onSelectAudio(event) {
-    _.set(
-      ctrl.editSettings,
-      'customSource.audioFile',
-      event.audioFile || event.announcement
-    )
+    _.set(ctrl.editSettings, 'customSource.audioFile', event.audioFile || event.announcement)
   }
 
   function onSelectDevice(event) {
     if (!_.get(ctrl.editSettings, 'messageSourceSelection') === 'External') {
       return
     }
-    _.set(
-      ctrl.editSettings,
-      'externalSource.accessDeviceEndpoint.accessDevice',
-      event.device
-    )
+    _.set(ctrl.editSettings, 'externalSource.accessDeviceEndpoint.accessDevice', event.device)
   }
 
   function onSetLinePort(event) {
-    _.set(
-      ctrl,
-      'editSettings.externalSource.accessDeviceEndpoint.linePort',
-      event.userId
-    )
+    _.set(ctrl, 'editSettings.externalSource.accessDeviceEndpoint.linePort', event.userId)
   }
 
   function edit() {

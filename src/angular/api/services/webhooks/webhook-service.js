@@ -9,9 +9,7 @@ function WebhookService($http, Route) {
   return service
 
   function index(limit) {
-    return $http
-      .get(url(), { params: { limit } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { limit } }).then(response => response.data)
   }
 
   function show(id) {

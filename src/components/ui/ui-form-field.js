@@ -28,7 +28,7 @@ UiFormFieldVertical.propTypes = {
 }
 
 export const UiFormFieldHorizontal = ({ label, children }) => (
-  <Column.Group gapSize={2} vcentered>
+  <Column.Group gapSize={2}>
     <Column size="is-two-fifths">
       <UiButton static fullwidth>
         {label}

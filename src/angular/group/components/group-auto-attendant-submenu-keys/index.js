@@ -83,12 +83,10 @@ function controller(
           return update(editKeys, close)
         },
         function onDelete(close) {
-          Alert.confirm
-            .open('Are you sure you want to remove this key?')
-            .then(function() {
-              originalKey.action = null
-              update(editKeys, close)
-            })
+          Alert.confirm.open('Are you sure you want to remove this key?').then(function() {
+            originalKey.action = null
+            update(editKeys, close)
+          })
         }
       )
     })

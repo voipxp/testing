@@ -16,13 +16,9 @@ function controller(Route, Session) {
 
   function open(groupId, bridgeId) {
     if (bridgeId) {
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        groupId,
-        'meetMe',
-        'bridge'
-      ).search({ serviceUserId: bridgeId })
+      Route.open('groups', ctrl.serviceProviderId, groupId, 'meetMe', 'bridge').search({
+        serviceUserId: bridgeId
+      })
     } else {
       Route.open('groups', ctrl.serviceProviderId, groupId, 'meetMe')
     }

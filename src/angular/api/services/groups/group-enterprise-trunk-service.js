@@ -12,12 +12,7 @@ function Service($http, Route) {
     destroy: destroy
   }
   service.options = {
-    orderingAlgorithm: [
-      'Ordered Load Balancing',
-      'Overflow',
-      'Most Idle',
-      'Least Idle'
-    ],
+    orderingAlgorithm: ['Ordered Load Balancing', 'Overflow', 'Most Idle', 'Least Idle'],
     routeExhaustionAction: ['None', 'Forward'],
     routingTypes: ['priorityWeightedRouting', 'orderedRouting']
   }

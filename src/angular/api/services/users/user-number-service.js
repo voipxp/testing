@@ -9,8 +9,6 @@ function UserNumberService($http, Route) {
   return service
 
   function index(userId) {
-    return $http
-      .get(url(), { params: { userId } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { userId } }).then(response => response.data)
   }
 }

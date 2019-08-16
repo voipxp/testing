@@ -28,10 +28,7 @@ function controller(Alert, GroupVoicePortalService) {
   }
 
   function loadSettings() {
-    return GroupVoicePortalService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupVoicePortalService.show(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
       ctrl.settings = data
       return data
     })
@@ -46,11 +43,7 @@ function controller(Alert, GroupVoicePortalService) {
 
   function update(settings, callback) {
     Alert.spinner.open()
-    GroupVoicePortalService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      settings
-    )
+    GroupVoicePortalService.update(ctrl.serviceProviderId, ctrl.groupId, settings)
       .then(loadSettings)
       .then(function() {
         Alert.notify.success('Voice Portal Updated')

@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import gql from 'graphql-tag'
-import isEmpty from 'lodash/isEmpty'
 import { UiLoading, UiDataTable, UiCheckbox } from '@/components/ui'
-import { alertDanger } from '@/utils/alerts'
+import { Alert } from '@/utils'
 import { useQuery } from '@apollo/react-hooks'
+import { SERVICE_PROVIDER_LIST_QUERY } from '@/graphql'
 
 const columns = [
   { key: 'serviceProviderId', label: 'ID' },
@@ -17,27 +16,13 @@ const columns = [
   }
 ]
 
-const query = gql`
-  query serviceProviders {
-    serviceProviders {
-      _id
-      serviceProviderId
-      serviceProviderName
-      isEnterprise
-    }
-  }
-`
-
 export const ServiceProviderSelect = ({ onSelect }) => {
-  const { loading, data } = useQuery(query, {
-    onCompleted: data => console.log(data),
-    onError: alertDanger,
-    fetchPolicy: 'cache-and-network'
-  })
+  const { loading, data, error } = useQuery(SERVICE_PROVIDER_LIST_QUERY)
 
-  return loading && isEmpty(data) ? (
-    <UiLoading />
-  ) : (
+  if (error) Alert.danger(error)
+  if (loading) return <UiLoading />
+
+  return (
     <UiDataTable
       columns={columns}
       rows={data.serviceProviders}

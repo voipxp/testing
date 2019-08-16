@@ -13,9 +13,7 @@ function controller(BrandingSettingService, Alert, UiSettingService) {
   ctrl.$onInit = onInit
   ctrl.edit = edit
   ctrl.fields = {}
-  ctrl.fields.number = [
-    { key: 'sessionTimeout', label: 'Session Timeout (min)' }
-  ]
+  ctrl.fields.number = [{ key: 'sessionTimeout', label: 'Session Timeout (min)' }]
   ctrl.fields.checkbox = [{ key: 'editCLID', label: 'Manual CLID Editing' }]
 
   function onInit() {

@@ -11,12 +11,7 @@ angular.module('odin.serviceProvider').component('serviceProviderServices', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'ServiceProviderServiceService',
-  '$filter',
-  'ACL'
-]
+controller.$inject = ['Alert', 'ServiceProviderServiceService', '$filter', 'ACL']
 function controller(Alert, ServiceProviderServiceService, $filter, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -54,16 +49,14 @@ function controller(Alert, ServiceProviderServiceService, $filter, ACL) {
   }
 
   function loadServices() {
-    return ServiceProviderServiceService.show(ctrl.serviceProviderId).then(
-      function(data) {
-        var services = _.filter(data[ctrl.serviceType], { licensed: true })
-        services.forEach(function(service) {
-          service.allocatedView = ctrl.quantity(service.allocated)
-          service.quantityView = ctrl.quantity(service.quantity)
-        })
-        ctrl.services = services
-      }
-    )
+    return ServiceProviderServiceService.show(ctrl.serviceProviderId).then(function(data) {
+      var services = _.filter(data[ctrl.serviceType], { licensed: true })
+      services.forEach(function(service) {
+        service.allocatedView = ctrl.quantity(service.allocated)
+        service.quantityView = ctrl.quantity(service.quantity)
+      })
+      ctrl.services = services
+    })
   }
 
   function onClick(service) {
@@ -76,9 +69,7 @@ function controller(Alert, ServiceProviderServiceService, $filter, ACL) {
         update(singleService, close)
       }
       if (!ctrl.editService.authorized && service.authorized) {
-        Alert.confirm
-          .open('Are you sure you want to de-authorize this service?')
-          .then(runUpdate)
+        Alert.confirm.open('Are you sure you want to de-authorize this service?').then(runUpdate)
       } else {
         runUpdate()
       }

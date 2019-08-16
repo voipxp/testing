@@ -30,12 +30,10 @@ function controller(Alert, EventEmitter, GroupService) {
   }
 
   function loadGroup() {
-    return GroupService.show(ctrl.serviceProviderId, ctrl.groupId).then(
-      function(data) {
-        ctrl.group = data
-        ctrl.max = ctrl.group.userLimit - ctrl.group.userCount
-      }
-    )
+    return GroupService.show(ctrl.serviceProviderId, ctrl.groupId).then(function(data) {
+      ctrl.group = data
+      ctrl.max = ctrl.group.userLimit - ctrl.group.userCount
+    })
   }
 
   function complete() {

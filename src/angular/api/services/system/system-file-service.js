@@ -9,8 +9,6 @@ function Service($http, Route) {
   return service
 
   function show(fileName) {
-    return $http
-      .get(url(), { params: { fileName } })
-      .then(response => response.data)
+    return $http.get(url(), { params: { fileName } }).then(response => response.data)
   }
 }

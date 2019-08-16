@@ -26,9 +26,7 @@
 
 <pbs-block class="margin-top" title="{{ $ctrl.reportTitle }} Data">
   <pbs-block-buttons>
-    <pbs-button-compact-download
-      ng-click="$ctrl.downloadCsv()"
-    ></pbs-button-compact-download>
+    <pbs-button-compact-download ng-click="$ctrl.downloadCsv()"></pbs-button-compact-download>
   </pbs-block-buttons>
   <pbs-table-search ng-model="$ctrl.recordSearch"></pbs-table-search>
   <table pbs-table>
@@ -45,9 +43,7 @@
       <tr ng-if="results.length < 1">
         <td colspan="{{ $ctrl.callTimes.length + 1 }}">
           No Records Found
-          <strong ng-if="$ctrl.recordSearch"
-            >for {{ $ctrl.recordSearch }}</strong
-          >
+          <strong ng-if="$ctrl.recordSearch">for {{ $ctrl.recordSearch }}</strong>
         </td>
       </tr>
       <tr ng-if="results.length > 0">

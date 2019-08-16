@@ -71,11 +71,7 @@ function controller(
   }
 
   function onSelectPhone(event) {
-    _.set(
-      ctrl.flexibleSeatingHost,
-      'serviceInstanceProfile.phoneNumber',
-      event.phoneNumber
-    )
+    _.set(ctrl.flexibleSeatingHost, 'serviceInstanceProfile.phoneNumber', event.phoneNumber)
   }
 
   function onSelectUserId(event) {
@@ -83,9 +79,7 @@ function controller(
   }
 
   function sendUpdate(flexibleSeatingHost) {
-    return ctrl.onCreate(
-      EventEmitter({ flexibleSeatingHost: flexibleSeatingHost })
-    )
+    return ctrl.onCreate(EventEmitter({ flexibleSeatingHost: flexibleSeatingHost }))
   }
 
   $scope.$on('flexibleSeatingHostCreate:load', open)

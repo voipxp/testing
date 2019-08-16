@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import apiCommProfile from '@/api/group-communication-barring-profiles'
 import apiComm from '@/api/group-communication-barring'
 import { Select } from 'rbx'
-import { alertSuccess, alertDanger } from '@/utils/alerts'
+import { Alert } from '@/utils'
 import {
   UiCard,
   UiLoadingCard,
@@ -35,7 +35,7 @@ export const GroupCommunicationBarring = ({ match }) => {
         const barring = await apiComm.show(serviceProviderId, groupId)
         setCommunicationBarring(barring)
       } catch (error) {
-        alertDanger(error)
+        Alert.danger(error)
       } finally {
         setLoading(false)
       }
@@ -65,9 +65,9 @@ export const GroupCommunicationBarring = ({ match }) => {
     try {
       const data = await apiComm.update(serviceProviderId, groupId, profile)
       setCommunicationBarring(data)
-      alertSuccess('Communication Barring Profile Updated')
+      Alert.success('Communication Barring Profile Updated')
     } catch (error) {
-      alertDanger(error)
+      Alert.danger(error)
       setShowModal(true)
     } finally {
       setLoading(false)
@@ -84,17 +84,11 @@ export const GroupCommunicationBarring = ({ match }) => {
         <>
           <UiCard
             title="Communication Barring Profiles"
-            buttons={
-              <UiButton color="link" icon="edit" size="small" onClick={edit} />
-            }
+            buttons={<UiButton color="link" icon="edit" size="small" onClick={edit} />}
           >
             <UiSection>
               <UiListItem label="Default Service Provider profile">
-                <UiCheckbox
-                  isChecked={
-                    communicationBarring.useDefaultServiceProviderProfile
-                  }
-                />
+                <UiCheckbox isChecked={communicationBarring.useDefaultServiceProviderProfile} />
               </UiListItem>
               <UiListItem label="Use This Communication Barring profile">
                 {communicationBarring.profile}

@@ -1,7 +1,4 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Group Intercept'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
@@ -40,25 +37,16 @@
         {{ $ctrl.settings.inboundCallMode }}
       </pbs-list-item>
       <pbs-list-item label="Route To Voice Mail">
-        <pbs-check-box
-          checked="$ctrl.settings.routeToVoiceMail"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.routeToVoiceMail"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Play New Phone Number">
-        <pbs-check-box
-          checked="$ctrl.settings.playNewPhoneNumber"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.playNewPhoneNumber"></pbs-check-box>
       </pbs-list-item>
-      <pbs-list-item
-        label="New Phone Number"
-        ng-if="$ctrl.settings.playNewPhoneNumber"
-      >
+      <pbs-list-item label="New Phone Number" ng-if="$ctrl.settings.playNewPhoneNumber">
         {{ $ctrl.settings.newPhoneNumber }}
       </pbs-list-item>
       <pbs-list-item label="Transfer On Zero To PhoneNumber">
-        <pbs-check-box
-          checked="$ctrl.settings.transferOnZeroToPhoneNumber"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.transferOnZeroToPhoneNumber"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item
         label="Transfer Phone Number"
@@ -70,19 +58,12 @@
       <!--routeToVoiceMail-->
       <pbs-list-section>Outbound Call Options</pbs-list-section>
       <pbs-list-item label="Allow Outbound Local Calls">
-        <pbs-check-box
-          checked="$ctrl.settings.allowOutboundLocalCalls"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.allowOutboundLocalCalls"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Reroute Outbound Calls">
-        <pbs-check-box
-          checked="$ctrl.settings.rerouteOutboundCalls"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.rerouteOutboundCalls"></pbs-check-box>
       </pbs-list-item>
-      <pbs-list-item
-        label="outboundReroutePhoneNumber"
-        ng-if="$ctrl.settings.rerouteOutboundCalls"
-      >
+      <pbs-list-item label="outboundReroutePhoneNumber" ng-if="$ctrl.settings.rerouteOutboundCalls">
         {{ $ctrl.settings.outboundReroutePhoneNumber }}
       </pbs-list-item>
     </pbs-list>
@@ -90,10 +71,7 @@
 </pbs-spinner>
 <pbs-modal id="editGroupInterceptModal" title="Edit Settings">
   <pbs-form>
-    <pbs-input-checkbox
-      ng-model="$ctrl.editSettings.isActive"
-      label="Active"
-    ></pbs-input-checkbox>
+    <pbs-input-checkbox ng-model="$ctrl.editSettings.isActive" label="Active"></pbs-input-checkbox>
     <pbs-input-checkbox
       ng-model="$ctrl.editSettings.routeToVoiceMail"
       label="Route To Voice Mail"
@@ -140,33 +118,21 @@
       label="Route To Phone Number"
       ng-if="$ctrl.editSettings.rerouteOutboundCalls "
     >
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editSettings.outboundReroutePhoneNumber"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editSettings.outboundReroutePhoneNumber" />
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal
       label="New Phone Number"
       ng-if="$ctrl.editSettings.playNewPhoneNumber"
     >
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editSettings.newPhoneNumber"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editSettings.newPhoneNumber" />
     </pbs-form-field-horizontal>
 
     <pbs-form-field-horizontal
       label="Transfer Phone Number"
       ng-if="$ctrl.editSettings.transferOnZeroToPhoneNumber"
     >
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editSettings.transferPhoneNumber"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editSettings.transferPhoneNumber" />
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

@@ -15,13 +15,7 @@ controller.$inject = [
   '$q',
   'Module'
 ]
-function controller(
-  GroupCallCenterHolidayServiceService,
-  UserScheduleService,
-  Alert,
-  $q,
-  Module
-) {
+function controller(GroupCallCenterHolidayServiceService, UserScheduleService, Alert, $q, Module) {
   var ctrl = this
 
   ctrl.$onInit = onInit
@@ -48,11 +42,9 @@ function controller(
   }
 
   function loadService() {
-    return GroupCallCenterHolidayServiceService.show(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.service = data
-      }
-    )
+    return GroupCallCenterHolidayServiceService.show(ctrl.serviceUserId).then(function(data) {
+      ctrl.service = data
+    })
   }
 
   function loadSchedules() {

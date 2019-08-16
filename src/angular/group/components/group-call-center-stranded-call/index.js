@@ -46,11 +46,9 @@ function controller(GroupCallCenterStrandedCallService, Alert, Module) {
   }
 
   function loadService() {
-    return GroupCallCenterStrandedCallService.show(ctrl.serviceUserId).then(
-      function(data) {
-        ctrl.service = data
-      }
-    )
+    return GroupCallCenterStrandedCallService.show(ctrl.serviceUserId).then(function(data) {
+      ctrl.service = data
+    })
   }
 
   function edit() {

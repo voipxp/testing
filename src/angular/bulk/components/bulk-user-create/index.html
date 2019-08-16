@@ -3,14 +3,9 @@
   <pbs-breadcrumb title="'Create Users'"></pbs-breadcrumb>
 </pbs-navigation>
 
-<pbs-wizard
-  on-ready="$ctrl.wizardReady($event)"
-  on-complete="$ctrl.wizardComplete($event)"
->
+<pbs-wizard on-ready="$ctrl.wizardReady($event)" on-complete="$ctrl.wizardComplete($event)">
   <pbs-wizard-step label="Service Provider">
-    <bulk-select-service-provider-id
-      on-update="$ctrl.onUpdateServiceProviderId($event)"
-    >
+    <bulk-select-service-provider-id on-update="$ctrl.onUpdateServiceProviderId($event)">
     </bulk-select-service-provider-id>
   </pbs-wizard-step>
   <pbs-wizard-step label="Group">
@@ -41,10 +36,7 @@
     </bulk-select-user-id>
   </pbs-wizard-step>
   <pbs-wizard-step label="Passwords">
-    <bulk-select-passwords
-      password="$ctrl.data.password"
-      on-update="$ctrl.onUpdate($event)"
-    >
+    <bulk-select-passwords password="$ctrl.data.password" on-update="$ctrl.onUpdate($event)">
     </bulk-select-passwords>
   </pbs-wizard-step>
   <pbs-wizard-step label="Names">

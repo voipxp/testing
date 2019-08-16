@@ -11,22 +11,15 @@
     <pbs-list>
       <pbs-list-section>General Settings</pbs-list-section>
       <pbs-list-item label="Allow Call Waiting on Agents">
-        <pbs-check-box
-          checked="$ctrl.parent.huntGroup.allowCallWaitingForAgents"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.huntGroup.allowCallWaitingForAgents"></pbs-check-box>
       </pbs-list-item>
-      <pbs-list-item
-        label="Allow Members to Control Busy"
-        ng-if="$ctrl.hasVersion20"
-      >
+      <pbs-list-item label="Allow Members to Control Busy" ng-if="$ctrl.hasVersion20">
         <pbs-check-box
           checked="$ctrl.parent.huntGroup.allowMembersToControlGroupBusy"
         ></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Enable Group Busy" ng-if="$ctrl.hasVersion20">
-        <pbs-check-box
-          checked="$ctrl.parent.huntGroup.enableGroupBusy"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.huntGroup.enableGroupBusy"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item
         label="Apply Group Busy When Terminating Call"
@@ -40,18 +33,13 @@
       <pbs-list-item label="Group Policy">
         {{ $ctrl.parent.huntGroup.policy }}
       </pbs-list-item>
-      <pbs-list-item
-        label="Network Class of Service"
-        ng-if="$ctrl.hasVersion20"
-      >
+      <pbs-list-item label="Network Class of Service" ng-if="$ctrl.hasVersion20">
         {{ $ctrl.parent.huntGroup.networkClassOfService }}
       </pbs-list-item>
 
       <pbs-list-section>No Answer Settings</pbs-list-section>
       <pbs-list-item label="Skip on No Answer">
-        <pbs-check-box
-          checked="$ctrl.parent.huntGroup.huntAfterNoAnswer"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.huntGroup.huntAfterNoAnswer"></pbs-check-box>
         <span ng-show="$ctrl.parent.huntGroup.huntAfterNoAnswer">
           After
           <strong>{{ $ctrl.parent.huntGroup.noAnswerNumberOfRings }}</strong>
@@ -59,9 +47,7 @@
         </span>
       </pbs-list-item>
       <pbs-list-item label="Forward After Timeout">
-        <pbs-check-box
-          checked="$ctrl.parent.huntGroup.forwardAfterTimeout"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.huntGroup.forwardAfterTimeout"></pbs-check-box>
         <span ng-show="$ctrl.parent.huntGroup.forwardAfterTimeout">
           After
           <strong>{{ $ctrl.parent.huntGroup.forwardTimeoutSeconds }}</strong>
@@ -77,16 +63,11 @@
         ></pbs-check-box>
         <span ng-show="$ctrl.parent.huntGroup.enableNotReachableForwarding">
           To
-          <strong
-            >{{ $ctrl.parent.huntGroup.notReachableForwardToPhoneNumber
-            }}</strong
-          >
+          <strong>{{ $ctrl.parent.huntGroup.notReachableForwardToPhoneNumber }}</strong>
         </span>
       </pbs-list-item>
       <pbs-list-item label="Make busy when not reachable">
-        <pbs-check-box
-          checked="$ctrl.parent.huntGroup.makeBusyWhenNotReachable"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.huntGroup.makeBusyWhenNotReachable"></pbs-check-box>
       </pbs-list-item>
 
       <pbs-list-section>Calling Line ID Settings</pbs-list-section>
@@ -99,9 +80,7 @@
         label="Include Huntgroup Name in CLID"
         ng-show="!$ctrl.parent.huntGroup.useSystemHuntGroupCLIDSetting"
       >
-        <pbs-check-box
-          checked="$ctrl.parent.huntGroup.includeHuntGroupNameInCLID"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.parent.huntGroup.includeHuntGroupNameInCLID"></pbs-check-box>
       </pbs-list-item>
     </pbs-list>
   </pbs-block>

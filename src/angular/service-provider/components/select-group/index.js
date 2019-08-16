@@ -7,13 +7,7 @@ angular.module('odin.serviceProvider').component('selectGroup', {
   bindings: { onUpdate: '&', serviceProviderId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupService',
-  'EventEmitter',
-  'HashService',
-  '$scope'
-]
+controller.$inject = ['Alert', 'GroupService', 'EventEmitter', 'HashService', '$scope']
 function controller(Alert, GroupService, EventEmitter, HashService, $scope) {
   var ctrl = this
   ctrl.$onInit = onInit

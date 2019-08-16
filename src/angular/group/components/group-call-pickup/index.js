@@ -8,13 +8,7 @@ angular.module('odin.group').component('groupCallPickup', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupCallPickupService',
-  'Route',
-  'Module',
-  '$location'
-]
+controller.$inject = ['Alert', 'GroupCallPickupService', 'Route', 'Module', '$location']
 function controller(Alert, GroupCallPickupService, Route, Module, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -33,13 +27,11 @@ function controller(Alert, GroupCallPickupService, Route, Module, $location) {
   }
 
   function loadGroup() {
-    return GroupCallPickupService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.name
-    ).then(function(data) {
-      ctrl.group = data
-    })
+    return GroupCallPickupService.show(ctrl.serviceProviderId, ctrl.groupId, ctrl.name).then(
+      function(data) {
+        ctrl.group = data
+      }
+    )
   }
 
   function edit() {
@@ -48,11 +40,9 @@ function controller(Alert, GroupCallPickupService, Route, Module, $location) {
     var deleteAction
     if (Module.delete(ctrl.module)) {
       deleteAction = function(close) {
-        Alert.confirm
-          .open('Are you sure you want to delete this Group?')
-          .then(function() {
-            remove(ctrl.editGroup, close)
-          })
+        Alert.confirm.open('Are you sure you want to delete this Group?').then(function() {
+          remove(ctrl.editGroup, close)
+        })
       }
     }
     Alert.modal.open(
@@ -66,11 +56,7 @@ function controller(Alert, GroupCallPickupService, Route, Module, $location) {
 
   function users() {
     Alert.spinner.open()
-    GroupCallPickupService.users(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.name
-    )
+    GroupCallPickupService.users(ctrl.serviceProviderId, ctrl.groupId, ctrl.name)
       .then(function(data) {
         ctrl.availableUsers = _.filter(data, function(user) {
           return !_.find(ctrl.group.users, { userId: user.userId })
@@ -98,12 +84,7 @@ function controller(Alert, GroupCallPickupService, Route, Module, $location) {
         'group'
       ).search({ name: name })
     } else {
-      return Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'callPickup'
-      )
+      return Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPickup')
     }
   }
 
@@ -125,11 +106,7 @@ function controller(Alert, GroupCallPickupService, Route, Module, $location) {
 
   function remove(group, callback) {
     Alert.spinner.open()
-    GroupCallPickupService.destroy(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      group.name
-    )
+    GroupCallPickupService.destroy(ctrl.serviceProviderId, ctrl.groupId, group.name)
       .then(function() {
         Alert.notify.warning('Group Removed')
         callback()

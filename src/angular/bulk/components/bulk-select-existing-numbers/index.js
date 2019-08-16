@@ -14,20 +14,8 @@ angular.module('odin.bulk').component('bulkSelectExistingNumbers', {
   }
 })
 
-controller.$inject = [
-  'Alert',
-  'GroupNumberService',
-  'EventEmitter',
-  'HashService',
-  '$scope'
-]
-function controller(
-  Alert,
-  GroupNumberService,
-  EventEmitter,
-  HashService,
-  $scope
-) {
+controller.$inject = ['Alert', 'GroupNumberService', 'EventEmitter', 'HashService', '$scope']
+function controller(Alert, GroupNumberService, EventEmitter, HashService, $scope) {
   var ctrl = this
   ctrl.$onInit = onInit
 
@@ -41,11 +29,7 @@ function controller(
   }
 
   function loadNumbers() {
-    return GroupNumberService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'available'
-    )
+    return GroupNumberService.index(ctrl.serviceProviderId, ctrl.groupId, 'available')
   }
 
   function open() {

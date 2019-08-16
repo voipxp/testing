@@ -9,22 +9,8 @@ angular.module('odin.vdm').component('vdmDeviceTagKeys', {
   require: { parent: '^vdmDeviceTags' }
 })
 
-controller.$inject = [
-  'Alert',
-  'HashService',
-  '$q',
-  'Module',
-  'ACL',
-  'VdmTemplateTagService'
-]
-function controller(
-  Alert,
-  HashService,
-  $q,
-  Module,
-  ACL,
-  VdmTemplateTagService
-) {
+controller.$inject = ['Alert', 'HashService', '$q', 'Module', 'ACL', 'VdmTemplateTagService']
+function controller(Alert, HashService, $q, Module, ACL, VdmTemplateTagService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.$onChanges = onChanges
@@ -174,24 +160,7 @@ function controller(
   }
 
   function showValue(type) {
-    return showOn(
-      [
-        '1',
-        '2',
-        '3',
-        '9',
-        '10',
-        '11',
-        '12',
-        '13',
-        '14',
-        '23',
-        '40',
-        '55',
-        '56'
-      ],
-      type
-    )
+    return showOn(['1', '2', '3', '9', '10', '11', '12', '13', '14', '23', '40', '55', '56'], type)
   }
 
   function showPhonebook(type) {
@@ -199,10 +168,7 @@ function controller(
   }
 
   function showLine(type) {
-    return showOn(
-      ['9', '10', '12', '13', '14', '15', '23', '39', '46', '55', '56'],
-      type
-    )
+    return showOn(['9', '10', '12', '13', '14', '15', '23', '39', '46', '55', '56'], type)
   }
 
   function showExtension(type) {

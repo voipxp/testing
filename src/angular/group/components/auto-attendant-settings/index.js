@@ -19,14 +19,7 @@ controller.$inject = [
   'GroupPolicyService',
   '$q'
 ]
-function controller(
-  Alert,
-  GroupAutoAttendantService,
-  Module,
-  ACL,
-  GroupPolicyService,
-  $q
-) {
+function controller(Alert, GroupAutoAttendantService, Module, ACL, GroupPolicyService, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -40,10 +33,8 @@ function controller(
     return $q
       .all([GroupPolicyService.load()])
       .then(function() {
-        ctrl.canUpdate =
-          GroupPolicyService.enhancedServiceCreate() && ctrl.canUpdate
-        ctrl.canDelete =
-          GroupPolicyService.enhancedServiceCreate() && ctrl.canDelete
+        ctrl.canUpdate = GroupPolicyService.enhancedServiceCreate() && ctrl.canUpdate
+        ctrl.canDelete = GroupPolicyService.enhancedServiceCreate() && ctrl.canDelete
       })
       .catch(Alert.notify.danger)
       .finally(function() {

@@ -2,18 +2,13 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular
-  .module('odin.user')
-  .component('userCommunicationBarringAuthorizationCodes', {
-    template,
-    controller,
-    bindings: { userId: '=', readOnly: '<' }
-  })
+angular.module('odin.user').component('userCommunicationBarringAuthorizationCodes', {
+  template,
+  controller,
+  bindings: { userId: '=', readOnly: '<' }
+})
 
-controller.$inject = [
-  'Alert',
-  'UserCommunicationBarringAuthorizationCodeService'
-]
+controller.$inject = ['Alert', 'UserCommunicationBarringAuthorizationCodeService']
 function controller(Alert, UserCommunicationBarringAuthorizationCodeService) {
   var ctrl = this
 
@@ -35,9 +30,7 @@ function controller(Alert, UserCommunicationBarringAuthorizationCodeService) {
   }
 
   function loadCodes() {
-    return UserCommunicationBarringAuthorizationCodeService.index(
-      ctrl.userId
-    ).then(function(data) {
+    return UserCommunicationBarringAuthorizationCodeService.index(ctrl.userId).then(function(data) {
       ctrl.codes = data
       return data
     })
@@ -63,34 +56,26 @@ function controller(Alert, UserCommunicationBarringAuthorizationCodeService) {
 
   function add() {
     ctrl.newCode = { userId: ctrl.userId }
-    Alert.modal.open(
-      'addUserCommunicationBarringAuthorizationCode',
-      function onSave(close) {
-        addCode(ctrl.newCode, close)
-      }
-    )
+    Alert.modal.open('addUserCommunicationBarringAuthorizationCode', function onSave(close) {
+      addCode(ctrl.newCode, close)
+    })
   }
 
   function remove(code) {
     if (ctrl.readOnly) return
-    Alert.confirm
-      .open('Are you sure you want to remove this code?')
-      .then(function() {
-        Alert.spinner.open()
-        UserCommunicationBarringAuthorizationCodeService.destroy(
-          ctrl.userId,
-          code.code
-        )
-          .then(loadCodes)
-          .then(function() {
-            Alert.notify.success('Authorization Code Removed')
-          })
-          .catch(function(error) {
-            Alert.notify.danger(error)
-          })
-          .finally(function() {
-            Alert.spinner.close()
-          })
-      })
+    Alert.confirm.open('Are you sure you want to remove this code?').then(function() {
+      Alert.spinner.open()
+      UserCommunicationBarringAuthorizationCodeService.destroy(ctrl.userId, code.code)
+        .then(loadCodes)
+        .then(function() {
+          Alert.notify.success('Authorization Code Removed')
+        })
+        .catch(function(error) {
+          Alert.notify.danger(error)
+        })
+        .finally(function() {
+          Alert.spinner.close()
+        })
+    })
   }
 }

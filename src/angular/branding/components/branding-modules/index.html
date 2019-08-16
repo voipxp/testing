@@ -27,24 +27,16 @@
         >
           <td>{{ module.alias }}</td>
           <td>
-            <pbs-check-box
-              checked="module.permissions.provisioning.read"
-            ></pbs-check-box>
+            <pbs-check-box checked="module.permissions.provisioning.read"></pbs-check-box>
           </td>
           <td>
-            <pbs-check-box
-              checked="module.permissions.serviceProvider.read"
-            ></pbs-check-box>
+            <pbs-check-box checked="module.permissions.serviceProvider.read"></pbs-check-box>
           </td>
           <td>
-            <pbs-check-box
-              checked="module.permissions.group.read"
-            ></pbs-check-box>
+            <pbs-check-box checked="module.permissions.group.read"></pbs-check-box>
           </td>
           <td>
-            <pbs-check-box
-              checked="module.permissions.user.read"
-            ></pbs-check-box>
+            <pbs-check-box checked="module.permissions.user.read"></pbs-check-box>
           </td>
         </tr>
       </tbody>
@@ -54,27 +46,13 @@
 <pbs-modal id="editModuleModal" title="{{ $ctrl.editModule.alias }}">
   <pbs-form>
     <pbs-form-field label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editModule.name"
-        required
-        disabled
-      />
+      <input type="text" class="input" ng-model="$ctrl.editModule.name" required disabled />
     </pbs-form-field>
     <pbs-form-field label="Alias">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editModule.alias"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editModule.alias" required />
     </pbs-form-field>
     <pbs-form-field label="Description">
-      <textarea
-        class="input"
-        ng-model="$ctrl.editModule.description"
-      ></textarea>
+      <textarea class="input" ng-model="$ctrl.editModule.description"></textarea>
     </pbs-form-field>
     <pbs-form-field label="Link">
       <input type="url" class="input" ng-model="$ctrl.editModule.url" />
@@ -82,10 +60,7 @@
     <pbs-columns>
       <pbs-column>
         <pbs-form-section>Provisioning</pbs-form-section>
-        <pbs-input-checkbox
-          label="Read"
-          ng-model="$ctrl.editModule.permissions.provisioning.read"
-        >
+        <pbs-input-checkbox label="Read" ng-model="$ctrl.editModule.permissions.provisioning.read">
         </pbs-input-checkbox>
         <pbs-input-checkbox
           label="Create"
@@ -128,48 +103,24 @@
       </pbs-column>
       <pbs-column>
         <pbs-form-section>Group</pbs-form-section>
-        <pbs-input-checkbox
-          label="Read"
-          ng-model="$ctrl.editModule.permissions.group.read"
-        >
+        <pbs-input-checkbox label="Read" ng-model="$ctrl.editModule.permissions.group.read">
         </pbs-input-checkbox>
-        <pbs-input-checkbox
-          label="Create"
-          ng-model="$ctrl.editModule.permissions.group.create"
-        >
+        <pbs-input-checkbox label="Create" ng-model="$ctrl.editModule.permissions.group.create">
         </pbs-input-checkbox>
-        <pbs-input-checkbox
-          label="Update"
-          ng-model="$ctrl.editModule.permissions.group.update"
-        >
+        <pbs-input-checkbox label="Update" ng-model="$ctrl.editModule.permissions.group.update">
         </pbs-input-checkbox>
-        <pbs-input-checkbox
-          label="Delete"
-          ng-model="$ctrl.editModule.permissions.group.delete"
-        >
+        <pbs-input-checkbox label="Delete" ng-model="$ctrl.editModule.permissions.group.delete">
         </pbs-input-checkbox>
       </pbs-column>
       <pbs-column>
         <pbs-form-section>User</pbs-form-section>
-        <pbs-input-checkbox
-          label="Read"
-          ng-model="$ctrl.editModule.permissions.user.read"
-        >
+        <pbs-input-checkbox label="Read" ng-model="$ctrl.editModule.permissions.user.read">
         </pbs-input-checkbox>
-        <pbs-input-checkbox
-          label="Create"
-          ng-model="$ctrl.editModule.permissions.user.create"
-        >
+        <pbs-input-checkbox label="Create" ng-model="$ctrl.editModule.permissions.user.create">
         </pbs-input-checkbox>
-        <pbs-input-checkbox
-          label="Update"
-          ng-model="$ctrl.editModule.permissions.user.update"
-        >
+        <pbs-input-checkbox label="Update" ng-model="$ctrl.editModule.permissions.user.update">
         </pbs-input-checkbox>
-        <pbs-input-checkbox
-          label="Delete"
-          ng-model="$ctrl.editModule.permissions.user.delete"
-        >
+        <pbs-input-checkbox label="Delete" ng-model="$ctrl.editModule.permissions.user.delete">
         </pbs-input-checkbox>
       </pbs-column>
     </pbs-columns>

@@ -55,28 +55,23 @@ function controller(
   }
 
   function loadServiceProvider() {
-    return ServiceProviderService.show(ctrl.serviceProviderId).then(function(
-      data
-    ) {
+    return ServiceProviderService.show(ctrl.serviceProviderId).then(function(data) {
       ctrl.serviceProvider = data
     })
   }
 
   function loadGroupEnterpriseTrunks() {
-    return GroupEnterpriseTrunkService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupEnterpriseTrunkService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.trunks = data
     })
   }
 
   function loadEnterpriseEnterpriseTrunks() {
-    return EnterpriseEnterpriseTrunkService.index(ctrl.serviceProviderId).then(
-      function(data) {
-        ctrl.trunks = data
-      }
-    )
+    return EnterpriseEnterpriseTrunkService.index(ctrl.serviceProviderId).then(function(data) {
+      ctrl.trunks = data
+    })
   }
 
   function load() {

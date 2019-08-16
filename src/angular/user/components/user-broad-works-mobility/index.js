@@ -8,13 +8,7 @@ angular.module('odin.user').component('userBroadWorksMobility', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = [
-  '$q',
-  'Alert',
-  'UserBroadWorksMobilityService',
-  'ACL',
-  'Module'
-]
+controller.$inject = ['$q', 'Alert', 'UserBroadWorksMobilityService', 'ACL', 'Module']
 function controller($q, Alert, UserBroadWorksMobilityService, ACL, Module) {
   var ctrl = this
   ctrl.$onInit = onInit

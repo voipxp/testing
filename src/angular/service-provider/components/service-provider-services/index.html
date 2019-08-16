@@ -11,10 +11,7 @@
     </pbs-block-buttons>
     <pbs-columns>
       <pbs-column>
-        <pbs-table-search
-          ng-model="$ctrl.search"
-          style="margin-bottom: 0"
-        ></pbs-table-search>
+        <pbs-table-search ng-model="$ctrl.search" style="margin-bottom: 0"></pbs-table-search>
       </pbs-column>
       <pbs-column class="is-narrow">
         <div class="buttons has-addons">
@@ -58,10 +55,7 @@
     ></pbs-data-table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editServiceProviderService"
-  title="{{ $ctrl.editServices.alias }}"
->
+<pbs-modal id="editServiceProviderService" title="{{ $ctrl.editServices.alias }}">
   <pbs-form-section>Authorization</pbs-form-section>
   <pbs-input-checkbox
     label="Service Authorized"

@@ -55,10 +55,9 @@ function controller(Alert, UserCallForwardingBusyService) {
   }
 
   function load() {
-    return UserCallForwardingBusyService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return UserCallForwardingBusyService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.users = _.filter(data, function(item) {
         return _.get(item, 'service.assigned')
       })

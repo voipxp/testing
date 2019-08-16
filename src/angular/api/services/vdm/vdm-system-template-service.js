@@ -24,9 +24,7 @@ function Service($http, Route) {
   }
 
   function assignments(id) {
-    return $http
-      .get(url('assignments'), { params: { id } })
-      .then(response => response.data)
+    return $http.get(url('assignments'), { params: { id } }).then(response => response.data)
   }
 
   function update(template) {
@@ -34,8 +32,6 @@ function Service($http, Route) {
   }
 
   function destroy(id) {
-    return $http
-      .delete(url(), { params: { id } })
-      .then(response => response.data)
+    return $http.delete(url(), { params: { id } }).then(response => response.data)
   }
 }

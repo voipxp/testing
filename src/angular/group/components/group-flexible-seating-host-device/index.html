@@ -8,13 +8,10 @@
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Device Level">
-        {{ $ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice
-        .deviceLevel }}
+        {{ $ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice .deviceLevel }}
       </pbs-list-item>
       <pbs-list-item label="Device Name">
-        {{
-        $ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice.deviceName
-        }}
+        {{ $ctrl.flexibleSeatingHost.accessDeviceEndpoint.accessDevice.deviceName }}
       </pbs-list-item>
       <pbs-list-item label="Line Port">
         {{ $ctrl.flexibleSeatingHost.accessDeviceEndpoint.linePort }}
@@ -46,22 +43,14 @@
           />
         </p>
         <p class="control">
-          <button
-            class="button"
-            ng-click="$ctrl.createDevice()"
-            title="Create a Device"
-          >
+          <button class="button" ng-click="$ctrl.createDevice()" title="Create a Device">
             <span class="icon">
               <i class="fas fa-plus"></i>
             </span>
           </button>
         </p>
         <p class="control">
-          <button
-            class="button"
-            ng-click="$ctrl.selectDevice()"
-            title="Select a Device"
-          >
+          <button class="button" ng-click="$ctrl.selectDevice()" title="Select a Device">
             <span class="icon">
               <i class="fas fa-list"></i>
             </span>

@@ -8,12 +8,7 @@ angular.module('odin.user').component('userSharedCallAppearance', {
   bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'UserSharedCallAppearanceService',
-  'Module',
-  '$q'
-]
+controller.$inject = ['Alert', 'UserSharedCallAppearanceService', 'Module', '$q']
 function controller(Alert, UserSharedCallAppearanceService, Module, $q) {
   var ctrl = this
   ctrl.$onInit = activate
@@ -46,9 +41,7 @@ function controller(Alert, UserSharedCallAppearanceService, Module, $q) {
   }
 
   function loadInstance() {
-    return UserSharedCallAppearanceService.show(ctrl.userId).then(function(
-      data
-    ) {
+    return UserSharedCallAppearanceService.show(ctrl.userId).then(function(data) {
       ctrl.sharedCallAppearance = data
       return data
     })

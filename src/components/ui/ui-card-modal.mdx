@@ -4,8 +4,8 @@ route: '/ui-card-modal'
 ---
 
 import { Props, Playground } from 'docz'
-import IFramePlayground from 'docz-iframe-playground'
 import { UiCardModal } from './ui-card-modal'
+import { UiButton } from './ui-button'
 
 # UiCardModal
 
@@ -20,18 +20,27 @@ The parent component should handle these events and change the **isOpen** prop t
 ## Example
 
 <Playground>
-  <IFramePlayground minHeight={400} maxHeight={800}>
-    <UiCardModal
-      title="Example Modal"
-      isOpen={true}
-      onCancel={() => setShowModal(false)}
-      onSave={() => setShowModal(false)}
-      onDelete={() => setShowModal(false)}
-      saveText="Custom Save"
-    >
-      <p>Children Content Goes Here. It can be html or another Component</p>
-    </UiCardModal>
-  </IFramePlayground>
+  {() => {
+    const UiCardModalExample = () => {
+      const [showModal, setShowModal] = React.useState(false)
+      return (
+        <>
+          <UiButton onClick={() => setShowModal(true)}>Show Modal</UiButton>
+          <UiCardModal
+            title="Example Modal"
+            isOpen={showModal}
+            onCancel={() => setShowModal(false)}
+            onSave={() => setShowModal(false)}
+            onDelete={() => setShowModal(false)}
+            saveText="Custom Save"
+          >
+            <p>Children Content Goes Here. It can be html or another Component</p>
+          </UiCardModal>
+        </>
+      )
+    }
+    return <UiCardModalExample />
+  }}
 </Playground>
 
 ## Props

@@ -112,11 +112,7 @@ function controller(
       serviceProviderId: ctrl.serviceProviderId,
       groupId: ctrl.groupId
     }
-    return GroupDeviceService.store(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      device
-    )
+    return GroupDeviceService.store(ctrl.serviceProviderId, ctrl.groupId, device)
   }
 
   function sendUpdate(device) {

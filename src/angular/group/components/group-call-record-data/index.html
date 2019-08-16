@@ -1,8 +1,7 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="{{ $ctrl.label }}">
     <pbs-block-buttons>
-      <pbs-button-compact-download ng-click="$ctrl.download()">
-      </pbs-button-compact-download>
+      <pbs-button-compact-download ng-click="$ctrl.download()"> </pbs-button-compact-download>
     </pbs-block-buttons>
     <div class="buttons has-addons is-centered">
       <button
@@ -109,9 +108,7 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr
-          ng-repeat="detail in results = $ctrl.details | paginate:$ctrl.pager"
-        >
+        <tr ng-repeat="detail in results = $ctrl.details | paginate:$ctrl.pager">
           <td>{{ detail.userIdSub }}</td>
           <td>{{ detail.department }}</td>
           <td>{{ detail.direction | humanize }}</td>
@@ -137,3 +134,4 @@
     ></pbs-pagination>
   </pbs-block>
 </pbs-spinner>
+<user-search></user-search>

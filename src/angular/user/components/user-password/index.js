@@ -65,9 +65,7 @@ function controller(Alert, UserService, $q, Session, AuthService) {
     Alert.spinner.open()
     return UserService.update(ctrl.userId, user)
       .then(function() {
-        return ctrl.isCurrentUser
-          ? updateSession(user.userId, user.newPassword)
-          : $q.when()
+        return ctrl.isCurrentUser ? updateSession(user.userId, user.newPassword) : $q.when()
       })
       .then(loadUser)
       .then(function() {

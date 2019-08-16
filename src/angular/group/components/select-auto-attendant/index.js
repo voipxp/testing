@@ -15,14 +15,7 @@ controller.$inject = [
   '$scope',
   'Module'
 ]
-function controller(
-  Alert,
-  GroupAutoAttendantService,
-  EventEmitter,
-  HashService,
-  $scope,
-  Module
-) {
+function controller(Alert, GroupAutoAttendantService, EventEmitter, HashService, $scope, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.select = select
@@ -45,10 +38,9 @@ function controller(
   }
 
   function loadAutoAttendants() {
-    return GroupAutoAttendantService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
+    return GroupAutoAttendantService.index(ctrl.serviceProviderId, ctrl.groupId).then(function(
+      data
+    ) {
       ctrl.autoAttendants = data
     })
   }

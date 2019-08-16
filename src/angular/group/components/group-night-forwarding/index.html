@@ -1,7 +1,4 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId" group-id="$ctrl.groupId">
   <pbs-breadcrumb title="'Group Night Forwarding'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
@@ -33,10 +30,7 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editGroupNightForwardingModal"
-  title="Edit Group Night Forwarding Settings"
->
+<pbs-modal id="editGroupNightForwardingModal" title="Edit Group Night Forwarding Settings">
   <pbs-form>
     <pbs-list-section></pbs-list-section>
     <pbs-form-field-horizontal label="Night Forwarding">
@@ -64,11 +58,7 @@
       </select-group-schedule>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Forward To Phone Number">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editSettings.forwardToPhoneNumber"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editSettings.forwardToPhoneNumber" />
     </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

@@ -1,12 +1,9 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('ServiceProviderNetworkClassOfServiceService', Service)
+angular.module('odin.api').factory('ServiceProviderNetworkClassOfServiceService', Service)
 
-Service.$inject = ['$http', 'CacheFactory', 'Route']
-function Service($http, CacheFactory, Route) {
-  var cache = CacheFactory('ServiceProviderNetworkClassOfServiceService')
+Service.$inject = ['$http', 'Route']
+function Service($http, Route) {
   var url = Route.api('/service-providers/network-class-of-services')
   var service = { show: show, select: select, update: update }
   return service
@@ -14,7 +11,6 @@ function Service($http, CacheFactory, Route) {
   function show(serviceProviderId) {
     return $http
       .get(url(), {
-        cache: cache,
         params: { serviceProviderId: serviceProviderId }
       })
       .then(function(response) {
@@ -29,7 +25,6 @@ function Service($http, CacheFactory, Route) {
         name: name
       })
       .then(function(response) {
-        cache.removeAll()
         return response.data
       })
   }
@@ -41,7 +36,6 @@ function Service($http, CacheFactory, Route) {
         services: services
       })
       .then(function(response) {
-        cache.removeAll()
         return response.data
       })
   }

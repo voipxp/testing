@@ -15,20 +15,15 @@
       </pbs-list-item>
       <pbs-list-section>Permissions</pbs-list-section>
       <pbs-list-item label="Allow Inside Calls">
-        <pbs-check-box
-          checked="$ctrl.plan.userPermissions.allowFromWithinGroup"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.plan.userPermissions.allowFromWithinGroup"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Allow Outside Calls">
         {{ $ctrl.plan.userPermissions.allowFromOutsideGroup }}
       </pbs-list-item>
       <pbs-list-item label="Allow Collect Calls">
-        <pbs-check-box
-          checked="$ctrl.plan.userPermissions.allowCollectCalls"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.plan.userPermissions.allowCollectCalls"></pbs-check-box>
       </pbs-list-item>
-      <pbs-list-section
-        ng-show="$ctrl.plan.userPermissions.digitPatterns.length > 0"
+      <pbs-list-section ng-show="$ctrl.plan.userPermissions.digitPatterns.length > 0"
         >Digit Patterns</pbs-list-section
       >
       <pbs-list-item

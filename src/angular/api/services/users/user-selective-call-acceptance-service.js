@@ -2,10 +2,7 @@ import angular from 'angular'
 
 angular
   .module('odin.api')
-  .factory(
-    'UserSelectiveCallAcceptanceService',
-    UserSelectiveCallAcceptanceService
-  )
+  .factory('UserSelectiveCallAcceptanceService', UserSelectiveCallAcceptanceService)
 
 UserSelectiveCallAcceptanceService.$inject = ['$http', 'Route']
 function UserSelectiveCallAcceptanceService($http, Route) {
@@ -27,11 +24,9 @@ function UserSelectiveCallAcceptanceService($http, Route) {
   return service
 
   function index(userId) {
-    return $http
-      .get(url(), { params: { userId: userId } })
-      .then(function(response) {
-        return response.data
-      })
+    return $http.get(url(), { params: { userId: userId } }).then(function(response) {
+      return response.data
+    })
   }
 
   function show(userId, criteriaName) {

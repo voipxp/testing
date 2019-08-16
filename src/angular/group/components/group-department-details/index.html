@@ -29,12 +29,7 @@
 <pbs-modal id="groupDepartmentEditModal" title="Edit Department">
   <pbs-form>
     <pbs-form-field label="Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editDepartment.newName"
-        required
-      />
+      <input type="text" class="input" ng-model="$ctrl.editDepartment.newName" required />
     </pbs-form-field>
     <pbs-form-field label="Parent">
       <pbs-input-select
@@ -45,11 +40,7 @@
       </pbs-input-select>
     </pbs-form-field>
     <pbs-form-field label="CLID Name">
-      <input
-        type="text"
-        class="input"
-        ng-model="$ctrl.editDepartment.callingLineIdName"
-      />
+      <input type="text" class="input" ng-model="$ctrl.editDepartment.callingLineIdName" />
     </pbs-form-field>
     <pbs-form-field label="CLID Number">
       <select-phone-number

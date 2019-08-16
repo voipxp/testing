@@ -1,55 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { UiLoadingCard, UiMenu } from '@/components/ui'
+import { UiMenu, UiLoadingCard } from '@/components/ui'
 import { AppBreadcrumb } from '@/components/app'
-import { useUserServices } from '@/store/user-services'
-import {
-  useUserServicePermissions,
-  useModulePermissions,
-  useAcl
-} from '@/utils'
+import { useUserServicePermissions, useModulePermissions, useAcl } from '@/utils'
 import { dashboardMenu } from './user-dashboard-menu'
 
 export const UserDashboard = ({ match }) => {
-  const [loading, setLoading] = React.useState(true)
   const { userId } = match.params
-  const { hasVersion, hasLevel } = useAcl()
-  const { hasUserService } = useUserServicePermissions(userId)
-  const { hasModuleRead } = useModulePermissions()
-
-  const { loadUserServices } = useUserServices(userId)
-
-  React.useEffect(() => {
-    let isActive = true
-    setLoading(true)
-    Promise.all([loadUserServices(userId)]).then(() => {
-      isActive && setLoading(false)
-    })
-    return () => (isActive = false)
-  }, [loadUserServices, userId])
+  const Acl = useAcl()
+  const Permissions = useUserServicePermissions(userId)
+  const Module = useModulePermissions()
 
   // filter items we should not see
   const menu = React.useMemo(() => {
     const filteredMenu = []
     dashboardMenu.forEach(section => {
       const items = section.items.filter(item => {
-        if (item.version && !hasVersion(item.version)) return false
-        if (item.acl && !hasLevel(item.acl)) return false
-        if (item.services && !item.services.find(s => hasUserService(s))) {
+        if (item.version && !Acl.hasVersion(item.version)) return false
+        if (item.acl && !Acl.hasLevel(item.acl)) return false
+        if (item.services && !item.services.find(s => Permissions.hasUserService(s))) {
           return false
         }
-        if (item.module && !hasModuleRead(item.module)) return false
+        if (item.module && !Module.hasRead(item.module)) return false
         return true
       })
       if (items.length > 0) filteredMenu.push({ label: section.label, items })
     })
     return filteredMenu
-  }, [hasLevel, hasModuleRead, hasUserService, hasVersion])
+  }, [Acl, Module, Permissions])
 
   return (
     <>
       <AppBreadcrumb />
-      {loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
+      {Permissions.loading || Module.loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
     </>
   )
 }

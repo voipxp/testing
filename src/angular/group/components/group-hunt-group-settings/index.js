@@ -20,10 +20,8 @@ function controller(Alert, ACL, Module, GroupPolicyService, $q) {
     return $q
       .all([GroupPolicyService.load()])
       .then(function() {
-        ctrl.canUpdate =
-          GroupPolicyService.enhancedServiceCreate() && ctrl.canUpdate
-        ctrl.canDelete =
-          GroupPolicyService.enhancedServiceCreate() && ctrl.canDelete
+        ctrl.canUpdate = GroupPolicyService.enhancedServiceCreate() && ctrl.canUpdate
+        ctrl.canDelete = GroupPolicyService.enhancedServiceCreate() && ctrl.canDelete
       })
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -36,11 +34,9 @@ function controller(Alert, ACL, Module, GroupPolicyService, $q) {
     var deleteAction
     if (ctrl.parent.module.permissions.delete) {
       deleteAction = function(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this Hunt Group?')
-          .then(function() {
-            ctrl.parent.destroy(close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this Hunt Group?').then(function() {
+          ctrl.parent.destroy(close)
+        })
       }
     }
     Alert.modal.open(

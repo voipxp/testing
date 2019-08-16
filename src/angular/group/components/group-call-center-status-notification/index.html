@@ -10,22 +10,16 @@
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Notifications Enabled">
-        <pbs-check-box
-          checked="$ctrl.service.enableQueueStatusNotification"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.service.enableQueueStatusNotification"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Queue Depth Enabled">
-        <pbs-check-box
-          checked="$ctrl.service.enableQueueDepthThreshold"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.service.enableQueueDepthThreshold"></pbs-check-box>
         <span ng-show="$ctrl.service.enableQueueDepthThreshold">
           when {{ $ctrl.service.numberOfCallsThreshold }} calls in queue
         </span>
       </pbs-list-item>
       <pbs-list-item label="Waiting Time Enabled">
-        <pbs-check-box
-          checked="$ctrl.service.enableWaitingTimeThreshold"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.service.enableWaitingTimeThreshold"></pbs-check-box>
         <span ng-show="$ctrl.service.enableWaitingTimeThreshold">
           when waiting {{ $ctrl.service.waitingTimeOfCallsThreshold }} seconds
         </span>
@@ -33,10 +27,7 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editGroupCallCenterQueueStatusNotification"
-  title="Edit Queue Status Notification"
->
+<pbs-modal id="editGroupCallCenterQueueStatusNotification" title="Edit Queue Status Notification">
   <pbs-form-field label="Enabled">
     <pbs-input-checkbox
       ng-model="$ctrl.editService.enableQueueStatusNotification"

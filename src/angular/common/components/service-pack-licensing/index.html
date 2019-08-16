@@ -5,10 +5,7 @@
   ng-model-options="{ getterSetter: true }"
   ng-if="$ctrl.hasUnlimited()"
 ></pbs-input-checkbox>
-<pbs-form-field-horizontal
-  label="Licenses ({{ $ctrl.available() }})"
-  ng-if="!$ctrl.isUnlimited()"
->
+<pbs-form-field-horizontal label="Licenses ({{ $ctrl.available() }})" ng-if="!$ctrl.isUnlimited()">
   <input
     type="number"
     class="input"

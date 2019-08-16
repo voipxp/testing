@@ -1,19 +1,16 @@
 import angular from 'angular'
 
-angular
-  .module('odin.api')
-  .factory('GroupExtensionService', GroupExtensionService)
+angular.module('odin.api').factory('GroupExtensionService', GroupExtensionService)
 
-GroupExtensionService.$inject = ['$http', 'CacheFactory', 'Route']
-function GroupExtensionService($http, CacheFactory, Route) {
+GroupExtensionService.$inject = ['$http', 'Route']
+function GroupExtensionService($http, Route) {
   var service = { show, update }
-  var cache = CacheFactory('GroupExtensionService')
   var url = Route.api('/groups/extensions')
   return service
 
   function show(serviceProviderId, groupId) {
     return $http
-      .get(url(), { cache, params: { serviceProviderId, groupId } })
+      .get(url(), { params: { serviceProviderId, groupId } })
       .then(response => response.data)
   }
 

@@ -13,8 +13,7 @@ const dotize = {
   },
 
   getValType: function(val) {
-    if ((!val || typeof val != 'object') && !Array.isArray(val))
-      return dotize.valTypes.primitive
+    if ((!val || typeof val != 'object') && !Array.isArray(val)) return dotize.valTypes.primitive
     if (Array.isArray(val)) return dotize.valTypes.array
     if (typeof val == 'object') return dotize.valTypes.object
   },
@@ -24,8 +23,7 @@ const dotize = {
     for (var path in arrPath) {
       var pathVal = arrPath[path]
       if (!pathVal) arrPathTypes.push(dotize.valTypes.none)
-      else if (dotize.isNumber(pathVal))
-        arrPathTypes.push(dotize.valTypes.array)
+      else if (dotize.isNumber(pathVal)) arrPathTypes.push(dotize.valTypes.array)
       else arrPathTypes.push(dotize.valTypes.object)
     }
     return arrPathTypes
@@ -69,9 +67,7 @@ const dotize = {
     if (isArray)
       return (
         (prefix ? prefix : '') +
-        (dotize.isNumber(field)
-          ? '[' + field + ']'
-          : (isRoot && !prefix ? '' : '.') + field)
+        (dotize.isNumber(field) ? '[' + field + ']' : (isRoot && !prefix ? '' : '.') + field)
       )
     else if (isArrayItem) return (prefix ? prefix : '') + '[' + field + ']'
     else return (prefix ? prefix + '.' : '') + field
@@ -101,9 +97,7 @@ const dotize = {
         if (currentProp && typeof currentProp === 'object') {
           if (Array.isArray(currentProp)) {
             if (dotize.isEmptyArray(currentProp)) {
-              newObj[
-                dotize.getFieldName(f, p, isRoot, false, true)
-              ] = currentProp
+              newObj[dotize.getFieldName(f, p, isRoot, false, true)] = currentProp
             } else {
               newObj = recurse(
                 currentProp,
@@ -113,16 +107,11 @@ const dotize = {
             }
           } else {
             if (isArrayItem && dotize.isEmptyObj(currentProp) == false) {
-              newObj = recurse(
-                currentProp,
-                dotize.getFieldName(f, p, isRoot, true)
-              ) // array item object
+              newObj = recurse(currentProp, dotize.getFieldName(f, p, isRoot, true)) // array item object
             } else if (dotize.isEmptyObj(currentProp) == false) {
               newObj = recurse(currentProp, dotize.getFieldName(f, p, isRoot)) // object
             } else if (dotize.isEmptyObj(currentProp)) {
-              newObj[
-                dotize.getFieldName(f, p, isRoot, isArrayItem)
-              ] = currentProp
+              newObj[dotize.getFieldName(f, p, isRoot, isArrayItem)] = currentProp
             }
           }
         } else {
@@ -203,13 +192,8 @@ const dotize = {
           return
         }
 
-        if (
-          currentPathType == dotize.valTypes.array &&
-          rPropValPrev &&
-          rObjPrev
-        ) {
-          if (Array.isArray(rObjPrev[rPropValPrev]) == false)
-            rObjPrev[rPropValPrev] = []
+        if (currentPathType == dotize.valTypes.array && rPropValPrev && rObjPrev) {
+          if (Array.isArray(rObjPrev[rPropValPrev]) == false) rObjPrev[rPropValPrev] = []
           rObjPrev[rPropValPrev].push(rPropVal)
         } else {
           rObj[currentPath] = rPropVal

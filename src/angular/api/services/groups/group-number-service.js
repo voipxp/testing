@@ -8,7 +8,8 @@ function GroupNumberService($http, Route) {
     index: index,
     assign: assign,
     unassign: unassign,
-    update: update
+    update: update,
+    bulkAssign: bulkAssign
   }
   return service
 
@@ -20,9 +21,7 @@ function GroupNumberService($http, Route) {
   }
 
   function assign(serviceProviderId, groupId, dns) {
-    return $http
-      .post(url(), { serviceProviderId, groupId, dns })
-      .then(response => response.data)
+    return $http.post(url(), { serviceProviderId, groupId, dns }).then(response => response.data)
   }
 
   function unassign(serviceProviderId, groupId, dns) {
@@ -32,8 +31,12 @@ function GroupNumberService($http, Route) {
   }
 
   function update(serviceProviderId, groupId, dns) {
+    return $http.put(url(), { serviceProviderId, groupId, dns }).then(response => response.data)
+  }
+
+  function bulkAssign(serviceProviderId, groupId, dns) {
     return $http
-      .put(url(), { serviceProviderId, groupId, dns })
+      .post(url() + '/assign/bulk', { serviceProviderId, groupId, dns })
       .then(response => response.data)
   }
 }

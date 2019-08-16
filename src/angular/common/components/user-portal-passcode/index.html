@@ -1,26 +1,15 @@
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block
-    title="Portal Passcode"
-    class="margin-top"
-    ng-if="$ctrl.hasService"
-  >
+  <pbs-block title="Portal Passcode" class="margin-top" ng-if="$ctrl.hasService">
     <pbs-block-buttons if-module-update="'Voice Messaging User'">
-      <pbs-button-compact-edit
-        title="Edit Portal Passcode"
-        ng-click="$ctrl.edit()"
-      >
+      <pbs-button-compact-edit title="Edit Portal Passcode" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
       <pbs-list-item label="Login Enabled">
-        <pbs-check-box
-          checked="!$ctrl.passcode.isLoginDisabled"
-        ></pbs-check-box>
+        <pbs-check-box checked="!$ctrl.passcode.isLoginDisabled"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Expiration Days">
-        <span ng-show="$ctrl.passcode.expirationDays === -1"
-          >Does Not Expire</span
-        >
+        <span ng-show="$ctrl.passcode.expirationDays === -1">Does Not Expire</span>
         <span ng-show="$ctrl.passcode.expirationDays !== -1"
           >{{ $ctrl.passcode.expirationDays }}</span
         >
@@ -28,11 +17,7 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  ng-if="$ctrl.hasService"
-  id="editUserPortalPasscode"
-  title="Edit Portal Passcode"
->
+<pbs-modal ng-if="$ctrl.hasService" id="editUserPortalPasscode" title="Edit Portal Passcode">
   <form>
     <pbs-form-field label="Current Passcode" ng-if="$ctrl.isUser()">
       <input

@@ -12,9 +12,7 @@
         {{ $ctrl.settings.agentThresholdProfileName }}
       </pbs-list-item>
       <pbs-list-item label="Make Outgoing Calls As Call Center">
-        <pbs-check-box
-          checked="$ctrl.settings.makeOutgoingCallsAsCallCenter"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.makeOutgoingCallsAsCallCenter"></pbs-check-box>
         <span ng-show="$ctrl.settings.makeOutgoingCallsAsCallCenter">
           {{ $ctrl.settings.outgoingCallDNIS.name }} ({{
           $ctrl.settings.outgoingCallDNIS.serviceUserId }})
@@ -28,8 +26,7 @@
         </span>
       </pbs-list-item>
       <pbs-list-item label="Agent Unavailable Settings">
-        {{ $ctrl.settings.useSystemDefaultUnavailableSettings ? 'Default' :
-        'User' }}
+        {{ $ctrl.settings.useSystemDefaultUnavailableSettings ? 'Default' : 'User' }}
       </pbs-list-item>
       <pbs-list-item
         label=" - Force Unavailable on Do Not Disturb"
@@ -51,9 +48,7 @@
         label=" - Force Unavailable on Not Reachable"
         ng-show="!$ctrl.settings.useSystemDefaultUnavailableSettings"
       >
-        <pbs-check-box
-          checked="$ctrl.settings.forceAgentUnavailableOnNotReachable"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.settings.forceAgentUnavailableOnNotReachable"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item
         label=" - Force Unavailable on Bounced Calls"
@@ -64,11 +59,7 @@
         ></pbs-check-box>
         <span ng-show="$ctrl.settings.forceAgentUnavailableOnBouncedCallLimit">
           after
-          <strong
-            >{{
-            $ctrl.settings.numberConsecutiveBouncedCallsToForceAgentUnavailable
-            }}</strong
-          >
+          <strong>{{ $ctrl.settings.numberConsecutiveBouncedCallsToForceAgentUnavailable }}</strong>
           consecutive calls
         </span>
       </pbs-list-item>
@@ -114,10 +105,7 @@
     </table>
   </pbs-block>
 </pbs-spinner>
-<pbs-modal
-  id="editUserCallCenterSettingsAvailability"
-  title="Edit Availability"
->
+<pbs-modal id="editUserCallCenterSettingsAvailability" title="Edit Availability">
   <pbs-form>
     <pbs-form-field label="Availability">
       <pbs-input-checkbox
@@ -125,10 +113,7 @@
         label="Available For Call Center"
       ></pbs-input-checkbox>
     </pbs-form-field>
-    <pbs-form-field
-      label="Skill Level"
-      ng-show="$ctrl.canEditSkillLevel($ctrl.editCenter)"
-    >
+    <pbs-form-field label="Skill Level" ng-show="$ctrl.canEditSkillLevel($ctrl.editCenter)">
       <input
         type="number"
         ng-model="$ctrl.editCenter.skillLevel"
@@ -186,10 +171,7 @@
         label="Enable Guard Timer"
       ></pbs-input-checkbox>
     </pbs-form-field>
-    <pbs-form-field
-      label="Guard Timer Seconds"
-      ng-if="!$ctrl.editSettings.useDefaultGuardTimer"
-    >
+    <pbs-form-field label="Guard Timer Seconds" ng-if="!$ctrl.editSettings.useDefaultGuardTimer">
       <input
         type="number"
         class="input"

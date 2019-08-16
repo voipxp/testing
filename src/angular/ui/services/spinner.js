@@ -1,14 +1,7 @@
 import angular from 'angular'
-import { showLoadingModal, hideLoadingModal } from '@/utils/loading'
+import { Loading } from '@/utils'
 
-angular.module('odin.ui').factory('Spinner', Spinner)
-
-function Spinner() {
-  return {
-    open: () => showLoadingModal(),
-    close: () => hideLoadingModal()
-  }
-}
+angular.module('odin.ui').factory('Spinner', () => ({ open: Loading.show, close: Loading.hide }))
 
 // function Spinner() {
 //   const service = { register: register, open: open, close: close }
