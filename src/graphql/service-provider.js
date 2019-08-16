@@ -5,6 +5,7 @@ export const SERVICE_PROVIDER_LIST_FRAGMENT = gql`
     serviceProviderId
     serviceProviderName
     isEnterprise
+    resellerId
   }
 `
 
@@ -17,6 +18,7 @@ export const SERVICE_PROVIDER_SHOW_FRAGMENT = gql`
     supportEmail
     useCustomRoutingProfile
     useServiceProviderLanguages
+    resellerId
     contact {
       contactName
       contactNumber
@@ -35,8 +37,8 @@ export const SERVICE_PROVIDER_SHOW_FRAGMENT = gql`
 `
 
 export const SERVICE_PROVIDER_LIST_QUERY = gql`
-    query serviceProviders {
-      serviceProviders {
+    query serviceProviders($resellerId: String) {
+      serviceProviders(resellerId: $resellerId) {
         ...ServiceProviderListFragment
       }
       ${SERVICE_PROVIDER_LIST_FRAGMENT}

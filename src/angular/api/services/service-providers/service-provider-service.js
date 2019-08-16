@@ -14,9 +14,10 @@ function service(GraphQL) {
   const service = { index, show, store, update, destroy }
   return service
 
-  function index() {
+  function index(resellerId) {
     return GraphQL.query({
-      query: SERVICE_PROVIDER_LIST_QUERY
+      query: SERVICE_PROVIDER_LIST_QUERY,
+      variables: { resellerId }
     }).then(res => res.data.serviceProviders)
   }
 
