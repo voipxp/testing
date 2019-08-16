@@ -25,7 +25,6 @@ You may set the **align** prop to control the positioning on the viewport.
       const onNext = () => setPage(page === pages ? pages : page + 1)
       const onPrevious = () => setPage(page === 1 ? 1 : page - 1)
       const onLast = () => setPage(pages)
-
       return (
         <>
           <UiPagination
@@ -55,12 +54,11 @@ You may set the **align** prop to control the positioning on the viewport.
             onPrevious={onPrevious}
             onLast={onLast}
           />
-        </>)
+        </>
+      )
     }
     return <UiPaginationExample />
-
-}}
-
+  }}
 </Playground>
 
 ## Props
