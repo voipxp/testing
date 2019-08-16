@@ -4,7 +4,6 @@ route: '/ui-form-field'
 ---
 
 import { Playground, Props } from 'docz'
-import { UiCard } from './ui-card'
 import { UiFormField } from './ui-form-field'
 import { UiFormError } from './ui-form-error'
 import { Input } from 'rbx'
@@ -16,14 +15,10 @@ An error message usually displayed in side a form.
 ## Example
 
 <Playground>
-  <UiCard title="Form Card">
-    <form>
-      <UiFormField label="Error">
-        <Input type="text" name="error" value="" placeholder="error" />
-        <UiFormError message="This is an error" />
-      </UiFormField>
-    </form>
-  </UiCard>
+  <form>
+    <Input type="text" name="error" value="" placeholder="error" />
+    <UiFormError message="This is an error" />
+  </form>
 </Playground>
 
 ## Props
