@@ -332,7 +332,7 @@ export const CreateAutoAttendantMain = props => {
                       >
                         {autoAttendant.menu.map(menuValue => {
                           if (autoAttendant.latestMenu !== menuValue) {
-                            let toolTipString = []
+                            const toolTipString = []
                             autoAttendant.digits.forEach(digit => {
                               if (digit.menu === menuValue) {
                                 const actionValue = autoAttendant.actions.find(
