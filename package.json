@@ -12,9 +12,9 @@
     "fix": "eslint --fix '**/*.js'",
     "browsers": "npx browserslist",
     "analyze": "SHOW_STATS=true webpack --mode production --json | webpack-bundle-size-analyzer",
-    "docs": "npx serve docs",
-    "docs:dev": "docz dev -o",
-    "docs:build": "docz build"
+    "doc": "npx serve doc",
+    "doc:dev": "docz dev -o",
+    "doc:build": "docz build"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.0",
@@ -87,7 +87,9 @@
     "copy-webpack-plugin": "^5.0.2",
     "core-js": "^3.0.1",
     "css-loader": "^3.0.0",
-    "docz": "^2.0.0-rc.1",
+    "docz": "^1.2.0",
+    "docz-plugin-css": "^0.11.0",
+    "docz-theme-default": "^1.2.0",
     "dotenv": "^8.0.0",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
@@ -107,7 +109,7 @@
     "postcss-loader": "^3.0.0",
     "prettier": "^1.17.0",
     "raw-loader": "^3.0.0",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^7.2.0",
     "terser-webpack-plugin": "^1.2.3",
     "webpack": "^4.30.0",
     "webpack-bundle-size-analyzer": "^3.0.0",
