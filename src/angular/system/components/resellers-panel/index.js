@@ -36,8 +36,7 @@ function controller(Alert, ResellerService, $scope, Route) {
   function loadResellers() {
     return ResellerService.index().then(function(data) {
       ctrl.resellers = data.map(function(item) {
-        item.name = _.trim(item.resellerName) || item.resellerId
-        return item
+        return { ...item, name: _.trim(item.resellerName) || item.resellerId }
       })
     })
   }

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import apiResellers from '@/api/resellers'
+import { useReseller, useResellerUpdate } from '@/graphql'
 import { Alert, Loading } from '@/utils'
 import { Input, Column } from 'rbx'
 import {
@@ -16,25 +16,12 @@ import {
 export const ResellerProfile = ({ match }) => {
   const { resellerId } = match.params
   const [showModal, setShowModal] = useState(false)
-  const [resellerName, setResellerName] = useState('')
-  const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({})
 
-  const loadReseller = useCallback(async () => {
-    try {
-      const reseller = await apiResellers.show(resellerId)
-      setResellerName(reseller.resellerName)
-    } catch (error) {
-      Alert.danger(error)
-    } finally {
-      setLoading(false)
-    }
-  }, [resellerId])
+  const { data, loading, error } = useReseller(resellerId)
+  const [updateReseller] = useResellerUpdate()
 
-  useEffect(() => {
-    setLoading(true)
-    loadReseller()
-  }, [loadReseller])
+  if (error) Alert.danger(error)
 
   function handleInput(event) {
     const { name, value } = event.target
@@ -42,25 +29,24 @@ export const ResellerProfile = ({ match }) => {
   }
 
   function edit() {
-    setForm({ resellerId, resellerName })
+    setForm({ ...data })
     setShowModal(true)
   }
 
   async function update() {
     Loading.show()
     try {
-      await apiResellers.update(form)
-      await loadReseller()
+      await updateReseller({ variables: { input: form } })
       Alert.success('Reseller Updated')
       setShowModal(false)
-    } catch (error) {
-      Alert.danger(error)
+    } catch (error_) {
+      Alert.danger(error_)
     } finally {
       Loading.hide()
     }
   }
 
-  return loading ? (
+  return !data && loading ? (
     <UiLoadingCard />
   ) : (
     <>
@@ -69,8 +55,8 @@ export const ResellerProfile = ({ match }) => {
         buttons={<UiButton color="link" icon="edit" size="small" onClick={edit} />}
       >
         <UiSection>
-          <UiListItem label="Reseller ID">{resellerId}</UiListItem>
-          <UiListItem label="Reseller Name">{resellerName}</UiListItem>
+          <UiListItem label="Reseller ID">{data.resellerId}</UiListItem>
+          <UiListItem label="Reseller Name">{data.resellerName}</UiListItem>
         </UiSection>
       </UiCard>
 

@@ -1,32 +1,41 @@
 import angular from 'angular'
+import {
+  RESELLER_LIST_QUERY,
+  RESELLER_CREATE_MUTATION,
+  RESELLER_UPDATE_MUTATION,
+  RESELLER_DELETE_MUTATION
+} from '@/graphql/reseller'
+
 angular.module('odin.api').factory('ResellerService', Service)
-Service.$inject = ['$http', 'Route']
+Service.$inject = ['GraphQL']
 
-function Service($http, Route) {
-  var url = Route.api('/resellers')
-  var service = { index, store, update, destroy }
-
+function Service(GraphQL) {
+  const service = { index, store, update, destroy }
   return service
 
   function index() {
-    return $http.get(url()).then(response => response.data)
+    return GraphQL.query({ query: RESELLER_LIST_QUERY }).then(res => res.data.resellers)
   }
 
   function store(reseller) {
-    return $http.post(url(), reseller).then(response => {
-      return response.data
-    })
+    return GraphQL.mutate({
+      mutation: RESELLER_CREATE_MUTATION,
+      variables: { input: reseller }
+    }).then(res => res.resellerCreate)
   }
 
   function update(reseller) {
-    return $http.put(url(), reseller).then(response => {
-      return response.data
-    })
+    return GraphQL.mutate({
+      mutation: RESELLER_UPDATE_MUTATION,
+      variables: { input: reseller }
+    }).then(res => res.data.resellerUpdate)
   }
 
   function destroy(resellerId) {
-    return $http.delete(url(), { params: { resellerId } }).then(response => {
-      return response.data
-    })
+    return GraphQL.mutate({
+      mutation: RESELLER_DELETE_MUTATION,
+      variables: { resellerId },
+      refetchQueries: [{ query: RESELLER_LIST_QUERY }]
+    }).then(res => res.data.resellerDelete)
   }
 }

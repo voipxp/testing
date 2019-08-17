@@ -2,6 +2,7 @@ import gql from 'graphql-tag'
 
 export const SERVICE_PROVIDER_LIST_FRAGMENT = gql`
   fragment ServiceProviderListFragment on ServiceProviderList {
+    _id
     serviceProviderId
     serviceProviderName
     isEnterprise
@@ -11,6 +12,7 @@ export const SERVICE_PROVIDER_LIST_FRAGMENT = gql`
 
 export const SERVICE_PROVIDER_SHOW_FRAGMENT = gql`
   fragment ServiceProviderShowFragment on ServiceProvider {
+    _id
     serviceProviderId
     serviceProviderName
     isEnterprise

@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Alert, Loading } from '@/utils'
-import apiResellers from '@/api/resellers'
+import { useResellerDelete } from '@/graphql'
 import { UiCard, UiCardModal, UiButton } from '@/components/ui'
 
 export const ResellerDelete = ({ match, history }) => {
   const { resellerId } = match.params
   const [showConfirm, setShowConfirm] = useState(false)
+  const [deleteReseller] = useResellerDelete()
 
   const remove = () => {
     setShowConfirm(false)
@@ -16,7 +17,7 @@ export const ResellerDelete = ({ match, history }) => {
   async function destroy(resellerId) {
     Loading.show()
     try {
-      await apiResellers.destroy(resellerId)
+      await deleteReseller({ variables: { resellerId } })
       Alert.warning('Reseller Deleted')
       history.push('/system/resellers')
     } catch (error) {

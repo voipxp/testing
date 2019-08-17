@@ -1,5 +1,6 @@
 export * from './common'
 export * from './group'
+export * from './reseller'
 export * from './service-provider'
 export * from './session'
 export * from './ui'
