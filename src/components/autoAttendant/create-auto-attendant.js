@@ -1,6 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { UiLoadingCard } from '@/components/ui'
+import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
 import { CreateAutoAttendantProfile } from './create-auto-attendant-profile'
 import { CreateAutoAttendantMain } from './create-auto-attendant-main'
@@ -10,7 +12,8 @@ const StyledDiv = styled.div`
   overflow: inherit;
 `
 
-export const CreateAutoAttendant = () => {
+export const CreateAutoAttendant = ({ match }) => {
+  const { groupId, serviceProviderId } = match.params
   const [loading, setLoading] = React.useState(true)
   const [profileSlide, setProfileSlide] = React.useState(true)
   const [hoursSlide, setHoursSlide] = React.useState(false)
@@ -33,16 +36,36 @@ export const CreateAutoAttendant = () => {
 
   return (
     <StyledDiv>
-      {!lastSlide ? <AppBreadcrumb /> : null}
+      <AppBreadcrumb>
+        <Breadcrumb.Item
+          href={`#!/groups/${serviceProviderId}/${groupId}/autoAttendants/`}
+        >
+          Auto Attendant
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>Create Auto Attendant</Breadcrumb.Item>
+      </AppBreadcrumb>
       {loading ? (
         <UiLoadingCard />
       ) : profileSlide ? (
-        <CreateAutoAttendantProfile onSubmit={next} />
+        <CreateAutoAttendantProfile
+          onSubmit={next}
+          groupId={groupId}
+          serviceProviderId={serviceProviderId}
+        />
       ) : hoursSlide ? (
-        <CreateAutoAttendantMain completeNextFlow={completeNextFlow} />
+        <CreateAutoAttendantMain
+          completeNextFlow={completeNextFlow}
+          groupId={groupId}
+          serviceProviderId={serviceProviderId}
+        />
       ) : lastSlide ? (
-        <CreateAutoAttendantLast />
+        <CreateAutoAttendantLast
+          groupId={groupId}
+          serviceProviderId={serviceProviderId}
+        />
       ) : null}
     </StyledDiv>
   )
 }
+
+CreateAutoAttendant.propTypes = { match: PropTypes.object.isRequired }

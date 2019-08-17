@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useReduxState } from 'reactive-react-redux'
 import { Field, Column, Control, Button, Icon, Tag } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -10,6 +9,7 @@ import {
   faEnvelope
 } from '@fortawesome/free-solid-svg-icons'
 import { UiPolyDownArrow, UiDownArrow } from '@/components/ui'
+import { useAutoAttendant } from '@/store/auto-attendant'
 
 const optionsData = [
   { key: 1, icon: faUserFriends, tag: 'Call Center' },
@@ -19,10 +19,10 @@ const optionsData = [
 ]
 
 export const CreateAutoAttendantSummary = props => {
-  const state = useReduxState()
+  const { autoAttendant } = useAutoAttendant()
 
   const findValue = () => {
-    const latestMenuArray = state.autoAttendant.digits.filter(
+    const latestMenuArray = autoAttendant.digits.filter(
       digit => digit.menu === props.digit.menu
     )
     const value = latestMenuArray.findIndex(
@@ -72,7 +72,15 @@ export const CreateAutoAttendantSummary = props => {
         <Column.Group centered>
           <Column offset={12} narrow>
             <Control>
-              <Button static rounded outlined color="link">
+              <Button
+                rounded
+                outlined
+                color="link"
+                style={{
+                  width: '120px',
+                  overflow: 'auto'
+                }}
+              >
                 <Icon>
                   <FontAwesomeIcon
                     icon={
@@ -82,11 +90,17 @@ export const CreateAutoAttendantSummary = props => {
                     }
                   />
                 </Icon>
-                <span>
-                  {props.option.option.slice(
-                    0,
-                    props.option.option.indexOf('(')
-                  )}
+                <span
+                  style={{
+                    width: '80px'
+                  }}
+                >
+                  {!props.option.option.includes('(')
+                    ? props.option.option
+                    : props.option.option.slice(
+                        0,
+                        props.option.option.indexOf('(')
+                      )}
                 </span>
               </Button>
             </Control>

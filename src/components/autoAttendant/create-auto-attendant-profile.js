@@ -1,26 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useReduxDispatch } from 'reactive-react-redux'
-import { Field, Control, Button, Input, Select, Tag } from 'rbx'
+import { withRouter } from 'react-router-dom'
+import { Field, Control, Button, Input, Select, Tag, Help } from 'rbx'
 import { UiCard } from '@/components/ui'
-import { saveUserProfile } from '@/store/auto-attendant'
+import { useAutoAttendant } from '@/store/auto-attendant'
 
 const types = [
   { key: 'select', name: 'Please select...' },
   { key: 'basic', name: 'Basic' },
   { key: 'standard', name: 'Standard' }
-]
-
-const domains = [
-  { key: 'select', name: 'Please select...' },
-  { key: 'parkbenchsolutions.com', name: 'parkbenchsolutions.com' }
-]
-
-const numbers = [
-  { key: 'select', name: 'Please select...' },
-  { key: 'number1', name: '1234567890' },
-  { key: 'number2', name: '2345678901' },
-  { key: 'number3', name: '3456789012' }
 ]
 
 const services = [
@@ -30,9 +18,14 @@ const services = [
   { key: 'callForwardingAlways', name: 'Call Forwarding Always' }
 ]
 
-export const CreateAutoAttendantProfile = props => {
-  const dispatch = useReduxDispatch()
-
+export const CreateAutoAttendantProfile = withRouter(props => {
+  const {
+    autoAttendant,
+    getDomains,
+    getNumbers,
+    saveUserProfile,
+    clearAutoAttendant
+  } = useAutoAttendant()
   const [typeKey, setTypeKey] = React.useState('')
   const [domainKey, setDomainKey] = React.useState('')
   const [numberKey, setNumberKey] = React.useState('')
@@ -40,8 +33,24 @@ export const CreateAutoAttendantProfile = props => {
   const [usernameString, setUsernameString] = React.useState('')
   const [extensionString, setExtensionString] = React.useState('')
   const [loading, setLoading] = React.useState(false)
+  const [helpText, setHelpText] = React.useState('')
+
+  React.useEffect(() => {
+    setLoading(true)
+    Promise.all([
+      getDomains(props.groupId, props.serviceProviderId),
+      getNumbers(props.groupId, props.serviceProviderId)
+    ]).then(() => setLoading(false))
+  }, [getDomains, getNumbers, props.groupId, props.serviceProviderId])
+
+  React.useEffect(() => {
+    clearAutoAttendant()
+  }, [clearAutoAttendant])
 
   const handleTypeSelect = e => {
+    if (helpText === 'type') {
+      setHelpText('')
+    }
     setTypeKey(e.target.value)
   }
 
@@ -50,6 +59,9 @@ export const CreateAutoAttendantProfile = props => {
   }
 
   const handleNumberSelect = e => {
+    if (helpText === 'number') {
+      setHelpText('')
+    }
     setNumberKey(e.target.value)
   }
 
@@ -58,6 +70,9 @@ export const CreateAutoAttendantProfile = props => {
   }
 
   const handleUsername = e => {
+    if (helpText === 'username') {
+      setHelpText('')
+    }
     setUsernameString(e.target.value)
   }
 
@@ -67,29 +82,39 @@ export const CreateAutoAttendantProfile = props => {
 
   const next = e => {
     e.preventDefault()
-    setLoading(true)
-    dispatch(
+    if (typeKey === '') {
+      setHelpText('type')
+    } else if (usernameString === '') {
+      setHelpText('username')
+    } else if (numberKey === '') {
+      setHelpText('number')
+    } else {
       saveUserProfile({
         type: typeKey,
-        domain: domainKey,
+        domain:
+          domainKey === ''
+            ? autoAttendant &&
+              autoAttendant.domains &&
+              autoAttendant.domains.default
+            : domainKey,
         number: numberKey,
         service: serviceKey,
         username: usernameString,
         extension: extensionString
       })
-    )
-    props.onSubmit()
+      props.onSubmit()
+    }
   }
 
   const cancel = e => {
     e.preventDefault()
-    setLoading(true)
+    props.history.goBack()
   }
 
   return (
     <>
       <UiCard title="Create Auto Attendant">
-        <form style={{ marginBottom: '1rem' }} onSubmit={next}>
+        <form style={{ marginBottom: '1rem' }}>
           <Field horizontal kind="addons">
             <Field.Label>
               <Tag color="link" size="medium">
@@ -98,7 +123,7 @@ export const CreateAutoAttendantProfile = props => {
             </Field.Label>
             <Field.Body>
               <Control>
-                <Select.Container>
+                <Select.Container color={helpText === 'type' ? 'danger' : ''}>
                   <Select
                     disabled={loading}
                     value={typeKey}
@@ -106,12 +131,15 @@ export const CreateAutoAttendantProfile = props => {
                     name="typeKey"
                   >
                     {types.map(type => (
-                      <Select.Option key={type.key} value={type.key}>
+                      <Select.Option key={type.key} value={type.name}>
                         {type.name}
                       </Select.Option>
                     ))}
                   </Select>
                 </Select.Container>
+                {helpText === 'type' ? (
+                  <Help color="danger">This field is required</Help>
+                ) : null}
               </Control>
             </Field.Body>
           </Field>
@@ -131,7 +159,11 @@ export const CreateAutoAttendantProfile = props => {
                   disabled={loading}
                   name="usernameString"
                   value={usernameString}
+                  color={helpText === 'username' ? 'danger' : ''}
                 />
+                {helpText === 'username' ? (
+                  <Help color="danger">This field is required</Help>
+                ) : null}
               </Control>
               <Control>
                 <Tag color="link" size="medium">
@@ -146,11 +178,26 @@ export const CreateAutoAttendantProfile = props => {
                     onChange={handleDomainSelect}
                     name="domainKey"
                   >
-                    {domains.map(domain => (
-                      <Select.Option key={domain.key} value={domain.key}>
-                        {domain.name}
+                    {autoAttendant &&
+                    autoAttendant.domains &&
+                    autoAttendant.domains.default ? (
+                      <Select.Option
+                        key={autoAttendant.domains.default}
+                        value={autoAttendant.domains.default}
+                      >
+                        {autoAttendant.domains.default}
                       </Select.Option>
-                    ))}
+                    ) : null}
+                    {autoAttendant &&
+                      autoAttendant.domains &&
+                      autoAttendant.domains.domains &&
+                      autoAttendant.domains.domains.map(domain =>
+                        autoAttendant.domains.default !== domain ? (
+                          <Select.Option key={domain} value={domain}>
+                            {domain}
+                          </Select.Option>
+                        ) : null
+                      )}
                   </Select>
                 </Select.Container>
               </Control>
@@ -165,20 +212,31 @@ export const CreateAutoAttendantProfile = props => {
             </Field.Label>
             <Field.Body>
               <Control>
-                <Select.Container>
+                <Select.Container color={helpText === 'number' ? 'danger' : ''}>
                   <Select
                     disabled={loading}
                     value={numberKey}
                     onChange={handleNumberSelect}
                     name="numberKey"
                   >
-                    {numbers.map(number => (
-                      <Select.Option key={number.key} value={number.name}>
-                        {number.name}
-                      </Select.Option>
-                    ))}
+                    <Select.Option value="Please select...">
+                      {'Please select...'}
+                    </Select.Option>
+                    {autoAttendant &&
+                      autoAttendant.numbers &&
+                      autoAttendant.numbers.dns &&
+                      autoAttendant.numbers.dns.map(number =>
+                        number.assigned ? null : (
+                          <Select.Option key={number.min} value={number.min}>
+                            {number.min}
+                          </Select.Option>
+                        )
+                      )}
                   </Select>
                 </Select.Container>
+                {helpText === 'number' ? (
+                  <Help color="danger">This field is required</Help>
+                ) : null}
               </Control>
             </Field.Body>
           </Field>
@@ -230,17 +288,14 @@ export const CreateAutoAttendantProfile = props => {
           </Field>
           <Field horizontal kind="group">
             <Button.Group>
-              <Button
-                type="reset"
-                state={loading ? 'loading' : ''}
-                onClick={cancel}
-              >
+              <Button type="reset" onClick={cancel}>
                 Cancel
               </Button>
               <Button
                 type="submit"
                 state={loading ? 'loading' : ''}
                 color="success"
+                onClick={next}
               >
                 Next
               </Button>
@@ -250,6 +305,11 @@ export const CreateAutoAttendantProfile = props => {
       </UiCard>
     </>
   )
-}
+})
 
-CreateAutoAttendantProfile.propTypes = { onSubmit: PropTypes.func.isRequired }
+CreateAutoAttendantProfile.propTypes = {
+  history: PropTypes.object,
+  onSubmit: PropTypes.func.isRequired,
+  groupId: PropTypes.string,
+  serviceProviderId: PropTypes.string
+}

@@ -1,5 +1,6 @@
 import React from 'react'
-import { useReduxState } from 'reactive-react-redux'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
 import {
   Column,
   Control,
@@ -9,7 +10,8 @@ import {
   Box,
   Title,
   Field,
-  Level
+  Level,
+  Message
 } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -25,6 +27,8 @@ import {
   UiPolyDownLastArrow,
   UiPolyDownLastMenuArrow
 } from '@/components/ui'
+import { useAutoAttendant } from '@/store/auto-attendant'
+import { useAlerts } from '@/store/alerts'
 
 const optionsData = [
   { key: 1, icon: faUserFriends, tag: 'Call Center' },
@@ -33,26 +37,182 @@ const optionsData = [
   { key: 4, icon: faEnvelope, tag: 'Voice Mail' }
 ]
 
-export const CreateAutoAttendantLast = () => {
-  const state = useReduxState()
-
-  const [loading, setLoading] = React.useState(true)
+export const CreateAutoAttendantLast = withRouter(props => {
+  const {
+    autoAttendant,
+    postAutoAttendant,
+    editAutoAttendant,
+    clearAutoAttendant
+    // postSubMenu,
+    // editSubMenu
+  } = useAutoAttendant()
+  const [loading, setLoading] = React.useState(false)
   const [showMenuItem, setShowMenuItem] = React.useState()
+  const [showTryAgain, setShowTryAgain] = React.useState(false)
+  const [showError, alertError] = React.useState(false)
+  const { alertSuccess, alertDanger } = useAlerts()
 
   const completeSave = () => {
-    console.log('final state :', state.autoAttendant)
+    setLoading(true)
+    const businessHoursKeys = []
+    const afterHoursKeys = []
+    const optionBusinessHoursKeys = []
+    const optionAfterHoursKeys = []
+    autoAttendant.options.forEach(option => {
+      if (option.menu === 'Business Hour') {
+        optionBusinessHoursKeys.push({
+          digit: option.digit,
+          option: option.option,
+          value: option.optionsValue
+        })
+      } else if (option.menu === 'After Office') {
+        optionAfterHoursKeys.push({
+          digit: option.digit,
+          option: option.option,
+          value: option.optionsValue
+        })
+      }
+    })
+    // const subMenuKeys = []
+    autoAttendant.actions.forEach(action => {
+      if (action.menu === 'Business Hour') {
+        let actionToSend = ''
+        let phoneNumber = ''
+        optionBusinessHoursKeys.forEach(option => {
+          if (action.digit === option.digit) {
+            if (
+              option.value === 'Hunt Group' ||
+              option.value === 'Call Center' ||
+              option.value === 'Operator'
+            ) {
+              actionToSend = 'Transfer Without Prompt'
+            } else if (option.value === 'Voice Mail') {
+              actionToSend = 'Transfer To Mailbox'
+            }
+            phoneNumber = !option.option.includes('(')
+              ? null
+              : option.option.slice(
+                  option.option.indexOf('(') + 1,
+                  option.option.indexOf(')') - 1
+                )
+          }
+        })
+        businessHoursKeys.push({
+          key: action.digit,
+          action: actionToSend,
+          description: action.action,
+          phoneNumber:
+            phoneNumber !== null && phoneNumber.length > 0 ? phoneNumber : null
+        })
+      } else if (action.menu === 'After Office') {
+        let actionToSend = ''
+        let phoneNumber = ''
+        optionAfterHoursKeys.map(option => {
+          if (action.digit === option.digit) {
+            if (
+              option.value === 'Hunt Group' ||
+              option.value === 'Call Center' ||
+              option.value === 'Operator'
+            ) {
+              actionToSend = 'Transfer Without Prompt'
+            } else if (option.value === 'Voice Mail') {
+              actionToSend = 'Transfer To Mailbox'
+            }
+            phoneNumber = !option.option.includes('(')
+              ? null
+              : option.option.slice(
+                  option.option.indexOf('(') + 1,
+                  option.option.indexOf(')') - 1
+                )
+          }
+        })
+        afterHoursKeys.push({
+          key: action.digit,
+          action: actionToSend,
+          description: action.action,
+          phoneNumber:
+            phoneNumber !== null && phoneNumber.length > 0 ? phoneNumber : null
+        })
+      } /* else if (action.menu === 'Sub Menu') {
+        subMenuKeys.push({ key: action.digit, action: action.action })
+      }*/ else {
+        return null
+      }
+    })
+
+    postAutoAttendant(props.groupId, props.serviceProviderId, {
+      type: autoAttendant.profile.type ? autoAttendant.profile.type : '',
+      serviceUserId: `${autoAttendant.profile.username}@${autoAttendant.profile.domain}`,
+      serviceInstanceProfile: {
+        name: autoAttendant.profile.username,
+        callingLineIdLastName: autoAttendant.profile.username,
+        callingLineIdFirstName: autoAttendant.profile.username
+      }
+    })
+      .then(() => {
+        editAutoAttendant(props.groupId, props.serviceProviderId, {
+          serviceInstanceProfile: {
+            name: autoAttendant.profile.username,
+            callingLineIdLastName: autoAttendant.profile.username,
+            callingLineIdFirstName: autoAttendant.profile.username
+          },
+          type: autoAttendant.profile.type ? autoAttendant.profile.type : '',
+          serviceUserId: `${autoAttendant.profile.username}@${autoAttendant.profile.domain}`,
+          businessHoursMenu: {
+            announcementSelection: 'Default',
+            enableFirstMenuLevelExtensionDialing: false,
+            keys: businessHoursKeys
+          },
+          afterHoursMenu: {
+            announcementSelection: 'Default',
+            enableFirstMenuLevelExtensionDialing: false,
+            keys: afterHoursKeys
+          }
+        })
+          .then(() => {
+            alertSuccess('Auto Attendant Created')
+            setLoading(false)
+            navigateBack()
+            clearAutoAttendant()
+          })
+          .catch(error => {
+            alertDanger(error)
+            setLoading(false)
+            alertError(true)
+          })
+      })
+      .catch(error => {
+        alertDanger(error)
+        setShowTryAgain(true)
+        setLoading(false)
+      })
+    /* setLoading(true)
+    Promise.resolve(
+      postSubMenu({
+        serviceUserId: `${autoAttendant.profile.username}@${autoAttendant.profile.domain}`,
+        submenuId: 'Submenu 1'
+      })
+    )
+      .then(
+        editSubMenu({
+          serviceUserId: `${autoAttendant.profile.username}@${autoAttendant.profile.domain}`,
+          subMenu: businessHoursKeys,
+          submenuId: 'Submenu 1'
+        })
+      )
+      .then(() => setLoading(false))*/
   }
 
-  React.useEffect(() => {
-    setLoading(false)
-  }, [])
+  const navigateBack = () => {
+    props.history.goBack()
+  }
 
   const polyArrow = (value, index) => (
     <UiPolyDownLastArrow key={index} arrowNumber={index} />
   )
 
   const findValue = (menuValue, digit) => {
-    const menuArray = state.autoAttendant.digits.filter(
+    const menuArray = autoAttendant.digits.filter(
       digit => digit.menu === menuValue
     )
     return menuArray.findIndex(
@@ -61,7 +221,7 @@ export const CreateAutoAttendantLast = () => {
   }
 
   const findMenuNumber = menuValue =>
-    state.autoAttendant.menu.findIndex(
+    autoAttendant.menu.findIndex(
       element => element.toString() === menuValue.toString()
     ) + 1
 
@@ -113,7 +273,15 @@ export const CreateAutoAttendantLast = () => {
           <Column.Group centered>
             <Column offset={1} narrow>
               <Control>
-                <Button static rounded outlined color="link">
+                <Button
+                  rounded
+                  outlined
+                  color="link"
+                  style={{
+                    width: '120px',
+                    overflow: 'auto'
+                  }}
+                >
                   <Icon>
                     <FontAwesomeIcon
                       icon={
@@ -123,11 +291,17 @@ export const CreateAutoAttendantLast = () => {
                       }
                     />
                   </Icon>
-                  <span>
-                    {optionValue.option.slice(
-                      0,
-                      optionValue.option.indexOf('(')
-                    )}
+                  <span
+                    style={{
+                      width: '80px'
+                    }}
+                  >
+                    {!optionValue.option.includes('(')
+                      ? optionValue.option
+                      : optionValue.option.slice(
+                          0,
+                          optionValue.option.indexOf('(')
+                        )}
                   </span>
                 </Button>
               </Control>
@@ -145,6 +319,19 @@ export const CreateAutoAttendantLast = () => {
 
   return (
     <Box style={{ width: '1390px' }}>
+      {showError ? (
+        <Message color="warning">
+          <Message.Header>Auto Attendant Creation Warning</Message.Header>
+          <Message.Body>
+            The Auto Attendant was created but its configuration was not saved.
+            Go Back to Auto Attendants list and update the configuration or
+            delete your newly created Auto Attendant.
+          </Message.Body>
+          <Button color="link" onClick={navigateBack}>
+            Go Back
+          </Button>
+        </Message>
+      ) : null}
       <Column.Group centered>
         <Column>
           <Column.Group>
@@ -180,12 +367,12 @@ export const CreateAutoAttendantLast = () => {
                       <Box style={{ maxHeight: '110px' }}>
                         <Control>
                           <Tag color="link" size="medium">
-                            {state.autoAttendant.profile.username}
+                            {autoAttendant.profile.username}
                           </Tag>
                         </Control>
                         <Control>
                           <Tag color="link" size="medium">
-                            {state.autoAttendant.profile.number}
+                            {autoAttendant.profile.number}
                           </Tag>
                         </Control>
                       </Box>
@@ -200,14 +387,14 @@ export const CreateAutoAttendantLast = () => {
             <Column>
               <Column.Group>
                 <Column offset={6}>
-                  {state.autoAttendant.menu.map((value, index) =>
+                  {autoAttendant.menu.map((value, index) =>
                     polyArrow(value, index)
                   )}
                 </Column>
               </Column.Group>
 
               <Column.Group>
-                {state.autoAttendant.menu.map(menuValue => (
+                {autoAttendant.menu.map(menuValue => (
                   <React.Fragment key={menuValue}>
                     <Column>
                       <Column.Group>
@@ -222,19 +409,19 @@ export const CreateAutoAttendantLast = () => {
                       </Column.Group>
 
                       <Column.Group>
-                        {state.autoAttendant.digits.map(digit => {
+                        {autoAttendant.digits.map(digit => {
                           if (
                             digit.menu === menuValue &&
                             digit.menu === showMenuItem
                           ) {
-                            const actionValue = state.autoAttendant.actions.find(
+                            const actionValue = autoAttendant.actions.find(
                               action =>
                                 action.menu === menuValue &&
                                 action.digit === digit.digit
                                   ? action.action
                                   : null
                             )
-                            const optionValue = state.autoAttendant.options.find(
+                            const optionValue = autoAttendant.options.find(
                               option =>
                                 option.menu === menuValue &&
                                 option.digit === digit.digit
@@ -243,9 +430,7 @@ export const CreateAutoAttendantLast = () => {
                             )
                             return (
                               <React.Fragment
-                                key={`${menuValue}_${actionValue.action}_${
-                                  digit.digit
-                                }_${optionValue.option}`}
+                                key={`${menuValue}_${actionValue.action}_${digit.digit}_${optionValue.option}`}
                               >
                                 {singleMenu(
                                   digit,
@@ -270,10 +455,11 @@ export const CreateAutoAttendantLast = () => {
                   <Control>
                     <Button
                       state={loading ? 'loading' : ''}
-                      color="success"
+                      color={showTryAgain ? 'warning' : 'success'}
                       onClick={completeSave}
+                      disabled={showError}
                     >
-                      Save
+                      {showTryAgain ? 'Try Again' : 'Save'}
                     </Button>
                   </Control>
                 </Column>
@@ -284,4 +470,10 @@ export const CreateAutoAttendantLast = () => {
       </Column.Group>
     </Box>
   )
+})
+
+CreateAutoAttendantLast.propTypes = {
+  history: PropTypes.object,
+  groupId: PropTypes.string,
+  serviceProviderId: PropTypes.string
 }

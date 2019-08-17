@@ -1,17 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useReduxDispatch, useReduxState } from 'reactive-react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Tag, Button, Input, Icon, Column, Field, Control, Help } from 'rbx'
 import { UiPolyRightArrow, UiRightArrow } from '@/components/ui'
 import { CreateAutoAttendantOptions } from './create-auto-attendant-options'
-import { saveAction } from '@/store/auto-attendant'
+import { useAutoAttendant } from '@/store/auto-attendant'
 
 export const CreateAutoAttendantActions = props => {
-  const dispatch = useReduxDispatch()
-  const state = useReduxState()
-
+  const { autoAttendant, saveAction } = useAutoAttendant()
   const [showActionMenu, setShowActionMenu] = React.useState(false)
   const [showActionTag, setShowActionTag] = React.useState(false)
   const [showActionTagValue, setShowActionTagValue] = React.useState('')
@@ -25,12 +22,10 @@ export const CreateAutoAttendantActions = props => {
   }, [showActionMenu])
 
   const selectValue = e => {
-    if (e.key === 'Enter') {
-      setActionTag(e.target.value)
+    if (e.key === 'Enter' && e.currentTarget.value) {
+      setActionTag(e.currentTarget.value)
       setShowActionMenu(false)
-      dispatch(
-        saveAction({ action: e.target.value, digit: props.digitPressed })
-      )
+      saveAction({ action: e.currentTarget.value, digit: props.digitPressed })
     }
   }
 
@@ -53,12 +48,12 @@ export const CreateAutoAttendantActions = props => {
   }
 
   const findValue = () => {
-    const latestMenuArray = state.autoAttendant.digits.filter(
-      digit => digit.menu === state.autoAttendant.latestMenu
+    const latestMenuArray = autoAttendant.digits.filter(
+      digit => digit.menu === autoAttendant.latestMenu
     )
     const value = latestMenuArray.findIndex(
       digit =>
-        digit.menu === state.autoAttendant.latestMenu &&
+        digit.menu === autoAttendant.latestMenu &&
         digit.digit === props.digitPressed
     )
     return value
@@ -127,6 +122,8 @@ export const CreateAutoAttendantActions = props => {
         <CreateAutoAttendantOptions
           optionSelect={optionSelect}
           digitPressed={props.digitPressed}
+          groupId={props.groupId}
+          serviceProviderId={props.serviceProviderId}
         />
       ) : null}
     </Column.Group>
@@ -135,5 +132,7 @@ export const CreateAutoAttendantActions = props => {
 
 CreateAutoAttendantActions.propTypes = {
   digitPressed: PropTypes.string,
-  optionSelect: PropTypes.func
+  optionSelect: PropTypes.func,
+  groupId: PropTypes.string,
+  serviceProviderId: PropTypes.string
 }

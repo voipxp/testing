@@ -1,18 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useReduxDispatch } from 'reactive-react-redux'
 import { Column } from 'rbx'
 import { UiNumpad } from '@/components/ui'
-import { saveDigits } from '@/store/auto-attendant'
+import { useAutoAttendant } from '@/store/auto-attendant'
 
 export const CreateAutoAttendantDigits = props => {
-  const dispatch = useReduxDispatch()
+  const { saveDigits } = useAutoAttendant()
 
   const buttonSelect = e => {
     e.preventDefault()
     if (e.target.textContent !== '1234567890*#') {
       props.setShowDigits(true)
-      dispatch(saveDigits(e.target.textContent))
+      saveDigits(e.target.textContent)
     }
   }
 

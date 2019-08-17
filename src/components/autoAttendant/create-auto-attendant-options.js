@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useReduxDispatch } from 'reactive-react-redux'
 import { Title, Dropdown, Column, Box, Button, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -11,7 +10,7 @@ import {
   faAngleDown,
   faCheck
 } from '@fortawesome/free-solid-svg-icons'
-import { saveOption } from '@/store/auto-attendant'
+import { useAutoAttendant } from '@/store/auto-attendant'
 
 const optionsData = [
   { key: 1, icon: faUserFriends, tag: 'Call Center' },
@@ -21,8 +20,14 @@ const optionsData = [
 ]
 
 export const CreateAutoAttendantOptions = props => {
-  const dispatch = useReduxDispatch()
-
+  const {
+    autoAttendant,
+    getHuntGroups,
+    getCallCenters,
+    getOperators,
+    saveOption
+  } = useAutoAttendant()
+  const [loading, setLoading] = React.useState(false)
   const [showOptions, setShowOptions] = React.useState(true)
   const [showOptionsValue, setShowOptionsValue] = React.useState(false)
   const [showOptionsIcon, setShowOptionsIcon] = React.useState(false)
@@ -30,10 +35,28 @@ export const CreateAutoAttendantOptions = props => {
   const [nameDropdownValue, setNameDropdownValue] = React.useState('')
 
   const optionSelect = key => {
+    setLoading(true)
     const textContent = optionsData.find(element =>
       element.key === key ? element : null
     ).tag
     setOptionsValue(textContent)
+    if (textContent === 'Hunt Group') {
+      Promise.resolve(
+        getHuntGroups(props.groupId, props.serviceProviderId)
+      ).then(() => setLoading(false))
+    } else if (textContent === 'Call Center') {
+      Promise.resolve(
+        getCallCenters(props.groupId, props.serviceProviderId)
+      ).then(() => setLoading(false))
+    } else if (textContent === 'Operator') {
+      Promise.resolve(
+        getOperators(props.groupId, props.serviceProviderId)
+      ).then(() => setLoading(false))
+    }
+    if (textContent === 'Voice Mail') {
+      setNameDropdownValue('Voice Mail')
+      setLoading(false)
+    }
     setShowOptionsValue(true)
     setShowOptions(false)
   }
@@ -46,13 +69,12 @@ export const CreateAutoAttendantOptions = props => {
   const saveNameNumber = () => {
     optionsData.map(option =>
       option.tag === optionsValue
-        ? dispatch(
-            saveOption({
-              option: nameDropdownValue,
-              digit: props.digitPressed,
-              key: option.key
-            })
-          )
+        ? saveOption({
+            optionsValue: optionsValue,
+            option: nameDropdownValue,
+            digit: props.digitPressed,
+            key: option.key
+          })
         : null
     )
     setShowOptionsValue(false)
@@ -97,8 +119,14 @@ export const CreateAutoAttendantOptions = props => {
                 <Column>
                   <Dropdown align="centered">
                     <Dropdown.Trigger>
-                      <Button>
-                        <span>
+                      <Button state={loading ? 'loading' : ''}>
+                        <span
+                          style={{
+                            width: '160px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis'
+                          }}
+                        >
                           {nameDropdownValue || `Select ${optionsValue}...`}
                         </span>
                         <Icon size="small">
@@ -108,10 +136,48 @@ export const CreateAutoAttendantOptions = props => {
                     </Dropdown.Trigger>
                     <Dropdown.Menu onClick={nameSelect}>
                       <Dropdown.Content>
-                        <Dropdown.Item>Name 1 (Number 1)</Dropdown.Item>
-                        <Dropdown.Item>Name 2 (Number 2)</Dropdown.Item>
-                        <Dropdown.Item>Name 3 (Number 3)</Dropdown.Item>
-                        <Dropdown.Item>Name 4 (Number 4)</Dropdown.Item>
+                        {optionsValue === 'Hunt Group' &&
+                          autoAttendant &&
+                          autoAttendant.huntGroups &&
+                          autoAttendant.huntGroups.map(huntGroup => (
+                            <Dropdown.Item
+                              key={huntGroup.name}
+                              value={huntGroup.name}
+                            >
+                              {huntGroup.name}
+                              {huntGroup.phoneNumber
+                                ? `(${huntGroup.phoneNumber})`
+                                : ''}
+                            </Dropdown.Item>
+                          ))}
+                        {optionsValue === 'Call Center' &&
+                          autoAttendant &&
+                          autoAttendant.callCenters &&
+                          autoAttendant.callCenters.map(callCenter => (
+                            <Dropdown.Item
+                              key={callCenter.name}
+                              value={callCenter.name}
+                            >
+                              {callCenter.name}
+                              {callCenter.phoneNumber
+                                ? `(${callCenter.phoneNumber})`
+                                : ''}
+                            </Dropdown.Item>
+                          ))}
+                        {optionsValue === 'Operator' &&
+                          autoAttendant &&
+                          autoAttendant.operators &&
+                          autoAttendant.operators.map(operator => (
+                            <Dropdown.Item
+                              key={operator.userId}
+                              value={operator.userId}
+                            >
+                              {operator.userId}
+                              {operator.phoneNumber
+                                ? `(${operator.phoneNumber})`
+                                : ''}
+                            </Dropdown.Item>
+                          ))}
                       </Dropdown.Content>
                     </Dropdown.Menu>
                   </Dropdown>
@@ -159,6 +225,8 @@ export const CreateAutoAttendantOptions = props => {
 }
 
 CreateAutoAttendantOptions.propTypes = {
+  groupId: PropTypes.string,
+  serviceProviderId: PropTypes.string,
   optionSelect: PropTypes.func.isRequired,
   digitPressed: PropTypes.string
 }

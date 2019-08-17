@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useReduxState, useReduxDispatch } from 'reactive-react-redux'
 import {
   Generic,
   Column,
@@ -22,12 +21,15 @@ import { CreateAutoAttendantMenu } from './create-auto-attendant-menu'
 import { CreateAutoAttendantDigits } from './create-auto-attendant-digits'
 import { CreateAutoAttendantSummary } from './create-auto-attendant-summary'
 import { CreateAutoAttendantActions } from './create-auto-attendant-actions'
-import { saveAnnouncementGreeting } from '@/store/auto-attendant'
+import { useAutoAttendant } from '@/store/auto-attendant'
 
 export const CreateAutoAttendantMain = props => {
-  const state = useReduxState()
-  const dispatch = useReduxDispatch()
-
+  const {
+    autoAttendant,
+    saveAnnouncementSchedule,
+    getAnnouncements,
+    getSchedules
+  } = useAutoAttendant()
   const [loading, setLoading] = React.useState(false)
   const [isDownArrow, setDownArrow] = React.useState(false)
   const [showMenu, setShowMenu] = React.useState(true)
@@ -42,8 +44,8 @@ export const CreateAutoAttendantMain = props => {
   const [
     announcementDropdownValue,
     setAnnouncementDropdownValue
-  ] = React.useState()
-  const [greetingDropdownValue, setGreetingDropdownValue] = React.useState()
+  ] = React.useState('')
+  const [scheduleDropdownValue, setScheduleDropdownValue] = React.useState('')
 
   const setDownArrowValue = value => {
     setLoading(true)
@@ -51,9 +53,15 @@ export const CreateAutoAttendantMain = props => {
     setShowMenu(false)
     setShowNumpad(true)
     setShowSummary(false)
-    setLoading(false)
     setShowConfiguredMenu(true)
     setShowModalDialog(value === 'After Office' || value === 'Holiday Hour')
+    if (value === 'After Office' || value === 'Holiday Hour') {
+      Promise.all([
+        getAnnouncements(props.groupId, props.serviceProviderId),
+        getSchedules(props.groupId, props.serviceProviderId)
+      ]).then(() => setLoading(false))
+      setShowModalDialog(true)
+    }
   }
 
   const handleCardCancel = () => {
@@ -61,13 +69,13 @@ export const CreateAutoAttendantMain = props => {
   }
 
   const handleCardSave = () => {
-    dispatch(
-      saveAnnouncementGreeting({
-        announcement: announcementDropdownValue,
-        greeting: greetingDropdownValue
-      })
-    )
+    saveAnnouncementSchedule({
+      announcement: announcementDropdownValue,
+      schedule: scheduleDropdownValue
+    })
     setShowModalDialog(false)
+    setAnnouncementDropdownValue('')
+    setScheduleDropdownValue('')
   }
 
   const announcementSelect = e => {
@@ -75,9 +83,9 @@ export const CreateAutoAttendantMain = props => {
     setAnnouncementDropdownValue(e.target.textContent)
   }
 
-  const greetingSelect = e => {
+  const scheduleSelect = e => {
     e.preventDefault()
-    setGreetingDropdownValue(e.target.textContent)
+    setScheduleDropdownValue(e.target.textContent)
   }
 
   const optionSelect = () => {
@@ -91,11 +99,15 @@ export const CreateAutoAttendantMain = props => {
   const completeMenuFlow = () => {
     setShowNumpad(false)
     setShowSummary(true)
-    setShowMenu(true)
+    if (autoAttendant.menu.length === 3) {
+      setShowConfiguredMenu(true)
+    } else {
+      setShowMenu(true)
+      setShowConfiguredMenu(false)
+    }
     setShowNext(true)
     setShowDoneButton(false)
     setShowDigits(false)
-    setShowConfiguredMenu(false)
   }
 
   const completeNextFlow = () => {
@@ -104,6 +116,7 @@ export const CreateAutoAttendantMain = props => {
 
   const setValueShowDigits = () => {
     setShowDigits(true)
+    setShowDoneButton(false)
   }
 
   const add = () => {
@@ -112,22 +125,22 @@ export const CreateAutoAttendantMain = props => {
 
   const autoAttendantActions = digit => (
     <CreateAutoAttendantActions
-      key={`${state.autoAttendant.latestMenu}_${digit.digit}`}
+      key={`${autoAttendant.latestMenu}_${digit.digit}`}
       digitPressed={digit.digit}
       optionSelect={optionSelect}
+      groupId={props.groupId}
+      serviceProviderId={props.serviceProviderId}
     />
   )
 
   const autoAttendantSummary = digit => {
-    const actionValue = state.autoAttendant.actions.find(action =>
-      action.menu === state.autoAttendant.latestMenu &&
-      action.digit === digit.digit
+    const actionValue = autoAttendant.actions.find(action =>
+      action.menu === autoAttendant.latestMenu && action.digit === digit.digit
         ? action.action
         : null
     )
-    const optionValue = state.autoAttendant.options.find(option =>
-      option.menu === state.autoAttendant.latestMenu &&
-      option.digit === digit.digit
+    const optionValue = autoAttendant.options.find(option =>
+      option.menu === autoAttendant.latestMenu && option.digit === digit.digit
         ? option.option
         : null
     )
@@ -170,12 +183,12 @@ export const CreateAutoAttendantMain = props => {
                   <Box style={{ maxHeight: '110px' }}>
                     <Control>
                       <Tag color="link" size="medium">
-                        {state.autoAttendant.profile.username}
+                        {autoAttendant.profile.username}
                       </Tag>
                     </Control>
                     <Control>
                       <Tag color="link" size="medium">
-                        {state.autoAttendant.profile.number}
+                        {autoAttendant.profile.number}
                       </Tag>
                     </Control>
                   </Box>
@@ -207,18 +220,18 @@ export const CreateAutoAttendantMain = props => {
               ) : null}
 
               <UiCardModal
-                title="Select Announcement & Greeting"
+                title="Select Announcement & Schedule"
                 isOpen={showModalDialog}
                 onCancel={handleCardCancel}
                 onSave={handleCardSave}
               >
                 <Container fluid style={{ marginBottom: '10rem', zIndex: 9 }}>
-                  <Title align="center">{state.autoAttendant.latestMenu}</Title>
+                  <Title align="center">{autoAttendant.latestMenu}</Title>
                   <Level>
                     <Level.Item>
                       <Dropdown>
                         <Dropdown.Trigger>
-                          <Button>
+                          <Button state={loading ? 'loading' : ''}>
                             <span>
                               {announcementDropdownValue ||
                                 `Select Announcement...`}
@@ -230,10 +243,19 @@ export const CreateAutoAttendantMain = props => {
                         </Dropdown.Trigger>
                         <Dropdown.Menu onClick={announcementSelect}>
                           <Dropdown.Content>
-                            <Dropdown.Item>Announcement 1</Dropdown.Item>
-                            <Dropdown.Item>Announcement 2</Dropdown.Item>
-                            <Dropdown.Item>Announcement 3</Dropdown.Item>
-                            <Dropdown.Item>Announcement 4</Dropdown.Item>
+                            {autoAttendant &&
+                              autoAttendant.announcements &&
+                              autoAttendant.announcements.announcements &&
+                              autoAttendant.announcements.announcements.map(
+                                announcement => (
+                                  <Dropdown.Item
+                                    key={announcement.name}
+                                    value={announcement.name}
+                                  >
+                                    {announcement.name}
+                                  </Dropdown.Item>
+                                )
+                              )}
                           </Dropdown.Content>
                         </Dropdown.Menu>
                       </Dropdown>
@@ -242,21 +264,42 @@ export const CreateAutoAttendantMain = props => {
                     <Level.Item>
                       <Dropdown>
                         <Dropdown.Trigger>
-                          <Button>
+                          <Button state={loading ? 'loading' : ''}>
                             <span>
-                              {greetingDropdownValue || `Select Greeting...`}
+                              {scheduleDropdownValue || `Select Schedule...`}
                             </span>
                             <Icon size="small">
                               <FontAwesomeIcon icon={faAngleDown} />
                             </Icon>
                           </Button>
                         </Dropdown.Trigger>
-                        <Dropdown.Menu onClick={greetingSelect}>
+                        <Dropdown.Menu onClick={scheduleSelect}>
                           <Dropdown.Content>
-                            <Dropdown.Item>Greeting 1</Dropdown.Item>
-                            <Dropdown.Item>Greeting 2</Dropdown.Item>
-                            <Dropdown.Item>Greeting 3</Dropdown.Item>
-                            <Dropdown.Item>Greeting 4</Dropdown.Item>
+                            {autoAttendant &&
+                              autoAttendant.schedules &&
+                              autoAttendant.schedules.map(schedule => {
+                                if (menuTag === 'Holiday Hour') {
+                                  return schedule.type === 'Holiday' ? (
+                                    <Dropdown.Item
+                                      key={schedule.name}
+                                      value={schedule.name}
+                                    >
+                                      {schedule.name}
+                                    </Dropdown.Item>
+                                  ) : null
+                                } else if (menuTag === 'After Office') {
+                                  return schedule.type === 'Time' ? (
+                                    <Dropdown.Item
+                                      key={schedule.name}
+                                      value={schedule.name}
+                                    >
+                                      {schedule.name}
+                                    </Dropdown.Item>
+                                  ) : null
+                                } else {
+                                  return null
+                                }
+                              })}
                           </Dropdown.Content>
                         </Dropdown.Menu>
                       </Dropdown>
@@ -265,7 +308,10 @@ export const CreateAutoAttendantMain = props => {
                 </Container>
               </UiCardModal>
 
-              {showConfiguredMenu && state.autoAttendant.menu.length > 1 ? (
+              {showConfiguredMenu &&
+              autoAttendant &&
+              autoAttendant.menu &&
+              autoAttendant.menu.length > 1 ? (
                 <>
                   <Column>
                     <Level.Item>
@@ -277,20 +323,26 @@ export const CreateAutoAttendantMain = props => {
 
                   <Column>
                     <Level.Item>
-                      <Box style={{ width: '400px', height: '200px' }}>
-                        {state.autoAttendant.menu.map(menuValue => {
-                          if (state.autoAttendant.latestMenu !== menuValue) {
-                            const toolTipString = []
-                            state.autoAttendant.digits.map(digit => {
+                      <Box
+                        style={{
+                          width: '300px',
+                          minHeight: '100px',
+                          maxHeight: '300px'
+                        }}
+                      >
+                        {autoAttendant.menu.map(menuValue => {
+                          if (autoAttendant.latestMenu !== menuValue) {
+                            let toolTipString = []
+                            autoAttendant.digits.forEach(digit => {
                               if (digit.menu === menuValue) {
-                                const actionValue = state.autoAttendant.actions.find(
+                                const actionValue = autoAttendant.actions.find(
                                   action =>
                                     action.menu === menuValue &&
                                     action.digit === digit.digit
                                       ? action.action
                                       : null
                                 )
-                                const optionValue = state.autoAttendant.options.find(
+                                const optionValue = autoAttendant.options.find(
                                   option =>
                                     option.menu === menuValue &&
                                     option.digit === digit.digit
@@ -298,33 +350,28 @@ export const CreateAutoAttendantMain = props => {
                                       : null
                                 )
                                 toolTipString.push(
-                                  `${digit.digit} : ${
-                                    actionValue.action
-                                  }, ${optionValue.option.slice(
-                                    0,
-                                    optionValue.option.indexOf('(')
-                                  )}`
+                                  `${digit.digit} : ${actionValue.action}, ${optionValue.option}`
                                 )
                               }
                             })
                             return (
                               <Column.Group centered key={menuValue}>
-                                <Column offset={8} size={12}>
+                                <Column size={8}>
                                   <Generic
-                                    as="span"
+                                    as="div"
                                     tooltip={toolTipString.toString()}
                                     textColor="primary"
                                     tooltipColor="link"
                                     textAlign="centered"
                                     tooltipPosition="bottom"
-                                    tooltipActive
-                                    tooltipMultiline
                                   >
                                     {menuValue}
                                   </Generic>
                                 </Column>
                               </Column.Group>
                             )
+                          } else {
+                            return null
                           }
                         })}
                       </Box>
@@ -363,8 +410,8 @@ export const CreateAutoAttendantMain = props => {
                 <CreateAutoAttendantDigits setShowDigits={setValueShowDigits} />
               ) : null}
               {showSummary
-                ? state.autoAttendant.digits.map(digit =>
-                    digit.menu === state.autoAttendant.latestMenu
+                ? autoAttendant.digits.map(digit =>
+                    digit.menu === autoAttendant.latestMenu
                       ? autoAttendantSummary(digit)
                       : null
                   )
@@ -372,13 +419,13 @@ export const CreateAutoAttendantMain = props => {
 
               <Column size={10}>
                 {showDigits
-                  ? Array.isArray(state.autoAttendant.digits)
-                    ? state.autoAttendant.digits.map(digit =>
-                        digit.menu === state.autoAttendant.latestMenu
+                  ? Array.isArray(autoAttendant.digits)
+                    ? autoAttendant.digits.map(digit =>
+                        digit.menu === autoAttendant.latestMenu
                           ? autoAttendantActions(digit)
                           : null
                       )
-                    : autoAttendantActions(state.autoAttendant.digits.digit)
+                    : autoAttendantActions(autoAttendant.digits.digit)
                   : null}
               </Column>
             </Column.Group>
@@ -389,11 +436,7 @@ export const CreateAutoAttendantMain = props => {
       {showDoneButton ? (
         <Column size={4} offset={8}>
           <Control>
-            <Button
-              state={loading ? 'loading' : ''}
-              color="link"
-              onClick={completeMenuFlow}
-            >
+            <Button color="link" onClick={completeMenuFlow}>
               Done
             </Button>
           </Control>
@@ -403,11 +446,7 @@ export const CreateAutoAttendantMain = props => {
       {showNextButton ? (
         <Column size={4} offset={8}>
           <Control>
-            <Button
-              state={loading ? 'loading' : ''}
-              color="link"
-              onClick={completeNextFlow}
-            >
+            <Button color="link" onClick={completeNextFlow}>
               Next
             </Button>
           </Control>
@@ -417,4 +456,8 @@ export const CreateAutoAttendantMain = props => {
   )
 }
 
-CreateAutoAttendantMain.propTypes = { completeNextFlow: PropTypes.func }
+CreateAutoAttendantMain.propTypes = {
+  completeNextFlow: PropTypes.func,
+  groupId: PropTypes.string,
+  serviceProviderId: PropTypes.string
+}

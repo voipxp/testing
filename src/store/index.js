@@ -14,7 +14,7 @@ import { loadApplications, uiApplicationsReducer } from './ui-applications'
 import { loadModules, uiModulesReducer } from './ui-modules'
 import { loadSettings, uiSettingsReducer } from './ui-settings'
 import { loadTemplate, uiTemplateReducer } from './ui-template'
-import autoAttendant from './auto-attendant'
+import { autoAttendantReducer } from './auto-attendant'
 
 export const store = configureStore({
   reducer: {
@@ -33,7 +33,7 @@ export const store = configureStore({
     uiModules: uiModulesReducer,
     uiSettings: uiSettingsReducer,
     uiTemplate: uiTemplateReducer,
-    autoAttendant
+    autoAttendant: autoAttendantReducer
   },
   devTools: process.env.NODE_ENV !== 'production'
 })
