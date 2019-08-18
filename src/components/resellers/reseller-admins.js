@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import apiResellerAdmins from '@/api/reseller-admins'
+import React, { useState } from 'react'
+import omit from 'lodash/omit'
+import {
+  useResellerAdmins,
+  useResellerAdminCreate,
+  useResellerAdminUpdate,
+  useResellerAdminDelete
+} from '@/graphql'
 import PropTypes from 'prop-types'
 import { Input } from 'rbx'
 import { Alert, Loading } from '@/utils'
@@ -24,14 +30,20 @@ export const ResellerAdmins = ({ match }) => {
     firstName: ''
   }
   const { resellerId } = match.params
-  const [resellerAdmins, setResellerAdmins] = useState([])
-  const [loading, setLoading] = useState(true)
   const [form, setForm] = useState(initialForm)
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
+  const { data, loading, error } = useResellerAdmins(resellerId)
+  const [createAdmin] = useResellerAdminCreate()
+  const [updateAdmin] = useResellerAdminUpdate()
+  const [deleteAdmin] = useResellerAdminDelete()
+
+  if (error) Alert.danger(error)
+  if (!data && loading) return <UiLoadingCard />
+
   const columns = [
-    { key: 'administratorID', label: 'User Id' },
+    { key: 'userId', label: 'User Id' },
     { key: 'firstName', label: 'First Name' },
     { key: 'lastName', label: 'Last Name' }
   ]
@@ -43,28 +55,8 @@ export const ResellerAdmins = ({ match }) => {
     setForm({ ...form, [name]: value })
   }
 
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiResellerAdmins.list(resellerId)
-        setResellerAdmins(data.resellers)
-      } catch (error) {
-        Alert.danger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [resellerId])
-
   function edit(row) {
-    setForm({
-      ...row,
-      userId: row.administratorID,
-      password: '',
-      isCreate: false
-    })
+    setForm({ ...row, password: '', isCreate: false })
     setShowModal(true)
   }
 
@@ -85,16 +77,13 @@ export const ResellerAdmins = ({ match }) => {
   async function create(admin) {
     Loading.show()
     try {
-      await apiResellerAdmins.create(admin)
-      const data = await apiResellerAdmins.list(resellerId)
-      setResellerAdmins(data.resellers)
+      await createAdmin(admin)
       Alert.success('Admin Updated')
       setShowModal(false)
-    } catch (error) {
-      Alert.danger(error)
+    } catch (error_) {
+      Alert.danger(error_)
       setShowModal(true)
     } finally {
-      setLoading(false)
       Loading.hide()
     }
   }
@@ -102,16 +91,13 @@ export const ResellerAdmins = ({ match }) => {
   async function update(admin) {
     Loading.show()
     try {
-      await apiResellerAdmins.update(admin)
-      const data = await apiResellerAdmins.list(resellerId)
-      setResellerAdmins(data.resellers)
+      await updateAdmin(omit(admin, ['isCreate', 'resellerId']))
       Alert.success('Admin Updated')
       setShowModal(false)
-    } catch (error) {
-      Alert.danger(error)
+    } catch (error_) {
+      Alert.danger(error_)
       setShowModal(true)
     } finally {
-      setLoading(false)
       Loading.hide()
     }
   }
@@ -119,95 +105,88 @@ export const ResellerAdmins = ({ match }) => {
   async function destroy(userId) {
     Loading.show()
     try {
-      await apiResellerAdmins.destroy(userId)
-      const data = await apiResellerAdmins.list(resellerId)
-      setResellerAdmins(data.resellers)
+      await deleteAdmin(userId)
       Alert.success('Admin Deleted')
       setShowModal(false)
-    } catch (error) {
-      Alert.danger(error)
+    } catch (error_) {
+      Alert.danger(error_)
       setShowModal(true)
     } finally {
-      setLoading(false)
       Loading.hide()
     }
   }
 
   return (
     <>
-      {loading ? (
-        <UiLoadingCard />
-      ) : (
-        <>
-          <UiCard
-            title="Reseller Admins"
-            buttons={<UiButton color="link" icon="add" size="small" onClick={add} />}
-          >
-            <UiDataTable
-              columns={columns}
-              rows={resellerAdmins}
-              rowKey="administratorID"
-              hideSearch={true}
-              onClick={edit}
+      <UiCard
+        title="Reseller Admins"
+        buttons={<UiButton color="link" icon="add" size="small" onClick={add} />}
+      >
+        <UiDataTable
+          columns={columns}
+          rows={data}
+          rowKey="userId"
+          hideSearch={true}
+          onClick={edit}
+        />
+      </UiCard>
+      <UiCardModal
+        title={form.isCreate ? 'New Admin' : `Edit ${form.userId}`}
+        isOpen={showModal}
+        onCancel={() => setShowModal(false)}
+        onSave={save}
+        onDelete={form.isCreate ? null : () => setShowConfirm(true)}
+      >
+        <form>
+          {form.isCreate && (
+            <UiFormField label="User ID" horizontal>
+              <Input
+                type="text"
+                name="firstName"
+                value={form.firstName}
+                onChange={handleInput}
+                placeholder="User ID"
+                required
+              />
+            </UiFormField>
+          )}
+          <UiFormField label="First Name" horizontal>
+            <Input
+              type="text"
+              name="firstName"
+              value={form.firstName}
+              onChange={handleInput}
+              placeholder="First Name"
             />
-          </UiCard>
-          <UiCardModal
-            title={form.isCreate ? 'New Admin' : `Edit ${form.userId}`}
-            isOpen={showModal}
-            onCancel={() => setShowModal(false)}
-            onSave={save}
-            onDelete={form.isCreate ? null : () => setShowConfirm(true)}
-          >
-            <form>
-              {form.isCreate && (
-                <UiFormField label="User ID" horizontal>
-                  <Input
-                    type="text"
-                    name="firstName"
-                    value={form.firstName}
-                    onChange={handleInput}
-                    placeholder="User ID"
-                  />
-                </UiFormField>
-              )}
-              <UiFormField label="First Name" horizontal>
-                <Input
-                  type="text"
-                  name="firstName"
-                  value={form.firstName}
-                  onChange={handleInput}
-                  placeholder="First Name"
-                />
-              </UiFormField>
-              <UiFormField label="Last Name" horizontal>
-                <Input
-                  type="text"
-                  name="lastName"
-                  value={form.lastName}
-                  onChange={handleInput}
-                  placeholder="Last Name"
-                />
-              </UiFormField>
-              <UiFormField label="Password" horizontal>
-                <UiInputPassword
-                  name="password"
-                  value={form.password}
-                  onChange={handleInput}
-                  onGeneratePassword={generatePassword}
-                />
-              </UiFormField>
-            </form>
-          </UiCardModal>
-          <UiCardModal
-            title="Please Confirm"
-            isOpen={showConfirm}
-            onCancel={() => setShowConfirm(false)}
-            onDelete={remove}
-          >
-            <blockquote>Are you sure you want to Remove this Reseller Admin User Id?</blockquote>
-          </UiCardModal>
-        </>
-      )}
+          </UiFormField>
+          <UiFormField label="Last Name" horizontal>
+            <Input
+              type="text"
+              name="lastName"
+              value={form.lastName}
+              onChange={handleInput}
+              placeholder="Last Name"
+            />
+          </UiFormField>
+          <UiFormField label="Password" horizontal>
+            <UiInputPassword
+              name="password"
+              value={form.password}
+              onChange={handleInput}
+              onGeneratePassword={generatePassword}
+              required={!!form.isCreate}
+            />
+          </UiFormField>
+        </form>
+      </UiCardModal>
+      <UiCardModal
+        title="Please Confirm"
+        isOpen={showConfirm}
+        onCancel={() => setShowConfirm(false)}
+        onDelete={remove}
+      >
+        <blockquote>Are you sure you want to Remove this Reseller Admin User Id?</blockquote>
+      </UiCardModal>
     </>
   )
 }
