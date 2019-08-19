@@ -17,6 +17,7 @@ const isHttps = process.env.API_URL && process.env.API_URL.startsWith('https')
 module.exports = {
   devServer: {
     allowedHosts: ['.local', '.ngrok.io'],
+    port: process.env.PORT,
     proxy: {
       '/api': {
         target: process.env.API_URL,
