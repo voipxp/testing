@@ -7,9 +7,10 @@ angular.module('odin.events').component('odinWebhooks', {
   controller
 })
 
-controller.$inject = ['WebhookService', 'EventService', 'Alert']
-function controller(WebhookService, EventService, Alert) {
+controller.$inject = ['WebhookService', 'EventService', 'Alert', '$location']
+function controller(WebhookService, EventService, Alert, $location) {
   var ctrl = this
+
   ctrl.onClick = onClick
   ctrl.refresh = onInit
   ctrl.$onInit = onInit
@@ -58,6 +59,8 @@ function controller(WebhookService, EventService, Alert) {
 
   function onInit() {
     ctrl.loading = true
+    ctrl.showNav = !/^\/resellers/.test($location.path())
+
     WebhookService.index(ctrl.recent)
       .then(function(data) {
         ctrl.webhooks = data

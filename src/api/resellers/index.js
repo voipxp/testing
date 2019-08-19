@@ -5,10 +5,7 @@ export function list() {
 }
 
 export async function show(resellerId) {
-  const resellers = await list()
-  const reseller = resellers.find(r => r.resellerId === resellerId)
-  if (!reseller) throw new Error('Reseller Not Found')
-  return reseller
+  return api.get('/resellers', { params: { resellerId } })
 }
 
 export function update(params) {

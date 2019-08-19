@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useCallback } from 'react'
 
-export const hasLevel = (loginType, requiredType, isPaasAdmin) => {
-  if (requiredType === 'PaaS Admin' && isPaasAdmin) return true
+const hasLevel = (loginType, requiredType) => {
   const types = {
     'User': 1,
     'Group': 2,
@@ -16,62 +15,42 @@ export const hasLevel = (loginType, requiredType, isPaasAdmin) => {
   return user >= required
 }
 
-export const hasGroup = type => hasLevel(type, 'Group')
-export const hasServiceProvider = type => hasLevel(type, 'Service Provider')
-export const hasReseller = type => hasLevel(type, 'Reseller')
-export const hasProvisioning = type => hasLevel(type, 'Provisioning')
-export const hasPaasAdmin = type => hasLevel(type, 'Paas Admin')
-export const hasSystem = type => hasLevel(type, 'System')
+const hasUser = type => hasLevel(type, 'User')
+const hasGroup = type => hasLevel(type, 'Group')
+const hasServiceProvider = type => hasLevel(type, 'Service Provider')
+const hasReseller = type => hasLevel(type, 'Reseller')
+const hasProvisioning = type => hasLevel(type, 'Provisioning')
+const hasSystem = type => hasLevel(type, 'System')
 
-export const hasVersion = (current, required) => {
+const hasVersion = (current, required) => {
   const currentVersion = parseFloat(current.replace('sp', '.'))
   const requiredVersion = parseFloat(required.replace('sp', '.'))
   return currentVersion >= requiredVersion
 }
 
-export default {
-  hasLevel,
-  hasGroup,
-  hasServiceProvider,
-  hasPaasAdmin,
-  hasReseller,
-  hasProvisioning,
-  hasSystem,
-  hasVersion
-}
-
 export const useAcl = () => {
   const session = useSelector(state => state.session)
+  const { loginType, isPaasAdmin, softwareVersion } = session
   return {
-    hasLevel: useCallback(
-      level => hasLevel(session.loginType, level, session.isPaasAdmin),
-      [session.isPaasAdmin, session.loginType]
-    ),
-    hasGroup: useCallback(() => hasGroup(session.loginType, 'Group'), [
-      session.loginType
-    ]),
+    isLevel: useCallback(level => loginType === level, [loginType]),
+    isPaasAdmin: useCallback(() => isPaasAdmin, [isPaasAdmin]),
+    hasLevel: useCallback(level => hasLevel(loginType, level), [loginType]),
+    hasUser: useCallback(() => hasUser(loginType, 'Group'), [loginType]),
+    hasGroup: useCallback(() => hasGroup(loginType, 'Group'), [loginType]),
     hasServiceProvider: useCallback(
-      () => hasServiceProvider(session.loginType, 'ServiceProvider'),
-      [session.loginType]
+      () => hasServiceProvider(loginType, 'ServiceProvider'),
+      [loginType]
     ),
-    hasPaasAdmin: useCallback(
-      () => hasPaasAdmin(session.loginType, 'Paas Admin', session.isPaasAdmin),
-      [session.isPaasAdmin, session.loginType]
-    ),
-    hasReseller: useCallback(
-      () => hasReseller(session.loginType, 'Reseller', session.isPaasAdmin),
-      [session.isPaasAdmin, session.loginType]
-    ),
-    hasProvisioning: useCallback(
-      () => hasProvisioning(session.loginType, 'Provisioning'),
-      [session.loginType]
-    ),
-    hasSystem: useCallback(() => hasSystem(session.loginType, 'System'), [
-      session.loginType
+    hasReseller: useCallback(() => hasReseller(loginType, 'Reseller'), [
+      loginType
     ]),
-    hasVersion: useCallback(
-      version => hasVersion(session.softwareVersion, version),
-      [session.softwareVersion]
-    )
+    hasProvisioning: useCallback(
+      () => hasProvisioning(loginType, 'Provisioning'),
+      [loginType]
+    ),
+    hasSystem: useCallback(() => hasSystem(loginType, 'System'), [loginType]),
+    hasVersion: useCallback(version => hasVersion(softwareVersion, version), [
+      softwareVersion
+    ])
   }
 }

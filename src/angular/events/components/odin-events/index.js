@@ -6,8 +6,8 @@ angular.module('odin.events').component('odinEvents', {
   controller
 })
 
-controller.$inject = ['EventService', 'Alert']
-function controller(EventService, Alert) {
+controller.$inject = ['EventService', 'Alert', '$location']
+function controller(EventService, Alert, $location) {
   var ctrl = this
   ctrl.open = open
   ctrl.refresh = activate
@@ -16,6 +16,8 @@ function controller(EventService, Alert) {
 
   function activate() {
     ctrl.loading = true
+    ctrl.showNav = !/^\/resellers/.test($location.path())
+
     EventService.index(ctrl.recent)
       .then(function(data) {
         ctrl.events = data

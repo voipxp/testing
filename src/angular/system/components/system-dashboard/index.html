@@ -11,9 +11,15 @@
     </div>
     <div class="column">
       <pbs-dashboard-cards
+        class="margin-bottom"
         title="Provisioning"
         cards="$ctrl.cards"
         filter="{type: 'provisioning', active: true}"
+      ></pbs-dashboard-cards>
+      <pbs-dashboard-cards
+        title="Odin"
+        cards="$ctrl.cards"
+        filter="{type: 'odin', active: true}"
       ></pbs-dashboard-cards>
     </div>
     <div class="column">
