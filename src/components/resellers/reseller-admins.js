@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react'
-import omit from 'lodash/omit'
 import {
   useResellerAdmins,
   useResellerAdminCreate,
