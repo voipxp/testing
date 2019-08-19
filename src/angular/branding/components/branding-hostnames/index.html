@@ -1,7 +1,7 @@
-<pbs-navigation>
+<pbs-navigation ng-if="$ctrl.showNav">
   <pbs-breadcrumb title="'Branding'"></pbs-breadcrumb>
 </pbs-navigation>
-<pbs-spinner loading="$ctrl.loading">
+<pbs-spinner loading="$ctrl.loading" ng-if="!$ctrl.selectedHostname">
   <pbs-block title="Hostnames">
     <pbs-block-buttons>
       <pbs-button-compact-add ng-click="$ctrl.add()" title="Add Hostname"></pbs-button-compact-add>
@@ -57,3 +57,11 @@
     <input type="text" class="input" ng-model="$ctrl.clone.to" required />
   </pbs-form-field-horizontal>
 </pbs-modal>
+
+<div ng-if="$ctrl.selectedHostname">
+  <pbs-cancel ng-click="$ctrl.cancelHostname()"></pbs-cancel>
+  <branding-hostname
+    hostname-id="$ctrl.selectedHostname"
+    on-delete-hostname="$ctrl.cancelHostname()"
+  />
+</div>

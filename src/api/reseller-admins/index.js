@@ -2,10 +2,7 @@ import { api } from '..'
 export default { list, show, update, create, destroy }
 
 export function list(resellerId) {
-  console.log('resellerId', resellerId)
-  return api.get('/reseller/admins', {
-    params: { resellerId }
-  })
+  return api.get('/reseller/admins', { params: { resellerId } })
 }
 
 export function show(userId) {

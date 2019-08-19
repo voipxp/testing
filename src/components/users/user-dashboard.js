@@ -16,12 +16,16 @@ export const UserDashboard = ({ match }) => {
     const filteredMenu = []
     dashboardMenu.forEach(section => {
       const items = section.items.filter(item => {
-        if (item.version && !Acl.hasVersion(item.version)) return false
-        if (item.acl && !Acl.hasLevel(item.acl)) return false
-        if (item.services && !item.services.find(s => Permissions.hasUserService(s))) {
+        if (item.hasVersion && !Acl.hasVersion(item.hasVersion)) {
           return false
         }
-        if (item.module && !Module.hasRead(item.module)) return false
+        if (item.hasLevel && !Acl.hasLevel(item.hasLevel)) {
+          return false
+        }
+        if (item.hasUserService && !Permissions.hasUserService(item.hasUserService)) {
+          return false
+        }
+        if (item.hasRead && !Module.hasRead(item.hasRead)) return false
         return true
       })
       if (items.length > 0) filteredMenu.push({ label: section.label, items })

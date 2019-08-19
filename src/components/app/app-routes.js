@@ -12,14 +12,14 @@ export const AppRoutes = () => {
   const notFoundRoute = path => <Route exact key={path} path={path} component={AppNotFound} />
 
   const generateRoute = route => {
-    if (route.version && !Acl.hasVersion(route.version)) {
+    if (route.hasVersion && !Acl.hasVersion(route.hasVersion)) {
       return notFoundRoute(route.path)
     }
-    if (route.acl && !Acl.hasLevel(route.acl)) {
+    if (route.hasLevel && !Acl.hasLevel(route.hasLevel)) {
       return notFoundRoute(route.path)
     }
-    const module = Module.show(route.module)
-    if (module && !Module.hasRead(route.module)) {
+    const module = Module.show(route.hasRead)
+    if (module && !Module.hasRead(route.hasRead)) {
       return notFoundRoute(route.path)
     }
     const { path, component, angularComponent, exact, ...rest } = route

@@ -32,7 +32,8 @@ export const useUserServicePermissions = userId => {
     }, [assigned, loginType, viewable]),
     hasUserService: useCallback(
       service => {
-        return hasUserService(service, assigned, viewable, loginType)
+        const services = [service].flat()
+        return services.find(_service => hasUserService(_service, assigned, viewable, loginType))
       },
       [assigned, loginType, viewable]
     )

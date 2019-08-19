@@ -15,7 +15,7 @@ function controller(Alert, ServiceProviderDashboardService, Route, ACL) {
 
   function onInit() {
     ctrl.loading = true
-    ctrl.isPaasAdmin = ACL.isPaasAdmin()
+    ctrl.isPaasAdmin = ACL.isPaasAdmin() && ACL.is('Service Provider')
     return ServiceProviderDashboardService.load(ctrl.serviceProviderId)
       .then(loadCards)
       .catch(function(error) {
@@ -125,25 +125,25 @@ function controller(Alert, ServiceProviderDashboardService, Route, ACL) {
         path: route('reports', 'callCapacity')
       },
       {
-        type: 'system',
+        type: 'odin',
         name: 'Branding',
         acl: 'PaaS Admin',
         path: baseRoute('branding')
       },
       {
-        type: 'system',
+        type: 'odin',
         name: 'Event History',
         acl: 'PaaS Admin',
         path: baseRoute('events')
       },
       {
-        type: 'system',
+        type: 'odin',
         name: 'Webhook History',
         acl: 'PaaS Admin',
         path: baseRoute('webhooks')
       },
       {
-        type: 'system',
+        type: 'odin',
         name: 'Settings',
         acl: 'PaaS Admin',
         path: baseRoute('settings')

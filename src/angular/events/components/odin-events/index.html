@@ -1,4 +1,4 @@
-<pbs-navigation>
+<pbs-navigation ng-if="$ctrl.showNav">
   <pbs-breadcrumb title="'Events'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
@@ -32,7 +32,7 @@
         >
           <td>{{ event.type }}</td>
           <td>{{ event.userId }}</td>
-          <td>{{ event.createdAt | date:'medium' }}</td>
+          <td>{{ event.createdAt | date: 'medium' }}</td>
         </tr>
       </tbody>
     </table>

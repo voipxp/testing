@@ -8,8 +8,8 @@ import { useModulePermissions, useAcl } from '@/utils'
 export const ResellerDashboard = ({ match }) => {
   // const { resellerId } = match.params
 
-  const { hasVersion, hasLevel } = useAcl()
-  const { hasModuleRead } = useModulePermissions()
+  const Acl = useAcl()
+  const Module = useModulePermissions()
 
   const loading = false
 
@@ -17,15 +17,27 @@ export const ResellerDashboard = ({ match }) => {
     const filteredMenu = []
     dashboardMenu.forEach(section => {
       const items = section.items.filter(item => {
-        if (item.version && !hasVersion(item.version)) return false
-        if (item.acl && !hasLevel(item.acl)) return false
-        if (item.module && !hasModuleRead(item.module)) return false
+        if (item.hasVersion && !Acl.hasVersion(item.hasVersion)) {
+          return false
+        }
+        if (item.hasLevel && !Acl.hasLevel(item.hasLevel)) {
+          return false
+        }
+        if (item.isLevel && !Acl.isLevel(item.isLevel)) {
+          return false
+        }
+        if (item.isPaasAdmin && !Acl.isPaasAdmin()) {
+          return false
+        }
+        if (item.hasRead && !Module.hasRead(item.hasRead)) {
+          return false
+        }
         return true
       })
       if (items.length > 0) filteredMenu.push({ label: section.label, items })
     })
     return filteredMenu
-  }, [hasLevel, hasModuleRead, hasVersion])
+  }, [Acl, Module])
 
   return (
     <>

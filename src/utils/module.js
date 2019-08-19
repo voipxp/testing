@@ -33,42 +33,42 @@ const UI_QUERY = gql`
   }
 `
 
-const getModule = (name, modules) => {
+const show = (name, modules) => {
   if (!name) return
   const moduleName = name.serviceName || name.name || name
   return modules.find(m => m.name === moduleName)
 }
 
-const hasModulePermission = (name, loginType, modules, permission) => {
+const hasPermission = (name, loginType, modules, permission) => {
   if (loginType === 'System') return true
-  const module = getModule(name, modules)
+  const module = show(name, modules)
   const perm = camelCase(`${loginType}${permission}`)
   return module ? module[perm] : false
 }
 
-const hasModuleCreate = (name, loginType, modules) => {
-  return hasModulePermission(name, loginType, modules, 'Create')
+const hasCreate = (name, loginType, modules) => {
+  return hasPermission(name, loginType, modules, 'Create')
 }
 
-const hasModuleRead = (name, loginType, modules) => {
-  return hasModulePermission(name, loginType, modules, 'Read')
+const hasRead = (name, loginType, modules) => {
+  return hasPermission(name, loginType, modules, 'Read')
 }
 
-const hasModuleUpdate = (name, loginType, modules) => {
-  return hasModulePermission(name, loginType, modules, 'Update')
+const hasUpdate = (name, loginType, modules) => {
+  return hasPermission(name, loginType, modules, 'Update')
 }
 
-const hasModuleDelete = (name, loginType, modules) => {
-  return hasModulePermission(name, loginType, modules, 'Delete')
+const hasDelete = (name, loginType, modules) => {
+  return hasPermission(name, loginType, modules, 'Delete')
 }
 
-const moduleAlias = (name, modules) => {
-  const module = getModule(name, modules)
+const alias = (name, modules) => {
+  const module = show(name, modules)
   return (module && module.alias) || name
 }
 
-const moduleDescription = (name, modules) => {
-  const module = getModule(name, modules)
+const description = (name, modules) => {
+  const module = show(name, modules)
   return module && module.description
 }
 
@@ -79,53 +79,28 @@ export const useModulePermissions = () => {
   return {
     error,
     loading,
-    show: useCallback(
-      name => {
-        return getModule(name, uiModules)
-      },
-      [uiModules]
-    ),
+    show: useCallback(name => show(name, uiModules), [uiModules]),
+    alias: useCallback(name => alias(name, uiModules), [uiModules]),
+    description: useCallback(name => description(name, uiModules), [uiModules]),
     hasPermission: useCallback(
-      (name, permission) => {
-        return hasModulePermission(name, session.loginType, uiModules, permission)
-      },
+      (name, permission) => hasPermission(name, session.loginType, uiModules, permission),
       [session.loginType, uiModules]
     ),
-    hasCreate: useCallback(
-      name => {
-        return hasModuleCreate(name, session.loginType, uiModules)
-      },
-      [session.loginType, uiModules]
-    ),
-    hasRead: useCallback(
-      name => {
-        return hasModuleRead(name, session.loginType, uiModules)
-      },
-      [session.loginType, uiModules]
-    ),
-    hasUpdate: useCallback(
-      name => {
-        return hasModuleUpdate(name, session.loginType, uiModules)
-      },
-      [session.loginType, uiModules]
-    ),
-    hasDelete: useCallback(
-      name => {
-        return hasModuleDelete(name, session.loginType, uiModules)
-      },
-      [session.loginType, uiModules]
-    ),
-    alias: useCallback(
-      name => {
-        return moduleAlias(name, uiModules)
-      },
-      [uiModules]
-    ),
-    description: useCallback(
-      name => {
-        return moduleDescription(name, uiModules)
-      },
-      [uiModules]
-    )
+    hasCreate: useCallback(name => hasCreate(name, session.loginType, uiModules), [
+      session.loginType,
+      uiModules
+    ]),
+    hasRead: useCallback(name => hasRead(name, session.loginType, uiModules), [
+      session.loginType,
+      uiModules
+    ]),
+    hasUpdate: useCallback(name => hasUpdate(name, session.loginType, uiModules), [
+      session.loginType,
+      uiModules
+    ]),
+    hasDelete: useCallback(name => hasDelete(name, session.loginType, uiModules), [
+      session.loginType,
+      uiModules
+    ])
   }
 }
