@@ -6,20 +6,8 @@ angular.module('odin.branding').component('brandingHostnames', {
   controller
 })
 
-controller.$inject = [
-  'BrandingHostnameService',
-  'Route',
-  'Alert',
-  '$location',
-  '$timeout'
-]
-function controller(
-  BrandingHostnameService,
-  Route,
-  Alert,
-  $location,
-  $timeout
-) {
+controller.$inject = ['BrandingHostnameService', 'Route', 'Alert', '$location', '$timeout']
+function controller(BrandingHostnameService, Route, Alert, $location, $timeout) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
