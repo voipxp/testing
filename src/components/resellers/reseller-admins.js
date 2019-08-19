@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import omit from 'lodash/omit'
 import {
   useResellerAdmins,
@@ -8,7 +8,7 @@ import {
 } from '@/graphql'
 import PropTypes from 'prop-types'
 import { Input } from 'rbx'
-import { Alert, Loading } from '@/utils'
+import { Alert, Loading, useForm } from '@/utils'
 import {
   UiCard,
   UiLoadingCard,
@@ -30,14 +30,16 @@ export const ResellerAdmins = ({ match }) => {
     firstName: ''
   }
   const { resellerId } = match.params
-  const [form, setForm] = useState(initialForm)
+  const ref = useRef()
+  const { form, setForm, onChange, isValid } = useForm(initialForm, ref)
+
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
   const { data, loading, error } = useResellerAdmins(resellerId)
-  const [createAdmin] = useResellerAdminCreate()
+  const [createAdmin] = useResellerAdminCreate(resellerId)
   const [updateAdmin] = useResellerAdminUpdate()
-  const [deleteAdmin] = useResellerAdminDelete()
+  const [deleteAdmin] = useResellerAdminDelete(resellerId)
 
   if (error) Alert.danger(error)
   if (!data && loading) return <UiLoadingCard />
@@ -47,13 +49,6 @@ export const ResellerAdmins = ({ match }) => {
     { key: 'firstName', label: 'First Name' },
     { key: 'lastName', label: 'Last Name' }
   ]
-
-  function handleInput(event) {
-    const target = event.target
-    const value = target.type === 'checkbox' ? target.checked : target.value
-    const name = target.name
-    setForm({ ...form, [name]: value })
-  }
 
   function edit(row) {
     setForm({ ...row, password: '', isCreate: false })
@@ -77,7 +72,7 @@ export const ResellerAdmins = ({ match }) => {
   async function create(admin) {
     Loading.show()
     try {
-      await createAdmin(admin)
+      await createAdmin({ ...omit(admin, ['isCreate']), resellerId })
       Alert.success('Admin Updated')
       setShowModal(false)
     } catch (error_) {
@@ -136,15 +131,16 @@ export const ResellerAdmins = ({ match }) => {
         onCancel={() => setShowModal(false)}
         onSave={save}
         onDelete={form.isCreate ? null : () => setShowConfirm(true)}
+        saveDisabled={!isValid}
       >
-        <form>
+        <form ref={ref}>
           {form.isCreate && (
             <UiFormField label="User ID" horizontal>
               <Input
                 type="text"
-                name="firstName"
-                value={form.firstName}
-                onChange={handleInput}
+                name="userId"
+                value={form.userId}
+                onChange={onChange}
                 placeholder="User ID"
                 required
               />
@@ -155,7 +151,7 @@ export const ResellerAdmins = ({ match }) => {
               type="text"
               name="firstName"
               value={form.firstName}
-              onChange={handleInput}
+              onChange={onChange}
               placeholder="First Name"
             />
           </UiFormField>
@@ -164,7 +160,7 @@ export const ResellerAdmins = ({ match }) => {
               type="text"
               name="lastName"
               value={form.lastName}
-              onChange={handleInput}
+              onChange={onChange}
               placeholder="Last Name"
             />
           </UiFormField>
@@ -172,7 +168,7 @@ export const ResellerAdmins = ({ match }) => {
             <UiInputPassword
               name="password"
               value={form.password}
-              onChange={handleInput}
+              onChange={onChange}
               onGeneratePassword={generatePassword}
               required={!!form.isCreate}
             />
@@ -184,6 +180,7 @@ export const ResellerAdmins = ({ match }) => {
         isOpen={showConfirm}
         onCancel={() => setShowConfirm(false)}
         onDelete={remove}
+        saveDisabled={!isValid}
       >
         <blockquote>Are you sure you want to Remove this Reseller Admin User Id?</blockquote>
       </UiCardModal>

@@ -72,18 +72,21 @@ export const useResellerAdmin = userId => {
   return { data: data && data.resellerAdmin, loading, error }
 }
 
-export const useResellerAdminCreate = () => {
-  return useMutation(RESELLER_ADMIN_CREATE_MUTATION)
+export const useResellerAdminCreate = resellerId => {
+  const [exec, results] = useMutation(RESELLER_ADMIN_CREATE_MUTATION, {
+    refetchQueries: [{ query: RESELLER_ADMIN_LIST_QUERY, variables: { resellerId } }]
+  })
+  return [input => exec({ variables: { input } }), results]
 }
 
 export const useResellerAdminUpdate = () => {
-  const [update, updateResults] = useMutation(RESELLER_ADMIN_UPDATE_MUTATION)
-  const runUpdate = input => update({ variables: { input } })
-  return [runUpdate, updateResults]
+  const [exec, results] = useMutation(RESELLER_ADMIN_UPDATE_MUTATION)
+  return [input => exec({ variables: { input } }), results]
 }
 
-export const useResellerAdminDelete = () => {
-  return useMutation(RESELLER_ADMIN_DELETE_MUTATION, {
-    refetchQueries: [{ query: RESELLER_ADMIN_LIST_QUERY }]
+export const useResellerAdminDelete = resellerId => {
+  const [exec, results] = useMutation(RESELLER_ADMIN_DELETE_MUTATION, {
+    refetchQueries: [{ query: RESELLER_ADMIN_LIST_QUERY, variables: { resellerId } }]
   })
+  return [userId => exec({ variables: { userId } }), results]
 }

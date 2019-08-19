@@ -6,21 +6,24 @@ export const useForm = (initialState, formRef) => {
   const [form, setForm] = useState(initialState)
   const checkValidity = useCallback(() => {
     if (formRef && formRef.current) {
+      const validity = formRef.current.checkValidity()
       const formData = new FormData(formRef.current)
       const newErrors = [...formData.keys()].reduce((acc, key) => {
         acc[key] = formRef.current.elements[key].validationMessage
         return acc
       }, {})
-      setValid(formRef.current.checkValidity())
+      setValid(validity)
       setErrors(newErrors)
     }
   }, [formRef])
-  useEffect(() => checkValidity(), [checkValidity])
+  // re-run checkValidity when the form object is changed
+  // for example, when selecting a row in a table
+  useEffect(() => checkValidity(), [checkValidity, form])
   const onChange = ({ target }) => {
     const name = target.name
     const value = target.type === 'checkbox' ? target.checked : target.value
     checkValidity()
     setForm({ ...form, [name]: value })
   }
-  return [form, onChange, isValid, errors]
+  return { form, setForm, onChange, isValid, errors }
 }

@@ -59,7 +59,10 @@ export const UiCardModal = ({
   title,
   cancelText = 'Cancel',
   saveText = 'Save',
-  deleteText = 'Delete'
+  deleteText = 'Delete',
+  cancelDisabled = false,
+  saveDisabled = false,
+  deleteDisabled = false
 }) => (
   <CSSTransition
     classNames="modal"
@@ -79,13 +82,15 @@ export const UiCardModal = ({
         <Modal.Card.Foot style={{ justifyContent: 'flex-end' }}>
           <Button.Group align="right">
             {isFunction(onDelete) && (
-              <Button color="danger" onClick={() => onDelete()}>
+              <Button color="danger" onClick={() => onDelete()} disabled={deleteDisabled}>
                 {deleteText}
               </Button>
             )}
-            <Button onClick={onCancel}>{cancelText}</Button>
+            <Button onClick={onCancel} disabled={cancelDisabled}>
+              {cancelText}
+            </Button>
             {isFunction(onSave) && (
-              <Button color="success" onClick={() => onSave()}>
+              <Button color="success" onClick={() => onSave()} disabled={saveDisabled}>
                 {saveText}
               </Button>
             )}
@@ -105,5 +110,8 @@ UiCardModal.propTypes = {
   cancelText: PropTypes.string,
   saveText: PropTypes.string,
   deleteText: PropTypes.string,
-  children: PropTypes.any
+  children: PropTypes.any,
+  cancelDisabled: PropTypes.bool,
+  saveDisabled: PropTypes.bool,
+  deleteDisabled: PropTypes.bool
 }
