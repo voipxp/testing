@@ -22,7 +22,6 @@ import { generatePassword } from '@/utils'
 
 export const ResellerAdmins = ({ match }) => {
   const initialForm = {
-    isCreate: true,
     userId: '',
     language: '',
     password: '',
@@ -51,7 +50,7 @@ export const ResellerAdmins = ({ match }) => {
   ]
 
   function edit(row) {
-    setForm({ ...row, password: '', isCreate: false })
+    setForm({ ...row, password: '' })
     setShowModal(true)
   }
 
@@ -66,13 +65,13 @@ export const ResellerAdmins = ({ match }) => {
   }
 
   function save() {
-    form.isCreate ? create(form) : update(form)
+    form.resellerId ? update(form) : create(form)
   }
 
   async function create(admin) {
     Loading.show()
     try {
-      await createAdmin({ ...omit(admin, ['isCreate']), resellerId })
+      await createAdmin({ ...admin, resellerId })
       Alert.success('Admin Updated')
       setShowModal(false)
     } catch (error_) {
@@ -84,9 +83,11 @@ export const ResellerAdmins = ({ match }) => {
   }
 
   async function update(admin) {
+    // strip resellerId not in schema
+    const { resellerId, ...editAdmin } = admin
     Loading.show()
     try {
-      await updateAdmin(omit(admin, ['isCreate', 'resellerId']))
+      await updateAdmin(editAdmin)
       Alert.success('Admin Updated')
       setShowModal(false)
     } catch (error_) {
@@ -126,7 +127,7 @@ export const ResellerAdmins = ({ match }) => {
         />
       </UiCard>
       <UiCardModal
-        title={form.isCreate ? 'New Admin' : `Edit ${form.userId}`}
+        title={form.resellerId ? `Edit ${form.userId}` : 'New Admin'}
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={save}
@@ -134,18 +135,17 @@ export const ResellerAdmins = ({ match }) => {
         saveDisabled={!isValid}
       >
         <form ref={ref}>
-          {form.isCreate && (
-            <UiFormField label="User ID" horizontal>
-              <Input
-                type="text"
-                name="userId"
-                value={form.userId}
-                onChange={onChange}
-                placeholder="User ID"
-                required
-              />
-            </UiFormField>
-          )}
+          <UiFormField label="User ID" horizontal>
+            <Input
+              type="text"
+              name="userId"
+              value={form.userId}
+              onChange={onChange}
+              placeholder="User ID"
+              required
+              disabled={!form.isCreate}
+            />
+          </UiFormField>
           <UiFormField label="First Name" horizontal>
             <Input
               type="text"
