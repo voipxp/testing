@@ -6,17 +6,37 @@ angular.module('odin.branding').component('brandingHostnames', {
   controller
 })
 
-controller.$inject = ['BrandingHostnameService', 'Route', 'Alert']
-function controller(BrandingHostnameService, Route, Alert) {
+controller.$inject = [
+  'BrandingHostnameService',
+  'Route',
+  'Alert',
+  '$location',
+  '$timeout'
+]
+function controller(
+  BrandingHostnameService,
+  Route,
+  Alert,
+  $location,
+  $timeout
+) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
   ctrl.add = add
   ctrl.copy = copy
   ctrl.onSave = create
+  ctrl.selectedHostname = null
+
+  ctrl.cancelHostname = () => {
+    ctrl.selectedHostname = null
+    loadHostnames()
+  }
 
   function onInit() {
     ctrl.loading = true
+    ctrl.showNav = !/^\/resellers/.test($location.path())
+
     loadHostnames()
       .catch(function(error) {
         Alert.notify.danger(error.data)
@@ -78,6 +98,10 @@ function controller(BrandingHostnameService, Route, Alert) {
   }
 
   function open(hostname) {
-    Route.open('branding', hostname.id)
+    if (ctrl.showNav) {
+      Route.open('branding', hostname.id)
+    } else {
+      ctrl.selectedHostname = hostname.id
+    }
   }
 }

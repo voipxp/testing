@@ -13,6 +13,11 @@ export const dashboardMenu = [
         component: ResellerServiceProviders
       },
       {
+        path: 'profile',
+        name: 'Business Profile',
+        component: ResellerProfile
+      },
+      {
         path: 'admins',
         name: 'Administrators',
         component: ResellerAdmins
@@ -22,20 +27,44 @@ export const dashboardMenu = [
   {
     label: 'Provisioning',
     items: [
-      // TODO:
-      // this is hwere because we can do a getRequest as a reseller
-      // need to figure out a way around this
-      {
-        path: 'profile',
-        name: 'Business Profile',
-        component: ResellerProfile,
-        acl: 'Provisioning'
-      },
       {
         path: 'delete-reseller',
         name: 'Delete Reseller',
         component: ResellerDelete,
-        acl: 'Provisioning'
+        hasLevel: 'Provisioning'
+      }
+    ]
+  },
+  {
+    label: 'Odin',
+    items: [
+      {
+        path: 'branding',
+        name: 'Branding',
+        angularComponent: 'brandingHostnames',
+        isLevel: 'Reseller',
+        isPaasAdmin: true
+      },
+      {
+        path: 'events',
+        name: 'Event History',
+        angularComponent: 'odinEvents',
+        isLevel: 'Reseller',
+        isPaasAdmin: true
+      },
+      {
+        path: 'webhooks',
+        name: 'Webhook History',
+        angularComponent: 'odinWebhooks',
+        isLevel: 'Reseller',
+        isPaasAdmin: true
+      },
+      {
+        path: 'settings',
+        name: 'Settings',
+        angularComponent: 'odinSettings',
+        isLevel: 'Reseller',
+        isPaasAdmin: true
       }
     ]
   }

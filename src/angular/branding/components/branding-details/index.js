@@ -4,7 +4,7 @@ import template from './index.html'
 angular.module('odin.branding').component('brandingDetails', {
   template,
   controller,
-  bindings: { hostnameId: '<', onUpdate: '&' }
+  bindings: { hostnameId: '<', onUpdate: '&', onDelete: '&' }
 })
 
 controller.$inject = [
@@ -79,7 +79,7 @@ function controller(BrandingHostnameService, Route, Alert, EventEmitter) {
           .then(function() {
             Alert.notify.warning('Hostname Removed')
             callback()
-            Route.open('branding')
+            ctrl.onDelete(EventEmitter({ hostname: hostname }))
           })
           .catch(function(error) {
             Alert.notify.danger(error)

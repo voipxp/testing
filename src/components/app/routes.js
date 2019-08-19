@@ -10,744 +10,744 @@ export const routes = [
   {
     path: '/branding',
     angularComponent: 'brandingHostnames',
-    acl: 'PaaS Admin'
+    isPaasAdmin: true
   },
   {
     path: '/branding/:hostnameId',
     angularComponent: 'brandingHostname',
-    acl: 'PaaS Admin'
+    isPaasAdmin: true
   },
   {
     path: '/bulk',
     angularComponent: 'bulkDashboard',
-    acl: 'Group',
-    module: 'Provisioning'
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/csv',
     angularComponent: 'bulkCsv',
-    acl: 'Group',
-    module: 'Provisioning'
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/tasks',
     angularComponent: 'bulkTasksIndex',
-    acl: 'Group',
-    module: 'Provisioning'
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/tasks/:id',
     angularComponent: 'bulkTask',
-    acl: 'Group',
-    module: 'Provisioning'
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/users',
     angularComponent: 'bulkUsers',
-    acl: 'Group',
-    module: 'Provisioning'
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/import',
     angularComponent: 'bulkImport',
-    acl: 'Group',
-    module: 'Provisioning'
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/user.create',
     angularComponent: 'bulkUserCreate',
-    acl: 'Group',
-    module: 'Provisioning'
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/user.delete',
     angularComponent: 'bulkUserDelete',
-    acl: 'Group',
-    module: 'Provisioning'
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/user.move',
     angularComponent: 'bulkUserMove',
-    acl: 'Provisioning',
-    module: 'Provisioning'
+    hasLevel: 'Provisioning',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/user.services.update',
     angularComponent: 'bulkUserServicesUpdate',
-    acl: 'Group',
-    module: 'Provisioning'
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/user.number.update',
     angularComponent: 'bulkUserNumberUpdate',
-    acl: 'Group',
-    module: 'Provisioning'
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/user.sharedcallappearance.update',
     angularComponent: 'bulkUserSharedCallAppearanceUpdate',
-    acl: 'Group',
-    module: 'Provisioning'
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/user.ucone.update',
     angularComponent: 'bulkUserUcOneUpdate',
-    acl: 'Group',
-    module: 'Provisioning'
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
   },
   {
     path: '/events',
     angularComponent: 'odinEvents',
-    acl: 'PaaS Admin'
+    isPaasAdmin: true
   },
   {
     path: '/events/logins',
     angularComponent: 'odinUserLoginIndex',
-    acl: 'PaaS Admin'
+    isPaasAdmin: true
   },
   {
     path: '/webhooks',
     angularComponent: 'odinWebhooks',
-    acl: 'PaaS Admin'
+    isPaasAdmin: true
   },
   {
     path: '/groups/:serviceProviderId/:groupId',
     angularComponent: 'groupDashboard',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/profile',
     angularComponent: 'groupProfile',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/admins',
     angularComponent: 'groupAdmins',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/devices',
     angularComponent: 'groupDevices',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/deviceTypes',
     angularComponent: 'groupDeviceTypes',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/deviceTypes/deviceType',
     angularComponent: 'groupDeviceType',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/directory',
     angularComponent: 'groupPhoneDirectory',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/phoneList',
     angularComponent: 'groupCommonPhoneList',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/users',
     angularComponent: 'groupUsers',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/announcements',
     angularComponent: 'groupAnnouncements',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/announcements/announcement',
     angularComponent: 'groupAnnouncement',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans',
     angularComponent: 'groupCallingPlans',
-    acl: 'Group',
-    module: 'Group Calling Plans'
+    hasLevel: 'Group',
+    hasModuleRead: 'Group Calling Plans'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/incoming',
     angularComponent: 'groupIncomingCallingPlan',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/outgoing',
     angularComponent: 'groupOutgoingCallingPlan',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/outgoing/users',
     angularComponent: 'groupOutgoingCallingPlanUsers',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPlan',
     angularComponent: 'groupOutgoingCallingPlanDigitPlan',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPlan',
     angularComponent: 'groupOutgoingCallingPlanPinholeDigitPlan',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/codes',
     angularComponent: 'groupOutgoingCallingPlanAuthorizationCodes',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/transfer',
     angularComponent: 'groupOutgoingCallingPlanTransferNumbers',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPatterns',
     angularComponent: 'groupCallingPlanDigitPatterns',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path:
       '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPatterns',
     angularComponent: 'groupOutgoingCallingPlanPinholeDigitPatterns',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/collaborate',
     angularComponent: 'groupCollaborate',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/collaborate/bridge',
     angularComponent: 'groupCollaborateBridge',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/anonymousCallRejection',
     angularComponent: 'groupAnonymousCallRejection',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/automaticCallback',
     angularComponent: 'groupAutomaticCallback',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callForwardingAlways',
     angularComponent: 'groupCallForwardingAlways',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callForwardingBusy',
     angularComponent: 'groupCallForwardingBusy',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callForwardingNoAnswer',
     angularComponent: 'groupCallForwardingNoAnswer',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callForwardingNotReachable',
     angularComponent: 'groupCallForwardingNotReachable',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callingLineIdDeliveryBlocking',
     angularComponent: 'groupCallingLineIdDeliveryBlocking',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callRecording',
     angularComponent: 'groupCallRecording',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/hotelingGuest',
     angularComponent: 'groupHotelingGuest',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/hotelingHost',
     angularComponent: 'groupHotelingHost',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/voiceMessagingUser',
     angularComponent: 'groupVoiceMessagingUser',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/departments',
     angularComponent: 'groupDepartments',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/departments/department',
     angularComponent: 'groupDepartment',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path:
       '/groups/:serviceProviderId/:groupId/groupCommunicationBarringAuthorizationCodes',
     angularComponent: 'groupCommunicationBarringAuthorizationCodes',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/customContactDirectories',
     angularComponent: 'groupCustomContactDirectories',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/autoAttendants',
     angularComponent: 'autoAttendants',
-    acl: 'Group',
-    module: 'Auto Attendant'
+    hasLevel: 'Group',
+    hasModuleRead: 'Auto Attendant'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/autoAttendants/autoAttendant',
     angularComponent: 'autoAttendant',
-    acl: 'Group',
-    module: 'Auto Attendant'
+    hasLevel: 'Group',
+    hasModuleRead: 'Auto Attendant'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callPickup',
     angularComponent: 'groupCallPickups',
-    acl: 'Group',
-    module: 'Call Pickup'
+    hasLevel: 'Group',
+    hasModuleRead: 'Call Pickup'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callPickup/group',
     angularComponent: 'groupCallPickup',
-    acl: 'Group',
-    module: 'Call Pickup'
+    hasLevel: 'Group',
+    hasModuleRead: 'Call Pickup'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callPark',
     angularComponent: 'groupCallPark',
-    acl: 'Group',
-    module: 'Call Park'
+    hasLevel: 'Group',
+    hasModuleRead: 'Call Park'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callPark/group',
     angularComponent: 'groupCallParkGroup',
-    acl: 'Group',
-    module: 'Call Park'
+    hasLevel: 'Group',
+    hasModuleRead: 'Call Park'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/enterpriseTrunks',
     angularComponent: 'groupEnterpriseTrunks',
-    acl: 'Group',
-    module: 'Trunk Group'
+    hasLevel: 'Group',
+    hasModuleRead: 'Trunk Group'
   },
   {
     path:
       '/groups/:serviceProviderId/:groupId/enterpriseTrunks/enterpriseTrunk',
     angularComponent: 'groupEnterpriseTrunk',
-    acl: 'Group',
-    module: 'Trunk Group'
+    hasLevel: 'Group',
+    hasModuleRead: 'Trunk Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/trunkGroups',
     angularComponent: 'groupTrunkGroups',
-    acl: 'Group',
-    module: 'Trunk Group'
+    hasLevel: 'Group',
+    hasModuleRead: 'Trunk Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/trunkGroups/trunkGroup',
     angularComponent: 'groupTrunkGroup',
-    acl: 'Group',
-    module: 'Trunk Group'
+    hasLevel: 'Group',
+    hasModuleRead: 'Trunk Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/paging',
     angularComponent: 'groupPagingGroups',
-    acl: 'Group',
-    module: 'Group Paging'
+    hasLevel: 'Group',
+    hasModuleRead: 'Group Paging'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/paging/group',
     angularComponent: 'groupPagingGroup',
-    acl: 'Group',
-    module: 'Group Paging'
+    hasLevel: 'Group',
+    hasModuleRead: 'Group Paging'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/huntGroups',
     angularComponent: 'groupHuntGroups',
-    acl: 'Group',
-    module: 'Hunt Group'
+    hasLevel: 'Group',
+    hasModuleRead: 'Hunt Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/huntGroups/huntGroup',
     angularComponent: 'groupHuntGroup',
-    acl: 'Group',
-    module: 'Hunt Group'
+    hasLevel: 'Group',
+    hasModuleRead: 'Hunt Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/meetMe',
     angularComponent: 'groupMeetMe',
-    acl: 'Group',
-    module: 'Meet-Me Conferencing'
+    hasLevel: 'Group',
+    hasModuleRead: 'Meet-Me Conferencing'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/meetMe/bridge',
     angularComponent: 'groupMeetMeBridge',
-    acl: 'Group',
-    module: 'Meet-Me Conferencing'
+    hasLevel: 'Group',
+    hasModuleRead: 'Meet-Me Conferencing'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/musicOnHold',
     angularComponent: 'groupMusicOnHoldIndex',
-    acl: 'Group',
-    module: 'Music On Hold'
+    hasLevel: 'Group',
+    hasModuleRead: 'Music On Hold'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
     angularComponent: 'groupMusicOnHold',
-    acl: 'Group',
-    module: 'Music On Hold'
+    hasLevel: 'Group',
+    hasModuleRead: 'Music On Hold'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/voiceMessaging',
     angularComponent: 'groupVoiceMessaging',
-    acl: 'Group',
-    module: 'Voice Messaging Group'
+    hasLevel: 'Group',
+    hasModuleRead: 'Voice Messaging Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callRecords/autoAttendant',
     angularComponent: 'autoAttendantCallRecords',
-    acl: 'Group',
-    module: 'Auto Attendant Report'
+    hasLevel: 'Group',
+    hasModuleRead: 'Auto Attendant Report'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callRecords/callCenter',
     angularComponent: 'groupCallCenterCallRecords',
-    acl: 'Group',
-    module: 'Premium Call Records'
+    hasLevel: 'Group',
+    hasModuleRead: 'Premium Call Records'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callRecords/userCallReport',
     angularComponent: 'groupUserCallReportIndex',
-    acl: 'Group',
-    module: 'Premium Call Records'
+    hasLevel: 'Group',
+    hasModuleRead: 'Premium Call Records'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callRecords/group',
     angularComponent: 'groupCallRecordIndex',
-    acl: 'Group',
-    module: 'Premium Call Records'
+    hasLevel: 'Group',
+    hasModuleRead: 'Premium Call Records'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/reports/users',
     angularComponent: 'usersReport',
-    acl: 'Group',
-    module: 'User Report'
+    hasLevel: 'Group',
+    hasModuleRead: 'User Report'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callCenters',
     angularComponent: 'groupCallCenters',
-    acl: 'Group',
-    module: 'Call Center'
+    hasLevel: 'Group',
+    hasModuleRead: 'Call Center'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter',
     angularComponent: 'groupCallCenter',
-    acl: 'Group',
-    module: 'Call Center'
+    hasLevel: 'Group',
+    hasModuleRead: 'Call Center'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/schedules',
     angularComponent: 'groupSchedules',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/schedules/schedule',
     angularComponent: 'groupSchedule',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/viewablePacks',
     angularComponent: 'groupViewablePacksIndex',
-    acl: 'Group',
-    module: 'Viewable Service Packs'
+    hasLevel: 'Group',
+    hasModuleRead: 'Viewable Service Packs'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/services/group',
     angularComponent: 'groupServices',
-    acl: 'Service Provider',
+    hasLevel: 'Service Provider',
     serviceType: 'groupServices'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/services/user',
     angularComponent: 'groupServices',
-    acl: 'Service Provider',
+    hasLevel: 'Service Provider',
     serviceType: 'userServices'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/services/servicePack',
     angularComponent: 'groupServices',
-    acl: 'Service Provider',
+    hasLevel: 'Service Provider',
     serviceType: 'servicePackServices'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/numbers',
     angularComponent: 'groupNumbers',
-    acl: 'Service Provider'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/delete',
     angularComponent: 'groupDelete',
-    acl: 'Service Provider'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/networkclassofservices',
     angularComponent: 'groupNetworkClassOfServices',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callProcessingPolicy',
     angularComponent: 'groupCallProcessingPolicy',
-    acl: 'Group'
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/intercept',
     angularComponent: 'groupIntercept',
-    acl: 'Group',
-    module: 'Intercept Group'
+    hasLevel: 'Group',
+    hasModuleRead: 'Intercept Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/routingProfile',
     angularComponent: 'groupRoutingProfile',
-    acl: 'Group',
-    module: 'Routing Profile'
+    hasLevel: 'Group',
+    hasModuleRead: 'Routing Profile'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/featureAccessCodes',
     angularComponent: 'groupFeatureAccessCodes',
-    acl: 'Group',
-    module: 'Group Feature Access Codes'
+    hasLevel: 'Group',
+    hasModuleRead: 'Group Feature Access Codes'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/nightForwarding',
     angularComponent: 'groupNightForwarding',
-    acl: 'Group',
-    module: 'Group Night Forwarding'
+    hasLevel: 'Group',
+    hasModuleRead: 'Group Night Forwarding'
   },
   {
     path:
       '/groups/:serviceProviderId/:groupId/virtualOnNetEnterpriseExtensions',
     angularComponent: 'groupVirtualOnNetEnterpriseExtensions',
-    acl: 'Group',
-    module: 'Virtual On-Net Enterprise Extensions'
+    hasLevel: 'Group',
+    hasModuleRead: 'Virtual On-Net Enterprise Extensions'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts',
     angularComponent: 'groupFlexibleSeatingHosts',
-    acl: 'Group',
-    module: 'Flexible Seating Guest'
+    hasLevel: 'Group',
+    hasModuleRead: 'Flexible Seating Guest'
   },
   {
     path:
       '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
     angularComponent: 'groupFlexibleSeatingHost',
-    acl: 'Group',
-    module: 'Flexible Seating Guest'
+    hasLevel: 'Group',
+    hasModuleRead: 'Flexible Seating Guest'
   },
   {
     path: '/serviceProviders/:serviceProviderId',
     angularComponent: 'serviceProviderDashboard',
-    acl: 'Service Provider'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/serviceProviders/:serviceProviderId/profile',
     angularComponent: 'serviceProviderProfile',
-    acl: 'Service Provider'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/serviceProviders/:serviceProviderId/groups',
     angularComponent: 'serviceProviderGroupsIndex',
-    acl: 'Service Provider'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/serviceProviders/:serviceProviderId/admins',
     angularComponent: 'serviceProviderAdmins',
-    acl: 'Service Provider'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/serviceProviders/:serviceProviderId/directory',
     angularComponent: 'serviceProviderPhoneDirectory',
-    acl: 'Service Provider'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/serviceProviders/:serviceProviderId/enterpriseTrunks',
     angularComponent: 'enterpriseEnterpriseTrunks',
-    acl: 'Service Provider',
-    module: 'Trunk Group'
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'Trunk Group'
   },
   {
     path:
       '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
     angularComponent: 'enterpriseEnterpriseTrunk',
-    acl: 'Service Provider',
-    module: 'Trunk Group'
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'Trunk Group'
   },
   {
     path: '/serviceProviders/:serviceProviderId/meetMe',
     angularComponent: 'serviceProviderMeetMe',
-    acl: 'Service Provider',
-    module: 'Meet-Me Conferencing'
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'Meet-Me Conferencing'
   },
   {
     path: '/serviceProviders/:serviceProviderId/numbers',
     angularComponent: 'serviceProviderNumbers',
-    acl: 'Service Provider'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/serviceProviders/:serviceProviderId/devices',
     angularComponent: 'serviceProviderDevices',
-    acl: 'Provisioning'
+    hasLevel: 'Provisioning'
   },
   {
     path: '/serviceProviders/:serviceProviderId/delete',
     angularComponent: 'serviceProviderDelete',
-    acl: 'Provisioning'
+    hasLevel: 'Provisioning'
   },
   {
     path: '/serviceProviders/:serviceProviderId/userServices',
     angularComponent: 'serviceProviderServices',
-    acl: 'Service Provider',
+    hasLevel: 'Service Provider',
     serviceType: 'userServices'
   },
   {
     path: '/serviceProviders/:serviceProviderId/groupServices',
     angularComponent: 'serviceProviderServices',
-    acl: 'Service Provider',
+    hasLevel: 'Service Provider',
     serviceType: 'groupServices'
   },
   {
     path: '/serviceProviders/:serviceProviderId/servicePacks',
     angularComponent: 'serviceProviderServicePacks',
-    acl: 'Service Provider'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
     angularComponent: 'serviceProviderServicePack',
-    acl: 'Service Provider'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/serviceProviders/:serviceProviderId/networkClassOfServices',
     angularComponent: 'serviceProviderNetworkClassOfServices',
-    acl: 'Service Provider'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/serviceProviders/:serviceProviderId/reports/users',
     angularComponent: 'usersReport',
-    acl: 'Service Provider',
-    module: 'User Report'
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'User Report'
   },
   {
     path: '/serviceProviders/:serviceProviderId/reports/callCapacity',
     angularComponent: 'serviceProviderTrunkGroupsCallCapacityReport',
-    acl: 'Service Provider',
-    module: 'User Report'
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'User Report'
   },
   {
     path: '/settings',
     angularComponent: 'odinSettings',
-    acl: 'PaaS Admin'
+    isPaasAdmin: true
   },
   {
     path: '/system',
     angularComponent: 'systemDashboard',
-    acl: 'Provisioning'
+    hasLevel: 'Provisioning'
   },
   {
     path: '/system/devices',
     angularComponent: 'systemDevices',
-    acl: 'System'
+    hasLevel: 'System'
   },
   {
     path: '/system/licensing',
     angularComponent: 'systemLicensing',
-    acl: 'System'
+    hasLevel: 'System'
   },
   {
     path: '/system/dn',
     angularComponent: 'systemDn',
-    acl: 'Provisioning'
+    hasLevel: 'Provisioning'
   },
   {
     path: '/system/collaborate',
     angularComponent: 'systemCollaborate',
-    acl: 'System'
+    hasLevel: 'System'
   },
   {
     path: '/system/networkClassOfServices',
     angularComponent: 'systemNetworkClassOfServices',
-    acl: 'System'
+    hasLevel: 'System'
   },
   {
     path: '/system/networkClassOfServices/networkClassOfService',
     angularComponent: 'systemNetworkClassOfService',
-    acl: 'System'
+    hasLevel: 'System'
   },
   {
     path: '/system/serviceProvidersReport',
     angularComponent: 'serviceProviderReport',
-    acl: 'Provisioning',
-    module: 'User Report'
+    hasLevel: 'Provisioning',
+    hasModuleRead: 'User Report'
   },
   {
     path: '/system/servicePackUtilizationReport',
     angularComponent: 'systemServicePackUtilizationReport',
-    acl: 'Provisioning',
-    module: 'User Report'
+    hasLevel: 'Provisioning',
+    hasModuleRead: 'User Report'
   },
   {
     path: '/system/systemServiceUtilizationReport',
     angularComponent: 'systemServiceUtilizationReport',
-    acl: 'Provisioning',
-    module: 'User Report'
+    hasLevel: 'Provisioning',
+    hasModuleRead: 'User Report'
   },
   {
     path: '/serviceProviders',
     angularComponent: 'serviceProviders',
-    acl: 'Provisioning'
+    hasLevel: 'Provisioning'
   },
   {
     path: '/vdm',
     angularComponent: 'vdmDashboard',
-    acl: 'Provisioning',
-    module: 'VDM'
+    hasLevel: 'Provisioning',
+    hasModuleRead: 'VDM'
   },
   {
     path: '/vdm/templates/:id',
     angularComponent: 'vdmTemplate',
-    acl: 'Provisioning',
-    module: 'VDM'
+    hasLevel: 'Provisioning',
+    hasModuleRead: 'VDM'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/vdm',
     angularComponent: 'vdmDashboard',
-    acl: 'Group',
-    module: 'VDM'
+    hasLevel: 'Group',
+    hasModuleRead: 'VDM'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id',
     angularComponent: 'vdmTemplate',
-    acl: 'Group',
-    module: 'VDM'
+    hasLevel: 'Group',
+    hasModuleRead: 'VDM'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id/device',
     angularComponent: 'vdmDevice',
-    acl: 'Group',
-    module: 'VDM'
+    hasLevel: 'Group',
+    hasModuleRead: 'VDM'
   },
   {
     path: '/users/:serviceProviderId/:groupId/:userId',
@@ -764,11 +764,11 @@ export const routes = [
   {
     path: '/system/resellers',
     component: SystemResellers,
-    acl: 'Provisioning'
+    hasLevel: 'Provisioning'
   },
   {
     path: '/resellers/:resellerId',
     component: ResellerDashboard,
-    acl: 'Reseller'
+    hasLevel: 'Reseller'
   }
 ]

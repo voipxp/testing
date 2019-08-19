@@ -79,14 +79,8 @@ function controller(Route, SystemDashboardService, Alert, ACL) {
         name: 'Service Providers',
         path: route('serviceProviders')
       },
-      // {
-      //   type: 'provisioning',
-      //   name: 'Resellers',
-      //   path: route('resellers'),
-      //   version: '22'
-      // },
       {
-        type: 'provisioning',
+        type: 'odin',
         name: 'Branding',
         path: route('branding')
       },
@@ -96,22 +90,22 @@ function controller(Route, SystemDashboardService, Alert, ACL) {
         path: route('bulk')
       },
       {
-        type: 'provisioning',
+        type: 'odin',
         name: 'Event History',
         path: route('events')
       },
       {
-        type: 'system',
+        type: 'odin',
         name: 'Login History',
         path: route('events', 'logins')
       },
       {
-        type: 'provisioning',
+        type: 'odin',
         name: 'Webhook History',
         path: route('webhooks')
       },
       {
-        type: 'provisioning',
+        type: 'odin',
         name: 'Settings',
         path: route('settings')
       },
