@@ -1,5 +1,4 @@
 import gql from 'graphql-tag'
-import { useCallback } from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
 export const RESELLER_ADMIN_FRAGMENT = gql`
@@ -59,17 +58,17 @@ export const RESELLER_ADMIN_DELETE_MUTATION = gql`
 `
 
 export const useResellerAdmins = resellerId => {
-  const { data, loading, error } = useQuery(RESELLER_ADMIN_LIST_QUERY, {
+  const query = useQuery(RESELLER_ADMIN_LIST_QUERY, {
     variables: { resellerId }
   })
-  return { data: data && data.resellerAdmins, loading, error }
+  return { ...query, data: query.data && query.data.resellerAdmins }
 }
 
 export const useResellerAdmin = userId => {
-  const { data, loading, error } = useQuery(RESELLER_ADMIN_SHOW_QUERY, {
+  const query = useQuery(RESELLER_ADMIN_SHOW_QUERY, {
     variables: { userId }
   })
-  return { data: data && data.resellerAdmin, loading, error }
+  return { ...query, data: query.data && query.data.resellerAdmin }
 }
 
 export const useResellerAdminCreate = resellerId => {
