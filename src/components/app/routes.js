@@ -679,7 +679,7 @@ export const routes = [
   {
     path: '/system/dn',
     angularComponent: 'systemDn',
-    hasLevel: 'Reseller'
+    hasLevel: 'Provisioning'
   },
   {
     path: '/system/collaborate',
@@ -699,19 +699,19 @@ export const routes = [
   {
     path: '/system/serviceProvidersReport',
     angularComponent: 'serviceProviderReport',
-    hasLevel: 'Reseller',
+    hasLevel: 'Provisioning',
     hasModuleRead: 'User Report'
   },
   {
     path: '/system/servicePackUtilizationReport',
     angularComponent: 'systemServicePackUtilizationReport',
-    hasLevel: 'Reseller',
+    hasLevel: 'Provisioning',
     hasModuleRead: 'User Report'
   },
   {
     path: '/system/systemServiceUtilizationReport',
     angularComponent: 'systemServiceUtilizationReport',
-    hasLevel: 'Reseller',
+    hasLevel: 'Provisioning',
     hasModuleRead: 'User Report'
   },
   {
