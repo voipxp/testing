@@ -24,7 +24,7 @@ function controller(Alert, ServiceProviderNumberService, NumberService, ACL) {
 
   function onInit() {
     ctrl.loading = true
-    ctrl.canUpdate = ACL.has('Provisioning')
+    ctrl.canUpdate = ACL.has('Reseller')
     return loadNumbers()
       .catch(function(error) {
         Alert.notify.danger(error)

@@ -7,10 +7,10 @@ angular.module('odin.branding').component('brandingHostname', {
   bindings: { hostnameId: '<', onDeleteHostname: '&' }
 })
 
-controller.$inject = ['Route', '$location']
-function controller(Route, $location) {
+controller.$inject = ['Route', 'Session']
+function controller(Route, Session) {
   var ctrl = this
-  ctrl.showNav = !/^\/resellers/.test($location.path())
+  ctrl.hideNav = Session.data('resellerId')
 
   ctrl.hostname = 'Loading...'
   ctrl.onUpdate = onUpdate
@@ -22,10 +22,10 @@ function controller(Route, $location) {
   }
 
   function onDelete(event) {
-    if (ctrl.showNav) {
-      back()
-    } else {
+    if (ctrl.hideNav) {
       ctrl.onDeleteHostname()
+    } else {
+      back()
     }
   }
 

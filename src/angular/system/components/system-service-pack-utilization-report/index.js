@@ -14,7 +14,8 @@ controller.$inject = [
   'Route',
   '$location',
   'CsvService',
-  'DownloadService'
+  'DownloadService',
+  'Session'
 ]
 function controller(
   Alert,
@@ -22,7 +23,8 @@ function controller(
   Route,
   $location,
   CsvService,
-  DownloadService
+  DownloadService,
+  Session
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -74,6 +76,7 @@ function controller(
   ]
   function onInit() {
     ctrl.loading = true
+    ctrl.hideNav = Session.data('resellerId')
     loadServicePackReport()
       .catch(function(error) {
         Alert.notify.danger(error)

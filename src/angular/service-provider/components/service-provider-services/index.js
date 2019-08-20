@@ -33,12 +33,12 @@ function controller(Alert, ServiceProviderServiceService, $filter, ACL) {
     { key: 'quantityView', label: 'Limit' },
     { key: 'allocatedView', label: 'Allocated' },
     { key: 'authorized', label: 'Authorized', type: 'boolean' },
-    { key: 'assigned', label: 'Assigned' }
+    { key: 'assigned', label: 'Assigned', type: 'boolean' }
   ]
 
   function onInit() {
     ctrl.loading = true
-    ctrl.canUpdate = ACL.has('Provisioning')
+    ctrl.canUpdate = ACL.has('Reseller')
     ctrl.title = $filter('humanize')(ctrl.serviceType)
     return loadServices()
       .catch(Alert.notify.danger)

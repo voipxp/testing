@@ -5,10 +5,10 @@ angular
   .module('odin.settings')
   .component('odinSettings', { template, controller })
 
-controller.$inject = ['ACL', '$location']
-function controller(ACL, $location) {
-  this.showNav = !/^\/resellers/.test($location.path())
+controller.$inject = ['ACL', 'Session']
+function controller(ACL, Session) {
+  this.hideNav = Session.data('resellerId')
   this.$onInit = function() {
-    this.isProvisioning = ACL.has('Provisioning')
+    this.isProvisioning = ACL.isPaasAdmin() && ACL.has('Reseller')
   }
 }
