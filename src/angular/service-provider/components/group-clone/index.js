@@ -58,7 +58,7 @@ function controller(EventEmitter, ServiceProviderService, GroupCloneService, $sc
 
   function load() {
     ctrl.isSystem = ACL.has('System')
-    ctrl.isProvisioning = ACL.has('Provisioning')
+    ctrl.isProvisioning = ACL.has('Reseller')
     if (!ctrl.isProvisioning) {
       ctrl.fromServiceProviderId = ctrl.serviceProviderId
     }

@@ -58,7 +58,7 @@ function Service(AuthService, Session, ACL, $q) {
 
   function load() {
     // no need if not a system admin
-    if (ACL.has('Provisioning')) return $q.resolve()
+    if (ACL.has('Reseller')) return $q.resolve()
   }
 
   function accessDeviceAssociationRead() {
@@ -243,7 +243,7 @@ function Service(AuthService, Session, ACL, $q) {
   }
 
   function checkAccess(attribute, values) {
-    if (ACL.has('Provisioning')) return true
+    if (ACL.has('Reseller')) return true
     var policy = Session.data('policy')
     values = _.castArray(values)
     var permission = _.get(policy, attribute)

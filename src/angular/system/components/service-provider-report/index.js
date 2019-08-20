@@ -7,8 +7,8 @@ angular.module('odin.system').component('serviceProviderReport', {
   bindings: { module: '<', serviceProviderId: '<' }
 })
 
-controller.$inject = ['Alert', 'ServiceProviderReportsService', 'Route', '$location']
-function controller(Alert, ServiceProviderReportsService, Route, $location) {
+controller.$inject = ['Alert', 'ServiceProviderReportsService', 'Route', '$location', 'Session']
+function controller(Alert, ServiceProviderReportsService, Route, $location, Session) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
@@ -42,6 +42,7 @@ function controller(Alert, ServiceProviderReportsService, Route, $location) {
   ]
   function onInit() {
     ctrl.loading = true
+    ctrl.hideNav = Session.data('resellerId')
     loadServiceProviderReport()
       .catch(function(error) {
         Alert.notify.danger(error)

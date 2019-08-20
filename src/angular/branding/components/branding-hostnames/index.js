@@ -6,8 +6,8 @@ angular.module('odin.branding').component('brandingHostnames', {
   controller
 })
 
-controller.$inject = ['BrandingHostnameService', 'Route', 'Alert', '$location', '$timeout']
-function controller(BrandingHostnameService, Route, Alert, $location, $timeout) {
+controller.$inject = ['BrandingHostnameService', 'Route', 'Alert', 'Session']
+function controller(BrandingHostnameService, Route, Alert, Session) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -23,7 +23,7 @@ function controller(BrandingHostnameService, Route, Alert, $location, $timeout) 
 
   function onInit() {
     ctrl.loading = true
-    ctrl.showNav = !/^\/resellers/.test($location.path())
+    ctrl.hideNav = Session.data('resellerId')
 
     loadHostnames()
       .catch(function(error) {
@@ -86,10 +86,10 @@ function controller(BrandingHostnameService, Route, Alert, $location, $timeout) 
   }
 
   function open(hostname) {
-    if (ctrl.showNav) {
-      Route.open('branding', hostname.id)
-    } else {
+    if (ctrl.hideNav) {
       ctrl.selectedHostname = hostname.id
+    } else {
+      Route.open('branding', hostname.id)
     }
   }
 }

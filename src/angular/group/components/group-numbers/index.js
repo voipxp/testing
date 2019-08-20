@@ -53,7 +53,7 @@ function controller(Alert, ServiceProviderNumberService, GroupNumberService, Num
 
   function onInit() {
     ctrl.loading = true
-    ctrl.isProvisioning = ACL.has('Provisioning')
+    ctrl.isProvisioning = ACL.has('Reseller')
     loadNumbers()
       .catch(Alert.notify.danger)
       .finally(function() {

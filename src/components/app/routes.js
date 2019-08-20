@@ -604,12 +604,12 @@ export const routes = [
   {
     path: '/serviceProviders/:serviceProviderId/devices',
     angularComponent: 'serviceProviderDevices',
-    hasLevel: 'Provisioning'
+    hasLevel: 'Reseller'
   },
   {
     path: '/serviceProviders/:serviceProviderId/delete',
     angularComponent: 'serviceProviderDelete',
-    hasLevel: 'Provisioning'
+    hasLevel: 'Reseller'
   },
   {
     path: '/serviceProviders/:serviceProviderId/userServices',

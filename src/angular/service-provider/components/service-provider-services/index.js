@@ -33,7 +33,7 @@ function controller(Alert, ServiceProviderServiceService, $filter, ACL) {
 
   function onInit() {
     ctrl.loading = true
-    ctrl.canUpdate = ACL.has('Provisioning')
+    ctrl.canUpdate = ACL.has('Reseller')
     ctrl.title = $filter('humanize')(ctrl.serviceType)
     return loadServices()
       .catch(Alert.notify.danger)

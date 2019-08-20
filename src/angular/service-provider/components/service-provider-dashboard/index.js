@@ -84,7 +84,7 @@ function controller(Alert, ServiceProviderDashboardService, Route, ACL) {
         type: 'provisioning',
         name: 'Delete Service Provider',
         path: route('delete'),
-        acl: 'Provisioning'
+        acl: 'Reseller'
       },
       {
         type: 'provisioning',
@@ -95,7 +95,7 @@ function controller(Alert, ServiceProviderDashboardService, Route, ACL) {
         type: 'provisioning',
         name: 'Devices',
         path: route('devices'),
-        acl: 'Provisioning'
+        acl: 'Reseller'
       },
       {
         type: 'provisioning',

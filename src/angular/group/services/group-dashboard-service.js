@@ -65,7 +65,7 @@ function GroupDashboardService(
     if (card.admin && !ACL.has('Service Provider')) return
 
     // check for prov access
-    if (card.provisioning && !ACL.has('Provisioning')) return
+    if (card.provisioning && !ACL.has('Reseller')) return
 
     // check for isEnterprise requirements
     if (card.isEnterprise && !isEnterprise()) return

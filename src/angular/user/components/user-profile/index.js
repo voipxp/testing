@@ -29,7 +29,7 @@ function controller(Alert, UserService, ACL, GroupPolicyService, ServiceProvider
     return $q
       .all([loadUser(), GroupPolicyService.load(), ServiceProviderPolicyService.load()])
       .then(function() {
-        if (ACL.has('Provisioning') || ACL.is('User')) {
+        if (ACL.has('Reseller') || ACL.is('User')) {
           ctrl.canRead = true
           ctrl.canUpdate = true
         } else if (ACL.is('Group')) {

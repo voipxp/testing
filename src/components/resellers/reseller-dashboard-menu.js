@@ -2,6 +2,9 @@ import { ResellerAdmins } from './reseller-admins'
 import { ResellerProfile } from './reseller-profile'
 import { ResellerDelete } from './reseller-delete'
 import { ResellerServiceProviders } from './reseller-service-providers'
+import { ResellerServiceProviderReport } from './reseller-service-provider-report'
+import { ResellerServicePackUtilizationReport } from './reseller-service-pack-utilization-report'
+import { ResellerDnReport } from './reseller-dn-report'
 
 export const dashboardMenu = [
   {
@@ -21,6 +24,26 @@ export const dashboardMenu = [
         path: 'admins',
         name: 'Administrators',
         component: ResellerAdmins
+      }
+    ]
+  },
+  {
+    label: 'Reports',
+    items: [
+      {
+        path: 'service-provider-report',
+        name: 'Service Provider Report',
+        component: ResellerServiceProviderReport
+      },
+      {
+        path: 'service-pack-utilization-report',
+        name: 'Service Pack Utilization',
+        component: ResellerServicePackUtilizationReport
+      },
+      {
+        path: 'dn-report',
+        name: 'DN Report',
+        component: ResellerDnReport
       }
     ]
   },

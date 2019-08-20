@@ -15,7 +15,7 @@ function controller(Alert, ServiceProviderTrunkGroupCallCapacityService, ACL) {
   ctrl.edit = edit
   ctrl.displayMax = displayMax
   ctrl.settings = {}
-  ctrl.isAdmin = ACL.has('Provisioning')
+  ctrl.isAdmin = ACL.has('Reseller')
 
   function onInit() {
     ctrl.loading = true

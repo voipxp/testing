@@ -36,7 +36,7 @@ function controller(EventEmitter, GroupCloneService, $scope, Alert, ACL) {
   }
 
   function load() {
-    ctrl.isProvisioning = ACL.has('Provisioning')
+    ctrl.isProvisioning = ACL.has('Reseller')
     if (!ctrl.isProvisioning) {
       ctrl.fromServiceProviderId = ctrl.serviceProviderId
     } else {
