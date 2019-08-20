@@ -4,6 +4,7 @@ import { useUi } from '@/store/ui'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
 import { useAlerts } from '@/store/alerts'
+import { useAcl } from '@/utils'
 import {
   UiCard,
   UiLoadingCard,
@@ -21,12 +22,14 @@ export const UserAlternateUserId = ({ match }) => {
   const [form, setForm] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [disabledAdd, setDisabledAdd] = useState(false)
+  const acl = useAcl()
+  const hasReseller = acl.hasReseller()
 
   const columns = [
     { key: 'userId', label: 'Alternate User Id' },
     { key: 'description', label: 'Description' }
   ]
-
   /*
     Load the alternate Ids, alert on error
   */
@@ -36,6 +39,14 @@ export const UserAlternateUserId = ({ match }) => {
       try {
         const data = await apiUserService.show(userId)
         setAlternateUserIds(data.users)
+        if (alternateUserIds.length > 3) {
+          setDisabledAdd(true)
+        } else {
+          setDisabledAdd(false)
+        }
+        if (!hasReseller) {
+          setDisabledAdd(true)
+        }
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -43,7 +54,7 @@ export const UserAlternateUserId = ({ match }) => {
       }
     }
     fetchData()
-  }, [alertDanger, userId])
+  }, [alertDanger, alternateUserIds.length, hasReseller, userId])
 
   /*
     Leave the userId blank so we know this is a new
@@ -59,8 +70,10 @@ export const UserAlternateUserId = ({ match }) => {
     keep track of this object
   */
   function edit(row) {
-    setForm({ ...row, newUserId: row.userId })
-    setShowModal(true)
+    if (!disabledAdd) {
+      setForm({ ...row, newUserId: row.userId })
+      setShowModal(true)
+    }
   }
 
   /*
@@ -134,7 +147,8 @@ export const UserAlternateUserId = ({ match }) => {
                 icon="add"
                 size="small"
                 onClick={add}
-                disabled={alternateUserIds.length > 3}
+                // disabled={alternateUserIds.length > 3}
+                disabled={disabledAdd}
               />
             }
           >
@@ -144,6 +158,7 @@ export const UserAlternateUserId = ({ match }) => {
               rowKey="userId"
               hideSearch={true}
               onClick={edit}
+              showSelect={disabledAdd}
             />
           </UiCard>
           <UiCardModal
