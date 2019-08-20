@@ -1,10 +1,5 @@
 ## GRAPHQL NOTES
 
-### IDEA
-
-- could we use lazy so we can pass in which user we want to look up?
-- can you pass refreshQueries into the exec call?
-
 ### TODO
 
 - add all existing items that are missing mutations
