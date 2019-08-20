@@ -8,17 +8,19 @@ export const TOKEN_KEY = 'odin:token'
 export const SESSION_FRAGMENT = gql`
   fragment SessionFragment on Session {
     _id
-    encoding
     groupId
+    serviceProviderId
+    resellerId
     isEnterprise
+    encoding
     local
     loginType
     passwordExpiresDays
-    serviceProviderId
     token
     userDomain
     userId
     softwareVersion
+    isPaasAdmin
   }
 `
 
