@@ -2,7 +2,7 @@ import angular from 'angular'
 import omit from 'lodash/omit'
 import {
   GROUP_LIST_QUERY,
-  GROUP_SHOW_QUERY,
+  GROUP_QUERY,
   GROUP_CREATE_MUTATION,
   GROUP_UPDATE_MUTATION,
   GROUP_DELETE_MUTATION
@@ -34,7 +34,7 @@ function GroupService(GraphQL) {
 
   function show(serviceProviderId, groupId) {
     return GraphQL.query({
-      query: GROUP_SHOW_QUERY,
+      query: GROUP_QUERY,
       variables: { serviceProviderId, groupId }
     }).then(res => res.data.group)
   }

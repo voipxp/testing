@@ -10,8 +10,8 @@ export const SERVICE_PROVIDER_LIST_FRAGMENT = gql`
   }
 `
 
-export const SERVICE_PROVIDER_SHOW_FRAGMENT = gql`
-  fragment ServiceProviderShowFragment on ServiceProvider {
+export const SERVICE_PROVIDER_FRAGMENT = gql`
+  fragment ServiceProviderFragment on ServiceProvider {
     _id
     serviceProviderId
     serviceProviderName
@@ -47,38 +47,38 @@ export const SERVICE_PROVIDER_LIST_QUERY = gql`
     }
   `
 
-export const SERVICE_PROVIDER_SHOW_QUERY = gql`
+export const SERVICE_PROVIDER_QUERY = gql`
     query serviceProvider($serviceProviderId: String!) {
       serviceProvider(serviceProviderId: $serviceProviderId) {
-        ...ServiceProviderShowFragment
+        ...ServiceProviderFragment
       }
-      ${SERVICE_PROVIDER_SHOW_FRAGMENT}
+      ${SERVICE_PROVIDER_FRAGMENT}
     }
   `
 
 export const SERVICE_PROVIDER_CREATE_MUTATION = gql`
   mutation serviceProviderCreate($input: ServiceProviderCreateInput!) {
     serviceProviderCreate(input: $input) {
-      ...ServiceProviderShowFragment
+      ...ServiceProviderFragment
     }
-    ${SERVICE_PROVIDER_SHOW_FRAGMENT}
+    ${SERVICE_PROVIDER_FRAGMENT}
   }
 `
 
 export const SERVICE_PROVIDER_UPDATE_MUTATION = gql`
     mutation serviceProviderUpdate($input: ServiceProviderUpdateInput!) {
       serviceProviderUpdate(input: $input) {
-        ...ServiceProviderShowFragment
+        ...ServiceProviderFragment
       }
-      ${SERVICE_PROVIDER_SHOW_FRAGMENT}
+      ${SERVICE_PROVIDER_FRAGMENT}
     }
   `
 
 export const SERVICE_PROVIDER_DELETE_MUTATION = gql`
   mutation serviceProviderDelete($serviceProviderId: String!) {
     serviceProviderDelete(serviceProviderId: $serviceProviderId) {
-      ...ServiceProviderShowFragment
+      ...ServiceProviderFragment
     }
-    ${SERVICE_PROVIDER_SHOW_FRAGMENT}
+    ${SERVICE_PROVIDER_FRAGMENT}
   }
 `

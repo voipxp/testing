@@ -21,7 +21,7 @@ export const RESELLER_ADMIN_LIST_QUERY = gql`
     }
   `
 
-export const RESELLER_ADMIN_SHOW_QUERY = gql`
+export const RESELLER_ADMIN_QUERY = gql`
     query resellerAdmin($userId: String!) {
       resellerAdmin(userId: $userId) {
         ...ResellerAdminFragment
@@ -65,7 +65,7 @@ export const useResellerAdmins = resellerId => {
 }
 
 export const useResellerAdmin = userId => {
-  const query = useQuery(RESELLER_ADMIN_SHOW_QUERY, {
+  const query = useQuery(RESELLER_ADMIN_QUERY, {
     variables: { userId }
   })
   return { ...query, data: query.data && query.data.resellerAdmin }

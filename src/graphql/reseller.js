@@ -18,7 +18,7 @@ export const RESELLER_LIST_QUERY = gql`
     }
   `
 
-export const RESELLER_SHOW_QUERY = gql`
+export const RESELLER_QUERY = gql`
     query reseller($resellerId: String!) {
       reseller(resellerId: $resellerId) {
         ...ResellerFragment
@@ -60,7 +60,7 @@ export const useResellers = () => {
 }
 
 export const useReseller = resellerId => {
-  const { data, loading, error } = useQuery(RESELLER_SHOW_QUERY, { variables: { resellerId } })
+  const { data, loading, error } = useQuery(RESELLER_QUERY, { variables: { resellerId } })
   return { data: data && data.reseller, loading, error }
 }
 

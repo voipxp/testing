@@ -18,8 +18,8 @@ export const GROUP_LIST_QUERY = gql`
   }
 `
 
-export const GROUP_SHOW_FRAGMENT = gql`
-  fragment GroupShowFragment on Group {
+export const GROUP_FRAGMENT = gql`
+  fragment GroupFragment on Group {
     _id
     groupId
     groupName
@@ -49,38 +49,38 @@ export const GROUP_SHOW_FRAGMENT = gql`
   }
 `
 
-export const GROUP_SHOW_QUERY = gql`
+export const GROUP_QUERY = gql`
   query group($serviceProviderId: String!, $groupId: String!) {
     group(serviceProviderId: $serviceProviderId, groupId: $groupId) {
-      ...GroupShowFragment
+      ...GroupFragment
     }
-    ${GROUP_SHOW_FRAGMENT}
+    ${GROUP_FRAGMENT}
   }
 `
 
 export const GROUP_CREATE_MUTATION = gql`
   mutation groupCreate($input: GroupCreateInput!) {
     groupCreate(input:$input) {
-      ...GroupShowFragment
+      ...GroupFragment
     }
-    ${GROUP_SHOW_FRAGMENT}
+    ${GROUP_FRAGMENT}
   }
 `
 
 export const GROUP_UPDATE_MUTATION = gql`
   mutation groupUpdate($input: GroupUpdateInput!) {
     groupUpdate(input:$input) {
-      ...GroupShowFragment
+      ...GroupFragment
     }
-    ${GROUP_SHOW_FRAGMENT}
+    ${GROUP_FRAGMENT}
   }
 `
 
 export const GROUP_DELETE_MUTATION = gql`
   mutation groupDelete($serviceProviderId: String!, $groupId: String!) {
     groupDelete(serviceProviderId: $serviceProviderId, groupId: $groupId) {
-      ...GroupShowFragment
+      ...GroupFragment
     }
-    ${GROUP_SHOW_FRAGMENT}
+    ${GROUP_FRAGMENT}
   }
 `

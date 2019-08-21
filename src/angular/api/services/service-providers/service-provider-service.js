@@ -2,7 +2,7 @@ import angular from 'angular'
 import {
   SERVICE_PROVIDER_LIST_QUERY,
   SERVICE_PROVIDER_CREATE_MUTATION,
-  SERVICE_PROVIDER_SHOW_QUERY,
+  SERVICE_PROVIDER_QUERY,
   SERVICE_PROVIDER_UPDATE_MUTATION,
   SERVICE_PROVIDER_DELETE_MUTATION
 } from '@/graphql'
@@ -31,7 +31,7 @@ function service(GraphQL) {
 
   function show(serviceProviderId) {
     return GraphQL.query({
-      query: SERVICE_PROVIDER_SHOW_QUERY,
+      query: SERVICE_PROVIDER_QUERY,
       variables: { serviceProviderId }
     }).then(res => res.data.serviceProvider)
   }

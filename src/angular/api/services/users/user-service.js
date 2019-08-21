@@ -1,6 +1,5 @@
 import angular from 'angular'
-import gql from 'graphql-tag'
-
+import { USER_LIST_QUERY, USER_CREATE_MUTATION, USER_QUERY } from '@/graphql'
 angular.module('odin.api').factory('UserService', UserService)
 
 UserService.$inject = ['$http', 'Route', 'GraphQL']
@@ -19,30 +18,8 @@ function UserService($http, Route, GraphQL) {
   return service
 
   function index(serviceProviderId, groupId, includeUser = false) {
-    const query = gql`
-      query users($serviceProviderId: String!, $groupId: String!, $includeUser: Boolean!) {
-        users(serviceProviderId: $serviceProviderId, groupId: $groupId) {
-          _id
-          userId
-          serviceProviderId
-          groupId
-          lastName
-          firstName
-          department
-          phoneNumber
-          phoneNumberActivated
-          emailAddress
-          extension
-          countryCode
-          nationalPrefix
-          user @include(if: $includeUser) {
-            callingLineIdPhoneNumber
-          }
-        }
-      }
-    `
     return GraphQL.query({
-      query,
+      query: USER_LIST_QUERY,
       variables: { serviceProviderId, groupId, includeUser }
     }).then(res => res.data.users)
   }
@@ -52,13 +29,18 @@ function UserService($http, Route, GraphQL) {
   }
 
   function store(serviceProviderId, groupId, user) {
-    return $http
-      .post(url(), { ...user, serviceProviderId, groupId })
-      .then(response => response.data)
+    return GraphQL.mutate({
+      mutation: USER_CREATE_MUTATION,
+      variables: { input: user },
+      refreshQueries: [{ query: USER_LIST_QUERY, variables: { serviceProviderId, groupId } }]
+    }).then(res => res.data.userCreate)
   }
 
   function show(userId) {
-    return $http.get(url(), { params: { userId } }).then(response => response.data)
+    return GraphQL.query({
+      query: USER_QUERY,
+      variables: { userId }
+    }).then(res => res.data.user)
   }
 
   function update(userId, user) {
