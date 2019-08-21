@@ -6,7 +6,7 @@ import get from 'lodash/get'
 import { useQuery } from '@apollo/react-hooks'
 
 const UI_QUERY = gql`
-  query uiSettings {
+  query appAnalyticsUi {
     uiTemplate {
       _id
       pageGoogleUA

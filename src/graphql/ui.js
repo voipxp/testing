@@ -58,6 +58,15 @@ export const UI_MODULES_FRAGMENT = gql`
   }
 `
 
+export const UI_MODULES_QUERY = gql`
+  query uiModules {
+    uiModules {
+      ...UiModulesFragment
+    }
+    ${UI_MODULES_FRAGMENT}
+  }
+`
+
 export const UI_QUERY = gql`
   query uiSettings {
     uiApplications {

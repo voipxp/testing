@@ -17,35 +17,7 @@ Filter
 import get from 'lodash/get'
 import camelCase from 'lodash/camelCase'
 import angular from 'angular'
-import gql from 'graphql-tag'
-
-const UI_MODULES = gql`
-  query uiModules {
-    uiModules {
-      _id
-      name
-      alias
-      description
-      url
-      provisioningCreate
-      provisioningRead
-      provisioningUpdate
-      provisioningDelete
-      serviceProviderCreate
-      serviceProviderRead
-      serviceProviderUpdate
-      serviceProviderDelete
-      groupCreate
-      groupRead
-      groupUpdate
-      groupDelete
-      userCreate
-      userRead
-      userUpdate
-      userDelete
-    }
-  }
-`
+import { UI_MODULES_QUERY } from '@/graphql'
 
 angular.module('odin.common').factory('Module', Module)
 
@@ -73,7 +45,7 @@ function Module(Session, $q, GraphQL) {
   }
 
   function load() {
-    return GraphQL.query({ query: UI_MODULES })
+    return GraphQL.query({ query: UI_MODULES_QUERY })
   }
 
   function show(name) {

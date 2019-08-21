@@ -16,7 +16,7 @@ import { useQuery } from '@apollo/react-hooks'
 import authApi from '@/api/auth'
 
 const UI_QUERY = gql`
-  query uiSettings {
+  query appNavbarUi {
     uiTemplate {
       _id
       pageTitle

@@ -2,36 +2,7 @@ import { useCallback } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import get from 'lodash/get'
 import camelCase from 'lodash/camelCase'
-import gql from 'graphql-tag'
-import { useSession } from '@/graphql'
-
-const UI_QUERY = gql`
-  query uiModules {
-    uiModules {
-      _id
-      name
-      alias
-      description
-      url
-      provisioningCreate
-      provisioningRead
-      provisioningUpdate
-      provisioningDelete
-      serviceProviderCreate
-      serviceProviderRead
-      serviceProviderUpdate
-      serviceProviderDelete
-      groupCreate
-      groupRead
-      groupUpdate
-      groupDelete
-      userCreate
-      userRead
-      userUpdate
-      userDelete
-    }
-  }
-`
+import { useSession, UI_MODULES_QUERY } from '@/graphql'
 
 const show = (name, modules) => {
   if (!name) return
@@ -74,7 +45,7 @@ const description = (name, modules) => {
 
 export const useModulePermissions = () => {
   const session = useSession()
-  const { data, loading, error } = useQuery(UI_QUERY)
+  const { data, loading, error } = useQuery(UI_MODULES_QUERY)
   const uiModules = get(data, 'uiModules', [])
   return {
     error,

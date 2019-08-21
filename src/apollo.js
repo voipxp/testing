@@ -74,7 +74,7 @@ export const client = new ApolloClient({
 export const setInitialState = () => {
   cache.writeQuery({
     query: gql`
-      query session {
+      query initialSession {
         session {
           _id
         }

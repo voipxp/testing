@@ -73,7 +73,13 @@ export const useResellerAdmin = userId => {
 
 export const useResellerAdminCreate = resellerId => {
   const [exec, results] = useMutation(RESELLER_ADMIN_CREATE_MUTATION, {
-    refetchQueries: [{ query: RESELLER_ADMIN_LIST_QUERY, variables: { resellerId } }]
+    refetchQueries: [{ query: RESELLER_ADMIN_LIST_QUERY, variables: { resellerId } }],
+    update: (store, { data: { resellerAdminCreate } }) => {
+      const data = store.readQuery({ query: RESELLER_ADMIN_LIST_QUERY })
+      console.log('data', data)
+      // data.comments.push(submitComment);
+      // store.writeQuery({ query: CommentAppQuery, data });
+    }
   })
   return [input => exec({ variables: { input } }), results]
 }

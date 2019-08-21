@@ -1,27 +1,6 @@
 import angular from 'angular'
-import gql from 'graphql-tag'
-
+import { USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY } from '@/graphql'
 angular.module('odin.user').factory('UserPermissionService', Service)
-
-const USER_SERVICES = gql`
-  query userServicesAssignedAndViewable($userId: String!) {
-    userServicesAssigned(userId: $userId) {
-      _id
-      userId
-      userServices {
-        serviceName
-        isActive
-      }
-    }
-    userServicesViewable(userId: $userId) {
-      _id
-      userId
-      userServices {
-        serviceName
-      }
-    }
-  }
-`
 
 Service.$inject = ['Module', 'ACL', 'GraphQL']
 function Service(Module, ACL, GraphQL) {
@@ -108,7 +87,10 @@ function Service(Module, ACL, GraphQL) {
   }
 
   function loadServices(userId) {
-    return GraphQL.query({ query: USER_SERVICES, variables: { userId } }).then(({ data }) => data)
+    return GraphQL.query({
+      query: USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY,
+      variables: { userId }
+    }).then(({ data }) => data)
   }
 
   function mapServices(assigned = { userServices: [] }) {

@@ -11,7 +11,7 @@ import get from 'lodash/get'
 import { useQuery } from '@apollo/react-hooks'
 
 const UI_QUERY = gql`
-  query uiSettings {
+  query appLoginUi {
     uiTemplate {
       _id
       pageLoginMessage

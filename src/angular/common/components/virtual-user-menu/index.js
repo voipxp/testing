@@ -1,19 +1,6 @@
 import angular from 'angular'
 import template from './index.html'
-import gql from 'graphql-tag'
-
-const USER_SERVICES_ASSIGNED = gql`
-  query userServicesAssigned($userId: String!) {
-    userServicesAssigned(userId: $userId) {
-      _id
-      userId
-      userServices {
-        serviceName
-        isActive
-      }
-    }
-  }
-`
+import { USER_SERVICES_ASSIGNED_QUERY } from '@/graphql'
 
 angular.module('odin.common').directive('virtualUserMenu', Directive)
 
@@ -46,7 +33,7 @@ function controller(Alert, Module, ACL, GraphQL) {
 
   function loadAssignedServices() {
     return GraphQL.query({
-      query: USER_SERVICES_ASSIGNED,
+      query: USER_SERVICES_ASSIGNED_QUERY,
       variables: { userId: ctrl.userId }
     }).then(({ data }) => {
       return data.userServicesAssigned.userServices.map(s => s.serviceName)

@@ -8,7 +8,7 @@ import get from 'lodash/get'
 import { useQuery } from '@apollo/react-hooks'
 
 const UI_QUERY = gql`
-  query uiSettings {
+  query appTimerUi {
     uiSettings {
       _id
       sessionTimeout

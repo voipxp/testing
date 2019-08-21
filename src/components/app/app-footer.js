@@ -7,7 +7,7 @@ import { Footer } from 'rbx'
 import { useQuery } from '@apollo/react-hooks'
 
 const UI_QUERY = gql`
-  query uiSettings {
+  query appFooterUi {
     uiTemplate {
       _id
       pageCopyright
