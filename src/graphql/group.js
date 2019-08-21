@@ -79,9 +79,8 @@ export const GROUP_UPDATE_MUTATION = gql`
 export const GROUP_DELETE_MUTATION = gql`
   mutation groupDelete($serviceProviderId: String!, $groupId: String!) {
     groupDelete(serviceProviderId: $serviceProviderId, groupId: $groupId) {
-      _id
-      serviceProviderId
-      groupId
+      ...GroupShowFragment
     }
+    ${GROUP_SHOW_FRAGMENT}
   }
 `

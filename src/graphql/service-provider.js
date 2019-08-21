@@ -77,8 +77,8 @@ export const SERVICE_PROVIDER_UPDATE_MUTATION = gql`
 export const SERVICE_PROVIDER_DELETE_MUTATION = gql`
   mutation serviceProviderDelete($serviceProviderId: String!) {
     serviceProviderDelete(serviceProviderId: $serviceProviderId) {
-      _id
-      serviceProviderId
+      ...ServiceProviderShowFragment
     }
+    ${SERVICE_PROVIDER_SHOW_FRAGMENT}
   }
 `
