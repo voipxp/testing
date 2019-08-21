@@ -35,7 +35,7 @@ export const ResellerAdmins = ({ match }) => {
   const [showModal, setShowModal] = useState(false)
 
   const { data, loading, error } = useResellerAdmins(resellerId)
-  const [createAdmin] = useResellerAdminCreate(resellerId)
+  const [createAdmin] = useResellerAdminCreate()
   const [updateAdmin] = useResellerAdminUpdate()
   const [deleteAdmin] = useResellerAdminDelete(resellerId)
 
@@ -142,7 +142,7 @@ export const ResellerAdmins = ({ match }) => {
               onChange={onChange}
               placeholder="User ID"
               required
-              disabled={!form.isCreate}
+              disabled={form.resellerId}
             />
           </UiFormField>
           <UiFormField label="First Name" horizontal>
