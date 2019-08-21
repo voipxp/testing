@@ -35,9 +35,9 @@ export const ResellerAdmins = ({ match }) => {
   const [showModal, setShowModal] = useState(false)
 
   const { data, loading, error } = useResellerAdmins(resellerId)
-  const [createAdmin] = useResellerAdminCreate(resellerId)
+  const [createAdmin] = useResellerAdminCreate()
   const [updateAdmin] = useResellerAdminUpdate()
-  const [deleteAdmin] = useResellerAdminDelete(resellerId)
+  const [deleteAdmin] = useResellerAdminDelete()
 
   if (error) Alert.danger(error)
   if (!data && loading) return <UiLoadingCard />

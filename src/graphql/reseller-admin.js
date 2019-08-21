@@ -51,9 +51,9 @@ export const RESELLER_ADMIN_UPDATE_MUTATION = gql`
 export const RESELLER_ADMIN_DELETE_MUTATION = gql`
   mutation resellerAdminDelete($userId: String!) {
     resellerAdminDelete(userId: $userId) {
-      _id
-      userId
+      ...ResellerAdminFragment
     }
+    ${RESELLER_ADMIN_FRAGMENT}
   }
 `
 
@@ -71,37 +71,43 @@ export const useResellerAdmin = userId => {
   return { ...query, data: query.data && query.data.resellerAdmin }
 }
 
-export const useResellerAdminCreate = resellerId => {
+export const useResellerAdminCreate = () => {
   const [exec, results] = useMutation(RESELLER_ADMIN_CREATE_MUTATION, {
-    refetchQueries: [{ query: RESELLER_ADMIN_LIST_QUERY, variables: { resellerId } }]
+    update: (store, { data: { resellerAdminCreate } }) => {
+      const { resellerId } = resellerAdminCreate
+      const { resellerAdmins } = store.readQuery({
+        query: RESELLER_ADMIN_LIST_QUERY,
+        variables: { resellerId }
+      })
+      store.writeQuery({
+        query: RESELLER_ADMIN_LIST_QUERY,
+        data: { resellerAdmins: [...resellerAdmins, resellerAdminCreate] },
+        variables: { resellerId }
+      })
+    }
   })
   return [input => exec({ variables: { input } }), results]
 }
-/*
-  Example of updating cache directly
-
-  update: (store, { data: { resellerAdminCreate } }) => {
-    const { resellerId } = resellerAdminCreate
-    const { resellerAdmins } = store.readQuery({
-      query: RESELLER_ADMIN_LIST_QUERY,
-      variables: { resellerId }
-    })
-    store.writeQuery({
-      query: RESELLER_ADMIN_LIST_QUERY,
-      data: { resellerAdmins: [...resellerAdmins, resellerAdminCreate] },
-      variables: { resellerId }
-    })
-  }
-*/
 
 export const useResellerAdminUpdate = () => {
   const [exec, results] = useMutation(RESELLER_ADMIN_UPDATE_MUTATION)
   return [input => exec({ variables: { input } }), results]
 }
 
-export const useResellerAdminDelete = resellerId => {
+export const useResellerAdminDelete = () => {
   const [exec, results] = useMutation(RESELLER_ADMIN_DELETE_MUTATION, {
-    refetchQueries: [{ query: RESELLER_ADMIN_LIST_QUERY, variables: { resellerId } }]
+    update: (store, { data: { resellerAdminDelete } }) => {
+      const { resellerId, userId } = resellerAdminDelete
+      const { resellerAdmins } = store.readQuery({
+        query: RESELLER_ADMIN_LIST_QUERY,
+        variables: { resellerId }
+      })
+      store.writeQuery({
+        query: RESELLER_ADMIN_LIST_QUERY,
+        data: { resellerAdmins: resellerAdmins.filter(admin => admin.userId !== userId) },
+        variables: { resellerId }
+      })
+    }
   })
   return [userId => exec({ variables: { userId } }), results]
 }
