@@ -75,6 +75,8 @@ const { loading, data, error } = useUserServicesAssigned('dusty')
 
 ### Updating cache
 
+To get update function to work properly with delete only passing it a userId, we could return the resellerId in the response
+
 #### RefetchQuery
 
 ```

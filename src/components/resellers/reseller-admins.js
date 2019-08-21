@@ -35,7 +35,7 @@ export const ResellerAdmins = ({ match }) => {
   const [showModal, setShowModal] = useState(false)
 
   const { data, loading, error } = useResellerAdmins(resellerId)
-  const [createAdmin] = useResellerAdminCreate()
+  const [createAdmin] = useResellerAdminCreate(resellerId)
   const [updateAdmin] = useResellerAdminUpdate()
   const [deleteAdmin] = useResellerAdminDelete(resellerId)
 
