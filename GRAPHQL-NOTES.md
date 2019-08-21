@@ -75,9 +75,9 @@ const { loading, data, error } = useUserServicesAssigned('dusty')
 
 ### Updating cache
 
-To get update function to work properly with delete only passing it a userId, we could return the resellerId in the response
-
 #### RefetchQuery
+
+This will run whatever queries are given to update the cache
 
 ```
 export const useResellerAdminCreate = resellerId => {
@@ -90,8 +90,10 @@ export const useResellerAdminCreate = resellerId => {
 
 #### Update Function
 
+This updates the cache directly.
+
 ```
-export const useResellerAdminCreate = resellerId => {
+export const useResellerAdminCreate = () => {
   const [exec, results] = useMutation(RESELLER_ADMIN_CREATE_MUTATION, {
     update: (store, { data: { resellerAdminCreate } }) => {
       const { resellerId } = resellerAdminCreate
