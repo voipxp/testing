@@ -72,3 +72,40 @@ export const useUserServicesAssigned = (userId, fragment) {
 import { useUserServicesAssigned } from '.'
 const { loading, data, error } = useUserServicesAssigned('dusty')
 ```
+
+### Updating cache
+
+#### RefetchQuery
+
+```
+export const useResellerAdminCreate = resellerId => {
+  const [exec, results] = useMutation(RESELLER_ADMIN_CREATE_MUTATION, {
+    refetchQueries: [{ query: RESELLER_ADMIN_LIST_QUERY, variables: { resellerId } }]
+  })
+  return [input => exec({ variables: { input } }), results]
+}
+```
+
+#### Update Function
+
+```
+export const useResellerAdminCreate = resellerId => {
+  const [exec, results] = useMutation(RESELLER_ADMIN_CREATE_MUTATION, {
+    update: (store, { data: { resellerAdminCreate } }) => {
+      const { resellerId } = resellerAdminCreate
+      const { resellerAdmins } = store.readQuery({
+        query: RESELLER_ADMIN_LIST_QUERY,
+        variables: { resellerId }
+      })
+      store.writeQuery({
+        query: RESELLER_ADMIN_LIST_QUERY,
+        data: { resellerAdmins: [...resellerAdmins, resellerAdminCreate] },
+        variables: { resellerId }
+      })
+    }
+  })
+  return [input => exec({ variables: { input } }), results]
+}
+
+
+```

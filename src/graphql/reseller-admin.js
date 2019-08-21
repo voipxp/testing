@@ -71,23 +71,28 @@ export const useResellerAdmin = userId => {
   return { ...query, data: query.data && query.data.resellerAdmin }
 }
 
-export const useResellerAdminCreate = () => {
+export const useResellerAdminCreate = resellerId => {
   const [exec, results] = useMutation(RESELLER_ADMIN_CREATE_MUTATION, {
-    update: (store, { data: { resellerAdminCreate } }) => {
-      const { resellerId } = resellerAdminCreate
-      const { resellerAdmins } = store.readQuery({
-        query: RESELLER_ADMIN_LIST_QUERY,
-        variables: { resellerId }
-      })
-      store.writeQuery({
-        query: RESELLER_ADMIN_LIST_QUERY,
-        data: { resellerAdmins: [...resellerAdmins, resellerAdminCreate] },
-        variables: { resellerId }
-      })
-    }
+    refetchQueries: [{ query: RESELLER_ADMIN_LIST_QUERY, variables: { resellerId } }]
   })
   return [input => exec({ variables: { input } }), results]
 }
+/*
+  Example of updating cache directly
+
+  update: (store, { data: { resellerAdminCreate } }) => {
+    const { resellerId } = resellerAdminCreate
+    const { resellerAdmins } = store.readQuery({
+      query: RESELLER_ADMIN_LIST_QUERY,
+      variables: { resellerId }
+    })
+    store.writeQuery({
+      query: RESELLER_ADMIN_LIST_QUERY,
+      data: { resellerAdmins: [...resellerAdmins, resellerAdminCreate] },
+      variables: { resellerId }
+    })
+  }
+*/
 
 export const useResellerAdminUpdate = () => {
   const [exec, results] = useMutation(RESELLER_ADMIN_UPDATE_MUTATION)
