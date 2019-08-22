@@ -138,7 +138,7 @@ function controller(
     Alert.spinner.open()
     UserService.bulk({ users: users, data: data })
       .then(function() {
-        return loadUsers(['callingLineIdPhoneNumber'])
+        return loadUsers(true)
       })
       .then(function() {
         Alert.notify.success('Users Updated')

@@ -1,5 +1,12 @@
 import angular from 'angular'
-import { USER_LIST_QUERY, USER_CREATE_MUTATION, USER_QUERY } from '@/graphql'
+import omit from 'lodash/omit'
+import {
+  USER_LIST_QUERY,
+  USER_CREATE_MUTATION,
+  USER_DELETE_MUTATION,
+  USER_UPDATE_MUTATION,
+  USER_QUERY
+} from '@/graphql'
 angular.module('odin.api').factory('UserService', UserService)
 
 UserService.$inject = ['$http', 'Route', 'GraphQL']
@@ -10,7 +17,6 @@ function UserService($http, Route, GraphQL) {
     show,
     update,
     destroy,
-    info,
     bulk
   }
   var url = Route.api('/users')
@@ -24,15 +30,13 @@ function UserService($http, Route, GraphQL) {
     }).then(res => res.data.users)
   }
 
-  function info(userId) {
-    return $http.get(url('login'), { params: { userId } }).then(response => response.data)
-  }
-
   function store(serviceProviderId, groupId, user) {
     return GraphQL.mutate({
       mutation: USER_CREATE_MUTATION,
       variables: { input: user },
-      refreshQueries: [{ query: USER_LIST_QUERY, variables: { serviceProviderId, groupId } }]
+      refreshQueries: [
+        { query: USER_LIST_QUERY, variables: { serviceProviderId, groupId, includeUser: false } }
+      ]
     }).then(res => res.data.userCreate)
   }
 
@@ -44,7 +48,25 @@ function UserService($http, Route, GraphQL) {
   }
 
   function update(userId, user) {
-    return $http.put(url(), user).then(response => response.data)
+    const filteredUser = omit(
+      user,
+      'countryCode',
+      'defaultAlias',
+      'departmentFullPath',
+      'groupId',
+      'serviceProviderId',
+      'endpointType',
+      'timeZoneDisplayName',
+      'nationalPrefix'
+    )
+    const { serviceProviderId, groupId } = user
+    return GraphQL.mutate({
+      mutation: USER_UPDATE_MUTATION,
+      variables: { input: filteredUser },
+      refreshQueries: [
+        { query: USER_LIST_QUERY, variables: { serviceProviderId, groupId, includeUser: false } }
+      ]
+    }).then(res => res.data.userUpdate)
   }
 
   function bulk(data) {
@@ -52,6 +74,21 @@ function UserService($http, Route, GraphQL) {
   }
 
   function destroy(userId) {
-    return $http.delete(url(), { params: { userId } }).then(response => response.data)
+    return GraphQL.mutate({
+      mutation: USER_DELETE_MUTATION,
+      variables: { userId },
+      update: (store, { data: { userDelete } }) => {
+        const { serviceProviderId, groupId } = userDelete
+        const { users } = store.readQuery({
+          query: USER_LIST_QUERY,
+          variables: { serviceProviderId, groupId, includeUser: false }
+        })
+        store.writeQuery({
+          query: USER_LIST_QUERY,
+          data: { users: users.filter(user => user.userId !== userId) },
+          variables: { serviceProviderId, groupId, includeUser: false }
+        })
+      }
+    }).then(res => res.data.userDelete)
   }
 }
