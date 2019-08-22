@@ -13,7 +13,7 @@ import { useQuery } from '@apollo/react-hooks'
 const UI_QUERY = gql`
   query appLoginUi {
     uiTemplate {
-      _id
+      id
       pageLoginMessage
     }
   }

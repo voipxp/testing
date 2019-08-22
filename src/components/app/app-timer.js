@@ -10,7 +10,7 @@ import { useQuery } from '@apollo/react-hooks'
 const UI_QUERY = gql`
   query appTimerUi {
     uiSettings {
-      _id
+      id
       sessionTimeout
     }
   }

@@ -9,7 +9,7 @@ import { useQuery } from '@apollo/react-hooks'
 const UI_QUERY = gql`
   query appFooterUi {
     uiTemplate {
-      _id
+      id
       pageCopyright
       pageFooterTitle
     }

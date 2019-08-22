@@ -18,11 +18,11 @@ import authApi from '@/api/auth'
 const UI_QUERY = gql`
   query appNavbarUi {
     uiTemplate {
-      _id
+      id
       pageTitle
     }
     uiApplications {
-      _id
+      id
       description
       name
       partner
@@ -123,7 +123,7 @@ export const AppNavbar = withRouter(({ history }) => {
                 <Navbar.Link>Applications</Navbar.Link>
                 <Navbar.Dropdown boxed>
                   {applications.map(application => (
-                    <Navbar.Item key={application._id} onClick={() => openApplication(application)}>
+                    <Navbar.Item key={application.id} onClick={() => openApplication(application)}>
                       {application.name}
                     </Navbar.Item>
                   ))}

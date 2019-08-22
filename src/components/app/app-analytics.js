@@ -8,7 +8,7 @@ import { useQuery } from '@apollo/react-hooks'
 const UI_QUERY = gql`
   query appAnalyticsUi {
     uiTemplate {
-      _id
+      id
       pageGoogleUA
     }
   }

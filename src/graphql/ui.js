@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 export const UI_APPLICATIONS_FRAGMENT = gql`
   fragment UiApplicationsFragment on BrandingApplication {
-    _id
+    id
     description
     name
     partner
@@ -13,7 +13,7 @@ export const UI_APPLICATIONS_FRAGMENT = gql`
 
 export const UI_SETTINGS_FRAGMENT = gql`
   fragment UiSettingsFragment on BrandingSettings {
-    _id
+    id
     editCLID
     sessionTimeout
   }
@@ -21,7 +21,7 @@ export const UI_SETTINGS_FRAGMENT = gql`
 
 export const UI_TEMPLATE_FRAGMENT = gql`
   fragment UiTemplateFragment on BrandingTemplate {
-    _id
+    id
     pageCopyright
     pageFooterTitle
     pageGoogleUA
@@ -34,7 +34,7 @@ export const UI_TEMPLATE_FRAGMENT = gql`
 
 export const UI_MODULES_FRAGMENT = gql`
   fragment UiModulesFragment on BrandingModule {
-    _id
+    id
     alias
     description
     groupCreate
