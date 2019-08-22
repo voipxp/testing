@@ -21,8 +21,8 @@ function Directive() {
   }
 }
 
-controller.$inject = ['Alert', 'Module', 'ACL', 'GraphQL']
-function controller(Alert, Module, ACL, GraphQL) {
+controller.$inject = ['Module', 'ACL', 'GraphQL']
+function controller(Module, ACL, GraphQL) {
   const ctrl = this
 
   ctrl.$onInit = () => {

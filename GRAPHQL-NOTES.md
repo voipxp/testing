@@ -3,16 +3,20 @@
 ### TODO
 
 - add all existing items that are missing mutations
-  - user-service.js
+
+  - UserService.bulk()
   - Branding modules, application, ...
   - things calling @/api
-  - things that could use caching, such as system domain
+  - things that could use caching
+    - domains
+    - timezones
+    - etc..
+
 - Figure out the best format for hooks for both queries and mutations.
+
   - Do we want it to be uniform {data, loading, error}?
   - Do we want to use the second part of mutations [update, {error, loading}]?
-- Export the queries when needed
-  - try to use hooks instead of actual graphql inside the components.
-  - In angular put them in services.
+
 - Update README.md to show how to use graphql
 
 ### Errors
