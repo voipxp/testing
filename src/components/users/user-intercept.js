@@ -2,13 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Input, Select, Column } from 'rbx'
 import { Alert, Loading } from '@/utils'
-import {
-  useUserIntercept,
-  useUserInterceptUpdate,
-  ANNOUNCEMENT_SELECTIONS,
-  USER_INTERCEPT_INBOUND_CALL_MODES,
-  USER_INTERCEPT_OUTBOUND_CALL_MODES
-} from '@/graphql'
+import { useUserIntercept, useUserInterceptUpdate } from '@/graphql'
 
 import {
   UiCard,
@@ -21,6 +15,14 @@ import {
   UiListItem,
   UiFormField
 } from '@/components/ui'
+
+const INBOUND_CALL_MODES = ['Intercept All', 'Allow All', 'Allow System Dns']
+
+const OUTBOUND_CALL_MODES = [
+  'Block All',
+  'Allow Outbound Local Calls',
+  'Allow Outbound Enterprise And Group Calls'
+]
 
 export const UserIntercept = ({ match }) => {
   const { userId } = match.params
@@ -68,15 +70,11 @@ export const UserIntercept = ({ match }) => {
           <UiListItem label="Active">
             <UiCheckbox isChecked={data.isActive} />
           </UiListItem>
-          <UiListItem label="Announcement Selection">
-            {ANNOUNCEMENT_SELECTIONS[data.announcementSelection]}
-          </UiListItem>
+          <UiListItem label="Announcement Selection">{data.announcementSelection}</UiListItem>
         </UiSection>
 
         <UiSection title="Inbound Call Options">
-          <UiListItem label="Inbound Call Mode">
-            {USER_INTERCEPT_INBOUND_CALL_MODES[data.inboundCallMode]}
-          </UiListItem>
+          <UiListItem label="Inbound Call Mode">{data.inboundCallMode}</UiListItem>
           <UiListItem label="Alternate Blocking Announcement">
             <UiCheckbox isChecked={data.alternateBlockingAnnouncement} />
           </UiListItem>
@@ -100,9 +98,7 @@ export const UserIntercept = ({ match }) => {
         </UiSection>
 
         <UiSection title="Outbound Call Options">
-          <UiListItem label="Outbound Call Mode">
-            {USER_INTERCEPT_OUTBOUND_CALL_MODES[data.outboundCallMode]}
-          </UiListItem>
+          <UiListItem label="Outbound Call Mode">{data.outboundCallMode}</UiListItem>
           <UiListItem label="Exempt Outbound Mobility Calls">
             <UiCheckbox isChecked={data.exemptOutboundMobilityCalls} />
           </UiListItem>
@@ -187,9 +183,9 @@ export const UserIntercept = ({ match }) => {
                     onChange={handleInput}
                     name="inboundCallMode"
                   >
-                    {Object.keys(USER_INTERCEPT_INBOUND_CALL_MODES).map(key => (
-                      <Select.Option key={key} value={key}>
-                        {USER_INTERCEPT_INBOUND_CALL_MODES[key]}
+                    {INBOUND_CALL_MODES.map(mode => (
+                      <Select.Option key={mode} value={mode}>
+                        {mode}
                       </Select.Option>
                     ))}
                   </Select>
@@ -234,9 +230,9 @@ export const UserIntercept = ({ match }) => {
                     onChange={handleInput}
                     name="outboundCallMode"
                   >
-                    {Object.keys(USER_INTERCEPT_OUTBOUND_CALL_MODES).map(key => (
-                      <Select.Option key={key} value={key}>
-                        {USER_INTERCEPT_OUTBOUND_CALL_MODES[key]}
+                    {OUTBOUND_CALL_MODES.map(mode => (
+                      <Select.Option key={mode} value={mode}>
+                        {mode}
                       </Select.Option>
                     ))}
                   </Select>

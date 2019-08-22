@@ -1,10 +1,5 @@
 import gql from 'graphql-tag'
 
-export const ANNOUNCEMENT_SELECTIONS = {
-  DEFAULT: 'Default',
-  PERSONAL: 'Personal'
-}
-
 export const STREET_ADDRESS_FRAGMENT = gql`
   fragment StreetAddressFragment on StreetAddress {
     addressLine1
