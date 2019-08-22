@@ -34,7 +34,10 @@ export const USER_FRAGMENT = gql`
     }
     addressLocation
     aliases
-    alternateUserIds
+    alternateUserIds {
+      alternateUserId
+      description
+    }
     callingLineIdFirstName
     callingLineIdLastName
     callingLineIdPhoneNumber
