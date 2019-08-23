@@ -65,6 +65,7 @@ export const clearSession = () => {
         encoding: null,
         groupId: null,
         isEnterprise: null,
+        resellerId: null,
         local: null,
         loginType: null,
         passwordExpiresDays: null,

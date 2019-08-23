@@ -57,8 +57,8 @@ export const USER_SPEED_DIAL_8_BULK_QUERY = gql`
 `
 
 export const USER_SPEED_DIAL_8_BULK_MUTATION = gql`
-  mutation UserSpeedDial8UpdateBulk($input: UserSpeedDial8BulkInput!) {
-    userSpeedDial8UpdateBulk(input: $input) {
+  mutation UserSpeedDial8BulkUpdate($input: UserSpeedDial8BulkInput!) {
+    userSpeedDial8BulkUpdate(input: $input) {
       ...UserSpeedDial8BulkFragment
     }
   }
