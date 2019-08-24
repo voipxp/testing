@@ -5,22 +5,14 @@ import {
   USER_CREATE_MUTATION,
   USER_DELETE_MUTATION,
   USER_UPDATE_MUTATION,
+  USER_BULK_UPDATE_MUTATION,
   USER_QUERY
 } from '@/graphql'
 angular.module('odin.api').factory('UserService', UserService)
 
-UserService.$inject = ['$http', 'Route', 'GraphQL']
-function UserService($http, Route, GraphQL) {
-  var service = {
-    index,
-    store,
-    show,
-    update,
-    destroy,
-    bulk
-  }
-  var url = Route.api('/users')
-
+UserService.$inject = ['GraphQL']
+function UserService(GraphQL) {
+  const service = { index, store, show, update, destroy, bulk }
   return service
 
   function index(serviceProviderId, groupId, includeUser = false) {
@@ -69,8 +61,12 @@ function UserService($http, Route, GraphQL) {
     }).then(res => res.data.userUpdate)
   }
 
-  function bulk(data) {
-    return $http.put(url('bulk'), data).then(response => response.data)
+  function bulk({ users, data }) {
+    const input = { users: users.map(({ userId }) => ({ userId, ...data })) }
+    return GraphQL.mutate({
+      mutation: USER_BULK_UPDATE_MUTATION,
+      variables: { input }
+    }).then(res => res.data.userBulkUpdate)
   }
 
   function destroy(userId) {

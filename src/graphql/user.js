@@ -87,6 +87,7 @@ export const USER_LIST_QUERY = gql`
     users(serviceProviderId: $serviceProviderId, groupId: $groupId) {
       ...UserListFragment
       user @include(if: $includeUser) {
+        _id
         callingLineIdPhoneNumber
       }
     }
@@ -115,6 +116,15 @@ export const USER_CREATE_MUTATION = gql`
 export const USER_UPDATE_MUTATION = gql`
   mutation userUpdate($input: UserUpdateInput!) {
     userUpdate(input: $input) {
+      ...UserFragment
+    }
+  }
+  ${USER_FRAGMENT}
+`
+
+export const USER_BULK_UPDATE_MUTATION = gql`
+  mutation userBulkUpdate($input: UserBulkUpdateInput!) {
+    userBulkUpdate(input: $input) {
       ...UserFragment
     }
   }
