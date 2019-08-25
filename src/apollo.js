@@ -29,12 +29,32 @@ const logger = (type, err) => console.log(type, JSON.stringify(err, null, 2))
 
 /*
   Error interceptor.
+  All known error extensions listed below.
 
-  TODO: catch unauthorized, password expired errors and show login page
+  TODO: catch unathenticated, forbidden, password expired errors and show login page
 */
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
-    graphQLErrors.forEach(err => logger('[GraphQL error]:', err))
+    graphQLErrors.forEach(err => {
+      switch (err.extensions.code) {
+        case 'FORBIDDEN':
+          return logger(`[${err.extensions.code}]`, err)
+        case 'UNAUTHENTICATED':
+          return logger(`[${err.extensions.code}]`, err)
+        case 'PASSWORD_EXPIRED':
+          return logger(`[${err.extensions.code}]`, err)
+        case 'NOT_FOUND':
+        case 'BAD_USER_INPUT':
+        case 'INTERNAL_SERVER_ERROR':
+        case 'GRAPHQL_PARSE_FAILED':
+        case 'GRAPHQL_VALIDATION_FAILED':
+        case 'PERSISTED_QUERY_NOT_FOUND':
+        case 'PERSISTED_QUERY_NOT_SUPPORTED':
+          return logger(`[${err.extensions.code}]`, err)
+        default:
+          logger('[GraphQL error]:', err)
+      }
+    })
   }
   if (networkError) logger(['[Network error]:', networkError])
 })

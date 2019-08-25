@@ -4,13 +4,15 @@
 
 - add all existing items that are missing mutations
 
-  - UserService.bulk()
   - Branding modules, application, ...
-  - things calling @/api
   - things that could use caching
-    - domains
-    - timezones
-    - etc..
+    - service-provider-domain-service
+    - group-domain-service
+    - system-domain-service
+    - system-timezone-service
+    - system-language-service
+    - system-state-service
+  - things calling @/api
 
 - Figure out the best format for hooks for both queries and mutations.
 
