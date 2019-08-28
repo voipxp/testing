@@ -2,17 +2,16 @@
 
 ### TODO
 
-- add all existing items that are missing mutations
-
-  - Branding modules, application, ...
-  - things that could use caching
-    - service-provider-domain-service
-    - group-domain-service
-    - system-domain-service
-    - system-timezone-service
-    - system-language-service
-    - system-state-service
-  - things calling @/api
+- any API mutations with graphql queries left?
+- things that could use caching
+  - service-provider-domain-service
+  - group-domain-service
+  - system-domain-service
+  - system-timezone-service
+  - system-language-service
+  - system-state-service
+- Branding modules, application, ...
+- things calling @/api
 
 - Figure out the best format for hooks for both queries and mutations.
 
@@ -20,6 +19,8 @@
   - Do we want to use the second part of mutations [update, {error, loading}]?
 
 - Update README.md to show how to use graphql
+
+- SSO Token Login
 
 ### Errors
 
