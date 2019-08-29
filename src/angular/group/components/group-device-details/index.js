@@ -18,7 +18,7 @@ function controller(Alert, Route, GroupDeviceService, $scope, Module) {
   const ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
-  ctrl.onUpdate = loadDevice
+  ctrl.onUpdate = onUpdate
   ctrl.onDelete = onDelete
 
   function onInit() {
@@ -46,6 +46,11 @@ function controller(Alert, Route, GroupDeviceService, $scope, Module) {
       deviceLevel: ctrl.device.deviceLevel,
       canDelete: ctrl.canDelete
     })
+  }
+
+  function onUpdate($event) {
+    ctrl.device = $event.device
+    loadDevice()
   }
 
   function onDelete() {
