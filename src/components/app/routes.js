@@ -131,6 +131,11 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/devices/:deviceName',
+    angularComponent: 'groupDeviceTags',
+    hasLevel: 'Group'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/deviceTypes',
     angularComponent: 'groupDeviceTypes',
     hasLevel: 'Group'

@@ -1,18 +1,18 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular.module('odin.group').component('groupDeviceTypeTags', {
+angular.module('odin.group').component('groupDeviceTags', {
   template,
   controller,
   bindings: {
     serviceProviderId: '<',
     groupId: '<',
-    deviceType: '<'
+    deviceName: '<'
   }
 })
 
-controller.$inject = ['Alert', 'GroupDeviceTypeTagService']
-function controller(Alert, GroupDeviceTypeTagService) {
+controller.$inject = ['Alert', 'GroupDeviceTagService']
+function controller(Alert, GroupDeviceTagService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
@@ -28,10 +28,10 @@ function controller(Alert, GroupDeviceTypeTagService) {
   }
 
   function loadTags() {
-    return GroupDeviceTypeTagService.index(
+    return GroupDeviceTagService.index(
       ctrl.serviceProviderId,
       ctrl.groupId,
-      ctrl.deviceType
+      ctrl.deviceName
     ).then(function(data) {
       ctrl.tags = data
     })
@@ -40,7 +40,7 @@ function controller(Alert, GroupDeviceTypeTagService) {
   function add() {
     ctrl.editTag = {}
     ctrl.action = 'Add'
-    Alert.modal.open('groupDeviceTypeTagsEditModal', function(close) {
+    Alert.modal.open('groupDeviceTagsEditModal', function(close) {
       if (!ctrl.editTag.tagName.startsWith('%')) {
         ctrl.editTag.tagName = '%' + ctrl.editTag.tagName
       }
@@ -55,7 +55,7 @@ function controller(Alert, GroupDeviceTypeTagService) {
     ctrl.editTag = angular.copy(tag)
     ctrl.action = 'Update'
     Alert.modal.open(
-      'groupDeviceTypeTagsEditModal',
+      'groupDeviceTagsEditModal',
       function(close) {
         update(ctrl.editTag, close)
       },
@@ -71,10 +71,10 @@ function controller(Alert, GroupDeviceTypeTagService) {
 
   function create(tag, callback) {
     Alert.spinner.open()
-    GroupDeviceTypeTagService.store(
+    GroupDeviceTagService.store(
       ctrl.serviceProviderId,
       ctrl.groupId,
-      ctrl.deviceType,
+      ctrl.deviceName,
       tag
     )
       .then(loadTags)
@@ -88,10 +88,10 @@ function controller(Alert, GroupDeviceTypeTagService) {
 
   function update(tag, callback) {
     Alert.spinner.open()
-    GroupDeviceTypeTagService.update(
+    GroupDeviceTagService.update(
       ctrl.serviceProviderId,
       ctrl.groupId,
-      ctrl.deviceType,
+      ctrl.deviceName,
       tag
     )
       .then(loadTags)
@@ -105,10 +105,10 @@ function controller(Alert, GroupDeviceTypeTagService) {
 
   function destroy(tag, callback) {
     Alert.spinner.open()
-    GroupDeviceTypeTagService.destroy(
+    GroupDeviceTagService.destroy(
       ctrl.serviceProviderId,
       ctrl.groupId,
-      ctrl.deviceType,
+      ctrl.deviceName,
       tag.tagName
     )
       .then(loadTags)
