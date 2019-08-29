@@ -5,9 +5,10 @@ angular
   .module('odin.settings')
   .component('odinSettings', { template, controller })
 
-controller.$inject = ['ACL']
-function controller(ACL) {
+controller.$inject = ['ACL', 'Session']
+function controller(ACL, Session) {
+  this.hideNav = Session.data('resellerId')
   this.$onInit = function() {
-    this.isProvisioning = ACL.has('Provisioning')
+    this.isProvisioning = ACL.isPaasAdmin() && ACL.has('Reseller')
   }
 }

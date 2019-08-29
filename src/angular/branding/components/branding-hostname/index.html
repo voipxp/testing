@@ -1,4 +1,4 @@
-<pbs-navigation>
+<pbs-navigation ng-if="!$ctrl.hideNav">
   <pbs-breadcrumb title="'Branding'" ng-click="$ctrl.back()"></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.hostname"></pbs-breadcrumb>
 </pbs-navigation>
@@ -7,6 +7,7 @@
     <branding-details
       hostname-id="$ctrl.hostnameId"
       on-update="$ctrl.onUpdate($event)"
+      on-delete="$ctrl.onDelete($event)"
     ></branding-details>
   </pbs-tab>
   <pbs-tab label="Modules">

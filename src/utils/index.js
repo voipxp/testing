@@ -1,4 +1,6 @@
 export * from './acl'
+export * from './use-form'
 export * from './module'
+export * from './password'
 export * from './routes'
 export * from './user-services'

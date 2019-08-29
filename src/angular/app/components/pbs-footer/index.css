@@ -1,8 +1,0 @@
-pbs-footer .footer {
-  padding: 1rem;
-  height: 50px;
-}
-
-#wrapper {
-  min-height: calc(100vh - 50px);
-}

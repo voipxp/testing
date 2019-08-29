@@ -4,7 +4,6 @@ import { setInjector } from './injector'
 import angular from 'angular'
 import ngRedux from 'ng-redux'
 import 'angular-animate'
-import 'angular-cache'
 import 'angular-chart.js'
 import 'angular-color-picker'
 import 'angular-color-picker/angular-color-picker.css'
@@ -42,7 +41,6 @@ angular
     'ngAnimate',
     'ngSanitize',
     'angular-jwt',
-    'angular-cache',
     'mp.colorPicker',
     'checklist-model',
     'truncate',
@@ -68,7 +66,6 @@ angular
   .config(config.deleteHttpConfig)
   .config(config.authInterceptorConfig)
   .config(config.jwtInterceptorConfig)
-  .config(config.cacheFactoryConfig)
   .config(config.ngRedux)
   .run(config.rootScope)
   .run(config.reduxDevTools)

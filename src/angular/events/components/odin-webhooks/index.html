@@ -1,4 +1,4 @@
-<pbs-navigation>
+<pbs-navigation ng-if="!$ctrl.hideNav">
   <pbs-breadcrumb title="'Webhooks'"></pbs-breadcrumb>
 </pbs-navigation>
 
@@ -23,7 +23,9 @@
 
 <pbs-modal
   id="showOdinWebhook"
-  title="Webhooks: Event {{ $ctrl.selectedEvent.id }} ({{ $ctrl.selectedEvent.type }})"
+  title="Webhooks: Event {{ $ctrl.selectedEvent.id }} ({{
+    $ctrl.selectedEvent.type
+  }})"
 >
   <pbs-data-table
     columns="$ctrl.columns"

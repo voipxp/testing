@@ -10,7 +10,8 @@ const load = createAction('USER_SERVICES_LOAD')
 export const userServicesReducer = createReducer(initialState, {
   [load]: (state, { payload }) => {
     if (payload.userId) state[payload.userId] = payload
-  }
+  },
+  SESSION_CLEAR: () => initialState
 })
 
 export const loadUserServices = userId => {

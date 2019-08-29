@@ -4,7 +4,7 @@ route: '/ui-loading-modal'
 ---
 
 import { Props, Playground } from 'docz'
-import IFramePlayground from 'docz-iframe-playground'
+import { UiButton } from './ui-button'
 import { UiLoadingModal } from './ui-loading-modal'
 
 # UiLoadingModal
@@ -14,9 +14,23 @@ UiLoadingModal shows a full-screen modal overlay with a spinner. Pass in the **i
 ## Example
 
 <Playground>
-  <IFramePlayground minHeight={400} maxHeight={800}>
-    <UiLoadingModal isOpen={true} />
-  </IFramePlayground>
+  {() => {
+    const UiLoadingModalExample = () => {
+      const [loading, setLoading] = React.useState(false)
+      const showModal = () => {
+        setLoading(true)
+        setTimeout(() => setLoading(false), 3000)
+      }
+      return (
+        <>
+          <UiButton onClick={showModal}>Show Modal for 3 seconds</UiButton>
+          <UiLoadingModal isOpen={loading} />
+        </>
+      )
+    }
+    return <UiLoadingModalExample />
+}}
+
 </Playground>
 
 ## Props

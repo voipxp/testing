@@ -34,14 +34,20 @@ export const useUserServicePermissions = userId => {
         ? userAssignedServices[userId]
         : userViewableServices[userId]
     }, [session.loginType, userAssignedServices, userId, userViewableServices]),
+    // can pass in a single user service or an array of user services
+    // on an array will return true if one is valid
+    // eg: ['Shared Call Appearance', 'Shared Call Appearance 5', ...]
     hasUserService: useCallback(
       service => {
-        return hasUserService(
-          service,
-          userAssignedServices[userId],
-          userViewableServices[userId],
-          session.loginType
-        )
+        const services = [service].flat()
+        return services.find(_service => {
+          return hasUserService(
+            _service,
+            userAssignedServices[userId],
+            userViewableServices[userId],
+            session.loginType
+          )
+        })
       },
       [session.loginType, userAssignedServices, userId, userViewableServices]
     )

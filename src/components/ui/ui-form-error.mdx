@@ -1,0 +1,26 @@
+---
+name: UiFormField
+route: '/ui-form-field'
+---
+
+import { Playground, Props } from 'docz'
+import { UiFormField } from './ui-form-field'
+import { UiFormError } from './ui-form-error'
+import { Input } from 'rbx'
+
+# UiFormError
+
+An error message usually displayed in side a form.
+
+## Example
+
+<Playground>
+  <form>
+    <Input type="text" name="error" value="" placeholder="error" />
+    <UiFormError message="This is an error" />
+  </form>
+</Playground>
+
+## Props
+
+<Props of={UiFormError} />

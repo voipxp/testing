@@ -9,7 +9,8 @@ const load = createAction('USER_REGISTRATION_LOAD')
 export const userRegistrationReducer = createReducer(initialState, {
   [load]: (state, { payload }) => {
     if (payload.userId) state[payload.userId] = payload
-  }
+  },
+  SESSION_CLEAR: () => initialState
 })
 
 export const loadUserRegistration = userId => {

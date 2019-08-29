@@ -92,7 +92,7 @@ function controller(
   }
 
   function load() {
-    ctrl.isProvisioning = ACL.has('Provisioning')
+    ctrl.isProvisioning = ACL.has('Reseller')
     ctrl.isServiceProvider = ACL.has('Service Provider')
     ctrl.fromServiceProviderId = ctrl.serviceProviderId
     ctrl.fromGroupId = ctrl.groupId

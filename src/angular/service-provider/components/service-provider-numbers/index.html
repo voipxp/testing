@@ -7,6 +7,12 @@
     <pbs-block-buttons ng-if="$ctrl.canUpdate">
       <pbs-button-compact-add ng-click="$ctrl.add()" title="Add Numbers">
       </pbs-button-compact-add>
+      <pbs-button-compact-bulk
+        ng-if="$ctrl.canUpdate"
+        ng-click="$ctrl.bulk()"
+        title="Bulk Assign Numbers"
+      >
+      </pbs-button-compact-bulk>
     </pbs-block-buttons>
     <pbs-columns>
       <pbs-column>
@@ -89,4 +95,25 @@
     available-title="'Unassigned'"
   >
   </select-numbers>
+</pbs-modal>
+<pbs-modal id="serviceProviderNumbersBulkModal" title="Add Numbers in bulk">
+  <form novalidate autocomplete="off">
+    <pbs-form-field>
+      <b>Please enter number or ranges on separate line</b>
+      <br />
+      2345678900<br />
+      2345678905 - 2345678909<br /><br />
+      <b
+        >Use E164 format to specify country code different from default.<br
+      /></b>
+      +1-2345678900<br />
+      +1-2345678905 - +1-2345678909<br />
+    </pbs-form-field>
+    <textarea
+      class="textarea"
+      rows="15"
+      ng-model="$ctrl.bulkNumbers"
+      required
+    />
+  </form>
 </pbs-modal>

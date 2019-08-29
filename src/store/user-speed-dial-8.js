@@ -28,7 +28,8 @@ export const userSpeedDial8Reducer = createReducer(initialState, {
         lastName: user.lastName
       }
     })
-  }
+  },
+  SESSION_CLEAR: () => initialState
 })
 
 export const loadUserSpeedDial8Bulk = (serviceProviderId, groupId) => {

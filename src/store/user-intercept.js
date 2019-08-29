@@ -9,7 +9,8 @@ const load = createAction('USER_USER_INTERCEPT_LOAD')
 export const userUserInterceptReducer = createReducer(initialState, {
   [load]: (state, { payload }) => {
     if (payload.userId) state[payload.userId] = payload
-  }
+  },
+  SESSION_CLEAR: () => initialState
 })
 
 export const loadUserIntercept = userId => {

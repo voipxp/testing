@@ -10,19 +10,19 @@ export const dashboardMenu = [
         path: 'basic-call-logs',
         name: 'Basic Call Logs',
         angularComponent: 'userBasicCallLogs',
-        services: ['Basic Call Logs']
+        hasUserService: ['Basic Call Logs']
       },
       {
         path: 'call-records',
         name: 'Call Records',
         angularComponent: 'userCallRecordDashboard',
-        module: 'Premium Call Records'
+        hasModuleRead: 'Premium Call Records'
       },
       {
         path: 'feature-quick-set',
         name: 'Feature Quick Set',
         angularComponent: 'userQuickSet',
-        services: [
+        hasUserService: [
           'Call Forwarding Always',
           'Call Forwarding Busy',
           'Call Forwarding No Answer',
@@ -40,13 +40,13 @@ export const dashboardMenu = [
         path: 'announcements',
         name: 'Announcements',
         angularComponent: 'userAnnouncements',
-        version: '20'
+        hasVersion: '20'
       },
       {
         path: 'meet-me-conferences',
         name: 'Meet-Me Conferences',
         angularComponent: 'userMeetMeConferencingConferences',
-        module: 'Meet-Me Conferencing'
+        hasModuleRead: 'Meet-Me Conferencing'
       },
       {
         path: 'passwords',
@@ -59,10 +59,15 @@ export const dashboardMenu = [
         component: UserServiceSettings
       },
       {
+        path: 'user-schedules',
+        name: 'User Schedules',
+        angularComponent: 'userSchedules'
+      },
+      {
         path: 'user-alternate-user-ids',
         name: 'Alternate User ID',
         component: UserAlternateUserId,
-        version: '20'
+        hasVersion: '20'
       },
       {
         path: 'user-registration',
@@ -83,44 +88,44 @@ export const dashboardMenu = [
         path: 'authorization-codes',
         name: 'Authorization Codes',
         angularComponent: 'userCommunicationBarringAuthorizationCodes',
-        acl: 'Group',
-        services: ['Communication Barring User-Control']
+        hasLevel: 'Group',
+        hasUserService: ['Communication Barring User-Control']
       },
       {
         path: 'calling-plans',
         name: 'Calling Plans',
         angularComponent: 'userCallingPlans',
-        module: 'Provisioning',
-        acl: 'Group'
+        hasModuleRead: 'Provisioning',
+        hasLevel: 'Group'
       },
       {
         path: 'number-and-device',
         name: 'Number and Device',
         angularComponent: 'userAddresses',
-        acl: 'Group'
+        hasLevel: 'Group'
       },
       {
         path: 'service-assignment',
         name: 'Service Assignment',
         angularComponent: 'userServices',
         serviceType: 'userServices',
-        module: 'Provisioning',
-        acl: 'Group'
+        hasModuleRead: 'Provisioning',
+        hasLevel: 'Group'
       },
       {
         path: 'service-packs',
         name: 'Service Packs',
         angularComponent: 'userServices',
         serviceType: 'servicePackServices',
-        module: 'Provisioning',
-        acl: 'Group'
+        hasModuleRead: 'Provisioning',
+        hasLevel: 'Group'
       },
       {
         path: 'shared-call-appearance',
         name: 'Shared Call Appearance',
         angularComponent: 'userSharedCallAppearanceAdmin',
-        module: 'Provisioning',
-        services: [
+        hasModuleRead: 'Provisioning',
+        hasUserService: [
           'Shared Call Appearance',
           'Shared Call Appearance 5',
           'Shared Call Appearance 10',
@@ -130,21 +135,21 @@ export const dashboardMenu = [
           'Shared Call Appearance 30',
           'Shared Call Appearance 35'
         ],
-        acl: 'Group'
+        hasLevel: 'Group'
       },
       {
         path: 'user-id-or-delete',
         name: 'User ID or Delete',
         angularComponent: 'userId',
-        module: 'Provisioning',
-        acl: 'Group'
+        hasModuleRead: 'Provisioning',
+        hasLevel: 'Group'
       },
       {
         path: 'viewable-packs',
         name: 'Viewable Packs',
         angularComponent: 'userViewablePack',
-        acl: 'Group',
-        module: 'Viewable Service Packs'
+        hasLevel: 'Group',
+        hasModuleRead: 'Viewable Service Packs'
       }
     ]
   }

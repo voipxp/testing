@@ -4,14 +4,13 @@ angular
   .module('odin.api')
   .factory('SystemLanguageService', SystemLanguageService)
 
-SystemLanguageService.$inject = ['$http', 'CacheFactory', 'Route']
-function SystemLanguageService($http, CacheFactory, Route) {
+SystemLanguageService.$inject = ['$http', 'Route']
+function SystemLanguageService($http, Route) {
   var url = Route.api('/system/languages')
-  var cache = CacheFactory('SystemLanguageService')
   var service = { index }
   return service
 
   function index() {
-    return $http.get(url(), { cache }).then(response => response.data)
+    return $http.get(url()).then(response => response.data)
   }
 }

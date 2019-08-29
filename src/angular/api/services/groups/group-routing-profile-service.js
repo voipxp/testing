@@ -4,9 +4,8 @@ angular
   .module('odin.api')
   .factory('GroupRoutingProfileService', GroupRoutingProfileService)
 
-GroupRoutingProfileService.$inject = ['$http', 'CacheFactory', 'Route']
-function GroupRoutingProfileService($http, CacheFactory, Route) {
-  var cache = CacheFactory('GroupRoutingProfileService')
+GroupRoutingProfileService.$inject = ['$http', 'Route']
+function GroupRoutingProfileService($http, Route) {
   var service = { show, update }
   var url = Route.api('/groups/routing-profile')
   return service
@@ -21,7 +20,6 @@ function GroupRoutingProfileService($http, CacheFactory, Route) {
     return $http
       .put(url(), { serviceProviderId, groupId, routingProfile })
       .then(response => {
-        cache.removeAll()
         return response.data
       })
   }

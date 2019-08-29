@@ -44,8 +44,8 @@
         <td>
           {{ service.serviceName }}
           <span class="is-pulled-right">
-            {{ service.quantity === -1 ? 'Unlimited' : (service.quantity -
-            service.allocated) + ' Available'}}
+            {{ service.quantity === -1 ? 'Unlimited' : service.quantity -
+            service.allocated + ' Available' }}
           </span>
         </td>
       </tr>
@@ -83,7 +83,7 @@
             ng-repeat="service in $ctrl.available | filter:$ctrl.filterAvailable | orderBy:'serviceName' as availableResults track by service.serviceName"
             ng-click="$ctrl.add(service)"
           >
-            <td>{{ service.serviceName }}</td>
+            <td>{{ service.alias || service.serviceName }}</td>
           </tr>
         </tbody>
       </table>

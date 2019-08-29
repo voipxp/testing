@@ -23,7 +23,7 @@ const columns = [
 ]
 
 export const SystemDnSearch = ({ onSelect }) => {
-  const acl = useAcl()
+  const Acl = useAcl()
   const { alertDanger } = useAlerts()
   const { session } = useSession()
   const [searchString, setSearchString] = React.useState('')
@@ -33,7 +33,7 @@ export const SystemDnSearch = ({ onSelect }) => {
   const [loading, setLoading] = React.useState(false)
   const [initialized, setInitialized] = React.useState(false)
 
-  const hasProvisioning = acl.hasProvisioning()
+  const hasReseller = Acl.hasReseller()
 
   const handleSearchString = e => {
     setSearchString(e.target.value)
@@ -74,7 +74,7 @@ export const SystemDnSearch = ({ onSelect }) => {
   return (
     <>
       <form style={{ marginBottom: '1rem' }}>
-        {hasProvisioning && (
+        {hasReseller && (
           <Field kind="addons">
             <Control>
               <Button type="button" style={{ width: '175px' }} static>
