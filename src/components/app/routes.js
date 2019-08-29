@@ -132,7 +132,7 @@ export const routes = [
   },
   {
     path: '/groups/:serviceProviderId/:groupId/devices/:deviceName',
-    angularComponent: 'groupDeviceTags',
+    angularComponent: 'groupDevice',
     hasLevel: 'Group'
   },
   {

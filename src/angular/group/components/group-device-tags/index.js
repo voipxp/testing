@@ -11,8 +11,8 @@ angular.module('odin.group').component('groupDeviceTags', {
   }
 })
 
-controller.$inject = ['Alert', 'GroupDeviceTagService']
-function controller(Alert, GroupDeviceTagService) {
+controller.$inject = ['Alert', 'GroupDeviceTagService', 'Module']
+function controller(Alert, GroupDeviceTagService, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
@@ -20,6 +20,7 @@ function controller(Alert, GroupDeviceTagService) {
 
   function onInit() {
     ctrl.loading = true
+    ctrl.canUpdate = Module.update('Provisioning')
     loadTags()
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -52,6 +53,7 @@ function controller(Alert, GroupDeviceTagService) {
   }
 
   function edit(tag) {
+    if (!ctrl.canUpdate) return
     ctrl.editTag = angular.copy(tag)
     ctrl.action = 'Update'
     Alert.modal.open(
