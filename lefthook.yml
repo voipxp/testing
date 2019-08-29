@@ -6,10 +6,10 @@ pre-commit:
   parallel: true
   commands:
     js:
-      glob: "*.{js,ts}"
+      glob: '*.{js,ts}'
       run: prettier --write {staged_files} && eslint --fix {staged_files}
     other:
-      glob: "*.{css,sass,scss,md,mdx,json,html,yml,yaml}"
+      glob: '*.{css,sass,scss,md,mdx,json,html,yml,yaml}'
       run: prettier --write {staged_files}
 pre-push:
   commands:
