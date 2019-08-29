@@ -4,7 +4,7 @@ angular.module('odin.api').factory('GroupDeviceService', GroupDeviceService)
 
 GroupDeviceService.$inject = ['$http', 'Route']
 function GroupDeviceService($http, Route) {
-  var service = { index, store, update, show, destroy, rebuild, reset }
+  var service = { index, store, update, show, destroy, rebuild, reset, users }
   var url = Route.api('/groups/devices')
   return service
 
@@ -43,6 +43,12 @@ function GroupDeviceService($http, Route) {
   function reset(serviceProviderId, groupId, deviceName) {
     return $http
       .post(url('reset'), { serviceProviderId, groupId, deviceName })
+      .then(response => response.data)
+  }
+
+  function users(serviceProviderId, groupId, deviceName) {
+    return $http
+      .post(url('users'), { serviceProviderId, groupId, deviceName })
       .then(response => response.data)
   }
 }
