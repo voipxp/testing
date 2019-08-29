@@ -78,6 +78,15 @@
       </pbs-list-item>
     </pbs-list>
   </pbs-block>
+
+  <group-device-tags
+    service-provider-id="$ctrl.user.serviceProviderId"
+    group-id="$ctrl.user.groupId"
+    device-name="$ctrl.user.accessDeviceEndpoint.accessDevice.deviceName"
+    ng-if="$ctrl.user.accessDeviceEndpoint.accessDevice.deviceLevel === 'Group'"
+    class="margin-top"
+    style="display: block"
+  ></group-device-tags>
 </pbs-spinner>
 <pbs-modal id="userDeviceSelectModal" title="Select Device">
   <pbs-spinner loading="$ctrl.loadingUser">
