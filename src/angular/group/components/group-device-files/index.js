@@ -11,14 +11,15 @@ angular.module('odin.group').component('groupDeviceFiles', {
   }
 })
 
-controller.$inject = ['Alert', 'GroupDeviceFileService', '$scope']
-function controller(Alert, GroupDeviceFileService, $scope) {
+controller.$inject = ['Alert', 'GroupDeviceFileService', '$scope', 'Module']
+function controller(Alert, GroupDeviceFileService, $scope, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
-  ctrl.onUpdate = onUpdate
+  ctrl.onUpdate = () => loadFiles()
 
   function onInit() {
+    ctrl.canUpdate = Module.update('Provisioning')
     ctrl.loading = true
     loadFiles()
       .catch(Alert.notify.danger)
@@ -28,6 +29,7 @@ function controller(Alert, GroupDeviceFileService, $scope) {
   }
 
   function open(file) {
+    if (!ctrl.canUpdate) return
     $scope.$broadcast('groupDeviceFileUpdate:load', file)
   }
 
@@ -37,9 +39,5 @@ function controller(Alert, GroupDeviceFileService, $scope) {
         ctrl.files = data
       }
     )
-  }
-
-  function onUpdate() {
-    loadFiles()
   }
 }
