@@ -2,5 +2,12 @@
   "printWidth": 100,
   "singleQuote": true,
   "semi": false,
-  "quoteProps": "consistent"
+  "quoteProps": "consistent",
+  "jsxSingleQuote": false,
+  "trailingComma": "none",
+  "bracketSpacing": true,
+  "jsxBracketSameLine": false,
+  "arrowParens": "avoid",
+  "htmlWhitespaceSensitivity": "css",
+  "endOfLine": "auto"
 }
