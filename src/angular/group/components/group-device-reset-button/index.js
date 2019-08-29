@@ -59,9 +59,7 @@ function controller(Alert, GroupDeviceService) {
   }
 
   function confirm(type) {
-    return Alert.confirm.open(
-      'Are you sure you want to ' + type + ' this device?'
-    )
+    return Alert.confirm.open('Are you sure you want to ' + type + ' this device?')
   }
 
   function sendUpdate(message) {
@@ -70,18 +68,10 @@ function controller(Alert, GroupDeviceService) {
   }
 
   function rebuildDevice() {
-    return GroupDeviceService.rebuild(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.deviceName
-    )
+    return GroupDeviceService.rebuild(ctrl.serviceProviderId, ctrl.groupId, ctrl.deviceName)
   }
 
   function resetDevice() {
-    return GroupDeviceService.reset(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.deviceName
-    )
+    return GroupDeviceService.reset(ctrl.serviceProviderId, ctrl.groupId, ctrl.deviceName)
   }
 }

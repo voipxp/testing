@@ -29,13 +29,11 @@ function controller(Alert, GroupDeviceTagService, Module) {
   }
 
   function loadTags() {
-    return GroupDeviceTagService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.deviceName
-    ).then(function(data) {
-      ctrl.tags = data
-    })
+    return GroupDeviceTagService.index(ctrl.serviceProviderId, ctrl.groupId, ctrl.deviceName).then(
+      function(data) {
+        ctrl.tags = data
+      }
+    )
   }
 
   function add() {
@@ -62,23 +60,16 @@ function controller(Alert, GroupDeviceTagService, Module) {
         update(ctrl.editTag, close)
       },
       function(close) {
-        Alert.confirm
-          .open('Are you sure you want to remove this tag?')
-          .then(function() {
-            destroy(ctrl.editTag, close)
-          })
+        Alert.confirm.open('Are you sure you want to remove this tag?').then(function() {
+          destroy(ctrl.editTag, close)
+        })
       }
     )
   }
 
   function create(tag, callback) {
     Alert.spinner.open()
-    GroupDeviceTagService.store(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.deviceName,
-      tag
-    )
+    GroupDeviceTagService.store(ctrl.serviceProviderId, ctrl.groupId, ctrl.deviceName, tag)
       .then(loadTags)
       .then(function() {
         Alert.notify.success('Tag Added')
@@ -90,12 +81,7 @@ function controller(Alert, GroupDeviceTagService, Module) {
 
   function update(tag, callback) {
     Alert.spinner.open()
-    GroupDeviceTagService.update(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.deviceName,
-      tag
-    )
+    GroupDeviceTagService.update(ctrl.serviceProviderId, ctrl.groupId, ctrl.deviceName, tag)
       .then(loadTags)
       .then(function() {
         Alert.notify.success('Tag Updated')

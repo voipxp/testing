@@ -7,13 +7,7 @@ angular.module('odin.group').component('groupDeviceDetails', {
   bindings: { serviceProviderId: '<', groupId: '<', deviceName: '<' }
 })
 
-controller.$inject = [
-  'Alert',
-  'Route',
-  'GroupDeviceService',
-  '$scope',
-  'Module'
-]
+controller.$inject = ['Alert', 'Route', 'GroupDeviceService', '$scope', 'Module']
 function controller(Alert, Route, GroupDeviceService, $scope, Module) {
   const ctrl = this
   ctrl.$onInit = onInit
@@ -31,13 +25,11 @@ function controller(Alert, Route, GroupDeviceService, $scope, Module) {
   }
 
   function loadDevice() {
-    return GroupDeviceService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.deviceName
-    ).then(data => {
-      ctrl.device = data
-    })
+    return GroupDeviceService.show(ctrl.serviceProviderId, ctrl.groupId, ctrl.deviceName).then(
+      data => {
+        ctrl.device = data
+      }
+    )
   }
 
   function edit() {

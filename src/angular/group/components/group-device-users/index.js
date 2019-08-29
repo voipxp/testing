@@ -50,22 +50,14 @@ function controller(Alert, GroupDeviceService, Route) {
   }
 
   function onClick(user) {
-    Route.open(
-      'users',
-      user.serviceProviderId,
-      user.groupId,
-      user.userId,
-      'number-and-device'
-    )
+    Route.open('users', user.serviceProviderId, user.groupId, user.userId, 'number-and-device')
   }
 
   function loadUsers() {
-    return GroupDeviceService.users(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      ctrl.deviceName
-    ).then(function(data) {
-      ctrl.users = data
-    })
+    return GroupDeviceService.users(ctrl.serviceProviderId, ctrl.groupId, ctrl.deviceName).then(
+      function(data) {
+        ctrl.users = data
+      }
+    )
   }
 }

@@ -1,14 +1,10 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Device Details">
     <pbs-block-buttons ng-if="$ctrl.canUpdate">
-      <pbs-button-compact-edit
-        ng-click="$ctrl.edit()"
-      ></pbs-button-compact-edit>
+      <pbs-button-compact-edit ng-click="$ctrl.edit()"></pbs-button-compact-edit>
     </pbs-block-buttons>
     <pbs-list>
-      <pbs-list-item label="Device Name"
-        >{{ $ctrl.device.deviceName }}</pbs-list-item
-      >
+      <pbs-list-item label="Device Name">{{ $ctrl.device.deviceName }}</pbs-list-item>
       <pbs-list-item label="Device Type">
         {{ $ctrl.device.deviceType }}
       </pbs-list-item>
@@ -25,9 +21,7 @@
         {{ $ctrl.device.serialNumber }}
       </pbs-list-item>
       <pbs-list-item label="Use Custom Credentials">
-        <pbs-check-box
-          checked="$ctrl.device.useCustomUserNamePassword"
-        ></pbs-check-box>
+        <pbs-check-box checked="$ctrl.device.useCustomUserNamePassword"></pbs-check-box>
       </pbs-list-item>
       <pbs-list-item label="Assigned Ports">
         {{ $ctrl.device.numberOfAssignedPorts }}

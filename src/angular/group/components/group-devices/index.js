@@ -28,11 +28,9 @@ function controller(Alert, GroupDeviceService, $scope, Route) {
   }
 
   function loadGroupDevices() {
-    return GroupDeviceService.index(ctrl.serviceProviderId, ctrl.groupId).then(
-      data => {
-        ctrl.devices = data
-      }
-    )
+    return GroupDeviceService.index(ctrl.serviceProviderId, ctrl.groupId).then(data => {
+      ctrl.devices = data
+    })
   }
 
   function create() {
@@ -40,12 +38,6 @@ function controller(Alert, GroupDeviceService, $scope, Route) {
   }
 
   function edit(device) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'devices',
-      device.deviceName
-    )
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'devices', device.deviceName)
   }
 }
