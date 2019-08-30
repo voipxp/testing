@@ -1,9 +1,9 @@
 .cache/
-.idea/
-dist/
-node_modules/
-storybook-static/
-.DS_Store
+.docs/
 .env*
 !.env.example
+.idea/
+.DS_Store
+dist/
+node_modules/
 stats.json

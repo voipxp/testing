@@ -125,7 +125,7 @@ You can also build a static version of the documentation.
 yarn build-storybook
 ```
 
-By default the files will be found in **./storybook-static**. You can view the files by running
+By default the files will be found in **./docs**. You can view the files by running
 
 ```
 yarn docs
