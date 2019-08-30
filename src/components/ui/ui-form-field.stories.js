@@ -13,19 +13,14 @@ export const example = () => (
       <Input type="text" name="vertical1" value="" placeholder="stuff" />
     </UiFormField>
     <UiFormField label="Vertical 2">
-      <Input type="text" name="vertical2" value="" placeholder="other stuff" />
+      <Input type="text" name="vertical2" value="" placeholder="stuffs" />
     </UiFormField>
     <hr />
     <UiFormField label="Horizontal 1" horizontal>
       <Input type="text" name="horizontal1" value="" placeholder="thing" />
     </UiFormField>
     <UiFormField label="Horizontal 2" horizontal>
-      <Input
-        type="text"
-        name="horizontal2"
-        value=""
-        placeholder="other thing"
-      />
+      <Input type="text" name="horizontal2" value="" placeholder="things" />
     </UiFormField>
   </form>
 )
