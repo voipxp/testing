@@ -2,9 +2,7 @@ const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = async ({ config, mode }) => {
-  config.plugins.push(
-    new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' })
-  )
+  config.plugins.push(new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }))
   config.resolve.alias = { '@': path.resolve(__dirname, '../src') }
   // config.resolve.mainFields = ['browser', 'main', 'module']
   config.module.rules.push(

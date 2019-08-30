@@ -14,11 +14,7 @@ export const example = () => (
       checked={false}
       onChange={() => console.log('check1')}
     />
-    <UiInputCheckbox
-      name="check2"
-      label="Indeterminate"
-      onChange={() => console.log('check2')}
-    />
+    <UiInputCheckbox name="check2" label="Indeterminate" onChange={() => console.log('check2')} />
     <UiInputCheckbox
       name="check3"
       label="Checked"
