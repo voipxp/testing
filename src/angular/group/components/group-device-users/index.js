@@ -55,7 +55,7 @@ function controller(Alert, GroupDeviceService, Route) {
       user.serviceProviderId,
       user.groupId,
       user.userId,
-      'number-and-device'
+      'device-endpoint'
     )
   }
 
