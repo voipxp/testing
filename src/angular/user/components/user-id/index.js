@@ -40,11 +40,13 @@ function controller(
       .then(function() {
         if (ACL.has('Reseller')) {
           ctrl.canEdit = true
+          ctrl.canDelete = true
         } else if (ACL.is('Group')) {
           ctrl.canEdit = GroupPolicyService.userProfileUpdate()
           ctrl.canDelete = GroupPolicyService.userDelete()
         } else if (ACL.is('Service Provider')) {
           ctrl.canEdit = ServiceProviderPolicyService.userProfileUpdate()
+          ctrl.canDelete = ctrl.canEdit
         }
       })
       .catch(Alert.notify.danger)
