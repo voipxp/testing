@@ -97,21 +97,29 @@ For connecting the store to a component, we are using [react-redux](https://reac
 
 ### Documentation
 
-Re-usable components should be documented using [docz](https://www.docz.site/). Examples exist in the **src/components/ui** directory. The documentation for a component should be included next to the component in a file with the same name as the component and a suffix of **.mdx**.
+Re-usable components should be documented using [storybook](https://storybook.js.org/). Examples exist in the **src/components/ui** directory. The documentation for a component should be included next to the component in a file with the same name as the component and a suffix of **.stories.(js|mdx)**.
 
-You may run docz in dev mode and it will hot-reload the documentation as you edit the components. This is a nice way to develop a UI component in isolation before you plug it into the app.
-
-```
-
-yarn docz:dev
+You may run storybook in dev mode and it will hot-reload the documentation as you edit the components. This is a nice way to develop a UI component in isolation before you plug it into the app.
 
 ```
 
-You can also build a static version of the documentation. By default the files will be found in **.docz/dist**
+yarn storybook
 
 ```
 
-yarn docz:build
+You can also build a static version of the documentation.
+
+```
+
+yarn build-storybook
+
+```
+
+By default the files will be found in **./storybook-static**. You can view the files by running
+
+```
+
+yarn docs
 
 ```
 

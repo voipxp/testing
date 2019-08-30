@@ -16,5 +16,6 @@ export const UiCheckbox = ({ isChecked }) => {
 }
 
 UiCheckbox.propTypes = {
+  /** Displays indeterminate state if undefined */
   isChecked: PropTypes.bool
 }

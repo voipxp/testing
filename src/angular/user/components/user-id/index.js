@@ -40,10 +40,13 @@ function controller(
       .then(function() {
         if (ACL.has('Reseller')) {
           ctrl.canEdit = true
+          ctrl.canDelete = true
         } else if (ACL.is('Group')) {
-          ctrl.canEdit = GroupPolicyService.userProfileUpdate()
+          ctrl.canEdit = GroupPolicyService.userIdUpdate()
+          ctrl.canDelete = GroupPolicyService.userDelete()
         } else if (ACL.is('Service Provider')) {
           ctrl.canEdit = ServiceProviderPolicyService.userProfileUpdate()
+          ctrl.canDelete = ctrl.canEdit
         }
       })
       .catch(Alert.notify.danger)
@@ -53,15 +56,21 @@ function controller(
   }
 
   function edit() {
-    Alert.modal.open(
-      'editUserIdModal',
-      function(close) {
+    if (!ctrl.canDelete) {
+      Alert.modal.open('editUserIdModal', function(close) {
         update(ctrl.newUserId, close)
-      },
-      function(close) {
-        remove(close)
-      }
-    )
+      })
+    } else {
+      Alert.modal.open(
+        'editUserIdModal',
+        function(close) {
+          update(ctrl.newUserId, close)
+        },
+        function(close) {
+          remove(close)
+        }
+      )
+    }
   }
 
   function setUserId(event) {

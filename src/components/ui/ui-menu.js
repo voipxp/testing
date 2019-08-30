@@ -12,7 +12,7 @@ const StyledMenu = styled.div`
   padding: 1rem;
 `
 
-const UiMenuBase = ({ match, location, menu = [] }) => {
+export const UiMenuBase = ({ match, location, menu = [] }) => {
   const renderRoute = routeProps => {
     const path = routeProps.match.params.path
     let route
@@ -77,6 +77,7 @@ const UiMenuBase = ({ match, location, menu = [] }) => {
 UiMenuBase.propTypes = {
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  /** Array of Routes and Components to Render */
   menu: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,

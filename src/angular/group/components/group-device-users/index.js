@@ -50,7 +50,7 @@ function controller(Alert, GroupDeviceService, Route) {
   }
 
   function onClick(user) {
-    Route.open('users', user.serviceProviderId, user.groupId, user.userId, 'number-and-device')
+    Route.open('users', user.serviceProviderId, user.groupId, user.userId, 'device-endpoint')
   }
 
   function loadUsers() {

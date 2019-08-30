@@ -102,16 +102,28 @@ export const UiCardModal = ({
 )
 
 UiCardModal.propTypes = {
+  /** Shows the modal when true */
   isOpen: PropTypes.bool.isRequired,
+  /** Called when Cancel Button Clicked */
   onCancel: PropTypes.func.isRequired,
+  /** Required Card Title */
   title: PropTypes.string.isRequired,
+  /** Shows the Save Button if set */
   onSave: PropTypes.func,
+  /** Shows the Delete Button if set */
   onDelete: PropTypes.func,
+  /** Customize the Cancel Button Text */
   cancelText: PropTypes.string,
+  /** Customize the Save Buton Text */
   saveText: PropTypes.string,
+  /** Customize the Delete Button Text */
   deleteText: PropTypes.string,
-  children: PropTypes.any,
+  /** Disable the Cancel Button */
   cancelDisabled: PropTypes.bool,
+  /** Disable the Save Button */
   saveDisabled: PropTypes.bool,
-  deleteDisabled: PropTypes.bool
+  /** Disable the Delete Button */
+  deleteDisabled: PropTypes.bool,
+  /** Children displayed in the Card */
+  children: PropTypes.any
 }
