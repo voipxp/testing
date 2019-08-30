@@ -1,0 +1,41 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks'
+import { Button } from 'rbx'
+import { UiButton } from '../src/components/ui/ui-button'
+
+<Meta title="MDX|UiButton" component={UiButton} />
+
+# UiButton
+
+Wrapper around the [rbx](https://dfee.github.io/rbx/) **Button** element.
+
+- Provides a standard set of icon names to choose from.
+- Automatically builds the FontAwesome icon if included
+- Adds the children to a span.
+- All other props are passed through to **Button**.
+
+## Example
+
+<Preview>
+  <Story name="All Buttons">
+    <Button.Group>
+      <UiButton icon="add" size="small" color="link" />
+      <UiButton icon="cancel" size="small" color="light" />
+      <UiButton icon="check" color="dark" state="loading" />
+      <UiButton>No Icon</UiButton>
+      <UiButton icon="check" color="success">
+        Check
+      </UiButton>
+      <UiButton icon="delete" color="danger" outlined>
+        Outlined
+      </UiButton>
+      <UiButton static>Static</UiButton>
+      <UiButton disabled color="info">
+        Disabled
+      </UiButton>
+      <UiButton icon="edit" size="medium" color="info">
+        Medium
+      </UiButton>
+    </Button.Group>
+    <UiButton fullwidth>This is Full Width</UiButton>
+  </Story>
+</Preview>

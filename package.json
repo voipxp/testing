@@ -14,7 +14,9 @@
     "analyze": "SHOW_STATS=true webpack --mode production --json | webpack-bundle-size-analyzer",
     "docs": "npx serve .docz/dist",
     "docs:dev": "docz dev -o",
-    "docs:build": "docz build"
+    "docs:build": "docz build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.7.2",
@@ -70,6 +72,11 @@
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
+    "@storybook/addon-actions": "^5.2.0-rc.0",
+    "@storybook/addon-docs": "^5.2.0-rc.0",
+    "@storybook/addon-links": "^5.2.0-rc.0",
+    "@storybook/addons": "^5.2.0-rc.0",
+    "@storybook/react": "^5.2.0-rc.0",
     "autoprefixer": "^9.5.1",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
