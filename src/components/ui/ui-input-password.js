@@ -126,9 +126,14 @@ export const UiInputPassword = ({
 }
 
 UiInputPassword.propTypes = {
+  /** Name of the field */
   name: PropTypes.string.isRequired,
+  /** Callback with change results */
   onChange: PropTypes.func.isRequired,
+  /** Callback to generate the password */
   onGeneratePassword: PropTypes.func.isRequired,
+  /** Value of the field */
   value: PropTypes.string.isRequired,
+  /** If the value is required */
   required: PropTypes.bool
 }

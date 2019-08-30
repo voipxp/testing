@@ -1,9 +1,8 @@
 .cache/
-.docz/
 .idea/
 dist/
 node_modules/
+storybook-static/
 .DS_Store
 .env*
 stats.json
-
