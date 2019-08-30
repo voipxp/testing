@@ -55,10 +55,16 @@ export const UiPagination = ({
 
 UiPagination.propTypes = {
   align: PropTypes.oneOf(['left', 'centered', 'right']),
+  /** Number of pages */
   pages: PropTypes.number.isRequired,
+  /** Current page to display */
   page: PropTypes.number.isRequired,
+  /** Callback when first button is clicked */
   onFirst: PropTypes.func,
+  /** Callback when next button is clicked */
   onNext: PropTypes.func,
+  /** Callback when previous button is clicked */
   onPrevious: PropTypes.func,
+  /** Callback when last button is clicked */
   onLast: PropTypes.func
 }

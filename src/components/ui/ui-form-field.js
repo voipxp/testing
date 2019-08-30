@@ -11,6 +11,7 @@ export const UiFormField = ({ label, children, horizontal = false }) => {
   )
 }
 UiFormField.propTypes = {
+  /** Present the label and field horizontally */
   horizontal: PropTypes.bool,
   label: PropTypes.string,
   children: PropTypes.any

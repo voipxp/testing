@@ -35,5 +35,6 @@ export const UiClose = ({ onClick }) => (
 )
 
 UiClose.propTypes = {
+  /** Callback when clicked */
   onClick: PropTypes.func
 }

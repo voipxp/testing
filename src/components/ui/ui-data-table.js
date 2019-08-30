@@ -243,6 +243,7 @@ export const UiDataTable = ({
 }
 
 UiDataTable.propTypes = {
+  /** Schema of the table columns */
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.string.isRequired,
@@ -250,11 +251,18 @@ UiDataTable.propTypes = {
       render: PropTypes.func
     })
   ).isRequired,
+  /** Rows of data to render in table */
   rows: PropTypes.array.isRequired,
+  /** Unique ID for each row */
   rowKey: PropTypes.string.isRequired,
+  /** Customize pagination size */
   pageSize: PropTypes.number,
+  /** Disable the Search Bar */
   hideSearch: PropTypes.bool,
+  /** Allow Selecting rows */
   showSelect: PropTypes.bool,
+  /** Callback when a Row is clicked */
   onClick: PropTypes.func,
+  /** Callback when Rows are selected */
   onSelect: PropTypes.func
 }

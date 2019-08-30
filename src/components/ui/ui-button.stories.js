@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'rbx'
-import { UiButton } from './ui-button'
+import { UiButton } from '.'
 
 export default {
   title: 'Components|UiButton',
@@ -24,12 +24,17 @@ export const example = () => (
       <UiButton disabled color="info">
         Disabled
       </UiButton>
+    </Button.Group>
+    <Button.Group>
       <UiButton icon="edit" size="medium" color="info">
         Medium
       </UiButton>
+      <UiButton icon="cogs" size="large" color="warning">
+        Large
+      </UiButton>
     </Button.Group>
-    <UiButton fullwidth>This is Full Width</UiButton>
+    <UiButton fullwidth size="large">
+      Large Full Width
+    </UiButton>
   </>
 )
-
-example.story = { name: 'example' }

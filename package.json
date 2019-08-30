@@ -12,6 +12,7 @@
     "lint": "eslint 'src/**/*.js'",
     "browsers": "npx browserslist",
     "analyze": "SHOW_STATS=true webpack --mode production --json | webpack-bundle-size-analyzer",
+    "docs": "npx serve storybook-static",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

@@ -1,6 +1,5 @@
 import React from 'react'
-import { UiButton } from './ui-button'
-import { UiCardModal } from './ui-card-modal'
+import { UiButton, UiCardModal } from '.'
 
 export default {
   title: 'Components|UiCardModal',
@@ -28,4 +27,3 @@ export const example = () => {
   }
   return <UiCardModalExample />
 }
-example.story = { name: 'example' }

@@ -3,7 +3,7 @@ import { configure, addDecorator } from '@storybook/react'
 import '@/index.scss'
 
 const CenterDecorator = storyFn => (
-  <div style={{ margin: '2rem 4rem' }}>{storyFn()}</div>
+  <div style={{ margin: '2rem 2rem' }}>{storyFn()}</div>
 )
 addDecorator(CenterDecorator)
 
