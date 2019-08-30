@@ -42,7 +42,7 @@ function controller(
           ctrl.canEdit = true
           ctrl.canDelete = true
         } else if (ACL.is('Group')) {
-          ctrl.canEdit = GroupPolicyService.userProfileUpdate()
+          ctrl.canEdit = GroupPolicyService.userIdUpdate()
           ctrl.canDelete = GroupPolicyService.userDelete()
         } else if (ACL.is('Service Provider')) {
           ctrl.canEdit = ServiceProviderPolicyService.userProfileUpdate()
