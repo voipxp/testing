@@ -12,7 +12,7 @@
     "lint": "eslint 'src/**/*.js'",
     "browsers": "npx browserslist",
     "analyze": "SHOW_STATS=true webpack --mode production --json | webpack-bundle-size-analyzer",
-    "docs": "npx serve docs",
+    "docs": "npx serve .docz/dist",
     "docs:dev": "docz dev -o",
     "docs:build": "docz build"
   },
