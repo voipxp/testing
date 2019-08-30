@@ -1,3 +1,3 @@
 import { configure } from '@storybook/react'
-// automatically import all files ending in *.stories.js|mdx
-configure(require.context('../stories', true, /\.stories\.(js|mdx)$/), module)
+import '@/index.scss'
+configure(require.context('../src', true, /\.stories\.(js|mdx)$/), module)
