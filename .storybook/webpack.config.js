@@ -6,14 +6,14 @@ module.exports = async ({ config, mode }) => {
     new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' })
   )
   config.resolve.alias = { '@': path.resolve(__dirname, '../src') }
-  config.resolve.mainFields = ['browser', 'main', 'module']
+  // config.resolve.mainFields = ['browser', 'main', 'module']
   config.module.rules.push(
-    {
-      test: /.(js|jsx)$/,
-      exclude: /node_modules/,
-      use: { loader: 'babel-loader' },
-      include: path.resolve(__dirname, '../src')
-    },
+    // {
+    //   test: /.(js|jsx)$/,
+    //   exclude: /node_modules/,
+    //   use: { loader: 'babel-loader' },
+    //   include: path.resolve(__dirname, '../src')
+    // },
     {
       test: /\.scss$/,
       use: [

@@ -3,11 +3,11 @@ import { Button } from 'rbx'
 import { UiButton } from './ui-button'
 
 export default {
-  title: 'UiButton',
+  title: 'Components|UiButton',
   component: UiButton
 }
 
-export const allButtons = () => (
+export const example = () => (
   <>
     <Button.Group>
       <UiButton icon="add" size="small" color="link" />
@@ -32,6 +32,4 @@ export const allButtons = () => (
   </>
 )
 
-allButtons.story = {
-  name: 'All Buttons'
-}
+example.story = { name: 'example' }
