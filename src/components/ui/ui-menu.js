@@ -12,6 +12,14 @@ const StyledMenu = styled.div`
   padding: 1rem;
 `
 
+/**
+ *
+ * Renders a side-menu based on a map of routes. You must pass in the **menu** prop which contains an array of sections and menu items and their corresponding routes.
+ *
+ * The Menu sections and items within each section will be in the same order that is passed in via the menu prop. Any props passed to the item objects will be passed through to the component.
+ *
+ * UiMenu relies on react-router for navigation and must be within a Router context.
+ */
 export const UiMenuBase = ({ match, location, menu = [] }) => {
   const renderRoute = routeProps => {
     const path = routeProps.match.params.path

@@ -9,6 +9,14 @@ import {
   faAngleRight
 } from '@fortawesome/free-solid-svg-icons'
 
+/**
+ *
+ * Renders pagination buttons.
+ *
+ * Pass in the number of **pages** and the current **page** as props. Use the callback functions (**onFirst**, **onNext**, ...) to change the state of the parent component when a pagination button is clicked.
+ *
+ * You may set the **align** prop to control the positioning on the viewport.
+ */
 export const UiPagination = ({
   align = 'left',
   pages = 1,

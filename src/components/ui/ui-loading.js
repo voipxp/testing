@@ -26,6 +26,9 @@ const Wrapper = styled.div`
   overflow: hidden;
 `
 
+/**
+ * Renders the default application spinner. Can be used directly inside any component that needs to present a spinner.
+ */
 export const UiLoading = () => (
   <Wrapper>
     <StyledLoading />
