@@ -59,10 +59,7 @@ const icons = {
 /**
  * Wrapper around the [rbx](https://dfee.github.io/rbx/) **Button** element.
  *
- * - Provides a standard set of icon names to choose from.
- * - Automatically builds the FontAwesome icon if included
- * - Adds the children to a span.
- * - All other props are passed through to **Button**.
+ * Provides a standard set of icon names to choose from and automatically builds the FontAwesome icon if included. Pass any components to render in the button as Children, all other props are passed through to **Button**.
  */
 export const UiButton = ({ icon, children, ...rest }) => {
   const theIcon = icon && icons[icon]
