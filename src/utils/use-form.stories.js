@@ -1,12 +1,19 @@
 import React from 'react'
-import { UseForm } from './use-form'
-import { UiFormField, UiFormError } from '.'
-import { useForm } from '@/utils'
+import { UiFormField, UiFormError } from '@/components/ui'
 import { Button, Input } from 'rbx'
+import { useForm } from '.'
+
+const notes = `
+Form helper to handle onChange events and track the validity of the form. Pass in a formRef to enable validations, then utilize HTML5 validation attributes on your inputs.
+
+useForm returns a an object with the initial form object, an ability to update the form object, an onchange handler, and whether or not the form is valid, and an object containing any errors. The errors are identified by the input name.
+
+    const { form, setForm, onChange, isValid, errors } = useForm(initialState, formRef)
+`
 
 export default {
   title: 'Hooks|useForm',
-  component: UseForm
+  parameters: { notes }
 }
 
 export const example = () => {
