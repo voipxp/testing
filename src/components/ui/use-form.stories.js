@@ -1,10 +1,12 @@
-import { UiFormField, UiFormError } from '@/components/ui'
+import React from 'react'
+import { UseForm } from './use-form'
+import { UiFormField, UiFormError } from '.'
 import { useForm } from '@/utils'
 import { Button, Input } from 'rbx'
-import React from 'react'
 
 export default {
-  title: 'Hooks|useForm'
+  title: 'Hooks|useForm',
+  component: UseForm
 }
 
 export const example = () => {

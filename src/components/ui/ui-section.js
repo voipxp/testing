@@ -10,6 +10,11 @@ const StyledSection = styled.div`
   }
 `
 
+/**
+ * UiSection wraps the children and adds a little margin below it. An optional **title** property can be included to add a title to the section.
+ *
+ * It is meant to wrap sections of content together.
+ */
 export const UiSection = ({ title, children }) => (
   <StyledSection>
     {title && <Title size={5}>{title}</Title>}

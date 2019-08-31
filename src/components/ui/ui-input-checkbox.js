@@ -11,6 +11,9 @@ const StyledLabel = styled.label`
   }
 `
 
+/**
+ * Displays a form checkbox, styled according to Odin UI styles. If **checked** is undefined, it will display as indeterminate. Label may be passed as a prop and it will wrap the element.
+ */
 export const UiInputCheckbox = ({ name, label, checked, loading, disabled, onChange, ...rest }) => {
   const ref = React.useRef()
   const isUndefined = typeof checked === 'undefined'

@@ -1,6 +1,6 @@
 {
   "name": "odin-web",
-  "version": "4.9.0",
+  "version": "4.9.2",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -12,9 +12,9 @@
     "fix": "eslint --fix '**/*.js'",
     "browsers": "npx browserslist",
     "analyze": "SHOW_STATS=true webpack --mode production --json | webpack-bundle-size-analyzer",
-    "docs": "npx serve storybook-static",
+    "docs": "serve .docs",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -o .docs"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.0",
@@ -113,6 +113,7 @@
     "prettier": "^1.17.0",
     "raw-loader": "^3.0.0",
     "sass-loader": "^8.0.0",
+    "serve": "^11.1.0",
     "terser-webpack-plugin": "^1.2.3",
     "webpack": "^4.30.0",
     "webpack-bundle-size-analyzer": "^3.0.0",
