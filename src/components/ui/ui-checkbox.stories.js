@@ -6,7 +6,7 @@ export default {
   component: UiCheckbox
 }
 
-export const example = () => (
+export const Example = () => (
   <>
     <UiCheckbox />
     <UiCheckbox isChecked={true} />

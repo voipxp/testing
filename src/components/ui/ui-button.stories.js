@@ -7,7 +7,7 @@ export default {
   component: UiButton
 }
 
-export const example = () => (
+export const Example = () => (
   <>
     <Button.Group>
       <UiButton icon="add" size="small" color="link" />

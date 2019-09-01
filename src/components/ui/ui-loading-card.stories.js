@@ -6,4 +6,4 @@ export default {
   component: UiLoadingCard
 }
 
-export const example = () => <UiLoadingCard />
+export const Example = () => <UiLoadingCard />

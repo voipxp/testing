@@ -6,7 +6,7 @@ export default {
   component: UiListItem
 }
 
-export const example = () => (
+export const Example = () => (
   <>
     <UiSection title="Section 1">
       <UiListItem label="Section 1 - Label 1">Section 1 - Value 1</UiListItem>

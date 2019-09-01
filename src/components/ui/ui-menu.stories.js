@@ -18,7 +18,7 @@ ExampleBox.propTypes = {
   text: PropTypes.string
 }
 
-export const example = () => (
+export const Example = () => (
   <HashRouter hashType="hashbang" style={{ width: '1000px' }}>
     <UiMenu
       menu={[
