@@ -1,0 +1,13 @@
+/*
+  Remove some bulma styles that conflict with syntax highlighting
+*/
+.tag:not(body) {
+  all: unset;
+}
+.number {
+  all: unset;
+}
+pre {
+  color: unset;
+  font-size: unset;
+}
