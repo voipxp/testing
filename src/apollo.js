@@ -8,7 +8,10 @@ import gql from 'graphql-tag'
 
 const httpLink = new HttpLink({ uri: '/graphql' })
 
-const cache = new InMemoryCache({ freezeResults: true })
+// Angular doesn't like this OR we have to fix selects
+// without track by to properly use track by
+// const cache = new InMemoryCache({ freezeResults: true })
+const cache = new InMemoryCache()
 
 /*
   Set the auth token unless its in a whitelist.  This is to
@@ -60,15 +63,13 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 })
 
 const omitTypename = (key, value) => {
-  return key === '__typename' || key === '_id' ? undefined : value
+  return key === '__typename' || key === '_id' || /^\$/.test(key) ? undefined : value
 }
 
 /*
   Apollo automatically sends _typename in the query.  This causes
   a failure on the server-side because _typename is not specified
-  in the schema.  WTF?
-
-  This middleware removes it.
+  in the schema. This middleware removes it.
 */
 const omitTypenameLink = new ApolloLink((operation, forward) => {
   if (operation.variables) {

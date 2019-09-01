@@ -1,14 +1,27 @@
 import angular from 'angular'
+import gql from 'graphql-tag'
 
 angular.module('odin.api').factory('SystemTimeZoneService', Service)
 
-Service.$inject = ['$http', 'Route']
-function Service($http, Route) {
-  var url = Route.api('/system/time-zones')
-  var service = { index }
+const SYSTEM_TIME_ZONE_QUERY = gql`
+  query systemTimeZones {
+    systemTimeZones {
+      timeZones {
+        key
+        displayName
+      }
+    }
+  }
+`
+
+Service.$inject = ['GraphQL']
+function Service(GraphQL) {
+  const service = { index }
   return service
 
   function index() {
-    return $http.get(url()).then(response => response.data)
+    return GraphQL.query({
+      query: SYSTEM_TIME_ZONE_QUERY
+    }).then(res => res.data.systemTimeZones.timeZones)
   }
 }

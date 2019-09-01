@@ -1,16 +1,28 @@
 import angular from 'angular'
-
+import gql from 'graphql-tag'
 angular.module('odin.api').factory('GroupDomainService', GroupDomainService)
 
-GroupDomainService.$inject = ['$http', 'Route']
-function GroupDomainService($http, Route) {
-  var url = Route.api('/groups/domains')
-  var service = { index: index }
+const GROUP_DOMAINS_QUERY = gql`
+  query groupDomains($serviceProviderId: String!, $groupId: String!) {
+    groupDomains(serviceProviderId: $serviceProviderId, groupId: $groupId) {
+      _id
+      serviceProviderId
+      groupId
+      default
+      domains
+    }
+  }
+`
+
+GroupDomainService.$inject = ['GraphQL']
+function GroupDomainService(GraphQL) {
+  const service = { index: index }
   return service
 
   function index(serviceProviderId, groupId) {
-    return $http
-      .get(url(), { params: { serviceProviderId, groupId } })
-      .then(response => response.data)
+    return GraphQL.query({
+      query: GROUP_DOMAINS_QUERY,
+      variables: { serviceProviderId, groupId }
+    }).then(res => res.data.groupDomains)
   }
 }

@@ -1,14 +1,26 @@
 import angular from 'angular'
-
+import gql from 'graphql-tag'
 angular.module('odin.api').factory('SystemLanguageService', SystemLanguageService)
 
-SystemLanguageService.$inject = ['$http', 'Route']
-function SystemLanguageService($http, Route) {
-  var url = Route.api('/system/languages')
-  var service = { index }
+const SYSTEM_LANGUAGE_QUERY = gql`
+  query systemLanguages {
+    systemLanguages {
+      default
+      languages {
+        language
+        encoding
+        locale
+      }
+    }
+  }
+`
+
+SystemLanguageService.$inject = ['GraphQL']
+function SystemLanguageService(GraphQL) {
+  const service = { index }
   return service
 
   function index() {
-    return $http.get(url()).then(response => response.data)
+    return GraphQL.query({ query: SYSTEM_LANGUAGE_QUERY }).then(res => res.data.systemLanguages)
   }
 }
