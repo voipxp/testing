@@ -42,14 +42,7 @@ export const Example = () => (
         Large
       </UiButton>
     </Button.Group>
-    <UiButton
-      fullwidth
-      size="large"
-      color="dark"
-      icon="target"
-      rounded
-      outlined
-    >
+    <UiButton fullwidth size="large" color="dark" icon="target" rounded outlined>
       Large Rounded Outlined Fullwidth Icon
     </UiButton>
   </>
