@@ -1,6 +1,6 @@
 import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
-import '@/index.scss'
+import '@/style/index.scss'
 
 const CenterDecorator = storyFn => (
   <div style={{ margin: '2rem 2rem' }}>{storyFn()}</div>

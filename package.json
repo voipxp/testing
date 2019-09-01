@@ -123,7 +123,7 @@
     "src/**/*.js": [
       "eslint --fix"
     ],
-    "src/**/*": [
+    "src/**/*.(css|scss|md|mdx|json|html|yml|yaml)": [
       "prettier --write",
       "git add"
     ]
