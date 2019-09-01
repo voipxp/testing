@@ -1,7 +1,7 @@
 import React from 'react'
-import { UiFormField, UiFormError } from '@/components/ui'
+import { UiFormField, UiFormError } from '.'
 import { Button, Input } from 'rbx'
-import { useForm } from '.'
+import { useForm } from '@/utils'
 
 const notes = `
 Form helper to handle onChange events and track the validity of the form. Pass in a formRef to enable validations, then utilize HTML5 validation attributes on your inputs.
