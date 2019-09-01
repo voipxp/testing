@@ -6,7 +6,7 @@ export default {
   component: UiCard
 }
 
-export const example = () => (
+export const Example = () => (
   <UiCard
     title="Card Title"
     buttons={

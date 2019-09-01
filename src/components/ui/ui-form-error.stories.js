@@ -7,7 +7,7 @@ export default {
   component: UiFormError
 }
 
-export const example = () => (
+export const Example = () => (
   <form>
     <Input type="text" name="error" value="" placeholder="error" />
     <UiFormError message="This is an error" />

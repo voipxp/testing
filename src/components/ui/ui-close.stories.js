@@ -7,7 +7,7 @@ export default {
   component: UiClose
 }
 
-export const example = () => (
+export const Example = () => (
   <>
     <UiClose onClick={() => console.log('closed card')} />
     <UiCard title="Example Card">

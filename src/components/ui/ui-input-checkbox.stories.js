@@ -6,7 +6,7 @@ export default {
   component: UiInputCheckbox
 }
 
-export const example = () => (
+export const Example = () => (
   <>
     <UiInputCheckbox
       name="check1"

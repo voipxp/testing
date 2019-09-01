@@ -6,4 +6,4 @@ export default {
   component: UiLoading
 }
 
-export const example = () => <UiLoading />
+export const Example = () => <UiLoading />

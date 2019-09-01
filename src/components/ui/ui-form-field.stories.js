@@ -7,7 +7,7 @@ export default {
   component: UiFormField
 }
 
-export const example = () => (
+export const Example = () => (
   <form>
     <UiFormField label="Vertical 1">
       <Input type="text" name="vertical1" value="" placeholder="stuff" />
