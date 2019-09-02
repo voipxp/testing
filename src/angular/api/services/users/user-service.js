@@ -49,7 +49,11 @@ function UserService(GraphQL) {
       'serviceProviderId',
       'endpointType',
       'timeZoneDisplayName',
-      'nationalPrefix'
+      'nationalPrefix',
+      'department.isEnterpriseDepartment',
+      'department.fullPathName',
+      'department.callingLineIdName',
+      'department.callingLineIdPhoneNumber'
     )
     const { serviceProviderId, groupId } = user
     return GraphQL.mutate({

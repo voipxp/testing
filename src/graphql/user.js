@@ -46,7 +46,11 @@ export const USER_FRAGMENT = gql`
     phoneNumber
     extension
     callingLineIdPhoneNumber
-    department
+    department {
+      serviceProviderId
+      groupId
+      name
+    }
     departmentFullPath
     language
     timeZone
