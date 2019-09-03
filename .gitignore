@@ -1,5 +1,6 @@
 .cache/
 .docs/
+.docz/
 .env*
 !.env.example
 .idea/
