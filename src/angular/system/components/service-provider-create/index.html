@@ -3,10 +3,7 @@
     <pbs-form>
       <pbs-tabs>
         <pbs-tab label="Required">
-          <pbs-form-field
-            label="Reseller ID"
-            ng-if="$ctrl.serviceProvider.resellerId"
-          >
+          <pbs-form-field label="Reseller ID" ng-if="$ctrl.serviceProvider.resellerId">
             {{ $ctrl.serviceProvider.resellerId }}
           </pbs-form-field>
           <pbs-form-field label="Service Provider ID">
