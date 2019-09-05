@@ -19,12 +19,12 @@ function controller(ServiceProviderService, EventEmitter, $scope, Alert) {
 
   function load() {
     ctrl.serviceProvider = {
+      resellerId: ctrl.resellerId,
       isEnterprise: false,
       useCustomRoutingProfile: true,
       contact: {},
       address: {}
     }
-    ctrl.serviceProvider.resellerId = ctrl.resellerId
   }
 
   function create(callback) {

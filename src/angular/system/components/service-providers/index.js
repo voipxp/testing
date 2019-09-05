@@ -12,9 +12,17 @@ controller.$inject = [
   'ServiceProviderService',
   '$scope',
   'Route',
-  'Session'
+  'Session',
+  '$location'
 ]
-function controller(Alert, ServiceProviderService, $scope, Route, Session) {
+function controller(
+  Alert,
+  ServiceProviderService,
+  $scope,
+  Route,
+  Session,
+  $location
+) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.clone = clone
@@ -25,7 +33,8 @@ function controller(Alert, ServiceProviderService, $scope, Route, Session) {
 
   function onInit() {
     ctrl.loading = true
-    ctrl.hideNav = Session.data('resellerId')
+    ctrl.hideNav =
+      Session.data('resellerId') || $location.path().startsWith('/resellers')
     loadServiceProviders()
       .catch(function(error) {
         Alert.notify.danger(error)
