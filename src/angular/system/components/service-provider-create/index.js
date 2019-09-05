@@ -4,7 +4,7 @@ import template from './index.html'
 angular.module('odin.system').component('serviceProviderCreate', {
   template,
   controller,
-  bindings: { onCreate: '&' }
+  bindings: { onCreate: '&', resellerId: '<' }
 })
 
 controller.$inject = ['ServiceProviderService', 'EventEmitter', '$scope', 'Alert']
@@ -14,6 +14,7 @@ function controller(ServiceProviderService, EventEmitter, $scope, Alert) {
 
   function load() {
     ctrl.serviceProvider = {
+      resellerId: ctrl.resellerId,
       isEnterprise: false,
       useCustomRoutingProfile: true,
       contact: {},

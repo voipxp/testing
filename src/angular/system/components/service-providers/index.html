@@ -43,5 +43,8 @@
     <pbs-pagination items="results.length" on-update="$ctrl.onPagination($event)"></pbs-pagination>
   </pbs-block>
 </pbs-spinner>
-<service-provider-create on-create="$ctrl.onCreate($event)"></service-provider-create>
+<service-provider-create
+  on-create="$ctrl.onCreate($event)"
+  reseller-id="$ctrl.resellerId"
+></service-provider-create>
 <service-provider-clone on-create="$ctrl.onCreate($event)"></service-provider-clone>
