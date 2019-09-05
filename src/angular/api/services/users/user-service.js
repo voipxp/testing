@@ -36,7 +36,7 @@ function UserService(GraphQL) {
     return GraphQL.query({
       query: USER_QUERY,
       variables: { userId }
-    }).then(res => res.data.user)
+    }).then(res => console.log(res.data.user) || res.data.user)
   }
 
   function update(userId, user) {
@@ -53,7 +53,12 @@ function UserService(GraphQL) {
       'department.isEnterpriseDepartment',
       'department.fullPathName',
       'department.callingLineIdName',
-      'department.callingLineIdPhoneNumber'
+      'department.callingLineIdPhoneNumber',
+      'accessDeviceEndpoint.accessDevice.serviceProviderId',
+      'accessDeviceEndpoint.accessDevice.groupId',
+      'accessDeviceEndpoint.accessDevice.staticRegistrationCapable',
+      'accessDeviceEndpoint.accessDevice.useDomain',
+      'accessDeviceEndpoint.accessDevice.staticLineOrdering'
     )
     const { serviceProviderId, groupId } = user
     return GraphQL.mutate({
