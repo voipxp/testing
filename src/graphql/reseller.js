@@ -55,13 +55,13 @@ export const RESELLER_DELETE_MUTATION = gql`
 `
 
 export const useResellers = () => {
-  const { data, loading, error } = useQuery(RESELLER_LIST_QUERY)
-  return { data: data && data.resellers, loading, error }
+  const query = useQuery(RESELLER_LIST_QUERY)
+  return { ...query, data: query.data && query.data.reseller }
 }
 
 export const useReseller = resellerId => {
-  const { data, loading, error } = useQuery(RESELLER_QUERY, { variables: { resellerId } })
-  return { data: data && data.reseller, loading, error }
+  const query = useQuery(RESELLER_QUERY, { variables: { resellerId } })
+  return { ...query, data: query.data && query.data.reseller }
 }
 
 export const useResellerUpdate = () => {

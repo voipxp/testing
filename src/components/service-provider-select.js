@@ -20,7 +20,7 @@ export const ServiceProviderSelect = ({ onSelect }) => {
   const { loading, data, error } = useQuery(SERVICE_PROVIDER_LIST_QUERY)
 
   if (error) Alert.danger(error)
-  if (loading) return <UiLoading />
+  if (loading && !data) return <UiLoading />
 
   return (
     <UiDataTable

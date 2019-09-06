@@ -54,7 +54,7 @@ export const useUserIntercept = userId => {
   const query = useQuery(USER_INTERCEPT_QUERY, {
     variables: { userId }
   })
-  return { ...query, data: get(query, 'data.userIntercept') }
+  return { ...query, data: query.data && query.data.userIntercept }
 }
 
 export const useUserInterceptUpdate = userId => {

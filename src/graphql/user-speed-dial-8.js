@@ -66,19 +66,15 @@ export const USER_SPEED_DIAL_8_BULK_MUTATION = gql`
 `
 
 export const useUserSpeedDial8 = userId => {
-  const { data, loading, error } = useQuery(USER_SPEED_DIAL_8_QUERY, {
-    variables: { userId }
-  })
-  const result = get(data, 'userSpeedDial8')
-  return { data: result, loading, error }
+  const query = useQuery(USER_SPEED_DIAL_8_QUERY, { variables: { userId } })
+  return { ...query, data: query.data && query.data.userSpeedDial8 }
 }
 
 export const useUserSpeedDial8Bulk = (serviceProviderId, groupId) => {
-  const { data, loading, error } = useQuery(USER_SPEED_DIAL_8_BULK_QUERY, {
+  const query = useQuery(USER_SPEED_DIAL_8_BULK_QUERY, {
     variables: { serviceProviderId, groupId }
   })
-  const result = get(data, 'userSpeedDial8Bulk')
-  return { data: result, loading, error }
+  return { ...query, data: query.data && query.data.userSpeedDial8Bulk }
 }
 
 export const useUserSpeedDial8Update = userId => {

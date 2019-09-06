@@ -87,8 +87,8 @@ const saveSession = session => {
 }
 
 export const useSession = () => {
-  const res = useQuery(SESSION_QUERY, { fetchPolicy: 'cache-only' })
-  return res.data.session || {}
+  const { data } = useQuery(SESSION_QUERY, { fetchPolicy: 'cache-only' })
+  return (data && data.session) || {}
 }
 
 export const useSessionLogin = () => {

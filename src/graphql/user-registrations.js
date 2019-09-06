@@ -43,9 +43,6 @@ export const USER_REGISTRATIONS_QUERY = gql`
 `
 
 export const useUserRegistrations = userId => {
-  const { data, loading, error } = useQuery(USER_REGISTRATIONS_QUERY, {
-    variables: { userId }
-  })
-  const result = get(data, 'userRegistrations')
-  return { data: result, loading, error }
+  const query = useQuery(USER_REGISTRATIONS_QUERY, { variables: { userId } })
+  return { ...query, data: query.data && query.data.userRegistrations }
 }
