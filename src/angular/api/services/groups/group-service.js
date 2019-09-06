@@ -39,9 +39,8 @@ function GroupService(GraphQL) {
     }).then(res => res.data.group)
   }
 
-  function update(_serviceProviderId, _group) {
-    const { serviceProviderId, groupId } = _group
-    const group = omit(_group, ['timeZoneDisplayName', 'callingLineIdDisplayPhoneNumber'])
+  function update(_serviceProviderId, group) {
+    const { serviceProviderId, groupId } = group
     return GraphQL.mutate({
       mutation: GROUP_UPDATE_MUTATION,
       variables: { input: group },

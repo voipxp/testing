@@ -1,5 +1,4 @@
 import angular from 'angular'
-import omit from 'lodash/omit'
 import {
   SERVICE_PROVIDER_LIST_QUERY,
   SERVICE_PROVIDER_CREATE_MUTATION,
@@ -38,10 +37,9 @@ function service(GraphQL) {
   }
 
   function update(serviceProviderId, serviceProvider) {
-    const data = omit(serviceProvider, 'resellerId')
     return GraphQL.mutate({
       mutation: SERVICE_PROVIDER_UPDATE_MUTATION,
-      variables: { input: data },
+      variables: { input: serviceProvider },
       refetchQueries: [{ query: SERVICE_PROVIDER_LIST_QUERY }]
     }).then(res => res.data.serviceProviderUpdate)
   }

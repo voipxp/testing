@@ -40,30 +40,10 @@ function UserService(GraphQL) {
   }
 
   function update(userId, user) {
-    const filteredUser = omit(
-      user,
-      'countryCode',
-      'defaultAlias',
-      'departmentFullPath',
-      'groupId',
-      'serviceProviderId',
-      'endpointType',
-      'timeZoneDisplayName',
-      'nationalPrefix',
-      'department.isEnterpriseDepartment',
-      'department.fullPathName',
-      'department.callingLineIdName',
-      'department.callingLineIdPhoneNumber',
-      'accessDeviceEndpoint.accessDevice.serviceProviderId',
-      'accessDeviceEndpoint.accessDevice.groupId',
-      'accessDeviceEndpoint.accessDevice.staticRegistrationCapable',
-      'accessDeviceEndpoint.accessDevice.useDomain',
-      'accessDeviceEndpoint.accessDevice.staticLineOrdering'
-    )
     const { serviceProviderId, groupId } = user
     return GraphQL.mutate({
       mutation: USER_UPDATE_MUTATION,
-      variables: { input: filteredUser },
+      variables: { input: user },
       refreshQueries: [
         { query: USER_LIST_QUERY, variables: { serviceProviderId, groupId, includeUser: false } }
       ]
