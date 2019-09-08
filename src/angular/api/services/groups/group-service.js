@@ -1,5 +1,4 @@
 import angular from 'angular'
-import omit from 'lodash/omit'
 import {
   GROUP_LIST_QUERY,
   GROUP_QUERY,

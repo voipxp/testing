@@ -26,7 +26,7 @@ export const SESSION_FRAGMENT = gql`
 
 export const SESSION_QUERY = gql`
   query session {
-    session {
+    session @client {
       ...SessionFragment
     }
     ${SESSION_FRAGMENT}

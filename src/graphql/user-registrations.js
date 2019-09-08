@@ -1,5 +1,4 @@
 import gql from 'graphql-tag'
-import get from 'lodash/get'
 import { useQuery } from '@apollo/react-hooks'
 
 export const USER_REGISTRATION_FRAGMENT = gql`

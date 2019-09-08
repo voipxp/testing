@@ -1,5 +1,4 @@
 import gql from 'graphql-tag'
-import get from 'lodash/get'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
 export const USER_INTERCEPT_FRAGMENT = gql`

@@ -1,5 +1,4 @@
 import angular from 'angular'
-import omit from 'lodash/omit'
 import {
   USER_LIST_QUERY,
   USER_CREATE_MUTATION,
