@@ -6,14 +6,12 @@ import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { UiCardModal } from '@/components/ui'
 import { useAcl, Route, Alert } from '@/utils'
-import { parseUrl, stringify } from 'query-string'
 import { useSession, useSessionLogout } from '@/graphql'
 import { UserSearch } from '@/components/user-search'
 import { SystemDnSearch } from '@/components/system-dn-search'
 import { GroupSearch } from '@/components/group-search'
 import { UserServiceSearch } from '@/components/user-service-search'
 import { useQuery } from '@apollo/react-hooks'
-import authApi from '@/api/auth'
 
 const UI_QUERY = gql`
   query appNavbarUi {
@@ -68,24 +66,13 @@ export const AppNavbar = withRouter(({ history }) => {
     setSearch(type)
   }
 
-  const getApplicationToken = async partner => {
-    if (!partner) return
-    const data = await authApi.sso(partner)
-    return data.token
-  }
-
-  const openApplication = async application => {
+  const openApplication = async ({ url, window }) => {
     updateShowMenu(false)
     try {
-      const token = await getApplicationToken(application.partner)
-      const { url, query } = parseUrl(application.url)
-      query.token = token ? token : undefined
-      const search = stringify(query)
-      const finalUrl = search ? `${url}?${search}` : url
-      if (application.window) {
-        window.open(finalUrl, '_blank', 'noopener')
+      if (window) {
+        window.open(url, '_blank', 'noopener')
       } else {
-        window.open(finalUrl, '_self')
+        window.open(url, '_self', 'noopener')
       }
     } catch (error) {
       Alert.danger(error)
