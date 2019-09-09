@@ -5,7 +5,6 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
 import { Alert, Loading } from '@/utils'
 import { useSessionLogin } from '@/graphql'
-import authApi from '@/api/auth'
 import gql from 'graphql-tag'
 import get from 'lodash/get'
 import { useQuery } from '@apollo/react-hooks'
@@ -92,7 +91,13 @@ export const AppLogin = () => {
     }
     try {
       Loading.show()
-      await authApi.tokenPassword(form.password, form.newPassword1, form.username)
+      await login({
+        variables: {
+          username: form.username,
+          oldPassword: form.password,
+          password: form.newPassword1
+        }
+      })
     } catch (error) {
       Alert.danger(error)
     } finally {

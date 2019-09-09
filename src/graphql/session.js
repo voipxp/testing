@@ -34,8 +34,8 @@ export const SESSION_QUERY = gql`
 `
 
 const SESSION_LOGIN = gql`
-  mutation sessionLogin($username: String!, $password: String!) {
-    sessionLogin(username: $username, password: $password) {
+  mutation sessionLogin($username: String!, $password: String!, $oldPassword: String) {
+    sessionLogin(username: $username, password: $password, oldPassword: $oldPassword) {
       ...SessionFragment
     }
     ${SESSION_FRAGMENT}
@@ -49,6 +49,15 @@ const SESSION_REFRESH = gql`
     }
   }
   ${SESSION_FRAGMENT}
+`
+
+const SESSION_PASSWORD_UPDATE_MUTATION = gql`
+  mutation sessionPasswordUpdate($oldPassword: String!, $password: String!) {
+    sessionPasswordUpdate(oldPassword: $oldPassword, password: $password) {
+      ...SessionFragment
+    }
+    ${SESSION_FRAGMENT}
+  }
 `
 
 export const clearSession = () => {
@@ -83,6 +92,7 @@ export const clearSession = () => {
 }
 
 const saveSession = session => {
+  console.log('saveSession', session)
   localStorage.setItem(TOKEN_KEY, session.token)
   setToken(session.token)
 }
@@ -104,5 +114,11 @@ export const useSessionRefresh = () => {
   return useMutation(SESSION_REFRESH, {
     update: (cache, res) => saveSession(res.data.sessionRefresh),
     onError: err => {}
+  })
+}
+
+export const useSessionPasswordUpdate = () => {
+  return useMutation(SESSION_PASSWORD_UPDATE_MUTATION, {
+    update: (cache, res) => saveSession(res.data.sessionPasswordUpdate)
   })
 }
