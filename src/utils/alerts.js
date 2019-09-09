@@ -21,7 +21,7 @@ const parse = error => {
 
 const alert = (type, msg, timeout = 3000) => {
   const payload = { id: cuid(), timeout, type, message: parse(msg) }
-  AlertEmitter.emit('ALERT_ADD', payload)
+  setTimeout(() => AlertEmitter.emit('ALERT_ADD', payload), 0)
   return payload
 }
 

@@ -91,10 +91,9 @@ export const clearSession = () => {
   return client.resetStore()
 }
 
-const saveSession = session => {
-  console.log('saveSession', session)
-  localStorage.setItem(TOKEN_KEY, session.token)
-  setToken(session.token)
+export const saveToken = token => {
+  localStorage.setItem(TOKEN_KEY, token)
+  setToken(token)
 }
 
 export const useSession = () => {
@@ -104,7 +103,7 @@ export const useSession = () => {
 
 export const useSessionLogin = () => {
   return useMutation(SESSION_LOGIN, {
-    update: (cache, res) => saveSession(res.data.sessionLogin)
+    update: (cache, res) => saveToken(res.data.sessionLogin.token)
   })
 }
 
@@ -112,13 +111,12 @@ export const useSessionLogout = () => clearSession
 
 export const useSessionRefresh = () => {
   return useMutation(SESSION_REFRESH, {
-    update: (cache, res) => saveSession(res.data.sessionRefresh),
-    onError: err => {}
+    update: (cache, res) => saveToken(res.data.sessionRefresh.token)
   })
 }
 
 export const useSessionPasswordUpdate = () => {
   return useMutation(SESSION_PASSWORD_UPDATE_MUTATION, {
-    update: (cache, res) => saveSession(res.data.sessionPasswordUpdate)
+    update: (cache, res) => saveToken(res.data.sessionPasswordUpdate.token)
   })
 }

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
 import { Alert, Loading } from '@/utils'
-import { useSessionLogin } from '@/graphql'
+import { useSessionLogin, useSessionRefresh, saveToken, clearSession } from '@/graphql'
 import gql from 'graphql-tag'
 import get from 'lodash/get'
 import { useQuery } from '@apollo/react-hooks'
@@ -22,8 +22,9 @@ export const AppLogin = () => {
   const { data } = useQuery(UI_QUERY)
   const pageLoginMessage = get(data, 'uiTemplate.pageLoginMessage')
   const [login] = useSessionLogin()
+  const [refresh] = useSessionRefresh()
 
-  const tokenLogin = React.useCallback(() => {
+  const tokenLogin = React.useCallback(async () => {
     const [hash, query] = window.location.hash.split('?')
     if (!query) return
     const search = parse(query)
@@ -33,10 +34,16 @@ export const AppLogin = () => {
     delete search.token
     const newSearch = stringify(search)
     window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
-    // loadSessionFromToken(token)
-    //   .catch(error => Alert.danger(error))
-    //   .finally(() => Loading.hide())
-  }, [])
+    saveToken(token)
+    try {
+      await refresh()
+    } catch (error) {
+      Alert.danger(error)
+      clearSession()
+    } finally {
+      Loading.hide()
+    }
+  }, [refresh])
 
   React.useEffect(() => {
     tokenLogin()

@@ -21,15 +21,15 @@ const Wrapper = styled.div`
 export const App = () => {
   const session = useSession()
   const [sessionRefresh, { loading: refreshLoading }] = useSessionRefresh()
+
   const { loading: uiLoading } = useQuery(UI_QUERY, {
     fetchPolicy: 'network-only',
     onCompleted: () => {}
   })
 
   React.useEffect(() => {
-    sessionRefresh()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    sessionRefresh().catch(() => {})
+  }, [sessionRefresh])
 
   if (uiLoading || refreshLoading) return <UiLoadingPage />
 
