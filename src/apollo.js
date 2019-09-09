@@ -83,6 +83,7 @@ const link = ApolloLink.from([authMiddleware, errorLink, omitTypenameLink, httpL
 export const client = new ApolloClient({
   link,
   cache,
+  resolvers: {},
   assumeImmutableResults: true
 })
 

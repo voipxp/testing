@@ -73,7 +73,8 @@ export const clearSession = () => {
         token: null,
         userDomain: null,
         userId: null,
-        softwareVersion: null
+        softwareVersion: null,
+        isPaasAdmin: null
       }
     }
   })
