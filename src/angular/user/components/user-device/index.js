@@ -92,8 +92,8 @@ function controller(
     } else if (type === 'trunkAddressing') {
       delete user.accessDeviceEndpoint
     } else if (type === 'none') {
-      delete user.accessDeviceEndpoint
-      delete user.trunkAddressing
+      user.accessDeviceEndpoint = null
+      user.trunkAddressing = null
     }
   }
 

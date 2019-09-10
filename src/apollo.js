@@ -7,11 +7,8 @@ import { AUTH_WHITELIST, TOKEN_KEY } from '@/graphql'
 import gql from 'graphql-tag'
 
 const httpLink = new HttpLink({ uri: '/graphql' })
-
-// Angular doesn't like this OR we have to fix selects
-// without track by to properly use track by
-// const cache = new InMemoryCache({ freezeResults: true })
-const cache = new InMemoryCache()
+const cache = new InMemoryCache({ freezeResults: true })
+const logger = (type, err) => console.log(type, JSON.stringify(err, null, 2))
 
 /*
   Set the auth token unless its in a whitelist.  This is to
@@ -27,8 +24,6 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   }
   return forward(operation)
 })
-
-const logger = (type, err) => console.log(type, JSON.stringify(err, null, 2))
 
 /*
   Error interceptor.
