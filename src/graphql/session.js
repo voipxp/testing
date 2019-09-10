@@ -97,7 +97,7 @@ export const saveToken = token => {
 }
 
 export const useSession = () => {
-  const { data } = useQuery(SESSION_QUERY, { fetchPolicy: 'cache-only' })
+  const { data } = useQuery(SESSION_QUERY)
   return (data && data.session) || {}
 }
 

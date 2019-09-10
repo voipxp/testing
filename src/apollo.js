@@ -88,9 +88,7 @@ export const client = new ApolloClient({
 })
 
 /*
-  We need to set initial state here on the global session
-  object because the rest of the app is querying it using
-  cache-only, using it as local state.
+  We need to set initial state here because session is set as @client
   https://www.apollographql.com/docs/react/essentials/local-state/#initializing-the-cache
 */
 export const setInitialState = () => {
