@@ -10,7 +10,12 @@ const StyledFooter = styled.footer`
 `
 export const AppFooter = () => {
   const { session } = useSession()
-  const { version = 'N/A', softwareVersion = 'x', loginType } = session
+  const {
+    version = 'N/A',
+    softwareVersion = 'x',
+    loginType,
+    passwordExpiresDays
+  } = session
   const { template } = useUiTemplate()
   const {
     pageCopyright = 'Park Bench Solutins Inc.',
@@ -23,6 +28,16 @@ export const AppFooter = () => {
         <strong>{pageFooterTitle}</strong>&nbsp;
         <span>&copy; {pageCopyright}</span>&nbsp;
         <small style={{ float: 'left' }}>{loginType}</small>
+        {passwordExpiresDays < 14 && (
+          <small style={{ float: 'left', font: 'red' }}>
+            &nbsp;
+            <a href="/#!/account">
+              <font color="#8b0000">
+                Password Expires({passwordExpiresDays})
+              </font>
+            </a>
+          </small>
+        )}
         <small>({version})</small>
         <small style={{ float: 'right' }}>v{softwareVersion}</small>
       </p>
