@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { UiLoading, UiDataTable, UiCheckbox } from '@/components/ui'
-import { Alert } from '@/utils'
-import { useQuery } from '@apollo/react-hooks'
+import { useAlert, useQuery } from '@apollo/react-hooks'
 import { SERVICE_PROVIDER_LIST_QUERY } from '@/graphql'
 
 const columns = [
@@ -18,7 +17,7 @@ const columns = [
 
 export const ServiceProviderSelect = ({ onSelect }) => {
   const { loading, data, error } = useQuery(SERVICE_PROVIDER_LIST_QUERY)
-
+  const Alert = useAlert()
   if (error) Alert.danger(error)
   if (loading && !data) return <UiLoading />
 

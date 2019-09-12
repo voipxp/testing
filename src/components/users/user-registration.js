@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useUserRegistrations } from '@/graphql'
-import { Alert } from '@/utils'
+import { useAlert, useUserRegistrations } from '@/graphql'
 import {
   UiCard,
   UiLoadingCard,
@@ -16,6 +15,7 @@ export const UserRegistration = ({ match }) => {
   const { data, loading, error } = useUserRegistrations(userId)
   const [showModal, setShowModal] = useState(false)
   const [form, setForm] = useState({})
+  const Alert = useAlert()
 
   if (error) Alert.danger(error)
   if (loading || !data) return <UiLoadingCard />

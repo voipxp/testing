@@ -6,7 +6,8 @@ import { useSession } from '@/graphql'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable, UiCardModal } from '@/components/ui'
-import { useAcl, Route, Alert } from '@/utils'
+import { useAcl, Route } from '@/utils'
+import { useAlert } from '@/graphql'
 import { ServiceProviderSelect } from '@/components/service-provider-select'
 import phoneNumberApi from '@/api/phone-numbers/system'
 
@@ -23,6 +24,7 @@ const columns = [
 
 export const SystemDnSearch = ({ onSelect }) => {
   const Acl = useAcl()
+  const Alert = useAlert()
   const session = useSession()
   const [searchString, setSearchString] = React.useState('')
   const [serviceProviderId, setServiceProviderId] = React.useState('')

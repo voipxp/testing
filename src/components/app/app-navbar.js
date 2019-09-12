@@ -5,8 +5,8 @@ import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
 import { Navbar } from 'rbx'
 import { UiCardModal } from '@/components/ui'
-import { useAcl, Route, Alert } from '@/utils'
-import { useSession, useSessionLogout } from '@/graphql'
+import { useAcl, Route } from '@/utils'
+import { useAlert, useSession, useSessionLogout } from '@/graphql'
 import { UserSearch } from '@/components/user-search'
 import { SystemDnSearch } from '@/components/system-dn-search'
 import { GroupSearch } from '@/components/group-search'
@@ -30,6 +30,7 @@ const UI_QUERY = gql`
   }
 `
 export const AppNavbar = withRouter(({ history }) => {
+  const Alert = useAlert()
   const logoutUser = useSessionLogout()
   const session = useSession()
   const { userId } = session

@@ -2,6 +2,7 @@ import { UserDashboard } from '@/components/users'
 import { GroupCommunicationBarring, GroupSpeedDial8 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
+import { Tester } from '@/components/tests/tester'
 export const routes = [
   {
     path: '/account',
@@ -769,5 +770,9 @@ export const routes = [
     path: '/resellers/:resellerId',
     component: ResellerDashboard,
     hasLevel: 'Reseller'
+  },
+  {
+    path: '/tester',
+    component: Tester
   }
 ]

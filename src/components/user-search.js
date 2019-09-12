@@ -4,8 +4,7 @@ import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { Alert } from '@/utils'
-import { useSession } from '@/graphql'
+import { useAlert, useSession } from '@/graphql'
 import userApi from '@/api/users'
 
 const searchTypes = [
@@ -29,6 +28,7 @@ const columns = [
 ]
 
 export const UserSearch = ({ onSelect }) => {
+  const Alert = useAlert()
   const [searchKey, setSearchKey] = React.useState('lastName')
   const [searchString, setSearchString] = React.useState('')
   const [users, setUsers] = React.useState([])

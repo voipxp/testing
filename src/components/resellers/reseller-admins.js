@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react'
+import PropTypes from 'prop-types'
+import { Input } from 'rbx'
+import { Loading, useForm, generatePassword } from '@/utils'
 import {
+  useAlert,
   useResellerAdmins,
   useResellerAdminCreate,
   useResellerAdminUpdate,
   useResellerAdminDelete
 } from '@/graphql'
-import PropTypes from 'prop-types'
-import { Input } from 'rbx'
-import { Alert, Loading, useForm } from '@/utils'
 import {
   UiCard,
   UiLoadingCard,
@@ -17,9 +18,9 @@ import {
   UiFormField,
   UiInputPassword
 } from '@/components/ui'
-import { generatePassword } from '@/utils'
 
 export const ResellerAdmins = ({ match }) => {
+  const Alert = useAlert()
   const initialForm = {
     userId: '',
     language: '',

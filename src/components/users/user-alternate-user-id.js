@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import apiUserService from '@/api/user-alternate-user-id'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
-import { Alert, Loading } from '@/utils'
-import { useAcl } from '@/utils'
+import { useAcl, Loading } from '@/utils'
+import { useAlert } from '@/graphql'
 import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const UserAlternateUserId = ({ match }) => {
+  const Alert = useAlert()
   const { userId } = match.params
   const [alternateUserIds, setAlternateUserIds] = useState([])
   const [loading, setLoading] = useState(true)
@@ -44,7 +45,7 @@ export const UserAlternateUserId = ({ match }) => {
       }
     }
     fetchData()
-  }, [alternateUserIds.length, hasReseller, userId])
+  }, [Alert, alternateUserIds.length, hasReseller, userId])
 
   /*
     Leave the userId blank so we know this is a new

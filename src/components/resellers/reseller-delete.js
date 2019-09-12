@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Alert, Loading } from '@/utils'
-import { useResellerDelete } from '@/graphql'
+import { Loading } from '@/utils'
+import { useAlert, useResellerDelete } from '@/graphql'
 import { UiCard, UiCardModal, UiButton } from '@/components/ui'
 
 export const ResellerDelete = ({ match, history }) => {
+  const Alert = useAlert()
   const { resellerId } = match.params
   const [showConfirm, setShowConfirm] = useState(false)
   const [deleteReseller] = useResellerDelete()

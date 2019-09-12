@@ -3,8 +3,8 @@ import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
-import { Alert, Loading } from '@/utils'
-import { useSessionLogin, useSessionRefresh, saveToken, clearSession } from '@/graphql'
+import { Loading } from '@/utils'
+import { useAlert, useSessionLogin, useSessionRefresh, saveToken, clearSession } from '@/graphql'
 import gql from 'graphql-tag'
 import get from 'lodash/get'
 import { useQuery } from '@apollo/react-hooks'
@@ -23,6 +23,7 @@ export const AppLogin = () => {
   const pageLoginMessage = get(data, 'uiTemplate.pageLoginMessage')
   const [login] = useSessionLogin()
   const [refresh] = useSessionRefresh()
+  const Alert = useAlert()
 
   const tokenLogin = React.useCallback(async () => {
     const [hash, query] = window.location.hash.split('?')
@@ -43,7 +44,7 @@ export const AppLogin = () => {
     } finally {
       Loading.hide()
     }
-  }, [refresh])
+  }, [Alert, refresh])
 
   React.useEffect(() => {
     tokenLogin()

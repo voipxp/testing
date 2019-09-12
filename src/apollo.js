@@ -3,7 +3,7 @@ import { HttpLink } from 'apollo-link-http'
 import { ApolloLink } from 'apollo-link'
 import { onError } from 'apollo-link-error'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import { AUTH_WHITELIST, TOKEN_KEY } from '@/graphql'
+import { AUTH_WHITELIST, TOKEN_KEY, ALERTS_QUERY, typeDefs, resolvers } from '@/graphql'
 import gql from 'graphql-tag'
 
 const httpLink = new HttpLink({ uri: '/graphql' })
@@ -78,7 +78,8 @@ const link = ApolloLink.from([authMiddleware, errorLink, omitTypenameLink, httpL
 export const client = new ApolloClient({
   link,
   cache,
-  resolvers: {},
+  typeDefs,
+  resolvers,
   assumeImmutableResults: true
 })
 
@@ -86,16 +87,22 @@ export const client = new ApolloClient({
   We need to set initial state here because session is set as @client
   https://www.apollographql.com/docs/react/essentials/local-state/#initializing-the-cache
 */
+const INITIAL_SESSION_QUERY = gql`
+  query initialSession {
+    session @client {
+      _id
+    }
+  }
+`
+
 export const setInitialState = () => {
   cache.writeQuery({
-    query: gql`
-      query initialSession {
-        session {
-          _id
-        }
-      }
-    `,
+    query: INITIAL_SESSION_QUERY,
     data: { session: { __typename: 'Session', _id: '_session' } }
+  })
+  cache.writeQuery({
+    query: ALERTS_QUERY,
+    data: { alerts: [] }
   })
 }
 

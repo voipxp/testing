@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Input, Select, Column } from 'rbx'
-import { Alert, Loading } from '@/utils'
-import { useUserIntercept, useUserInterceptUpdate } from '@/graphql'
+import { Loading } from '@/utils'
+import { useAlert, useUserIntercept, useUserInterceptUpdate } from '@/graphql'
 
 import {
   UiCard,
@@ -25,6 +25,7 @@ const OUTBOUND_CALL_MODES = [
 ]
 
 export const UserIntercept = ({ match }) => {
+  const Alert = useAlert()
   const { userId } = match.params
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)

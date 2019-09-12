@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import apiCommProfile from '@/api/group-communication-barring-profiles'
 import apiComm from '@/api/group-communication-barring'
 import { Select } from 'rbx'
-import { Alert } from '@/utils'
+import { useAlert } from '@/graphql'
 import {
   UiCard,
   UiLoadingCard,
@@ -25,6 +25,7 @@ export const GroupCommunicationBarring = ({ match }) => {
   const [communicationBarring, setCommunicationBarring] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [form, setForm] = useState({})
+  const Alert = useAlert()
 
   useEffect(() => {
     setLoading(true)
@@ -41,7 +42,7 @@ export const GroupCommunicationBarring = ({ match }) => {
       }
     }
     fetchData()
-  }, [serviceProviderId, groupId])
+  }, [serviceProviderId, groupId, Alert])
 
   function handleInput(event) {
     const target = event.target

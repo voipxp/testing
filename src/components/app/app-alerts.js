@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { Notification, Delete } from 'rbx'
-import { AlertEmitter } from '@/utils'
+import { useAlerts, useAlert } from '@/graphql'
 
 const StyledAlerts = styled.div`
   text-align: center;
@@ -33,43 +33,15 @@ const StyledAlert = styled.div`
   }
 `
 
-const removeAlert = payload => ({ type: 'ALERT_REMOVE', payload })
-const addAlert = payload => ({ type: 'ALERT_ADD', payload })
-
-const reducer = (alerts = [], { type, payload }) => {
-  switch (type) {
-    case 'ALERT_ADD':
-      return alerts.concat(payload)
-    case 'ALERT_REMOVE':
-      return alerts.filter(alert => alert.id !== (payload.id || payload))
-    default:
-      return alerts
-  }
-}
-
 export const AppAlerts = () => {
-  const [alerts, dispatch] = React.useReducer(reducer, [])
-
-  React.useEffect(() => {
-    AlertEmitter.on('ALERT_ADD', alert => {
-      dispatch(addAlert(alert))
-      if (alert.timeout > 0) {
-        setTimeout(() => dispatch(removeAlert(alert)), alert.timeout)
-      }
-    })
-    AlertEmitter.on('ALERT_REMOVE', alert => dispatch(removeAlert(alert)))
-    return () => AlertEmitter.removeAllListeners()
-  }, [])
+  const alerts = useAlerts()
+  const { remove } = useAlert()
 
   return (
     <TransitionGroup component={StyledAlerts}>
       {alerts.map(alert => (
         <CSSTransition key={alert.id} classNames="notification" timeout={400}>
-          <Notification
-            as={StyledAlert}
-            color={alert.type}
-            onClick={() => dispatch(removeAlert(alert))}
-          >
+          <Notification as={StyledAlert} color={alert.type} onClick={() => remove(alert.id)}>
             <Delete as="button" />
             {alert.message}
           </Notification>

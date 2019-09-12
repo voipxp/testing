@@ -3,7 +3,8 @@ import apiResellers from '@/api/resellers'
 import { AppBreadcrumb } from '@/components/app'
 import { Breadcrumb } from 'rbx'
 import PropTypes from 'prop-types'
-import { Alert, Loading } from '@/utils'
+import { Loading } from '@/utils'
+import { useAlert } from '@/graphql'
 import { Input, Column } from 'rbx'
 import {
   UiFormField,
@@ -15,6 +16,7 @@ import {
 } from '@/components/ui'
 
 export const SystemResellers = ({ match, history }) => {
+  const Alert = useAlert()
   const [showModal, setShowModal] = useState(false)
   const [resellers, setResellers] = useState([])
   const [loading, setLoading] = useState(true)
@@ -43,7 +45,7 @@ export const SystemResellers = ({ match, history }) => {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [Alert])
 
   useEffect(() => {
     setLoading(true)
