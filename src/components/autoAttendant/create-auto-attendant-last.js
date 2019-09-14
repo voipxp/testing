@@ -11,7 +11,8 @@ import {
   Title,
   Field,
   Level,
-  Message
+  Message,
+  Progress
 } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -146,7 +147,9 @@ export const CreateAutoAttendantLast = withRouter(props => {
       serviceInstanceProfile: {
         name: autoAttendant.profile.username,
         callingLineIdLastName: autoAttendant.profile.username,
-        callingLineIdFirstName: autoAttendant.profile.username
+        callingLineIdFirstName: autoAttendant.profile.username,
+        extension: autoAttendant.profile.extension,
+        phoneNumber: autoAttendant.profile.number
       }
     })
       .then(() => {
@@ -278,9 +281,16 @@ export const CreateAutoAttendantLast = withRouter(props => {
                   outlined
                   color="link"
                   style={{
-                    width: '120px',
-                    overflow: 'auto'
+                    width: '120px'
                   }}
+                  title={
+                    !optionValue.option.includes('(')
+                      ? optionValue.option
+                      : optionValue.option.slice(
+                          0,
+                          optionValue.option.indexOf('(')
+                        )
+                  }
                 >
                   <Icon>
                     <FontAwesomeIcon
@@ -293,7 +303,9 @@ export const CreateAutoAttendantLast = withRouter(props => {
                   </Icon>
                   <span
                     style={{
-                      width: '80px'
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis'
                     }}
                   >
                     {!optionValue.option.includes('(')
@@ -449,6 +461,16 @@ export const CreateAutoAttendantLast = withRouter(props => {
                   </React.Fragment>
                 ))}
               </Column.Group>
+
+              {loading ? (
+                <Column.Group>
+                  <Column size={12}>
+                    <Control>
+                      <Progress size="small" color="primary" />
+                    </Control>
+                  </Column>
+                </Column.Group>
+              ) : null}
 
               <Column.Group>
                 <Column offset={9}>

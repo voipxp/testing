@@ -77,9 +77,16 @@ export const CreateAutoAttendantSummary = props => {
                 outlined
                 color="link"
                 style={{
-                  width: '120px',
-                  overflow: 'auto'
+                  width: '120px'
                 }}
+                title={
+                  !props.option.option.includes('(')
+                    ? props.option.option
+                    : props.option.option.slice(
+                        0,
+                        props.option.option.indexOf('(')
+                      )
+                }
               >
                 <Icon>
                   <FontAwesomeIcon
@@ -92,7 +99,9 @@ export const CreateAutoAttendantSummary = props => {
                 </Icon>
                 <span
                   style={{
-                    width: '80px'
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis'
                   }}
                 >
                   {!props.option.option.includes('(')

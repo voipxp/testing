@@ -73,6 +73,13 @@ export const CreateAutoAttendantProfile = withRouter(props => {
     if (helpText === 'username') {
       setHelpText('')
     }
+    if (e.target.value.length < 6) {
+      setHelpText('shortuser')
+    } else {
+      if (helpText === 'shortuser') {
+        setHelpText('')
+      }
+    }
     setUsernameString(e.target.value)
   }
 
@@ -159,10 +166,24 @@ export const CreateAutoAttendantProfile = withRouter(props => {
                   disabled={loading}
                   name="usernameString"
                   value={usernameString}
-                  color={helpText === 'username' ? 'danger' : ''}
+                  state={
+                    helpText === 'username' || helpText === 'shortuser'
+                      ? 'focused'
+                      : ''
+                  }
+                  color={
+                    helpText === 'username' || helpText === 'shortuser'
+                      ? 'danger'
+                      : ''
+                  }
                 />
                 {helpText === 'username' ? (
                   <Help color="danger">This field is required</Help>
+                ) : null}
+                {helpText === 'shortuser' ? (
+                  <Help color="danger">
+                    Username should be more than 6 characters long!
+                  </Help>
                 ) : null}
               </Control>
               <Control>

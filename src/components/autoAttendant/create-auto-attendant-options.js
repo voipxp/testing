@@ -169,10 +169,10 @@ export const CreateAutoAttendantOptions = props => {
                           autoAttendant.operators &&
                           autoAttendant.operators.map(operator => (
                             <Dropdown.Item
-                              key={operator.userId}
-                              value={operator.userId}
+                              key={operator.firstName}
+                              value={operator.firstName}
                             >
-                              {operator.userId}
+                              {operator.firstName} {operator.lastName}
                               {operator.phoneNumber
                                 ? `(${operator.phoneNumber})`
                                 : ''}

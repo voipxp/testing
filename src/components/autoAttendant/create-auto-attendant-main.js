@@ -350,7 +350,7 @@ export const CreateAutoAttendantMain = props => {
                                       : null
                                 )
                                 toolTipString.push(
-                                  `${digit.digit} : ${actionValue.action}, ${optionValue.option}`
+                                  `${digit.digit} : ${actionValue.action} - ${optionValue.option}`
                                 )
                               }
                             })
@@ -359,11 +359,12 @@ export const CreateAutoAttendantMain = props => {
                                 <Column size={8}>
                                   <Generic
                                     as="div"
-                                    tooltip={toolTipString.toString()}
+                                    tooltip={toolTipString.join('\n')}
                                     textColor="primary"
                                     tooltipColor="link"
                                     textAlign="centered"
                                     tooltipPosition="bottom"
+                                    tooltipMultiline
                                   >
                                     {menuValue}
                                   </Generic>
