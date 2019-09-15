@@ -21,7 +21,7 @@ export const AppNavbar = withRouter(({ history }) => {
   const { alertDanger } = useAlerts()
   const { session, clearSession } = useSession()
   const { userId, passwordExpiresDays } = session
-  const expiringSoon = passwordExpiresDays > 14
+  const expiringSoon = Number(passwordExpiresDays) < 14
 
   const acl = useAcl()
   const hasGroup = acl.hasGroup()
