@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
-import { Navbar } from 'rbx'
+import { Navbar, Icon } from 'rbx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { UiCardModal } from '@/components/ui'
 import { useAcl, userPath, groupPath } from '@/utils'
 import { useUiApplications } from '@/store/ui-applications'
@@ -18,7 +20,8 @@ import authApi from '@/api/auth'
 export const AppNavbar = withRouter(({ history }) => {
   const { alertDanger } = useAlerts()
   const { session, clearSession } = useSession()
-  const { userId } = session
+  const { userId, passwordExpiresDays } = session
+  const expiringSoon = passwordExpiresDays > 14
 
   const acl = useAcl()
   const hasGroup = acl.hasGroup()
@@ -142,9 +145,23 @@ export const AppNavbar = withRouter(({ history }) => {
             )}
 
             <Navbar.Item dropdown hoverable>
-              <Navbar.Link>My Account</Navbar.Link>
+              <Navbar.Link>
+                <span>My Account</span>
+                {expiringSoon && (
+                  <Icon size="small" style={{ marginLeft: '0.5rem' }}>
+                    <FontAwesomeIcon icon={faExclamationCircle} />
+                  </Icon>
+                )}
+              </Navbar.Link>
               <Navbar.Dropdown boxed>
-                <Navbar.Item onClick={openAccount}>Profile</Navbar.Item>
+                <Navbar.Item onClick={openAccount}>
+                  <span>Profile</span>
+                  {expiringSoon && (
+                    <Icon size="small" style={{ marginLeft: '0.5rem' }}>
+                      <FontAwesomeIcon icon={faExclamationCircle} />
+                    </Icon>
+                  )}
+                </Navbar.Item>
                 <Navbar.Divider />
                 <Navbar.Item onClick={logout}>Logout</Navbar.Item>
               </Navbar.Dropdown>
