@@ -157,7 +157,11 @@ export const AppNavbar = withRouter(({ history }) => {
                 <Navbar.Item onClick={openAccount}>
                   <span>Profile</span>
                   {expiringSoon && (
-                    <Icon size="small" style={{ marginLeft: '0.5rem' }}>
+                    <Icon
+                      size="small"
+                      style={{ marginLeft: '0.5rem' }}
+                      color="danger"
+                    >
                       <FontAwesomeIcon icon={faExclamationCircle} />
                     </Icon>
                   )}
