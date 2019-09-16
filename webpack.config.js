@@ -38,7 +38,7 @@ module.exports = {
     filename: production ? '[name].[contenthash].js' : '[name].[hash].js'
   },
   resolve: {
-    mainFields: ['browser', 'main', 'module'],
+    mainFields: ['browser', 'module', 'main'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
       'react-dom': '@hot-loader/react-dom',
