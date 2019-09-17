@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
-import { Navbar } from 'rbx'
+import { Navbar, Icon } from 'rbx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { UiCardModal } from '@/components/ui'
 import { useAcl, Route } from '@/utils'
 import { useAlert, useSession, useSessionLogout } from '@/graphql'
@@ -33,7 +35,8 @@ export const AppNavbar = withRouter(({ history }) => {
   const Alert = useAlert()
   const logoutUser = useSessionLogout()
   const session = useSession()
-  const { userId } = session
+  const { userId, passwordExpiresDays } = session
+  const expiringSoon = Number(passwordExpiresDays) < 1
 
   const Acl = useAcl()
   const hasGroup = Acl.hasGroup()
@@ -136,9 +139,23 @@ export const AppNavbar = withRouter(({ history }) => {
             )}
 
             <Navbar.Item dropdown hoverable>
-              <Navbar.Link>My Account</Navbar.Link>
+              <Navbar.Link>
+                <span>My Account</span>
+                {expiringSoon && (
+                  <Icon size="small" style={{ marginLeft: '0.5rem' }}>
+                    <FontAwesomeIcon icon={faExclamationCircle} />
+                  </Icon>
+                )}
+              </Navbar.Link>
               <Navbar.Dropdown boxed>
-                <Navbar.Item onClick={openAccount}>Profile</Navbar.Item>
+                <Navbar.Item onClick={openAccount}>
+                  <span>Profile</span>
+                  {expiringSoon && (
+                    <Icon size="small" style={{ marginLeft: '0.5rem' }} color="danger">
+                      <FontAwesomeIcon icon={faExclamationCircle} />
+                    </Icon>
+                  )}
+                </Navbar.Item>
                 <Navbar.Divider />
                 <Navbar.Item onClick={logout}>Logout</Navbar.Item>
               </Navbar.Dropdown>

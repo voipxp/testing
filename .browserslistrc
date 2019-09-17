@@ -1,4 +1,4 @@
-> 0.5%
+> 1%
 not op_mini all
 not dead
-
+not ie 11
