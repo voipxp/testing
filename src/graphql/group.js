@@ -10,8 +10,8 @@ export const GROUP_LIST_FRAGMENT = gql`
 `
 
 export const GROUP_LIST_QUERY = gql`
-  query groups($serviceProviderId: String!) {
-    groups(serviceProviderId: $serviceProviderId) {
+  query groups($serviceProviderId: String, $groupId: SearchCriteria, $groupName: SearchCriteria) {
+    groups(serviceProviderId: $serviceProviderId, groupId: $groupId, groupName: $groupName) {
      ...GroupListFragment
     }
     ${GROUP_LIST_FRAGMENT}

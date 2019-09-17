@@ -4,8 +4,8 @@ import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { useAlert, useSession } from '@/graphql'
-import groupApi from '@/api/groups'
+import { useAlert, useSession, GROUP_LIST_QUERY } from '@/graphql'
+import { useLazyQuery } from '@apollo/react-hooks'
 
 const searchTypes = [{ key: 'groupName', name: 'Group Name' }, { key: 'groupId', name: 'Group ID' }]
 
@@ -19,11 +19,10 @@ export const GroupSearch = ({ onSelect }) => {
   const Alert = useAlert()
   const [searchKey, setSearchKey] = React.useState('groupName')
   const [searchString, setSearchString] = React.useState('')
-  const [groups, setGroups] = React.useState([])
-  const [loading, setLoading] = React.useState(false)
-  const [initialized, setInitialized] = React.useState(false)
-  const session = useSession()
-  const { serviceProviderId } = session
+  const { serviceProviderId } = useSession()
+  const [searchGroups, { data, loading, called, error }] = useLazyQuery(GROUP_LIST_QUERY, {
+    fetchPolicy: 'cache-and-network'
+  })
 
   const handleSearchKey = e => {
     setSearchKey(e.target.value)
@@ -34,20 +33,13 @@ export const GroupSearch = ({ onSelect }) => {
 
   const search = async e => {
     e.preventDefault()
-    setLoading(true)
-    setInitialized(true)
-    try {
-      const groups = await groupApi.search({
+    await searchGroups({
+      variables: {
         [searchKey]: `*${searchString}*`,
         serviceProviderId
-      })
-      setGroups(groups)
-    } catch (error) {
-      Alert.danger(error)
-      setGroups([])
-    } finally {
-      setLoading(false)
-    }
+      }
+    })
+    if (error) Alert.danger(error)
   }
 
   return (
@@ -94,14 +86,11 @@ export const GroupSearch = ({ onSelect }) => {
           </Control>
         </Field>
       </form>
-      {!initialized ? (
-        ''
-      ) : loading ? (
-        <UiLoading />
-      ) : (
+      {called && loading && <UiLoading />}
+      {called && !loading && (
         <UiDataTable
           columns={columns}
-          rows={groups}
+          rows={(data && data.groups) || []}
           rowKey="groupId"
           pageSize={50}
           onClick={onSelect}
