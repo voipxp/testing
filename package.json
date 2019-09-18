@@ -47,7 +47,6 @@
     "classnames": "^2.2.6",
     "clipboard": "^2.0.4",
     "cuid": "^2.1.6",
-    "eventemitter3": "^4.0.0",
     "graphql": "^14.3.1",
     "graphql-tag": "^2.10.1",
     "jw-paginate": "^1.0.4",
