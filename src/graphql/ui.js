@@ -68,7 +68,7 @@ export const UI_MODULES_QUERY = gql`
 `
 
 export const UI_QUERY = gql`
-  query uiSettings {
+  query uiQuery {
     uiApplications {
       ...UiApplicationsFragment
     }

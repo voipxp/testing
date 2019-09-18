@@ -14,4 +14,4 @@ export * from './user-registrations'
 export * from './user-services'
 export * from './user-speed-dial-8'
 
-export const AUTH_WHITELIST = ['uiSettings', 'IntrospectionQuery', 'sessionLogin']
+export const AUTH_WHITELIST = ['uiQuery', 'IntrospectionQuery', 'sessionLogin']
