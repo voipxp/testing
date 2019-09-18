@@ -11,7 +11,7 @@ function GraphQL($q, $timeout) {
     return $q((resolve, reject) =>
       client
         .query(args)
-        .then(resolve)
+        .then(data => resolve(angular.copy(data)))
         .catch(reject)
     )
   }
@@ -20,14 +20,14 @@ function GraphQL($q, $timeout) {
     return $q((resolve, reject) => {
       client
         .mutate(args)
-        .then(resolve)
+        .then(data => resolve(angular.copy(data)))
         .catch(reject)
     })
   }
 
   function watchQuery(args, callback) {
     client.watchQuery(args).subscribe(result => {
-      $timeout(() => callback(result.data), 0)
+      $timeout(() => callback(angular.copy(result.data)), 0)
     })
   }
 }

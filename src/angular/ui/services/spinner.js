@@ -10,8 +10,8 @@ function Spinner(GraphQL) {
     return GraphQL.mutate({ mutation: APP_UPDATE_MUTATION, variables: { input: { loading } } })
   }
   return {
-    hide: () => update(false),
-    show: () => update(true)
+    close: () => update(false),
+    open: () => update(true)
   }
 }
 
