@@ -4,7 +4,7 @@ import { setToken } from '@/api'
 
 export const TOKEN_KEY = 'odin:token'
 
-export const SESSION_FRAGMENT = gql`
+const SESSION_FRAGMENT = gql`
   fragment SessionFragment on Session {
     _id
     groupId

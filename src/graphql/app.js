@@ -11,7 +11,13 @@ export const APP_QUERY = gql`
   }
 `
 
-export const APP_DEFAULT = { app: { __typename: 'App', _id: '_app', loading: false } }
+export const APP_DEFAULT = {
+  app: {
+    __typename: 'App',
+    _id: '_app',
+    loading: false
+  }
+}
 
 export const APP_UPDATE_MUTATION = gql`
   mutation appUpdate($input: AppInput!) {
