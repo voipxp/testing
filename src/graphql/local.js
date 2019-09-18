@@ -14,6 +14,7 @@ export const resolvers = {
 
 export const typeDefs = gql`
   extend type Query {
+    app: App
     alerts: [Alert!]!
   }
   extend type Mutation {
