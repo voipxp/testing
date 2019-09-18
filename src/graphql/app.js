@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 
 export const APP_QUERY = gql`
   query app {
@@ -43,8 +43,11 @@ export const useApp = () => {
 export const useLoadingModal = () => {
   const [mutate] = useMutation(APP_UPDATE_MUTATION)
   const update = useCallback(loading => mutate({ variables: { input: { loading } } }), [mutate])
-  return {
-    hide: () => update(false),
-    show: () => update(true)
-  }
+  return useMemo(
+    () => ({
+      hide: () => update(false),
+      show: () => update(true)
+    }),
+    [update]
+  )
 }

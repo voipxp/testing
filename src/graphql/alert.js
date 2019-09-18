@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 import cuid from 'cuid'
 import get from 'lodash/get'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 
 export const ALERT_CREATE_MUTATION = gql`
   mutation alertCreate($input: AlertInput!) {
@@ -77,13 +77,16 @@ export const useAlert = () => {
     },
     [create]
   )
-  return {
-    remove: id => remove({ variables: { id } }),
-    primary: (msg, ms) => alert('primary', msg, (ms = 3000)),
-    link: (msg, ms) => alert('link', msg, (ms = 3000)),
-    info: (msg, ms) => alert('info', msg, (ms = 3000)),
-    success: (msg, ms) => alert('success', msg, (ms = 3000)),
-    warning: (msg, ms) => alert('warning', msg, (ms = 5000)),
-    danger: (msg, ms) => alert('danger', msg, (ms = 10000))
-  }
+  return useMemo(
+    () => ({
+      remove: id => remove({ variables: { id } }),
+      primary: (msg, ms) => alert('primary', msg, (ms = 3000)),
+      link: (msg, ms) => alert('link', msg, (ms = 3000)),
+      info: (msg, ms) => alert('info', msg, (ms = 3000)),
+      success: (msg, ms) => alert('success', msg, (ms = 3000)),
+      warning: (msg, ms) => alert('warning', msg, (ms = 5000)),
+      danger: (msg, ms) => alert('danger', msg, (ms = 10000))
+    }),
+    [alert, remove]
+  )
 }
