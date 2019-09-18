@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 export const GROUP_LIST_FRAGMENT = gql`
   fragment GroupListFragment on GroupList {
     _id
+    serviceProviderId
     groupId
     groupName
     userLimit

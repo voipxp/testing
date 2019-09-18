@@ -25,14 +25,16 @@ const logger = (type, err) => console.log(type, JSON.stringify(err, null, 2))
   prevent sending an old auth token along with a login request
 */
 const authMiddleware = new ApolloLink((operation, forward) => {
-  if (AUTH_WHITELIST.includes(operation.operationName)) {
-    return forward(operation)
-  }
+  const { operationName } = operation
+  if (AUTH_WHITELIST.includes(operationName)) return forward(operation)
+
   const token = localStorage.getItem(TOKEN_KEY)
   if (token) {
     operation.setContext({ headers: { authorization: `Bearer ${token}` } })
+    return forward(operation)
   }
-  return forward(operation)
+
+  logger(`[skipOperation]`, { operationName })
 })
 
 /*
