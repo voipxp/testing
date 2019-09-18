@@ -3,8 +3,14 @@ import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
-import { Loading } from '@/utils'
-import { useAlert, useSessionLogin, useSessionRefresh, saveToken, clearSession } from '@/graphql'
+import {
+  useLoadingModal,
+  useAlert,
+  useSessionLogin,
+  useSessionRefresh,
+  useSessionLogout,
+  saveToken
+} from '@/graphql'
 import gql from 'graphql-tag'
 import get from 'lodash/get'
 import { useQuery } from '@apollo/react-hooks'
@@ -21,9 +27,11 @@ const UI_QUERY = gql`
 export const AppLogin = () => {
   const { data } = useQuery(UI_QUERY)
   const pageLoginMessage = get(data, 'uiTemplate.pageLoginMessage')
+  const [logout] = useSessionLogout()
   const [login] = useSessionLogin()
   const [refresh] = useSessionRefresh()
   const Alert = useAlert()
+  const Loading = useLoadingModal()
 
   const tokenLogin = React.useCallback(async () => {
     const [hash, query] = window.location.hash.split('?')
@@ -40,11 +48,11 @@ export const AppLogin = () => {
       await refresh()
     } catch (error) {
       Alert.danger(error)
-      clearSession()
+      logout()
     } finally {
       Loading.hide()
     }
-  }, [Alert, refresh])
+  }, [Alert, Loading, logout, refresh])
 
   React.useEffect(() => {
     tokenLogin()
@@ -76,6 +84,7 @@ export const AppLogin = () => {
   }
 
   async function loginUser() {
+    Loading.show()
     try {
       Loading.show()
       const { username, password } = form

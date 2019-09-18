@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
-import { Loading } from '@/utils'
-import { useAlert, useUserSpeedDial8, useUserSpeedDial8Update } from '@/graphql'
+import { useAlert, useLoadingModal, useUserSpeedDial8, useUserSpeedDial8Update } from '@/graphql'
 import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const UserSpeedDial8 = ({ match }) => {
   const Alert = useAlert()
+  const Loading = useLoadingModal()
   const { userId } = match.params
   const [form, setForm] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)

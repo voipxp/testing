@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useAlert, useReseller, useResellerUpdate } from '@/graphql'
-import { Loading } from '@/utils'
+import { useAlert, useLoadingModal, useReseller, useResellerUpdate } from '@/graphql'
 import { Input, Column } from 'rbx'
 import {
   UiLoadingCard,
@@ -14,10 +13,11 @@ import {
 } from '@/components/ui'
 
 export const ResellerProfile = ({ match }) => {
+  const Alert = useAlert()
+  const Loading = useLoadingModal()
   const { resellerId } = match.params
   const [showModal, setShowModal] = useState(false)
   const [form, setForm] = useState({})
-  const Alert = useAlert()
   const { data, loading, error } = useReseller(resellerId)
   const [updateReseller] = useResellerUpdate()
 

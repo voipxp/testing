@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import apiUserService from '@/api/user-alternate-user-id'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
-import { useAcl, Loading } from '@/utils'
-import { useAlert } from '@/graphql'
+import { useAcl } from '@/utils'
+import { useAlert, useLoadingModal } from '@/graphql'
 import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const UserAlternateUserId = ({ match }) => {
   const Alert = useAlert()
+  const Loading = useLoadingModal()
   const { userId } = match.params
   const [alternateUserIds, setAlternateUserIds] = useState([])
   const [loading, setLoading] = useState(true)
@@ -73,7 +74,7 @@ export const UserAlternateUserId = ({ match }) => {
   function remove() {
     setShowConfirm(false)
     const newAltIds = alternateUserIds.filter(altId => altId.userId !== form.userId)
-    // TODO: send to API
+    // TODO [2019-10-01]: send to API
     saveAlternateUserIds(newAltIds)
   }
 
@@ -97,7 +98,7 @@ export const UserAlternateUserId = ({ match }) => {
       ? alternateUserIds.map(altId => (altId.userId !== form.userId ? altId : newAltId))
       : [...alternateUserIds, newAltId]
 
-    // TODO: send to API
+    // TODO [2019-10-01]: send to API
     saveAlternateUserIds(newAltIds)
   }
 

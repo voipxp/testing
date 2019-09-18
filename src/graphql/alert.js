@@ -18,6 +18,8 @@ export const ALERT_DELETE_MUTATION = gql`
   }
 `
 
+export const ALERTS_DEFAULT = { alerts: [] }
+
 export const ALERTS_QUERY = gql`
   query alerts {
     alerts @client {

@@ -19,7 +19,6 @@ function controller(Alert, GroupDeviceService) {
 
   function onInit() {
     ctrl.loading = true
-    console.log('ctrl.ngModel', ctrl.ngModel)
     loadDevices()
       .catch(Alert.notify.danger)
       .finally(function() {

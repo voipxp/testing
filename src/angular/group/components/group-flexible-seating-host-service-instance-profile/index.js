@@ -86,7 +86,6 @@ function controller(
   }
 
   function selectNumber(event) {
-    console.log('event', event)
     ctrl.editFlexibleSeatingHost.serviceInstanceProfile.phoneNumber = event.phoneNumber
     var extension = ctrl.editFlexibleSeatingHost.serviceInstanceProfile.phoneNumber
       ? ctrl.editFlexibleSeatingHost.serviceInstanceProfile.phoneNumber.slice(-4)

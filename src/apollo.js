@@ -3,8 +3,18 @@ import { HttpLink } from 'apollo-link-http'
 import { ApolloLink } from 'apollo-link'
 import { onError } from 'apollo-link-error'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import { AUTH_WHITELIST, TOKEN_KEY, ALERTS_QUERY, typeDefs, resolvers } from '@/graphql'
-import gql from 'graphql-tag'
+import {
+  AUTH_WHITELIST,
+  TOKEN_KEY,
+  ALERTS_QUERY,
+  ALERTS_DEFAULT,
+  APP_QUERY,
+  APP_DEFAULT,
+  SESSION_QUERY,
+  SESSION_DEFAULT,
+  typeDefs,
+  resolvers
+} from '@/graphql'
 
 const httpLink = new HttpLink({ uri: '/graphql' })
 const cache = new InMemoryCache({ freezeResults: true })
@@ -29,7 +39,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   Error interceptor.
   All known error extensions listed below.
 
-  TODO: catch unathenticated, forbidden, password expired errors and show login page
+  TODO [2019-10-01]: catch unathenticated, forbidden, password expired errors and show login page
 */
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
@@ -83,27 +93,10 @@ export const client = new ApolloClient({
   assumeImmutableResults: true
 })
 
-/*
-  We need to set initial state here because session is set as @client
-  https://www.apollographql.com/docs/react/essentials/local-state/#initializing-the-cache
-*/
-const INITIAL_SESSION_QUERY = gql`
-  query initialSession {
-    session @client {
-      _id
-    }
-  }
-`
-
 export const setInitialState = () => {
-  cache.writeQuery({
-    query: INITIAL_SESSION_QUERY,
-    data: { session: { __typename: 'Session', _id: '_session' } }
-  })
-  cache.writeQuery({
-    query: ALERTS_QUERY,
-    data: { alerts: [] }
-  })
+  cache.writeQuery({ query: SESSION_QUERY, data: SESSION_DEFAULT })
+  cache.writeQuery({ query: ALERTS_QUERY, data: ALERTS_DEFAULT })
+  cache.writeQuery({ query: APP_QUERY, data: APP_DEFAULT })
 }
 
 // if we reset the store, also reset initialState

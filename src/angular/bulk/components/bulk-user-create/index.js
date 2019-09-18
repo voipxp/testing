@@ -113,7 +113,6 @@ function controller(BulkImportService, $location) {
   }
 
   function next() {
-    // console.log(JSON.stringify(ctrl.data, null, 2))
     ctrl.wizard.next()
   }
 }

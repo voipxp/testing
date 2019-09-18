@@ -29,14 +29,11 @@ function controller(BulkImportService) {
 
   function wizardComplete() {
     var data = prepareImport()
-    console.log('wizardComplete() data', data)
     BulkImportService.open(data)
   }
 
   function prepareImport() {
     var jobs = []
-    console.log('prepareImport ctrl.data', ctrl.data)
-    console.log('prepareImport ctrl.data.users', ctrl.data.users)
     for (var i = 0; i < ctrl.data.users.length; i++) {
       var user = ctrl.data.users[i]
       var job = {

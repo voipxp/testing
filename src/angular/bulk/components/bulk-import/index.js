@@ -55,7 +55,6 @@ function controller(
         ctrl.loading = false
       })
       .catch(function(error) {
-        console.log(error)
         Alert.notify.warning(error || 'Data Error')
       })
   }
@@ -117,7 +116,6 @@ function controller(
         return queue(ctrl.users)
       })
       .catch(function(error) {
-        console.log(error)
         Alert.notify.danger(error)
       })
   }
@@ -128,7 +126,6 @@ function controller(
         return BulkParseService.validate(users, ctrl.action.required || [])
       })
       .catch(function(error) {
-        console.log(error)
         return $q.reject('Data Error: ' + error)
       })
   }

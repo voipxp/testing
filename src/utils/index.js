@@ -1,5 +1,4 @@
 export * from './acl'
-export * from './loading'
 export * from './module'
 export * from './password'
 export * from './route'

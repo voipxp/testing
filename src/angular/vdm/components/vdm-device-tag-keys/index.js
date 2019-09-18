@@ -235,7 +235,6 @@ function controller(Alert, HashService, $q, Module, ACL, VdmTemplateTagService) 
   }
 
   function updatePhonebook(key) {
-    console.log('key', key)
     var tag = findTag('%key' + key.id + 'xml_phonebook%')
     tag.value = key.phonebook
     return ctrl.parent.updateTag(tag)

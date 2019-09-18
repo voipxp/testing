@@ -19,8 +19,6 @@ function controller(Alert, UserFlexibleSeatingGuestService, $q, Module) {
     ctrl.loading = true
     $q.all([loadHosts(), loadSettings(), loadModule()])
       .then(function() {
-        console.log(ctrl.settings)
-        console.log(ctrl.settings.hostUserId)
         if (ctrl.settings.hostUserId) {
           ctrl.hosts.push({
             userId: ctrl.settings.hostUserId,
@@ -54,7 +52,6 @@ function controller(Alert, UserFlexibleSeatingGuestService, $q, Module) {
   function loadHosts() {
     return UserFlexibleSeatingGuestService.show(ctrl.userId).then(function(data) {
       ctrl.hosts = data.users
-      console.log('ctrl.hosts', ctrl.hosts)
     })
   }
 
@@ -82,7 +79,6 @@ function controller(Alert, UserFlexibleSeatingGuestService, $q, Module) {
   }
 
   function onChangeHost(item) {
-    console.log('onChangeHost(item)', item)
     if (!item) return
     var host = _.find(ctrl.hosts, ['userId', item])
     ctrl.editSettings.hostAssociationLimitHours = host.associationLimitHours

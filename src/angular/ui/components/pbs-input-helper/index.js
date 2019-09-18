@@ -18,9 +18,6 @@ export function Directive(HashService) {
   return {
     restrict: 'A',
     compile: function(element, attributes) {
-      if (attributes.ngShow) {
-        // console.log('ngShow is here')
-      }
       return function(scope, element, attributes) {
         // add id and css classes to input
         const id = HashService.guid()

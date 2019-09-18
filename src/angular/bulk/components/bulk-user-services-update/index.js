@@ -73,7 +73,6 @@ function controller(BulkImportService, $scope) {
         ctrl.services
       )
     })
-    // console.log(JSON.stringify(data, null, 2))
     BulkImportService.open(data)
   }
 }

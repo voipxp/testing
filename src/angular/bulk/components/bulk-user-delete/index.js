@@ -26,7 +26,6 @@ function controller(BulkImportService) {
         groupId: user.groupId
       }
     })
-    // console.log(JSON.stringify(data, null, 2))
     BulkImportService.open(data)
   }
 }

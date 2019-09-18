@@ -35,7 +35,7 @@ function UserService(GraphQL) {
     return GraphQL.query({
       query: USER_QUERY,
       variables: { userId }
-    }).then(res => console.log(res.data.user) || res.data.user)
+    }).then(res => res.data.user)
   }
 
   function update(userId, user) {

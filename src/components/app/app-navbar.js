@@ -33,7 +33,7 @@ const UI_QUERY = gql`
 `
 export const AppNavbar = withRouter(({ history }) => {
   const Alert = useAlert()
-  const logoutUser = useSessionLogout()
+  const [logout] = useSessionLogout()
   const session = useSession()
   const { userId, passwordExpiresDays } = session
   const expiringSoon = Number(passwordExpiresDays) < 1
@@ -55,8 +55,8 @@ export const AppNavbar = withRouter(({ history }) => {
 
   const toggleMenu = () => updateShowMenu(!showMenu)
 
-  const logout = () => {
-    logoutUser()
+  const logoutUser = () => {
+    logout()
     history.push('/')
   }
 
@@ -157,7 +157,7 @@ export const AppNavbar = withRouter(({ history }) => {
                   )}
                 </Navbar.Item>
                 <Navbar.Divider />
-                <Navbar.Item onClick={logout}>Logout</Navbar.Item>
+                <Navbar.Item onClick={logoutUser}>Logout</Navbar.Item>
               </Navbar.Dropdown>
             </Navbar.Item>
           </Navbar.Segment>

@@ -8,6 +8,7 @@ function GraphQL($q, $timeout) {
   return { query, mutate, watchQuery }
 
   function query(args) {
+    console.log('calledQuery', args)
     return $q((resolve, reject) =>
       client
         .query(args)
@@ -17,6 +18,7 @@ function GraphQL($q, $timeout) {
   }
 
   function mutate(args) {
+    console.log('calledMutate', args)
     return $q((resolve, reject) => {
       client
         .mutate(args)

@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Input } from 'rbx'
-import { Loading, useForm, generatePassword } from '@/utils'
+import { useForm, generatePassword } from '@/utils'
 import {
   useAlert,
+  useLoadingModal,
   useResellerAdmins,
   useResellerAdminCreate,
   useResellerAdminUpdate,
@@ -21,6 +22,7 @@ import {
 
 export const ResellerAdmins = ({ match }) => {
   const Alert = useAlert()
+  const Loading = useLoadingModal()
   const initialForm = {
     userId: '',
     language: '',

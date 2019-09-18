@@ -52,7 +52,6 @@ function ACL($q, Session) {
       const requiredVersion = parseFloat(required.replace('sp', '.'))
       return currentVersion >= requiredVersion
     } catch (error) {
-      console.log(error)
       return false
     }
   }

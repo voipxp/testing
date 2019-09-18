@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 `
 export const App = () => {
   const session = useSession()
-  const [sessionRefresh, { loading: refreshLoading }] = useSessionRefresh()
+  const [refresh, { loading: refreshLoading }] = useSessionRefresh()
 
   const { loading: uiLoading } = useQuery(UI_QUERY, {
     fetchPolicy: 'network-only',
@@ -28,8 +28,8 @@ export const App = () => {
   })
 
   React.useEffect(() => {
-    sessionRefresh().catch(() => {})
-  }, [sessionRefresh])
+    refresh().catch(() => {})
+  }, [refresh])
 
   if (uiLoading || refreshLoading) return <UiLoadingPage />
 

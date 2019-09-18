@@ -3,8 +3,12 @@ import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
-import { Loading } from '@/utils'
-import { useAlert, useUserSpeedDial8Bulk, useUserSpeedDial8BulkUpdate } from '@/graphql'
+import {
+  useAlert,
+  useLoadingModal,
+  useUserSpeedDial8Bulk,
+  useUserSpeedDial8BulkUpdate
+} from '@/graphql'
 import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const GroupSpeedDial8 = ({ match }) => {
@@ -14,6 +18,7 @@ export const GroupSpeedDial8 = ({ match }) => {
   const [showModal, setShowModal] = useState(false)
   const [showSelect, setShowSelect] = useState(false)
   const Alert = useAlert()
+  const Loading = useLoadingModal()
 
   const { data, loading, error } = useUserSpeedDial8Bulk(serviceProviderId, groupId)
 

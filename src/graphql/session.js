@@ -1,7 +1,6 @@
 import gql from 'graphql-tag'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { setToken } from '@/api'
-import { client } from '@/apollo'
 
 export const TOKEN_KEY = 'odin:token'
 
@@ -60,40 +59,49 @@ const SESSION_PASSWORD_UPDATE_MUTATION = gql`
   }
 `
 
-export const clearSession = () => {
-  localStorage.removeItem(TOKEN_KEY)
-  setToken()
-  // clear out the session so the app knows
-  // to show the login page
-  client.writeQuery({
-    query: SESSION_QUERY,
-    data: {
-      session: {
-        __typename: 'Session',
-        _id: '_session',
-        encoding: null,
-        groupId: null,
-        isEnterprise: null,
-        resellerId: null,
-        local: null,
-        loginType: null,
-        passwordExpiresDays: null,
-        serviceProviderId: null,
-        token: null,
-        userDomain: null,
-        userId: null,
-        softwareVersion: null,
-        isPaasAdmin: null
-      }
+const SESSION_LOGOUT = gql`
+  mutation sessionLogout {
+    sessionLogout @client {
+      ...SessionFragment
     }
-  })
-  // reset the store to remove anything from the local cache
-  return client.resetStore()
+    ${SESSION_FRAGMENT}
+  }
+`
+
+export const SESSION_DEFAULT = {
+  session: {
+    __typename: 'Session',
+    _id: '_session',
+    encoding: null,
+    groupId: null,
+    isEnterprise: null,
+    resellerId: null,
+    local: null,
+    loginType: null,
+    passwordExpiresDays: null,
+    serviceProviderId: null,
+    token: null,
+    userDomain: null,
+    userId: null,
+    softwareVersion: null,
+    isPaasAdmin: null
+  }
+}
+
+export const sessionLogout = client => {
+  client.writeQuery({ query: SESSION_QUERY, data: SESSION_DEFAULT })
+  client.resetStore()
+  return SESSION_DEFAULT.session
 }
 
 export const saveToken = token => {
   localStorage.setItem(TOKEN_KEY, token)
   setToken(token)
+}
+
+export const clearToken = () => {
+  localStorage.removeItem(TOKEN_KEY)
+  setToken()
 }
 
 export const useSession = () => {
@@ -107,8 +115,6 @@ export const useSessionLogin = () => {
   })
 }
 
-export const useSessionLogout = () => clearSession
-
 export const useSessionRefresh = () => {
   return useMutation(SESSION_REFRESH, {
     update: (cache, res) => saveToken(res.data.sessionRefresh.token)
@@ -118,5 +124,11 @@ export const useSessionRefresh = () => {
 export const useSessionPasswordUpdate = () => {
   return useMutation(SESSION_PASSWORD_UPDATE_MUTATION, {
     update: (cache, res) => saveToken(res.data.sessionPasswordUpdate.token)
+  })
+}
+
+export const useSessionLogout = () => {
+  return useMutation(SESSION_LOGOUT, {
+    update: (cache, res) => clearToken()
   })
 }

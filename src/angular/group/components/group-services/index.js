@@ -60,7 +60,7 @@ function controller(Alert, GroupServiceService, $filter, $scope, ACL, $q, Route)
       })
   }
 
-  // TODO: Add a branding setting to disable assigning
+  // TODO [2019-10-01]: Add a branding setting to disable assigning
   function loadPermissions() {
     ctrl.canUpdate = true
     ctrl.canClone = ACL.has('Service Provider')
@@ -81,7 +81,6 @@ function controller(Alert, GroupServiceService, $filter, $scope, ACL, $q, Route)
           case 'Limited':
             return (service.quantityView = service.quantity)
           default:
-            console.log('invalid service.limited value')
         }
       })
       ctrl.services = services

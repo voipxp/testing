@@ -25,7 +25,7 @@ export const AppTimer = () => {
   const { data } = useQuery(UI_QUERY)
   const sessionTimeout = get(data, 'uiSettings.sessionTimeout')
 
-  const logoutUser = useSessionLogout()
+  const [logout] = useSessionLogout()
 
   const clearSessionLogout = React.useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current)
@@ -35,8 +35,8 @@ export const AppTimer = () => {
   const startSessionLogout = React.useCallback(() => {
     clearSessionLogout()
     alertRef.current = Alert.warning('Your session is about to expire', 0)
-    timerRef.current = setTimeout(() => logoutUser(), TIMEOUT)
-  }, [Alert, clearSessionLogout, logoutUser])
+    timerRef.current = setTimeout(() => logout(), TIMEOUT)
+  }, [Alert, clearSessionLogout, logout])
 
   const stopDetector = React.useCallback(() => {
     if (detectorRef.current) detectorRef.current.stop()
