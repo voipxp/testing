@@ -46,10 +46,8 @@ function controller(Alert, GroupService, Route, $scope, $q, ServiceProviderPolic
   function loadGroups() {
     return GroupService.index(ctrl.serviceProviderId).then(function(data) {
       ctrl.groups = data.map(group => {
-        return {
-          ...group,
-          name: _.trim(group.groupName) || group.groupId
-        }
+        const name = _.trim(group.groupName) || group.groupId
+        return { ...group, name }
       })
     })
   }
