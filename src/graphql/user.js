@@ -1,4 +1,6 @@
 import gql from 'graphql-tag'
+import { useQuery } from '@apollo/react-hooks'
+
 import {
   ACCESS_DEVICE_ENDPOINT_FRAGMENT,
   STREET_ADDRESS_FRAGMENT,
@@ -143,3 +145,7 @@ export const USER_DELETE_MUTATION = gql`
   }
   ${USER_FRAGMENT}
 `
+
+export const useUser = userId => {
+  return useQuery(USER_QUERY, { variables: { userId } })
+}
