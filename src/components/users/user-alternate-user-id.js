@@ -1,59 +1,38 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import apiUserService from '@/api/user-alternate-user-id'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
 import { useAcl } from '@/utils'
-import { useAlert, useLoadingModal } from '@/graphql'
+import { useAlert, useUser, useLoadingModal } from '@/graphql'
 import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const UserAlternateUserId = ({ match }) => {
   const Alert = useAlert()
   const Loading = useLoadingModal()
   const { userId } = match.params
-  const [alternateUserIds, setAlternateUserIds] = useState([])
-  const [loading, setLoading] = useState(true)
+  const { data, loading, error } = useUser(userId)
   const [form, setForm] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [disabledAdd, setDisabledAdd] = useState(false)
   const acl = useAcl()
   const hasReseller = acl.hasReseller()
 
+  if (loading || !data) return <UiLoadingCard />
+  if (error) Alert.danger(error)
+
+  const { alternateUserIds = [] } = data.user
+
   const columns = [
-    { key: 'userId', label: 'Alternate User Id' },
+    { key: 'alternateUserId', label: 'Alternate User Id' },
     { key: 'description', label: 'Description' }
   ]
-  /*
-    Load the alternate Ids, alert on error
-  */
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiUserService.show(userId)
-        setAlternateUserIds(data.users)
-        if (alternateUserIds.length > 3) {
-          setDisabledAdd(true)
-        } else if (!hasReseller) {
-          setDisabledAdd(true)
-        } else {
-          setDisabledAdd(false)
-        }
-      } catch (error) {
-        Alert.danger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [Alert, alternateUserIds.length, hasReseller, userId])
 
   /*
     Leave the userId blank so we know this is a new
     one.  We will copy newUserId over on save.
   */
   function add() {
-    setForm({ newUserId: '', description: '' })
+    setForm({ alternateUserId: '', description: '' })
     setShowModal(true)
   }
 
@@ -62,10 +41,8 @@ export const UserAlternateUserId = ({ match }) => {
     keep track of this object
   */
   function edit(row) {
-    if (!disabledAdd) {
-      setForm({ ...row, newUserId: row.userId })
-      setShowModal(true)
-    }
+    setForm({ ...row })
+    setShowModal(true)
   }
 
   /*
@@ -73,7 +50,7 @@ export const UserAlternateUserId = ({ match }) => {
   */
   function remove() {
     setShowConfirm(false)
-    const newAltIds = alternateUserIds.filter(altId => altId.userId !== form.userId)
+    const newAltIds = data.user.alternateUserIds.filter(altId => altId.userId !== form.userId)
     // TODO [2019-10-01]: send to API
     saveAlternateUserIds(newAltIds)
   }
@@ -86,7 +63,7 @@ export const UserAlternateUserId = ({ match }) => {
   function save() {
     // check for dups
     if (form.newUserId !== form.userId) {
-      const match = alternateUserIds.filter(altId => {
+      const match = data.user.alternateUserIds.filter(altId => {
         return altId.userId.toLowerCase() === form.newUserId.toLowerCase()
       })
       if (match.length > 0) return Alert.warning('This User ID already exists')
@@ -95,8 +72,8 @@ export const UserAlternateUserId = ({ match }) => {
     // update
     const newAltId = { userId: form.newUserId, description: form.description }
     const newAltIds = form.userId
-      ? alternateUserIds.map(altId => (altId.userId !== form.userId ? altId : newAltId))
-      : [...alternateUserIds, newAltId]
+      ? data.user.alternateUserIds.map(altId => (altId.userId !== form.userId ? altId : newAltId))
+      : [...data.user.alternateUserIds, newAltId]
 
     // TODO [2019-10-01]: send to API
     saveAlternateUserIds(newAltIds)
@@ -105,100 +82,86 @@ export const UserAlternateUserId = ({ match }) => {
   async function saveAlternateUserIds(newAltIds) {
     Loading.show()
     try {
-      const data = await apiUserService.update({
+      await apiUserService.update({
         userId: userId,
         users: newAltIds
       })
       Alert.success('Alternate User IDs Updated')
-      setAlternateUserIds(data.users)
       setShowModal(false)
-    } catch (error) {
-      Alert.danger(error)
+    } catch (error_) {
+      Alert.danger(error_)
       setShowModal(true)
     } finally {
-      setLoading(false)
       Loading.hide()
     }
   }
 
   return (
     <>
-      {loading ? (
-        <UiLoadingCard />
-      ) : (
-        <>
-          <UiCard
-            title="Alternate User IDs"
-            buttons={
-              <UiButton
-                color="link"
-                icon="add"
-                size="small"
-                onClick={add}
-                // disabled={alternateUserIds.length > 3}
-                disabled={disabledAdd}
-              />
-            }
-          >
-            <UiDataTable
-              columns={columns}
-              rows={alternateUserIds}
-              rowKey="userId"
-              hideSearch={true}
-              onClick={edit}
-              showSelect={disabledAdd}
-            />
-          </UiCard>
-          <UiCardModal
-            title="Alternate User IDs"
-            isOpen={showModal}
-            onCancel={() => setShowModal(false)}
-            onSave={save}
-            onDelete={form.userId ? () => setShowConfirm(true) : null}
-          >
-            <form>
-              <Column.Group>
-                <Column>
-                  <Field>
-                    <Label>User ID</Label>
-                    <Control>
-                      <Input
-                        type="text"
-                        name="userId"
-                        value={form.newUserId}
-                        onChange={e => setForm({ ...form, newUserId: e.target.value })}
-                        placeholder="userId"
-                      />
-                    </Control>
-                  </Field>
-                </Column>
-                <Column>
-                  <Field>
-                    <Label>Description</Label>
-                    <Control>
-                      <Input
-                        type="text"
-                        name="description"
-                        value={form.description}
-                        onChange={e => setForm({ ...form, description: e.target.value })}
-                        placeholder="description"
-                      />
-                    </Control>
-                  </Field>
-                </Column>
-              </Column.Group>
-            </form>
-          </UiCardModal>
-          <UiCardModal
-            title="Please Confirm"
-            isOpen={showConfirm}
-            onCancel={() => setShowConfirm(false)}
-            onDelete={remove}
-          >
-            <blockquote>Are you sure you want to Remove this Alternate User Id?</blockquote>
-          </UiCardModal>
-        </>
-      )}
+      <UiCard
+        title="Alternate User IDs"
+        buttons={
+          alternateUserIds.length < 3 &&
+          hasReseller && <UiButton color="link" icon="add" size="small" onClick={add} />
+        }
+      >
+        <UiDataTable
+          columns={columns}
+          rows={alternateUserIds}
+          rowKey="alternateUserId"
+          hideSearch={true}
+          onClick={edit}
+        />
+      </UiCard>
+
+      <UiCardModal
+        title="Alternate User IDs"
+        isOpen={showModal}
+        onCancel={() => setShowModal(false)}
+        onSave={save}
+        onDelete={form.alternateUserId ? () => setShowConfirm(true) : null}
+      >
+        <form>
+          <Column.Group>
+            <Column>
+              <Field>
+                <Label>Alternate ID</Label>
+                <Control>
+                  <Input
+                    type="text"
+                    name="alternateUserId"
+                    value={form.alternateUserId}
+                    onChange={e => setForm({ ...form, alternateUserId: e.target.value })}
+                    placeholder="Alternate ID"
+                  />
+                </Control>
+              </Field>
+            </Column>
+            <Column>
+              <Field>
+                <Label>Description</Label>
+                <Control>
+                  <Input
+                    type="text"
+                    name="description"
+                    value={form.description}
+                    onChange={e => setForm({ ...form, description: e.target.value })}
+                    placeholder="Description"
+                  />
+                </Control>
+              </Field>
+            </Column>
+          </Column.Group>
+        </form>
+      </UiCardModal>
+      <UiCardModal
+        title="Please Confirm"
+        isOpen={showConfirm}
+        onCancel={() => setShowConfirm(false)}
+        onDelete={remove}
+      >
+        <blockquote>Are you sure you want to Remove this Alternate User Id?</blockquote>
+      </UiCardModal>
     </>
   )
 }
