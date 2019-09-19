@@ -1,5 +1,4 @@
 import gql from 'graphql-tag'
-import { useQuery, useMutation } from '@apollo/react-hooks'
 
 export const RESELLER_ADMIN_FRAGMENT = gql`
   fragment ResellerAdminFragment on ResellerAdmin {
