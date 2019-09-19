@@ -2,7 +2,6 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { setToken } from '@/api'
 import {
   SESSION_QUERY,
-  SESSION_DEFAULT,
   SESSION_LOGIN,
   SESSION_LOGOUT,
   SESSION_REFRESH,
