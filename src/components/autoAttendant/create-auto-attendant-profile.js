@@ -11,13 +11,6 @@ const types = [
   { key: 'standard', name: 'Standard' }
 ]
 
-const services = [
-  { key: 'select', name: 'Please select...' },
-  { key: 'anonymousCallRejection', name: 'Anonymous Call Rejection' },
-  { key: 'authentication', name: 'Authentication' },
-  { key: 'callForwardingAlways', name: 'Call Forwarding Always' }
-]
-
 export const CreateAutoAttendantProfile = withRouter(props => {
   const {
     autoAttendant,
@@ -29,7 +22,6 @@ export const CreateAutoAttendantProfile = withRouter(props => {
   const [typeKey, setTypeKey] = React.useState('')
   const [domainKey, setDomainKey] = React.useState('')
   const [numberKey, setNumberKey] = React.useState('')
-  const [serviceKey, setServiceKey] = React.useState('')
   const [usernameString, setUsernameString] = React.useState('')
   const [extensionString, setExtensionString] = React.useState('')
   const [loading, setLoading] = React.useState(false)
@@ -65,25 +57,17 @@ export const CreateAutoAttendantProfile = withRouter(props => {
     setNumberKey(e.target.value)
   }
 
-  const handleServiceSelect = e => {
-    setServiceKey(e.target.value)
-  }
-
   const handleUsername = e => {
-    if (helpText === 'username') {
+    if (helpText === 'username' || helpText === 'shortuser') {
       setHelpText('')
-    }
-    if (e.target.value.length < 6) {
-      setHelpText('shortuser')
-    } else {
-      if (helpText === 'shortuser') {
-        setHelpText('')
-      }
     }
     setUsernameString(e.target.value)
   }
 
   const handleExtension = e => {
+    if (helpText === 'stringextension' || helpText === 'extensionLong') {
+      setHelpText('')
+    }
     setExtensionString(e.target.value)
   }
 
@@ -93,8 +77,14 @@ export const CreateAutoAttendantProfile = withRouter(props => {
       setHelpText('type')
     } else if (usernameString === '') {
       setHelpText('username')
+    } else if (usernameString.length < 6) {
+      setHelpText('shortuser')
     } else if (numberKey === '') {
       setHelpText('number')
+    } else if (!Number.isInteger(Number.parseInt(extensionString))) {
+      setHelpText('stringextension')
+    } else if (extensionString.length > 4) {
+      setHelpText('extensionLong')
     } else {
       saveUserProfile({
         type: typeKey,
@@ -105,7 +95,6 @@ export const CreateAutoAttendantProfile = withRouter(props => {
               autoAttendant.domains.default
             : domainKey,
         number: numberKey,
-        service: serviceKey,
         username: usernameString,
         extension: extensionString
       })
@@ -277,36 +266,31 @@ export const CreateAutoAttendantProfile = withRouter(props => {
                   disabled={loading}
                   name="extensionString"
                   value={extensionString}
+                  state={
+                    helpText === 'stringextension' ||
+                    helpText === 'extensionLong'
+                      ? 'focused'
+                      : ''
+                  }
+                  color={
+                    helpText === 'stringextension' ||
+                    helpText === 'extensionLong'
+                      ? 'danger'
+                      : ''
+                  }
                 />
+                {helpText === 'stringextension' ? (
+                  <Help color="danger">Only digits are allowed!</Help>
+                ) : null}
+                {helpText === 'extensionLong' ? (
+                  <Help color="danger">
+                    Extension cannot be more than 4 characters long!
+                  </Help>
+                ) : null}
               </Control>
             </Field.Body>
           </Field>
 
-          <Field horizontal>
-            <Field.Label>
-              <Tag color="link" size="medium">
-                Service
-              </Tag>
-            </Field.Label>
-            <Field.Body>
-              <Control>
-                <Select.Container>
-                  <Select
-                    disabled={loading}
-                    value={serviceKey}
-                    onChange={handleServiceSelect}
-                    name="serviceKey"
-                  >
-                    {services.map(service => (
-                      <Select.Option key={service.key} value={service.key}>
-                        {service.name}
-                      </Select.Option>
-                    ))}
-                  </Select>
-                </Select.Container>
-              </Control>
-            </Field.Body>
-          </Field>
           <Field horizontal kind="group">
             <Button.Group>
               <Button type="reset" onClick={cancel}>
