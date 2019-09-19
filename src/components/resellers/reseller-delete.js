@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useLoadingModal, RESELLER_DELETE_MUTATION, RESELLER_LIST_QUERY } from '@/graphql'
-import { useAlert } from '@/utils'
+import { RESELLER_DELETE_MUTATION, RESELLER_LIST_QUERY } from '@/graphql'
+import { useAlert, useLoadingModal } from '@/utils'
 import { UiCard, UiCardModal, UiButton } from '@/components/ui'
 import { useMutation } from '@apollo/react-hooks'
 

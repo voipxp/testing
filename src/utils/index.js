@@ -1,4 +1,5 @@
 export * from './acl'
+export * from './app'
 export * from './alert'
 export * from './module'
 export * from './password'

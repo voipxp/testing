@@ -1,10 +1,9 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Input } from 'rbx'
-import { useAlert, useForm, generatePassword } from '@/utils'
+import { useAlert, useForm, useLoadingModal, generatePassword } from '@/utils'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import {
-  useLoadingModal,
   RESELLER_ADMIN_LIST_QUERY,
   RESELLER_ADMIN_CREATE_MUTATION,
   RESELLER_ADMIN_UPDATE_MUTATION,

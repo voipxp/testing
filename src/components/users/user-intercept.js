@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Input, Select, Column } from 'rbx'
-import { useLoadingModal, useUserIntercept, useUserInterceptUpdate } from '@/graphql'
-import { useAlert } from '@/utils'
+import { useUserIntercept, useUserInterceptUpdate } from '@/graphql'
+import { useAlert, useLoadingModal } from '@/utils'
 
 import {
   UiCard,

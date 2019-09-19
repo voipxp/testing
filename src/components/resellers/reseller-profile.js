@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { useLoadingModal, RESELLER_QUERY, RESELLER_UPDATE_MUTATION } from '@/graphql'
-import { useAlert } from '@/utils'
+import { RESELLER_QUERY, RESELLER_UPDATE_MUTATION } from '@/graphql'
+import { useAlert, useLoadingModal } from '@/utils'
 import { Input, Column } from 'rbx'
 import {
   UiLoadingCard,

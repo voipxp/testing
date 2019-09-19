@@ -2,8 +2,8 @@ import React, { useState, useRef } from 'react'
 import { AppBreadcrumb } from '@/components/app'
 import { Breadcrumb } from 'rbx'
 import PropTypes from 'prop-types'
-import { useLoadingModal, RESELLER_LIST_QUERY, RESELLER_CREATE_MUTATION } from '@/graphql'
-import { useAlert, useForm } from '@/utils'
+import { RESELLER_LIST_QUERY, RESELLER_CREATE_MUTATION } from '@/graphql'
+import { useAlert, useLoadingModal, useForm } from '@/utils'
 import { Input, Column } from 'rbx'
 import {
   UiFormField,
