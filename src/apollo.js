@@ -3,9 +3,9 @@ import { HttpLink } from 'apollo-link-http'
 import { ApolloLink } from 'apollo-link'
 import { onError } from 'apollo-link-error'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { TOKEN_KEY } from '@/utils'
 import {
   AUTH_WHITELIST,
-  TOKEN_KEY,
   ALERTS_QUERY,
   ALERTS_DEFAULT,
   APP_QUERY,

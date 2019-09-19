@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useSession } from '@/graphql'
+import { useSession } from '@/utils'
 
 const hasLevel = (loginType, requiredType) => {
   const types = {

@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react'
-import { useSession, useUserServicesAssignedAndViewable } from '@/graphql'
+import { useUserServicesAssignedAndViewable } from '@/graphql'
+import { useSession } from '@/utils'
 
 const isAssigned = (serviceName, assigned = {}) => {
   const userServices = assigned.userServices || []

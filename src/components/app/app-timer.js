@@ -1,7 +1,6 @@
 import React from 'react'
 import createActivityDetector from 'activity-detector'
-import { useSessionLogout } from '@/graphql'
-import { useAlert } from '@/utils'
+import { useAlert, useSessionLogout } from '@/utils'
 
 import gql from 'graphql-tag'
 import get from 'lodash/get'

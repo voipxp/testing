@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSession } from '@/graphql'
+import { useSession } from '@/utils'
 import { Redirect } from 'react-router-dom'
 
 export const AppDashboard = () => {

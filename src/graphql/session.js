@@ -1,8 +1,10 @@
 import gql from 'graphql-tag'
-import { useQuery, useMutation } from '@apollo/react-hooks'
-import { setToken } from '@/api'
 
-export const TOKEN_KEY = 'odin:token'
+export const sessionLogout = client => {
+  client.writeQuery({ query: SESSION_QUERY, data: SESSION_DEFAULT })
+  client.resetStore()
+  return SESSION_DEFAULT.session
+}
 
 const SESSION_FRAGMENT = gql`
   fragment SessionFragment on Session {
@@ -32,7 +34,7 @@ export const SESSION_QUERY = gql`
   }
 `
 
-const SESSION_LOGIN = gql`
+export const SESSION_LOGIN = gql`
   mutation sessionLogin($username: String!, $password: String!, $oldPassword: String) {
     sessionLogin(username: $username, password: $password, oldPassword: $oldPassword) {
       ...SessionFragment
@@ -41,7 +43,7 @@ const SESSION_LOGIN = gql`
   }
 `
 
-const SESSION_REFRESH = gql`
+export const SESSION_REFRESH = gql`
   mutation sessionRefresh {
     sessionRefresh {
       ...SessionFragment
@@ -50,7 +52,7 @@ const SESSION_REFRESH = gql`
   ${SESSION_FRAGMENT}
 `
 
-const SESSION_PASSWORD_UPDATE_MUTATION = gql`
+export const SESSION_PASSWORD_UPDATE_MUTATION = gql`
   mutation sessionPasswordUpdate($oldPassword: String!, $password: String!) {
     sessionPasswordUpdate(oldPassword: $oldPassword, password: $password) {
       ...SessionFragment
@@ -59,7 +61,7 @@ const SESSION_PASSWORD_UPDATE_MUTATION = gql`
   }
 `
 
-const SESSION_LOGOUT = gql`
+export const SESSION_LOGOUT = gql`
   mutation sessionLogout {
     sessionLogout @client {
       ...SessionFragment
@@ -86,49 +88,4 @@ export const SESSION_DEFAULT = {
     softwareVersion: null,
     isPaasAdmin: null
   }
-}
-
-export const sessionLogout = client => {
-  client.writeQuery({ query: SESSION_QUERY, data: SESSION_DEFAULT })
-  client.resetStore()
-  return SESSION_DEFAULT.session
-}
-
-export const saveToken = token => {
-  localStorage.setItem(TOKEN_KEY, token)
-  setToken(token)
-}
-
-export const clearToken = () => {
-  localStorage.removeItem(TOKEN_KEY)
-  setToken()
-}
-
-export const useSession = () => {
-  const { data } = useQuery(SESSION_QUERY)
-  return (data && data.session) || {}
-}
-
-export const useSessionLogin = () => {
-  return useMutation(SESSION_LOGIN, {
-    update: (cache, res) => saveToken(res.data.sessionLogin.token)
-  })
-}
-
-export const useSessionRefresh = () => {
-  return useMutation(SESSION_REFRESH, {
-    update: (cache, res) => saveToken(res.data.sessionRefresh.token)
-  })
-}
-
-export const useSessionPasswordUpdate = () => {
-  return useMutation(SESSION_PASSWORD_UPDATE_MUTATION, {
-    update: (cache, res) => saveToken(res.data.sessionPasswordUpdate.token)
-  })
-}
-
-export const useSessionLogout = () => {
-  return useMutation(SESSION_LOGOUT, {
-    update: (cache, res) => clearToken()
-  })
 }

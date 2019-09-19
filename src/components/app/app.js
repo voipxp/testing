@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { Section } from 'rbx'
 import { AngularComponent } from '@/components/angular-component'
 import { UiLoadingPage } from '@/components/ui'
-import { useSession, useSessionRefresh, UI_QUERY } from '@/graphql'
+import { UI_QUERY } from '@/graphql'
+import { useSession, useSessionRefresh } from '@/utils'
 import { useQuery } from '@apollo/react-hooks'
 
 import {

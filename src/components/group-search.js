@@ -4,8 +4,8 @@ import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { useSession, GROUP_LIST_QUERY } from '@/graphql'
-import { useAlert } from '@/utils'
+import { GROUP_LIST_QUERY } from '@/graphql'
+import { useAlert, useSession } from '@/utils'
 import { useLazyQuery } from '@apollo/react-hooks'
 
 const searchTypes = [{ key: 'groupName', name: 'Group Name' }, { key: 'groupId', name: 'Group ID' }]

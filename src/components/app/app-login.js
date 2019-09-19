@@ -3,13 +3,8 @@ import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
-import {
-  useLoadingModal,
-  useSessionLogin,
-  useSessionRefresh,
-  useSessionLogout,
-  saveToken
-} from '@/graphql'
+import { useLoadingModal } from '@/graphql'
+import { useSessionLogin, useSessionRefresh, useSessionLogout, saveToken } from '@/utils'
 import { useAlert } from '@/utils'
 import gql from 'graphql-tag'
 import get from 'lodash/get'

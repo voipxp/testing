@@ -2,7 +2,8 @@ import { useCallback } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import get from 'lodash/get'
 import camelCase from 'lodash/camelCase'
-import { useSession, UI_MODULES_QUERY } from '@/graphql'
+import { UI_MODULES_QUERY } from '@/graphql'
+import { useSession } from '@/utils'
 
 const show = (name, modules) => {
   if (!name) return

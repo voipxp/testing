@@ -3,11 +3,10 @@ import PropTypes from 'prop-types'
 import angular from 'angular'
 import kebabCase from 'lodash/kebabCase'
 import camelCase from 'lodash/camelCase'
-import { useSession } from '@/graphql'
 import { withRouter } from 'react-router-dom'
 import { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect'
 import { getInjector } from '@/angular/injector'
-import { useModulePermissions } from '@/utils'
+import { useSession, useModulePermissions } from '@/utils'
 
 export const AngularComponentBase = ({ component, location = {}, match = {}, ...props }) => {
   const scopeRef = React.useRef()
