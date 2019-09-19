@@ -10,10 +10,10 @@ controller.$inject = ['Route', 'SystemDashboardService', 'Alert', 'ACL']
 function controller(Route, SystemDashboardService, Alert, ACL) {
   var ctrl = this
   var route = Route.path()
-  ctrl.hasVersion22 = ACL.hasVersion('22')
 
   ctrl.$onInit = function() {
     ctrl.loading = true
+    ctrl.hasVersion22 = ACL.hasVersion('22')
     return SystemDashboardService.load()
       .then(loadCards)
       .catch(Alert.notify.danger)
@@ -78,6 +78,12 @@ function controller(Route, SystemDashboardService, Alert, ACL) {
         type: 'provisioning',
         name: 'Service Providers',
         path: route('serviceProviders')
+      },
+      {
+        type: 'provisioning',
+        name: 'Resellers',
+        version: 22,
+        path: route('system', 'resellers')
       },
       {
         type: 'odin',
