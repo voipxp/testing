@@ -1,5 +1,4 @@
 import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
 
 export const USER_REGISTRATION_FRAGMENT = gql`
   fragment UserRegistrationsFragment on UserRegistrations {
@@ -40,8 +39,3 @@ export const USER_REGISTRATIONS_QUERY = gql`
     ${USER_REGISTRATION_FRAGMENT}
   }
 `
-
-export const useUserRegistrations = userId => {
-  const query = useQuery(USER_REGISTRATIONS_QUERY, { variables: { userId } })
-  return { ...query, data: query.data && query.data.userRegistrations }
-}

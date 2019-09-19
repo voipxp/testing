@@ -2,16 +2,17 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
 import { useAcl, useAlert, useLoadingModal, useForm } from '@/utils'
-import { useUser, useUserUpdate } from '@/graphql'
+import { USER_QUERY, USER_UPDATE_MUTATION } from '@/graphql'
 import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 
 export const UserAlternateUserId = ({ match }) => {
   const Alert = useAlert()
   const Loading = useLoadingModal()
   const { userId } = match.params
 
-  const { data, loading, error } = useUser(userId)
-  const [update] = useUserUpdate()
+  const { data, loading, error } = useQuery(USER_QUERY, { variables: { userId } })
+  const [update] = useMutation(USER_UPDATE_MUTATION)
 
   const formRef = React.useRef()
   const initialFormState = { alternateUserId: '', description: '' }
@@ -26,7 +27,7 @@ export const UserAlternateUserId = ({ match }) => {
   if (loading || !data) return <UiLoadingCard />
   if (error) Alert.danger(error)
 
-  const { alternateUserIds = [] } = data
+  const { alternateUserIds = [] } = data.user
 
   const columns = [
     { key: 'alternateUserId', label: 'Alternate User Id' },

@@ -13,7 +13,6 @@ function controller($location, Route) {
   ctrl.serviceUserId = $location.search().serviceUserId
   ctrl.open = open
 
-  // TODO: Make this display inline
   function open() {
     Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
   }

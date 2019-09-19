@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
-import { useUserSpeedDial8, useUserSpeedDial8Update } from '@/graphql'
 import { useAlert, useLoadingModal } from '@/utils'
 import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { USER_SPEED_DIAL_8_QUERY, USER_SPEED_DIAL_8_MUTATION } from '@/graphql'
 
 export const UserSpeedDial8 = ({ match }) => {
   const Alert = useAlert()
@@ -12,11 +13,14 @@ export const UserSpeedDial8 = ({ match }) => {
   const [form, setForm] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const { data, error, loading } = useUserSpeedDial8(userId)
-  const [update] = useUserSpeedDial8Update(userId)
+
+  const { data, error, loading } = useQuery(USER_SPEED_DIAL_8_QUERY, { variables: { userId } })
+  const [update] = useMutation(USER_SPEED_DIAL_8_MUTATION)
 
   if (error) Alert.danger(error)
   if (loading || !data) return <UiLoadingCard />
+
+  const { userSpeedDial8 } = data
 
   const columns = [
     { key: 'speedCode', label: 'Speed Code' },
@@ -38,14 +42,14 @@ export const UserSpeedDial8 = ({ match }) => {
   */
   function remove() {
     setShowConfirm(false)
-    const newSpeedCodes = data.speedCodes.map(code =>
+    const newSpeedCodes = userSpeedDial8.speedCodes.map(code =>
       code.speedCode === form.speedCode ? { ...form, phoneNumber: null } : code
     )
     return updateSpeedCodes(newSpeedCodes)
   }
 
   function save() {
-    const newSpeedCodes = data.speedCodes.map(code =>
+    const newSpeedCodes = userSpeedDial8.speedCodes.map(code =>
       code.speedCode === form.speedCode ? { ...form } : code
     )
     return updateSpeedCodes(newSpeedCodes)
@@ -72,7 +76,7 @@ export const UserSpeedDial8 = ({ match }) => {
       <UiCard title="Speed Dial 8">
         <UiDataTable
           columns={columns}
-          rows={data.speedCodes}
+          rows={userSpeedDial8.speedCodes}
           rowKey="speedCode"
           hideSearch={true}
           onClick={edit}

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useUserRegistrations } from '@/graphql'
 import { useAlert } from '@/utils'
 import {
   UiCard,
@@ -10,16 +9,20 @@ import {
   UiSection,
   UiListItem
 } from '@/components/ui'
+import { useQuery } from '@apollo/react-hooks'
+import { USER_REGISTRATIONS_QUERY } from '@/graphql'
 
 export const UserRegistration = ({ match }) => {
   const { userId } = match.params
-  const { data, loading, error } = useUserRegistrations(userId)
+  const { data, loading, error } = useQuery(USER_REGISTRATIONS_QUERY, { variables: { userId } })
   const [showModal, setShowModal] = useState(false)
   const [form, setForm] = useState({})
   const Alert = useAlert()
 
   if (error) Alert.danger(error)
   if (loading || !data) return <UiLoadingCard />
+
+  const { userRegistrations } = data
 
   const columns = [
     { key: 'deviceLevel', label: 'Level' },
@@ -38,7 +41,7 @@ export const UserRegistration = ({ match }) => {
       <UiCard title="User Registrations">
         <UiDataTable
           columns={columns}
-          rows={data.registrations}
+          rows={userRegistrations.registrations}
           rowKey="deviceName"
           hideSearch={true}
           onClick={show}

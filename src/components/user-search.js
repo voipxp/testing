@@ -110,7 +110,7 @@ export const UserSearch = ({ onSelect }) => {
       </form>
       {!initialized ? (
         ''
-      ) : (loading ? (
+      ) : loading ? (
         <UiLoading />
       ) : (
         <UiDataTable
@@ -120,7 +120,7 @@ export const UserSearch = ({ onSelect }) => {
           pageSize={50}
           onClick={onSelect}
         />
-      ))}
+      )}
     </>
   )
 }

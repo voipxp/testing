@@ -1,6 +1,4 @@
 import gql from 'graphql-tag'
-import get from 'lodash/get'
-import { useQuery } from '@apollo/react-hooks'
 
 export const USER_SERVICES_ASSIGNED_FRAGMENT = gql`
   fragment UserServicesAssignedFragment on UserServicesAssigned {
@@ -91,21 +89,3 @@ export const USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY = gql`
     ${USER_SERVICES_VIEWABLE_FRAGMENT}
   }
 `
-
-export const useUserServicesAssignedAndViewable = userId => {
-  const { data, loading, error } = useQuery(USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY, {
-    variables: { userId }
-  })
-  const assigned = get(data, 'userServicesAssigned', { userServices: [] })
-  const viewable = get(data, 'userServicesViewable', { userServices: [] })
-  return { assigned, viewable, loading, error }
-}
-
-export const useUserServices = userId => {
-  const { data, loading, error } = useQuery(USER_SERVICES_QUERY, {
-    variables: { userId }
-  })
-  const userServices = get(data, 'userServices', { userServices: [] })
-  const servicePacks = get(data, 'userServices', { servicePacks: [] })
-  return { userServices, servicePacks, loading, error }
-}

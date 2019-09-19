@@ -3,9 +3,10 @@ import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
-import { useUserSpeedDial8Bulk, useUserSpeedDial8BulkUpdate } from '@/graphql'
 import { useAlert, useLoadingModal } from '@/utils'
 import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { USER_SPEED_DIAL_8_BULK_QUERY, USER_SPEED_DIAL_8_BULK_MUTATION } from '@/graphql'
 
 export const GroupSpeedDial8 = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
@@ -16,12 +17,15 @@ export const GroupSpeedDial8 = ({ match }) => {
   const Alert = useAlert()
   const Loading = useLoadingModal()
 
-  const { data, loading, error } = useUserSpeedDial8Bulk(serviceProviderId, groupId)
-
-  const [update] = useUserSpeedDial8BulkUpdate(serviceProviderId, groupId)
+  const { data, loading, error } = useQuery(USER_SPEED_DIAL_8_BULK_QUERY, {
+    variables: { serviceProviderId, groupId }
+  })
+  const [update] = useMutation(USER_SPEED_DIAL_8_BULK_MUTATION)
 
   if (error) Alert.danger(error)
   if (loading || !data) return <UiLoadingCard />
+
+  const { userSpeedDial8Bulk } = data
 
   const columns = [
     { key: 'userId', label: 'User ID' },
@@ -101,7 +105,7 @@ export const GroupSpeedDial8 = ({ match }) => {
   /*
     Map the speedCodes into an object with speedcode as key
   */
-  const rows = data.users.map(({ speedCodes = [], ...row }) => {
+  const rows = userSpeedDial8Bulk.users.map(({ speedCodes = [], ...row }) => {
     for (let i = 2; i < 10; i++) {
       const codeStr = String(i)
       const code = speedCodes.find(s => s.speedCode === codeStr)

@@ -6,8 +6,6 @@ import './index.css'
 
 angular.module('odin.ui').directive('pbsInputFile', Directive)
 
-//  TODO: add some css on drop effects
-
 Directive.$inject = ['$timeout']
 function Directive($timeout) {
   return {

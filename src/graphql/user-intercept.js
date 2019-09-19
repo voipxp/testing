@@ -1,5 +1,4 @@
 import gql from 'graphql-tag'
-import { useQuery, useMutation } from '@apollo/react-hooks'
 
 export const USER_INTERCEPT_FRAGMENT = gql`
   fragment UserInterceptFragment on UserIntercept {
@@ -40,7 +39,7 @@ export const USER_INTERCEPT_QUERY = gql`
   }
 `
 
-const USER_INTERCEPT_UPDATE_MUTATION = gql`
+export const USER_INTERCEPT_UPDATE_MUTATION = gql`
   mutation userInterceptUpdate($input: UserInterceptInput!) {
     userInterceptUpdate(input: $input) {
       ...UserInterceptFragment
@@ -48,14 +47,3 @@ const USER_INTERCEPT_UPDATE_MUTATION = gql`
     ${USER_INTERCEPT_FRAGMENT}
   }
 `
-
-export const useUserIntercept = userId => {
-  const query = useQuery(USER_INTERCEPT_QUERY, {
-    variables: { userId }
-  })
-  return { ...query, data: query.data && query.data.userIntercept }
-}
-
-export const useUserInterceptUpdate = userId => {
-  return useMutation(USER_INTERCEPT_UPDATE_MUTATION)
-}

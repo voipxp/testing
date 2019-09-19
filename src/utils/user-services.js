@@ -1,6 +1,8 @@
 import { useCallback, useMemo } from 'react'
-import { useUserServicesAssignedAndViewable } from '@/graphql'
 import { useSession } from '@/utils'
+import { useQuery } from '@apollo/react-hooks'
+import get from 'lodash/get'
+import { USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY, USER_SERVICES_QUERY } from '@/graphql'
 
 const isAssigned = (serviceName, assigned = {}) => {
   const userServices = assigned.userServices || []
@@ -39,4 +41,22 @@ export const useUserServicePermissions = userId => {
       [assigned, loginType, viewable]
     )
   }
+}
+
+export const useUserServicesAssignedAndViewable = userId => {
+  const { data, loading, error } = useQuery(USER_SERVICES_ASSIGNED_AND_VIEWABLE_QUERY, {
+    variables: { userId }
+  })
+  const assigned = get(data, 'userServicesAssigned', { userServices: [] })
+  const viewable = get(data, 'userServicesViewable', { userServices: [] })
+  return { assigned, viewable, loading, error }
+}
+
+export const useUserServices = userId => {
+  const { data, loading, error } = useQuery(USER_SERVICES_QUERY, {
+    variables: { userId }
+  })
+  const userServices = get(data, 'userServices', { userServices: [] })
+  const servicePacks = get(data, 'userServices', { servicePacks: [] })
+  return { userServices, servicePacks, loading, error }
 }

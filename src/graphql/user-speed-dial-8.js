@@ -1,6 +1,4 @@
 import gql from 'graphql-tag'
-import { useQuery, useMutation } from '@apollo/react-hooks'
-import { USER_SERVICES_ASSIGNED_QUERY } from '.'
 
 export const USER_SPEED_DIAL_8_FRAGMENT = gql`
   fragment UserSpeedDial8Fragment on UserSpeedDial8 {
@@ -63,25 +61,3 @@ export const USER_SPEED_DIAL_8_BULK_MUTATION = gql`
   }
   ${USER_SPEED_DIAL_8_BULK_FRAGMENT}
 `
-
-export const useUserSpeedDial8 = userId => {
-  const query = useQuery(USER_SPEED_DIAL_8_QUERY, { variables: { userId } })
-  return { ...query, data: query.data && query.data.userSpeedDial8 }
-}
-
-export const useUserSpeedDial8Bulk = (serviceProviderId, groupId) => {
-  const query = useQuery(USER_SPEED_DIAL_8_BULK_QUERY, {
-    variables: { serviceProviderId, groupId }
-  })
-  return { ...query, data: query.data && query.data.userSpeedDial8Bulk }
-}
-
-export const useUserSpeedDial8Update = userId => {
-  return useMutation(USER_SPEED_DIAL_8_MUTATION, {
-    refetchQueries: [{ query: USER_SERVICES_ASSIGNED_QUERY, variables: { userId } }]
-  })
-}
-
-export const useUserSpeedDial8BulkUpdate = (serviceProviderId, groupId) => {
-  return useMutation(USER_SPEED_DIAL_8_BULK_MUTATION)
-}

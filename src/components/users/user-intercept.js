@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Input, Select, Column } from 'rbx'
-import { useUserIntercept, useUserInterceptUpdate } from '@/graphql'
 import { useAlert, useLoadingModal } from '@/utils'
 
 import {
@@ -15,6 +14,8 @@ import {
   UiListItem,
   UiFormField
 } from '@/components/ui'
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { USER_INTERCEPT_QUERY, USER_INTERCEPT_UPDATE_MUTATION } from '@/graphql'
 
 const INBOUND_CALL_MODES = ['Intercept All', 'Allow All', 'Allow System Dns']
 
@@ -31,11 +32,13 @@ export const UserIntercept = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
 
-  const { data, loading, error } = useUserIntercept(userId)
-  const [update] = useUserInterceptUpdate(userId)
+  const { data, loading, error } = useQuery(USER_INTERCEPT_QUERY, { variables: { userId } })
+  const [update] = useMutation(USER_INTERCEPT_UPDATE_MUTATION)
 
   if (error) Alert.danger(error)
   if (loading || !data) return <UiLoadingCard />
+
+  const { userIntercept } = data
 
   function handleInput(event) {
     const target = event.target
@@ -45,7 +48,7 @@ export const UserIntercept = ({ match }) => {
   }
 
   function edit() {
-    setForm({ ...data })
+    setForm({ ...userIntercept })
     setShowModal(true)
   }
 
@@ -70,45 +73,49 @@ export const UserIntercept = ({ match }) => {
       >
         <UiSection>
           <UiListItem label="Active">
-            <UiCheckbox isChecked={data.isActive} />
+            <UiCheckbox isChecked={userIntercept.isActive} />
           </UiListItem>
-          <UiListItem label="Announcement Selection">{data.announcementSelection}</UiListItem>
+          <UiListItem label="Announcement Selection">
+            {userIntercept.announcementSelection}
+          </UiListItem>
         </UiSection>
 
         <UiSection title="Inbound Call Options">
-          <UiListItem label="Inbound Call Mode">{data.inboundCallMode}</UiListItem>
+          <UiListItem label="Inbound Call Mode">{userIntercept.inboundCallMode}</UiListItem>
           <UiListItem label="Alternate Blocking Announcement">
-            <UiCheckbox isChecked={data.alternateBlockingAnnouncement} />
+            <UiCheckbox isChecked={userIntercept.alternateBlockingAnnouncement} />
           </UiListItem>
           <UiListItem label="Exempt Inbound Mobility Calls">
-            <UiCheckbox isChecked={data.exemptInboundMobilityCalls} />
+            <UiCheckbox isChecked={userIntercept.exemptInboundMobilityCalls} />
           </UiListItem>
           <UiListItem label="Disable Parallel Ringing To Network Locations">
-            <UiCheckbox isChecked={data.disableParallelRingingToNetworkLocations} />
+            <UiCheckbox isChecked={userIntercept.disableParallelRingingToNetworkLocations} />
           </UiListItem>
           <UiListItem label="Route To Voice Mail">
-            <UiCheckbox isChecked={data.routeToVoiceMail} />
+            <UiCheckbox isChecked={userIntercept.routeToVoiceMail} />
           </UiListItem>
           <UiListItem label="Play New Phone Number">
-            <UiCheckbox isChecked={data.playNewPhoneNumber} />
+            <UiCheckbox isChecked={userIntercept.playNewPhoneNumber} />
           </UiListItem>
-          <UiListItem label="New Phone Number">{data.newPhoneNumber}</UiListItem>
+          <UiListItem label="New Phone Number">{userIntercept.newPhoneNumber}</UiListItem>
           <UiListItem label="Transfer on 0 Phone Number">
-            <UiCheckbox isChecked={data.transferOnZeroToPhoneNumber} />
+            <UiCheckbox isChecked={userIntercept.transferOnZeroToPhoneNumber} />
           </UiListItem>
-          <UiListItem label="Transfer on 0 to Phone Number">{data.transferPhoneNumber}</UiListItem>
+          <UiListItem label="Transfer on 0 to Phone Number">
+            {userIntercept.transferPhoneNumber}
+          </UiListItem>
         </UiSection>
 
         <UiSection title="Outbound Call Options">
-          <UiListItem label="Outbound Call Mode">{data.outboundCallMode}</UiListItem>
+          <UiListItem label="Outbound Call Mode">{userIntercept.outboundCallMode}</UiListItem>
           <UiListItem label="Exempt Outbound Mobility Calls">
-            <UiCheckbox isChecked={data.exemptOutboundMobilityCalls} />
+            <UiCheckbox isChecked={userIntercept.exemptOutboundMobilityCalls} />
           </UiListItem>
           <UiListItem label="Reroute Outbound Calls">
-            <UiCheckbox isChecked={data.rerouteOutboundCalls} />
+            <UiCheckbox isChecked={userIntercept.rerouteOutboundCalls} />
           </UiListItem>
           <UiListItem label="Outbound Reroute PhoneNumber">
-            {data.outboundReroutePhoneNumber}
+            {userIntercept.outboundReroutePhoneNumber}
           </UiListItem>
         </UiSection>
       </UiCard>
