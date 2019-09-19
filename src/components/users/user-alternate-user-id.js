@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
-import { useAcl, useForm } from '@/utils'
-import { useAlert, useUser, useUserUpdate, useLoadingModal } from '@/graphql'
+import { useAcl, useAlert, useForm } from '@/utils'
+import { useUser, useUserUpdate, useLoadingModal } from '@/graphql'
 import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const UserAlternateUserId = ({ match }) => {

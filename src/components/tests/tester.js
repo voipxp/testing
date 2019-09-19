@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAlert } from '@/graphql'
+import { useAlert } from '@/utils'
 
 export const Tester = () => {
   const Alert = useAlert()

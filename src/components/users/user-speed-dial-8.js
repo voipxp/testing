@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control } from 'rbx'
-import { useAlert, useLoadingModal, useUserSpeedDial8, useUserSpeedDial8Update } from '@/graphql'
+import { useLoadingModal, useUserSpeedDial8, useUserSpeedDial8Update } from '@/graphql'
+import { useAlert } from '@/utils'
 import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const UserSpeedDial8 = ({ match }) => {

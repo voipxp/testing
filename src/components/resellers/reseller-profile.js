@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { useAlert, useLoadingModal, useReseller, useResellerUpdate } from '@/graphql'
+import { useLoadingModal, RESELLER_QUERY, RESELLER_UPDATE_MUTATION } from '@/graphql'
+import { useAlert } from '@/utils'
 import { Input, Column } from 'rbx'
 import {
   UiLoadingCard,
@@ -11,25 +12,31 @@ import {
   UiCardModal,
   UiFormField
 } from '@/components/ui'
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { useForm } from '@/utils'
 
 export const ResellerProfile = ({ match }) => {
   const Alert = useAlert()
   const Loading = useLoadingModal()
   const { resellerId } = match.params
   const [showModal, setShowModal] = useState(false)
-  const [form, setForm] = useState({})
-  const { data, loading, error } = useReseller(resellerId)
-  const [updateReseller] = useResellerUpdate()
 
+  // form
+  const ref = useRef()
+  const initialForm = { resellerId: '', resellerName: '' }
+  const { form, setForm, onChange, isValid } = useForm(initialForm, ref)
+
+  // graphql
+  const { data, loading, error } = useQuery(RESELLER_QUERY, { variables: { resellerId } })
+  const [updateReseller] = useMutation(RESELLER_UPDATE_MUTATION)
+
+  if (!data && loading) return <UiLoadingCard />
   if (error) Alert.danger(error)
 
-  function handleInput(event) {
-    const { name, value } = event.target
-    setForm({ ...form, [name]: value })
-  }
+  const { reseller } = data
 
   function edit() {
-    setForm({ ...data })
+    setForm({ ...reseller })
     setShowModal(true)
   }
 
@@ -46,17 +53,15 @@ export const ResellerProfile = ({ match }) => {
     }
   }
 
-  return !data && loading ? (
-    <UiLoadingCard />
-  ) : (
+  return (
     <>
       <UiCard
         title="Reseller Profile"
         buttons={<UiButton color="link" icon="edit" size="small" onClick={edit} />}
       >
         <UiSection>
-          <UiListItem label="Reseller ID">{data.resellerId}</UiListItem>
-          <UiListItem label="Reseller Name">{data.resellerName}</UiListItem>
+          <UiListItem label="Reseller ID">{reseller.resellerId}</UiListItem>
+          <UiListItem label="Reseller Name">{reseller.resellerName}</UiListItem>
         </UiSection>
       </UiCard>
 
@@ -64,9 +69,10 @@ export const ResellerProfile = ({ match }) => {
         title="Edit Reseller"
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
+        saveDisabled={!isValid}
         onSave={update}
       >
-        <form>
+        <form ref={ref}>
           <Column.Group>
             <Column>
               <UiFormField label="Reseller ID">
@@ -85,8 +91,8 @@ export const ResellerProfile = ({ match }) => {
                 <Input
                   type="text"
                   name="resellerName"
-                  value={form.resellerName}
-                  onChange={handleInput}
+                  value={form.resellerName || ''}
+                  onChange={onChange}
                   placeholder="Reseller Name"
                 />
               </UiFormField>

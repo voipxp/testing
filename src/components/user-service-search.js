@@ -4,7 +4,8 @@ import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { useAlert, useSession } from '@/graphql'
+import { useSession } from '@/graphql'
+import { useAlert } from '@/utils'
 import userServicesApi from '@/api/user-services'
 
 const searchTypes = [
@@ -105,7 +106,7 @@ export const UserServiceSearch = ({ onSelect }) => {
       </form>
       {!initialized ? (
         ''
-      ) : loading ? (
+      ) : (loading ? (
         <UiLoading />
       ) : (
         <UiDataTable
@@ -115,7 +116,7 @@ export const UserServiceSearch = ({ onSelect }) => {
           pageSize={50}
           onClick={onSelect}
         />
-      )}
+      ))}
     </>
   )
 }

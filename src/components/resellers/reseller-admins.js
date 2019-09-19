@@ -1,14 +1,14 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Input } from 'rbx'
-import { useForm, generatePassword } from '@/utils'
+import { useAlert, useForm, generatePassword } from '@/utils'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 import {
-  useAlert,
   useLoadingModal,
-  useResellerAdmins,
-  useResellerAdminCreate,
-  useResellerAdminUpdate,
-  useResellerAdminDelete
+  RESELLER_ADMIN_LIST_QUERY,
+  RESELLER_ADMIN_CREATE_MUTATION,
+  RESELLER_ADMIN_UPDATE_MUTATION,
+  RESELLER_ADMIN_DELETE_MUTATION
 } from '@/graphql'
 import {
   UiCard,
@@ -23,27 +23,29 @@ import {
 export const ResellerAdmins = ({ match }) => {
   const Alert = useAlert()
   const Loading = useLoadingModal()
-  const initialForm = {
-    userId: '',
-    language: '',
-    password: '',
-    lastName: '',
-    firstName: ''
-  }
   const { resellerId } = match.params
+
+  // form
   const ref = useRef()
+  const initialForm = { userId: '', password: '', lastName: '', firstName: '' }
   const { form, setForm, onChange, isValid } = useForm(initialForm, ref)
 
+  // modal
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
-  const { data, loading, error } = useResellerAdmins(resellerId)
-  const [createAdmin] = useResellerAdminCreate()
-  const [updateAdmin] = useResellerAdminUpdate()
-  const [deleteAdmin] = useResellerAdminDelete()
+  // graphql
+  const variables = { resellerId }
+  const refetchQueries = [{ query: RESELLER_ADMIN_LIST_QUERY, variables }]
+  const [updateAdmin] = useMutation(RESELLER_ADMIN_UPDATE_MUTATION)
+  const [createAdmin] = useMutation(RESELLER_ADMIN_CREATE_MUTATION, { refetchQueries })
+  const [deleteAdmin] = useMutation(RESELLER_ADMIN_DELETE_MUTATION, { refetchQueries })
+  const { data, loading, error } = useQuery(RESELLER_ADMIN_LIST_QUERY, { variables })
 
   if (error) Alert.danger(error)
   if (!data && loading) return <UiLoadingCard />
+
+  const { resellerAdmins } = data
 
   const columns = [
     { key: 'userId', label: 'User Id' },
@@ -72,8 +74,9 @@ export const ResellerAdmins = ({ match }) => {
 
   async function create(admin) {
     Loading.show()
+    const input = { ...admin, resellerId }
     try {
-      await createAdmin({ ...admin, resellerId })
+      await createAdmin({ variables: { input } })
       Alert.success('Admin Updated')
       setShowModal(false)
     } catch (error_) {
@@ -86,10 +89,10 @@ export const ResellerAdmins = ({ match }) => {
 
   async function update(admin) {
     // strip resellerId not in schema
-    const { resellerId, ...editAdmin } = admin
+    const { resellerId, ...input } = admin
     Loading.show()
     try {
-      await updateAdmin(editAdmin)
+      await updateAdmin({ variables: { input } })
       Alert.success('Admin Updated')
       setShowModal(false)
     } catch (error_) {
@@ -103,7 +106,7 @@ export const ResellerAdmins = ({ match }) => {
   async function destroy(userId) {
     Loading.show()
     try {
-      await deleteAdmin(userId)
+      await deleteAdmin({ variables: { userId } })
       Alert.success('Admin Deleted')
       setShowModal(false)
     } catch (error_) {
@@ -122,7 +125,7 @@ export const ResellerAdmins = ({ match }) => {
       >
         <UiDataTable
           columns={columns}
-          rows={data}
+          rows={resellerAdmins}
           rowKey="userId"
           hideSearch={true}
           onClick={edit}
@@ -133,7 +136,7 @@ export const ResellerAdmins = ({ match }) => {
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={save}
-        onDelete={form.isCreate ? null : () => setShowConfirm(true)}
+        onDelete={form.resellerId ? () => setShowConfirm(true) : null}
         saveDisabled={!isValid}
       >
         <form ref={ref}>
@@ -152,7 +155,7 @@ export const ResellerAdmins = ({ match }) => {
             <Input
               type="text"
               name="firstName"
-              value={form.firstName}
+              value={form.firstName || ''}
               onChange={onChange}
               placeholder="First Name"
             />
@@ -161,7 +164,7 @@ export const ResellerAdmins = ({ match }) => {
             <Input
               type="text"
               name="lastName"
-              value={form.lastName}
+              value={form.lastName || ''}
               onChange={onChange}
               placeholder="Last Name"
             />
@@ -169,10 +172,10 @@ export const ResellerAdmins = ({ match }) => {
           <UiFormField label="Password" horizontal>
             <UiInputPassword
               name="password"
-              value={form.password}
+              value={form.password || ''}
               onChange={onChange}
               onGeneratePassword={generatePassword}
-              required={!!form.isCreate}
+              required={!form.resellerId}
             />
           </UiFormField>
         </form>

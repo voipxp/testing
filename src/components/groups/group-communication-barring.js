@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import apiCommProfile from '@/api/group-communication-barring-profiles'
 import apiComm from '@/api/group-communication-barring'
 import { Select } from 'rbx'
-import { useAlert } from '@/graphql'
+import { useAlert } from '@/utils'
 import {
   UiCard,
   UiLoadingCard,

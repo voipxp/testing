@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useAlert, useLoadingModal, useResellerDelete } from '@/graphql'
+import { useLoadingModal, RESELLER_DELETE_MUTATION, RESELLER_LIST_QUERY } from '@/graphql'
+import { useAlert } from '@/utils'
 import { UiCard, UiCardModal, UiButton } from '@/components/ui'
+import { useMutation } from '@apollo/react-hooks'
 
 export const ResellerDelete = ({ match, history }) => {
   const Alert = useAlert()
   const Loading = useLoadingModal()
   const { resellerId } = match.params
   const [showConfirm, setShowConfirm] = useState(false)
-  const [deleteReseller] = useResellerDelete()
+
+  const [deleteReseller] = useMutation(RESELLER_DELETE_MUTATION, {
+    refetchQueries: [{ query: RESELLER_LIST_QUERY }]
+  })
 
   const remove = () => {
     setShowConfirm(false)

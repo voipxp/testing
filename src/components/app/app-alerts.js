@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { Notification, Delete } from 'rbx'
-import { useAlerts, useAlert } from '@/graphql'
+import { useAlerts, useAlert } from '@/utils'
 
 const StyledAlerts = styled.div`
   text-align: center;

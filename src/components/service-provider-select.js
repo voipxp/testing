@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { UiLoading, UiDataTable, UiCheckbox } from '@/components/ui'
 import { useQuery } from '@apollo/react-hooks'
-import { useAlert, SERVICE_PROVIDER_LIST_QUERY } from '@/graphql'
+import { SERVICE_PROVIDER_LIST_QUERY } from '@/graphql'
+import { useAlert } from '@/utils'
 
 const columns = [
   { key: 'serviceProviderId', label: 'ID' },

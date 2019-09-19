@@ -2,8 +2,8 @@ import React, { useState, useRef } from 'react'
 import { AppBreadcrumb } from '@/components/app'
 import { Breadcrumb } from 'rbx'
 import PropTypes from 'prop-types'
-import { useAlert, useLoadingModal, useResellers, useResellerCreate } from '@/graphql'
-import { useForm } from '@/utils'
+import { useLoadingModal, RESELLER_LIST_QUERY, RESELLER_CREATE_MUTATION } from '@/graphql'
+import { useAlert, useForm } from '@/utils'
 import { Input, Column } from 'rbx'
 import {
   UiFormField,
@@ -13,6 +13,7 @@ import {
   UiButton,
   UiCardModal
 } from '@/components/ui'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 
 export const SystemResellers = ({ match, history }) => {
   const Alert = useAlert()
@@ -23,11 +24,15 @@ export const SystemResellers = ({ match, history }) => {
   const initialFormState = { resellerId: '', resellerName: '' }
   const { form, setForm, onChange, isValid } = useForm(initialFormState, formRef)
 
-  const { data, loading, error } = useResellers()
-  const [create] = useResellerCreate()
+  const [create] = useMutation(RESELLER_CREATE_MUTATION, {
+    refetchQueries: [{ query: RESELLER_LIST_QUERY }]
+  })
+  const { data, loading, error } = useQuery(RESELLER_LIST_QUERY)
 
   if (!data && loading) return <UiLoadingCard />
   if (error) Alert.danger(error)
+
+  const { resellers } = data
 
   const columns = [
     { key: 'resellerId', label: 'Reseller Id' },
@@ -70,7 +75,7 @@ export const SystemResellers = ({ match, history }) => {
         >
           <UiDataTable
             columns={columns}
-            rows={data}
+            rows={resellers}
             rowKey="resellerId"
             hideSearch={true}
             onClick={open}

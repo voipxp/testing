@@ -1,5 +1,6 @@
 import angular from 'angular'
-import { ALERT_CREATE_MUTATION, parseError } from '@/graphql'
+import { ALERT_CREATE_MUTATION } from '@/graphql'
+import { parseError } from '@/utils'
 import cuid from 'cuid'
 
 angular.module('odin.ui').factory('Notification', Notification)

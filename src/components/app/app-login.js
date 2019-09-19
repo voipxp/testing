@@ -5,12 +5,12 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { parse, stringify } from 'query-string'
 import {
   useLoadingModal,
-  useAlert,
   useSessionLogin,
   useSessionRefresh,
   useSessionLogout,
   saveToken
 } from '@/graphql'
+import { useAlert } from '@/utils'
 import gql from 'graphql-tag'
 import get from 'lodash/get'
 import { useQuery } from '@apollo/react-hooks'

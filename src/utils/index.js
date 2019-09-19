@@ -1,4 +1,5 @@
 export * from './acl'
+export * from './alert'
 export * from './module'
 export * from './password'
 export * from './route'

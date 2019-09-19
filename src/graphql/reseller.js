@@ -1,5 +1,4 @@
 import gql from 'graphql-tag'
-import { useQuery, useMutation } from '@apollo/react-hooks'
 
 export const RESELLER_FRAGMENT = gql`
   fragment ResellerFragment on Reseller {
@@ -53,31 +52,3 @@ export const RESELLER_DELETE_MUTATION = gql`
     }
   }
 `
-
-export const useResellers = () => {
-  const query = useQuery(RESELLER_LIST_QUERY)
-  const data = query.data && query.data.resellers
-  return { ...query, data }
-}
-
-export const useReseller = resellerId => {
-  const query = useQuery(RESELLER_QUERY, { variables: { resellerId } })
-  const data = query.data && query.data.reseller
-  return { ...query, data }
-}
-
-export const useResellerCreate = () => {
-  return useMutation(RESELLER_CREATE_MUTATION, {
-    refetchQueries: [{ query: RESELLER_LIST_QUERY }]
-  })
-}
-
-export const useResellerUpdate = () => {
-  return useMutation(RESELLER_UPDATE_MUTATION)
-}
-
-export const useResellerDelete = () => {
-  return useMutation(RESELLER_DELETE_MUTATION, {
-    refetchQueries: [{ query: RESELLER_LIST_QUERY }]
-  })
-}

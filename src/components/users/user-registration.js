@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useAlert, useUserRegistrations } from '@/graphql'
+import { useUserRegistrations } from '@/graphql'
+import { useAlert } from '@/utils'
 import {
   UiCard,
   UiLoadingCard,
