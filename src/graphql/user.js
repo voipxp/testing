@@ -147,7 +147,9 @@ export const USER_DELETE_MUTATION = gql`
 `
 
 export const useUser = userId => {
-  return useQuery(USER_QUERY, { variables: { userId } })
+  const query = useQuery(USER_QUERY, { variables: { userId } })
+  const data = query.data && query.data.user
+  return { ...query, data }
 }
 
 export const useUserUpdate = () => {

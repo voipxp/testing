@@ -65,10 +65,9 @@ export const useResellerAdmins = resellerId => {
 }
 
 export const useResellerAdmin = userId => {
-  const query = useQuery(RESELLER_ADMIN_QUERY, {
-    variables: { userId }
-  })
-  return { ...query, data: query.data && query.data.resellerAdmin }
+  const query = useQuery(RESELLER_ADMIN_QUERY, { variables: { userId } })
+  const data = query.data && query.data.resellerAdmin
+  return { ...query, data }
 }
 
 export const useResellerAdminCreate = () => {

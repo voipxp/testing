@@ -15,7 +15,7 @@ export const UserAlternateUserId = ({ match }) => {
 
   const formRef = React.useRef()
   const initialFormState = { alternateUserId: '', description: '' }
-  const { form, setForm, isValid } = useForm(initialFormState, formRef)
+  const { form, setForm, onChange, isValid } = useForm(initialFormState, formRef)
 
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -26,7 +26,7 @@ export const UserAlternateUserId = ({ match }) => {
   if (loading || !data) return <UiLoadingCard />
   if (error) Alert.danger(error)
 
-  const { alternateUserIds = [] } = data.user
+  const { alternateUserIds = [] } = data
 
   const columns = [
     { key: 'alternateUserId', label: 'Alternate User Id' },
@@ -34,7 +34,7 @@ export const UserAlternateUserId = ({ match }) => {
   ]
 
   function add() {
-    setForm({ alternateUserId: '', description: '' })
+    setForm(initialFormState)
     setShowModal(true)
   }
 
@@ -120,7 +120,7 @@ export const UserAlternateUserId = ({ match }) => {
                     type="text"
                     name="alternateUserId"
                     value={form.alternateUserId}
-                    onChange={e => setForm({ ...form, alternateUserId: e.target.value })}
+                    onChange={onChange}
                     placeholder="Alternate ID"
                   />
                 </Control>
@@ -134,7 +134,7 @@ export const UserAlternateUserId = ({ match }) => {
                     type="text"
                     name="description"
                     value={form.description || ''}
-                    onChange={e => setForm({ ...form, description: e.target.value })}
+                    onChange={onChange}
                     placeholder="Description"
                   />
                 </Control>
