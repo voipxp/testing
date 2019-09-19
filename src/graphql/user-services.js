@@ -1,5 +1,45 @@
 import gql from 'graphql-tag'
 
+export const USER_SERVICE_INSTANCE_FRAGMENT = gql`
+  fragment UserServiceInstanceFragment on UserServiceInstance {
+    _id
+    userId
+    groupId
+    serviceProviderId
+    serviceType
+    name
+    phoneNumber
+    extension
+    resellerId
+  }
+`
+export const USER_SERVICE_INSTANCES_QUERY = gql`
+  query userServiceInstances(
+    $serviceProviderId: String
+    $serviceType: String
+    $groupId: SearchCriteria
+    $userId: SearchCriteria
+    $name: SearchCriteria
+    $phoneNumber: SearchCriteria
+    $extension: SearchCriteria
+    $resellerId: SearchCriteria
+  ) {
+    userServiceInstances(
+      serviceProviderId: $serviceProviderId
+      serviceType: $serviceType
+      groupId: $groupId
+      userId: $userId
+      name: $name
+      phoneNumber: $phoneNumber
+      extension: $extension
+      resellerId: $resellerId
+    ) {
+      ...UserServiceInstanceFragment
+    }
+  }
+  ${USER_SERVICE_INSTANCE_FRAGMENT}
+`
+
 export const USER_SERVICES_ASSIGNED_FRAGMENT = gql`
   fragment UserServicesAssignedFragment on UserServicesAssigned {
     _id
