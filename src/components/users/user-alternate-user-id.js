@@ -1,19 +1,25 @@
 import React, { useState } from 'react'
-import apiUserService from '@/api/user-alternate-user-id'
 import PropTypes from 'prop-types'
 import { Field, Input, Column, Control, Label } from 'rbx'
-import { useAcl } from '@/utils'
-import { useAlert, useUser, useLoadingModal } from '@/graphql'
+import { useAcl, useForm } from '@/utils'
+import { useAlert, useUser, useUserUpdate, useLoadingModal } from '@/graphql'
 import { UiCard, UiLoadingCard, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
 
 export const UserAlternateUserId = ({ match }) => {
   const Alert = useAlert()
   const Loading = useLoadingModal()
   const { userId } = match.params
+
   const { data, loading, error } = useUser(userId)
-  const [form, setForm] = useState({})
+  const [update] = useUserUpdate()
+
+  const formRef = React.useRef()
+  const initialFormState = { alternateUserId: '', description: '' }
+  const { form, setForm, isValid } = useForm(initialFormState, formRef)
+
   const [showConfirm, setShowConfirm] = useState(false)
   const [showModal, setShowModal] = useState(false)
+
   const acl = useAcl()
   const hasReseller = acl.hasReseller()
 
@@ -27,65 +33,47 @@ export const UserAlternateUserId = ({ match }) => {
     { key: 'description', label: 'Description' }
   ]
 
-  /*
-    Leave the userId blank so we know this is a new
-    one.  We will copy newUserId over on save.
-  */
   function add() {
     setForm({ alternateUserId: '', description: '' })
     setShowModal(true)
   }
 
-  /*
-    Copy userId to newUserId for editing that so we can
-    keep track of this object
-  */
   function edit(row) {
     setForm({ ...row })
     setShowModal(true)
   }
 
-  /*
-    Remove the current selected altId
-  */
   function remove() {
     setShowConfirm(false)
-    const newAltIds = data.user.alternateUserIds.filter(altId => altId.userId !== form.userId)
-    // TODO [2019-10-01]: send to API
-    saveAlternateUserIds(newAltIds)
+    const altIds = alternateUserIds.filter(alt => alt.alternateUserId !== form.alternateUserId)
+    saveUser(altIds)
   }
 
-  /*
-    Check for duplicates first.
-    If this is a new altId, then append to the existing array
-    If this is existing, then update with the new data
-  */
   function save() {
-    // check for dups
-    if (form.newUserId !== form.userId) {
-      const match = data.user.alternateUserIds.filter(altId => {
-        return altId.userId.toLowerCase() === form.newUserId.toLowerCase()
-      })
-      if (match.length > 0) return Alert.warning('This User ID already exists')
+    const { alternateUserId } = form
+
+    // check same as userId
+    if (userId === alternateUserId) {
+      return Alert.warning('Alternate ID cannot be the same as the User ID')
     }
 
-    // update
-    const newAltId = { userId: form.newUserId, description: form.description }
-    const newAltIds = form.userId
-      ? data.user.alternateUserIds.map(altId => (altId.userId !== form.userId ? altId : newAltId))
-      : [...data.user.alternateUserIds, newAltId]
+    // check if alternateId exists already
+    const match = alternateUserIds.filter(
+      alt => alt.alternateUserId.toLowerCase() === alternateUserId.toLowerCase()
+    )
 
-    // TODO [2019-10-01]: send to API
-    saveAlternateUserIds(newAltIds)
+    const altIds =
+      match.length === 0
+        ? [...alternateUserIds, form]
+        : alternateUserIds.map(alt => (alt.alternateUserId === form.alternateUserId ? form : alt))
+
+    saveUser(altIds)
   }
 
-  async function saveAlternateUserIds(newAltIds) {
+  async function saveUser(alternateUserIds) {
     Loading.show()
     try {
-      await apiUserService.update({
-        userId: userId,
-        users: newAltIds
-      })
+      await update({ variables: { input: { userId, alternateUserIds } } })
       Alert.success('Alternate User IDs Updated')
       setShowModal(false)
     } catch (error_) {
@@ -117,11 +105,12 @@ export const UserAlternateUserId = ({ match }) => {
       <UiCardModal
         title="Alternate User IDs"
         isOpen={showModal}
+        saveDisabled={!isValid}
         onCancel={() => setShowModal(false)}
         onSave={save}
         onDelete={form.alternateUserId ? () => setShowConfirm(true) : null}
       >
-        <form>
+        <form ref={formRef}>
           <Column.Group>
             <Column>
               <Field>
@@ -144,7 +133,7 @@ export const UserAlternateUserId = ({ match }) => {
                   <Input
                     type="text"
                     name="description"
-                    value={form.description}
+                    value={form.description || ''}
                     onChange={e => setForm({ ...form, description: e.target.value })}
                     placeholder="Description"
                   />

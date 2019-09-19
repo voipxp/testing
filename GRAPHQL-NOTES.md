@@ -40,6 +40,12 @@ permission services should be simplified
 - call all needed objects in one query
 - do a mutation for assigning services, which should force an update on servicesAssigned
 
+### Custom Hooks
+
+- always return a stable identity
+- mutations should return the tuple
+- queries should return the same object
+
 ### Idea: Custom Hooks with passable fragments
 
 ```

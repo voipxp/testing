@@ -1,4 +1,4 @@
-// TODO: form validity check
+// TODO [2019-10-01]: form validity check
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
