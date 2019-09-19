@@ -17,15 +17,19 @@ const columns = [
 ]
 
 export const ServiceProviderSelect = ({ onSelect }) => {
-  const { loading, data, error } = useQuery(SERVICE_PROVIDER_LIST_QUERY)
   const Alert = useAlert()
+
+  const { loading, data, error } = useQuery(SERVICE_PROVIDER_LIST_QUERY)
+
   if (error) Alert.danger(error)
   if (loading && !data) return <UiLoading />
+
+  const { serviceProviders } = data
 
   return (
     <UiDataTable
       columns={columns}
-      rows={data.serviceProviders}
+      rows={serviceProviders}
       rowKey="serviceProviderId"
       onClick={onSelect}
     />
