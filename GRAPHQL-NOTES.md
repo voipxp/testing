@@ -1,5 +1,84 @@
 ## GRAPHQL NOTES
 
+### QUERY HOOK API
+
+Straight Up
+
+```
+  const useThing = (opts = {}) => {
+    return useQuery(QUERY, opts)
+  }
+
+  const { data } = useThing({variables: {thingId }})
+  const thing = data && data.thing
+```
+
+Helper on variables
+
+```
+  const useThing = (variables, opts = {}) => {
+    return useQuery(QUERY, {variables, ...opts})
+  }
+
+  const { data } = useThing()
+  const thing = data && data.thing
+```
+
+Helper on data
+
+```
+  const useThing = (variables, opts = {}) => {
+    const query = useQuery(QUERY, {variables, ...opts})
+    const data = query.data && query.data.thing
+    return {...query, data}
+  }
+
+  const { data } = useThing()
+  // data === thing
+```
+
+### MUTATION HOOK API
+
+Straight Up
+
+```
+  const useThingUpdate = (opts = {}) => {
+    return useMutation(QUERY, opts)
+  }
+
+  const [update] = useThingUpdate()
+  update({variables: { input: thing }})
+```
+
+Helper on Variables
+
+```
+  const useThingUpdate = (opts = {}) => {
+    const [exec, results] = useMutation(QUERY, opts)
+    const mutate = useCallback((variables, opts = {}) => exec({variables, ...opts}))
+    return [mutate, results]
+  }
+
+  const [update, { data }] = useThingUpdate()
+  await update({input: thing})
+  console.log(data.thingUpdate)
+```
+
+Helper on Variables and Results
+
+```
+  const useThingUpdate = (opts = {}) => {
+    const [exec, results] = useMutation(QUERY, opts)
+    const mutate = useCallback((variables, opts = {}) => exec({variables, ...opts}))
+    const data = results.data && results.data.thingUpdate
+    return [mutate, {...results, data}]
+  }
+
+  const [update, { data }] = useThingUpdate()
+  await update({input: thing})
+  console.log(data)
+```
+
 ### TODO
 
 - any API mutations with graphql queries left?
@@ -39,12 +118,6 @@ permission services should be simplified
 
 - call all needed objects in one query
 - do a mutation for assigning services, which should force an update on servicesAssigned
-
-### Custom Hooks
-
-- always return a stable identity
-- mutations should return the tuple
-- queries should return the same object
 
 ### Idea: Custom Hooks with passable fragments
 
@@ -88,10 +161,9 @@ This will run whatever queries are given to update the cache
 
 ```
 export const useResellerAdminCreate = resellerId => {
-  const [exec, results] = useMutation(RESELLER_ADMIN_CREATE_MUTATION, {
+  return useMutation(RESELLER_ADMIN_CREATE_MUTATION, {
     refetchQueries: [{ query: RESELLER_ADMIN_LIST_QUERY, variables: { resellerId } }]
   })
-  return [input => exec({ variables: { input } }), results]
 }
 ```
 
@@ -101,7 +173,7 @@ This updates the cache directly.
 
 ```
 export const useResellerAdminCreate = () => {
-  const [exec, results] = useMutation(RESELLER_ADMIN_CREATE_MUTATION, {
+  return useMutation(RESELLER_ADMIN_CREATE_MUTATION, {
     update: (store, { data: { resellerAdminCreate } }) => {
       const { resellerId } = resellerAdminCreate
       const { resellerAdmins } = store.readQuery({
@@ -115,7 +187,6 @@ export const useResellerAdminCreate = () => {
       })
     }
   })
-  return [input => exec({ variables: { input } }), results]
 }
 
 
