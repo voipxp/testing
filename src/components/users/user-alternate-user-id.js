@@ -89,7 +89,7 @@ export const UserAlternateUserId = ({ match }) => {
       <UiCard
         title="Alternate User IDs"
         buttons={
-          alternateUserIds.length < 3 &&
+          alternateUserIds.length < 4 &&
           hasReseller && <UiButton color="link" icon="add" size="small" onClick={add} />
         }
       >
