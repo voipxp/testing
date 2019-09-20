@@ -2,19 +2,11 @@
 
 ### TODO
 
-- any API mutations with graphql queries left?
-- Branding modules, application, ...
 - things calling @/api
+- any API mutations in angular with graphql queries?
+- Branding modules, application, ...
 - any other things that could use caching
-
-- Figure out the best format for hooks for both queries and mutations.
-
-  - Do we want it to be uniform {data, loading, error}?
-  - Do we want to use the second part of mutations [update, {error, loading}]?
-
 - Update README.md to show how to use graphql
-
-- SSO Token Login
 
 ### Errors
 
@@ -26,18 +18,10 @@ Handle NotFound vs AuthenticationRequired vs Forbidden vs PasswordExpired in OCI
 
 ### THINGS TO DO
 
-Authentication
-
 - handle auth errors and clear session
   - use apollo-link-error for finding auth errors and handling
   - https://www.apollographql.com/docs/link/links/error/
-- loginWithToken for SSO
-- initial refresh only if a jwt token exists and is not expired
-- handle password change error
-
-permission services should be simplified
-
-- call all needed objects in one query
+- permission services should be simplified
 - do a mutation for assigning services, which should force an update on servicesAssigned
 
 ### Updating cache
