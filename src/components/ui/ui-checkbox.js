@@ -4,6 +4,9 @@ import { Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faCheck, faMinus } from '@fortawesome/free-solid-svg-icons'
 
+/**
+ * Renders a checkbox based on isChecked being **undefined**, **true**, or **false**.
+ */
 export const UiCheckbox = ({ isChecked }) => {
   const isUndefined = typeof isChecked === 'undefined'
   const icon = isUndefined ? faMinus : isChecked ? faCheck : faTimes
@@ -16,5 +19,6 @@ export const UiCheckbox = ({ isChecked }) => {
 }
 
 UiCheckbox.propTypes = {
+  /** Displays indeterminate state if undefined */
   isChecked: PropTypes.bool
 }

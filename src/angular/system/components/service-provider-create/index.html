@@ -3,6 +3,17 @@
     <pbs-form>
       <pbs-tabs>
         <pbs-tab label="Required">
+          <pbs-form-field
+            label="Reseller ID"
+            ng-if="$ctrl.serviceProvider.resellerId"
+          >
+            <input
+              type="text"
+              class="input"
+              ng-model="$ctrl.serviceProvider.resellerId"
+              disabled
+            />
+          </pbs-form-field>
           <pbs-form-field label="Service Provider ID">
             <input
               type="text"

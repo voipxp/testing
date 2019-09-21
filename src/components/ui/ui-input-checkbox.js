@@ -11,6 +11,9 @@ const StyledLabel = styled.label`
   }
 `
 
+/**
+ * Displays a form checkbox, styled according to Odin UI styles. If **checked** is undefined, it will display as indeterminate. Label may be passed as a prop and it will wrap the element.
+ */
 export const UiInputCheckbox = ({
   name,
   label,
@@ -73,7 +76,9 @@ export const UiInputCheckbox = ({
 UiInputCheckbox.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
+  /** Displays indeterminate if undefined */
   checked: PropTypes.bool,
+  /** { target: { type: 'checkbox', name: 'name', checked: true }} */
   onChange: PropTypes.func,
   loading: PropTypes.bool,
   disabled: PropTypes.bool

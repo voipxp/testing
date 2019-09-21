@@ -12,7 +12,11 @@
       <thead>
         <tr>
           <th>Type</th>
-          <th>User ID</th>
+          <th>Session Type</th>
+          <th>Session Login</th>
+          <th>Service Provider Id</th>
+          <th>Group Id</th>
+          <th>User Id</th>
           <th>Created</th>
         </tr>
       </thead>
@@ -31,7 +35,11 @@
           ng-click="$ctrl.open(event)"
         >
           <td>{{ event.type }}</td>
+          <td>{{ event.userLoginType }}</td>
           <td>{{ event.userId }}</td>
+          <td>{{ event.eventServiceProviderId }}</td>
+          <td>{{ event.eventGroupId }}</td>
+          <td>{{ event.eventUserId }}</td>
           <td>{{ event.createdAt | date: 'medium' }}</td>
         </tr>
       </tbody>

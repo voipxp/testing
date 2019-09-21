@@ -99,9 +99,15 @@ export const dashboardMenu = [
         hasLevel: 'Group'
       },
       {
-        path: 'number-and-device',
-        name: 'Number and Device',
+        path: 'phone-number',
+        name: 'Phone Number',
         angularComponent: 'userAddresses',
+        hasLevel: 'Group'
+      },
+      {
+        path: 'device-endpoint',
+        name: 'Device Endpoint',
+        angularComponent: 'userDevice',
         hasLevel: 'Group'
       },
       {

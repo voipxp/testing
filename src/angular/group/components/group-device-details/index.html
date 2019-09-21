@@ -1,0 +1,65 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Device Details">
+    <pbs-block-buttons ng-if="$ctrl.canUpdate">
+      <pbs-button-compact-edit
+        ng-click="$ctrl.edit()"
+      ></pbs-button-compact-edit>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Device Name"
+        >{{ $ctrl.device.deviceName }}</pbs-list-item
+      >
+      <pbs-list-item label="Device Type">
+        {{ $ctrl.device.deviceType }}
+      </pbs-list-item>
+      <pbs-list-item label="Status">
+        {{ $ctrl.device.status }}
+      </pbs-list-item>
+      <pbs-list-item label="MAC Address">
+        {{ $ctrl.device.macAddress }}
+      </pbs-list-item>
+      <pbs-list-item label="Description">
+        {{ $ctrl.device.description }}
+      </pbs-list-item>
+      <pbs-list-item label="Serial Number">
+        {{ $ctrl.device.serialNumber }}
+      </pbs-list-item>
+      <pbs-list-item label="Use Custom Credentials">
+        <pbs-check-box
+          checked="$ctrl.device.useCustomUserNamePassword"
+        ></pbs-check-box>
+      </pbs-list-item>
+      <pbs-list-item label="Assigned Ports">
+        {{ $ctrl.device.numberOfAssignedPorts }}
+      </pbs-list-item>
+      <pbs-list-item label="Total Ports">
+        {{ $ctrl.device.numberOfPorts.quantity }}
+      </pbs-list-item>
+      <pbs-list-item label="Protocol">
+        {{ $ctrl.device.protocol }}
+      </pbs-list-item>
+      <pbs-list-item label="Net Address">
+        {{ $ctrl.device.netAddress }}
+      </pbs-list-item>
+      <pbs-list-item label="Transport Protocol">
+        {{ $ctrl.device.transportProtocol }}
+      </pbs-list-item>
+      <pbs-list-item label="Outbound Proxy Server Net Address">
+        {{ $ctrl.device.outboundProxyServerNetAddress }}
+      </pbs-list-item>
+      <pbs-list-item label="STUN Server Net Address">
+        {{ $ctrl.device.stunServerNetAddress }}
+      </pbs-list-item>
+      <pbs-list-item label="Physical Location">
+        {{ $ctrl.devicec.physicalLocation }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<device-update
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onUpdate($event)"
+  can-delete="true"
+  on-delete="$ctrl.onDelete($event)"
+></device-update>

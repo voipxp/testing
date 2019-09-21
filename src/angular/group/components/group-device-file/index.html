@@ -1,6 +1,6 @@
 <pbs-modal id="{{ $ctrl.modalId }}" title="{{ $ctrl.fileFormat }}">
   <pbs-spinner loading="$ctrl.loading">
-    <pbs-form-field label="Download">
+    <pbs-form-field label="Download" ng-if="$ctrl.file.configurationFileName">
       <button class="button" ng-click="$ctrl.download()">
         <span class="icon">
           <i class="fas fa-download"></i>

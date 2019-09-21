@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import { Field, Label, Control, Column } from 'rbx'
 import { UiButton } from './ui-button'
 
+/**
+ * A form field wrapper that ensures proper spacing and labels.  If passed **horizontal** the labels and input will be presented on the same line.
+ */
 export const UiFormField = ({ label, children, horizontal = false }) => {
   return horizontal ? (
     <UiFormFieldHorizontal label={label}>{children}</UiFormFieldHorizontal>
@@ -11,6 +14,7 @@ export const UiFormField = ({ label, children, horizontal = false }) => {
   )
 }
 UiFormField.propTypes = {
+  /** Present the label and field horizontally */
   horizontal: PropTypes.bool,
   label: PropTypes.string,
   children: PropTypes.any

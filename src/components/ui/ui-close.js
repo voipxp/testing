@@ -26,6 +26,9 @@ const CloseIcon = styled.span`
   }
 `
 
+/**
+ * A simple close button that wraps the child component on the top-left corner.
+ */
 export const UiClose = ({ onClick }) => (
   <Wrapper>
     <Icon as={CloseIcon} onClick={onClick} color="grey">
@@ -35,5 +38,6 @@ export const UiClose = ({ onClick }) => (
 )
 
 UiClose.propTypes = {
+  /** Callback when clicked */
   onClick: PropTypes.func
 }

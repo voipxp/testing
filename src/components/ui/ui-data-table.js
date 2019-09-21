@@ -30,6 +30,17 @@ const WrappedTable = styled.div`
   }
 `
 
+/**
+ * Renders a data table. You must pass in the **columns** prop which contains the data schema. The **rows** which are an array of objects to display in the table. The **rowKey** which is the unique identifier in each row.
+ *
+ * The table will automatically paginate the data (defaults to 10) and show a filter search bar. You can set **hideSearch** to true to disable the search bar.
+ *
+ * If **onClick** is a callback function, the table will be hoverable and the row clicked will be passed back to the callback.
+ *
+ * If **onSelect** is a callback function, then the table is selectable. You must set **showSelect** to true, to show the selection. The **onSelect** callback will be passed an array of selected rows. NOTE: Canceling the select returns an empty array.
+ *
+ * The columns schema defines the **key** in each column and an optional **label** to present in the table header. By default, the value of `row[column.key]` will be displayed. If a **render** prop is passed, the render prop will be executed passing in the **row** instead.
+ */
 export const UiDataTable = ({
   columns,
   rowKey,
@@ -243,6 +254,7 @@ export const UiDataTable = ({
 }
 
 UiDataTable.propTypes = {
+  /** Schema of the table columns */
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.string.isRequired,
@@ -250,11 +262,18 @@ UiDataTable.propTypes = {
       render: PropTypes.func
     })
   ).isRequired,
+  /** Rows of data to render in table */
   rows: PropTypes.array.isRequired,
+  /** Unique ID for each row */
   rowKey: PropTypes.string.isRequired,
+  /** Customize pagination size */
   pageSize: PropTypes.number,
+  /** Disable the Search Bar */
   hideSearch: PropTypes.bool,
+  /** Allow Selecting rows */
   showSelect: PropTypes.bool,
+  /** Callback when a Row is clicked */
   onClick: PropTypes.func,
+  /** Callback when Rows are selected */
   onSelect: PropTypes.func
 }

@@ -11,6 +11,12 @@ import {
   faEyeSlash
 } from '@fortawesome/free-solid-svg-icons'
 
+/**
+ *
+ * Displays a password input and a repeat password input field, with an option of displaying the password. Provide an **onGeneratePassword** callback to automatically generate the password.
+ *
+ * You may pass any ordinary input field properties through such as **required**, **minLength**, **disabled**, etc..
+ */
 export const UiInputPassword = ({
   required = false,
   onGeneratePassword,
@@ -126,9 +132,14 @@ export const UiInputPassword = ({
 }
 
 UiInputPassword.propTypes = {
+  /** Name of the field */
   name: PropTypes.string.isRequired,
+  /** Callback with change results */
   onChange: PropTypes.func.isRequired,
+  /** Callback to generate the password */
   onGeneratePassword: PropTypes.func.isRequired,
+  /** Value of the field */
   value: PropTypes.string.isRequired,
+  /** If the value is required */
   required: PropTypes.bool
 }

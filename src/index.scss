@@ -14,3 +14,9 @@ $label-weight: $weight-medium;
 @import '~bulma-quickview/dist/css/bulma-quickview.sass';
 
 @import '~rbx/rbx';
+
+.navbar-item.is-hoverable:hover .navbar-dropdown.is-boxed {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}

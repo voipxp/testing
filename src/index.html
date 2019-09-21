@@ -34,18 +34,49 @@
       href="/api/v2/ui/images/imageIcon.png?size=32x32"
     />
     <link rel="stylesheet" href="/api/v2/ui/styles/style.css" />
-
-    <!-- prettier-ignore -->
-    <script nonce="1eb8230f61cf659e7e96c3d1dfa53882e5fd737c">
-      /* eslint-disable unicorn/prefer-query-selector,no-unused-expressions,no-sequences */
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    </script>
   </head>
 
   <body>
+    <section
+      class="hero is-link is-fullheight"
+      id="supported-browsers"
+      style="display: none"
+    >
+      <div class="hero-body">
+        <div
+          class="box "
+          style="width: 800px; height: 250px; margin: 200px auto;"
+        >
+          <h1 class="title has-text-dark">Supported Browsers</h1>
+          <p class="subtitle has-text-dark" style="margin-top: 1rem;">
+            This site is designed for modern web browsers. We support the
+            current versions of
+            <a class="has-text-link" href="https://www.google.com/chrome/"
+              >Chrome</a
+            >,
+            <a class="has-text-link" href="http://www.mozilla.org/firefox/"
+              >Firefox</a
+            >,
+            <a class="has-text-link" href="http://www.apple.com/safari/"
+              >Safari</a
+            >, and
+            <a
+              class="has-text-link"
+              href="https://www.microsoft.com/en-us/windows/microsoft-edge"
+              >Microsoft Edge</a
+            >.
+          </p>
+          <p>
+            Please revisit this page after you've upgraded your browser using
+            one of the links above.
+          </p>
+        </div>
+      </div>
+    </section>
     <div id="root"></div>
+    <script nomodule>
+      var ele = document.getElementById('supported-browsers')
+      ele.style.display = 'block'
+    </script>
   </body>
 </html>

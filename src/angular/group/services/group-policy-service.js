@@ -47,7 +47,9 @@ function Service(AuthService, Session, ACL, $q) {
     userProfileRead: userProfileRead,
     userProfileUpdate: userProfileUpdate,
     userRead: userRead,
-    userUpdate: userUpdate
+    userUpdate: userUpdate,
+    userDelete: userDelete,
+    userIdUpdate: userIdUpdate
   }
   return service
 
@@ -238,6 +240,12 @@ function Service(AuthService, Session, ACL, $q) {
       'Read-Only Profile',
       'No Profile'
     ])
+  }
+  function userDelete() {
+    return checkAccess('userAccess', ['Full'])
+  }
+  function userIdUpdate() {
+    return checkAccess('userAccess', ['Full'])
   }
 
   function userUpdate() {

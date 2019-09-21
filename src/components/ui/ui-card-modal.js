@@ -50,6 +50,12 @@ const StyledModal = styled.div`
   }
 `
 
+/**
+ *
+ * Wrap any element in a card modal. The element will be mounted and animated when **isOpen** is true. The footer will always show the **Cancel** button. The **Save** and **Delete** buttons are only shown if the **onSave** or **onDelete** props are passed in.
+ *
+ * When the delete icon on the top-right or the **Cancel** button is clicked, it will fire the **onCancel** event. If the **Save** button is clicked, it will fire the **onSave** button. If the **Delete** button is clicked it will fire the **onDelete** button. The parent component should handle these events and change the **isOpen** prop to false to close the modal.
+ */
 export const UiCardModal = ({
   children,
   isOpen,
@@ -97,13 +103,22 @@ export const UiCardModal = ({
 )
 
 UiCardModal.propTypes = {
+  /** Shows the modal when true */
   isOpen: PropTypes.bool.isRequired,
+  /** Called when Cancel Button Clicked */
   onCancel: PropTypes.func.isRequired,
+  /** Required Card Title */
   title: PropTypes.string.isRequired,
+  /** Shows the Save Button if set */
   onSave: PropTypes.func,
+  /** Shows the Delete Button if set */
   onDelete: PropTypes.func,
+  /** Customize the Cancel Button Text */
   cancelText: PropTypes.string,
+  /** Customize the Save Buton Text */
   saveText: PropTypes.string,
+  /** Customize the Delete Button Text */
   deleteText: PropTypes.string,
+  /** Children displayed in the Card */
   children: PropTypes.any
 }
