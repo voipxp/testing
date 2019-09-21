@@ -88,8 +88,23 @@ export const USER_FRAGMENT = gql`
 `
 
 export const USER_LIST_QUERY = gql`
-  query users($serviceProviderId: String!, $groupId: String!, $includeUser: Boolean!) {
-    users(serviceProviderId: $serviceProviderId, groupId: $groupId) {
+  query users(
+    $serviceProviderId: String
+    $groupId: String
+    $lastName: SearchCriteria
+    $firstName: SearchCriteria
+    $phoneNumber: SearchCriteria
+    $emailAddress: SearchCriteria
+    $includeUser: Boolean! = false
+  ) {
+    users(
+      serviceProviderId: $serviceProviderId
+      groupId: $groupId
+      lastName: $lastName
+      firstName: $firstName
+      phoneNumber: $phoneNumber
+      emailAddress: $emailAddress
+    ) {
       ...UserListFragment
       user @include(if: $includeUser) {
         _id

@@ -43,7 +43,6 @@ export const UserServiceSearch = ({ onSelect }) => {
     e.preventDefault()
     const { key, value } = form
     const variables = { [key]: `*${value}*`, serviceProviderId }
-    console.log('variables', variables)
     await search({ variables })
     if (error) Alert.danger(error)
   }

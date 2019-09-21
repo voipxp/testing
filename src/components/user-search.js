@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
-import { useAlert, useSession } from '@/utils'
-import userApi from '@/api/users'
+import { useAlert, useForm, useSession } from '@/utils'
+import { useLazyQuery } from '@apollo/react-hooks'
+import { USER_LIST_QUERY } from '@/graphql'
 
 const searchTypes = [
-  { key: 'dn', name: 'Phone Number' },
+  { key: 'phoneNumber', name: 'Phone Number' },
   { key: 'extension', name: 'Extension' },
   { key: 'lastName', name: 'Last Name' },
   { key: 'firstName', name: 'First Name' },
@@ -18,7 +19,7 @@ const searchTypes = [
 ]
 
 const columns = [
-  { key: 'userIdShort', label: 'User Id' },
+  { key: 'userId', label: 'User Id' },
   { key: 'lastName', label: 'Last' },
   { key: 'firstName', label: 'First' },
   { key: 'phoneNumber', label: 'Phone' },
@@ -29,56 +30,37 @@ const columns = [
 
 export const UserSearch = ({ onSelect }) => {
   const Alert = useAlert()
-  const [searchKey, setSearchKey] = React.useState('lastName')
-  const [searchString, setSearchString] = React.useState('')
-  const [users, setUsers] = React.useState([])
-  const [loading, setLoading] = React.useState(false)
-  const [initialized, setInitialized] = React.useState(false)
+
+  const ref = useRef()
+  const initialForm = { key: 'lastName', value: '' }
+  const { form, onChange, isValid } = useForm(initialForm, ref)
+
   const session = useSession()
   const { serviceProviderId, groupId } = session
 
-  const handleSearchKey = e => {
-    setSearchKey(e.target.value)
-  }
-  const handleSearchString = e => {
-    setSearchString(e.target.value)
-  }
+  const [search, { data, loading, called, error }] = useLazyQuery(USER_LIST_QUERY, {
+    fetchPolicy: 'cache-and-network'
+  })
 
-  const search = async e => {
+  const searchUser = async e => {
     e.preventDefault()
-    setLoading(true)
-    setInitialized(true)
-    try {
-      const query = searchKey === 'macAddress' ? searchString : `*${searchString}*`
-      const users = await userApi.search({
-        [searchKey]: query,
-        serviceProviderId,
-        groupId
-      })
-      setUsers(users)
-    } catch (error) {
-      Alert.danger(error)
-      setUsers([])
-    } finally {
-      setLoading(false)
-    }
+    const { key, value } = form
+    const query = key === 'macAddress' ? value : `*${value}*`
+    const variables = { [key]: query, serviceProviderId, groupId }
+    await search({ variables })
+    if (error) Alert.danger(error)
   }
 
   return (
     <>
-      <form style={{ marginBottom: '1rem' }} onSubmit={search}>
+      <form style={{ marginBottom: '1rem' }} onSubmit={searchUser} ref={ref}>
         <Field kind="addons">
           <Control>
             <Select.Container>
-              <Select
-                disabled={loading}
-                value={searchKey}
-                onChange={handleSearchKey}
-                name="searchKey"
-              >
-                {searchTypes.map(searchType => (
-                  <Select.Option key={searchType.key} value={searchType.key}>
-                    {searchType.name}
+              <Select disabled={loading} value={form.key} onChange={onChange} name="key" required>
+                {searchTypes.map(type => (
+                  <Select.Option key={type.key} value={type.key}>
+                    {type.name}
                   </Select.Option>
                 ))}
               </Select>
@@ -88,19 +70,16 @@ export const UserSearch = ({ onSelect }) => {
             <Input
               type="search"
               placeholder="search"
-              onChange={handleSearchString}
+              onChange={onChange}
               disabled={loading}
-              name="searchString"
-              value={searchString}
+              name="value"
+              value={form.value}
               autoFocus
+              required
             />
           </Control>
           <Control>
-            <Button
-              type="submit"
-              state={loading ? 'loading' : ''}
-              disabled={!searchString || !searchKey || loading}
-            >
+            <Button type="submit" state={loading ? 'loading' : ''} disabled={!isValid || loading}>
               <Icon size="small" align="left">
                 <FontAwesomeIcon icon={faSearch} />
               </Icon>
@@ -108,19 +87,16 @@ export const UserSearch = ({ onSelect }) => {
           </Control>
         </Field>
       </form>
-      {!initialized ? (
-        ''
-      ) : (loading ? (
-        <UiLoading />
-      ) : (
+      {called && loading && <UiLoading />}
+      {called && !loading && (
         <UiDataTable
           columns={columns}
-          rows={users}
+          rows={(data && data.users) || []}
           rowKey="userId"
           pageSize={50}
           onClick={onSelect}
         />
-      ))}
+      )}
     </>
   )
 }
