@@ -1,5 +1,10 @@
 ## GRAPHQL NOTES
 
+## Next
+
+- User show should return full accessDevice if asked for
+- Add to the Device Endpoint page
+
 ### TODO
 
 - things calling @/api
