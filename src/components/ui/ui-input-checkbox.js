@@ -25,7 +25,7 @@ export const UiInputCheckbox = ({
 }) => {
   const ref = React.useRef()
   const isUndefined = typeof checked === 'undefined'
-  const icon = isUndefined ? faMinus : checked ? faCheck : faTimes
+  const icon = isUndefined ? faMinus : (checked ? faCheck : faTimes)
   const color = checked ? 'success' : 'grey-light'
   const iconColor = checked ? null : 'grey-light'
   const state = loading ? 'loading' : null

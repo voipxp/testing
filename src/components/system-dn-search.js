@@ -135,7 +135,7 @@ export const SystemDnSearch = ({ onSelect }) => {
       </form>
       {!initialized ? (
         ''
-      ) : loading ? (
+      ) : (loading ? (
         <UiLoading />
       ) : (
         <UiDataTable
@@ -145,7 +145,7 @@ export const SystemDnSearch = ({ onSelect }) => {
           pageSize={50}
           onClick={onSelect}
         />
-      )}
+      ))}
       <UiCardModal
         title="Select Service Provider"
         isOpen={showServiceProvider}

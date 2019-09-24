@@ -100,7 +100,7 @@ export const GroupSearch = ({ onSelect }) => {
       </form>
       {!initialized ? (
         ''
-      ) : loading ? (
+      ) : (loading ? (
         <UiLoading />
       ) : (
         <UiDataTable
@@ -110,7 +110,7 @@ export const GroupSearch = ({ onSelect }) => {
           pageSize={50}
           onClick={onSelect}
         />
-      )}
+      ))}
     </>
   )
 }

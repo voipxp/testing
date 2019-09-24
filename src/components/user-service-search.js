@@ -107,7 +107,7 @@ export const UserServiceSearch = ({ onSelect }) => {
       </form>
       {!initialized ? (
         ''
-      ) : loading ? (
+      ) : (loading ? (
         <UiLoading />
       ) : (
         <UiDataTable
@@ -117,7 +117,7 @@ export const UserServiceSearch = ({ onSelect }) => {
           pageSize={50}
           onClick={onSelect}
         />
-      )}
+      ))}
     </>
   )
 }
