@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --hot --open",
     "build": "webpack --mode production",
-    "prettier": "prettier '**/*.{css,sass,scss,md,mdx,json,html,yml,yaml,js}' -l",
+    "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx|graphql)\" -l",
     "format": "yarn prettier --write",
     "lint": "eslint '**/*.js'",
     "fix": "eslint --fix '**/*.js'",
@@ -129,7 +129,7 @@
     "**/*.js": [
       "eslint --fix"
     ],
-    "**/*.(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx|graphql)": [
+    "**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx|graphql)": [
       "prettier --write",
       "git add"
     ]

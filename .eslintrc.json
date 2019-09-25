@@ -10,7 +10,7 @@
     "react-app",
     "plugin:react/recommended",
     "plugin:unicorn/recommended",
-    "prettier"
+    "eslint-config-prettier"
   ],
   "plugins": ["react-hooks"],
   "rules": {
@@ -19,6 +19,7 @@
     "react-hooks/exhaustive-deps": "warn",
     "unicorn/prevent-abbreviations": 0,
     "unicorn/consistent-function-scoping": 0,
+    "unicorn/no-nested-ternary": 0,
     "prefer-const": "warn",
     "func-style": ["error", "declaration", { "allowArrowFunctions": true }]
   },
