@@ -2,7 +2,6 @@ import React from 'react'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
-import { parse, stringify } from 'query-string'
 import { useAlerts } from '@/store/alerts'
 import { useUi } from '@/store/ui'
 import { useSession } from '@/store/session'
@@ -10,28 +9,9 @@ import { useUiTemplate } from '@/store/ui-template'
 import authApi from '@/api/auth'
 
 export const AppLogin = () => {
-  const { setSession, loadSessionFromToken } = useSession()
+  const { setSession } = useSession()
   const { showLoadingModal, hideLoadingModal } = useUi()
   const { alertWarning, alertDanger } = useAlerts()
-
-  const tokenLogin = React.useCallback(() => {
-    const [hash, query] = window.location.hash.split('?')
-    if (!query) return
-    const search = parse(query)
-    const token = search.token
-    if (!token) return
-    showLoadingModal()
-    delete search.token
-    const newSearch = stringify(search)
-    window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
-    loadSessionFromToken(token)
-      .catch(error => alertDanger(error))
-      .finally(() => hideLoadingModal())
-  }, [alertDanger, hideLoadingModal, loadSessionFromToken, showLoadingModal])
-
-  React.useEffect(() => {
-    tokenLogin()
-  }, [tokenLogin])
 
   const { template } = useUiTemplate()
   const { pageLoginMessage } = template
