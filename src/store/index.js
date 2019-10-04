@@ -45,11 +45,10 @@ export const store = configureStore({
 // look for either a token passed in the URL or saved in localstorage
 const loadSession = () => {
   const [hash, query] = window.location.hash.split('?')
-  const search = (query && parse(query)) || {}
-  const { token, ...rest } = search
+  const { token, ...rest } = parse(query)
   if (token) {
-    const newSearch = stringify(rest)
-    window.location.hash = newSearch ? `${hash}?${newSearch}` : hash
+    const params = stringify(rest)
+    window.location.hash = params ? `${hash}?${params}` : hash
     return store.dispatch(loadSessionFromToken(token))
   } else {
     return store.dispatch(loadSessionFromStorage())
