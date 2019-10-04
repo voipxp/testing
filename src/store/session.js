@@ -16,10 +16,10 @@ export const sessionReducer = createReducer(initialState, {
   [clear]: () => ({})
 })
 
-export const clearSession = () => async dispatch => {
+export const clearSession = (clearStorage = true) => async dispatch => {
   setToken()
   dispatch(clear())
-  localStorage.removeItem(STORAGE_KEY)
+  if (clearStorage) localStorage.removeItem(STORAGE_KEY)
 }
 
 export const setSession = (data = {}) => async dispatch => {
