@@ -10,18 +10,19 @@
     <pbs-block-buttons
       ng-if="$ctrl.module.permissions.create && $ctrl.canCreate"
     >
-      <pbs-button-compact-create
-        title="Create Auto Attendant"
-        ng-click="$ctrl.create()"
-      ></pbs-button-compact-create>
-      <pbs-button-compact-clone
-        title="Clone Auto Attendant"
-        ng-click="$ctrl.clone()"
-      ></pbs-button-compact-clone>
       <pbs-button-compact-add
         title="Add Auto Attendant"
         ng-click="$ctrl.add()"
       ></pbs-button-compact-add>
+      <pbs-button-compact-clone
+        title="Clone Auto Attendant"
+        ng-click="$ctrl.clone()"
+      ></pbs-button-compact-clone>
+      <pbs-button-compact-visual
+        title="Create Auto Attendant"
+        ng-click="$ctrl.visual()"
+        if-module-create="'Visual AA Builder'"
+      ></pbs-button-compact-visual>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
     <table pbs-table>

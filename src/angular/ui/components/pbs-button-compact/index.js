@@ -26,6 +26,7 @@ angular
   .directive('pbsButtonCompactClone', pbsButtonCompact('fa-clone'))
   .directive('pbsButtonCompactBulk', pbsButtonCompact('fa-sitemap'))
   .directive('pbsButtonCompactCogs', pbsButtonCompact('fa-cogs'))
+  .directive('pbsButtonCompactVisual', pbsButtonCompact('fa-project-diagram'))
 
 const template = `
 <button class="button is-link is-small">

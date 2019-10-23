@@ -5,11 +5,6 @@ import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 export const routes = [
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/autoAttendants/createAutoAttendant',
-    component: CreateAutoAttendant
-  },
-  {
     path: '/account',
     angularComponent: 'myAccount'
   },
@@ -771,6 +766,11 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/groupCommunicationBarring',
     component: GroupCommunicationBarring
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/autoAttendants/visual',
+    component: CreateAutoAttendant,
+    hasModuleRead: 'Visual AA Builder'
   },
   {
     path: '/system/resellers',
