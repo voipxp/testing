@@ -8,14 +8,16 @@ import { Card, Button } from 'rbx'
 export const UiCard = ({ title, buttons, children }) => {
   return (
     <Card>
-      <Card.Header>
-        <Card.Header.Title>{title}</Card.Header.Title>
-        {buttons && (
-          <Card.Header.Icon>
-            <Button.Group>{buttons}</Button.Group>
-          </Card.Header.Icon>
-        )}
-      </Card.Header>
+      {title && (
+        <Card.Header>
+          <Card.Header.Title>{title}</Card.Header.Title>
+          {buttons && (
+            <Card.Header.Icon>
+              <Button.Group>{buttons}</Button.Group>
+            </Card.Header.Icon>
+          )}
+        </Card.Header>
+      )}
       <Card.Content>{children}</Card.Content>
     </Card>
   )

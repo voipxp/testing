@@ -27,6 +27,7 @@ function controller(
   ctrl.$onInit = onInit
   ctrl.open = open
   ctrl.add = add
+  ctrl.create = create
   ctrl.onCreate = onCreate
   ctrl.toggle = toggle
   ctrl.clone = clone
@@ -90,6 +91,16 @@ function controller(
 
   function add() {
     $scope.$broadcast('autoAttendantCreate:load')
+  }
+
+  function create() {
+    Route.open(
+      'groups',
+      ctrl.serviceProviderId,
+      ctrl.groupId,
+      'autoAttendants',
+      'createAutoAttendant'
+    )
   }
 
   function clone() {

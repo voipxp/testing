@@ -1,8 +1,14 @@
 import { UserDashboard } from '@/components/users'
+import { CreateAutoAttendant } from '@/components/autoAttendant'
 import { GroupCommunicationBarring, GroupSpeedDial8 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 export const routes = [
+  {
+    path:
+      '/groups/:serviceProviderId/:groupId/autoAttendants/createAutoAttendant',
+    component: CreateAutoAttendant
+  },
   {
     path: '/account',
     angularComponent: 'myAccount'

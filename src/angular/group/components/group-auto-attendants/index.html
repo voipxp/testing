@@ -10,6 +10,10 @@
     <pbs-block-buttons
       ng-if="$ctrl.module.permissions.create && $ctrl.canCreate"
     >
+      <pbs-button-compact-create
+        title="Create Auto Attendant"
+        ng-click="$ctrl.create()"
+      ></pbs-button-compact-create>
       <pbs-button-compact-clone
         title="Clone Auto Attendant"
         ng-click="$ctrl.clone()"
