@@ -5,7 +5,8 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Provisioning</th>
+          <th ng-if="!$ctrl.isReseller">Provisioning</th>
+          <th ng-if="$ctrl.hasReseller">Reseller</th>
           <th>Enterprise</th>
           <th>Group</th>
           <th>User</th>
@@ -26,9 +27,14 @@
           ng-repeat="module in $ctrl.modules | filter:$ctrl.search | orderBy:'name' as results track by module.id"
         >
           <td>{{ module.alias }}</td>
-          <td>
+          <td ng-if="!$ctrl.isReseller">
             <pbs-check-box
               checked="module.permissions.provisioning.read"
+            ></pbs-check-box>
+          </td>
+          <td ng-if="$ctrl.hasReseller">
+            <pbs-check-box
+              checked="module.permissions.reseller.read"
             ></pbs-check-box>
           </td>
           <td>
@@ -80,8 +86,10 @@
       <input type="url" class="input" ng-model="$ctrl.editModule.url" />
     </pbs-form-field>
     <pbs-columns>
-      <pbs-column>
-        <pbs-form-section>Provisioning</pbs-form-section>
+      <pbs-column ng-if="!$ctrl.isReseller">
+        <pbs-form-section
+          >{{ $ctrl.hasReseller ? 'Prov' : 'Provisioning' }}</pbs-form-section
+        >
         <pbs-input-checkbox
           label="Read"
           ng-model="$ctrl.editModule.permissions.provisioning.read"
@@ -100,6 +108,29 @@
         <pbs-input-checkbox
           label="Delete"
           ng-model="$ctrl.editModule.permissions.provisioning.delete"
+        >
+        </pbs-input-checkbox>
+      </pbs-column>
+      <pbs-column ng-if="$ctrl.hasReseller">
+        <pbs-form-section>Reseller</pbs-form-section>
+        <pbs-input-checkbox
+          label="Read"
+          ng-model="$ctrl.editModule.permissions.reseller.read"
+        >
+        </pbs-input-checkbox>
+        <pbs-input-checkbox
+          label="Create"
+          ng-model="$ctrl.editModule.permissions.reseller.create"
+        >
+        </pbs-input-checkbox>
+        <pbs-input-checkbox
+          label="Update"
+          ng-model="$ctrl.editModule.permissions.reseller.update"
+        >
+        </pbs-input-checkbox>
+        <pbs-input-checkbox
+          label="Delete"
+          ng-model="$ctrl.editModule.permissions.reseller.delete"
         >
         </pbs-input-checkbox>
       </pbs-column>

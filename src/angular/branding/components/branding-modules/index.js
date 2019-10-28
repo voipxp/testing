@@ -7,14 +7,16 @@ angular.module('odin.branding').component('brandingModules', {
   bindings: { hostnameId: '<' }
 })
 
-controller.$inject = ['BrandingModuleService', 'Alert']
-function controller(BrandingModuleService, Alert) {
+controller.$inject = ['BrandingModuleService', 'Alert', 'ACL', 'Session']
+function controller(BrandingModuleService, Alert, ACL, Session) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
   ctrl.update = update
 
   function onInit() {
+    ctrl.hasReseller = ACL.hasVersion('22')
+    ctrl.isReseller = Session.data('isReseller')
     ctrl.loading = true
     loadModules()
       .catch(function(error) {
