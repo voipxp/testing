@@ -97,6 +97,12 @@ export const routes = [
     hasModuleRead: 'Provisioning'
   },
   {
+    path: '/bulk/user.authentication.update',
+    angularComponent: 'bulkUserAuthenticationUpdate',
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
+  },
+  {
     path: '/events',
     angularComponent: 'odinEvents',
     isPaasAdmin: true

@@ -159,6 +159,20 @@ function BulkTaskService() {
       ]
     },
     {
+      task: 'user.authentication.update',
+      name: 'User SIP Password',
+      description: 'Set user SIP passwords',
+      required: ['userId', 'userName', 'newPassword'],
+      example: [
+        {
+          task: 'user.authentication.update',
+          userId: 'userId',
+          userName: 'string',
+          newPassword: 'string'
+        }
+      ]
+    },
+    {
       task: 'user.sharedcallappearance.update',
       name: 'Shared Call Appearance',
       description: 'Manage Shared Call Appearance Settings and Endpoints',
