@@ -1,0 +1,79 @@
+<pbs-navigation>
+  <pbs-breadcrumb title="'Bulk'" href="'#!/bulk'"></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Update User SIP Authentication'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<bulk-selected-users
+  users="$ctrl.data.users"
+  ng-click="$ctrl.data.users = []"
+></bulk-selected-users>
+
+<bulk-select-users-dashboard
+  ng-show="$ctrl.data.users.length < 1"
+  on-select="$ctrl.onSelectUsers($event)"
+></bulk-select-users-dashboard>
+
+<pbs-block
+  title="Update SIP Authentication"
+  ng-if="$ctrl.data.users.length > 0"
+>
+  <pbs-form>
+    <pbs-form-section>Do you want to set the usernames?</pbs-form-section>
+    <pbs-input-radio
+      value="skip"
+      ng-model="$ctrl.userNameAction"
+      ng-change="$ctrl.updateUserName()"
+      label="Leave Blank"
+    ></pbs-input-radio>
+    <pbs-input-radio
+      value="manual"
+      ng-model="$ctrl.userNameAction"
+      ng-change="$ctrl.updateUserName()"
+      label="Enter Username"
+    ></pbs-input-radio>
+    <pbs-form-field-horizontal
+      label="Username"
+      ng-if="$ctrl.userNameAction === 'manual'"
+    >
+      <bulk-tag-input
+        ng-model="$ctrl.userName"
+        is-required="true"
+      ></bulk-tag-input>
+    </pbs-form-field-horizontal>
+
+    <pbs-form-section>Do you want to set the passwords?</pbs-form-section>
+    <pbs-input-radio
+      value="auto"
+      ng-model="$ctrl.passwordAction"
+      label="Auto-Generate Passwords"
+      ng-change="$ctrl.updatePassword()"
+    ></pbs-input-radio>
+    <pbs-input-radio
+      value="skip"
+      ng-model="$ctrl.passwordAction"
+      label="Leave Blank"
+      ng-change="$ctrl.updatePassword()"
+    ></pbs-input-radio>
+    <pbs-input-radio
+      value="manual"
+      ng-model="$ctrl.passwordAction"
+      label="Enter Password"
+      ng-change="$ctrl.updatePassword()"
+    ></pbs-input-radio>
+    <pbs-form-field-horizontal
+      label="Password"
+      ng-if="$ctrl.passwordAction === 'manual'"
+    >
+      <bulk-tag-input
+        ng-model="$ctrl.newPassword"
+        is-required="true"
+      ></bulk-tag-input>
+    </pbs-form-field-horizontal>
+  </pbs-form>
+  <div class="margin-top has-text-right">
+    <pbs-button-next
+      ng-disabled="!$ctrl.canComplete()"
+      ng-click="$ctrl.complete()"
+    ></pbs-button-next>
+  </div>
+</pbs-block>
