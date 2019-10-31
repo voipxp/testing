@@ -3,6 +3,7 @@ import { CreateAutoAttendant } from '@/components/autoAttendant'
 import { GroupCommunicationBarring, GroupSpeedDial8 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
+import { Audits, Audit } from '@/components/audits'
 export const routes = [
   {
     path: '/account',
@@ -787,5 +788,16 @@ export const routes = [
     path: '/resellers/:resellerId',
     component: ResellerDashboard,
     hasLevel: 'Reseller'
+  },
+  {
+    path: '/audits',
+    exact: true,
+    component: Audits,
+    hasLevel: 'Provisioning'
+  },
+  {
+    path: '/audits/:id',
+    component: Audit,
+    hasLevel: 'Provisioning'
   }
 ]
