@@ -6,6 +6,8 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { UiLoading, UiDataTable } from '@/components/ui'
 import { useAlerts } from '@/store/alerts'
 import { useSession } from '@/store/session'
+import { useAsyncCallback } from 'react-async-hook'
+
 import groupApi from '@/api/groups'
 
 const searchTypes = [
@@ -23,11 +25,14 @@ export const GroupSearch = ({ onSelect }) => {
   const { alertDanger } = useAlerts()
   const [searchKey, setSearchKey] = React.useState('groupName')
   const [searchString, setSearchString] = React.useState('')
-  const [groups, setGroups] = React.useState([])
-  const [loading, setLoading] = React.useState(false)
   const [initialized, setInitialized] = React.useState(false)
   const { session } = useSession()
   const { serviceProviderId } = session
+
+  const { execute, result, loading, error } = useAsyncCallback(() =>
+    groupApi.search({ [searchKey]: `*${searchString}*`, serviceProviderId })
+  )
+  if (error) alertDanger(error)
 
   const handleSearchKey = e => {
     setSearchKey(e.target.value)
@@ -38,20 +43,22 @@ export const GroupSearch = ({ onSelect }) => {
 
   const search = async e => {
     e.preventDefault()
-    setLoading(true)
+    await execute()
     setInitialized(true)
-    try {
-      const groups = await groupApi.search({
-        [searchKey]: `*${searchString}*`,
-        serviceProviderId
-      })
-      setGroups(groups)
-    } catch (error) {
-      alertDanger(error)
-      setGroups([])
-    } finally {
-      setLoading(false)
-    }
+  }
+
+  const SearchResults = () => {
+    return loading ? (
+      <UiLoading />
+    ) : (
+      <UiDataTable
+        columns={columns}
+        rows={result || []}
+        rowKey="groupId"
+        pageSize={50}
+        onClick={onSelect}
+      />
+    )
   }
 
   return (
@@ -98,19 +105,7 @@ export const GroupSearch = ({ onSelect }) => {
           </Control>
         </Field>
       </form>
-      {!initialized ? (
-        ''
-      ) : (loading ? (
-        <UiLoading />
-      ) : (
-        <UiDataTable
-          columns={columns}
-          rows={groups}
-          rowKey="groupId"
-          pageSize={50}
-          onClick={onSelect}
-        />
-      ))}
+      {initialized ? <SearchResults /> : ''}
     </>
   )
 }
