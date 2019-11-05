@@ -79,6 +79,7 @@ function controller(
       services: true,
       policy: true,
       schedule: true,
+      departments: true,
       outgoingCallingPlan: true,
       routingProfile: true
     }
