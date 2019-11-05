@@ -16,6 +16,7 @@ import {
 const columns = [
   { key: 'id', label: 'ID' },
   { key: 'type', label: 'Type' },
+  { key: 'userId', label: 'User Id' },
   { key: 'status', label: 'Status' },
   { key: 'created_at', label: 'Created' }
 ]
