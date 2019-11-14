@@ -17,7 +17,7 @@ function controller(BulkImportService, $scope) {
   ctrl.updateUserName = updateUserName
   ctrl.userNameAction = 'manual'
   ctrl.passwordAction = 'auto'
-  ctrl.newPassword = '{{ generatePassword }}'
+  ctrl.newPassword = '{{ generateSipPassword }}'
 
   function onSelectUsers(event) {
     ctrl.data = event
@@ -26,7 +26,7 @@ function controller(BulkImportService, $scope) {
   function updatePassword() {
     console.log('updatePassword', ctrl.passwordAction)
     ctrl.newPassword =
-      ctrl.passwordAction === 'auto' ? '{{ generatePassword }}' : null
+      ctrl.passwordAction === 'auto' ? '{{ generateSipPassword }}' : null
   }
 
   function updateUserName() {
@@ -45,6 +45,8 @@ function controller(BulkImportService, $scope) {
       return {
         task: 'user.authentication.update',
         userId: user.userId,
+        groupId: user.groupId,
+        serviceProviderId: user.serviceProviderId,
         userName: ctrl.userName,
         newPassword: ctrl.newPassword
       }
