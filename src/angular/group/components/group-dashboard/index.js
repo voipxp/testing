@@ -301,6 +301,13 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
       },
       {
         type: 'provisioning',
+        name: 'Group Extension Length',
+        path: route('groupExtensionLength'),
+        admin: true
+      },
+
+      {
+        type: 'provisioning',
         name: 'Routing Profile',
         path: route('routingProfile'),
         module: 'Routing Profile',
