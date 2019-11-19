@@ -18,11 +18,12 @@ const columns = [
   { key: 'created_at', label: 'Created' }
 ]
 
-export const Audits = ({ history }) => {
+export const Audits = ({ history, match }) => {
+  const serviceProviderId = match.params.serviceProviderId
   const { alertDanger } = useAlerts()
 
   const { result, error, loading } = useAsync(
-    () => auditApi.list(AUDIT_LIMIT),
+    () => auditApi.list(AUDIT_LIMIT, { serviceProviderId }),
     []
   )
 
@@ -58,5 +59,6 @@ export const Audits = ({ history }) => {
 }
 
 Audits.propTypes = {
-  history: PropTypes.object
+  history: PropTypes.object,
+  match: PropTypes.object
 }
