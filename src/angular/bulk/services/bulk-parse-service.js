@@ -104,6 +104,9 @@ function BulkParseService(
         return addGeneratePasscodeTag(template, view)
       })
       .then(function() {
+        return addGenerateSipPasswordTag(template, view)
+      })
+      .then(function() {
         return addDefaultDomainTag(template, view)
       })
       .then(function() {
@@ -187,6 +190,15 @@ function BulkParseService(
     })
   }
 
+  function addGenerateSipPasswordTag(template, view) {
+    if (!hasTag('generateSipPassword', template)) return $q.resolve()
+    return loadSipPasswordRules(view).then(function(rules) {
+      view.generateSipPassword = function() {
+        return PasswordService.generate(rules)
+      }
+    })
+  }
+
   function loadPasswordRules(user) {
     var defaultRules = {}
     return GroupPasswordService.show(
@@ -234,13 +246,52 @@ function BulkParseService(
     )
   }
 
+  /**
+   * If we need to actually pull the rules, they are located at
+   * SystemSIPAuthenticationPasswordRulesGetRequest
+   * ServiceProviderSIPAuthenticationPasswordRulesGetRequest
+   *
+   * This would work similar to the load passcode rules where
+   * we first look for the service provider rules and then
+   * the system rules
+   *
+   * There is a skeleton of what the implementation would
+   * look like commented out below
+   */
+  function loadSipPasswordRules(user) {
+    const defaultRules = { length: 14 }
+    return $q.resolve(defaultRules)
+    // return loadServiceProviderSipPasswordRules(defaultRules)
+  }
+
+  // Return the ServiceProvider Rules or call the System
+  // function loadServiceProviderSipPasswordRules() {
+  //   return ServiceProviderSipPasswordService.show(serviceProviderId)
+  //     .then(function(rules) {
+  //       if (rules.useServiceProviderSettings) {
+  //         return rules
+  //       } else {
+  //         return loadSystemSipPasswordRules(defaultRules)
+  //       }
+  //     })
+  //     .catch(function() {
+  //       return loadSystemSipPasswordRules(defaultRules)
+  //     })
+  // }
+
+  // Return the System Rules or the defaultRules
+  // function loadSystemSipPasscodeRules(defaultRules) {
+  //   return SystemSipPasscodeService.show().catch(function() {
+  //     return defaultRules
+  //   })
+  // }
+
   function loadDefaultDomain(user) {
-    return GroupDomainService.index(
-      user['serviceProviderId'],
-      user['groupId']
-    ).then(function(data) {
-      return data.default
-    })
+    return GroupDomainService.index(user.serviceProviderId, user.groupId).then(
+      function(data) {
+        return data.default
+      }
+    )
   }
 
   // validate all the users at once

@@ -1,6 +1,10 @@
 import { UserDashboard } from '@/components/users'
 import { CreateAutoAttendant } from '@/components/autoAttendant'
-import { GroupCommunicationBarring, GroupSpeedDial8 } from '@/components/groups'
+import {
+  GroupCommunicationBarring,
+  GroupSpeedDial8,
+  GroupExtensionLength
+} from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
@@ -765,6 +769,10 @@ export const routes = [
   {
     path: '/users/:serviceProviderId/:groupId/:userId',
     component: UserDashboard
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/groupExtensionLength',
+    component: GroupExtensionLength
   },
   {
     path: '/groups/:serviceProviderId/:groupId/speedDial8',
