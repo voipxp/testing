@@ -16,7 +16,9 @@ import {
 const columns = [
   { key: 'id', label: 'ID' },
   { key: 'type', label: 'Type' },
+  { key: 'serviceType', label: 'Backup Type' },
   { key: 'userId', label: 'User Id' },
+  { key: 'deviceName', label: 'Device Name' },
   { key: 'status', label: 'Status' },
   { key: 'created_at', label: 'Created' }
 ]
@@ -29,7 +31,19 @@ export const Audit = ({ history, match }) => {
 
   if (error) alertDanger(error)
 
-  const download = () => alertDanger('Not Ready')
+  const downloadFile = async () => {
+    const fileName = 'backup-' + id
+    const json = JSON.stringify(audit)
+    const blob = new Blob([json], { type: 'application/json' })
+    const href = await URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = href
+    link.download = fileName + '.json'
+    document.body.append(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+  // const download = () => alertDanger('Download Not Ready')
   const open = ({ id }) => alertDanger('Show the Audit Data')
 
   const audit = result || {}
@@ -47,14 +61,11 @@ export const Audit = ({ history, match }) => {
           <UiCard title={`Audit ${id}`}>
             <div className="columns">
               <div className="column">
-                <UiListItem label="Description">{audit.description}</UiListItem>
-                <UiListItem label="Status">{audit.status}</UiListItem>
-              </div>
-              <div className="column">
                 <UiListItem label="Service Provider">
                   {audit.serviceProviderId}
                 </UiListItem>
                 <UiListItem label="Group">{audit.groupId}</UiListItem>
+                <UiListItem label="Status">{audit.status}</UiListItem>
               </div>
             </div>
           </UiCard>
@@ -66,7 +77,7 @@ export const Audit = ({ history, match }) => {
                 color="link"
                 icon="download"
                 size="small"
-                onClick={download}
+                onClick={downloadFile}
               />
             }
           >
@@ -74,7 +85,7 @@ export const Audit = ({ history, match }) => {
               columns={columns}
               rows={audit.children}
               rowKey="id"
-              pageSize={10}
+              pageSize={20}
               onClick={open}
             />
           </UiCard>

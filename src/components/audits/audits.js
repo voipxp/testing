@@ -7,7 +7,7 @@ import { AppBreadcrumb } from '@/components/app'
 import { Breadcrumb } from 'rbx'
 import { UiCard, UiButton, UiLoadingCard, UiDataTable } from '@/components/ui'
 
-const AUDIT_LIMIT = 50
+const AUDIT_LIMIT = 500
 
 const columns = [
   { key: 'id', label: 'ID' },
@@ -52,6 +52,7 @@ export const Audits = ({ history, match }) => {
             rows={result}
             rowKey="id"
             onClick={open}
+            pageSize={20}
           />
         </UiCard>
       )}
