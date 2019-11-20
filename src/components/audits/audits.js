@@ -20,10 +20,11 @@ const columns = [
 
 export const Audits = ({ history, match }) => {
   const serviceProviderId = match.params.serviceProviderId
+  const groupId = match.params.groupId
   const { alertDanger } = useAlerts()
 
   const { result, error, loading } = useAsync(
-    () => auditApi.list(AUDIT_LIMIT, { serviceProviderId }),
+    () => auditApi.list(AUDIT_LIMIT, { serviceProviderId, groupId }),
     []
   )
 

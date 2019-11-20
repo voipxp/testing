@@ -804,10 +804,16 @@ export const routes = [
     hasLevel: 'Service Provider'
   },
   {
-    path: '/audits/serviceProviderId/:serviceProviderId',
+    path: '/serviceProviders/:serviceProviderId/audits',
     component: Audits,
     hasLevel: 'Service Provider'
   },
+  {
+    path: '/groups/:serviceProviderId/:groupId/audits',
+    component: Audits,
+    hasLevel: 'Group'
+  },
+
   {
     path: '/audits/:id',
     component: Audit,
