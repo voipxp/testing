@@ -5,7 +5,7 @@
   <pbs-breadcrumb title="'Feature Access Code Settings'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Speed Dial 100">
+  <pbs-block title="Speed Dial 100" ng-if="$ctrl.speedDial100.settings">
     <pbs-block-buttons>
       <pbs-button-compact-edit
         ng-click="$ctrl.editSpeedDialCode()"
