@@ -13,7 +13,8 @@ import {
   UiButton,
   UiLoadingCard,
   UiDataTable,
-  UiCardModal
+  UiCardModal,
+  UiInputCheckbox
 } from '@/components/ui'
 
 const AUDIT_LIMIT = 500
@@ -29,9 +30,9 @@ const columns = [
 
 export const Audits = ({ history, match }) => {
   const initialForm = {
-    serviceProviderId: '',
-    groupId: '',
-    options: {}
+    'serviceProviderId': '',
+    'groupId': '',
+    'options.audits.["audit.group.devices"]': false
   }
 
   const serviceProviderId = match.params.serviceProviderId
@@ -190,13 +191,12 @@ export const Audits = ({ history, match }) => {
               </Field>
               <Field>
                 <Control>
-                  <Input
-                    type="number"
-                    name="options"
-                    value={form.options}
+                  {/* <UiInputCheckbox
+                    name="devices"
+                    label="audit.group.devices"
+                    checked={form.options.audits}
                     onChange={handleInput}
-                    placeholder="options"
-                  />
+                  /> */}
                 </Control>
               </Field>
             </Column>

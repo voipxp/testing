@@ -14,3 +14,7 @@ export function show(id, params = {}) {
     params: { id, includeChildren, includeData, ...rest }
   })
 }
+
+export function types() {
+  return api.get(`/audits/types`)
+}
