@@ -57,6 +57,7 @@ function controller(Alert, GroupDeviceTypeTagService) {
     Alert.modal.open(
       'groupDeviceTypeTagsEditModal',
       function(close) {
+        console.log('edit')
         update(ctrl.editTag, close)
       },
       function(close) {
