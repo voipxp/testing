@@ -27,12 +27,21 @@ const columns = [
   { key: 'description', label: 'Description' },
   { key: 'created_at', label: 'Created' }
 ]
+const audits = [
+  'audit.system',
+  'audit.serviceProvider',
+  'audit.group.devices',
+  'audit.group'
+]
 
 export const Audits = ({ history, match }) => {
   const initialForm = {
     'serviceProviderId': '',
     'groupId': '',
-    'options.audits.["audit.group.devices"]': false
+    'audit.system': true,
+    'audit.serviceProvider': true,
+    'audit.group.devices': false,
+    'audit.group': false
   }
 
   const serviceProviderId = match.params.serviceProviderId
@@ -44,7 +53,7 @@ export const Audits = ({ history, match }) => {
   const [search, setSearch] = React.useState()
   const [initialized, setInitialized] = React.useState(false)
 
-  const { result, error, loading } = useAsync(
+  const { result, error, loading, execute } = useAsync(
     () => auditApi.list(AUDIT_LIMIT, { serviceProviderId, groupId }),
     []
   )
@@ -58,27 +67,16 @@ export const Audits = ({ history, match }) => {
     setForm({ ...form, [name]: value })
   }
 
-  // const add = () => alertDanger('Not Ready')
   const open = ({ id }) => history.push(`/audits/${id}`)
   function add() {
-    setForm({ ...serviceProviderId, groupId })
     setShowModal(true)
   }
   const show = group => {
-    setForm({ ...group })
+    setForm({ ...form, ...group })
     setSearch(null)
     setInitialized(false)
     setShowModal(true)
-    console.log('serviceProviderId -->', group.serviceProviderId)
-    console.log('group -->', group.groupId)
-    console.log('form -->', form)
-    console.log('hide table from group-search')
   }
-
-  // function show(selection) {
-  //   alertDanger('serviceProviderId, GroupId')
-  //   // setSearch(false)
-  // }
 
   function handleClick() {
     console.log('handleClick')
@@ -92,9 +90,31 @@ export const Audits = ({ history, match }) => {
     setShowModal(false)
     setSearch(false)
   }
-  function save(settings) {
-    console.log('settings', settings)
-    alertDanger('Not Ready')
+
+  async function save(settings) {
+    const magic = Object.keys(form).reduce(
+      (obj, key) => {
+        if (key.startsWith('audit')) {
+          obj.options.audits[key] = form[key]
+        } else {
+          obj[key] = form[key]
+        }
+        return obj
+      },
+      { options: { audits: {} } }
+    )
+    try {
+      await auditApi.create(magic)
+      execute()
+      setInitialized(false)
+      setShowModal(false)
+      setSearch(false)
+    } catch (error_) {
+      alertDanger(error_)
+    }
+    setInitialized(false)
+    setShowModal(false)
+    setSearch(false)
   }
 
   return (
@@ -191,12 +211,18 @@ export const Audits = ({ history, match }) => {
               </Field>
               <Field>
                 <Control>
-                  {/* <UiInputCheckbox
-                    name="devices"
-                    label="audit.group.devices"
-                    checked={form.options.audits}
-                    onChange={handleInput}
-                  /> */}
+                  {audits.map(audit => {
+                    return (
+                      <UiInputCheckbox
+                        key={audit}
+                        name={audit}
+                        label={audit}
+                        // checked={form[audit] ? true : false}
+                        checked={form[audit]}
+                        onChange={handleInput}
+                      />
+                    )
+                  })}
                 </Control>
               </Field>
             </Column>
