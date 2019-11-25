@@ -104,11 +104,11 @@ export const Audits = ({ history, match }) => {
       { options: { audits: {} } }
     )
     try {
-      await auditApi.create(magic)
-      execute()
       setInitialized(false)
       setShowModal(false)
       setSearch(false)
+      await auditApi.create(magic)
+      execute()
     } catch (error_) {
       alertDanger(error_)
     }

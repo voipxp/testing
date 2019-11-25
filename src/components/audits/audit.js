@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useAsync } from 'react-async-hook'
 import { useAlerts } from '@/store/alerts'
@@ -9,8 +9,10 @@ import {
   UiCard,
   UiButton,
   UiLoadingCard,
+  UiLoadingModal,
   UiDataTable,
-  UiListItem
+  UiListItem,
+  UiCardModal
 } from '@/components/ui'
 
 const columns = [
@@ -26,6 +28,10 @@ const columns = [
 export const Audit = ({ history, match }) => {
   const id = match.params.id
   const { alertDanger } = useAlerts()
+  const [showModal, setShowModal] = useState(false)
+  const [showLoading, setShowLoading] = useState(false)
+  const [data, setData] = useState('')
+  const [serviceType, setServiceType] = useState('')
 
   const { result, error, loading } = useAsync(() => auditApi.show(id), [id])
 
@@ -43,10 +49,30 @@ export const Audit = ({ history, match }) => {
     link.click()
     document.body.removeChild(link)
   }
-  // const download = () => alertDanger('Download Not Ready')
-  const open = ({ id }) => alertDanger('Show the Audit Data')
+  async function open(data) {
+    try {
+      setShowLoading(true)
+      setShowModal(true)
+      const result = await auditApi.show(data.id, {})
+      console.log('data.id', data.id)
+      console.log('data', data)
+      console.log('result', result)
+      setServiceType(result.serviceType)
+      setData(JSON.stringify(result, null, 2))
+    } catch (error_) {
+      setShowLoading(false)
+      alertDanger(error_)
+    }
+    setShowLoading(false)
+  }
 
   const audit = result || {}
+
+  function onCancel() {
+    setShowModal(false)
+    setShowLoading(false)
+    setData('')
+  }
 
   return (
     <>
@@ -90,6 +116,13 @@ export const Audit = ({ history, match }) => {
             />
           </UiCard>
         </>
+      )}
+      {showLoading ? (
+        <UiLoadingModal isOpen={showLoading} />
+      ) : (
+        <UiCardModal title={serviceType} onCancel={onCancel} isOpen={showModal}>
+          <pre className="prettyprint">{data}</pre>
+        </UiCardModal>
       )}
     </>
   )
