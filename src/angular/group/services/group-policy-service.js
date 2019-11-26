@@ -56,6 +56,7 @@ function Service(AuthService, Session, ACL, $q) {
   function load() {
     // no need if not a group admin
     if (ACL.has('Service Provider')) return $q.resolve()
+    if (ACL.has('Group')) return $q.resolve()
   }
 
   function accessDeviceAssociationRead() {
