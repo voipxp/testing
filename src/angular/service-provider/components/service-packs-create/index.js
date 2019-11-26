@@ -47,6 +47,7 @@ function controller(
     Alert.modal.open('createServicePack-Modal', function onSave(close) {
       create(ctrl.servicePack, close)
     })
+
   }
 
   function create(servicePack, callback) {
@@ -137,6 +138,7 @@ function controller(
   function setAvailable() {
     ctrl.available = _.filter(ctrl.parent.services, function(service) {
       if (!service.authorized) return
+      if (!service.servicePackAssignable) return
       var isSelected = _.find(ctrl.editServicePack.userServices, {
         serviceName: service.serviceName
       })
