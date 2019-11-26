@@ -13,14 +13,16 @@ controller.$inject = [
   'GroupFeatureAccessCodesService',
   'GroupSpeedDial100Service',
   '$q',
-  'GroupPolicyService'
+  'GroupPolicyService',
+  'GroupPermissionService'
 ]
 function controller(
   Alert,
   GroupFeatureAccessCodesService,
   GroupSpeedDial100Service,
   $q,
-  GroupPolicyService
+  GroupPolicyService,
+  GroupPermissionService
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -71,26 +73,36 @@ function controller(
   }
 
   function loadSpeedDial100() {
-    return GroupSpeedDial100Service.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
-      ctrl.speedDial100.settings = data
-    })
+    GroupPermissionService.load(ctrl.serviceProviderId, ctrl.groupId).then(
+      function(Permission) {
+        if (Permission.read('Speed Dial 100')) {
+          return GroupSpeedDial100Service.show(
+            ctrl.serviceProviderId,
+            ctrl.groupId
+          ).then(function(data) {
+            ctrl.speedDial100.settings = data
+          })
+        }
+      }
+    )
   }
 
   function loadSettings() {
     return GroupFeatureAccessCodesService.show(
       ctrl.serviceProviderId,
       ctrl.groupId
-    ).then(function(data) {
-      var sorted = _.sortBy(data.featureAccessCodes, ['featureAccessCodeName'])
-      ctrl.settings = data
-      ctrl.settings.featureAccessCodes = sorted
-      GroupPolicyService.load().then(function() {
+    )
+      .then(function(data) {
+        var sorted = _.sortBy(data.featureAccessCodes, [
+          'featureAccessCodeName'
+        ])
+        ctrl.settings = data
+        ctrl.settings.featureAccessCodes = sorted
+      })
+      .then(GroupPolicyService.load())
+      .then(function() {
         ctrl.canUpdate = GroupPolicyService.featureAccessCodeUpdate()
       })
-    })
   }
   function toggleSelect() {
     if (ctrl.showSelect) {
