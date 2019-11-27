@@ -5,6 +5,7 @@ import { ResellerServiceProviders } from './reseller-service-providers'
 import { ResellerServiceProviderReport } from './reseller-service-provider-report'
 import { ResellerServicePackUtilizationReport } from './reseller-service-pack-utilization-report'
 import { ResellerDnReport } from './reseller-dn-report'
+import { ResellerAudits } from './reseller-audits'
 
 export const dashboardMenu = [
   {
@@ -55,6 +56,13 @@ export const dashboardMenu = [
         name: 'Delete Reseller',
         component: ResellerDelete,
         hasLevel: 'Provisioning'
+      },
+      {
+        path: 'audits',
+        name: 'Audit',
+        component: ResellerAudits,
+        hasLevel: 'Reseller',
+        isBreadcrumb: false
       }
     ]
   },

@@ -34,7 +34,7 @@ const audits = [
   'audit.group'
 ]
 
-export const Audits = ({ history, match }) => {
+export const Audits = ({ history, match, isBreadcrumb = true }) => {
   const initialForm = {
     'serviceProviderId': '',
     'groupId': '',
@@ -48,7 +48,7 @@ export const Audits = ({ history, match }) => {
   const groupId = match.params.groupId
   const [form, setForm] = useState(initialForm)
   const [showModal, setShowModal] = useState(false)
-  const [showSearchModal, setSearchShowModal] = useState(false)
+  const [showLoading, setShowLoading] = useState(false)
   const { alertDanger } = useAlerts()
   const [search, setSearch] = React.useState()
   const [initialized, setInitialized] = React.useState(false)
@@ -104,24 +104,24 @@ export const Audits = ({ history, match }) => {
       { options: { audits: {} } }
     )
     try {
-      setInitialized(false)
-      setShowModal(false)
-      setSearch(false)
+      setShowLoading(true)
       await auditApi.create(magic)
       execute()
     } catch (error_) {
       alertDanger(error_)
+    } finally {
+      setShowLoading(false)
+      setShowModal(false)
     }
-    setInitialized(false)
-    setShowModal(false)
-    setSearch(false)
   }
 
   return (
     <>
-      <AppBreadcrumb>
-        <Breadcrumb.Item>Audits</Breadcrumb.Item>
-      </AppBreadcrumb>
+      {isBreadcrumb && (
+        <AppBreadcrumb>
+          <Breadcrumb.Item>Audits</Breadcrumb.Item>
+        </AppBreadcrumb>
+      )}
       {loading ? (
         <UiLoadingCard />
       ) : (
@@ -137,8 +137,6 @@ export const Audits = ({ history, match }) => {
             rowKey="id"
             onClick={open}
             pageSize={20}
-            sortBy="id"
-            sortOrder="desc"
           />
         </UiCard>
       )}
@@ -158,6 +156,7 @@ export const Audits = ({ history, match }) => {
         onCancel={onCancel}
         isOpen={showModal}
         onSave={save}
+        isLoading={showLoading}
       >
         <form>
           <Column.Group>
@@ -235,5 +234,6 @@ export const Audits = ({ history, match }) => {
 
 Audits.propTypes = {
   history: PropTypes.object,
-  match: PropTypes.object
+  match: PropTypes.object,
+  isBreadcrumb: PropTypes.bool
 }

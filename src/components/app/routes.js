@@ -801,22 +801,11 @@ export const routes = [
     path: '/audits',
     exact: true,
     component: Audits,
-    hasLevel: 'Service Provider'
-  },
-  {
-    path: '/serviceProviders/:serviceProviderId/audits',
-    component: Audits,
-    hasLevel: 'Service Provider'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/audits',
-    component: Audits,
     hasLevel: 'Group'
   },
-
   {
     path: '/audits/:id',
     component: Audit,
-    hasLevel: 'Service Provider'
+    hasLevel: 'Group'
   }
 ]
