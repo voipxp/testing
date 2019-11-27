@@ -25,7 +25,7 @@ const columns = [
   { key: 'created_at', label: 'Created' }
 ]
 
-export const Audit = ({ history, match }) => {
+export const Audit = ({ history, match, isBreadcrumb = true }) => {
   const id = match.params.id
   const { alertDanger } = useAlerts()
   const [showModal, setShowModal] = useState(false)
@@ -54,9 +54,6 @@ export const Audit = ({ history, match }) => {
       setShowLoading(true)
       setShowModal(true)
       const result = await auditApi.show(data.id, {})
-      console.log('data.id', data.id)
-      console.log('data', data)
-      console.log('result', result)
       setServiceType(result.serviceType)
       setData(JSON.stringify(result, null, 2))
     } catch (error_) {
@@ -76,10 +73,13 @@ export const Audit = ({ history, match }) => {
 
   return (
     <>
-      <AppBreadcrumb>
-        <Breadcrumb.Item href="/#!/audits">Audits</Breadcrumb.Item>
-        <Breadcrumb.Item>Audit {id}</Breadcrumb.Item>
-      </AppBreadcrumb>
+      {isBreadcrumb && (
+        <AppBreadcrumb>
+          <Breadcrumb.Item href="/#!/audits">Audits</Breadcrumb.Item>
+          <Breadcrumb.Item>Audit {id}</Breadcrumb.Item>
+        </AppBreadcrumb>
+      )}
+
       {loading ? (
         <UiLoadingCard />
       ) : (
@@ -130,5 +130,6 @@ export const Audit = ({ history, match }) => {
 
 Audit.propTypes = {
   history: PropTypes.object,
-  match: PropTypes.object
+  match: PropTypes.object,
+  isBreadcrumb: PropTypes.bool
 }

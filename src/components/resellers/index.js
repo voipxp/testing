@@ -1,4 +1,6 @@
 export * from './reseller-admins'
+export * from './reseller-audit'
+export * from './reseller-audits'
 export * from './reseller-dashboard'
 export * from './reseller-delete'
 export * from './reseller-profile'

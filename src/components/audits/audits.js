@@ -50,7 +50,6 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
   const [showModal, setShowModal] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const { alertDanger } = useAlerts()
-  const [search, setSearch] = React.useState()
   const [initialized, setInitialized] = React.useState(false)
 
   const { result, error, loading, execute } = useAsync(
@@ -73,22 +72,18 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
   }
   const show = group => {
     setForm({ ...form, ...group })
-    setSearch(null)
     setInitialized(false)
     setShowModal(true)
   }
 
   function handleClick() {
-    console.log('handleClick')
     setInitialized(true)
     setShowModal(false)
-    console.log('initialized', initialized)
   }
 
   function onCancel() {
     setInitialized(false)
     setShowModal(false)
-    setSearch(false)
   }
 
   async function save(settings) {
