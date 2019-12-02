@@ -49,6 +49,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
     link.click()
     document.body.removeChild(link)
   }
+
   async function open(data) {
     try {
       setShowLoading(true)
