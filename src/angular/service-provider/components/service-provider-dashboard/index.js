@@ -81,7 +81,7 @@ function controller(Alert, ServiceProviderDashboardService, Route, ACL) {
       },
       {
         type: 'provisioning',
-        name: 'Audits',
+        name: 'Audit',
         module: 'Audit',
         path: '/audits'
       },

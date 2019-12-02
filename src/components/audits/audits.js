@@ -114,7 +114,7 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
     <>
       {isBreadcrumb && (
         <AppBreadcrumb>
-          <Breadcrumb.Item>Audits</Breadcrumb.Item>
+          <Breadcrumb.Item>Audits (Beta)</Breadcrumb.Item>
         </AppBreadcrumb>
       )}
       {loading ? (
