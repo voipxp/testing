@@ -32,7 +32,7 @@ export const dashboardMenu = [
       {
         path: 'flexible-seatingHost',
         name: 'Flexible Seating Host',
-        angularComponent: 'departmentFlexibleSeatingHost'
+        angularComponent: 'departmentFlexibleSeatingHosts'
       }
     ]
   },
