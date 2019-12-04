@@ -1,7 +1,7 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular.module('odin.group').component('departmentCallCenters', {
+angular.module('odin.department').component('departmentCallCenters', {
   template,
   controller,
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }

@@ -11,7 +11,7 @@ angular.module('odin.department').component('departmentFlexibleSeatingHosts', {
 
 controller.$inject = [
   'Alert',
-  'GroupFlexibleSeatingHostService',
+  'DepartmentFlexibleSeatingHostService',
   'UserFlexibleSeatingGuestService',
   'GroupFlexibleSeatingHostGuestAssociationService',
   'Route',
@@ -22,7 +22,7 @@ controller.$inject = [
 ]
 function controller(
   Alert,
-  GroupFlexibleSeatingHostService,
+  DepartmentFlexibleSeatingHostService,
   UserFlexibleSeatingGuestService,
   GroupFlexibleSeatingHostGuestAssociationService,
   Route,
@@ -132,7 +132,7 @@ function controller(
   }
 
   function loadGroupFlexibleSeatingUsers() {
-    return GroupFlexibleSeatingHostService.bulk(
+    return DepartmentFlexibleSeatingHostService.bulk(
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
@@ -141,7 +141,7 @@ function controller(
   }
 
   function loadGroupFlexibleSeatingHosts() {
-    return GroupFlexibleSeatingHostService.index(
+    return DepartmentFlexibleSeatingHostService.index(
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
@@ -161,7 +161,7 @@ function controller(
 
   function toggle(service) {
     service.isLoading = true
-    GroupFlexibleSeatingHostService.status(service)
+    DepartmentFlexibleSeatingHostService.status(service)
       .then(loadGroupFlexibleSeatingHosts)
       .then(function() {
         if (service.isActive) {
