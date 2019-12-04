@@ -40,7 +40,7 @@ export const dashboardMenu = [
     label : 'Utilities' ,
       items : [
         {
-            path:'common-phoneList',
+            path:'common-phone-list',
             name:'Common Phone List',
             angularComponent: 'departmentCommonPhoneList'
         },
