@@ -8,8 +8,8 @@ angular.module('odin.department').component('departmentCommonPhoneList', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupCommonPhoneListService', 'CsvService']
-function controller(Alert, GroupCommonPhoneListService, CsvService) {
+controller.$inject = ['Alert', 'departmentCommonPhoneList', 'CsvService']
+function controller(Alert, departmentCommonPhoneList, CsvService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onPagination = onPagination
@@ -34,7 +34,7 @@ function controller(Alert, GroupCommonPhoneListService, CsvService) {
   }
 
   function loadContacts() {
-    return GroupCommonPhoneListService.index(
+    return departmentCommonPhoneList.index(
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
@@ -80,7 +80,7 @@ function controller(Alert, GroupCommonPhoneListService, CsvService) {
 
   function update(contact, callback) {
     Alert.spinner.open()
-    GroupCommonPhoneListService.update(
+    departmentCommonPhoneList.update(
       ctrl.serviceProviderId,
       ctrl.groupId,
       contact
@@ -96,7 +96,7 @@ function controller(Alert, GroupCommonPhoneListService, CsvService) {
 
   function create(contact, callback) {
     Alert.spinner.open()
-    GroupCommonPhoneListService.store(ctrl.serviceProviderId, ctrl.groupId, [
+    departmentCommonPhoneList.store(ctrl.serviceProviderId, ctrl.groupId, [
       contact
     ])
       .then(loadContacts)
@@ -110,7 +110,7 @@ function controller(Alert, GroupCommonPhoneListService, CsvService) {
 
   function destroy(contact, callback) {
     Alert.spinner.open()
-    GroupCommonPhoneListService.destroy(ctrl.serviceProviderId, ctrl.groupId, [
+    departmentCommonPhoneList.destroy(ctrl.serviceProviderId, ctrl.groupId, [
       contact
     ])
       .then(loadContacts)
@@ -135,7 +135,7 @@ function controller(Alert, GroupCommonPhoneListService, CsvService) {
 
   function bulk(contacts, callback) {
     Alert.spinner.open()
-    GroupCommonPhoneListService.store(
+    departmentCommonPhoneList.store(
       ctrl.serviceProviderId,
       ctrl.groupId,
       contacts

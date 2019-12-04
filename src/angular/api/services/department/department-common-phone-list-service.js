@@ -1,6 +1,6 @@
 import angular from 'angular'
 
-angular.module('odin.api').factory('GroupCommonPhoneListService', Service)
+angular.module('odin.api').factory('departmentCommonPhoneList', Service)
 
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
