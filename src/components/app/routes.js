@@ -1,4 +1,5 @@
 import { UserDashboard } from '@/components/users'
+import { DepartmentDashboard } from '@/components/departments'
 import { CreateAutoAttendant } from '@/components/autoAttendant'
 import {
   GroupCommunicationBarring,
@@ -795,5 +796,10 @@ export const routes = [
     path: '/resellers/:resellerId',
     component: ResellerDashboard,
     hasLevel: 'Reseller'
+  },
+  {
+    path: '/department',
+    component: DepartmentDashboard,
+    hasLevel: 'Group'
   }
 ]
