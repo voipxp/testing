@@ -5,7 +5,7 @@ angular.module('odin.api').factory('departmentCommonPhoneList', Service)
 Service.$inject = ['$http', 'Route']
 function Service($http, Route) {
   var service = { index, store, update, destroy }
-  var url = Route.api('/groups/common-phone-list')
+  var url = Route.api('/department/common-phone-list')
   return service
 
   function index(serviceProviderId, groupId) {

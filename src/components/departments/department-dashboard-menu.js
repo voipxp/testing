@@ -20,9 +20,9 @@ export const dashboardMenu = [
     label: 'Group Services',
     items: [
 	    {
-        path: 'broadwork-anywhere',
+        path: 'broadworks-anywhere',
         name: 'BroadWorks Anywhere',
-        angularComponent: 'departmentBroadworkAnyWhere'
+        angularComponent: 'departmentBroadworksAnyWhere'
       },
       {
         path: 'call-centers',
