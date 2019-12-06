@@ -27,14 +27,14 @@ function Service($http, Route) {
       ],
       adminAccess: ['Full', 'Read-Only', 'None'],
       departmentAccess: ['Full', 'Read-Only', 'None'],
-      accessDeviceAccess: ['Full', 'Associate User With Device', 'None'],
+      accessDeviceAccess: ['Full', 'Associate User With Device', 'Read-Only'],
       phoneNumberExtensionAccess: [
         'Full',
         'Assign To Services and Users',
         'None'
       ],
       callingLineIdNumberAccess: ['Full', 'Read-Only'],
-      serviceAccess: ['Full', 'No Authorization', 'None'],
+      serviceAccess: ['Full', 'No Authorization', 'Read-Only'],
       servicePackAccess: ['Full', 'None'],
       sessionAdmissionControlAccess: ['Full', 'Read-Only', 'None'],
       webBrandingAccess: ['Full', 'None'],
