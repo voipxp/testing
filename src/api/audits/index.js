@@ -9,6 +9,7 @@ export function list(limit = 0, params = {}) {
 }
 
 export function json(parentId) {
+  api.setResponseType = 'stream'
   return api.get(`/audits/details/json`, {
     params: { parentId }
   })

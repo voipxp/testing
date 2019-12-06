@@ -33,7 +33,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
   const [data, setData] = useState('')
   const [serviceType, setServiceType] = useState('')
 
-  const { result, error, loading } = useAsync(() => auditApi.show(id), [id])
+  const { result, error, loading } = useAsync(() => auditApi.json(id), [id])
 
   if (error) alertDanger(error)
 
@@ -89,10 +89,10 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
             <div className="columns">
               <div className="column">
                 <UiListItem label="Service Provider">
-                  {audit.serviceProviderId}
+                  {audit[0].serviceProviderId}
                 </UiListItem>
-                <UiListItem label="Group">{audit.groupId}</UiListItem>
-                <UiListItem label="Status">{audit.status}</UiListItem>
+                <UiListItem label="Group">{audit[0].groupId}</UiListItem>
+                <UiListItem label="Status">{audit[0].status}</UiListItem>
               </div>
             </div>
           </UiCard>
@@ -110,7 +110,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
           >
             <UiDataTable
               columns={columns}
-              rows={audit.children}
+              rows={audit}
               rowKey="id"
               pageSize={20}
               onClick={open}
