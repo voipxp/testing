@@ -1,10 +1,16 @@
 import { api } from '..'
-export default { list, show, create }
+export default { list, show, create, json }
 
 export function list(limit = 0, params = {}) {
   const { includeChildren = false, includeData = false, ...rest } = params
   return api.get('/audits', {
     params: { limit, includeChildren, includeData, ...rest }
+  })
+}
+
+export function json(parentId) {
+  return api.get(`/audits/details/json`, {
+    params: { parentId }
   })
 }
 
