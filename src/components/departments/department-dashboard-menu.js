@@ -5,7 +5,7 @@ export const dashboardMenu = [
        {
         path: 'users',
         name: 'Users',
-        angularComponent: 'departmentUsers',
+        angularComponent: 'groupUsers',
         hasModuleRead: 'Department Passwrod'
       },
 	    {
@@ -22,47 +22,44 @@ export const dashboardMenu = [
 	    {
         path: 'auto-attendant',
         name: 'Auto Attendant',
-        angularComponent: 'departmentAutoAttendant'
+        angularComponent: 'autoAttendants'
       },
+      /*
       {
         path: 'broadworks-anywhere',
         name: 'BroadWorks Anywhere',
         angularComponent: 'departmentBroadworksAnyWhere'
       },
+      */
       {
         path: 'call-centers',
         name: 'Call Centers',
-        angularComponent: 'departmentCallCenters'
+        angularComponent: 'groupCallCenters'
       },
       {
-        path: 'flexible-seatingHost',
+        path: 'flexible-seating-host',
         name: 'Flexible Seating Host',
-        angularComponent: 'departmentFlexibleSeatingHosts'
+        angularComponent: 'groupFlexibleSeatingHosts'
       },
       {
-        path: 'group-paging',
+        path: 'paging',
         name: 'Group Paging',
-        angularComponent: 'departmentGroupPaging'
+        angularComponent: 'groupPagingGroups'
       },
       {
         path: 'hunt-group',
         name: 'Hunt Group',
-        angularComponent: 'departmentHuntGroup'
-      },
-      {
-        path: 'instant-group-call',
-        name: 'Instant Group Call',
-        angularComponent: 'departmentInstantGroupCall'
+        angularComponent: 'groupHuntGroups'
       },
       {
         path: 'meet-me-conferencing',
         name: 'Meet-Me Conferencing',
-        angularComponent: 'departmentMeetMeConferencing'
+        angularComponent: 'groupMeetMe'
       },
       {
         path: 'trunk-group',
         name: 'Trunk Group',
-        angularComponent: 'departmentTrunkGroup'
+        angularComponent: 'groupTrunkGroups'
       }
     ]
   },
@@ -72,12 +69,12 @@ export const dashboardMenu = [
         {
             path:'common-phone-list',
             name:'Common Phone List',
-            angularComponent: 'departmentCommonPhoneList'
+            angularComponent: 'groupCommonPhoneList'
         },
         {
           path:'enterprise-directory',
           name:'Enterprise Directory',
-          angularComponent: 'departmentEnterpriseDirectory'
+          angularComponent: 'groupPhoneDirectory'
         }
       ]
 
