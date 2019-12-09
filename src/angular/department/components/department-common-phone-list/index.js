@@ -2,14 +2,14 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular.module('odin.department').component('departmentCommonPhoneList', {
+angular.module('odin.group').component('departmentCommonPhoneList', {
   template,
   controller,
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'departmentCommonPhoneList', 'CsvService']
-function controller(Alert, departmentCommonPhoneList, CsvService) {
+controller.$inject = ['Alert', 'GroupCommonPhoneListService', 'CsvService']
+function controller(Alert, GroupCommonPhoneListService, CsvService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onPagination = onPagination
@@ -34,7 +34,7 @@ function controller(Alert, departmentCommonPhoneList, CsvService) {
   }
 
   function loadContacts() {
-    return departmentCommonPhoneList.index(
+    return GroupCommonPhoneListService.index(
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
@@ -80,7 +80,7 @@ function controller(Alert, departmentCommonPhoneList, CsvService) {
 
   function update(contact, callback) {
     Alert.spinner.open()
-    departmentCommonPhoneList.update(
+    GroupCommonPhoneListService.update(
       ctrl.serviceProviderId,
       ctrl.groupId,
       contact
@@ -96,7 +96,7 @@ function controller(Alert, departmentCommonPhoneList, CsvService) {
 
   function create(contact, callback) {
     Alert.spinner.open()
-    departmentCommonPhoneList.store(ctrl.serviceProviderId, ctrl.groupId, [
+    GroupCommonPhoneListService.store(ctrl.serviceProviderId, ctrl.groupId, [
       contact
     ])
       .then(loadContacts)
@@ -110,7 +110,7 @@ function controller(Alert, departmentCommonPhoneList, CsvService) {
 
   function destroy(contact, callback) {
     Alert.spinner.open()
-    departmentCommonPhoneList.destroy(ctrl.serviceProviderId, ctrl.groupId, [
+    GroupCommonPhoneListService.destroy(ctrl.serviceProviderId, ctrl.groupId, [
       contact
     ])
       .then(loadContacts)
@@ -135,7 +135,7 @@ function controller(Alert, departmentCommonPhoneList, CsvService) {
 
   function bulk(contacts, callback) {
     Alert.spinner.open()
-    departmentCommonPhoneList.store(
+    GroupCommonPhoneListService.store(
       ctrl.serviceProviderId,
       ctrl.groupId,
       contacts
