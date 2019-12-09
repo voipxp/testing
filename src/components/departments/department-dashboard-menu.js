@@ -20,6 +20,11 @@ export const dashboardMenu = [
     label: 'Group Services',
     items: [
 	    {
+        path: 'auto-attendant',
+        name: 'Auto Attendant',
+        angularComponent: 'departmentAutoAttendant'
+      },
+      {
         path: 'broadworks-anywhere',
         name: 'BroadWorks Anywhere',
         angularComponent: 'departmentBroadworksAnyWhere'
@@ -33,6 +38,31 @@ export const dashboardMenu = [
         path: 'flexible-seatingHost',
         name: 'Flexible Seating Host',
         angularComponent: 'departmentFlexibleSeatingHosts'
+      },
+      {
+        path: 'group-paging',
+        name: 'Group Paging',
+        angularComponent: 'departmentGroupPaging'
+      },
+      {
+        path: 'hunt-group',
+        name: 'Hunt Group',
+        angularComponent: 'departmentHuntGroup'
+      },
+      {
+        path: 'instant-group-call',
+        name: 'Instant Group Call',
+        angularComponent: 'departmentInstantGroupCall'
+      },
+      {
+        path: 'meet-me-conferencing',
+        name: 'Meet-Me Conferencing',
+        angularComponent: 'departmentMeetMeConferencing'
+      },
+      {
+        path: 'trunk-group',
+        name: 'Trunk Group',
+        angularComponent: 'departmentTrunkGroup'
       }
     ]
   },

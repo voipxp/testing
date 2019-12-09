@@ -578,7 +578,7 @@ export const routes = [
   {
     path: '/serviceProviders/:serviceProviderId',
     angularComponent: 'serviceProviderDashboard',
-    hasLevel: 'Service Provider'
+    hasLevel: 'Group'
   },
   {
     path: '/serviceProviders/:serviceProviderId/profile',
@@ -798,7 +798,7 @@ export const routes = [
     hasLevel: 'Reseller'
   },
   {
-    path: '/department',
+    path: '/department/:serviceProviderId/:groupId',
     component: DepartmentDashboard,
     hasLevel: 'Group'
   }

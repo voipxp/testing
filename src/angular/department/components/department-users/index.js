@@ -83,14 +83,18 @@ function controller(
     //   })
   }
 
+  var usersData = [{"userId":"test-dept-user-1@parkbenchsolutions.com","lastName":"test-dept-user-1","firstName":"test-dept-user-1","department":"TestDepartment \\ pankaj department (grpPankaj)","phoneNumber":"","phoneNumberActivated":null,"emailAddress":null,"hiraganaLastName":"test-dept-user-1","hiraganaFirstName":"test-dept-user-1","inTrunkGroup":false,"extension":"","countryCode":null,"nationalPrefix":null,"serviceProviderId":"ent.odin.testxp","groupId":"grpPankaj","userIdShort":"test-dept-user-1@parkbenchsolutions.com","domain":"parkbenchsolutions.com"},{"userId":"testFrpAnshu@parkbenchsolutions.com","lastName":"testAnshu","firstName":"testAnshu","department":"TestDepartment","phoneNumber":"","phoneNumberActivated":null,"emailAddress":null,"hiraganaLastName":"testAnshu","hiraganaFirstName":"testAnshu","inTrunkGroup":false,"extension":"","countryCode":null,"nationalPrefix":null,"serviceProviderId":"ent.odin.testxp","groupId":"grpPankaj","userIdShort":"testFrpAnshu@parkbenchsolutions.com","domain":"parkbenchsolutions.com"},{"userId":"pankajUser@parkbenchsolutions.com","lastName":"pankaj","firstName":"user","department":null,"phoneNumber":"","phoneNumberActivated":null,"emailAddress":null,"hiraganaLastName":"pankaj","hiraganaFirstName":"user","inTrunkGroup":false,"extension":"","countryCode":null,"nationalPrefix":null,"serviceProviderId":"ent.odin.testxp","groupId":"grpPankaj","userIdShort":"pankajUser@parkbenchsolutions.com","domain":"parkbenchsolutions.com"}]
+  
   function loadUsers(extended) {
+	return ctrl.users = usersData;
     return UserService.index(
       ctrl.serviceProviderId,
       ctrl.groupId,
       extended
     ).then(function(data) {
-      ctrl.users = data
+      ctrl.users = users
     })
+	
   }
 
   function add() {
