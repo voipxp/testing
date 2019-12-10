@@ -59,6 +59,7 @@ const StyledModal = styled.div`
 export const UiCardModal = ({
   children,
   isOpen,
+  isLoading,
   onCancel,
   onSave,
   onDelete,
@@ -85,13 +86,21 @@ export const UiCardModal = ({
         <Modal.Card.Foot style={{ justifyContent: 'flex-end' }}>
           <Button.Group align="right">
             {isFunction(onDelete) && (
-              <Button color="danger" onClick={() => onDelete()}>
+              <Button
+                state={isLoading ? 'loading' : ''}
+                color="danger"
+                onClick={() => onDelete()}
+              >
                 {deleteText}
               </Button>
             )}
             <Button onClick={onCancel}>{cancelText}</Button>
             {isFunction(onSave) && (
-              <Button color="success" onClick={() => onSave()}>
+              <Button
+                state={isLoading ? 'loading' : ''}
+                color="success"
+                onClick={() => onSave()}
+              >
                 {saveText}
               </Button>
             )}
@@ -107,6 +116,8 @@ UiCardModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   /** Called when Cancel Button Clicked */
   onCancel: PropTypes.func.isRequired,
+  /** Called to spin save button*/
+  isLoading: PropTypes.bool,
   /** Required Card Title */
   title: PropTypes.string.isRequired,
   /** Shows the Save Button if set */

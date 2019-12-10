@@ -25,7 +25,7 @@ function controller(Alert, ServiceProviderDomainService) {
   this.$onInit = () => {
     this.loading = true
     ServiceProviderDomainService.index(this.serviceProviderId)
-      .then(data => (this.domais = data))
+      .then(data => (this.domains = data))
       .catch(Alert.notify.danger)
       .finally(() => (this.loading = false))
   }
