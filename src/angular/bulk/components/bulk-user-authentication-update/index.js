@@ -47,6 +47,7 @@ function controller(BulkImportService, $scope) {
         userId: user.userId,
         groupId: user.groupId,
         serviceProviderId: user.serviceProviderId,
+		    phoneNumber: user.phoneNumber,
         userName: ctrl.userName,
         newPassword: ctrl.newPassword
       }
