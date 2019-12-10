@@ -22,7 +22,8 @@ export const dashboardMenu = [
 	    {
         path: 'auto-attendant',
         name: 'Auto Attendant',
-        angularComponent: 'autoAttendants'
+        angularComponent: 'autoAttendants',
+        hasModuleRead: 'Auto Attendant'
       },
       /*
       {

@@ -25,8 +25,8 @@ export const AppDashboard = () => {
       route = `/users/${serviceProviderId}/${groupId}/${userId}`
       break
     case 'Department':
-    route = `/department/${serviceProviderId}/${groupId}`
-    break
+      route = `/department/${serviceProviderId}/${groupId}`
+      break
     default:
       route = '/notFound'
   }
