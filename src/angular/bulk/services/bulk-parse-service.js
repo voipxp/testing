@@ -11,7 +11,9 @@ BulkParseService.$inject = [
   'PasswordService',
   'ServiceProviderPasscodeService',
   'GroupPasscodeService',
-  'PasscodeService'
+  'PasscodeService',
+  'SipAuthPasswordRulesService',
+  'SystemSipAuthPasswordRulesService'
 ]
 function BulkParseService(
   $q,
@@ -21,7 +23,10 @@ function BulkParseService(
   PasswordService,
   ServiceProviderPasscodeService,
   GroupPasscodeService,
-  PasscodeService
+  PasscodeService,
+  SipAuthPasswordRulesService,
+  SystemSipAuthPasswordRulesService
+
 ) {
   var service = {
     parse: parse,
@@ -192,7 +197,7 @@ function BulkParseService(
 
   function addGenerateSipPasswordTag(template, view) {
     if (!hasTag('generateSipPassword', template)) return $q.resolve()
-    return loadSipPasswordRules(view).then(function(rules) {
+    return loadServiceProviderSipPasswordRules(view).then(function(rules) {
       view.generateSipPassword = function() {
         return PasswordService.generate(rules)
       }
@@ -258,11 +263,11 @@ function BulkParseService(
    * There is a skeleton of what the implementation would
    * look like commented out below
    */
-  function loadSipPasswordRules(user) {
+ /* function loadSipPasswordRules(user) {
     const defaultRules = { length: 14 }
     return $q.resolve(defaultRules)
     // return loadServiceProviderSipPasswordRules(defaultRules)
-  }
+  } */
 
   // Return the ServiceProvider Rules or call the System
   // function loadServiceProviderSipPasswordRules() {
@@ -285,6 +290,31 @@ function BulkParseService(
   //     return defaultRules
   //   })
   // }
+
+/*code for generate password sip auth */
+
+function loadServiceProviderSipPasswordRules(user) {
+   return SipAuthPasswordRulesService.show(user.serviceProviderId)
+      .then(function(rules) {
+        if (!user.serviceProviderId || !user.groupId) {
+          return loadSystemSipAuthPasswordRules()
+        }else{
+            return rules
+        }
+
+      }) 
+
+  }
+
+  function loadSystemSipAuthPasswordRules() {
+    return SystemSipAuthPasswordRulesService.show()
+    .then(function(rules) {
+       return rules
+    }).catch(function() {
+      return loadSystemSipAuthPasswordRules()
+     })
+  }
+/*end code for generate password sip */
 
   function loadDefaultDomain(user) {
     return GroupDomainService.index(user.serviceProviderId, user.groupId).then(

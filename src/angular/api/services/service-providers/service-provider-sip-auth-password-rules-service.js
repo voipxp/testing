@@ -4,19 +4,16 @@ angular.module('odin.api').factory('SipAuthPasswordRulesService', SipAuthPasswor
 
 SipAuthPasswordRulesService.$inject = ['$http', 'Route']
 function SipAuthPasswordRulesService($http, Route) {
-  var service = { show, update }	
+  var service = { show }	
   var url = Route.api('/service-providers/sip-authentication-password-rules')
   return service
 
-  function show(serviceProviderId, groupId) {
+  function show( serviceProviderId ) {
     return $http
       .get(url(), { params: { serviceProviderId} })
       .then(response => response.data)
   }
-
-  function update(serviceProviderId, object) {
-    return $http.put(url(), object).then(response => response.data)
-  }
+ 
 }
 
 
