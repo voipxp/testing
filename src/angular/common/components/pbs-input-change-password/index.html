@@ -1,0 +1,116 @@
+<div ng-form name="changePasswordForm">
+  <div class="field has-addons">
+    <div class="control is-expanded has-icons-right">
+      <input
+        autocomplete="new-password"
+        class="input"
+        name="password1"
+        type="{{ inputType }}"
+        placeholder="Current Password"
+        ng-model="ngModel"
+        ng-required="ngRequired"
+        ng-minlength="ngMinlength"
+        ng-maxlength="ngMaxlength"
+        ng-disabled="isLoading"
+        ng-change="onChange()"
+      />
+      <span class="icon is-small is-right">
+        <i
+          class="fas"
+          ng-class="{
+            'fa-exclamation-triangle': changePasswordForm.password1.$invalid,
+            'fa-check': changePasswordForm.password1.$valid
+          }"
+        ></i>
+      </span>
+    </div>
+    <div class="control">
+      <div
+        class="button is-link"
+        ng-class="{'is-loading': isLoading}"
+        ng-click="generate()"
+        ng-disabled="isLoading"
+      >
+        <span class="icon"><i class="fas fa-key"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="field has-addons">
+    <div class="control is-expanded has-icons-right">
+      <input
+        autocomplete="new-password"
+        class="input"
+        type="{{ inputType }}"
+        name="password2"
+        placeholder="Reset Password"
+        ng-model="password2"
+        ng-required="ngModel"
+        ng-minlength="ngMinlength"
+        ng-maxlength="ngMaxlength"
+        ng-disabled="isLoading"
+        ng-pattern="pattern"
+      />
+      <span class="icon is-small is-right">
+        <i
+          class="fas"
+          ng-class="{
+              'fa-exclamation-triangle': changePasswordForm.password2.$invalid,
+              'fa-check': changePasswordForm.password2.$valid
+            }"
+        ></i>
+      </span>
+    </div>
+    <div class="control">
+      <div class="button is-link" ng-click="toggle()">
+        <span class="icon">
+          <i
+            class="fas"
+            ng-class="{
+              'fa-eye': inputType === 'text',
+              'fa-eye-slash': inputType === 'password'
+            }"
+          ></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="field has-addons">
+    <div class="control is-expanded has-icons-right">
+      <input
+        autocomplete="new-password"
+        class="input"
+        type="{{ inputType }}"
+        name="password3"
+        placeholder="Re-type new password"
+        ng-model="password3"
+        ng-required="ngModel"
+        ng-minlength="ngMinlength"
+        ng-maxlength="ngMaxlength"
+        ng-disabled="isLoading"
+        ng-pattern="pattern"
+      />
+      <span class="icon is-small is-right">
+        <i
+          class="fas"
+          ng-class="{
+              'fa-exclamation-triangle': changePasswordForm.password3.$invalid,
+              'fa-check': changePasswordForm.password3.$valid
+            }"
+        ></i>
+      </span>
+    </div>
+    <div class="control">
+      <div class="button is-link" ng-click="toggle()">
+        <span class="icon">
+          <i
+            class="fas"
+            ng-class="{
+              'fa-eye': inputType === 'text',
+              'fa-eye-slash': inputType === 'password'
+            }"
+          ></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

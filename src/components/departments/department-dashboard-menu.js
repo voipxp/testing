@@ -6,13 +6,13 @@ export const dashboardMenu = [
         path: 'users',
         name: 'Users',
         angularComponent: 'departmentUsers',
-        hasModuleRead: 'Department Passwrod'
+        hasModuleRead: 'Department User'
       },
 	    {
         path: 'change-password',
         name: 'Change Password ',
-        angularComponent: 'departmentUserPassword',
-        hasModuleRead: 'Department Password'
+        angularComponent: 'departmentChangePassword',
+        hasModuleRead: 'Department Change Password'
       }
     ]
   },
