@@ -5,7 +5,7 @@ export const dashboardMenu = [
        {
         path: 'users',
         name: 'Users',
-        angularComponent: 'groupUsers',
+        angularComponent: 'departmentUsers',
         hasModuleRead: 'Department Passwrod'
       },
 	    {
@@ -23,44 +23,44 @@ export const dashboardMenu = [
         path: 'auto-attendant',
         name: 'Auto Attendant',
         angularComponent: 'autoAttendants',
-        hasModuleRead: 'Auto Attendant'
+        hasModuleRead: 'Auto Attendant',
+        hasUserService: ['Auto Attendant']
       },
-      /*
-      {
-        path: 'broadworks-anywhere',
-        name: 'BroadWorks Anywhere',
-        angularComponent: 'departmentBroadworksAnyWhere'
-      },
-      */
       {
         path: 'call-centers',
         name: 'Call Centers',
-        angularComponent: 'groupCallCenters'
+        angularComponent: 'groupCallCenters',
+        hasUserService: ['Call Center']
       },
       {
         path: 'flexible-seating-host',
         name: 'Flexible Seating Host',
-        angularComponent: 'groupFlexibleSeatingHosts'
+        angularComponent: 'groupFlexibleSeatingHosts',
+        hasUserService: ['Flexible Seating Guest']
       },
       {
         path: 'paging',
         name: 'Group Paging',
-        angularComponent: 'groupPagingGroups'
+        angularComponent: 'groupPagingGroups',
+        hasUserService: ['Group Paging']
       },
       {
         path: 'hunt-group',
         name: 'Hunt Group',
-        angularComponent: 'groupHuntGroups'
+        angularComponent: 'groupHuntGroups',
+        hasUserService: ['Hunt Group']
       },
       {
         path: 'meet-me-conferencing',
         name: 'Meet-Me Conferencing',
-        angularComponent: 'groupMeetMe'
+        angularComponent: 'groupMeetMe',
+        hasUserService: ['Meet-Me Conferencing']
       },
       {
         path: 'trunk-group',
         name: 'Trunk Group',
-        angularComponent: 'groupTrunkGroups'
+        angularComponent: 'groupTrunkGroups',
+        hasUserService: ['Trunk Group']
       }
     ]
   },

@@ -4,11 +4,12 @@ import { useCallback } from 'react'
 const hasLevel = (loginType, requiredType) => {
   const types = {
     'User': 1,
-    'Group': 2,
-    'Service Provider': 3,
-    'Reseller': 4,
-    'Provisioning': 5,
-    'System': 6
+    'Group Department': 2,
+    'Group': 3,
+    'Service Provider': 4,
+    'Reseller': 5,
+    'Provisioning': 6,
+    'System': 7
   }
   const user = types[loginType] || 0
   const required = types[requiredType] || 10

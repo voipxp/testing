@@ -810,7 +810,7 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-	path: '/department/:serviceProviderId/:groupId',
+	path: '/department/:serviceProviderId/:groupId/:groupDepartmentPathName',
     component: DepartmentDashboard,
   }
 ]

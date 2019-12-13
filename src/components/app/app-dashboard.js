@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 
 export const AppDashboard = () => {
   const { session } = useSession()
-  const { loginType, serviceProviderId, groupId, userId, resellerId } = session
+  const { loginType, serviceProviderId, groupId, userId, resellerId, groupDepartmentPathName } = session
 
   let route
   switch (loginType) {
@@ -24,8 +24,8 @@ export const AppDashboard = () => {
     case 'User':
       route = `/users/${serviceProviderId}/${groupId}/${userId}`
       break
-    case 'Department':
-      route = `/department/${serviceProviderId}/${groupId}`
+    case 'Group Department':
+      route = `/department/${serviceProviderId}/${groupId}/${groupDepartmentPathName}`
       break
     default:
       route = '/notFound'

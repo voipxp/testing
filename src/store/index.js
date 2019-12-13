@@ -7,6 +7,8 @@ import { userUserInterceptReducer } from './user-intercept'
 import { userAssignedServicesReducer } from './user-assigned-services'
 import { userViewableServicesReducer } from './user-viewable-services'
 import { userReducer } from './user'
+import { groupServicesReducer } from './group-services'
+
 import {
   sessionReducer,
   loadSessionFromStorage,
@@ -39,7 +41,8 @@ export const store = configureStore({
     uiModules: uiModulesReducer,
     uiSettings: uiSettingsReducer,
     uiTemplate: uiTemplateReducer,
-    autoAttendant: autoAttendantReducer
+    autoAttendant: autoAttendantReducer,
+	groupServices: groupServicesReducer
   },
   devTools: process.env.NODE_ENV !== 'production'
 })

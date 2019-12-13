@@ -1,0 +1,58 @@
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+>
+  <pbs-breadcrumb title="'Users'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Users">
+    <pbs-block-buttons ng-if="$ctrl.canCreate">
+      <pbs-button-compact-add
+        ng-click="$ctrl.add()"
+        title="Add User"
+        if-module-create="'Provisioning'"
+      ></pbs-button-compact-add>
+      <pbs-button-compact-bulk
+        ng-click="$ctrl.bulk()"
+        title="Add Users in Bulk"
+        if-module-create="'Provisioning'"
+      ></pbs-button-compact-bulk>
+      <pbs-button-dropdown
+        title="Edit Users in Bulk"
+        items="['Edit CLID Number']"
+        if-module-update="'Provisioning'"
+        on-select="$ctrl.edit($event)"
+      ></pbs-button-dropdown>
+    </pbs-block-buttons>
+
+    <pbs-data-table
+      order-by="userId"
+      columns="$ctrl.columns"
+      items="$ctrl.users"
+      show-select="$ctrl.showSelect"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-select="$ctrl.onSelect($event)"
+      on-click="$ctrl.onClick($event)"
+    ></pbs-data-table>
+  </pbs-block>
+</pbs-spinner>
+<user-create
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+  on-update="$ctrl.onCreate($event)"
+></user-create>
+<pbs-modal id="bulkEditUserCLID" title="CLID: Edit {{ $ctrl.editCount }} Users">
+  <pbs-form>
+    <pbs-form-field-horizontal label="Calling Line Id Phone Number">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.callingLineIdPhoneNumber"
+      />
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>
