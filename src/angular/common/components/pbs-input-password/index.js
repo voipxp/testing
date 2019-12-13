@@ -8,10 +8,11 @@ pbsInputPassword.$inject = [
   'PasswordService',
   'GroupPasswordService',
   'SystemSipAuthPasswordRulesService',
+  'SipAuthPasswordRulesService',
   'Alert',
   '$q'
 ]
-function pbsInputPassword(PasswordService, GroupPasswordService,SystemSipAuthPasswordRulesService, Alert, $q) {
+function pbsInputPassword(PasswordService, GroupPasswordService,SystemSipAuthPasswordRulesService,SipAuthPasswordRulesService,  Alert, $q) {
   return {
     template,
     restrict: 'E',
@@ -58,18 +59,41 @@ function pbsInputPassword(PasswordService, GroupPasswordService,SystemSipAuthPas
         scope.inputType = scope.inputType === 'text' ? 'password' : 'text'
       }
 
+      function loadSystemSipAuthPasswordRules() {
+        return SystemSipAuthPasswordRulesService.show()
+        .then(function(rules) {
+           return rules
+        })
+      }
+
       function loadPasswordRules() {
 		var defaultRules = {}
         if (!scope.serviceProviderId || !scope.groupId) {
           return $q.resolve(defaultRules)
         }
 		 
-		return SystemSipAuthPasswordRulesService.show(
+		/*return SystemSipAuthPasswordRulesService.show(
            scope.serviceProviderId
         ).catch(function() {
           return defaultRules
+        }) */
+
+        return SipAuthPasswordRulesService.show(scope.serviceProviderId)
+        .then(function(rules) {
+          console.log(rules)
+          if (rules.useServiceProviderSettings === true) {
+            return rules
+          }else{
+            return loadSystemSipAuthPasswordRules()
+          }
+          
+        }).catch(function() {
+        return loadSystemSipAuthPasswordRules()
         })
+
       }
     }
   }
 }
+
+
