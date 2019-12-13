@@ -7,11 +7,11 @@ angular.module('odin.common').directive('pbsInputPassword', pbsInputPassword)
 pbsInputPassword.$inject = [
   'PasswordService',
   'GroupPasswordService',
-  'SipAuthPasswordRulesService',
+  'SystemSipAuthPasswordRulesService',
   'Alert',
   '$q'
 ]
-function pbsInputPassword(PasswordService, GroupPasswordService,SipAuthPasswordRulesService, Alert, $q) {
+function pbsInputPassword(PasswordService, GroupPasswordService,SystemSipAuthPasswordRulesService, Alert, $q) {
   return {
     template,
     restrict: 'E',
@@ -64,7 +64,7 @@ function pbsInputPassword(PasswordService, GroupPasswordService,SipAuthPasswordR
           return $q.resolve(defaultRules)
         }
 		 
-		return SipAuthPasswordRulesService.show(
+		return SystemSipAuthPasswordRulesService.show(
            scope.serviceProviderId
         ).catch(function() {
           return defaultRules

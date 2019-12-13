@@ -12,7 +12,6 @@ BulkParseService.$inject = [
   'ServiceProviderPasscodeService',
   'GroupPasscodeService',
   'PasscodeService',
-  'SipAuthPasswordRulesService',
   'SystemSipAuthPasswordRulesService'
 ]
 function BulkParseService(
@@ -24,7 +23,6 @@ function BulkParseService(
   ServiceProviderPasscodeService,
   GroupPasscodeService,
   PasscodeService,
-  SipAuthPasswordRulesService,
   SystemSipAuthPasswordRulesService
 
 ) {
@@ -197,7 +195,7 @@ function BulkParseService(
 
   function addGenerateSipPasswordTag(template, view) {
     if (!hasTag('generateSipPassword', template)) return $q.resolve()
-    return loadServiceProviderSipPasswordRules(view).then(function(rules) {
+    return loadSystemSipAuthPasswordRules(view).then(function(rules) {
       view.generateSipPassword = function() {
         return PasswordService.generate(rules)
       }
@@ -291,28 +289,21 @@ function BulkParseService(
   //   })
   // }
 
-/*code for generate password sip auth */
+/*code for sip auth password rules enterprise level */
 
+/*
 function loadServiceProviderSipPasswordRules(user) {
    return SipAuthPasswordRulesService.show(user.serviceProviderId)
       .then(function(rules) {
-        if (!user.serviceProviderId || !user.groupId) {
-          return loadSystemSipAuthPasswordRules()
-        }else{
-            return rules
-        }
-
-      }) 
-
-  }
+        return rules
+    }) 
+  } */
 
   function loadSystemSipAuthPasswordRules() {
     return SystemSipAuthPasswordRulesService.show()
     .then(function(rules) {
        return rules
-    }).catch(function() {
-      return loadSystemSipAuthPasswordRules()
-     })
+    })
   }
 /*end code for generate password sip */
 
