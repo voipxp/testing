@@ -87,8 +87,6 @@ function pbsInputPassword(PasswordService, GroupPasswordService,SystemSipAuthPas
             return loadSystemSipAuthPasswordRules()
           }
           
-        }).catch(function() {
-        return loadSystemSipAuthPasswordRules()
         })
 
       }

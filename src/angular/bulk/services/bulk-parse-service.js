@@ -304,8 +304,6 @@ function loadServiceProviderSipPasswordRules(user) {
           return loadSystemSipAuthPasswordRules()
         }
         
-    }).catch(function() {
-      return loadSystemSipAuthPasswordRules()
     })
   } 
 
