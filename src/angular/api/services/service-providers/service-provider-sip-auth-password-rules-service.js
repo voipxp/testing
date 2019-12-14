@@ -1,9 +1,9 @@
 	import angular from 'angular'
 
-angular.module('odin.api').factory('SipAuthPasswordRulesService', SipAuthPasswordRulesService)
+angular.module('odin.api').factory('ServiceProviderSipAuthPasswordRulesService', ServiceProviderSipAuthPasswordRulesService)
 
-SipAuthPasswordRulesService.$inject = ['$http', 'Route']
-function SipAuthPasswordRulesService($http, Route) {
+ServiceProviderSipAuthPasswordRulesService.$inject = ['$http', 'Route']
+function ServiceProviderSipAuthPasswordRulesService($http, Route) {
   var service = { show }	
   var url = Route.api('/service-providers/sip-authentication-password-rules')
   return service

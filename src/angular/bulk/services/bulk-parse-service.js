@@ -13,7 +13,7 @@ BulkParseService.$inject = [
   'GroupPasscodeService',
   'PasscodeService',
   'SystemSipAuthPasswordRulesService',
-  'SipAuthPasswordRulesService'
+  'ServiceProviderSipAuthPasswordRulesService'
 ]
 function BulkParseService(
   $q,
@@ -25,7 +25,7 @@ function BulkParseService(
   GroupPasscodeService,
   PasscodeService,
   SystemSipAuthPasswordRulesService,
-  SipAuthPasswordRulesService
+  ServiceProviderSipAuthPasswordRulesService
 
 ) {
   var service = {
@@ -295,15 +295,16 @@ function BulkParseService(
 
 
 function loadServiceProviderSipPasswordRules(user) {
-   return SipAuthPasswordRulesService.show(user.serviceProviderId)
+   return ServiceProviderSipAuthPasswordRulesService.show(user.serviceProviderId)
       .then(function(rules) {
-        console.log(rules)
         if (rules.useServiceProviderSettings === true) {
           return rules
         }else{
           return loadSystemSipAuthPasswordRules()
         }
-        
+    })
+    .catch(function() {
+      return loadSystemSipAuthPasswordRules()
     })
   } 
 
