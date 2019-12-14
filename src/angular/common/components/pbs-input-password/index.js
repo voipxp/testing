@@ -12,7 +12,7 @@ pbsInputPassword.$inject = [
   'Alert',
   '$q'
 ]
-function pbsInputPassword(PasswordService, GroupPasswordService,SystemSipAuthPasswordRulesService,ServiceProviderSipAuthPasswordRulesService,  Alert, $q) {
+function pbsInputPassword(PasswordService, GroupPasswordService, SystemSipAuthPasswordRulesService, ServiceProviderSipAuthPasswordRulesService,  Alert, $q) {
   return {
     template,
     restrict: 'E',
