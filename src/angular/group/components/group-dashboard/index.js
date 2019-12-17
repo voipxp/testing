@@ -88,7 +88,8 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
       {
         type: 'management',
         name: 'Departments',
-        path: route('departments')
+        path: route('departments'),
+		policy: 'departmentRead'
       },
 
       {
