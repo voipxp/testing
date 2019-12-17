@@ -8,15 +8,16 @@ angular.module('odin.department').component('departmentChangePassword', {
   bindings: { userId: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserAuthenticationService', 'Module', '$q']
-function controller(Alert, UserAuthenticationService, Module, $q) {
-  var ctrl = this
-  ctrl.$onInit = onInit
-  ctrl.edit = edit
-  ctrl.options = UserAuthenticationService.options
+controller.$inject = ['Alert', 'GroupDepartmentAdminService', 'Module','Session', '$q']
 
+function controller(Alert, GroupDepartmentAdminService, Module, Session, $q) {
+  var ctrl      	= this
+  ctrl.$onInit  	= onInit
+  ctrl.edit     	= edit
+  ctrl.permission 	= false
+ 
   function onInit() {
-    ctrl.loading = true
+	  ctrl.loading = true
     return $q
       .all([loadSettings(), loadModule()])
       .catch(function(error) {
@@ -25,38 +26,36 @@ function controller(Alert, UserAuthenticationService, Module, $q) {
       .finally(function() {
         ctrl.loading = false
       })
-  }
+	}
 
   function loadModule() {
     return Module.show('Change Password').then(function(data) {
-      ctrl.module = data
-    })
+		  ctrl.permission 	= data.permissions.update
+		  ctrl.module 		= data
+	  })
   }
 
   function loadSettings() {
-	  ctrl.settings = 'AnshuDept@parkbenchsolutions.com'
-    /*return UserAuthenticationService.show(ctrl.userId).then(function(data) {
-    return UserAuthenticationService.show(ctrl.userId).then(function(data) {
-      ctrl.settings = data
-    }) */
+	  ctrl.settings = {
+		  userId: Session.data('userId'),
+      password: null
+    }
   }
 
   function edit() {
     ctrl.editSettings = angular.copy(ctrl.settings)
+	  ctrl.userId = Session.data('userId')
     Alert.modal.open('editDepartmentChangePassword', function onSave(close) {
       update(ctrl.editSettings, close)
     })
   }
 
-  function update(settings, callback) {
-    if (!settings.newPassword) {
-      delete settings.newPassword
-    }
+  function update(settings, callback) {  
     Alert.spinner.open()
-    UserAuthenticationService.update(ctrl.userId, settings)
+    GroupDepartmentAdminService.update(settings)
       .then(loadSettings)
       .then(function() {
-        Alert.notify.success('Settings Updated')
+        Alert.notify.success('Password Changed')
         if (_.isFunction(callback)) callback()
       })
       .catch(function(error) {
