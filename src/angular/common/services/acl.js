@@ -10,7 +10,8 @@ function ACL($q, Session) {
     is: is,
     allowVersion: allowVersion,
     hasVersion: hasVersion,
-    isPaasAdmin: isPaasAdmin
+    isPaasAdmin: isPaasAdmin,
+    filterByDepartment: filterByDepartment
   }
 
   function allowVersion(version) {
@@ -62,5 +63,11 @@ function ACL($q, Session) {
 
   function isPaasAdmin() {
     return Session.data('isPaasAdmin')
+  }
+
+  function filterByDepartment(filterData) {
+    return filterData.filter(function(data) {
+			return (data.departmentFullPath || data.department) === Session.data('groupDepartmentPathName')
+	  })
   }
 }

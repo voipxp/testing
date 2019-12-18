@@ -8,14 +8,14 @@ import { useGroupServices } from '@/store/group-services'
 import groupServicesApi from '@/api/group-services'
 import { useAsync } from 'react-async-hook'
  import {
-	useGroupServicePermissions, 
+	useGroupServicePermissions,
   useAcl
 } from '@/utils'
-  
+
 export const DepartmentDashboard = ({ match }) => {
   const [loading, setLoading] = React.useState(false)
-  
-  const { hasVersion, hasLevel } = useAcl()
+
+  const { hasVersion, hasLevel, hasPolicy } = useAcl()
   const { serviceProviderId, groupId  } = match.params
   const { loadGroupServices } = useGroupServices(groupId, serviceProviderId)
   const { hasGroupService } = useGroupServicePermissions(groupId)
@@ -44,16 +44,19 @@ export const DepartmentDashboard = ({ match }) => {
         if (item.hasLevel && !hasLevel(item.hasLevel)) {
           return false
         }
-		if (item.hasUserService && !hasGroupService(item.hasUserService)) {
+	    	if (item.hasUserService && !hasGroupService(item.hasUserService)) {
           return false
         }
-		
+        if ( item.hasPolicy && !hasPolicy(item.hasPolicy) ) {
+          return false
+        }
+
         return true
       })
       if (items.length > 0) filteredMenu.push({ label: section.label, items })
     })
     return filteredMenu
-  }, [hasLevel, hasGroupService, hasVersion])
+  }, [hasLevel, hasGroupService, hasVersion, hasPolicy])
 
   return (
     <>

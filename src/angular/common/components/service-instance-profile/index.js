@@ -21,7 +21,8 @@ controller.$inject = [
   'GroupDepartmentService',
   'SystemLanguageService',
   'SystemTimeZoneService',
-  'EventEmitter'
+  'EventEmitter',
+  'ACL'
 ]
 function controller(
   Alert,
@@ -29,7 +30,8 @@ function controller(
   GroupDepartmentService,
   SystemLanguageService,
   SystemTimeZoneService,
-  EventEmitter
+  EventEmitter,
+  ACL
 ) {
   var ctrl = this
 
@@ -40,6 +42,7 @@ function controller(
 
   ctrl.selectNumber = selectNumber
   ctrl.edit = edit
+  ctrl.isDepartmentAdmin = ACL.is('Group Department')
 
   function activate() {
     Alert.spinner.open()

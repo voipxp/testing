@@ -11,14 +11,19 @@ angular.module('odin.group').component('userCreate', {
   }
 })
 
-controller.$inject = ['Alert', '$scope', 'EventEmitter', 'UserService']
-function controller(Alert, $scope, EventEmitter, UserService) {
+controller.$inject = ['Alert', '$scope', 'EventEmitter', 'UserService', 'Session']
+function controller(Alert, $scope, EventEmitter, UserService, Session) {
   var ctrl = this
 
   ctrl.$onChanges = onChanges
   ctrl.setCLID = setCLID
   ctrl.setUserId = setUserId
   ctrl.toggleOptional = toggleOptional
+
+  /* Set and accessed for Group Admini*/
+  ctrl.isDepartmentAdmin = (Session.data('loginType') === 'Group Department')
+  ctrl.defaultDepartmentName = Session.data('groupDepartmentName') || null
+  ctrl.groupDepartmentPathName= Session.data('groupDepartmentPathName') || null
 
   function onChanges(changes) {
     if (changes.serviceProviderId) {
@@ -31,6 +36,7 @@ function controller(Alert, $scope, EventEmitter, UserService) {
 
   function open() {
     ctrl.user = {}
+    if(ctrl.isDepartmentAdmin) ctrl.user.department = { name: ctrl.defaultDepartmentName }
     Alert.modal.open('createUserModal', function onSave(close) {
       create(ctrl.user, close)
     })
@@ -47,6 +53,7 @@ function controller(Alert, $scope, EventEmitter, UserService) {
       ctrl.user.department.serviceProviderId = ctrl.serviceProviderId
       ctrl.user.department.groupId = ctrl.groupId
     }
+
     Alert.spinner.open()
     UserService.store(ctrl.serviceProviderId, ctrl.groupId, ctrl.user)
       .then(function() {

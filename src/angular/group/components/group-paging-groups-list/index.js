@@ -7,8 +7,8 @@ angular.module('odin.group').component('groupPagingGroupsList', {
   require: { parent: '^groupPagingGroups' }
 })
 
-controller.$inject = ['Alert', 'GroupPagingGroupService', '$scope']
-function controller(Alert, GroupPagingGroupService, $scope) {
+controller.$inject = ['Alert', 'GroupPagingGroupService', '$scope', 'ACL']
+function controller(Alert, GroupPagingGroupService, $scope, ACL) {
   var ctrl = this
   ctrl.$onInit = activate
   ctrl.add = add
@@ -29,6 +29,7 @@ function controller(Alert, GroupPagingGroupService, $scope) {
       ctrl.parent.serviceProviderId,
       ctrl.parent.groupId
     ).then(function(data) {
+      if(ACL.is('Group Department')) data = ACL.filterByDepartment(data)
       ctrl.instances = data
       return data
     })

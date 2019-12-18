@@ -99,12 +99,22 @@
       />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Department">
+      <!-- If Admin is not a Group Department -->
       <pbs-input-select
+        ng-if="!$ctrl.isDepartmentAdmin"
         ng-model="$ctrl.editProfile.department"
         ng-options="department as department.name for department in $ctrl.departments track by department.name"
       >
         <option value="">-- None --</option>
       </pbs-input-select>
+      <!-- If Admin is Group Department -->
+      <pbs-input-select
+        ng-if="$ctrl.isDepartmentAdmin"
+        ng-model="$ctrl.editProfile.department"
+        ng-options="department as department.name for department in $ctrl.departments track by department.name"
+      >
+      </pbs-input-select>
+
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Language">
       <pbs-input-select

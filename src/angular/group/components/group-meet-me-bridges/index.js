@@ -7,8 +7,8 @@ angular.module('odin.group').component('groupMeetMeBridges', {
   require: { parent: '^groupMeetMe' }
 })
 
-controller.$inject = ['Alert', 'GroupMeetMeConferencingBridgeService', '$scope']
-function controller(Alert, GroupMeetMeConferencingBridgeService, $scope) {
+controller.$inject = ['Alert', 'GroupMeetMeConferencingBridgeService', '$scope', 'ACL']
+function controller(Alert, GroupMeetMeConferencingBridgeService, $scope, ACL) {
   var ctrl = this
 
   ctrl.$onInit = activate
@@ -30,6 +30,7 @@ function controller(Alert, GroupMeetMeConferencingBridgeService, $scope) {
       ctrl.parent.serviceProviderId,
       ctrl.parent.groupId
     ).then(function(data) {
+      if(ACL.is('Group Department')) data = ACL.filterByDepartment(data)
       ctrl.bridges = data
       return data
     })

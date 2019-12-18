@@ -18,7 +18,9 @@ controller.$inject = [
   '$scope',
   '$q',
   'GroupPolicyService',
-  '$ngRedux'
+  '$ngRedux',
+  'ACL',
+  'Session'
 ]
 function controller(
   Alert,
@@ -29,7 +31,9 @@ function controller(
   $scope,
   $q,
   GroupPolicyService,
-  $ngRedux
+  $ngRedux,
+  ACL,
+  Session
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -136,8 +140,15 @@ function controller(
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
+      if(ACL.is('Group Department')) data = filterByDepartment(data)
       ctrl.users = data
     })
+  }
+
+  function filterByDepartment(filterData) {
+    return filterData.filter(function(data) {
+			return (data.user.departmentFullPath || data.user.department) === Session.data('groupDepartmentPathName')
+	  })
   }
 
   function loadGroupFlexibleSeatingHosts() {
@@ -145,6 +156,7 @@ function controller(
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
+      if(ACL.is('Group Department')) data.hosts = ACL.filterByDepartment(data.hosts)
       ctrl.hosts = data.hosts
     })
   }

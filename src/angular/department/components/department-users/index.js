@@ -14,9 +14,9 @@ controller.$inject = [
   '$scope',
   '$location',
   'Route',
-  'ServiceProviderPolicyService',
+  'GroupWebPolicyService',
   '$q',
-  'Session'
+  'ACL'
 ]
 function controller(
   Alert,
@@ -24,9 +24,9 @@ function controller(
   $scope,
   $location,
   Route,
-  ServiceProviderPolicyService,
+  GroupWebPolicyService,
   $q,
-  Session
+  ACL
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -36,7 +36,7 @@ function controller(
   ctrl.edit = edit
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
-  
+
 
   ctrl.columns = [
     {
@@ -67,48 +67,28 @@ function controller(
   ]
 
   function onInit() {
-// const loginType = Session.data('groupDepartmentPathName')	  
-  // ctrl.groupDepartmentPathName = stringEscape('TestDepartment pankaj department (grpPankaj)')
-  console.log('GGGGGGGGGGGGGGGGGGGGGGGGGGG')
-  console.log(Session.data('groupDepartmentPathName'))
     ctrl.loading = true
     return $q
-      .all([loadUsers(), ServiceProviderPolicyService.load()])
+      .all([loadUsers(), GroupWebPolicyService.load()])
       .then(function() {
-        //ctrl.canCreate = ServiceProviderPolicyService.userCreate()
-		ctrl.canCreate = true
+        ctrl.canCreate = GroupWebPolicyService.departmentAdminUserAccessCreate()
+        // ctrl.canCreate = false
       })
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
       })
-    // loadUsers()
-    //   .catch(function(error) {
-    //     Alert.notify.danger(error)
-    //   })
-    //   .finally(function() {
-    //     ctrl.loading = false
-    //   })
   }
-  
-  function filterUsers(users) {
-	  return users.filter(function(user) {
-				return (
-					user.department == Session.data('groupDepartmentPathName')
-					// user.department == 'TestDepartment \\ pankaj department (grpPankaj)'
-				)
-		  })
-  }
-  
+
   function loadUsers(extended) {
     return UserService.index(
       ctrl.serviceProviderId,
       ctrl.groupId,
       extended
     ).then(function(data) {
-      ctrl.users = filterUsers(data)
+      ctrl.users = ACL.filterByDepartment(data)
     })
-	
+
   }
 
   function add() {

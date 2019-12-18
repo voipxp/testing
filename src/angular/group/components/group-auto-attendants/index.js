@@ -13,7 +13,8 @@ controller.$inject = [
   'Route',
   '$scope',
   '$q',
-  'GroupPolicyService'
+  'GroupPolicyService',
+  'ACL'
 ]
 function controller(
   Alert,
@@ -21,7 +22,8 @@ function controller(
   Route,
   $scope,
   $q,
-  GroupPolicyService
+  GroupPolicyService,
+  ACL
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -58,7 +60,8 @@ function controller(
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
-      ctrl.autoAttendants = data
+      if(!ACL.is('Group Department')) ctrl.autoAttendants = data
+      else ctrl.autoAttendants = ACL.filterByDepartment(data)
     })
   }
 

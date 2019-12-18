@@ -6,7 +6,8 @@ export const dashboardMenu = [
         path: 'users',
         name: 'Users',
         angularComponent: 'departmentUsers',
-        hasModuleRead: 'Department User'
+        hasModuleRead: 'Department User',
+        hasPolicy: 'departmentAdminUserAccess'
       },
 	    {
         path: 'change-password',
@@ -60,7 +61,8 @@ export const dashboardMenu = [
         path: 'trunk-group',
         name: 'Trunk Group',
         angularComponent: 'groupTrunkGroups',
-        hasUserService: ['Trunk Group']
+        hasUserService: ['Trunk Group'],
+        hasPolicy: 'departmentAdminTrunkGroupAccess'
       }
     ]
   },

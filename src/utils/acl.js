@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useCallback } from 'react'
+import _ from 'lodash'
 
 const hasLevel = (loginType, requiredType) => {
   const types = {
@@ -29,9 +30,13 @@ const hasVersion = (current, required) => {
   return currentVersion >= requiredVersion
 }
 
+const hasPolicy = (policies, allowed_policy) => {
+    return (policies[allowed_policy] !== "None")
+}
+
 export const useAcl = () => {
   const session = useSelector(state => state.session)
-  const { loginType, isPaasAdmin, softwareVersion } = session
+  const { loginType, isPaasAdmin, softwareVersion, policy } = session
   return {
     isLevel: useCallback(level => loginType === level, [loginType]),
     isPaasAdmin: useCallback(() => isPaasAdmin, [isPaasAdmin]),
@@ -52,6 +57,7 @@ export const useAcl = () => {
     hasSystem: useCallback(() => hasSystem(loginType, 'System'), [loginType]),
     hasVersion: useCallback(version => hasVersion(softwareVersion, version), [
       softwareVersion
-    ])
+    ]),
+    hasPolicy: useCallback( allowed_policy => hasPolicy(policy, allowed_policy), [policy])
   }
 }
