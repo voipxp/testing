@@ -20,7 +20,7 @@ function GroupAdminPolicyService($http, Route) {
       ],
       adminAccess: ['Full', 'Read-Only', 'None'],
       departmentAccess: ['Full', 'Read-Only', 'None'],
-      accessDeviceAccess: ['Full', 'Associate User With Device', 'None'],
+      accessDeviceAccess: ['Full', 'Associate User With Device', 'Read-Only'],
       featureAccessCodeAccess: ['Full', 'Read-Only'],
       enhancedServiceInstanceAccess: ['Full', 'Modify-Only'],
       phoneNumberExtensionAccess: ['Full', 'Read-Only'],
