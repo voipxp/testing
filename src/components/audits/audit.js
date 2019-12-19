@@ -43,6 +43,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
   const { result, error, loading } = useAsync(() => auditApi.json(id), [id])
 
   if (error) alertDanger(error)
+  const audit = result || {}
 
   function handleInput(event) {
     const target = event.target
@@ -66,6 +67,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
   async function exportAudit() {
     try {
       setForm({
+        id: id,
         endpoint: '',
         bwksUserId: '',
         bwksPassword: ''
@@ -101,7 +103,27 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         password: form.bwksPassword,
         encryption: 'plain'
       })
-      console.log('token', token)
+      console.log('token', token.data.token)
+      console.log('audit', audit)
+      api.defaults.headers.common.Authorization = token.data.token
+        ? `Bearer ${token.data.token}`
+        : null
+      const iResult = await api.post(
+        '/imports',
+        {
+          serviceProviderId: audit[0].serviceProviderId,
+          groupId: audit[0].groupId,
+          options: {
+            password: 'Thisbetterwork123!',
+            groupMailServerPassword: 'Thisbetterwork123!',
+            passcode: '1234'
+          },
+          data: audit
+        },
+        { timeout: 0 }
+      )
+      console.log('iResult', iResult)
+
       setShowLoading(true)
       setShowModal(false)
     } catch (error_) {
@@ -125,8 +147,6 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
     }
     setShowLoading(false)
   }
-
-  const audit = result || {}
 
   function onCancel() {
     setShowModal(false)
@@ -199,7 +219,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         <UiLoadingModal isOpen={showLoading} />
       ) : (
         <UiCardModal
-          title={`Export Audit to ${form.name}`}
+          title={`Export ${form.id} Audit`}
           onCancel={() => setShowExportModal(false)}
           onSave={uploadExport}
           isOpen={showExportModal}
