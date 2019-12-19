@@ -65,6 +65,8 @@ function controller(
           ctrl.canEdit = GroupPolicyService.accessDeviceUpdate()
         } else if (ACL.is('Service Provider')) {
           ctrl.canEdit = ServiceProviderPolicyService.accessDeviceUpdate()
+        } else if(ACL.is('Group Department')) {
+          ctrl.canEdit = true
         }
         // ctrl.canEdit = ACL.has('Group') && Module.update('Provisioning')
       })
