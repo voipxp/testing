@@ -91,7 +91,8 @@ function controller(
           .then(function() {
             Alert.notify.success('User Removed')
             callback()
-            Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'users')
+            if(ACL.is('Group Department')) {  Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'users')  }
+            else {  Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'users')  }
           })
           .catch(function(error) {
             Alert.notify.danger(error)
