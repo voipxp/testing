@@ -12,9 +12,10 @@ controller.$inject = [
   'Alert',
   'GroupTrunkGroupService',
   'GroupPolicyService',
-  '$q'
+  '$q',
+  'ACL'
 ]
-function controller(Alert, GroupTrunkGroupService, GroupPolicyService, $q) {
+function controller(Alert, GroupTrunkGroupService, GroupPolicyService, $q, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
 
@@ -51,6 +52,7 @@ function controller(Alert, GroupTrunkGroupService, GroupPolicyService, $q) {
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
+      if(ACL.is('Group Department')) data = ACL.filterByDepartment(data)
       ctrl.trunks = data
       return data
     })
