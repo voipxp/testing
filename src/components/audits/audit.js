@@ -15,8 +15,11 @@ import {
   UiDataTable,
   UiListItem,
   UiCardModal,
-  UiFormField
+  UiFormField,
+  UiInputPassword,
+  UiInputPasscode
 } from '@/components/ui'
+import { generatePassword, generatePasscode } from '@/utils'
 
 const columns = [
   { key: 'id', label: 'ID' },
@@ -30,17 +33,25 @@ const columns = [
 
 export const Audit = ({ history, match, isBreadcrumb = true }) => {
   const id = match.params.id
-  const { alertDanger } = useAlerts()
+  const formRef = React.useRef()
+  const { alertDanger, alertSuccess } = useAlerts()
   const [showModal, setShowModal] = useState(false)
   const [showExportModal, setShowExportModal] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [data, setData] = useState('')
   const [serviceType, setServiceType] = useState('')
   const [form, setForm] = useState({})
+  const [export2, setExport2] = useState({})
   const [endpoints, setEndpoints] = useState([])
+  const [formValid, setFormValid] = React.useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
   const KEY = 'exports'
 
   const { result, error, loading } = useAsync(() => auditApi.json(id), [id])
+
+  React.useEffect(() => {
+    if (formRef.current) setFormValid(formRef.current.checkValidity())
+  }, [form])
 
   if (error) alertDanger(error)
   const audit = result || {}
@@ -70,7 +81,12 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         id: id,
         endpoint: '',
         bwksUserId: '',
-        bwksPassword: ''
+        bwksPassword: '',
+        serviceProviderId: audit[0].serviceProviderId,
+        groupId: audit[0].groupId,
+        password: '',
+        groupMailServerPassword: '',
+        passcode: ''
       })
       setShowLoading(true)
       const end = await settingsApi.show(KEY)
@@ -86,15 +102,17 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
   }
 
   async function uploadExport() {
-    if (!form.endpoint) {
-      console.log('endpoint required')
-    }
-    console.log('form', form)
-    console.log('form.endpoint', form.endpoint)
+    setShowLoading(true)
+    setShowConfirm(false)
+    setShowModal(false)
+    setShowExportModal(false)
     setForm({
       endpoint: form.endpoint,
       bwksUserId: form.bwksUserId,
-      bwksPassword: form.bwksPassword
+      bwksPassword: form.bwksPassword,
+      password: form.password,
+      groupMailServerPassword: form.groupMailServerPassword,
+      passcode: form.passcode
     })
     try {
       const api = await axios.create({ baseURL: form.endpoint })
@@ -103,8 +121,6 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         password: form.bwksPassword,
         encryption: 'plain'
       })
-      console.log('token', token.data.token)
-      console.log('audit', audit)
       api.defaults.headers.common.Authorization = token.data.token
         ? `Bearer ${token.data.token}`
         : null
@@ -114,22 +130,24 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
           serviceProviderId: audit[0].serviceProviderId,
           groupId: audit[0].groupId,
           options: {
-            password: 'Thisbetterwork123!',
-            groupMailServerPassword: 'Thisbetterwork123!',
-            passcode: '1234'
+            password: form.password,
+            groupMailServerPassword: form.groupMailServerPassword,
+            passcode: form.passcode
           },
           data: audit
         },
         { timeout: 0 }
       )
-      console.log('iResult', iResult)
-
-      setShowLoading(true)
-      setShowModal(false)
+      setExport2(iResult)
     } catch (error_) {
+      setShowExportModal(true)
       alertDanger(error_)
     } finally {
+      alertSuccess('Export sent successfully to ' + form.endpoint)
       setShowLoading(false)
+      setShowConfirm(false)
+      setShowModal(false)
+      setShowExportModal(false)
     }
   }
 
@@ -138,7 +156,6 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
       setShowLoading(true)
       setShowModal(true)
       const result = await auditApi.show(data.id, {})
-
       setServiceType(result.serviceType)
       setData(JSON.stringify(result, null, 2))
     } catch (error_) {
@@ -219,64 +236,135 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         <UiLoadingModal isOpen={showLoading} />
       ) : (
         <UiCardModal
-          title={`Export ${form.id} Audit`}
+          title={`Export Audit ${form.groupId} (${form.id})`}
           onCancel={() => setShowExportModal(false)}
-          onSave={uploadExport}
+          // onSave={uploadExport}
+          onSave={
+            form.endpoint &&
+            form.bwksUserId &&
+            form.bwksPassword &&
+            form.password &&
+            form.groupMailServerPassword &&
+            form.passcode
+              ? () => setShowConfirm(true)
+              : null
+          }
+          saveText="Export"
           isOpen={showExportModal}
         >
           <form>
-            <Column.Group>
-              <Column>
-                <UiFormField label="odin System">
-                  <Select.Container fullwidth>
-                    <Select
-                      value={form.endpoint}
-                      onChange={handleInput}
-                      name="endpoint"
-                      disabled={showLoading}
-                      autoFocus
-                    >
-                      <Select.Option value="Please select...">
-                        {'Please select...'}
-                      </Select.Option>
-                      {endpoints.map(searchType => (
-                        <Select.Option
-                          key={searchType.key}
-                          value={searchType.url}
-                        >
-                          {searchType.name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </Select.Container>
-                </UiFormField>
-              </Column>
-              <Column>
-                <UiFormField label="broadworks userId">
-                  <Input
-                    type="text"
-                    name="bwksUserId"
-                    value={form.bwksUserId}
-                    onChange={handleInput}
-                    placeholder="Broadworks User ID"
-                  />
-                </UiFormField>
-              </Column>
-              <Column>
-                <UiFormField label="broadworks password">
-                  <Input
-                    type="password"
-                    name="bwksPassword"
-                    value={form.bwksPassword}
-                    onChange={handleInput}
-                    placeholder="Broadworks Password"
-                  />
-                </UiFormField>
-              </Column>
-            </Column.Group>
+            <UiFormField label="odin System" horizontal>
+              <Select.Container fullwidth>
+                <Select
+                  value={form.endpoint}
+                  onChange={handleInput}
+                  name="endpoint"
+                  disabled={showLoading}
+                  autoFocus
+                  required
+                >
+                  <Select.Option value="Please select...">
+                    {'Please select...'}
+                  </Select.Option>
+                  {endpoints.map(searchType => (
+                    <Select.Option key={searchType.key} value={searchType.url}>
+                      {searchType.name}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Select.Container>
+            </UiFormField>
+            <UiFormField label="BroadWorks UserId" horizontal>
+              <Input
+                type="text"
+                name="bwksUserId"
+                value={form.bwksUserId}
+                onChange={handleInput}
+                placeholder="BroadWorks User ID"
+                required
+              />
+            </UiFormField>
+            <UiFormField label="BroadWorks Password" horizontal>
+              <Input
+                type="password"
+                name="bwksPassword"
+                value={form.bwksPassword}
+                onChange={handleInput}
+                placeholder="BroadWorks Password"
+                required
+              />
+            </UiFormField>
+            <UiFormField label="Service Provider Id" horizontal>
+              <Input
+                type="text"
+                name="serviceProviderId"
+                value={form.serviceProviderId}
+                onChange={handleInput}
+                placeholder="Service Provider Id"
+                required
+              />
+            </UiFormField>
+            <UiFormField label="Group Id" horizontal>
+              <Input
+                type="text"
+                name="groupId"
+                value={form.groupId}
+                onChange={handleInput}
+                placeholder="Group Id"
+                required
+              />
+            </UiFormField>
+
+            <UiFormField label="User Password" horizontal>
+              <UiInputPassword
+                name="password"
+                label="user password"
+                placeholder="User Password"
+                value={form.password}
+                minLength={6}
+                onChange={handleInput}
+                required
+                onGeneratePassword={generatePassword}
+              />
+            </UiFormField>
+            <UiFormField label="User Group Mail Server Password" horizontal>
+              <UiInputPassword
+                name="groupMailServerPassword"
+                label="user group mail service password"
+                placeholder="user group mail service password"
+                value={form.groupMailServerPassword}
+                minLength={6}
+                onChange={handleInput}
+                onGeneratePassword={generatePassword}
+                required
+              />
+            </UiFormField>
+            <UiFormField label="User Passcode" horizontal>
+              <UiInputPasscode
+                name="passcode"
+                label="user passcode"
+                placeholder="user passcode"
+                minLength={4}
+                value={form.passcode}
+                onChange={handleInput}
+                onGeneratePasscode={generatePasscode}
+                required
+              />
+            </UiFormField>
           </form>
         </UiCardModal>
       )}
+      <UiCardModal
+        title="Please Confirm"
+        isOpen={showConfirm}
+        onCancel={() => setShowConfirm(false)}
+        onSave={uploadExport}
+        saveText="Export"
+      >
+        <blockquote>
+          Are you sure you want to upload this audit {form.id} {form.groupId}?
+        </blockquote>
+      </UiCardModal>
     </>
   )
 }
