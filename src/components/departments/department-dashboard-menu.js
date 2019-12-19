@@ -29,9 +29,10 @@ export const dashboardMenu = [
       },
       {
         path: 'call-centers',
-        name: 'Call Centers',
+        name: 'Call Center',
         angularComponent: 'groupCallCenters',
-        hasUserService: ['Call Center']
+        hasModuleRead: 'Call Center'
+        //hasUserService: ['Call Center - Basic', '	Call Center Monitoring', 'Call Center - Premium', 'Call Center - Standard']
       },
       {
         path: 'flexible-seating-host',

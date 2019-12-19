@@ -14,7 +14,11 @@ function Service(AuthService, Session, ACL, $q) {
     ldapIntegrationAccessRead: ldapIntegrationAccessRead,
     voiceMessagingAccessCreate: voiceMessagingAccessCreate,
     departmentAdminUserAccessCreate: departmentAdminUserAccessCreate,
+    departmentAdminUserProfileRead: departmentAdminUserProfileRead,
+    departmentAdminUserProfileUpdate: departmentAdminUserProfileUpdate,
     departmentAdminUserAccessRead: departmentAdminUserAccessRead,
+    departmentAdminUserDelete: departmentAdminUserDelete,
+    departmentAdminUserIdUpdate: departmentAdminUserIdUpdate,
     departmentAdminTrunkGroupAccessCreate: departmentAdminTrunkGroupAccessCreate,
     departmentAdminPhoneNumberExtensionAccessCreate: departmentAdminPhoneNumberExtensionAccessCreate,
     departmentAdminPhoneNumberExtensionAccessRead: departmentAdminPhoneNumberExtensionAccessRead,
@@ -61,12 +65,32 @@ function Service(AuthService, Session, ACL, $q) {
     return checkAccess('ldapIntegrationAccess', ['Full'])
   }
 
+
+
   function departmentAdminUserAccessCreate() {
+    return checkAccess('departmentAdminUserAccess', ['Full'])
+  }
+
+  function departmentAdminUserProfileRead() {
+    return checkAccess('departmentAdminUserAccess', [
+      'Full',
+      'Read-Only Profile'
+    ])
+  }
+
+  function departmentAdminUserProfileUpdate() {
     return checkAccess('departmentAdminUserAccess', ['Full'])
   }
 
   function departmentAdminUserAccessRead() {
     return checkAccess('departmentAdminUserAccess', ['Full', 'Read-Only Profile', 'No Profile'])
+  }
+
+  function departmentAdminUserDelete() {
+    return checkAccess('departmentAdminUserAccess', ['Full'])
+  }
+  function departmentAdminUserIdUpdate() {
+    return checkAccess('departmentAdminUserAccess', ['Full'])
   }
 
   function departmentAdminTrunkGroupAccessCreate() {

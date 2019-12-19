@@ -13,7 +13,8 @@ controller.$inject = [
   'GroupCallCenterService',
   '$scope',
   'GroupPolicyService',
-  '$q'
+  '$q',
+  'ACL'
 ]
 function controller(
   Route,
@@ -21,7 +22,8 @@ function controller(
   GroupCallCenterService,
   $scope,
   GroupPolicyService,
-  $q
+  $q,
+  ACL
 ) {
   var ctrl = this
   ctrl.open = open
@@ -31,7 +33,7 @@ function controller(
   ctrl.toggle = toggle
 
   function activate() {
-    ctrl.canCreate = ctrl.module.permissions.create
+    //ctrl.canCreate = ctrl.module.permissions.create
     ctrl.loading = true
     return $q
       .all([loadCallCenters(), GroupPolicyService.load()])
@@ -55,6 +57,7 @@ function controller(
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
+      if(ACL.is('Group Department')) data = ACL.filterByDepartment(data)
       ctrl.centers = data
       return data
     })

@@ -475,7 +475,7 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter',
     angularComponent: 'groupCallCenter',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Call Center'
   },
   {
@@ -810,7 +810,7 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-	path: '/department/:serviceProviderId/:groupId/:groupDepartmentPathName',
+	path: '/department/:serviceProviderId/:groupId',
     component: DepartmentDashboard,
   }
 ]
