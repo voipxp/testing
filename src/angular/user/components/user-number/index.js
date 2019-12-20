@@ -46,11 +46,9 @@ function controller(
         GroupPolicyService.load(),
         ServiceProviderPolicyService.load()]).
 	    then(function() {
-        if( ACL.has('Service Provider') ) {
-            ctrl.canCLIDUpdate = ServiceProviderPolicyService.callingLineIdUpdate()
+        if( ACL.is('Service Provider') ) {
             ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
-        } else if( ACL.has('Group') ){
-            ctrl.canCLIDUpdate = GroupPolicyService.callingLineIdUpdate()
+        } else if( ACL.is('Group') ){
             ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
         }
 	    })

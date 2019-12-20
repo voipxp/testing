@@ -53,9 +53,9 @@ function controller(
         ctrl.canRead = GroupPolicyService.profileRead()
         ctrl.canUpdate =
         Module.update('Provisioning') && GroupPolicyService.profileUpdate()
-        if( ACL.has('Service Provider') ) {
+        if( ACL.is('Service Provider') ) {
             ctrl.canCLIDUpdate = ServiceProviderPolicyService.callingLineIdUpdate()
-        } else if( ACL.has('Group') ){
+        } else if( ACL.is('Group') ){
             ctrl.canCLIDUpdate = GroupPolicyService.callingLineIdUpdate()
         }
 		    

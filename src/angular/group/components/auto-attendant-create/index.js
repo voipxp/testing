@@ -19,7 +19,10 @@ controller.$inject = [
   'EventEmitter',
   'GroupAutoAttendantService',
   'ACL',
-  'Module'
+  'Module',
+  '$q',
+  'GroupPolicyService',
+  'ServiceProviderPolicyService'
 ]
 function controller(
   Alert,
@@ -28,7 +31,10 @@ function controller(
   EventEmitter,
   GroupAutoAttendantService,
   ACL,
-  Module
+  Module,
+  $q,
+  GroupPolicyService,
+  ServiceProviderPolicyService
 ) {
   var ctrl = this
 
@@ -40,6 +46,19 @@ function controller(
   ctrl.hasAnnouncements = ACL.hasVersion('20')
 
   function onInit() {
+    $q.all([
+      GroupPolicyService.load(),
+      ServiceProviderPolicyService.load()]).
+    then(function() {
+      if( ACL.is('Service Provider') ) {
+          ctrl.canCLIDUpdate = ServiceProviderPolicyService.callingLineIdUpdate()
+          ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
+      } else if( ACL.is('Group') ){
+          ctrl.canCLIDUpdate = GroupPolicyService.callingLineIdUpdate()
+          ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
+      }
+    })
+
     Module.show('Auto Attendant').then(function(module) {
       ctrl.module = module
     })
