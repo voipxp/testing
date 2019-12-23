@@ -14,7 +14,8 @@ controller.$inject = [
   'Route',
   '$q',
   'GroupPolicyService',
-  '$location'
+  '$location',
+  'ACL'
 ]
 function controller(
   Alert,
@@ -22,7 +23,8 @@ function controller(
   Route,
   $q,
   GroupPolicyService,
-  $location
+  $location,
+  ACL
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -107,11 +109,20 @@ function controller(
   }
 
   function back() {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'flexibleSeatingHosts'
-    )
+    if(ACL.is('Group Department')) {
+      Route.open(
+        'department',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'flexibleSeatingHosts'
+      )
+    } else {
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'flexibleSeatingHosts'
+      )
+    }
   }
 }

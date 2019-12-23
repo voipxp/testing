@@ -8,9 +8,7 @@ const initialState = {}
 const load = createAction('GROUP_SERVICES_LOAD')
 
 export const groupServicesReducer = createReducer(initialState, {
-  [load]: (state, { payload }) => {
-    if (payload) state[payload.groupId] = payload.services
-  },
+  [load]: (state, { payload = {} }) => payload.services,
   SESSION_CLEAR: () => initialState
 })
 
@@ -25,7 +23,7 @@ export const loadGroupServices = (groupId, serviceProviderId) => {
 
 export const useGroupServices = (groupId, serviceProviderId) => {
   return {
-    groupServices: useSelector(state => state.groupServices.groupId),
+    groupServices: useSelector(state => state.groupServices),
     loadGroupServices: useAction(loadGroupServices)
   }
 }

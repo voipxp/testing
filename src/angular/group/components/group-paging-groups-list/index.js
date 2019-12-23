@@ -7,8 +7,8 @@ angular.module('odin.group').component('groupPagingGroupsList', {
   require: { parent: '^groupPagingGroups' }
 })
 
-controller.$inject = ['Alert', 'GroupPagingGroupService', '$scope', 'ACL']
-function controller(Alert, GroupPagingGroupService, $scope, ACL) {
+controller.$inject = ['Alert', 'GroupPagingGroupService', '$scope', 'ACL', 'Module', '$q']
+function controller(Alert, GroupPagingGroupService, $scope, ACL, Module, $q) {
   var ctrl = this
   ctrl.$onInit = activate
   ctrl.add = add
@@ -17,13 +17,27 @@ function controller(Alert, GroupPagingGroupService, $scope, ACL) {
   function activate() {
     ctrl.open = ctrl.parent.open
     ctrl.loading = true
-    return loadInstances()
+	
+	return $q
+      .all([
+        loadInstances(),
+		loadModule()
+      ])
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
       })
+	  
   }
 
+	function loadModule() {
+		if(ACL.is('Group Department')) {
+			return Module.show('Group Paging').then(function(data) {
+			  ctrl.module = data
+			})
+		}
+	}
+	
   function loadInstances() {
     return GroupPagingGroupService.index(
       ctrl.parent.serviceProviderId,

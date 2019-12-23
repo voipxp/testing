@@ -15,7 +15,9 @@ controller.$inject = [
   '$location',
   'Route',
   'ServiceProviderPolicyService',
-  '$q'
+  'GroupWebPolicyService',
+  '$q',
+  'ACL'
 ]
 function controller(
   Alert,
@@ -24,7 +26,9 @@ function controller(
   $location,
   Route,
   ServiceProviderPolicyService,
-  $q
+  GroupWebPolicyService,
+  $q,
+  ACL
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -66,9 +70,13 @@ function controller(
   function onInit() {
     ctrl.loading = true
     return $q
-      .all([loadUsers(), ServiceProviderPolicyService.load()])
+      .all([loadUsers(), ServiceProviderPolicyService.load(), GroupWebPolicyService.load()])
       .then(function() {
-        ctrl.canCreate = ServiceProviderPolicyService.userCreate()
+        if(ACL.is('Service Provider')) {
+            ctrl.canCreate = ServiceProviderPolicyService.userCreate()
+        } else if(ACL.is('Group Department')) {
+            ctrl.canCreate = GroupWebPolicyService.departmentAdminUserAccessCreate()
+        }
       })
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -89,6 +97,7 @@ function controller(
       ctrl.groupId,
       extended
     ).then(function(data) {
+      if(ACL.is('Group Department')) data = ACL.filterByDepartment(data)
       ctrl.users = data
     })
   }

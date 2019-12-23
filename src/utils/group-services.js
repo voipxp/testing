@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { useCallback, useMemo } from 'react'
+import { useCallback } from 'react'
 import _ from 'lodash'
 
 const isAssigned = (serviceName, assigned = {}) => {
@@ -14,7 +14,7 @@ const hasGroupService = (service, assigned, loginType) => {
   )
 }
 
-export const useGroupServicePermissions = groupId => {
+export const useGroupServicePermissions = () => {
   const { session, groupAssignedServices } = useSelector(
     state => ({
       session: state.session,
@@ -28,12 +28,12 @@ export const useGroupServicePermissions = groupId => {
         return services.find(_service => {
           return hasGroupService(
             _service,
-            groupAssignedServices[groupId],
+            groupAssignedServices,
             session.loginType
           )
         })
       },
-      [session.loginType, groupAssignedServices, groupId]
+      [session.loginType, groupAssignedServices]
     )
   }
 }

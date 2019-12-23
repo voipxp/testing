@@ -7,8 +7,8 @@ angular.module('odin.group').component('groupMeetMeBridges', {
   require: { parent: '^groupMeetMe' }
 })
 
-controller.$inject = ['Alert', 'GroupMeetMeConferencingBridgeService', '$scope', 'ACL']
-function controller(Alert, GroupMeetMeConferencingBridgeService, $scope, ACL) {
+controller.$inject = ['Alert', 'GroupMeetMeConferencingBridgeService', '$scope', 'ACL', 'Module', '$q']
+function controller(Alert, GroupMeetMeConferencingBridgeService, $scope, ACL, Module, $q) {
   var ctrl = this
 
   ctrl.$onInit = activate
@@ -16,7 +16,12 @@ function controller(Alert, GroupMeetMeConferencingBridgeService, $scope, ACL) {
 
   function activate() {
     ctrl.loading = true
-    return loadBridges()
+	
+	return $q
+      .all([
+        loadBridges(),
+		loadModule()
+      ])
       .catch(function(error) {
         Alert.notify.danger(error)
       })
@@ -35,6 +40,14 @@ function controller(Alert, GroupMeetMeConferencingBridgeService, $scope, ACL) {
       return data
     })
   }
+
+	function loadModule() {
+		if(ACL.is('Group Department')) {
+			return Module.show('Meet-Me Conferencing').then(function(data) {
+			  ctrl.module = data
+			})
+		}
+	}
 
   function add() {
     $scope.$broadcast('groupMeetMeCreate:load')

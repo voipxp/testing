@@ -7,8 +7,8 @@ angular.module('odin.group').component('groupTrunkGroupNavigation', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$location', 'Route']
-function controller($location, Route) {
+controller.$inject = ['$location', 'Route', 'ACL']
+function controller($location, Route, ACL) {
   var ctrl = this
   ctrl.$onInit = function() {
     ctrl.trunkName = $location.search().trunkName
@@ -26,7 +26,11 @@ function controller($location, Route) {
         'trunkGroup'
       ).search({ trunkName: trunkName })
     } else {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'trunkGroups')
+      if(ACL.is('Group Department')) {
+        Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'trunkGroups')
+      } else {
+        Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'trunkGroups')
+      }
     }
   }
 }

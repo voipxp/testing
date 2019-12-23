@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 
 export const AppDashboard = () => {
   const { session } = useSession()
-  const { loginType, serviceProviderId, groupId, userId, resellerId, groupDepartmentPathName } = session
+  const { loginType, serviceProviderId, groupId, userId, resellerId } = session
 
   let route
   switch (loginType) {

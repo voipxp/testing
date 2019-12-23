@@ -20,7 +20,8 @@ controller.$inject = [
   'GroupPolicyService',
   '$ngRedux',
   'ACL',
-  'Session'
+  'Session',
+  'Module'
 ]
 function controller(
   Alert,
@@ -33,7 +34,8 @@ function controller(
   GroupPolicyService,
   $ngRedux,
   ACL,
-  Session
+  Session,
+  Module
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -99,7 +101,8 @@ function controller(
       .all([
         loadGroupFlexibleSeatingHosts(),
         loadGroupFlexibleSeatingUsers(),
-        GroupPolicyService.load()
+        GroupPolicyService.load(),
+		loadModule()
       ])
       .then(function() {
         ctrl.canCreate = GroupPolicyService.enhancedServiceCreate()
@@ -110,6 +113,14 @@ function controller(
       })
   }
 
+	function loadModule() {
+		if(ACL.is('Group Department')) {
+			return Module.show('Flexible Seating Guest').then(function(data) {
+			  ctrl.module = data
+			})
+		}
+	}
+	
   function onChangeHost(item) {
     if (!item) return
     GroupFlexibleSeatingHostGuestAssociationService.show(item).then(function(

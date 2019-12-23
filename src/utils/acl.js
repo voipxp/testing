@@ -19,6 +19,7 @@ const hasLevel = (loginType, requiredType) => {
 
 const hasUser = type => hasLevel(type, 'User')
 const hasGroup = type => hasLevel(type, 'Group')
+const hasGroupDepartment = type => hasLevel(type, 'Group Department')
 const hasServiceProvider = type => hasLevel(type, 'Service Provider')
 const hasReseller = type => hasLevel(type, 'Reseller')
 const hasProvisioning = type => hasLevel(type, 'Provisioning')
@@ -34,6 +35,10 @@ const hasPolicy = (policies, allowed_policy) => {
     return (policies[allowed_policy] !== "None")
 }
 
+const is = (loginType, type) => {
+  return (loginType === type)
+}
+
 export const useAcl = () => {
   const session = useSelector(state => state.session)
   const { loginType, isPaasAdmin, softwareVersion, policy } = session
@@ -43,6 +48,7 @@ export const useAcl = () => {
     hasLevel: useCallback(level => hasLevel(loginType, level), [loginType]),
     hasUser: useCallback(() => hasUser(loginType, 'Group'), [loginType]),
     hasGroup: useCallback(() => hasGroup(loginType, 'Group'), [loginType]),
+    hasGroupDepartment: useCallback(() => hasGroupDepartment(loginType, 'Group Department'), [loginType]),
     hasServiceProvider: useCallback(
       () => hasServiceProvider(loginType, 'ServiceProvider'),
       [loginType]
@@ -58,6 +64,7 @@ export const useAcl = () => {
     hasVersion: useCallback(version => hasVersion(softwareVersion, version), [
       softwareVersion
     ]),
-    hasPolicy: useCallback( allowed_policy => hasPolicy(policy, allowed_policy), [policy])
+    hasPolicy: useCallback( allowed_policy => hasPolicy(policy, allowed_policy), [policy]),
+    is: useCallback( type => is(loginType, type), [loginType])
   }
 }

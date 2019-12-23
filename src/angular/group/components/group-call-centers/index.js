@@ -14,7 +14,8 @@ controller.$inject = [
   '$scope',
   'GroupPolicyService',
   '$q',
-  'ACL'
+  'ACL',
+  'Module'
 ]
 function controller(
   Route,
@@ -23,7 +24,8 @@ function controller(
   $scope,
   GroupPolicyService,
   $q,
-  ACL
+  ACL,
+  Module
 ) {
   var ctrl = this
   ctrl.open = open
@@ -36,10 +38,10 @@ function controller(
     //ctrl.canCreate = ctrl.module.permissions.create
     ctrl.loading = true
     return $q
-      .all([loadCallCenters(), GroupPolicyService.load()])
+      .all([loadCallCenters(), GroupPolicyService.load(), loadModule()])
       .then(function() {
-        ctrl.canCreate =
-          GroupPolicyService.enhancedServiceCreate() && ctrl.canCreate
+		ctrl.canCreate = ctrl.module.permissions.create
+        ctrl.canCreate = GroupPolicyService.enhancedServiceCreate() && ctrl.canCreate
       })
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -52,6 +54,14 @@ function controller(
     //   })
   }
 
+	function loadModule() {
+		if(ACL.is('Group Department')) {
+			return Module.show('Call Center').then(function(data) {
+			  ctrl.module = data
+			})	
+		}
+	}
+  
   function loadCallCenters() {
     return GroupCallCenterService.index(
       ctrl.serviceProviderId,

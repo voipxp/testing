@@ -1,13 +1,10 @@
 import React from 'react'
-import {useSelector} from 'react-redux'
 import PropTypes from 'prop-types'
 import { UiLoadingCard, UiMenu } from '@/components/ui'
 import { AppBreadcrumb } from '@/components/app'
 import { dashboardMenu } from './department-dashboard-menu'
 import { useGroupServices } from '@/store/group-services'
-import groupServicesApi from '@/api/group-services'
-import { useAsync } from 'react-async-hook'
- import {
+import {
 	useGroupServicePermissions,
   useAcl
 } from '@/utils'
@@ -16,9 +13,9 @@ export const DepartmentDashboard = ({ match }) => {
   const [loading, setLoading] = React.useState(false)
 
   const { hasVersion, hasLevel, hasPolicy } = useAcl()
-  const { serviceProviderId, groupId  } = match.params
+  const { serviceProviderId, groupId } = match.params
   const { loadGroupServices } = useGroupServices(groupId, serviceProviderId)
-  const { hasGroupService } = useGroupServicePermissions(groupId)
+  const { hasGroupService } = useGroupServicePermissions()
 
  // const { result, error, execute } = useAsync(
     // () => groupServicesApi.available(groupId, serviceProviderId),
@@ -30,7 +27,7 @@ export const DepartmentDashboard = ({ match }) => {
     Promise.all([
       loadGroupServices(groupId, serviceProviderId),
     ]).then(() => 	setLoading(false) )
-  }, [useGroupServices])
+  }, [serviceProviderId, groupId, loadGroupServices])
 
 
   // filter items we should not see
@@ -44,7 +41,7 @@ export const DepartmentDashboard = ({ match }) => {
         if (item.hasLevel && !hasLevel(item.hasLevel)) {
           return false
         }
-	    	if (item.hasUserService && !hasGroupService(item.hasUserService)) {
+	    	if (item.hasGroupService && !hasGroupService(item.hasGroupService)) {
           return false
         }
         if ( item.hasPolicy && !hasPolicy(item.hasPolicy) ) {

@@ -5,7 +5,7 @@ export const dashboardMenu = [
        {
         path: 'users',
         name: 'Users',
-        angularComponent: 'departmentUsers',
+        angularComponent: 'groupUsers',
         hasModuleRead: 'Department User',
         hasPolicy: 'departmentAdminUserAccess'
       },
@@ -21,48 +21,48 @@ export const dashboardMenu = [
     label: 'Group Services',
     items: [
 	    {
-        path: 'auto-attendant',
+        path: 'autoAttendants',
         name: 'Auto Attendant',
         angularComponent: 'autoAttendants',
         hasModuleRead: 'Auto Attendant',
-        hasUserService: ['Auto Attendant']
+        hasGroupService: ['Auto Attendant']
       },
       {
-        path: 'call-centers',
+        path: 'callCenters',
         name: 'Call Center',
         angularComponent: 'groupCallCenters',
         hasModuleRead: 'Call Center',
-        hasUserService: ['Call Center - Basic', '	Call Center Monitoring', 'Call Center - Premium', 'Call Center - Standard']
+        hasGroupService: ['Call Center - Basic', '	Call Center Monitoring', 'Call Center - Premium', 'Call Center - Standard']
       },
       {
-        path: 'flexible-seating-host',
+        path: 'flexibleSeatingHosts',
         name: 'Flexible Seating Host',
         angularComponent: 'groupFlexibleSeatingHosts',
-        hasUserService: ['Flexible Seating Guest']
+        hasGroupService: ['Flexible Seating Guest']
       },
       {
         path: 'paging',
         name: 'Group Paging',
         angularComponent: 'groupPagingGroups',
-        hasUserService: ['Group Paging']
+        hasGroupService: ['Group Paging']
       },
       {
-        path: 'hunt-group',
+        path: 'huntGroups',
         name: 'Hunt Group',
         angularComponent: 'groupHuntGroups',
-        hasUserService: ['Hunt Group']
+        hasGroupService: ['Hunt Group']
       },
       {
-        path: 'meet-me-conferencing',
+        path: 'meetMe',
         name: 'Meet-Me Conferencing',
         angularComponent: 'groupMeetMe',
-        hasUserService: ['Meet-Me Conferencing']
+        hasGroupService: ['Meet-Me Conferencing']
       },
       {
-        path: 'trunk-group',
+        path: 'trunkGroups',
         name: 'Trunk Group',
         angularComponent: 'groupTrunkGroups',
-        hasUserService: ['Trunk Group'],
+        hasGroupService: ['Trunk Group'],
         hasPolicy: 'departmentAdminTrunkGroupAccess'
       }
     ]

@@ -84,6 +84,9 @@ function Route($rootScope, $location, Session) {
       case 'Group':
         route = ['groups', serviceProviderId, groupId]
         break
+      case 'Group Department':
+        route = ['department', serviceProviderId, groupId]
+        break
       case 'User':
         route = ['users', serviceProviderId, groupId, userId]
         break
