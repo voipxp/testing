@@ -46,6 +46,7 @@ function controller(
 
   ctrl.selectEnterpriseTrunk = selectEnterpriseTrunk
   ctrl.onSelectEnterpriseTrunk = onSelectEnterpriseTrunk
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   ctrl.endpointTypes = {
     accessDeviceEndpoint: 'Identity/Device Profile',

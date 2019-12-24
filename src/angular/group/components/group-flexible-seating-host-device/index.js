@@ -44,7 +44,7 @@ function controller(
   ctrl.onDeviceUpdate = onDeviceUpdate
   ctrl.onDeviceSelect = onDeviceSelect
   ctrl.onSetLinePort = onSetLinePort
-
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
   ctrl.endpointTypes = {
     accessDeviceEndpoint: 'Identity/Device Profile',
     none: 'None'

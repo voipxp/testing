@@ -16,6 +16,8 @@ export const AppBreadcrumbBase = ({ match, children }) => {
   const hasServiceProvider = acl.hasServiceProvider()
   const hasReseller = acl.hasReseller()
   const hasProvisioning = acl.hasProvisioning()
+  const hasGroupDepartment = acl.hasGroupDepartment()
+  const isGroupDepartment = acl.is('Group Department')
 
   return (
     <Breadcrumb as={StyledBreadcrumb}>
@@ -70,6 +72,22 @@ export const AppBreadcrumbBase = ({ match, children }) => {
           </Breadcrumb.Item>
         </>
       )}
+
+      {isGroupDepartment && hasGroupDepartment && userId && (
+        <>
+          <Breadcrumb.Item
+            href={`#!/department/${serviceProviderId}/${groupId}/users`}
+          >
+            Users
+          </Breadcrumb.Item>
+          <Breadcrumb.Item
+            href={`#!/users/${serviceProviderId}/${groupId}/${userId}`}
+          >
+            {userId}
+          </Breadcrumb.Item>
+        </>
+      )}
+
       {children}
     </Breadcrumb>
   )

@@ -120,7 +120,7 @@ function controller(
 			})
 		}
 	}
-	
+
   function onChangeHost(item) {
     if (!item) return
     GroupFlexibleSeatingHostGuestAssociationService.show(item).then(function(
