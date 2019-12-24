@@ -11,22 +11,32 @@ angular.module('odin.group').component('userCreate', {
   }
 })
 
-controller.$inject = ['Alert', '$scope', 'EventEmitter', 'UserService']
-function controller(Alert, $scope, EventEmitter, UserService) {
+controller.$inject = ['Alert', '$scope', 'EventEmitter', 'UserService', 'GroupPasswordService']
+function controller(Alert, $scope, EventEmitter, UserService, GroupPasswordService) {
   var ctrl = this
 
   ctrl.$onChanges = onChanges
   ctrl.setCLID = setCLID
   ctrl.setUserId = setUserId
   ctrl.toggleOptional = toggleOptional
+  
+  function  loadPasswordRulesMinLength() {
+    GroupPasswordService.show(
+    ctrl.serviceProviderId,
+    ctrl.groupId
+  ).then(function(rules) {
+    ctrl.passMinLen = rules.minLength
+  })
+}
 
-  function onChanges(changes) {
+  function onChanges(changes) {  
     if (changes.serviceProviderId) {
       ctrl.serviceProviderId = changes.serviceProviderId.currentValue
     }
     if (changes.groupId) {
       ctrl.groupId = changes.groupId.currentValue
     }
+    loadPasswordRulesMinLength()
   }
 
   function open() {

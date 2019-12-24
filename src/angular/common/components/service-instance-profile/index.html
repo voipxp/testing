@@ -100,7 +100,7 @@
     <pbs-form-field-horizontal label="Password">
       <pbs-input-password
         ng-model="$ctrl.editProfile.password"
-        ng-minlength="6"
+        ng-minlength="$ctrl.ngMinlength || 6"
         ng-maxlength="60"
         service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"

@@ -14,7 +14,8 @@ controller.$inject = [
   'Route',
   '$q',
   'GroupPolicyService',
-  '$location'
+  '$location',
+  'GroupPasswordService'
 ]
 function controller(
   Alert,
@@ -22,7 +23,8 @@ function controller(
   Route,
   $q,
   GroupPolicyService,
-  $location
+  $location,
+  GroupPasswordService
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -36,7 +38,7 @@ function controller(
   function onInit() {
     ctrl.loading = true
     return $q
-      .all([loadAutoAttendant(), GroupPolicyService.load()])
+      .all([loadAutoAttendant(), GroupPolicyService.load(),loadPasswordRulesMinLength()])
       .then(function() {
         ctrl.canRead = GroupPolicyService.enhancedServiceRead()
         ctrl.canUpdate = GroupPolicyService.enhancedServiceCreate()
@@ -53,6 +55,18 @@ function controller(
     //     ctrl.loading = false
     //   })
   }
+
+  function  loadPasswordRulesMinLength() { 
+    GroupPasswordService.show(
+      ctrl.serviceProviderId,
+      ctrl.groupId
+    ).then(function(rules) {
+      ctrl.passMinLen = rules.minLength
+    })
+}
+
+console.log('reuse')
+console.log(ctrl)
 
   function isStandard() {
     return _.get(ctrl, 'autoAttendant.type') === 'Standard'
