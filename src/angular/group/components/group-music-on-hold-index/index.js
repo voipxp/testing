@@ -12,27 +12,44 @@ controller.$inject = [
   'Alert',
   'GroupMusicOnHoldService',
   'GroupDepartmentService',
-  'Route'
+  'Route',
+  '$q',
+  'ACL',
+  'Module',
+  'Session'
 ]
 function controller(
   Alert,
   GroupMusicOnHoldService,
   GroupDepartmentService,
-  Route
+  Route,
+  $q,
+  ACL,
+  Module,
+  Session
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
   ctrl.add = add
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   function onInit() {
     ctrl.moh = {}
     ctrl.loading = true
-    loadMusicOnHold()
+      $q.all([loadMusicOnHold(), loadModule()])
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
       })
+  }
+
+  function loadModule() {
+		if(ACL.is('Group Department')) {
+			return Module.show('Music On Hold').then(function(data) {
+        ctrl.module = data
+			})
+		}
   }
 
   function loadMusicOnHold() {
@@ -40,8 +57,18 @@ function controller(
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
+      if(ctrl.isGroupDepartmentAdmin) data = filterByDepartment(data)
       ctrl.moh = data
     })
+  }
+
+  function filterByDepartment(data) {
+    data.departments = data.departments.
+    filter( function(el) {
+      return ( el.fullPathName === Session.data('groupDepartmentPathName') )
+    })
+
+    return data
   }
 
   function loadDepartments() {

@@ -59,6 +59,12 @@ export const dashboardMenu = [
         hasGroupService: ['Meet-Me Conferencing']
       },
       {
+        path: 'musicOnHold',
+        name: 'Music On Hold',
+        angularComponent: 'groupMusicOnHoldIndex',
+        hasGroupService: ['Music On Hold']
+      },
+      {
         path: 'trunkGroups',
         name: 'Trunk Group',
         angularComponent: 'groupTrunkGroups',
