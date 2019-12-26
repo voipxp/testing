@@ -71,7 +71,7 @@
         required
       />
     </pbs-form-field-horizontal>
-    <pbs-form-field-horizontal label="Phone Number">
+    <pbs-form-field-horizontal label="Phone Number" ng-if="$ctrl.canPNUpdate">
       <select-phone-number
         service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
@@ -79,8 +79,23 @@
         on-update="$ctrl.selectNumber($event)"
       ></select-phone-number>
     </pbs-form-field-horizontal>
+
+    <pbs-form-field label="Number" ng-if="!$ctrl.canPNUpdate">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editProfile.phoneNumber"
+        ng-disabled="true"
+      />
+    </pbs-form-field>
+
     <pbs-form-field-horizontal label="Extension">
-      <input type="text" class="input" ng-model="$ctrl.editProfile.extension" />
+      <input
+        type="text"
+        class="input"
+        ng-disabled="!$ctrl.canPNUpdate"
+        ng-model="$ctrl.editProfile.extension"
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Password">
       <pbs-input-password

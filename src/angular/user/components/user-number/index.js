@@ -14,7 +14,9 @@ controller.$inject = [
   'UserService',
   '$q',
   'ACL',
-  'UiSettingService'
+  'UiSettingService',
+  'GroupPolicyService',
+  'ServiceProviderPolicyService'
 ]
 function controller(
   Alert,
@@ -22,7 +24,10 @@ function controller(
   UserService,
   $q,
   ACL,
-  UiSettingService
+  UiSettingService,
+  GroupPolicyService,
+  ServiceProviderPolicyService
+
 ) {
   var ctrl = this
   ctrl.edit = edit
@@ -33,9 +38,20 @@ function controller(
   ctrl.editCLID = UiSettingService.data('editCLID')
   ctrl.$onInit = onInit
 
-  function onInit() {
+ 
+  function onInit() {  
     ctrl.loading = true
-    $q.all([loadUser(), loadNumbers()])
+    $q.all([loadUser(), 
+        loadNumbers(),
+        GroupPolicyService.load(),
+        ServiceProviderPolicyService.load()]).
+	    then(function() {
+        if( ACL.is('Service Provider') ) {
+            ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
+        } else if( ACL.is('Group') ){
+            ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
+        }
+	    })
       .catch(function(error) {
         Alert.notify.danger(error)
       })
@@ -49,7 +65,7 @@ function controller(
       ctrl.user = data
     })
   }
-
+    
   function loadNumbers() {
     return UserNumberService.index(ctrl.userId).then(function(data) {
       ctrl.numbers = data

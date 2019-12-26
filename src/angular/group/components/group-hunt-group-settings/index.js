@@ -21,7 +21,7 @@ function controller(Alert, ACL, Module, GroupPolicyService, $q) {
       .all([GroupPolicyService.load()])
       .then(function() {
         ctrl.canUpdate =
-          GroupPolicyService.enhancedServiceCreate() && ctrl.canUpdate
+          GroupPolicyService.enhancedServiceCreate() || ctrl.canUpdate
         ctrl.canDelete =
           GroupPolicyService.enhancedServiceCreate() && ctrl.canDelete
       })

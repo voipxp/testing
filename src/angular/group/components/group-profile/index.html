@@ -88,7 +88,8 @@
             ng-model="$ctrl.editGroup.callingLineIdName"
           />
         </pbs-form-field>
-        <pbs-form-field label="CLID Number">
+
+        <pbs-form-field label="CLID Number" ng-if="$ctrl.canCLIDUpdate">
           <select-phone-number
             service-provider-id="$ctrl.serviceProviderId"
             group-id="$ctrl.groupId"
@@ -98,6 +99,16 @@
           >
           </select-phone-number>
         </pbs-form-field>
+
+        <pbs-form-field label="CLID Number" ng-if="!$ctrl.canCLIDUpdate">
+          <input
+            type="text"
+            class="input"
+            ng-model="$ctrl.editGroup.callingLineIdPhoneNumber"
+            ng-disabled="true"
+          />
+        </pbs-form-field>
+
         <pbs-form-field label="Location Dialing Code">
           <input
             type="text"
