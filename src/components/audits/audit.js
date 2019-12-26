@@ -85,6 +85,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         serviceProviderId: audit[0].serviceProviderId,
         groupId: audit[0].groupId,
         password: '',
+        sipAuthenticationPassword: '',
         groupMailServerPassword: '',
         passcode: ''
       })
@@ -111,6 +112,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
       bwksUserId: form.bwksUserId,
       bwksPassword: form.bwksPassword,
       password: form.password,
+      sipAuthenticationPassword: form.sipAuthenticationPassword,
       groupMailServerPassword: form.groupMailServerPassword,
       passcode: form.passcode
     })
@@ -131,6 +133,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
           groupId: audit[0].groupId,
           options: {
             password: form.password,
+            sipAuthenticationPassword: form.sipAuthenticationPassword,
             groupMailServerPassword: form.groupMailServerPassword,
             passcode: form.passcode
           },
@@ -314,13 +317,24 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
                 required
               />
             </UiFormField>
-
             <UiFormField label="User Password" horizontal>
               <UiInputPassword
                 name="password"
                 label="user password"
                 placeholder="User Password"
                 value={form.password}
+                minLength={6}
+                onChange={handleInput}
+                required
+                onGeneratePassword={generatePassword}
+              />
+            </UiFormField>
+            <UiFormField label="SIP Auth Password" horizontal>
+              <UiInputPassword
+                name="sipAuthenticationPassword"
+                label="SIP Authentication Password"
+                placeholder="SIP Authentication Password"
+                value={form.sipAuthenticationPassword}
                 minLength={6}
                 onChange={handleInput}
                 required
