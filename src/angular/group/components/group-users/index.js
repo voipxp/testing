@@ -38,6 +38,7 @@ function controller(
   ctrl.edit = edit
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
+  ctrl.canCLIDUpdate = true   /* It will be removed as it is implemented for Group Admin*/
 
   ctrl.columns = [
     {
