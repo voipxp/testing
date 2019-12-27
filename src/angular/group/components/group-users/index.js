@@ -76,6 +76,7 @@ function controller(
             ctrl.canCreate = ServiceProviderPolicyService.userCreate()
         } else if(ACL.is('Group Department')) {
             ctrl.canCreate = GroupWebPolicyService.departmentAdminUserAccessCreate()
+            ctrl.canCLIDUpdate = GroupWebPolicyService.departmentAdminCallingLineIdNumberAccessCreate()
         }
       })
       .catch(Alert.notify.danger)
@@ -148,6 +149,10 @@ function controller(
   }
 
   function bulkUpdate(users, data, callback) {
+    if(!ctrl.canCLIDUpdate) {
+      delete data.callingLineIdPhoneNumber
+    }
+
     Alert.spinner.open()
     UserService.bulk({ users: users, data: data })
       .then(function() {

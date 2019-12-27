@@ -52,6 +52,7 @@
         type="text"
         class="input"
         ng-model="$ctrl.editSettings.callingLineIdPhoneNumber"
+        ng-disabled="!$ctrl.canCLIDUpdate"
       />
     </pbs-form-field-horizontal>
   </pbs-form>
