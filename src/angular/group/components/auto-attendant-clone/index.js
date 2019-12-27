@@ -18,7 +18,10 @@ controller.$inject = [
   '$scope',
   'Alert',
   'ACL',
-  'Module'
+  'Module',
+  'GroupPolicyService',
+  'ServiceProviderPolicyService',
+  '$q'
 ]
 function controller(
   EventEmitter,
@@ -26,7 +29,10 @@ function controller(
   $scope,
   Alert,
   ACL,
-  Module
+  Module,
+  GroupPolicyService,
+  ServiceProviderPolicyService,
+  $q
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -40,9 +46,23 @@ function controller(
   ctrl.onSelectPhone = onSelectPhone
 
   function onInit() {
+    $q.all([
+      GroupPolicyService.load(),
+      ServiceProviderPolicyService.load()]).
+    then(function() {
+      if( ACL.is('Service Provider') ) {
+          ctrl.canCLIDUpdate = ServiceProviderPolicyService.callingLineIdUpdate()
+          ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
+      } else if( ACL.is('Group') ){
+          ctrl.canCLIDUpdate = GroupPolicyService.callingLineIdUpdate()
+          ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
+      }
+    })
+    
     Module.show('Auto Attendant').then(function(module) {
       ctrl.module = module
     })
+    
   }
 
   function selectServiceProvider() {

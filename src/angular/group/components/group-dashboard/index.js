@@ -52,12 +52,14 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         type: 'management',
         name: 'Bulk Provisioning',
         module: 'Provisioning',
-        path: '/bulk'
+        path: '/bulk',
+        policy: 'userProfileRead'
       },
       {
         type: 'management',
         name: 'Business Profile',
-        path: route('profile')
+        path: route('profile'),
+        policy: 'profileRead'
       },
       {
         type: 'management',
@@ -88,7 +90,8 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
       {
         type: 'management',
         name: 'Departments',
-        path: route('departments')
+        path: route('departments'),
+		policy: 'departmentRead'
       },
 
       {
@@ -198,12 +201,14 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         service: 'Trunk Group',
         name: 'Enterprise Trunk',
         path: route('enterpriseTrunks'),
-        isEnterprise: false
+        isEnterprise: false,
+        policy: 'trunkGroupRead'
       },
       {
         type: 'service',
         service: 'Trunk Group',
-        path: route('trunkGroups')
+        path: route('trunkGroups'),
+        policy: 'trunkGroupRead'
       },
       {
         type: 'service',

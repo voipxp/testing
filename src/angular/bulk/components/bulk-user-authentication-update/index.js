@@ -17,7 +17,7 @@ function controller(BulkImportService, $scope) {
   ctrl.updateUserName = updateUserName
   ctrl.userNameAction = 'manual'
   ctrl.passwordAction = 'auto'
-  ctrl.newPassword = '{{ generateSipPassword }}'
+  ctrl.newPassword = '{{ generateSipPassword }}' 
 
   function onSelectUsers(event) {
     ctrl.data = event
@@ -47,6 +47,7 @@ function controller(BulkImportService, $scope) {
         userId: user.userId,
         groupId: user.groupId,
         serviceProviderId: user.serviceProviderId,
+		    phoneNumber: user.phoneNumber,
         userName: ctrl.userName,
         newPassword: ctrl.newPassword
       }

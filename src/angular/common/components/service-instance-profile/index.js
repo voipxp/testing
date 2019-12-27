@@ -18,20 +18,24 @@ angular.module('odin.common').component('serviceInstanceProfile', {
 controller.$inject = [
   'Alert',
   '$q',
+  'ACL',
   'GroupDepartmentService',
   'SystemLanguageService',
   'SystemTimeZoneService',
   'EventEmitter',
-  'ACL'
+  'GroupPolicyService',
+  'ServiceProviderPolicyService'
 ]
 function controller(
   Alert,
   $q,
+  ACL,
   GroupDepartmentService,
   SystemLanguageService,
   SystemTimeZoneService,
   EventEmitter,
-  ACL
+  GroupPolicyService,
+  ServiceProviderPolicyService
 ) {
   var ctrl = this
 
@@ -47,8 +51,14 @@ function controller(
   function activate() {
     Alert.spinner.open()
     return $q
-      .all([loadDepartments(), loadLanguages(), loadTimezones()])
-      .catch(function(error) {
+      .all([loadDepartments(), loadLanguages(), loadTimezones(), GroupPolicyService.load(), ServiceProviderPolicyService.load()])
+      .then(function() {
+        if( ACL.is('Service Provider') ) {
+            ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
+        } else if( ACL.is('Group') ){
+            ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
+        }
+	    }).catch(function(error) {
         Alert.notify.danger(error)
         return $q.reject(error.data)
       })
