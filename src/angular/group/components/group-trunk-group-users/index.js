@@ -15,7 +15,8 @@ controller.$inject = [
   '$q',
   '$location',
   'Route',
-  'Module'
+  'Module',
+  'ACL'
 ]
 function controller(
   Alert,
@@ -24,7 +25,8 @@ function controller(
   $q,
   $location,
   Route,
-  Module
+  Module,
+  ACL
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -53,6 +55,7 @@ function controller(
       ctrl.parent.trunkName
     )
       .then(function(data) {
+        if(ACL.is('Group Department')) data.users = ACL.filterByDepartment(data.users)
         ctrl.users = _.map(data.users, function(user) {
           user.isPilotUser = isPilotUser(user)
           return user
