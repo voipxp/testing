@@ -35,6 +35,7 @@ function controller(
   ctrl.onCreate = onCreate
   ctrl.toggle = toggle
   ctrl.clone = clone
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   function onInit() {
     ctrl.loading = true
@@ -64,7 +65,7 @@ function controller(
 			})
 		}
 	}
-	
+
   function loadAutoAttendants() {
     return GroupAutoAttendantService.index(
       ctrl.serviceProviderId,

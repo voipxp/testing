@@ -33,6 +33,7 @@ function controller(
   ctrl.onSave = onSave
   ctrl.$onInit = activate
   ctrl.toggle = toggle
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   function activate() {
     //ctrl.canCreate = ctrl.module.permissions.create
@@ -58,10 +59,10 @@ function controller(
 		if(ACL.is('Group Department')) {
 			return Module.show('Call Center').then(function(data) {
 			  ctrl.module = data
-			})	
+			})
 		}
 	}
-  
+
   function loadCallCenters() {
     return GroupCallCenterService.index(
       ctrl.serviceProviderId,

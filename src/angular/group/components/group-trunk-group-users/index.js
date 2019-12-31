@@ -104,6 +104,7 @@ function controller(
   }
 
   function removeUser(user) {
+	delete user.department
     return removeIfPilot(user).then(function() {
       var editUser = angular.copy(user)
       editUser.endpointType = 'none'
