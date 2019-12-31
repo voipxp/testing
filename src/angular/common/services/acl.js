@@ -10,7 +10,8 @@ function ACL($q, Session) {
     is: is,
     allowVersion: allowVersion,
     hasVersion: hasVersion,
-    isPaasAdmin: isPaasAdmin
+    isPaasAdmin: isPaasAdmin,
+    filterByDepartment: filterByDepartment
   }
 
   function allowVersion(version) {
@@ -31,11 +32,12 @@ function ACL($q, Session) {
     }
     const types = {
       'User': 1,
-      'Group': 2,
-      'Service Provider': 3,
-      'Reseller': 4,
-      'Provisioning': 5,
-      'System': 6
+      'Group Department': 2,
+      'Group': 3,
+      'Service Provider': 4,
+      'Reseller': 5,
+      'Provisioning': 6,
+      'System': 7
     }
     const required = types[type] || 10
     const user = types[Session.data('loginType')] || 0
@@ -61,5 +63,11 @@ function ACL($q, Session) {
 
   function isPaasAdmin() {
     return Session.data('isPaasAdmin')
+  }
+
+  function filterByDepartment(filterData) {
+    return filterData.filter(function(data) {
+			return (data.departmentFullPath || data.department) === Session.data('groupDepartmentPathName')
+	  })
   }
 }

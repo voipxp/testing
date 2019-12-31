@@ -7,12 +7,13 @@ angular.module('odin.group').component('groupMeetMe', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Route', 'Session']
-function controller(Route, Session) {
+controller.$inject = ['Route', 'Session', 'ACL']
+function controller(Route, Session, ACL) {
   var ctrl = this
   ctrl.loginType = Session.data('loginType')
   ctrl.open = open
   ctrl.state = 'list'
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   function open(groupId, bridgeId) {
     if (bridgeId) {

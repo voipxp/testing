@@ -7,11 +7,11 @@ angular.module('odin.group').component('groupPhoneDirectory', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupPhoneDirectoryService']
-function controller(Alert, GroupPhoneDirectoryService) {
+controller.$inject = ['Alert', 'GroupPhoneDirectoryService', 'ACL']
+function controller(Alert, GroupPhoneDirectoryService, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
-
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
   ctrl.columns = [
     {
       key: 'name',

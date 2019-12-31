@@ -14,6 +14,7 @@ controller.$inject = [
   'Route',
   'GroupPolicyService',
   'ServiceProviderPolicyService',
+  'GroupWebPolicyService',
   'ACL',
   '$q'
 ]
@@ -24,6 +25,7 @@ function controller(
   Route,
   GroupPolicyService,
   ServiceProviderPolicyService,
+  GroupWebPolicyService,
   ACL,
   $q
 ) {
@@ -36,7 +38,7 @@ function controller(
   function onInit() {
     ctrl.loading = true
     return $q
-      .all([GroupPolicyService.load(), ServiceProviderPolicyService.load()])
+      .all([GroupPolicyService.load(), ServiceProviderPolicyService.load(), GroupWebPolicyService.load()])
       .then(function() {
         if (ACL.has('Reseller')) {
           ctrl.canEdit = true
@@ -47,6 +49,9 @@ function controller(
         } else if (ACL.is('Service Provider')) {
           ctrl.canEdit = ServiceProviderPolicyService.userProfileUpdate()
           ctrl.canDelete = ctrl.canEdit
+        } else if(ACL.is('Group Department')) {
+          ctrl.canEdit = GroupWebPolicyService.departmentAdminUserDelete()
+          ctrl.canDelete = GroupWebPolicyService.departmentAdminUserIdUpdate()
         }
       })
       .catch(Alert.notify.danger)
@@ -86,7 +91,8 @@ function controller(
           .then(function() {
             Alert.notify.success('User Removed')
             callback()
-            Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'users')
+            if(ACL.is('Group Department')) {  Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'users')  }
+            else {  Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'users')  }
           })
           .catch(function(error) {
             Alert.notify.danger(error)

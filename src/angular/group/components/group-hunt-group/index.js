@@ -14,7 +14,8 @@ controller.$inject = [
   'Module',
   'GroupHuntGroupWeightedCallDistributionService',
   '$q',
-  '$location'
+  '$location',
+  'ACL'
 ]
 function controller(
   Alert,
@@ -23,7 +24,8 @@ function controller(
   Module,
   GroupHuntGroupWeightedCallDistributionService,
   $q,
-  $location
+  $location,
+  ACL
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -103,6 +105,10 @@ function controller(
   }
 
   function back() {
-    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
+    if(ACL.is('Group Department')) {
+      Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
+    } else {
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
+    }
   }
 }

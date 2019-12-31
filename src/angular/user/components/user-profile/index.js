@@ -14,6 +14,7 @@ controller.$inject = [
   'ACL',
   'GroupPolicyService',
   'ServiceProviderPolicyService',
+  'GroupWebPolicyService',
   '$q'
 ]
 function controller(
@@ -22,6 +23,7 @@ function controller(
   ACL,
   GroupPolicyService,
   ServiceProviderPolicyService,
+  GroupWebPolicyService,
   $q
 ) {
   var ctrl = this
@@ -37,7 +39,8 @@ function controller(
       .all([
         loadUser(),
         GroupPolicyService.load(),
-        ServiceProviderPolicyService.load()
+        ServiceProviderPolicyService.load(),
+        GroupWebPolicyService.load()
       ])
       .then(function() {
         if (ACL.has('Reseller') || ACL.is('User')) {
@@ -49,6 +52,9 @@ function controller(
         } else if (ACL.is('Service Provider')) {
           ctrl.canRead = ServiceProviderPolicyService.userProfileRead()
           ctrl.canUpdate = ServiceProviderPolicyService.userProfileUpdate()
+        } else if (ACL.is('Group Department')) {
+          ctrl.canRead = GroupWebPolicyService.departmentAdminUserProfileRead()
+          ctrl.canUpdate = GroupWebPolicyService.departmentAdminUserProfileUpdate()
         }
       })
       .catch(Alert.notify.danger)

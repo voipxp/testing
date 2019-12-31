@@ -23,7 +23,9 @@ angular.module('odin.ui').component('pbsNavigation', {
     serviceProviderId: '<',
     groupId: '<',
     userId: '<',
-    module: '<'
+    module: '<',
+    hideNavigation: '<'   /* hide-navigation will be send from where we
+                          don't need navigation OR somewhere we need react breadcrumb */
   }
 })
 

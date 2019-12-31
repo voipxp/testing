@@ -1,5 +1,6 @@
 import angular from 'angular'
 import template from './index.html'
+import { useAcl } from '@/utils'
 
 angular.module('odin.group').component('groupMusicOnHold', {
   template,
@@ -7,8 +8,8 @@ angular.module('odin.group').component('groupMusicOnHold', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupMusicOnHoldService', 'Route', '$location']
-function controller(Alert, GroupMusicOnHoldService, Route, $location) {
+controller.$inject = ['Alert', 'GroupMusicOnHoldService', 'Route', '$location', 'ACL']
+function controller(Alert, GroupMusicOnHoldService, Route, $location, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.update = update
@@ -76,6 +77,10 @@ function controller(Alert, GroupMusicOnHoldService, Route, $location) {
   }
 
   function back() {
-    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
+    if( ACL.is('Group Department') ) {
+      Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
+    } else {
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
+    }
   }
 }
