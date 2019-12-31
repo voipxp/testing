@@ -75,244 +75,236 @@ export const GroupWebPolicy = ({ match }) => {
         <UiLoadingCard />
       ) : (
         <>
-          <UiCard
-            title="Group Web Policies"
-            
-          >
-           
-          <UiSection title="View or modify the policies for the group">
-          <form>
+          <UiCard title="Group Web Policies">
+          
+            <UiSection title="View or modify the policies for the group">
+              <form>
+                <UiFormField label="Calling Plan" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="callingPlanAccess"
+                      defaultValue= { groupWebPolicyService.callingPlanAccess }
+                    >
+                      {policies.callingPlanAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy} >
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
 
-          <UiFormField label="Calling Plan" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="callingPlanAccess"
-                defaultValue= { groupWebPolicyService.callingPlanAccess }
-              >
-                {policies.callingPlanAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy} >
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
+                <UiFormField label="Extension Dialing" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="extensionAccess"
+                      defaultValue= { groupWebPolicyService.extensionAccess }
+                    >
+                      {policies.extensionAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy} >
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
 
-          <UiFormField label="Extension Dialing" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="extensionAccess"
-                defaultValue= { groupWebPolicyService.extensionAccess }
-              >
-                {policies.extensionAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy} >
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
+                <UiFormField label="LDAP Integration" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="ldapIntegrationAccess"
+                      defaultValue= { groupWebPolicyService.ldapIntegrationAccess }
+                    >
+                      {policies.ldapIntegrationAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy}>
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
 
-          <UiFormField label="LDAP Integration" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="ldapIntegrationAccess"
-                defaultValue= { groupWebPolicyService.ldapIntegrationAccess }
-              >
-                {policies.ldapIntegrationAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy}>
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
+                <UiFormField label="Voice Messaging" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="voiceMessagingAccess"
+                      defaultValue= { groupWebPolicyService.voiceMessagingAccess }
+                    >
+                      {policies.voiceMessagingAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy} >
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
 
-          <UiFormField label="Voice Messaging" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="voiceMessagingAccess"
-                defaultValue= { groupWebPolicyService.voiceMessagingAccess }
-              >
-                {policies.voiceMessagingAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy} >
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
+                <UiFormField label="Department Administrator User Policy" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="departmentAdminUserAccess"
+                      defaultValue= { groupWebPolicyService.departmentAdminUserAccess }
+                    >
+                      {policies.departmentAdminUserAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy} >
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
+                
+                <UiFormField label="Department Administrator Trunk Group Policy" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="departmentAdminTrunkGroupAccess"
+                      defaultValue= { groupWebPolicyService.departmentAdminTrunkGroupAccess }
+                    >
+                      {policies.departmentAdminTrunkGroupAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy}>
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
 
-          <UiFormField label="Department Administrator User Policy" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="departmentAdminUserAccess"
-                defaultValue= { groupWebPolicyService.departmentAdminUserAccess }
-              >
-                {policies.departmentAdminUserAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy} >
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
+                <UiFormField label="Department Administrator Phone Number/Extension Access" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="departmentAdminPhoneNumberExtensionAccess"
+                      defaultValue= { groupWebPolicyService.departmentAdminPhoneNumberExtensionAccess }
+                    >
+                      {policies.departmentAdminPhoneNumberExtensionAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy} >
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
 
-          <UiFormField label="Department Administrator Trunk Group Policy" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="departmentAdminTrunkGroupAccess"
-                defaultValue= { groupWebPolicyService.departmentAdminTrunkGroupAccess }
-              >
-                {policies.departmentAdminTrunkGroupAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy}>
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
+                <UiFormField label="Department Administrator Calling Line Id Number Access" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="departmentAdminCallingLineIdNumberAccess"
+                      defaultValue= { groupWebPolicyService.departmentAdminCallingLineIdNumberAccess }
+                    >
+                      {policies.departmentAdminCallingLineIdNumberAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy} >
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
 
-          <UiFormField label="Department Administrator Phone Number/Extension Access" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="departmentAdminPhoneNumberExtensionAccess"
-                defaultValue= { groupWebPolicyService.departmentAdminPhoneNumberExtensionAccess }
-              >
-                {policies.departmentAdminPhoneNumberExtensionAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy} >
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
+                <UiFormField label="User Authentication" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="userAuthenticationAccess"
+                      defaultValue= { groupWebPolicyService.userAuthenticationAccess }
+                    >
+                      {policies.userAuthenticationAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy} >
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
 
-          <UiFormField label="Department Administrator Calling Line Id Number Access" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="departmentAdminCallingLineIdNumberAccess"
-                defaultValue= { groupWebPolicyService.departmentAdminCallingLineIdNumberAccess }
-              >
-                {policies.departmentAdminCallingLineIdNumberAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy} >
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
+                <UiFormField label="User Group Directory" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="userGroupDirectoryAccess"
+                      defaultValue= { groupWebPolicyService.userGroupDirectoryAccess }
+                    >
+                      {policies.userGroupDirectoryAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy} >
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
 
-          <UiFormField label="User Authentication" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="userAuthenticationAccess"
-                defaultValue= { groupWebPolicyService.userAuthenticationAccess }
-              >
-                {policies.userAuthenticationAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy} >
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
+                <UiFormField label="User Profile" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="userProfileAccess"
+                      defaultValue= { groupWebPolicyService.userProfileAccess }
+                    >
+                      {policies.userProfileAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy} >
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
 
-          <UiFormField label="User Group Directory" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="userGroupDirectoryAccess"
-                defaultValue= { groupWebPolicyService.userGroupDirectoryAccess }
-              >
-                {policies.userGroupDirectoryAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy} >
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
+                <UiFormField label="Call Logs" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="userEnhancedCallLogAccess"
+                      defaultValue= { groupWebPolicyService.userEnhancedCallLogAccess }
+                    >
+                      {policies.userEnhancedCallLogAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy} >
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
 
-          <UiFormField label="User Profile" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="userProfileAccess"
-                defaultValue= { groupWebPolicyService.userProfileAccess }
-              >
-                {policies.userProfileAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy} >
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
-
-          <UiFormField label="Call Logs" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="userEnhancedCallLogAccess"
-                defaultValue= { groupWebPolicyService.userEnhancedCallLogAccess }
-              >
-                {policies.userEnhancedCallLogAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy} >
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
-
-          <UiFormField label="Auto Attendant Name Dialing" horizontal>
-            <Select.Container fullwidth>
-            <Select
-                value={form.policies}
-                onChange={handleInput}
-                name="userAutoAttendantNameDialingAccess"
-                defaultValue= { groupWebPolicyService.userAutoAttendantNameDialingAccess }
-              >
-                {policies.userAutoAttendantNameDialingAccess.map( (policy, index) => (
-                  <Select.Option key={index} value={policy} >
-                    {policy}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Select.Container>
-          </UiFormField>
-
-        </form>
-        
-        <UiButton color="success"   onClick={save} > Save </UiButton>
-        
-        </UiSection>
+                <UiFormField label="Auto Attendant Name Dialing" horizontal>
+                  <Select.Container fullwidth>
+                    <Select
+                      value={form.policies}
+                      onChange={handleInput}
+                      name="userAutoAttendantNameDialingAccess"
+                      defaultValue= { groupWebPolicyService.userAutoAttendantNameDialingAccess }
+                    >
+                      {policies.userAutoAttendantNameDialingAccess.map( (policy, index) => (
+                        <Select.Option key={index} value={policy} >
+                          {policy}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Select.Container>
+                </UiFormField>
+              </form>
+              <UiButton color="success" style={{ margin: '1rem 0rem' }}  onClick={save} > Save </UiButton>
+            </UiSection>
           </UiCard>
         </>
       )}
-      
     </>
   )
 }
