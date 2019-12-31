@@ -4,7 +4,8 @@ import { CreateAutoAttendant } from '@/components/autoAttendant'
 import {
   GroupCommunicationBarring,
   GroupSpeedDial8,
-  GroupExtensionLength
+  GroupExtensionLength,
+  GroupWebPolicy
 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
@@ -782,6 +783,11 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/groupCommunicationBarring',
     component: GroupCommunicationBarring
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/groupWebPolicy',
+    component: GroupWebPolicy,
+    hasLevel: 'Service Provider'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/autoAttendants/visual',
