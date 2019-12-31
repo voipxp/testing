@@ -6,13 +6,14 @@ import apiGroupWebPolicy from '@/api/group-web-policy'
 import { Select } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 
+
 import {
   UiCard,
   UiLoadingCard,
   UiSection,
   UiButton,
   UiFormField
-} from '@/components/ui'
+ } from '@/components/ui'
 
 export const GroupWebPolicy = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
@@ -201,6 +202,23 @@ export const GroupWebPolicy = ({ match }) => {
             </Select.Container>
           </UiFormField>
 
+          <UiFormField label="Department Administrator Calling Line Id Number Access" horizontal>
+            <Select.Container fullwidth>
+            <Select
+                value={form.policies}
+                onChange={handleInput}
+                name="departmentAdminCallingLineIdNumberAccess"
+                defaultValue= { groupWebPolicyService.departmentAdminCallingLineIdNumberAccess }
+              >
+                {policies.departmentAdminCallingLineIdNumberAccess.map( (policy, index) => (
+                  <Select.Option key={index} value={policy} >
+                    {policy}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Select.Container>
+          </UiFormField>
+
           <UiFormField label="User Authentication" horizontal>
             <Select.Container fullwidth>
             <Select
@@ -287,7 +305,9 @@ export const GroupWebPolicy = ({ match }) => {
           </UiFormField>
 
         </form>
+        
         <UiButton color="success"   onClick={save} > Save </UiButton>
+        
         </UiSection>
           </UiCard>
         </>
