@@ -20,8 +20,7 @@ export const GroupWebPolicy = ({ match }) => {
   const [loading, setLoading] = useState(true)
   const { policies } = apiGroupWebPolicy.options
   const [groupWebPolicyService, setGroupWebPolicies] = useState({})
-  const [form, setForm] = useState({})
-  
+
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
@@ -34,7 +33,7 @@ export const GroupWebPolicy = ({ match }) => {
         setLoading(false)
       }
     }
-    
+
     fetchData()
   }, [serviceProviderId, groupId, alertDanger])
 
@@ -42,12 +41,13 @@ export const GroupWebPolicy = ({ match }) => {
   function handleInput(event) {
     const value = event.target.value
     const name = event.target.name
-    setForm({ ...form, [name]: value })
+    //setForm({ ...form, [name]: value })
+    setGroupWebPolicies({...groupWebPolicyService, [name]: value})
   }
- 
-  function save() { 
-    setForm({ ...groupWebPolicyService })
-    update(form)
+
+  function save() {
+    //setForm({ ...groupWebPolicyService })
+    update(groupWebPolicyService)
   }
 
   async function update(profile) {
@@ -58,12 +58,12 @@ export const GroupWebPolicy = ({ match }) => {
       alertSuccess('Group Web Policies Updated')
     } catch (error) {
       alertDanger(error)
-      
+
     } finally {
       setLoading(false)
-     
+
     }
-    
+
   }
   return (
     <>
@@ -76,16 +76,16 @@ export const GroupWebPolicy = ({ match }) => {
         <>
           <UiCard
             title="Group Web Policies"
-            
+
           >
-           
+
           <UiSection title="View or modify the policies for the group">
           <form>
 
           <UiFormField label="Calling Plan" horizontal>
             <Select.Container fullwidth>
             <Select
-                value={form.policies}
+                value={groupWebPolicyService.policies}
                 onChange={handleInput}
                 name="callingPlanAccess"
                 defaultValue= { groupWebPolicyService.callingPlanAccess }
@@ -102,7 +102,7 @@ export const GroupWebPolicy = ({ match }) => {
           <UiFormField label="Extension Dialing" horizontal>
             <Select.Container fullwidth>
             <Select
-                value={form.policies}
+                value={groupWebPolicyService.policies}
                 onChange={handleInput}
                 name="extensionAccess"
                 defaultValue= { groupWebPolicyService.extensionAccess }
@@ -119,7 +119,7 @@ export const GroupWebPolicy = ({ match }) => {
           <UiFormField label="LDAP Integration" horizontal>
             <Select.Container fullwidth>
             <Select
-                value={form.policies}
+                value={groupWebPolicyService.policies}
                 onChange={handleInput}
                 name="ldapIntegrationAccess"
                 defaultValue= { groupWebPolicyService.ldapIntegrationAccess }
@@ -136,7 +136,7 @@ export const GroupWebPolicy = ({ match }) => {
           <UiFormField label="Voice Messaging" horizontal>
             <Select.Container fullwidth>
             <Select
-                value={form.policies}
+                value={groupWebPolicyService.policies}
                 onChange={handleInput}
                 name="voiceMessagingAccess"
                 defaultValue= { groupWebPolicyService.voiceMessagingAccess }
@@ -153,7 +153,7 @@ export const GroupWebPolicy = ({ match }) => {
           <UiFormField label="Department Administrator User Policy" horizontal>
             <Select.Container fullwidth>
             <Select
-                value={form.policies}
+                value={groupWebPolicyService.policies}
                 onChange={handleInput}
                 name="departmentAdminUserAccess"
                 defaultValue= { groupWebPolicyService.departmentAdminUserAccess }
@@ -170,7 +170,7 @@ export const GroupWebPolicy = ({ match }) => {
           <UiFormField label="Department Administrator Trunk Group Policy" horizontal>
             <Select.Container fullwidth>
             <Select
-                value={form.policies}
+                value={groupWebPolicyService.policies}
                 onChange={handleInput}
                 name="departmentAdminTrunkGroupAccess"
                 defaultValue= { groupWebPolicyService.departmentAdminTrunkGroupAccess }
@@ -187,7 +187,7 @@ export const GroupWebPolicy = ({ match }) => {
           <UiFormField label="Department Administrator Phone Number/Extension Access" horizontal>
             <Select.Container fullwidth>
             <Select
-                value={form.policies}
+                value={groupWebPolicyService.policies}
                 onChange={handleInput}
                 name="departmentAdminPhoneNumberExtensionAccess"
                 defaultValue= { groupWebPolicyService.departmentAdminPhoneNumberExtensionAccess }
@@ -204,7 +204,7 @@ export const GroupWebPolicy = ({ match }) => {
           <UiFormField label="User Authentication" horizontal>
             <Select.Container fullwidth>
             <Select
-                value={form.policies}
+                value={groupWebPolicyService.policies}
                 onChange={handleInput}
                 name="userAuthenticationAccess"
                 defaultValue= { groupWebPolicyService.userAuthenticationAccess }
@@ -221,7 +221,7 @@ export const GroupWebPolicy = ({ match }) => {
           <UiFormField label="User Group Directory" horizontal>
             <Select.Container fullwidth>
             <Select
-                value={form.policies}
+                value={groupWebPolicyService.policies}
                 onChange={handleInput}
                 name="userGroupDirectoryAccess"
                 defaultValue= { groupWebPolicyService.userGroupDirectoryAccess }
@@ -238,7 +238,7 @@ export const GroupWebPolicy = ({ match }) => {
           <UiFormField label="User Profile" horizontal>
             <Select.Container fullwidth>
             <Select
-                value={form.policies}
+                value={groupWebPolicyService.policies}
                 onChange={handleInput}
                 name="userProfileAccess"
                 defaultValue= { groupWebPolicyService.userProfileAccess }
@@ -255,7 +255,7 @@ export const GroupWebPolicy = ({ match }) => {
           <UiFormField label="Call Logs" horizontal>
             <Select.Container fullwidth>
             <Select
-                value={form.policies}
+                value={groupWebPolicyService.policies}
                 onChange={handleInput}
                 name="userEnhancedCallLogAccess"
                 defaultValue= { groupWebPolicyService.userEnhancedCallLogAccess }
@@ -272,7 +272,7 @@ export const GroupWebPolicy = ({ match }) => {
           <UiFormField label="Auto Attendant Name Dialing" horizontal>
             <Select.Container fullwidth>
             <Select
-                value={form.policies}
+                value={groupWebPolicyService.policies}
                 onChange={handleInput}
                 name="userAutoAttendantNameDialingAccess"
                 defaultValue= { groupWebPolicyService.userAutoAttendantNameDialingAccess }
@@ -292,7 +292,7 @@ export const GroupWebPolicy = ({ match }) => {
           </UiCard>
         </>
       )}
-      
+
     </>
   )
 }
