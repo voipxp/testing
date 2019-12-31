@@ -33,6 +33,7 @@ function controller(
   ctrl.toggle = toggle
   ctrl.add = add
   ctrl.onCreate = onCreate
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   function onInit() {
     ctrl.loading = true

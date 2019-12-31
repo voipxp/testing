@@ -7,12 +7,13 @@ angular.module('odin.group').component('groupTrunkGroups', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Route', '$scope']
-function controller(Route, $scope) {
+controller.$inject = ['Route', '$scope', 'ACL']
+function controller(Route, $scope, ACL) {
   var ctrl = this
   ctrl.open = open
   ctrl.add = add
   ctrl.onSave = onSave
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   function onSave(trunk) {
     open(trunk.name)

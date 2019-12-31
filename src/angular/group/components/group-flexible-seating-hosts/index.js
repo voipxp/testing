@@ -55,6 +55,7 @@ function controller(
   ctrl.onCheckIsActive = onCheckIsActive
   ctrl.onCheckIsAssigned = onCheckIsAssigned
   ctrl.onChangeHost = onChangeHost
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   ctrl.columns = [
     {

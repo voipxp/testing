@@ -55,7 +55,7 @@ function controller(Alert, GroupTrunkGroupService, GroupPolicyService, $q, ACL, 
 			})
 		}
 	}
-	
+
   function loadTrunks() {
     return GroupTrunkGroupService.index(
       ctrl.serviceProviderId,

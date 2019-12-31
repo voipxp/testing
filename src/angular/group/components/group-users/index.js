@@ -38,6 +38,7 @@ function controller(
   ctrl.edit = edit
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   ctrl.columns = [
     {
@@ -72,10 +73,12 @@ function controller(
     return $q
       .all([loadUsers(), ServiceProviderPolicyService.load(), GroupWebPolicyService.load()])
       .then(function() {
-        if(ACL.is('Service Provider')) {
-            ctrl.canCreate = ServiceProviderPolicyService.userCreate()
-        } else if(ACL.is('Group Department')) {
+        if(ACL.is('Group Department')) {
             ctrl.canCreate = GroupWebPolicyService.departmentAdminUserAccessCreate()
+            ctrl.canCLIDUpdate = GroupWebPolicyService.departmentAdminCallingLineIdNumberAccessCreate()
+        } else {
+          ctrl.canCreate = ServiceProviderPolicyService.userCreate()
+          ctrl.canCLIDUpdate = true
         }
       })
       .catch(Alert.notify.danger)
@@ -148,6 +151,10 @@ function controller(
   }
 
   function bulkUpdate(users, data, callback) {
+    if(!ctrl.canCLIDUpdate) {
+      delete data.callingLineIdPhoneNumber
+    }
+
     Alert.spinner.open()
     UserService.bulk({ users: users, data: data })
       .then(function() {

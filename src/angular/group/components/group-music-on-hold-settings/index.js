@@ -10,15 +10,15 @@ angular.module('odin.group').component('groupMusicOnHoldSettings', {
   }
 })
 
-controller.$inject = ['Alert']
-function controller(Alert) {
+controller.$inject = ['Alert', 'ACL']
+function controller(Alert, ACL) {
   var ctrl = this
   ctrl.edit = edit
 
   function edit() {
     ctrl.editMoh = angular.copy(ctrl.moh)
     var onDelete = null
-    if (ctrl.moh.department && ctrl.parent.module.permissions.delete) {
+    if (ctrl.moh.department && ctrl.parent.module.permissions.delete && !ACL.is('Group Department')) {
       onDelete = function onDelete(close) {
         ctrl.parent.destroy(close)
       }
