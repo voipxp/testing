@@ -46,6 +46,7 @@ function controller(
 
   ctrl.selectEnterpriseTrunk = selectEnterpriseTrunk
   ctrl.onSelectEnterpriseTrunk = onSelectEnterpriseTrunk
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   ctrl.endpointTypes = {
     accessDeviceEndpoint: 'Identity/Device Profile',
@@ -72,6 +73,8 @@ function controller(
           ctrl.canEdit =
             Module.update('Provisioning') &&
             ServiceProviderPolicyService.accessDeviceUpdate()
+        } else if(ACL.is('Group Department')) {
+          ctrl.canEdit = true
         }
       })
       .catch(function(error) {

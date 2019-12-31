@@ -1,8 +1,8 @@
 <pbs-block title="User Department">
-  <pbs-block-buttons>
+  <pbs-block-buttons ng-if="!$ctrl.isDepartmentAdmin">
     <pbs-button-compact-add ng-click="$ctrl.add()"></pbs-button-compact-add>
   </pbs-block-buttons>
-  <div>
+  <div ng-if="!$ctrl.isDepartmentAdmin">
     <pbs-form-section
       >Would you like to assign all users to a Department?</pbs-form-section
     >
@@ -11,7 +11,17 @@
       group-id="$ctrl.groupId"
       ng-model="$ctrl.department"
     ></select-department>
+    <pbs-form-section ng-if="$ctrl.isDepartmentAdmin">
+      {{$ctrl.defaultDepartmentName}}
+    </pbs-form-section>
   </div>
+
+  <div ng-if="$ctrl.isDepartmentAdmin">
+    <pbs-form-section>
+      All user will be assign to department : {{$ctrl.defaultDepartmentName}}
+    </pbs-form-section>
+  </div>
+
   <div class="large-margin-top has-text-right">
     <pbs-button-next ng-click="$ctrl.complete()"></pbs-button-next>
   </div>

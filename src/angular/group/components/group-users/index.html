@@ -1,6 +1,7 @@
 <pbs-navigation
   service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
+  hide-navigation="$ctrl.isGroupDepartmentAdmin"
 >
   <pbs-breadcrumb title="'Users'"></pbs-breadcrumb>
 </pbs-navigation>
@@ -52,6 +53,7 @@
         type="text"
         class="input"
         ng-model="$ctrl.editSettings.callingLineIdPhoneNumber"
+        ng-disabled="!$ctrl.canCLIDUpdate"
       />
     </pbs-form-field-horizontal>
   </pbs-form>

@@ -18,7 +18,10 @@ controller.$inject = [
   '$scope',
   '$q',
   'GroupPolicyService',
-  '$ngRedux'
+  '$ngRedux',
+  'ACL',
+  'Session',
+  'Module'
 ]
 function controller(
   Alert,
@@ -29,7 +32,10 @@ function controller(
   $scope,
   $q,
   GroupPolicyService,
-  $ngRedux
+  $ngRedux,
+  ACL,
+  Session,
+  Module
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -49,6 +55,7 @@ function controller(
   ctrl.onCheckIsActive = onCheckIsActive
   ctrl.onCheckIsAssigned = onCheckIsAssigned
   ctrl.onChangeHost = onChangeHost
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   ctrl.columns = [
     {
@@ -95,7 +102,8 @@ function controller(
       .all([
         loadGroupFlexibleSeatingHosts(),
         loadGroupFlexibleSeatingUsers(),
-        GroupPolicyService.load()
+        GroupPolicyService.load(),
+		loadModule()
       ])
       .then(function() {
         ctrl.canCreate = GroupPolicyService.enhancedServiceCreate()
@@ -105,6 +113,14 @@ function controller(
         ctrl.loading = false
       })
   }
+
+	function loadModule() {
+		if(ACL.is('Group Department')) {
+			return Module.show('Flexible Seating Guest').then(function(data) {
+			  ctrl.module = data
+			})
+		}
+	}
 
   function onChangeHost(item) {
     if (!item) return
@@ -136,8 +152,15 @@ function controller(
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
+      if(ACL.is('Group Department')) data = filterByDepartment(data)
       ctrl.users = data
     })
+  }
+
+  function filterByDepartment(filterData) {
+    return filterData.filter(function(data) {
+			return (data.user.departmentFullPath || data.user.department) === Session.data('groupDepartmentPathName')
+	  })
   }
 
   function loadGroupFlexibleSeatingHosts() {
@@ -145,6 +168,7 @@ function controller(
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
+      if(ACL.is('Group Department')) data.hosts = ACL.filterByDepartment(data.hosts)
       ctrl.hosts = data.hosts
     })
   }

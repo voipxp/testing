@@ -14,7 +14,10 @@ controller.$inject = [
   'UserService',
   '$q',
   'ACL',
-  'UiSettingService'
+  'UiSettingService',
+  'GroupPolicyService',
+  'ServiceProviderPolicyService',
+  'GroupWebPolicyService'
 ]
 function controller(
   Alert,
@@ -22,20 +25,37 @@ function controller(
   UserService,
   $q,
   ACL,
-  UiSettingService
+  UiSettingService,
+  GroupPolicyService,
+  ServiceProviderPolicyService,
+  GroupWebPolicyService
 ) {
   var ctrl = this
   ctrl.edit = edit
-  ctrl.canEdit = ACL.has('Group')
+  ctrl.canEdit = ACL.has('Group Department')
   ctrl.selectPhoneNumber = selectPhoneNumber
   ctrl.selectCLIDPhoneNumber = selectCLIDPhoneNumber
   ctrl.isActivated = isActivated
   ctrl.editCLID = UiSettingService.data('editCLID')
   ctrl.$onInit = onInit
 
+
   function onInit() {
     ctrl.loading = true
-    $q.all([loadUser(), loadNumbers()])
+    $q.all([loadUser(),
+        loadNumbers(),
+        GroupPolicyService.load(),
+        ServiceProviderPolicyService.load()]).
+	    then(function() {
+        if( ACL.is('Service Provider') ) {
+            ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
+        } else if( ACL.is('Group') ){
+            ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
+        } else if( ACL.is('Group Department') ) {
+            ctrl.canPNUpdate = GroupWebPolicyService.departmentAdminPhoneNumberExtensionAccessCreate()
+            ctrl.canCLIDUpdate = GroupWebPolicyService.departmentAdminCallingLineIdNumberAccessCreate()
+        }
+	    })
       .catch(function(error) {
         Alert.notify.danger(error)
       })

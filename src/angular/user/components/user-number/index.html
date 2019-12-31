@@ -1,6 +1,8 @@
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Number">
-    <pbs-block-buttons ng-if="$ctrl.canEdit">
+    <pbs-block-buttons
+      ng-if="$ctrl.canEdit && ($ctrl.canPNUpdate || $ctrl.canCLIDUpdate)"
+    >
       <pbs-button-compact-edit title="Edit Number" ng-click="$ctrl.edit()">
       </pbs-button-compact-edit>
     </pbs-block-buttons>
@@ -25,7 +27,7 @@
 <pbs-modal id="editUserNumberModal" title="Edit Number">
   <pbs-spinner loading="$ctrl.loadingUser">
     <pbs-form>
-      <pbs-form-field label="Number">
+      <pbs-form-field label="Number" ng-if="$ctrl.canPNUpdate">
         <select-phone-number
           service-provider-id="$ctrl.user.serviceProviderId"
           group-id="$ctrl.user.groupId"
@@ -33,10 +35,25 @@
           on-update="$ctrl.selectPhoneNumber($event)"
         ></select-phone-number>
       </pbs-form-field>
-      <pbs-form-field label="Extension">
-        <input type="text" class="input" ng-model="$ctrl.editUser.extension" />
+
+      <pbs-form-field label="Number" ng-if="!$ctrl.canPNUpdate">
+        <input
+          type="text"
+          class="input"
+          ng-model="$ctrl.editUser.phoneNumber"
+          ng-disabled="true"
+        />
       </pbs-form-field>
-      <pbs-form-field label="CLID Phone Number">
+
+      <pbs-form-field label="Extension">
+        <input
+          type="text"
+          class="input"
+          ng-model="$ctrl.editUser.extension"
+          ng-disabled="!$ctrl.canPNUpdate"
+        />
+      </pbs-form-field>
+      <pbs-form-field label="CLID Phone Number" ng-if="$ctrl.canCLIDUpdate">
         <select-phone-number
           service-provider-id="$ctrl.user.serviceProviderId"
           group-id="$ctrl.user.groupId"
@@ -45,6 +62,16 @@
           allow-manual="$ctrl.editCLID"
           on-update="$ctrl.selectCLIDPhoneNumber($event)"
         ></select-phone-number>
+      </pbs-form-field>
+
+      <!--show clid when have permission is read-only -->
+      <pbs-form-field label="CLID Phone Number" ng-if="!$ctrl.canCLIDUpdate">
+        <input
+          type="text"
+          class="input"
+          ng-model="$ctrl.editUser.callingLineIdPhoneNumber"
+          ng-disabled="true"
+        />
       </pbs-form-field>
     </pbs-form>
   </pbs-spinner>

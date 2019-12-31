@@ -12,11 +12,13 @@ angular.module('odin.bulk').component('bulkSelectDepartment', {
   }
 })
 
-controller.$inject = ['Alert', 'EventEmitter', 'GroupDepartmentService']
-function controller(Alert, EventEmitter, GroupDepartmentService) {
+controller.$inject = ['Alert', 'EventEmitter', 'GroupDepartmentService', 'Session']
+function controller(Alert, EventEmitter, GroupDepartmentService, Session) {
   var ctrl = this
   ctrl.complete = complete
   ctrl.add = add
+  ctrl.isDepartmentAdmin = (Session.data('loginType') === 'Group Department')
+  ctrl.defaultDepartmentName = Session.data('groupDepartmentName') || null
 
   function loadParents() {
     return GroupDepartmentService.index(
@@ -71,6 +73,12 @@ function controller(Alert, EventEmitter, GroupDepartmentService) {
       department.serviceProviderId = ctrl.department.serviceProviderId
       department.groupId = ctrl.department.groupId
       department.name = ctrl.department.name
+    }
+    /* If Group department admin is logged in*/
+    if(ctrl.isDepartmentAdmin) {
+      department.name = ctrl.defaultDepartmentName
+      department.groupId = ctrl.groupId
+      department.serviceProviderId = ctrl.serviceProviderId
     }
     ctrl.onUpdate(EventEmitter({ department: department }))
   }

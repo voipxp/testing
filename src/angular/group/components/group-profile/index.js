@@ -52,7 +52,13 @@ function controller(
       .then(function() {
         ctrl.canRead = GroupPolicyService.profileRead()
         ctrl.canUpdate =
-          Module.update('Provisioning') && GroupPolicyService.profileUpdate()
+        Module.update('Provisioning') && GroupPolicyService.profileUpdate()
+        if( ACL.is('Service Provider') ) {
+            ctrl.canCLIDUpdate = ServiceProviderPolicyService.callingLineIdUpdate()
+        } else if( ACL.is('Group') ){
+            ctrl.canCLIDUpdate = GroupPolicyService.callingLineIdUpdate()
+        }
+		    
       })
       .catch(Alert.notify.danger)
       .finally(function() {

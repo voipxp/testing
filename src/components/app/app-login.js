@@ -6,6 +6,7 @@ import { useAlerts } from '@/store/alerts'
 import { useUi } from '@/store/ui'
 import { useSession } from '@/store/session'
 import { useUiTemplate } from '@/store/ui-template'
+import groupWebPolicy from '@/api/group-web-policy'
 import authApi from '@/api/auth'
 
 export const AppLogin = () => {
@@ -41,6 +42,11 @@ export const AppLogin = () => {
     try {
       showLoadingModal()
       const session = await authApi.token(form.username, form.password)
+
+      if(session.loginType === 'Group Department') {
+        session.policy = await groupWebPolicy.showWithToken(session.serviceProviderId, session.groupId, session.token)
+      }
+
       await setSession(session)
     } catch (error) {
       if (error.status === 402) {

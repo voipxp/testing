@@ -13,7 +13,9 @@ controller.$inject = [
   'Route',
   '$scope',
   '$q',
-  'GroupPolicyService'
+  'GroupPolicyService',
+  'ACL',
+  'Module'
 ]
 function controller(
   Alert,
@@ -21,7 +23,9 @@ function controller(
   Route,
   $scope,
   $q,
-  GroupPolicyService
+  GroupPolicyService,
+  ACL,
+  Module
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -31,11 +35,12 @@ function controller(
   ctrl.onCreate = onCreate
   ctrl.toggle = toggle
   ctrl.clone = clone
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   function onInit() {
     ctrl.loading = true
     return $q
-      .all([loadAutoAttendants(), GroupPolicyService.load()])
+      .all([loadAutoAttendants(), GroupPolicyService.load(), loadModule()])
       .then(function() {
         ctrl.canCreate = GroupPolicyService.enhancedServiceCreate()
       })
@@ -53,12 +58,21 @@ function controller(
     //   })
   }
 
+	function loadModule() {
+		if(ACL.is('Group Department')) {
+			return Module.show('Auto Attendant').then(function(data) {
+			  ctrl.module = data
+			})
+		}
+	}
+
   function loadAutoAttendants() {
     return GroupAutoAttendantService.index(
       ctrl.serviceProviderId,
       ctrl.groupId
     ).then(function(data) {
-      ctrl.autoAttendants = data
+      if(!ACL.is('Group Department')) ctrl.autoAttendants = data
+      else ctrl.autoAttendants = ACL.filterByDepartment(data)
     })
   }
 

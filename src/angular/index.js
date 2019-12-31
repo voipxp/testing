@@ -32,6 +32,7 @@ import './system'
 import './ui'
 import './user'
 import './vdm'
+import './department'
 
 // CONFIGS
 import * as config from './config'
@@ -58,7 +59,8 @@ angular
     'odin.system',
     'odin.ui',
     'odin.user',
-    'odin.vdm'
+    'odin.vdm',
+	'odin.department'
   ])
   // .config(routes)
   .config(config.locationConfig)

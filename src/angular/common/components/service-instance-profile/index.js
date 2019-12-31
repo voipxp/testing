@@ -18,18 +18,26 @@ angular.module('odin.common').component('serviceInstanceProfile', {
 controller.$inject = [
   'Alert',
   '$q',
+  'ACL',
   'GroupDepartmentService',
   'SystemLanguageService',
   'SystemTimeZoneService',
-  'EventEmitter'
+  'EventEmitter',
+  'GroupPolicyService',
+  'ServiceProviderPolicyService',
+  'GroupWebPolicyService'
 ]
 function controller(
   Alert,
   $q,
+  ACL,
   GroupDepartmentService,
   SystemLanguageService,
   SystemTimeZoneService,
-  EventEmitter
+  EventEmitter,
+  GroupPolicyService,
+  ServiceProviderPolicyService,
+  GroupWebPolicyService
 ) {
   var ctrl = this
 
@@ -40,12 +48,21 @@ function controller(
 
   ctrl.selectNumber = selectNumber
   ctrl.edit = edit
+  ctrl.isDepartmentAdmin = ACL.is('Group Department')
 
   function activate() {
     Alert.spinner.open()
     return $q
-      .all([loadDepartments(), loadLanguages(), loadTimezones()])
-      .catch(function(error) {
+      .all([loadDepartments(), loadLanguages(), loadTimezones(), GroupPolicyService.load(), ServiceProviderPolicyService.load()])
+      .then(function() {
+        if( ACL.is('Service Provider') ) {
+            ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
+        } else if( ACL.is('Group') ){
+            ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
+        } else if( ACL.is('Group Department') ){
+          ctrl.canPNUpdate = GroupWebPolicyService.departmentAdminPhoneNumberExtensionAccessCreate()
+        }
+	    }).catch(function(error) {
         Alert.notify.danger(error)
         return $q.reject(error.data)
       })
