@@ -19,7 +19,7 @@ export const options = {
 		callingPlanAccess: ['Full', 'Restricted'],
 		extensionAccess: ['Full', 'Read-Only', 'None'],
 		ldapIntegrationAccess: ['Full', 'Read-Only', 'None'],
-		voiceMessagingAccess: ['Full', 'None'],
+		voiceMessagingAccess: ['Full', 'Restricted'],
 		departmentAdminUserAccess: ['Full', 'Read-Only Profile', 'No Profile', 'None'],
 		departmentAdminTrunkGroupAccess: ['Full', 'None'],
 		departmentAdminPhoneNumberExtensionAccess: ['Full', 'Read-Only'],
@@ -31,5 +31,5 @@ export const options = {
 		userAutoAttendantNameDialingAccess: ['Full', 'None']
 	}
 }
-			 
+
 export default { show, options, showWithToken, update }
