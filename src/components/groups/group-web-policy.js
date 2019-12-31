@@ -80,7 +80,7 @@ export const GroupWebPolicy = ({ match }) => {
 
           >
 
-          <UiSection title="View or modify the policies for the group">
+          <UiSection title="">
           <form>
 
           <UiFormField label="Calling Plan" horizontal>
