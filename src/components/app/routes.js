@@ -817,6 +817,17 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
+    path: '/imports',
+    exact: true,
+    component: Imports,
+    hasLevel: 'Group'
+  },
+  {
+    path: '/imports/:id',
+    component: Import,
+    hasLevel: 'Group'
+  },
+  {
     path: '/department/:serviceProviderId/:groupId',
     component: DepartmentDashboard
   }
