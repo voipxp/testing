@@ -31,10 +31,11 @@ function controller(
   ctrl.$onInit = onInit
   ctrl.addressSummary = addressSummary
   ctrl.edit = edit
+  ctrl.isDepartmentAdmin = ACL.is('Group Department')
 
   function onInit() {
     ctrl.loading = true
-    ctrl.isAdmin = ACL.has('Group')
+    ctrl.isAdmin = ACL.has('Group Department')
     return $q
       .all([
         loadUser(),

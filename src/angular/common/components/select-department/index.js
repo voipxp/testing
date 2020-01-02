@@ -8,7 +8,8 @@ angular.module('odin.common').component('selectDepartment', {
     serviceProviderId: '<',
     groupId: '<',
     ngRequired: '<',
-    ngModel: '='
+    ngModel: '=',
+    ngDisabled: '<'
   }
 })
 
