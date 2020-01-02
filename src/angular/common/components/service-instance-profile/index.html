@@ -115,16 +115,12 @@
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Department">
       <pbs-input-select
-        ng-if="!$ctrl.isDepartmentAdmin"
+        ng-disabled='$ctrl.isDepartmentAdmin'
         ng-model="$ctrl.editProfile.department"
         ng-options="department as department.name for department in $ctrl.departments track by department.name"
       >
         <option value="">-- None --</option>
       </pbs-input-select>
-      <!-- Will be visible if admin is department type -->
-      <div ng-if="$ctrl.isDepartmentAdmin">
-        {{$ctrl.editProfile.department.name}}
-      </div>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Language">
       <pbs-input-select

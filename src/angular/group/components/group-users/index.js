@@ -65,6 +65,15 @@ function controller(
       key: 'callingLineIdPhoneNumber',
       label: 'CLID',
       hidden: true
+    },
+    {
+      key: 'department',
+      label: 'Department'
+    },
+    {
+      key: 'inTrunkGroup',
+      label: 'In Trunk Group',
+      type: 'boolean'
     }
   ]
 
