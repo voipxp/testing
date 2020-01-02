@@ -94,6 +94,7 @@
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Department" ng-if="$ctrl.isAdmin">
       <select-department
+        ng-disabled='$ctrl.isDepartmentAdmin'
         service-provider-id="$ctrl.editUser.serviceProviderId"
         group-id="$ctrl.editUser.groupId"
         ng-model="$ctrl.editUser.department"

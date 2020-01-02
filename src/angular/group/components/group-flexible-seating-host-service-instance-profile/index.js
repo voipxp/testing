@@ -49,6 +49,7 @@ function controller(
   ctrl.devices = []
   ctrl.selectNumber = selectNumber
   ctrl.edit = edit
+  ctrl.isDepartmentAdmin = ACL.is('Group Department')
 
   function activate() {
     Alert.spinner.open()

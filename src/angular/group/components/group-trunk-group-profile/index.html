@@ -131,6 +131,7 @@
     </pbs-form-field>
     <pbs-form-field label="Department Name">
       <select-department
+        ng-disabled='$ctrl.isDepartmentAdmin'
         service-provider-id="$ctrl.parent.serviceProviderId"
         group-id="$ctrl.parent.groupId"
         ng-model="$ctrl.editTrunk.department"
