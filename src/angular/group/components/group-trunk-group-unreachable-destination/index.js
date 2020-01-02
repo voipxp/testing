@@ -33,8 +33,14 @@ function controller(Alert, GroupTrunkGroupService, ACL) {
       }
     ).then(data => {
       if(ACL.is('Group Department')) data = ACL.filterByDepartment(data)
-      ctrl.availableTrunks = data
+      ctrl.availableTrunks = removeSelectedTrunk(data)
     })
+  }
+
+  function removeSelectedTrunk(trunks) {
+    return trunks.filter(function(trunk) {
+			return trunk.name !== ctrl.parent.trunk.name
+	  })
   }
 
   function edit() {
