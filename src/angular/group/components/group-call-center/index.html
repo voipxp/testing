@@ -25,6 +25,8 @@
       profile="$ctrl.center.serviceInstanceProfile"
       on-update="$ctrl.updateProfile($event)"
       read-only="!$ctrl.module.permissions.update"
+      ng-minlength="$ctrl.passMinLen"
+      ng-maxlength="60"
     ></service-instance-profile>
   </pbs-menu-item>
   <pbs-menu-item label="Agents">

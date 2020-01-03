@@ -10,28 +10,42 @@ angular.module('odin.group').component('userCreate', {
     onUpdate: '&'
   }
 })
-
-controller.$inject = ['Alert', '$scope', 'EventEmitter', 'UserService', 'Session']
-function controller(Alert, $scope, EventEmitter, UserService, Session) {
+ 
+controller.$inject = ['Alert', '$scope', 'EventEmitter', 'UserService', 'Session','GroupPasswordService']
+ 
+function controller(Alert, $scope, EventEmitter, UserService, Session, GroupPasswordService) {
   var ctrl = this
-
   ctrl.$onChanges = onChanges
   ctrl.setCLID = setCLID
   ctrl.setUserId = setUserId
   ctrl.toggleOptional = toggleOptional
+  
+  function  loadPasswordRulesMinLength() {
+    GroupPasswordService.show(
+    ctrl.serviceProviderId,
+    ctrl.groupId
+  ).then(function(rules) {
+    ctrl.passMinLen = rules.minLength
+  })
+}
 
+<<<<<<< HEAD
   /* Set and accessed for Group Admini*/
   ctrl.isDepartmentAdmin = (Session.data('loginType') === 'Group Department')
   ctrl.defaultDepartmentName = Session.data('groupDepartmentName') || null
   ctrl.groupDepartmentPathName= Session.data('groupDepartmentPathName') || null
 
   function onChanges(changes) {
+=======
+  function onChanges(changes) {  
+>>>>>>> origin/Anshu-Bug-Fixes
     if (changes.serviceProviderId) {
       ctrl.serviceProviderId = changes.serviceProviderId.currentValue
     }
     if (changes.groupId) {
       ctrl.groupId = changes.groupId.currentValue
     }
+    loadPasswordRulesMinLength()
   }
 
   function open() {

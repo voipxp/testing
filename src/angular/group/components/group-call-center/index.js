@@ -14,7 +14,8 @@ controller.$inject = [
   'GroupCallCenterService',
   'ACL',
   'Module',
-  '$location'
+  '$location',
+  'GroupPasswordService'
 ]
 function controller(
   Route,
@@ -22,7 +23,8 @@ function controller(
   GroupCallCenterService,
   ACL,
   Module,
-  $location
+  $location,
+  GroupPasswordService
 ) {
   var ctrl = this
   ctrl.$onInit = activate
@@ -36,6 +38,7 @@ function controller(
     ctrl.loading = true
     ctrl.hasBasicBounced = ACL.hasVersion('20')
     ctrl.hasMonitoring = Module.read('Call Center Monitoring')
+    loadPasswordRulesMinLength()
     loadCallCenter()
       .catch(Alert.notify.danger)
       .finally(() => (ctrl.loading = false))
@@ -45,6 +48,15 @@ function controller(
     return GroupCallCenterService.show(ctrl.serviceUserId).then(
       data => (ctrl.center = data)
     )
+  }
+ 
+  function  loadPasswordRulesMinLength() { 
+      GroupPasswordService.show(
+        ctrl.serviceProviderId,
+        ctrl.groupId
+      ).then(function(rules) {
+        ctrl.passMinLen = rules.minLength
+      })
   }
 
   function update(center, callback) {
