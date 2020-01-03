@@ -11,6 +11,7 @@
 <bulk-select-users-dashboard
   ng-show="$ctrl.data.users.length < 1"
   on-select="$ctrl.onSelectUsers($event)"
+  module-name="user.delete"
 ></bulk-select-users-dashboard>
 
 <div ng-if="$ctrl.data.users.length > 0">
