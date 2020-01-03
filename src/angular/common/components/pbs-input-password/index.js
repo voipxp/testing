@@ -11,10 +11,9 @@ pbsInputPassword.$inject = [
   'SystemSipAuthPasswordRulesService',
   'ServiceProviderSipAuthPasswordRulesService',
   'ServiceProviderPasswordService',
-  '$q',
-  '$location'
+  '$q'
 ]
-function pbsInputPassword(PasswordService, GroupPasswordService, Alert,SystemSipAuthPasswordRulesService, ServiceProviderSipAuthPasswordRulesService, ServiceProviderPasswordService , $q,$location) {
+function pbsInputPassword(PasswordService, GroupPasswordService, Alert,SystemSipAuthPasswordRulesService, ServiceProviderSipAuthPasswordRulesService, ServiceProviderPasswordService , $q) {
   return {
     template,
     restrict: 'E',
@@ -28,8 +27,11 @@ function pbsInputPassword(PasswordService, GroupPasswordService, Alert,SystemSip
       ngMaxlength: '=',
       serviceProviderId: '<?',
       groupId: '<?',
-      ngSipAuth:'='
+      ngSipAuth:'=',
+      ngAdminLevel:'='
     },
+
+    
     link: function(scope) {
       scope.inputType = 'password'
       scope.generate = generate
@@ -84,7 +86,7 @@ function pbsInputPassword(PasswordService, GroupPasswordService, Alert,SystemSip
         })
 
         }
-        else if($location.path() === '/groups/ent.odin.testxp/grpPankaj/admins'){ 
+        else if( scope.ngAdminLevel === true ){ 
            
           return ServiceProviderPasswordService.show(scope.serviceProviderId)
           .then(function(rules) {
