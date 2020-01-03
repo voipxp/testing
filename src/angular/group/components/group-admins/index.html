@@ -67,11 +67,12 @@
     <pbs-form-field-horizontal label="Password">
       <pbs-input-password
         ng-model="$ctrl.newAdmin.password"
-        ng-minlength="6"
+        ng-minlength="$ctrl.passMinLen"
         ng-maxlength="60"
         ng-required="true"
         service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
+        ng-admin-level="true"
       ></pbs-input-password>
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Language">
@@ -101,10 +102,11 @@
         <pbs-form-field-horizontal label="New Password">
           <pbs-input-password
             ng-model="$ctrl.editAdmin.password"
-            ng-minlength="6"
+            ng-minlength="$ctrl.passMinLen"
             ng-maxlength="60"
             service-provider-id="$ctrl.serviceProviderId"
             group-id="$ctrl.groupId"
+            ng-admin-level="true"
           ></pbs-input-password>
         </pbs-form-field-horizontal>
         <pbs-form-field-horizontal label="Language">

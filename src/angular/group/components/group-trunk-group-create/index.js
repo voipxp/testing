@@ -12,6 +12,8 @@ controller.$inject = [
   'Alert',
   'GroupTrunkGroupService',
   'GroupDepartmentService',
+  'ServiceProviderSipAuthPasswordRulesService',
+  'SystemSipAuthPasswordRulesService',
   '$scope',
   '$q'
 ]
@@ -19,6 +21,8 @@ function controller(
   Alert,
   GroupTrunkGroupService,
   GroupDepartmentService,
+  ServiceProviderSipAuthPasswordRulesService,
+  SystemSipAuthPasswordRulesService,
   $scope,
   $q
 ) {
@@ -30,6 +34,7 @@ function controller(
 
   function load() {
     ctrl.trunk = GroupTrunkGroupService.default()
+    loadPasswordRulesMinLength()
     if ($scope.groupTrunkGroupCreateForm) {
       $scope.groupTrunkGroupCreateForm.$setPristine()
     }
@@ -43,7 +48,25 @@ function controller(
         Alert.spinner.close()
       })
   }
-
+   
+  function loadPasswordRulesMinLength() {
+    ServiceProviderSipAuthPasswordRulesService.show(ctrl.serviceProviderId)
+      .then(function(rules) {
+      if (rules.useServiceProviderSettings === true) {
+        ctrl.passMinLen = rules.minLength;
+      } else {
+          loadSystemSipAuthPasswordRules();
+      }
+      ctrl.passMinLen =   rules.minLength
+    })
+  }
+  function loadSystemSipAuthPasswordRules() {
+    SystemSipAuthPasswordRulesService.show().then(function (rules) {
+    ctrl.passMinLen = rules.minLength;
+  });
+  
+  }
+  
   function loadDepartments() {
     return GroupDepartmentService.index(
       ctrl.serviceProviderId,

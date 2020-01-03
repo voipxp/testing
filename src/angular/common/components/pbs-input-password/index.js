@@ -7,12 +7,13 @@ angular.module('odin.common').directive('pbsInputPassword', pbsInputPassword)
 pbsInputPassword.$inject = [
   'PasswordService',
   'GroupPasswordService',
+  'Alert',
   'SystemSipAuthPasswordRulesService',
   'ServiceProviderSipAuthPasswordRulesService',
-  'Alert',
+  'ServiceProviderPasswordService',
   '$q'
 ]
-function pbsInputPassword(PasswordService, GroupPasswordService, SystemSipAuthPasswordRulesService, ServiceProviderSipAuthPasswordRulesService,  Alert, $q) {
+function pbsInputPassword(PasswordService, GroupPasswordService, Alert,SystemSipAuthPasswordRulesService, ServiceProviderSipAuthPasswordRulesService, ServiceProviderPasswordService , $q) {
   return {
     template,
     restrict: 'E',
@@ -25,8 +26,12 @@ function pbsInputPassword(PasswordService, GroupPasswordService, SystemSipAuthPa
       ngMinlength: '=',
       ngMaxlength: '=',
       serviceProviderId: '<?',
-      groupId: '<?'
+      groupId: '<?',
+      ngSipAuth:'=',
+      ngAdminLevel:'='
     },
+
+    
     link: function(scope) {
       scope.inputType = 'password'
       scope.generate = generate
@@ -36,7 +41,7 @@ function pbsInputPassword(PasswordService, GroupPasswordService, SystemSipAuthPa
       function setPattern() {
         scope.pattern = scope.ngModel ? _.escapeRegExp(scope.ngModel) : null
       }
-
+      
       function generate() {
         scope.inputType = 'text'
         scope.isLoading = true
@@ -58,35 +63,48 @@ function pbsInputPassword(PasswordService, GroupPasswordService, SystemSipAuthPa
       function toggle() {
         scope.inputType = scope.inputType === 'text' ? 'password' : 'text'
       }
-
-      function loadSystemSipAuthPasswordRules() {
+ 
+       function loadSystemSipAuthPasswordRules() {
         return SystemSipAuthPasswordRulesService.show()
         .then(function(rules) {
-           return rules
+         return  rules
         })
       }
-
-      function loadPasswordRules() {
-		    var defaultRules = {}
+       function loadPasswordRules() {
+        var defaultRules = {}
         if (!scope.serviceProviderId || !scope.groupId) {
           return $q.resolve(defaultRules)
         }
-		  
-        return ServiceProviderSipAuthPasswordRulesService.show(scope.serviceProviderId)
-        .then(function(rules) {
-          if (rules.useServiceProviderSettings === true) {
-            return rules
-          }else{
-            return loadSystemSipAuthPasswordRules()
-          }
+        if(scope.ngSipAuth === true ){
+          return ServiceProviderSipAuthPasswordRulesService.show(scope.serviceProviderId)
+          .then(function(rules) {
+            if (rules.useServiceProviderSettings === true) {
+             return rules 
+            }else{
+              return loadSystemSipAuthPasswordRules()
+            }
         })
-        .catch(function() {
-          return loadSystemSipAuthPasswordRules()
+
+        }
+        else if( scope.ngAdminLevel === true ){ 
+           
+          return ServiceProviderPasswordService.show(scope.serviceProviderId)
+          .then(function(rules) {
+            return rules 
+          })
+
+        }
+        
+        else {
+        return GroupPasswordService.show(
+          scope.serviceProviderId,
+          scope.groupId
+        ).then(function(rules) {
+          return rules
         })
+      }
 
       }
     }
   }
 }
-
-
