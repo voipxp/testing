@@ -33,6 +33,8 @@
       on-update="$ctrl.onUpdateProfile($event)"
       loading="$ctrl.loading"
       read-only="!$ctrl.module.permissions.update"
+      ng-minlength="$ctrl.passMinLen"
+      ng-maxlength="60"
     ></service-instance-profile>
   </pbs-menu-item>
   <pbs-menu-item label="Business Hour Menu">

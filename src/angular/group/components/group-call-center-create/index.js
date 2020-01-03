@@ -13,6 +13,7 @@ controller.$inject = [
   'GroupCallCenterService',
   '$scope',
   'GroupDomainService',
+  'GroupPasswordService',
   '$q'
 ]
 function controller(
@@ -20,6 +21,7 @@ function controller(
   GroupCallCenterService,
   $scope,
   GroupDomainService,
+  GroupPasswordService,
   $q
 ) {
   var ctrl = this
@@ -46,7 +48,9 @@ function controller(
     if ($scope.addGroupCallCenterDetailsForm) {
       $scope.addGroupCallCenterDetailsForm.$setPristine()
     }
+    
     Alert.spinner.open()
+    loadPasswordRulesMinLength()
     return loadDomains()
       .catch(function(error) {
         Alert.notify.danger(error)
@@ -55,7 +59,8 @@ function controller(
       .finally(function() {
         Alert.spinner.close()
       })
-  }
+ 
+    }
 
   function hasPermission(attribute) {
     return GroupCallCenterService.hasPermission(ctrl.center, attribute)
@@ -78,6 +83,16 @@ function controller(
     )
   }
 
+  function  loadPasswordRulesMinLength() {
+      GroupPasswordService.show(
+      ctrl.serviceProviderId,
+      ctrl.groupId
+    ).then(function(rules) {
+      ctrl.passMinLen = rules.minLength
+      return rules
+    })
+  }
+  
   function create(center, callback) {
     center.serviceProviderId = ctrl.serviceProviderId
     center.groupId = ctrl.groupId

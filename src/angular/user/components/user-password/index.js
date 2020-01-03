@@ -8,8 +8,8 @@ angular.module('odin.user').component('userPassword', {
   bindings: { userId: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserService', '$q', 'Session', 'AuthService']
-function controller(Alert, UserService, $q, Session, AuthService) {
+controller.$inject = ['Alert', 'UserService', '$q', 'Session', 'AuthService', 'GroupPasswordService']
+function controller(Alert, UserService, $q, Session, AuthService, GroupPasswordService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -33,18 +33,25 @@ function controller(Alert, UserService, $q, Session, AuthService) {
 
   function onInit() {
     ctrl.loading = true
-    return loadUser()
+    return $q
+      .all([loadUser(), loadPasswordRulesMinLength()])
       .then(function() {
         ctrl.isCurrentUser = ctrl.userId === Session.data('userId')
-      })
-      .catch(function(error) {
-        Alert.notify.danger(error)
-      })
+     })
+      .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
       })
+  } 
+ 
+  function  loadPasswordRulesMinLength() {
+     GroupPasswordService.show(
+      ctrl.serviceProviderId,
+      ctrl.groupId
+    ).then(function(rules) {
+      ctrl.passMinLen =   rules.minLength
+    })
   }
-
   function loadUser() {
     return UserService.show(ctrl.userId).then(function(data) {
       ctrl.user = data

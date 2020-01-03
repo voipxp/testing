@@ -37,7 +37,7 @@
         type="password"
         class="input"
         ng-model="$ctrl.editUser.oldPassword"
-        ng-minlength="6"
+        ng-minlength="$ctrl.passMinLen"
         ng-maxlength="60"
         ng-required="$ctrl.isCurrentUser"
       />
@@ -46,7 +46,7 @@
     <pbs-form-field-horizontal label="New Password">
       <pbs-input-password
         ng-model="$ctrl.editUser.newPassword"
-        ng-minlength="6"
+        ng-minlength="$ctrl.passMinLen"
         ng-maxlength="60"
         ng-required="true"
         service-provider-id="$ctrl.editUser.serviceProviderId"
