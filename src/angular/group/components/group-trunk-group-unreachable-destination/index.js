@@ -9,8 +9,8 @@ angular
     require: { parent: '^groupTrunkGroup' }
   })
 
-controller.$inject = ['Alert', 'GroupTrunkGroupService']
-function controller(Alert, GroupTrunkGroupService) {
+controller.$inject = ['Alert', 'GroupTrunkGroupService', 'ACL']
+function controller(Alert, GroupTrunkGroupService, ACL) {
   var ctrl = this
   ctrl.options = GroupTrunkGroupService.options
   ctrl.edit = edit
@@ -31,7 +31,16 @@ function controller(Alert, GroupTrunkGroupService) {
         includeEnterpriseTrunkGroups: true,
         onlyTrunkGroupsWithDevice: true
       }
-    ).then(data => (ctrl.availableTrunks = data))
+    ).then(data => {
+      if(ACL.is('Group Department')) data = ACL.filterByDepartment(data)
+      ctrl.availableTrunks = removeSelectedTrunk(data)
+    })
+  }
+
+  function removeSelectedTrunk(trunks) {
+    return trunks.filter(function(trunk) {
+			return trunk.name !== ctrl.parent.trunk.name
+	  })
   }
 
   function edit() {

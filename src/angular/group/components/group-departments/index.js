@@ -98,6 +98,7 @@ function controller(
   }
 
   function open(department) {
+    if(!ctrl.canUpdate) return
     Route.open(
       'groups',
       ctrl.serviceProviderId,
