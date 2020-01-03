@@ -33,10 +33,9 @@
       </tfoot>
       <tbody>
         <tr
-          class="hover"
+          class="{{$ctrl.canUpdate ? 'hover' : ''}}"
           ng-repeat="department in $ctrl.departments | filter:{isEnterpriseDepartment: false} | filter:$ctrl.filter | orderBy:'fullPathName' as results track by department.name"
           ng-click="$ctrl.open(department)"
-          ng-if="$ctrl.canUpdate"
         >
           <td>{{ department.fullPathName }}</td>
           <td>{{ department.callingLineIdName }}</td>
