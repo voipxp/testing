@@ -44,7 +44,7 @@ function controller(
   ctrl.onDeviceUpdate = onDeviceUpdate
   ctrl.onDeviceSelect = onDeviceSelect
   ctrl.onSetLinePort = onSetLinePort
-
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
   ctrl.endpointTypes = {
     accessDeviceEndpoint: 'Identity/Device Profile',
     none: 'None'
@@ -65,6 +65,8 @@ function controller(
           ctrl.canEdit = GroupPolicyService.accessDeviceUpdate()
         } else if (ACL.is('Service Provider')) {
           ctrl.canEdit = ServiceProviderPolicyService.accessDeviceUpdate()
+        } else if(ACL.is('Group Department')) {
+          ctrl.canEdit = true
         }
         // ctrl.canEdit = ACL.has('Group') && Module.update('Provisioning')
       })

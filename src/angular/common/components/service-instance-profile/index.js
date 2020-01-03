@@ -24,7 +24,8 @@ controller.$inject = [
   'SystemTimeZoneService',
   'EventEmitter',
   'GroupPolicyService',
-  'ServiceProviderPolicyService'
+  'ServiceProviderPolicyService',
+  'GroupWebPolicyService'
 ]
 function controller(
   Alert,
@@ -35,7 +36,8 @@ function controller(
   SystemTimeZoneService,
   EventEmitter,
   GroupPolicyService,
-  ServiceProviderPolicyService
+  ServiceProviderPolicyService,
+  GroupWebPolicyService
 ) {
   var ctrl = this
 
@@ -46,6 +48,7 @@ function controller(
 
   ctrl.selectNumber = selectNumber
   ctrl.edit = edit
+  ctrl.isDepartmentAdmin = ACL.is('Group Department')
 
   function activate() {
     Alert.spinner.open()
@@ -56,6 +59,8 @@ function controller(
             ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
         } else if( ACL.is('Group') ){
             ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
+        } else if( ACL.is('Group Department') ){
+          ctrl.canPNUpdate = GroupWebPolicyService.departmentAdminPhoneNumberExtensionAccessCreate()
         }
 	    }).catch(function(error) {
         Alert.notify.danger(error)

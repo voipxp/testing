@@ -21,20 +21,24 @@ angular
 controller.$inject = [
   'Alert',
   '$q',
+  'ACL',
   'GroupDepartmentService',
   'SystemLanguageService',
   'SystemTimeZoneService',
   'GroupDeviceService',
-  'EventEmitter'
+  'EventEmitter',
+  'GroupWebPolicyService'
 ]
 function controller(
   Alert,
   $q,
+  ACL,
   GroupDepartmentService,
   SystemLanguageService,
   SystemTimeZoneService,
   GroupDeviceService,
-  EventEmitter
+  EventEmitter,
+  GroupWebPolicyService
 ) {
   var ctrl = this
 
@@ -45,11 +49,19 @@ function controller(
   ctrl.devices = []
   ctrl.selectNumber = selectNumber
   ctrl.edit = edit
+  ctrl.isDepartmentAdmin = ACL.is('Group Department')
 
   function activate() {
     Alert.spinner.open()
     return $q
       .all([loadDepartments(), loadLanguages(), loadTimezones(), loadDevices()])
+      .then(function() {
+        if(ACL.is('Group Department')) {
+          ctrl.canPNUpdate = GroupWebPolicyService.departmentAdminPhoneNumberExtensionAccessCreate()
+        } else {
+          ctrl.canPNUpdate = true
+        }
+      })
       .catch(function(error) {
         Alert.notify.danger(error)
         return $q.reject(error.data)

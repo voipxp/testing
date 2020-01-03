@@ -1,0 +1,34 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block module="$ctrl.module">
+    <pbs-block-buttons ng-if="$ctrl.permission">
+      <pbs-button-compact-lock title="Change Password" ng-click="$ctrl.edit()">
+      </pbs-button-compact-lock>
+    </pbs-block-buttons>
+    <pbs-list>
+      <pbs-list-item label="Administrator ID">
+        {{ $ctrl.settings.userId }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editDepartmentChangePassword" title="Change Password">
+  <pbs-form>
+    <pbs-form-field label="Administrator ID">
+      <input
+        type="text"
+        class="input"
+        ng-model="$ctrl.editSettings.userId"
+        disabled
+      />
+    </pbs-form-field>
+    <pbs-form-field label="New Password">
+      <pbs-input-password
+        ng-model="$ctrl.editSettings.password"
+        ng-minlength="10"
+        ng-maxlength="60"
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+      ></pbs-input-password>
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>

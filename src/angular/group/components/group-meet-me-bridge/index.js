@@ -13,14 +13,16 @@ controller.$inject = [
   'Route',
   'GroupMeetMeConferencingBridgeService',
   'Session',
-  '$location'
+  '$location',
+  'ACL'
 ]
 function controller(
   Alert,
   Route,
   GroupMeetMeConferencingBridgeService,
   Session,
-  $location
+  $location,
+  ACL
 ) {
   var ctrl = this
   ctrl.onUpdateProfile = onUpdateProfile
@@ -106,6 +108,11 @@ function controller(
   }
 
   function open(groupId) {
-    Route.open('groups', ctrl.serviceProviderId, groupId, 'meetMe')
+    if(ACL.is('Group Department')) {
+      Route.open('department', ctrl.serviceProviderId, groupId, 'meetMe')
+    } else {
+      Route.open('groups', ctrl.serviceProviderId, groupId, 'meetMe')
+    }
+
   }
 }

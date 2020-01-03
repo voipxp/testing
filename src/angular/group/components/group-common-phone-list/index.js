@@ -8,8 +8,8 @@ angular.module('odin.group').component('groupCommonPhoneList', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupCommonPhoneListService', 'CsvService']
-function controller(Alert, GroupCommonPhoneListService, CsvService) {
+controller.$inject = ['Alert', 'GroupCommonPhoneListService', 'CsvService', 'ACL']
+function controller(Alert, GroupCommonPhoneListService, CsvService, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onPagination = onPagination
@@ -17,6 +17,7 @@ function controller(Alert, GroupCommonPhoneListService, CsvService) {
   ctrl.add = add
   ctrl.csv = csv
   ctrl.upload = upload
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   function onPagination(event) {
     ctrl.pager = event.pager

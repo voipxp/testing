@@ -2,6 +2,7 @@
   service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
   module="$ctrl.module"
+  hide-navigation='$ctrl.isGroupDepartmentAdmin'
 >
   <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
 </pbs-navigation>
@@ -12,7 +13,7 @@
         ng-if="$ctrl.moh.hasDepartment"
         title="Add Music On Hold"
         ng-click="$ctrl.add()"
-        ng-show="$ctrl.moh.hasDepartment"
+        ng-show="$ctrl.moh.hasDepartment && !$ctrl.isGroupDepartmentAdmin"
       ></pbs-button-compact-add>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
@@ -34,7 +35,9 @@
         </tr>
       </tfoot>
       <tbody>
-        <tr class="hover" ng-click="$ctrl.open()">
+        <tr class="hover" ng-click="$ctrl.open()"
+          ng-if='!$ctrl.isGroupDepartmentAdmin'
+        >
           <td>Group</td>
           <td>{{ $ctrl.groupId }}</td>
         </tr>

@@ -71,21 +71,31 @@
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Phone Number">
       <select-phone-number
+        ng-if='$ctrl.canPNUpdate'
         service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
         phone-number="$ctrl.editFlexibleSeatingHost.serviceInstanceProfile.phoneNumber"
         on-update="$ctrl.selectNumber($event)"
       ></select-phone-number>
+      <input
+        ng-if='!$ctrl.canPNUpdate'
+        type="text"
+        class="input"
+        ng-model="$ctrl.editFlexibleSeatingHost.serviceInstanceProfile.phoneNumber"
+        ng-disabled='true'
+      />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Extension">
       <input
         type="text"
         class="input"
         ng-model="$ctrl.editFlexibleSeatingHost.serviceInstanceProfile.extension"
+        ng-disabled='!$ctrl.canPNUpdate'
       />
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Department">
       <pbs-input-select
+        ng-disabled='$ctrl.isDepartmentAdmin'
         ng-model="$ctrl.editFlexibleSeatingHost.serviceInstanceProfile.department"
         ng-options="department as department.name for department in $ctrl.departments track by department.name"
       >

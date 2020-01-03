@@ -7,10 +7,11 @@ angular.module('odin.group').component('groupPagingGroups', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Route']
-function controller(Route) {
+controller.$inject = ['Route', 'ACL']
+function controller(Route, ACL) {
   var ctrl = this
   ctrl.open = open
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   function open(serviceUserId) {
     Route.open(

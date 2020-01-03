@@ -7,8 +7,8 @@ angular.module('odin.bulk').component('bulkUserCreate', {
   controller
 })
 
-controller.$inject = ['BulkImportService', '$location']
-function controller(BulkImportService, $location) {
+controller.$inject = ['BulkImportService', '$location', 'Session']
+function controller(BulkImportService, $location, Session) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.wizardReady = wizardReady

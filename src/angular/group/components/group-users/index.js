@@ -15,7 +15,9 @@ controller.$inject = [
   '$location',
   'Route',
   'ServiceProviderPolicyService',
-  '$q'
+  'GroupWebPolicyService',
+  '$q',
+  'ACL'
 ]
 function controller(
   Alert,
@@ -24,7 +26,9 @@ function controller(
   $location,
   Route,
   ServiceProviderPolicyService,
-  $q
+  GroupWebPolicyService,
+  $q,
+  ACL
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -34,6 +38,7 @@ function controller(
   ctrl.edit = edit
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   ctrl.columns = [
     {
@@ -60,15 +65,30 @@ function controller(
       key: 'callingLineIdPhoneNumber',
       label: 'CLID',
       hidden: true
+    },
+    {
+      key: 'department',
+      label: 'Department'
+    },
+    {
+      key: 'inTrunkGroup',
+      label: 'In Trunk Group',
+      type: 'boolean'
     }
   ]
 
   function onInit() {
     ctrl.loading = true
     return $q
-      .all([loadUsers(), ServiceProviderPolicyService.load()])
+      .all([loadUsers(), ServiceProviderPolicyService.load(), GroupWebPolicyService.load()])
       .then(function() {
-        ctrl.canCreate = ServiceProviderPolicyService.userCreate()
+        if(ACL.is('Group Department')) {
+            ctrl.canCreate = GroupWebPolicyService.departmentAdminUserAccessCreate()
+            ctrl.canCLIDUpdate = GroupWebPolicyService.departmentAdminCallingLineIdNumberAccessCreate()
+        } else {
+          ctrl.canCreate = ServiceProviderPolicyService.userCreate()
+          ctrl.canCLIDUpdate = true
+        }
       })
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -89,6 +109,7 @@ function controller(
       ctrl.groupId,
       extended
     ).then(function(data) {
+      if(ACL.is('Group Department')) data = ACL.filterByDepartment(data)
       ctrl.users = data
     })
   }
@@ -139,6 +160,10 @@ function controller(
   }
 
   function bulkUpdate(users, data, callback) {
+    if(!ctrl.canCLIDUpdate) {
+      delete data.callingLineIdPhoneNumber
+    }
+
     Alert.spinner.open()
     UserService.bulk({ users: users, data: data })
       .then(function() {

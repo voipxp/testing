@@ -1,9 +1,11 @@
 import { UserDashboard } from '@/components/users'
+import { DepartmentDashboard } from '@/components/departments'
 import { CreateAutoAttendant } from '@/components/autoAttendant'
 import {
   GroupCommunicationBarring,
   GroupSpeedDial8,
-  GroupExtensionLength
+  GroupExtensionLength,
+  GroupWebPolicy
 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
@@ -26,7 +28,7 @@ export const routes = [
   {
     path: '/bulk',
     angularComponent: 'bulkDashboard',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Provisioning'
   },
   {
@@ -44,7 +46,7 @@ export const routes = [
   {
     path: '/bulk/tasks/:id',
     angularComponent: 'bulkTask',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Provisioning'
   },
   {
@@ -56,13 +58,13 @@ export const routes = [
   {
     path: '/bulk/import',
     angularComponent: 'bulkImport',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Provisioning'
   },
   {
     path: '/bulk/user.create',
     angularComponent: 'bulkUserCreate',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Provisioning'
   },
   {
@@ -329,7 +331,7 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/autoAttendants/autoAttendant',
     angularComponent: 'autoAttendant',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Auto Attendant'
   },
   {
@@ -378,7 +380,7 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/trunkGroups/trunkGroup',
     angularComponent: 'groupTrunkGroup',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Trunk Group'
   },
   {
@@ -390,7 +392,7 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/paging/group',
     angularComponent: 'groupPagingGroup',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Group Paging'
   },
   {
@@ -402,7 +404,7 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/huntGroups/huntGroup',
     angularComponent: 'groupHuntGroup',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Hunt Group'
   },
   {
@@ -414,7 +416,7 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/meetMe/bridge',
     angularComponent: 'groupMeetMeBridge',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Meet-Me Conferencing'
   },
   {
@@ -426,7 +428,7 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
     angularComponent: 'groupMusicOnHold',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Music On Hold'
   },
   {
@@ -474,7 +476,7 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter',
     angularComponent: 'groupCallCenter',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Call Center'
   },
   {
@@ -572,13 +574,13 @@ export const routes = [
     path:
       '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
     angularComponent: 'groupFlexibleSeatingHost',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Flexible Seating Guest'
   },
   {
     path: '/serviceProviders/:serviceProviderId',
     angularComponent: 'serviceProviderDashboard',
-    hasLevel: 'Service Provider'
+    hasLevel: 'Group'
   },
   {
     path: '/serviceProviders/:serviceProviderId/profile',
@@ -783,6 +785,11 @@ export const routes = [
     component: GroupCommunicationBarring
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/groupWebPolicy',
+    component: GroupWebPolicy,
+    hasLevel: 'Service Provider'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/autoAttendants/visual',
     component: CreateAutoAttendant,
     hasModuleRead: 'Visual AA Builder'
@@ -807,5 +814,9 @@ export const routes = [
     path: '/audits/:id',
     component: Audit,
     hasLevel: 'Group'
+  },
+  {
+	path: '/department/:serviceProviderId/:groupId',
+    component: DepartmentDashboard,
   }
 ]

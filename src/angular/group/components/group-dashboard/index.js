@@ -100,6 +100,13 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         path: route('groupCommunicationBarringAuthorizationCodes'),
         module: 'Communication Barring User-Control'
       },
+	   {
+        type: 'management',
+        name: 'Group Web Policy',
+        module: 'groupWebPolicy',
+        path: route('groupWebPolicy'),
+        admin: true
+      }, 
       {
         type: 'management',
         name: 'Schedules',

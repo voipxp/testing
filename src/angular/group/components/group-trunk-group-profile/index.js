@@ -11,14 +11,16 @@ controller.$inject = [
   'Alert',
   'GroupTrunkGroupService',
   'Module',
-  'GroupPolicyService'
+  'GroupPolicyService',
+  'ACL'
 ]
-function controller(Alert, GroupTrunkGroupService, Module, GroupPolicyService) {
+function controller(Alert, GroupTrunkGroupService, Module, GroupPolicyService, ACL) {
   var ctrl = this
   ctrl.options = GroupTrunkGroupService.options
   ctrl.edit = edit
   ctrl.$onInit = onInit
   ctrl.canUpdate = Module.update('Trunk Group - Authentication')
+  ctrl.isDepartmentAdmin = ACL.is('Group Department')
 
   function onInit() {
     return Module.show('Trunk Group - Authentication').then(function(data) {

@@ -88,7 +88,7 @@ export const dashboardMenu = [
         path: 'authorization-codes',
         name: 'Authorization Codes',
         angularComponent: 'userCommunicationBarringAuthorizationCodes',
-        hasLevel: 'Group',
+        hasLevel: 'Group Department',
         hasUserService: ['Communication Barring User-Control']
       },
       {
@@ -96,19 +96,19 @@ export const dashboardMenu = [
         name: 'Calling Plans',
         angularComponent: 'userCallingPlans',
         hasModuleRead: 'Provisioning',
-        hasLevel: 'Group'
+        hasLevel: 'Group Department'
       },
       {
         path: 'phone-number',
         name: 'Phone Number',
         angularComponent: 'userAddresses',
-        hasLevel: 'Group'
+        hasLevel: 'Group Department'
       },
       {
         path: 'device-endpoint',
         name: 'Device Endpoint',
         angularComponent: 'userDevice',
-        hasLevel: 'Group'
+        hasLevel: 'Group Department'
       },
       {
         path: 'service-assignment',
@@ -116,7 +116,7 @@ export const dashboardMenu = [
         angularComponent: 'userServices',
         serviceType: 'userServices',
         hasModuleRead: 'Provisioning',
-        hasLevel: 'Group'
+        hasLevel: 'Group Department'
       },
       {
         path: 'service-packs',
@@ -124,7 +124,7 @@ export const dashboardMenu = [
         angularComponent: 'userServices',
         serviceType: 'servicePackServices',
         hasModuleRead: 'Provisioning',
-        hasLevel: 'Group'
+        hasLevel: 'Group Department'
       },
       {
         path: 'shared-call-appearance',
@@ -141,20 +141,20 @@ export const dashboardMenu = [
           'Shared Call Appearance 30',
           'Shared Call Appearance 35'
         ],
-        hasLevel: 'Group'
+        hasLevel: 'Group Department'
       },
       {
         path: 'user-id-or-delete',
         name: 'User ID or Delete',
         angularComponent: 'userId',
         hasModuleRead: 'Provisioning',
-        hasLevel: 'Group'
+        hasLevel: 'Group Department'
       },
       {
         path: 'viewable-packs',
         name: 'Viewable Packs',
         angularComponent: 'userViewablePack',
-        hasLevel: 'Group',
+        hasLevel: 'Group Department',
         hasModuleRead: 'Viewable Service Packs'
       }
     ]
