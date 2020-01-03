@@ -8,9 +8,13 @@ pbsInputPassword.$inject = [
   'PasswordService',
   'GroupPasswordService',
   'Alert',
-  '$q'
+  'SystemSipAuthPasswordRulesService',
+  'ServiceProviderSipAuthPasswordRulesService',
+  'ServiceProviderPasswordService',
+  '$q',
+  '$location'
 ]
-function pbsInputPassword(PasswordService, GroupPasswordService, Alert, $q) {
+function pbsInputPassword(PasswordService, GroupPasswordService, Alert,SystemSipAuthPasswordRulesService, ServiceProviderSipAuthPasswordRulesService, ServiceProviderPasswordService , $q,$location) {
   return {
     template,
     restrict: 'E',
@@ -23,7 +27,8 @@ function pbsInputPassword(PasswordService, GroupPasswordService, Alert, $q) {
       ngMinlength: '=',
       ngMaxlength: '=',
       serviceProviderId: '<?',
-      groupId: '<?'
+      groupId: '<?',
+      ngSipAuth:'='
     },
     link: function(scope) {
       scope.inputType = 'password'
@@ -34,7 +39,7 @@ function pbsInputPassword(PasswordService, GroupPasswordService, Alert, $q) {
       function setPattern() {
         scope.pattern = scope.ngModel ? _.escapeRegExp(scope.ngModel) : null
       }
-
+      
       function generate() {
         scope.inputType = 'text'
         scope.isLoading = true
@@ -56,18 +61,47 @@ function pbsInputPassword(PasswordService, GroupPasswordService, Alert, $q) {
       function toggle() {
         scope.inputType = scope.inputType === 'text' ? 'password' : 'text'
       }
-
-      function loadPasswordRules() {
+ 
+       function loadSystemSipAuthPasswordRules() {
+        return SystemSipAuthPasswordRulesService.show()
+        .then(function(rules) {
+         return  rules
+        })
+      }
+       function loadPasswordRules() {
         var defaultRules = {}
         if (!scope.serviceProviderId || !scope.groupId) {
           return $q.resolve(defaultRules)
         }
+        if(scope.ngSipAuth === true ){
+          return ServiceProviderSipAuthPasswordRulesService.show(scope.serviceProviderId)
+          .then(function(rules) {
+            if (rules.useServiceProviderSettings === true) {
+             return rules 
+            }else{
+              return loadSystemSipAuthPasswordRules()
+            }
+        })
+
+        }
+        else if($location.path() === '/groups/ent.odin.testxp/grpPankaj/admins'){ 
+           
+          return ServiceProviderPasswordService.show(scope.serviceProviderId)
+          .then(function(rules) {
+            return rules 
+          })
+
+        }
+        
+        else {
         return GroupPasswordService.show(
           scope.serviceProviderId,
           scope.groupId
-        ).catch(function() {
-          return defaultRules
+        ).then(function(rules) {
+          return rules
         })
+      }
+
       }
     }
   }

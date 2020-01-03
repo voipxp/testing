@@ -94,11 +94,12 @@
     >
       <pbs-input-password
         ng-model="$ctrl.trunk.sipAuthenticationPassword"
-        ng-minlength="6"
+        ng-minlength="$ctrl.passMinLen"
         ng-maxlength="60"
         ng-required="$ctrl.trunk.requireAuthentication"
         service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
+        ng-sip-auth="true"
       ></pbs-input-password>
     </pbs-form-field-horizontal>
 

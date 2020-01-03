@@ -161,10 +161,11 @@
     >
       <pbs-input-password
         ng-model="$ctrl.editTrunk.sipAuthenticationPassword"
-        ng-minlength="6"
+        ng-minlength="$ctrl.passMinLen"
         ng-maxlength="60"
         service-provider-id="$ctrl.parent.serviceProviderId"
         group-id="$ctrl.parent.groupId"
+        ng-sip-auth="true"
       ></pbs-input-password>
     </pbs-form-field>
     <pbs-form-field label="Trunk Group Identity">

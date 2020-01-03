@@ -14,7 +14,7 @@ controller.$inject = [
   'GroupAdminPolicyService',
   'GroupDepartmentAdminService',
   'GroupPolicyService',
-  'GroupPasswordService',
+  'ServiceProviderPasswordService',
   '$q'
 ]
 function controller(
@@ -23,7 +23,7 @@ function controller(
   GroupAdminPolicyService,
   GroupDepartmentAdminService,
   GroupPolicyService,
-  GroupPasswordService,
+  ServiceProviderPasswordService,
   $q
 ) {
   var ctrl = this
@@ -71,12 +71,11 @@ function controller(
   }
 
   function loadPasswordRulesMinLength() {
-    GroupPasswordService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(rules) {
+      ServiceProviderPasswordService.show(ctrl.serviceProviderId)
+    .then(function(rules) {
       ctrl.passMinLen =   rules.minLength
     })
+
   }
 
   function loadAdmins() {

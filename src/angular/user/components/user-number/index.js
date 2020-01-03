@@ -47,11 +47,13 @@ function controller(
         ServiceProviderPolicyService.load()]).
 	    then(function() {
         if( ACL.is('Service Provider') ) {
+          ctrl.canCLIDUpdate = ServiceProviderPolicyService.callingLineIdUpdate()
             ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
         } else if( ACL.is('Group') ){
-            ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
+          ctrl.canCLIDUpdate = GroupPolicyService.callingLineIdUpdate()  
+          ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
         }
-	    })
+      })
       .catch(function(error) {
         Alert.notify.danger(error)
       })
