@@ -10,19 +10,19 @@ angular.module('odin.serviceProvider').component('serviceProviderProfile', {
 
 controller.$inject = [
   'ServiceProviderService',
-  'SystemDomainService',
   'SystemStateService',
   'Alert',
   '$q',
-  'ServiceProviderPolicyService'
+  'ServiceProviderPolicyService',
+  'ServiceProviderDomainService'
 ]
 function controller(
   ServiceProviderService,
-  SystemDomainService,
   SystemStateService,
   Alert,
   $q,
-  ServiceProviderPolicyService
+  ServiceProviderPolicyService,
+  ServiceProviderDomainService
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -62,7 +62,7 @@ function controller(
   }
 
   function loadDomains() {
-    return SystemDomainService.index().then(function(data) {
+    return ServiceProviderDomainService.index(ctrl.serviceProviderId).then(function(data) {
       ctrl.domains = data
     })
   }
