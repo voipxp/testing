@@ -16,8 +16,15 @@ controller.$inject = [
   'SystemSipAuthPasswordRulesService',
   'ACL'
 ]
-function controller(Alert, GroupTrunkGroupService, Module, GroupPolicyService, ,ServiceProviderSipAuthPasswordRulesService, SystemSipAuthPasswordRulesService, ACL) {
- 
+function controller(
+  Alert,
+  GroupTrunkGroupService,
+  Module,
+  GroupPolicyService,
+  ServiceProviderSipAuthPasswordRulesService,
+  SystemSipAuthPasswordRulesService,
+  ACL
+) {
   var ctrl = this
   ctrl.options = GroupTrunkGroupService.options
   ctrl.edit = edit
@@ -36,21 +43,21 @@ function controller(Alert, GroupTrunkGroupService, Module, GroupPolicyService, ,
   }
 
   function loadPasswordRuleLength() {
-    ServiceProviderSipAuthPasswordRulesService.show(ctrl.parent.serviceProviderId)
-    .then(function(rules) {
+    ServiceProviderSipAuthPasswordRulesService.show(
+      ctrl.parent.serviceProviderId
+    ).then(function(rules) {
       if (rules.useServiceProviderSettings === true) {
-        ctrl.passMinLen = rules.minLength;
+        ctrl.passMinLen = rules.minLength
       } else {
-          loadSystemSipAuthPasswordRules();
+        loadSystemSipAuthPasswordRules()
       }
-      ctrl.passMinLen =   rules.minLength
+      ctrl.passMinLen = rules.minLength
     })
   }
   function loadSystemSipAuthPasswordRules() {
-    SystemSipAuthPasswordRulesService.show().then(function (rules) {
-    ctrl.passMinLen = rules.minLength;
-  });
-  
+    SystemSipAuthPasswordRulesService.show().then(function(rules) {
+      ctrl.passMinLen = rules.minLength
+    })
   }
   function edit() {
     var onDelete

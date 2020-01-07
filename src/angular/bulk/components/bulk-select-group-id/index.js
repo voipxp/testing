@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.bulk').component('bulkSelectGroupId', {
   template,
   controller,
-  bindings: { serviceProviderId: '<', onUpdate: '&' }
+  bindings: { serviceProviderId: '<', onUpdate: '&', moduleName: '<' }
 })
 
 controller.$inject = [
