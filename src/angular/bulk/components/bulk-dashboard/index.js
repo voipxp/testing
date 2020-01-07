@@ -6,12 +6,18 @@ angular.module('odin.bulk').component('bulkDashboard', {
   controller
 })
 
-controller.$inject = ['BulkTaskService', '$location']
-function controller(BulkTaskService, $location) {
+controller.$inject = [
+  'BulkTaskService',
+  '$location',
+  'ServiceProviderPolicyService'
+]
+function controller(BulkTaskService, $location, ServiceProviderPolicyService) {
   var ctrl = this
   ctrl.open = open
   ctrl.openCsv = openCsv
-  ctrl.services = BulkTaskService.index
+  ctrl.canCreateUser = ServiceProviderPolicyService.userCreate()
+  ctrl.services = filterByPolicy(BulkTaskService.index)
+
 
   function open(service) {
     $location.path(`bulk/${service.task}`)
@@ -19,5 +25,13 @@ function controller(BulkTaskService, $location) {
 
   function openCsv() {
     $location.path('bulk/csv')
+  }
+
+  function filterByPolicy(services) {
+    return (services = services.filter(service => {
+      if (service.task === 'user.create' && !ctrl.canCreateUser) return false
+      if (service.task === 'user.delete' && !ctrl.canCreateUser) return false
+      return true
+    }))
   }
 }
