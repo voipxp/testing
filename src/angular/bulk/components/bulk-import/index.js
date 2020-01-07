@@ -18,7 +18,8 @@ controller.$inject = [
   'BulkParseService',
   'CsvService',
   'DownloadService',
-  '$scope'
+  '$scope',
+  'ServiceProviderPolicyService'
 ]
 function controller(
   Alert,
@@ -31,13 +32,15 @@ function controller(
   BulkParseService,
   CsvService,
   DownloadService,
-  $scope
+  $scope,
+  ServiceProviderPolicyService
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.download = download
   ctrl.submit = submit
   ctrl.highlight = highlight
+  ctrl.canCreateUser = ServiceProviderPolicyService.userCreate()
 
   function onInit() {
     ctrl.loading = true
@@ -133,7 +136,20 @@ function controller(
       })
   }
 
+  function isPermittedTask(task) {
+    if (task === 'user.create' && !ctrl.canCreateUser) {
+        Alert.notify.danger('user.create is not a permitted Task')
+        return false
+    }
+    if (task === 'user.delete' && !ctrl.canCreateUser) {
+        Alert.notify.danger('user.delete is not a permitted Task')
+        return false
+    }
+    return true
+  }
+
   function queue(users) {
+    if(!isPermittedTask(ctrl.task)) return false  /* Check admin has policy for user create/delete */
     var task = {
       type: ctrl.task,
       data: UtilityService.unflatten(users)

@@ -14,7 +14,8 @@ controller.$inject = [
   'ServiceProviderAdminPolicyService',
   'ServiceProviderPolicyService',
   'SystemLanguageService',
-  '$q'
+  '$q',
+  'ACL'
 ]
 function controller(
   Alert,
@@ -22,7 +23,8 @@ function controller(
   ServiceProviderAdminPolicyService,
   ServiceProviderPolicyService,
   SystemLanguageService,
-  $q
+  $q,
+  ACL
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -30,6 +32,7 @@ function controller(
   ctrl.add = add
   ctrl.edit = edit
   ctrl.policies = ServiceProviderAdminPolicyService.options.policies
+  ctrl.isResellerAdmin = ACL.is('Reseller')
 
   function onInit() {
     ctrl.loading = true
