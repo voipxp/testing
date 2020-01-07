@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.bulk').component('bulkSelectUsersDashboard', {
   template,
   controller,
-  bindings: { onSelect: '&' }
+  bindings: { onSelect: '&', moduleName: '@' }
 })
 
 controller.$inject = [

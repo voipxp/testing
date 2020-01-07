@@ -10,35 +10,39 @@ angular.module('odin.group').component('userCreate', {
     onUpdate: '&'
   }
 })
- 
-controller.$inject = ['Alert', '$scope', 'EventEmitter', 'UserService', 'Session','GroupPasswordService']
- 
-function controller(Alert, $scope, EventEmitter, UserService, Session, GroupPasswordService) {
+
+controller.$inject = [
+  'Alert',
+  '$scope',
+  'EventEmitter',
+  'UserService',
+  'Session',
+  'GroupPasswordService'
+]
+
+function controller(
+  Alert,
+  $scope,
+  EventEmitter,
+  UserService,
+  Session,
+  GroupPasswordService
+) {
   var ctrl = this
   ctrl.$onChanges = onChanges
   ctrl.setCLID = setCLID
   ctrl.setUserId = setUserId
   ctrl.toggleOptional = toggleOptional
-  
-  function  loadPasswordRulesMinLength() {
-    GroupPasswordService.show(
-    ctrl.serviceProviderId,
-    ctrl.groupId
-  ).then(function(rules) {
-    ctrl.passMinLen = rules.minLength
-  })
-}
 
-<<<<<<< HEAD
-  /* Set and accessed for Group Admini*/
-  ctrl.isDepartmentAdmin = (Session.data('loginType') === 'Group Department')
-  ctrl.defaultDepartmentName = Session.data('groupDepartmentName') || null
-  ctrl.groupDepartmentPathName= Session.data('groupDepartmentPathName') || null
+  function loadPasswordRulesMinLength() {
+    GroupPasswordService.show(ctrl.serviceProviderId, ctrl.groupId).then(
+      function(rules) {
+        ctrl.passMinLen = rules.minLength
+      }
+    )
+  }
 
   function onChanges(changes) {
-=======
-  function onChanges(changes) {  
->>>>>>> origin/Anshu-Bug-Fixes
     if (changes.serviceProviderId) {
       ctrl.serviceProviderId = changes.serviceProviderId.currentValue
     }
@@ -50,7 +54,8 @@ function controller(Alert, $scope, EventEmitter, UserService, Session, GroupPass
 
   function open() {
     ctrl.user = {}
-    if(ctrl.isDepartmentAdmin) ctrl.user.department = { name: ctrl.defaultDepartmentName }
+    if (ctrl.isDepartmentAdmin)
+      ctrl.user.department = { name: ctrl.defaultDepartmentName }
     Alert.modal.open('createUserModal', function onSave(close) {
       create(ctrl.user, close)
     })
