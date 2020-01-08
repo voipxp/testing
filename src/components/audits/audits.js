@@ -25,6 +25,7 @@ const columns = [
   { key: 'groupId', label: 'Group' },
   { key: 'status', label: 'Status' },
   { key: 'description', label: 'Description' },
+  { key: 'error', label: 'Errors' },
   { key: 'created_at', label: 'Created' }
 ]
 const audits = [
@@ -114,7 +115,7 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
     <>
       {isBreadcrumb && (
         <AppBreadcrumb>
-          <Breadcrumb.Item>Audits (Beta)</Breadcrumb.Item>
+          <Breadcrumb.Item>Audits (beta)</Breadcrumb.Item>
         </AppBreadcrumb>
       )}
       {loading ? (

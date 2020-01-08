@@ -22,7 +22,10 @@ const columns = [
   { key: 'userId', label: 'User Id' },
   { key: 'deviceName', label: 'Device Name' },
   { key: 'status', label: 'Status' },
-  { key: 'created_at', label: 'Created' }
+  { key: 'attempt', label: 'Attempt' },
+  { key: 'created_at', label: 'Run At' },
+  { key: 'next_at', label: 'Next Run' },
+  { key: 'error', label: 'Error' }
 ]
 
 export const Import = ({ history, match, isBreadcrumb = true }) => {

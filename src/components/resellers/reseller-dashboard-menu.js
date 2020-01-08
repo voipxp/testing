@@ -60,14 +60,14 @@ export const dashboardMenu = [
       },
       {
         path: 'audits',
-        name: 'Audits (Beta)',
+        name: 'Audits (beta)',
         component: ResellerAudits,
         hasLevel: 'Reseller',
         isBreadcrumb: false
       },
       {
         path: 'imports',
-        name: 'Imports (Beta)',
+        name: 'Imports (beta)',
         component: ResellerImports,
         hasLevel: 'Reseller',
         isBreadcrumb: false
