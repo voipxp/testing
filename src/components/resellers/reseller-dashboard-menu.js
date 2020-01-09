@@ -6,6 +6,7 @@ import { ResellerServiceProviderReport } from './reseller-service-provider-repor
 import { ResellerServicePackUtilizationReport } from './reseller-service-pack-utilization-report'
 import { ResellerDnReport } from './reseller-dn-report'
 import { ResellerAudits } from './reseller-audits'
+import { ResellerServiceUtilizationReport } from './reseller-service-utilization-report'
 
 export const dashboardMenu = [
   {
@@ -40,6 +41,11 @@ export const dashboardMenu = [
         path: 'service-pack-utilization-report',
         name: 'Service Pack Utilization',
         component: ResellerServicePackUtilizationReport
+      },
+      {
+        path: 'service-utilization-report',
+        name: 'Service Utilization',
+        component: ResellerServiceUtilizationReport
       },
       {
         path: 'dn-report',
