@@ -23,6 +23,9 @@
       <pbs-list-item label="Record Call Repeat Warning Tone Timer Seconds">
         {{ $ctrl.settings.recordCallRepeatWarningToneTimerSeconds }}
       </pbs-list-item>
+      <pbs-list-item label="Enable Voice Mail Recording">
+        {{ $ctrl.settings.enableVoiceMailRecording }}
+      </pbs-list-item>
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
@@ -64,6 +67,11 @@
           $ctrl.options.recordCallRepeatWarningToneTimerSeconds.maximum
         }}"
       />
+      <pbs-form-field label="Enable Voice Mail Recording">
+        <pbs-input-checkbox
+          ng-model="$ctrl.editSettings.enableVoiceMailRecording"
+        ></pbs-input-checkbox>
+      </pbs-form-field>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>

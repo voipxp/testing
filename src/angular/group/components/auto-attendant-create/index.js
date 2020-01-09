@@ -22,7 +22,8 @@ controller.$inject = [
   'Module',
   '$q',
   'GroupPolicyService',
-  'ServiceProviderPolicyService'
+  'ServiceProviderPolicyService',
+  'GroupPasswordService'
 ]
 function controller(
   Alert,
@@ -34,7 +35,8 @@ function controller(
   Module,
   $q,
   GroupPolicyService,
-  ServiceProviderPolicyService
+  ServiceProviderPolicyService,
+  GroupPasswordService
 ) {
   var ctrl = this
 
@@ -48,7 +50,7 @@ function controller(
   function onInit() {
     $q.all([
       GroupPolicyService.load(),
-      ServiceProviderPolicyService.load()]).
+      ServiceProviderPolicyService.load(), loadPasswordRulesMinLength()]).
     then(function() {
       if( ACL.is('Service Provider') ) {
           ctrl.canCLIDUpdate = ServiceProviderPolicyService.callingLineIdUpdate()
@@ -58,6 +60,15 @@ function controller(
           ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
       }
     })
+
+    function loadPasswordRulesMinLength() {
+      GroupPasswordService.show(
+        ctrl.serviceProviderId,
+        ctrl.groupId
+      ).then(function(rules) {
+        ctrl.passMinLen =   rules.minLength
+      })
+    }
 
     Module.show('Auto Attendant').then(function(module) {
       ctrl.module = module

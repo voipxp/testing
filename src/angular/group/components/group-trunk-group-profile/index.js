@@ -12,9 +12,19 @@ controller.$inject = [
   'GroupTrunkGroupService',
   'Module',
   'GroupPolicyService',
+  'ServiceProviderSipAuthPasswordRulesService',
+  'SystemSipAuthPasswordRulesService',
   'ACL'
 ]
-function controller(Alert, GroupTrunkGroupService, Module, GroupPolicyService, ACL) {
+function controller(
+  Alert,
+  GroupTrunkGroupService,
+  Module,
+  GroupPolicyService,
+  ServiceProviderSipAuthPasswordRulesService,
+  SystemSipAuthPasswordRulesService,
+  ACL
+) {
   var ctrl = this
   ctrl.options = GroupTrunkGroupService.options
   ctrl.edit = edit
@@ -23,11 +33,30 @@ function controller(Alert, GroupTrunkGroupService, Module, GroupPolicyService, A
   ctrl.isDepartmentAdmin = ACL.is('Group Department')
 
   function onInit() {
+    loadPasswordRuleLength()
     return Module.show('Trunk Group - Authentication').then(function(data) {
       ctrl.authentication = data.permissions
       GroupPolicyService.load().then(function() {
         ctrl.canUpdate = GroupPolicyService.trunkGroupUpdate() && ctrl.canUpdate
       })
+    })
+  }
+
+  function loadPasswordRuleLength() {
+    ServiceProviderSipAuthPasswordRulesService.show(
+      ctrl.parent.serviceProviderId
+    ).then(function(rules) {
+      if (rules.useServiceProviderSettings === true) {
+        ctrl.passMinLen = rules.minLength
+      } else {
+        loadSystemSipAuthPasswordRules()
+      }
+      ctrl.passMinLen = rules.minLength
+    })
+  }
+  function loadSystemSipAuthPasswordRules() {
+    SystemSipAuthPasswordRulesService.show().then(function(rules) {
+      ctrl.passMinLen = rules.minLength
     })
   }
   function edit() {
