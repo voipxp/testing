@@ -11,7 +11,9 @@ angular.module('odin.common').component('serviceInstanceProfile', {
     readOnly: '<',
     profile: '<',
     loading: '<',
-    onUpdate: '&'
+    onUpdate: '&',
+	ngMinlength: '=',
+    ngMaxlength: '='
   }
 })
 
