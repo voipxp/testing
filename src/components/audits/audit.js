@@ -28,6 +28,7 @@ const columns = [
   { key: 'userId', label: 'User Id' },
   { key: 'deviceName', label: 'Device Name' },
   { key: 'status', label: 'Status' },
+  { key: 'attempt', label: 'Attempt' },
   { key: 'created_at', label: 'Run At' },
   { key: 'next_at', label: 'Next Run' },
   { key: 'error', label: 'Error' }
@@ -161,6 +162,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
       setShowLoading(true)
       setShowModal(true)
       const result = await auditApi.show(data.id, {})
+      console.log('result', result)
       setServiceType(result.serviceType)
       setData(JSON.stringify(result, null, 2))
     } catch (error_) {
@@ -197,6 +199,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
                 </UiListItem>
                 <UiListItem label="Group">{audit[0].groupId}</UiListItem>
                 <UiListItem label="Status">{audit[0].status}</UiListItem>
+                <UiListItem label="Message">{audit[0].error}</UiListItem>
               </div>
             </div>
           </UiCard>

@@ -95,6 +95,7 @@ export const Import = ({ history, match, isBreadcrumb = true }) => {
                 </UiListItem>
                 <UiListItem label="Group">{import2[0].groupId}</UiListItem>
                 <UiListItem label="Status">{import2[0].status}</UiListItem>
+                <UiListItem label="Message">{import2[0].error}</UiListItem>
               </div>
             </div>
           </UiCard>
