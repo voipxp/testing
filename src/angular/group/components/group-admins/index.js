@@ -15,7 +15,8 @@ controller.$inject = [
   'GroupDepartmentAdminService',
   'GroupPolicyService',
   'ServiceProviderPasswordService',
-  '$q'
+  '$q',
+  'Session'
 ]
 function controller(
   Alert,
@@ -24,7 +25,8 @@ function controller(
   GroupDepartmentAdminService,
   GroupPolicyService,
   ServiceProviderPasswordService,
-  $q
+  $q,
+  Session
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -182,8 +184,13 @@ function controller(
   function update(admin, policies, callback) {
     Alert.spinner.open()
     return $q
-      .all([updateAdmin(admin), updatePolicies(admin, policies)])
-      .then(loadAdmins)
+      .all([updatePolicies(admin, policies),updateAdmin(admin)])
+      .then(function() {
+        if( (admin.userId === Session.data('userId')) && (admin.password && admin.password !== '') ) {
+          Session.logout()
+        }
+        loadAdmins()
+      })
       .then(function() {
         callback()
         Alert.notify.success('Admin Updated')
