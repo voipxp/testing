@@ -15,7 +15,7 @@ function controller(Alert, GroupDepartmentAdminService, Module, Session, $q) {
   ctrl.$onInit  	= onInit
   ctrl.edit     	= edit
   ctrl.permission 	= false
- 
+
   function onInit() {
 	  ctrl.loading = true
     return $q
@@ -50,13 +50,14 @@ function controller(Alert, GroupDepartmentAdminService, Module, Session, $q) {
     })
   }
 
-  function update(settings, callback) {  
+  function update(settings, callback) {
     Alert.spinner.open()
     GroupDepartmentAdminService.update(settings)
       .then(loadSettings)
       .then(function() {
         Alert.notify.success('Password Changed')
         if (_.isFunction(callback)) callback()
+        Session.logout()
       })
       .catch(function(error) {
         Alert.notify.danger(error)

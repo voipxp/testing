@@ -15,7 +15,8 @@ controller.$inject = [
   'ServiceProviderPolicyService',
   'SystemLanguageService',
   '$q',
-  'ACL'
+  'ACL',
+  'Session'
 ]
 function controller(
   Alert,
@@ -24,7 +25,8 @@ function controller(
   ServiceProviderPolicyService,
   SystemLanguageService,
   $q,
-  ACL
+  ACL,
+  Session
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -135,11 +137,14 @@ function controller(
 
   function updateBoth(admin, policies, callback) {
     Alert.spinner.open()
-    update(admin)
-      .then(() => updatePolicies(admin.userId, policies))
+    updatePolicies(admin.userId, policies)
+      .then(() => update(admin))
       .then(loadAdmins)
       .then(() => {
         Alert.notify.success('Admin updated')
+        if( (admin.userId === Session.data('userId')) && (admin.password && admin.password !== '')) {
+          Session.logout()
+        }
         callback()
       })
       .catch(Alert.notify.danger)
