@@ -88,7 +88,19 @@ function controller(
       .then(function() {
         ctrl.canCLIDUpdate = true
         ctrl.canPNUpdate = true
-        if (ACL.is('Group Department')) {
+        if (ACL.is('System')) {
+          ctrl.canCLIDUpdate = true
+          ctrl.canPNUpdate = true
+        } else if (ACL.is('Provisioning')) {
+          ctrl.canCLIDUpdate = true
+          ctrl.canPNUpdate = true
+        } else if (ACL.is('Reseller')) {
+          ctrl.canCLIDUpdate = true
+          ctrl.canPNUpdate = true
+        } else if (ACL.is('Service Provider')) {
+          ctrl.canCLIDUpdate = true
+          ctrl.canPNUpdate = true
+        } else if (ACL.is('Group Department')) {
           ctrl.canCreate = GroupWebPolicyService.departmentAdminUserAccessCreate()
           ctrl.canCLIDUpdate = GroupWebPolicyService.departmentAdminCallingLineIdNumberAccessCreate()
         } else {
