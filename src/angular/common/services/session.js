@@ -9,9 +9,10 @@ Session.$inject = [
   '$rootScope',
   '$q',
   'jwtHelper',
-  '$ngRedux'
+  '$ngRedux',
+  '$location'
 ]
-function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
+function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux, $location) {
   const service = {
     load: load,
     data: data,
@@ -19,7 +20,8 @@ function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
     update: update,
     clear: clear,
     expired: expired,
-    required: required
+    required: required,
+    logout: logout
   }
 
   return service
@@ -50,6 +52,13 @@ function Session(StorageService, $rootScope, $q, jwtHelper, $ngRedux) {
   async function clear() {
     $ngRedux.dispatch(clearSession())
     $rootScope.$emit('Session:cleared')
+  }
+
+   // remove the session data and logout
+   async function logout() {
+    $ngRedux.dispatch(clearSession())
+    $rootScope.$emit('Session:cleared')
+    $location.path('/')
   }
 
   function expired() {
