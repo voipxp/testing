@@ -17,7 +17,7 @@ import {
   UiInputCheckbox
 } from '@/components/ui'
 
-const AUDIT_LIMIT = 500
+const AUDIT_LIMIT = 1000
 
 const columns = [
   { key: 'id', label: 'ID' },
