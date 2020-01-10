@@ -48,21 +48,22 @@ function controller(
   function onInit() {
     $q.all([
       GroupPolicyService.load(),
-      ServiceProviderPolicyService.load()]).
-    then(function() {
-      if( ACL.is('Service Provider') ) {
-          ctrl.canCLIDUpdate = ServiceProviderPolicyService.callingLineIdUpdate()
-          ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
-      } else if( ACL.is('Group') ){
-          ctrl.canCLIDUpdate = GroupPolicyService.callingLineIdUpdate()
-          ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
+      ServiceProviderPolicyService.load()
+    ]).then(function() {
+      ctrl.canCLIDUpdate = true
+      ctrl.canPNUpdate = true
+      if (ACL.is('Service Provider')) {
+        ctrl.canCLIDUpdate = ServiceProviderPolicyService.callingLineIdUpdate()
+        ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
+      } else if (ACL.is('Group')) {
+        ctrl.canCLIDUpdate = GroupPolicyService.callingLineIdUpdate()
+        ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
       }
     })
-    
+
     Module.show('Auto Attendant').then(function(module) {
       ctrl.module = module
     })
-    
   }
 
   function selectServiceProvider() {

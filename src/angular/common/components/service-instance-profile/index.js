@@ -12,7 +12,7 @@ angular.module('odin.common').component('serviceInstanceProfile', {
     profile: '<',
     loading: '<',
     onUpdate: '&',
-	ngMinlength: '=',
+    ngMinlength: '=',
     ngMaxlength: '='
   }
 })
@@ -55,16 +55,24 @@ function controller(
   function activate() {
     Alert.spinner.open()
     return $q
-      .all([loadDepartments(), loadLanguages(), loadTimezones(), GroupPolicyService.load(), ServiceProviderPolicyService.load()])
+      .all([
+        loadDepartments(),
+        loadLanguages(),
+        loadTimezones(),
+        GroupPolicyService.load(),
+        ServiceProviderPolicyService.load()
+      ])
       .then(function() {
-        if( ACL.is('Service Provider') ) {
-            ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
-        } else if( ACL.is('Group') ){
-            ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
-        } else if( ACL.is('Group Department') ){
+        ctrl.canPNUpdate = true
+        if (ACL.is('Service Provider')) {
+          ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
+        } else if (ACL.is('Group')) {
+          ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
+        } else if (ACL.is('Group Department')) {
           ctrl.canPNUpdate = GroupWebPolicyService.departmentAdminPhoneNumberExtensionAccessCreate()
         }
-	    }).catch(function(error) {
+      })
+      .catch(function(error) {
         Alert.notify.danger(error)
         return $q.reject(error.data)
       })

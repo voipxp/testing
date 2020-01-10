@@ -56,7 +56,8 @@ function controller(
     return $q
       .all([loadDepartments(), loadLanguages(), loadTimezones(), loadDevices()])
       .then(function() {
-        if(ACL.is('Group Department')) {
+        ctrl.canPNUpdate = true
+        if (ACL.is('Group Department')) {
           ctrl.canPNUpdate = GroupWebPolicyService.departmentAdminPhoneNumberExtensionAccessCreate()
         } else {
           ctrl.canPNUpdate = true

@@ -39,24 +39,27 @@ function controller(
   ctrl.editCLID = UiSettingService.data('editCLID')
   ctrl.$onInit = onInit
 
-
   function onInit() {
     ctrl.loading = true
-    $q.all([loadUser(),
-        loadNumbers(),
-        GroupPolicyService.load(),
-        ServiceProviderPolicyService.load()]).
-	    then(function() {
-        if( ACL.is('Service Provider') ) {
+    $q.all([
+      loadUser(),
+      loadNumbers(),
+      GroupPolicyService.load(),
+      ServiceProviderPolicyService.load()
+    ])
+      .then(function() {
+        ctrl.canCLIDUpdate = true
+        ctrl.canPNUpdate = true
+        if (ACL.is('Service Provider')) {
           ctrl.canCLIDUpdate = ServiceProviderPolicyService.callingLineIdUpdate()
-            ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
-        } else if( ACL.is('Group') ){
-          ctrl.canCLIDUpdate = GroupPolicyService.callingLineIdUpdate()  
+          ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
+        } else if (ACL.is('Group')) {
+          ctrl.canCLIDUpdate = GroupPolicyService.callingLineIdUpdate()
           ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
-        } else if( ACL.is('Group Department') ) {
-            ctrl.canPNUpdate = GroupWebPolicyService.departmentAdminPhoneNumberExtensionAccessCreate()
-            ctrl.canCLIDUpdate = GroupWebPolicyService.departmentAdminCallingLineIdNumberAccessCreate()
-		}
+        } else if (ACL.is('Group Department')) {
+          ctrl.canPNUpdate = GroupWebPolicyService.departmentAdminPhoneNumberExtensionAccessCreate()
+          ctrl.canCLIDUpdate = GroupWebPolicyService.departmentAdminCallingLineIdNumberAccessCreate()
+        }
       })
       .catch(function(error) {
         Alert.notify.danger(error)
