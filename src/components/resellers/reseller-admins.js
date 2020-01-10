@@ -15,6 +15,8 @@ import {
   UiInputPassword
 } from '@/components/ui'
 import { generatePassword } from '@/utils'
+import { useSession } from '@/store/session'
+import { Redirect } from 'react-router-dom'
 
 export const ResellerAdmins = ({ match }) => {
   const initialForm = {
@@ -24,6 +26,7 @@ export const ResellerAdmins = ({ match }) => {
     lastName: '',
     firstName: ''
   }
+  const { session, clearSession } = useSession()
   const { resellerId } = match.params
   const { alertSuccess, alertDanger, alertWarning } = useAlerts()
   const { showLoadingModal, hideLoadingModal } = useUi()
@@ -97,6 +100,9 @@ export const ResellerAdmins = ({ match }) => {
     try {
       await apiResellerAdmins.update(admin)
       alertSuccess('Admin Updated')
+      if( admin.administratorID === session.userId && (admin.password && admin.password !== '') ) {
+        logout()    /* Force to logout if password has changed. */
+      }
       setShowModal(false)
       hideLoadingModal()
       await execute()
@@ -118,6 +124,11 @@ export const ResellerAdmins = ({ match }) => {
       alertDanger(error_)
       hideLoadingModal()
     }
+  }
+
+  const logout = () => {
+    clearSession()
+    return <Redirect to='/' />
   }
 
   return (
