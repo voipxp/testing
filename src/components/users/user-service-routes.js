@@ -1,8 +1,20 @@
 import { UserSpeedDial8 } from './user-speed-dial-8'
 import { UserIntercept } from './user-intercept'
+import { UserAlternateNumbers } from './service-settings/user-alternate-numbers'
+import { UserAnonymousCallRejection } from './service-settings/user-anonymous-call-rejection'
+import { UserBargeInExempt } from './service-settings/user-barge-in-exempt'
+import { UserCallForwardingAlwaysSecondary } from './service-settings/user-call-forwarding-always-secondary'
+import { UserCallForwardingBusy } from './service-settings/user-call-forwarding-busy'
+import { UserCallForwardingNoAnswer } from './service-settings/user-call-forwarding-no-answer'
+import { UserCallForwardingNotReachable } from './service-settings/user-call-forwarding-not-reachable'
+import { UserCallingLineIdDeliveryBlocking } from './service-settings/user-calling-line-id-delivery-blocking'
+import { UserCallingLineIdDeliveryOverride } from './service-settings/user-calling-line-id-delivery-Override'
+import { UserBroadWorksAnywhere } from './service-settings/user-broadworks-anywhere'
+import { UserBroadWorksMobility } from './service-settings/user-broadworks-mobility'
+
 export const userServiceRoutes = [
   {
-    angularComponent: 'userAlternateNumbers',
+    component: UserAlternateNumbers,
     module: 'Alternate Numbers',
     path: 'alternate-numbers',
     services: ['Alternate Numbers']
@@ -14,7 +26,7 @@ export const userServiceRoutes = [
     services: ['Advice Of Charge']
   },
   {
-    angularComponent: 'userAnonymousCallRejection',
+    component: UserAnonymousCallRejection,
     module: 'Anonymous Call Rejection',
     path: 'anonymous-call-rejection',
     services: ['Anonymous Call Rejection']
@@ -38,19 +50,19 @@ export const userServiceRoutes = [
     services: ['Automatic Hold/Retrieve']
   },
   {
-    angularComponent: 'userBargeInExempt',
+    component: UserBargeInExempt,
     module: 'Barge-in Exempt',
     path: 'barge-in-exempt',
     services: ['Barge-in Exempt']
   },
   {
-    angularComponent: 'userBroadWorksAnywhere',
+    component: UserBroadWorksAnywhere,
     module: 'BroadWorks Anywhere',
     path: 'broadworks-anywhere',
     services: ['BroadWorks Anywhere']
   },
   {
-    angularComponent: 'userBroadWorksMobility',
+    component: UserBroadWorksMobility,
     module: 'BroadWorks Mobility',
     path: 'broadworks-mobility',
     services: ['BroadWorks Mobility']
@@ -78,25 +90,25 @@ export const userServiceRoutes = [
     services: ['Call Forwarding Always']
   },
   {
-    angularComponent: 'userCallForwardingAlwaysSecondary',
+    component: UserCallForwardingAlwaysSecondary,
     module: 'Call Forwarding Always Secondary',
     path: 'call-forwarding-always-secondary',
     services: ['Call Forwarding Always Secondary']
-  },
+  }, 
   {
-    angularComponent: 'userCallForwardingBusy',
+    component: UserCallForwardingBusy,
     module: 'Call Forwarding Busy',
     path: 'call-forwarding-busy',
     services: ['Call Forwarding Busy']
   },
   {
-    angularComponent: 'userCallForwardingNoAnswer',
+    component: UserCallForwardingNoAnswer,
     module: 'Call Forwarding No Answer',
     path: 'call-forwarding-no-answer',
     services: ['Call Forwarding No Answer']
   },
   {
-    angularComponent: 'userCallForwardingNotReachable',
+    component: UserCallForwardingNotReachable,
     module: 'Call Forwarding Not Reachable',
     path: 'call-forwarding-not-reachable',
     services: ['Call Forwarding Not Reachable']
@@ -132,10 +144,16 @@ export const userServiceRoutes = [
     services: ['Call Waiting']
   },
   {
-    angularComponent: 'userCallingLineIdDeliveryBlocking',
+    component: UserCallingLineIdDeliveryBlocking ,
     module: 'Calling Line ID Delivery Blocking',
     path: 'calling-line-id-delivery-blocking',
     services: ['Calling Line ID Delivery Blocking']
+  },
+  {
+    component: UserCallingLineIdDeliveryOverride,
+    module: 'Calling Line ID Delivery Override',
+    path: 'calling-line-id-delivery-Override',
+    services: ['Calling Line ID Delivery Override']
   },
   {
     angularComponent: 'userCallingNameDelivery',
