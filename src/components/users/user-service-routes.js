@@ -14,6 +14,7 @@ import { UserBroadWorksAnywhere } from './service-settings/user-broadworks-anywh
 import { UserBroadWorksMobility } from './service-settings/user-broadworks-mobility'
 import { UserCallingNameRetrieval } from './service-settings/user-calling-name-retrieval'
 import { UserCallingNameDelivery } from './service-settings/user-calling-name-delivery'
+import { UserCallRecording } from './service-settings/user-call-recording'
 
 
 
@@ -131,7 +132,7 @@ export const userServiceRoutes = [
     services: ['Call Notify']
   },
   {
-    angularComponent: 'userCallRecording',
+    component: UserCallRecording,
     module: 'Call Recording',
     path: 'call-recording',
     services: ['Call Recording']
