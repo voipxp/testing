@@ -64,13 +64,8 @@ export const UserCallRecording = ({ match }) => {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    if( name ==='recordCallRepeatWarningToneTimerSeconds'){
-        if(value > 1800){
-          return false
-        }
-        if(value < 10){
-          return false
-        }
+    if( name ==='recordCallRepeatWarningToneTimerSeconds' ){
+      if(value > 1800 || value < 10) return false
     }
 	  setForm({ ...form, [name]: value })
   }
@@ -89,7 +84,7 @@ export const UserCallRecording = ({ match }) => {
     try {
 	  const updatedData = await apiUserCallRecordingService.update(formData)
       loadUserCallRecordingService(updatedData)
-      alertSuccess('User Call Recording Updated')
+      alertSuccess('Call Recording Updated')
       setShowModal(false)
     } catch (error) {
       alertDanger(error)
@@ -103,7 +98,7 @@ export const UserCallRecording = ({ match }) => {
   return (
     <>
       <UiCard
-        title="User Call Recording Setting"
+        title="Call Recording"
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
@@ -197,8 +192,8 @@ export const UserCallRecording = ({ match }) => {
                 value={form.recordCallRepeatWarningToneTimerSeconds}
                 placeholder="Repeat Warning Tone Timer Seconds"
                 onChange={handleInput}
-                min ={recordCallRepeatWarningToneTimerSeconds.minimum}
-                max = {recordCallRepeatWarningToneTimerSeconds.maximum}
+                minLength ={recordCallRepeatWarningToneTimerSeconds.minimum}
+                maxLength = {recordCallRepeatWarningToneTimerSeconds.maximum}
               />
             </UiFormField>
             <UiInputCheckbox

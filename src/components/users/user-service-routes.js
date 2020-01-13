@@ -15,6 +15,8 @@ import { UserBroadWorksMobility } from './service-settings/user-broadworks-mobil
 import { UserCallingNameRetrieval } from './service-settings/user-calling-name-retrieval'
 import { UserCallingNameDelivery } from './service-settings/user-calling-name-delivery'
 import { UserCallRecording } from './service-settings/user-call-recording'
+import { UserCallTransfer } from './service-settings/user-call-transfer'
+import { UserCallWaiting } from './service-settings/user-call-waiting'
 
 
 
@@ -138,13 +140,13 @@ export const userServiceRoutes = [
     services: ['Call Recording']
   },
   {
-    angularComponent: 'userCallTransfer',
+    component: UserCallTransfer,
     module: 'Call Transfer',
     path: 'call-transfer',
     services: ['Call Transfer']
   },
   {
-    angularComponent: 'userCallWaiting',
+    component: UserCallWaiting,
     module: 'Call Waiting',
     path: 'call-waiting',
     services: ['Call Waiting']
