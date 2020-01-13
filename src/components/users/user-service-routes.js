@@ -3,6 +3,7 @@ import { UserIntercept } from './user-intercept'
 import { UserAlternateNumbers } from './service-settings/user-alternate-numbers'
 import { UserAnonymousCallRejection } from './service-settings/user-anonymous-call-rejection'
 import { UserBargeInExempt } from './service-settings/user-barge-in-exempt'
+import { UserCallForwardingAlways } from './service-settings/user-call-forwarding-always'
 import { UserCallForwardingAlwaysSecondary } from './service-settings/user-call-forwarding-always-secondary'
 import { UserCallForwardingBusy } from './service-settings/user-call-forwarding-busy'
 import { UserCallForwardingNoAnswer } from './service-settings/user-call-forwarding-no-answer'
@@ -11,6 +12,10 @@ import { UserCallingLineIdDeliveryBlocking } from './service-settings/user-calli
 import { UserCallingLineIdDeliveryOverride } from './service-settings/user-calling-line-id-delivery-Override'
 import { UserBroadWorksAnywhere } from './service-settings/user-broadworks-anywhere'
 import { UserBroadWorksMobility } from './service-settings/user-broadworks-mobility'
+import { UserCallingNameRetrieval } from './service-settings/user-calling-name-retrieval'
+import { UserCallingNameDelivery } from './service-settings/user-calling-name-delivery'
+
+
 
 export const userServiceRoutes = [
   {
@@ -84,7 +89,7 @@ export const userServiceRoutes = [
     ]
   },
   {
-    angularComponent: 'userCallForwardingAlways',
+    component: UserCallForwardingAlways,
     module: 'Call Forwarding Always',
     path: 'call-forwarding-always',
     services: ['Call Forwarding Always']
@@ -156,13 +161,13 @@ export const userServiceRoutes = [
     services: ['Calling Line ID Delivery Override']
   },
   {
-    angularComponent: 'userCallingNameDelivery',
+    component: UserCallingNameDelivery,
     module: 'Calling Name Delivery',
     path: 'calling-name-delivery',
     services: ['Calling Name Delivery']
   },
   {
-    angularComponent: 'userCallingNameRetrieval',
+    component: UserCallingNameRetrieval,
     module: 'Calling Name Retrieval',
     path: 'calling-name-retrieval',
     services: ['Calling Name Retrieval']
