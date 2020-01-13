@@ -23,6 +23,8 @@ import { UserAutomaticCallHoldRetrieve } from './service-settings/user-automatic
 import { UserCallingNumberDelivery } from './service-settings/user-calling-number-delivery'
 import { UserServiceDoNotDisturb } from './service-settings/user-do-not-disturb'
 import { UserCLIDExternalDelivery } from './service-settings/user-external-calling-line-id-delivery'
+import { UserGroupNightForwarding } from './service-settings/user-group-night-forwarding'
+  
 
 export const userServiceRoutes = [
   {
@@ -234,7 +236,7 @@ export const userServiceRoutes = [
     services: ['Flexible Seating Guest']
   },
   {
-    angularComponent: 'userGroupNightForwarding',
+    component: UserGroupNightForwarding,
     module: 'Group Night Forwarding',
     path: 'group-night-forwarding',
     services: ['Group Night Forwarding']
