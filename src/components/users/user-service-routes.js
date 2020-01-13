@@ -17,8 +17,12 @@ import { UserCallingNameDelivery } from './service-settings/user-calling-name-de
 import { UserCallRecording } from './service-settings/user-call-recording'
 import { UserCallTransfer } from './service-settings/user-call-transfer'
 import { UserCallWaiting } from './service-settings/user-call-waiting'
-
-
+import { UserAdviceOfCharge } from './service-settings/user-advice-of-charge'
+import { UserAutomaticCallback } from './service-settings/user-automatic-callback'
+import { UserAutomaticCallHoldRetrieve } from './service-settings/user-automatic-hold-retrieve'
+import { UserCallingNumberDelivery } from './service-settings/user-calling-number-delivery'
+import { UserServiceDoNotDisturb } from './service-settings/user-do-not-disturb'
+import { UserCLIDExternalDelivery } from './service-settings/user-external-calling-line-id-delivery'
 
 export const userServiceRoutes = [
   {
@@ -28,7 +32,7 @@ export const userServiceRoutes = [
     services: ['Alternate Numbers']
   },
   {
-    angularComponent: 'userAdviceOfCharge',
+    component: UserAdviceOfCharge,
     module: 'Advice Of Charge',
     path: 'advice-of-charge',
     services: ['Advice Of Charge']
@@ -46,13 +50,13 @@ export const userServiceRoutes = [
     services: ['Authentication']
   },
   {
-    angularComponent: 'userAutomaticCallback',
+    component: UserAutomaticCallback,
     module: 'Automatic Callback',
     path: 'automatic-callback',
     services: ['Automatic Callback']
   },
   {
-    angularComponent: 'userAutomaticHoldRetrieve',
+    component: UserAutomaticCallHoldRetrieve,
     module: 'Automatic Hold/Retrieve',
     path: 'automatic-hold-retrieve',
     services: ['Automatic Hold/Retrieve']
@@ -176,7 +180,7 @@ export const userServiceRoutes = [
     services: ['Calling Name Retrieval']
   },
   {
-    angularComponent: 'userCallingNumberDelivery',
+    component: UserCallingNumberDelivery,
     module: 'Calling Number Delivery',
     path: 'calling-number-delivery',
     services: ['Calling Number Delivery']
@@ -206,13 +210,13 @@ export const userServiceRoutes = [
     services: ['Directory']
   },
   {
-    angularComponent: 'userDoNotDisturb',
+    component: UserServiceDoNotDisturb,
     module: 'Do Not Disturb',
     path: 'do-not-disturb',
     services: ['Do Not Disturb']
   },
   {
-    angularComponent: 'userExternalCallingLineIdDelivery',
+    component: UserCLIDExternalDelivery,
     module: 'External Calling Line ID Delivery',
     path: 'external-calling-line-id-delivery',
     services: ['External Calling Line ID Delivery']
