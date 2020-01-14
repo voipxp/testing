@@ -9,6 +9,7 @@
           <th ng-if="$ctrl.hasReseller">Reseller</th>
           <th>Enterprise</th>
           <th>Group</th>
+          <th>Department</th>
           <th>User</th>
         </tr>
       </thead>
@@ -45,6 +46,11 @@
           <td>
             <pbs-check-box
               checked="module.permissions.group.read"
+            ></pbs-check-box>
+          </td>
+          <td>
+            <pbs-check-box
+              checked="module.permissions.groupDepartment.read"
             ></pbs-check-box>
           </td>
           <td>
@@ -86,73 +92,81 @@
       <input type="url" class="input" ng-model="$ctrl.editModule.url" />
     </pbs-form-field>
     <pbs-columns>
+      <pbs-column>
+        <pbs-form-section>Label</pbs-form-section>
+        <pbs-form-field label="Read"></pbs-form-field>
+        <pbs-form-field label="Create"></pbs-form-field>
+        <pbs-form-field label="Update"></pbs-form-field>
+        <pbs-form-field label="Delete"></pbs-form-field>
+      </pbs-column>
+
       <pbs-column ng-if="!$ctrl.isReseller">
         <pbs-form-section
           >{{ $ctrl.hasReseller ? 'Prov' : 'Provisioning' }}</pbs-form-section
         >
         <pbs-input-checkbox
-          label="Read"
+          label="R"
           ng-model="$ctrl.editModule.permissions.provisioning.read"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Create"
+          label="C"
           ng-model="$ctrl.editModule.permissions.provisioning.create"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Update"
+          label="U"
           ng-model="$ctrl.editModule.permissions.provisioning.update"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Delete"
+          label="D"
           ng-model="$ctrl.editModule.permissions.provisioning.delete"
         >
         </pbs-input-checkbox>
       </pbs-column>
       <pbs-column ng-if="$ctrl.hasReseller">
-        <pbs-form-section>Reseller</pbs-form-section>
+        <pbs-form-section>Resell</pbs-form-section>
         <pbs-input-checkbox
-          label="Read"
+          label="R"
           ng-model="$ctrl.editModule.permissions.reseller.read"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Create"
+          label="C"
           ng-model="$ctrl.editModule.permissions.reseller.create"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Update"
+          label="U"
           ng-model="$ctrl.editModule.permissions.reseller.update"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Delete"
+          label="D"
           ng-model="$ctrl.editModule.permissions.reseller.delete"
         >
         </pbs-input-checkbox>
       </pbs-column>
       <pbs-column>
-        <pbs-form-section>Enterprise</pbs-form-section>
+        <pbs-form-section>Ent</pbs-form-section>
         <pbs-input-checkbox
-          label="Read"
+          label="R"
           ng-model="$ctrl.editModule.permissions.serviceProvider.read"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Create"
+          label="C"
           ng-model="$ctrl.editModule.permissions.serviceProvider.create"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Update"
+          label="U"
           ng-model="$ctrl.editModule.permissions.serviceProvider.update"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Delete"
+          label="D"
           ng-model="$ctrl.editModule.permissions.serviceProvider.delete"
         >
         </pbs-input-checkbox>
@@ -160,45 +174,69 @@
       <pbs-column>
         <pbs-form-section>Group</pbs-form-section>
         <pbs-input-checkbox
-          label="Read"
+          label="R"
           ng-model="$ctrl.editModule.permissions.group.read"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Create"
+          label="C"
           ng-model="$ctrl.editModule.permissions.group.create"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Update"
+          label="U"
           ng-model="$ctrl.editModule.permissions.group.update"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Delete"
+          label="D"
           ng-model="$ctrl.editModule.permissions.group.delete"
         >
         </pbs-input-checkbox>
       </pbs-column>
       <pbs-column>
+        <pbs-form-section>Dept</pbs-form-section>
+        <pbs-input-checkbox
+          label="R"
+          ng-model="$ctrl.editModule.permissions.groupDepartment.read"
+        >
+        </pbs-input-checkbox>
+        <pbs-input-checkbox
+          label="C"
+          ng-model="$ctrl.editModule.permissions.groupDepartment.create"
+        >
+        </pbs-input-checkbox>
+        <pbs-input-checkbox
+          label="U"
+          ng-model="$ctrl.editModule.permissions.groupDepartment.update"
+        >
+        </pbs-input-checkbox>
+        <pbs-input-checkbox
+          label="D"
+          ng-model="$ctrl.editModule.permissions.groupDepartment.delete"
+        >
+        </pbs-input-checkbox>
+      </pbs-column>
+
+      <pbs-column>
         <pbs-form-section>User</pbs-form-section>
         <pbs-input-checkbox
-          label="Read"
+          label="R"
           ng-model="$ctrl.editModule.permissions.user.read"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Create"
+          label="C"
           ng-model="$ctrl.editModule.permissions.user.create"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Update"
+          label="U"
           ng-model="$ctrl.editModule.permissions.user.update"
         >
         </pbs-input-checkbox>
         <pbs-input-checkbox
-          label="Delete"
+          label="D"
           ng-model="$ctrl.editModule.permissions.user.delete"
         >
         </pbs-input-checkbox>
