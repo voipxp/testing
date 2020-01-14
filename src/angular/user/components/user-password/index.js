@@ -42,8 +42,8 @@ function controller(Alert, UserService, $q, Session, AuthService, GroupPasswordS
       .finally(function() {
         ctrl.loading = false
       })
-  } 
- 
+  }
+
   function  loadPasswordRulesMinLength() {
      GroupPasswordService.show(
       ctrl.serviceProviderId,
@@ -80,6 +80,7 @@ function controller(Alert, UserService, $q, Session, AuthService, GroupPasswordS
       .then(function() {
         Alert.notify.success('Password Changed')
         callback()
+        if(ctrl.isCurrentUser) Session.logout()
       })
       .catch(function(error) {
         Alert.notify.danger(error)

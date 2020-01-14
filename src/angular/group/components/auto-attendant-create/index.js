@@ -50,24 +50,27 @@ function controller(
   function onInit() {
     $q.all([
       GroupPolicyService.load(),
-      ServiceProviderPolicyService.load(), loadPasswordRulesMinLength()]).
-    then(function() {
-      if( ACL.is('Service Provider') ) {
-          ctrl.canCLIDUpdate = ServiceProviderPolicyService.callingLineIdUpdate()
-          ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
-      } else if( ACL.is('Group') ){
-          ctrl.canCLIDUpdate = GroupPolicyService.callingLineIdUpdate()
-          ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
+      ServiceProviderPolicyService.load(),
+      loadPasswordRulesMinLength()
+    ]).then(function() {
+      ctrl.canCLIDUpdate = true
+      ctrl.canPNUpdate = true
+
+      if (ACL.is('Service Provider')) {
+        ctrl.canCLIDUpdate = ServiceProviderPolicyService.callingLineIdUpdate()
+        ctrl.canPNUpdate = ServiceProviderPolicyService.phoneNumberExtensionUpdate()
+      } else if (ACL.is('Group')) {
+        ctrl.canCLIDUpdate = GroupPolicyService.callingLineIdUpdate()
+        ctrl.canPNUpdate = GroupPolicyService.phoneNumberExtensionUpdate()
       }
     })
 
     function loadPasswordRulesMinLength() {
-      GroupPasswordService.show(
-        ctrl.serviceProviderId,
-        ctrl.groupId
-      ).then(function(rules) {
-        ctrl.passMinLen =   rules.minLength
-      })
+      GroupPasswordService.show(ctrl.serviceProviderId, ctrl.groupId).then(
+        function(rules) {
+          ctrl.passMinLen = rules.minLength
+        }
+      )
     }
 
     Module.show('Auto Attendant').then(function(module) {

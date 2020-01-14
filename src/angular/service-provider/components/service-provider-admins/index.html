@@ -228,7 +228,9 @@
           ></pbs-input-select>
         </pbs-form-field-horizontal>
 
-        <pbs-form-field-horizontal label="Number Activation">
+        <pbs-form-field-horizontal label="Number Activation"
+          ng-if='!$ctrl.isResellerAdmin'
+        >
           <pbs-input-select
             ng-model="$ctrl.editPolicies.numberActivationAccess"
             ng-options="numberActivationAccess for numberActivationAccess in $ctrl.policies.numberActivationAccess"
