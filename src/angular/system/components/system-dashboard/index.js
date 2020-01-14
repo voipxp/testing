@@ -81,8 +81,13 @@ function controller(Route, SystemDashboardService, Alert, ACL) {
       },
       {
         type: 'odin',
-        name: 'Audits',
+        name: 'Audits (beta)',
         path: route('audits')
+      },
+      {
+        type: 'odin',
+        name: 'Imports (beta)',
+        path: route('imports')
       },
       {
         type: 'odin',
