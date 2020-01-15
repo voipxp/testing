@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Breadcrumb, Column, Field, Input, Control } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
@@ -6,7 +6,7 @@ import groupExtensionLengthApi from '@/api/group-extension-length'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
 import { useAsync } from 'react-async-hook'
-import { useQuery, useIsFetching } from 'react-query'
+import { useQuery } from 'react-query'
 
 import {
   UiCard,
@@ -34,7 +34,7 @@ export const GroupExtensionLength = ({ match }) => {
   //   [serviceProviderId, groupId]
   // )
   const { data: result, loading, error, refetch } = useQuery(
-    'groupExtensionLength' + groupId,
+    'groupExtensionLength',
     () => groupExtensionLengthApi.show(serviceProviderId, groupId)
   )
 
