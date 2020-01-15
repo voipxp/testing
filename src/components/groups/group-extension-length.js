@@ -5,8 +5,7 @@ import PropTypes from 'prop-types'
 import groupExtensionLengthApi from '@/api/group-extension-length'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useAsync } from 'react-async-hook'
-import { useQuery } from 'react-query'
+import { useQuery, setQueryData } from 'react-query'
 
 import {
   UiCard,
@@ -29,10 +28,6 @@ export const GroupExtensionLength = ({ match }) => {
   const [form, setForm] = useState(initialForm)
   const [showModal, setShowModal] = useState(false)
 
-  // const { result, error, loading, execute } = useAsync(
-  //   () => groupExtensionLengthApi.show(serviceProviderId, groupId),
-  //   [serviceProviderId, groupId]
-  // )
   const { data: result, loading, error, refetch } = useQuery(
     'groupExtensionLength',
     () => groupExtensionLengthApi.show(serviceProviderId, groupId)
@@ -62,16 +57,18 @@ export const GroupExtensionLength = ({ match }) => {
   async function update(extension) {
     showLoadingModal()
     try {
-      await groupExtensionLengthApi.update(
+      const newGroupExentionLength = await groupExtensionLengthApi.update(
         serviceProviderId,
         groupId,
         extension
       )
+      setQueryData(['groupExtensionLength'], newGroupExentionLength, {
+        shouldRefetch: true
+      })
       alertSuccess('Extension Length Updated')
       setShowModal(false)
       hideLoadingModal()
-      await refetch()
-      // await execute()
+      // refetch()
     } catch (error_) {
       alertDanger(error_)
       hideLoadingModal()
