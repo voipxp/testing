@@ -4,8 +4,10 @@ import { ResellerDelete } from './reseller-delete'
 import { ResellerServiceProviders } from './reseller-service-providers'
 import { ResellerServiceProviderReport } from './reseller-service-provider-report'
 import { ResellerServicePackUtilizationReport } from './reseller-service-pack-utilization-report'
+import { ResellerServiceUtilizationReport } from './reseller-service-utilization-report'
 import { ResellerDnReport } from './reseller-dn-report'
 import { ResellerAudits } from './reseller-audits'
+import { ResellerImports } from './reseller-imports'
 
 export const dashboardMenu = [
   {
@@ -42,6 +44,11 @@ export const dashboardMenu = [
         component: ResellerServicePackUtilizationReport
       },
       {
+        path: 'service-utilization-report',
+        name: 'Service Utilization',
+        component: ResellerServiceUtilizationReport
+      },
+      {
         path: 'dn-report',
         name: 'DN Report',
         component: ResellerDnReport
@@ -59,8 +66,15 @@ export const dashboardMenu = [
       },
       {
         path: 'audits',
-        name: 'Audits (Beta)',
+        name: 'Audits (beta)',
         component: ResellerAudits,
+        hasLevel: 'Reseller',
+        isBreadcrumb: false
+      },
+      {
+        path: 'imports',
+        name: 'Imports (beta)',
+        component: ResellerImports,
         hasLevel: 'Reseller',
         isBreadcrumb: false
       }

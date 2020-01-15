@@ -10,6 +10,7 @@ import {
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
+import { Imports, Import } from '@/components/imports'
 export const routes = [
   {
     path: '/account',
@@ -816,7 +817,18 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-	path: '/department/:serviceProviderId/:groupId',
-    component: DepartmentDashboard,
+    path: '/imports',
+    exact: true,
+    component: Imports,
+    hasLevel: 'Group'
+  },
+  {
+    path: '/imports/:id',
+    component: Import,
+    hasLevel: 'Group'
+  },
+  {
+    path: '/department/:serviceProviderId/:groupId',
+    component: DepartmentDashboard
   }
 ]

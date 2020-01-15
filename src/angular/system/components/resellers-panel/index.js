@@ -22,7 +22,7 @@ function controller(Alert, ResellerService, $scope, Route) {
     ctrl.loading = true
     loadResellers()
       .catch(function(error) {
-        Alert.notify.danger(error)
+        // Alert.notify.danger(error)
       })
       .finally(function() {
         ctrl.loading = false
