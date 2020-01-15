@@ -80,11 +80,29 @@ function controller(
   function onInit() {
     ctrl.loading = true
     return $q
-      .all([loadUsers(), ServiceProviderPolicyService.load(), GroupWebPolicyService.load()])
+      .all([
+        loadUsers(),
+        ServiceProviderPolicyService.load(),
+        GroupWebPolicyService.load()
+      ])
       .then(function() {
-        if(ACL.is('Group Department')) {
-            ctrl.canCreate = GroupWebPolicyService.departmentAdminUserAccessCreate()
-            ctrl.canCLIDUpdate = GroupWebPolicyService.departmentAdminCallingLineIdNumberAccessCreate()
+        ctrl.canCLIDUpdate = true
+        ctrl.canPNUpdate = true
+        if (ACL.is('System')) {
+          ctrl.canCLIDUpdate = true
+          ctrl.canPNUpdate = true
+        } else if (ACL.is('Provisioning')) {
+          ctrl.canCLIDUpdate = true
+          ctrl.canPNUpdate = true
+        } else if (ACL.is('Reseller')) {
+          ctrl.canCLIDUpdate = true
+          ctrl.canPNUpdate = true
+        } else if (ACL.is('Service Provider')) {
+          ctrl.canCLIDUpdate = true
+          ctrl.canPNUpdate = true
+        } else if (ACL.is('Group Department')) {
+          ctrl.canCreate = GroupWebPolicyService.departmentAdminUserAccessCreate()
+          ctrl.canCLIDUpdate = GroupWebPolicyService.departmentAdminCallingLineIdNumberAccessCreate()
         } else {
           ctrl.canCreate = ServiceProviderPolicyService.userCreate()
           ctrl.canCLIDUpdate = true
@@ -109,7 +127,7 @@ function controller(
       ctrl.groupId,
       extended
     ).then(function(data) {
-      if(ACL.is('Group Department')) data = ACL.filterByDepartment(data)
+      if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
       ctrl.users = data
     })
   }
@@ -160,7 +178,7 @@ function controller(
   }
 
   function bulkUpdate(users, data, callback) {
-    if(!ctrl.canCLIDUpdate) {
+    if (!ctrl.canCLIDUpdate) {
       delete data.callingLineIdPhoneNumber
     }
 

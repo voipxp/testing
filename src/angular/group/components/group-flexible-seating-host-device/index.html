@@ -45,7 +45,7 @@
             ng-required="$ctrl.editFlexibleSeatingHost.endpointType === 'accessDeviceEndpoint'"
           />
         </p>
-        <p class="control" ng-if='!$ctrl.isGroupDepartmentAdmin'>
+        <p class="control" ng-if="!$ctrl.isGroupDepartmentAdmin">
           <button
             class="button"
             ng-click="$ctrl.createDevice()"
