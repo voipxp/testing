@@ -6,6 +6,8 @@ import groupExtensionLengthApi from '@/api/group-extension-length'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
 import { useAsync } from 'react-async-hook'
+import { useQuery, useIsFetching } from 'react-query'
+
 import {
   UiCard,
   UiLoadingCard,
@@ -27,10 +29,15 @@ export const GroupExtensionLength = ({ match }) => {
   const [form, setForm] = useState(initialForm)
   const [showModal, setShowModal] = useState(false)
 
-  const { result, error, loading, execute } = useAsync(
-    () => groupExtensionLengthApi.show(serviceProviderId, groupId),
-    [serviceProviderId, groupId]
+  // const { result, error, loading, execute } = useAsync(
+  //   () => groupExtensionLengthApi.show(serviceProviderId, groupId),
+  //   [serviceProviderId, groupId]
+  // )
+  const { data: result, loading, error, refetch } = useQuery(
+    'groupExtensionLength' + groupId,
+    () => groupExtensionLengthApi.show(serviceProviderId, groupId)
   )
+
   const extensionLength = result || {}
 
   if (error) alertDanger(error)
@@ -63,7 +70,8 @@ export const GroupExtensionLength = ({ match }) => {
       alertSuccess('Extension Length Updated')
       setShowModal(false)
       hideLoadingModal()
-      await execute()
+      await refetch()
+      // await execute()
     } catch (error_) {
       alertDanger(error_)
       hideLoadingModal()
