@@ -40,6 +40,8 @@ function controller(
     return $q
       .all([GroupPolicyService.load(), ServiceProviderPolicyService.load(), GroupWebPolicyService.load()])
       .then(function() {
+        ctrl.canEdit = true
+        ctrl.canDelete = true
         if (ACL.has('Reseller')) {
           ctrl.canEdit = true
           ctrl.canDelete = true
