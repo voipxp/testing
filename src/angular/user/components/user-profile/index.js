@@ -44,6 +44,8 @@ function controller(
         GroupWebPolicyService.load()
       ])
       .then(function() {
+        ctrl.canRead = true
+        ctrl.canUpdate = true
         if (ACL.has('Reseller') || ACL.is('User')) {
           ctrl.canRead = true
           ctrl.canUpdate = true
