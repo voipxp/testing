@@ -9,8 +9,8 @@ import { UserCallForwardingBusy } from './service-settings/user-call-forwarding-
 import { UserCallForwardingNoAnswer } from './service-settings/user-call-forwarding-no-answer'
 import { UserCallForwardingNotReachable } from './service-settings/user-call-forwarding-not-reachable'
 import { UserCallingLineIdDeliveryBlocking } from './service-settings/user-calling-line-id-delivery-blocking'
-import { UserCallingLineIdDeliveryOverride } from './service-settings/user-calling-line-id-delivery-Override'
-import { UserBroadWorksAnywhere } from './service-settings/user-broadworks-anywhere'
+//import { UserCallingLineIdDeliveryOverride } from './service-settings/user-calling-line-id-delivery-Override'
+//import { UserBroadWorksAnywhere } from './service-settings/user-broadworks-anywhere'
 import { UserBroadWorksMobility } from './service-settings/user-broadworks-mobility'
 import { UserCallingNameRetrieval } from './service-settings/user-calling-name-retrieval'
 import { UserCallingNameDelivery } from './service-settings/user-calling-name-delivery'
@@ -25,7 +25,6 @@ import { UserServiceDoNotDisturb } from './service-settings/user-do-not-disturb'
 import { UserCLIDExternalDelivery } from './service-settings/user-external-calling-line-id-delivery'
 import { UserGroupNightForwarding } from './service-settings/user-group-night-forwarding'
   
-
 export const userServiceRoutes = [
  /* {
     component: UserAlternateNumbers,
@@ -76,11 +75,17 @@ export const userServiceRoutes = [
     services: ['Barge-in Exempt']
   },
   {
-    component: UserBroadWorksAnywhere,
+    angularComponent: 'userBroadWorksAnywhere',
     module: 'BroadWorks Anywhere',
     path: 'broadworks-anywhere',
     services: ['BroadWorks Anywhere']
   },
+  /*{
+    component: UserBroadWorksAnywhere,
+    module: 'BroadWorks Anywhere',
+    path: 'broadworks-anywhere',
+    services: ['BroadWorks Anywhere']
+  }, */
   {
     component: UserBroadWorksMobility,
     module: 'BroadWorks Mobility',
@@ -169,12 +174,12 @@ export const userServiceRoutes = [
     path: 'calling-line-id-delivery-blocking',
     services: ['Calling Line ID Delivery Blocking']
   },
-  {
+  /*{
     component: UserCallingLineIdDeliveryOverride,
     module: 'Calling Line ID Delivery Override',
     path: 'calling-line-id-delivery-Override',
     services: ['Calling Line ID Delivery Override']
-  },
+  },*/
   {
     component: UserCallingNameDelivery,
     module: 'Calling Name Delivery',
