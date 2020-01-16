@@ -1,6 +1,6 @@
 import { UserSpeedDial8 } from './user-speed-dial-8'
 import { UserIntercept } from './user-intercept'
-import { UserAlternateNumbers } from './service-settings/user-alternate-numbers'
+//import { UserAlternateNumbers } from './service-settings/user-alternate-numbers'
 import { UserAnonymousCallRejection } from './service-settings/user-anonymous-call-rejection'
 import { UserBargeInExempt } from './service-settings/user-barge-in-exempt'
 import { UserCallForwardingAlways } from './service-settings/user-call-forwarding-always'
@@ -27,8 +27,14 @@ import { UserGroupNightForwarding } from './service-settings/user-group-night-fo
   
 
 export const userServiceRoutes = [
-  {
+ /* {
     component: UserAlternateNumbers,
+    module: 'Alternate Numbers',
+    path: 'alternate-numbers',
+    services: ['Alternate Numbers']
+  },*/
+  {
+    angularComponent: 'userAlternateNumbers',
     module: 'Alternate Numbers',
     path: 'alternate-numbers',
     services: ['Alternate Numbers']
