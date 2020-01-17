@@ -15,15 +15,15 @@ function controller(Session, Alert, AuthService, PasswordModifyRequest, $q) {
     ctrl.loginType = Session.data('loginType')
     ctrl.expiration = Session.data('passwordExpiresDays')
   }
-
+ 
   function edit() {
     ctrl.oldPassword = ctrl.newPassword1 = ctrl.newPassword2 = null
     Alert.modal.open('changeMyPassword', function(close) {
-      changePassword(ctrl.userId,ctrl.oldPassword, ctrl.newPassword, close)
+      changePassword( ctrl.oldPassword, ctrl.newPassword, close)
     })
   }
 
-  function changePassword( oldPassword, newPassword, callback ) {  
+  function changePassword( oldPassword, newPassword, callback ) {   
     Alert.spinner.open()
     ctrl.changePassWord = {
       userId : Session.data('userId'),
@@ -33,12 +33,8 @@ function controller(Session, Alert, AuthService, PasswordModifyRequest, $q) {
 
     return PasswordModifyRequest.updatePasswords( ctrl.changePassWord )
     //AuthService.password(oldPassword, newPassword)
-    /*.then(function() {
-      return ctrl.isCurrentUser
-      ? updateSession(ctrl.changePassWord.userId, newPassword)
-      : $q.when()
-    }) */
-      .then(function() {
+    .then(function() {
+        updateSession(ctrl.changePassWord.userId, newPassword)
         Alert.notify.success('Password Changed')
         callback()
       })
@@ -51,7 +47,7 @@ function controller(Session, Alert, AuthService, PasswordModifyRequest, $q) {
   }
 
   // so we don't have to login again
- /* function updateSession(userId, password) {
+   function updateSession(userId, password) {
     return AuthService.token(userId, password).then(Session.set)
-  } */
+  }  
 }

@@ -36,22 +36,25 @@ function controller(Alert, GroupDepartmentAdminService, AuthService, PasswordMod
   }
 
   function loadSettings() {
+   // ctrl.isCurrentUser = ctrl.userId === Session.data('userId')
 	  ctrl.settings = {
 		  userId: Session.data('userId'),
       password: null,
       oldPassword : null
     }
   }
-
+  
   function edit() {
     ctrl.editSettings = angular.copy(ctrl.settings)
-	  ctrl.isCurrentUser = ctrl.userId === Session.data('userId')
-    Alert.modal.open('editDepartmentChangePassword', function onSave(close) {
+	  Alert.modal.open('editDepartmentChangePassword', function onSave(close) {
+      if (!ctrl.isCurrentUser) {
+        delete ctrl.settings.oldPassword
+      }
       update(ctrl.editSettings, close)
     })
   }
 
-  function update(settings, callback) {
+  function update(settings, callback) {  
     Alert.spinner.open()
     ctrl.changePassword = {
       userId : settings.userId,
@@ -61,15 +64,11 @@ function controller(Alert, GroupDepartmentAdminService, AuthService, PasswordMod
     if(settings.password) delete settings.password
     updateSelfPassword( ctrl.changePassword , callback)
   }
-  function updateSelfPassword(user , callback){ 
+  function updateSelfPassword(user , callback){  
     return PasswordModifyRequest.updatePasswords( user )
-    .then(function() {
-      return ctrl.isCurrentUser
-      ? updateSession(user.userId, user.password)
-      : $q.when()
-    }) 
     .then(loadSettings)
     .then(function() {
+      updateSession(user.userId, user.newPassword)
       Alert.notify.success('Password Changed')
       callback()
     })
