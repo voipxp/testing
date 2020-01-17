@@ -53,7 +53,13 @@ function controller(Alert, GroupDepartmentAdminService, AuthService, PasswordMod
 
   function update(settings, callback) {
     Alert.spinner.open()
-    updateSelfPassword( settings , callback)
+    ctrl.changePassword = {
+      userId : settings.userId,
+      newPassword : settings.password,
+      oldPassword : settings.oldPassword
+    }
+    if(settings.password) delete settings.password
+    updateSelfPassword( ctrl.changePassword , callback)
   }
   function updateSelfPassword(user , callback){ 
     return PasswordModifyRequest.updatePasswords( user )
