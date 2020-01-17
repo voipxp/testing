@@ -8,9 +8,9 @@ angular.module('odin.department').component('departmentChangePassword', {
   bindings: { userId: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupDepartmentAdminService', 'Module','Session', '$q']
+controller.$inject = ['Alert', 'GroupDepartmentAdminService', 'AuthService','PasswordModifyRequest', 'Module','Session', '$q']
 
-function controller(Alert, GroupDepartmentAdminService, Module, Session, $q) {
+function controller(Alert, GroupDepartmentAdminService, AuthService, PasswordModifyRequest, Module, Session, $q) {
   var ctrl      	= this
   ctrl.$onInit  	= onInit
   ctrl.edit     	= edit
@@ -38,13 +38,14 @@ function controller(Alert, GroupDepartmentAdminService, Module, Session, $q) {
   function loadSettings() {
 	  ctrl.settings = {
 		  userId: Session.data('userId'),
-      password: null
+      password: null,
+      oldPassword : null
     }
   }
 
   function edit() {
     ctrl.editSettings = angular.copy(ctrl.settings)
-	  ctrl.userId = Session.data('userId')
+	  ctrl.isCurrentUser = ctrl.userId === Session.data('userId')
     Alert.modal.open('editDepartmentChangePassword', function onSave(close) {
       update(ctrl.editSettings, close)
     })
@@ -52,18 +53,29 @@ function controller(Alert, GroupDepartmentAdminService, Module, Session, $q) {
 
   function update(settings, callback) {
     Alert.spinner.open()
-    GroupDepartmentAdminService.update(settings)
-      .then(loadSettings)
-      .then(function() {
-        Alert.notify.success('Password Changed')
-        if (_.isFunction(callback)) callback()
-        Session.logout()
-      })
-      .catch(function(error) {
-        Alert.notify.danger(error)
-      })
-      .finally(function() {
-        Alert.spinner.close()
-      })
+    updateSelfPassword( settings , callback)
+  }
+  function updateSelfPassword(user , callback){ 
+    return PasswordModifyRequest.updatePasswords( user )
+    .then(function() {
+      return ctrl.isCurrentUser
+      ? updateSession(user.userId, user.password)
+      : $q.when()
+    }) 
+    .then(loadSettings)
+    .then(function() {
+      Alert.notify.success('Password Changed')
+      callback()
+    })
+    .catch(function(error) {
+      Alert.notify.danger(error)
+    })
+    .finally(function() {
+      Alert.spinner.close()
+    })
+  }
+  // so we don't have to login again
+  function updateSession(userId, password) { 
+    return AuthService.token(userId, password).then(Session.set)
   }
 }

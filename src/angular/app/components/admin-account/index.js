@@ -3,15 +3,15 @@ import template from './index.html'
 
 angular.module('odin.app').component('adminAccount', { template, controller })
 
-controller.$inject = ['Session', 'Alert', 'AuthService']
-function controller(Session, Alert, AuthService) {
+controller.$inject = ['Session', 'Alert', 'AuthService', 'PasswordModifyRequest', '$q']
+function controller(Session, Alert, AuthService, PasswordModifyRequest, $q) {
   const ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
 
   ctrl.neverExpires = 2147483647
   function onInit() {
-    ctrl.userId = Session.data('userId')
+    ctrl.isCurrentUser = ctrl.userId === Session.data('userId')
     ctrl.loginType = Session.data('loginType')
     ctrl.expiration = Session.data('passwordExpiresDays')
   }
@@ -19,14 +19,25 @@ function controller(Session, Alert, AuthService) {
   function edit() {
     ctrl.oldPassword = ctrl.newPassword1 = ctrl.newPassword2 = null
     Alert.modal.open('changeMyPassword', function(close) {
-      changePassword(ctrl.oldPassword, ctrl.newPassword, close)
+      changePassword(ctrl.userId,ctrl.oldPassword, ctrl.newPassword, close)
     })
   }
 
-  function changePassword(oldPassword, newPassword, callback) {
+  function changePassword(userId, oldPassword, newPassword, callback) { 
     Alert.spinner.open()
-    AuthService.password(oldPassword, newPassword)
-      .then(Session.set)
+    ctrl.changePassWord = {
+      userId : userId,
+      newPassword : newPassword,
+      oldPassword : oldPassword
+    }
+
+    return PasswordModifyRequest.updatePasswords( ctrl.changePassWord )
+    //AuthService.password(oldPassword, newPassword)
+    .then(function() {
+      return ctrl.isCurrentUser
+      ? updateSession(userId, newPassword)
+      : $q.when()
+    })
       .then(function() {
         Alert.notify.success('Password Changed')
         callback()
@@ -37,5 +48,10 @@ function controller(Session, Alert, AuthService) {
       .finally(function() {
         Alert.spinner.close()
       })
+  }
+
+  // so we don't have to login again
+  function updateSession(userId, password) {
+    return AuthService.token(userId, password).then(Session.set)
   }
 }

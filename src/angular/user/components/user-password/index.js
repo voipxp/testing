@@ -8,8 +8,8 @@ angular.module('odin.user').component('userPassword', {
   bindings: { userId: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserService', '$q', 'Session', 'AuthService', 'GroupPasswordService']
-function controller(Alert, UserService, $q, Session, AuthService, GroupPasswordService) {
+controller.$inject = ['Alert', 'UserService', '$q', 'Session', 'AuthService', 'GroupPasswordService','PasswordModifyRequest']
+function controller(Alert, UserService, $q, Session, AuthService, GroupPasswordService, PasswordModifyRequest) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -54,12 +54,13 @@ function controller(Alert, UserService, $q, Session, AuthService, GroupPasswordS
   }
   function loadUser() {
     return UserService.show(ctrl.userId).then(function(data) {
-      ctrl.user = data
+     ctrl.user = data
     })
   }
 
   function edit() {
     ctrl.editUser = angular.copy(ctrl.user)
+    
     Alert.modal.open('editUserPassword', function(close) {
       if (!ctrl.isCurrentUser) {
         delete ctrl.editUser.oldPassword
@@ -68,19 +69,24 @@ function controller(Alert, UserService, $q, Session, AuthService, GroupPasswordS
     })
   }
 
-  function update(user, callback) {
+  function update(user, callback) {  
     Alert.spinner.open()
-    return UserService.update(ctrl.userId, user)
+   // return UserService.update(ctrl.userId, user)
+    ctrl.changePassword ={
+      userId      : user.userId,
+      newPassword : user.newPassword,
+      oldPassword : user.oldPassword
+    }
+      return PasswordModifyRequest.updatePasswords( ctrl.changePassword )
       .then(function() {
         return ctrl.isCurrentUser
-          ? updateSession(user.userId, user.newPassword)
-          : $q.when()
-      })
+        ? updateSession(user.userId, user.newPassword)
+        : $q.when()
+      })  
       .then(loadUser)
       .then(function() {
         Alert.notify.success('Password Changed')
         callback()
-        if(ctrl.isCurrentUser) Session.logout()
       })
       .catch(function(error) {
         Alert.notify.danger(error)
