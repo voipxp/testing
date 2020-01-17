@@ -15,8 +15,6 @@ controller.$inject = [
   'GroupDepartmentAdminService',
   'GroupPolicyService',
   'ServiceProviderPasswordService',
-  'PasswordModifyRequest',
-  'AuthService',
   '$q',
   'Session'
 ]
@@ -27,8 +25,6 @@ function controller(
   GroupDepartmentAdminService,
   GroupPolicyService,
   ServiceProviderPasswordService,
-  PasswordModifyRequest,
-  AuthService,
   $q,
   Session
 ) {
@@ -67,7 +63,6 @@ function controller(
     return $q
       .all([loadAdmins(), GroupPolicyService.load(), loadPasswordRulesMinLength()])
       .then(function() {
-        ctrl.isCurrentUser = ctrl.userId === Session.data('userId')
         ctrl.canCreate = GroupPolicyService.adminCreate()
         ctrl.canUpdate = GroupPolicyService.adminUpdate()
       })
@@ -186,11 +181,16 @@ function controller(
       .finally(Alert.spinner.close)
   }
 
-  function update(admin, policies, callback) { 
+  function update(admin, policies, callback) {
     Alert.spinner.open()
     return $q
       .all([updatePolicies(admin, policies),updateAdmin(admin)])
-      .then(loadAdmins)
+      .then(function() {
+        if( (admin.userId === Session.data('userId')) && (admin.password && admin.password !== '') ) {
+          Session.logout()
+        }
+        loadAdmins()
+      })
       .then(function() {
         callback()
         Alert.notify.success('Admin Updated')
@@ -220,42 +220,13 @@ function controller(
   }
 
   function updateAdmin(admin) {
-    ctrl.changePassWord = {
-      userId : admin.userId,
-      newPassword : admin.password,
-    }
-    if(admin.oldPassword) ctrl.changePass['oldPassword'] = admin.changePassWord
-    
-    if (admin.password) {
-      delete admin.password
-      updateSelfPassword(ctrl.changePassWord)
-    }
     if (admin.department) {
       return GroupDepartmentAdminService.update(admin)
     } else {
+      admin.serviceProviderId = ctrl.serviceProviderId
+      admin.groupId = ctrl.groupId
       return GroupAdminService.update(admin)
     }
-  }
-
-  function updateSelfPassword(user){ 
-    return PasswordModifyRequest.updatePasswords( user )
-    .then(function() {
-      return ctrl.isCurrentUser
-      ? updateSession(user.userId, user.newPassword)
-      : $q.when()
-    })
-    .then(function() {
-      return updateSession(user.userId, user.newPassword)
-    })
-    .then(function() {
-      Alert.notify.success('Password Changed')
-    })
-    .catch(function(error) {
-      Alert.notify.danger(error)
-    })
-    .finally(function() {
-      Alert.spinner.close()
-    })
   }
 
   function remove(admin, callback) {
@@ -275,9 +246,5 @@ function controller(
       })
       .catch(Alert.notify.danger)
       .finally(Alert.spinner.close)
-  }
-  // so we don't have to login again
-  function updateSession(userId, password) {
-    return AuthService.token(userId, password).then(Session.set)
   }
 }
