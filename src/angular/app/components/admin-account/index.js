@@ -11,7 +11,7 @@ function controller(Session, Alert, AuthService, PasswordModifyRequest, $q) {
 
   ctrl.neverExpires = 2147483647
   function onInit() {
-    ctrl.isCurrentUser = ctrl.userId === Session.data('userId')
+    ctrl.userId = Session.data('userId')
     ctrl.loginType = Session.data('loginType')
     ctrl.expiration = Session.data('passwordExpiresDays')
   }
@@ -23,21 +23,21 @@ function controller(Session, Alert, AuthService, PasswordModifyRequest, $q) {
     })
   }
 
-  function changePassword(userId, oldPassword, newPassword, callback) { 
+  function changePassword( oldPassword, newPassword, callback ) {  
     Alert.spinner.open()
     ctrl.changePassWord = {
-      userId : userId,
+      userId : Session.data('userId'),
       newPassword : newPassword,
       oldPassword : oldPassword
     }
 
     return PasswordModifyRequest.updatePasswords( ctrl.changePassWord )
     //AuthService.password(oldPassword, newPassword)
-    .then(function() {
+    /*.then(function() {
       return ctrl.isCurrentUser
-      ? updateSession(userId, newPassword)
+      ? updateSession(ctrl.changePassWord.userId, newPassword)
       : $q.when()
-    })
+    }) */
       .then(function() {
         Alert.notify.success('Password Changed')
         callback()
@@ -51,7 +51,7 @@ function controller(Session, Alert, AuthService, PasswordModifyRequest, $q) {
   }
 
   // so we don't have to login again
-  function updateSession(userId, password) {
+ /* function updateSession(userId, password) {
     return AuthService.token(userId, password).then(Session.set)
-  }
+  } */
 }
