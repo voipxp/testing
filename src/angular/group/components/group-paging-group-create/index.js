@@ -136,7 +136,7 @@ function controller(
       .then(function() {
         Alert.notify.success('Group Created')
         callback()
-        ctrl.parent.open(ctrl.group.serviceUserIdPrefix)
+        ctrl.parent.open(ctrl.group.serviceUserId)
       })
       .catch(Alert.notify.danger)
       .finally(Alert.spinner.close)
