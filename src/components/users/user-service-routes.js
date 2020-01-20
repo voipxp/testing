@@ -24,7 +24,9 @@ import { UserCallingNumberDelivery } from './service-settings/user-calling-numbe
 import { UserServiceDoNotDisturb } from './service-settings/user-do-not-disturb'
 import { UserCLIDExternalDelivery } from './service-settings/user-external-calling-line-id-delivery'
 import { UserGroupNightForwarding } from './service-settings/user-group-night-forwarding'
-  
+import { UserConnectedLineIdentificationRestriction } from './service-settings/user-connected-line-identification-restriction' 
+
+
 export const userServiceRoutes = [
  /* {
     component: UserAlternateNumbers,
@@ -205,7 +207,7 @@ export const userServiceRoutes = [
     services: ['Collaborate - Audio']
   },
   {
-    angularComponent: 'userConnectedLineIdentificationRestriction',
+    component: UserConnectedLineIdentificationRestriction,
     module: 'Connected Line Identification Restriction',
     path: 'connected-line-identification-restriction',
     services: ['Connected Line Identification Restriction']
