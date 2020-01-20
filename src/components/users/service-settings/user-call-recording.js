@@ -24,15 +24,14 @@ export const UserCallRecording = ({ match }) => {
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
   const [userServiceData, loadUserCallRecordingService] = useState([])
-  
+   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserCallRecordingService.show(userId)
-        console.log(data)
-		    loadUserCallRecordingService(data)
-      } catch (error) {
+        loadUserCallRecordingService(data)
+	 } catch (error) {
         alertDanger(error)
       } finally {
         setLoading(false)
@@ -64,10 +63,7 @@ export const UserCallRecording = ({ match }) => {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    if( name ==='recordCallRepeatWarningToneTimerSeconds' ){
-      if(value > 1800 || value < 10) return false
-    }
-	  setForm({ ...form, [name]: value })
+    setForm({ ...form, [name]: value })
   }
   
   function edit() {
@@ -76,7 +72,13 @@ export const UserCallRecording = ({ match }) => {
   }
   
   function save() {
-    update(form)
+	    if (form.recordCallRepeatWarningToneTimerSeconds > 1800 || form.						recordCallRepeatWarningToneTimerSeconds < 10) {
+           alertDanger(' Repeat Warning Tone Timer Seconds Minimum Value 10 and Maximum Value 1800')
+		  return false
+		}else {
+          update(form)
+        }  
+    
   }
 
   async function update(formData) {
@@ -129,7 +131,7 @@ export const UserCallRecording = ({ match }) => {
       </UiCard>
       <UiCardModal
         title={`Edit User Call Recording`}
-        isOpen={showModal}
+		isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={save}
       >

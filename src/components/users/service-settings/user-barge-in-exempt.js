@@ -97,7 +97,7 @@ export const UserBargeInExempt = ({ match }) => {
 		      <UiSection title="General Settings">
 		        <UiInputCheckbox
               name="isActive"
-              label="Enabled"
+              label="Enable Barge In Exempt"
               checked={form.isActive}
               onChange={handleInput}
             />

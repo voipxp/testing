@@ -54,13 +54,7 @@ export const UserCallTransfer = ({ match }) => {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    if( name ==='recallNumberOfRings' ){
-      if(value > 20 || value < 2) return false
-    }
-    if( name ==='busyCampOnSeconds'){
-      if( value > 600 || value < 30 ) return false
-    }
-	  setForm({ ...form, [name]: value })
+    setForm({ ...form, [name]: value })
   }
   
   function edit() {
@@ -69,8 +63,16 @@ export const UserCallTransfer = ({ match }) => {
   }
   
   function save() {
-    update(form)
-  }
+	  if( form.recallNumberOfRings > 20 || form.recallNumberOfRings < 2 ){
+		  alertDanger('Number Of Rings Minimum Value 2 and Maximum Value 20')
+		  return false
+	  }
+	  if( form.busyCampOnSeconds > 600 || form.busyCampOnSeconds < 30 ){
+		  alertDanger(' Enable Busy On Camp Seconds Minimum Value 30 and Maximum Value 600')
+		  return false
+	  }
+		  update(form)	
+	}
 
   async function update(formData) {
 	showLoadingModal()
