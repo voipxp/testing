@@ -23,14 +23,14 @@ export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserServiceDeliveryBlocking] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceDeliveryBlocking.show(userId)
-		    loadUserServiceDeliveryBlocking(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -60,7 +60,7 @@ export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
 	showLoadingModal()
     try {
 		const updatedData = await apiUserServiceDeliveryBlocking.update(formData)
-    loadUserServiceDeliveryBlocking(updatedData)
+    setUserServiceData(updatedData)
       alertSuccess('Call Forwarding Busy Updated')
       setShowModal(false)
     } catch (error) {
@@ -70,7 +70,7 @@ export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

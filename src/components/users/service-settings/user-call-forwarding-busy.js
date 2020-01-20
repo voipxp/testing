@@ -23,14 +23,14 @@ export const UserCallForwardingBusy = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserServiceCallForwardinBusy] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceCallForwardinBusy.show(userId)
-		    loadUserServiceCallForwardinBusy(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -64,7 +64,7 @@ export const UserCallForwardingBusy = ({ match }) => {
 	showLoadingModal()
     try {
 		const updatedData = await apiUserServiceCallForwardinBusy.update(formData)
-       loadUserServiceCallForwardinBusy(updatedData)
+       setUserServiceData(updatedData)
 
       alertSuccess('Call Forwarding Busy Updated')
       setShowModal(false)
@@ -75,7 +75,7 @@ export const UserCallForwardingBusy = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

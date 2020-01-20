@@ -23,14 +23,14 @@ export const UserCallForwardingNotReachable = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [UserNotRechableView, loadUserNotRechable] = useState([])
+  const [UserNotRechableView, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiNotRechableService.show(userId)
-		 loadUserNotRechable(data)
+		 setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -64,7 +64,7 @@ export const UserCallForwardingNotReachable = ({ match }) => {
 	  showLoadingModal()
     try {
 		const updatedData = await apiNotRechableService.update(formData)
-      loadUserNotRechable(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Call Forwarding Not Reachable Updated')
       setShowModal(false)
     } catch (error) {
@@ -74,7 +74,7 @@ export const UserCallForwardingNotReachable = ({ match }) => {
     }
   }
 
-  if (!UserNotRechableView) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

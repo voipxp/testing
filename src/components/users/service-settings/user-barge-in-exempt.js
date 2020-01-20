@@ -23,14 +23,14 @@ export const UserBargeInExempt = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadapiUserServiceBargeInExempt] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceBargeInExempt.show(userId)
-		    loadapiUserServiceBargeInExempt(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -60,7 +60,7 @@ export const UserBargeInExempt = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceBargeInExempt.update(formData)
-      loadapiUserServiceBargeInExempt(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Barge In Exempt Updated')
       setShowModal(false)
     } catch (error) {
@@ -70,7 +70,7 @@ export const UserBargeInExempt = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

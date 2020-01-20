@@ -23,14 +23,14 @@ export const UserAdviceOfCharge = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserAdviceOfCharge] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserAdviceOfCharge.show(userId)
-		    loadUserAdviceOfCharge(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -64,8 +64,8 @@ export const UserAdviceOfCharge = ({ match }) => {
   async function update(formData) {
 	showLoadingModal()
     try {
-		  const updatedData = await apiUserAdviceOfCharge.update(formData)
-      loadUserAdviceOfCharge(updatedData)
+	  const updatedData = await apiUserAdviceOfCharge.update(formData)
+	  setUserServiceData(updatedData)
       alertSuccess('Advice Of Charge Updated')
       setShowModal(false)
     } catch (error) {
@@ -75,7 +75,7 @@ export const UserAdviceOfCharge = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

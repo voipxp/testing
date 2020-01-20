@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import apiServiceUserDirectedCallPickupWithBargeIn from '@/api/user-services-settings/user-directed-call-pickup-with-barge-in-service'
 import {
@@ -12,8 +11,7 @@ import {
   UiCheckbox,
   UiInputCheckbox,
   UiSection,
-  UiListItem,
-  UiFormField
+  UiListItem
 } from '@/components/ui'
 
 export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
@@ -23,14 +21,15 @@ export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserCallingNumberDelivery] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
+    
     const fetchData = async () => {
       try {
         const data = await apiServiceUserDirectedCallPickupWithBargeIn.show(userId)
-		    loadUserCallingNumberDelivery(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -60,7 +59,7 @@ export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const updatedData = await apiServiceUserDirectedCallPickupWithBargeIn.update(formData)
-      loadUserCallingNumberDelivery(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Directed Call Pickup with Barge-in Updated')
       setShowModal(false)
     } catch (error) {
@@ -70,7 +69,7 @@ export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>
@@ -95,6 +94,7 @@ export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={save}
+        
       >
         <form>
           <UiSection title="Enable">

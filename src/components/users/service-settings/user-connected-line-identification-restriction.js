@@ -23,14 +23,14 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserCallingNumberDelivery] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceConnectIdficationRestriction.show(userId)
-		    loadUserCallingNumberDelivery(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -60,7 +60,7 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceConnectIdficationRestriction.update(formData)
-      loadUserCallingNumberDelivery(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Connected Line Identification Restriction Updated')
       setShowModal(false)
     } catch (error) {
@@ -70,7 +70,7 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

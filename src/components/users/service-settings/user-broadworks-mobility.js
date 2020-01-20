@@ -23,14 +23,14 @@ export const UserBroadWorksMobility = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserServiceBroadWorksMobility] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceBroadWorksMobility.show(userId)
-		    loadUserServiceBroadWorksMobility(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -71,7 +71,7 @@ export const UserBroadWorksMobility = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceBroadWorksMobility.update(formData)
-      loadUserServiceBroadWorksMobility(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('BroadWorks Mobility Updated')
       setShowModal(false)
     } catch (error) {
@@ -81,7 +81,7 @@ export const UserBroadWorksMobility = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
   return (
     <>
       <UiCard

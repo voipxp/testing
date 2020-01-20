@@ -23,14 +23,14 @@ export const UserGroupNightForwarding = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserServiceGroupNightForwarding] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceGroupNightForwarding.show(userId)
-		    loadUserServiceGroupNightForwarding(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -64,7 +64,7 @@ export const UserGroupNightForwarding = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceGroupNightForwarding.update(formData)
-      loadUserServiceGroupNightForwarding(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess(' Group Night Forwarding Updated')
       setShowModal(false)
     } catch (error) {
@@ -74,7 +74,7 @@ export const UserGroupNightForwarding = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

@@ -23,7 +23,7 @@ export const UserCallTransfer = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserCallTransfer] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
@@ -31,7 +31,7 @@ export const UserCallTransfer = ({ match }) => {
       try {
         const data = await apiServiceUserCallTransfer.show(userId)
         console.log(data)
-		    loadUserCallTransfer(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -78,7 +78,7 @@ export const UserCallTransfer = ({ match }) => {
 	showLoadingModal()
     try {
 	  const updatedData = await apiServiceUserCallTransfer.update(formData)
-      loadUserCallTransfer(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Call Transfer Updated')
       setShowModal(false)
     } catch (error) {
@@ -88,7 +88,7 @@ export const UserCallTransfer = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

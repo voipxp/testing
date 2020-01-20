@@ -23,14 +23,14 @@ export const UserCallForwardingAlwaysSecondary = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserServiceCallFASecondary] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceCallFASecondary.show(userId)
-		    loadUserServiceCallFASecondary(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -60,7 +60,7 @@ export const UserCallForwardingAlwaysSecondary = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceCallFASecondary.update(formData)
-      loadUserServiceCallFASecondary(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Call Forwarding Always Secondary Updated')
       setShowModal(false)
     } catch (error) {
@@ -70,7 +70,7 @@ export const UserCallForwardingAlwaysSecondary = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

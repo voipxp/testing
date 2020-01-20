@@ -23,14 +23,14 @@ export const UserAutomaticCallback = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserAutomaticCallback] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceAutomaticCallback.show(userId)
-		    loadUserAutomaticCallback(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -60,7 +60,7 @@ export const UserAutomaticCallback = ({ match }) => {
 	showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceAutomaticCallback.update(formData)
-      loadUserAutomaticCallback(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Automatic Callback Updated')
       setShowModal(false)
     } catch (error) {
@@ -70,7 +70,7 @@ export const UserAutomaticCallback = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

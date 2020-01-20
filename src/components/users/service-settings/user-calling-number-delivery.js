@@ -23,14 +23,14 @@ export const UserCallingNumberDelivery = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserCallingNumberDelivery] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceCallingNumberDelivery.show(userId)
-		    loadUserCallingNumberDelivery(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -60,7 +60,7 @@ export const UserCallingNumberDelivery = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceCallingNumberDelivery.update(formData)
-      loadUserCallingNumberDelivery(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Calling Number Delivery Updated')
       setShowModal(false)
     } catch (error) {
@@ -70,7 +70,7 @@ export const UserCallingNumberDelivery = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

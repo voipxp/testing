@@ -23,14 +23,14 @@ export const UserCLIDExternalDelivery = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserCLIDExternalDelivery] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceCLIDExternalDelivery.show(userId)
-		    loadUserCLIDExternalDelivery(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -60,7 +60,7 @@ export const UserCLIDExternalDelivery = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceCLIDExternalDelivery.update(formData)
-      loadUserCLIDExternalDelivery(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess(' External Calling Line ID Delivery Updated')
       setShowModal(false)
     } catch (error) {
@@ -70,7 +70,7 @@ export const UserCLIDExternalDelivery = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

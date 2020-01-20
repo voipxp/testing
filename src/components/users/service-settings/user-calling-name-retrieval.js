@@ -23,14 +23,14 @@ export const UserCallingNameRetrieval = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserCallingNameRetrieval] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserCallingNameRetrieval.show(userId)
-		    loadUserCallingNameRetrieval(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -60,7 +60,7 @@ export const UserCallingNameRetrieval = ({ match }) => {
 	showLoadingModal()
     try {
 	  const updatedData = await apiUserCallingNameRetrieval.update(formData)
-      loadUserCallingNameRetrieval(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Calling Name Retrieval Updated')
       setShowModal(false)
     } catch (error) {
@@ -70,7 +70,7 @@ export const UserCallingNameRetrieval = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

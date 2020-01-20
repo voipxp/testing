@@ -23,14 +23,14 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userDataNoAnswer, loadUserNotServiceNoAnswer] = useState([])
+  const [userDataNoAnswer, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceNoAnswer.show(userId)
-		loadUserNotServiceNoAnswer(data)
+		setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -74,7 +74,7 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
 	showLoadingModal()
     try {
 		const updatedData = await apiUserServiceNoAnswer.update(formData)
-       loadUserNotServiceNoAnswer(updatedData)
+       setUserServiceData(updatedData)
 
       alertSuccess('Call Forwarding Not Reachable Updated')
       setShowModal(false)
@@ -85,7 +85,7 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
     }
   }
 
-  if (!userDataNoAnswer) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

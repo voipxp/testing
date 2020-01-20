@@ -23,14 +23,14 @@ export const UserCallForwardingAlways = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserServiceCallForwardingAlways] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceCallForwardingAlways.show(userId)
-		    loadUserServiceCallForwardingAlways(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -60,7 +60,7 @@ export const UserCallForwardingAlways = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceCallForwardingAlways.update(formData)
-      loadUserServiceCallForwardingAlways(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Call Forwarding Always Updated')
       setShowModal(false)
     } catch (error) {
@@ -70,7 +70,7 @@ export const UserCallForwardingAlways = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

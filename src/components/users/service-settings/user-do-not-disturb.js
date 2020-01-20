@@ -23,14 +23,14 @@ export const UserServiceDoNotDisturb = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserServiceDoNotDisturb] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceDoNotDisturb.show(userId)
-		    loadUserServiceDoNotDisturb(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -60,7 +60,7 @@ export const UserServiceDoNotDisturb = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceDoNotDisturb.update(formData)
-      loadUserServiceDoNotDisturb(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Calling Number Delivery Updated')
       setShowModal(false)
     } catch (error) {
@@ -70,7 +70,7 @@ export const UserServiceDoNotDisturb = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

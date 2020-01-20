@@ -21,14 +21,14 @@ export const UserAnonymousCallRejection = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserNotServiceCR] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceAnonymousCallRejection.show(userId)
-		    loadUserNotServiceCR(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -58,7 +58,7 @@ export const UserAnonymousCallRejection = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceAnonymousCallRejection.update(formData)
-      loadUserNotServiceCR(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Anonymous Call Rejection Updated')
       setShowModal(false)
     } catch (error) {
@@ -68,7 +68,7 @@ export const UserAnonymousCallRejection = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
   return (
     <>
       <UiCard

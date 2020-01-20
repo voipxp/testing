@@ -23,14 +23,14 @@ export const UserCallRecording = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserCallRecordingService] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
    
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserCallRecordingService.show(userId)
-        loadUserCallRecordingService(data)
+        setUserServiceData(data)
 	 } catch (error) {
         alertDanger(error)
       } finally {
@@ -85,7 +85,7 @@ export const UserCallRecording = ({ match }) => {
 	showLoadingModal()
     try {
 	  const updatedData = await apiUserCallRecordingService.update(formData)
-      loadUserCallRecordingService(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Call Recording Updated')
       setShowModal(false)
     } catch (error) {
@@ -95,7 +95,7 @@ export const UserCallRecording = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

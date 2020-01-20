@@ -23,14 +23,14 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserAutomaticHoldRetrieve] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceAutomaticHoldRetrieve.show(userId)
-		    loadUserAutomaticHoldRetrieve(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -45,11 +45,7 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    if(name ==='recallTimerSeconds')
-    {
-      if(value < 6 || value > 600 ) return false
-    }
-	setForm({ ...form, [name]: value })
+    setForm({ ...form, [name]: value })
   }
   
   function edit() {
@@ -58,14 +54,19 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
   }
   
   function save() {
-    update(form)
+	  if( form.recallTimerSeconds < 6 || form.recallTimerSeconds > 600 ){
+		  alertDanger('Automatic Hold/Retrieve Minimum Value 6 and Maximum Value 600')
+		  return false
+	  }else{
+		  update(form)
+	  }
   }
 
   async function update(formData) {
 	showLoadingModal()
     try {
 	  const updatedData = await apiUserServiceAutomaticHoldRetrieve.update(formData)
-      loadUserAutomaticHoldRetrieve(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Automatic Hold/Retrieve Updated')
       setShowModal(false)
     } catch (error) {
@@ -75,7 +76,7 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

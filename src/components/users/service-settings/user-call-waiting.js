@@ -23,14 +23,14 @@ export const UserCallWaiting = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserServiceCallWaiting] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceCallWaiting.show(userId)
-		    loadUserServiceCallWaiting(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -64,7 +64,7 @@ export const UserCallWaiting = ({ match }) => {
 	showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceCallWaiting.update(formData)
-      loadUserServiceCallWaiting(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Call Waiting Updated')
       setShowModal(false)
     } catch (error) {
@@ -74,7 +74,7 @@ export const UserCallWaiting = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>

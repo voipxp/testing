@@ -21,14 +21,14 @@ export const UserCallingNameDelivery = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userServiceData, loadUserServiceCallingNameDelivery] = useState([])
+  const [userServiceData, setUserServiceData] = useState([])
   
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await apiUserServiceCallingNameDelivery.show(userId)
-		    loadUserServiceCallingNameDelivery(data)
+		    setUserServiceData(data)
       } catch (error) {
         alertDanger(error)
       } finally {
@@ -58,7 +58,7 @@ export const UserCallingNameDelivery = ({ match }) => {
 	showLoadingModal()
     try {
 		  const updatedData = await apiUserServiceCallingNameDelivery.update(formData)
-      loadUserServiceCallingNameDelivery(updatedData)
+      setUserServiceData(updatedData)
       alertSuccess('Calling Name Delivery Updated')
       setShowModal(false)
     } catch (error) {
@@ -68,7 +68,7 @@ export const UserCallingNameDelivery = ({ match }) => {
     }
   }
 
-  if (!userServiceData) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   return (
     <>
