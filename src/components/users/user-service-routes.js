@@ -25,6 +25,7 @@ import { UserServiceDoNotDisturb } from './service-settings/user-do-not-disturb'
 import { UserCLIDExternalDelivery } from './service-settings/user-external-calling-line-id-delivery'
 import { UserGroupNightForwarding } from './service-settings/user-group-night-forwarding'
 import { UserConnectedLineIdentificationRestriction } from './service-settings/user-connected-line-identification-restriction' 
+import { UserDirectedCallPickupWithBargeIn } from './service-settings/user-directed-call-pickup-with-barge-in' 
 
 
 export const userServiceRoutes = [
@@ -213,7 +214,7 @@ export const userServiceRoutes = [
     services: ['Connected Line Identification Restriction']
   },
   {
-    angularComponent: 'userDirectedCallPickupWithBargeIn',
+    component: UserDirectedCallPickupWithBargeIn,
     module: 'Directed Call Pickup with Barge-in',
     path: 'directed-call-pickup-with-barge-in',
     services: ['Directed Call Pickup with Barge-in']
