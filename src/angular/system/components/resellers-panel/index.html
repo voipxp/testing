@@ -5,6 +5,7 @@
     item-key="name"
     limit-to="$ctrl.limitTo"
     on-select="$ctrl.open($event)"
+    ng-if="$ctrl.resellers.length > 0"
   >
     <pbs-panel-buttons>
       <!-- <pbs-button-compact-clone title="Clone Reseller" ng-click="$ctrl.clone()">

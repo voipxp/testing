@@ -8,14 +8,14 @@ angular.module('odin.department').component('departmentChangePassword', {
   bindings: { userId: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupDepartmentAdminService', 'Module','Session', '$q']
+controller.$inject = ['Alert', 'GroupDepartmentAdminService', 'AuthService','PasswordModifyRequest', 'Module','Session', '$q']
 
-function controller(Alert, GroupDepartmentAdminService, Module, Session, $q) {
+function controller(Alert, GroupDepartmentAdminService, AuthService, PasswordModifyRequest, Module, Session, $q) {
   var ctrl      	= this
   ctrl.$onInit  	= onInit
   ctrl.edit     	= edit
   ctrl.permission 	= false
- 
+
   function onInit() {
 	  ctrl.loading = true
     return $q
@@ -36,33 +36,51 @@ function controller(Alert, GroupDepartmentAdminService, Module, Session, $q) {
   }
 
   function loadSettings() {
+   // ctrl.isCurrentUser = ctrl.userId === Session.data('userId')
 	  ctrl.settings = {
 		  userId: Session.data('userId'),
-      password: null
+      password: null,
+      oldPassword : null
     }
   }
-
+  
   function edit() {
     ctrl.editSettings = angular.copy(ctrl.settings)
-	  ctrl.userId = Session.data('userId')
-    Alert.modal.open('editDepartmentChangePassword', function onSave(close) {
+	  Alert.modal.open('editDepartmentChangePassword', function onSave(close) {
+      if (!ctrl.isCurrentUser) {
+        delete ctrl.settings.oldPassword
+      }
       update(ctrl.editSettings, close)
     })
   }
 
   function update(settings, callback) {  
     Alert.spinner.open()
-    GroupDepartmentAdminService.update(settings)
-      .then(loadSettings)
-      .then(function() {
-        Alert.notify.success('Password Changed')
-        if (_.isFunction(callback)) callback()
-      })
-      .catch(function(error) {
-        Alert.notify.danger(error)
-      })
-      .finally(function() {
-        Alert.spinner.close()
-      })
+    ctrl.changePassword = {
+      userId : settings.userId,
+      newPassword : settings.password,
+      oldPassword : settings.oldPassword
+    }
+    if(settings.password) delete settings.password
+    updateSelfPassword( ctrl.changePassword , callback)
+  }
+  function updateSelfPassword(user , callback){  
+    return PasswordModifyRequest.updatePasswords( user )
+    .then(loadSettings)
+    .then(function() {
+      updateSession(user.userId, user.newPassword)
+      Alert.notify.success('Password Changed')
+      callback()
+    })
+    .catch(function(error) {
+      Alert.notify.danger(error)
+    })
+    .finally(function() {
+      Alert.spinner.close()
+    })
+  }
+  // so we don't have to login again
+  function updateSession(userId, password) { 
+    return AuthService.token(userId, password).then(Session.set)
   }
 }

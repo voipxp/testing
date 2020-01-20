@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useAsync } from 'react-async-hook'
 import { useAlerts } from '@/store/alerts'
-import auditApi from '@/api/audits'
+import api from '@/api/imports'
 import { AppBreadcrumb } from '@/components/app'
 import { Breadcrumb, Column, Field, Input, Control, Icon, Button } from 'rbx'
 import { GroupSearch } from '@/components/group-search'
@@ -17,7 +17,7 @@ import {
   UiInputCheckbox
 } from '@/components/ui'
 
-const AUDIT_LIMIT = 5000
+const IMPORT_LIMIT = 500
 
 const columns = [
   { key: 'id', label: 'ID' },
@@ -28,21 +28,21 @@ const columns = [
   { key: 'error', label: 'Errors' },
   { key: 'created_at', label: 'Created' }
 ]
-const audits = [
-  'audit.system',
-  'audit.serviceProvider',
-  'audit.group.devices',
-  'audit.group'
+const imports = [
+  'import.system',
+  'import.serviceProvider',
+  'import.group.devices',
+  'import.group'
 ]
 
-export const Audits = ({ history, match, isBreadcrumb = true }) => {
+export const Imports = ({ history, match, isBreadcrumb = true }) => {
   const initialForm = {
     'serviceProviderId': '',
     'groupId': '',
-    'audit.system': true,
-    'audit.serviceProvider': true,
-    'audit.group.devices': false,
-    'audit.group': false
+    'import.system': true,
+    'import.serviceProvider': true,
+    'import.group.devices': false,
+    'import.group': false
   }
 
   const serviceProviderId = match.params.serviceProviderId
@@ -54,7 +54,7 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
   const [initialized, setInitialized] = React.useState(false)
 
   const { result, error, loading, execute } = useAsync(
-    () => auditApi.list(AUDIT_LIMIT, { serviceProviderId, groupId }),
+    () => api.list(IMPORT_LIMIT, { serviceProviderId, groupId }),
     []
   )
 
@@ -67,7 +67,7 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
     setForm({ ...form, [name]: value })
   }
 
-  const open = ({ id }) => history.push(`/audits/${id}`)
+  const open = ({ id }) => history.push(`/imports/${id}`)
   function add() {
     setShowModal(true)
   }
@@ -90,18 +90,18 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
   async function save(settings) {
     const magic = Object.keys(form).reduce(
       (obj, key) => {
-        if (key.startsWith('audit')) {
-          obj.options.audits[key] = form[key]
+        if (key.startsWith('import')) {
+          obj.options.imports[key] = form[key]
         } else {
           obj[key] = form[key]
         }
         return obj
       },
-      { options: { audits: {} } }
+      { options: { imports: {} } }
     )
     try {
       setShowLoading(true)
-      await auditApi.create(magic)
+      await api.create(magic)
       execute()
     } catch (error_) {
       alertDanger(error_)
@@ -115,17 +115,17 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
     <>
       {isBreadcrumb && (
         <AppBreadcrumb>
-          <Breadcrumb.Item>Audits (beta)</Breadcrumb.Item>
+          <Breadcrumb.Item>Imports (beta)</Breadcrumb.Item>
         </AppBreadcrumb>
       )}
       {loading ? (
         <UiLoadingCard />
       ) : (
         <UiCard
-          title="Recent Audits"
-          buttons={
-            <UiButton color="link" icon="add" size="small" onClick={add} />
-          }
+          title="Recent Imports"
+          // buttons={
+          //   <UiButton color="link" icon="add" size="small" onClick={add} />
+          // }
         >
           <UiDataTable
             columns={columns}
@@ -148,7 +148,7 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
         ''
       )}
       <UiCardModal
-        title={'Start Backup'}
+        title={'Start Import'}
         onCancel={onCancel}
         isOpen={showModal}
         onSave={save}
@@ -174,7 +174,7 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
               <Field>
                 <Control>
                   <UiButton fullwidth static>
-                    Audit Options
+                    Import Options
                   </UiButton>
                 </Control>
               </Field>
@@ -206,14 +206,14 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
               </Field>
               <Field>
                 <Control>
-                  {audits.map(audit => {
+                  {imports.map(import2 => {
                     return (
                       <UiInputCheckbox
-                        key={audit}
-                        name={audit}
-                        label={audit}
-                        // checked={form[audit] ? true : false}
-                        checked={form[audit]}
+                        key={import2}
+                        name={import2}
+                        label={import2}
+                        // checked={form[import] ? true : false}
+                        checked={form[import2]}
                         onChange={handleInput}
                       />
                     )
@@ -228,7 +228,7 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
   )
 }
 
-Audits.propTypes = {
+Imports.propTypes = {
   history: PropTypes.object,
   match: PropTypes.object,
   isBreadcrumb: PropTypes.bool
