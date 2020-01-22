@@ -69,7 +69,6 @@ export const UserIntercept = ({ match }) => {
     showLoadingModal()
     try {
       const newUserIntercept = await api.update(userIntercept)
-      console.log('newUserIntercept', newUserIntercept)
       setQueryData(['user-intercept'], newUserIntercept, {
         shouldRefetch: true
       })
