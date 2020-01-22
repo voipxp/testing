@@ -27,7 +27,10 @@ controller.$inject = [
   'EventEmitter',
   'GroupPolicyService',
   'ServiceProviderPolicyService',
-  'GroupWebPolicyService'
+  'GroupWebPolicyService',
+  'PasswordModifyRequest',
+  'AuthService',
+  'Session'
 ]
 function controller(
   Alert,
@@ -39,7 +42,10 @@ function controller(
   EventEmitter,
   GroupPolicyService,
   ServiceProviderPolicyService,
-  GroupWebPolicyService
+  GroupWebPolicyService,
+  PasswordModifyRequest,
+  AuthService,
+  Session
 ) {
   var ctrl = this
 
@@ -114,8 +120,9 @@ function controller(
   }
 
   function edit() {
-    activate().then(function() {
+    activate().then(function() { 
       ctrl.editProfile = angular.copy(ctrl.profile)
+      ctrl.isCurrentUser = ctrl.serviceUserId === Session.data('userId')
       Alert.modal.open('editServiceInstanceProfile', function(close) {
         sendUpdate(ctrl.editProfile, close)
       })
@@ -123,6 +130,43 @@ function controller(
   }
 
   function sendUpdate(profile, callback) {
-    ctrl.onUpdate(EventEmitter({ profile: profile, callback: callback }))
+    
+	   ctrl.changePassWord = {
+      userId : ctrl.serviceUserId,
+      newPassword : profile.password,
+    }
+    if(profile.oldPassword) {
+      ctrl.changePassWord['oldPassword'] = profile.oldPassword
+    }
+     
+    if (profile.password) {
+      delete profile.password
+      updateSelfPassword(ctrl.changePassWord)
+    }
+	ctrl.onUpdate(EventEmitter({ profile: profile, callback: callback }))
   }
+  
+  function updateSelfPassword(user){
+    return PasswordModifyRequest.updatePasswords( user )
+    .then(function() {
+      return ctrl.isCurrentUser
+      ? updateSession(user.userId, user.newPassword)
+      : $q.when()
+    })
+      .then(function() {
+        Alert.notify.success('Password Changed')
+      })
+      .catch(function(error) {
+        Alert.notify.danger(error)
+      })
+      .finally(function() {
+        Alert.spinner.close()
+      })
+  }
+  
+  // so we don't have to login again
+  function updateSession(userId, password) {
+    return AuthService.token(userId, password).then(Session.set)
+  }
+  
 }
