@@ -43,6 +43,10 @@ export const GroupSearch = ({ onSelect }) => {
 
   const search = async e => {
     e.preventDefault()
+    if(searchString.length < 3) {
+      alertDanger('Search string must atleast 3 characters')
+      return
+    }
     await execute()
     setInitialized(true)
   }
