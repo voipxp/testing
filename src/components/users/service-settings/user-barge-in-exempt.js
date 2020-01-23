@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import apiUserServiceBargeInExempt from '@/api/user-services-settings/user-barge-in-exempt-service'
+import { useQuery, setQueryData } from 'react-query'
+import api from '@/api/user-services-settings/user-barge-in-exempt-service'
 import {
   UiCard,
   UiLoadingCard,
@@ -22,23 +23,15 @@ export const UserBargeInExempt = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [userServiceData, setUserServiceData] = useState([])
-  
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiUserServiceBargeInExempt.show(userId)
-		    setUserServiceData(data)
-      } catch (error) {
-        alertDanger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [userId, alertDanger])
+ const { data: result, isLoading, error, refetch } = useQuery(
+    'user-barge-in-exempt',
+    () => api.show(userId)
+  )
+
+  const userServiceData = result || {}
+
+  if (error) alertDanger(error)
+  if (isLoading) return <UiLoadingCard />
   
   function handleInput(event) {
     const target = event.target
@@ -56,22 +49,22 @@ export const UserBargeInExempt = ({ match }) => {
     update(form)
   }
 
-  async function update(formData) {
-	  showLoadingModal()
+async function update(formData) {
+    showLoadingModal()
     try {
-		  const updatedData = await apiUserServiceBargeInExempt.update(formData)
-      setUserServiceData(updatedData)
+      const newUserBargeInExempt = await api.update(formData)
+      setQueryData(['user-barge-in-exempt'], newUserBargeInExempt, {
+        shouldRefetch: true
+      })
       alertSuccess('Barge In Exempt Updated')
       setShowModal(false)
-    } catch (error) {
-      alertDanger(error)
+    } catch (error_) {
+      alertDanger(error_)
     } finally {
       hideLoadingModal()
     }
   }
-
-  if (loading) return <UiLoadingCard />
-
+  
   return (
     <>
       <UiCard

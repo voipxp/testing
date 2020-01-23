@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import apiUserServiceCallFASecondary from '@/api/user-services-settings/user-call-forwarding-always-secondary-service'
+import { useQuery, setQueryData } from 'react-query'
+import api from '@/api/user-services-settings/user-call-forwarding-always-secondary-service'
 import {
   UiCard,
   UiLoadingCard,
@@ -22,24 +23,16 @@ export const UserCallForwardingAlwaysSecondary = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [userServiceData, setUserServiceData] = useState([])
+   
+  const { data: result, isLoading, error } = useQuery(
+    'user-call-forwarding-always-secondary',
+	() => api.show(userId)		
+  )
+  const userServiceData = result || {}
   
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiUserServiceCallFASecondary.show(userId)
-		    setUserServiceData(data)
-      } catch (error) {
-        alertDanger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [userId, alertDanger])
-  
+  if (error) alertDanger(error)
+  if (isLoading) return <UiLoadingCard />
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
@@ -57,20 +50,21 @@ export const UserCallForwardingAlwaysSecondary = ({ match }) => {
   }
 
   async function update(formData) {
-	  showLoadingModal()
+    showLoadingModal()
     try {
-		  const updatedData = await apiUserServiceCallFASecondary.update(formData)
-      setUserServiceData(updatedData)
+      const newCallForwardingAlwaysSecondary = await api.update(formData)
+      
+      setQueryData(['user-call-forwarding-always-secondary'], newCallForwardingAlwaysSecondary, {
+        shouldRefetch: true
+      })
       alertSuccess('Call Forwarding Always Secondary Updated')
       setShowModal(false)
-    } catch (error) {
-      alertDanger(error)
+    } catch (error_) {
+      alertDanger(error_)
     } finally {
       hideLoadingModal()
     }
   }
-
-  if (loading) return <UiLoadingCard />
 
   return (
     <>

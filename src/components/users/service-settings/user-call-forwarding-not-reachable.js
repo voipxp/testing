@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import apiNotRechableService from '@/api/user-services-settings/user-call-forwarding-not-reachable-service'
+import { useQuery, setQueryData } from 'react-query'
+import api from '@/api/user-services-settings/user-call-forwarding-not-reachable-service'
 import {
   UiCard,
   UiLoadingCard,
@@ -22,24 +23,17 @@ export const UserCallForwardingNotReachable = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [UserNotRechableView, setUserServiceData] = useState([])
-  
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiNotRechableService.show(userId)
-		 setUserServiceData(data)
-      } catch (error) {
-        alertDanger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [userId, alertDanger])
-  
+   
+  const { data: result, isLoading, error, refetch } = useQuery(
+    'user-call-forwarding-not-reachable',
+    () => api.show(userId)
+  )
+
+  const UserNotRechableView = result || {}
+
+  if (error) alertDanger(error)
+  if (isLoading) return <UiLoadingCard />
+
   const userCallForwordingLength = {
     outgoingDNorSIPURI: { minimum: 1, maximum: 161 }
   } 
@@ -63,18 +57,18 @@ export const UserCallForwardingNotReachable = ({ match }) => {
   async function update(formData) {
 	  showLoadingModal()
     try {
-		const updatedData = await apiNotRechableService.update(formData)
-      setUserServiceData(updatedData)
-      alertSuccess('Call Forwarding Not Reachable Updated')
+		const newUserCFNR = await api.update(formData)
+      setQueryData(['user-call-forwarding-not-reachable'], newUserCFNR, {
+        shouldRefetch: true
+      })
+	  alertSuccess('Call Forwarding Not Reachable Updated')
       setShowModal(false)
-    } catch (error) {
-      alertDanger(error)
+    } catch (error_) {
+      alertDanger(error_)
     } finally {
       hideLoadingModal()
     }
   }
-
-  if (loading) return <UiLoadingCard />
 
   return (
     <>

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import apiUserServiceAnonymousCallRejection from '@/api/user-services-settings/user-anonymous-call-rejection-service'
+import { useQuery, setQueryData } from 'react-query'
+import api from '@/api/user-services-settings/user-anonymous-call-rejection-service'
 import {
   UiCard,
   UiLoadingCard,
@@ -15,34 +16,28 @@ import {
 } from '@/components/ui'
 
 export const UserAnonymousCallRejection = ({ match }) => {
-   const { userId } = match.params
+  const { userId } = match.params
   const { alertSuccess, alertDanger } = useAlerts()
+  
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
+  const [ready, setReady] = React.useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [userServiceData, setUserServiceData] = useState([])
+   const { data: result, isLoading, error, refetch } = useQuery(
+    'anonymous-call-rejection',
+    () => api.show(userId)
+  )  
   
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiUserServiceAnonymousCallRejection.show(userId)
-		    setUserServiceData(data)
-      } catch (error) {
-        alertDanger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [userId, alertDanger])
+  const userServiceData = result || {}
+   
+  if (error) alertDanger(error)
+  if (isLoading) return <UiLoadingCard />
 
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-	  setForm({ ...form, [name]: value })
+	setForm({ ...form, [name]: value })
   }
   
   function edit() {
@@ -57,18 +52,19 @@ export const UserAnonymousCallRejection = ({ match }) => {
   async function update(formData) {
 	  showLoadingModal()
     try {
-		  const updatedData = await apiUserServiceAnonymousCallRejection.update(formData)
-      setUserServiceData(updatedData)
-      alertSuccess('Anonymous Call Rejection Updated')
+		const newUserAnonymousCallRejection = await api.update(formData)
+      setQueryData(['anonymous-call-rejection'], newUserAnonymousCallRejection, {
+        shouldRefetch: true
+      })
+	  alertSuccess('Intercept User Updated')
       setShowModal(false)
-    } catch (error) {
-      alertDanger(error)
+    } catch (error_) {
+      alertDanger(error_)
     } finally {
       hideLoadingModal()
     }
   }
 
-  if (loading) return <UiLoadingCard />
   return (
     <>
       <UiCard

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import apiUserServiceCallForwardingAlways from '@/api/user-services-settings/user-call-forwarding-always-service'
+import { useQuery, setQueryData } from 'react-query'
+import api from '@/api/user-services-settings/user-call-forwarding-always-service'
 import {
   UiCard,
   UiLoadingCard,
@@ -22,24 +23,18 @@ export const UserCallForwardingAlways = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [userServiceData, setUserServiceData] = useState([])
   
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiUserServiceCallForwardingAlways.show(userId)
-		    setUserServiceData(data)
-      } catch (error) {
-        alertDanger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [userId, alertDanger])
   
+  const { data: result, isLoading, error, refetch } = useQuery(
+    'user-call-forwarding-always',
+    () => api.show(userId)
+  )
+
+  const userServiceData = result || {}
+  
+  if (error) alertDanger(error)
+  if (isLoading) return <UiLoadingCard />
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
@@ -55,22 +50,23 @@ export const UserCallForwardingAlways = ({ match }) => {
   function save() {
     update(form)
   }
-
+  
   async function update(formData) {
-	  showLoadingModal()
+    showLoadingModal()
     try {
-		  const updatedData = await apiUserServiceCallForwardingAlways.update(formData)
-      setUserServiceData(updatedData)
+      const newUserCallForwardingAlways = await api.update(formData)
+       
+      setQueryData(['user-call-forwarding-always'], newUserCallForwardingAlways, {
+        shouldRefetch: true
+      })
       alertSuccess('Call Forwarding Always Updated')
       setShowModal(false)
-    } catch (error) {
-      alertDanger(error)
+    } catch (error_) {
+      alertDanger(error_)
     } finally {
       hideLoadingModal()
     }
   }
-
-  if (loading) return <UiLoadingCard />
 
   return (
     <>

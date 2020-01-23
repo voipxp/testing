@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import apiUserServiceAutomaticCallback from '@/api/user-services-settings/user-automatic-callback-service'
+import { useQuery, setQueryData } from 'react-query'
+import api from '@/api/user-services-settings/user-automatic-callback-service'
 import {
   UiCard,
   UiLoadingCard,
@@ -22,23 +23,12 @@ export const UserAutomaticCallback = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [userServiceData, setUserServiceData] = useState([])
-  
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiUserServiceAutomaticCallback.show(userId)
-		    setUserServiceData(data)
-      } catch (error) {
-        alertDanger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [userId, alertDanger])
+  const { data: result, isLoading, error, refetch } = useQuery(
+    'user-automatic-callback',
+    () => api.show(userId)
+  )  
+
+  const userServiceData = result || {} 
   
   function handleInput(event) {
     const target = event.target
@@ -59,18 +49,22 @@ export const UserAutomaticCallback = ({ match }) => {
   async function update(formData) {
 	showLoadingModal()
     try {
-		  const updatedData = await apiUserServiceAutomaticCallback.update(formData)
-      setUserServiceData(updatedData)
+		  const updatedData = await api.update(formData)
+		  
+		  const newUserAutomaticCallback = await api.update(formData)
+			setQueryData(['user-automatic-callback'], newUserAutomaticCallback, {
+			shouldRefetch: true
+		 })
       alertSuccess('Automatic Callback Updated')
       setShowModal(false)
-    } catch (error) {
-      alertDanger(error)
+    } catch (error_) {
+      alertDanger(error_)
     } finally {
       hideLoadingModal()
     }
   }
 
-  if (loading) return <UiLoadingCard />
+  if (isLoading) return <UiLoadingCard />
 
   return (
     <>

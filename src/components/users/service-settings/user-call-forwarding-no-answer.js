@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input, Select, Column } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import apiUserServiceNoAnswer from '@/api/user-services-settings/user-call-forwarding-no-answer-service'
+import { useQuery, setQueryData } from 'react-query'
+import api from '@/api/user-services-settings/user-call-forwarding-no-answer-service'
 import {
   UiCard,
   UiLoadingCard,
@@ -23,23 +24,15 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [userDataNoAnswer, setUserServiceData] = useState([])
+   const { data: result, isLoading, error } = useQuery(
+    'user-call-forwarding-no-ans',
+	() => api.show(userId)		
+  )
+  const userDataNoAnswer = result || {}
   
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiUserServiceNoAnswer.show(userId)
-		setUserServiceData(data)
-      } catch (error) {
-        alertDanger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [userId, alertDanger])
-  
+  if (error) alertDanger(error)
+  if (isLoading) return <UiLoadingCard />
+   
   
  const userCallForwordingLength = {
     outgoingDNorSIPURI: { minimum: 1, maximum: 161 },
@@ -69,24 +62,24 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
   function save() {
     update(form)
   }
-
+  
   async function update(formData) {
-	showLoadingModal()
+    showLoadingModal()
     try {
-		const updatedData = await apiUserServiceNoAnswer.update(formData)
-       setUserServiceData(updatedData)
-
-      alertSuccess('Call Forwarding Not Reachable Updated')
+      const newCallForwardingNoAns = await api.update(formData)
+      
+      setQueryData(['user-call-forwarding-no-ans'], newCallForwardingNoAns, {
+        shouldRefetch: true
+      })
+      alertSuccess('Call Forwarding No Answer Updated')
       setShowModal(false)
-    } catch (error) {
-      alertDanger(error)
+    } catch (error_) {
+      alertDanger(error_)
     } finally {
       hideLoadingModal()
     }
   }
-
-  if (loading) return <UiLoadingCard />
-
+ 
   return (
     <>
       <UiCard

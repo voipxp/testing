@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import apiUserServiceCallingNumberDelivery from '@/api/user-services-settings/user-calling-number-delivery-service'
+import { useQuery, setQueryData } from 'react-query'
+import api from '@/api/user-services-settings/user-calling-number-delivery-service'
 import {
   UiCard,
   UiLoadingCard,
@@ -22,24 +23,16 @@ export const UserCallingNumberDelivery = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [userServiceData, setUserServiceData] = useState([])
   
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiUserServiceCallingNumberDelivery.show(userId)
-		    setUserServiceData(data)
-      } catch (error) {
-        alertDanger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [userId, alertDanger])
-  
+   const { data: result, isLoading, error, refetch } = useQuery(
+    'user-calling-number-delivery',
+    () => api.show(userId)
+  )
+  const userServiceData = result || {}
+
+  if (error) alertDanger(error)
+  if (isLoading) return <UiLoadingCard /> 
+ 
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
@@ -59,18 +52,34 @@ export const UserCallingNumberDelivery = ({ match }) => {
   async function update(formData) {
 	  showLoadingModal()
     try {
-		  const updatedData = await apiUserServiceCallingNumberDelivery.update(formData)
-      setUserServiceData(updatedData)
+		  const newUserCallingNumberDelivery = await api.update(formData)
+      setQueryData(['user-calling-number-delivery'], newUserCallingNumberDelivery, {
+        shouldRefetch: true
+		 })
       alertSuccess('Calling Number Delivery Updated')
       setShowModal(false)
-    } catch (error) {
-      alertDanger(error)
+    } catch (error_) {
+      alertDanger(error_)
     } finally {
       hideLoadingModal()
     }
   }
-
-  if (loading) return <UiLoadingCard />
+  
+   async function update(formData) {
+    showLoadingModal()
+    try {
+      const newAutomaticHoldRetrive = await api.update(formData)
+      setQueryData(['user-automatic-hold-retrieve'], newAutomaticHoldRetrive, {
+        shouldRefetch: true
+      })
+      alertSuccess('Automatic Hold/Retrieve Updated')
+      setShowModal(false)
+    } catch (error_) {
+      alertDanger(error_)
+    } finally {
+      hideLoadingModal()
+    }
+  }
 
   return (
     <>

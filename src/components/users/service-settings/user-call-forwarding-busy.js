@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import apiUserServiceCallForwardinBusy from '@/api/user-services-settings/user-call-forwarding-busy-service'
+import { useQuery, setQueryData } from 'react-query'
+import api from '@/api/user-services-settings/user-call-forwarding-busy-service'
 import {
   UiCard,
   UiLoadingCard,
@@ -22,24 +23,14 @@ export const UserCallForwardingBusy = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [userServiceData, setUserServiceData] = useState([])
+  const { data: result, isLoading, error } = useQuery(
+    'user-call-forwarding-busy',
+	() => api.show(userId)		
+  )
+  const userServiceData = result || {}
   
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiUserServiceCallForwardinBusy.show(userId)
-		    setUserServiceData(data)
-      } catch (error) {
-        alertDanger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [userId, alertDanger])
-  
+  if (error) alertDanger(error)
+  if (isLoading) return <UiLoadingCard />
   const userCallForwordingLength = {
     outgoingDNorSIPURI: { minimum: 1, maximum: 161 } 
   } 
@@ -61,21 +52,21 @@ export const UserCallForwardingBusy = ({ match }) => {
   }
 
   async function update(formData) {
-	showLoadingModal()
+    showLoadingModal()
     try {
-		const updatedData = await apiUserServiceCallForwardinBusy.update(formData)
-       setUserServiceData(updatedData)
-
+      const newCallForwardingBusy = await api.update(formData)
+      
+      setQueryData(['user-call-forwarding-busy'], newCallForwardingBusy, {
+        shouldRefetch: true
+      })
       alertSuccess('Call Forwarding Busy Updated')
       setShowModal(false)
-    } catch (error) {
-      alertDanger(error)
+    } catch (error_) {
+      alertDanger(error_)
     } finally {
       hideLoadingModal()
     }
   }
-
-  if (loading) return <UiLoadingCard />
 
   return (
     <>

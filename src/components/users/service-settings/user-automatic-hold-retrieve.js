@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import apiUserServiceAutomaticHoldRetrieve from '@/api/user-services-settings/user-automatic-hold-retrieve-service'
+import { useQuery, setQueryData } from 'react-query'
+import api from '@/api/user-services-settings/user-automatic-hold-retrieve-service'
 import {
   UiCard,
   UiLoadingCard,
@@ -22,23 +23,14 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [userServiceData, setUserServiceData] = useState([])
-  
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      try {
-        const data = await apiUserServiceAutomaticHoldRetrieve.show(userId)
-		    setUserServiceData(data)
-      } catch (error) {
-        alertDanger(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [userId, alertDanger])
+   const { data: result, isLoading, error, refetch } = useQuery(
+    'user-automatic-hold-retrieve',
+    () => api.show(userId)
+  )
+  const userServiceData = result || {}
+
+  if (error) alertDanger(error)
+  if (isLoading) return <UiLoadingCard /> 
   
   const recallTimerSeconds =  { minimum: 6, maximum: 600 }
   function handleInput(event) {
@@ -63,20 +55,20 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
   }
 
   async function update(formData) {
-	showLoadingModal()
+    showLoadingModal()
     try {
-	  const updatedData = await apiUserServiceAutomaticHoldRetrieve.update(formData)
-      setUserServiceData(updatedData)
+      const newAutomaticHoldRetrive = await api.update(formData)
+      setQueryData(['user-automatic-hold-retrieve'], newAutomaticHoldRetrive, {
+        shouldRefetch: true
+      })
       alertSuccess('Automatic Hold/Retrieve Updated')
       setShowModal(false)
-    } catch (error) {
-      alertDanger(error)
+    } catch (error_) {
+      alertDanger(error_)
     } finally {
       hideLoadingModal()
     }
   }
-
-  if (loading) return <UiLoadingCard />
 
   return (
     <>
