@@ -1,5 +1,6 @@
 import { UserSpeedDial8 } from './user-speed-dial-8'
 import { UserIntercept } from './user-intercept'
+import { UserAuthentication } from './service-settings/user-authentication'
 //import { UserAlternateNumbers } from './service-settings/user-alternate-numbers'
 import { UserAnonymousCallRejection } from './service-settings/user-anonymous-call-rejection'
 import { UserBargeInExempt } from './service-settings/user-barge-in-exempt'
@@ -26,8 +27,13 @@ import { UserCLIDExternalDelivery } from './service-settings/user-external-calli
 import { UserGroupNightForwarding } from './service-settings/user-group-night-forwarding'
 import { UserConnectedLineIdentificationRestriction } from './service-settings/user-connected-line-identification-restriction' 
 import { UserDirectedCallPickupWithBargeIn } from './service-settings/user-directed-call-pickup-with-barge-in' 
-
-
+import { UserInternalCallingLineIdDelivery } from './service-settings/user-internal-calling-line-id-delivery' 
+import { UserMusicOnHold } from './service-settings/user-music-on-hold'
+import { UserIntegratedImp } from './service-settings/user-integrated-imp'
+import { UserRemoteOffice } from './service-settings/user-remote-office'
+import { UserOutlookInteration } from './service-settings/user-outlook-integration'
+import { UserHotelingHost } from './service-settings/user-hoteling-host'
+ 
 export const userServiceRoutes = [
  /* {
     component: UserAlternateNumbers,
@@ -54,7 +60,7 @@ export const userServiceRoutes = [
     services: ['Anonymous Call Rejection']
   },
   {
-    angularComponent: 'userAuthentication',
+    component: UserAuthentication,
     module: 'Authentication',
     path: 'authentication',
     services: ['Authentication']
@@ -262,19 +268,19 @@ export const userServiceRoutes = [
     services: ['Hoteling Guest']
   },
   {
-    angularComponent: 'userHotelingHost',
+    component: UserHotelingHost,
     module: 'Hoteling Host',
     path: 'hoteling-host',
     services: ['Hoteling Host']
   },
   {
-    angularComponent: 'userIntegratedImp',
+    component: UserIntegratedImp,
     module: 'Integrated IMP',
     path: 'integrated-imp',
     services: ['Integrated IMP']
   },
   {
-    angularComponent: 'userInternalCallingLineIdDelivery',
+    component: UserInternalCallingLineIdDelivery,
     module: 'Internal Calling Line ID Delivery',
     path: 'internal-calling-line-id-delivery',
     services: ['Internal Calling Line ID Delivery']
@@ -286,13 +292,13 @@ export const userServiceRoutes = [
     services: ['Meet-Me Conferencing']
   },
   {
-    angularComponent: 'userMusicOnHold',
+    component: UserMusicOnHold,
     module: 'Music On Hold User',
     path: 'music-on-hold-user',
     services: ['Music On Hold User']
   },
   {
-    angularComponent: 'userOutlookIntegration',
+    component: UserOutlookInteration,
     module: 'Outlook Integration',
     path: 'outlook-integration',
     services: ['Outlook Integration']
@@ -316,7 +322,7 @@ export const userServiceRoutes = [
     services: ['Push to Talk']
   },
   {
-    angularComponent: 'userRemoteOffice',
+    component: UserRemoteOffice,
     module: 'Remote Office',
     path: 'remote-office',
     services: ['Remote Office']
