@@ -515,6 +515,11 @@ export const routes = [
     serviceType: 'servicePackServices'
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/assignNumbers',
+    angularComponent: 'groupAssignNumbers',
+    hasLevel: 'Service Provider'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/numbers',
     angularComponent: 'groupNumbers',
     hasLevel: 'Service Provider'
