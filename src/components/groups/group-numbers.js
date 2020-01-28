@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
-import {Breadcrumb, UiLoading, UiDataTable ,UiCheckbox , UiCard} from '@/components/ui'
+import { UiLoading, UiDataTable ,UiCheckbox , UiCard} from '@/components/ui'
 import { useAlerts } from '@/store/alerts'
 import groupNumberApi from '@/api/groups/numbers'
  /* eslint-disable react/display-name */
@@ -12,9 +13,7 @@ const columns = [
   { key: 'firstName', label: 'First Name' },
   { key: 'extension', label: 'Extension' },
   { key: 'department', label: 'Department ' },
-  { key: 'activated', label: 'Activated' ,
-    render: row => <UiCheckbox isChecked={row.activated} />
-  }
+  { key: 'activated', label: 'Activated' ,  render: row => <UiCheckbox isChecked={row.activated} />}
   
 ]
 
@@ -24,15 +23,16 @@ export const GroupNumbers = ({ match }) => {
   const [users, setUsers] = React.useState([])
   const [loading, setLoading] = React.useState(false) 
   
+ 
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
       try {
         const data = await groupNumberApi.load(serviceProviderId, groupId)
-	      setUsers(data)
+		    setUsers(data)
       } catch (error) {
         alertDanger(error)
-		    setUsers([])
+		setUsers([])
       } finally {
         setLoading(false)
       }
@@ -40,22 +40,23 @@ export const GroupNumbers = ({ match }) => {
     fetchData()
   }, [serviceProviderId, groupId, alertDanger])
   
+
   return (
     <>
-      <AppBreadcrumb>
+       <AppBreadcrumb>
         <Breadcrumb.Item>Numbers</Breadcrumb.Item>
       </AppBreadcrumb>
       { (loading ? (
         <UiLoading />
       ) : (
        
-		  <UiCard title="Report Numbers">
-        <UiDataTable
-          columns={columns}
-          rows={users}
-          rowKey="phoneNumbers"
-        />
-      </UiCard>
+		<UiCard title="Report Numbers">
+      <UiDataTable
+        columns={columns}
+        rows={users}
+        rowKey="phoneNumbers"
+      />
+    </UiCard>
       ))}
     </>
   )
