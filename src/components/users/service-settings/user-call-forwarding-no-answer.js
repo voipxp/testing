@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Input, Select, Column } from 'rbx'
+import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-no-answer-service'
@@ -23,35 +23,20 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const [loading, setLoading] = useState(true)
-   const { data: result, isLoading, error } = useQuery(
+  const { data: result, isLoading, error } = useQuery(
     'user-call-forwarding-no-ans',
 	() => api.show(userId)		
   )
   const userDataNoAnswer = result || {}
-  
+  const options = api.options || {}
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
    
-  
- const userCallForwordingLength = {
-    outgoingDNorSIPURI: { minimum: 1, maximum: 161 },
-	numberOfRings: { minimum: 0, maximum: 20 }
-  } 
- 
- function handleInput(event) {
+  function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-	
-	if(name ==='numberOfRings') {
-		 
-		if(target.value > 20 || target.value < 0) {
-		 return false 
-		}
-	}
-	
-	setForm({ ...form, [name]: value })
+	  setForm({ ...form, [name]: value })
  }
   
   function edit() {
@@ -60,6 +45,15 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
   }
   
   function save() {
+    if( form.numberOfRings > options.numberOfRings.maximum || form.numberOfRings < options.numberOfRings.minimum ){
+		  alertDanger('Number Of Rings Minimum Value ' + options.numberOfRings.minimum + ' and Maximum Value ' + options.numberOfRings.maximum)
+		  return false
+    }
+    
+    if( form.forwardToPhoneNumber > options.forwardToPhoneNumber.maximum || form.forwardToPhoneNumber < options.forwardToPhoneNumber.minimum ){
+		  alertDanger('Number Used For Outgoing Call Digits ' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
+		  return false
+	  }
     update(form)
   }
   
@@ -127,8 +121,6 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
 				  value={form.forwardToPhoneNumber}
 				  placeholder="Forward To"
 				  onChange = {handleInput}
-				  minLength = {userCallForwordingLength.outgoingDNorSIPURI.minimum} 
-                  maxLength = {userCallForwordingLength.outgoingDNorSIPURI.maximum}
 				/>
 			 </UiFormField>
 			 
