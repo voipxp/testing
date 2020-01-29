@@ -15,7 +15,7 @@ export function index( serviceProviderId, groupId ) {
 export const options = {
   recallTimerSeconds: {
     minimum: 6,
-    maximim: 600
+    maximum: 600
   }
 }
 export default { show, update, index , options }
