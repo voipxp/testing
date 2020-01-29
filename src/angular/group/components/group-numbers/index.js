@@ -2,7 +2,7 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular.module('odin.group').component('groupAssignNumbers', {
+angular.module('odin.group').component('groupNumbers', {
   template,
   controller,
   bindings: { serviceProviderId: '<', groupId: '<' }

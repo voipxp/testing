@@ -518,7 +518,7 @@ export const routes = [
   },
   {
     path: '/groups/:serviceProviderId/:groupId/assignNumbers',
-    angularComponent: 'groupAssignNumbers',
+    angularComponent: 'groupNumbers',
     hasLevel: 'Service Provider'
   },
   {
