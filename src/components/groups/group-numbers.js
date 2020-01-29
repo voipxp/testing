@@ -29,7 +29,7 @@ export const GroupNumbers = ({ match }) => {
     const fetchData = async () => {
       try {
         const data = await groupNumberApi.load(serviceProviderId, groupId)
-		    setUsers(data)
+        setUsers(data.dns)
       } catch (error) {
         alertDanger(error)
 		setUsers([])
@@ -50,7 +50,7 @@ export const GroupNumbers = ({ match }) => {
         <UiLoading />
       ) : (
        
-		<UiCard title="Report Numbers">
+		<UiCard title="Numbers">
       <UiDataTable
         columns={columns}
         rows={users}
