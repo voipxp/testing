@@ -3,11 +3,11 @@ import { api } from '..'
 export const options = {
   recallNumberOfRings: {
     minimum: 2,
-    maximim: 20
+    maximum: 20
   },
   busyCampOnSeconds: {
     minimum: 30,
-    maximim: 600
+    maximum: 600
   }
 }
 
