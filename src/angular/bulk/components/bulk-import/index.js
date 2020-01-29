@@ -11,6 +11,7 @@ controller.$inject = [
   'Alert',
   'Route',
   '$q',
+  'ACL',
   'TaskService',
   'UtilityService',
   'BulkImportService',
@@ -25,6 +26,7 @@ function controller(
   Alert,
   Route,
   $q,
+  ACL,
   TaskService,
   UtilityService,
   BulkImportService,
@@ -145,6 +147,11 @@ function controller(
         Alert.notify.danger('user.delete is not a permitted Task')
         return false
     }
+    if (task === 'service.provider.bulk.clone' && !ACL.has('Reseller')) {
+      Alert.notify.danger('service.provider.bulk.clone is not a permitted Task')
+      return false
+  }
+
     return true
   }
 

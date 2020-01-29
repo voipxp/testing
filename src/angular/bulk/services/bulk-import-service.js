@@ -28,7 +28,7 @@ function BulkImportService(
     get: get
   }
   var localStorageKey = 'BulkImportService'
-  var required = ['task', 'userId']
+  var required = ['task']
   return service
 
   function open(data) {
@@ -38,6 +38,9 @@ function BulkImportService(
       })
       .then(function(users) {
         return clean(users)
+      })
+      .then(function(users) {
+        return stringToBoolean(users)
       })
       .then(function(users) {
         return addServiceProvidersGroups(users)
@@ -98,6 +101,10 @@ function BulkImportService(
   }
 
   function addServiceProviderGroup(user) {
+    if( !user.task.startsWith('user.') ){     /* If task is not related to user (e.g: SP clone, group clone) */
+      return $q.resolve(user)
+    }
+    console.log('hey this is ' + user.task)
     if (user.serviceProviderId && user.groupId) {
       return $q.resolve(user)
     } else {
@@ -127,4 +134,24 @@ function BulkImportService(
       resolve(data)
     })
   }
+
+  function stringToBoolean(data) {
+    return $q.all(data.map(stringToBooleanValue)).then(function() {
+      return data
+    })
+  }
+
+  function stringToBooleanValue(user) {
+    Object.keys(user).map( key => {
+        if( user[key] === "TRUE" || user[key] === "true" ) {
+          user[key] = true
+        }
+        if( user[key] === "FALSE" || user[key] === "false" ) {
+          user[key] = false
+        }
+    })
+
+    return user
+  }
+
 }
