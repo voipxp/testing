@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Input, Select} from 'rbx'
+import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-call-transfer-service'
@@ -23,23 +23,15 @@ export const UserCallTransfer = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const { data: result, isLoading, error, refetch } = useQuery(
+  const { data: result, isLoading, error } = useQuery(
     'user-call-tranfer',
     () => api.show(userId)
   )
   const userServiceData = result || {}
+  const options = api.options || {}
 
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard /> 
-  
-  const recallNumberOfRings = {
-    minimum: 2,
-    maximum: 20
-  }
-  const busyCampOnSeconds = {
-    minimum: 30,
-    maximum: 600
-  }
   
   function handleInput(event) {
     const target = event.target
@@ -54,12 +46,8 @@ export const UserCallTransfer = ({ match }) => {
   }
   
   function save() {
-	  if( form.recallNumberOfRings > 20 || form.recallNumberOfRings < 2 ){
-		  alertDanger('Number Of Rings Minimum Value 2 and Maximum Value 20')
-		  return false
-	  }
-	  if( form.busyCampOnSeconds > 600 || form.busyCampOnSeconds < 30 ){
-		  alertDanger(' Enable Busy On Camp Seconds Minimum Value 30 and Maximum Value 600')
+	  if( form.recallNumberOfRings > options.recallNumberOfRings.maximum || form.recallNumberOfRings < options.recallNumberOfRings.minimum ){
+		  alertDanger('Number Of Rings Minimum Value ' + options.recallNumberOfRings.minimum + ' and Maximum Value ' + options.recallNumberOfRings.maximum)
 		  return false
 	  }
 		  update(form)	
@@ -152,8 +140,6 @@ export const UserCallTransfer = ({ match }) => {
                 value={form.recallNumberOfRings}
                 placeholder="Number Of Rings"
                 onChange={handleInput}
-                minLength = {recallNumberOfRings.minimum}
-                maxLength = {recallNumberOfRings.maximum}
               />
             </UiFormField>
             <UiFormField label="Enable Busy On Camp Seconds">  
@@ -163,8 +149,6 @@ export const UserCallTransfer = ({ match }) => {
                 value={form.busyCampOnSeconds}
                 placeholder="Enable Busy On Camp Seconds"
                 onChange={handleInput}
-                minLength = {busyCampOnSeconds.minimum}
-                maxLength = {busyCampOnSeconds.maximum}
               />
             </UiFormField>
             

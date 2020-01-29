@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
@@ -21,9 +21,8 @@ export const UserAnonymousCallRejection = ({ match }) => {
   
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
-  const [ready, setReady] = React.useState(false)
   const [showModal, setShowModal] = useState(false)
-   const { data: result, isLoading, error, refetch } = useQuery(
+  const { data: result, isLoading, error } = useQuery(
     'anonymous-call-rejection',
     () => api.show(userId)
   )  
@@ -52,11 +51,11 @@ export const UserAnonymousCallRejection = ({ match }) => {
   async function update(formData) {
 	  showLoadingModal()
     try {
-		const newUserAnonymousCallRejection = await api.update(formData)
-      setQueryData(['anonymous-call-rejection'], newUserAnonymousCallRejection, {
+		  const newUserAnonymousCallRejection = await api.update(formData)
+        setQueryData(['anonymous-call-rejection'], newUserAnonymousCallRejection, {
         shouldRefetch: true
       })
-	  alertSuccess('Intercept User Updated')
+	  alertSuccess('Anonymous Call Rejection Updated')
       setShowModal(false)
     } catch (error_) {
       alertDanger(error_)

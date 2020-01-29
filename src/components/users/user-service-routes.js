@@ -1,46 +1,25 @@
+
 import { UserSpeedDial8 } from './user-speed-dial-8'
 import { UserIntercept } from './user-intercept'
-import { UserAuthentication } from './service-settings/user-authentication'
-//import { UserAlternateNumbers } from './service-settings/user-alternate-numbers'
-import { UserAnonymousCallRejection } from './service-settings/user-anonymous-call-rejection'
-import { UserBargeInExempt } from './service-settings/user-barge-in-exempt'
-import { UserCallForwardingAlways } from './service-settings/user-call-forwarding-always'
-import { UserCallForwardingAlwaysSecondary } from './service-settings/user-call-forwarding-always-secondary'
-import { UserCallForwardingBusy } from './service-settings/user-call-forwarding-busy'
-import { UserCallForwardingNoAnswer } from './service-settings/user-call-forwarding-no-answer'
-import { UserCallForwardingNotReachable } from './service-settings/user-call-forwarding-not-reachable'
-import { UserCallingLineIdDeliveryBlocking } from './service-settings/user-calling-line-id-delivery-blocking'
-//import { UserCallingLineIdDeliveryOverride } from './service-settings/user-calling-line-id-delivery-Override'
-//import { UserBroadWorksAnywhere } from './service-settings/user-broadworks-anywhere'
-import { UserBroadWorksMobility } from './service-settings/user-broadworks-mobility'
-import { UserCallingNameRetrieval } from './service-settings/user-calling-name-retrieval'
-import { UserCallingNameDelivery } from './service-settings/user-calling-name-delivery'
-import { UserCallRecording } from './service-settings/user-call-recording'
-import { UserCallTransfer } from './service-settings/user-call-transfer'
-import { UserCallWaiting } from './service-settings/user-call-waiting'
-import { UserAdviceOfCharge } from './service-settings/user-advice-of-charge'
-import { UserAutomaticCallback } from './service-settings/user-automatic-callback'
-import { UserAutomaticCallHoldRetrieve } from './service-settings/user-automatic-hold-retrieve'
-import { UserCallingNumberDelivery } from './service-settings/user-calling-number-delivery'
-import { UserServiceDoNotDisturb } from './service-settings/user-do-not-disturb'
-import { UserCLIDExternalDelivery } from './service-settings/user-external-calling-line-id-delivery'
-import { UserGroupNightForwarding } from './service-settings/user-group-night-forwarding'
-import { UserConnectedLineIdentificationRestriction } from './service-settings/user-connected-line-identification-restriction' 
-import { UserDirectedCallPickupWithBargeIn } from './service-settings/user-directed-call-pickup-with-barge-in' 
-import { UserInternalCallingLineIdDelivery } from './service-settings/user-internal-calling-line-id-delivery' 
-import { UserMusicOnHold } from './service-settings/user-music-on-hold'
-import { UserIntegratedImp } from './service-settings/user-integrated-imp'
-import { UserRemoteOffice } from './service-settings/user-remote-office'
-import { UserOutlookInteration } from './service-settings/user-outlook-integration'
-import { UserHotelingHost } from './service-settings/user-hoteling-host'
- 
+import {
+  UserAnonymousCallRejection,
+  UserAutomaticCallback,
+  UserAutomaticCallHoldRetrieve,
+  UserBargeInExempt,
+  UserCallForwardingAlways,
+  UserCallForwardingAlwaysSecondary,
+  UserCallForwardingBusy,
+  UserCallForwardingNoAnswer,
+  UserCallForwardingNotReachable,
+  UserCallingLineIdDeliveryBlocking,
+  UserCallingNameDelivery,
+  UserCallingNameRetrieval,
+  UserCallingNumberDelivery,
+  UserCallTransfer,
+  UserCallWaiting
+  
+} from '@/components/users/service-settings'
 export const userServiceRoutes = [
- /* {
-    component: UserAlternateNumbers,
-    module: 'Alternate Numbers',
-    path: 'alternate-numbers',
-    services: ['Alternate Numbers']
-  },*/
   {
     angularComponent: 'userAlternateNumbers',
     module: 'Alternate Numbers',
@@ -48,7 +27,7 @@ export const userServiceRoutes = [
     services: ['Alternate Numbers']
   },
   {
-    component: UserAdviceOfCharge,
+    angularComponent: 'userAdviceOfCharge',
     module: 'Advice Of Charge',
     path: 'advice-of-charge',
     services: ['Advice Of Charge']
@@ -60,7 +39,7 @@ export const userServiceRoutes = [
     services: ['Anonymous Call Rejection']
   },
   {
-    component: UserAuthentication,
+    angularComponent: 'userAuthentication',
     module: 'Authentication',
     path: 'authentication',
     services: ['Authentication']
@@ -89,14 +68,8 @@ export const userServiceRoutes = [
     path: 'broadworks-anywhere',
     services: ['BroadWorks Anywhere']
   },
-  /*{
-    component: UserBroadWorksAnywhere,
-    module: 'BroadWorks Anywhere',
-    path: 'broadworks-anywhere',
-    services: ['BroadWorks Anywhere']
-  }, */
   {
-    component: UserBroadWorksMobility,
+    angularComponent: 'userBroadWorksMobility',
     module: 'BroadWorks Mobility',
     path: 'broadworks-mobility',
     services: ['BroadWorks Mobility']
@@ -128,7 +101,7 @@ export const userServiceRoutes = [
     module: 'Call Forwarding Always Secondary',
     path: 'call-forwarding-always-secondary',
     services: ['Call Forwarding Always Secondary']
-  }, 
+  },
   {
     component: UserCallForwardingBusy,
     module: 'Call Forwarding Busy',
@@ -160,7 +133,7 @@ export const userServiceRoutes = [
     services: ['Call Notify']
   },
   {
-    component: UserCallRecording,
+    angularComponent: 'userCallRecording',
     module: 'Call Recording',
     path: 'call-recording',
     services: ['Call Recording']
@@ -178,17 +151,11 @@ export const userServiceRoutes = [
     services: ['Call Waiting']
   },
   {
-    component: UserCallingLineIdDeliveryBlocking ,
+    component: UserCallingLineIdDeliveryBlocking,
     module: 'Calling Line ID Delivery Blocking',
     path: 'calling-line-id-delivery-blocking',
     services: ['Calling Line ID Delivery Blocking']
   },
-  /*{
-    component: UserCallingLineIdDeliveryOverride,
-    module: 'Calling Line ID Delivery Override',
-    path: 'calling-line-id-delivery-Override',
-    services: ['Calling Line ID Delivery Override']
-  },*/
   {
     component: UserCallingNameDelivery,
     module: 'Calling Name Delivery',
@@ -214,13 +181,13 @@ export const userServiceRoutes = [
     services: ['Collaborate - Audio']
   },
   {
-    component: UserConnectedLineIdentificationRestriction,
+    angularComponent: 'userConnectedLineIdentificationRestriction',
     module: 'Connected Line Identification Restriction',
     path: 'connected-line-identification-restriction',
     services: ['Connected Line Identification Restriction']
   },
   {
-    component: UserDirectedCallPickupWithBargeIn,
+    angularComponent: 'userDirectedCallPickupWithBargeIn',
     module: 'Directed Call Pickup with Barge-in',
     path: 'directed-call-pickup-with-barge-in',
     services: ['Directed Call Pickup with Barge-in']
@@ -232,13 +199,13 @@ export const userServiceRoutes = [
     services: ['Directory']
   },
   {
-    component: UserServiceDoNotDisturb,
+    angularComponent: 'userDoNotDisturb',
     module: 'Do Not Disturb',
     path: 'do-not-disturb',
     services: ['Do Not Disturb']
   },
   {
-    component: UserCLIDExternalDelivery,
+    angularComponent: 'userExternalCallingLineIdDelivery',
     module: 'External Calling Line ID Delivery',
     path: 'external-calling-line-id-delivery',
     services: ['External Calling Line ID Delivery']
@@ -256,7 +223,7 @@ export const userServiceRoutes = [
     services: ['Flexible Seating Guest']
   },
   {
-    component: UserGroupNightForwarding,
+    angularComponent: 'userGroupNightForwarding',
     module: 'Group Night Forwarding',
     path: 'group-night-forwarding',
     services: ['Group Night Forwarding']
@@ -268,19 +235,19 @@ export const userServiceRoutes = [
     services: ['Hoteling Guest']
   },
   {
-    component: UserHotelingHost,
+    angularComponent: 'userHotelingHost',
     module: 'Hoteling Host',
     path: 'hoteling-host',
     services: ['Hoteling Host']
   },
   {
-    component: UserIntegratedImp,
+    angularComponent: 'userIntegratedImp',
     module: 'Integrated IMP',
     path: 'integrated-imp',
     services: ['Integrated IMP']
   },
   {
-    component: UserInternalCallingLineIdDelivery,
+    angularComponent: 'userInternalCallingLineIdDelivery',
     module: 'Internal Calling Line ID Delivery',
     path: 'internal-calling-line-id-delivery',
     services: ['Internal Calling Line ID Delivery']
@@ -292,13 +259,13 @@ export const userServiceRoutes = [
     services: ['Meet-Me Conferencing']
   },
   {
-    component: UserMusicOnHold,
+    angularComponent: 'userMusicOnHold',
     module: 'Music On Hold User',
     path: 'music-on-hold-user',
     services: ['Music On Hold User']
   },
   {
-    component: UserOutlookInteration,
+    angularComponent: 'userOutlookIntegration',
     module: 'Outlook Integration',
     path: 'outlook-integration',
     services: ['Outlook Integration']
@@ -322,7 +289,7 @@ export const userServiceRoutes = [
     services: ['Push to Talk']
   },
   {
-    component: UserRemoteOffice,
+    angularComponent: 'userRemoteOffice',
     module: 'Remote Office',
     path: 'remote-office',
     services: ['Remote Office']

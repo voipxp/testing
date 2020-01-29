@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input} from 'rbx'
@@ -23,16 +23,15 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-   const { data: result, isLoading, error, refetch } = useQuery(
+   const { data: result, isLoading, error } = useQuery(
     'user-automatic-hold-retrieve',
     () => api.show(userId)
   )
   const userServiceData = result || {}
-
+  const options = api.options || {}
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard /> 
   
-  const recallTimerSeconds =  { minimum: 6, maximum: 600 }
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
@@ -46,8 +45,8 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
   }
   
   function save() {
-	  if( form.recallTimerSeconds < 6 || form.recallTimerSeconds > 600 ){
-		  alertDanger('Automatic Hold/Retrieve Minimum Value 6 and Maximum Value 600')
+    if( form.recallTimerSeconds > options.recallTimerSeconds.maximum || form.recallTimerSeconds < options.recallTimerSeconds.minimum ){
+		  alertDanger('Automatic Hold/Retrieve Value ' + options.recallTimerSeconds.minimum + ' and Maximum Value ' + options.recallTimerSeconds.maximum)
 		  return false
 	  }else{
 		  update(form)
@@ -107,8 +106,6 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
                 name="recallTimerSeconds"
                 value={form.recallTimerSeconds}
                 onChange={handleInput}
-				        minLength = {recallTimerSeconds.minimum}
-				        maxLength = {recallTimerSeconds.maximum}
               />
               
             </UiFormField>
