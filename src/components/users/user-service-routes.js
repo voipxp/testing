@@ -16,7 +16,15 @@ import {
   UserCallingNameRetrieval,
   UserCallingNumberDelivery,
   UserCallTransfer,
-  UserCallWaiting
+  UserCallWaiting,
+  UserAdviceOfCharge,
+  UserCallRecording,
+  UserConnectedLineIdentificationRestriction,
+  UserDirectedCallPickupWithBargeIn,
+  UserDoNotDisturb,
+  UserExternalCallingLineIdDelivery,
+  UserIntegratedImp,
+  UserInternalCallingLineIdDelivery
   
 } from '@/components/users/service-settings'
 export const userServiceRoutes = [
@@ -27,7 +35,7 @@ export const userServiceRoutes = [
     services: ['Alternate Numbers']
   },
   {
-    angularComponent: 'userAdviceOfCharge',
+    component: UserAdviceOfCharge,
     module: 'Advice Of Charge',
     path: 'advice-of-charge',
     services: ['Advice Of Charge']
@@ -133,7 +141,7 @@ export const userServiceRoutes = [
     services: ['Call Notify']
   },
   {
-    angularComponent: 'userCallRecording',
+    component: UserCallRecording,
     module: 'Call Recording',
     path: 'call-recording',
     services: ['Call Recording']
@@ -181,13 +189,13 @@ export const userServiceRoutes = [
     services: ['Collaborate - Audio']
   },
   {
-    angularComponent: 'userConnectedLineIdentificationRestriction',
+    component: UserConnectedLineIdentificationRestriction,
     module: 'Connected Line Identification Restriction',
     path: 'connected-line-identification-restriction',
     services: ['Connected Line Identification Restriction']
   },
   {
-    angularComponent: 'userDirectedCallPickupWithBargeIn',
+    component: UserDirectedCallPickupWithBargeIn,
     module: 'Directed Call Pickup with Barge-in',
     path: 'directed-call-pickup-with-barge-in',
     services: ['Directed Call Pickup with Barge-in']
@@ -199,13 +207,13 @@ export const userServiceRoutes = [
     services: ['Directory']
   },
   {
-    angularComponent: 'userDoNotDisturb',
+   component: UserDoNotDisturb,
     module: 'Do Not Disturb',
     path: 'do-not-disturb',
     services: ['Do Not Disturb']
   },
   {
-    angularComponent: 'userExternalCallingLineIdDelivery',
+    component: UserExternalCallingLineIdDelivery,
     module: 'External Calling Line ID Delivery',
     path: 'external-calling-line-id-delivery',
     services: ['External Calling Line ID Delivery']
@@ -241,13 +249,13 @@ export const userServiceRoutes = [
     services: ['Hoteling Host']
   },
   {
-    angularComponent: 'userIntegratedImp',
+    component: UserIntegratedImp,
     module: 'Integrated IMP',
     path: 'integrated-imp',
     services: ['Integrated IMP']
   },
   {
-    angularComponent: 'userInternalCallingLineIdDelivery',
+    component: UserInternalCallingLineIdDelivery,
     module: 'Internal Calling Line ID Delivery',
     path: 'internal-calling-line-id-delivery',
     services: ['Internal Calling Line ID Delivery']
