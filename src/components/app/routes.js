@@ -12,6 +12,7 @@ import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
+import { Exports, Export } from '@/components/exports'
 
 export const routes = [
   {
@@ -816,23 +817,34 @@ export const routes = [
     path: '/audits',
     exact: true,
     component: Audits,
-    hasLevel: 'Group'
+    hasLevel: 'Reseller'
   },
   {
     path: '/audits/:id',
     component: Audit,
-    hasLevel: 'Group'
+    hasLevel: 'Reseller'
   },
   {
     path: '/imports',
     exact: true,
     component: Imports,
-    hasLevel: 'Group'
+    hasLevel: 'Reseller'
   },
   {
     path: '/imports/:id',
     component: Import,
-    hasLevel: 'Group'
+    hasLevel: 'Reseller'
+  },
+  {
+    path: '/exports',
+    exact: true,
+    component: Exports,
+    hasLevel: 'Reseller'
+  },
+  {
+    path: '/imports/:id',
+    component: Export,
+    hasLevel: 'Reseller'
   },
   {
     path: '/department/:serviceProviderId/:groupId',

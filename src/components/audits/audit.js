@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useAsync } from 'react-async-hook'
 import { useAlerts } from '@/store/alerts'
 import auditApi from '@/api/audits'
+import exportApi from '@/api/exports'
 import settingsApi from '@/api/settings'
 import { AppBreadcrumb } from '@/components/app'
 import { Breadcrumb, Column, Input, Select } from 'rbx'
@@ -120,36 +121,51 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
       passcode: form.passcode
     })
     try {
-      const api = await axios.create({ baseURL: form.endpoint })
-      const token = await api.post('/auth/token', {
+      const iResult = exportApi.create({
+        endpoint: form.endpoint,
+        auditId: id,
         username: form.bwksUserId,
         password: form.bwksPassword,
-        encryption: 'plain'
+        encryption: 'plain',
+        serviceProviderId: audit[0].serviceProviderId,
+        groupId: audit[0].groupId,
+        options: {
+          password: form.password,
+          sipAuthenticationPassword: form.sipAuthenticationPassword,
+          groupMailServerPassword: form.groupMailServerPassword,
+          passcode: form.passcode
+        }
       })
-      api.defaults.headers.common.Authorization = token.data.token
-        ? `Bearer ${token.data.token}`
-        : null
-      const iResult = await api.post(
-        '/imports',
-        {
-          serviceProviderId: audit[0].serviceProviderId,
-          groupId: audit[0].groupId,
-          options: {
-            password: form.password,
-            sipAuthenticationPassword: form.sipAuthenticationPassword,
-            groupMailServerPassword: form.groupMailServerPassword,
-            passcode: form.passcode
-          },
-          data: audit
-        },
-        { timeout: 0 }
-      )
+      // const api = await axios.create({ baseURL: form.endpoint })
+      // const token = await api.post('/auth/token', {
+      //   username: form.bwksUserId,
+      //   password: form.bwksPassword,
+      //   encryption: 'plain'
+      // })
+      // api.defaults.headers.common.Authorization = token.data.token
+      //   ? `Bearer ${token.data.token}`
+      //   : null
+      // const iResult = await api.post(
+      //   '/imports',
+      //   {
+      //     serviceProviderId: audit[0].serviceProviderId,
+      //     groupId: audit[0].groupId,
+      //     options: {
+      //       password: form.password,
+      //       sipAuthenticationPassword: form.sipAuthenticationPassword,
+      //       groupMailServerPassword: form.groupMailServerPassword,
+      //       passcode: form.passcode
+      //     },
+      //     data: audit
+      //   },
+      //   { timeout: 0 }
+      // )
       setExport2(iResult)
+      alertSuccess('Export sent successfully to ' + form.endpoint)
     } catch (error_) {
       setShowExportModal(true)
       alertDanger(error_)
     } finally {
-      alertSuccess('Export sent successfully to ' + form.endpoint)
       setShowLoading(false)
       setShowConfirm(false)
       setShowModal(false)
