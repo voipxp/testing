@@ -136,30 +136,6 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
           passcode: form.passcode
         }
       })
-      // const api = await axios.create({ baseURL: form.endpoint })
-      // const token = await api.post('/auth/token', {
-      //   username: form.bwksUserId,
-      //   password: form.bwksPassword,
-      //   encryption: 'plain'
-      // })
-      // api.defaults.headers.common.Authorization = token.data.token
-      //   ? `Bearer ${token.data.token}`
-      //   : null
-      // const iResult = await api.post(
-      //   '/imports',
-      //   {
-      //     serviceProviderId: audit[0].serviceProviderId,
-      //     groupId: audit[0].groupId,
-      //     options: {
-      //       password: form.password,
-      //       sipAuthenticationPassword: form.sipAuthenticationPassword,
-      //       groupMailServerPassword: form.groupMailServerPassword,
-      //       passcode: form.passcode
-      //     },
-      //     data: audit
-      //   },
-      //   { timeout: 0 }
-      // )
       setExport2(iResult)
       alertSuccess('Export sent successfully to ' + form.endpoint)
     } catch (error_) {
