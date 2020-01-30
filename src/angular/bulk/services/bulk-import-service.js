@@ -104,7 +104,7 @@ function BulkImportService(
     if( !user.task.startsWith('user.') ){     /* If task is not related to user (e.g: SP clone, group clone) */
       return $q.resolve(user)
     }
-    console.log('hey this is ' + user.task)
+
     if (user.serviceProviderId && user.groupId) {
       return $q.resolve(user)
     } else {
