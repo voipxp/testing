@@ -262,6 +262,12 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
       },
       {
         type: 'report',
+        name: 'Numbers',
+        path: route('numbers'),
+        admin: true
+      },
+      {
+        type: 'report',
         name: 'Call Center Agent Report',
         module: 'Premium Call Records',
         service: 'Call Center',
@@ -269,8 +275,8 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
       },
       {
         type: 'provisioning',
-        name: 'Numbers',
-        path: route('numbers'),
+        name: 'Assign Numbers',
+        path: route('assignNumbers'),
         admin: true
       },
       {

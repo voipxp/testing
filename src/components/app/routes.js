@@ -5,12 +5,14 @@ import {
   GroupCommunicationBarring,
   GroupSpeedDial8,
   GroupExtensionLength,
-  GroupWebPolicy
+  GroupWebPolicy,
+  GroupNumbers
 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
+
 export const routes = [
   {
     path: '/account',
@@ -515,8 +517,13 @@ export const routes = [
     serviceType: 'servicePackServices'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/numbers',
+    path: '/groups/:serviceProviderId/:groupId/assignNumbers',
     angularComponent: 'groupNumbers',
+    hasLevel: 'Service Provider'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/numbers',
+    component: GroupNumbers,
     hasLevel: 'Service Provider'
   },
   {
