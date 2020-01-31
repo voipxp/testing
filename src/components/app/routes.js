@@ -817,34 +817,34 @@ export const routes = [
     path: '/audits',
     exact: true,
     component: Audits,
-    hasLevel: 'Reseller'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/audits/:id',
     component: Audit,
-    hasLevel: 'Reseller'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/imports',
     exact: true,
     component: Imports,
-    hasLevel: 'Reseller'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/imports/:id',
     component: Import,
-    hasLevel: 'Reseller'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/exports',
     exact: true,
     component: Exports,
-    hasLevel: 'Reseller'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/imports/:id',
     component: Export,
-    hasLevel: 'Reseller'
+    hasLevel: 'Service Provider'
   },
   {
     path: '/department/:serviceProviderId/:groupId',
