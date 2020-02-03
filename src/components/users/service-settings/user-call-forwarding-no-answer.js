@@ -47,6 +47,12 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
   }
   
   function save() {
+    
+    if(form.forwardToPhoneNumber ==='' || form.forwardToPhoneNumber === undefined){
+		alertDanger('The Service Required Phone Number')
+		return false
+    }
+    
     if( form.numberOfRings > options.numberOfRings.maximum || form.numberOfRings < options.numberOfRings.minimum ){
 		  alertDanger('Number Of Rings Minimum Value ' + options.numberOfRings.minimum + ' and Maximum Value ' + options.numberOfRings.maximum)
 		  return false

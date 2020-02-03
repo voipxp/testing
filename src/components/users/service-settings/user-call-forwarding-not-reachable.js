@@ -48,6 +48,11 @@ export const UserCallForwardingNotReachable = ({ match }) => {
   }
   
   function save() { 
+    if(form.forwardToPhoneNumber === null || form.forwardToPhoneNumber === undefined){
+			alertDanger('The Service Required Phone Number')
+			return false
+    }
+    
 	  if( ( form.forwardToPhoneNumber.length > options.forwardToPhoneNumber.maximum ) || (form.forwardToPhoneNumber.length < options.forwardToPhoneNumber.minimum) ){
 		  alertDanger('Number Used For Outgoing Call Digits ' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
 		  return false

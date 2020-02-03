@@ -2,7 +2,7 @@ import { api } from '..'
 
 export const options = {
 	forwardToPhoneNumber:{
-		minimum:2,
+		minimum:1,
 		maximum:30
 	}
 }
