@@ -47,7 +47,7 @@ export const UserCallForwardingNotReachable = ({ match }) => {
     setShowModal(true)
   }
   
-  function save() { 
+  function save() {
     if(form.forwardToPhoneNumber === null || form.forwardToPhoneNumber === undefined){
 			alertDanger('The Service Required Phone Number')
 			return false

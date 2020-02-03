@@ -48,20 +48,20 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
   
   function save() {
     
-    if(form.forwardToPhoneNumber ==='' || form.forwardToPhoneNumber === undefined){
-		alertDanger('The Service Required Phone Number')
-		return false
-    }
+    if((form.isActive === true) && ((form.forwardToPhoneNumber === undefined ) || (form.forwardToPhoneNumber === "" ) )){
+			alertDanger('The Service Required Phone Number')
+			return false
+		}
+		
+		if( (form.isActive === true) && (( form.forwardToPhoneNumber.length > options.forwardToPhoneNumber.maximum ) || (form.forwardToPhoneNumber.length < options.forwardToPhoneNumber.minimum) )){
+			  alertDanger('Number Used For Outgoing Call Digits ' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
+			  return false
+		  }
     
     if( form.numberOfRings > options.numberOfRings.maximum || form.numberOfRings < options.numberOfRings.minimum ){
 		  alertDanger('Number Of Rings Minimum Value ' + options.numberOfRings.minimum + ' and Maximum Value ' + options.numberOfRings.maximum)
 		  return false
     }
-    
-    if( form.forwardToPhoneNumber.length > options.forwardToPhoneNumber.maximum || form.forwardToPhoneNumber.length < options.forwardToPhoneNumber.minimum ){
-		  alertDanger('Number Used For Outgoing Call Digits ' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
-		  return false
-	  }
     update(form)
   }
   
