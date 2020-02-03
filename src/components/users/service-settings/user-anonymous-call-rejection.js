@@ -5,14 +5,14 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-anonymous-call-rejection-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
-  UiSection,
-  UiListItem
+  UiListItem,
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserAnonymousCallRejection = ({ match }) => {
@@ -21,6 +21,7 @@ export const UserAnonymousCallRejection = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
+  
   const { data: result, isLoading, error } = useQuery(
     'anonymous-call-rejection',
     () => api.show(userId)
