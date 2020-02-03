@@ -117,7 +117,10 @@ function controller(
   }
 
   function submit() {
-    validate(ctrl.users)
+      validate(ctrl.users)
+      .then(function() {
+        return stringToBoolean(ctrl.users)
+      })
       .then(function() {
         return queue(ctrl.users)
       })
@@ -196,4 +199,24 @@ function controller(
       true
     )
   }
+
+  function stringToBoolean(data) {
+    return $q.all(data.map(stringToBooleanValue)).then(function() {
+      return data
+    })
+  }
+
+  function stringToBooleanValue(user) {
+    Object.keys(user).map( key => {
+        if( user[key] === "TRUE" || user[key] === "true" ) {
+          user[key] = true
+        }
+        if( user[key] === "FALSE" || user[key] === "false" ) {
+          user[key] = false
+        }
+    })
+
+    return user
+  }
+
 }

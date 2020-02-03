@@ -193,96 +193,97 @@ function BulkTaskService() {
         'groupId'
       ],
       example: [
+      {
+        "task": "group.services.update",
+        "serviceProviderId": "string",
+        "groupId": "string",
+        "userServices": [
+            {
+                "serviceName": "string",
+                "authorized": "boolean",
+                "assigned": "boolean",
+                "quantity": "number",
+                "licensed": "boolean",
+                "userAssignable": "boolean",
+                "isUnlimited": "boolean"
+            }
+        ],
+        "groupServices": [
+            {
+                "serviceName": "string",
+                "authorized": "boolean",
+                "assigned": "boolean",
+                "quantity": "number",
+                "licensed": "boolean",
+                "userAssignable": "boolean",
+                "isUnlimited": "boolean"
+            }
+        ],
+        "servicePackServices": [
+            {
+                "serviceName": "string",
+                "authorized": "boolean",
+                "assigned": "boolean",
+                "quantity": "number",
+                "licensed": "boolean",
+                "userAssignable": "boolean",
+                "isUnlimited": "boolean"
+            }
+        ]
+    }
+    ]
+    },
+    {
+      task: 'group.dns.assign',
+      name: 'Group Dns Assign',
+      description: 'Group Dns Assign',
+      required: [
+        'serviceProviderId',
+        'groupId'
+      ],
+      example: [
         {
-          "task": "group.services.update",
+          "task": "group.dns.assign",
           "serviceProviderId": "string",
           "groupId": "string",
-          "userServices": [
+          "dns": [
               {
-                  "serviceName": "string",
-                  "authorized": "boolean",
-                  "assigned": "boolean",
-                  "quantity": "number",
-                  "licensed": "boolean",
-                  "userAssignable": "boolean",
-                  "isUnlimited": "boolean"
-              }
-          ],
-          "groupServices": [
+                  "min": "number",
+                  "max": "number"
+              },
               {
-                  "serviceName": "string",
-                  "authorized": "boolean",
-                  "assigned": "boolean",
-                  "quantity": "number",
-                  "licensed": "boolean",
-                  "userAssignable": "boolean",
-                  "isUnlimited": "boolean"
-              }
-          ],
-          "servicePackServices": [
-              {
-                  "serviceName": "string",
-                  "authorized": "boolean",
-                  "assigned": "boolean",
-                  "quantity": "number",
-                  "licensed": "boolean",
-                  "userAssignable": "boolean",
-                  "isUnlimited": "boolean"
+                  "min": "number"
               }
           ]
       }
       ]
-      },
-      {
-        task: 'group.dns.assign',
-        name: 'Group Dns Assign',
-        description: 'Group Dns Assign',
-        required: [
-          'serviceProviderId',
-          'groupId'
-        ],
-        example: [
-          {
-            "task": "group.dns.assign",
-            "serviceProviderId": "string",
-            "groupId": "string",
-            "dns": [
-                {
-                    "min": "number",
-                    "max": "number"
-                },
-                {
-                    "min": "number"
-                }
-            ]
-        }
-        ]
-      },
-      {
-        task: 'group.dns.unassign',
-        name: 'Group Dns UnAssign',
-        description: 'Group Dns UnAssign',
-        required: [
-          'serviceProviderId',
-          'groupId'
-        ],
-        example: [
-          {
-            "task": "group.dns.unassign",
-            "serviceProviderId": "string",
-            "groupId": "string",
-            "dns": [
-                {
-                    "min": "number",
-                    "max": "number"
-                },
-                {
-                    "min": "number"
-                }
-            ]
-        }
-        ]
-      },
+    },
+    {
+      task: 'group.dns.unassign',
+      name: 'Group Dns UnAssign',
+      description: 'Group Dns UnAssign',
+      required: [
+        'serviceProviderId',
+        'groupId'
+      ],
+      example: [
+        {
+          "task": "group.dns.unassign",
+          "serviceProviderId": "string",
+          "groupId": "string",
+          "dns": [
+              {
+                  "min": "number",
+                  "max": "number"
+              },
+              {
+                  "min": "number"
+              }
+          ]
+      }
+      ]
+    },
+
     {
       task: 'user.create',
       name: 'Create Users',
@@ -433,6 +434,19 @@ function BulkTaskService() {
         {
           task: 'user.number.update',
           userId: 'userId'
+        }
+      ]
+    },
+    {
+      task: 'user.password.update',
+      name: 'User Password Update',
+      description: 'Set User Password Update',
+      required: ['userId', 'newPassword'],
+      example: [
+        {
+          task: 'user.password.update',
+          userId: 'userId',
+          newPassword: 'string'
         }
       ]
     },
