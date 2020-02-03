@@ -52,7 +52,7 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
 		  return false
     }
     
-    if( form.forwardToPhoneNumber > options.forwardToPhoneNumber.maximum || form.forwardToPhoneNumber < options.forwardToPhoneNumber.minimum ){
+    if( form.forwardToPhoneNumber.length > options.forwardToPhoneNumber.maximum || form.forwardToPhoneNumber.length < options.forwardToPhoneNumber.minimum ){
 		  alertDanger('Number Used For Outgoing Call Digits ' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
 		  return false
 	  }

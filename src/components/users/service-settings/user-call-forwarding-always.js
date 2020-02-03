@@ -47,9 +47,9 @@ export const UserCallForwardingAlways = ({ match }) => {
     setShowModal(true)
   }
   
-   function save() {
-	  if( ( form.forwardToPhoneNumber > options.forwardToPhoneNumber.maximum ) || (form.forwardToPhoneNumber < options.forwardToPhoneNumber.minimum) ){
-		  alertDanger('Forward To Phone Number or SIPURI Value Minimum' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
+   function save() { 
+	  if( ( form.forwardToPhoneNumber.length > options.forwardToPhoneNumber.maximum ) || (form.forwardToPhoneNumber.length < options.forwardToPhoneNumber.minimum) ){
+		  alertDanger('Forward To Phone Number Used Value Minimum' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
 		  return false
 	  }
     update(form)
