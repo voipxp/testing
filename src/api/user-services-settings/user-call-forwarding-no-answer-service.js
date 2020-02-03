@@ -9,7 +9,7 @@ The response json gor get and param for update is a json of the format:
 export const options = {
   forwardToPhoneNumber: {
     minimum: 1,
-    maximum: 161
+    maximum: 30
   },
   numberOfRings: {
     minimum: 2,

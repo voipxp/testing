@@ -49,7 +49,7 @@ export const UserCallForwardingAlways = ({ match }) => {
   
    function save() { 
 	  if( ( form.forwardToPhoneNumber.length > options.forwardToPhoneNumber.maximum ) || (form.forwardToPhoneNumber.length < options.forwardToPhoneNumber.minimum) ){
-		  alertDanger('Forward To Phone Number Used Value Minimum' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
+		  alertDanger('Number Used For Outgoing Call Digits ' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
 		  return false
 	  }
     update(form)
