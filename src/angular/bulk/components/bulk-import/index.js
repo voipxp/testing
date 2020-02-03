@@ -150,7 +150,11 @@ function controller(
     if (task === 'service.provider.bulk.clone' && !ACL.has('Reseller')) {
       Alert.notify.danger('service.provider.bulk.clone is not a permitted Task')
       return false
-  }
+    }
+    if ( (task === 'group.dns.assign' || task === 'group.dns.unassign' ) && !ACL.has('Reseller')) {
+      Alert.notify.danger(task + ' is not a permitted Task')
+      return false
+    }
 
     return true
   }

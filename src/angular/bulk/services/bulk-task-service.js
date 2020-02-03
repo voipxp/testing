@@ -165,6 +165,129 @@ function BulkTaskService() {
         otgDtgIdentity: "string"
     }]
   },
+  {
+    task: 'trunk.group.call.capacity',
+    name: 'Trunk Group Call Capacity',
+    description: 'Trunk Group Call Capacity',
+    required: [
+      'serviceProviderId',
+      'groupId'
+    ],
+    example: [
+      {
+        'task': 'trunk.group.call.capacity',
+        'serviceProviderId': 'string',
+        'groupId': 'string',
+        "serviceProvider.maxActiveCalls": "number",
+        "serviceProvider.burstingMaxActiveCalls": "number",
+        'group.maxActiveCalls': 'number',
+        'group.burstingMaxActiveCalls': 'number',
+      }
+    ]
+    },
+
+    {
+      task: 'group.services.update',
+      name: 'Group Services Update',
+      description: 'Group Services Update',
+      required: [
+        'serviceProviderId',
+        'groupId'
+      ],
+      example: [
+        {
+          "task": "group.services.update",
+          "serviceProviderId": "string",
+          "groupId": "string",
+          "userServices": [
+              {
+                  "serviceName": "string",
+                  "authorized": "boolean",
+                  "assigned": "boolean",
+                  "quantity": "number",
+                  "licensed": "boolean",
+                  "userAssignable": "boolean",
+                  "isUnlimited": "boolean"
+              }
+          ],
+          "groupServices": [
+              {
+                  "serviceName": "string",
+                  "authorized": "boolean",
+                  "assigned": "boolean",
+                  "quantity": "number",
+                  "licensed": "boolean",
+                  "userAssignable": "boolean",
+                  "isUnlimited": "boolean"
+              }
+          ],
+          "servicePackServices": [
+              {
+                  "serviceName": "string",
+                  "authorized": "boolean",
+                  "assigned": "boolean",
+                  "quantity": "number",
+                  "licensed": "boolean",
+                  "userAssignable": "boolean",
+                  "isUnlimited": "boolean"
+              }
+          ]
+      }
+      ]
+      },
+
+
+      {
+        task: 'group.dns.assign',
+        name: 'Group Dns Assign',
+        description: 'Group Dns Assign',
+        required: [
+          'serviceProviderId',
+          'groupId'
+        ],
+        example: [
+          {
+            "task": "group.dns.assign",
+            "serviceProviderId": "string",
+            "groupId": "string",
+            "dns": [
+                {
+                    "min": "number",
+                    "max": "number"
+                },
+                {
+                    "min": "number"
+                }
+            ]
+        }
+        ]
+      },
+
+      {
+        task: 'group.dns.unassign',
+        name: 'Group Dns UnAssign',
+        description: 'Group Dns UnAssign',
+        required: [
+          'serviceProviderId',
+          'groupId'
+        ],
+        example: [
+          {
+            "task": "group.dns.unassign",
+            "serviceProviderId": "string",
+            "groupId": "string",
+            "dns": [
+                {
+                    "min": "number",
+                    "max": "number"
+                },
+                {
+                    "min": "number"
+                }
+            ]
+        }
+        ]
+      },
 
     {
       task: 'user.create',
