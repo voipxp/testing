@@ -6,6 +6,95 @@ angular.module('odin.bulk').factory('BulkTaskService', BulkTaskService)
 function BulkTaskService() {
   var index = [
     {
+      task: 'service.provider.bulk.clone',
+      name: 'Clone Enterprise',
+      description: 'Clone Enterprise in bulk',
+      required: [
+        'source.serviceProviderId',
+        'destination.serviceProviderId'
+      ],
+      example: [
+      {
+        task: 'service.provider.bulk.clone',
+        source: {
+          serviceProviderId: 'string'
+        },
+        destination: {
+          serviceProviderId: 'string'
+        },
+        options: {
+          services: 'boolean',
+          servicePacks: 'boolean',
+          networkClassOfService: 'boolean',
+          enterpriseVoiceVPN: 'boolean',
+          callProcessingPolicy: 'boolean'
+        }
+      }
+      ]
+    },
+    {
+      task: 'group.bulk.clone',
+      name: 'Clone Group',
+      description: 'Clone Group in bulk',
+      required: [
+        'source.serviceProviderId',
+        'source.groupId',
+        'destination.serviceProviderId',
+        'destination.groupId'
+      ],
+      example: [
+      {
+        task: 'group.bulk.clone',
+        source: {
+          serviceProviderId: 'string',
+          groupId: 'string'
+        },
+        destination: {
+          serviceProviderId: 'string',
+          groupId: 'string'
+        },
+          options: {
+            featureAccessCode: 'boolean',
+            callProcessingPolicy: 'boolean',
+            networkClassOfService: 'boolean',
+            extensionLength: 'boolean',
+            services: 'boolean',
+            policy: 'boolean',
+            schedule: 'boolean',
+            outgoingCallingPlan: 'boolean',
+            routingProfile:'boolean'
+          }
+      }
+      ]
+    },
+    {
+      task: 'group.device.tag.modify',
+      name: 'Group Device Tag Modify',
+      description: 'Group Device Tag Modify',
+      required: [
+        'serviceProviderId',
+        'groupId',
+		    'deviceName'
+      ],
+      example: [
+      {
+        task: 'group.device.tag.modify',
+        serviceProviderId: 'string',
+        groupId: 'string',
+        deviceName: 'string',
+            tags: [
+                {
+                  tagName: "string",
+                    tagValue: "string"
+                },
+                {
+                  tagName: "string",
+                    tagValue: "string"
+                }
+            ]
+      }]
+  },
+    {
       task: 'user.create',
       name: 'Create Users',
       description: 'Create users in bulk',
