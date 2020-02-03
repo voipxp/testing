@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
@@ -6,15 +6,15 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-not-reachable-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
+  UiFormField,
   UiInputCheckbox,
-  UiSection,
   UiListItem,
-  UiFormField
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserCallForwardingNotReachable = ({ match }) => {
@@ -24,20 +24,17 @@ export const UserCallForwardingNotReachable = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
    
-  const { data: result, isLoading, error, refetch } = useQuery(
+  const { data: result, isLoading, error } = useQuery(
     'user-call-forwarding-not-reachable',
     () => api.show(userId)
   )
-
-  const UserNotRechableView = result || {}
+ 
+  const userServiceData = result || {}
+  const options =  api.options || {}
 
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
 
-  const userCallForwordingLength = {
-    outgoingDNorSIPURI: { minimum: 1, maximum: 161 }
-  } 
- 
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
@@ -46,11 +43,15 @@ export const UserCallForwardingNotReachable = ({ match }) => {
   }
   
   function edit() {
-    setForm({ ...UserNotRechableView })
+    setForm({ ...userServiceData })
     setShowModal(true)
   }
   
   function save() {
+      if( (form.forwardToPhoneNumber > options.forwardToPhoneNumber.maximum ) || ( form.forwardToPhoneNumber < options.forwardToPhoneNumber.minimum ) ){ 
+      alertDanger('Call Forwarding Phone Number Minimum Value ' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
+      return false
+    }
     update(form)
   }
 
@@ -78,14 +79,14 @@ export const UserCallForwardingNotReachable = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-	      <UiSection>
-		      <UiListItem label="Is Active">
-            <UiCheckbox isChecked={UserNotRechableView.isActive} />
+        <UiSection>
+          <UiListItem label="Is Active">
+            <UiCheckbox isChecked={userServiceData.isActive} />
           </UiListItem>
-		      <UiListItem label="Forward to Phone Number">
-            {UserNotRechableView.forwardToPhoneNumber}
+          <UiListItem label="Forward to Phone Number">
+            {userServiceData.forwardToPhoneNumber}
           </UiListItem>
-		    </UiSection>
+        </UiSection>
       </UiCard>
 
       <UiCardModal
@@ -109,8 +110,6 @@ export const UserCallForwardingNotReachable = ({ match }) => {
                 value = {form.forwardToPhoneNumber}
                 placeholder = "Forward To"
                 onChange = {handleInput}
-                minLength = {userCallForwordingLength.outgoingDNorSIPURI.minimum} 
-                maxLength = {userCallForwordingLength.outgoingDNorSIPURI.maximum}
               />
 				    </UiFormField>
 			    </UiSection>

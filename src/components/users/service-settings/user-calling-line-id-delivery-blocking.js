@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-calling-line-id-delivery-blocking-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
-  UiSection,
   UiListItem,
-  UiFormField
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
@@ -24,10 +22,11 @@ export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   
-  const { data: result, isLoading, error, refetch } = useQuery(
+  const { data: result, isLoading, error } = useQuery(
     'user-calling-line-id-blocking',
     () => api.show(userId)
   )
+  
   const userServiceData = result || {}
 
   if (error) alertDanger(error)

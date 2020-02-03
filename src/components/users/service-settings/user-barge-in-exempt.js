@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-barge-in-exempt-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
-  UiSection,
   UiListItem,
-  UiFormField
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserBargeInExempt = ({ match }) => {
@@ -23,7 +21,8 @@ export const UserBargeInExempt = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
- const { data: result, isLoading, error, refetch } = useQuery(
+  
+ const { data: result, isLoading, error } = useQuery(
     'user-barge-in-exempt',
     () => api.show(userId)
   )
@@ -49,7 +48,7 @@ export const UserBargeInExempt = ({ match }) => {
     update(form)
   }
 
-async function update(formData) {
+  async function update(formData) {
     showLoadingModal()
     try {
       const newUserBargeInExempt = await api.update(formData)

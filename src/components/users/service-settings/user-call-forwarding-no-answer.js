@@ -6,15 +6,15 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-no-answer-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
+  UiFormField,
   UiInputCheckbox,
-  UiSection,
   UiListItem,
-  UiFormField
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserCallForwardingNoAnswer = ({ match }) => {
@@ -23,12 +23,14 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
+  
   const { data: result, isLoading, error } = useQuery(
     'user-call-forwarding-no-ans',
-	() => api.show(userId)		
+	  () => api.show(userId)		
   )
-  const userDataNoAnswer = result || {}
+  const userServiceData = result || {}
   const options = api.options || {}
+
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
    
@@ -37,10 +39,10 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 	  setForm({ ...form, [name]: value })
- }
+  }
   
   function edit() {
-    setForm({ ...userDataNoAnswer })
+    setForm({ ...userServiceData })
     setShowModal(true)
   }
   
@@ -82,22 +84,20 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-	  
-	 <UiSection>
-		<UiListItem label="Is Active">
-            <UiCheckbox isChecked={userDataNoAnswer.isActive} />
+        <UiSection>
+          <UiListItem label="Is Active">
+            <UiCheckbox isChecked={userServiceData.isActive} />
           </UiListItem>
-		  <UiListItem label="Forward to Phone Number">
-            {userDataNoAnswer.forwardToPhoneNumber}
+          <UiListItem label="Forward to Phone Number">
+            {userServiceData.forwardToPhoneNumber}
           </UiListItem>
-		  
-		  <UiListItem label="Number of Rings">
-		   { userDataNoAnswer.numberOfRings }
+        
+          <UiListItem label="Number of Rings">
+            { userServiceData.numberOfRings }
           </UiListItem>
-	</UiSection>
-
-          
+        </UiSection>
       </UiCard>
+
       <UiCardModal
         title={`Edit Call Forwarding No Answer`}
         isOpen={showModal}
@@ -105,37 +105,35 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
         onSave={save}
       >
         <form>
-		
-          <UiSection title="General Settings">
-		   <UiInputCheckbox
+		      <UiSection title="General Settings">
+		        <UiInputCheckbox
               name="isActive"
               label="Is Active"
               checked={form.isActive}
               onChange={handleInput}
             />
 			
-			<UiFormField label="Forward To">  
-				<Input
-				  type="text"
-				  name="forwardToPhoneNumber"
-				  value={form.forwardToPhoneNumber}
-				  placeholder="Forward To"
-				  onChange = {handleInput}
-				/>
-			 </UiFormField>
+            <UiFormField label="Forward To">  
+              <Input
+                type="text"
+                name="forwardToPhoneNumber"
+                value={form.forwardToPhoneNumber}
+                placeholder="Forward To"
+                onChange = {handleInput}
+              />
+			      </UiFormField>
 			 
-			<UiFormField label="Number Of Rings">  
-                <Input
-                  type="number"
-                  name="numberOfRings"
-                  value={form.numberOfRings}
-                  placeholder="Forward To"
-                  onChange={handleInput}
-				 
-                />
-             </UiFormField>
-		  </UiSection>
-		</form>
+			      <UiFormField label="Number Of Rings">  
+              <Input
+                type="number"
+                name="numberOfRings"
+                value={form.numberOfRings}
+                placeholder="Forward To"
+                onChange={handleInput}
+              />
+            </UiFormField>
+		      </UiSection>
+		    </form>
       </UiCardModal>
     </>
   )

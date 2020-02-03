@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-call-waiting-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
-  UiSection,
   UiListItem,
-  UiFormField
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserCallWaiting = ({ match }) => {
@@ -23,7 +21,8 @@ export const UserCallWaiting = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const { data: result, isLoading, error, refetch } = useQuery(
+  
+  const { data: result, isLoading, error } = useQuery(
     'user-call-wating',
     () => api.show(userId)
   )
@@ -32,10 +31,6 @@ export const UserCallWaiting = ({ match }) => {
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard /> 
 
-  const userCallForwordingLength = {
-    outgoingDNorSIPURI: { minimum: 1, maximum: 161 } 
-  } 
- 
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value

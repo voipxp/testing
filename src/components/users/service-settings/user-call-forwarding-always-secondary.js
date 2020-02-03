@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
@@ -6,15 +6,15 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-always-secondary-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
+  UiFormField,
   UiInputCheckbox,
-  UiSection,
   UiListItem,
-  UiFormField
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserCallForwardingAlwaysSecondary = ({ match }) => {
@@ -26,9 +26,11 @@ export const UserCallForwardingAlwaysSecondary = ({ match }) => {
    
   const { data: result, isLoading, error } = useQuery(
     'user-call-forwarding-always-secondary',
-	() => api.show(userId)		
+	  () => api.show(userId)		
   )
+
   const userServiceData = result || {}
+  const options = api.options || {}
   
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
@@ -46,6 +48,10 @@ export const UserCallForwardingAlwaysSecondary = ({ match }) => {
   }
   
   function save() {
+	  if( ( form.forwardToPhoneNumber > options.forwardToPhoneNumber.maximum ) || (form.forwardToPhoneNumber < options.forwardToPhoneNumber.minimum) ){
+		  alertDanger('Forward To Phone Number or SIPURI Value Minimum ' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
+		  return false
+	  }
     update(form)
   }
 
@@ -53,7 +59,6 @@ export const UserCallForwardingAlwaysSecondary = ({ match }) => {
     showLoadingModal()
     try {
       const newCallForwardingAlwaysSecondary = await api.update(formData)
-      
       setQueryData(['user-call-forwarding-always-secondary'], newCallForwardingAlwaysSecondary, {
         shouldRefetch: true
       })

@@ -1,5 +1,11 @@
 import { api } from '..'
 
+/**
+The response json gor get and param for update is a json of the format:
+{isActive:true/false,forwardToPhoneNumber: 20, userId: <valueOfUserId>, }
+
+*/
+
 export const options = {
   forwardToPhoneNumber: {
     minimum: 1,
@@ -9,6 +15,10 @@ export const options = {
     minimum: 2,
     maximum: 20
   }
+}
+
+export function index(serviceProviderId, groupId) {
+  return api.get('bulk', { params: { serviceProviderId, groupId } })
 }
 
 export function show(userId) {
@@ -23,7 +33,7 @@ export function bulk(params) {
   return api.put('bulk', params)
 }
 
-export default { show, update, bulk, options }
+export default { index, show, update, bulk, options }
 
 
 

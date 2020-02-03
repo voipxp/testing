@@ -6,15 +6,15 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-call-transfer-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
+  UiFormField,
   UiInputCheckbox,
-  UiSection,
   UiListItem,
-  UiFormField
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserCallTransfer = ({ match }) => {
@@ -23,10 +23,12 @@ export const UserCallTransfer = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
+  
   const { data: result, isLoading, error } = useQuery(
     'user-call-tranfer',
     () => api.show(userId)
   )
+
   const userServiceData = result || {}
   const options = api.options || {}
 
@@ -48,6 +50,11 @@ export const UserCallTransfer = ({ match }) => {
   function save() {
 	  if( form.recallNumberOfRings > options.recallNumberOfRings.maximum || form.recallNumberOfRings < options.recallNumberOfRings.minimum ){
 		  alertDanger('Number Of Rings Minimum Value ' + options.recallNumberOfRings.minimum + ' and Maximum Value ' + options.recallNumberOfRings.maximum)
+		  return false
+	  }
+	  
+	  if( form.busyCampOnSeconds > options.busyCampOnSeconds.maximum || form.busyCampOnSeconds < options.busyCampOnSeconds.minimum ){
+		  alertDanger('Enable Busy On Camp Seconds Minimum Value ' + options.busyCampOnSeconds.minimum + ' and Maximum Value ' + options.busyCampOnSeconds.maximum)
 		  return false
 	  }
 		  update(form)	

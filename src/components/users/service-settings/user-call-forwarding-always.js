@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
@@ -6,14 +6,14 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-always-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
   UiCardModal,
   UiCheckbox,
+  UiCard,
   UiInputCheckbox,
-  UiSection,
+  UiLoadingCard,
   UiListItem,
+  UiSection,
   UiFormField
 } from '@/components/ui'
 
@@ -24,13 +24,13 @@ export const UserCallForwardingAlways = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   
-  
-  const { data: result, isLoading, error, refetch } = useQuery(
+  const { data: result, isLoading, error } = useQuery(
     'user-call-forwarding-always',
     () => api.show(userId)
   )
 
   const userServiceData = result || {}
+  const options = api.options || {}
   
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
@@ -47,7 +47,11 @@ export const UserCallForwardingAlways = ({ match }) => {
     setShowModal(true)
   }
   
-  function save() {
+   function save() {
+	  if( ( form.forwardToPhoneNumber > options.forwardToPhoneNumber.maximum ) || (form.forwardToPhoneNumber < options.forwardToPhoneNumber.minimum) ){
+		  alertDanger('Forward To Phone Number or SIPURI Value Minimum' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
+		  return false
+	  }
     update(form)
   }
   
@@ -104,7 +108,7 @@ export const UserCallForwardingAlways = ({ match }) => {
               onChange={handleInput}
             />
 			
-			      <UiInputCheckbox
+            <UiInputCheckbox
               name="isRingSplashActive"
               label="Is Ring Splash Active"
               checked={form.isRingSplashActive}
