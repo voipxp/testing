@@ -94,7 +94,6 @@ function BulkTaskService() {
             ]
       }]
   },
-
   {
     task: 'group.trunk.group',
     name: 'Group Trunk Group',
@@ -185,7 +184,6 @@ function BulkTaskService() {
       }
     ]
     },
-
     {
       task: 'group.services.update',
       name: 'Group Services Update',
@@ -235,8 +233,6 @@ function BulkTaskService() {
       }
       ]
       },
-
-
       {
         task: 'group.dns.assign',
         name: 'Group Dns Assign',
@@ -262,7 +258,6 @@ function BulkTaskService() {
         }
         ]
       },
-
       {
         task: 'group.dns.unassign',
         name: 'Group Dns UnAssign',
@@ -288,7 +283,6 @@ function BulkTaskService() {
         }
         ]
       },
-
     {
       task: 'user.create',
       name: 'Create Users',
