@@ -17,15 +17,20 @@ controller.$inject = [
   'Alert',
   'UserAnnouncementService',
   'EventEmitter',
-  '$scope'
+  '$scope',
+  'UserAnnouncementDownloadService',
+  'DownloadService',
+  'Session'
 ]
-function controller(Alert, UserAnnouncementService, EventEmitter, $scope) {
+function controller(Alert, UserAnnouncementService, EventEmitter, $scope, UserAnnouncementDownloadService, DownloadService, Session) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
   ctrl.onUpdateAnnouncement = onUpdateAnnouncement
   ctrl.onDeleteAnnouncement = onDeleteAnnouncement
-
+  ctrl.download = download
+  ctrl.announcementUrl = Session.data('announcementUrl')
+   
   function onInit() {
     ctrl.loading = true
     return loadAnnouncement()
@@ -55,5 +60,17 @@ function controller(Alert, UserAnnouncementService, EventEmitter, $scope) {
 
   function edit() {
     $scope.$broadcast('announcementUpdate:load')
+  }
+
+  function download() {
+    ctrl.fileName =  'announcement_'+ctrl.userId+'_'+ctrl.name
+    return UserAnnouncementDownloadService.show(
+      ctrl.userId,
+      ctrl.name,
+      ctrl.mediaType
+    )
+    .then(function(data) {
+      DownloadService.download(data, ctrl.fileName)
+    })
   }
 }

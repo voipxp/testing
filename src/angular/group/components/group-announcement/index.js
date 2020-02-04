@@ -13,16 +13,25 @@ controller.$inject = [
   'GroupAnnouncementService',
   'Route',
   '$scope',
-  '$location'
+  '$location',
+  'Session',
+  'GroupAnnouncementDownloadService',
+  'DownloadService'
 ]
-function controller(Alert, GroupAnnouncementService, Route, $scope, $location) {
+function controller(Alert, GroupAnnouncementService, Route,
+   $scope, $location , Session,
+    GroupAnnouncementDownloadService,
+    DownloadService
+    ) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
   ctrl.edit = edit
   ctrl.onUpdate = onUpdate
   ctrl.onDelete = onDelete
-
+  ctrl.download = download
+  ctrl.announcementUrl = Session.data('announcementUrl')
+  
   function onInit() {
     ctrl.name = $location.search().name
     ctrl.mediaType = $location.search().mediaType
@@ -44,6 +53,19 @@ function controller(Alert, GroupAnnouncementService, Route, $scope, $location) {
       ctrl.mediaType
     ).then(function(data) {
       ctrl.announcement = data
+    })
+  }
+
+  function download() {
+    ctrl.fileName =  'announcement_'+ctrl.serviceProviderId+'_'+ctrl.groupId+'_'+ctrl.name
+    return GroupAnnouncementDownloadService.show(
+      ctrl.serviceProviderId,
+      ctrl.groupId,
+      ctrl.name,
+      ctrl.mediaType
+    )
+    .then(function(data) {
+      DownloadService.download(data, ctrl.fileName)
     })
   }
 
