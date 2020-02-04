@@ -164,26 +164,6 @@ function BulkTaskService() {
         otgDtgIdentity: "string"
     }]
   },
-  {
-    task: 'trunk.group.call.capacity',
-    name: 'Trunk Group Call Capacity',
-    description: 'Trunk Group Call Capacity',
-    required: [
-      'serviceProviderId',
-      'groupId'
-    ],
-    example: [
-      {
-        'task': 'trunk.group.call.capacity',
-        'serviceProviderId': 'string',
-        'groupId': 'string',
-        "serviceProvider.maxActiveCalls": "number",
-        "serviceProvider.burstingMaxActiveCalls": "number",
-        'group.maxActiveCalls': 'number',
-        'group.burstingMaxActiveCalls': 'number',
-      }
-    ]
-    },
     {
       task: 'group.services.update',
       name: 'Group Services Update',
