@@ -8,12 +8,18 @@ export const options = {
 }
 
 export function index( serviceProviderId, groupId ) {
-  return api.get('bulk', { params: { serviceProviderId: serviceProviderId, groupId: groupId } })
+  return api.get('bulk', { params: { serviceProviderId, groupId } })
 }
 
 export function show(userId) {
   return api.get('/users/automatic-hold-retrieve', { params: { userId } })
 }
+
+/**
+The response json gor get and param for update is a json of the format:
+{isActive:true/false,recallTimerSeconds: 20, userId: <valueOfUserId>, }
+
+*/
 
 export function update(params) {
   return api.put('/users/automatic-hold-retrieve', params)

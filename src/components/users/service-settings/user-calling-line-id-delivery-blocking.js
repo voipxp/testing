@@ -72,8 +72,7 @@ export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-	  
-        <UiSection>
+	      <UiSection>
           <UiListItem label="Enabled">
             <UiCheckbox isChecked={userServiceData.isActive} />
           </UiListItem>

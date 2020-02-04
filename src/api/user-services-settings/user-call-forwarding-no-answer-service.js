@@ -25,6 +25,12 @@ export function show(userId) {
   return api.get('/users/call-forwarding-no-answer', { params: { userId } })
 }
 
+/**
+The response json gor get and param for update is a json of the format:
+{isActive:true/false,forwardToPhoneNumber :20,numberOfRings:3,  userId: <valueOfUserId> }
+
+*/
+
 export function update(params) {
   return api.put('/users/call-forwarding-no-answer', params)
 }

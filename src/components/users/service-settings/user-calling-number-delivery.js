@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-calling-number-delivery-service'
@@ -23,7 +22,7 @@ export const UserCallingNumberDelivery = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
   
-   const { data: result, isLoading, error, refetch } = useQuery(
+   const { data: result, isLoading, error } = useQuery(
     'user-calling-number-delivery',
     () => api.show(userId)
   )
@@ -64,21 +63,6 @@ export const UserCallingNumberDelivery = ({ match }) => {
     }
   }
   
-   async function update(formData) {
-    showLoadingModal()
-    try {
-      const newAutomaticHoldRetrive = await api.update(formData)
-      setQueryData(['user-automatic-hold-retrieve'], newAutomaticHoldRetrive, {
-        shouldRefetch: true
-      })
-      alertSuccess('Automatic Hold/Retrieve Updated')
-      setShowModal(false)
-    } catch (error_) {
-      alertDanger(error_)
-    } finally {
-      hideLoadingModal()
-    }
-  }
 
   return (
     <>
