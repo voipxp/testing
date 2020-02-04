@@ -117,7 +117,10 @@ function controller(
   }
 
   function submit() {
-    validate(ctrl.users)
+      validate(ctrl.users)
+      .then(function() {
+        return stringToBoolean(ctrl.users)
+      })
       .then(function() {
         return queue(ctrl.users)
       })
@@ -150,7 +153,11 @@ function controller(
     if (task === 'service.provider.bulk.clone' && !ACL.has('Reseller')) {
       Alert.notify.danger('service.provider.bulk.clone is not a permitted Task')
       return false
-  }
+    }
+    if ( (task === 'group.dns.assign' || task === 'group.dns.unassign' ) && !ACL.has('Reseller')) {
+      Alert.notify.danger(task + ' is not a permitted Task')
+      return false
+    }
 
     return true
   }
@@ -192,4 +199,24 @@ function controller(
       true
     )
   }
+
+  function stringToBoolean(data) {
+    return $q.all(data.map(stringToBooleanValue)).then(function() {
+      return data
+    })
+  }
+
+  function stringToBooleanValue(user) {
+    Object.keys(user).map( key => {
+        if( user[key] === "TRUE" || user[key] === "true" ) {
+          user[key] = true
+        }
+        if( user[key] === "FALSE" || user[key] === "false" ) {
+          user[key] = false
+        }
+    })
+
+    return user
+  }
+
 }
