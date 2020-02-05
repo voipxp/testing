@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-calling-name-delivery-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
-  UiSection,
-  UiListItem
+  UiListItem,
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserCallingNameDelivery = ({ match }) => {
@@ -21,15 +21,16 @@ export const UserCallingNameDelivery = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const { data: result, isLoading, error, refetch } = useQuery(
+  
+  const { data: result, isLoading, error } = useQuery(
     'user-calling-delivery',
     () => api.show(userId)
   )
+  
   const userServiceData = result || {}
 
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard /> 
- 
  
   function handleInput(event) {
     const target = event.target

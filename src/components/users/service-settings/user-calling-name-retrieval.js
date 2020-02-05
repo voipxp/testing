@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-calling-name-retrieval-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
-  UiSection,
   UiListItem,
-  UiFormField
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserCallingNameRetrieval = ({ match }) => {
@@ -23,8 +21,9 @@ export const UserCallingNameRetrieval = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const { data: result, isLoading, error, refetch } = useQuery(
-    'user-calling-retrieval',
+  
+  const { data: result, isLoading, error } = useQuery(
+    'user-calling-name-retrieval',
     () => api.show(userId)
   )
   const userServiceData = result || {}
@@ -51,8 +50,8 @@ export const UserCallingNameRetrieval = ({ match }) => {
   async function update(formData) {
     showLoadingModal()
     try {
-      const newUserCallingRetrieval = await api.update(formData)
-      setQueryData(['user-calling-retrieval'], newUserCallingRetrieval, {
+      const newUserCallingNameRetrieval = await api.update(formData)
+      setQueryData(['user-calling-name-retrieval'], newUserCallingNameRetrieval, {
         shouldRefetch: true
       })
       alertSuccess('Calling Name Retrieval Updated')
@@ -72,8 +71,7 @@ export const UserCallingNameRetrieval = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-	  
-        <UiSection>
+	      <UiSection>
           <UiListItem label="Is Active">
             <UiCheckbox isChecked={userServiceData.isActive} />
           </UiListItem>

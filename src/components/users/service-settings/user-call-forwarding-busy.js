@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input} from 'rbx'
@@ -6,15 +6,15 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-busy-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
+  UiFormField,
   UiInputCheckbox,
-  UiSection,
+  UiLoadingCard,
   UiListItem,
-  UiFormField
+  UiSection
 } from '@/components/ui'
 
 export const UserCallForwardingBusy = ({ match }) => {
@@ -23,18 +23,17 @@ export const UserCallForwardingBusy = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
+  
   const { data: result, isLoading, error } = useQuery(
     'user-call-forwarding-busy',
 	() => api.show(userId)		
   )
   const userServiceData = result || {}
+  const options = api.options || {}
   
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
-  const userCallForwordingLength = {
-    outgoingDNorSIPURI: { minimum: 1, maximum: 161 } 
-  } 
- 
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
@@ -47,7 +46,16 @@ export const UserCallForwardingBusy = ({ match }) => {
     setShowModal(true)
   }
   
-  function save() {
+   function save() {
+		if((form.isActive === true) && ((form.forwardToPhoneNumber === undefined ) || (form.forwardToPhoneNumber === "" ) )){
+			alertDanger('The Service Required Phone Number')
+			return false
+		}
+		
+		if( (form.isActive === true) && (( form.forwardToPhoneNumber.length > options.forwardToPhoneNumber.maximum ) || (form.forwardToPhoneNumber.length < options.forwardToPhoneNumber.minimum) )){
+			  alertDanger('Number Used For Outgoing Call Digits ' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
+			  return false
+		  }
     update(form)
   }
 
@@ -108,8 +116,6 @@ export const UserCallForwardingBusy = ({ match }) => {
                 value={form.forwardToPhoneNumber}
                 placeholder="Forward To"
                 onChange={handleInput}
-                minLength ={userCallForwordingLength.outgoingDNorSIPURI.minimum}
-                maxLength={userCallForwordingLength.outgoingDNorSIPURI.maximum} 
               />
             </UiFormField>
           </UiSection>

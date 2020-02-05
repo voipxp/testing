@@ -5,23 +5,23 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-anonymous-call-rejection-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
-  UiSection,
-  UiListItem
+  UiListItem,
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserAnonymousCallRejection = ({ match }) => {
   const { userId } = match.params
   const { alertSuccess, alertDanger } = useAlerts()
-  
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
+  
   const { data: result, isLoading, error } = useQuery(
     'anonymous-call-rejection',
     () => api.show(userId)
@@ -36,7 +36,7 @@ export const UserAnonymousCallRejection = ({ match }) => {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-	setForm({ ...form, [name]: value })
+	  setForm({ ...form, [name]: value })
   }
   
   function edit() {
@@ -55,7 +55,7 @@ export const UserAnonymousCallRejection = ({ match }) => {
         setQueryData(['anonymous-call-rejection'], newUserAnonymousCallRejection, {
         shouldRefetch: true
       })
-	  alertSuccess('Anonymous Call Rejection Updated')
+	    alertSuccess('Anonymous Call Rejection Updated')
       setShowModal(false)
     } catch (error_) {
       alertDanger(error_)

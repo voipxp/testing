@@ -6,15 +6,15 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-automatic-hold-retrieve-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
+  UiFormField,
   UiInputCheckbox,
-  UiSection,
+  UiLoadingCard,
   UiListItem,
-  UiFormField
+  UiSection
 } from '@/components/ui'
 
 export const UserAutomaticCallHoldRetrieve = ({ match }) => {
@@ -23,12 +23,15 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-   const { data: result, isLoading, error } = useQuery(
+
+  const { data: result, isLoading, error } = useQuery(
     'user-automatic-hold-retrieve',
     () => api.show(userId)
   )
+  
   const userServiceData = result || {}
   const options = api.options || {}
+
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard /> 
   
@@ -107,7 +110,6 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
                 value={form.recallTimerSeconds}
                 onChange={handleInput}
               />
-              
             </UiFormField>
           </UiSection>
         </form>

@@ -31,6 +31,12 @@ function controller(BulkTaskService, $location, ServiceProviderPolicyService) {
     return (services = services.filter(service => {
       if (service.task === 'user.create' && !ctrl.canCreateUser) return false
       if (service.task === 'user.delete' && !ctrl.canCreateUser) return false
+
+      /* temporarily hiding the task*/
+      if (service.task === 'service.provider.bulk.clone') return false
+      if (service.task === 'group.bulk.clone') return false
+      if (service.task === 'group.device.tag.modify') return false
+
       return true
     }))
   }
