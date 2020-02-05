@@ -1,5 +1,24 @@
+
 import { UserSpeedDial8 } from './user-speed-dial-8'
 import { UserIntercept } from './user-intercept'
+import {
+  UserAnonymousCallRejection,
+  UserAutomaticCallback,
+  UserAutomaticCallHoldRetrieve,
+  UserBargeInExempt,
+  UserCallForwardingAlways,
+  UserCallForwardingAlwaysSecondary,
+  UserCallForwardingBusy,
+  UserCallForwardingNoAnswer,
+  UserCallForwardingNotReachable,
+  UserCallingLineIdDeliveryBlocking,
+  UserCallingNameDelivery,
+  UserCallingNameRetrieval,
+  UserCallingNumberDelivery,
+  UserCallTransfer,
+  UserCallWaiting
+  
+} from '@/components/users/service-settings'
 export const userServiceRoutes = [
   {
     angularComponent: 'userAlternateNumbers',
@@ -14,7 +33,7 @@ export const userServiceRoutes = [
     services: ['Advice Of Charge']
   },
   {
-    angularComponent: 'userAnonymousCallRejection',
+    component: UserAnonymousCallRejection,
     module: 'Anonymous Call Rejection',
     path: 'anonymous-call-rejection',
     services: ['Anonymous Call Rejection']
@@ -26,19 +45,19 @@ export const userServiceRoutes = [
     services: ['Authentication']
   },
   {
-    angularComponent: 'userAutomaticCallback',
+    component: UserAutomaticCallback,
     module: 'Automatic Callback',
     path: 'automatic-callback',
     services: ['Automatic Callback']
   },
   {
-    angularComponent: 'userAutomaticHoldRetrieve',
+    component: UserAutomaticCallHoldRetrieve,
     module: 'Automatic Hold/Retrieve',
     path: 'automatic-hold-retrieve',
     services: ['Automatic Hold/Retrieve']
   },
   {
-    angularComponent: 'userBargeInExempt',
+    component: UserBargeInExempt,
     module: 'Barge-in Exempt',
     path: 'barge-in-exempt',
     services: ['Barge-in Exempt']
@@ -72,31 +91,31 @@ export const userServiceRoutes = [
     ]
   },
   {
-    angularComponent: 'userCallForwardingAlways',
+    component: UserCallForwardingAlways,
     module: 'Call Forwarding Always',
     path: 'call-forwarding-always',
     services: ['Call Forwarding Always']
   },
   {
-    angularComponent: 'userCallForwardingAlwaysSecondary',
+    component: UserCallForwardingAlwaysSecondary,
     module: 'Call Forwarding Always Secondary',
     path: 'call-forwarding-always-secondary',
     services: ['Call Forwarding Always Secondary']
   },
   {
-    angularComponent: 'userCallForwardingBusy',
+    component: UserCallForwardingBusy,
     module: 'Call Forwarding Busy',
     path: 'call-forwarding-busy',
     services: ['Call Forwarding Busy']
   },
   {
-    angularComponent: 'userCallForwardingNoAnswer',
+    component: UserCallForwardingNoAnswer,
     module: 'Call Forwarding No Answer',
     path: 'call-forwarding-no-answer',
     services: ['Call Forwarding No Answer']
   },
   {
-    angularComponent: 'userCallForwardingNotReachable',
+    component: UserCallForwardingNotReachable,
     module: 'Call Forwarding Not Reachable',
     path: 'call-forwarding-not-reachable',
     services: ['Call Forwarding Not Reachable']
@@ -120,37 +139,37 @@ export const userServiceRoutes = [
     services: ['Call Recording']
   },
   {
-    angularComponent: 'userCallTransfer',
+    component: UserCallTransfer,
     module: 'Call Transfer',
     path: 'call-transfer',
     services: ['Call Transfer']
   },
   {
-    angularComponent: 'userCallWaiting',
+    component: UserCallWaiting,
     module: 'Call Waiting',
     path: 'call-waiting',
     services: ['Call Waiting']
   },
   {
-    angularComponent: 'userCallingLineIdDeliveryBlocking',
+    component: UserCallingLineIdDeliveryBlocking,
     module: 'Calling Line ID Delivery Blocking',
     path: 'calling-line-id-delivery-blocking',
     services: ['Calling Line ID Delivery Blocking']
   },
   {
-    angularComponent: 'userCallingNameDelivery',
+    component: UserCallingNameDelivery,
     module: 'Calling Name Delivery',
     path: 'calling-name-delivery',
     services: ['Calling Name Delivery']
   },
   {
-    angularComponent: 'userCallingNameRetrieval',
+    component: UserCallingNameRetrieval,
     module: 'Calling Name Retrieval',
     path: 'calling-name-retrieval',
     services: ['Calling Name Retrieval']
   },
   {
-    angularComponent: 'userCallingNumberDelivery',
+    component: UserCallingNumberDelivery,
     module: 'Calling Number Delivery',
     path: 'calling-number-delivery',
     services: ['Calling Number Delivery']
