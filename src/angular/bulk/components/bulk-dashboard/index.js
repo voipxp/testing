@@ -36,6 +36,12 @@ function controller(BulkTaskService, $location, ServiceProviderPolicyService) {
       if (service.task === 'service.provider.bulk.clone') return false
       if (service.task === 'group.bulk.clone') return false
       if (service.task === 'group.device.tag.modify') return false
+      if (service.task === 'group.trunk.group') return false
+      if (service.task === 'trunk.group.call.capacity') return false
+
+      if (service.task === 'group.services.update') return false
+      if (service.task === 'group.dns.assign') return false
+      if (service.task === 'group.dns.unassign') return false
 
       return true
     }))

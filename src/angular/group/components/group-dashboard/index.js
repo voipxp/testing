@@ -91,7 +91,7 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         type: 'management',
         name: 'Departments',
         path: route('departments'),
-		policy: 'departmentRead'
+        policy: 'departmentRead'
       },
 
       {
@@ -100,13 +100,13 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         path: route('groupCommunicationBarringAuthorizationCodes'),
         module: 'Communication Barring User-Control'
       },
-	   {
+      {
         type: 'management',
         name: 'Group Web Policy',
         module: 'groupWebPolicy',
         path: route('groupWebPolicy'),
         admin: true
-      }, 
+      },
       {
         type: 'management',
         name: 'Schedules',
@@ -137,7 +137,8 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
       {
         type: 'management',
         name: 'Call Processing Policy',
-        path: route('callProcessingPolicy')
+        path: route('callProcessingPolicy'),
+        module: 'Group Call Processing Policy'
       },
       {
         type: 'management',

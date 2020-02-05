@@ -117,7 +117,10 @@ function controller(
   }
 
   function submit() {
-    validate(ctrl.users)
+      validate(ctrl.users)
+      .then(function() {
+        return stringToBoolean(ctrl.users)
+      })
       .then(function() {
         return queue(ctrl.users)
       })
@@ -139,18 +142,19 @@ function controller(
   }
 
   function isPermittedTask(task) {
-    if (task === 'user.create' && !ctrl.canCreateUser) {
-        Alert.notify.danger('user.create is not a permitted Task')
+    var action = BulkTaskService.get(task)
+    if(
+        task === 'user.create' && !ctrl.canCreateUser ||
+        task === 'user.delete' && !ctrl.canCreateUser
+      )
+      {
+        Alert.notify.danger(task + ' is not a permitted Task')
         return false
-    }
-    if (task === 'user.delete' && !ctrl.canCreateUser) {
-        Alert.notify.danger('user.delete is not a permitted Task')
+      }
+      else if(action.hasLevel && !ACL.has(action.hasLevel)) {
+        Alert.notify.danger('Admin is not Aauthorized for ' + task +' Task')
         return false
-    }
-    if (task === 'service.provider.bulk.clone' && !ACL.has('Reseller')) {
-      Alert.notify.danger('service.provider.bulk.clone is not a permitted Task')
-      return false
-  }
+      }
 
     return true
   }
@@ -192,4 +196,24 @@ function controller(
       true
     )
   }
+
+  function stringToBoolean(data) {
+    return $q.all(data.map(stringToBooleanValue)).then(function() {
+      return data
+    })
+  }
+
+  function stringToBooleanValue(user) {
+    Object.keys(user).map( key => {
+        if( user[key] === "TRUE" || user[key] === "true" ) {
+          user[key] = true
+        }
+        if( user[key] === "FALSE" || user[key] === "false" ) {
+          user[key] = false
+        }
+    })
+
+    return user
+  }
+
 }
