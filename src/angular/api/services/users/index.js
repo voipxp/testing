@@ -1,6 +1,7 @@
 import './user-advice-of-charge-service'
 import './user-alternate-numbers-service'
 import './user-announcement-service'
+import './user-announcement-download-service'
 import './user-anonymous-call-rejection-service'
 import './user-authentication-service'
 import './user-automatic-callback-service'
