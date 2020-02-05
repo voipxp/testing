@@ -18,8 +18,13 @@ controller.$inject = [
   'GroupAnnouncementDownloadService',
   'DownloadService'
 ]
-function controller(Alert, GroupAnnouncementService, Route,
-   $scope, $location , Session,
+function controller(
+    Alert,
+    GroupAnnouncementService,
+    Route,
+    $scope,
+    $location,
+    Session,
     GroupAnnouncementDownloadService,
     DownloadService
     ) {
