@@ -9,6 +9,7 @@ function BulkTaskService() {
       task: 'service.provider.bulk.clone',
       name: 'Clone Enterprise',
       description: 'Clone Enterprise in bulk',
+      hasLevel: 'Reseller',
       required: [
         'source.serviceProviderId',
         'destination.serviceProviderId'
@@ -36,6 +37,7 @@ function BulkTaskService() {
       task: 'group.bulk.clone',
       name: 'Clone Group',
       description: 'Clone Group in bulk',
+      hasLevel: 'Group',
       required: [
         'source.serviceProviderId',
         'source.groupId',
@@ -71,6 +73,7 @@ function BulkTaskService() {
       task: 'group.device.tag.modify',
       name: 'Group Device Tag Modify',
       description: 'Group Device Tag Modify',
+      hasLevel: 'Group',
       required: [
         'serviceProviderId',
         'groupId',
@@ -98,6 +101,7 @@ function BulkTaskService() {
     task: 'group.trunk.group',
     name: 'Group Trunk Group',
     description: 'Group Trunk Group',
+    hasLevel: 'Group',
     required: [
       'serviceProviderId',
       'groupId',
@@ -168,9 +172,9 @@ function BulkTaskService() {
     task: 'trunk.group.call.capacity',
     name: 'Trunk Group Call Capacity',
     description: 'Trunk Group Call Capacity',
+    hasLevel: 'Service Provider',
     required: [
-      'serviceProviderId',
-      'groupId'
+      'serviceProviderId'
     ],
     example: [
       {
@@ -188,6 +192,7 @@ function BulkTaskService() {
       task: 'group.services.update',
       name: 'Group Services Update',
       description: 'Group Services Update',
+      hasLevel: 'Group',
       required: [
         'serviceProviderId',
         'groupId'
@@ -237,6 +242,7 @@ function BulkTaskService() {
       task: 'group.dns.assign',
       name: 'Group Dns Assign',
       description: 'Group Dns Assign',
+      hasLevel: 'Reseller',
       required: [
         'serviceProviderId',
         'groupId'
@@ -262,6 +268,7 @@ function BulkTaskService() {
       task: 'group.dns.unassign',
       name: 'Group Dns UnAssign',
       description: 'Group Dns UnAssign',
+      hasLevel: 'Reseller',
       required: [
         'serviceProviderId',
         'groupId'

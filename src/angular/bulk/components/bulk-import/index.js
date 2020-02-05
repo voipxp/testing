@@ -142,17 +142,20 @@ function controller(
   }
 
   function isPermittedTask(task) {
+    var action = BulkTaskService.get(task)
     if(
         task === 'user.create' && !ctrl.canCreateUser ||
-        task === 'user.delete' && !ctrl.canCreateUser ||
-        task === 'service.provider.bulk.clone' && !ACL.has('Reseller') ||
-        task === 'trunk.group.call.capacity' && !ACL.has('Service Provider') ||
-        (task === 'group.dns.assign' || task === 'group.dns.unassign' ) && !ACL.has('Reseller')
+        task === 'user.delete' && !ctrl.canCreateUser
       )
       {
         Alert.notify.danger(task + ' is not a permitted Task')
         return false
       }
+      else if(!ACL.has(action.hasLevel)) {
+        Alert.notify.danger('Admin is not Aauthorized for' + task +' Task')
+        return false
+      }
+
     return true
   }
 
