@@ -151,7 +151,7 @@ function controller(
         Alert.notify.danger(task + ' is not a permitted Task')
         return false
       }
-      else if(!ACL.has(action.hasLevel)) {
+      else if(action.hasLevel && !ACL.has(action.hasLevel)) {
         Alert.notify.danger('Admin is not Aauthorized for ' + task +' Task')
         return false
       }
