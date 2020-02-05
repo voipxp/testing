@@ -5,14 +5,14 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery , setQueryData} from 'react-query'
 import api from '@/api/user-services-settings/user-integrated-imp-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
-  UiSection,
-  UiListItem
+  UiListItem,
+  UiLoadingCard,
+  UiSection 
 } from '@/components/ui'
 
 export const UserIntegratedImp = ({ match }) => {
@@ -26,6 +26,7 @@ export const UserIntegratedImp = ({ match }) => {
     'user-integrated',
 	() => api.show(userId)		
   )
+  
   const userServiceData  =  result || {}
 
   if(error) alertDanger(error)

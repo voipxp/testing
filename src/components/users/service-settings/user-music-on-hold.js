@@ -12,7 +12,7 @@ import {
   UiInputCheckbox,
   UiListItem,
   UiLoadingCard,
-  UiSection,
+  UiSection
 } from '@/components/ui'
 
 export const UserMusicOnHold = ({ match }) => {

@@ -6,15 +6,15 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-call-recording-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
-  UiSection,
+  UiFormField,
   UiListItem,
-  UiFormField
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserCallRecording = ({ match }) => {
@@ -30,8 +30,8 @@ export const UserCallRecording = ({ match }) => {
   )
   const userServiceData = result || {}
   const options = api.options || {}
-  const recordingCallOptions = api.options.recordingCallOptions || {}
-  const pauseResumeNotification = api.options.pauseResumeNotification || {}
+  const recordingCallOptions =    options.recordingCallOptions || {}
+  const pauseResumeNotification = options.pauseResumeNotification || {}
   
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />

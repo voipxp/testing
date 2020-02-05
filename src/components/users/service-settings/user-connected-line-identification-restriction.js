@@ -5,14 +5,14 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery , setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-connected-line-identification-restriction-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
+  UiListItem,
+  UiLoadingCard,
   UiSection,
-  UiListItem
 } from '@/components/ui'
 
 export const UserConnectedLineIdentificationRestriction = ({ match }) => {
@@ -21,10 +21,12 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
+
   const { data: result, isLoading, error } = useQuery(
     'user-connectedLIne-Identif-Restrict',
-	() => api.show(userId)		
+	  () => api.show(userId)		
   )
+
   const userServiceData  =  result || {}
 
   if( error ) alertDanger( error )
