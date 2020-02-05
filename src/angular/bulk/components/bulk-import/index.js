@@ -142,23 +142,17 @@ function controller(
   }
 
   function isPermittedTask(task) {
-    if (task === 'user.create' && !ctrl.canCreateUser) {
-        Alert.notify.danger('user.create is not a permitted Task')
+    if(
+        task === 'user.create' && !ctrl.canCreateUser ||
+        task === 'user.delete' && !ctrl.canCreateUser ||
+        task === 'service.provider.bulk.clone' && !ACL.has('Reseller') ||
+        task === 'trunk.group.call.capacity' && !ACL.has('Service Provider') ||
+        (task === 'group.dns.assign' || task === 'group.dns.unassign' ) && !ACL.has('Reseller')
+      )
+      {
+        Alert.notify.danger(task + ' is not a permitted Task')
         return false
-    }
-    if (task === 'user.delete' && !ctrl.canCreateUser) {
-        Alert.notify.danger('user.delete is not a permitted Task')
-        return false
-    }
-    if (task === 'service.provider.bulk.clone' && !ACL.has('Reseller')) {
-      Alert.notify.danger('service.provider.bulk.clone is not a permitted Task')
-      return false
-    }
-    if ( (task === 'group.dns.assign' || task === 'group.dns.unassign' ) && !ACL.has('Reseller')) {
-      Alert.notify.danger(task + ' is not a permitted Task')
-      return false
-    }
-
+      }
     return true
   }
 
