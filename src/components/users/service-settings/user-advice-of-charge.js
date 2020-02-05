@@ -27,14 +27,12 @@ export const UserAdviceOfCharge = ({ match }) => {
   const {data : userData, isLoading, error } =  useQuery(
     'user-AdviceOfCharge', () => api.show(userId)
   )
+  
   const userServiceData = userData || {}
+  const aocTypes =  api.options.aocTypes || {}
+
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
-
-  const aocTypes = [
-    { key: 'During Call', name: 'During Call' },
-    { key: 'End Of Call', name: 'End Of Call' }
-  ]
 
   function handleInput(event) {
     const target = event.target

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery , setQueryData} from 'react-query'
-import api from '@/api/user-services-settings/user-external-calling-line-id-delivery-service'
+import {useQuery, setQueryData} from 'react-query'
+import api from '@/api/user-services-settings/user-music-on-hold-service'
 import {
   UiButton,
   UiCard,
@@ -12,26 +12,26 @@ import {
   UiInputCheckbox,
   UiListItem,
   UiLoadingCard,
-  UiSection
-  
+  UiSection,
 } from '@/components/ui'
 
-export const UserExternalCallingLineIdDelivery = ({ match }) => {
+export const UserMusicOnHold = ({ match }) => {
   const { userId } = match.params
   const { alertSuccess, alertDanger } = useAlerts()
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
-  const {data: result , isLoading, error } = useQuery(
-    'user-external-clid-delivery',
-	() => api.show(userId)		
+
+  const {data : result , isLoading, error } = useQuery(
+    'music-on-hold',
+    ()=>api.show(userId)
   )
-  const userServiceData  =  result || {}
 
+  const userServiceData =  result || {}
+  
   if(error) alertDanger(error)
-  if(isLoading) return <UiLoadingCard />
-
+  if(isLoading) return <UiLoadingCard/>
+  
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
@@ -49,13 +49,15 @@ export const UserExternalCallingLineIdDelivery = ({ match }) => {
   }
 
   async function update(formData) {
-    showLoadingModal()
+	showLoadingModal()
     try {
-      const newExternalClidDelivery = await api.update(formData)
-      setQueryData(['user-external-clid-delivery'], newExternalClidDelivery, {
-        shouldRefetch: true
-      })
-      alertSuccess(' External Calling Line ID Delivery Updated')
+    const newMusicOnHold = await api.update(formData)
+    setQueryData(
+      'music-on-hold',newMusicOnHold,{
+        shouldRefetch:true
+      }
+    )
+      alertSuccess('Music On Hold Updated')
       setShowModal(false)
     } catch (error_) {
       alertDanger(error_)
@@ -63,32 +65,32 @@ export const UserExternalCallingLineIdDelivery = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard
-        title="External Calling Line ID Delivery"
+        title="Music On Hold User"
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
 	      <UiSection>
-          <UiListItem label="Enable">
+          <UiListItem label="Active">
             <UiCheckbox isChecked={userServiceData.isActive} />
           </UiListItem>
         </UiSection>
       </UiCard>
       <UiCardModal
-        title={`Edit Settings`}
+        title={`Edit Music On Hold`}
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={save}
       >
         <form>
-          <UiSection title="Enable">
+          <UiSection title="Settings">
             <UiInputCheckbox
               name="isActive"
-              label="Is Active"
+              label="is Active"
               checked={form.isActive}
               onChange={handleInput}
             />
@@ -98,6 +100,6 @@ export const UserExternalCallingLineIdDelivery = ({ match }) => {
     </>
   )
 }
-UserExternalCallingLineIdDelivery.propTypes = {
+UserMusicOnHold.propTypes = {
   match: PropTypes.object.isRequired
 }

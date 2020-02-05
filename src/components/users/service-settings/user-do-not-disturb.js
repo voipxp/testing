@@ -5,14 +5,14 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery , setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-do-not-disturb-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
+  UiListItem,
   UiInputCheckbox,
-  UiSection,
-  UiListItem
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserDoNotDisturb = ({ match }) => {

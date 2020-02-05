@@ -1,11 +1,18 @@
 import { api } from '..'
 
+const url  =  '/users/connected-line-identification-restriction' 
+
 export function show(userId) {
-  return api.get('/users/connected-line-identification-restriction', { params: { userId } })
+  return api.get(url, { params: { userId } })
 }
 
+/**
+The response json gor get and param for update is a json of the format:
+{isActive:true/false, userId: <valueOfUserId>, }
+*/
+
 export function update(params) {
-  return api.put('/users/connected-line-identification-restriction', params)
+  return api.put(url, params)
 }
 
 export default { show, update }

@@ -2,6 +2,7 @@
 import { UserSpeedDial8 } from './user-speed-dial-8'
 import { UserIntercept } from './user-intercept'
 import {
+  UserAdviceOfCharge,
   UserAnonymousCallRejection,
   UserAutomaticCallback,
   UserAutomaticCallHoldRetrieve,
@@ -15,17 +16,16 @@ import {
   UserCallingNameDelivery,
   UserCallingNameRetrieval,
   UserCallingNumberDelivery,
+  UserCallRecording,
   UserCallTransfer,
   UserCallWaiting,
-  UserAdviceOfCharge,
-  UserCallRecording,
   UserConnectedLineIdentificationRestriction,
   UserDirectedCallPickupWithBargeIn,
   UserDoNotDisturb,
   UserExternalCallingLineIdDelivery,
   UserIntegratedImp,
-  UserInternalCallingLineIdDelivery
-  
+  UserInternalCallingLineIdDelivery,
+  UserMusicOnHold
 } from '@/components/users/service-settings'
 export const userServiceRoutes = [
   {
@@ -267,7 +267,7 @@ export const userServiceRoutes = [
     services: ['Meet-Me Conferencing']
   },
   {
-    angularComponent: 'userMusicOnHold',
+    component: UserMusicOnHold,
     module: 'Music On Hold User',
     path: 'music-on-hold-user',
     services: ['Music On Hold User']

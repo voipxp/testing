@@ -5,14 +5,15 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData} from 'react-query'
 import api from '@/api/user-services-settings/user-internal-calling-line-id-delivery-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
-  UiSection,
-  UiListItem
+  UiListItem,
+  UiLoadingCard,
+  UiSection
+  
 } from '@/components/ui'
 
 export const UserInternalCallingLineIdDelivery = ({ match }) => {
@@ -51,13 +52,13 @@ export const UserInternalCallingLineIdDelivery = ({ match }) => {
   async function update(formData) {
 	showLoadingModal()
     try {
-		const newInternalCallingLIneIdDelivery = await api.update(formData)
-    setQueryData(
-      'internal-calling-line-id-delivery',
-      newInternalCallingLIneIdDelivery,{
-        shouldRefetch: true
-      }
-    )
+		  const newInternalCallingLIneIdDelivery = await api.update(formData)
+      setQueryData(
+        'internal-calling-line-id-delivery',
+        newInternalCallingLIneIdDelivery,{
+          shouldRefetch: true
+        }
+      )
       alertSuccess('Internal Calling Line ID Delivery Updated')
       setShowModal(false)
     } catch (error_) {
@@ -75,8 +76,7 @@ export const UserInternalCallingLineIdDelivery = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-	  
-        <UiSection>
+	      <UiSection>
           <UiListItem label="Enabled">
             <UiCheckbox isChecked={userServiceData.isActive} />
           </UiListItem>

@@ -5,14 +5,14 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery , setQueryData} from 'react-query'
 import api from '@/api/user-services-settings/user-directed-call-pickup-with-barge-in-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
+  UiLoadingCard,
+  UiListItem,
   UiSection,
-  UiListItem
 } from '@/components/ui'
 
 export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
@@ -21,6 +21,7 @@ export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
+  
   const {data: result , isLoading, error } = useQuery(
     'user-direct-call-pickup-with-bargeIn',
 	() => api.show(userId)		
