@@ -63,14 +63,13 @@ function controller(Alert, UserAnnouncementService, EventEmitter, $scope, UserAn
   }
 
   function download() {
-    ctrl.fileName =  'announcement_'+ctrl.userId+'_'+ctrl.name
     return UserAnnouncementDownloadService.show(
       ctrl.userId,
       ctrl.name,
       ctrl.mediaType
     )
     .then(function(data) {
-      DownloadService.download(data, ctrl.fileName)
+      DownloadService.download(data, ctrl.name)
     })
   }
 }

@@ -57,7 +57,6 @@ function controller(Alert, GroupAnnouncementService, Route,
   }
 
   function download() {
-    ctrl.fileName =  'announcement_'+ctrl.serviceProviderId+'_'+ctrl.groupId+'_'+ctrl.name
     return GroupAnnouncementDownloadService.show(
       ctrl.serviceProviderId,
       ctrl.groupId,
@@ -65,7 +64,7 @@ function controller(Alert, GroupAnnouncementService, Route,
       ctrl.mediaType
     )
     .then(function(data) {
-      DownloadService.download(data, ctrl.fileName)
+      DownloadService.download(data, ctrl.name)
     })
   }
 
