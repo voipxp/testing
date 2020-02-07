@@ -33,6 +33,12 @@
       label="Leave Blank"
     ></pbs-input-radio>
     <pbs-input-radio
+      value="extensionRange"
+      ng-model="$ctrl.extension"
+      label="Add Extension Range"
+      ng-click="$ctrl.addExtensionRange()"
+    ></pbs-input-radio>
+    <pbs-input-radio
       ng-repeat="extension in $ctrl.extensions"
       ng-value="extension.template"
       ng-model="$ctrl.extension"
@@ -87,3 +93,7 @@
   user-count="$ctrl.userCount"
   on-update="$ctrl.onUpdateNumbers($event)"
 ></bulk-create-numbers>
+<bulk-add-extension-range
+  user-count="$ctrl.userCount"
+  on-update="$ctrl.onUpdateExtRange($event)"
+></bulk-add-extension-range>

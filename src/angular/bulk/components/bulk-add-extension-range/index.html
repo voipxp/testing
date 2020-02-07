@@ -1,0 +1,14 @@
+<pbs-modal id="{{ $ctrl.modalId }}" title="Add Extension Range">
+  <form novalidate autocomplete="off">
+
+    <pbs-form-field-horizontal label="Range">
+      <input
+        type="tel"
+        class="input"
+        ng-pattern="$ctrl.validateNumber"
+        ng-model="$ctrl.range"
+        required
+      />
+    </pbs-form-field-horizontal>
+  </form>
+</pbs-modal>
