@@ -11,6 +11,10 @@ import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
+import {
+  CloneEnterpriseBulk,
+} from '@/components/bulk'
+
 export const routes = [
   {
     path: '/account',
@@ -60,6 +64,12 @@ export const routes = [
     path: '/bulk/import',
     angularComponent: 'bulkImport',
     hasLevel: 'Group Department',
+    hasModuleRead: 'Provisioning'
+  },
+  {
+    path: '/bulk/service.provider.bulk.clone',
+    component: CloneEnterpriseBulk,
+    hasLevel: 'Service Provider',
     hasModuleRead: 'Provisioning'
   },
   {
