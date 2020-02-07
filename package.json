@@ -1,6 +1,6 @@
 {
   "name": "odin-web",
-  "version": "5.2.1",
+  "version": "5.4.10",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -55,6 +55,7 @@
     "react-async-hook": "^3.6.1",
     "react-ga": "^2.5.7",
     "react-hot-loader": "^4.8.4",
+    "react-query": "^0.3.24",
     "react-redux": "^7.1.0-alpha.5",
     "react-router-dom": "^5.0.0",
     "react-transition-group": "^4.0.0",

@@ -21,14 +21,24 @@
         disabled
       />
     </pbs-form-field>
-    <pbs-form-field label="New Password">
+
+    <pbs-form-field-horizontal label="Current Password">
+      <input
+        type="password"
+        class="input"
+        ng-model="$ctrl.editSettings.oldPassword"
+        required
+      />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="New Password">
       <pbs-input-password
         ng-model="$ctrl.editSettings.password"
-        ng-minlength="10"
+        ng-minlength="6"
         ng-maxlength="60"
+        ng-required="true"
         service-provider-id="$ctrl.serviceProviderId"
         group-id="$ctrl.groupId"
       ></pbs-input-password>
-    </pbs-form-field>
+    </pbs-form-field-horizontal>
   </pbs-form>
 </pbs-modal>

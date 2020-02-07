@@ -5,6 +5,7 @@ angular.module('odin.bulk').factory('BulkTaskService', BulkTaskService)
 
 function BulkTaskService() {
   var index = [
+    // Clone Enterprise
     {
       task: 'service.provider.bulk.clone',
       name: 'Clone Enterprise',
@@ -15,24 +16,25 @@ function BulkTaskService() {
         'destination.serviceProviderId'
       ],
       example: [
-      {
-        task: 'service.provider.bulk.clone',
-        source: {
-          serviceProviderId: 'string'
-        },
-        destination: {
-          serviceProviderId: 'string'
-        },
-        options: {
-          services: 'boolean',
-          servicePacks: 'boolean',
-          networkClassOfService: 'boolean',
-          enterpriseVoiceVPN: 'boolean',
-          callProcessingPolicy: 'boolean'
+        {
+          task: 'service.provider.bulk.clone',
+          source: {
+            serviceProviderId: 'string'
+          },
+          destination: {
+            serviceProviderId: 'string'
+          },
+          options: {
+            services: 'boolean',
+            servicePacks: 'boolean',
+            networkClassOfService: 'boolean',
+            enterpriseVoiceVPN: 'boolean',
+            callProcessingPolicy: 'boolean'
+          }
         }
-      }
       ]
     },
+    // Clone Group
     {
       task: 'group.bulk.clone',
       name: 'Clone Group',
@@ -45,16 +47,16 @@ function BulkTaskService() {
         'destination.groupId'
       ],
       example: [
-      {
-        task: 'group.bulk.clone',
-        source: {
-          serviceProviderId: 'string',
-          groupId: 'string'
-        },
-        destination: {
-          serviceProviderId: 'string',
-          groupId: 'string'
-        },
+        {
+          task: 'group.bulk.clone',
+          source: {
+            serviceProviderId: 'string',
+            groupId: 'string'
+          },
+          destination: {
+            serviceProviderId: 'string',
+            groupId: 'string'
+          },
           options: {
             featureAccessCode: 'boolean',
             callProcessingPolicy: 'boolean',
@@ -64,11 +66,13 @@ function BulkTaskService() {
             policy: 'boolean',
             schedule: 'boolean',
             outgoingCallingPlan: 'boolean',
-            routingProfile:'boolean'
+            routingProfile: 'boolean'
           }
-      }
+        }
       ]
     },
+
+    // Group Device Tag Modify
     {
       task: 'group.device.tag.modify',
       name: 'Group Device Tag Modify',
@@ -215,29 +219,18 @@ function BulkTaskService() {
         ],
         "groupServices": [
             {
-                "serviceName": "string",
-                "authorized": "boolean",
-                "assigned": "boolean",
-                "quantity": "number",
-                "licensed": "boolean",
-                "userAssignable": "boolean",
-                "isUnlimited": "boolean"
-            }
-        ],
-        "servicePackServices": [
+              tagName: 'string',
+              tagValue: 'string'
+            },
             {
-                "serviceName": "string",
-                "authorized": "boolean",
-                "assigned": "boolean",
-                "quantity": "number",
-                "licensed": "boolean",
-                "userAssignable": "boolean",
-                "isUnlimited": "boolean"
+              tagName: 'string',
+              tagValue: 'string'
             }
-        ]
-    }
-    ]
+          ]
+        }
+      ]
     },
+    // Group Dns Assign
     {
       task: 'group.dns.assign',
       name: 'Group Dns Assign',
@@ -249,21 +242,22 @@ function BulkTaskService() {
       ],
       example: [
         {
-          "task": "group.dns.assign",
-          "serviceProviderId": "string",
-          "groupId": "string",
-          "dns": [
-              {
-                  "min": "number",
-                  "max": "number"
-              },
-              {
-                  "min": "number"
-              }
+          task: 'group.dns.assign',
+          serviceProviderId: 'string',
+          groupId: 'string',
+          dns: [
+            {
+              min: 'number',
+              max: 'number'
+            },
+            {
+              min: 'number'
+            }
           ]
-      }
+        }
       ]
     },
+    // Group Dns Unassign
     {
       task: 'group.dns.unassign',
       name: 'Group Dns UnAssign',
@@ -275,26 +269,146 @@ function BulkTaskService() {
       ],
       example: [
         {
-          "task": "group.dns.unassign",
-          "serviceProviderId": "string",
-          "groupId": "string",
-          "dns": [
-              {
-                  "min": "number",
-                  "max": "number"
-              },
-              {
-                  "min": "number"
-              }
+          task: 'group.dns.unassign',
+          serviceProviderId: 'string',
+          groupId: 'string',
+          dns: [
+            {
+              min: 'number',
+              max: 'number'
+            },
+            {
+              min: 'number'
+            }
           ]
-      }
+        }
       ]
     },
-
+    // group services update
+    {
+      task: 'group.services.update',
+      name: 'Group Services Update',
+      description: 'Group Services Update',
+      required: ['serviceProviderId', 'groupId'],
+      example: [
+        {
+          task: 'group.services.update',
+          serviceProviderId: 'string',
+          groupId: 'string',
+          userServices: [
+            {
+              serviceName: 'string',
+              authorized: 'boolean',
+              assigned: 'boolean',
+              quantity: 'number',
+              licensed: 'boolean',
+              userAssignable: 'boolean',
+              isUnlimited: 'boolean'
+            }
+          ],
+          groupServices: [
+            {
+              serviceName: 'string',
+              authorized: 'boolean',
+              assigned: 'boolean',
+              quantity: 'number',
+              licensed: 'boolean',
+              userAssignable: 'boolean',
+              isUnlimited: 'boolean'
+            }
+          ],
+          servicePackServices: [
+            {
+              serviceName: 'string',
+              authorized: 'boolean',
+              assigned: 'boolean',
+              quantity: 'number',
+              licensed: 'boolean',
+              userAssignable: 'boolean',
+              isUnlimited: 'boolean'
+            }
+          ]
+        }
+      ]
+    },
+    // Group Trunk Group
+    {
+      task: 'group.trunk.group',
+      name: 'Group Trunk Group',
+      description: 'Group Trunk Group',
+      required: ['serviceProviderId', 'groupId', 'name', 'maxActiveCalls'],
+      example: [
+        {
+          task: 'group.trunk.group',
+          serviceProviderId: 'string',
+          groupId: 'string',
+          name: 'string',
+          allowTerminationToDtgIdentity: 'boolean',
+          allowTerminationToTrunkGroupIdentity: 'boolean',
+          allowUnscreenedCalls: 'boolean',
+          allowUnscreenedEmergencyCalls: 'boolean',
+          capacityExceededTrapInitialCalls: 'number',
+          capacityExceededTrapOffsetCalls: 'number',
+          clidSourceForScreenedCallsPolicy:
+            'Profile Name Profile Number | Received Name Profile Number | Received Name Received Number',
+          continuousOptionsSendingIntervalSeconds: '30',
+          enableBursting: 'FALSE',
+          enableNetworkAddressIdentity: 'boolean',
+          failureOptionsSendingIntervalSeconds: '10',
+          failureThresholdCounter: 'number',
+          includeDtgIdentity: 'boolean',
+          includeOtgIdentityForNetworkCalls: 'boolean',
+          includeTrunkGroupIdentity: 'boolean',
+          includeTrunkGroupIdentityForNetworkCalls: 'boolean',
+          invitationTimeout: 'number',
+          inviteFailureThresholdCounter: 'number',
+          inviteFailureThresholdWindowSeconds: '30',
+          pilotUserCallOptimizationPolicy:
+            'Optimize For User Services | Optimize For High Call Volume',
+          pilotUserCallingLineAssertedIdentityPolicy:
+            'All Originating Calls | Unscreened Originating Calls',
+          pilotUserCallingLineIdentityForEmergencyCallsPolicy:
+            'No Calls | All Originating Calls | Unscreened Originating Calls',
+          pilotUserCallingLineIdentityForExternalCallsPolicy:
+            'No Calls |All Originating Calls | Unscreened Originating Calls',
+          pilotUserChargeNumberPolicy:
+            'No Calls | All Originating Calls | Unscreened Originating Calls',
+          prefixEnabled: 'boolean',
+          prefix: 'number',
+          requireAuthentication: 'boolean',
+          routeToPeeringDomain: 'boolean',
+          peeringDomain: 'string',
+          sendContinuousOptionsMessage: 'boolean',
+          statefulReroutingEnabled: 'boolean',
+          successThresholdCounter: 'number',
+          useSystemCLIDSourceForScreenedCallsPolicy: 'boolean',
+          useSystemCallingLineAssertedIdentityPolicy: 'boolean',
+          useSystemUserLookupPolicy: 'boolean',
+          userLookupPolicy: 'Basic | Extended',
+          maxActiveCalls: 'number',
+          maxIncomingCalls: 'number',
+          maxOutgoingCalls: 'number',
+          accessDevice: {
+            staticRegistrationCapable: 'boolean',
+            useDomain: 'boolean',
+            staticLineOrdering: 'boolean',
+            serviceProviderId: 'string',
+            groupId: 'string',
+            deviceName: 'string',
+            deviceLevel: 'System | Service Provider | Group'
+          },
+          sipAuthenticationUserName: 'string',
+          sipAuthenticationPassword: 'string',
+          trunkGroupIdentity: 'string@domain',
+          otgDtgIdentity: 'string'
+        }
+      ]
+    },
+    // User Create
     {
       task: 'user.create',
-      name: 'Create Users',
-      description: 'Create users in bulk',
+      name: 'User Create',
+      description: 'Create Users in bulk',
       required: [
         'serviceProviderId',
         'groupId',
@@ -376,10 +490,11 @@ function BulkTaskService() {
         }
       ]
     },
+    // User Delete
     {
       task: 'user.delete',
-      name: 'Delete Users',
-      description: 'Delete users in bulk',
+      name: 'User Delete',
+      description: 'Delete Users in bulk',
       required: ['userId'],
       example: [
         {
@@ -388,6 +503,47 @@ function BulkTaskService() {
         }
       ]
     },
+    // User Numbers
+    {
+      task: 'user.number.update',
+      name: 'User Numbers',
+      description: 'Assign numbers to users',
+      required: ['userId'],
+      example: [
+        {
+          task: 'user.number.update',
+          userId: 'userId'
+        }
+      ]
+    },
+    // User Password Update
+    {
+      task: 'user.password.update',
+      name: 'User Password Update',
+      description: 'Set User Password Update',
+      required: ['userId', 'newPassword'],
+      example: [
+        {
+          task: 'user.password.update',
+          userId: 'userId',
+          newPassword: 'string'
+        }
+      ]
+    },
+    // User Shared Call Appearance
+    {
+      task: 'user.sharedcallappearance.update',
+      name: 'User Shared Call Appearance',
+      description: 'Manage Shared Call Appearance Settings and Endpoints',
+      required: ['userId'],
+      example: [
+        {
+          task: 'user.sharedcallappearance.update',
+          userId: 'userId'
+        }
+      ]
+    },
+
     // {
     //   task: 'user.move',
     //   name: 'Move Users',
@@ -400,6 +556,7 @@ function BulkTaskService() {
     //     }
     //   ]
     // },
+    // User Services
     {
       task: 'user.services.update',
       name: 'User Services',
@@ -432,34 +589,10 @@ function BulkTaskService() {
         }
       ]
     },
-    {
-      task: 'user.number.update',
-      name: 'User Numbers',
-      description: 'Assign numbers to users',
-      required: ['userId'],
-      example: [
-        {
-          task: 'user.number.update',
-          userId: 'userId'
-        }
-      ]
-    },
-    {
-      task: 'user.password.update',
-      name: 'User Password Update',
-      description: 'Set User Password Update',
-      required: ['userId', 'newPassword'],
-      example: [
-        {
-          task: 'user.password.update',
-          userId: 'userId',
-          newPassword: 'string'
-        }
-      ]
-    },
+    // User SIP Authentication Password
     {
       task: 'user.authentication.update',
-      name: 'User SIP Password',
+      name: 'User SIP Authentication Password',
       description: 'Set user SIP passwords',
       required: ['userId', 'userName', 'newPassword'],
       example: [
@@ -471,21 +604,10 @@ function BulkTaskService() {
         }
       ]
     },
-    {
-      task: 'user.sharedcallappearance.update',
-      name: 'Shared Call Appearance',
-      description: 'Manage Shared Call Appearance Settings and Endpoints',
-      required: ['userId'],
-      example: [
-        {
-          task: 'user.sharedcallappearance.update',
-          userId: 'userId'
-        }
-      ]
-    },
+    // User UC-One
     {
       task: 'user.ucone.update',
-      name: 'UC-One',
+      name: 'User UC-One',
       description: 'Manage UC-One Settings and Endpoints',
       required: ['userId'],
       example: [
