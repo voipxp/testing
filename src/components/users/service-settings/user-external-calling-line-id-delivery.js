@@ -25,8 +25,9 @@ export const UserExternalCallingLineIdDelivery = ({ match }) => {
   
   const {data: result , isLoading, error } = useQuery(
     'user-external-clid-delivery',
-	() => api.show(userId)		
+	  () => api.show(userId)		
   )
+  
   const userServiceData  =  result || {}
 
   if(error) alertDanger(error)

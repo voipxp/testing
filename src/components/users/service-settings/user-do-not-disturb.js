@@ -24,8 +24,9 @@ export const UserDoNotDisturb = ({ match }) => {
   
   const {data: result , isLoading, error } = useQuery(
     'do-not-disturb',
-	() => api.show(userId)		
+	  () => api.show(userId)		
   )
+
   const userServiceData  =  result || {}
 
   if( error ) alertDanger( error )

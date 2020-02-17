@@ -6,15 +6,15 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery , setQueryData } from 'react-query'
 import api from '@/api/user-services-settings/user-advice-of-charge-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
+  UiFormField,
   UiInputCheckbox,
-  UiSection,
   UiListItem,
-  UiFormField
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserAdviceOfCharge = ({ match }) => {

@@ -80,6 +80,7 @@ function controller(
       policy: true,
       schedule: true,
       departments: true,
+      domains: true,
       outgoingCallingPlan: true,
       routingProfile: true
     }

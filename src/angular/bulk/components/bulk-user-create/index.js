@@ -70,6 +70,10 @@ function controller(BulkImportService, $location, Session) {
         domain: ctrl.data.domain || null
       }
 
+      if(task.extension === "extensionRange") {
+        task.extension = parseInt(ctrl.data.extensionRange) + i
+      }
+
       // make strings so they are editable in review page
       if (ctrl.data.activatePhoneNumber) {
         task.activatePhoneNumber = 'true'
