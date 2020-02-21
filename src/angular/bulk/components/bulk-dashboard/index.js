@@ -42,6 +42,7 @@ function controller(BulkTaskService, $location, ServiceProviderPolicyService) {
       if (service.task === 'group.services.update') return false
       if (service.task === 'group.dns.assign') return false
       if (service.task === 'group.dns.unassign') return false
+      if (service.task === 'user.password.update') return false
 
       return true
     }))
