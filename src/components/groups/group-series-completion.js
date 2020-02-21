@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
-import { Input } from 'rbx'
+import { Input , Breadcrumb } from 'rbx'
+import { AppBreadcrumb } from '@/components/app'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, setQueryData } from 'react-query'
- import api from '@/api/group-settings-services/group-series-completion-service'
+import api from '@/api/group-settings-services/group-series-completion-service'
 import {
   UiButton,
   UiCardModal,
@@ -16,53 +17,69 @@ import {
   UiSelectableTable
 } from '@/components/ui'
 export const GroupSeriesCompletion = ({ match }) => {
+  
   const initialForm = {
-      isCreate: true,
-      "users":[
-        {
-          userId:''
-        }
-      ]
-    }
-    
+    isCreate: true,
+    "serviceProviderId":'',
+    "groupId":'',
+    "name":'',
+    "users":[]
+  }
 
- const { serviceProviderId,groupId} = match.params
+   
+  
+  const { serviceProviderId,groupId} = match.params
   //const { userId } = match.params
   const { alertSuccess, alertDanger } = useAlerts()
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState(initialForm)
   const [showModal, setShowModal] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
-  
-  const [availableUser, setAvailableUser] = useState([])
-  const [selectedUser, setSelectedUser] = useState([])
+  const [availableUser, setAvailableUser] = useState([
+        
+          {userId: "test@parkbenchsolutions.com"},
+          {userId: "gggg1111@parkbenchsolutions.com"}
+      
+  ])
+  const [selectedUser, setSelectedUser] = useState([
+    {userId: "tesy@parkbenchsolutions.com"},
+  {userId: "gggg@parkbenchsolutions.com"}
+  ])
+  const seriesCompletionNames = [] 
 
   const { data: result, isLoading, error } =  useQuery(
-    'user-speed-dial-100',
+    'series-completion',
     () => api.show(serviceProviderId,groupId)
   )
   
   const userServiceData = result || {} 
   const seriesCompletion  =  userServiceData.names || []
-  const seriesCompletionNames = [];
+   /*
+
+  const { data: available, aLoading, aError } =  useQuery(
+    'series-completion-available',
+    () => api.usersGroup(serviceProviderId,groupId)
+  ) */
+
+
+  //const availableUsers =  available || {}
+  //const selectedUser =  availableUsers
+  
+
+  //setSelectedUser(selectedUsers) 
+  //const seriesCompletionNames = [];
    // eslint-disable-next-line array-callback-return
   seriesCompletion.map(function(el) {
-    const  item = {}
-    item ["names"] = el;
-    item ["sp"] = serviceProviderId;
-    item ["groupId"] = groupId;
-    seriesCompletionNames.push(item);
-  });
-  
-  console.log(seriesCompletionNames)
-  console.log('ddddddddddd')
+    seriesCompletionNames.push({
+      names: el
+    })
+  }) 
+
+
   const columnsData = [
-    { key: 'names', label: 'Group Name' },
-    { key: 'sp', label: 'Service Provider' },
-    { key: 'groupId', label: 'Group' },
-    
+    { key: 'names', label: 'Group Name' }
   ]
-  
+    
   const remove = () => {
       setShowConfirm(false)
      // destroy(serviceProviderId, groupId)
@@ -84,89 +101,45 @@ export const GroupSeriesCompletion = ({ match }) => {
     setShowModal(true)
   }
   
+  function open(selectedRow){
+     
+  }
 /*
 *create new user speed dial 100
 */
 
-async function create(createFormData) { 
+async function create(data) {   
   const postCreateData  = {
-    "serviceProviderId":createFormData.serviceProviderId,
-    "groupId":createFormData.groupId,
-     
-    "speedCodes":[
-      {
-        "speedCode":createFormData.speedCode,
-        "phoneNumber":createFormData.phoneNumber,
-        "description":createFormData.description
-      }
-    ]
+    "serviceProviderId":serviceProviderId,
+    "groupId":groupId,
+    "name":data.names,
+    "users":[]
   }
   showLoadingModal()
   try {
-    const createData = api.store(postCreateData)
-    setForm({
-      ...createData,
-      serviceProviderId,
-      groupId,
-      isCreate: false,
-        "speedCodes":[
-          {
-            "speedCode":createData.speedCode,
-            "phoneNumber":createData.phoneNumber,
-            "description":createData.description
-          }
-        ]
-        
-    })
-    alertSuccess('Series Completion Created')
+    const getresponseData =   await api.store(postCreateData)
+    setQueryData(['series-completion'], getresponseData, {
+    shouldRefetch: true,
+  })
+    alertSuccess('Group Series Competed Created')
+    setForm({ ...getresponseData })
     setShowModal(false)
   } catch (error_) {
     alertDanger(error_)
   } finally {
     hideLoadingModal()
   }
-}
-
-  function edit(row) { 
-    setForm({
-      ...row,
-      serviceProviderId,
-      groupId,
-      isCreate: false,
-      
-        "speedCodes":[
-          {
-            "speedCode":row.speedCode,
-            "phoneNumber":row.phoneNumber,
-            "description":row.description
-          }
-        ]
-        
-    })
-    setShowModal(true)
-  }
-  
+} 
   function save() { 
     form.isCreate ? create(form) : update(form)
   }
   
-  async function update(data) {
-     const editFormData  = {
-      "serviceProviderId":data.serviceProviderId,
-      "groupId":data.groupId,
+  async function update(data) { 
       
-      "speedCodes":[
-        {
-          "speedCode":data.speedCode,
-          "phoneNumber":data.phoneNumber,
-          "description":data.description
-        }
-      ]
-    } 
     showLoadingModal()
      
     try {
-      const newUserCallForwardingAlways = await api.update(editFormData)
+      const newUserCallForwardingAlways = await api.update(data)
       setQueryData(['series-completion'], newUserCallForwardingAlways, {
         shouldRefetch: true,
       })
@@ -178,38 +151,42 @@ async function create(createFormData) {
       hideLoadingModal()
     }
   }
-  
+ 
   return (  
     <>
-      <UiCard
-        title="Series Completion"
-        buttons={
-          <UiButton color="link" icon="add" size="small" onClick={add} />
-        }
-      >
-        
+    <AppBreadcrumb>
+      <Breadcrumb.Item>Series Completion</Breadcrumb.Item>
+    </AppBreadcrumb>
+
+    <UiCard
+      title="Series Completion"
+      buttons={
+        <UiButton color="link" icon="add" size="small" onClick={add} />
+      }
+    >
+       <UiSelectableTable
+         title="Users"
+         availableUser={availableUser}
+         setAvailableUser={(availableItem) => setAvailableUser(availableItem)}
+         selectedUser={selectedUser}
+         setSelectedUser={(selectedItem) => setSelectedUser(selectedItem)}
+         rowKey='userId'
+       />
          {form.isCreate ?
-        <UiDataTable
-          columns={columnsData}
-          rows={seriesCompletionNames}
-          rowKey="names"
-          hideSearch={false}
-          onClick={edit}
-        />
-        :(
-      <UiSelectableTable
-        title="Users"
-        availableUser={availableUser}
-        setAvailableUser={(availableItem) => setAvailableUser(availableItem)}
-        selectedUser={selectedUser}
-        setSelectedUser={(selectedItem) => setSelectedUser(selectedItem)}
-        rowKey='userId'
-      />
-      )
-}
+        
+       <UiDataTable
+       columns={columnsData}
+       rows={seriesCompletionNames}
+       rowKey="names"
+       hideSearch={false}
+       onClick={open}
+       pageSize={20}
+     />
+        : ''
+      }
       </UiCard>
-        <UiCardModal
-          title={form.isCreate ? 'New SpeedCode' :(`Edit SpeedCode : ${form.speedCode}`) }
+      <UiCardModal
+          title={form.isCreate ? 'Group Name' :(`Edit Group Name : ${form.names}`) }
           isOpen={showModal}
           onCancel={() => setShowModal(false)}
           onSave={save}
@@ -219,22 +196,15 @@ async function create(createFormData) {
           <UiSection>
           { (form.isCreate ? (
               <>
-                 <UiFormField label="Phone Number" horizontal>
+                 <UiFormField label="Group Name" horizontal>
                   <Input
                   type="text"
-                  name="phoneNumber"
-                  value={form.phoneNumber}
+                  name="names"
+                  value={form.names}
                   onChange={handleInput}
                   />
                 </UiFormField>
-                <UiFormField label="Description" horizontal>
-                  <Input
-                    type="text"
-                    name="description"
-                    value={form.description}
-                    onChange={handleInput}
-                  />
-                </UiFormField>
+                
 
               </>
             ) : (
@@ -243,7 +213,7 @@ async function create(createFormData) {
                       <Input
                         type="text"
                         name="phoneNumber"
-                        value={form.phoneNumber}
+                        value=""
                         onChange={handleInput}
                       />
                     </UiFormField>
@@ -251,7 +221,7 @@ async function create(createFormData) {
                       <Input
                         type="text"
                         name="description"
-                        value={form.description}
+                        value=""
                         onChange={handleInput}
                       />
                     </UiFormField>
@@ -273,7 +243,11 @@ async function create(createFormData) {
             </blockquote>
           </UiCardModal>
     </>
+  
   )
+ 
+ 
+
 }
 GroupSeriesCompletion.propTypes = {
   match: PropTypes.object.isRequired
