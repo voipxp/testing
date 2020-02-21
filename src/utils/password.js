@@ -15,7 +15,7 @@ export const generatePassword = (rules = {}) => {
     special:
       (rules.restrictMinNonAlphanumericCharacters &&
         parseInt(rules.minNonAlphanumericCharacters)) ||
-      1,
+      0,
     length: parseInt(rules.minLength) || 10
   }
   var digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
