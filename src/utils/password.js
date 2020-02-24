@@ -7,11 +7,11 @@ export const generatePassword = (rules = {}) => {
     upper:
       (rules.restrictMinUpperCaseLetters &&
         parseInt(rules.minUpperCaseLetters)) ||
-      1,
+      0,
     lower:
       (rules.restrictMinLowerCaseLetters &&
         parseInt(rules.minLowerCaseLetters)) ||
-      1,
+      0,
     special:
       (rules.restrictMinNonAlphanumericCharacters &&
         parseInt(rules.minNonAlphanumericCharacters)) ||
