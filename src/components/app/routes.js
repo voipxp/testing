@@ -144,6 +144,11 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/addDomains',
+    angularComponent: 'groupAddDomains',
+    hasLevel: 'Group'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/devices',
     angularComponent: 'groupDevices',
     hasLevel: 'Group'
@@ -604,6 +609,11 @@ export const routes = [
   {
     path: '/serviceProviders/:serviceProviderId/admins',
     angularComponent: 'serviceProviderAdmins',
+    hasLevel: 'Service Provider'
+  },
+  {
+    path: '/serviceProviders/:serviceProviderId/addDomains',
+    component: 'serviceProviderAddDomains',
     hasLevel: 'Service Provider'
   },
   {
