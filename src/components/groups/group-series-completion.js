@@ -245,6 +245,8 @@ export const GroupSeriesCompletion = ({ match }) => {
           </UiSection>
         </form>
       </UiCardModal>
+      {  !canSelectedUser ? (
+        <>
       <UiCard title={(`Series Completion Group Name : ${form.name}`) } >
         <UiSelectableTable
           title="Users"
@@ -254,6 +256,7 @@ export const GroupSeriesCompletion = ({ match }) => {
           setSelectedUser={(selectedItem) => setSelectedUser(selectedItem)}
           rowKey='userId'
         />
+        
         <Button.Group align="right" style={{ margin: '1rem 0rem' }}  > 
           <Button color='danger' onClick={() => setShowConfirm(true)} >Delete</Button>
           <Button color='success' onClick={edit}>Save</Button>
@@ -269,6 +272,9 @@ export const GroupSeriesCompletion = ({ match }) => {
           Are you sure you want to Remove this Series Completion Group {form.name} ?
         </blockquote>
       </UiCardModal>
+      </>
+      ) :''
+      }
     </>
   )
 }
