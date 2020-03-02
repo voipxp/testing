@@ -1,32 +1,22 @@
-/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
- 
 import { Input , Button, Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
-//import apiCommProfile from '@/api/group-communication-barring-profiles'
-//import apiComm from '@/api/group-communication-barring'
-
 import apiSeriesCompletion from '@/api/group-settings-services/group-series-completion-service'
 import { orderBy } from 'natural-orderby'
-import { hideLoadingModal } from '@/store/ui'
-import { Select } from 'rbx'
+import { hideLoadingModal } from '@/store/ui' 
 import { useAlerts } from '@/store/alerts'
 import {
+  UiButton,
   UiCard,
+  UiCardModal,
+  UiDataTable,
+  UiFormField,
   UiLoadingCard,
   UiSection,
-  UiButton,
-  UiListItem,
-  UiCheckbox,
-  UiInputCheckbox,
-  UiCardModal,
-  UiFormField,
-  UiDataTable,
   UiSelectableTable
 } from '@/components/ui'
  
-
 export const GroupSeriesCompletion = ({ match }) => {
   const initialForm = {
     isCreate: true,
@@ -48,15 +38,12 @@ export const GroupSeriesCompletion = ({ match }) => {
   const [addConfirm, setAddConfirm] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [canSelectedUser, setCanSelectedUser] = useState(true)
-  
   const seriesCompletionNames = []
 
   const loadSeriesCompletions = React.useCallback(async () => {
     try {
       const data = await apiSeriesCompletion.show(serviceProviderId, groupId)
       setGroupSeriesCompletion(data)
-     // setgroupSeriesCompetionNames(data.names)
-
       const avaliableUsersList = await apiSeriesCompletion.users(serviceProviderId, groupId)
       setAvailableUser(avaliableUsersList)
       setAllAvailableUser(avaliableUsersList) 
@@ -67,7 +54,6 @@ export const GroupSeriesCompletion = ({ match }) => {
     }
   }, [serviceProviderId, groupId, alertDanger]) 
   
-
   useEffect(() => {
     setLoading(true)
     loadSeriesCompletions()  
@@ -77,6 +63,7 @@ export const GroupSeriesCompletion = ({ match }) => {
   const seriesCompletionName  =  groupSeriesCompletion.names ||  [] 
   const sortGroupCompletionName = React.useMemo(() => {
   const sortedValues =   orderBy( seriesCompletionName, shortedValue => shortedValue )
+    // eslint-disable-next-line array-callback-return
     sortedValues.map(function(el) {
         seriesCompletionNames.push({
           names: el
@@ -92,32 +79,29 @@ export const GroupSeriesCompletion = ({ match }) => {
     }
   }
 
- async function getGroupDetails(serviceProviderId,groupId , name){ 
-  setForm({
-    "serviceProviderId":serviceProviderId,
-    "groupId":groupId,
-    "name":name,
-    "users":selectedUser
-  })
-  try {
-    const data1 = await apiSeriesCompletion.groupDetails(serviceProviderId, groupId , name)
-    const dataSelected = data1.users || [] 
-    setSelectedUser(dataSelected)
-  } catch (error) {
-    alertDanger(error)
-    setShowModal(true)
-  } finally {
-    setLoading(false)
-    hideLoadingModal()
+  async function getGroupDetails(serviceProviderId,groupId , name){ 
+    setForm({
+      "serviceProviderId":serviceProviderId,
+      "groupId":groupId,
+      "name":name,
+      "users":selectedUser
+    })
+    try {
+      const data1 = await apiSeriesCompletion.groupDetail(serviceProviderId, groupId , name)
+      const dataSelected = data1.users || [] 
+      setSelectedUser(dataSelected)
+    } catch (error) {
+      alertDanger(error)
+      setShowModal(true)
+    } finally {
+      setLoading(false)
+      hideLoadingModal()
+    }
   }
-}
 
-console.log(availableUser)
- 
-const columnsData = [
-  { key: 'names', label: 'Group Name' }
-]
- 
+  const columnsData = [
+    { key: 'names', label: 'Group Name' }
+  ]
   
   function handleInput(event) {
     const target = event.target
@@ -134,7 +118,6 @@ const columnsData = [
       "name":rows.names,
       "users":selectedUser
     })
-    
     getGroupDetails(serviceProviderId , groupId , rows.names)
     setAvailableUser(allAvailableUser)
   } 
@@ -145,7 +128,7 @@ const columnsData = [
     setShowModal(true)
   }
 
-  function edit() { 
+  function edit() {
     setAddConfirm(false)
     const editFormDetails  = {
       "serviceProviderId":serviceProviderId,
@@ -157,7 +140,7 @@ const columnsData = [
     update(editFormDetails)
   }
 
-  async function create(form) {    
+  async function create() {   
     const postCreateData  = {
       "serviceProviderId":serviceProviderId,
       "groupId":groupId,
@@ -178,7 +161,6 @@ const columnsData = [
       setLoading(false)
       setShowModal(false)
     }
-     
   }
 
   function save() { 
@@ -192,7 +174,6 @@ const columnsData = [
 
   async function destroy(form) { 
     setLoading(true)
-     
     try {
       await apiSeriesCompletion.destroy(serviceProviderId, groupId , form.name)
       await loadSeriesCompletions()
