@@ -126,6 +126,11 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
       },
       {
         type: 'management',
+        name: 'Add Domains',
+        path: route('addDomains')
+      },
+      {
+        type: 'management',
         module: 'VDM',
         path: route('vdm')
       },
