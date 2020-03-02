@@ -127,7 +127,7 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
       {
         type: 'management',
         name: 'Add Domains',
-        path: route('addDomains')
+        path: route('addDomains'),
       },
       {
         type: 'management',

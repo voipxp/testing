@@ -2,6 +2,9 @@ import { UserDashboard } from '@/components/users'
 import { DepartmentDashboard } from '@/components/departments'
 import { CreateAutoAttendant } from '@/components/autoAttendant'
 import {
+  ServiceProviderAddDomains
+} from '@/components/service-providers'
+import {
   GroupCommunicationBarring,
   GroupSpeedDial8,
   GroupExtensionLength,
@@ -543,6 +546,11 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/networkclassofservices',
+    angularComponent: 'groupNetworkClassOfServices',
+    hasLevel: 'Group'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/callProcessingPolicy',
     angularComponent: 'groupCallProcessingPolicy',
     hasLevel: 'Group'
@@ -613,7 +621,7 @@ export const routes = [
   },
   {
     path: '/serviceProviders/:serviceProviderId/addDomains',
-    component: 'serviceProviderAddDomains',
+    component: ServiceProviderAddDomains,
     hasLevel: 'Service Provider'
   },
   {
