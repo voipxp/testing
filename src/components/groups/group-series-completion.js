@@ -59,7 +59,6 @@ export const GroupSeriesCompletion = ({ match }) => {
     loadSeriesCompletions()  
   }, [alertDanger, loadSeriesCompletions])
 
-
   const seriesCompletionName  =  groupSeriesCompletion.names ||  [] 
   const sortGroupCompletionName = React.useMemo(() => {
   const sortedValues =   orderBy( seriesCompletionName, shortedValue => shortedValue )
@@ -249,33 +248,32 @@ export const GroupSeriesCompletion = ({ match }) => {
       </UiCardModal>
       {  !canSelectedUser ? (
         <>
-      <UiCard title={(`Series Completion Group Name : ${form.name}`) } >
-        <UiSelectableTable
-          title="Users"
-          availableUser={availableUser}
-          setAvailableUser={(availableItem) => setAvailableUser(availableItem)}
-          selectedUser={selectedUser}
-          setSelectedUser={(selectedItem) => setSelectedUser(selectedItem)}
-          rowKey='userId'
-        />
-        
-        <Button.Group align="right" style={{ margin: '1rem 0rem' }}  > 
-          <Button color='danger' onClick={() => setShowConfirm(true)} >Delete</Button>
-          <Button color='success' onClick={edit}>Save</Button>
-        </Button.Group>
-      </UiCard>
-      <UiCardModal
-        title="Please Confirm"
-        isOpen={showConfirm}
-        onCancel={() => setShowConfirm(false)}
-        onDelete={remove}
-      >
-        <blockquote>
-          Are you sure you want to Remove this Series Completion Group {form.name} ?
-        </blockquote>
-      </UiCardModal>
-      </>
-      ) :''
+          <UiCard title={(`Series Completion Group Name : ${form.name}`) } >
+            <UiSelectableTable
+              title="Users"
+              availableUser={availableUser}
+              setAvailableUser={(availableItem) => setAvailableUser(availableItem)}
+              selectedUser={selectedUser}
+              setSelectedUser={(selectedItem) => setSelectedUser(selectedItem)}
+              rowKey='userId'
+            />
+            <Button.Group align="right" style={{ margin: '1rem 0rem' }}  > 
+              <Button color='danger' onClick={() => setShowConfirm(true)} >Delete</Button>
+              <Button color='success' onClick={edit}>Save</Button>
+            </Button.Group>
+          </UiCard>
+          <UiCardModal
+            title="Please Confirm"
+            isOpen={showConfirm}
+            onCancel={() => setShowConfirm(false)}
+            onDelete={remove}
+          >
+            <blockquote>
+              Are you sure you want to Remove this Series Completion Group {form.name} ?
+            </blockquote>
+          </UiCardModal>
+        </>
+        ) :''
       }
     </>
   )
