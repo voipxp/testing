@@ -178,7 +178,7 @@ export const GroupSeriesCompletion = ({ match }) => {
       await apiSeriesCompletion.destroy(serviceProviderId, groupId , form.name)
       await loadSeriesCompletions()
       setCanSelectedUser(true)
-      alertSuccess('series-completion Deleted')
+      alertSuccess('Series Completion Deleted')
     } catch (error) {
       alertDanger(error)
     } finally {
@@ -234,7 +234,7 @@ export const GroupSeriesCompletion = ({ match }) => {
       >
         <form>
           <UiSection>
-            <UiFormField label="Group Name" horizontal>
+            <UiFormField label="Series Completion Group Name" horizontal>
               <Input
               type="text"
               name="names"
@@ -256,7 +256,7 @@ export const GroupSeriesCompletion = ({ match }) => {
         />
         <Button.Group align="right" style={{ margin: '1rem 0rem' }}  > 
           <Button color='danger' onClick={() => setShowConfirm(true)} >Delete</Button>
-          <Button color='success' onClick={edit}>Edit</Button>
+          <Button color='success' onClick={edit}>Save</Button>
         </Button.Group>
       </UiCard>
       <UiCardModal
