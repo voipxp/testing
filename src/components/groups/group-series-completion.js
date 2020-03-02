@@ -35,7 +35,6 @@ export const GroupSeriesCompletion = ({ match }) => {
   const [availableUser, setAvailableUser] = useState([])
   const [selectedUser, setSelectedUser] = useState([])
   const [allAvailableUser, setAllAvailableUser] = useState([])
-  const [addConfirm, setAddConfirm] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [canSelectedUser, setCanSelectedUser] = useState(true)
   const seriesCompletionNames = []
@@ -71,7 +70,7 @@ export const GroupSeriesCompletion = ({ match }) => {
     return seriesCompletionNames
   }, [seriesCompletionName , seriesCompletionNames] )
   
-  if( canSelectedUser === true ){
+  if( canSelectedUser ){
     if(seriesCompletionNames.length > 0 ){
       setCanSelectedUser(false)
       getGroupDetails(serviceProviderId , groupId , sortGroupCompletionName[0].names)
@@ -102,7 +101,7 @@ export const GroupSeriesCompletion = ({ match }) => {
     { key: 'names', label: 'Group Name' }
   ]
   
-  function handleInput(event) {
+  function handleInput(event) { 
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
@@ -122,13 +121,11 @@ export const GroupSeriesCompletion = ({ match }) => {
   } 
 
   function add() {
-    setAddConfirm(true)
     setForm({ ...initialForm })
     setShowModal(true)
   }
 
   function edit() {
-    setAddConfirm(false)
     const editFormDetails  = {
       "serviceProviderId":serviceProviderId,
       "groupId":groupId,
@@ -231,7 +228,6 @@ export const GroupSeriesCompletion = ({ match }) => {
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={save}
-        onDelete={addConfirm ? null : () => setShowConfirm(true)}
       >
         <form>
           <UiSection>
