@@ -147,15 +147,17 @@ export const GroupSeriesCompletion = ({ match }) => {
       "name":form.names,  
       "users":[] 
     } 
-    setShowModal(true)
+    setLoading(true)
+    setShowModal(false)
     setCanSelectedUser(true)
     try {
       await apiSeriesCompletion.store(postCreateData)
+      alertSuccess('Series Completion Updated')
       await loadSeriesCompletions()
       setCanSelectedUser(true)
-      alertSuccess('Series Completion Updated')
     } catch (error) {
       alertDanger(error)
+      setLoading(false)
       setShowModal(true)
     } finally {
       setLoading(false)
@@ -207,10 +209,10 @@ export const GroupSeriesCompletion = ({ match }) => {
   return (  
     <>
       <AppBreadcrumb>
-        <Breadcrumb.Item>series Completion</Breadcrumb.Item>
+        <Breadcrumb.Item>Series Completion</Breadcrumb.Item>
       </AppBreadcrumb>
       <UiCard
-        title="series Completion"
+        title="Series Completion"
         buttons={
           <UiButton color="link" icon="add" size="small" onClick={add} />
         }
