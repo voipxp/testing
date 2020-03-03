@@ -83,8 +83,8 @@ export const GroupSeriesCompletion = ({ match }) => {
   async function getGroupDetails(serviceProviderId,groupId , name){ 
      
     try {
-      const data1 = await apiSeriesCompletion.groupDetail(serviceProviderId, groupId , name)
-      const dataSelectedUser = data1.users || [] 
+      const dataUser = await apiSeriesCompletion.groupDetail(serviceProviderId, groupId , name)
+      const dataSelectedUser = dataUser.users || [] 
       setSelectedUser(dataSelectedUser)
       const initialForm = {
         "serviceProviderId":serviceProviderId,
@@ -297,6 +297,7 @@ export const GroupSeriesCompletion = ({ match }) => {
               selectedUser={selectedUser}
               setSelectedUser={(selectedItem) => setSelectedUser(selectedItem)}
               rowKey='userId'
+              showMoveBtn={true}
             />
             <Button.Group align="right" style={{ margin: '1rem 0rem' }}  > 
               <Button color='danger' onClick={() => setShowConfirm(true)} >Delete</Button>

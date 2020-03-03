@@ -35,10 +35,13 @@ export const UiSelectableTable = ({
   rowKey,
   hideSearch = false,
   setAvailableUser,
-  setSelectedUser
+  setSelectedUser,
+  showMoveBtn
 }) => {
 
   const [searchAvailable, setSearchAvailable] = React.useState('')
+  //const [showUpDownArrow, setShowUpDownArrow] = React.useState(false)
+  //setShowUpDownArrow(showMove)
   const [searchSelected, setSearchSelected] = React.useState('')
 
   const sortBy = React.useState(rowKey)
@@ -225,9 +228,9 @@ export const UiSelectableTable = ({
                     {selectedItems.map(row => (
                     <Table.Row key={row[rowKey]} >
                       <Table.Cell onClick={() => remove(row)} >
+                      { showMoveBtn ? (
                       <div
                         className="field has-addons is-pulled-right"
-                        clickedItem="updown"
                       >
                       <p className="control">
                         <a
@@ -253,7 +256,8 @@ export const UiSelectableTable = ({
                         </a>
                       </p>
                       
-                    </div>  
+                    </div> 
+                    ) : ''} 
                     {row[rowKey]} 
                       </Table.Cell>
                     </Table.Row>
@@ -276,5 +280,6 @@ UiSelectableTable.propTypes = {
   rowKey: PropTypes.string,
   hideSearch: PropTypes.bool,
   setAvailableUser: PropTypes.func,
-  setSelectedUser: PropTypes.func
+  setSelectedUser: PropTypes.func,
+  showMoveBtn:PropTypes.bool
 }
