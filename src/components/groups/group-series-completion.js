@@ -32,11 +32,14 @@ export const GroupSeriesCompletion = ({ match }) => {
   const [showModal, setShowModal] = useState(false)
   
   const [form, setForm] = useState({})
+  const [selectedUserForm, setSelectedUserForm] = useState({})
   const [availableUser, setAvailableUser] = useState([])
   const [selectedUser, setSelectedUser] = useState([])
   const [allAvailableUser, setAllAvailableUser] = useState([])
   const [showConfirm, setShowConfirm] = useState(false)
   const [canSelectedUser, setCanSelectedUser] = useState(true)
+  
+  
   const seriesCompletionNames = []
 
   const loadSeriesCompletions = React.useCallback(async () => {
@@ -78,16 +81,21 @@ export const GroupSeriesCompletion = ({ match }) => {
   }
 
   async function getGroupDetails(serviceProviderId,groupId , name){ 
-    setForm({
-      "serviceProviderId":serviceProviderId,
-      "groupId":groupId,
-      "name":name,
-      "users":selectedUser
-    })
+     
     try {
       const data1 = await apiSeriesCompletion.groupDetail(serviceProviderId, groupId , name)
-      const dataSelected = data1.users || [] 
-      setSelectedUser(dataSelected)
+      const dataSelectedUser = data1.users || [] 
+      setSelectedUser(dataSelectedUser)
+      const initialForm = {
+        "serviceProviderId":serviceProviderId,
+        "groupId":groupId,
+        "name":name,
+        "newName":name,
+        "users":dataSelectedUser,
+        "isCreate":false
+      }
+      setForm({...initialForm })
+      setSelectedUserForm({...initialForm})
     } catch (error) {
       alertDanger(error)
       setShowModal(true)
@@ -108,14 +116,17 @@ export const GroupSeriesCompletion = ({ match }) => {
     setForm({ ...form, [name]: value })
   }
 
-  async function onSelect(rows) {
-    setForm({
-      ...rows,
+  async function onSelect(rows) { 
+    const initialForm  = {
       "serviceProviderId":serviceProviderId,
       "groupId":groupId,
-      "name":rows.names,
-      "users":selectedUser
-    })
+      "name":form.name,
+      "newName":form.newName,   
+      "users":selectedUser ,
+      "isCreate":false
+    }
+    setForm({ ...initialForm })
+    setSelectedUserForm({...initialForm})
     getGroupDetails(serviceProviderId , groupId , rows.names)
     setAvailableUser(allAvailableUser)
   } 
@@ -125,15 +136,28 @@ export const GroupSeriesCompletion = ({ match }) => {
     setShowModal(true)
   }
 
-  function edit() {
-    const editFormDetails  = {
+  
+  function onCancel() {
+    setForm({ ...selectedUserForm })
+    setShowModal(false)
+    
+  }
+
+  function edit() { 
+    setShowModal(true)
+  }
+  
+  function editUser() { 
+    const initialForm  = {
       "serviceProviderId":serviceProviderId,
       "groupId":groupId,
-      "name":form.name,  
-      "users":selectedUser 
+      "name":form.name,
+      "newName":form.newName,   
+      "users":selectedUser ,
+      "isCreate":false
     }
-    setForm({ ...editFormDetails })
-    update(editFormDetails)
+    setForm({ ...initialForm })
+    update(initialForm)
   }
 
   async function create() {   
@@ -162,7 +186,7 @@ export const GroupSeriesCompletion = ({ match }) => {
   }
 
   function save() { 
-    create()
+    form.isCreate ? create(form) : update(form)
   }
 
   const remove = () => {
@@ -184,7 +208,7 @@ export const GroupSeriesCompletion = ({ match }) => {
     }
   }
 
-  async function update(profile) {
+  async function update(profile) { 
     setShowModal(false)
     setLoading(true)
     try {
@@ -224,14 +248,16 @@ export const GroupSeriesCompletion = ({ match }) => {
         />
       </UiCard>
       <UiCardModal
-        title= 'Group Name'
+        title={form.isCreate ? 'Add Series Completion Group Name' :(`Edit Series Completion  Group Name : ${form.name}`) }
         isOpen={showModal}
-        onCancel={() => setShowModal(false)}
+        onCancel={onCancel}
         onSave={save}
       >
         <form>
+          { form.isCreate ? (
+            <>
           <UiSection>
-            <UiFormField label="Series Completion Group Name" horizontal>
+            <UiFormField label="Group Name" horizontal>
               <Input
               type="text"
               name="names"
@@ -240,11 +266,30 @@ export const GroupSeriesCompletion = ({ match }) => {
               />
             </UiFormField>
           </UiSection>
+          </>
+          ) :( <>
+          <UiSection>
+            <UiFormField label="Group Name" horizontal>
+              <Input
+              type="text"
+              name="newName"
+              value={form.newName}
+              onChange={handleInput}
+              />
+            </UiFormField>
+          </UiSection> 
+          </>
+          )
+          }
         </form>
       </UiCardModal>
       {  !canSelectedUser ? (
         <>
-          <UiCard title={(`Series Completion Group Name : ${form.name}`) } >
+          <UiCard title={(`Series Completion Group Name : ${selectedUserForm.newName}`) }
+           buttons={
+            <UiButton color="link" icon="edit" size="small" onClick={edit} />
+          }
+          >
             <UiSelectableTable
               title="Users"
               availableUser={availableUser}
@@ -255,7 +300,7 @@ export const GroupSeriesCompletion = ({ match }) => {
             />
             <Button.Group align="right" style={{ margin: '1rem 0rem' }}  > 
               <Button color='danger' onClick={() => setShowConfirm(true)} >Delete</Button>
-              <Button color='success' onClick={edit}>Save</Button>
+              <Button color='success' onClick={editUser}>Save</Button>
             </Button.Group>
           </UiCard>
           <UiCardModal
