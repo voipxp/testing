@@ -18,30 +18,29 @@ import {
 } from '@/components/ui'
  
 export const GroupSeriesCompletion = ({ match }) => {
-  const initialForm = {
-    isCreate: true,
-    "serviceProviderId":'',
-    "groupId":'',
-    "name":'',
-    "users":[]
-  }
   const { serviceProviderId, groupId } = match.params
+ 
+  
   const { alertSuccess, alertDanger } = useAlerts()
   const [loading, setLoading] = useState(true)
   const [groupSeriesCompletion, setGroupSeriesCompletion] = useState([]) 
   const [showModal, setShowModal] = useState(false)
-  
-  const [form, setForm] = useState({})
-  const [selectedUserForm, setSelectedUserForm] = useState({})
+  const initialForm = {
+    isCreate: true,
+    "serviceProviderId": serviceProviderId,
+    "groupId": groupId,
+    "name":'',
+    "newName":'',
+    "users":[]
+  }
+  const [form, setForm] = useState({...initialForm})
+  const [selectedUserForm, setSelectedUserForm] = useState({...initialForm})
   const [availableUser, setAvailableUser] = useState([])
   const [selectedUser, setSelectedUser] = useState([])
   const [allAvailableUser, setAllAvailableUser] = useState([])
   const [showConfirm, setShowConfirm] = useState(false)
   const [canSelectedUser, setCanSelectedUser] = useState(true)
-  
-  
   const seriesCompletionNames = []
-
   const loadSeriesCompletions = React.useCallback(async () => {
     try {
       const data = await apiSeriesCompletion.show(serviceProviderId, groupId)
@@ -86,16 +85,14 @@ export const GroupSeriesCompletion = ({ match }) => {
       const dataUser = await apiSeriesCompletion.groupDetail(serviceProviderId, groupId , name)
       const dataSelectedUser = dataUser.users || [] 
       setSelectedUser(dataSelectedUser)
-      const initialForm = {
-        "serviceProviderId":serviceProviderId,
-        "groupId":groupId,
-        "name":name,
-        "newName":name,
-        "users":dataSelectedUser,
-        "isCreate":false
-      }
-      setForm({...initialForm })
-      setSelectedUserForm({...initialForm})
+      const tempForm = {...form}
+      tempForm['name'] = name
+      tempForm['newName'] = name
+      tempForm['users'] = dataSelectedUser
+      tempForm["isCreate"] = false
+
+      setForm(tempForm)
+      setSelectedUserForm(tempForm)
     } catch (error) {
       alertDanger(error)
       setShowModal(true)
@@ -117,16 +114,6 @@ export const GroupSeriesCompletion = ({ match }) => {
   }
 
   async function onSelect(rows) { 
-    const initialForm  = {
-      "serviceProviderId":serviceProviderId,
-      "groupId":groupId,
-      "name":form.name,
-      "newName":form.newName,   
-      "users":selectedUser ,
-      "isCreate":false
-    }
-    setForm({ ...initialForm })
-    setSelectedUserForm({...initialForm})
     getGroupDetails(serviceProviderId , groupId , rows.names)
     setAvailableUser(allAvailableUser)
   } 
@@ -135,12 +122,10 @@ export const GroupSeriesCompletion = ({ match }) => {
     setForm({ ...initialForm })
     setShowModal(true)
   }
-
   
   function onCancel() {
     setForm({ ...selectedUserForm })
     setShowModal(false)
-    
   }
 
   function edit() { 
@@ -148,31 +133,20 @@ export const GroupSeriesCompletion = ({ match }) => {
   }
   
   function editUser() { 
-    const initialForm  = {
-      "serviceProviderId":serviceProviderId,
-      "groupId":groupId,
-      "name":form.name,
-      "newName":form.newName,   
-      "users":selectedUser ,
-      "isCreate":false
-    }
-    setForm({ ...initialForm })
-    update(initialForm)
+    form['users'] = selectedUser
+    setForm({ ...form }) 
+    setSelectedUserForm(form)
+    update({...form})
   }
 
   async function create() {   
-    const postCreateData  = {
-      "serviceProviderId":serviceProviderId,
-      "groupId":groupId,
-      "name":form.names,  
-      "users":[] 
-    } 
+    form['name'] = form.names
     setLoading(true)
     setShowModal(false)
     setCanSelectedUser(true)
     try {
-      await apiSeriesCompletion.store(postCreateData)
-      alertSuccess('Series Completion Updated')
+      await apiSeriesCompletion.store(form)
+      alertSuccess('Series Completion Group Created')
       await loadSeriesCompletions()
       setCanSelectedUser(true)
     } catch (error) {
@@ -248,7 +222,7 @@ export const GroupSeriesCompletion = ({ match }) => {
         />
       </UiCard>
       <UiCardModal
-        title={form.isCreate ? 'Add Series Completion Group Name' :(`Edit Series Completion  Group Name : ${form.name}`) }
+        title={form.isCreate ? 'Add Series Completion Group Name' :(`Edit Series Completion  Group Name : ${selectedUserForm.name}`) }
         isOpen={showModal}
         onCancel={onCancel}
         onSave={save}

@@ -36,7 +36,7 @@ export const UiSelectableTable = ({
   hideSearch = false,
   setAvailableUser,
   setSelectedUser,
-  showMoveBtn
+  showMoveBtn=false
 }) => {
 
   const [searchAvailable, setSearchAvailable] = React.useState('')
@@ -234,15 +234,13 @@ export const UiSelectableTable = ({
                       >
                       <p className="control">
                         <a
-                          className="button is-small"
-                           
+                          className="button is-small"                           
                           onClick={(event) => up(event ,row )}
                         >
                           <span className="icon">
                             <i className ="fas fa-chevron-down"></i>
                           </span>
-                        </a>
-                            
+                        </a>                            
                       </p>
                       <p className="control">
                         <a
