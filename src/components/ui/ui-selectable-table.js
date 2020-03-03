@@ -90,6 +90,29 @@ export const UiSelectableTable = ({
     setStateData(availableItems, selectedItems)
   }
 
+  function up(event, user) {
+    const selectedItems = [...selectedUser]
+    event.stopPropagation()
+    
+    var index = _.indexOf(selectedItems, user)
+    if (index === selectedUser.length - 1) return
+    move(index, index + 1)
+  }
+ 
+  function down(event, user) { 
+    event.stopPropagation()
+    const selectedItems = [...selectedUser]
+    var index = _.indexOf(selectedItems, user)
+    if (index === 0) return
+    move(index, index - 1)
+  }
+
+  function move(from, to) {
+    const selectedItems = [...selectedUser]
+    selectedItems.splice(to, 0, selectedItems.splice(from, 1)[0])
+    setSelectedUser(selectedItems)
+  }
+
   function removeAll() {
     const availableItems = [...availableUser]
     const selectedItems = [...selectedUser]
@@ -200,9 +223,38 @@ export const UiSelectableTable = ({
                 ) : (
                   <Table.Body>
                     {selectedItems.map(row => (
-                    <Table.Row key={row[rowKey]} onClick={() => remove(row)}>
-                      <Table.Cell>
-                        { row[rowKey] }
+                    <Table.Row key={row[rowKey]} >
+                      <Table.Cell onClick={() => remove(row)} >
+                      <div
+                        className="field has-addons is-pulled-right"
+                        clickedItem="updown"
+                      >
+                      <p className="control">
+                        <a
+                          className="button is-small"
+                           
+                          onClick={(event) => up(event ,row )}
+                        >
+                          <span className="icon">
+                            <i className ="fas fa-chevron-down"></i>
+                          </span>
+                        </a>
+                            
+                      </p>
+                      <p className="control">
+                        <a
+                          className="button is-small"
+                          // eslint-disable-next-line no-undef
+                          onClick={( event ) => down( event, row )}
+                        >
+                          <span className="icon">
+                            <i className ="fas fa-chevron-up"></i>
+                          </span>
+                        </a>
+                      </p>
+                      
+                    </div>  
+                    {row[rowKey]} 
                       </Table.Cell>
                     </Table.Row>
                     ))}
