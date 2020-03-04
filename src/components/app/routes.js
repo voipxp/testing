@@ -13,7 +13,7 @@ import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
 import {
-  CloneEnterpriseBulk,
+  BulkSipTrunking
 } from '@/components/bulk'
 import { Exports, Export } from '@/components/exports'
 
@@ -69,9 +69,9 @@ export const routes = [
     hasModuleRead: 'Provisioning'
   },
   {
-    path: '/bulk/service.provider.bulk.clone',
-    component: CloneEnterpriseBulk,
-    hasLevel: 'Service Provider',
+    path: '/bulk/bulk.sip.trunking',
+    component: BulkSipTrunking,
+    hasLevel: 'Reseller',
     hasModuleRead: 'Provisioning'
   },
   {
