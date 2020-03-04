@@ -1,6 +1,7 @@
 import './group-admin-policy-service'
 import './group-admin-service'
 import './group-announcement-service'
+import './group-announcement-download-service'
 import './group-auto-attendant-service'
 import './group-auto-attendant-submenu-service'
 import './group-call-center-agent-service'
