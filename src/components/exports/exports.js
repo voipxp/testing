@@ -4,7 +4,7 @@ import { useAsync } from 'react-async-hook'
 import { useAlerts } from '@/store/alerts'
 import api from '@/api/exports'
 import { AppBreadcrumb } from '@/components/app'
-import { Breadcrumb, Column, Field, Input, Control, Icon, Button } from 'rbx'
+import { Breadcrumb, Column, Field, Input, Control } from 'rbx'
 import { GroupSearch } from '@/components/group-search'
 import {
   UiCard,
@@ -68,10 +68,6 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
     setForm({ ...form, [name]: value })
   }
 
-  const open = ({ id }) => history.push(`/exports/${id}`)
-  function add() {
-    setShowModal(true)
-  }
   const show = group => {
     setForm({ ...form, ...group })
     setInitialized(false)

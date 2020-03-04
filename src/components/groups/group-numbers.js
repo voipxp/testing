@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
-import { UiLoading, UiDataTable ,UiCheckbox , UiCard} from '@/components/ui'
+import { UiLoading, UiDataTable, UiCheckbox, UiCard } from '@/components/ui'
 import { useAlerts } from '@/store/alerts'
 import groupNumberApi from '@/api/groups/numbers'
- /* eslint-disable react/display-name */
+/* eslint-disable react/display-name */
 const columns = [
   { key: 'phoneNumbers', label: 'Phone Numbers' },
   { key: 'userId', label: 'User ID' },
@@ -13,17 +13,19 @@ const columns = [
   { key: 'firstName', label: 'First Name' },
   { key: 'extension', label: 'Extension' },
   { key: 'department', label: 'Department ' },
-  { key: 'activated', label: 'Activated' ,  render: row => <UiCheckbox isChecked={row.activated} />}
-  
+  {
+    key: 'activated',
+    label: 'Activated',
+    render: row => <UiCheckbox isChecked={row.activated} />
+  }
 ]
 
 export const GroupNumbers = ({ match }) => {
   const { alertDanger } = useAlerts()
   const { serviceProviderId, groupId } = match.params
   const [users, setUsers] = React.useState([])
-  const [loading, setLoading] = React.useState(false) 
-  
- 
+  const [loading, setLoading] = React.useState(false)
+
   useEffect(() => {
     setLoading(true)
     const fetchData = async () => {
@@ -32,36 +34,30 @@ export const GroupNumbers = ({ match }) => {
         setUsers(data.dns)
       } catch (error) {
         alertDanger(error)
-		setUsers([])
+        setUsers([])
       } finally {
         setLoading(false)
       }
     }
     fetchData()
   }, [serviceProviderId, groupId, alertDanger])
-  
 
   return (
     <>
-       <AppBreadcrumb>
+      <AppBreadcrumb>
         <Breadcrumb.Item>Numbers</Breadcrumb.Item>
       </AppBreadcrumb>
-      { (loading ? (
+      {loading ? (
         <UiLoading />
       ) : (
-       
-		<UiCard title="Numbers">
-      <UiDataTable
-        columns={columns}
-        rows={users}
-        rowKey="phoneNumbers"
-      />
-    </UiCard>
-      ))}
+        <UiCard title="Numbers">
+          <UiDataTable columns={columns} rows={users} rowKey="phoneNumbers" />
+        </UiCard>
+      )}
     </>
   )
 }
 
 GroupNumbers.propTypes = {
-   match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired
 }
