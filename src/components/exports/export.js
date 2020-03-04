@@ -40,7 +40,6 @@ export const Export = ({ history, match, isBreadcrumb = true }) => {
 
   if (error) alertDanger(error)
   const export2 = result || {}
-  console.log('export2', export2)
 
   const downloadFile = async () => {
     const fileName = 'export-' + id
