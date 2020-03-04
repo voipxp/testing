@@ -32,11 +32,15 @@ function controller(Alert, GroupExtensionService, $scope, EventEmitter) {
   ctrl.createNumbers = createNumbers
   ctrl.onUpdateNumbers = onUpdateNumbers
 
+  ctrl.addExtensionRange = addExtensionRange
+  ctrl.onUpdateExtRange = onUpdateExtRange
+
   ctrl.canComplete = canComplete
   ctrl.complete = complete
 
   // helpers
   ctrl.templates = { callingLineIdPhoneNumber: '{{ phoneNumber }}' }
+  ctrl.extensionRange = '';
 
   function onInit() {
     if (ctrl.phoneNumbers && ctrl.phoneNumbers.length >= ctrl.userCount) {
@@ -99,6 +103,10 @@ function controller(Alert, GroupExtensionService, $scope, EventEmitter) {
     $scope.$broadcast('bulkCreateNumbers:load')
   }
 
+  function addExtensionRange() {
+    $scope.$broadcast('bulkAddExtensionRange:load')
+  }
+
   function onUpdateNumbers(event) {
     if (event.phoneNumbers.length >= ctrl.userCount) {
       setNumbers(event.phoneNumbers)
@@ -107,10 +115,21 @@ function controller(Alert, GroupExtensionService, $scope, EventEmitter) {
     }
   }
 
+  function onUpdateExtRange(event) {
+    ctrl.extensionRange = event.range
+  }
+
   function canComplete() {
-    return ctrl.phoneNumberAction === 'select'
-      ? ctrl.phoneNumbers.length > 0
-      : true
+    if(ctrl.phoneNumberAction === 'select' && ctrl.phoneNumbers.length <= 0) {
+      return false
+    }
+    else if(ctrl.extension === "extensionRange" && ctrl.extensionRange.length <= 0) {
+      return false
+    }
+    else {
+      return true
+    }
+
   }
 
   function complete() {
@@ -119,6 +138,7 @@ function controller(Alert, GroupExtensionService, $scope, EventEmitter) {
         phoneNumbers: ctrl.phoneNumbers,
         activatePhoneNumber: ctrl.activatePhoneNumber,
         extension: ctrl.extension,
+        extensionRange: ctrl.extensionRange,
         callingLineIdPhoneNumber: ctrl.callingLineIdPhoneNumber
       })
     )

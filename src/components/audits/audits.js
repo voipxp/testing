@@ -4,10 +4,8 @@ import { useAsync } from 'react-async-hook'
 import { useAlerts } from '@/store/alerts'
 import auditApi from '@/api/audits'
 import { AppBreadcrumb } from '@/components/app'
-import { Breadcrumb, Column, Field, Input, Control, Icon, Button } from 'rbx'
+import { Breadcrumb, Column, Field, Input, Control } from 'rbx'
 import { GroupSearch } from '@/components/group-search'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import {
   UiCard,
   UiButton,

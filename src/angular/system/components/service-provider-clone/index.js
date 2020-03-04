@@ -43,7 +43,8 @@ function controller(
       servicePacks: true,
       networkClassOfService: ctrl.isSystem,
       enterpriseVoiceVPN: true,
-      callProcessingPolicy: true
+      callProcessingPolicy: true,
+      domains: true
     }
     Alert.modal.open('cloneServiceProviderModal', function(close) {
       create(ctrl.serviceProvider, ctrl.options, close)

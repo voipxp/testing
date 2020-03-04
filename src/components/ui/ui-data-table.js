@@ -201,7 +201,7 @@ export const UiDataTable = ({
                   key={column.key}
                   style={{ whiteSpace: 'nowrap' }}
                 >
-                  <a href="" onClick={e => handleSort(e, column)}>
+                  <a onClick={e => handleSort(e, column)}>
                     {column.label || column.key}
                     {headingIcon(column)}
                   </a>

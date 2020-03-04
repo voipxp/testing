@@ -1,3 +1,4 @@
+import './bulk-add-extension-range'
 import './bulk-create-device'
 import './bulk-create-numbers'
 import './bulk-csv'
