@@ -4,10 +4,8 @@ import { useAsync } from 'react-async-hook'
 import { useAlerts } from '@/store/alerts'
 import api from '@/api/imports'
 import { AppBreadcrumb } from '@/components/app'
-import { Breadcrumb, Column, Field, Input, Control, Icon, Button } from 'rbx'
+import { Breadcrumb, Column, Field, Input, Control } from 'rbx'
 import { GroupSearch } from '@/components/group-search'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import {
   UiCard,
   UiButton,
@@ -68,9 +66,6 @@ export const Imports = ({ history, match, isBreadcrumb = true }) => {
   }
 
   const open = ({ id }) => history.push(`/imports/${id}`)
-  function add() {
-    setShowModal(true)
-  }
   const show = group => {
     setForm({ ...form, ...group })
     setInitialized(false)
