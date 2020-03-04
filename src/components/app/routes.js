@@ -6,7 +6,8 @@ import {
   GroupSpeedDial8,
   GroupExtensionLength,
   GroupWebPolicy,
-  GroupNumbers
+  GroupNumbers,
+  GroupSeriesCompletion
 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
@@ -352,6 +353,12 @@ export const routes = [
     angularComponent: 'groupCallPickups',
     hasLevel: 'Group',
     hasModuleRead: 'Call Pickup'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/seriesCompletion',
+    component: GroupSeriesCompletion,
+    hasLevel: 'Group',
+    hasModuleRead: 'Series Completion'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callPickup/group',

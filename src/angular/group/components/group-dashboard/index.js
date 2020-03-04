@@ -179,6 +179,10 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
       },
       {
         type: 'service',
+        service: 'Series Completion',
+        path: route('seriesCompletion')
+      },{
+        type: 'service',
         service: 'Collaborate - Audio',
         name: 'Collaborate',
         path: route('collaborate')

@@ -88,13 +88,11 @@ function GroupDashboardService(
       const split = card.module.split('.')
       const moduleName = split[0]
       const modulePerm = split[1] || 'read'
-      console.log('moduleName modulePerm', moduleName, modulePerm)
 
       // check permissions
       card.active = Module[modulePerm](moduleName)
       // set the alias and activate it
       card.name = card.name || Module.alias(card.module)
-      console.log('card.active card.name', card.active, card.name)
       // only skip below if we are denied access
       if (!card.active) return
     }
