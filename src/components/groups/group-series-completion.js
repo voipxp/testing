@@ -150,12 +150,12 @@ export const GroupSeriesCompletion = ({ match }) => {
     setForm({ ...initialForm })
     setShowModal(true)
   }
-
+/*
   function onCancel() {
     setLoading(true)
     setForm({ ...selectedUserForm })
     setShowModal(false)
-  }
+  } */
 
   function edit() {
     setShowModal(true)
@@ -262,7 +262,7 @@ export const GroupSeriesCompletion = ({ match }) => {
             : `Edit Series Completion  Group Name : ${selectedUserForm.name}`
         }
         isOpen={showModal}
-        onCancel={onCancel}
+        onCancel={() => setShowModal(false)}
         onSave={save}
       >
         <form>
@@ -335,7 +335,7 @@ export const GroupSeriesCompletion = ({ match }) => {
           <UiCardModal
             title="Please Confirm"
             isOpen={showConfirm}
-            onCancel={() => setShowConfirm(false)}
+            onCancel={() => setShowModal(false)}
             onDelete={remove}
           >
             <blockquote>
