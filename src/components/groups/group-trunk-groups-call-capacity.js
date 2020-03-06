@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import callCapacityApi from '@/api/service-providers-services/service-provider-trunk-group-call-capacity-service'
+import callCapacityApi from '@/api/group-services/group-trunk-group-call-capacity-service'
 import { useAsync } from 'react-async-hook'
 import { Input , Select} from 'rbx'
 import {
@@ -12,9 +12,12 @@ import {
   alertDanger
 } from '@/store/alerts'
 
-export const ServiceProviderTrunkGroupsCallCapacity = (
+export const GroupTrunkGroupsCallCapacity = (
   {
     serviceProviderId,
+    groupId,
+    maxActiveCall,
+    maxBurstCall,
     setData
   }
 ) => {
@@ -25,7 +28,7 @@ export const ServiceProviderTrunkGroupsCallCapacity = (
 
   const [form, setForm] = useState({...initialForm})
   const {result, error, pending, loading, execute} = useAsync(
-    () => callCapacityApi.show(serviceProviderId),[]
+    () => callCapacityApi.show(serviceProviderId, groupId),[]
   )
   if(error) alertDanger(error)
 
@@ -59,16 +62,11 @@ export const ServiceProviderTrunkGroupsCallCapacity = (
             name="maxActiveCalls"
             value={form.maxActiveCalls}
             min="-1"
+            max={maxActiveCall}
           />
           {
-            (form.maxActiveCalls === '-1')
-            ?
             <small>
-              <strong>Unlimited</strong>
-            </small>
-            :
-            <small>
-              <strong>Set to -1 for Unlimited</strong>
+              <strong> (Max: {maxActiveCall}) </strong>
             </small>
           }
 
@@ -81,16 +79,11 @@ export const ServiceProviderTrunkGroupsCallCapacity = (
             name="burstingMaxActiveCalls"
             value={form.burstingMaxActiveCalls}
             min="-1"
+            max={maxBurstCall}
           />
           {
-            (form.burstingMaxActiveCalls === '-1')
-            ?
             <small>
-              <strong>Unlimited</strong>
-            </small>
-            :
-            <small>
-              <strong>Set to -1 for Unlimited</strong>
+              <strong> (Max: {maxBurstCall}) </strong>
             </small>
           }
         </UiFormField>
@@ -99,7 +92,10 @@ export const ServiceProviderTrunkGroupsCallCapacity = (
 	)
 }
 
-ServiceProviderTrunkGroupsCallCapacity.propTypes = {
+GroupTrunkGroupsCallCapacity.propTypes = {
   serviceProviderId: PropTypes.string.isRequired,
-  setData: PropTypes.func
+  setData: PropTypes.func,
+  groupId: PropTypes.string,
+  maxActiveCall: PropTypes.string,
+  maxBurstCall: PropTypes.string
 }

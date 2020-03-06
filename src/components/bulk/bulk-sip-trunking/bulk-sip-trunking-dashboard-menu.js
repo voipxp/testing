@@ -3,14 +3,17 @@ import { BulkSipTrunkingTrunkEnterprise } from './bulk-sip-trunking-trunk-enterp
 import { BulkSipTrunkingUsers } from './bulk-sip-trunking-users'
 import { BulkEndpointType } from '../bulk-endpoint-type'
 import { BulkSipTrunkingGroup } from './bulk-sip-trunking-group'
-import { BulkMultipleTasksImport } from '../bulk-multiple-task/bulk-multiple-tasks-import'
+import { BulkMultipleTasksImport } from '../bulk-multiple-tasks-import'
 import { BulkSipTrunkingTrunkGroups } from './bulk-sip-trunking-trunk-groups'
+import { BulkSipTrunkingNumbers } from './bulk-sip-trunking-numbers'
+import { BulkSipTrunkingGroupCallCapacity } from './bulk-sip-trunking-group-call-capacity'
 
 export const menu = [
   {
     name: 'Service Provider',
     localStorageKey: 'BulkSipServiceProvider',
     component: BulkSipServiceProvider
+    // component: BulkSipTrunkingNumbers
   },
   {
     name: 'Enterprise Trunk',
@@ -23,9 +26,19 @@ export const menu = [
     component: BulkSipTrunkingGroup
   },
   {
+    name: 'Group Call Capacity',
+    localStorageKey: 'BulkSipTrunkingGroupCallCapacity',
+    component: BulkSipTrunkingGroupCallCapacity
+  },
+  {
     name: 'Group Trunk',
     localStorageKey: 'BulkSelectGroupTrunk',
     component: BulkSipTrunkingTrunkGroups
+  },
+  {
+    name: 'Assign Numbers',
+    localStorageKey: 'BulkSipTrunkingNumbers',
+    component: BulkSipTrunkingNumbers
   },
   {
     name: 'Users',
@@ -60,8 +73,18 @@ export const menu = [
     component: BulkMultipleTasksImport
   },
   {
+    name: 'Group Call Capacity',
+    localStorageKey: 'BulkSipTrunkingGroupCallCapacity',
+    component: BulkMultipleTasksImport
+  },
+  {
     name: 'Group Trunk',
     localStorageKey: 'BulkSelectGroupTrunk',
+    component: BulkMultipleTasksImport
+  },
+  {
+    name: 'Assign Numbers',
+    localStorageKey: 'BulkSipTrunkingNumbers',
     component: BulkMultipleTasksImport
   },
   {
