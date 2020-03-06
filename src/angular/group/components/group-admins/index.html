@@ -311,6 +311,7 @@
     </pbs-form-field-horizontal>
     <pbs-form-field-horizontal label="Number Activation">
       <pbs-input-select
+        ng-disabled="$ctrl.isPoliciesDisabled"
         ng-model="$ctrl.editPolicies.numberActivationAccess"
         ng-options="numberActivationAccess for numberActivationAccess in $ctrl.policies.numberActivationAccess"
       ></pbs-input-select>
