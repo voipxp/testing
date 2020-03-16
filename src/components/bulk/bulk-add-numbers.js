@@ -6,7 +6,8 @@ import groupDomainAPI from '@/api/groups/domains'
 import { useAlerts } from '@/store/alerts'
 
 export const BulkAddNumbers = ({
-  setData
+  setData,
+  numbersArray
 }) => {
   const [numbers, setNumbers] = useState('')
   const [dns, setDns] = useState([])
@@ -31,6 +32,7 @@ export const BulkAddNumbers = ({
       if(bulkNumbers === '') return false
 
       const numbers = bulkNumbers.split('\n')
+      numbersArray(numbers)
       const dns = numbers.map((number) => {
         if( number.includes(' - ') ) {
           const [min, max] = number.split(' - ')
@@ -73,5 +75,6 @@ export const BulkAddNumbers = ({
 }
 
 BulkAddNumbers.propTypes = {
-  setData: PropTypes.func
+  setData: PropTypes.func,
+  numbersArray: PropTypes.func
 }

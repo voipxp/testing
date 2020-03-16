@@ -7,7 +7,8 @@ const initial = {
   serviceProviderId: "",
   groupId: "",
   enterpriseTrunkName: "",
-  groupTrunk: ""
+  groupTrunk: "",
+  phoneNumbers:[]
 }
 
 export const BulkSipTrunking = () => {

@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Breadcrumb } from 'rbx'
-import { AppBreadcrumb } from '@/components/app'
 import { UiLoading, UiDataTable, UiCheckbox, UiCard } from '@/components/ui'
 import { useAlerts } from '@/store/alerts'
 import groupNumberApi from '@/api/groups/numbers'
@@ -33,7 +31,6 @@ export const BulkGroupNumbers = ({ serviceProviderId, groupId }) => {
         const data = await groupNumberApi.load(serviceProviderId, groupId)
         setUsers(data.dns)
       } catch (error) {
-        alertDanger(error)
         setUsers([])
       } finally {
         setLoading(false)
@@ -46,7 +43,7 @@ export const BulkGroupNumbers = ({ serviceProviderId, groupId }) => {
     <>
       {loading ? (
         <UiLoading />
-      ) : (       
+      ) : (
           <UiDataTable columns={columns} rows={users} rowKey="phoneNumbers" />
       )}
     </>

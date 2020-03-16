@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { UiCard, UiCardModal, UiButton, UiLoading, UiDataTable } from '@/components/ui'
-import { useAsync } from 'react-async-hook'
+import { UiCard, UiCardModal, UiButton } from '@/components/ui'
 import { Button } from 'rbx'
-import { BulkCloneGroupAllControl } from '../bulk-group-clone/bulk-clone-group-all-control'
-// import { BulkSelectServiceProviderId } from '../bulk-select-service-provider-id'
-import { BulkSelectGroupId } from '../bulk-select-group-id'
+import _ from 'lodash'
 import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
 import { BulkSelectUserId } from '../bulk-select-user-id'
 import { BulkCreateUser } from '../bulk-create-user'
 import { useAlerts } from '@/store/alerts'
-import { prototype } from 'clipboard'
-
 
 export const BulkSipTrunkingUsers = (props) => {
-
-  const { serviceProviderId, groupId, enterpriseTrunkName, groupTrunk} = props.initialData
-  const { alertSuccess, alertDanger, alertWarning } = useAlerts()
+  // const serviceProviderId = 'reseler-sp'
+  // const groupId = 'test007R'
+  // const enterpriseTrunkName = "aaaaaa"
+  // const groupTrunk = "bbbbbbb"
+  // const phoneNumbers = ['100 - 200', '22222222', '33333333']
+  const { serviceProviderId, groupId, enterpriseTrunkName, groupTrunk, phoneNumbers} = props.initialData
+  const { alertSuccess, alertDanger } = useAlerts()
   const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
   const [createUserClicked, setCreateUserClicked] = React.useState(false)
@@ -37,7 +36,7 @@ export const BulkSipTrunkingUsers = (props) => {
     //setDisableNextButton(temp.selectedUser.length <= 0)
   }
 
-	const saveCloneGroup = () => {
+	const createTask = () => {
 		setCreateUserClicked(false)
 		prepareImportData().then((data) => {
       Promise.all([BulkImportService.handleFileData(data, props.localStorageKey)]).then( (data) => {
@@ -56,16 +55,19 @@ const prepareImportData = () => {
 }
 	const prepareImport = () => {
       const tasks = []
+      for (var i = 0; i < taskData.userCount; i++) {
         const task = {
           task: 'user.create',
-          numberofUsers: taskData.numberofUsers,
+          //numberofUsers: taskData.numberofUsers,
           userId: taskData.userId,
           lastName: taskData.lastName,
           firstName: taskData.firstName,
           callingLineIdLastName: taskData.callingLineIdLastName,
           callingLineIdFirstName: taskData.callingLineIdFirstName,
           password: taskData.password,
-          phoneNumber: taskData.phoneNumber,
+          passcode: taskData.passcode,
+          phoneNumber: _.get(taskData, 'phoneNumber.' + i, null),
+          // phoneNumber: taskData.phoneNumber,
           activatePhoneNumber: taskData.activatePhoneNumber,
           extension: taskData.extension,
           callingLineIdPhoneNumber: taskData.callingLineIdPhoneNumber,
@@ -80,18 +82,20 @@ const prepareImportData = () => {
           address: taskData.address,
           domain: taskData.domain,
           endpointType: 'trunkAddressing',
-          'trunkAddressing.enterpriseTrunkName': taskData.trunkAddressing.enterpriseTrunkName,
-          'trunkAddressing.trunkGroupDeviceEndpoint.name': taskData.trunkAddressing.trunkGroupDeviceEndpoint.name,
-          'trunkAddressing.trunkGroupDeviceEndpoint.linePort': taskData.trunkAddressing.trunkGroupDeviceEndpoint.linePort,
+          // 'trunkAddressing.enterpriseTrunkName': taskData.trunkAddressing.enterpriseTrunkName,
+          // 'trunkAddressing.trunkGroupDeviceEndpoint.name': taskData.trunkAddressing.trunkGroupDeviceEndpoint.name,
+          // 'trunkAddressing.trunkGroupDeviceEndpoint.linePort': taskData.trunkAddressing.trunkGroupDeviceEndpoint.linePort,
           allowAccessDeviceUpdate: taskData.allowAccessDeviceUpdate
         }
 
+
         task['trunkAddressing.enterpriseTrunkName'] = enterpriseTrunkName
         task['trunkAddressing.trunkGroupDeviceEndpoint.name'] = groupTrunk
-        // task['trunkAddressing.trunkGroupDeviceEndpoint.linePort'] = serviceProviderId
+        // task['trunkAddressing.trunkGroupDeviceEndpoint.linePort'] =
         task['serviceProviderId'] = serviceProviderId
         task['groupId'] = groupId
         tasks.push(task)
+      }
 
       return tasks
   }
@@ -102,10 +106,14 @@ const prepareImportData = () => {
         title="Create Users"
         isOpen={createUserClicked}
         onCancel={() => setCreateUserClicked(false)}
-		    onSave={saveCloneGroup}
+		    onSave={createTask}
       >
         <BulkCreateUser
-          {...props}
+          serviceProviderId={serviceProviderId}
+          groupId={groupId}
+          enterpriseTrunkName={enterpriseTrunkName}
+          groupTrunk={groupTrunk}
+          phoneNumbers={phoneNumbers}
           setTaskData={setStateTaskData}
         />
       </UiCardModal>

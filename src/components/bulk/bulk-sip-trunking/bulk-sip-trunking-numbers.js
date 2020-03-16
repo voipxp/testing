@@ -9,19 +9,19 @@ import { useAlerts } from '@/store/alerts'
 
 
 export const BulkSipTrunkingNumbers = (props) => {
-
   const { serviceProviderId, groupId } = props.initialData
-  const { alertSuccess, alertDanger, alertWarning } = useAlerts()
+  const { alertSuccess, alertDanger } = useAlerts()
   const [numbers, setNumbers] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
-  const [createNumberClicked, setCreateNumberClicked] = React.useState(false)
-
+  // const [createNumberClicked, setCreateNumberClicked] = React.useState(false)
+  const [add, setAdd] = React.useState(false)
+  const [numbersArray, setNumbersArray] = React.useState([])
   const setStateTaskData = (data) => {
     setNumbers(data)
   }
 
 	const saveTask = () => {
-		setCreateNumberClicked(false)
+		setAdd(false)
 		prepareImportData().then((data) => {
       Promise.all([BulkImportService.handleFileData(data, props.localStorageKey)]).then( (data) => {
         props.setToNext()
@@ -45,7 +45,7 @@ const prepareImportData = () => {
         }
         task['serviceProviderId'] = serviceProviderId
         task['groupId'] = groupId
-
+        props.handleWizData({...props.initialData, phoneNumbers : numbersArray})
         tasks.push(task)
 
       return tasks
@@ -54,16 +54,17 @@ const prepareImportData = () => {
   const assignNumberModal = (
     <>
       {
-        (createNumberClicked)
+        (add)
         ?
         <UiCardModal
           title="Add Numbers in bulk"
-          isOpen={createNumberClicked}
-          onCancel={() => setCreateNumberClicked(false)}
+          isOpen={add}
+          onCancel={() => setAdd(false)}
           onSave={saveTask}
         >
           <BulkAddNumbers
             setData={setStateTaskData}
+            numbersArray={(numbers) => setNumbersArray(numbers)}
           />
         </UiCardModal>
         :
@@ -75,7 +76,7 @@ const prepareImportData = () => {
 
   return (
     <>
-      { (createNumberClicked) ? assignNumberModal : null}
+      { (add) ? assignNumberModal : null}
       <UiCard
         title="Numbers"
         buttons={
@@ -84,7 +85,7 @@ const prepareImportData = () => {
               color="link"
               icon="bulk"
               size="small"
-              onClick={() => setCreateNumberClicked(true)}
+              onClick={() => setAdd(true)}
             />
           </>
         }

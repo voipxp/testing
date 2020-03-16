@@ -1,30 +1,53 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Input } from 'rbx'
-// import { useAlerts } from '@/store/alerts'
-// import { BulkSelectServiceProviderId } from '../bulk-select-service-provider-id'
-// import { BulkSelectGroupId } from '../bulk-select-group-id'
+import { Control, Select, Tag , Input , Radio , Field } from 'rbx'
+import _ from 'lodash'
+
 import { generatePassword } from '@/utils'
 import {
+  UiCard,
   UiInputCheckbox,
   UiFormField,
   UiSection,
+  UiInputPassword,
+  UiButton,
   UiCardModal,
-  UiInputPassword
+  UiLoading
 } from '@/components/ui'
+import groupExtensionLengthApi from '@/api/group-extension-length'
+import { useAsync } from 'react-async-hook'
+import { BulkSelectNumbers } from './bulk-select-numbers'
 
+export const BulkCreateUser = ({
+  serviceProviderId,
+  groupId,
+  enterpriseTrunkName='',
+  groupTrunk='',
+  phoneNumbers=[],
+  setTaskData
+}) => {
+  const [tagBundleTemplateClick, setTagBundleTemplateClick] = React.useState(false)
+  // const { serviceProviderId, groupId, enterpriseTrunkName, groupTrunk} = {...props}
+  // const enterpriseTrunkName = props.enterpriseTrunkName
+  // const groupTrunk = props.enterpriseTrunkName
+  const templates = {
+    password: '{{ generatePassword }}',
+    passcode: '{{ generatePasscode }}',
+    callingLineIdPhoneNumber: '{{ phoneNumber }}'
+  }
 
-export const BulkCreateUser = (props) => {
   const initialForm =
   {
-    numberofUsers: '',
+    userCount: '',
     userId: '',
     lastName: '',
     firstName: '',
     callingLineIdLastName: '',
     callingLineIdFirstName: '',
-    password: '',
-    // phoneNumber: '',
+    password: templates.password,
+    passcode:templates.passcode,
+    phoneNumberAction: 'skip',
+    phoneNumber: [],
     activatePhoneNumber: 'true',
     extension: '',
     callingLineIdPhoneNumber: '',
@@ -40,9 +63,9 @@ export const BulkCreateUser = (props) => {
     domain: '',
     endpointType: 'trunkAddressing',
     trunkAddressing: {
-      enterpriseTrunkName: '',
+      enterpriseTrunkName: enterpriseTrunkName,
       trunkGroupDeviceEndpoint: {
-        name: '',
+        name: groupTrunk,
         linePort: ''
       }
     },
@@ -50,14 +73,50 @@ export const BulkCreateUser = (props) => {
   }
 
   const [form, setForm] = useState({...initialForm})
-  const [selectSP, setSelectSP] = React.useState(false)
-  const [selectGroupId, setSelectGroupId] = React.useState(false)
+  const [selectNumber, setSelectNumber] = React.useState(false)
+  const [selectedNumbers, setSelectedNumbers] = React.useState([])
+  // const numbers = props.numbers
+  // const [selectGroupId, setSelectGroupId] = React.useState(false)
+  // const [showModal, setShowModal] = useState(false)
+  // const [isCreateNumber, setCreateUser] = useState(false)
+  // const [isaddExtensionRange, setAddExtensionRange] = useState(false)
+  const [extensions, setExtensions] = React.useState([])
 
+  console.log('aaaaaaaaaaaaaaaaaaaaaaaaa')
+  console.log(selectedNumbers)
+
+  const loadExtension = (data) => {
+    const min = data.minExtensionLength
+    const max = data.maxExtensionLength
+    const def = data.defaultExtensionLength
+    const exts = []
+    for (let i = min; i <= max; i++) {
+      exts.push({
+        default: i === def,
+        length: i,
+        template: '{{ phoneNumberLast' + i + ' }}'
+      })
+    }
+    setExtensions(exts)
+    return exts
+}
+
+  const {result, error, loading, execute} = useAsync(
+    () => groupExtensionLengthApi.show(serviceProviderId, groupId)
+    .then((data) => {
+      return loadExtension(data)
+    })
+    ,[]
+  )
 
   useEffect( () => {
-	  props.setTaskData(form)
-  }, [props, form])
+	  setTaskData(form)
+  }, [form])
 
+  if(loading) return <UiLoading />
+
+  console.log('this is extensions extensions')
+  console.log(extensions)
 
   const handleInput = (event) => {
     const target = event.target
@@ -66,23 +125,142 @@ export const BulkCreateUser = (props) => {
     setForm({ ...form, [name]: value })
   }
 
-console.log('SSSSSSSSSSSSSSSSSSSS')
+console.log('This is form')
 console.log(form)
+
+const selectTagModal = (
+  <>
+    <UiCardModal
+      title="Tags"
+      isOpen={tagBundleTemplateClick}
+      onCancel={() => setTagBundleTemplateClick(false)}
+      onSave={saveTag}
+    >
+    {/* <BulkTagInput /> */}
+    </UiCardModal>
+  </>
+)
+
+const handleNumberInput = (event) => {
+  const target = event.target
+  const value = target.value
+  const name = target.name
+  const tempForm = {...form}
+  tempForm[name] = value
+  if(value === 'select') setSelectNumber(true)
+  else tempForm['phoneNumber'] = []
+  setForm(tempForm)
+}
+
+const handleNumbers = (numbersArray) => {
+  setForm({ ...form, 'phoneNumber': selectedNumbers })
+  setSelectNumber(false)
+}
+
+const createNumbers =  () => {
+    //add code start here
+    // setShowModal(true)
+    // setCreateUser(true)
+  }
+
+
+  function extension (){
+    //setmodal(true)
+
+  }
+  // function clearNumbers (){
+  //   //setmodal(true)
+  //   //  form.phoneNumbers = []
+  //   // form.phoneNumberAction = 'skip'
+  // }
+
+
+  // function selectNumbers() {
+  //   phoneNumbers
+  //   /*get the list of bulk Number number */
+  //  //api('bulkSelectExistingNumbers:load')
+
+  // }
+
+  // function updateEndpoint() {
+   /* if (form.endpointType === 'none') {
+      delete form.accessDeviceEndpoint
+      delete form.trunkAddressing
+    } else if (form.endpointType === 'accessDeviceEndpoint') {
+      delete form.trunkAddressing
+    } else */
+
+    // if (form.endpointType === 'trunkAddressing') {
+    //   delete form.accessDeviceEndpoint
+    // }
+  // }
+
+  // function addExtensionRange() {
+  //   // setCreateUser(false)
+  //   // setAddExtensionRange(true)
+  //   // setShowModal(true)
+
+  //   /*get the list of bulk extension number */
+  //  //api('bulkSelectExistingNumbers:load')
+
+  // }
+
+  function setNumbers(numbers) {
+    form.phoneNumbers = numbers
+    form.phoneNumberAction = 'select'
+    var defaultExtension = _.find(form.extensions, { default: true })
+    if (defaultExtension) {
+      form.extension = defaultExtension.template
+    }
+    form.callingLineIdPhoneNumber = form.callingLineIdPhoneNumber
+  }
+
+ function saveTag(){
+   //add tag
+ }
+
 
 
   return (
     <>
+    { selectNumber ?
+      <UiCardModal
+      title="Numbers"
+      isOpen={selectNumber}
+      onCancel={() => setSelectNumber(false)}
+      onSave={handleNumbers}
+    >
+    <BulkSelectNumbers
+        phoneNumbers={phoneNumbers}
+        setSelectedNumbers={(numbers) => setSelectedNumbers(numbers)}
+      />
+    </UiCardModal>
+      :
+      null }
+
+    { ( tagBundleTemplateClick ) ? selectTagModal : null}
         <UiSection>
           <UiFormField label="Number of Users (max: 1) * " horizontal>
             <Input
               type="text"
-              placeholder="New Group Id"
+              placeholder="Number of Users"
               onChange={handleInput}
-              name="numberofUsers"
-              value={form.numberofUsers}
+              name="userCount"
+              value={form.userCount}
             />
           </UiFormField>
-          <UiFormField label="User ID *" horizontal >
+          <UiCard title='User Id'>
+        <UiSection title ="User ID Template">
+
+        <Field.Body>
+          <Control>
+            <Tag color="link" size="medium" onClick={() => setTagBundleTemplateClick(true)}>
+              <span className="icon is-small">
+                <i className="fas fa-tag"></i>
+              </span>
+            </Tag>
+          </Control>
+          <Control style = {{width: '25rem' }}>
             <Input
               type="text"
               placeholder="User ID"
@@ -90,7 +268,75 @@ console.log(form)
               name="userId"
               value={form.userId}
             />
-          </UiFormField>
+          </Control>
+          <Control>
+            <Tag color="link" size="medium" onClick={() => setTagBundleTemplateClick(true)}>
+              @
+            </Tag>
+          </Control>
+            <Control style = {{width: '25rem' , marginBottom:'1rem'}}>
+              <Select.Container fullwidth>
+                <Select
+                  value= ''
+                  onChange={handleInput}
+                  name="domainKey"
+                >
+                  <Select.Option
+                    key=  ''
+                    value=''
+                  >
+                </Select.Option>
+              </Select>
+            </Select.Container>
+          </Control>
+          </Field.Body>
+        </UiSection>
+      </UiCard>
+{/*password */}
+          <UiCard title='User Passwords'>
+
+                <UiFormField label="Do you want to assign passwords?">
+                  <Radio
+                    type="radio"
+                    value={templates.password}
+                    name ="password"
+                    checked={form.password === templates.password}
+                    onChange={handleInput}
+                  />Auto-Generate Passwords<br/>
+
+                  <Radio
+                    type="radio"
+                    value="null"
+                    name ="password"
+                    checked={form.password === "null"}
+                    onChange={handleInput}
+                  />Leave Blank
+                </UiFormField>
+
+                <UiFormField label="Do you want to assign passcodes?">
+                  <Radio
+                   type="radio"
+                   value={templates.passcode}
+                   checked={form.passcode === templates.passcode}
+                   name ="passcode"
+                   onChange={handleInput}
+                  /> Auto-Generate Passcodes<br/>
+
+                  <Radio
+                    type="radio"
+                    value="null"
+                    checked={form.passcode === 'null'}
+                    name ="passcode"
+                    onChange={handleInput}
+                  /> Leave Blank
+                </UiFormField>
+
+          </UiCard>
+{/* end password */}
+
+{/* User Names */}
+          <UiCard title='User Names'>
+          <UiSection title="Required Names">
           <UiFormField label="First Name *" horizontal >
             <Input
               type="text"
@@ -126,15 +372,394 @@ console.log(form)
               value={form.callingLineIdLastName}
             />
           </UiFormField>
+         </UiSection>
+          </UiCard>
+              {/* end User Names */}
 
-          <UiFormField label="Password" horizontal>
-            <UiInputPassword
-              name="password"
-              value={form.password}
+              {/* User Number */}
+              <UiCard
+              title='User Number'
+              buttons={
+
+                  <UiButton
+                    color="link"
+                    icon="add"
+                    size="small"
+                    onClick={createNumbers}
+                  />
+
+              }
+              >
+
+                <UiFormField label="Do you want to assign phone numbers?">
+                  <Radio
+                      type="radio"
+                      value="skip"
+                      checked={form.phoneNumberAction === "skip"}
+                      name="phoneNumberAction"
+                      onChange={handleNumberInput}
+                      // onClick = {clearNumbers}
+                  />Leave Blank<br/>
+                  <Radio type="radio"
+                    value="select"
+                    checked={form.phoneNumberAction === "select"}
+                    name ="phoneNumberAction"
+                    onChange={handleNumberInput}
+                    // onClick = {() => setSelectNumber(true)}
+                  />Select From Available Phone Numbers
+                </UiFormField>
+
+
+                <UiFormField label="Do you want to set Extensions?">
+                  <Radio
+                    type="radio"
+                    value=""
+                    checked={form.extension === ""}
+                    name ="extension"
+                    onChange={handleInput}
+                  /> Leave Blank<br/>
+                  <Radio
+                     type="radio"
+                     value="extensionRange"
+                     checked={form.extension === "extensionRange"}
+                     name ="extension"
+                     onChange={handleInput}
+                    //  onClick={addExtensionRange}
+                  /> Add Extension Range <br/>
+
+                  {
+
+                    extensions.map((el, index) => (
+                      <p key={'p' + index} >
+                        <Radio
+                          key={'radio' + index}
+                          type="radio"
+                          value={el.template}
+                          checked={form.extension === el.template}
+                          name ="extension"
+                          onChange={handleInput}
+                        /> Last {el.length} Digits of Phone Number <br/>
+                      </p>
+                    ) )
+
+                  }
+                  {/* <Radio
+                    type="radio"
+                    value="true"
+                    checked={false}
+                    name ="extension"
+                    onChange={handleInput}
+                  /> Last 3 Digits of Phone Number <br/>
+
+                  <Radio
+                    type="radio"
+                    value="true"
+                    checked={false}
+                    name ="form.extension"
+                    onChange={handleInput}
+                  /> Last 4 Digits of Phone Number (default) <br/>
+
+                  <Radio
+                    type="radio"
+                    value="true"
+                    checked={false}
+                    name ="form.extension"
+                  /> Last 5 Digits of Phone Number <br/>
+
+                  <Radio
+                    type="radio"
+                    value="true"
+                    checked={false}
+                    name ="form.extension"
+                  /> Last 6 Digits of Phone Number <br/> */}
+
+                </UiFormField>
+
+                <UiFormField label="Do you want to set Calling Line ID?">
+                  <Radio
+                    type="radio"
+                    value=""
+                    // undefined
+                    checked={form.callingLineIdPhoneNumber === ""}
+                    onChange={handleInput}
+                    name="callingLineIdPhoneNumber"
+                  />Leave Blank<br/>
+
+                  <Radio
+                    type="radio"
+                    value={templates.callingLineIdPhoneNumber}
+                    checked={form.callingLineIdPhoneNumber === templates.callingLineIdPhoneNumber}
+                    onChange={handleInput}
+                    name ="callingLineIdPhoneNumber"
+                  />Set to Phone Number
+                </UiFormField>
+
+                <UiFormField label="Do you want to set Activate the phone numbers?">
+
+                  <Radio
+                    type="radio"
+                    value="true"
+                    checked={form.activatePhoneNumber === "true"}
+                    name="activatePhoneNumber"
+                    onChange={handleInput}
+                  />Activate Numbers<br/>
+
+                  <Radio
+                    type="radio"
+                    value="false"
+                    checked={form.activatePhoneNumber === "false"}
+                    name ="activatePhoneNumber"
+                    onChange={handleInput}
+                  />Do Not Activate Numbers
+                </UiFormField>
+
+          </UiCard>
+
+{/* end User Number */}
+
+{/* User Device*/}
+<UiCard title='User Device'>
+
+                <UiFormField label="Device endpoint type"> <b>Trunking</b>
+                 {/* <Radio type="radio" value="true" checked={true} name="password"/>None<br/>
+                  <Radio type="radio" value="true" checked={false} name ="password"/>Hosted User<br/> */}
+                  {/* <Radio
+                  type="radio"
+                  value="trunkAddressing"
+                  checked={false}
+                  name ="form.endpointType"
+                  onChange={handleInput}
+                  onClick = {updateEndpoint}
+                  />Trunking */}
+
+                </UiFormField>
+                <UiSection title="Trunk Addressing">
+                <UiFormField label="Enterprise Trunk" horizontal >
+                  <Input
+                    type="text"
+                    readOnly
+                    value={form.trunkAddressing.enterpriseTrunkName}
+                  />
+                </UiFormField>
+                <UiFormField label="Trunk Group" horizontal >
+                  <Input
+                    type="text"
+                    readOnly
+                    value={form.trunkAddressing.trunkGroupDeviceEndpoint.name}
+                  />
+                </UiFormField>
+
+                </UiSection>
+
+                {/* <UiFormField label="Do you want to assign passcodes?">
+                  <Radio
+                    type="radio"
+                    value="true"
+                    checked={true}
+                    name ="passcode"
+                  /> Auto-Generate Passcodes<br/>
+
+                  <Radio
+                    type="radio"
+                    value="true"
+                    checked={false}
+                    name ="passcode"
+                  /> Leave Blank
+                </UiFormField> */}
+
+          </UiCard>
+{/* end user Device*/}
+
+{/* User Device*/}
+<UiCard title='User Details'>
+
+
+                <UiSection title="Optional Details">
+                <UiFormField label="Time Zone" horizontal>
+              <Select.Container fullwidth>
+                <Select
+                  value= {form.timeZone}
+                  onChange={handleInput}
+                  name="timeZone"
+                >
+                  <Select.Option value="Please select...">
+                    {'Please select...'}
+                  </Select.Option>
+
+                  <Select.Option value="America/St_Johns">
+                    {'(GMT-02:30) (Canada) Newfoundland'}
+                  </Select.Option>
+
+                </Select>
+              </Select.Container>
+            </UiFormField>
+                  <UiFormField label="Language" horizontal>
+              <Select.Container fullwidth>
+                <Select
+                  value=  {form.language}
+                  onChange={handleInput}
+                  name="language"
+                >
+                  <Select.Option value="Please select...">
+                    {'Please select...'}
+                  </Select.Option>
+
+                  <Select.Option value="English">
+                    {'English'}
+                  </Select.Option>
+
+                </Select>
+              </Select.Container>
+            </UiFormField>
+            <UiFormField label="Network Class of Services" horizontal>
+              <Select.Container fullwidth>
+                <Select
+                  value=  {form.networkClassOfService}
+                  onChange={handleInput}
+                  name="networkClassOfService"
+                >
+                  <Select.Option value="">
+                    {'None'}
+                  </Select.Option>
+                  {/* <Select.Option value="Please select...">
+
+                  </Select.Option> */}
+
+                </Select>
+              </Select.Container>
+            </UiFormField>
+
+                </UiSection>
+
+          </UiCard>
+{/* end user Device*/}
+
+
+{/* User Names */}
+<UiCard title='User Contact Information'>
+          <UiSection title="Optional Contact Information">
+          <UiFormField label="Mobile Number" horizontal >
+            <Input
+              type="text"
               onChange={handleInput}
-              onGeneratePassword={generatePassword}
+              name="mobilePhoneNumber"
+              value={form.mobilePhoneNumber}
             />
           </UiFormField>
+
+          <UiFormField label="Pager Number" horizontal >
+            <Input
+              type="text"
+              onChange={handleInput}
+              name="pagerPhoneNumber"
+              value={form.pagerPhoneNumber}
+            />
+          </UiFormField>
+
+          <UiFormField label="Email Address" horizontal >
+            <Input
+              type="text"
+              onChange={handleInput}
+              name="emailAddress"
+              value={form.emailAddress}
+            />
+          </UiFormField>
+
+          <UiFormField label="Social ID" horizontal >
+            <Input
+              type="text"
+              onChange={handleInput}
+              name="yahooId"
+              value={form.yahooId}
+            />
+          </UiFormField>
+         </UiSection>
+          </UiCard>
+{/* end User Names */}
+
+
+{/* User Names */}
+<UiCard title='User Address'>
+          <UiSection title="Address Details">
+          <UiFormField label="Address Location " horizontal >
+            <Input
+              type="text"
+              onChange={handleInput}
+              name="addressLocation"
+              value={form.addressLocation}
+              placeholder ="work, home ,  city, etc..."
+            />
+          </UiFormField>
+
+          <UiFormField label="Address Line 1" horizontal >
+            <Input
+              type="text"
+              onChange={handleInput}
+              name="addressLine1"
+              value={form.addressLine1}
+            />
+          </UiFormField>
+
+          <UiFormField label="Address Line 2" horizontal >
+            <Input
+              type="text"
+              onChange={handleInput}
+              name="addressLine2"
+              value={form.addressLine2}
+            />
+          </UiFormField>
+
+          <UiFormField label="City  " horizontal >
+            <Input
+              type="text"
+              onChange={handleInput}
+              name="city"
+              value={form.address.city}
+            />
+          </UiFormField>
+
+
+          <UiFormField label="State/Province" horizontal>
+              <Select.Container fullwidth>
+                <Select
+                  value= {form.states}
+                  onChange={handleInput}
+                  name="states"
+                >
+                  <Select.Option value="Please select...">
+                    {'Please select...'}
+                  </Select.Option>
+
+                  <Select.Option value="Alaska">
+                    {'Alaska'}
+                  </Select.Option>
+
+                </Select>
+              </Select.Container>
+            </UiFormField>
+
+            <UiFormField label="Postal Code" horizontal >
+            <Input
+              type="text"
+              onChange={handleInput}
+              name="zipOrPostalCode"
+              value={form.address.zipOrPostalCode}
+            />
+          </UiFormField>
+
+          <UiFormField label="Country" horizontal >
+            <Input
+              type="text"
+              onChange={handleInput}
+              name="country"
+              value={form.address.country}
+            />
+          </UiFormField>
+
+        </UiSection>
+          </UiCard>
+        {/* end User Names */}
+
         </UiSection>
 
     </>
@@ -142,5 +767,10 @@ console.log(form)
 }
 
 BulkCreateUser.propTypes = {
-  setTaskData: PropTypes.func
+  setTaskData: PropTypes.func,
+  phoneNumbers: PropTypes.array,
+  serviceProviderId: PropTypes.string.isRequired,
+  groupId: PropTypes.string.isRequired,
+  enterpriseTrunkName: PropTypes.string,
+  groupTrunk: PropTypes.string,
 }

@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from 'react'
-// import styled from 'styled-components'
 import _ from 'lodash'
-import { BulkTaskService, BulkParseService, BulkImport } from '@/components/bulk'
+import PropTypes from 'prop-types'
+import { BulkParseService, BulkImport } from '@/components/bulk'
 import { useAlerts } from '@/store/alerts'
-import { StorageService, UtilityService } from '@/utils'
+import { StorageService } from '@/utils'
 import { Button } from 'rbx'
 import { UiLoading } from '@/components/ui'
 
 import {
-  UiButton,
-  UiDataTable,
   UiDataTableEditable,
   UiCard
 } from '@/components/ui'
-//const required = ['task', 'userId']
 
   export const BulkImportStorage = ({
     localStorageKey='BulkImportService',
-    setToNext,
     setDisableNextButton
   }) => {
-    const { alertSuccess, alertDanger, alertWarning } = useAlerts()
-    // const required = ['task', 'userId']
     const [users, setUsers] = useState([])
     const [keys, setKeys] = useState([])
     const [task, setTask] = useState('')
@@ -42,8 +36,6 @@ import {
     const onError = () => {
       setIsProcessing(false)
       setDisableNextButton(true)
-      // setShowImportTaskBtn(true)
-      // setDeleteLocalStorage(false)
       setImportTask(false)
     }
 
@@ -56,7 +48,7 @@ import {
         }
       }
 
-    deleteLocalStorageData()
+      deleteLocalStorageData()
     }, [localStorageKey, deleteLocalStorage])
 
     useEffect( () => {
@@ -175,15 +167,20 @@ import {
       //     return new Promise.reject('Data Error: ' + error)
       //   })
   // debugger
+debugger
+  return BulkParseService.bulkParse(users)
+  .then(function() {
+    BulkParseService.validateBulk(users, action.required || [])
+  })
 
-      return BulkParseService.validateBulk(users, action.required || [])
-        .catch(function(error) {
-          return new Promise.reject('Data Error: ' + error)
-        })
+      // return BulkParseService.validateBulk(users, action.required || [])
+      //   .catch(function(error) {
+      //     return new Promise.reject('Data Error: ' + error)
+      //   })
     }
 
     return loading ? <UiLoading /> :
-          <>
+    <>
       {
         ( importTask ) ?
         <BulkImport
@@ -201,7 +198,6 @@ import {
         <UiCard
           title={task}
           buttons={
-
               <Button
                 color="success"
                 size="small"
@@ -223,8 +219,10 @@ import {
         :
         'No Pending Task available !'
       }
+    </>
+  }
 
-</>
-
-
+  BulkImportStorage.propTypes = {
+    localStorageKey: PropTypes.string,
+    setDisableNextButton: PropTypes.func
   }

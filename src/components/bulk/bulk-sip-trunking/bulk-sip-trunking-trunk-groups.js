@@ -28,31 +28,33 @@ const columns = [
   }
 ]
 
-export const BulkSipTrunkingTrunkGroups = (props) => {
-
-  console.log('wwwwwwwwwwwwww')
-  console.log(props)
+export const BulkSipTrunkingTrunkGroups = ({
+  initialData={},
+  setToNext,
+  handleWizData,
+  localStorageKey
+}) => {
 
   const { alertSuccess, alertDanger, alertWarning } = useAlerts()
 	const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
-  const [cloneGroupClicked, setCloneGroupClicked] = React.useState(false)
+  const [add, setAdd] = React.useState(false)
 
   const setTaskDataHandler = (data) => {
     setTaskData(data)
   }
 
-  const selectGroupTrunk = (spRow) => {
-    const groupTrunk = spRow.name
-    props.handleWizData({...props.initialData, groupTrunk: groupTrunk })
-	  props.setToNext()
+  const selectGroupTrunk = (row) => {
+    const groupTrunk = row.name
+    handleWizData({...initialData, groupTrunk: groupTrunk })
+	  setToNext()
   }
 
-	const modalSaveBtn = () => {
-		setCloneGroupClicked(false)
+  const createTask = () => {
+		setAdd(false)
 		prepareImportData().then((data) => {
-      Promise.all([BulkImportService.handleFileData(data, props.localStorageKey)]).then( (data) => {
-        props.setToNext()
+      Promise.all([BulkImportService.handleFileData(data, localStorageKey)]).then( (data) => {
+        setToNext()
       })
       .catch( (error) => {
         alertDanger( error || 'Data Import Error' )
@@ -109,13 +111,13 @@ const prepareImportData = () => {
         "maxIncomingCalls": taskData.maxIncomingCalls,
         "maxOutgoingCalls": taskData.maxOutgoingCalls
       }
-      task['serviceProviderId'] = props.initialData.serviceProviderId
-      task['groupId'] = props.initialData.groupId
+      task['serviceProviderId'] = initialData.serviceProviderId
+      task['groupId'] = initialData.groupId
 
       tasks.push(task)
 
       /* Set to props which will be used in the next component, This is HOC */
-      props.handleWizData({...props.initialData, groupTrunk:  task.name})
+      handleWizData({...initialData, groupTrunk:  task.name})
 
       return tasks
   }
@@ -124,12 +126,11 @@ const prepareImportData = () => {
     <>
       <UiCardModal
         title="Add Trunk Group"
-        isOpen={cloneGroupClicked}
-        onCancel={() => setCloneGroupClicked(false)}
-		    onSave={modalSaveBtn}
+        isOpen={add}
+        onCancel={() => setAdd(false)}
+		    onSave={createTask}
       >
         <BulkAddTrunkGroup
-         {...props}
          setTaskData={setTaskDataHandler}
         />
       </UiCardModal>
@@ -147,17 +148,20 @@ const prepareImportData = () => {
               color="link"
               icon="add"
               size="small"
-              onClick={() => setCloneGroupClicked(true)}
+              onClick={() => setAdd(true)}
             />
           </>
         }
       >
-      <BulkSelectGroupTrunk selectGroupTrunk={selectGroupTrunk} {...props}/>
+      <BulkSelectGroupTrunk
+        selectGroupTrunk={selectGroupTrunk}
+        initialData={initialData}
+      />
       </UiCard>
       <div style={{marginTop: '20px'}}>
         <Button style={{float: 'right'}}
               color="link"
-              onClick={ props.setToNext}
+              onClick={ setToNext}
               disabled = { isNextBtnDisabled }
             >
               Next

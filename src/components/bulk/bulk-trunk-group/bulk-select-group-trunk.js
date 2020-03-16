@@ -42,7 +42,6 @@ const { serviceProviderId, groupId } = props.initialData
 
 BulkSelectGroupTrunk.propTypes = {
   initialData: PropTypes.object,
-  handleWizData: PropTypes.func.isRequired,
   setToNext: PropTypes.func,
   selectGroupTrunk: PropTypes.func
 }
