@@ -75,14 +75,16 @@ export const BulkCreateUser = ({
   const [form, setForm] = useState({...initialForm})
   const [selectNumber, setSelectNumber] = React.useState(false)
   const [selectedNumbers, setSelectedNumbers] = React.useState([])
-  const [bulkTag, setBulkTag] = React.useState('')
+  const [extRange, setExtRange] = React.useState(false)
+  const [extensionRange, setExtensionRange] = React.useState('')
+
   // const numbers = props.numbers
   // const [selectGroupId, setSelectGroupId] = React.useState(false)
   // const [showModal, setShowModal] = useState(false)
   // const [isCreateNumber, setCreateUser] = useState(false)
   // const [isaddExtensionRange, setAddExtensionRange] = useState(false)
   const [extensions, setExtensions] = React.useState([])
- 
+
   const loadExtension = (data) => {
     const min = data.minExtensionLength
     const max = data.maxExtensionLength
@@ -113,24 +115,20 @@ export const BulkCreateUser = ({
 
   if(loading) return <UiLoading />
 
-  console.log('this is extensions extensions')
-  console.log(extensions)
-
   const handleInput = (event) => {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
     setForm({ ...form, [name]: value })
-  } 
-
-  const handleTagSelect = (tagSelectValue) => { 
-    const userIdValue = bulkTag ? bulkTag + tagSelectValue.tag : tagSelectValue.tag
-    form['userId'] = userIdValue;
-    setBulkTag(userIdValue)
-    setTagBundleTemplateClick(false)
-    
   }
- 
+
+  const handleTagSelect = (elName, tag) => {
+    const tempForm = {...form}
+    const value = tempForm[elName] + tag.tag
+    setForm({...tempForm, [elName]: value})
+    setTagBundleTemplateClick(false)
+  }
+
 
   const selectTagModal = (
     <>
@@ -138,9 +136,10 @@ export const BulkCreateUser = ({
         title="Tags"
         isOpen={tagBundleTemplateClick}
         onCancel={() => setTagBundleTemplateClick(false)}
-		    onClick={saveTag}
-      >  
-        <BulkTagInput onSelect={handleTagSelect} />
+      >
+        <BulkTagInput
+          onSelect={(tag) => handleTagSelect('userId', tag)}
+          hideTags={['{{ userId }}', '{{ userIdPrefix }}']} />
       </UiCardModal>
     </>
   )
@@ -151,14 +150,29 @@ const handleNumberInput = (event) => {
   const name = target.name
   const tempForm = {...form}
   tempForm[name] = value
-  if(value === 'select') setSelectNumber(true)
-  else tempForm['phoneNumber'] = []
+
+  if(name === "phoneNumberAction") {
+    if(value === 'select') setSelectNumber(true)
+    else tempForm['phoneNumber'] = []
+
+  }
+  else if(name === "extension") {
+    if(value === 'extensionRange') setExtRange(true)
+    else delete tempForm.extensionRange
+  }
+
   setForm(tempForm)
 }
 
-const handleNumbers = (numbersArray) => {
-  setForm({ ...form, 'phoneNumber': selectedNumbers })
+const handleNumbers = (name) => {
+  if(name === "phoneNumber") {
+    setForm({ ...form, [name]: selectedNumbers })
   setSelectNumber(false)
+  }
+  else if(name === "extensionRange") {
+    setForm({ ...form, [name]: extensionRange })
+    setExtRange(false)
+  }
 }
 
 const createNumbers =  () => {
@@ -219,28 +233,53 @@ const createNumbers =  () => {
     form.callingLineIdPhoneNumber = form.callingLineIdPhoneNumber
   }
 
- function saveTag(){
-   //add tag
- }
+  // function saveTag(){
+  //   //add tag
+  // }
 
+
+  const addExtensionRangeModal = (
+    extRange
+    ?
+    <UiCardModal
+      title="Add Extension Range"
+      isOpen={extRange}
+      onCancel={() => setExtRange(false)}
+      onSave={() => handleNumbers('extensionRange')}
+      >
+        <UiFormField label="Range" horizontal >
+            <Input
+              type="number"
+              onChange={(event) => setExtensionRange(event.target.value)}
+              name="extensionRange"
+              value={extensionRange}
+            />
+          </UiFormField>
+      </UiCardModal>
+    :
+    null
+  )
 
 
   return (
     <>
-    { selectNumber ?
+    { addExtensionRangeModal }  {/* Add Extension modal */}
+    {
+      selectNumber ?
       <UiCardModal
       title="Numbers"
       isOpen={selectNumber}
       onCancel={() => setSelectNumber(false)}
-      onSave={handleNumbers}
-    >
-    <BulkSelectNumbers
+      onSave={() => handleNumbers('phoneNumber')}
+      >
+        <BulkSelectNumbers
         phoneNumbers={phoneNumbers}
         setSelectedNumbers={(numbers) => setSelectedNumbers(numbers)}
-      />
-    </UiCardModal>
+        />
+      </UiCardModal>
       :
-      null }
+      null
+    }
 
     { ( tagBundleTemplateClick ) ? selectTagModal : null}
         <UiSection>
@@ -427,7 +466,7 @@ const createNumbers =  () => {
                      value="extensionRange"
                      checked={form.extension === "extensionRange"}
                      name ="extension"
-                     onChange={handleInput}
+                     onChange={handleNumberInput}
                     //  onClick={addExtensionRange}
                   /> Add Extension Range <br/>
 

@@ -36,28 +36,17 @@ export const BulkTemplateService = {
   }
 
   function hasTag(template) {
-
     return getTags(template).length > 0
   }
 
   function render(template, view) {
-
     return new Promise(function(resolve, reject) {
       try {
-        console.log('This is mustache template')
-        console.log(template)
-        console.log('This is mustache view')
-        console.log(view)
-
         const results = Mustache.render(template, view)
-        console.log('This is mustache result')
-        console.log(results)
         // in case of a single { we were too early
         if (!results || /{/.exec(results)) {
-          console.log('This is reject request')
           reject(template)
         } else {
-          console.log('This is resolve request')
           resolve(results.trim())
         }
       } catch (error) {

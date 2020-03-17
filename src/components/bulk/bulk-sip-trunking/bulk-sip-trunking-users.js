@@ -9,12 +9,12 @@ import { BulkCreateUser } from '../bulk-create-user'
 import { useAlerts } from '@/store/alerts'
 
 export const BulkSipTrunkingUsers = (props) => {
-  // const serviceProviderId = 'reseler-sp'
-  // const groupId = 'test007R'
-  // const enterpriseTrunkName = "aaaaaa"
-  // const groupTrunk = "bbbbbbb"
-  // const phoneNumbers = ['100 - 200', '22222222', '33333333']
-  const { serviceProviderId, groupId, enterpriseTrunkName, groupTrunk, phoneNumbers} = props.initialData
+  const serviceProviderId = 'reseler-sp'
+  const groupId = 'test007R'
+  const enterpriseTrunkName = "aaaaaa"
+  const groupTrunk = "bbbbbbb"
+  const phoneNumbers = ['100 - 200', '22222222', '33333333']
+  // const { serviceProviderId, groupId, enterpriseTrunkName, groupTrunk, phoneNumbers} = props.initialData
   const { alertSuccess, alertDanger } = useAlerts()
   const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
@@ -58,7 +58,6 @@ const prepareImportData = () => {
       for (var i = 0; i < taskData.userCount; i++) {
         const task = {
           task: 'user.create',
-          //numberofUsers: taskData.numberofUsers,
           userId: taskData.userId,
           lastName: taskData.lastName,
           firstName: taskData.firstName,
@@ -67,7 +66,6 @@ const prepareImportData = () => {
           password: taskData.password,
           passcode: taskData.passcode,
           phoneNumber: _.get(taskData, 'phoneNumber.' + i, null),
-          // phoneNumber: taskData.phoneNumber,
           activatePhoneNumber: taskData.activatePhoneNumber,
           extension: taskData.extension,
           callingLineIdPhoneNumber: taskData.callingLineIdPhoneNumber,
@@ -94,6 +92,27 @@ const prepareImportData = () => {
         // task['trunkAddressing.trunkGroupDeviceEndpoint.linePort'] =
         task['serviceProviderId'] = serviceProviderId
         task['groupId'] = groupId
+
+        if(task.extension === "extensionRange") {
+          task.extension = parseInt(taskData.extensionRange) + i
+        }
+
+        // make strings so they are editable in review page
+        if (taskData.activatePhoneNumber) {
+          task.activatePhoneNumber = 'true'
+        } else if (taskData.activatePhoneNumber === false) {
+          task.activatePhoneNumber = 'false'
+        }
+
+        if (task.endpointType === 'accessDeviceEndpoint') {
+          task.allowAccessDeviceUpdate = taskData.allowAccessDeviceUpdate
+            ? 'true'
+            : 'false'
+          task.accessDeviceEndpoint = taskData.accessDeviceEndpoint
+        } else if (task.endpointType === 'trunkAddressing') {
+          task.trunkAddressing = taskData.trunkAddressing
+        }
+
         tasks.push(task)
       }
 

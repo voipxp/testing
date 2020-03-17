@@ -1,14 +1,22 @@
-import React from 'react'  
+import React from 'react'
 import  BulkTagService from '@/components/bulk/service/bulk-tag-service.js'
 import PropTypes from 'prop-types'
-import { 
-  UiSection, 
+import {
+  UiSection,
   UiDataTable,
   UiLoading
 } from '@/components/ui'
 
-export const BulkTagInput =  ({ onSelect }) => {
-  const bulkTags = BulkTagService.index() || {} 
+export const BulkTagInput =  ({
+  onSelect,
+  hideTags=[]
+ }) => {
+
+  let bulkTags = BulkTagService.index() || {}
+  bulkTags = bulkTags.filter( tag => {
+    return !_.includes(_.castArray(hideTags), tag.tag)
+  })
+
   const columns = [
     { key: 'tag', label: 'Tag' },
     { key: 'example', label: 'Example' }
@@ -27,15 +35,16 @@ export const BulkTagInput =  ({ onSelect }) => {
             <UiDataTable
               columns={columns}
               rows={bulkTags}
-              rowKey="tags"
+              rowKey="tag"
               onClick={onSelect}
-            /> 
+            />
           )
-        } 
+        }
       </UiSection>
     </>
   )
 }
-BulkTagInput.propTypes = { 
- onSelect: PropTypes.func
+BulkTagInput.propTypes = {
+ onSelect: PropTypes.func,
+ hideTags: PropTypes.array
 }

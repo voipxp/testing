@@ -151,7 +151,7 @@ import GroupDomainService from '@/api/groups/domains'
   }
 
   function loadDefaultDomain(user) {
-    return GroupDomainService.index(user.serviceProviderId, user.groupId).then(
+    return GroupDomainService.domains(user.groupId, user.serviceProviderId).then(
       function(data) {
         return data.default
       }
