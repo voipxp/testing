@@ -158,20 +158,10 @@ import {
     }
 
     function validate(users) {
-      // return bulkParse(users)
-      //   .then(function() {
-      //     return validateBulk(users, action.required || [])
-      //   })
-      //   .catch(function(error) {
-      //     console.log(error)
-      //     return new Promise.reject('Data Error: ' + error)
-      //   })
-  // debugger
-debugger
-  return BulkParseService.bulkParse(users)
-  .then(function() {
-    BulkParseService.validateBulk(users, action.required || [])
-  })
+      return BulkParseService.bulkParse(users)
+      .then(function() {
+      BulkParseService.validateBulk(users, action.required || [])
+    })
 
       // return BulkParseService.validateBulk(users, action.required || [])
       //   .catch(function(error) {

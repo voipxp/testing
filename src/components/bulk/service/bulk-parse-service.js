@@ -5,11 +5,12 @@ import GroupPasswordService from '@/api/groups/group-password-service'
 import GroupPasscodeService from '@/api/groups/group-passcode-service'
 import ServiceProviderPasscodeService from '@/api/service-providers/service-provider-passcode-service'
 import { generatePassword, generatePasscode } from '@/utils'
+import GroupDomainService from '@/api/groups/domains'
 // parse all users at once
 
   // validate all the users at once
   const parse = (users) => {
-    debugger
+
     const promises = _.castArray(users).map(function(user) {
       return parseUser(user)
     })
@@ -34,9 +35,9 @@ import { generatePassword, generatePasscode } from '@/utils'
       .then(function(user) {
         return validateTags(user)
       })
-      .catch(function() {
+      .catch(function(error) {
         // try again unless over max
-        // console.log('parseUser', error)
+        console.log('parseUser', error)
         return count > max ? user : parseUser(user, count + 1)
       })
   }
@@ -64,12 +65,17 @@ import { generatePassword, generatePasscode } from '@/utils'
   function generateView(user, template) {
     const view = {...user}
     return addGeneratePasswordTag(template, view)
-      // .then(function(view) {
-      //   // return view
-      //   // debugger
-      //   return addGeneratePasscodeTag(template, view)
-      // })
-      .then((view) => {
+      .then(function(){
+        return addGeneratePasscodeTag(template, view)
+      })
+      .then(function(){
+        return addDefaultDomainTag(template, view)
+      })
+      .then(function(){
+        addPhoneNumberTags(template, view)
+        addUserIdPrefixTag(template, view)
+      })
+      .then(function() {
         return view
       })
     //   .then(function() {
@@ -87,24 +93,97 @@ import { generatePassword, generatePasscode } from '@/utils'
     //   })
   }
 
-  function addGeneratePasswordTag(template, view) {
-    if (!hasTag('generatePassword', template)) return new Promise.resolve()
-    return loadPasswordRules(view).then(function(rules) {
-      view.generatePassword = function() {
-        return generatePassword(rules)
+  function addUserIdPrefixTag(template, view) {
+    if (hasTag('userIdPrefix', template)) {
+      view.userIdPrefix = function() {
+        return this.userId.toString().split('@')[0]
       }
-      return view
+    }
+  }
+
+  function addPhoneNumberTags(template, view) {
+    if (hasTag('phoneNumberDigits', template)) {
+      view.phoneNumberDigits = function() {
+        if (this.phoneNumber) {
+          return this.phoneNumber.toString().replace(/\D/g, '')
+        }
+      }
+    }
+    if (hasTag('phoneNumberShort', template)) {
+      view.phoneNumberShort = function() {
+        if (this.phoneNumber) {
+          return this.phoneNumber.toString().replace(/^\+\d+-/g, '')
+        }
+      }
+    }
+    if (hasTag('phoneNumberLast3', template)) {
+      view.phoneNumberLast3 = phoneNumberLast(3)
+    }
+    if (hasTag('phoneNumberLast4', template)) {
+      view.phoneNumberLast4 = phoneNumberLast(4)
+    }
+    if (hasTag('phoneNumberLast5', template)) {
+      view.phoneNumberLast5 = phoneNumberLast(5)
+    }
+    if (hasTag('phoneNumberLast6', template)) {
+      view.phoneNumberLast6 = phoneNumberLast(6)
+    }
+  }
+
+  function phoneNumberLast(amount) {
+    return function() {
+      if (this.phoneNumber) {
+        return this.phoneNumber.slice(-amount)
+      }
+    }
+  }
+
+  function addDefaultDomainTag(template, view) {
+    return new Promise((resolve, reject) => {
+      if (!hasTag('defaultDomain', template)) return resolve()
+        return loadDefaultDomain(view).then(function(domain) {
+          view.defaultDomain = function() {
+            return domain || this.domain
+          }
+          return resolve()
+        })
     })
   }
 
-  function addGeneratePasscodeTag(template, view) {
-    if (!hasTag('generatePasscode', template)) return new Promise.resolve()
-    return loadPasscodeRules(view).then(function(rules) {
-      view.generatePasscode = function() {
-        return generatePasscode(rules)
+  function loadDefaultDomain(user) {
+    return GroupDomainService.index(user.serviceProviderId, user.groupId).then(
+      function(data) {
+        return data.default
       }
-      return view
+    )
+  }
+
+  function addGeneratePasswordTag(template, view) {
+    return new Promise((resolve, reject) => {
+      if (!hasTag('generatePassword', template)) return resolve()
+      return loadPasswordRules(view).then(function(rules) {
+        view.generatePassword = function() {
+          return generatePassword(rules)
+        }
+        return resolve()
+        // return new Promise.resolve()
+        // return view
+      })
     })
+
+  }
+
+  function addGeneratePasscodeTag(template, view) {
+    return new Promise((resolve, reject) => {
+      if (!hasTag('generatePasscode', template)) return resolve()
+      return loadPasscodeRules(view).then(function(rules) {
+        view.generatePasscode = function() {
+          return generatePasscode(rules)
+        }
+        return resolve()
+      })
+    })
+
   }
 
   function loadPasscodeRules(user) {
@@ -190,7 +269,7 @@ import { generatePassword, generatePasscode } from '@/utils'
       Object.keys(user).forEach(function(key) {
         var value = user[key]
         if (/{/.exec(value)) {
-          return reject('Unresolved Tag ' + key)
+         return reject('Unresolved Tag ' + key)
         }
       })
       resolve(user)

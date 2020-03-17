@@ -5,7 +5,7 @@ export const BulkTemplateService = {
 }
 
   function parse(template, view) {
-    debugger
+
     // if empty just resolve
     if (!template) {
       return new Promise.resolve(template)
@@ -29,19 +29,19 @@ export const BulkTemplateService = {
   }
 
   function getTags(template) {
-    debugger
+
     const tagRegExp = /({{[^}}]*}})/g
     template = (template && template.toString()) || ''
     return template.match(tagRegExp) || []
   }
 
   function hasTag(template) {
-    debugger
+
     return getTags(template).length > 0
   }
 
   function render(template, view) {
-    debugger
+
     return new Promise(function(resolve, reject) {
       try {
         console.log('This is mustache template')
