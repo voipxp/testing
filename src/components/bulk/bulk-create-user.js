@@ -79,6 +79,7 @@ export const BulkCreateUser = ({
   const [extRange, setExtRange] = React.useState(false)
   const [extensionRange, setExtensionRange] = React.useState('')
   const [domains, setDomainsData] = React.useState({})
+  const [selectedTagInput, setSelectedTagInput] = React.useState('')
   // const numbers = props.numbers
   // const [selectGroupId, setSelectGroupId] = React.useState(false)
   // const [showModal, setShowModal] = useState(false)
@@ -145,8 +146,20 @@ export const BulkCreateUser = ({
 
   const handleTagSelect = (elName, tag) => {
     const tempForm = {...form}
-    const value = tempForm[elName] + tag.tag
-    setForm({...tempForm, [elName]: value})
+    let oldValue = ''
+    if(elName === 'linePort') {
+      oldValue = tempForm.trunkAddressing.trunkGroupDeviceEndpoint.linePort || ''
+    }
+    else {
+      oldValue = tempForm[elName] || ''
+    }
+    const value = oldValue + tag.tag
+    if(elName === 'linePort') {
+      tempForm.trunkAddressing.trunkGroupDeviceEndpoint.linePort = value
+    }
+    else tempForm[elName] = value
+
+    setForm({...tempForm})
     setTagBundleTemplateClick(false)
   }
 
@@ -158,7 +171,7 @@ export const BulkCreateUser = ({
         onCancel={() => setTagBundleTemplateClick(false)}
       >
         <BulkTagInput
-          onSelect={(tag) => handleTagSelect('userId', tag)}
+          onSelect={(tag) => handleTagSelect(selectedTagInput, tag)}
           hideTags={['{{ userId }}', '{{ userIdPrefix }}']} />
       </UiCardModal>
     </>
@@ -195,22 +208,11 @@ const handleNumbers = (name) => {
   }
 }
 
-const createNumbers =  () => {
-    //add code start here
-    // setShowModal(true)
-    // setCreateUser(true)
+const tagInputClicked = (elNane) => {
+    setSelectedTagInput(elNane)
+    setTagBundleTemplateClick(true)
   }
 
-
-  function extension (){
-    //setmodal(true)
-
-  }
-  // function clearNumbers (){
-  //   //setmodal(true)
-  //   //  form.phoneNumbers = []
-  //   // form.phoneNumberAction = 'skip'
-  // }
 
 
   // function selectNumbers() {
@@ -321,7 +323,7 @@ const createNumbers =  () => {
           color="link"
           icon="tag"
           size="small"
-          onClick={() => setTagBundleTemplateClick(true)}
+          onClick={() => tagInputClicked('userId')}
         />
           {/* <Control>
             <Tag color="link" size="medium" onClick={() => setTagBundleTemplateClick(true)}>
@@ -340,7 +342,7 @@ const createNumbers =  () => {
             />
           </Control>
           <Control>
-            <Tag color="link" size="medium" onClick={() => setTagBundleTemplateClick(true)}>
+            <Tag color="link" size="medium">
               @
             </Tag>
           </Control>
@@ -462,19 +464,8 @@ const createNumbers =  () => {
 
               {/* User Number */}
               <UiCard
-              title='User Number'
-              buttons={
-
-                  <UiButton
-                    color="link"
-                    icon="add"
-                    size="small"
-                    onClick={createNumbers}
-                  />
-
-              }
+                title='User Number'
               >
-
                 <UiFormField label="Do you want to assign phone numbers?">
                   <Radio
                       type="radio"
@@ -634,7 +625,15 @@ const createNumbers =  () => {
                 </UiFormField>
 
                 <UiFormField label="Trunk Group Line Port" horizontal >
+                <UiButton
+                  style={{height:'35px'}}
+                  color="link"
+                  icon="tag"
+                  size="small"
+                  onClick={() => tagInputClicked('linePort')}
+                />
                   <Input
+                    style = {{width: '361px' }}
                     type="text"
                     name="linePort"
                     onChange={handleInput}
