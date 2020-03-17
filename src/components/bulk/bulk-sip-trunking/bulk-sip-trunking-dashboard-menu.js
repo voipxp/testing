@@ -11,9 +11,9 @@ import { AssignGroupServices } from './bulk-sip-trunking-group-services'
 export const menu = [
   {
     name: 'Service Provider',
-    localStorageKey: 'BulkSelectedUsers',
-    // component: BulkSipServiceProvider
-    component: BulkMultipleTasksImport
+    localStorageKey: 'BulkSipServiceProvider',
+    component: BulkSipServiceProvider
+    // component: BulkSipTrunkingUsers
   },
   {
     name: 'Enterprise Trunk',
