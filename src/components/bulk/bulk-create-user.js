@@ -15,6 +15,7 @@ import {
   UiLoading
 } from '@/components/ui'
 import groupExtensionLengthApi from '@/api/group-extension-length'
+import groupDomainAPI from '@/api/groups/domains'
 import { useAsync } from 'react-async-hook'
 import { BulkSelectNumbers } from './bulk-select-numbers'
 
@@ -77,7 +78,7 @@ export const BulkCreateUser = ({
   const [selectedNumbers, setSelectedNumbers] = React.useState([])
   const [extRange, setExtRange] = React.useState(false)
   const [extensionRange, setExtensionRange] = React.useState('')
-
+  const [domains, setDomainsData] = React.useState({})
   // const numbers = props.numbers
   // const [selectGroupId, setSelectGroupId] = React.useState(false)
   // const [showModal, setShowModal] = useState(false)
@@ -109,6 +110,15 @@ export const BulkCreateUser = ({
     ,[]
   )
 
+  /*start  code for domain list */
+  const {resultDomains } = useAsync(
+    () => groupDomainAPI.domains(groupId, serviceProviderId)
+    .then((data) => {
+      setDomainsData(data)
+    })
+    ,[]
+  )
+/* code for domain list end */
   useEffect( () => {
 	  setTaskData(form)
   }, [form])
@@ -119,7 +129,18 @@ export const BulkCreateUser = ({
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    setForm({ ...form, [name]: value })
+    const tempForm = {...form}
+    // trunkAddressing.trunkGroupDeviceEndpoint.linePort
+    if(name === 'linePort') {
+      tempForm.trunkAddressing.trunkGroupDeviceEndpoint.linePort = value
+    }
+    else {
+      tempForm[name] = value
+    }
+
+    setForm({...tempForm})
+    // setForm({ ...form, [name]: value })
+
   }
 
   const handleTagSelect = (elName, tag) => {
@@ -128,7 +149,6 @@ export const BulkCreateUser = ({
     setForm({...tempForm, [elName]: value})
     setTagBundleTemplateClick(false)
   }
-
 
   const selectTagModal = (
     <>
@@ -296,13 +316,20 @@ const createNumbers =  () => {
         <UiSection title ="User ID Template">
 
         <Field.Body>
-          <Control>
+        <UiButton
+          style={{height:'35px'}}
+          color="link"
+          icon="tag"
+          size="small"
+          onClick={() => setTagBundleTemplateClick(true)}
+        />
+          {/* <Control>
             <Tag color="link" size="medium" onClick={() => setTagBundleTemplateClick(true)}>
               <span className="icon is-small">
                 <i className="fas fa-tag"></i>
               </span>
             </Tag>
-          </Control>
+          </Control> */}
           <Control style = {{width: '25rem' }}>
             <Input
               type="text"
@@ -317,21 +344,35 @@ const createNumbers =  () => {
               @
             </Tag>
           </Control>
-            <Control style = {{width: '25rem' , marginBottom:'1rem'}}>
-              <Select.Container fullwidth>
+          <Control style = {{width: '25rem' , marginBottom:'1rem'}}>
+              <Select.Container>
                 <Select
-                  value= ''
+                  value={form.domain}
                   onChange={handleInput}
-                  name="domainKey"
+                  name="domain"
+                  style = {{width: '15rem' , marginBottom:'1rem'}}
                 >
-                  <Select.Option
-                    key=  ''
-                    value=''
-                  >
-                </Select.Option>
-              </Select>
-            </Select.Container>
-          </Control>
+                  {
+                    domains &&
+                    domains.default ? (
+                      <Select.Option
+                        key={domains.default}
+                        value={domains.default}
+                      >
+                        {domains.default}
+                      </Select.Option>
+                    ) : null}
+                    { domains.domains && domains.domains.map(domain =>
+                         domains.default !== domain ? (
+                          <Select.Option key={domain} value={domain}>
+                            {domain}
+                          </Select.Option>
+                        ) : null
+                         )
+                    }
+                  </Select>
+                </Select.Container>
+              </Control>
           </Field.Body>
         </UiSection>
       </UiCard>
@@ -589,6 +630,15 @@ const createNumbers =  () => {
                     type="text"
                     readOnly
                     value={form.trunkAddressing.trunkGroupDeviceEndpoint.name}
+                  />
+                </UiFormField>
+
+                <UiFormField label="Trunk Group Line Port" horizontal >
+                  <Input
+                    type="text"
+                    name="linePort"
+                    onChange={handleInput}
+                    value={form.trunkAddressing.trunkGroupDeviceEndpoint.linePort}
                   />
                 </UiFormField>
 
