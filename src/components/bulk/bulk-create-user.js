@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Control, Select, Tag , Input , Radio , Field } from 'rbx'
 import _ from 'lodash'
-
+import { BulkTagInput } from './bulk-tag-input'
 import { generatePassword } from '@/utils'
 import {
   UiCard,
@@ -75,16 +75,14 @@ export const BulkCreateUser = ({
   const [form, setForm] = useState({...initialForm})
   const [selectNumber, setSelectNumber] = React.useState(false)
   const [selectedNumbers, setSelectedNumbers] = React.useState([])
+  const [bulkTag, setBulkTag] = React.useState('')
   // const numbers = props.numbers
   // const [selectGroupId, setSelectGroupId] = React.useState(false)
   // const [showModal, setShowModal] = useState(false)
   // const [isCreateNumber, setCreateUser] = useState(false)
   // const [isaddExtensionRange, setAddExtensionRange] = useState(false)
   const [extensions, setExtensions] = React.useState([])
-
-  console.log('aaaaaaaaaaaaaaaaaaaaaaaaa')
-  console.log(selectedNumbers)
-
+ 
   const loadExtension = (data) => {
     const min = data.minExtensionLength
     const max = data.maxExtensionLength
@@ -123,23 +121,29 @@ export const BulkCreateUser = ({
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
     setForm({ ...form, [name]: value })
+  } 
+
+  const handleTagSelect = (tagSelectValue) => { 
+    const userIdValue = bulkTag ? bulkTag + tagSelectValue.tag : tagSelectValue.tag
+    form['userId'] = userIdValue;
+    setBulkTag(userIdValue)
+    setTagBundleTemplateClick(false)
+    
   }
+ 
 
-console.log('This is form')
-console.log(form)
-
-const selectTagModal = (
-  <>
-    <UiCardModal
-      title="Tags"
-      isOpen={tagBundleTemplateClick}
-      onCancel={() => setTagBundleTemplateClick(false)}
-      onSave={saveTag}
-    >
-    {/* <BulkTagInput /> */}
-    </UiCardModal>
-  </>
-)
+  const selectTagModal = (
+    <>
+      <UiCardModal
+        title="Tags"
+        isOpen={tagBundleTemplateClick}
+        onCancel={() => setTagBundleTemplateClick(false)}
+		    onClick={saveTag}
+      >  
+        <BulkTagInput onSelect={handleTagSelect} />
+      </UiCardModal>
+    </>
+  )
 
 const handleNumberInput = (event) => {
   const target = event.target
