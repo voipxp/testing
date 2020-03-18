@@ -6,7 +6,7 @@ import { useAlerts } from '@/store/alerts'
 import { StorageService } from '@/utils'
 import { Button } from 'rbx'
 import { UiLoading } from '@/components/ui'
-
+import { CSVLink } from "react-csv"
 import {
   UiDataTableEditable,
   UiCard
@@ -188,14 +188,20 @@ import {
         <UiCard
           title={task}
           buttons={
+            <>
               <Button
                 color="success"
                 size="small"
                 onClick={submitTask}
                 state={isProcessing ? 'loading' : ''}
               >
-                Submit Task
+                Submit Task 
               </Button>
+              <CSVLink data={users} headers={keys} filename={task+".csv"}>
+                <Button color="success"
+                  size="small">Download</Button>
+              </CSVLink>
+            </> 
           }
         >
               <UiDataTableEditable
