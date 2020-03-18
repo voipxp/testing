@@ -15,10 +15,10 @@ import {
   UiLoading
 } from '@/components/ui'
 import groupExtensionLengthApi from '@/api/group-extension-length'
-import apiSystemLanguageService  from '@/api/system/system-language-service'
-import apiSystemTimeZoneService  from '@/api/system/system-time-zone-service'
-import apiSystemStateProvincesService  from '@/api/system/system-state-service'
-import apiGroupNetworkClassOfService  from '@/api/groups/group-network-class-of-service-service'
+import apiSystemLanguageService from '@/api/system/system-language-service'
+import apiSystemTimeZoneService from '@/api/system/system-time-zone-service'
+import apiSystemStateProvincesService from '@/api/system/system-state-service'
+import apiGroupNetworkClassOfService from '@/api/groups/group-network-class-of-service-service'
 import groupDomainAPI from '@/api/groups/domains'
 import { useAsync } from 'react-async-hook'
 import { BulkSelectNumbers } from './bulk-select-numbers'
@@ -89,13 +89,14 @@ export const BulkCreateUser = ({
   const [systemStateProvincesService, setSystemStateProvincesService] = React.useState({})
   const [groupNetworkClassOfService, setGroupNetworkClassOfService] = React.useState({}) 
   const [selectedTagInput, setSelectedTagInput] = React.useState('')
+  
   // const numbers = props.numbers
   // const [selectGroupId, setSelectGroupId] = React.useState(false)
   // const [showModal, setShowModal] = useState(false)
   // const [isCreateNumber, setCreateUser] = useState(false)
   // const [isaddExtensionRange, setAddExtensionRange] = useState(false)
   const [extensions, setExtensions] = React.useState([])
-
+  
   const loadExtension = (data) => {
     const min = data.minExtensionLength
     const max = data.maxExtensionLength
@@ -121,7 +122,7 @@ export const BulkCreateUser = ({
   )
 
   /*start  code for domain list */
-  const {resultDomains } = useAsync(
+  const { resultDomains } = useAsync(
     () => groupDomainAPI.domains(groupId, serviceProviderId)
     .then((domains) => {
       setDomainsData(domains)
@@ -132,7 +133,7 @@ export const BulkCreateUser = ({
 /* code for domain list end */
 
 /*start  code for language list */
-const {stystemLanguage } = useAsync(
+const { stystemLanguage } = useAsync(
   () => apiSystemLanguageService.index()
   .then((language) => {
     setSystemLanguage(language)
@@ -144,8 +145,10 @@ const {stystemLanguage } = useAsync(
 
 /*start  code for timezone list */
 const { timeZone } = useAsync(
+ 
   () => apiSystemTimeZoneService.index()
   .then((timeZone) => {
+    
     setSystemTimeZone(timeZone)
     setForm({...form, 'timeZone': timeZone })
   })
@@ -166,7 +169,7 @@ const { stateProvincesService } = useAsync(
 
 /*start  code for timezone list */
 const { ntService } = useAsync(
-  () => apiGroupNetworkClassOfService.index()
+  () => apiGroupNetworkClassOfService.show(serviceProviderId, groupId)
   .then((networkClassService) => {
     setGroupNetworkClassOfService(networkClassService)
     setForm({...form, 'networkClassOfService': networkClassService })
@@ -180,7 +183,6 @@ const { ntService } = useAsync(
   }, [form])
 
   if(loading) return <UiLoading />
-
   const handleInput = (event) => {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
@@ -363,7 +365,7 @@ const tagInputClicked = (elNane) => {
               </span>
             </Tag>
           </Control> */}
-          <Control style = {{width: '25rem' }}>
+          <Control style = {{width: '52rem' }}>
             <Input
               type="text"
               placeholder="User ID"
@@ -670,9 +672,9 @@ const tagInputClicked = (elNane) => {
   {/* User Device*/}
         <UiCard title='User Details'>
           <UiSection title="Optional Details"> 
-            <UiFormField  label="Language" horizontal> 
+            <UiFormField  label="Time Zone" horizontal> 
               <Select.Container fullwidth>
-                <Select
+               <Select
                   value={form.timeZone}
                   onChange={handleInput}
                   name="timeZone"
@@ -680,15 +682,16 @@ const tagInputClicked = (elNane) => {
                   <Select.Option value="Please select...">
                     {'Please select...'}
                   </Select.Option>
-
-                  {systemTimeZone.map(searchType => (
-                    <Select.Option
-                      key={searchType.key}
-                      value={searchType.key}
-                    >
-                      {searchType.name}
-                    </Select.Option>
-                  ))}
+                  {
+                    systemTimeZone.length > 0  ? (
+                      systemTimeZone && systemTimeZone.map(el =>
+                        <Select.Option
+                          key={el.displayName}
+                          value={el.displayName}>
+                            {el.displayName}
+                        </Select.Option>
+                      )
+                    ) : null}
                 </Select>
               </Select.Container>
             </UiFormField>
@@ -699,19 +702,27 @@ const tagInputClicked = (elNane) => {
                   value={form.language}
                   onChange={handleInput}
                   name="language"
-                >
-                  <Select.Option value="Please select...">
-                    {'Please select...'}
-                  </Select.Option>
-
-                  {systemLanguage.map(searchType => (
-                    <Select.Option
-                      key={searchType.key}
-                      value={searchType.key}
-                    >
-                      {searchType.name}
-                    </Select.Option>
-                  ))}
+                > 
+                  {
+                    systemLanguage &&
+                    systemLanguage.default ? (
+                      <Select.Option
+                        key={systemLanguage.default}
+                        value={systemLanguage.default}
+                      >
+                        {systemLanguage.default}
+                      </Select.Option>
+                    ) : null}
+                    { systemLanguage.default && systemLanguage.languages.map(languagesData =>
+                        systemLanguage.default !== languagesData.language ? (
+                          <Select.Option
+                            key={languagesData.language }
+                            value={languagesData.language }>
+                              { languagesData.language }
+                          </Select.Option>
+                        ) : null
+                      )
+                    }
                 </Select>
               </Select.Container>
             </UiFormField>
@@ -723,17 +734,18 @@ const tagInputClicked = (elNane) => {
                   name="networkClassOfService"
                 >
                   <Select.Option value="Please select...">
-                    {'Please select...'}
+                    {''}
                   </Select.Option>
-
-                  {groupNetworkClassOfService.map(searchType => (
-                    <Select.Option
-                      key={searchType.key}
-                      value={searchType.key}
-                    >
-                      {searchType.name}
-                    </Select.Option>
-                  ))}
+                  {
+                    groupNetworkClassOfService.length> 0 ?  (
+                      groupNetworkClassOfService && groupNetworkClassOfService.map(el =>
+                        <Select.Option
+                          key={el.name }
+                          value={el.name }>
+                            {el.name }
+                        </Select.Option>
+                      )
+                    ) : null }
                 </Select>
               </Select.Container>
             </UiFormField> 
@@ -857,17 +869,19 @@ const tagInputClicked = (elNane) => {
                   <Select.Option value="Please select...">
                     {'Please select...'}
                   </Select.Option>
-
-                  {systemStateProvincesService.map(searchType => (
-                    <Select.Option
-                      key={searchType.key}
-                      value={searchType.key}
-                    >
-                      {searchType.name}
-                    </Select.Option>
-                  ))}
+                  {
+                    systemStateProvincesService.length > 0  ? (
+                      systemStateProvincesService && systemStateProvincesService.map(el =>
+                        <Select.Option
+                          key={el.displayName}
+                          value={el.displayName}>
+                            {el.displayName}
+                        </Select.Option>
+                      )
+                    ) : null
+                  }
                 </Select>
-              </Select.Container>
+            </Select.Container>
             </UiFormField>
             <UiFormField label="Postal Code" horizontal >
               <Input

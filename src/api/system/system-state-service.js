@@ -1,7 +1,7 @@
 import { api } from '..'
 
-export function index( url ) {
-  return api.get(url('/system/states-provinces'))
+export function index() {
+  return api.get('/system/states-provinces')
 }
 export default { index }
 
