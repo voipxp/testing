@@ -114,8 +114,9 @@ export const BulkCreateUser = ({
   /*start  code for domain list */
   const {resultDomains } = useAsync(
     () => groupDomainAPI.domains(groupId, serviceProviderId)
-    .then((data) => {
-      setDomainsData(data)
+    .then((domains) => {
+      setDomainsData(domains)
+      setForm({...form, 'domain': domains.default})
     })
     ,[]
   )
@@ -131,7 +132,6 @@ export const BulkCreateUser = ({
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
     const tempForm = {...form}
-    // trunkAddressing.trunkGroupDeviceEndpoint.linePort
     if(name === 'linePort') {
       tempForm.trunkAddressing.trunkGroupDeviceEndpoint.linePort = value
     }
@@ -141,7 +141,6 @@ export const BulkCreateUser = ({
 
     setForm({...tempForm})
     // setForm({ ...form, [name]: value })
-
   }
 
   const handleTagSelect = (elName, tag) => {
@@ -213,15 +212,6 @@ const tagInputClicked = (elNane) => {
     setTagBundleTemplateClick(true)
   }
 
-
-
-  // function selectNumbers() {
-  //   phoneNumbers
-  //   /*get the list of bulk Number number */
-  //  //api('bulkSelectExistingNumbers:load')
-
-  // }
-
   // function updateEndpoint() {
    /* if (form.endpointType === 'none') {
       delete form.accessDeviceEndpoint
@@ -235,15 +225,7 @@ const tagInputClicked = (elNane) => {
     // }
   // }
 
-  // function addExtensionRange() {
-  //   // setCreateUser(false)
-  //   // setAddExtensionRange(true)
-  //   // setShowModal(true)
 
-  //   /*get the list of bulk extension number */
-  //  //api('bulkSelectExistingNumbers:load')
-
-  // }
 
   function setNumbers(numbers) {
     form.phoneNumbers = numbers
@@ -254,11 +236,6 @@ const tagInputClicked = (elNane) => {
     }
     form.callingLineIdPhoneNumber = form.callingLineIdPhoneNumber
   }
-
-  // function saveTag(){
-  //   //add tag
-  // }
-
 
   const addExtensionRangeModal = (
     extRange
@@ -424,7 +401,15 @@ const tagInputClicked = (elNane) => {
           <UiCard title='User Names'>
           <UiSection title="Required Names">
           <UiFormField label="First Name *" horizontal >
+          <UiButton
+                  style={{height:'35px'}}
+                  color="link"
+                  icon="tag"
+                  size="small"
+                  onClick={() => tagInputClicked('firstName')}
+                />
             <Input
+            style = {{width: '361px' }}
               type="text"
               onChange={handleInput}
               name="firstName"
@@ -433,7 +418,15 @@ const tagInputClicked = (elNane) => {
           </UiFormField>
 
           <UiFormField label="Last Name *" horizontal >
+          <UiButton
+                  style={{height:'35px'}}
+                  color="link"
+                  icon="tag"
+                  size="small"
+                  onClick={() => tagInputClicked('lastName')}
+                />
             <Input
+            style = {{width: '361px' }}
               type="text"
               onChange={handleInput}
               name="lastName"
@@ -442,7 +435,15 @@ const tagInputClicked = (elNane) => {
           </UiFormField>
 
           <UiFormField label="CLID First Name *" horizontal >
+          <UiButton
+                  style={{height:'35px'}}
+                  color="link"
+                  icon="tag"
+                  size="small"
+                  onClick={() => tagInputClicked('callingLineIdFirstName')}
+                />
             <Input
+            style = {{width: '361px' }}
               type="text"
               onChange={handleInput}
               name="callingLineIdFirstName"
@@ -451,7 +452,15 @@ const tagInputClicked = (elNane) => {
           </UiFormField>
 
           <UiFormField label="CLID Last Name *" horizontal >
+          <UiButton
+                  style={{height:'35px'}}
+                  color="link"
+                  icon="tag"
+                  size="small"
+                  onClick={() => tagInputClicked('callingLineIdLastName')}
+                />
             <Input
+            style = {{width: '361px' }}
               type="text"
               onChange={handleInput}
               name="callingLineIdLastName"
@@ -731,7 +740,15 @@ const tagInputClicked = (elNane) => {
 <UiCard title='User Contact Information'>
           <UiSection title="Optional Contact Information">
           <UiFormField label="Mobile Number" horizontal >
+          <UiButton
+                  style={{height:'35px'}}
+                  color="link"
+                  icon="tag"
+                  size="small"
+                  onClick={() => tagInputClicked('mobilePhoneNumber')}
+                />
             <Input
+             style = {{width: '361px' }}
               type="text"
               onChange={handleInput}
               name="mobilePhoneNumber"
@@ -740,7 +757,15 @@ const tagInputClicked = (elNane) => {
           </UiFormField>
 
           <UiFormField label="Pager Number" horizontal >
+          <UiButton
+                  style={{height:'35px'}}
+                  color="link"
+                  icon="tag"
+                  size="small"
+                  onClick={() => tagInputClicked('pagerPhoneNumber')}
+                />
             <Input
+            style = {{width: '361px' }}
               type="text"
               onChange={handleInput}
               name="pagerPhoneNumber"
@@ -749,7 +774,15 @@ const tagInputClicked = (elNane) => {
           </UiFormField>
 
           <UiFormField label="Email Address" horizontal >
+          <UiButton
+                  style={{height:'35px'}}
+                  color="link"
+                  icon="tag"
+                  size="small"
+                  onClick={() => tagInputClicked('emailAddress')}
+                />
             <Input
+            style = {{width: '361px' }}
               type="text"
               onChange={handleInput}
               name="emailAddress"
@@ -758,7 +791,15 @@ const tagInputClicked = (elNane) => {
           </UiFormField>
 
           <UiFormField label="Social ID" horizontal >
+          <UiButton
+                  style={{height:'35px'}}
+                  color="link"
+                  icon="tag"
+                  size="small"
+                  onClick={() => tagInputClicked('yahooId')}
+                />
             <Input
+            style = {{width: '361px' }}
               type="text"
               onChange={handleInput}
               name="yahooId"

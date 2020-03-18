@@ -58,7 +58,7 @@ const prepareImportData = () => {
       for (var i = 0; i < taskData.userCount; i++) {
         const task = {
           task: 'user.create',
-          userId: taskData.userId,
+          userId: taskData.userId + '@{{ domain }}',
           lastName: taskData.lastName,
           firstName: taskData.firstName,
           callingLineIdLastName: taskData.callingLineIdLastName,
