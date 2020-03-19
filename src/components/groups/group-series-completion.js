@@ -208,6 +208,10 @@ export const GroupSeriesCompletion = ({ match }) => {
   async function destroy(form) {
     try {
       await apiSeriesCompletion.destroy(serviceProviderId, groupId, form.name)
+      form['name'] = ''
+      form['newName'] = ''
+      setForm(form)
+      setSelectedUserForm(form)
       await loadSeriesCompletions()
       setCanSelectedUser(true)
       alertSuccess('Series Completion Deleted')
