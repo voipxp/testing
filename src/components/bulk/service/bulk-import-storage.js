@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
+import isFunction from 'lodash/isFunction'
 import PropTypes from 'prop-types'
 import { BulkParseService, BulkImport } from '@/components/bulk'
 import { StorageService } from '@/utils'
@@ -15,6 +16,7 @@ import {
   export const BulkImportStorage = ({
     localStorageKey='BulkImportService',
     setDisableNextButton
+    // onImportComplete
   }) => {
     const [users, setUsers] = useState([])
     const [keys, setKeys] = useState([])
@@ -26,6 +28,7 @@ import {
     const [deleteLocalStorage, setDeleteLocalStorage] = useState(false)
     const [isProcessing, setIsProcessing] = useState(false)
     const [loadingTable, setLoadingTable] = useState(false)
+    // const canComplete = isFunction(onImportComplete)
 
     const finalSteps = () => {
       setIsProcessing(false)
@@ -45,6 +48,7 @@ import {
         if(deleteLocalStorage) {
           StorageService.clearStorage(localStorageKey).then(function() {
             finalSteps()
+            // if(canComplete) onImportComplete()
           })
         }
       }
@@ -184,11 +188,11 @@ import {
           title={ isTaskExist ? task : 'Upload Task'}
           buttons={
             <>
-              {/* <BulkUploadCsv
+              <BulkUploadCsv
                 localStorageKey={localStorageKey}
                 uploading={ (boolValue) => setLoadingTable(boolValue)}
                 finalStep={onInit}
-              /> */}
+              />
               {
                 isTaskExist
                 ?
@@ -241,4 +245,5 @@ import {
   BulkImportStorage.propTypes = {
     localStorageKey: PropTypes.string,
     setDisableNextButton: PropTypes.func
+    // onImportComplete: PropTypes.func
   }

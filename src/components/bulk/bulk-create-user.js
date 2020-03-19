@@ -84,6 +84,7 @@ export const BulkCreateUser = ({
   const [groupNetworkClassOfService, setGroupNetworkClassOfService] = React.useState({})
   const [selectedTagInput, setSelectedTagInput] = React.useState('')
   const [extensions, setExtensions] = React.useState([])
+  const [defaultDomain, setDefaultDomain] = React.useState('')
 
   const loadExtension = (data) => {
     const min = data.minExtensionLength
@@ -114,10 +115,12 @@ export const BulkCreateUser = ({
     () => groupDomainAPI.domains(groupId, serviceProviderId)
     .then((domains) => {
       setDomainsData(domains)
-      setForm({...form, 'domain': domains.default})
+      setDefaultDomain(domains.default)
+      //setForm({...form, 'domain': domains.default})
     })
     ,[]
   )
+
 /* code for domain list end */
 
 /*start  code for language list */
@@ -160,6 +163,10 @@ useAsync(
   ,[]
 )
 /* code for timezone list end */
+
+useEffect( () => {
+  if(defaultDomain !== form.domain) setForm({...form, 'domain': defaultDomain})
+}, [form, defaultDomain])
 
   useEffect( () => {
 	  setTaskData(form)
