@@ -23,7 +23,7 @@ import {
     const [loading, setLoading]= useState(true)
     const [action, setAction] = useState({})
     const [importTask, setImportTask] = useState(false)
-    const [showImportTaskBtn, setShowImportTaskBtn] = useState(false)
+    const [isTaskExist, setIsTaskExist] = useState(false)
     const [deleteLocalStorage, setDeleteLocalStorage] = useState(false)
     const [isProcessing, setIsProcessing] = useState(false)
     const [loadingTable, setLoadingTable] = useState(false)
@@ -31,7 +31,7 @@ import {
     const finalSteps = () => {
       setIsProcessing(false)
       setDisableNextButton(false)
-      setShowImportTaskBtn(false)
+      setIsTaskExist(false)
       setDeleteLocalStorage(false)
     }
 
@@ -71,6 +71,7 @@ import {
     }
 
     const onInit = () => {
+      // setDisableNextButton(true)
       loadData()
       .then((data) => {
         return clean(data)
@@ -79,7 +80,7 @@ import {
         return validate(data)
       })
       .finally( (data) => {
-        setShowImportTaskBtn(true)
+        setIsTaskExist(true)
         setLoading(false)
       })
       .catch( (error) => {
@@ -181,21 +182,21 @@ import {
           action={action}
           deleteLocalStorage={ (boolValue) => setDeleteLocalStorage(boolValue) }
           onError={onError}
-        /> : ''
+        /> : null
       }
 
       {
         <UiCard
-          title={task || 'Upload Task'}
+          title={ isTaskExist ? task : 'Upload Task'}
           buttons={
             <>
-              <BulkUploadCsv
+              {/* <BulkUploadCsv
                 localStorageKey={localStorageKey}
                 uploading={ (boolValue) => setLoadingTable(boolValue)}
                 finalStep={onInit}
-              />
+              /> */}
               {
-                showImportTaskBtn
+                isTaskExist
                 ?
                 <>
                   <CSVLink data={users} headers={keys} filename={task+".csv"}>
@@ -215,7 +216,6 @@ import {
                 :
                 null
               }
-
             </>
           }
         >
@@ -226,7 +226,7 @@ import {
           <UiLoading />
           :
           (
-            showImportTaskBtn
+            isTaskExist
             ?
             <UiDataTableEditable
               columns={keys}

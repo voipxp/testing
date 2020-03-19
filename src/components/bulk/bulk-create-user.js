@@ -165,7 +165,15 @@ useAsync(
 	  setTaskData(form)
   }, [form])
 
+  useEffect( () => {
+    const tempForm = {...form}
+    tempForm['callingLineIdFirstName'] = tempForm['firstName']
+    tempForm['callingLineIdLastName'] = tempForm['lastName']
+    if(!_.isEqual(form, tempForm)) setForm(tempForm)
+  }, [form])
+
   if(loading) return <UiLoading />
+
   const handleInput = (event) => {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
@@ -177,7 +185,6 @@ useAsync(
     else {
       tempForm[name] = value
     }
-
     setForm({...tempForm})
     // setForm({ ...form, [name]: value })
   }
@@ -298,7 +305,7 @@ const tagInputClicked = (elNane) => {
         <UiSection>
           <UiFormField label="Number of Users (max: 1) * " horizontal>
             <Input
-              type="text"
+              type="number"
               placeholder="Number of Users"
               onChange={handleInput}
               name="userCount"

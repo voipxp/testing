@@ -13,7 +13,7 @@ export const menu = [
     name: 'Service Provider',
     localStorageKey: 'BulkSipServiceProvider',
     component: BulkSipServiceProvider
-    // component: BulkSipTrunkingUsers
+    // component: BulkMultipleTasksImport
   },
   {
     name: 'Enterprise Trunk',
@@ -50,11 +50,11 @@ export const menu = [
     localStorageKey: 'BulkSelectedUsers',
     component: BulkSipTrunkingUsers
   },
-  {
-    name: 'Endpoint Type',
-    localStorageKey: 'BulkEndpointType',
-    component: BulkEndpointType
-  },
+  // {
+  //   name: 'Endpoint Type',
+  //   localStorageKey: 'BulkEndpointType',
+  //   component: BulkEndpointType
+  // },
   // {
   //   name: 'Line Port',
   //   localStorageKey: 'BulkLinePort',
@@ -102,11 +102,11 @@ export const menu = [
     localStorageKey: 'BulkSelectedUsers',
     component: BulkMultipleTasksImport
   },
-  {
-    name: 'Endpoint Type Task',
-    localStorageKey: 'BulkEndpointType',
-    component: BulkMultipleTasksImport
-  }
+  // {
+  //   name: 'Endpoint Type Task',
+  //   localStorageKey: 'BulkEndpointType',
+  //   component: BulkMultipleTasksImport
+  // }
   // {
   //   name: 'Line Port',
   //   localStorageKey: 'BulkLinePort',
