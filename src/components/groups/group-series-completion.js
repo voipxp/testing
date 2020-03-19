@@ -352,7 +352,7 @@ export const GroupSeriesCompletion = ({ match }) => {
           <UiCardModal
             title="Please Confirm"
             isOpen={showConfirm}
-            onCancel={() => setShowModal(false)}
+            onCancel={() => setShowConfirm(false)}
             onDelete={remove}
           >
             <blockquote>
