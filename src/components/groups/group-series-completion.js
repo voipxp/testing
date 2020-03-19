@@ -192,6 +192,13 @@ export const GroupSeriesCompletion = ({ match }) => {
     form.isCreate ? create(form) : update(form)
   }
 
+  const handleKeyDown = e => { 
+    if ( e.key === "Enter" ) {
+      e.preventDefault()
+      save()
+    }
+  }
+  
   const remove = () => {
     setLoading(true)
     setShowConfirm(false)
@@ -241,7 +248,11 @@ export const GroupSeriesCompletion = ({ match }) => {
       <UiCard
         title="Series Completion"
         buttons={
-          <UiButton color="link" icon="add" size="small" onClick={add} />
+          <UiButton 
+          color="link"
+          icon="add" 
+          size="small"
+          onClick={add} />
         }
       >
         <UiDataTable
@@ -274,6 +285,7 @@ export const GroupSeriesCompletion = ({ match }) => {
                     type="text"
                     name="names"
                     value={form.names}
+                    onKeyPress={handleKeyDown}
                     onChange={handleInput}
                   />
                 </UiFormField>
@@ -287,6 +299,7 @@ export const GroupSeriesCompletion = ({ match }) => {
                     type="text"
                     name="newName"
                     value={form.newName}
+                    onKeyPress={handleKeyDown}
                     onChange={handleInput}
                   />
                 </UiFormField>
