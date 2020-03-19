@@ -7,6 +7,7 @@ import { StorageService } from '@/utils'
 import { Button } from 'rbx'
 import { UiLoading } from '@/components/ui'
 import { CSVLink } from "react-csv"
+import { BulkUploadCsv } from "./bulk-upload-csv"
 import {
   UiDataTableEditable,
   UiCard
@@ -25,6 +26,7 @@ import {
     const [showImportTaskBtn, setShowImportTaskBtn] = useState(false)
     const [deleteLocalStorage, setDeleteLocalStorage] = useState(false)
     const [isProcessing, setIsProcessing] = useState(false)
+    const [loadingTable, setLoadingTable] = useState(false)
 
     const finalSteps = () => {
       setIsProcessing(false)
@@ -183,37 +185,61 @@ import {
       }
 
       {
-        (showImportTaskBtn)
-        ?
         <UiCard
-          title={task}
+          title={task || 'Upload Task'}
           buttons={
             <>
-              <Button
-                color="success"
-                size="small"
-                onClick={submitTask}
-                state={isProcessing ? 'loading' : ''}
-              >
-                Submit Task 
-              </Button>
-              <CSVLink data={users} headers={keys} filename={task+".csv"}>
-                <Button color="success"
-                  size="small">Download</Button>
-              </CSVLink>
-            </> 
+              <BulkUploadCsv
+                localStorageKey={localStorageKey}
+                uploading={ (boolValue) => setLoadingTable(boolValue)}
+                finalStep={onInit}
+              />
+              {
+                showImportTaskBtn
+                ?
+                <>
+                  <CSVLink data={users} headers={keys} filename={task+".csv"}>
+                  <Button color="success"
+                    style={{marginRight:'8px'}}
+                    size="small">Download Sheet</Button>
+                  </CSVLink>
+                  <Button
+                    color="success"
+                    size="small"
+                    onClick={submitTask}
+                    state={isProcessing ? 'loading' : ''}
+                  >
+                    Submit Task
+                  </Button>
+                </>
+                :
+                null
+              }
+
+            </>
           }
         >
-              <UiDataTableEditable
-                columns={keys}
-                rows={users}
-                rowKey="index"
-                pageSize={20}
-                handleDataChange={handleDataChange}
-              />
+
+        {
+          (loadingTable)
+          ?
+          <UiLoading />
+          :
+          (
+            showImportTaskBtn
+            ?
+            <UiDataTableEditable
+              columns={keys}
+              rows={users}
+              rowKey="index"
+              pageSize={20}
+              handleDataChange={handleDataChange}
+            />
+            :
+            <label>No Pending Task available !</label>
+          )
+        }
         </UiCard>
-        :
-        'No Pending Task available !'
       }
     </>
   }

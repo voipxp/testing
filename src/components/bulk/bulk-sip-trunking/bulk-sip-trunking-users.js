@@ -9,12 +9,7 @@ import { BulkCreateUser } from '../bulk-create-user'
 import { useAlerts } from '@/store/alerts'
 
 export const BulkSipTrunkingUsers = (props) => {
-  const serviceProviderId = 'reseler-sp'
-  const groupId = 'test007R'
-  const enterpriseTrunkName = "aaaaaa"
-  const groupTrunk = "bbbbbbb"
-  const phoneNumbers = ['100 - 200', '22222222', '33333333']
-  // const { serviceProviderId, groupId, enterpriseTrunkName, groupTrunk, phoneNumbers} = props.initialData
+  const { serviceProviderId, groupId, enterpriseTrunkName, groupTrunk, phoneNumbers} = props.initialData
   const { alertSuccess, alertDanger } = useAlerts()
   const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
@@ -73,6 +68,7 @@ const prepareImportData = () => {
           language: taskData.language,
           networkClassOfService: taskData.networkClassOfService,
           mobilePhoneNumber: taskData.mobilePhoneNumber,
+          stateOrProvince: taskData.stateOrProvince,
           pagerPhoneNumber: taskData.pagerPhoneNumber,
           emailAddress: taskData.emailAddress,
           addressLocation: taskData.addressLocation,

@@ -214,7 +214,7 @@ export const UiDataTableEditable = ({
         ? pagedItem.render(column)
         : <input
           type="text"
-          value={ get(pagedItem, column.key) }
+          value={ get(pagedItem, column.key) || ''}
           onChange={(e) => onchange(e, column, columnIndex)}
           style={{ width: '100%' }}
         /> }
@@ -336,7 +336,7 @@ export const UiDataTableEditable = ({
                         ? column.render(row)
                         : <Input
                         type="text"
-                        value={get(row, column.key)}
+                        value={get(row, column.key) || ''}
                         onChange={(e) => onchange_hor(e, column, rowIndex)}
                         style={{ width: '100%' }}
 						            />

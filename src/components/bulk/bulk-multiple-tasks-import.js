@@ -11,9 +11,9 @@ export const BulkMultipleTasksImport = (props) => {
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
 
   const memoizedValue = useMemo(() =>
-  <BulkImportStorage
-  {...props}
-  setDisableNextButton={ (boolValue) => setDisableNextButton(boolValue) }
+    <BulkImportStorage
+    {...props}
+    setDisableNextButton={ (boolValue) => setDisableNextButton(boolValue) }
   />,
   [props]);
 

@@ -3,13 +3,10 @@ import PropTypes from 'prop-types'
 import { Control, Select, Tag , Input , Radio , Field } from 'rbx'
 import _ from 'lodash'
 import { BulkTagInput } from './bulk-tag-input'
-import { generatePassword } from '@/utils'
 import {
   UiCard,
-  UiInputCheckbox,
   UiFormField,
   UiSection,
-  UiInputPassword,
   UiButton,
   UiCardModal,
   UiLoading
@@ -32,9 +29,6 @@ export const BulkCreateUser = ({
   setTaskData
 }) => {
   const [tagBundleTemplateClick, setTagBundleTemplateClick] = React.useState(false)
-  // const { serviceProviderId, groupId, enterpriseTrunkName, groupTrunk} = {...props}
-  // const enterpriseTrunkName = props.enterpriseTrunkName
-  // const groupTrunk = props.enterpriseTrunkName
   const templates = {
     password: '{{ generatePassword }}',
     passcode: '{{ generatePasscode }}',
@@ -87,16 +81,10 @@ export const BulkCreateUser = ({
   const [systemLanguage, setSystemLanguage] = React.useState({})
   const [systemTimeZone, setSystemTimeZone] = React.useState({})
   const [systemStateProvincesService, setSystemStateProvincesService] = React.useState({})
-  const [groupNetworkClassOfService, setGroupNetworkClassOfService] = React.useState({}) 
+  const [groupNetworkClassOfService, setGroupNetworkClassOfService] = React.useState({})
   const [selectedTagInput, setSelectedTagInput] = React.useState('')
-  
-  // const numbers = props.numbers
-  // const [selectGroupId, setSelectGroupId] = React.useState(false)
-  // const [showModal, setShowModal] = useState(false)
-  // const [isCreateNumber, setCreateUser] = useState(false)
-  // const [isaddExtensionRange, setAddExtensionRange] = useState(false)
   const [extensions, setExtensions] = React.useState([])
-  
+
   const loadExtension = (data) => {
     const min = data.minExtensionLength
     const max = data.maxExtensionLength
@@ -113,7 +101,7 @@ export const BulkCreateUser = ({
     return exts
 }
 
-  const {result, error, loading, execute} = useAsync(
+  const {loading} = useAsync(
     () => groupExtensionLengthApi.show(serviceProviderId, groupId)
     .then((data) => {
       return loadExtension(data)
@@ -122,7 +110,7 @@ export const BulkCreateUser = ({
   )
 
   /*start  code for domain list */
-  const { resultDomains } = useAsync(
+  useAsync(
     () => groupDomainAPI.domains(groupId, serviceProviderId)
     .then((domains) => {
       setDomainsData(domains)
@@ -133,46 +121,41 @@ export const BulkCreateUser = ({
 /* code for domain list end */
 
 /*start  code for language list */
-const { stystemLanguage } = useAsync(
+useAsync(
   () => apiSystemLanguageService.index()
   .then((language) => {
     setSystemLanguage(language)
-    setForm({...form, 'language': language })
+    setForm({...form, 'language': language.default })
   })
   ,[]
 )
 /* code for language list end */
 
 /*start  code for timezone list */
-const { timeZone } = useAsync(
- 
+useAsync(
   () => apiSystemTimeZoneService.index()
   .then((timeZone) => {
-    
     setSystemTimeZone(timeZone)
-    setForm({...form, 'timeZone': timeZone })
   })
   ,[]
 )
 /* code for timezone list end */
 
 /*start  code for timezone list */
-const { stateProvincesService } = useAsync(
+useAsync(
   () => apiSystemStateProvincesService.index()
   .then((stateProvinces) => {
     setSystemStateProvincesService(stateProvinces)
-    setForm({...form, 'stateOrProvince': stateProvinces })
   })
   ,[]
 )
 /* code for timezone list end */
 
 /*start  code for timezone list */
-const { ntService } = useAsync(
+useAsync(
   () => apiGroupNetworkClassOfService.show(serviceProviderId, groupId)
   .then((networkClassService) => {
     setGroupNetworkClassOfService(networkClassService)
-    setForm({...form, 'networkClassOfService': networkClassService })
   })
   ,[]
 )
@@ -268,31 +251,6 @@ const tagInputClicked = (elNane) => {
     setTagBundleTemplateClick(true)
   }
 
-  // function updateEndpoint() {
-   /* if (form.endpointType === 'none') {
-      delete form.accessDeviceEndpoint
-      delete form.trunkAddressing
-    } else if (form.endpointType === 'accessDeviceEndpoint') {
-      delete form.trunkAddressing
-    } else */
-
-    // if (form.endpointType === 'trunkAddressing') {
-    //   delete form.accessDeviceEndpoint
-    // }
-  // }
-
-
-
-  function setNumbers(numbers) {
-    form.phoneNumbers = numbers
-    form.phoneNumberAction = 'select'
-    var defaultExtension = _.find(form.extensions, { default: true })
-    if (defaultExtension) {
-      form.extension = defaultExtension.template
-    }
-    form.callingLineIdPhoneNumber = form.callingLineIdPhoneNumber
-  }
-
   const addExtensionRangeModal = (
     extRange
     ?
@@ -358,13 +316,6 @@ const tagInputClicked = (elNane) => {
           size="small"
           onClick={() => tagInputClicked('userId')}
         />
-          {/* <Control>
-            <Tag color="link" size="medium" onClick={() => setTagBundleTemplateClick(true)}>
-              <span className="icon is-small">
-                <i className="fas fa-tag"></i>
-              </span>
-            </Tag>
-          </Control> */}
           <Control style = {{width: '52rem' }}>
             <Input
               type="text"
@@ -558,7 +509,6 @@ const tagInputClicked = (elNane) => {
               checked={form.extension === "extensionRange"}
               name ="extension"
               onChange={handleNumberInput}
-            //  onClick={addExtensionRange}
           /> Add Extension Range <br/>
 
           {
@@ -574,7 +524,7 @@ const tagInputClicked = (elNane) => {
                 /> Last {el.length} Digits of Phone Number <br/>
               </p>
             ) )
-          } 
+          }
         </UiFormField>
         <UiFormField label="Do you want to set Calling Line ID?">
           <Radio
@@ -596,7 +546,6 @@ const tagInputClicked = (elNane) => {
         </UiFormField>
 
         <UiFormField label="Do you want to set Activate the phone numbers?">
-
           <Radio
             type="radio"
             value="true"
@@ -621,16 +570,6 @@ const tagInputClicked = (elNane) => {
     <UiCard title='User Device'>
 
       <UiFormField label="Device endpoint type"> <b>Trunking</b>
-        {/* <Radio type="radio" value="true" checked={true} name="password"/>None<br/>
-        <Radio type="radio" value="true" checked={false} name ="password"/>Hosted User<br/> */}
-        {/* <Radio
-        type="radio"
-        value="trunkAddressing"
-        checked={false}
-        name ="form.endpointType"
-        onChange={handleInput}
-        onClick = {updateEndpoint}
-        />Trunking */}
 
       </UiFormField>
         <UiSection title="Trunk Addressing">
@@ -671,8 +610,8 @@ const tagInputClicked = (elNane) => {
 
   {/* User Device*/}
         <UiCard title='User Details'>
-          <UiSection title="Optional Details"> 
-            <UiFormField  label="Time Zone" horizontal> 
+          <UiSection title="Optional Details">
+            <UiFormField  label="Time Zone" horizontal>
               <Select.Container fullwidth>
                <Select
                   value={form.timeZone}
@@ -696,13 +635,13 @@ const tagInputClicked = (elNane) => {
               </Select.Container>
             </UiFormField>
 
-            <UiFormField  label="Language" horizontal> 
+            <UiFormField  label="Language" horizontal>
               <Select.Container fullwidth>
                 <Select
                   value={form.language}
                   onChange={handleInput}
                   name="language"
-                > 
+                >
                   {
                     systemLanguage &&
                     systemLanguage.default ? (
@@ -726,7 +665,7 @@ const tagInputClicked = (elNane) => {
                 </Select>
               </Select.Container>
             </UiFormField>
-            <UiFormField label="Network Class of Services" horizontal> 
+            <UiFormField label="Network Class of Services" horizontal>
               <Select.Container fullwidth>
                 <Select
                   value={form.networkClassOfService}
@@ -748,7 +687,7 @@ const tagInputClicked = (elNane) => {
                     ) : null }
                 </Select>
               </Select.Container>
-            </UiFormField> 
+            </UiFormField>
           </UiSection>
         </UiCard>
   {/* end user Device*/}
