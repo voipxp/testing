@@ -86,6 +86,7 @@ const prepareImportData = () => {
       >
         <BulkCloneGroupAllControl
           setTaskData={setStateTaskData}
+          serviceProviderId={serviceProviderId}
         />
       </UiCardModal>
     </>

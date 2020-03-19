@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { BulkParseService, BulkImport } from '@/components/bulk'
-import { useAlerts } from '@/store/alerts'
 import { StorageService } from '@/utils'
 import { Button } from 'rbx'
 import { UiLoading } from '@/components/ui'
@@ -71,7 +70,7 @@ import {
     }
 
     const onInit = () => {
-      // setDisableNextButton(true)
+      setDisableNextButton(true)
       loadData()
       .then((data) => {
         return clean(data)
@@ -163,13 +162,8 @@ import {
     function validate(users) {
       return BulkParseService.bulkParse(users)
       .then(function() {
-      BulkParseService.validateBulk(users, action.required || [])
-    })
-
-      // return BulkParseService.validateBulk(users, action.required || [])
-      //   .catch(function(error) {
-      //     return new Promise.reject('Data Error: ' + error)
-      //   })
+        BulkParseService.validateBulk(users, action.required || [])
+      })
     }
 
     return loading ? <UiLoading /> :
