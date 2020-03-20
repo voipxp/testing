@@ -9,6 +9,7 @@ function BulkTaskService() {
     {
       task: 'bulk.sip.trunking',
       name: 'Bulk Sip Trunking',
+      description: 'Bulk Sip Trunking',
       required: []
     },
     {

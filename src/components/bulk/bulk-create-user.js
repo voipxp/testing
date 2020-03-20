@@ -62,6 +62,7 @@ export const BulkCreateUser = ({
     domain: '',
     stateOrProvince:'',
     endpointType: 'trunkAddressing',
+    linePortDomain: '',
     trunkAddressing: {
       enterpriseTrunkName: enterpriseTrunkName,
       trunkGroupDeviceEndpoint: {
@@ -85,6 +86,8 @@ export const BulkCreateUser = ({
   const [selectedTagInput, setSelectedTagInput] = React.useState('')
   const [extensions, setExtensions] = React.useState([])
   const [defaultDomain, setDefaultDomain] = React.useState('')
+  const [linePortDomain, setLinePortDomain] = React.useState('')
+
 
   const loadExtension = (data) => {
     const min = data.minExtensionLength
@@ -116,6 +119,8 @@ export const BulkCreateUser = ({
     .then((domains) => {
       setDomainsData(domains)
       setDefaultDomain(domains.default)
+      setLinePortDomain(domains.default)
+      // setForm({...form, 'linePortDomain': domains.default })
       //setForm({...form, 'domain': domains.default})
     })
     ,[]
@@ -165,8 +170,9 @@ useAsync(
 /* code for timezone list end */
 
 useEffect( () => {
-  if(defaultDomain !== form.domain) setForm({...form, 'domain': defaultDomain})
-}, [form, defaultDomain])
+  if(!form.domain && defaultDomain !== form.domain) setForm({...form, 'domain': defaultDomain})
+  if(!form.linePortDomain && linePortDomain !== form.linePortDomain) setForm({...form, 'linePortDomain': linePortDomain})
+}, [form, defaultDomain, linePortDomain])
 
   useEffect( () => {
 	  setTaskData(form)
@@ -602,7 +608,12 @@ const tagInputClicked = (elNane) => {
               />
             </UiFormField>
 
-            <UiFormField label="Trunk Group Line Port" horizontal >
+            {
+              (form.trunkAddressing.trunkGroupDeviceEndpoint.name)
+              ?
+              <UiFormField label="Trunk Group Line Port" horizontal >
+
+              <Control>
               <UiButton
                 style={{height:'35px'}}
                 color="link"
@@ -611,13 +622,48 @@ const tagInputClicked = (elNane) => {
                 onClick={() => tagInputClicked('linePort')}
               />
               <Input
-                style = {{width: '361px' }}
+                style = {{width: '5em' }}
                 type="text"
                 name="linePort"
                 onChange={handleInput}
                 value={form.trunkAddressing.trunkGroupDeviceEndpoint.linePort}
               />
+              <Tag color="link" size="medium">
+              @
+              </Tag>
+              <Select.Container>
+                <Select
+                  value={form.linePortDomain}
+                  onChange={handleInput}
+                  name="linePortDomain"
+                  style = {{width: '15rem' , marginBottom:'1rem'}}
+                >
+                  {
+                    domains &&
+                    domains.default ? (
+                      <Select.Option
+                        key={domains.default}
+                        value={domains.default}
+                      >
+                        {domains.default}
+                      </Select.Option>
+                    ) : null}
+                    { domains.domains && domains.domains.map(domain =>
+                         domains.default !== domain ? (
+                          <Select.Option key={domain} value={domain}>
+                            {domain}
+                          </Select.Option>
+                        ) : null
+                         )
+                    }
+                  </Select>
+                </Select.Container>
+            </Control>
             </UiFormField>
+            :
+            null
+            }
+
           </UiSection>
         </UiCard>
   {/* end user Device*/}

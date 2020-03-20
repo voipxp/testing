@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { menu } from './bulk-sip-trunking-dashboard-menu'
 import { BulkWizMenu } from '@/components/bulk'
+import { Redirect } from 'react-router-dom'
 // import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
 
 const initial = {
@@ -18,6 +19,7 @@ export const BulkSipTrunking = () => {
  // const [initialState, setInitialState] = React.useState({...initial})
   const [menuTemp, setMenuTemp] = React.useState( [...menu] )
   const [prepareData, setPrepareData] = React.useState([])
+  const [redirect, setRedirect] = React.useState(false)
 
   const handleWizData = (data) => {
     setSipTrunkShareableData(data)
@@ -32,7 +34,9 @@ export const BulkSipTrunking = () => {
   }
 
   const wizardComplete = () => {
-    console.log('Task is all done.')
+    setRedirect(true)
+      // return <Redirect to='/' />
+      //console.log('Task is all done.')
     // prepareImportData().then((data) => {
     //     setPrepareData(data)
     // })
@@ -65,7 +69,7 @@ export const BulkSipTrunking = () => {
   // }
 
 	return <>
-    {/* { (prepareData.length > 0) ? <BulkImportService data={prepareData} /> : ''} */}
+    { redirect ? <Redirect to='/bulk' /> : null}
     <BulkWizMenu
       menu={menuTemp}
       initialData={sipTrunkShareableData}

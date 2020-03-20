@@ -99,15 +99,15 @@ const prepareImportData = () => {
           allowAccessDeviceUpdate: taskData.allowAccessDeviceUpdate
         }
 
-
         task['trunkAddressing.enterpriseTrunkName'] = enterpriseTrunkName
         task['trunkAddressing.trunkGroupDeviceEndpoint.name'] = groupTrunk
-        // task['trunkAddressing.trunkGroupDeviceEndpoint.linePort'] =
         task['serviceProviderId'] = serviceProviderId
         task['groupId'] = groupId
 
-        // task['spId'] = newServiceProviderId
-        // task['gpId'] = newGroupId
+        if(groupTrunk) {
+          const linePortDomain = taskData.linePortDomain
+          task['trunkAddressing.trunkGroupDeviceEndpoint.linePort'] = (taskData.trunkAddressing.trunkGroupDeviceEndpoint.linePort + '@' + linePortDomain)
+        }
 
         if(task.extension === "extensionRange") {
           task.extension = parseInt(taskData.extensionRange) + i
@@ -118,15 +118,6 @@ const prepareImportData = () => {
           task.activatePhoneNumber = 'true'
         } else if (taskData.activatePhoneNumber === false) {
           task.activatePhoneNumber = 'false'
-        }
-
-        if (task.endpointType === 'accessDeviceEndpoint') {
-          task.allowAccessDeviceUpdate = taskData.allowAccessDeviceUpdate
-            ? 'true'
-            : 'false'
-          task.accessDeviceEndpoint = taskData.accessDeviceEndpoint
-        } else if (task.endpointType === 'trunkAddressing') {
-          task.trunkAddressing = taskData.trunkAddressing
         }
 
         tasks.push(task)

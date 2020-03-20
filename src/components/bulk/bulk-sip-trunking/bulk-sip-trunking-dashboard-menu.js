@@ -10,14 +10,16 @@ import { AssignGroupServices } from './bulk-sip-trunking-group-services'
 
 /* Tasks */
 import { BulkMultipleTasksImport } from './tasks/bulk-multiple-tasks-import'
-// import { BulkSipServiceProviderTask } from './tasks/bulk-sip-service-provider-task'
+import { BulkSipServiceProviderTask } from './tasks/bulk-sip-service-provider-task'
+import { BulkSipUsersTask } from './tasks/bulk-sip-users-task'
+
 
 export const menu = [
   {
     name: 'Service Provider',
     localStorageKey: 'BulkSipServiceProvider',
     component: BulkSipServiceProvider
-    // component: BulkSipServiceProviderTask
+    // component: BulkSipTrunkingUsers
   },
   {
     name: 'Enterprise Trunk',
@@ -105,7 +107,7 @@ export const menu = [
   {
     name: 'Users  Task',
     localStorageKey: 'BulkSelectedUsers',
-    component: BulkMultipleTasksImport
+    component: BulkSipUsersTask
   },
   // {
   //   name: 'Endpoint Type Task',
