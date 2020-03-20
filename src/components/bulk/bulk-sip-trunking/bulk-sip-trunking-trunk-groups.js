@@ -81,6 +81,8 @@ const prepareImportData = () => {
         "capacityExceededTrapOffsetCalls": taskData.capacityExceededTrapOffsetCalls,
         "clidSourceForScreenedCallsPolicy": taskData.clidSourceForScreenedCallsPolicy,
         "continuousOptionsSendingIntervalSeconds": taskData.continuousOptionsSendingIntervalSeconds,
+        "accessDeviceType": taskData.accessDevice.accessDeviceType,
+        "accessDeviceName": taskData.accessDevice.accessDeviceName,
         "enableBursting": taskData.enableBursting,
         "enableNetworkAddressIdentity": taskData.enableNetworkAddressIdentity,
         "failureOptionsSendingIntervalSeconds": taskData.failureOptionsSendingIntervalSeconds,

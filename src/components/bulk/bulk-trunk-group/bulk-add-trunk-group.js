@@ -24,7 +24,8 @@ export const BulkAddTrunkGroup = (props) => {
         "staticLineOrdering": false,
         "serviceProviderId": '',
         "groupId": '',
-        "deviceName": '',
+        "accessDeviceType": '',
+        "accessDeviceName": '',
         "deviceLevel": '',
       },
     "allowTerminationToDtgIdentity":false,
@@ -144,7 +145,13 @@ export const BulkAddTrunkGroup = (props) => {
     const name = target.name
     //if(name === 'requireAuthentication' && value === true) setShowAuth(true)
     //else setShowAuth(false)
-    setForm({ ...form, [name]: value })
+    const tempForm = {...form}
+    if(name === 'accessDeviceType' || name === 'accessDeviceName') {
+      tempForm['accessDevice'][name] = value
+    }
+    else tempForm[name] = value
+
+    setForm({...tempForm})
   }
 
   return (
@@ -186,12 +193,33 @@ export const BulkAddTrunkGroup = (props) => {
               value={form.maxOutgoingCalls}
             />
           </UiFormField>
-          <UiFormField label="Access Device" horizontal >
+          <UiFormField label="Access Device Type" horizontal >
+          <Select.Container fullwidth>
+              <Select
+                value={form.accessDevice.accessDeviceType}
+                onChange={handleInput}
+                name="accessDeviceType"
+              >
+              <Select.Option
+                  value=""
+                >
+                  Select Device Type
+                </Select.Option>
+                <Select.Option
+                  key= "Generic SIP IP-PBX"
+                  value= "Generic SIP IP-PBX"
+                >
+                  Generic SIP IP-PBX
+                </Select.Option>
+              </Select>
+            </Select.Container>
+          </UiFormField>
+          <UiFormField label="Access Device Name" horizontal >
             <Input
               type="text"
               onChange={handleInput}
-              name="deviceName"
-              value={form.accessDevice.deviceName}
+              name="accessDeviceName"
+              value={form.accessDevice.accessDeviceName}
             />
           </UiFormField>
           {/* <UiFormField label="Department Name" horizontal>
