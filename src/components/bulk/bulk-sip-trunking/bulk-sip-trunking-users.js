@@ -14,7 +14,19 @@ export const BulkSipTrunkingUsers = (props) => {
   // const enterpriseTrunkName = "aaaaaa"
   // const groupTrunk = "bbbbbbb"
   // const phoneNumbers = ['100 - 200', '22222222', '33333333']
-  const { serviceProviderId, groupId, enterpriseTrunkName, groupTrunk, phoneNumbers} = props.initialData
+  const {
+    serviceProviderId,
+    groupId,
+    enterpriseTrunkName,
+    groupTrunk,
+    phoneNumbers,
+    sourceServiceProviderId,
+    sourceGroupId
+  } = props.initialData
+
+  const newServiceProviderId = sourceServiceProviderId !== '' ? sourceServiceProviderId : serviceProviderId
+  const newGroupId = sourceGroupId !== '' ? sourceGroupId : groupId
+
   const { alertSuccess, alertDanger } = useAlerts()
   const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
@@ -94,6 +106,9 @@ const prepareImportData = () => {
         task['serviceProviderId'] = serviceProviderId
         task['groupId'] = groupId
 
+        // task['spId'] = newServiceProviderId
+        // task['gpId'] = newGroupId
+
         if(task.extension === "extensionRange") {
           task.extension = parseInt(taskData.extensionRange) + i
         }
@@ -129,8 +144,8 @@ const prepareImportData = () => {
 		    onSave={createTask}
       >
         <BulkCreateUser
-          serviceProviderId={serviceProviderId}
-          groupId={groupId}
+          serviceProviderId={newServiceProviderId}
+          groupId={newGroupId}
           enterpriseTrunkName={enterpriseTrunkName}
           groupTrunk={groupTrunk}
           phoneNumbers={phoneNumbers}

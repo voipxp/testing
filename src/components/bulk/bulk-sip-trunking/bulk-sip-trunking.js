@@ -6,6 +6,8 @@ import { BulkWizMenu } from '@/components/bulk'
 const initial = {
   serviceProviderId: "",
   groupId: "",
+  sourceServiceProviderId: "",
+  sourceGroupId: "",
   enterpriseTrunkName: "",
   groupTrunk: "",
   phoneNumbers:[]
@@ -30,36 +32,37 @@ export const BulkSipTrunking = () => {
   }
 
   const wizardComplete = () => {
-    prepareImportData().then((data) => {
-        setPrepareData(data)
-    })
+    console.log('Task is all done.')
+    // prepareImportData().then((data) => {
+    //     setPrepareData(data)
+    // })
   }
 
-const prepareImportData = () => {
-  return Promise.all(prepareImport()).then( (data) => {
-    return data
-  })
-}
+// const prepareImportData = () => {
+//   return Promise.all(prepareImport()).then( (data) => {
+//     return data
+//   })
+// }
 
-  const prepareImport = () => {
+  // const prepareImport = () => {
 
-      const tasks = []
-      sipTrunkShareableData.users.forEach(function(el, i) {
-        const task = {
-          task: 'bulk.sip.trunking',
-          serviceProviderId: sipTrunkShareableData.serviceProviderId || null,
-          groupId: sipTrunkShareableData.groupId || null,
-          userId: el.userId || null,
-          groupTrunk: sipTrunkShareableData.groupTrunk || null,
-          endpointType: sipTrunkShareableData.endpointType || null,
-          linePort: sipTrunkShareableData.linePort || null,
-        }
-        task['isPilot'] = 'false'
-        tasks.push(task)
-      })
+  //     const tasks = []
+  //     sipTrunkShareableData.users.forEach(function(el, i) {
+  //       const task = {
+  //         task: 'bulk.sip.trunking',
+  //         serviceProviderId: sipTrunkShareableData.serviceProviderId || null,
+  //         groupId: sipTrunkShareableData.groupId || null,
+  //         userId: el.userId || null,
+  //         groupTrunk: sipTrunkShareableData.groupTrunk || null,
+  //         endpointType: sipTrunkShareableData.endpointType || null,
+  //         linePort: sipTrunkShareableData.linePort || null,
+  //       }
+  //       task['isPilot'] = 'false'
+  //       tasks.push(task)
+  //     })
 
-      return tasks
-  }
+  //     return tasks
+  // }
 
 	return <>
     {/* { (prepareData.length > 0) ? <BulkImportService data={prepareData} /> : ''} */}

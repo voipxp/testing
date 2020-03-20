@@ -639,8 +639,8 @@ const tagInputClicked = (elNane) => {
                     systemTimeZone.length > 0  ? (
                       systemTimeZone && systemTimeZone.map(el =>
                         <Select.Option
-                          key={el.displayName}
-                          value={el.displayName}>
+                          key={el.key}
+                          value={el.key}>
                             {el.displayName}
                         </Select.Option>
                       )

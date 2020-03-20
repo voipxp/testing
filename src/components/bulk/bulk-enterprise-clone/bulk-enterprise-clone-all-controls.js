@@ -45,9 +45,6 @@ export const BulkEnterpriseCloneAllControls = (props) => {
 	    setCloneOptions(cloneOptions)
     }
 
-console.log('wwwwwwwwwww')
-console.log(cloneOptions)
-
   const cloneEnterpriseModal = (
     <>
       <UiCardModal

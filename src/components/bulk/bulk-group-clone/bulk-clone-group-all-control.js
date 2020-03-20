@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Input } from 'rbx'
-// import { useAlerts } from '@/store/alerts'
-import { BulkSelectServiceProviderId } from '../bulk-select-service-provider-id'
 import { BulkSelectGroupId } from '../bulk-select-group-id'
 
 import {
@@ -52,11 +50,13 @@ const cloneGroupOptions = [
 ]
 
 export const BulkCloneGroupAllControl = ({
-  setTaskData
+  setTaskData,
+  serviceProviderId,
+  sourceServiceProviderId
 }) => {
   const initialForm =
   {
-    "sourceServiceProviderId": "",
+    "sourceServiceProviderId": sourceServiceProviderId,
     "sourceGroupId": "",
     "destinationServiceProviderId": "",
     "destinationGroupId": "",
@@ -76,24 +76,7 @@ export const BulkCloneGroupAllControl = ({
 }
 
   const [form, setForm] = useState({...initialForm})
-  const [selectSP, setSelectSP] = React.useState(false)
   const [selectGroupId, setSelectGroupId] = React.useState(false)
-
-  // const [cloneServiceProviderId, setCloneServiceProviderId] = React.useState('')
-  // const [cloneServiceGroupId, setCloneGroupId] = React.useState('')
-  /* set intialForm api response */
-    // const { userId } = match.params
-
-
-
-  // clone group options
-
-  const selectServiceProvider = (spRow) => {
-    const spId = spRow.serviceProviderId
-    setForm({ ...form, 'sourceServiceProviderId': spId })
-	  // setCloneServiceProviderId(spRow.serviceProviderId)
-	  setSelectSP(false)
-  }
 
   useEffect( () => {
 	  setTaskData(form)
@@ -104,20 +87,6 @@ export const BulkCloneGroupAllControl = ({
     setForm({ ...form, 'sourceGroupId': grpId })
 	  setSelectGroupId(false)
   }
-
-  const cloneEnterpriseModal = (
-    <>
-      <UiCardModal
-        title="Select Service Provider"
-        isOpen={selectSP}
-        onCancel={() => setSelectSP(false)}
-      >
-       <BulkSelectServiceProviderId
-         selectSP={selectServiceProvider}
-       />
-      </UiCardModal>
-    </>
-  )
 
   const cloneGroupModal = (
     <>
@@ -145,15 +114,12 @@ export const BulkCloneGroupAllControl = ({
     const target = event.target
     const value = target.checked
     const name = target.name
-    // const newform = {...form}
-    // const newCloneOptions = form.cloneOptions
     form.cloneOptions = { ...form.cloneOptions, [name]: value }
     setForm({ ...form })
   }
 
   return (
     <>
-      { cloneEnterpriseModal }
       { (form.sourceServiceProviderId) ? cloneGroupModal : null }
         <UiSection>
         <UiFormField label="Clone Service Provider *" horizontal >
@@ -161,7 +127,6 @@ export const BulkCloneGroupAllControl = ({
               type="text"
               readOnly
               placeholder="Clone Service Provider "
-              onClick={()=> setSelectSP(true)}
               name="sourceServiceProviderId"
               value={form.sourceServiceProviderId}
             />
@@ -187,6 +152,7 @@ export const BulkCloneGroupAllControl = ({
               value={form.destinationGroupId}
             />
           </UiFormField>
+
           <UiFormField label="New Group Name *" horizontal >
             <Input
               type="text"
@@ -212,7 +178,6 @@ export const BulkCloneGroupAllControl = ({
               })
             }
           </UiFormField>
-
         </UiSection>
 
     </>
@@ -220,5 +185,7 @@ export const BulkCloneGroupAllControl = ({
 }
 
 BulkCloneGroupAllControl.propTypes = {
-  setTaskData: PropTypes.func
+  setTaskData: PropTypes.func,
+  serviceProviderId: PropTypes.string,
+  sourceServiceProviderId: PropTypes.string,
 }

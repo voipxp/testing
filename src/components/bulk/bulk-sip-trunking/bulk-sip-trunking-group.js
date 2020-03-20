@@ -16,7 +16,7 @@ export const BulkSipTrunkingGroup = ({
   handleWizData,
   localStorageKey
 }) => {
-  const { serviceProviderId } = initialData
+  const { serviceProviderId, sourceServiceProviderId } = initialData
   const { alertSuccess, alertDanger, alertWarning } = useAlerts()
   const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
@@ -71,7 +71,13 @@ const prepareImportData = () => {
         tasks.push(task)
       // })
       /* Set to props which will be used in the next component, This is HOC */
-      handleWizData({...initialData, groupId: taskData.destinationGroupId })
+
+    const tempData = { ...initialData }
+    tempData['groupId'] = taskData.destinationGroupId
+    tempData['sourceGroupId'] = taskData.sourceGroupId
+    /* Set to props which will be used in the next component, This is HOC */
+    handleWizData({...tempData })
+    // handleWizData({...initialData, groupId: taskData.destinationGroupId })
 
       return tasks
   }
@@ -87,6 +93,7 @@ const prepareImportData = () => {
         <BulkCloneGroupAllControl
           setTaskData={setStateTaskData}
           serviceProviderId={serviceProviderId}
+          sourceServiceProviderId={ sourceServiceProviderId }
         />
       </UiCardModal>
     </>

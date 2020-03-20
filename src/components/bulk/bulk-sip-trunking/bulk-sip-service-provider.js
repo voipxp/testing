@@ -56,8 +56,9 @@ const prepareImport = () => {
         task: 'service.provider.bulk.clone',
         'source.serviceProviderId': taskData.cloneServiceProviderId || null,
         'destination.serviceProviderId': taskData.newServiceProviderId || null,
-        'destination.serviceProviderName': taskData.newServiceProviderName || null,
+        'destination.serviceProviderName': taskData.newServiceProviderName,
       }
+
       const options = {}
       taskData.cloneOptions.forEach(function(el) {
         options[el.name] = el.value
@@ -67,8 +68,11 @@ const prepareImport = () => {
       tasks.push(task)
     // })
 
+    const tempData = { ...initialData }
+    tempData['serviceProviderId'] = taskData.newServiceProviderId
+    tempData['sourceServiceProviderId'] = taskData.cloneServiceProviderId
     /* Set to props which will be used in the next component, This is HOC */
-    handleWizData({...initialData, serviceProviderId: taskData.newServiceProviderId })
+    handleWizData({...tempData })
 
     return tasks
   }
