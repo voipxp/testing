@@ -3,17 +3,21 @@ import { BulkSipTrunkingTrunkEnterprise } from './bulk-sip-trunking-trunk-enterp
 import { BulkSipTrunkingUsers } from './bulk-sip-trunking-users'
 import { BulkEndpointType } from '../bulk-endpoint-type'
 import { BulkSipTrunkingGroup } from './bulk-sip-trunking-group'
-import { BulkMultipleTasksImport } from '../bulk-multiple-tasks-import'
 import { BulkSipTrunkingTrunkGroups } from './bulk-sip-trunking-trunk-groups'
 import { BulkSipTrunkingNumbers } from './bulk-sip-trunking-numbers'
 import { BulkSipTrunkingGroupCallCapacity } from './bulk-sip-trunking-group-call-capacity'
 import { AssignGroupServices } from './bulk-sip-trunking-group-services'
+
+/* Tasks */
+import { BulkMultipleTasksImport } from './tasks/bulk-multiple-tasks-import'
+// import { BulkSipServiceProviderTask } from './tasks/bulk-sip-service-provider-task'
+
 export const menu = [
   {
     name: 'Service Provider',
     localStorageKey: 'BulkSipServiceProvider',
     component: BulkSipServiceProvider
-    // component: BulkMultipleTasksImport
+    // component: BulkSipServiceProviderTask
   },
   {
     name: 'Enterprise Trunk',
@@ -25,11 +29,11 @@ export const menu = [
     localStorageKey: 'BulkSipTrunkingGroup',
     component: BulkSipTrunkingGroup
   },
-  {
-    name: 'Assign Group Services',
-    localStorageKey: 'AssignGroupServices',
-    component: AssignGroupServices
-  },
+  // {
+  //   name: 'Assign Group Services',
+  //   localStorageKey: 'AssignGroupServices',
+  //   component: AssignGroupServices
+  // },
   {
     name: 'Group Call Capacity',
     localStorageKey: 'BulkSipTrunkingGroupCallCapacity',
@@ -66,6 +70,7 @@ export const menu = [
     name: 'Service Provider Task',
     localStorageKey: 'BulkSipServiceProvider',
     component: BulkMultipleTasksImport
+    // component: BulkSipServiceProviderTask
   },
   {
     name: 'Enterprise Trunk Task',
@@ -77,11 +82,11 @@ export const menu = [
     localStorageKey: 'BulkSipTrunkingGroup',
     component: BulkMultipleTasksImport
   },
-  {
-    name: 'Assign Group Services Task',
-    localStorageKey: 'AssignGroupServices',
-    component: BulkMultipleTasksImport
-  },
+  // {
+  //   name: 'Assign Group Services Task',
+  //   localStorageKey: 'AssignGroupServices',
+  //   component: BulkMultipleTasksImport
+  // },
   {
     name: 'Group Call Capacity Task',
     localStorageKey: 'BulkSipTrunkingGroupCallCapacity',
