@@ -123,8 +123,7 @@ function controller(
   }
 
   function onClick(admin) { 
-    ctrl.isPoliciesDisabled = (ACL.is('Group') && admin.userId === Session.data('userId'))
-
+    ctrl.isPoliciesDisabled = ACL.is('Group')
     if (!ctrl.canUpdate) return
     ctrl.editAdmin = angular.copy(admin)
     Alert.spinner.open()
