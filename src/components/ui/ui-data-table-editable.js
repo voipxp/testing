@@ -242,7 +242,8 @@ export const UiDataTableEditable = ({
 						  key={"head" + column.key + index}
 						  style={{ whiteSpace: 'nowrap' }}
 						>
-						  <a href="" onClick={e => handleSort(e, column)}>
+						 {/* <a href="" onClick={e => handleSort(e, column)}> */}
+              <a onClick={e => handleSort(e, column)}>
 							{column.label || column.key}
 							{headingIcon(column)}
 						  </a>
@@ -303,7 +304,8 @@ export const UiDataTableEditable = ({
                   key={column.key}
                   style={{ whiteSpace: 'nowrap' }}
                 >
-                  <a href="" onClick={e => handleSort(e, column)}>
+                 { /* <a href="" onClick={e => handleSort(e, column)}> </a> */ }
+                  <a onClick={e => handleSort(e, column)}>
                     {column.label || column.key}
                     {headingIcon(column)}
                   </a>

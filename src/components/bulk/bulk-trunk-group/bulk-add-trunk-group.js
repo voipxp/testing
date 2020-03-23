@@ -267,7 +267,7 @@ export const BulkAddTrunkGroup = (props) => {
               </UiFormField>
             </> ):(
             <>
-            <UiFormField label="Trunck Group Identity" horizontal >
+            <UiFormField label="Trunk Group Identity" horizontal >
               <Input
                 type="text"
                 placeholder="Trunck Group Identity"
@@ -405,7 +405,7 @@ export const BulkAddTrunkGroup = (props) => {
           {
             (!form.useSystemCallingLineAssertedIdentityPolicy)
             ?
-            <UiFormField label="Charge Number Policy" horizontal>
+            <UiFormField label="CL Asserted ID Policy" horizontal>
               <Select.Container fullwidth>
                 <Select
                   value={form.pilotUserCallingLineAssertedIdentityPolicy}
