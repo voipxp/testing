@@ -24,8 +24,6 @@ const columns = [
   { key: 'serviceProviderId', label: 'Service Provider' },
   { key: 'groupId', label: 'Group' },
   { key: 'status', label: 'Status' },
-  { key: 'attempt', label: 'Attempt' },
-  { key: 'next_at', label: 'Next Run' },
   { key: 'error', label: 'Errors' },
   { key: 'created_at', label: 'Created' }
 ]
@@ -35,7 +33,6 @@ const exports = [
   'export.group.devices',
   'export.group'
 ]
-
 export const Exports = ({ history, match, isBreadcrumb = true }) => {
   const initialForm = {
     'serviceProviderId': '',
@@ -68,6 +65,7 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
     setForm({ ...form, [name]: value })
   }
 
+  const open = ({ id }) => history.push(`/exports/${id}`)
   const show = group => {
     setForm({ ...form, ...group })
     setInitialized(false)
@@ -128,8 +126,8 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
             columns={columns}
             rows={result}
             rowKey="id"
-            // onClick={open}
-            pageSize={40}
+            onClick={open}
+            pageSize={20}
           />
         </UiCard>
       )}
