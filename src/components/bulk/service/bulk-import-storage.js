@@ -48,7 +48,7 @@ import {
         if(deleteLocalStorage) {
           StorageService.clearStorage(localStorageKey).then(function() {
             finalSteps()
-            if(canComplete) onImportComplete(users[0])
+            //if(canComplete) onImportComplete(users[0])
           })
         }
       }
@@ -68,7 +68,14 @@ import {
     }
 
     const submitTask = () => {
-      // setLoading(true)
+      if(canComplete) {
+        onImportComplete(users[0])
+        .then(() => {
+          setIsProcessing(true)
+          setImportTask(true)
+        })
+      }
+
       setIsProcessing(true)
       setImportTask(true)
     }
@@ -83,8 +90,10 @@ import {
         return validate(data)
       })
       .finally( (data) => {
+        // debugger
         setIsTaskExist(true)
         setLoading(false)
+        // if(canComplete) onImportComplete(data[0])
       })
       .catch( (error) => {
         finalSteps()
@@ -166,7 +175,7 @@ import {
     function validate(users) {
       return BulkParseService.bulkParse(users)
       .then(function() {
-        BulkParseService.validateBulk(users, action.required || [])
+        return BulkParseService.validateBulk(users, action.required || [])
       })
     }
 
@@ -185,18 +194,18 @@ import {
 
       {
         <UiCard
-          title={ isTaskExist ? task : 'Upload Task'}
+          title={ isTaskExist ? task : 'Task'}
           buttons={
             <>
-              <BulkUploadCsv
-                localStorageKey={localStorageKey}
-                uploading={ (boolValue) => setLoadingTable(boolValue)}
-                finalStep={onInit}
-              />
               {
                 isTaskExist
                 ?
                 <>
+                  <BulkUploadCsv
+                    localStorageKey={localStorageKey}
+                    uploading={ (boolValue) => setLoadingTable(boolValue)}
+                    finalStep={onInit}
+                  />
                   <CSVLink data={users} headers={keys} filename={task+".csv"}>
                   <Button color="success"
                     style={{marginRight:'8px'}}
@@ -244,6 +253,6 @@ import {
 
   BulkImportStorage.propTypes = {
     localStorageKey: PropTypes.string,
-    setDisableNextButton: PropTypes.func
-    //onImportComplete: PropTypes.func
+    setDisableNextButton: PropTypes.func,
+    onImportComplete: PropTypes.func
   }

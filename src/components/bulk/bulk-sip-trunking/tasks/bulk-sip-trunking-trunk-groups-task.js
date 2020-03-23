@@ -11,7 +11,7 @@ export const BulkSipTrunkingTrunkGroupsTask = (props) => {
   const { serviceProviderId, groupId, localStorageKey } = {...props}
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
 
-  const forceToCreateDeviceProfile = (deviceData) => {
+  const forceToCreateDeviceProfile = (serviceProviderId, groupId, deviceData) => {
     return GroupDeviceAPI.store(serviceProviderId, groupId, deviceData)
     .then(function(data) {
       return data
@@ -26,12 +26,13 @@ export const BulkSipTrunkingTrunkGroupsTask = (props) => {
 
   const finalActions = (data) => {
   const deviceData = {
-      "deviceType": data.accessDeviceType,
-      "deviceName": data.accessDeviceName,
+      "deviceType": data['accessDevice.deviceType'],
+      "deviceName": data['accessDevice.deviceName'],
+      "deviceLevel": data['accessDevice.deviceLevel'],
       "serviceProviderId": data.serviceProviderId,
       "groupId": data.groupId
   }
-    forceToCreateDeviceProfile(deviceData)
+    return forceToCreateDeviceProfile(data.serviceProviderId, data.groupId, deviceData)
   }
 
   const memoizedValue = useMemo(() =>

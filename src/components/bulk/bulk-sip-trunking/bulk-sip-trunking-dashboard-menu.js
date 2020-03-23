@@ -19,7 +19,7 @@ export const menu = [
     name: 'Service Provider',
     localStorageKey: 'BulkSipServiceProvider',
     component: BulkSipServiceProvider
-    // component: BulkSipTrunkingTrunkGroups
+    // component: BulkSipTrunkingTrunkGroupsTask
   },
   {
     name: 'Enterprise Trunk',
