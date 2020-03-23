@@ -13,7 +13,7 @@ import { UiInputCheckbox } from './ui-input-checkbox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faSortUp,
-  faSortDown,
+  faSortDown, 
   faTimes,
   faCheck
 } from '@fortawesome/free-solid-svg-icons'
@@ -22,13 +22,12 @@ const WrappedTable = styled.div`
   display: block;
   width: 100%;
   overflow-x: auto;
-
+ 
   table.tableHover tbody > tr:hover {
     cursor: pointer;
     background-color: hsl(217, 71%, 53%) !important;
     color: #fff;
   }
-
         input {
         font-size: 1rem;
         padding: 0;
@@ -70,7 +69,9 @@ export const UiDataTableEditable = ({
   onClick,
   onSelect,
   verticalView = true,
-  handleDataChange
+  handleDataChange,
+  shortIcon = false,
+  rowHover = false
 }) => {
   const [currentPage, setCurrentPage] = React.useState(1)
   const [selectedItems, setSelectedItems] = React.useState({})
@@ -163,7 +164,7 @@ export const UiDataTableEditable = ({
     if (column.key !== sortBy) return null
     return (
       <Icon size="small" align="left">
-        <FontAwesomeIcon icon={sortOrder === 'asc' ? faSortUp : faSortDown} />
+       {shortIcon ? <FontAwesomeIcon icon={sortOrder === 'asc' ? faSortUp : faSortDown} /> : ''} 
       </Icon>
     )
   }
@@ -243,10 +244,20 @@ export const UiDataTableEditable = ({
 						  style={{ whiteSpace: 'nowrap' }}
 						>
 						 {/* <a href="" onClick={e => handleSort(e, column)}> */}
-              <a onClick={e => handleSort(e, column)}>
-							{column.label || column.key}
-							{headingIcon(column)}
-						  </a>
+             {rowHover ? (
+              <a 
+                onClick={e => handleSort(e, column)}>
+                  {column.label || column.key}
+                  {headingIcon(column)}
+              </a>
+              ) : 
+              (
+              <p 
+                onClick={e => handleSort(e, column)}>
+				  {column.label || column.key}
+				  {headingIcon(column)}
+			  </p>)}
+              
 						</Table.Heading>
 						</Table.Row>
 					  ))}
@@ -305,10 +316,19 @@ export const UiDataTableEditable = ({
                   style={{ whiteSpace: 'nowrap' }}
                 >
                  { /* <a href="" onClick={e => handleSort(e, column)}> </a> */ }
-                  <a onClick={e => handleSort(e, column)}>
-                    {column.label || column.key}
-                    {headingIcon(column)}
-                  </a>
+                 {rowHover ? (
+              <a 
+                onClick={e => handleSort(e, column)}>
+                  {column.label || column.key}
+                  {headingIcon(column)}
+              </a>
+              ) : 
+              (
+              <p 
+                onClick={e => handleSort(e, column)}>
+				  {column.label || column.key}
+				  {headingIcon(column)}
+			  </p>)}
                 </Table.Heading>
               ))}
             </Table.Row>
@@ -431,5 +451,7 @@ UiDataTableEditable.propTypes = {
   /** Callback when Rows are selected */
   onSelect: PropTypes.func,
   verticalView: PropTypes.bool,
-  handleDataChange: PropTypes.func.isRequired
+  handleDataChange: PropTypes.func.isRequired,
+  shortIcon: PropTypes.bool,
+  rowHover: PropTypes.bool
 }
