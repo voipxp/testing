@@ -81,9 +81,6 @@ const prepareImportData = () => {
         "capacityExceededTrapOffsetCalls": taskData.capacityExceededTrapOffsetCalls,
         "clidSourceForScreenedCallsPolicy": taskData.clidSourceForScreenedCallsPolicy,
         "continuousOptionsSendingIntervalSeconds": taskData.continuousOptionsSendingIntervalSeconds,
-        "accessDevice.deviceType": taskData.accessDevice.accessDeviceType,
-        "accessDevice.deviceName": taskData.accessDevice.accessDeviceName,
-        "accessDevice.deviceLevel": "Group",
         "enableBursting": taskData.enableBursting,
         "enableNetworkAddressIdentity": taskData.enableNetworkAddressIdentity,
         "failureOptionsSendingIntervalSeconds": taskData.failureOptionsSendingIntervalSeconds,
@@ -114,6 +111,16 @@ const prepareImportData = () => {
         "maxIncomingCalls": taskData.maxIncomingCalls,
         "maxOutgoingCalls": taskData.maxOutgoingCalls
       }
+
+      if(!taskData.accessDevice.newDevice) {
+        task["accessDevice.deviceName"] = taskData.accessDevice.selectedDevice
+        task["accessDevice.deviceLevel"] = "Group"
+      }
+      else {
+        task["accessDevice.deviceType"] = taskData.accessDevice.accessDeviceType
+        task["accessDevice.deviceName"] = taskData.accessDevice.accessDeviceName
+        task["accessDevice.deviceLevel"] = "Group"
+      }
       task['serviceProviderId'] = initialData.serviceProviderId
       task['groupId'] = initialData.groupId
 
@@ -135,6 +142,8 @@ const prepareImportData = () => {
       >
         <BulkAddTrunkGroup
          setTaskData={setTaskDataHandler}
+         serviceProviderId={initialData.serviceProviderId}
+         groupId={initialData.groupId}
         />
       </UiCardModal>
     </>

@@ -32,7 +32,8 @@ export const BulkSipTrunkingTrunkGroupsTask = (props) => {
       "serviceProviderId": data.serviceProviderId,
       "groupId": data.groupId
   }
-    return forceToCreateDeviceProfile(data.serviceProviderId, data.groupId, deviceData)
+  if(!deviceData['deviceType']) return Promise.resolve()
+  return forceToCreateDeviceProfile(data.serviceProviderId, data.groupId, deviceData)
   }
 
   const memoizedValue = useMemo(() =>

@@ -1,16 +1,13 @@
 import { BulkSipServiceProvider } from './bulk-sip-service-provider'
 import { BulkSipTrunkingTrunkEnterprise } from './bulk-sip-trunking-trunk-enterprise'
 import { BulkSipTrunkingUsers } from './bulk-sip-trunking-users'
-import { BulkEndpointType } from '../bulk-endpoint-type'
 import { BulkSipTrunkingGroup } from './bulk-sip-trunking-group'
 import { BulkSipTrunkingTrunkGroups } from './bulk-sip-trunking-trunk-groups'
 import { BulkSipTrunkingNumbers } from './bulk-sip-trunking-numbers'
 import { BulkSipTrunkingGroupCallCapacity } from './bulk-sip-trunking-group-call-capacity'
-import { AssignGroupServices } from './bulk-sip-trunking-group-services'
 
 /* Tasks */
 import { BulkSipTrunkingCommonViewTask } from './tasks/bulk-sip-trunking-common-view-task'
-//import { BulkSipServiceProviderTask } from './tasks/bulk-sip-service-provider-task'
 import { BulkSipUsersTask } from './tasks/bulk-sip-users-task'
 import { BulkSipTrunkingTrunkGroupsTask } from './tasks/bulk-sip-trunking-trunk-groups-task'
 
@@ -31,11 +28,6 @@ export const menu = [
     localStorageKey: 'BulkSipTrunkingGroup',
     component: BulkSipTrunkingGroup
   },
-  // {
-  //   name: 'Assign Group Services',
-  //   localStorageKey: 'AssignGroupServices',
-  //   component: AssignGroupServices
-  // },
   {
     name: 'Group Call Capacity',
     localStorageKey: 'BulkSipTrunkingGroupCallCapacity',
@@ -72,7 +64,6 @@ export const menu = [
     name: 'Service Provider Task',
     localStorageKey: 'BulkSipServiceProvider',
     component: BulkSipTrunkingCommonViewTask
-    // component: BulkSipServiceProviderTask
   },
   {
     name: 'Enterprise Trunk Task',
@@ -84,11 +75,6 @@ export const menu = [
     localStorageKey: 'BulkSipTrunkingGroup',
     component: BulkSipTrunkingCommonViewTask
   },
-  // {
-  //   name: 'Assign Group Services Task',
-  //   localStorageKey: 'AssignGroupServices',
-  //   component: BulkSipTrunkingCommonViewTask
-  // },
   {
     name: 'Group Call Capacity Task',
     localStorageKey: 'BulkSipTrunkingGroupCallCapacity',
