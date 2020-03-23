@@ -9,8 +9,8 @@ import { BulkSipTrunkingGroupCallCapacity } from './bulk-sip-trunking-group-call
 import { AssignGroupServices } from './bulk-sip-trunking-group-services'
 
 /* Tasks */
-import { BulkMultipleTasksImport } from './tasks/bulk-multiple-tasks-import'
-import { BulkSipServiceProviderTask } from './tasks/bulk-sip-service-provider-task'
+import { BulkSipTrunkingCommonViewTask } from './tasks/bulk-sip-trunking-common-view-task'
+//import { BulkSipServiceProviderTask } from './tasks/bulk-sip-service-provider-task'
 import { BulkSipUsersTask } from './tasks/bulk-sip-users-task'
 import { BulkSipTrunkingTrunkGroupsTask } from './tasks/bulk-sip-trunking-trunk-groups-task'
 
@@ -71,28 +71,28 @@ export const menu = [
   {
     name: 'Service Provider Task',
     localStorageKey: 'BulkSipServiceProvider',
-    component: BulkMultipleTasksImport
+    component: BulkSipTrunkingCommonViewTask
     // component: BulkSipServiceProviderTask
   },
   {
     name: 'Enterprise Trunk Task',
     localStorageKey: 'BulkSipTrunkingTrunkEnterprise',
-    component: BulkMultipleTasksImport
+    component: BulkSipTrunkingCommonViewTask
   },
   {
     name: 'Group Task',
     localStorageKey: 'BulkSipTrunkingGroup',
-    component: BulkMultipleTasksImport
+    component: BulkSipTrunkingCommonViewTask
   },
   // {
   //   name: 'Assign Group Services Task',
   //   localStorageKey: 'AssignGroupServices',
-  //   component: BulkMultipleTasksImport
+  //   component: BulkSipTrunkingCommonViewTask
   // },
   {
     name: 'Group Call Capacity Task',
     localStorageKey: 'BulkSipTrunkingGroupCallCapacity',
-    component: BulkMultipleTasksImport
+    component: BulkSipTrunkingCommonViewTask
   },
   {
     name: 'Group Trunk Task',
@@ -102,7 +102,7 @@ export const menu = [
   {
     name: 'Assign Numbers Task',
     localStorageKey: 'BulkSipTrunkingNumbers',
-    component: BulkMultipleTasksImport
+    component: BulkSipTrunkingCommonViewTask
   },
   {
     name: 'Users  Task',
@@ -112,11 +112,11 @@ export const menu = [
   // {
   //   name: 'Endpoint Type Task',
   //   localStorageKey: 'BulkEndpointType',
-  //   component: BulkMultipleTasksImport
+  //   component: BulkSipTrunkingCommonViewTask
   // }
   // {
   //   name: 'Line Port',
   //   localStorageKey: 'BulkLinePort',
-  //   component: BulkMultipleTasksImport
+  //   component: BulkSipTrunkingCommonViewTask
   // }
 ]
