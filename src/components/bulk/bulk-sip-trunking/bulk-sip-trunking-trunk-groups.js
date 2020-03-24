@@ -100,19 +100,22 @@ const prepareImportData = () => {
         "pilotUserCallingLineIdentityForEmergencyCallsPolicy": taskData.pilotUserCallingLineIdentityForEmergencyCallsPolicy,
         "pilotUserCallingLineIdentityForExternalCallsPolicy": taskData.pilotUserCallingLineIdentityForExternalCallsPolicy,
         "pilotUserChargeNumberPolicy": taskData.pilotUserChargeNumberPolicy,
+        "prefix": taskData.prefix,
         "prefixEnabled": taskData.prefixEnabled,
         "requireAuthentication": taskData.requireAuthentication,
         "routeToPeeringDomain": taskData.routeToPeeringDomain,
         "sendContinuousOptionsMessage": taskData.sendContinuousOptionsMessage,
         "statefulReroutingEnabled": taskData.statefulReroutingEnabled,
         "successThresholdCounter": taskData.successThresholdCounter,
+        "trunkGroupIdentity": taskData.trunkGroupIdentity,
         "useSystemCLIDSourceForScreenedCallsPolicy": taskData.useSystemCLIDSourceForScreenedCallsPolicy,
         "useSystemCallingLineAssertedIdentityPolicy": taskData.useSystemCallingLineAssertedIdentityPolicy,
         "useSystemUserLookupPolicy": taskData.useSystemUserLookupPolicy,
         "userLookupPolicy": taskData.userLookupPolicy,
         "maxActiveCalls": taskData.maxActiveCalls,
         "maxIncomingCalls": taskData.maxIncomingCalls,
-        "maxOutgoingCalls": taskData.maxOutgoingCalls
+        "maxOutgoingCalls": taskData.maxOutgoingCalls,
+        "otgDtgIdentity": taskData.otgDtgIdentity
       }
       task['serviceProviderId'] = initialData.serviceProviderId
       task['groupId'] = initialData.groupId

@@ -265,7 +265,7 @@ export const BulkAddTrunkGroup = (props) => {
                   onGeneratePassword={generatePassword}
                 />
               </UiFormField>
-            </> ):  ''
+            </> ):  null
         }
             <UiFormField label="Trunk Group Identity" horizontal >
               <Input
