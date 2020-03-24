@@ -16,7 +16,8 @@ import {
   export const BulkImportStorage = ({
     localStorageKey='BulkImportService',
     setDisableNextButton,
-    onImportComplete
+    onImportComplete,
+    excludeElement=[]
   }) => {
     const [users, setUsers] = useState([])
     const [keys, setKeys] = useState([])
@@ -56,6 +57,27 @@ import {
       deleteLocalStorageData()
     }, [localStorageKey, deleteLocalStorage])
 
+
+    /* Hide any table column */
+    useEffect( () => {
+      const filterData = (keys) => {
+        if(task === 'group.services.update') {
+          keys.forEach( (column, index) => {
+            excludeElement.forEach((el) => {
+              if(_.includes(column.key, el)) delete keys[index]
+            })
+            return true
+          })
+        }
+        return Promise.resolve(keys)
+      }
+
+      filterData(keys).then((data) => {
+        if( !_.isEqual(keys, data) ) setKeys(data)
+      })
+
+    }, [keys, task])
+
     useEffect( () => {
       setLoading(true)
       setDisableNextButton(true)
@@ -90,7 +112,6 @@ import {
         return validate(data)
       })
       .finally( (data) => {
-        // debugger
         setIsTaskExist(true)
         setLoading(false)
         // if(canComplete) onImportComplete(data[0])
@@ -254,5 +275,6 @@ import {
   BulkImportStorage.propTypes = {
     localStorageKey: PropTypes.string,
     setDisableNextButton: PropTypes.func,
-    onImportComplete: PropTypes.func
+    onImportComplete: PropTypes.func,
+    excludeElement: PropTypes.array
   }

@@ -17,6 +17,8 @@ export const BulkSipTrunkingGroup = ({
   localStorageKey
 }) => {
   const { serviceProviderId, sourceServiceProviderId } = initialData
+  const sourceSPId = (sourceServiceProviderId && sourceServiceProviderId!== '') ? sourceServiceProviderId : serviceProviderId
+
   const { alertSuccess, alertDanger, alertWarning } = useAlerts()
   const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
@@ -92,8 +94,8 @@ const prepareImportData = () => {
       >
         <BulkCloneGroupAllControl
           setTaskData={setStateTaskData}
-          serviceProviderId={serviceProviderId}
-          sourceServiceProviderId={ sourceServiceProviderId }
+          // serviceProviderId={serviceProviderId}
+          sourceServiceProviderId={ sourceSPId }
         />
       </UiCardModal>
     </>

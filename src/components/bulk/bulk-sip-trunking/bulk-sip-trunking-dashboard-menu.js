@@ -5,11 +5,13 @@ import { BulkSipTrunkingGroup } from './bulk-sip-trunking-group'
 import { BulkSipTrunkingTrunkGroups } from './bulk-sip-trunking-trunk-groups'
 import { BulkSipTrunkingNumbers } from './bulk-sip-trunking-numbers'
 import { BulkSipTrunkingGroupCallCapacity } from './bulk-sip-trunking-group-call-capacity'
+import { AssignGroupServices } from './bulk-sip-trunking-group-services'
 
 /* Tasks */
 import { BulkSipTrunkingCommonViewTask } from './tasks/bulk-sip-trunking-common-view-task'
 import { BulkSipUsersTask } from './tasks/bulk-sip-users-task'
 import { BulkSipTrunkingTrunkGroupsTask } from './tasks/bulk-sip-trunking-trunk-groups-task'
+import { BulkSipTrunkingGroupServicesTask } from './tasks/bulk-sip-trunking-group-services-task'
 
 export const menu = [
   {
@@ -27,6 +29,11 @@ export const menu = [
     name: 'Group',
     localStorageKey: 'BulkSipTrunkingGroup',
     component: BulkSipTrunkingGroup
+  },
+  {
+    name: 'Group Services',
+    localStorageKey: 'AssignGroupServices',
+    component: AssignGroupServices
   },
   {
     name: 'Group Call Capacity',
@@ -74,6 +81,11 @@ export const menu = [
     name: 'Group Task',
     localStorageKey: 'BulkSipTrunkingGroup',
     component: BulkSipTrunkingCommonViewTask
+  },
+  {
+    name: 'Group Services Task',
+    localStorageKey: 'AssignGroupServices',
+    component: BulkSipTrunkingGroupServicesTask
   },
   {
     name: 'Group Call Capacity Task',

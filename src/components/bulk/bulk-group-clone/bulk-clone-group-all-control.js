@@ -51,7 +51,7 @@ const cloneGroupOptions = [
 
 export const BulkCloneGroupAllControl = ({
   setTaskData,
-  serviceProviderId,
+  // serviceProviderId,
   sourceServiceProviderId
 }) => {
   const initialForm =
@@ -114,8 +114,10 @@ export const BulkCloneGroupAllControl = ({
     const target = event.target
     const value = target.checked
     const name = target.name
-    form.cloneOptions = { ...form.cloneOptions, [name]: value }
-    setForm({ ...form })
+    if(name !== "services") {
+      form.cloneOptions = { ...form.cloneOptions, [name]: value }
+      setForm({ ...form })
+    }
   }
 
   return (
@@ -186,6 +188,6 @@ export const BulkCloneGroupAllControl = ({
 
 BulkCloneGroupAllControl.propTypes = {
   setTaskData: PropTypes.func,
-  serviceProviderId: PropTypes.string,
+  // serviceProviderId: PropTypes.string,
   sourceServiceProviderId: PropTypes.string,
 }

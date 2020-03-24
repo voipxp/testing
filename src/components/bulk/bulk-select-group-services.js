@@ -118,13 +118,13 @@ export const BulkSelectGroupServices = ({
                 name="authorized"
                 label="Service Authorized"
                 checked={form.authorized}
-                onChange={handleInput}
+                // onChange={handleInput}
               />
               <UiInputCheckbox
                 name="assigned"
                 label="Service Assigned"
                 checked={form.assigned}
-                onChange={handleInput}
+                //onChange={handleInput}
               />
           </UiCard>
 

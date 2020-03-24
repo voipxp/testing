@@ -46,9 +46,11 @@ export const BulkCloneOptions = (props) => {
     const value = (event.target.type === "checkbox") ? event.target.checked : event.target.value
     const name = event.target.name
     const newOptions = [...options]
-    newOptions[index]['value'] = value
-    setOptions(newOptions)
-    props.handleOptions(options)
+    if(name !== "services" && name !== "servicePacks") {
+      newOptions[index]['value'] = value
+      setOptions(newOptions)
+      props.handleOptions(options)
+    }
   }
 
   const prepareOptions = (
