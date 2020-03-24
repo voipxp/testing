@@ -265,8 +265,8 @@ export const BulkAddTrunkGroup = (props) => {
                   onGeneratePassword={generatePassword}
                 />
               </UiFormField>
-            </> ):(
-            <>
+            </> ):  ''
+        }
             <UiFormField label="Trunk Group Identity" horizontal >
               <Input
                 type="text"
@@ -286,9 +286,6 @@ export const BulkAddTrunkGroup = (props) => {
                 value={form.otgDtgIdentity}
               />
             </UiFormField>
-          </>
-        )
-        }
           <UiFormField label="Prefix" horizontal>
             <UiInputCheckbox
               name="prefixEnabled"
