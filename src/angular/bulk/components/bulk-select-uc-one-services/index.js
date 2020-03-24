@@ -45,8 +45,10 @@ function controller(
   }
 
   var aliasMap = {
-    'Client License 17': 'BroadTouch Business Communicator Mobile - Video',
-    'Client License 18': 'BroadTouch Business Communicator Desktop - Video'
+    'Client License 17': 'BroadTouch Business Communicator Mobile - Video'
+    // code commented for issue #203
+    /*,
+    'Client License 18': 'BroadTouch Business Communicator Desktop - Video'*/
   }
 
   function onInit() {
