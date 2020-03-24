@@ -90,6 +90,10 @@ function controller(
   // analyze service will take care of updating it
   function loadRequiredServices() {
     var services = UcOneService.services(ctrl.endpoints)
+    const index = services.indexOf('Client License 18')
+    if (index > -1) {
+      services.splice(index, 1);
+    } 
     ctrl.requiredServices = services.map(function(service) {
       return {
         serviceName: service,
