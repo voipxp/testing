@@ -300,7 +300,7 @@ export const BulkAddTrunkGroup = (props) => {
             ?
             <UiFormField label="Prefix" horizontal>
             <Input
-                type="text"
+                type="number"
                 onChange={handleInput}
                 name="prefix"
                 value={form.prefix}
