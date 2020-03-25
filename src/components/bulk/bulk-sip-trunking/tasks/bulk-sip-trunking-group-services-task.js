@@ -18,24 +18,23 @@ export const BulkSipTrunkingGroupServicesTask = (props) => {
   />,
   [props]);
 
-
 	return (
 		<>
-      { memoizedValue }
-      <div style={{marginTop: '20px'}}>
-        <Button style={{float: 'right'}}
-              color="success"
-              onClick={ props.complete}
-              disabled = { isNextBtnDisabled }
-            >
-              Done
-        </Button>
-      </div>
+		  { memoizedValue }
+		  <div style={{marginTop: '20px'}}>
+			<Button style={{float: 'right'}}
+				  color="link"
+				  onClick={ props.setToNext}
+				  disabled = { isNextBtnDisabled }
+				>
+				  Next
+			</Button>
+		  </div>
 		</>
 	)
 }
 
 BulkSipTrunkingGroupServicesTask.propTypes = {
-  localStorageKey: PropTypes.string,
-  complete: PropTypes.func,
+	localStorageKey: PropTypes.string,
+	setToNext: PropTypes.func
 }
