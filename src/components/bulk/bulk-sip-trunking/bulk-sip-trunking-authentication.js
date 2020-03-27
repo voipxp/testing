@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { UiCard, UiCardModal } from '@/components/ui'
-import { Radio , Button } from 'rbx'
-
-import { BulkSelectUserServices } from '../bulk-select-user-services'
-import { BulkSelectServicesPack } from '../bulk-select-services-pack'
-import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
+import PropTypes from 'prop-types' 
+import {   Input , Radio ,Button } from 'rbx' 
+import { BulkTagInput } from '../../bulk/bulk-tag-input'
+import {
+  UiCard,
+  UiFormField,
+  UiSection,
+  UiButton,
+  UiCardModal
+} from '@/components/ui'
+ 
 import { useAlerts } from '@/store/alerts'
 import { StorageService } from '@/utils'
 
-const initForm = {
-  userService: 'skipUserServices',
-  servicePacks: 'skipServicePacks'
-}
 
 export const BulkSipTrunkingAuthentication = ({
 	initialData={},
@@ -20,110 +20,229 @@ export const BulkSipTrunkingAuthentication = ({
   handleWizData,
   localStorageKey
 }) => {
-  const [form, setForm] = useState({...initForm})
-  const { serviceProviderId, groupId, sourceServiceProviderId, sourceGroupId } = initialData
-  const { alertSuccess, alertDanger } = useAlerts()
-  const [isNextBtnDisabled, setDisableNextButton] = useState(false)
-  const [selectedUserServices, setSelectedUserServices] = useState([])
-  const [selectedServicesPacks, setSelectedServicesPacks] = useState([])
-  const [userServiceClicked, setUserServiceClicked] = useState(false)
-  const [servicePackClicked, setServicePackClicked] = useState(false)
+  
+const templates = {
+  password: '{{ generateSipPassword }}',
+  passcode: '{{ generatePasscode }}'
+}
 
-  const newServiceProviderId = sourceServiceProviderId !== '' ? sourceServiceProviderId : serviceProviderId
-  const newGroupId = sourceGroupId !== '' ? sourceGroupId : groupId
+const initialForm =
+{
+  userName:null,
+  userNameAction  : 'manual',
+  passwordAction  : 'auto',
+  newPassword   	: null
+}
 
-  const clickUserService = () => {
-    setUserServiceClicked(true)
-  }
-
-  const clickServicePack = () => {
-    setServicePackClicked(true)
-  }
-
+  const [form, setForm] = useState({...initialForm})
+ const [isNextBtnDisabled, setDisableNextButton] = useState(true)
+  const [isUserName, setUserNameVisible] = useState(true)
+  const [isPasswordVisible, setPasswordVisible] = useState(false)
+  
+  const [tagBundleTemplateClick, setTagBundleTemplateClick] = React.useState(false)
+  const [selectedTagInput, setSelectedTagInput] = React.useState('')
+   
   const handleInput = (event) => {
+     const tempForm = {...form}
     const target = event.target
-    const value = target.value
+    const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    const tempForm = {...form}
-    tempForm[name] = value
-    setForm({...tempForm})
-    if(value === 'skipUserServices') setSelectedUserServices([])
-    if(value === 'skipServicePacks') setSelectedServicesPacks([])
+    if(name ==='userNameAction' && value !== 'skip' ){
+      setUserNameVisible(true)
+    } 
+    if(name ==='userNameAction' && value === 'skip' ){
+      setUserNameVisible(false)
+      tempForm.userName = null
+    }
+
+    if((name ==='passwordAction' && value === 'skip') ){
+      setPasswordVisible(false)
+      tempForm.newPassword = null
+    } 
+    if(name ==='passwordAction' && value === 'manual' ){
+      setPasswordVisible(true)
+      tempForm.newPassword = null
+    }
+
+    if(name ==='passwordAction' && value === 'auto' ){
+      setPasswordVisible(false)
+      tempForm.newPassword= '{{ generateSipPassword }}' 
+      tempForm.name = value
+    }  
+ 
+
+    if( (  
+      (name ==='passwordAction' && value === 'skip') || (name ==='userName' && value === '') )
+        && 
+        ( (name ==='passwordAction' && value === 'skip') || (name ==='newPassword' && value === '') ) 
+      ) {
+        setDisableNextButton(true)
+    }
+     tempForm[name] = value
+    setForm({ ...tempForm })
+
+ 
+
   }
 
-  useEffect( () => {
-      if(!userServiceClicked && !servicePackClicked) {
-        if(selectedUserServices.length === 0 && selectedServicesPacks.length === 0 ) {
-          StorageService.clearStorage(localStorageKey)
-        }
-        else createTask()
-      }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedUserServices, selectedServicesPacks])
+ 
+ 
+  const selectTagModal = (
+    <>
+      <UiCardModal
+        title="Tags"
+        isOpen={tagBundleTemplateClick}
+        onCancel={() => setTagBundleTemplateClick(false)}
+      >
+        <BulkTagInput
+          onSelect={(tag) => handleTagSelect(selectedTagInput, tag)}
+          hideTags={['{{ userId }}', '{{ userIdPrefix }}']} />
+      </UiCardModal>
+    </>
+  )
 
-	const createTask = () => {
-    setUserServiceClicked(false)
-    setServicePackClicked(false)
+  const handleTagSelect = (elName, tag) => {
+    const tagTempForm = {...form}
+    let oldValue = ''
+    if(elName === 'linePort') {
+      oldValue = tagTempForm.trunkAddressing.trunkGroupDeviceEndpoint.linePort || ''
+    }
+    else {
+      oldValue = tagTempForm[elName] || ''
+    }
+    const value = oldValue + tag.tag
+    if(elName === 'linePort') {
+      tagTempForm.trunkAddressing.trunkGroupDeviceEndpoint.linePort = value
+    }
+    else tagTempForm[elName] = value
 
-		prepareImportData().then((data) => {
-      Promise.all([BulkImportService.handleFileData(data, localStorageKey)]).then( (data) => {
-        alertSuccess('Task is created Successfully.')
-        setDisableNextButton(false)
-      })
-      .catch( (error) => {
-        alertDanger( error || 'Data Import Error' )
-      })
-		})
-	}
+    setForm({...tagTempForm})
+    setTagBundleTemplateClick(false)
+  }
+ 
 
-const prepareImportData = () => {
-  return Promise.all(prepareImport()).then( (data) => {
-    return data
-  })
+const tagInputClicked = (elNane) => {
+  setSelectedTagInput(elNane)
+  setTagBundleTemplateClick(true)
 }
-
-const prepareImport = () => {
-    // const tasks = []
-
-    // const services = {
-    //   userServices: [],
-    //   servicePackServices: []
-    // }
-    // // eslint-disable-next-line unicorn/no-for-loop
-    // for (let i = 0; i < selectedUserServices.length; i++) {
-    //   services['userServices'][i] = {}
-    //   services['userServices'][i]['serviceName'] = selectedUserServices[i]
-    //   services['userServices'][i]['assigned'] = true
-    // }
-    // // eslint-disable-next-line unicorn/no-for-loop
-    // for (let i = 0; i < selectedServicesPacks.length; i++) {
-    //   services['servicePackServices'][i] = {}
-    //   services['servicePackServices'][i]['serviceName'] = selectedServicesPacks[i]
-    //   services['servicePackServices'][i]['assigned'] = true
-    // }
-
-    // const task = Object.assign(
-    //   {
-    //     task: 'user.services.update',
-    //     userId: '', /* userId will be set on users task */
-    //     serviceProviderId: serviceProviderId,
-    //     groupId: groupId
-    //   },
-    //   services
-    // )
-
-    // if(services.userServices.length > 0 || services.servicePackServices.length > 0) {
-    //   tasks.push(task)
-    // }
-
-    // return tasks
-}
-
 
   return (
+    
     <>
-        <p>This is Sip Trunking.</p>
-    </>
+    { ( tagBundleTemplateClick ) ? selectTagModal : null}
+    <div className="dropdown is-hoverable">
+    <div className="dropdown-trigger">
+      <button className="button">
+        <span className="ng-binding">1 Users Selected</span>
+        <span className="icon is-small">
+          <i className="fas fa-cog"></i>
+        </span>
+      </button>
+    </div>
+    <div className="dropdown-menu">
+      <div className="dropdown-content">
+        <div className="dropdown-item">
+         {'Surendra'}
+        </div>
+      </div>
+    </div>
+  </div>
+    <UiCard title='Update SIP Authentication'>
+			<UiSection title ="Do you want to set the usernames?"> 
+        <Radio
+          type="radio"
+          value='skip'
+          name ="userNameAction"
+          checked={form.userNameAction === 'skip'}
+          onChange={handleInput}
+        />Leave Blank<br/>
+
+        <Radio
+          type="radio"
+          value='manual'
+          name ="userNameAction"
+          checked={form.userNameAction === 'manual'}
+          onChange={handleInput} 
+        />Enter Username<br/>
+        <br/>
+        { isUserName ? (
+        <UiFormField label="Username" horizontal >
+          <UiButton
+            style={{height:'35px'}}
+            color="link"
+            icon="tag"
+            size="small"
+            onClick={() => tagInputClicked('userName')}
+          />
+
+          <Input
+            style = {{width: '540px' }}
+            type="text"
+            name="userName"
+            value={form.userName}
+            onChange={handleInput}
+          />
+        </UiFormField>
+        ):null }
+      </UiSection>
+
+      <UiSection title ="Do you want to set the passwords?"> 
+       
+        <Radio
+          type="radio"
+          value='auto'
+          name ="passwordAction"
+          checked={form.passwordAction === 'auto'}
+          onChange={handleInput}
+        />Auto-Generate Passwords<br/>
+
+        <Radio
+          type="radio"
+          value='skip'
+          name ="passwordAction"
+          checked={form.passwordAction === 'skip'}
+          onChange={handleInput}
+        />Leave Blank<br/>
+
+        <Radio
+          type="radio"
+          value='manual'
+          name ="passwordAction"
+          checked={form.passwordAction === 'manual'}
+          onChange={handleInput}
+        />Enter Password<br/>
+        <br/>
+        { isPasswordVisible ? (
+        <UiFormField label="Password" horizontal >
+          <UiButton
+            style={{height:'35px'}}
+            color="link"
+            icon="tag"
+            size="small"
+            onClick={() => tagInputClicked('password')}
+          />
+
+          <Input
+            style = {{width: '540px' }}
+            type="text"
+            name="newPassword"
+            value={form.newPassword}
+            onChange={handleInput}
+          />
+        </UiFormField>
+        ):null }
+      </UiSection>
+    </UiCard>
+      <div style={{marginTop: '20px'}}>
+        <Button style={{float: 'right'}}
+          color="link"
+          onClick={ setToNext }
+          disabled = { isNextBtnDisabled }
+        >
+          Next
+        </Button>
+      </div>
+    </> 
 	)
 }
 
