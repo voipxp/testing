@@ -40,7 +40,7 @@ export const BulkSipTrunkingTrunkGroupsTask = (props) => {
     <BulkImportStorage
       localStorageKey={ localStorageKey }
       setDisableNextButton={ (boolValue) => setDisableNextButton(boolValue) }
-      onImportComplete = {(data) => finalActions(data)}
+      beforComplete = {(data) => finalActions(data[0])}
   />,
   [props]);
 

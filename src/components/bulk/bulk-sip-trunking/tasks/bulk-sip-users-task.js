@@ -5,18 +5,35 @@ import { BulkImportStorage } from '@/components/bulk'
 import {TaskService} from '@/api/task/task-service'
 import { useAlerts } from '@/store/alerts'
 
-export const BulkSipUsersTask = (props) => {
-
-  const { serviceProviderId, groupId, localStorageKey } = {...props}
+export const BulkSipUsersTask = (
+  {
+    localStorageKey,
+    initialData,
+    setToNext,
+    handleWizData
+  }
+) => {
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
+
+  const setUsers = (data) => {
+    const users = []
+    data.forEach((el) => {
+      users.push(el['userId'])
+    })
+
+    const tempInitData = {...initialData}
+    tempInitData['users'] = users
+    handleWizData(tempInitData)
+  }
 
   const memoizedValue = useMemo(() =>
     <BulkImportStorage
       localStorageKey={ localStorageKey }
       setDisableNextButton={ (boolValue) => setDisableNextButton(boolValue) }
-      //onImportComplete = {finalActions}
+      onComplete = {(data, setData) => setUsers(data)}
   />,
-  [props]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  [localStorageKey]);
 
 
 	return (
@@ -24,11 +41,11 @@ export const BulkSipUsersTask = (props) => {
       { memoizedValue }
       <div style={{marginTop: '20px'}}>
         <Button style={{float: 'right'}}
-              color="success"
-              onClick={ props.complete}
+              color="link"
+              onClick={setToNext}
               disabled = { isNextBtnDisabled }
             >
-              Done
+              Next
         </Button>
       </div>
 		</>
@@ -37,5 +54,7 @@ export const BulkSipUsersTask = (props) => {
 
 BulkSipUsersTask.propTypes = {
   localStorageKey: PropTypes.string,
-  complete: PropTypes.func,
+  initialData: PropTypes.object,
+  setToNext: PropTypes.func,
+  handleWizData: PropTypes.func
 }

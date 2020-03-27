@@ -11,7 +11,8 @@ const initial = {
   sourceGroupId: "",
   enterpriseTrunkName: "",
   groupTrunk: "",
-  phoneNumbers:[]
+  phoneNumbers:[],
+  users:[]
 }
 
 export const BulkSipTrunking = () => {

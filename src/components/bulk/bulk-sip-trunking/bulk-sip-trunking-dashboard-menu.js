@@ -6,19 +6,22 @@ import { BulkSipTrunkingTrunkGroups } from './bulk-sip-trunking-trunk-groups'
 import { BulkSipTrunkingNumbers } from './bulk-sip-trunking-numbers'
 import { BulkSipTrunkingGroupCallCapacity } from './bulk-sip-trunking-group-call-capacity'
 import { AssignGroupServices } from './bulk-sip-trunking-group-services'
+import { BulkSipTrunkingUserServices } from './bulk-sip-trunking-user-services'
+
 
 /* Tasks */
 import { BulkSipTrunkingCommonViewTask } from './tasks/bulk-sip-trunking-common-view-task'
 import { BulkSipUsersTask } from './tasks/bulk-sip-users-task'
 import { BulkSipTrunkingTrunkGroupsTask } from './tasks/bulk-sip-trunking-trunk-groups-task'
 import { BulkSipTrunkingGroupServicesTask } from './tasks/bulk-sip-trunking-group-services-task'
+import { BulkSipTrunkingUserServicesTask } from './tasks/bulk-sip-trunking-user-services-task'
 
 export const menu = [
   {
     name: 'Service Provider',
     localStorageKey: 'BulkSipServiceProvider',
     component: BulkSipServiceProvider
-    // component: BulkSipTrunkingTrunkGroupsTask
+    // component: BulkSipTrunkingUserServicesTask
   },
   {
     name: 'Enterprise Trunk',
@@ -54,6 +57,11 @@ export const menu = [
     name: 'Users',
     localStorageKey: 'BulkSelectedUsers',
     component: BulkSipTrunkingUsers
+  },
+  {
+    name: 'Users Services',
+    localStorageKey: 'BulkSipTrunkingUserServices',
+    component: BulkSipTrunkingUserServices
   },
   // {
   //   name: 'Endpoint Type',
@@ -106,6 +114,11 @@ export const menu = [
     name: 'Users  Task',
     localStorageKey: 'BulkSelectedUsers',
     component: BulkSipUsersTask
+  },
+  {
+    name: 'Users Services Task',
+    localStorageKey: 'BulkSipTrunkingUserServices',
+    component: BulkSipTrunkingUserServicesTask
   },
   // {
   //   name: 'Endpoint Type Task',
