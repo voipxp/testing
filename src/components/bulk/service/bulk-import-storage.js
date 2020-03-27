@@ -16,7 +16,10 @@ import {
   export const BulkImportStorage = ({
     localStorageKey='BulkImportService',
     setDisableNextButton,
-    onImportComplete
+    beforComplete,
+    onLoad,
+    onComplete,
+    excludeElement=[]
   }) => {
     const [users, setUsers] = useState([])
     const [keys, setKeys] = useState([])
@@ -28,7 +31,10 @@ import {
     const [deleteLocalStorage, setDeleteLocalStorage] = useState(false)
     const [isProcessing, setIsProcessing] = useState(false)
     const [loadingTable, setLoadingTable] = useState(false)
-    const canComplete = isFunction(onImportComplete)
+
+    const canBeforComplete = isFunction(beforComplete)
+    const canOnLoad = isFunction(onLoad)
+    const canOnComplete = isFunction(onComplete)
 
     const finalSteps = () => {
       setIsProcessing(false)
@@ -48,13 +54,38 @@ import {
         if(deleteLocalStorage) {
           StorageService.clearStorage(localStorageKey).then(function() {
             finalSteps()
-            //if(canComplete) onImportComplete(users[0])
+            if(canOnComplete) onComplete(users)
           })
         }
       }
 
       deleteLocalStorageData()
     }, [localStorageKey, deleteLocalStorage])
+
+
+    /* Hide any table column */
+    useEffect( () => {
+      const filterData = (keys) => {
+        if(task === 'group.services.update') {
+          keys.forEach( (column, index) => {
+            excludeElement.forEach((el) => {
+              if(_.includes(column.key, el)) delete keys[index]
+            })
+            return true
+          })
+        }
+        return Promise.resolve(keys)
+      }
+
+      filterData(keys).then((data) => {
+        if( !_.isEqual(keys, data) ) setKeys(data)
+      })
+
+    }, [excludeElement, keys, task])
+
+    useEffect( () => {
+      if(canOnLoad) onLoad(users, (data) => setUsers(data))
+    }, [users, setUsers, onLoad, canOnLoad])
 
     useEffect( () => {
       setLoading(true)
@@ -68,8 +99,8 @@ import {
     }
 
     const submitTask = () => {
-      if(canComplete) {
-        onImportComplete(users[0])
+      if(canBeforComplete) {
+        beforComplete(users)
         .then(() => {
           setIsProcessing(true)
           setImportTask(true)
@@ -90,7 +121,6 @@ import {
         return validate(data)
       })
       .finally( (data) => {
-        // debugger
         setIsTaskExist(true)
         setLoading(false)
         // if(canComplete) onImportComplete(data[0])
@@ -254,5 +284,8 @@ import {
   BulkImportStorage.propTypes = {
     localStorageKey: PropTypes.string,
     setDisableNextButton: PropTypes.func,
-    onImportComplete: PropTypes.func
+    beforComplete: PropTypes.func,
+    onLoad: PropTypes.func,
+    onComplete: PropTypes.func,
+    excludeElement: PropTypes.array
   }

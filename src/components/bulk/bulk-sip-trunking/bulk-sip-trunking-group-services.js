@@ -12,7 +12,9 @@ export const AssignGroupServices = ({
   handleWizData,
   localStorageKey
 }) => {
-  const { serviceProviderId, groupId } = initialData
+  const { serviceProviderId, groupId, sourceServiceProviderId, sourceGroupId } = initialData
+  const newServiceProviderId = (sourceServiceProviderId && sourceServiceProviderId!== '') ? sourceServiceProviderId : serviceProviderId
+  const newGroupId = (sourceGroupId && sourceGroupId!=='') ? sourceGroupId : groupId
   // const serviceProviderId = 'reseler-sp'
   // const groupId = 'test007R'
   const { alertSuccess, alertDanger } = useAlerts()
@@ -77,8 +79,8 @@ const prepareImportData = () => {
         }
       >
         <BulkSelectGroupServices
-          serviceProviderId = {serviceProviderId}
-          groupId={groupId}
+          serviceProviderId = {newServiceProviderId}
+          groupId={newGroupId}
           showSelect={showSelect}
           setData={setStateTaskData}
         />

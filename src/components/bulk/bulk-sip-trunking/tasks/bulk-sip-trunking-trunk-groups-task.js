@@ -32,14 +32,15 @@ export const BulkSipTrunkingTrunkGroupsTask = (props) => {
       "serviceProviderId": data.serviceProviderId,
       "groupId": data.groupId
   }
-    return forceToCreateDeviceProfile(data.serviceProviderId, data.groupId, deviceData)
+  if(!deviceData['deviceType']) return Promise.resolve()
+  return forceToCreateDeviceProfile(data.serviceProviderId, data.groupId, deviceData)
   }
 
   const memoizedValue = useMemo(() =>
     <BulkImportStorage
       localStorageKey={ localStorageKey }
       setDisableNextButton={ (boolValue) => setDisableNextButton(boolValue) }
-      onImportComplete = {(data) => finalActions(data)}
+      beforComplete = {(data) => finalActions(data[0])}
   />,
   [props]);
 

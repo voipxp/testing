@@ -574,7 +574,7 @@ const bulkTaskServices =
       task: 'user.services.update',
       name: 'User Services',
       description: 'Add, Remove, or Replace User Services and Service Packs',
-      required: ['userId'],
+      required: [],
       example: [
         {
           task: 'user.services.update',

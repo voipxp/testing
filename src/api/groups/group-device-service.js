@@ -2,14 +2,12 @@ import { api } from '..'
 
 const url = '/groups/devices'
 
-export function index(serviceProviderId, groupId, q, params = {}) {
-    return $http
-      .get(url(), { params: { ...params, q, serviceProviderId, groupId } })
-      .then(response => response.data)
+export const index = (serviceProviderId, groupId, q, params = {}) => {
+    return api.get(url, { params: { ...params, q, serviceProviderId, groupId } }).then(response => response)	
   }
   
-  function store(serviceProviderId, groupId, device) {
+export const store = (serviceProviderId, groupId, device) => {
     return api.post(url, device).then(response => response.data)
   }
   
-export default { store }
+export default { store, index }

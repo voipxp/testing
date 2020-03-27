@@ -4,6 +4,10 @@ import PropTypes from 'prop-types'
 import { Input , Select} from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { generatePassword } from '@/utils'
+import GroupDeviceAPI from '@/api/groups/group-device-service'
+import SystemDeviceTypeAPI from '@/api/system/system-device-type-service'
+import { useAsync } from 'react-async-hook'
+
 import {
   UiButton,
   UiCard,
@@ -15,10 +19,12 @@ import {
 
 export const BulkAddTrunkGroup = (props) => {
 // console.log(match)
-
+const { serviceProviderId, groupId} = {...props}
   const initialForm = {
     "accessDevice":
       {
+        "newDevice" : false,
+        "selectedDevice": '',
         "staticRegistrationCapable": false,
         "useDomain": true,
         "staticLineOrdering": false,
@@ -76,6 +82,9 @@ export const BulkAddTrunkGroup = (props) => {
   // clone group options
 
   const [form, setForm] = useState({...initialForm})
+  const [devices, setDevices] = useState([])
+  const [deviceTypes, setDeviceTypes] = useState([])
+
   const otherSettings = [
     {
       name: 'allowTerminationToTrunkGroupIdentity',
@@ -135,6 +144,22 @@ export const BulkAddTrunkGroup = (props) => {
   const [showModal, setShowModal] = useState(false)
   //const [showAuth, setShowAuth] = useState(false)
 
+    useAsync(
+      () => GroupDeviceAPI.index(serviceProviderId, groupId, 'available')
+      .then((data) => {
+          setDevices(data)
+      })
+      ,[]
+    )
+
+    useAsync(
+      () => SystemDeviceTypeAPI.index()
+      .then((data) => {
+        setDeviceTypes(data)
+      })
+      ,[]
+    )
+
   useEffect( () => {
 	  props.setTaskData(form)
   }, [props, form])
@@ -146,7 +171,9 @@ export const BulkAddTrunkGroup = (props) => {
     //if(name === 'requireAuthentication' && value === true) setShowAuth(true)
     //else setShowAuth(false)
     const tempForm = {...form}
-    if(name === 'accessDeviceType' || name === 'accessDeviceName') {
+    if(name === 'accessDeviceType' || name === 'accessDeviceName' ||
+      name === 'newDevice' || name === 'selectedDevice'
+    ) {
       tempForm['accessDevice'][name] = value
     }
     else tempForm[name] = value
@@ -193,35 +220,87 @@ export const BulkAddTrunkGroup = (props) => {
               value={form.maxOutgoingCalls}
             />
           </UiFormField>
-          <UiFormField label="Access Device Type" horizontal >
-          <Select.Container fullwidth>
-              <Select
-                value={form.accessDevice.accessDeviceType}
-                onChange={handleInput}
-                name="accessDeviceType"
-              >
-              <Select.Option
-                  value=""
+
+          <UiFormField label="New Device" horizontal>
+            <UiInputCheckbox
+              name="newDevice"
+              checked={form.accessDevice.newDevice}
+              onChange={handleInput}
+            />
+          </UiFormField>
+
+          {
+            (!form.accessDevice.newDevice)
+            ?
+            <UiFormField label="Access Device" horizontal >
+              <Select.Container fullwidth>
+                <Select
+                  value={form.accessDevice.selectedDevice}
+                  onChange={handleInput}
+                  name="selectedDevice"
                 >
-                  Select Device Type
-                </Select.Option>
                 <Select.Option
-                  key= "Generic SIP IP-PBX"
-                  value= "Generic SIP IP-PBX"
-                >
-                  Generic SIP IP-PBX
-                </Select.Option>
+                    value=""
+                  >
+                    Select Device
+                  </Select.Option>
+                  {
+                    devices && devices.map( (device) => {
+                      return (
+                          <Select.Option
+                            key={device.deviceName}
+                            value={device.deviceName}
+                          >
+                            {device.deviceName}
+                          </Select.Option>
+
+                      )
+                    })
+                  }
               </Select>
             </Select.Container>
           </UiFormField>
-          <UiFormField label="Access Device Name" horizontal >
-            <Input
-              type="text"
-              onChange={handleInput}
-              name="accessDeviceName"
-              value={form.accessDevice.accessDeviceName}
-            />
-          </UiFormField>
+          :
+          <>
+          <UiFormField label="Access Device Type" horizontal >
+            <Select.Container fullwidth>
+                <Select
+                  value={form.accessDevice.accessDeviceType}
+                  onChange={handleInput}
+                  name="accessDeviceType"
+                >
+                <Select.Option
+                    value=""
+                  >
+                    Select Device Type
+                  </Select.Option>
+
+                  {
+                    deviceTypes && deviceTypes.map( (el) => {
+                      return (
+                          <Select.Option
+                            key={el.deviceType}
+                            value={el.deviceType}
+                          >
+                            {el.deviceType}
+                          </Select.Option>
+                      )
+                    })
+                  }
+                </Select>
+              </Select.Container>
+            </UiFormField>
+            <UiFormField label="Access Device Name" horizontal >
+              <Input
+                type="text"
+                onChange={handleInput}
+                name="accessDeviceName"
+                value={form.accessDevice.accessDeviceName}
+              />
+            </UiFormField>
+          </>
+          }
+
           {/* <UiFormField label="Department Name" horizontal>
             { <Select.Container fullwidth>
               <Select
