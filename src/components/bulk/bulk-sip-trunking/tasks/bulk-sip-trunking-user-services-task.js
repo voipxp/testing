@@ -24,7 +24,7 @@ export const BulkSipTrunkingUserServicesTask = (
     }
   }
 
-  const memorizedValue = useMemo(() =>
+  const memoizedValue = useMemo(() =>
     <BulkImportStorage
       localStorageKey={ localStorageKey }
       setDisableNextButton={ (boolValue) => setDisableNextButton(boolValue) }
@@ -33,10 +33,9 @@ export const BulkSipTrunkingUserServicesTask = (
   // eslint-disable-next-line react-hooks/exhaustive-deps
   [localStorageKey]);
 
-
 	return (
 		<>
-      { memorizedValue }
+      { memoizedValue }
       <div style={{marginTop: '20px'}}>
         <Button style={{float: 'right'}}
               color="success"
