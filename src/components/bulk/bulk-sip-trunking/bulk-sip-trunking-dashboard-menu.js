@@ -7,6 +7,7 @@ import { BulkSipTrunkingNumbers } from './bulk-sip-trunking-numbers'
 import { BulkSipTrunkingGroupCallCapacity } from './bulk-sip-trunking-group-call-capacity'
 import { AssignGroupServices } from './bulk-sip-trunking-group-services'
 import { BulkSipTrunkingUserServices } from './bulk-sip-trunking-user-services'
+import { BulkSipTrunkingAuthentication } from './bulk-sip-trunking-authentication'
 
 
 /* Tasks */
@@ -21,7 +22,7 @@ export const menu = [
     name: 'Service Provider',
     localStorageKey: 'BulkSipServiceProvider',
     component: BulkSipServiceProvider
-    // component: BulkSipTrunkingUserServicesTask
+    // component: BulkSipTrunkingAuthentication
   },
   {
     name: 'Enterprise Trunk',
@@ -63,6 +64,13 @@ export const menu = [
     localStorageKey: 'BulkSipTrunkingUserServices',
     component: BulkSipTrunkingUserServices
   },
+  {
+    name: 'SIP Authentication',
+    localStorageKey: 'BulkSipTrunkingAuthentication',
+    component: BulkSipTrunkingAuthentication
+  },
+
+
   // {
   //   name: 'Endpoint Type',
   //   localStorageKey: 'BulkEndpointType',
