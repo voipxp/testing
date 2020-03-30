@@ -64,11 +64,11 @@ export const menu = [
     localStorageKey: 'BulkSipTrunkingUserServices',
     component: BulkSipTrunkingUserServices
   },
-  // {
-  //   name: 'SIP Authentication',
-  //   localStorageKey: 'BulkSipTrunkingAuthentication',
-  //   component: BulkSipTrunkingAuthentication
-  // },
+  {
+    name: 'SIP Authentication',
+    localStorageKey: 'BulkSipTrunkingAuthentication',
+    component: BulkSipTrunkingAuthentication
+  },
 
 
   // {
