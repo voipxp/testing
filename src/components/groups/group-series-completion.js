@@ -22,6 +22,7 @@ export const GroupSeriesCompletion = ({ match }) => {
 
   const { alertSuccess, alertDanger } = useAlerts()
   const [loading, setLoading] = useState(true)
+  const [showLoading, setShowLoading] = useState(false)
   const [groupSeriesCompletion, setGroupSeriesCompletion] = useState([])
   const [showModal, setShowModal] = useState(false)
   const initialForm = {
@@ -42,14 +43,16 @@ export const GroupSeriesCompletion = ({ match }) => {
   const seriesCompletionNames = []
   const loadSeriesCompletions = React.useCallback(async () => {
     try {
-      const data = await apiSeriesCompletion.show(serviceProviderId, groupId)
-      setGroupSeriesCompletion(data)
+      setShowLoading(true)
       const avaliableUsersList = await apiSeriesCompletion.users(
         serviceProviderId,
         groupId
       )
       setAvailableUser(avaliableUsersList)
       setAllAvailableUser(avaliableUsersList)
+      const data = await apiSeriesCompletion.show(serviceProviderId, groupId)
+      setGroupSeriesCompletion(data)
+      
     } catch (error) {
       alertDanger(error)
     } finally {
@@ -61,7 +64,8 @@ export const GroupSeriesCompletion = ({ match }) => {
     setLoading(true)
     loadSeriesCompletions()
   }, [alertDanger, loadSeriesCompletions])
-
+  
+  
   const seriesCompletionName = groupSeriesCompletion.names || []
   const sortGroupCompletionName = React.useMemo(() => {
     const sortedValues = orderBy(
@@ -77,18 +81,9 @@ export const GroupSeriesCompletion = ({ match }) => {
     return seriesCompletionNames
   }, [seriesCompletionName, seriesCompletionNames])
 
-  if (canSelectedUser) {
-    if (seriesCompletionNames.length > 0) {
-      setCanSelectedUser(false)
-      getGroupDetails(
-        serviceProviderId,
-        groupId,
-        sortGroupCompletionName[0].names
-      )
-    }
-  }
 
   async function getGroupDetails(serviceProviderId, groupId, name) {
+   // setLoading(true)
     try {
       const dataUser = await apiSeriesCompletion.groupDetail(
         serviceProviderId,
@@ -97,20 +92,38 @@ export const GroupSeriesCompletion = ({ match }) => {
       )
       const dataSelectedUser = dataUser.users || []
       setSelectedUser(dataSelectedUser)
-      const tempForm = { ...form }
-      tempForm['name'] = name
-      tempForm['newName'] = name
-      tempForm['users'] = dataSelectedUser
-      tempForm['isCreate'] = false
+     // const tempForm = { ...form }
+     form['name'] = name
+     form['newName'] = name
+     form['users'] = dataSelectedUser
+     form['isCreate'] = false
 
-      setForm(tempForm)
-      setSelectedUserForm(tempForm)
+      setForm(form)
+      setSelectedUserForm(form)
     } catch (error) {
       alertDanger(error)
       setShowModal(true)
     } finally {
       setLoading(false)
+      setShowLoading(false)
       hideLoadingModal()
+    }
+  }
+
+  if (canSelectedUser) {
+    if (seriesCompletionNames.length > 0) {
+      setCanSelectedUser(false)
+      form.name ? 
+        getGroupDetails(
+          serviceProviderId,
+          groupId,
+            form.name
+        ) :
+        getGroupDetails(
+          serviceProviderId,
+          groupId, 
+          sortGroupCompletionName[0].names
+        )
     }
   }
 
@@ -124,7 +137,12 @@ export const GroupSeriesCompletion = ({ match }) => {
   }
 
   async function onSelect(rows) {
-    getGroupDetails(serviceProviderId, groupId, rows.names)
+    setLoading(true)
+    getGroupDetails(
+      serviceProviderId, 
+      groupId,
+      rows.names
+    )
     setAvailableUser(allAvailableUser)
   }
 
@@ -132,11 +150,12 @@ export const GroupSeriesCompletion = ({ match }) => {
     setForm({ ...initialForm })
     setShowModal(true)
   }
-
+/*
   function onCancel() {
+    setLoading(true)
     setForm({ ...selectedUserForm })
     setShowModal(false)
-  }
+  } */
 
   function edit() {
     setShowModal(true)
@@ -151,11 +170,10 @@ export const GroupSeriesCompletion = ({ match }) => {
 
   async function create() {
     form['name'] = form.names
-    setLoading(true)
-    setShowModal(false)
-    setCanSelectedUser(true)
     try {
       await apiSeriesCompletion.store(form)
+      setShowModal(false)
+      setCanSelectedUser(true)
       alertSuccess('Series Completion Group Created')
       await loadSeriesCompletions()
       setCanSelectedUser(true)
@@ -170,18 +188,30 @@ export const GroupSeriesCompletion = ({ match }) => {
   }
 
   function save() {
+    setLoading(false)
     form.isCreate ? create(form) : update(form)
   }
 
+  const handleKeyDown = e => { 
+    if ( e.key === "Enter" ) {
+      e.preventDefault()
+      save()
+    }
+  }
+  
   const remove = () => {
+    setLoading(true)
     setShowConfirm(false)
     destroy(form)
   }
 
   async function destroy(form) {
-    setLoading(true)
     try {
       await apiSeriesCompletion.destroy(serviceProviderId, groupId, form.name)
+      form['name'] = ''
+      form['newName'] = ''
+      setForm(form)
+      setSelectedUserForm(form)
       await loadSeriesCompletions()
       setCanSelectedUser(true)
       alertSuccess('Series Completion Deleted')
@@ -192,13 +222,17 @@ export const GroupSeriesCompletion = ({ match }) => {
     }
   }
 
-  async function update(profile) {
-    setShowModal(false)
-    setLoading(true)
+  async function update(profile) { 
     try {
       await apiSeriesCompletion.update(profile)
+      form['name'] = profile.newName
+      form['newName'] = profile.newName
+      setShowModal(false)
+      setForm(form)
+      setSelectedUserForm(form)
       await loadSeriesCompletions()
       setCanSelectedUser(true)
+      
       alertSuccess('Series Completion Updated')
     } catch (error) {
       alertDanger(error)
@@ -209,7 +243,7 @@ export const GroupSeriesCompletion = ({ match }) => {
     }
   }
 
-  if (loading) return <UiLoadingCard />
+  if (showLoading) return <UiLoadingCard />
   return (
     <>
       <AppBreadcrumb>
@@ -218,7 +252,11 @@ export const GroupSeriesCompletion = ({ match }) => {
       <UiCard
         title="Series Completion"
         buttons={
-          <UiButton color="link" icon="add" size="small" onClick={add} />
+          <UiButton 
+          color="link"
+          icon="add" 
+          size="small"
+          onClick={add} />
         }
       >
         <UiDataTable
@@ -229,7 +267,7 @@ export const GroupSeriesCompletion = ({ match }) => {
           onClick={onSelect}
           showSelect={true}
           pageSize={5}
-        />
+        /> 
       </UiCard>
       <br />
       <UiCardModal
@@ -239,7 +277,7 @@ export const GroupSeriesCompletion = ({ match }) => {
             : `Edit Series Completion  Group Name : ${selectedUserForm.name}`
         }
         isOpen={showModal}
-        onCancel={onCancel}
+        onCancel={() => setShowModal(false)}
         onSave={save}
       >
         <form>
@@ -251,6 +289,7 @@ export const GroupSeriesCompletion = ({ match }) => {
                     type="text"
                     name="names"
                     value={form.names}
+                    onKeyPress={handleKeyDown}
                     onChange={handleInput}
                   />
                 </UiFormField>
@@ -264,6 +303,7 @@ export const GroupSeriesCompletion = ({ match }) => {
                     type="text"
                     name="newName"
                     value={form.newName}
+                    onKeyPress={handleKeyDown}
                     onChange={handleInput}
                   />
                 </UiFormField>
@@ -272,14 +312,21 @@ export const GroupSeriesCompletion = ({ match }) => {
           )}
         </form>
       </UiCardModal>
+  
       {!canSelectedUser ? (
         <>
-          <UiCard
-            title={`Series Completion Group Name : ${selectedUserForm.newName}`}
-            buttons={
-              <UiButton color="link" icon="edit" size="small" onClick={edit} />
-            }
-          >
+         
+          { loading ? (
+            <UiLoadingCard />
+          ) : (
+             
+            <UiCard
+                title={`Series Completion Group Name : ${selectedUserForm.newName}`}
+                buttons={
+                  <UiButton color="link" icon="edit" size="small" onClick={edit} />
+                }
+            >
+          
             <UiSelectableTable
               title="Users"
               availableUser={availableUser}
@@ -291,6 +338,7 @@ export const GroupSeriesCompletion = ({ match }) => {
               rowKey="userId"
               showMoveBtn={true}
             />
+           
             <Button.Group align="right" style={{ margin: '1rem 0rem' }}>
               <Button color="danger" onClick={() => setShowConfirm(true)}>
                 Delete
@@ -299,7 +347,8 @@ export const GroupSeriesCompletion = ({ match }) => {
                 Save
               </Button>
             </Button.Group>
-          </UiCard>
+          </UiCard> 
+          )}   
           <UiCardModal
             title="Please Confirm"
             isOpen={showConfirm}
@@ -312,6 +361,7 @@ export const GroupSeriesCompletion = ({ match }) => {
             </blockquote>
           </UiCardModal>
         </>
+       
       ) : (
         ''
       )}
