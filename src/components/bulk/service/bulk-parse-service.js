@@ -4,6 +4,10 @@ import { BulkTemplateService } from '@/components/bulk'
 import GroupPasswordService from '@/api/groups/group-password-service'
 import GroupPasscodeService from '@/api/groups/group-passcode-service'
 import ServiceProviderPasscodeService from '@/api/service-providers/service-provider-passcode-service'
+import SystemSipAuthPasswordRulesService
+from '@/api/system/system-sip-auth-password-rules-service'
+import ServiceProviderSipAuthPasswordRulesService from '@/api/service-providers/service-provider-sip-auth-password-service.js'
+
 import { generatePassword, generatePasscode } from '@/utils'
 import GroupDomainService from '@/api/groups/domains'
 // parse all users at once
@@ -68,6 +72,9 @@ import GroupDomainService from '@/api/groups/domains'
       .then(function(){
         return addGeneratePasscodeTag(template, view)
       })
+      .then(function() {
+        return addGenerateSipPasswordTag(template, view)
+      })
       .then(function(){
         return addDefaultDomainTag(template, view)
       })
@@ -78,6 +85,7 @@ import GroupDomainService from '@/api/groups/domains'
       .then(function() {
         return view
       })
+      
     //   .then(function() {
     //     return addGenerateSipPasswordTag(template, view)
     //   })
@@ -92,8 +100,46 @@ import GroupDomainService from '@/api/groups/domains'
     //     return view
     //   })
   }
+  
 
-  function addUserIdPrefixTag(template, view) {
+  function addGenerateSipPasswordTag(template, view) {
+    return new Promise((resolve, reject) => {
+      if (!hasTag('generateSipPassword', template)) return resolve()
+      return loadServiceProviderSipPasswordRules(view).then(function(rules) {
+        view.generateSipPassword = function() {
+          return generatePassword(rules)
+        }
+        return resolve()
+        // return new Promise.resolve()
+        // return view
+      })
+    })
+
+  }
+ /*code for sip auth password rules enterprise level */
+
+
+function loadServiceProviderSipPasswordRules(user) {
+  return ServiceProviderSipAuthPasswordRulesService.show(user.serviceProviderId)
+     .then(function(rules) {
+       if (rules.useServiceProviderSettings) {
+         return rules
+       }else{
+         return loadSystemSipAuthPasswordRules()
+       }
+   })
+ } 
+
+  function loadSystemSipAuthPasswordRules() {
+   return SystemSipAuthPasswordRulesService.show()
+   .then(function(rules) {
+      return rules
+   })
+   
+ }
+/*end code for generate password sip */
+
+ function addUserIdPrefixTag(template, view) {
     if (hasTag('userIdPrefix', template)) {
       view.userIdPrefix = function() {
         return this.userId.toString().split('@')[0]
