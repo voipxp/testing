@@ -20,7 +20,7 @@ export const BulkSipTrunkingTrunkGroupsTask = (props) => {
       return data
     })
     .catch(function(error) {
-      alertDanger('Access Device Creation is failed ' + error)
+      //alertDanger('Access Device Creation is failed ' + error)
     })
   }
 
