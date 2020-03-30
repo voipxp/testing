@@ -12,27 +12,12 @@ export const BulkSipTrunkingAuthenticationTask = (
 ) => {
   const [isNextBtnDisabled, setDisableNextButton] = useState(true)
 
-  const updateTaskData = (data, setData) => {
-    console.log(data)
-    console.log('end data')
-    console.log(setData)
-    console.log('end setData')
-    //const newData = []
-    /* if(data.length > 0) {
-      initialData.users.forEach( (userId, index) => {
-        const temp = {...data[0]}
-        temp.userId = userId
-        newData.push(temp)
-      })
-      if(! _.isEqual(data, newData)) setData(newData)
-    } */
-  } 
-
   const memoizedValue = useMemo(() =>
     <BulkImportStorage
       localStorageKey={ localStorageKey }
       setDisableNextButton={ (boolValue) => setDisableNextButton(boolValue) }
-      onLoad = {updateTaskData}
+      initialData={initialData}
+      addUsers={true}
   />,
   // eslint-disable-next-line react-hooks/exhaustive-deps
   [localStorageKey]);

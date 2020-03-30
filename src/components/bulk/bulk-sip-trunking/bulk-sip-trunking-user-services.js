@@ -105,7 +105,7 @@ const prepareImport = () => {
     const task = Object.assign(
       {
         task: 'user.services.update',
-        userId: '', /* userId will be set on users task */
+        userId: '--', /* userId is temp value, userId will be set on users task */
         serviceProviderId: serviceProviderId,
         groupId: groupId
       },

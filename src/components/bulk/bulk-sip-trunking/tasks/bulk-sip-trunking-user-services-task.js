@@ -28,7 +28,9 @@ export const BulkSipTrunkingUserServicesTask = (
     <BulkImportStorage
       localStorageKey={ localStorageKey }
       setDisableNextButton={ (boolValue) => setDisableNextButton(boolValue) }
-      onLoad = {updateTaskData}
+      // onLoad = {updateTaskData}
+      initialData={initialData}
+      addUsers={true}
   />,
   // eslint-disable-next-line react-hooks/exhaustive-deps
   [localStorageKey]);

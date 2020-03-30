@@ -107,77 +107,6 @@ const bulkTaskServices =
       }]
   },
   {
-    task: 'group.trunk.group',
-    name: 'Group Trunk Group',
-    description: 'Group Trunk Group',
-    hasLevel: 'Group',
-    required: [
-      'serviceProviderId',
-      'groupId',
-      'name',
-      'maxActiveCalls'
-    ],
-    example: [
-      {
-        task: "group.trunk.group",
-        serviceProviderId: "string",
-        groupId: "string",
-        name: "string",
-        allowTerminationToDtgIdentity: "boolean",
-        allowTerminationToTrunkGroupIdentity: "boolean",
-        allowUnscreenedCalls: "boolean",
-        allowUnscreenedEmergencyCalls: "boolean",
-        capacityExceededTrapInitialCalls: "number",
-        capacityExceededTrapOffsetCalls: "number",
-        clidSourceForScreenedCallsPolicy: "Profile Name Profile Number | Received Name Profile Number | Received Name Received Number",
-        continuousOptionsSendingIntervalSeconds: "30",
-        enableBursting: "FALSE",
-        enableNetworkAddressIdentity: "boolean",
-        failureOptionsSendingIntervalSeconds: "10",
-        failureThresholdCounter: "number",
-        includeDtgIdentity: "boolean",
-        includeOtgIdentityForNetworkCalls: "boolean",
-        includeTrunkGroupIdentity: "boolean",
-        includeTrunkGroupIdentityForNetworkCalls: "boolean",
-        invitationTimeout: "number",
-        inviteFailureThresholdCounter: "number",
-        inviteFailureThresholdWindowSeconds: "30",
-        pilotUserCallOptimizationPolicy: "Optimize For User Services | Optimize For High Call Volume",
-        pilotUserCallingLineAssertedIdentityPolicy: "All Originating Calls | Unscreened Originating Calls",
-        pilotUserCallingLineIdentityForEmergencyCallsPolicy: "No Calls | All Originating Calls | Unscreened Originating Calls",
-        pilotUserCallingLineIdentityForExternalCallsPolicy: "No Calls |All Originating Calls | Unscreened Originating Calls",
-        pilotUserChargeNumberPolicy: "No Calls | All Originating Calls | Unscreened Originating Calls",
-        prefixEnabled: "boolean",
-        prefix: "number",
-        requireAuthentication: "boolean",
-        routeToPeeringDomain: "boolean",
-        peeringDomain: "string",
-        sendContinuousOptionsMessage: "boolean",
-        statefulReroutingEnabled: "boolean",
-        successThresholdCounter: "number",
-        useSystemCLIDSourceForScreenedCallsPolicy: "boolean",
-        useSystemCallingLineAssertedIdentityPolicy: "boolean",
-        useSystemUserLookupPolicy: "boolean",
-        userLookupPolicy: "Basic | Extended",
-        maxActiveCalls: "number",
-        maxIncomingCalls: "number",
-        maxOutgoingCalls: "number",
-        accessDevice: {
-          staticRegistrationCapable: "boolean",
-          useDomain: "boolean",
-          staticLineOrdering: "boolean",
-          serviceProviderId: "string",
-          groupId: "string",
-          deviceName: "string",
-          deviceLevel: "System | Service Provider | Group"
-        },
-        sipAuthenticationUserName: "string",
-        sipAuthenticationPassword: "string",
-        trunkGroupIdentity: "string@domain",
-        otgDtgIdentity: "string"
-    }]
-  },
-  {
     task: 'trunk.group.call.capacity',
     name: 'Trunk Group Call Capacity',
     description: 'Trunk Group Call Capacity',
@@ -346,13 +275,13 @@ const bulkTaskServices =
     },
 
     {
-      task: 'group.trunk.group',
+      task: 'group.trunk.group.add',
       name: 'Group Trunk Group',
       description: 'Group Trunk Group',
       required: ['serviceProviderId', 'groupId', 'name', 'maxActiveCalls'],
       example: [
         {
-          task: 'group.trunk.group',
+          task: 'group.trunk.group.add',
           serviceProviderId: 'string',
           groupId: 'string',
           name: 'string',
@@ -574,7 +503,7 @@ const bulkTaskServices =
       task: 'user.services.update',
       name: 'User Services',
       description: 'Add, Remove, or Replace User Services and Service Packs',
-      required: [],
+      required: ['userId'],
       example: [
         {
           task: 'user.services.update',

@@ -19,6 +19,8 @@ import {
     beforComplete,
     onLoad,
     onComplete,
+    initialData,
+    addUsers,
     excludeElement=[]
   }) => {
     const [users, setUsers] = useState([])
@@ -117,6 +119,10 @@ import {
       .then((data) => {
         return clean(data)
       })
+      .then( (data) => {
+        if(addUsers) return addUsersOnLoad(data)
+        else return data
+      })
       .then((data) => {
         return validate(data)
       })
@@ -126,8 +132,24 @@ import {
         // if(canComplete) onImportComplete(data[0])
       })
       .catch( (error) => {
+        console.log('AAAAAAAAAAAAAA')
+        console.log(error)
         finalSteps()
       })
+    }
+
+    const addUsersOnLoad = (data) => {
+      const temp = {...data[0]}
+
+      return new Promise(function(resolve, reject) {
+        initialData.users.forEach( (userId, index) => {
+          temp['userId'] = userId
+          data[index] = {...temp}
+        })
+
+        return resolve(data)
+      })
+
     }
 
     const loadData = () => {
@@ -287,5 +309,7 @@ import {
     beforComplete: PropTypes.func,
     onLoad: PropTypes.func,
     onComplete: PropTypes.func,
+    initialData: PropTypes.object,
+    addUsers: PropTypes.bool,
     excludeElement: PropTypes.array
   }

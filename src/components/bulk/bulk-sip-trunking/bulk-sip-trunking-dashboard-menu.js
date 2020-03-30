@@ -69,6 +69,7 @@ export const menu = [
     localStorageKey: 'BulkSipTrunkingAuthentication',
     component: BulkSipTrunkingAuthentication
   },
+
   // {
   //   name: 'Endpoint Type',
   //   localStorageKey: 'BulkEndpointType',
