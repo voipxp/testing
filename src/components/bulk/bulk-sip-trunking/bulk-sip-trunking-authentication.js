@@ -26,60 +26,47 @@ export const BulkSipTrunkingAuthentication = ({
   }
   setToNext()
 }
- const initialForm =
-{
+ const initialForm = {
   userName : '',
-  userNameAction  : 'manual',
-  passwordAction  :'{{ generateSipPassword }}' ,
+  userNameAction  : 'manual', 
+  passwordAction  :'{{ generateSipPassword }}' 
 }
 
   const [form, setForm] = useState({...initialForm})
   const { serviceProviderId, groupId } = initialData
- //const [isNextBtnDisabled, setDisableNextButton] = useState(true)
-  const [isUserName, setUserNameVisible] = useState(true)
+  const [isNextBtnDisabled, setDisableNextButton] = useState(false)
+  const [isUserName, setUserNameVisible] = useState(false)
   const [isPasswordVisible, setPasswordVisible] = useState(false)
   const { alertSuccess, alertDanger } = useAlerts()
-
   const [tagBundleTemplateClick, setTagBundleTemplateClick] = React.useState(false)
   const [selectedTagInput, setSelectedTagInput] = React.useState('')
 
   const handleInput = (event) => {
-     const tempForm = {...form}
+    const tempForm = {...form}
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-
-    if(name === 'userNameAction' && value !== 'skip')
-    {
-      setUserNameVisible(true)
-      tempForm.userName = form.userName
-    }
-    if(name ==='userNameAction' && value === 'skip' ){
-      setUserNameVisible(false)
-      tempForm.userName = ''
-    }
-
-    if(name === 'passwordAction' && value === 'manual' ){
-      setPasswordVisible(true)
-      tempForm.newPassword = form.newPassword
-    }
-
-    if(form.passwordAction === '{{ generateSipPassword }}' ){
-      setPasswordVisible(false)
-      tempForm.newPassword = form.newPassword
-    }
-
-    if(name === 'passwordAction' && value === 'skip' ){
-      setPasswordVisible(false)
-      tempForm.newPassword = ''
-    }
-
+    
+    if( name === 'userNameAction' && value !== 'skip') setUserNameVisible(true) 
+    if( name ==='userNameAction' && value === 'skip' ) setUserNameVisible(false)
+    if( name === 'passwordAction' &&  value === 'manual') setPasswordVisible(true)
+    if( name === 'passwordAction' && value !== 'manual' ) setPasswordVisible(false)
+    
     tempForm[name] = value
     setForm({ ...tempForm })
-
-
-
   }
+/*
+onKeyPress={handleKeyDown}
+  const handleKeyDown = event => {  
+    const target = event.target
+    const value = target.type === 'checkbox' ? target.checked : target.value
+    const name = target.name
+    if((name === 'userName' && value === '') && (name === 'newPassword' && value === '') )setDisableNextButton(true)
+    else if((name === 'userName' && value === '')
+     && (name === 'passwordAction' && value === '{{ generateSipPassword }}') ) setDisableNextButton(true)
+    else setDisableNextButton(false)
+     
+  } */
 
   const prepareImport = () => {
     const tasks = []
@@ -89,16 +76,12 @@ export const BulkSipTrunkingAuthentication = ({
         "groupId": groupId,
         "serviceProviderId": serviceProviderId,
       }
-
-
       if(form.userAction !== 'skip') task.userName = form.userName
       if(form.passwordAction === '{{ generateSipPassword }}' ) task.newPassword = form.passwordAction
       else if(form.passwordAction === 'manual' ) task.newPassword = form.newPassword
       else task.newPassword = ''
-
       tasks.push(task)
-
-      return tasks
+    return tasks
   }
 
   const createTask = () => {
@@ -150,8 +133,7 @@ const prepareImportData = () => {
     }
     setForm({...tagTempForm})
     setTagBundleTemplateClick(false)
-  }
-
+  } 
 
 const tagInputClicked = (elNane) => {
   setSelectedTagInput(elNane)
@@ -254,7 +236,7 @@ const tagInputClicked = (elNane) => {
         <Button style={{float: 'right'}}
           color="link"
           onClick={ handleTask }
-
+          disabled = { isNextBtnDisabled }
         >
           Next
         </Button>
