@@ -275,13 +275,13 @@ const bulkTaskServices =
     },
 
     {
-      task: 'group.trunk.group',
+      task: 'group.trunk.group.add',
       name: 'Group Trunk Group',
       description: 'Group Trunk Group',
       required: ['serviceProviderId', 'groupId', 'name', 'maxActiveCalls'],
       example: [
         {
-          task: 'group.trunk.group',
+          task: 'group.trunk.group.add',
           serviceProviderId: 'string',
           groupId: 'string',
           name: 'string',
@@ -503,7 +503,7 @@ const bulkTaskServices =
       task: 'user.services.update',
       name: 'User Services',
       description: 'Add, Remove, or Replace User Services and Service Packs',
-      required: [],
+      required: ['userId'],
       example: [
         {
           task: 'user.services.update',

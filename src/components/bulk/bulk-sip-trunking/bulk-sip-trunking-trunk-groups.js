@@ -67,11 +67,12 @@ const prepareImportData = () => {
     return data
   })
 }
+
 	const prepareImport = () => {
     const tasks = []
 
       const task = {
-        "task": 'group.trunk.group',
+        "task": 'group.trunk.group.add',
         "name": taskData.name,
         "allowTerminationToDtgIdentity": taskData.allowTerminationToDtgIdentity,
         "allowTerminationToTrunkGroupIdentity": taskData.allowTerminationToTrunkGroupIdentity,

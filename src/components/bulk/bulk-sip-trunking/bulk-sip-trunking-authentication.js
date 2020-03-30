@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types' 
-import {   Input , Radio ,Button } from 'rbx' 
+import PropTypes from 'prop-types'
+import {   Input , Radio ,Button } from 'rbx'
 import { BulkTagInput } from '../../bulk/bulk-tag-input'
 import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
 import {
@@ -10,18 +10,18 @@ import {
   UiButton,
   UiCardModal
 } from '@/components/ui'
- 
+
 import { useAlerts } from '@/store/alerts'
 import { StorageService } from '@/utils'
- 
+
 export const BulkSipTrunkingAuthentication = ({
 	initialData={},
 	setToNext,
   handleWizData,
   localStorageKey
-}) => { 
- const handleTask = () => { 
-  if(form.userNameAction !=='skip' || form.passwordAction !=='skip'){ 
+}) => {
+ const handleTask = () => {
+  if(form.userNameAction !=='skip' || form.passwordAction !=='skip'){
     createTask()
   }
   setToNext()
@@ -30,7 +30,7 @@ export const BulkSipTrunkingAuthentication = ({
 {
   userName : '',
   userNameAction  : 'manual',
-  passwordAction  :'{{ generateSipPassword }}' , 
+  passwordAction  :'{{ generateSipPassword }}' ,
 }
 
   const [form, setForm] = useState({...initialForm})
@@ -42,8 +42,8 @@ export const BulkSipTrunkingAuthentication = ({
 
   const [tagBundleTemplateClick, setTagBundleTemplateClick] = React.useState(false)
   const [selectedTagInput, setSelectedTagInput] = React.useState('')
-   
-  const handleInput = (event) => { 
+
+  const handleInput = (event) => {
      const tempForm = {...form}
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
@@ -51,18 +51,18 @@ export const BulkSipTrunkingAuthentication = ({
 
     if(name === 'userNameAction' && value !== 'skip')
     {
-      setUserNameVisible(true) 
+      setUserNameVisible(true)
       tempForm.userName = form.userName
     }
     if(name ==='userNameAction' && value === 'skip' ){
       setUserNameVisible(false)
       tempForm.userName = ''
     }
-        
-    if(name === 'passwordAction' && value === 'manual' ){ 
+
+    if(name === 'passwordAction' && value === 'manual' ){
       setPasswordVisible(true)
       tempForm.newPassword = form.newPassword
-    } 
+    }
 
     if(form.passwordAction === '{{ generateSipPassword }}' ){
       setPasswordVisible(false)
@@ -72,32 +72,32 @@ export const BulkSipTrunkingAuthentication = ({
     if(name === 'passwordAction' && value === 'skip' ){
       setPasswordVisible(false)
       tempForm.newPassword = ''
-    } 
-     
+    }
+
     tempForm[name] = value
     setForm({ ...tempForm })
 
- 
+
 
   }
 
-  const prepareImport = () => {  
+  const prepareImport = () => {
     const tasks = []
      const task =  {
         "task": "user.authentication.update",
-        "userId": "test@park",
+        "userId": "--", // This is only temp userId, userId will be set in SIP Auth Task
         "groupId": groupId,
         "serviceProviderId": serviceProviderId,
       }
-     
-    
-      if(form.userAction !== 'skip') task.userName = form.userName    
-      if(form.passwordAction === '{{ generateSipPassword }}' ) task.newPassword = form.passwordAction 
+
+
+      if(form.userAction !== 'skip') task.userName = form.userName
+      if(form.passwordAction === '{{ generateSipPassword }}' ) task.newPassword = form.passwordAction
       else if(form.passwordAction === 'manual' ) task.newPassword = form.newPassword
       else task.newPassword = ''
 
       tasks.push(task)
-    
+
       return tasks
   }
 
@@ -120,8 +120,8 @@ const prepareImportData = () => {
     return data
   })
 }
- 
- 
+
+
   const selectTagModal = (
     <>
       <UiCardModal
@@ -131,15 +131,15 @@ const prepareImportData = () => {
       >
         <BulkTagInput
           onSelect={(tag) => handleTagSelect(selectedTagInput, tag)}
-          hideTags={['{{ userId }}', '{{ userIdPrefix }}']} />
+        />
       </UiCardModal>
     </>
   )
 
-  const handleTagSelect = (elName, tag) => { 
+  const handleTagSelect = (elName, tag) => {
     const tagTempForm = {...form}
    let oldValue = tagTempForm[elName] || ''
-     
+
     const value = oldValue + tag.tag
     if(elName === 'userName') {
       oldValue = tagTempForm.userName = value
@@ -151,21 +151,21 @@ const prepareImportData = () => {
     setForm({...tagTempForm})
     setTagBundleTemplateClick(false)
   }
- 
+
 
 const tagInputClicked = (elNane) => {
   setSelectedTagInput(elNane)
   setTagBundleTemplateClick(true)
 }
- 
+
 
   return (
-    
+
     <>
     { ( tagBundleTemplateClick ) ? selectTagModal : null}
-     
+
     <UiCard title='Update SIP Authentication'>
-			<UiSection title ="Do you want to set the usernames?"> 
+			<UiSection title ="Do you want to set the usernames?">
         <Radio
           type="radio"
           value='skip'
@@ -179,7 +179,7 @@ const tagInputClicked = (elNane) => {
           value='manual'
           name ="userNameAction"
           checked={form.userNameAction === 'manual'}
-          onChange={handleInput} 
+          onChange={handleInput}
         />Enter Username<br/>
         <br/>
         { isUserName ? (
@@ -203,8 +203,8 @@ const tagInputClicked = (elNane) => {
         ):null }
       </UiSection>
 
-      <UiSection title ="Do you want to set the passwords?"> 
-       
+      <UiSection title ="Do you want to set the passwords?">
+
         <Radio
           type="radio"
           value='{{ generateSipPassword }}'
@@ -254,12 +254,12 @@ const tagInputClicked = (elNane) => {
         <Button style={{float: 'right'}}
           color="link"
           onClick={ handleTask }
-          
+
         >
           Next
         </Button>
       </div>
-    </> 
+    </>
 	)
 }
 
