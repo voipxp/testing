@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types' 
 import {   Input , Radio ,Button } from 'rbx' 
 import { BulkTagInput } from '../../bulk/bulk-tag-input'
+import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
 import {
   UiCard,
   UiFormField,
@@ -12,79 +13,113 @@ import {
  
 import { useAlerts } from '@/store/alerts'
 import { StorageService } from '@/utils'
-
-
+ 
 export const BulkSipTrunkingAuthentication = ({
 	initialData={},
 	setToNext,
   handleWizData,
   localStorageKey
-}) => {
-  
-const templates = {
-  password: '{{ generateSipPassword }}',
-  passcode: '{{ generatePasscode }}'
+}) => { 
+ const handleTask = () => { 
+  if(form.userNameAction !=='skip' || form.passwordAction !=='skip'){ 
+    createTask()
+  }
+  setToNext()
 }
-
-const initialForm =
+ const initialForm =
 {
-  userName:null,
+  userName : '',
   userNameAction  : 'manual',
-  passwordAction  : 'auto',
-  newPassword   	: null
+  passwordAction  :'{{ generateSipPassword }}' , 
 }
 
   const [form, setForm] = useState({...initialForm})
- const [isNextBtnDisabled, setDisableNextButton] = useState(true)
+  const { serviceProviderId, groupId } = initialData
+ //const [isNextBtnDisabled, setDisableNextButton] = useState(true)
   const [isUserName, setUserNameVisible] = useState(true)
   const [isPasswordVisible, setPasswordVisible] = useState(false)
-  
+  const { alertSuccess, alertDanger } = useAlerts()
+
   const [tagBundleTemplateClick, setTagBundleTemplateClick] = React.useState(false)
   const [selectedTagInput, setSelectedTagInput] = React.useState('')
    
-  const handleInput = (event) => {
+  const handleInput = (event) => { 
      const tempForm = {...form}
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    if(name ==='userNameAction' && value !== 'skip' ){
-      setUserNameVisible(true)
-    } 
+
+    if(name === 'userNameAction' && value !== 'skip')
+    {
+      setUserNameVisible(true) 
+      tempForm.userName = form.userName
+    }
     if(name ==='userNameAction' && value === 'skip' ){
       setUserNameVisible(false)
-      tempForm.userName = null
+      tempForm.userName = ''
     }
-
-    if((name ==='passwordAction' && value === 'skip') ){
-      setPasswordVisible(false)
-      tempForm.newPassword = null
-    } 
-    if(name ==='passwordAction' && value === 'manual' ){
+        
+    if(name === 'passwordAction' && value === 'manual' ){ 
       setPasswordVisible(true)
-      tempForm.newPassword = null
-    }
+      tempForm.newPassword = form.newPassword
+    } 
 
-    if(name ==='passwordAction' && value === 'auto' ){
+    if(form.passwordAction === '{{ generateSipPassword }}' ){
       setPasswordVisible(false)
-      tempForm.newPassword= '{{ generateSipPassword }}' 
-      tempForm.name = value
-    }  
- 
-
-    if( (  
-      (name ==='passwordAction' && value === 'skip') || (name ==='userName' && value === '') )
-        && 
-        ( (name ==='passwordAction' && value === 'skip') || (name ==='newPassword' && value === '') ) 
-      ) {
-        setDisableNextButton(true)
+      tempForm.newPassword = form.newPassword
     }
-     tempForm[name] = value
+
+    if(name === 'passwordAction' && value === 'skip' ){
+      setPasswordVisible(false)
+      tempForm.newPassword = ''
+    } 
+     
+    tempForm[name] = value
     setForm({ ...tempForm })
 
  
 
   }
 
+  const prepareImport = () => {  
+    const tasks = []
+     const task =  {
+        "task": "user.authentication.update",
+        "userId": "test@park",
+        "groupId": groupId,
+        "serviceProviderId": serviceProviderId,
+      }
+     
+    
+      if(form.userAction !== 'skip') task.userName = form.userName    
+      if(form.passwordAction === '{{ generateSipPassword }}' ) task.newPassword = form.passwordAction 
+      else if(form.passwordAction === 'manual' ) task.newPassword = form.newPassword
+      else task.newPassword = ''
+
+      tasks.push(task)
+    
+      return tasks
+  }
+
+  const createTask = () => {
+    //setUserServiceClicked(false)
+    //setServicePackClicked(false)
+    prepareImportData().then((data) => {
+      Promise.all([BulkImportService.handleFileData(data, localStorageKey)]).then( (data) => {
+        alertSuccess('Task is created Successfully.')
+      //  setDisableNextButton(false)
+      })
+      .catch( (error) => {
+        alertDanger( error || 'Data Import Error' )
+      })
+		})
+	}
+
+const prepareImportData = () => {
+  return Promise.all(prepareImport()).then( (data) => {
+    return data
+  })
+}
  
  
   const selectTagModal = (
@@ -101,21 +136,18 @@ const initialForm =
     </>
   )
 
-  const handleTagSelect = (elName, tag) => {
+  const handleTagSelect = (elName, tag) => { 
     const tagTempForm = {...form}
-    let oldValue = ''
-    if(elName === 'linePort') {
-      oldValue = tagTempForm.trunkAddressing.trunkGroupDeviceEndpoint.linePort || ''
-    }
-    else {
-      oldValue = tagTempForm[elName] || ''
-    }
+   let oldValue = tagTempForm[elName] || ''
+     
     const value = oldValue + tag.tag
-    if(elName === 'linePort') {
-      tagTempForm.trunkAddressing.trunkGroupDeviceEndpoint.linePort = value
+    if(elName === 'userName') {
+      oldValue = tagTempForm.userName = value
     }
-    else tagTempForm[elName] = value
 
+    if(elName === 'newPassword') {
+      oldValue = tagTempForm.newPassword = value
+    }
     setForm({...tagTempForm})
     setTagBundleTemplateClick(false)
   }
@@ -125,28 +157,13 @@ const tagInputClicked = (elNane) => {
   setSelectedTagInput(elNane)
   setTagBundleTemplateClick(true)
 }
+ 
 
   return (
     
     <>
     { ( tagBundleTemplateClick ) ? selectTagModal : null}
-    <div className="dropdown is-hoverable">
-    <div className="dropdown-trigger">
-      <button className="button">
-        <span className="ng-binding">1 Users Selected</span>
-        <span className="icon is-small">
-          <i className="fas fa-cog"></i>
-        </span>
-      </button>
-    </div>
-    <div className="dropdown-menu">
-      <div className="dropdown-content">
-        <div className="dropdown-item">
-         {'Surendra'}
-        </div>
-      </div>
-    </div>
-  </div>
+     
     <UiCard title='Update SIP Authentication'>
 			<UiSection title ="Do you want to set the usernames?"> 
         <Radio
@@ -190,9 +207,9 @@ const tagInputClicked = (elNane) => {
        
         <Radio
           type="radio"
-          value='auto'
+          value='{{ generateSipPassword }}'
           name ="passwordAction"
-          checked={form.passwordAction === 'auto'}
+          checked={form.passwordAction === '{{ generateSipPassword }}' }
           onChange={handleInput}
         />Auto-Generate Passwords<br/>
 
@@ -219,7 +236,7 @@ const tagInputClicked = (elNane) => {
             color="link"
             icon="tag"
             size="small"
-            onClick={() => tagInputClicked('password')}
+            onClick={(event) => tagInputClicked('newPassword')}
           />
 
           <Input
@@ -236,8 +253,8 @@ const tagInputClicked = (elNane) => {
       <div style={{marginTop: '20px'}}>
         <Button style={{float: 'right'}}
           color="link"
-          onClick={ setToNext }
-          disabled = { isNextBtnDisabled }
+          onClick={ handleTask }
+          
         >
           Next
         </Button>
