@@ -72,7 +72,7 @@ const prepareImportData = () => {
     const tasks = []
 
       const task = {
-        "task": 'group.trunk.group.add',
+        "task": 'group.trunk.group.create',
         "name": taskData.name,
         "allowTerminationToDtgIdentity": taskData.allowTerminationToDtgIdentity,
         "allowTerminationToTrunkGroupIdentity": taskData.allowTerminationToTrunkGroupIdentity,

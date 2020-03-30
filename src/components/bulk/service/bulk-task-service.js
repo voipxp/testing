@@ -275,13 +275,13 @@ const bulkTaskServices =
     },
 
     {
-      task: 'group.trunk.group.add',
+      task: 'group.trunk.group.create',
       name: 'Group Trunk Group',
       description: 'Group Trunk Group',
       required: ['serviceProviderId', 'groupId', 'name', 'maxActiveCalls'],
       example: [
         {
-          task: 'group.trunk.group.add',
+          task: 'group.trunk.group.create',
           serviceProviderId: 'string',
           groupId: 'string',
           name: 'string',
