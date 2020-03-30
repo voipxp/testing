@@ -858,7 +858,7 @@ export const routes = [
     hasLevel: 'Service Provider'
   },
   {
-    path: '/imports/:id',
+    path: '/exports/:id',
     component: Export,
     hasLevel: 'Service Provider'
   },

@@ -63,7 +63,7 @@ export const menu = [
     name: 'Users Services',
     localStorageKey: 'BulkSipTrunkingUserServices',
     component: BulkSipTrunkingUserServices
-  } ,
+  },
   {
     name: 'SIP Authentication',
     localStorageKey: 'BulkSipTrunkingAuthentication',
