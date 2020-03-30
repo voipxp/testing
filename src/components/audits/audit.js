@@ -6,8 +6,7 @@ import auditApi from '@/api/audits'
 import exportApi from '@/api/exports'
 import settingsApi from '@/api/settings'
 import { AppBreadcrumb } from '@/components/app'
-import { Breadcrumb, Column, Input, Select } from 'rbx'
-import axios from 'axios'
+import { Breadcrumb, Input, Select } from 'rbx'
 import {
   UiCard,
   UiButton,
