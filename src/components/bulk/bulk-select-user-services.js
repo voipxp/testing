@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { UiLoading, UiDataTable, UiCheckbox } from '@/components/ui'
 import groupServicesApi from '@/api/group-services'
 import { useAsync } from 'react-async-hook'
-
+import _ from 'lodash'
 
 
 export const BulkSelectUserServices = ({
@@ -36,7 +36,7 @@ export const BulkSelectUserServices = ({
 
   const columns = [
     {
-      key: 'serviceName',
+      key: 'alias',
       label: 'Service Name'
     },
     {
@@ -50,16 +50,13 @@ export const BulkSelectUserServices = ({
     }
   ]
 
-  console.log('QQQQQQQQQQQQQQQQQQQQQQQq')
-  console.log(selectedUserServices)
-
 if(loading) return <UiLoading />
   return (
     <>
      <UiDataTable
         columns={columns}
         rows={userServices || []}
-        rowKey="serviceName"
+        rowKey="alias"
         pageSize={50}
         onClick={(row) => {userServiceSelection(row)}}
     />
