@@ -16,13 +16,13 @@ import { BulkSipUsersTask } from './tasks/bulk-sip-users-task'
 import { BulkSipTrunkingTrunkGroupsTask } from './tasks/bulk-sip-trunking-trunk-groups-task'
 import { BulkSipTrunkingGroupServicesTask } from './tasks/bulk-sip-trunking-group-services-task'
 import { BulkSipTrunkingUserServicesTask } from './tasks/bulk-sip-trunking-user-services-task'
+import { BulkSipTrunkingAuthenticationTask } from './tasks/bulk-sip-trunking-authentication-task'
 
 export const menu = [
   {
     name: 'Service Provider',
     localStorageKey: 'BulkSipServiceProvider',
     component: BulkSipServiceProvider
-    // component: BulkSipTrunkingAuthentication
   },
   {
     name: 'Enterprise Trunk',
@@ -64,13 +64,11 @@ export const menu = [
     localStorageKey: 'BulkSipTrunkingUserServices',
     component: BulkSipTrunkingUserServices
   },
-  // {
-  //   name: 'SIP Authentication',
-  //   localStorageKey: 'BulkSipTrunkingAuthentication',
-  //   component: BulkSipTrunkingAuthentication
-  // },
-
-
+  {
+    name: 'SIP Authentication',
+    localStorageKey: 'BulkSipTrunkingAuthentication',
+    component: BulkSipTrunkingAuthentication
+  },
   // {
   //   name: 'Endpoint Type',
   //   localStorageKey: 'BulkEndpointType',
@@ -128,6 +126,12 @@ export const menu = [
     localStorageKey: 'BulkSipTrunkingUserServices',
     component: BulkSipTrunkingUserServicesTask
   },
+  
+  {
+    name: 'Sip Authentication Task',
+    localStorageKey: 'BulkSipTrunkingAuthentication',
+    component: BulkSipTrunkingAuthenticationTask
+  } 
   // {
   //   name: 'Endpoint Type Task',
   //   localStorageKey: 'BulkEndpointType',

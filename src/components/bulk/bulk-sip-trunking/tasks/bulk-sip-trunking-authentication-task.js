@@ -2,27 +2,31 @@ import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Button } from 'rbx'
 import { BulkImportStorage } from '@/components/bulk'
-import _ from 'lodash'
-export const BulkSipTrunkingUserServicesTask = (
+//import _ from 'lodash'
+export const BulkSipTrunkingAuthenticationTask = (
   {
     localStorageKey,
     initialData,
-    setToNext
+    complete
   }
 ) => {
   const [isNextBtnDisabled, setDisableNextButton] = useState(true)
 
   const updateTaskData = (data, setData) => {
-    const newData = []
-    if(data.length > 0) {
+    console.log(data)
+    console.log('end data')
+    console.log(setData)
+    console.log('end setData')
+    //const newData = []
+    /* if(data.length > 0) {
       initialData.users.forEach( (userId, index) => {
         const temp = {...data[0]}
         temp.userId = userId
         newData.push(temp)
       })
       if(! _.isEqual(data, newData)) setData(newData)
-    }
-  }
+    } */
+  } 
 
   const memoizedValue = useMemo(() =>
     <BulkImportStorage
@@ -38,19 +42,19 @@ export const BulkSipTrunkingUserServicesTask = (
       { memoizedValue }
       <div style={{marginTop: '20px'}}>
         <Button style={{float: 'right'}}
-              color="link"
-              onClick={setToNext}
+              color="success"
+              onClick={complete}
               disabled = { isNextBtnDisabled }
             >
-              Next
+              Done
         </Button>
       </div>
 		</>
 	)
 }
 
-BulkSipTrunkingUserServicesTask.propTypes = {
+BulkSipTrunkingAuthenticationTask.propTypes = {
   localStorageKey: PropTypes.string,
   initialData: PropTypes.object,
-  setToNext: PropTypes.func
+  complete: PropTypes.func
 }

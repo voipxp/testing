@@ -344,9 +344,9 @@ const { serviceProviderId, groupId} = {...props}
                   onGeneratePassword={generatePassword}
                 />
               </UiFormField>
-            </> ):(
-            <>
-            <UiFormField label="Trunck Group Identity" horizontal >
+            </> ):  null
+        }
+            <UiFormField label="Trunk Group Identity" horizontal >
               <Input
                 type="text"
                 placeholder="Trunck Group Identity"
@@ -365,9 +365,6 @@ const { serviceProviderId, groupId} = {...props}
                 value={form.otgDtgIdentity}
               />
             </UiFormField>
-          </>
-        )
-        }
           <UiFormField label="Prefix" horizontal>
             <UiInputCheckbox
               name="prefixEnabled"
@@ -382,7 +379,7 @@ const { serviceProviderId, groupId} = {...props}
             ?
             <UiFormField label="Prefix" horizontal>
             <Input
-                type="text"
+                type="number"
                 onChange={handleInput}
                 name="prefix"
                 value={form.prefix}
@@ -484,7 +481,7 @@ const { serviceProviderId, groupId} = {...props}
           {
             (!form.useSystemCallingLineAssertedIdentityPolicy)
             ?
-            <UiFormField label="Charge Number Policy" horizontal>
+            <UiFormField label="CL Asserted ID Policy" horizontal>
               <Select.Container fullwidth>
                 <Select
                   value={form.pilotUserCallingLineAssertedIdentityPolicy}

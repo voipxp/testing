@@ -5,7 +5,6 @@ export const BulkTemplateService = {
 }
 
   function parse(template, view) {
-
     // if empty just resolve
     if (!template) {
       return new Promise.resolve(template)
@@ -43,7 +42,7 @@ export const BulkTemplateService = {
     return new Promise(function(resolve, reject) {
       try {
         const results = Mustache.render(template, view)
-        // in case of a single { we were too early
+// in case of a single { we were too early
         if (!results || /{/.exec(results)) {
           reject(template)
         } else {
