@@ -1,10 +1,9 @@
-import angular from 'angular'
+import { useCallback } from 'react'
 import _ from 'lodash'
 
-angular.module('odin.bulk').factory('BulkTaskService', BulkTaskService)
 
-function BulkTaskService() {
-  var index = [
+const bulkTaskServices =
+  [
     // Clone Enterprise
     {
       task: 'bulk.sip.trunking',
@@ -266,15 +265,23 @@ function BulkTaskService() {
         }
       ]
     },
-    // Group Trunk Group
+
+    // Delete this when testing is complete
     {
-      task: 'group.trunk.group',
+      task: 'enterprise.trunk.enterprise',
+      name: 'enterprise Trunk enterprise',
+      description: 'Enterprise Trunk enterprise',
+      required: ['name', 'serviceProviderId']
+    },
+
+    {
+      task: 'group.trunk.group.create',
       name: 'Group Trunk Group',
       description: 'Group Trunk Group',
       required: ['serviceProviderId', 'groupId', 'name', 'maxActiveCalls'],
       example: [
         {
-          task: 'group.trunk.group',
+          task: 'group.trunk.group.create',
           serviceProviderId: 'string',
           groupId: 'string',
           name: 'string',
@@ -554,9 +561,11 @@ function BulkTaskService() {
     }
   ]
 
-  return { index: index, get: get }
-
-  function get(task) {
-    return _.find(index, { task: task })
+  const get = (task) => {
+    return _.find(bulkTaskServices, { task: task })
   }
-}
+
+export const BulkTaskService = {
+    bulkTaskServices: bulkTaskServices,
+    getTaskDetails : get
+  }
