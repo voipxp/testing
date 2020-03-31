@@ -106,7 +106,7 @@ const validate = (data) => {
         />
         <Button
           className="button ng-isolate-scope  has-text-right ng-scope" 
-          color="buttonColor"
+          color="buttonColor file-cta"
         >
           <span className="icon">
             <i className="fas fa-upload" ng-class="iconClass"></i>

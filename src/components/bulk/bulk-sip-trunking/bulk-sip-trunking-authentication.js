@@ -28,7 +28,7 @@ export const BulkSipTrunkingAuthentication = ({
 }
  const initialForm = {
   userName : '',
-  userNameAction  : 'manual', 
+  userNameAction  : 'skip', 
   passwordAction  :'{{ generateSipPassword }}' 
 }
 
