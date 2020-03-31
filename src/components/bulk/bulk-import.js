@@ -30,8 +30,8 @@ export const BulkImport = (
       .then(function() {
         return stringToBoolean(users)
       })
-      .then(function() {
-        return queue(users)
+      .then(function(result) {
+        return queue(result)
       })
       .then( (data) => {
         return startReload(data)
@@ -64,9 +64,13 @@ export const BulkImport = (
     // return new Promise(function(resolve) {
     //   return  resolve(data)
     // })
-    return Promise.all(data.map(stringToBooleanValue)).then(function() {
-      return data
-    })
+    // return Promise.all(data.map(stringToBooleanValue)).then(function() {
+    //   return data
+    // })
+
+    const temp = data.map(stringToBooleanValue)
+    return Promise.resolve([...temp])
+
   }
 
   function errors(task) {
@@ -141,16 +145,18 @@ export const BulkImport = (
   }
 
   const stringToBooleanValue = (user) => {
+    const temp = {}
     Object.keys(user).map( key => {
         if( user[key] === "TRUE" || user[key] === "true" ) {
-          user[key] = true
+          temp[key] = true
         }
-        if( user[key] === "FALSE" || user[key] === "false" ) {
-          user[key] = false
+        else if( user[key] === "FALSE" || user[key] === "false" ) {
+          temp[key] = false
         }
+        else temp[key] = user[key]
     })
 
-    return user
+    return temp
   }
 
   return null

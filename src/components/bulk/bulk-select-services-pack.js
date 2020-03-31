@@ -49,8 +49,6 @@ export const BulkSelectServicesPack = ({
     }
   ]
 
-  console.log('QQQQQQQQQQQQQQQQQQQQQQQq')
-  console.log(selectedServicePacks)
 
 if(loading) return <UiLoading />
   return (
