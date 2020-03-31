@@ -55,7 +55,7 @@ export const menu = [
     component: BulkSipTrunkingNumbers
   },
   {
-    name: 'Users',
+    name: 'Add User',
     localStorageKey: 'BulkSelectedUsers',
     component: BulkSipTrunkingUsers
   },

@@ -105,8 +105,13 @@ const validate = (data) => {
           inputId="uploadCSV"
         />
         <Button
-          color="success"
-          size="small"><label htmlFor="uploadCSV">Upload Sheet </label>
+          className="button ng-isolate-scope  has-text-right ng-scope" 
+          color="buttonColor file-cta"
+        > 
+          <span className="icon">
+            <i className="fas fa-upload"  ng-class="iconClass"></i>
+          </span>
+          <span color="buttonText" className="ng-binding" htmlFor="uploadCSV"><label htmlFor="uploadCSV">Upload Sheet </label></span>
         </Button>
       </>
     )
