@@ -132,8 +132,6 @@ import {
         // if(canComplete) onImportComplete(data[0])
       })
       .catch( (error) => {
-        console.log('AAAAAAAAAAAAAA')
-        console.log(error)
         finalSteps()
       })
     }

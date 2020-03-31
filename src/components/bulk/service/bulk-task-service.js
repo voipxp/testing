@@ -275,13 +275,13 @@ const bulkTaskServices =
     },
 
     {
-      task: 'group.trunk.group.add',
+      task: 'group.trunk.group.create',
       name: 'Group Trunk Group',
       description: 'Group Trunk Group',
       required: ['serviceProviderId', 'groupId', 'name', 'maxActiveCalls'],
       example: [
         {
-          task: 'group.trunk.group.add',
+          task: 'group.trunk.group.create',
           serviceProviderId: 'string',
           groupId: 'string',
           name: 'string',
@@ -346,6 +346,80 @@ const bulkTaskServices =
         }
       ]
     },
+
+    {
+      task: 'group.trunk.group.update',
+      name: 'Group Trunk Group Update',
+      description: 'Group Trunk Group Update',
+      required: ['serviceProviderId', 'groupId', 'name'],
+      example: [
+        {
+        "task": "group.trunk.group.update",
+        "pilotUserId": "string",
+        "department": {
+            "serviceProviderId": "string",
+            "groupId": "string",
+            "name": "string"
+        },
+        "accessDevice": {
+            "deviceLevel": "string",
+            "deviceName": "string"
+        },
+        "maxActiveCalls": 'number',
+        "maxIncomingCalls": 'number',
+        "maxOutgoingCalls": 'number',
+        "enableBursting": 'boolean',
+        "capacityExceededTrapInitialCalls": 'number',
+        "capacityExceededTrapOffsetCalls": 'number',
+        "invitationTimeout": 'number',
+        "requireAuthentication": 'boolean',
+        "sipAuthenticationUserName": "string",
+        "trunkGroupIdentity": "string",
+        "allowTerminationToTrunkGroupIdentity": 'boolean',
+        "allowTerminationToDtgIdentity": 'boolean',
+        "includeTrunkGroupIdentity": 'boolean',
+        "includeDtgIdentity": 'boolean',
+        "includeTrunkGroupIdentityForNetworkCalls": 'boolean',
+        "includeOtgIdentityForNetworkCalls": 'boolean',
+        "enableNetworkAddressIdentity": 'boolean',
+        "allowUnscreenedCalls": 'boolean',
+        "allowUnscreenedEmergencyCalls": 'boolean',
+        "pilotUserCallingLineIdentityForExternalCallsPolicy": "No Calls",
+        "pilotUserChargeNumberPolicy": "No Calls",
+        "routeToPeeringDomain": 'boolean',
+        "prefixEnabled": 'boolean',
+        "statefulReroutingEnabled": 'boolean',
+        "sendContinuousOptionsMessage": 'boolean',
+        "continuousOptionsSendingIntervalSeconds": 'number',
+        "failureOptionsSendingIntervalSeconds": 'number',
+        "failureThresholdCounter": 'number',
+        "successThresholdCounter": 'number',
+        "inviteFailureThresholdCounter": 'number',
+        "inviteFailureThresholdWindowSeconds": 'number',
+        "trunkGroupState": "Available",
+        "pilotUserCallingLineAssertedIdentityPolicy": "Unscreened Originating Calls",
+        "useSystemCallingLineAssertedIdentityPolicy": 'boolean',
+        "totalActiveIncomingCalls": 'number',
+        "totalActiveOutgoingCalls": 'number',
+        "pilotUserCallOptimizationPolicy": "Optimize For User Services",
+        "clidSourceForScreenedCallsPolicy": "Profile Name Profile Number",
+        "useSystemCLIDSourceForScreenedCallsPolicy": 'boolean',
+        "userLookupPolicy": "Basic",
+        "useSystemUserLookupPolicy": 'boolean',
+        "pilotUserCallingLineIdentityForEmergencyCallsPolicy": "No Calls",
+        "implicitRegistrationSetSupportPolicy": "Disabled",
+        "useSystemImplicitRegistrationSetSupportPolicy": 'boolean',
+        "sipIdentityForPilotAndProxyTrunkModesPolicy": "User",
+        "useSystemSIPIdentityForPilotAndProxyTrunkModesPolicy": 'boolean',
+        "useSystemSupportConnectedIdentityPolicy": 'boolean',
+        "supportConnectedIdentityPolicy": "Disabled",
+        "useSystemOptionsMessageResponseStatusCodes": 'boolean',
+        "serviceProviderId": "string",
+        "groupId": "string",
+        "name": "string"
+      }
+      ]
+  },
     // User Create
     {
       task: 'user.create',

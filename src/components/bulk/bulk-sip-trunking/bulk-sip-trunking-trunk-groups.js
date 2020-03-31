@@ -72,7 +72,7 @@ const prepareImportData = () => {
     const tasks = []
 
       const task = {
-        "task": 'group.trunk.group.add',
+        "task": 'group.trunk.group.create',
         "name": taskData.name,
         "allowTerminationToDtgIdentity": taskData.allowTerminationToDtgIdentity,
         "allowTerminationToTrunkGroupIdentity": taskData.allowTerminationToTrunkGroupIdentity,
@@ -98,7 +98,6 @@ const prepareImportData = () => {
         "pilotUserCallingLineIdentityForEmergencyCallsPolicy": taskData.pilotUserCallingLineIdentityForEmergencyCallsPolicy,
         "pilotUserCallingLineIdentityForExternalCallsPolicy": taskData.pilotUserCallingLineIdentityForExternalCallsPolicy,
         "pilotUserChargeNumberPolicy": taskData.pilotUserChargeNumberPolicy,
-        "prefix": taskData.prefix,
         "prefixEnabled": taskData.prefixEnabled,
         "requireAuthentication": taskData.requireAuthentication,
         "routeToPeeringDomain": taskData.routeToPeeringDomain,
@@ -116,6 +115,13 @@ const prepareImportData = () => {
         "otgDtgIdentity": taskData.otgDtgIdentity
       }
 
+      if(taskData.prefixEnabled) {
+        task["prefix"] = taskData.prefix
+      }
+      if(taskData.requireAuthentication) {
+        task["sipAuthenticationUserName"] = taskData.sipAuthenticationUserName
+        task["sipAuthenticationPassword"] = taskData.sipAuthenticationPassword
+      }
       if(!taskData.accessDevice.newDevice) {
         task["accessDevice.deviceName"] = taskData.accessDevice.selectedDevice
         task["accessDevice.deviceLevel"] = "Group"
