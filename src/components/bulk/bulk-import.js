@@ -141,16 +141,17 @@ export const BulkImport = (
   }
 
   const stringToBooleanValue = (user) => {
-    Object.keys(user).map( key => {
-        if( user[key] === "TRUE" || user[key] === "true" ) {
-          user[key] = true
+    const newUser = {...user}
+    Object.keys(newUser).forEach( key => {
+        if( newUser[key] === "TRUE" || newUser[key] === "true" ) {
+          newUser[key] = true
         }
-        if( user[key] === "FALSE" || user[key] === "false" ) {
-          user[key] = false
+        if( newUser[key] === "FALSE" || newUser[key] === "false" ) {
+          newUser[key] = false
         }
     })
 
-    return user
+    return newUser
   }
 
   return null
