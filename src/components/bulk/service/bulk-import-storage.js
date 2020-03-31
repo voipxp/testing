@@ -259,17 +259,28 @@ import {
                     finalStep={onInit}
                   />
                   <CSVLink data={users} headers={keys} filename={task+".csv"}>
-                  <Button color="success"
-                    style={{marginRight:'8px'}}
-                    size="small">Download Sheet</Button>
+                    <Button
+                      className="button ng-isolate-scope is-link" 
+                      color="buttonColor"
+                      style={{marginRight:'8px'}}
+                    >
+                      <span className="icon">
+                        <i className="fas fa-download" ng-class="iconClass"></i>
+                      </span>
+                      <span color="buttonText" className="ng-binding">Download Sheet</span>
+                    </Button>
                   </CSVLink>
+                  
                   <Button
-                    color="success"
-                    size="small"
+                    className="button ng-isolate-scope is-success has-text-right ng-scope" 
+                    color="buttonColor"
                     onClick={submitTask}
                     state={isProcessing ? 'loading' : ''}
                   >
-                    Submit Task
+                    <span className="icon">
+                      <i className="fas fa-check" ng-class="iconClass"></i>
+                    </span>
+                    <span color="buttonText" className="ng-binding">Submit Task</span>
                   </Button>
                 </>
                 :
