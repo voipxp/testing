@@ -111,7 +111,7 @@ const validate = (data) => {
           <span className="icon">
             <i className="fas fa-upload"  ng-class="iconClass"></i>
           </span>
-          <span color="buttonText" className="ng-binding" htmlFor="uploadCSV">Upload Sheet</span>
+          <span color="buttonText" className="ng-binding" htmlFor="uploadCSV"><label htmlFor="uploadCSV">Upload Sheet </label></span>
         </Button>
       </>
     )
