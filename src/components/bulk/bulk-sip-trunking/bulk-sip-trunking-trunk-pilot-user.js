@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { UiSelectableTable } from '@/components/ui'
 import { Button } from 'rbx'
@@ -23,13 +23,14 @@ users.forEach( (userId) => {
 const [availableUser, setAvailableUser] = useState([...alluser])
 const [selectedUser, setSelectedUser] = useState([])
 const [taskIsCreated, setTaskIsCreated] = useState(false)
-const { alertSuccess, alertDanger } = useAlerts()
+const { alertSuccess, alertDanger, alertWarning } = useAlerts()
 const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
 
 const createTask = () => {
   prepareImportData().then((data) => {
     Promise.all([BulkImportService.handleFileData(data, props.localStorageKey)]).then( (data) => {
       setTaskIsCreated(true)
+      alertSuccess('Task has been created successfully.')
     })
     .catch( (error) => {
       alertDanger( error || 'Data Import Error' )
@@ -64,12 +65,10 @@ const prepareImport = () => {
     else props.setToNext()
   }
 
-  const setSelected = (items) => {
-      setSelectedUser(items)
-  }
-  const setAvailable = (items) => {
-      setAvailableUser(items)
-  }
+  // useEffect( () => {
+  //   if(selectedUser.length > 1) alertWarning( 'Only one user can be selected for Pilot User' )
+  //   setDisableNextButton(selectedUser.length > 1)
+  // }, [selectedUser, alertWarning])
 
   return (
     <>
@@ -86,10 +85,11 @@ const prepareImport = () => {
           <UiSelectableTable
             title="Trunking Pilot Users"
             availableUser={availableUser}
-            setAvailableUser={(availableItem) => setAvailable(availableItem)}
+            setAvailableUser={(availableItem) => setAvailableUser(availableItem)}
             selectedUser={selectedUser}
-            setSelectedUser={(selectedItem) =>  setSelected(selectedItem)}
+            setSelectedUser={(selectedItem) =>  setSelectedUser(selectedItem)}
             rowKey='userId'
+            //canSelect={selectedUser.length === 0}
           />
 
           <div style={{marginTop: '20px'}}>
