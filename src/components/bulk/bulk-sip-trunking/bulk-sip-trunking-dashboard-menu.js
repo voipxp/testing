@@ -8,7 +8,7 @@ import { BulkSipTrunkingGroupCallCapacity } from './bulk-sip-trunking-group-call
 import { AssignGroupServices } from './bulk-sip-trunking-group-services'
 import { BulkSipTrunkingUserServices } from './bulk-sip-trunking-user-services'
 import { BulkSipTrunkingAuthentication } from './bulk-sip-trunking-authentication'
-
+import { BulkSipTrunkingTrunkPilotUser } from './bulk-sip-trunking-trunk-pilot-user'
 
 /* Tasks */
 import { BulkSipTrunkingCommonViewTask } from './tasks/bulk-sip-trunking-common-view-task'
@@ -123,16 +123,21 @@ export const menu = [
     component: BulkSipUsersTask
   },
   {
+    name: 'Trunk Groups Pilot User',
+    localStorageKey: 'BulkSipTrunkingTrunkPilotUser',
+    component: BulkSipTrunkingTrunkPilotUser
+  },
+  {
     name: 'Users Services Task',
     localStorageKey: 'BulkSipTrunkingUserServices',
     component: BulkSipTrunkingUserServicesTask
   },
-  
+
   {
     name: 'Sip Authentication Task',
     localStorageKey: 'BulkSipTrunkingAuthentication',
     component: BulkSipTrunkingAuthenticationTask
-  } 
+  }
   // {
   //   name: 'Endpoint Type Task',
   //   localStorageKey: 'BulkEndpointType',
