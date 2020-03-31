@@ -64,6 +64,9 @@ const prepareImportData = () => {
           'destination.groupId': taskData.destinationGroupId || null,
           'destination.groupName': taskData.destinationGroupName || null
         }
+        if(taskData.userLimit) {
+          task['destination.userLimit'] = taskData.userLimit
+        }
         const options = {}
         Object.keys(taskData.cloneOptions).forEach(function(el) {
           options[el] = taskData.cloneOptions[el]

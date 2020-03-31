@@ -61,7 +61,7 @@ export const BulkCloneGroupAllControl = ({
     "destinationServiceProviderId": "",
     "destinationGroupId": "",
     "destinationGroupName": "",
-
+    "userLimit": '',
     "cloneOptions": {
       "featureAccessCode": true,
       "callProcessingPolicy": true,
@@ -162,6 +162,15 @@ export const BulkCloneGroupAllControl = ({
               onChange={handleInput}
               name="destinationGroupName"
               value={form.destinationGroupName}
+            />
+          </UiFormField>
+
+          <UiFormField label="User Limit" horizontal >
+            <Input
+              type="number"
+              onChange={handleInput}
+              name="userLimit"
+              value={form.userLimit}
             />
           </UiFormField>
 
