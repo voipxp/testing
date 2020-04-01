@@ -118,7 +118,7 @@ export const menu = [
     component: BulkSipTrunkingCommonViewTask
   },
   {
-    name: 'Users  Task',
+    name: 'Add Users Task',
     localStorageKey: 'BulkSelectedUsers',
     component: BulkSipUsersTask
   },

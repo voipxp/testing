@@ -142,6 +142,7 @@ import {
       return new Promise(function(resolve, reject) {
         initialData.users.forEach( (userId, index) => {
           temp['userId'] = userId
+          temp['index']  = index+1
           data[index] = {...temp}
         })
 
