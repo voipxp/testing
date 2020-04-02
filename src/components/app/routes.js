@@ -13,6 +13,9 @@ import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
+import {
+  BulkSipTrunking
+} from '@/components/bulk'
 import { Exports, Export } from '@/components/exports'
 
 export const routes = [
@@ -64,6 +67,12 @@ export const routes = [
     path: '/bulk/import',
     angularComponent: 'bulkImport',
     hasLevel: 'Group Department',
+    hasModuleRead: 'Provisioning'
+  },
+  {
+    path: '/bulk/bulk.sip.trunking',
+    component: BulkSipTrunking,
+    hasLevel: 'Reseller',
     hasModuleRead: 'Provisioning'
   },
   {
