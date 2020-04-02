@@ -12,6 +12,12 @@ function BulkTaskService() {
       description: 'Bulk Sip Trunking',
       required: []
     },
+	{
+      task: 'bulk.sip.trunking.upload',
+      name: 'Bulk Sip Trunking Upload',
+      description: 'Bulk Sip Trunking Upload',
+      required: []
+    },
     {
       task: 'service.provider.bulk.clone',
       name: 'Clone Enterprise',
