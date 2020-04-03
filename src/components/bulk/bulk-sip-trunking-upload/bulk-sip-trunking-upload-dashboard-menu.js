@@ -1,4 +1,5 @@
 import { BulkSipTrunkingUploadTask } from './bulk-sip-trunking-upload-task'
+import { BulkSipTrunkingTrunkGroupsTask } from './bulk-sip-trunking-trunk-groups-task'
 
 export const menu = [
   {
@@ -33,9 +34,9 @@ export const menu = [
   },
   {
     name: 'Group Trunk Task',
-    task: 'group.trunk.group',
+    task: 'group.trunk.group.create',
     localStorageKey: 'BulkSelectGroupTrunkWiz',
-    component: BulkSipTrunkingUploadTask
+    component: BulkSipTrunkingTrunkGroupsTask
   },
   {
     name: 'Assign Numbers Task',
@@ -51,7 +52,7 @@ export const menu = [
   },
   {
     name: 'Trunk Groups Pilot User',
-    task: 'group.trunk.group',
+    task: 'group.trunk.group.update',
     localStorageKey: 'BulkSipTrunkingTrunkPilotUserWiz',
     component: BulkSipTrunkingUploadTask
   },
