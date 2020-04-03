@@ -7,7 +7,8 @@ import { StorageService } from '@/utils'
 import { Button } from 'rbx'
 import { UiLoading } from '@/components/ui'
 import { CSVLink } from "react-csv"
-// import { BulkUploadCsv } from "@/components/bulk/service/bulk-upload-csv"
+import { useAlerts } from '@/store/alerts'
+
 import {
   UiDataTableEditable,
   UiCard
@@ -21,7 +22,7 @@ import {
     onComplete,
     initialData,
     addUsers,
-    excludeElement=[]
+    expectedTaskType
   }) => {
     const [users, setUsers] = useState([])
     const [keys, setKeys] = useState([])
@@ -37,6 +38,7 @@ import {
     const canBeforComplete = isFunction(beforComplete)
     const canOnLoad = isFunction(onLoad)
     const canOnComplete = isFunction(onComplete)
+    const { alertDanger } = useAlerts()
 
     const finalSteps = () => {
       setIsProcessing(false)
@@ -66,24 +68,6 @@ import {
 
 
     /* Hide any table column */
-    useEffect( () => {
-      const filterData = (keys) => {
-        if(task === 'group.services.update') {
-          keys.forEach( (column, index) => {
-            excludeElement.forEach((el) => {
-              if(_.includes(column.key, el)) delete keys[index]
-            })
-            return true
-          })
-        }
-        return Promise.resolve(keys)
-      }
-
-      filterData(keys).then((data) => {
-        if( !_.isEqual(keys, data) ) setKeys(data)
-      })
-
-    }, [excludeElement, keys, task])
 
     useEffect( () => {
       if(canOnLoad) onLoad(users, (data) => setUsers(data))
@@ -132,8 +116,21 @@ import {
         // if(canComplete) onImportComplete(data[0])
       })
       .catch( (error) => {
-        finalSteps()
+        errorHandler(error)
       })
+    }
+
+    const errorHandler = (error) => {
+      if(_.includes(error, 'Unresolved Tag')) {
+        alertDanger(error)
+      }
+      else if(error === 'Error in loading data') {
+        setDeleteLocalStorage(true)
+      }
+      else {
+        alertDanger(error)
+        setDeleteLocalStorage(true)
+      }
     }
 
     const addUsersOnLoad = (data) => {
@@ -156,6 +153,7 @@ import {
           StorageService.getStorage(localStorageKey)
           .then((data) => {
             if(!data) return reject('Error in loading data')
+            if(data.length > 0 && data[0]['task'] !== expectedTaskType) return reject('Invalid Task Type')
 
             setUsers(data)
             setKeys(loadKeys(data))
@@ -320,5 +318,5 @@ import {
     onComplete: PropTypes.func,
     initialData: PropTypes.object,
     addUsers: PropTypes.bool,
-    excludeElement: PropTypes.array
+    expectedTaskType: PropTypes.string,
   }
