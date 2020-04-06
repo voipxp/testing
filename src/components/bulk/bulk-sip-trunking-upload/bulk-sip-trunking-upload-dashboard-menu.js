@@ -10,7 +10,7 @@ export const menu = [
   },
   {
     name: 'Enterprise Trunk Task',
-    task: 'group.trunk.group',
+    task: 'trunk.group.call.capacity',
     localStorageKey: 'BulkSipTrunkingTrunkEnterpriseWiz',
     component: BulkSipTrunkingUploadTask
   },
