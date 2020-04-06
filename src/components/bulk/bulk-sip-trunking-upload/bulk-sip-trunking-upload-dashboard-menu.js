@@ -1,5 +1,6 @@
 import { BulkSipTrunkingUploadTask } from './bulk-sip-trunking-upload-task'
 import { BulkSipTrunkingTrunkGroupsTask } from './bulk-sip-trunking-trunk-groups-task'
+import { BulkSipTrunkingAuthWizTask } from './bulk-sip-trunking-auth-wiz-task'
 
 export const menu = [
   {
@@ -66,6 +67,6 @@ export const menu = [
     name: 'Sip Authentication Task',
     task: 'user.authentication.update',
     localStorageKey: 'BulkSipTrunkingAuthenticationWiz',
-    component: BulkSipTrunkingUploadTask
+    component: BulkSipTrunkingAuthWizTask
   }
 ]
