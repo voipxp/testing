@@ -521,12 +521,12 @@ function BulkTaskService() {
       task: 'user.integrated.imp.update',
       name: 'User Integrated IMP',
       description: 'Set users Integrated IMP',
-      required: ['userId', 'isActive'],
+      required: ['userId'],
       example: [
         {
           task: 'user.integrated.imp.update',
           userId: 'userId',
-          isActive: 'boolean'
+          isActive: false
         }
       ]
     },
