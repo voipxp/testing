@@ -20,8 +20,7 @@ import {
     onLoad,
     onComplete,
     initialData,
-    addUsers,
-    excludeElement=[]
+    addUsers
   }) => {
     const [users, setUsers] = useState([])
     const [keys, setKeys] = useState([])
@@ -63,27 +62,6 @@ import {
 
       deleteLocalStorageData()
     }, [localStorageKey, deleteLocalStorage])
-
-
-    /* Hide any table column */
-    useEffect( () => {
-      const filterData = (keys) => {
-        if(task === 'group.services.update') {
-          keys.forEach( (column, index) => {
-            excludeElement.forEach((el) => {
-              if(_.includes(column.key, el)) delete keys[index]
-            })
-            return true
-          })
-        }
-        return Promise.resolve(keys)
-      }
-
-      filterData(keys).then((data) => {
-        if( !_.isEqual(keys, data) ) setKeys(data)
-      })
-
-    }, [excludeElement, keys, task])
 
     useEffect( () => {
       if(canOnLoad) onLoad(users, (data) => setUsers(data))
@@ -258,7 +236,7 @@ import {
                   />
                   <CSVLink data={users} headers={keys} filename={task+".csv"}>
                     <Button
-                      className="button ng-isolate-scope is-link" 
+                      className="button ng-isolate-scope is-link"
                       color="buttonColor"
                       style={{marginRight:'8px'}}
                     >
@@ -268,9 +246,9 @@ import {
                       <span color="buttonText" className="ng-binding">Download Sheet</span>
                     </Button>
                   </CSVLink>
-                  
+
                   <Button
-                    className="button ng-isolate-scope is-success has-text-right ng-scope" 
+                    className="button ng-isolate-scope is-success has-text-right ng-scope"
                     color="buttonColor"
                     onClick={submitTask}
                     state={isProcessing ? 'loading' : ''}
@@ -319,6 +297,5 @@ import {
     onLoad: PropTypes.func,
     onComplete: PropTypes.func,
     initialData: PropTypes.object,
-    addUsers: PropTypes.bool,
-    excludeElement: PropTypes.array
+    addUsers: PropTypes.bool
   }

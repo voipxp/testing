@@ -1,21 +1,19 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Button } from 'rbx'
 import { BulkImportStorage } from '@/components/bulk'
-import {TaskService} from '@/api/task/task-service'
-import { useAlerts } from '@/store/alerts'
 
 export const BulkSipTrunkingGroupServicesTask = (props) => {
 
-  const { serviceProviderId, groupId, localStorageKey } = {...props}
-  const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
+  const { localStorageKey } = {...props}
+  const [isNextBtnDisabled, setDisableNextButton] = useState(true)
 
   const memoizedValue = useMemo(() =>
     <BulkImportStorage
       localStorageKey={ localStorageKey }
       setDisableNextButton={ (boolValue) => setDisableNextButton(boolValue) }
-	  excludeElement={['.assigned', '.authorized']}
   />,
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   [props]);
 
 	return (
