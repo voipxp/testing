@@ -314,7 +314,7 @@ import {
           )
         }
 
-        {/* {
+        {   /* Task Error Modal */
           taskId
           ?
             <div>
@@ -330,7 +330,7 @@ import {
             </div>
           :
           null
-        } */}
+        }
 
         </UiCard>
       }
