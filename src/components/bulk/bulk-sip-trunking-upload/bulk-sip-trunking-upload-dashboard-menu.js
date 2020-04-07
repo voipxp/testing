@@ -1,5 +1,5 @@
 import { BulkSipTrunkingUploadTask } from './bulk-sip-trunking-upload-task'
-import { BulkSipTrunkingTrunkGroupsTask } from './bulk-sip-trunking-trunk-groups-task'
+// import { BulkSipTrunkingTrunkGroupsTask } from './bulk-sip-trunking-trunk-groups-task'
 import { BulkSipTrunkingAuthWizTask } from './bulk-sip-trunking-auth-wiz-task'
 
 export const menu = [
@@ -34,10 +34,16 @@ export const menu = [
     component: BulkSipTrunkingUploadTask
   },
   {
+    name: 'Group Device Create',
+    task: 'group.device.create',
+    localStorageKey: 'GroupDeviceCreateWiz',
+    component: BulkSipTrunkingUploadTask
+  },
+  {
     name: 'Group Trunk Task',
     task: 'group.trunk.group.create',
     localStorageKey: 'BulkSelectGroupTrunkWiz',
-    component: BulkSipTrunkingTrunkGroupsTask
+    component: BulkSipTrunkingUploadTask
   },
   {
     name: 'Assign Numbers Task',

@@ -5,9 +5,10 @@ import PropTypes from 'prop-types'
 import { BulkParseService, BulkImport, BulkUploadCsv } from '@/components/bulk'
 import { StorageService } from '@/utils'
 import { Button } from 'rbx'
-import { UiLoading } from '@/components/ui'
+import { UiLoading, UiCardModal } from '@/components/ui'
 import { CSVLink } from "react-csv"
 import { useAlerts } from '@/store/alerts'
+import RecentTask from '@/components/bulk/recent-tasks/recent-task'
 
 import {
   UiDataTableEditable,
@@ -27,6 +28,7 @@ import {
     const [users, setUsers] = useState([])
     const [keys, setKeys] = useState([])
     const [task, setTask] = useState('')
+    const [taskId, setTaskId] = useState('')
     const [loading, setLoading]= useState(true)
     const [action, setAction] = useState({})
     const [importTask, setImportTask] = useState(false)
@@ -34,6 +36,7 @@ import {
     const [deleteLocalStorage, setDeleteLocalStorage] = useState(false)
     const [isProcessing, setIsProcessing] = useState(false)
     const [loadingTable, setLoadingTable] = useState(false)
+    const [showErrorModal, setShowErrorModal] = useState(false)
 
     const canBeforComplete = isFunction(beforComplete)
     const canOnLoad = isFunction(onLoad)
@@ -64,20 +67,24 @@ import {
       }
 
       deleteLocalStorageData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [localStorageKey, deleteLocalStorage])
-
-
-    /* Hide any table column */
 
     useEffect( () => {
       if(canOnLoad) onLoad(users, (data) => setUsers(data))
     }, [users, setUsers, onLoad, canOnLoad])
 
     useEffect( () => {
+      if(taskId) setShowErrorModal(true)
+    }, [taskId])
+
+
+    useEffect( () => {
       setLoading(true)
       setDisableNextButton(true)
       setImportTask(false)
       onInit()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [localStorageKey])
 
     const handleDataChange = (data) => {
@@ -237,6 +244,7 @@ import {
           action={action}
           deleteLocalStorage={ (boolValue) => setDeleteLocalStorage(boolValue) }
           onError={onError}
+          setTaskId={ (id) => setTaskId(id) }
         /> : null
       }
 
@@ -305,6 +313,25 @@ import {
             <label>No Pending Task available !</label>
           )
         }
+
+        {/* {
+          taskId
+          ?
+            <div>
+            <UiCardModal
+              title="Task Details"
+              isOpen={showErrorModal}
+              onCancel={() => setShowErrorModal(false)}
+            >
+            <RecentTask
+              id={taskId}
+            />
+            </UiCardModal>
+            </div>
+          :
+          null
+        } */}
+
         </UiCard>
       }
     </>

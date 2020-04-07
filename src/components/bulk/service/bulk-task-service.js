@@ -426,6 +426,46 @@ const bulkTaskServices =
       }
       ]
   },
+  /* Group Device */
+  {
+    task: 'group.device.create',
+    name: 'Group Device Create',
+    description: 'Group Device Create',
+    required: ['deviceType', 'deviceName'],
+    example: [
+      {
+        task: 'group.device.create',
+        serviceProviderId: 'string',
+        groupId: 'string',
+        allowAccessDeviceUpdate: 'boolean',
+        deviceType: 'string',
+        deviceName: 'string',
+        accessDeviceEndpoint:{
+          accessDevice: {
+            deviceType: 'string',
+            deviceName: 'string',
+            protocol: 'string',
+            netAddress: 'string',
+            port: 'string',
+            outboundProxyServerNetAddress: 'string',
+            stunServerNetAddress: 'string',
+            macAddress: 'string',
+            serialNumber: 'string',
+            description: 'string',
+            physicalLocation: 'string',
+            transportProtocol: 'string',
+            useCustomUserNamePassword: 'string',
+            accessDeviceCredentials: {
+              userName: 'string',
+              password: 'string',
+              deviceLevel: 'string',
+              linePort: 'string'
+            }
+          }
+        }
+      }
+    ]
+  },
     // User Create
     {
       task: 'user.create',
