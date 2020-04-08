@@ -57,5 +57,5 @@ export const GroupDashboard = ({ match }) => {
       {loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
     </>
   )
-}
+ }
 GroupDashboard.propTypes = { match: PropTypes.object.isRequired }

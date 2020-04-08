@@ -7,14 +7,14 @@ import {
   GroupExtensionLength,
   GroupWebPolicy,
   GroupNumbers,
-  GroupSeriesCompletion
+  GroupSeriesCompletion,
+  GroupDashboard
 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
 import { Exports, Export } from '@/components/exports'
-
 export const routes = [
   {
     path: '/account',
@@ -136,9 +136,14 @@ export const routes = [
     angularComponent: 'odinWebhooks',
     isPaasAdmin: true
   },
-  {
+  /*{
     path: '/groups/:serviceProviderId/:groupId',
     angularComponent: 'groupDashboard',
+    hasLevel: 'Group'
+  }, */
+  {
+    path: '/groups/:serviceProviderId/:groupId',
+    component:  GroupDashboard,
     hasLevel: 'Group'
   },
   {
