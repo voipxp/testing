@@ -9,7 +9,7 @@ export const dashboardMenu = [
     label: 'Dashboard',
     items: [
       {
-        name: 'departments',
+        name: 'Departments',
         path: 'departments',
         angularComponent: 'groupDepartments',
         hasLevel: 'Group',
