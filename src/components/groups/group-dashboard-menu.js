@@ -77,50 +77,76 @@ export const dashboardMenu = [
       {
         name: 'Bulk Provisioning',
         path: 'bulk',
-		    angularComponent: 'bulkDashboard',
-		    hasLevel: 'Group Department'
+		angularComponent: 'bulkDashboard',
+		hasLevel: 'Group Department'
       },
-      {
-        name: 'Calling Plans',
-        path:  'callingPlans', 
-		    angularComponent: 'groupCallingPlans',
-		    hasLevel: 'Group'
+	  {
+        name: 'Comm Barring',
+        path: 'groupCommunicationBarring',
+		component: GroupCommunicationBarring	
       },
-      {
-        name: 'Directory',
-        path: 'directory',
-		    angularComponent: 'groupPhoneDirectory',
-		    hasLevel: 'Group' 
-      },
-      {
-        name: 'Common Phone List',
-        path: 'phoneList',
-		    angularComponent: 'groupCommonPhoneList',
-		    hasLevel: 'Group'
-      },
-      {
-        name: 'Custom Directory',
-        path: 'customContactDirectories' ,
-		    angularComponent: 'groupCustomContactDirectories',
-		    hasLevel: 'Group'
-      },
-      { 
+	  { 
         name: 'Comm Barring Auth Codes',
         path:  'groupCommunicationBarringAuthorizationCodes',
         angularComponent: 'groupCommunicationBarringAuthorizationCodes',
         hasLevel: 'Group'
 	  },
-	  { 
-		    name: 'Group Web Policy',
-        path: 'groupWebPolicy',
-        component: GroupWebPolicy,
-        hasLevel: 'Service Provider'
+	  {
+        name: 'Custom Directory',
+        path: 'customContactDirectories' ,
+		angularComponent: 'groupCustomContactDirectories',
+		hasLevel: 'Group'
       },
+	  {
+        name: 'Common Phone List',
+        path: 'phoneList',
+		angularComponent: 'groupCommonPhoneList',
+		hasLevel: 'Group'
+      },
+      {
+        name: 'Calling Plans',
+        path:  'callingPlans', 
+		angularComponent: 'groupCallingPlans',
+		hasLevel: 'Group'
+      },
+	  {
+        name: 'Call Processing Policy',
+        path:  'callProcessingPolicy' ,
+		angularComponent: 'groupCallProcessingPolicy',
+		hasLevel: 'Group'
+      },
+      {
+        name: 'Directory',
+        path: 'directory',
+		angularComponent: 'groupPhoneDirectory',
+		hasLevel: 'Group' 
+      },
+      {
+        
+        name: 'Feature Access Codes',
+        path:  'featureAccessCodes',
+        angularComponent: 'groupFeatureAccessCodes',
+        hasLevel: 'Group',
+        hasModuleRead: 'Group Feature Access Codes'
+      },
+      {
+        name: 'Intercept Group',
+        path: 'intercept' ,
+        angularComponent: 'groupIntercept',
+		hasLevel: 'Group',
+        hasModuleRead: 'Intercept Group'
+      },
+	  {
+        name: 'Network Class of Service',
+        path:  'networkclassofservices',
+		angularComponent: 'groupNetworkClassOfServices',
+		hasLevel: 'Group'
+	  },
       {
         name: 'Schedules',
         path: 'schedules',
-		    angularComponent: 'groupSchedules',
-		    hasLevel: 'Group'
+		angularComponent: 'groupSchedules',
+		hasLevel: 'Group'
       },
       {
         name: 'Viewable Packs',
@@ -132,48 +158,9 @@ export const dashboardMenu = [
       { 
         name: 'VDM',
         path:  'vdm',
-		    angularComponent: 'vdmDashboard',
-		    hasLevel: 'Group',
-		    hasModuleRead: 'VDM'
-      },
-      {
-        name: 'Network Class of Service',
-        path:  'networkclassofservices',
-		    angularComponent: 'groupNetworkClassOfServices',
-		    hasLevel: 'Group'
-	    },
-      {
-        name: 'Call Processing Policy',
-        path:  'callProcessingPolicy' ,
-		    angularComponent: 'groupCallProcessingPolicy',
-		    hasLevel: 'Group'
-      },
-      {
-        name: 'Intercept Group',
-        path: 'intercept' ,
-        angularComponent: 'groupIntercept',
-		    hasLevel: 'Group',
-        hasModuleRead: 'Intercept Group'
-      },
-      {
-        
-        name: 'Feature Access Codes',
-        path:  'featureAccessCodes',
-        angularComponent: 'groupFeatureAccessCodes',
-        hasLevel: 'Group',
-        hasModuleRead: 'Group Feature Access Codes'
-      },
-	  {
-        name: 'Comm Barring',
-        path: 'groupCommunicationBarring',
-		angularComponent: 'groupFeatureAccessCodes'		
-      },
-      {
-        name: 'Comm Barring',
-        path: 'groupCommunicationBarring',
-		component: GroupCommunicationBarring,
-		    hasLevel: 'Group',
-		    hasModuleRead: 'Comm Barring'		
+		angularComponent: 'vdmDashboard',
+		hasLevel: 'Group',
+		hasModuleRead: 'VDM'
       }
     ]
   },

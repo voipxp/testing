@@ -66,7 +66,7 @@ export const GroupServiceSettings = ({ history, match }) => {
       })
     // remove dups such as Shared Call Appearance
     return uniqBy(filtered, 'name')
-  }, [getModule])
+  }, [getModule, hasGroupService])
 
   // The base view when no sub-component picked
   const GroupServiceList = () => (
