@@ -4,9 +4,15 @@ import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiDataTable } from '@/components/ui'
 import { useModulePermissions, useUserServicePermissions } from '@/utils'
-import { useUserAssignedServices } from '@/store/user-assigned-services'
+import { useGroupServices } from '@/store/group-services'
+//import { useUserAssignedServices } from '@/store/user-assigned-services'
 import { AngularComponent } from '@/components/angular-component'
 import { groupServiceRoutes } from './group-service-routes'
+import {
+	useGroupServicePermissions,
+  useAcl
+} from '@/utils'
+
 /* eslint-disable react/display-name */
 const columns = [
   {
@@ -22,19 +28,18 @@ const columns = [
 export const GroupServiceSettings = ({ history, match }) => {
   const { serviceProviderId,groupId } = match.params
   const { getModule } = useModulePermissions()
-   
+  const { hasGroupService } = useGroupServicePermissions()
   //const { userViewableServices } = useUserServicePermissions(serviceProviderId,groupId)
-  const { loadUserAssignedServices } = useUserAssignedServices(serviceProviderId,groupId)
+  const { loadGroupServices } = useGroupServices(serviceProviderId,groupId)
 
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-    loadUserAssignedServices(serviceProviderId,groupId)
+    loadGroupServices.load(serviceProviderId,groupId)
     history.goBack()
   }
-
   /*
   turn our array of routes into a filtered list of components,
   pulling in module aliases and description, maintaining the route path
@@ -47,7 +52,7 @@ export const GroupServiceSettings = ({ history, match }) => {
   }]
   */
   const services = React.useMemo(() => {
-   // if (!userViewableServices) return []
+   if (!hasGroupService) return []
     // turn this into a map of serviceName => route
     const allowedServices = groupServiceRoutes.reduce((obj, route) => {
       route.services.forEach(s => (obj[s] = route))
@@ -64,7 +69,7 @@ export const GroupServiceSettings = ({ history, match }) => {
   }, [getModule])
 
   // The base view when no sub-component picked
-  const UserServiceList = () => (
+  const GroupServiceList = () => (
     <UiCard title="Group Services">
       <UiDataTable
         columns={columns}
@@ -95,7 +100,7 @@ export const GroupServiceSettings = ({ history, match }) => {
   return (
     <Switch>
       <Route path={`${match.path}/:path`} exact render={renderRoute} />
-      <Route render={UserServiceList} />
+      <Route render={GroupServiceList} />
     </Switch>
   )
 }

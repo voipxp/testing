@@ -1,5 +1,6 @@
 import {
-  GroupWebPolicy
+  GroupWebPolicy,
+  GroupCommunicationBarring
 } from '@/components/groups'
 import { GroupUserServiceSettings } from './group-user-service-settings'
 import { GroupServiceSettings } from './group-service-settings'
@@ -123,7 +124,7 @@ export const dashboardMenu = [
       },
       {
         name: 'Viewable Packs',
-        path: 'schedviewablePacksules',
+        path: 'viewablePacks',
         angularComponent: 'groupViewablePacksIndex',
         hasLevel: 'Group',
         hasModuleRead: 'Viewable Service Packs'
@@ -162,12 +163,17 @@ export const dashboardMenu = [
         hasLevel: 'Group',
         hasModuleRead: 'Group Feature Access Codes'
       },
+	  {
+        name: 'Comm Barring',
+        path: 'groupCommunicationBarring',
+		angularComponent: 'groupFeatureAccessCodes'		
+      },
       {
         name: 'Comm Barring',
         path: 'groupCommunicationBarring',
-		    angularComponent: 'groupFeatureAccessCodes',
+		component: GroupCommunicationBarring,
 		    hasLevel: 'Group',
-		    hasModuleRead: 'Group Feature Access Codes'		
+		    hasModuleRead: 'Comm Barring'		
       }
     ]
   },
@@ -190,21 +196,21 @@ export const dashboardMenu = [
       },
       {
       name: 'Premium Call Records',
-      path: 'group',
+      path: 'groupPremiumCallReport',
       angularComponent: 'groupCallRecordIndex',
       hasLevel: 'Group',
       hasModuleRead: 'Premium Call Records'
       },
       {
       name: 'User Call Report',
-      path: 'groups',
-      angularComponent: 'groupCallRecordIndex',
+      path: 'userCallReport',
+      angularComponent: 'groupUserCallReportIndex',
       hasLevel: 'Group',
       hasModuleRead: 'Premium Call Records'
       },
       {
       name: 'User Report',
-      path: 'users',
+      path: 'usersReport',
       angularComponent: 'usersReport',
       hasLevel: 'Group',
       hasModuleRead: 'User Report'

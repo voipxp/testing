@@ -26,7 +26,7 @@ function controller(
   ctrl.$onInit = onInit
   ctrl.select = select
   ctrl.edit = edit
-
+  ctrl.isGroupAdmin = ACL.is('Group')
   function onInit() {
     ctrl.isAdmin = ACL.has('Service Provider')
     ctrl.loading = true

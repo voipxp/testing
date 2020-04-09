@@ -9,7 +9,7 @@ import { useModulePermissions, useGroupServicePermissions, useAcl } from '@/util
 
 export const GroupDashboard = ({ match }) => {
   const [loading, setLoading] = React.useState(false)
-  const { hasVersion, hasLevel, isLevel, isPaasAdmin,hasPolicy } = useAcl()
+  const { hasVersion, hasLevel, isLevel } = useAcl()
   const { serviceProviderId, groupId } = match.params
   const { loadGroupServices } = useGroupServices(groupId, serviceProviderId)
   const { hasGroupService } = useGroupServicePermissions()
@@ -47,7 +47,7 @@ export const GroupDashboard = ({ match }) => {
       if (items.length > 0) filteredMenu.push({ label: section.label, items })
     })
     return filteredMenu
-  }, [hasLevel, hasModuleRead, hasVersion, isLevel, isPaasAdmin])
+  }, [hasGroupService, hasLevel, hasModuleRead, hasVersion, isLevel])
 
   return (
     <>
