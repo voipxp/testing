@@ -1,0 +1,1 @@
+export * from './service-provider-trunk-groups-call-capacity'
