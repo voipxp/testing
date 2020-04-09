@@ -18,6 +18,13 @@ export const groupServiceRoutes = [
     hasLevel: 'Group'
   },
   {
+    angularComponent: 'groupCallPark',
+    hasModuleRead: 'Call Park',
+    path: 'callPark',
+    services: ['Call Park'],
+    hasLevel: 'Group'
+  },
+  {
     angularComponent: 'groupCallPickups',
     hasModuleRead: 'Call Pickup',
     path: 'callPickup',

@@ -12,16 +12,12 @@ export const dashboardMenu = [
         name: 'Departments',
         path: 'departments',
         angularComponent: 'groupDepartments',
-        hasLevel: 'Group',
-        isBreadcrumb: false
-        
-      },
+        hasLevel: 'Group'},
       {
-      name: 'Administrators',
-      path: 'admins',
-      angularComponent: 'groupAdmins',
-      hasLevel: 'Group',
-      isBreadcrumb: false
+	    name: 'Administrators',
+	    path: 'admins',
+	    angularComponent: 'groupAdmins',
+	    hasLevel: 'Group'
       },
       
 	  /*
