@@ -36,7 +36,9 @@ export const UiSelectableTable = ({
   hideSearch = false,
   setAvailableUser,
   setSelectedUser,
-  showMoveBtn=false
+  showMoveBtn=false,
+  canSelect=true,
+  canDeselect=true
 }) => {
 
   const [searchAvailable, setSearchAvailable] = React.useState('')
@@ -96,13 +98,13 @@ export const UiSelectableTable = ({
   function up(event, user) {
     const selectedItems = [...selectedUser]
     event.stopPropagation()
-    
+
     var index = _.indexOf(selectedItems, user)
     if (index === selectedUser.length - 1) return
     move(index, index + 1)
   }
- 
-  function down(event, user) { 
+
+  function down(event, user) {
     event.stopPropagation()
     const selectedItems = [...selectedUser]
     var index = _.indexOf(selectedItems, user)
@@ -130,6 +132,7 @@ export const UiSelectableTable = ({
   }
 
   const add = (row) => {
+    if(!canSelect) return false
     const availableItems = [...availableUser]
     const selectedItems = [...selectedUser]
     _.remove(availableItems, row)
@@ -139,6 +142,7 @@ export const UiSelectableTable = ({
   }
 
   const remove = (row) => {
+    if(!canDeselect) return false
     const availableItems = [...availableUser]
     const selectedItems = [...selectedUser]
 
@@ -234,13 +238,13 @@ export const UiSelectableTable = ({
                       >
                       <p className="control">
                         <a
-                          className="button is-small"                           
+                          className="button is-small"
                           onClick={(event) => up(event ,row )}
                         >
                           <span className="icon">
                             <i className ="fas fa-chevron-down"></i>
                           </span>
-                        </a>                            
+                        </a>
                       </p>
                       <p className="control">
                         <a
@@ -253,10 +257,10 @@ export const UiSelectableTable = ({
                           </span>
                         </a>
                       </p>
-                      
-                    </div> 
-                    ) : ''} 
-                    {row[rowKey]} 
+
+                    </div>
+                    ) : ''}
+                    {row[rowKey]}
                       </Table.Cell>
                     </Table.Row>
                     ))}
@@ -279,5 +283,7 @@ UiSelectableTable.propTypes = {
   hideSearch: PropTypes.bool,
   setAvailableUser: PropTypes.func,
   setSelectedUser: PropTypes.func,
-  showMoveBtn:PropTypes.bool
+  showMoveBtn: PropTypes.bool,
+  canSelect: PropTypes.bool,
+  canDeselect: PropTypes.bool
 }

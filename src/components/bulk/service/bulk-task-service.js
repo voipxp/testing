@@ -1,10 +1,9 @@
-import angular from 'angular'
+import { useCallback } from 'react'
 import _ from 'lodash'
 
-angular.module('odin.bulk').factory('BulkTaskService', BulkTaskService)
 
-function BulkTaskService() {
-  var index = [
+const bulkTaskServices =
+  [
     // Clone Enterprise
     {
       task: 'bulk.sip.trunking',
@@ -12,7 +11,7 @@ function BulkTaskService() {
       description: 'Bulk Sip Trunking',
       required: []
     },
-	{
+    {
       task: 'bulk.sip.trunking.upload',
       name: 'Bulk Sip Trunking Upload',
       description: 'Bulk Sip Trunking Upload',
@@ -272,15 +271,23 @@ function BulkTaskService() {
         }
       ]
     },
-    // Group Trunk Group
+
+    // Delete this when testing is complete
     {
-      task: 'group.trunk.group',
+      task: 'enterprise.trunk.enterprise',
+      name: 'enterprise Trunk enterprise',
+      description: 'Enterprise Trunk enterprise',
+      required: ['name', 'serviceProviderId']
+    },
+
+    {
+      task: 'group.trunk.group.create',
       name: 'Group Trunk Group',
       description: 'Group Trunk Group',
       required: ['serviceProviderId', 'groupId', 'name', 'maxActiveCalls'],
       example: [
         {
-          task: 'group.trunk.group',
+          task: 'group.trunk.group.create',
           serviceProviderId: 'string',
           groupId: 'string',
           name: 'string',
@@ -345,46 +352,120 @@ function BulkTaskService() {
         }
       ]
     },
-    /* Group Device */
+
     {
-      task: 'group.device.create',
-      name: 'Group Device Create',
-      description: 'Group Device Create',
-      required: ['deviceType', 'deviceName'],
+      task: 'group.trunk.group.update',
+      name: 'Group Trunk Group Update',
+      description: 'Group Trunk Group Update',
+      required: ['serviceProviderId', 'groupId', 'name'],
       example: [
         {
-          task: 'group.device.create',
-          serviceProviderId: 'string',
-          groupId: 'string',
-          allowAccessDeviceUpdate: 'boolean',
-          deviceType: 'string',
-          deviceName: 'string',
-          accessDeviceEndpoint:{
-            linePort: 'string',
-            accessDevice: {
-              deviceType: 'string',
-              deviceName: 'string',
-              deviceLevel: 'string',
-              protocol: 'string',
-              netAddress: 'string',
-              port: 'string',
-              outboundProxyServerNetAddress: 'string',
-              stunServerNetAddress: 'string',
-              macAddress: 'string',
-              serialNumber: 'string',
-              description: 'string',
-              physicalLocation: 'string',
-              transportProtocol: 'string',
-              useCustomUserNamePassword: 'string',
-              accessDeviceCredentials: {
-                userName: 'string',
-                password: 'string'
-              }
+        "task": "group.trunk.group.update",
+        "pilotUserId": "string",
+        "department": {
+            "serviceProviderId": "string",
+            "groupId": "string",
+            "name": "string"
+        },
+        "accessDevice": {
+            "deviceLevel": "string",
+            "deviceName": "string"
+        },
+        "maxActiveCalls": 'number',
+        "maxIncomingCalls": 'number',
+        "maxOutgoingCalls": 'number',
+        "enableBursting": 'boolean',
+        "capacityExceededTrapInitialCalls": 'number',
+        "capacityExceededTrapOffsetCalls": 'number',
+        "invitationTimeout": 'number',
+        "requireAuthentication": 'boolean',
+        "sipAuthenticationUserName": "string",
+        "trunkGroupIdentity": "string",
+        "allowTerminationToTrunkGroupIdentity": 'boolean',
+        "allowTerminationToDtgIdentity": 'boolean',
+        "includeTrunkGroupIdentity": 'boolean',
+        "includeDtgIdentity": 'boolean',
+        "includeTrunkGroupIdentityForNetworkCalls": 'boolean',
+        "includeOtgIdentityForNetworkCalls": 'boolean',
+        "enableNetworkAddressIdentity": 'boolean',
+        "allowUnscreenedCalls": 'boolean',
+        "allowUnscreenedEmergencyCalls": 'boolean',
+        "pilotUserCallingLineIdentityForExternalCallsPolicy": "No Calls",
+        "pilotUserChargeNumberPolicy": "No Calls",
+        "routeToPeeringDomain": 'boolean',
+        "prefixEnabled": 'boolean',
+        "statefulReroutingEnabled": 'boolean',
+        "sendContinuousOptionsMessage": 'boolean',
+        "continuousOptionsSendingIntervalSeconds": 'number',
+        "failureOptionsSendingIntervalSeconds": 'number',
+        "failureThresholdCounter": 'number',
+        "successThresholdCounter": 'number',
+        "inviteFailureThresholdCounter": 'number',
+        "inviteFailureThresholdWindowSeconds": 'number',
+        "trunkGroupState": "Available",
+        "pilotUserCallingLineAssertedIdentityPolicy": "Unscreened Originating Calls",
+        "useSystemCallingLineAssertedIdentityPolicy": 'boolean',
+        "totalActiveIncomingCalls": 'number',
+        "totalActiveOutgoingCalls": 'number',
+        "pilotUserCallOptimizationPolicy": "Optimize For User Services",
+        "clidSourceForScreenedCallsPolicy": "Profile Name Profile Number",
+        "useSystemCLIDSourceForScreenedCallsPolicy": 'boolean',
+        "userLookupPolicy": "Basic",
+        "useSystemUserLookupPolicy": 'boolean',
+        "pilotUserCallingLineIdentityForEmergencyCallsPolicy": "No Calls",
+        "implicitRegistrationSetSupportPolicy": "Disabled",
+        "useSystemImplicitRegistrationSetSupportPolicy": 'boolean',
+        "sipIdentityForPilotAndProxyTrunkModesPolicy": "User",
+        "useSystemSIPIdentityForPilotAndProxyTrunkModesPolicy": 'boolean',
+        "useSystemSupportConnectedIdentityPolicy": 'boolean',
+        "supportConnectedIdentityPolicy": "Disabled",
+        "useSystemOptionsMessageResponseStatusCodes": 'boolean',
+        "serviceProviderId": "string",
+        "groupId": "string",
+        "name": "string"
+      }
+      ]
+  },
+  /* Group Device */
+  {
+    task: 'group.device.create',
+    name: 'Group Device Create',
+    description: 'Group Device Create',
+    required: ['deviceType', 'deviceName'],
+    example: [
+      {
+        task: 'group.device.create',
+        serviceProviderId: 'string',
+        groupId: 'string',
+        allowAccessDeviceUpdate: 'boolean',
+        deviceType: 'string',
+        deviceName: 'string',
+        accessDeviceEndpoint:{
+          linePort: 'string',
+          accessDevice: {
+            deviceType: 'string',
+            deviceName: 'string',
+            deviceLevel: 'string',
+            protocol: 'string',
+            netAddress: 'string',
+            port: 'string',
+            outboundProxyServerNetAddress: 'string',
+            stunServerNetAddress: 'string',
+            macAddress: 'string',
+            serialNumber: 'string',
+            description: 'string',
+            physicalLocation: 'string',
+            transportProtocol: 'string',
+            useCustomUserNamePassword: 'string',
+            accessDeviceCredentials: {
+              userName: 'string',
+              password: 'string'
             }
           }
         }
-      ]
-    },
+      }
+    ]
+  },
     // User Create
     {
       task: 'user.create',
@@ -600,9 +681,11 @@ function BulkTaskService() {
     }
   ]
 
-  return { index: index, get: get }
-
-  function get(task) {
-    return _.find(index, { task: task })
+  const get = (task) => {
+    return _.find(bulkTaskServices, { task: task })
   }
-}
+
+export const BulkTaskService = {
+    bulkTaskServices: bulkTaskServices,
+    getTaskDetails : get
+  }
