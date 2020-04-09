@@ -1,37 +1,32 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-// import { useUi } from '@/store/ui'
 import { Input , Select} from 'rbx'
-import { useAlerts } from '@/store/alerts'
 import { generatePassword } from '@/utils'
-import GroupDeviceAPI from '@/api/groups/group-device-service'
-import SystemDeviceTypeAPI from '@/api/system/system-device-type-service'
-import { useAsync } from 'react-async-hook'
 
 import {
-  UiButton,
-  UiCard,
   UiInputCheckbox,
   UiFormField,
   UiSection,
   UiInputPassword
 } from '@/components/ui'
 
-export const BulkAddTrunkGroup = (props) => {
-// console.log(match)
-const { serviceProviderId, groupId} = {...props}
+export const BulkAddTrunkGroup = (
+  {
+    serviceProviderId,
+    groupId,
+    deviceName='',
+    setTaskData
+  }
+) => {
   const initialForm = {
     "accessDevice":
       {
-        "newDevice" : false,
-        "selectedDevice": '',
         "staticRegistrationCapable": false,
         "useDomain": true,
         "staticLineOrdering": false,
         "serviceProviderId": '',
         "groupId": '',
-        "accessDeviceType": '',
-        "accessDeviceName": '',
+        "accessDeviceName": deviceName,
         "deviceLevel": '',
       },
     "allowTerminationToDtgIdentity":false,
@@ -82,8 +77,6 @@ const { serviceProviderId, groupId} = {...props}
   // clone group options
 
   const [form, setForm] = useState({...initialForm})
-  const [devices, setDevices] = useState([])
-  const [deviceTypes, setDeviceTypes] = useState([])
 
   const otherSettings = [
     {
@@ -138,42 +131,17 @@ const { serviceProviderId, groupId} = {...props}
     }
   ]
 
-  //const { userId } = match.params
-  const { alertSuccess, alertDanger } = useAlerts()
-  //const { showLoadingModal, hideLoadingModal } = useUi()
-  const [showModal, setShowModal] = useState(false)
-  //const [showAuth, setShowAuth] = useState(false)
-
-    useAsync(
-      () => GroupDeviceAPI.index(serviceProviderId, groupId, 'available')
-      .then((data) => {
-          setDevices(data)
-      })
-      ,[]
-    )
-
-    useAsync(
-      () => SystemDeviceTypeAPI.index()
-      .then((data) => {
-        setDeviceTypes(data)
-      })
-      ,[]
-    )
-
   useEffect( () => {
-	  props.setTaskData(form)
-  }, [props, form])
+	  setTaskData(form)
+  }, [setTaskData, form])
 
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    //if(name === 'requireAuthentication' && value === true) setShowAuth(true)
-    //else setShowAuth(false)
+
     const tempForm = {...form}
-    if(name === 'accessDeviceType' || name === 'accessDeviceName' ||
-      name === 'newDevice' || name === 'selectedDevice'
-    ) {
+    if( name === 'accessDeviceName') {
       tempForm['accessDevice'][name] = value
     }
     else tempForm[name] = value
@@ -221,85 +189,15 @@ const { serviceProviderId, groupId} = {...props}
             />
           </UiFormField>
 
-          <UiFormField label="New Device" horizontal>
-            <UiInputCheckbox
-              name="newDevice"
-              checked={form.accessDevice.newDevice}
-              onChange={handleInput}
-            />
-          </UiFormField>
-
-          {
-            (!form.accessDevice.newDevice)
-            ?
-            <UiFormField label="Access Device" horizontal >
-              <Select.Container fullwidth>
-                <Select
-                  value={form.accessDevice.selectedDevice}
-                  onChange={handleInput}
-                  name="selectedDevice"
-                >
-                <Select.Option
-                    value=""
-                  >
-                    Select Device
-                  </Select.Option>
-                  {
-                    devices && devices.map( (device) => {
-                      return (
-                          <Select.Option
-                            key={device.deviceName}
-                            value={device.deviceName}
-                          >
-                            {device.deviceName}
-                          </Select.Option>
-
-                      )
-                    })
-                  }
-              </Select>
-            </Select.Container>
-          </UiFormField>
-          :
-          <>
-          <UiFormField label="Access Device Type" horizontal >
-            <Select.Container fullwidth>
-                <Select
-                  value={form.accessDevice.accessDeviceType}
-                  onChange={handleInput}
-                  name="accessDeviceType"
-                >
-                <Select.Option
-                    value=""
-                  >
-                    Select Device Type
-                  </Select.Option>
-
-                  {
-                    deviceTypes && deviceTypes.map( (el) => {
-                      return (
-                          <Select.Option
-                            key={el.deviceType}
-                            value={el.deviceType}
-                          >
-                            {el.deviceType}
-                          </Select.Option>
-                      )
-                    })
-                  }
-                </Select>
-              </Select.Container>
-            </UiFormField>
-            <UiFormField label="Access Device Name" horizontal >
+          <UiFormField label="Access Device Name" horizontal >
               <Input
                 type="text"
-                onChange={handleInput}
+                readOnly
+                // onChange={handleInput}
                 name="accessDeviceName"
-                value={form.accessDevice.accessDeviceName}
+                value={deviceName}
               />
             </UiFormField>
-          </>
-          }
 
           {/* <UiFormField label="Department Name" horizontal>
             { <Select.Container fullwidth>
@@ -533,11 +431,13 @@ const { serviceProviderId, groupId} = {...props}
             </Select.Container>
           </UiFormField>
         </UiSection>
-
     </>
   )
 }
 
 BulkAddTrunkGroup.propTypes = {
+  serviceProviderId: PropTypes.string,
+  groupId: PropTypes.string,
+  deviceName: PropTypes.string,
   setTaskData: PropTypes.func
 }

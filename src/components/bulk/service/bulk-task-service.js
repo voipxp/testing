@@ -441,9 +441,11 @@ const bulkTaskServices =
         deviceType: 'string',
         deviceName: 'string',
         accessDeviceEndpoint:{
+          linePort: 'string',
           accessDevice: {
             deviceType: 'string',
             deviceName: 'string',
+            deviceLevel: 'string',
             protocol: 'string',
             netAddress: 'string',
             port: 'string',
@@ -457,9 +459,7 @@ const bulkTaskServices =
             useCustomUserNamePassword: 'string',
             accessDeviceCredentials: {
               userName: 'string',
-              password: 'string',
-              deviceLevel: 'string',
-              linePort: 'string'
+              password: 'string'
             }
           }
         }

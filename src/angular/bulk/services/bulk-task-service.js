@@ -360,9 +360,11 @@ function BulkTaskService() {
           deviceType: 'string',
           deviceName: 'string',
           accessDeviceEndpoint:{
+            linePort: 'string',
             accessDevice: {
               deviceType: 'string',
               deviceName: 'string',
+              deviceLevel: 'string',
               protocol: 'string',
               netAddress: 'string',
               port: 'string',
@@ -376,9 +378,7 @@ function BulkTaskService() {
               useCustomUserNamePassword: 'string',
               accessDeviceCredentials: {
                 userName: 'string',
-                password: 'string',
-                deviceLevel: 'string',
-                linePort: 'string'
+                password: 'string'
               }
             }
           }
