@@ -7,17 +7,19 @@ angular.module('odin.bulk').component('bulkDashboard', {
 })
 
 controller.$inject = [
+  'ACL',
   'BulkTaskService',
   '$location',
   'ServiceProviderPolicyService'
 ]
-function controller(BulkTaskService, $location, ServiceProviderPolicyService) {
+function controller(ACL,BulkTaskService, $location, ServiceProviderPolicyService) {
   var ctrl = this
   ctrl.open = open
   ctrl.openCsv = openCsv
   ctrl.canCreateUser = ServiceProviderPolicyService.userCreate()
   ctrl.services = filterByPolicy(BulkTaskService.index)
 
+if(ACL.is('Group')) ctrl.isGroupAdmin = true
 
   function open(service) {
     $location.path(`bulk/${service.task}`)

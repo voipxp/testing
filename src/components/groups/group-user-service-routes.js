@@ -59,17 +59,17 @@ export const groupUserServiceRoutes = [
     hasLevel: 'Group'
   },
   {
-    angularComponent: 'groupCallingPlans',
-    module: 'Outgoing Calling Plans',
-    path: 'callingPlans',
+    angularComponent: 'groupOutgoingCallingPlanUsers',
+    module: 'Outgoing Calling Plan',
+    path: 'outgoing-users',
     services: ['Outgoing Calling Plan'],
     hasLevel: 'Group',
-    hasModuleRead: 'Group Calling Plans'
+    hasModuleRead: 'Group Calling Plan'
   },
   {
     component: GroupSpeedDial8,
-    module: 'Outgoing Calling Plans',
-    path: 'callingPlans',
+    module: 'Speed Dial 8',
+    path: 'speedDial8',
     services: ['Speed Dial 8'],
     hasLevel: 'Group'
   },

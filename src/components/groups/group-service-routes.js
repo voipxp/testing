@@ -11,9 +11,9 @@ export const groupServiceRoutes = [
     hasLevel: 'Group'
   },
   {
-    angularComponent: 'callCenters',
+    angularComponent: 'groupCallCenters',
     hasModuleRead: 'Call Center',
-    path: 'groupCallCenters',
+    path: 'callCenters',
     services: ['Call Center'],
     hasLevel: 'Group'
   },
@@ -26,9 +26,9 @@ export const groupServiceRoutes = [
   },
   {
     angularComponent: 'groupCollaborate',
-    hasModuleRead: 'Call Pickup',
+    hasModuleRead: 'Collaborate - Audio',
     path: 'collaborate',
-    services: ['collaborate'],
+    services: ['Collaborate - Audio'],
     hasLevel: 'Group'
   },
   {

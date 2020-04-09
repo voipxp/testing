@@ -11,14 +11,17 @@ export const dashboardMenu = [
         name: 'departments',
         path: 'departments',
         angularComponent: 'groupDepartments',
-        hasLevel: 'Group'
+        hasLevel: 'Group',
+        isBreadcrumb: false
+        
       },
-	  {
-		name: 'Administrators',
-		path: 'admins',
-		angularComponent: 'groupAdmins',
-		hasLevel: 'Group'
-    },
+      {
+      name: 'Administrators',
+      path: 'admins',
+      angularComponent: 'groupAdmins',
+      hasLevel: 'Group',
+      isBreadcrumb: false
+      },
       
 	  /*
       {
@@ -33,8 +36,8 @@ export const dashboardMenu = [
       {
         name: 'Business Profile',
         path: 'profile',
-        policy: 'profileRead',
         angularComponent: 'groupProfile',
+        policy: 'profileRead',
       },
        {
 		    name: 'Users',
@@ -62,53 +65,52 @@ export const dashboardMenu = [
   },
   {
     label: 'Management',
-    items:  
-      [
+    items: [
       {
         name: 'Announcements',
-        version: '20',
-        path:  'announcements',
-		angularComponent: 'groupAnnouncements'
+        path: 'announcements',
+        angularComponent: 'groupAnnouncements',
+        version: '20'
       },
 	  
       {
         name: 'Bulk Provisioning',
         path: 'bulk',
-		angularComponent: 'bulkDashboard',
-		hasLevel: 'Group Department'
+		    angularComponent: 'bulkDashboard',
+		    hasLevel: 'Group Department'
       },
       {
         name: 'Calling Plans',
         path:  'callingPlans', 
-		angularComponent: 'groupCallingPlans',
-		hasLevel: 'Group'
+		    angularComponent: 'groupCallingPlans',
+		    hasLevel: 'Group'
       },
       {
         name: 'Directory',
         path: 'directory',
-		angularComponent: 'groupPhoneDirectory',
-		hasLevel: 'Group' 
+		    angularComponent: 'groupPhoneDirectory',
+		    hasLevel: 'Group' 
       },
       {
         name: 'Common Phone List',
         path: 'phoneList',
-		angularComponent: 'groupCommonPhoneList',
-		hasLevel: 'Group'
+		    angularComponent: 'groupCommonPhoneList',
+		    hasLevel: 'Group'
       },
       {
         name: 'Custom Directory',
         path: 'customContactDirectories' ,
-		angularComponent: 'groupCustomContactDirectories',
-		hasLevel: 'Group'
+		    angularComponent: 'groupCustomContactDirectories',
+		    hasLevel: 'Group'
       },
       { 
-		name: 'Comm Barring Auth Codes',
-		path:  'groupCommunicationBarringAuthorizationCodes',
-		angularComponent: 'groupCommunicationBarringAuthorizationCodes',
-		hasLevel: 'Group'
+        name: 'Comm Barring Auth Codes',
+        path:  'groupCommunicationBarringAuthorizationCodes',
+        angularComponent: 'groupCommunicationBarringAuthorizationCodes',
+        hasLevel: 'Group'
 	  },
 	  { 
-		name: 'Group Web Policy',
+		    name: 'Group Web Policy',
         path: 'groupWebPolicy',
         component: GroupWebPolicy,
         hasLevel: 'Service Provider'
@@ -116,8 +118,8 @@ export const dashboardMenu = [
       {
         name: 'Schedules',
         path: 'schedules',
-		angularComponent: 'groupSchedules',
-		hasLevel: 'Group'
+		    angularComponent: 'groupSchedules',
+		    hasLevel: 'Group'
       },
       {
         name: 'Viewable Packs',
@@ -129,27 +131,27 @@ export const dashboardMenu = [
       { 
         name: 'VDM',
         path:  'vdm',
-		angularComponent: 'vdmDashboard',
-		hasLevel: 'Group',
-		hasModuleRead: 'VDM'
+		    angularComponent: 'vdmDashboard',
+		    hasLevel: 'Group',
+		    hasModuleRead: 'VDM'
       },
       {
         name: 'Network Class of Service',
         path:  'networkclassofservices',
-		angularComponent: 'groupNetworkClassOfServices',
-		hasLevel: 'Group'
+		    angularComponent: 'groupNetworkClassOfServices',
+		    hasLevel: 'Group'
 	    },
       {
         name: 'Call Processing Policy',
         path:  'callProcessingPolicy' ,
-		angularComponent: 'groupCallProcessingPolicy',
-		hasLevel: 'Group'
+		    angularComponent: 'groupCallProcessingPolicy',
+		    hasLevel: 'Group'
       },
       {
         name: 'Intercept Group',
         path: 'intercept' ,
         angularComponent: 'groupIntercept',
-		hasLevel: 'Group',
+		    hasLevel: 'Group',
         hasModuleRead: 'Intercept Group'
       },
       {
@@ -163,51 +165,50 @@ export const dashboardMenu = [
       {
         name: 'Comm Barring',
         path: 'groupCommunicationBarring',
-		angularComponent: 'groupFeatureAccessCodes',
-		hasLevel: 'Group',
-		hasModuleRead: 'Group Feature Access Codes'		
+		    angularComponent: 'groupFeatureAccessCodes',
+		    hasLevel: 'Group',
+		    hasModuleRead: 'Group Feature Access Codes'		
       }
     ]
   },
-   {
+  {
     label: 'Reports',
     items: [
-			   
-		   {
-				name: 'Auto Receptionist',
-				path: 'autoAttendant',
-				angularComponent: 'autoAttendantCallRecords',
-				hasLevel: 'Group',
-				hasModuleRead: 'Auto Attendant Report'
-		   },
-		   {
-			name: 'Call Center Agent Report',
-			path: 'callCenter',
-			angularComponent: 'groupCallCenterCallRecords',
-			hasLevel: 'Group',
-			hasModuleRead: 'Premium Call Records'
-		  },
-			{
-			name: 'Premium Call Records',
-			path: 'group',
-			angularComponent: 'groupCallRecordIndex',
-			hasLevel: 'Group',
-			hasModuleRead: 'Premium Call Records'
-		  },
-		  {
-			name: 'User Call Report',
-			path: 'groups',
-			angularComponent: 'groupCallRecordIndex',
-			hasLevel: 'Group',
-			hasModuleRead: 'Premium Call Records'
-		  },
-		  {
-			name: 'User Report',
-			path: 'users',
-			angularComponent: 'usersReport',
-			hasLevel: 'Group',
-			hasModuleRead: 'User Report'
-		  } 
+      {
+      name: 'Auto Receptionist',
+      path: 'autoAttendant',
+      angularComponent: 'autoAttendantCallRecords',
+      hasLevel: 'Group',
+      hasModuleRead: 'Auto Attendant Report'
+      },
+      {
+      name: 'Call Center Agent Report',
+      path: 'callCenter',
+      angularComponent: 'groupCallCenterCallRecords',
+      hasLevel: 'Group',
+      hasModuleRead: 'Premium Call Records'
+      },
+      {
+      name: 'Premium Call Records',
+      path: 'group',
+      angularComponent: 'groupCallRecordIndex',
+      hasLevel: 'Group',
+      hasModuleRead: 'Premium Call Records'
+      },
+      {
+      name: 'User Call Report',
+      path: 'groups',
+      angularComponent: 'groupCallRecordIndex',
+      hasLevel: 'Group',
+      hasModuleRead: 'Premium Call Records'
+      },
+      {
+      name: 'User Report',
+      path: 'users',
+      angularComponent: 'usersReport',
+      hasLevel: 'Group',
+      hasModuleRead: 'User Report'
+      } 
 	  ]
 	}
-    ]
+]

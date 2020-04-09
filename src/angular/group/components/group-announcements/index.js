@@ -7,14 +7,14 @@ angular.module('odin.group').component('groupAnnouncements', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupAnnouncementService', '$scope', 'Route']
-function controller(Alert, GroupAnnouncementService, $scope, Route) {
+controller.$inject = ['ACL','Alert', 'GroupAnnouncementService', '$scope', 'Route']
+function controller(ACL, Alert, GroupAnnouncementService, $scope, Route) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
   ctrl.open = open
   ctrl.onUpdate = onUpdate
-
+if(ACL.is('Group')) ctrl.isGroupAdmin = true
   function onInit() {
     ctrl.repository = { announcements: [] }
     ctrl.loading = true
