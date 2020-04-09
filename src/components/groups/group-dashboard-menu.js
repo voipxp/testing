@@ -83,7 +83,8 @@ export const dashboardMenu = [
 	  {
         name: 'Comm Barring',
         path: 'groupCommunicationBarring',
-		component: GroupCommunicationBarring	
+		component: GroupCommunicationBarring,
+        isBreadcrumb: false		
       },
 	  { 
         name: 'Comm Barring Auth Codes',
