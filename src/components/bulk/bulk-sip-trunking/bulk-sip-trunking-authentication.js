@@ -8,11 +8,11 @@ import {
   UiFormField,
   UiSection,
   UiButton,
-  UiCardModal
+  UiCardModal,
+  UiInputCheckbox
 } from '@/components/ui'
 
 import { useAlerts } from '@/store/alerts'
-import { StorageService } from '@/utils'
 
 export const BulkSipTrunkingAuthentication = ({
 	initialData={},
@@ -28,8 +28,10 @@ export const BulkSipTrunkingAuthentication = ({
 }
  const initialForm = {
   userName : '',
-  userNameAction  : 'skip', 
-  passwordAction  :'{{ generateSipPassword }}' 
+  userNameAction  : 'skip',
+  passwordAction  :'{{ generateSipPassword }}',
+  resetDevice: false,
+  rebuildDevice: false
 }
 
   const [form, setForm] = useState({...initialForm})
@@ -46,18 +48,18 @@ export const BulkSipTrunkingAuthentication = ({
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
-    
-    if( name === 'userNameAction' && value !== 'skip') setUserNameVisible(true) 
+
+    if( name === 'userNameAction' && value !== 'skip') setUserNameVisible(true)
     if( name ==='userNameAction' && value === 'skip' ) setUserNameVisible(false)
     if( name === 'passwordAction' &&  value === 'manual') setPasswordVisible(true)
     if( name === 'passwordAction' && value !== 'manual' ) setPasswordVisible(false)
-    
+
     tempForm[name] = value
     setForm({ ...tempForm })
   }
 /*
 onKeyPress={handleKeyDown}
-  const handleKeyDown = event => {  
+  const handleKeyDown = event => {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
@@ -65,7 +67,7 @@ onKeyPress={handleKeyDown}
     else if((name === 'userName' && value === '')
      && (name === 'passwordAction' && value === '{{ generateSipPassword }}') ) setDisableNextButton(true)
     else setDisableNextButton(false)
-     
+
   } */
 
   const prepareImport = () => {
@@ -75,6 +77,8 @@ onKeyPress={handleKeyDown}
         "userId": "--", // This is only temp userId, userId will be set in SIP Auth Task
         "groupId": groupId,
         "serviceProviderId": serviceProviderId,
+        "resetDevice": form.resetDevice,
+        "rebuildDevice": form.rebuildDevice
       }
       if(form.userAction !== 'skip') task.userName = form.userName
       if(form.passwordAction === '{{ generateSipPassword }}' ) task.newPassword = form.passwordAction
@@ -133,7 +137,7 @@ const prepareImportData = () => {
     }
     setForm({...tagTempForm})
     setTagBundleTemplateClick(false)
-  } 
+  }
 
 const tagInputClicked = (elNane) => {
   setSelectedTagInput(elNane)
@@ -231,6 +235,22 @@ const tagInputClicked = (elNane) => {
         </UiFormField>
         ):null }
       </UiSection>
+
+    <UiSection title ="Rebuild and Reset Device?">
+      <UiInputCheckbox
+        name="rebuildDevice"
+        label="Rebuild Device"
+        checked={form.rebuildDevice}
+        onChange={handleInput}
+      />
+      <UiInputCheckbox
+        name="resetDevice"
+        label="Reset Device"
+        checked={form.resetDevice}
+        onChange={handleInput}
+    />
+    </UiSection>
+
     </UiCard>
       <div style={{marginTop: '20px'}}>
         <Button style={{float: 'right'}}
