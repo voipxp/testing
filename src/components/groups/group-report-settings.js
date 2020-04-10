@@ -4,10 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiDataTable } from '@/components/ui'
 import { useModulePermissions, useUserServicePermissions } from '@/utils'
-//import { useGroupServices } from '@/store/group-services'
-//import { useUserAssignedServices } from '@/store/user-assigned-services'
-import { AngularComponent } from '@/components/angular-component'
-//import { groupServiceRoutes } from './group-service-routes'
+import { AngularComponent } from '@/components/angular-component' 
 import { groupReportRoutes } from './group-report-routes'
 
 /* eslint-disable react/display-name */
@@ -19,34 +16,17 @@ const columns = [
 ]
 
 export const GroupReportSettings = ({ history, match }) => {
-  //const { serviceProviderId,groupId } = match.params
   const { getModule } = useModulePermissions()
-  //const { userViewableServices } = useUserServicePermissions(serviceProviderId,groupId)
- // const { loadGroupServices } = useGroupServices(serviceProviderId,groupId)
 
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-   // loadGroupServices(serviceProviderId,groupId)
     history.goBack()
   }
-  /*
-  turn our array of routes into a filtered list of components,
-  pulling in module aliases and description, maintaining the route path
-  [{
-    name: 'Service':
-    alias: 'Something',
-    description: 'Something Cool',
-    isActive: true,
-    path: 'some-service'
-  }]
-  */
+   
   const services = React.useMemo(() => {
-    
-    // turn this into a map of serviceName => route
-	//dashboardMenu.forEach(section => {
     const allowedServices = groupReportRoutes.reduce((obj, route) => {
       groupReportRoutes.forEach(s => (obj[s] = route))
       return obj
@@ -67,7 +47,7 @@ export const GroupReportSettings = ({ history, match }) => {
       <UiDataTable
         columns={columns}
         rows={services}
-        rowKey="service"
+        rowKey="name"
         onClick={service => showService(service)}
       />
     </UiCard>
