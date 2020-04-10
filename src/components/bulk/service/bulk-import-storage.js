@@ -25,6 +25,7 @@ import {
     const [users, setUsers] = useState([])
     const [keys, setKeys] = useState([])
     const [task, setTask] = useState('')
+    const [fileName, setFileName] = useState('')
     const [loading, setLoading]= useState(true)
     const [action, setAction] = useState({})
     const [importTask, setImportTask] = useState(false)
@@ -61,6 +62,7 @@ import {
       }
 
       deleteLocalStorageData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [localStorageKey, deleteLocalStorage])
 
     useEffect( () => {
@@ -72,7 +74,15 @@ import {
       setDisableNextButton(true)
       setImportTask(false)
       onInit()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [localStorageKey])
+
+    useEffect( () => {
+      let tempName = task
+      if(tempName === "trunk.group.call.capacity" && (users && users[0]['groupId']) ) tempName = 'group-' + tempName
+      else if(tempName === "trunk.group.call.capacity" && (users && !users[0]['groupId'])) tempName = 'enterprise-' + tempName
+      setFileName(tempName)
+    }, [task, users])
 
     const handleDataChange = (data) => {
         setUsers(data)
@@ -234,7 +244,7 @@ import {
                     uploading={ (boolValue) => setLoadingTable(boolValue)}
                     finalStep={onInit}
                   />
-                  <CSVLink data={users} headers={keys} filename={task+".csv"}>
+                  <CSVLink data={users} headers={keys} filename={fileName+".csv"}>
                     <Button
                       className="button ng-isolate-scope is-link"
                       color="buttonColor"

@@ -581,7 +581,9 @@ function BulkTaskService() {
           task: 'user.authentication.update',
           userId: 'userId',
           userName: 'string',
-          newPassword: 'string'
+          newPassword: 'string',
+          resetDevice: 'boolean',
+          rebuildDevice: 'boolean'
         }
       ]
     },
