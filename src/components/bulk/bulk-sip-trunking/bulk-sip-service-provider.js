@@ -26,7 +26,11 @@ export const BulkSipServiceProvider = (
 
   const selectServiceProvider = (spRow) => {
     const serviceProviderId = spRow.serviceProviderId
-    handleWizData({...initialData, serviceProviderId: serviceProviderId })
+    const tempData = { ...initialData }
+    tempData['serviceProviderId'] = serviceProviderId
+    tempData['sourceServiceProviderId'] = ''
+    handleWizData({...tempData })
+    // handleWizData({...initialData, serviceProviderId: serviceProviderId })
 	  setToNext()
   }
 
