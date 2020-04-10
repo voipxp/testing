@@ -4,6 +4,7 @@ import {
 } from '@/components/groups'
 import { GroupUserServiceSettings } from './group-user-service-settings'
 import { GroupServiceSettings } from './group-service-settings'
+import { GroupReportSettings } from './group-report-settings'
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -37,10 +38,15 @@ export const dashboardMenu = [
         policy: 'profileRead',
       },
        {
-		    name: 'Users',
+		name: 'Users',
         path: 'users',
         angularComponent: 'groupUsers'
 		//component : GroupUserService
+      },
+	   {
+		name: 'Reports',
+        path: 'reports',
+        component: GroupReportSettings
       },
 	  ]
   },
@@ -160,7 +166,7 @@ export const dashboardMenu = [
 		hasModuleRead: 'VDM'
       }
     ]
-  },
+  }/* ,
   {
     label: 'Reports',
     items: [
@@ -200,5 +206,5 @@ export const dashboardMenu = [
       hasModuleRead: 'User Report'
       } 
 	  ]
-	}
+	} */
 ]
