@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { menu } from './bulk-sip-trunking-dashboard-menu'
 import { BulkWizMenu } from '@/components/bulk'
 import { Redirect } from 'react-router-dom'
+// import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
+import { StorageService } from '@/utils'
 
 const initial = {
   serviceProviderId: "",
@@ -23,6 +25,13 @@ export const BulkSipTrunking = () => {
   const handleWizData = (data) => {
     setSipTrunkShareableData(data)
   }
+
+  useEffect( () => {
+    menu.forEach( item => {
+     StorageService.clearStorage(item.localStorageKey) 
+    })
+  }, [menu]) 
+
 
   useEffect( () => {
     setPrepareData([])
