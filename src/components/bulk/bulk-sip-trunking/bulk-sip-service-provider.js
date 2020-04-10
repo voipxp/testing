@@ -6,7 +6,6 @@ import { BulkEnterpriseCloneAllControls } from '../bulk-enterprise-clone/bulk-en
 import { BulkSelectServiceProviderId } from '../bulk-select-service-provider-id'
 import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
 import { useAlerts } from '@/store/alerts'
-// import { prototype } from 'clipboard'
 
 export const BulkSipServiceProvider = (
   {
@@ -16,7 +15,7 @@ export const BulkSipServiceProvider = (
     localStorageKey
   }
 ) => {
-  const { alertSuccess, alertDanger, alertWarning } = useAlerts()
+  const { alertDanger } = useAlerts()
 	const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
   const [cloneEnterpriseClicked, setCloneEnterpriseClicked] = React.useState(false)
@@ -27,7 +26,11 @@ export const BulkSipServiceProvider = (
 
   const selectServiceProvider = (spRow) => {
     const serviceProviderId = spRow.serviceProviderId
-    handleWizData({...initialData, serviceProviderId: serviceProviderId })
+    const tempData = { ...initialData }
+    tempData['serviceProviderId'] = serviceProviderId
+    tempData['sourceServiceProviderId'] = ''
+    handleWizData({...tempData })
+    // handleWizData({...initialData, serviceProviderId: serviceProviderId })
 	  setToNext()
   }
 
@@ -51,7 +54,6 @@ const prepareImportData = () => {
 
 const prepareImport = () => {
     const tasks = []
-    // initialState.forEach(function(el, i) {
       const task = {
         task: 'service.provider.bulk.clone',
         'source.serviceProviderId': taskData.cloneServiceProviderId || null,
@@ -66,7 +68,6 @@ const prepareImport = () => {
 
       task['options'] = options
       tasks.push(task)
-    // })
 
     const tempData = { ...initialData }
     tempData['serviceProviderId'] = taskData.newServiceProviderId
