@@ -2,30 +2,33 @@ import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
 import isFunction from 'lodash/isFunction'
 import PropTypes from 'prop-types'
-import { BulkParseService, BulkImport } from '@/components/bulk'
+import { BulkParseService, BulkImport, BulkUploadCsv } from '@/components/bulk'
 import { StorageService } from '@/utils'
 import { Button } from 'rbx'
-import { UiLoading } from '@/components/ui'
+import { UiLoading, UiCardModal } from '@/components/ui'
 import { CSVLink } from "react-csv"
-import { BulkUploadCsv } from "./bulk-upload-csv"
+import { useAlerts } from '@/store/alerts'
+import RecentTask from '@/components/bulk/recent-tasks/recent-task'
+
 import {
   UiDataTableEditable,
   UiCard
 } from '@/components/ui'
 
-  export const BulkImportStorage = ({
+  export const BulkImportUpload = ({
     localStorageKey='BulkImportService',
     setDisableNextButton,
     beforComplete,
     onLoad,
     onComplete,
     initialData,
-    addUsers
+    addUsers,
+    expectedTaskType
   }) => {
     const [users, setUsers] = useState([])
     const [keys, setKeys] = useState([])
     const [task, setTask] = useState('')
-    const [fileName, setFileName] = useState('')
+    const [taskId, setTaskId] = useState('')
     const [loading, setLoading]= useState(true)
     const [action, setAction] = useState({})
     const [importTask, setImportTask] = useState(false)
@@ -33,10 +36,12 @@ import {
     const [deleteLocalStorage, setDeleteLocalStorage] = useState(false)
     const [isProcessing, setIsProcessing] = useState(false)
     const [loadingTable, setLoadingTable] = useState(false)
+    const [showErrorModal, setShowErrorModal] = useState(false)
 
     const canBeforComplete = isFunction(beforComplete)
     const canOnLoad = isFunction(onLoad)
     const canOnComplete = isFunction(onComplete)
+    const { alertDanger } = useAlerts()
 
     const finalSteps = () => {
       setIsProcessing(false)
@@ -70,19 +75,17 @@ import {
     }, [users, setUsers, onLoad, canOnLoad])
 
     useEffect( () => {
+      if(taskId) setShowErrorModal(true)
+    }, [taskId])
+
+
+    useEffect( () => {
       setLoading(true)
       setDisableNextButton(true)
       setImportTask(false)
       onInit()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [localStorageKey])
-
-    useEffect( () => {
-      let tempName = task
-      if(tempName === "trunk.group.call.capacity" && (users && users[0]['groupId']) ) tempName = 'group-' + tempName
-      else if(tempName === "trunk.group.call.capacity" && (users && !users[0]['groupId'])) tempName = 'enterprise-' + tempName
-      setFileName(tempName)
-    }, [task, users])
 
     const handleDataChange = (data) => {
         setUsers(data)
@@ -120,8 +123,21 @@ import {
         // if(canComplete) onImportComplete(data[0])
       })
       .catch( (error) => {
-        finalSteps()
+        errorHandler(error)
       })
+    }
+
+    const errorHandler = (error) => {
+      if(_.includes(error, 'Unresolved Tag')) {
+        alertDanger(error)
+      }
+      else if(error === 'Error in loading data') {
+        setDeleteLocalStorage(true)
+      }
+      else {
+        alertDanger(error)
+        setDeleteLocalStorage(true)
+      }
     }
 
     const addUsersOnLoad = (data) => {
@@ -130,7 +146,6 @@ import {
       return new Promise(function(resolve, reject) {
         initialData.users.forEach( (userId, index) => {
           temp['userId'] = userId
-          temp['index']  = index+1
           data[index] = {...temp}
         })
 
@@ -145,6 +160,7 @@ import {
           StorageService.getStorage(localStorageKey)
           .then((data) => {
             if(!data) return reject('Error in loading data')
+            if(data.length > 0 && data[0]['task'] !== expectedTaskType) return reject('Invalid Task Type')
 
             setUsers(data)
             setKeys(loadKeys(data))
@@ -228,6 +244,7 @@ import {
           action={action}
           deleteLocalStorage={ (boolValue) => setDeleteLocalStorage(boolValue) }
           onError={onError}
+          setTaskId={ (id) => setTaskId(id) }
         /> : null
       }
 
@@ -236,16 +253,16 @@ import {
           title={ isTaskExist ? task : 'Task'}
           buttons={
             <>
+              <BulkUploadCsv
+                localStorageKey={localStorageKey}
+                uploading={ (boolValue) => setLoadingTable(boolValue)}
+                finalStep={onInit}
+              />
               {
                 isTaskExist
                 ?
                 <>
-                  <BulkUploadCsv
-                    localStorageKey={localStorageKey}
-                    uploading={ (boolValue) => setLoadingTable(boolValue)}
-                    finalStep={onInit}
-                  />
-                  <CSVLink data={users} headers={keys} filename={fileName+".csv"}>
+                  <CSVLink data={users} headers={keys} filename={task+".csv"}>
                     <Button
                       className="button ng-isolate-scope is-link"
                       color="buttonColor"
@@ -296,17 +313,37 @@ import {
             <label>No Pending Task available !</label>
           )
         }
+
+        {   /* Task Error Modal */
+          taskId
+          ?
+            <div>
+            <UiCardModal
+              title="Task Details"
+              isOpen={showErrorModal}
+              onCancel={() => setShowErrorModal(false)}
+            >
+            <RecentTask
+              id={taskId}
+            />
+            </UiCardModal>
+            </div>
+          :
+          null
+        }
+
         </UiCard>
       }
     </>
   }
 
-  BulkImportStorage.propTypes = {
+  BulkImportUpload.propTypes = {
     localStorageKey: PropTypes.string,
     setDisableNextButton: PropTypes.func,
     beforComplete: PropTypes.func,
     onLoad: PropTypes.func,
     onComplete: PropTypes.func,
     initialData: PropTypes.object,
-    addUsers: PropTypes.bool
+    addUsers: PropTypes.bool,
+    expectedTaskType: PropTypes.string,
   }

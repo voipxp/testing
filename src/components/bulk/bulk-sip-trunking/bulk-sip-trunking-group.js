@@ -32,7 +32,11 @@ export const BulkSipTrunkingGroup = ({
   const selectGroupId = (spRow) => {
     const groupId = spRow.groupId
     setSelectedGroupId(groupId)
-    handleWizData({...initialData, groupId: groupId })
+
+    const tempData = { ...initialData }
+    tempData['groupId'] = groupId
+    tempData['sourceGroupId'] = ''
+    handleWizData({...tempData })
 	  setToNext()
   }
 

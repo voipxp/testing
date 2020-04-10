@@ -9,6 +9,7 @@ import { AssignGroupServices } from './bulk-sip-trunking-group-services'
 import { BulkSipTrunkingUserServices } from './bulk-sip-trunking-user-services'
 import { BulkSipTrunkingAuthentication } from './bulk-sip-trunking-authentication'
 import { BulkSipTrunkingTrunkPilotUser } from './bulk-sip-trunking-trunk-pilot-user'
+import { BulkSipTrunkingDevices } from './bulk-sip-trunking-devices'
 
 /* Tasks */
 import { BulkSipTrunkingCommonViewTask } from './tasks/bulk-sip-trunking-common-view-task'
@@ -45,6 +46,11 @@ export const menu = [
     component: BulkSipTrunkingGroupCallCapacity
   },
   {
+    name: 'Group Device Create',
+    localStorageKey: 'BulkSipTrunkingDevices',
+    component: BulkSipTrunkingDevices
+  },
+  {
     name: 'Group Trunk',
     localStorageKey: 'BulkSelectGroupTrunk',
     component: BulkSipTrunkingTrunkGroups
@@ -70,17 +76,6 @@ export const menu = [
     component: BulkSipTrunkingAuthentication
   },
 
-  // {
-  //   name: 'Endpoint Type',
-  //   localStorageKey: 'BulkEndpointType',
-  //   component: BulkEndpointType
-  // },
-  // {
-  //   name: 'Line Port',
-  //   localStorageKey: 'BulkLinePort',
-  //   component: BulkLinePort
-  // },
-
   /* Same above menu will be appeared for task submission */
   {
     name: 'Service Provider Task',
@@ -105,6 +100,11 @@ export const menu = [
   {
     name: 'Group Call Capacity Task',
     localStorageKey: 'BulkSipTrunkingGroupCallCapacity',
+    component: BulkSipTrunkingCommonViewTask
+  },
+  {
+    name: 'Group Device Create Task',
+    localStorageKey: 'BulkSipTrunkingDevices',
     component: BulkSipTrunkingCommonViewTask
   },
   {
@@ -138,14 +138,5 @@ export const menu = [
     localStorageKey: 'BulkSipTrunkingAuthentication',
     component: BulkSipTrunkingAuthenticationTask
   }
-  // {
-  //   name: 'Endpoint Type Task',
-  //   localStorageKey: 'BulkEndpointType',
-  //   component: BulkSipTrunkingCommonViewTask
-  // }
-  // {
-  //   name: 'Line Port',
-  //   localStorageKey: 'BulkLinePort',
-  //   component: BulkSipTrunkingCommonViewTask
-  // }
+
 ]

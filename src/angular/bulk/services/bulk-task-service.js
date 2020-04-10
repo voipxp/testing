@@ -12,6 +12,12 @@ function BulkTaskService() {
       description: 'Bulk Sip Trunking',
       required: []
     },
+	{
+      task: 'bulk.sip.trunking.upload',
+      name: 'Bulk Sip Trunking Upload',
+      description: 'Bulk Sip Trunking Upload',
+      required: []
+    },
     {
       task: 'service.provider.bulk.clone',
       name: 'Clone Enterprise',
@@ -339,6 +345,46 @@ function BulkTaskService() {
         }
       ]
     },
+    /* Group Device */
+    {
+      task: 'group.device.create',
+      name: 'Group Device Create',
+      description: 'Group Device Create',
+      required: ['deviceType', 'deviceName'],
+      example: [
+        {
+          task: 'group.device.create',
+          serviceProviderId: 'string',
+          groupId: 'string',
+          allowAccessDeviceUpdate: 'boolean',
+          deviceType: 'string',
+          deviceName: 'string',
+          accessDeviceEndpoint:{
+            linePort: 'string',
+            accessDevice: {
+              deviceType: 'string',
+              deviceName: 'string',
+              deviceLevel: 'string',
+              protocol: 'string',
+              netAddress: 'string',
+              port: 'string',
+              outboundProxyServerNetAddress: 'string',
+              stunServerNetAddress: 'string',
+              macAddress: 'string',
+              serialNumber: 'string',
+              description: 'string',
+              physicalLocation: 'string',
+              transportProtocol: 'string',
+              useCustomUserNamePassword: 'string',
+              accessDeviceCredentials: {
+                userName: 'string',
+                password: 'string'
+              }
+            }
+          }
+        }
+      ]
+    },
     // User Create
     {
       task: 'user.create',
@@ -535,7 +581,9 @@ function BulkTaskService() {
           task: 'user.authentication.update',
           userId: 'userId',
           userName: 'string',
-          newPassword: 'string'
+          newPassword: 'string',
+          resetDevice: 'boolean',
+          rebuildDevice: 'boolean'
         }
       ]
     },

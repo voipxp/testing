@@ -1,32 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { UiCard, UiCardModal, UiButton, UiLoading, UiDataTable } from '@/components/ui'
-import serviceProviderApi from '@/api/service-providers'
-import { useAsync } from 'react-async-hook'
+import { UiCard, UiCardModal, UiButton } from '@/components/ui'
 import { Button } from 'rbx'
-import { BulkEnterpriseCloneAllControls } from '../bulk-enterprise-clone/bulk-enterprise-clone-all-controls'
-// import { BulkSelectServiceProviderId } from '../bulk-select-service-provider-id'
-import { BulkSelectGroupId } from '../bulk-select-group-id'
 import { BulkSelectGroupTrunk } from '../bulk-trunk-group/bulk-select-group-trunk'
 import { BulkAddTrunkGroup } from '../bulk-trunk-group/bulk-add-trunk-group'
 import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
 import { useAlerts } from '@/store/alerts'
-import { prototype } from 'clipboard'
-
-const columns = [
-  {
-    key: 'serviceProviderId',
-    label: 'serviceProviderId'
-  },
-  {
-    key: 'serviceProviderName',
-    label: 'serviceProviderName'
-  },
-  {
-    key: 'resellerId',
-    label: 'resellerId'
-  }
-]
 
 export const BulkSipTrunkingTrunkGroups = ({
   initialData={},
@@ -35,7 +14,7 @@ export const BulkSipTrunkingTrunkGroups = ({
   localStorageKey
 }) => {
 
-  const { alertSuccess, alertDanger, alertWarning } = useAlerts()
+  const { alertSuccess, alertDanger } = useAlerts()
 	const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
   const [add, setAdd] = React.useState(false)
@@ -54,6 +33,7 @@ export const BulkSipTrunkingTrunkGroups = ({
 		setAdd(false)
 		prepareImportData().then((data) => {
       Promise.all([BulkImportService.handleFileData(data, localStorageKey)]).then( (data) => {
+        alertSuccess('Task created successfully.')
         setToNext()
       })
       .catch( (error) => {
@@ -115,21 +95,15 @@ const prepareImportData = () => {
         "otgDtgIdentity": taskData.otgDtgIdentity
       }
 
+      task["accessDevice.deviceName"] = taskData.accessDevice.accessDeviceName
+      task["accessDevice.deviceLevel"] = "Group"
+
       if(taskData.prefixEnabled) {
         task["prefix"] = taskData.prefix
       }
       if(taskData.requireAuthentication) {
         task["sipAuthenticationUserName"] = taskData.sipAuthenticationUserName
         task["sipAuthenticationPassword"] = taskData.sipAuthenticationPassword
-      }
-      if(!taskData.accessDevice.newDevice) {
-        task["accessDevice.deviceName"] = taskData.accessDevice.selectedDevice
-        task["accessDevice.deviceLevel"] = "Group"
-      }
-      else {
-        task["accessDevice.deviceType"] = taskData.accessDevice.accessDeviceType
-        task["accessDevice.deviceName"] = taskData.accessDevice.accessDeviceName
-        task["accessDevice.deviceLevel"] = "Group"
       }
       task['serviceProviderId'] = initialData.serviceProviderId
       task['groupId'] = initialData.groupId
@@ -154,6 +128,7 @@ const prepareImportData = () => {
          setTaskData={setTaskDataHandler}
          serviceProviderId={initialData.serviceProviderId}
          groupId={initialData.groupId}
+         deviceName={initialData.deviceName}
         />
       </UiCardModal>
     </>

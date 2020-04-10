@@ -25,7 +25,8 @@ export const BulkWizMenu = ({
   initialData = {},
   handleWizData,
   setMenu,
-  wizardComplete
+  wizardComplete,
+  disableNextItem=false
 }) => {
 
   useEffect( () => {
@@ -40,8 +41,11 @@ export const BulkWizMenu = ({
 
   const handleMenuItems = (index=0) => {
     const newMenus = menu.map( (item, j) => {
-      if(j > index) item.isDisabled = true
-      else item.isDisabled = false
+      if(disableNextItem) {
+        if(j > index) item.isDisabled = true
+        else item.isDisabled = false
+      }
+
       item.active = false
       return item
     })
@@ -100,7 +104,7 @@ const setToNext = () => {
               key={item.name + index}
               active={item.active}
               disable='true'
-              className={cx({ disabled: item.isDisabled })}
+              className={cx({ disabled: item.isDisabled && disableNextItem })}
               onClick={() => handleClick(item, index)}
             >
               {/* <FontAwesomeIcon style={{color: 'green'}} icon={faCheck} />   */}
@@ -145,5 +149,6 @@ BulkWizMenu.propTypes = {
     initialData: PropTypes.object,
     handleWizData: PropTypes.func,
     setMenu: PropTypes.func,
-    wizardComplete: PropTypes.func
+    wizardComplete: PropTypes.func,
+    disableNextItem: PropTypes.bool
 }

@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAlerts } from '@/store/alerts'
-import isFunction from 'lodash/isFunction'
 import {TaskService} from '@/api/task/task-service'
 import { BulkParseService } from '@/components/bulk'
-import { StorageService, UtilityService } from '@/utils'
-import { UiLoading } from '@/components/ui'
+import { UtilityService } from '@/utils'
+import isFunction from 'lodash/isFunction'
 
 export const BulkImport = (
   {
@@ -12,15 +11,15 @@ export const BulkImport = (
   task,
   action,
   deleteLocalStorage,
-  onError
+  onError,
+  setTaskId
   }
 ) => {
-  const { alertSuccess, alertDanger, alertWarning } = useAlerts()
-  // let interval
+  const { alertSuccess, alertDanger } = useAlerts()
+  const canSetTaskId = isFunction(setTaskId)
+  let taskId = ''
 
   useEffect( () => {
-    //setLoading(true)
-    // setLocalStorageKey(props.localStorageKey)
     submit(users)
   }, [])
 
@@ -43,13 +42,11 @@ export const BulkImport = (
       .catch(function(error) {
         onError()
         alertDanger(error)
+        if(canSetTaskId) setTaskId(taskId)
       })
   }
 
   const validate = (users) => {
-    // return new Promise(function(resolve) {
-    //   resolve(users)
-    // })
     return BulkParseService.bulkParse(users)
       .then(function(users) {
         return BulkParseService.validateBulk(users, action.required || [])
@@ -122,8 +119,6 @@ export const BulkImport = (
   }
 
   const queue = (users) => {
-	  //return 	Route.open('bulk')
-    // if(!isPermittedTask(ctrl.task)) return false  /* Check admin has policy for user create/delete */
     const taskTemp = {
       type: task,
       data: UtilityService.unflatten(users)
@@ -131,6 +126,7 @@ export const BulkImport = (
     // Alert.spinner.open()
     return TaskService.create(taskTemp)
       .then(function(data) {
+        taskId = data.id
         alertSuccess('Import Queued: ' + data.id)
         // Route.open('bulk')
         return data
