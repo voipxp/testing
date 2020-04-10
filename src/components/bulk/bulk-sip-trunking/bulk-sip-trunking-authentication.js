@@ -21,7 +21,7 @@ export const BulkSipTrunkingAuthentication = ({
   localStorageKey
 }) => {
  const handleTask = () => {
-  if(form.userNameAction !=='skip' || form.passwordAction !=='skip'){
+  if(form.userNameAction !=='skip'){
     createTask()
   }
   setToNext()
