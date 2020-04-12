@@ -2,6 +2,9 @@ import { UserDashboard } from '@/components/users'
 import { DepartmentDashboard } from '@/components/departments'
 import { CreateAutoAttendant } from '@/components/autoAttendant'
 import {
+  ServiceProviderDashboard
+} from '@/components/service-provider'
+import {
   GroupCommunicationBarring,
   GroupSpeedDial8,
   GroupExtensionLength,
@@ -602,7 +605,7 @@ export const routes = [
   },
   {
     path: '/serviceProviders/:serviceProviderId',
-    angularComponent: 'serviceProviderDashboard',
+    component: ServiceProviderDashboard,
     hasLevel: 'Group'
   },
   {
