@@ -14,7 +14,7 @@ import {
   UiCardModal
 } from '@/components/ui'
 
-export const GroupSpeedDial8 = ({ match }) => {
+export const GroupSpeedDial8 = ({ match , isBreadcrumb = true}) => {
   const { serviceProviderId, groupId } = match.params
   const { alertSuccess, alertDanger } = useAlerts()
   const { showLoadingModal, hideLoadingModal } = useUi()
@@ -147,10 +147,11 @@ export const GroupSpeedDial8 = ({ match }) => {
   })
 
   return (
-    <>
+    <> {isBreadcrumb && (
       <AppBreadcrumb>
         <Breadcrumb.Item>Speed Dial 8</Breadcrumb.Item>
       </AppBreadcrumb>
+)}
       {rows.length === 0 && !hasRun ? (
         <UiLoadingCard />
       ) : (
@@ -356,5 +357,6 @@ export const GroupSpeedDial8 = ({ match }) => {
   )
 }
 GroupSpeedDial8.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  isBreadcrumb : PropTypes.bool
 }

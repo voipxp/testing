@@ -14,6 +14,7 @@ import {
   GroupNightForwarding,
   GroupPagingGroups,
   GroupTrunkGroups,
+  GroupVoiceMessaging,
   GroupVirtualOnNetEnterpriseExtensions
 } from '@/components/groups/service-settings'
   
@@ -106,8 +107,7 @@ export const groupServiceRoutes = [
     hasModuleRead: 'Series Completion',
     path: 'seriesCompletion',
     services: ['Series Completion'],
-    hasLevel: 'Group',
-    isBreadcrumb: false
+    hasLevel: 'Group'
   },
   {
     component: GroupTrunkGroups,
@@ -125,7 +125,7 @@ export const groupServiceRoutes = [
     hasLevel: 'Group'
   },
   {
-    angularComponent: 'groupVoiceMessaging',
+    component: GroupVoiceMessaging,
     hasModuleRead: 'Voice Messaging Group',
     path: 'voiceMessaging',
     services: ['Voice Messaging Group'],

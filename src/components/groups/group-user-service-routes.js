@@ -71,7 +71,8 @@ export const groupUserServiceRoutes = [
     module: 'Speed Dial 8',
     path: 'speedDial8',
     services: ['Speed Dial 8'],
-    hasLevel: 'Group'
+    hasLevel: 'Group',
+	isBreadcrumb:false
   },
   {
     angularComponent: 'groupVoiceMessagingUser',
