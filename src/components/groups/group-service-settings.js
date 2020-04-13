@@ -3,14 +3,13 @@ import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiDataTable } from '@/components/ui'
-import { useModulePermissions, useUserServicePermissions } from '@/utils'
+import { useModulePermissions } from '@/utils'
 import { useGroupServices } from '@/store/group-services'
 //import { useUserAssignedServices } from '@/store/user-assigned-services'
 import { AngularComponent } from '@/components/angular-component'
 import { groupServiceRoutes } from './group-service-routes'
 import {
-	useGroupServicePermissions,
-  useAcl
+	useGroupServicePermissions
 } from '@/utils'
 
 /* eslint-disable react/display-name */
@@ -30,14 +29,14 @@ export const GroupServiceSettings = ({ history, match }) => {
   const { getModule } = useModulePermissions()
   const { hasGroupService } = useGroupServicePermissions()
   //const { userViewableServices } = useUserServicePermissions(serviceProviderId,groupId)
-  const { loadGroupServices } = useGroupServices(serviceProviderId,groupId)
+  const { loadGroupServices } = useGroupServices(groupId, serviceProviderId)
 
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-    loadGroupServices(serviceProviderId,groupId)
+    loadGroupServices( groupId, serviceProviderId )
     history.goBack()
   }
   /*

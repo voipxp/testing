@@ -20,7 +20,7 @@ export const GroupDashboard = ({ match }) => {
     Promise.all([
       loadGroupServices(groupId, serviceProviderId),
     ]).then(() => 	setLoading(false) )
-  }, [serviceProviderId, groupId, loadGroupServices])
+  }, [groupId, serviceProviderId, loadGroupServices])
  
   // filter items we should not see
   const menu = React.useMemo(() => {

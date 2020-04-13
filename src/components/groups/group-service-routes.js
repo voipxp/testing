@@ -1,101 +1,124 @@
 import {
-  GroupSpeedDial8,
   GroupSeriesCompletion
 } from '@/components/groups'
+import {
+  GroupAutoAttendants,
+  GroupCallCenters,
+  GroupCallPark,
+  GroupCallPickups,
+  GroupCollaborate,
+  GroupFlexibleSeatingHosts,
+  GroupHuntGroups,
+  GroupMeetMe,
+  GroupMusicOnHold,
+  GroupNightForwarding,
+  GroupPagingGroups,
+  GroupTrunkGroups,
+  GroupVirtualOnNetEnterpriseExtensions
+} from '@/components/groups/service-settings'
+  
 export const groupServiceRoutes = [
   {
-    angularComponent: 'autoAttendants',
+    component: GroupAutoAttendants,
     hasModuleRead: 'Auto Attendant',
     path: 'autoAttendants',
-    services: ['Call Forwarding Always'],
+    services: ['Auto Attendant'],
     hasLevel: 'Group'
   },
   {
-    angularComponent: 'groupCallCenters',
+	  
+    component: GroupCallCenters,
     hasModuleRead: 'Call Center',
     path: 'callCenters',
-    services: ['Call Center'],
-    hasLevel: 'Group'
+	hasModuleRead: 'Call Center',
+    services: ['Call Center']
   },
   {
-    angularComponent: 'groupCallPark',
+	 component: GroupCallPark,
+    //angularComponent: 'groupCallPark',
     hasModuleRead: 'Call Park',
     path: 'callPark',
     services: ['Call Park'],
     hasLevel: 'Group'
+	 
   },
   {
-    angularComponent: 'groupCallPickups',
+    component: GroupCallPickups,
     hasModuleRead: 'Call Pickup',
     path: 'callPickup',
     services: ['Call Pickup'],
     hasLevel: 'Group'
   },
   {
-    angularComponent: 'groupCollaborate',
+    component: GroupCollaborate,
     hasModuleRead: 'Collaborate - Audio',
     path: 'collaborate',
     services: ['Collaborate - Audio'],
     hasLevel: 'Group'
   },
   {
-    angularComponent: 'groupFlexibleSeatingHosts',
+    component: GroupFlexibleSeatingHosts,
     hasModuleRead: 'Flexible Seating Guest',
     path: 'flexibleSeatingHosts',
     services: ['Flexible Seating Guest'],
     hasLevel: 'Group'
   },
   {
-    angularComponent: 'groupNightForwarding',
-    hasModuleRead: 'Group Night Forwarding',
-    path: 'nightForwarding',
-    services: ['Group Night Forwarding'],
-    hasLevel: 'Group'
-  },
-  {
-    angularComponent: 'groupPagingGroups',
-    hasModuleRead: 'Group Paging',
-    path: 'paging',
-    services: ['Group Paging'],
-    hasLevel: 'Group'
-  },
-  {
-    angularComponent: 'groupHuntGroups',
+    component: GroupHuntGroups,
     hasModuleRead: 'Hunt Group',
     path: 'huntGroups',
     services: ['Hunt Group'],
     hasLevel: 'Group'
   },
   {
-    angularComponent: 'groupMeetMe',
+    component: GroupMeetMe,
     hasModuleRead: 'Meet-Me Conferencing',
     path: 'meetMe',
     services: ['Meet-Me Conferencing'],
     hasLevel: 'Group'
   },
   {
-    angularComponent: 'groupMusicOnHoldIndex',
+    component: GroupMusicOnHold,
     hasModuleRead: 'Music On Hold',
     path: 'musicOnHold',
     services: ['Music On Hold'],
     hasLevel: 'Group'
   },
   {
+    component: GroupNightForwarding,
+    hasModuleRead: 'Group Night Forwarding',
+    path: 'nightForwarding',
+    services: ['Group Night Forwarding'],
+    hasLevel: 'Group'
+  },
+  {
+    component: GroupPagingGroups,
+    hasModuleRead: 'Group Paging',
+    path: 'paging',
+    services: ['Group Paging'],
+    hasLevel: 'Group'
+  },
+  
+  
+  
+  {
     component: GroupSeriesCompletion,
     hasModuleRead: 'Series Completion',
     path: 'seriesCompletion',
     services: ['Series Completion'],
-    hasLevel: 'Group'
+    hasLevel: 'Group',
+    isBreadcrumb: false
   },
   {
-    angularComponent: 'groupEnterpriseTrunks',
+    component: GroupTrunkGroups,
     hasModuleRead: 'Trunk Group',
-    path: 'enterpriseTrunks',
+    path: 'trunkGroups',
     services: ['Trunk Group'],
     hasLevel: 'Group'
+
   },
   {
-    angularComponent: 'groupVirtualOnNetEnterpriseExtensions',
+    component: GroupVirtualOnNetEnterpriseExtensions,
     hasModuleRead: 'Virtual On-Net Enterprise Extensions',
     path: 'virtualOnNetEnterpriseExtensions',
     services: ['Virtual On-Net Enterprise Extensions'],

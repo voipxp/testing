@@ -34,6 +34,7 @@ function controller(
   ctrl.$onInit = activate
   ctrl.toggle = toggle
   ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
+  ctrl.isAdminGroup = ACL.is('Group')
 
   function activate() {
     //ctrl.canCreate = ctrl.module.permissions.create
@@ -56,7 +57,7 @@ function controller(
   }
 
 	function loadModule() {
-		if(ACL.is('Group Department')) {
+		if(ACL.is('Group Department') || ACL.is('Group')) {
 			return Module.show('Call Center').then(function(data) {
 			  ctrl.module = data
 			})
