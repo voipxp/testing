@@ -4,14 +4,13 @@ import template from './index.html'
 angular.module('odin.group').component('groupDepartment', {
   template,
   controller,
-  bindings: { serviceProviderId: '<', groupId: '<' }
+  bindings: { serviceProviderId: '<', groupId: '<', name : '<' }
 })
-
 controller.$inject = ['Route', '$location']
 function controller(Route, $location) {
   var ctrl = this
   ctrl.$onInit = function() {
-    ctrl.name = $location.search().name
+    ctrl.name = $location.search().name || ctrl.name
   }
 
   ctrl.goBack = function() {

@@ -1,27 +1,35 @@
 import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
+import { useAcl } from '@/utils'
+
 
 angular.module('odin.group').component('groupDepartments', {
   template,
   controller,
-  bindings: { serviceProviderId: '<', groupId: '<', hideNavigation: '<' }
+  bindings: { serviceProviderId: '<', groupId: '<', hideNavigation: '<'}
   
 })
-
+ 
 controller.$inject = [
+  'ACL',
   'Alert',
   'GroupDepartmentService',
   'Route',
   'GroupPolicyService',
-  '$q'
+  '$q',
+  'Module',
+  '$location'
 ]
 function controller(
+  ACL,
   Alert,
   GroupDepartmentService,
   Route,
   GroupPolicyService,
-  $q
+  $q,
+  Module,
+  $location
 ) {
   var ctrl = this
 
@@ -100,12 +108,11 @@ function controller(
 
   function open(department) {
     if(!ctrl.canUpdate) return
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'departments',
-      'department'
-    ).search({ name: department.name })
+    var name = (department && department.name) || department
+    ///
+   // $location.path(`groups/${ctrl.serviceProviderId}/${ctrl.groupId}/departments/department/${name}`)   
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'departments', 'department', name)
+     
+     
   }
 }

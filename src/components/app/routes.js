@@ -59,6 +59,11 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/departments/department/:name',
+    angularComponent: 'groupDepartment',
+    hasLevel: 'Group'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/groupService/collaborate/bridge/:serviceUserId',
     angularComponent: 'groupCollaborateBridge',
     hasLevel: 'Group',
@@ -366,12 +371,6 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/departments',
     angularComponent: 'groupDepartments',
-    hasLevel: 'Group'
-  },
-  
-  {
-    path: '/groups/:serviceProviderId/:groupId/departments/department/:name',
-    angularComponent: 'groupDepartment',
     hasLevel: 'Group'
   },
   {
