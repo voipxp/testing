@@ -154,9 +154,11 @@ function controller(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
+        'groupService',
         'callPark',
-        'group'
-      ).search({ name: name })
+        'group',
+        name
+      )
     } else {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPark')
     }

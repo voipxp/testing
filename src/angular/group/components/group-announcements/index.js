@@ -14,7 +14,7 @@ function controller(ACL, Alert, GroupAnnouncementService, $scope, Route) {
   ctrl.add = add
   ctrl.open = open
   ctrl.onUpdate = onUpdate
-if(ACL.is('Group')) ctrl.isGroupAdmin = true
+ ctrl.isGroupAdmin = ACL.is('Group')
   function onInit() {
     ctrl.repository = { announcements: [] }
     ctrl.loading = true
@@ -41,16 +41,28 @@ if(ACL.is('Group')) ctrl.isGroupAdmin = true
   }
 
   function open(announcement) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'announcements',
-      'announcement'
-    ).search({
-      name: announcement.name,
-      mediaType: announcement.mediaType
-    })
+    if(ACL.is('Group')){
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'announcements',
+        'announcement',
+        announcement.name,
+        announcement.mediaType
+      ) 
+    }else{
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'announcements',
+        'announcement'
+      ).search({
+        name: announcement.name,
+        mediaType: announcement.mediaType
+      }) 
+    }
   }
 
   function add() {

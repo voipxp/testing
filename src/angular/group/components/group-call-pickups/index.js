@@ -55,12 +55,15 @@ function controller(Alert, GroupCallPickupService, Route) {
   }
 
   function open(group) {
+    var name = (group && group.name) || group
     Route.open(
       'groups',
       ctrl.serviceProviderId,
       ctrl.groupId,
+      'groupService',
       'callPickup',
-      'group'
-    ).search({ name: group.name })
+      'group',
+      name
+    )
   }
 }

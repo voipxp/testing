@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupAnnouncement', {
   template,
   controller,
-  bindings: { serviceProviderId: '<', groupId: '<' }
+  bindings: { serviceProviderId: '<', groupId: '<', name: '<', mediaType: '<' }
 })
 
 controller.$inject = [
@@ -38,8 +38,8 @@ function controller(
   ctrl.announcementUrl = Session.data('announcementUrl')
   
   function onInit() {
-    ctrl.name = $location.search().name
-    ctrl.mediaType = $location.search().mediaType
+    ctrl.name = $location.search().name || ctrl.name
+    ctrl.mediaType = $location.search().mediaType || ctrl.mediaType
     ctrl.loading = true
     return loadAnnouncement()
       .catch(function(error) {

@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallPickup', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<', name: '<' }
 })
 
 controller.$inject = [
@@ -23,7 +23,7 @@ function controller(Alert, GroupCallPickupService, Route, Module, $location) {
   ctrl.users = users
 
   function onInit() {
-    ctrl.name = $location.search().name
+    ctrl.name = $location.search().name || ctrl.name
     ctrl.loading = true
     loadGroup()
       .catch(Alert.notify.danger)

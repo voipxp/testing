@@ -31,10 +31,27 @@ export const routes = [
     isPaasAdmin: true
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/announcements/announcement/:name/:mediaType',
+    angularComponent: 'groupAnnouncement',
+    hasLevel: 'Group'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/callPark/group/:name',
     angularComponent: 'groupCallParkGroup',
     hasLevel: 'Group',
     hasModuleRead: 'Call Park'
+  },
+  
+  {
+    path: '/groups/:serviceProviderId/:groupId/groupService/callPickup/group/:name',
+    angularComponent: 'groupCallPickup',
+    hasLevel: 'Group',
+    hasModuleRead: 'Call Pickup'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter/:serviceUserId',
+    angularComponent: 'groupCallCenter',
+    hasModuleRead: 'Call Center'
   },
   {
     path: '/bulk',
@@ -371,7 +388,7 @@ export const routes = [
     hasModuleRead: 'Series Completion'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/callPickup/group',
+    path: '/groups/:serviceProviderId/:groupId/groupService/callPickup/group',
     angularComponent: 'groupCallPickup',
     hasLevel: 'Group',
     hasModuleRead: 'Call Pickup'
@@ -478,11 +495,6 @@ export const routes = [
     angularComponent: 'groupCallCenterCallRecords',
     hasLevel: 'Group',
     hasModuleRead: 'Premium Call Records'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter/:serviceUserId',
-    angularComponent: 'groupCallCenter',
-    hasModuleRead: 'Call Center'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callRecords/userCallReport',
