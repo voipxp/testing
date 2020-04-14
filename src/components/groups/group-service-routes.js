@@ -76,7 +76,6 @@ export const groupServiceRoutes = [
     path: 'huntGroups',
     services: ['Hunt Group'],
     hasLevel: 'Group',
-	module:'Hunt Group'
   },
   {
 	name :'Meet-Me Conferencing',

@@ -8,8 +8,8 @@ angular.module('odin.group').component('groupCollaborate', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupCollaborateService', 'Route', '$q']
-function controller(Alert, GroupCollaborateService, Route, $q) {
+controller.$inject = ['ACL', 'Alert', 'GroupCollaborateService', 'Route', '$q']
+function controller(ACL, Alert, GroupCollaborateService, Route, $q) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
@@ -106,13 +106,25 @@ function controller(Alert, GroupCollaborateService, Route, $q) {
   }
 
   function onClick(bridge) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'collaborate',
-      'bridge'
-    ).search({ serviceUserId: bridge.serviceUserId })
+    if(ACL.is('Group')){
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'groupService',
+        'collaborate',
+        'bridge',
+        bridge.serviceUserId
+      ) 
+    }else{ 
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'collaborate',
+        'bridge'
+      ).search({ serviceUserId: bridge.serviceUserId })
+    }
   }
 
   function open(user) {

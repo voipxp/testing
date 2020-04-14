@@ -53,7 +53,12 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Call Park'
   },
-  
+  {
+    path: '/groups/:serviceProviderId/:groupId/groupService/collaborate/bridge/:serviceUserId',
+    angularComponent: 'groupCollaborateBridge',
+    hasLevel: 'Group',
+    hasModuleRead: 'Collaborate - Audio'
+  },
   {
     path: '/groups/:serviceProviderId/:groupId/groupService/callPickup/group/:name',
     angularComponent: 'groupCallPickup',
