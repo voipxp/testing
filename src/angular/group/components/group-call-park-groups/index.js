@@ -55,13 +55,22 @@ function controller(Alert, GroupCallParkGroupService, Route) {
       .finally(Alert.spinner.close)
   }
 
-  function open(group) {
+  function open(group) { 
+    // Route.open(
+    //   'groups',
+    //   ctrl.serviceProviderId,
+    //   ctrl.groupId,
+    //   'callPark',
+    //   'group'
+    // ).search({ name: group.name })
+    var name = (group && group.name) || group
     Route.open(
       'groups',
       ctrl.serviceProviderId,
       ctrl.groupId,
       'callPark',
-      'group'
-    ).search({ name: group.name })
+      'group',
+      name
+    )
   }
 }

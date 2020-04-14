@@ -31,6 +31,12 @@ export const routes = [
     isPaasAdmin: true
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/callPark/group/:name',
+    angularComponent: 'groupCallParkGroup',
+    hasLevel: 'Group',
+    hasModuleRead: 'Call Park'
+  },
+  {
     path: '/bulk',
     angularComponent: 'bulkDashboard',
     hasLevel: 'Group Department',
@@ -323,8 +329,9 @@ export const routes = [
     angularComponent: 'groupDepartments',
     hasLevel: 'Group'
   },
+  
   {
-    path: '/groups/:serviceProviderId/:groupId/departments/department',
+    path: '/groups/:serviceProviderId/:groupId/departments/department/:name',
     angularComponent: 'groupDepartment',
     hasLevel: 'Group'
   },
@@ -471,6 +478,11 @@ export const routes = [
     angularComponent: 'groupCallCenterCallRecords',
     hasLevel: 'Group',
     hasModuleRead: 'Premium Call Records'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter/:serviceUserId',
+    angularComponent: 'groupCallCenter',
+    hasModuleRead: 'Call Center'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callRecords/userCallReport',

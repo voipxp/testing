@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallParkGroup', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<', name: '<' }
 })
 
 controller.$inject = [
@@ -35,7 +35,7 @@ function controller(
   ctrl.selectUsers = selectUsers
 
   function onInit() {
-    ctrl.name = $location.search().name
+    ctrl.name = $location.search().name || ctrl.name
     ctrl.loading = true
     loadGroup()
       .catch(Alert.notify.danger)

@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallCenter', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<',serviceUserId: '<' }
 })
 
 controller.$inject = [
@@ -32,9 +32,8 @@ function controller(
   ctrl.updateProfile = updateProfile
   ctrl.destroy = destroy
   ctrl.hasPermission = hasPermission
-
   function activate() {
-    ctrl.serviceUserId = $location.search().serviceUserId
+    ctrl.serviceUserId = $location.search().serviceUserId || ctrl.serviceUserId
     ctrl.loading = true
     ctrl.hasBasicBounced = ACL.hasVersion('20')
     ctrl.hasMonitoring = Module.read('Call Center Monitoring')
