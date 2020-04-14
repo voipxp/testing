@@ -36,7 +36,7 @@ export const GroupServiceSettings = ({ history, match }) => {
   }
 
   const hideService = () => {
-    loadGroupServices( groupId, serviceProviderId )
+    //loadGroupServices( groupId, serviceProviderId )
     history.goBack()
   }
   /*

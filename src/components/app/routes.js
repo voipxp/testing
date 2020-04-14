@@ -66,7 +66,7 @@ export const routes = [
     hasModuleRead: 'Call Pickup'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter/:serviceUserId',
+    path: '/groups/:serviceProviderId/:groupId/groupService/callCenters/callCenter/:serviceUserId',
     angularComponent: 'groupCallCenter',
     hasModuleRead: 'Call Center'
   },

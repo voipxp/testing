@@ -82,6 +82,6 @@ function controller(Alert, GroupCollaborateService, Route, $location) {
   }
 
   function back() {
-    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId,'groupService','collaborate')
+    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId,'groupService')
   }
 }

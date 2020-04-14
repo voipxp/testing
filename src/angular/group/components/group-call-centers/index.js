@@ -86,19 +86,21 @@ function controller(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
+        'groupService',
         'callCenters',
         'callCenter',
         serviceUserId
       )
     }
-    else{Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'callCenters',
-      'callCenter'
-    ).search({ serviceUserId })
-  }
+    else{
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'callCenters',
+        'callCenter'
+      ).search({ serviceUserId })
+    }
   }
 
   function add() {
