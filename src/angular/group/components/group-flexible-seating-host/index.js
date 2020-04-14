@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupFlexibleSeatingHost', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<', hideNavigation: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<', hideNavigation: '<' , serviceUserId: '<'}
 })
 
 controller.$inject = [
@@ -35,7 +35,7 @@ function controller(
   ctrl.onDeleteProfile = onDeleteProfile
   ctrl.showReporting = false
   function onInit() {
-    ctrl.serviceUserId = $location.search().serviceUserId
+    ctrl.serviceUserId = $location.search().serviceUserId || ctrl.serviceUserId
     ctrl.loading = true
     return $q
       .all([loadGroupFlexibleSeatingHost(), GroupPolicyService.load()])

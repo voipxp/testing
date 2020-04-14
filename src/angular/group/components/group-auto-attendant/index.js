@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('autoAttendant', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' , serviceUserId: '<' }
 })
 
 controller.$inject = [
@@ -31,7 +31,7 @@ function controller(
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceUserId = $location.search().serviceUserId
+  ctrl.serviceUserId = $location.search().serviceUserId || ctrl.serviceUserId
   ctrl.back = back
   ctrl.update = update
   ctrl.destroy = destroy

@@ -15,7 +15,7 @@ import {
 /* eslint-disable react/display-name */
 const columns = [
   {
-    key: 'alias',
+    key: 'name',
     label: 'Name'
   },
   {

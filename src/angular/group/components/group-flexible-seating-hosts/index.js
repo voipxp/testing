@@ -115,7 +115,7 @@ function controller(
   }
 
 	function loadModule() {
-		if(ACL.is('Group Department')) {
+		if(ACL.is('Group Department') || ACL.is('Group')) {
 			return Module.show('Flexible Seating Guest').then(function(data) {
 			  ctrl.module = data
 			})
@@ -174,14 +174,27 @@ function controller(
   }
 
   function open(flexibleSeatingHost) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'flexibleSeatingHosts',
-      'flexibleSeatingHost'
-    ).search({ serviceUserId: flexibleSeatingHost.serviceUserId })
-  }
+    if(ACL.is('Group')){
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'groupService',
+        'flexibleSeatingHosts',
+        'flexibleSeatingHost',
+        flexibleSeatingHost.serviceUserId
+      )
+      }else{
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'flexibleSeatingHosts',
+          'flexibleSeatingHost'
+        ).search({ serviceUserId:flexibleSeatingHost.serviceUserId })
+      }
+    }
+    
 
   function toggle(service) {
     service.isLoading = true

@@ -31,6 +31,18 @@ export const routes = [
     isPaasAdmin: true
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/groupService/autoAttendants/autoAttendant/:serviceUserId',
+    angularComponent: 'autoAttendant',
+    hasLevel: 'Group',
+    hasModuleRead: 'Auto Attendant'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/groupService/flexibleSeatingHosts/flexibleSeatingHost/:serviceUserId',
+    angularComponent: 'groupFlexibleSeatingHost',
+    hasLevel: 'Group',
+    hasModuleRead: 'Flexible Seating Guest'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/announcements/announcement/:name/:mediaType',
     angularComponent: 'groupAnnouncement',
     hasLevel: 'Group'
