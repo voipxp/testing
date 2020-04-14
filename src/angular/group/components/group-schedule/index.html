@@ -1,3 +1,10 @@
+<pbs-navigation
+  service-provider-id="$ctrl.serviceProviderId"
+  group-id="$ctrl.groupId"
+>
+  <pbs-breadcrumb title="'Schedules'" ng-click="$ctrl.back()"></pbs-breadcrumb>
+  <pbs-breadcrumb title="$ctrl.name"></pbs-breadcrumb>
+</pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Details">
     <pbs-block-buttons>

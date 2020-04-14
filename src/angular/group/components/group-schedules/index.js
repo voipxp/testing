@@ -7,8 +7,8 @@ angular.module('odin.group').component('groupSchedules', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupScheduleService', 'Route']
-function controller(Alert, GroupScheduleService, Route) {
+controller.$inject = ['ACL','Alert', 'GroupScheduleService', 'Route']
+function controller(ACL,Alert, GroupScheduleService, Route) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -57,15 +57,27 @@ function controller(Alert, GroupScheduleService, Route) {
   }
 
   function open(schedule) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'schedules',
-      'schedule'
-    ).search({
-      name: schedule.name,
-      type: schedule.type
-    })
+    if(ACL.is('Group')){
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'schedules',
+        'schedule',
+        schedule.name,
+        schedule.type
+      )
+    }else{
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'schedules',
+        'schedule'
+      ).search({
+        name: schedule.name,
+        type: schedule.type
+      })
+    }
   }
 }
