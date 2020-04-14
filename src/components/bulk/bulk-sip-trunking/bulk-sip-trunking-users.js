@@ -9,11 +9,7 @@ import { BulkCreateUser } from '../bulk-create-user'
 import { useAlerts } from '@/store/alerts'
 
 export const BulkSipTrunkingUsers = (props) => {
-  // const serviceProviderId = 'reseler-sp'
-  // const groupId = 'test007R'
-  // const enterpriseTrunkName = "aaaaaa"
-  // const groupTrunk = "bbbbbbb"
-  // const phoneNumbers = ['100 - 200', '22222222', '33333333']
+
   const {
     serviceProviderId,
     groupId,
@@ -27,12 +23,11 @@ export const BulkSipTrunkingUsers = (props) => {
   const newServiceProviderId = sourceServiceProviderId !== '' ? sourceServiceProviderId : serviceProviderId
   const newGroupId = sourceGroupId !== '' ? sourceGroupId : groupId
 
-  const { alertSuccess, alertDanger } = useAlerts()
+  const { alertDanger } = useAlerts()
   const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
   const [createUserClicked, setCreateUserClicked] = React.useState(false)
   const [selectedItems, setSelectedItems] = React.useState({availableUser:[], selectedUser: []})
-  // const [selectedServiceProviderId, setSelectedGroupId] = React.useState('')
 
   const setStateTaskData = (data) => {
     setTaskData(data)

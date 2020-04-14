@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 import { menu } from './bulk-sip-trunking-dashboard-menu'
 import { BulkWizMenu } from '@/components/bulk'
 import { Redirect } from 'react-router-dom'
-// import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
+import { AppBreadcrumb } from '@/components/app'
 import { StorageService } from '@/utils'
+import { Breadcrumb } from 'rbx'
 
 const initial = {
   serviceProviderId: "",
@@ -28,9 +29,9 @@ export const BulkSipTrunking = () => {
 
   useEffect( () => {
     menu.forEach( item => {
-     StorageService.clearStorage(item.localStorageKey) 
+     StorageService.clearStorage(item.localStorageKey)
     })
-  }, [menu]) 
+  }, [menu])
 
 
   useEffect( () => {
@@ -47,6 +48,10 @@ export const BulkSipTrunking = () => {
 
 	return <>
     { redirect ? <Redirect to='/bulk' /> : null}
+    <AppBreadcrumb>
+      <Breadcrumb.Item href="#!/bulk">Bulk</Breadcrumb.Item>
+      <Breadcrumb.Item>SIP Trunking</Breadcrumb.Item>
+    </AppBreadcrumb>
     <BulkWizMenu
       menu={menuTemp}
       initialData={sipTrunkShareableData}

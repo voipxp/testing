@@ -4,7 +4,7 @@ import { BulkSipTrunkingAuthWizTask } from './bulk-sip-trunking-auth-wiz-task'
 
 export const menu = [
   {
-    name: 'Service Provider Task',
+    name: 'Service Provider Clone Task',
     task: 'service.provider.bulk.clone',
     localStorageKey: 'BulkSipServiceProviderWiz',
     component: BulkSipTrunkingUploadTask
@@ -16,7 +16,7 @@ export const menu = [
     component: BulkSipTrunkingUploadTask
   },
   {
-    name: 'Group Task',
+    name: 'Group Clone Task',
     task: 'group.bulk.clone',
     localStorageKey: 'BulkSipTrunkingGroupWiz',
     component: BulkSipTrunkingUploadTask

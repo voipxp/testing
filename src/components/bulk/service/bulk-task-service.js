@@ -76,6 +76,8 @@ const bulkTaskServices =
             services: 'boolean',
             policy: 'boolean',
             schedule: 'boolean',
+            departments: 'boolean',
+            domains: 'boolean',
             outgoingCallingPlan: 'boolean',
             routingProfile: 'boolean'
           }

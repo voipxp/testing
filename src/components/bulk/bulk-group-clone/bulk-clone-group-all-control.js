@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Input } from 'rbx'
 import { BulkSelectGroupId } from '../bulk-select-group-id'
+import { useAcl } from '@/utils'
 
 import {
   UiInputCheckbox,
@@ -40,6 +41,14 @@ const cloneGroupOptions = [
     label: 'Schedule',
   },
   {
+    name: 'departments',
+    label: 'Departments',
+  },
+  {
+    name: 'domains',
+    label: 'Domains',
+  },
+  {
     name: 'outgoingCallingPlan',
     label: 'Outgoing Calling Plan',
   },
@@ -54,6 +63,7 @@ export const BulkCloneGroupAllControl = ({
   // serviceProviderId,
   sourceServiceProviderId
 }) => {
+
   const initialForm =
   {
     "sourceServiceProviderId": sourceServiceProviderId,
@@ -65,13 +75,15 @@ export const BulkCloneGroupAllControl = ({
     "cloneOptions": {
       "featureAccessCode": true,
       "callProcessingPolicy": true,
-      "networkClassOfService": false,
+      "networkClassOfService": true,
       "extensionLength": true,
       "services": true,
       "policy": true,
       "schedule": true,
+      "departments": true,
+      "domains": true,
       "outgoingCallingPlan": true,
-      "routingProfile": false
+      "routingProfile": true
     }
 }
 

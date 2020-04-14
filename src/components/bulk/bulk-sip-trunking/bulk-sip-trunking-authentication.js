@@ -158,7 +158,7 @@ const tagInputClicked = (elNane) => {
           name ="userNameAction"
           checked={form.userNameAction === 'skip'}
           onChange={handleInput}
-        />Leave Blank<br/>
+        />  Leave Blank<br/>
 
         <Radio
           type="radio"
@@ -166,12 +166,13 @@ const tagInputClicked = (elNane) => {
           name ="userNameAction"
           checked={form.userNameAction === 'manual'}
           onChange={handleInput}
-        />Enter Username<br/>
+        />  Enter Username<br/>
         <br/>
         { isUserName ? (
         <UiFormField label="Username" horizontal >
+          <p style = {{flexGrow: '1', flexShrink: '1'}}>
           <UiButton
-            style={{height:'35px'}}
+            style={{height:'35px', width:'5%'}}
             color="link"
             icon="tag"
             size="small"
@@ -179,12 +180,14 @@ const tagInputClicked = (elNane) => {
           />
 
           <Input
-            style = {{width: '540px' }}
+            style = {{width: '92%'}}
             type="text"
             name="userName"
             value={form.userName}
             onChange={handleInput}
           />
+          </p>
+
         </UiFormField>
         ):null }
       </UiSection>
@@ -197,7 +200,7 @@ const tagInputClicked = (elNane) => {
           name ="passwordAction"
           checked={form.passwordAction === '{{ generateSipPassword }}' }
           onChange={handleInput}
-        />Auto-Generate Passwords<br/>
+        />  Auto-Generate Passwords<br/>
 
         <Radio
           type="radio"
@@ -205,7 +208,7 @@ const tagInputClicked = (elNane) => {
           name ="passwordAction"
           checked={form.passwordAction === 'skip'}
           onChange={handleInput}
-        />Leave Blank<br/>
+        />  Leave Blank<br/>
 
         <Radio
           type="radio"
@@ -213,7 +216,7 @@ const tagInputClicked = (elNane) => {
           name ="passwordAction"
           checked={form.passwordAction === 'manual'}
           onChange={handleInput}
-        />Enter Password<br/>
+        />  Enter Password<br/>
         <br/>
         { isPasswordVisible ? (
         <UiFormField label="Password" horizontal >
