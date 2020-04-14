@@ -13,7 +13,7 @@ import { UiInputCheckbox } from './ui-input-checkbox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faSortUp,
-  faSortDown, 
+  faSortDown,
   faTimes,
   faCheck
 } from '@fortawesome/free-solid-svg-icons'
@@ -22,19 +22,22 @@ const WrappedTable = styled.div`
   display: block;
   width: 100%;
   overflow-x: auto;
- 
+
   table.tableHover tbody > tr:hover {
     cursor: pointer;
     background-color: hsl(217, 71%, 53%) !important;
     color: #fff;
   }
-        input {
-        font-size: 1rem;
-        padding: 0;
-        margin: 0;
-        border: 0;
-		background: transparent;
-      }
+  input {
+    font-size: 1rem;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: transparent;
+  }
+  input:focus {
+    outline: none;
+  }
 `
 
 const WrappedTableVerticalLeft = styled.div`
@@ -164,7 +167,7 @@ export const UiDataTableEditable = ({
     if (column.key !== sortBy) return null
     return (
       <Icon size="small" align="left">
-       {shortIcon ? <FontAwesomeIcon icon={sortOrder === 'asc' ? faSortUp : faSortDown} /> : ''} 
+       {shortIcon ? <FontAwesomeIcon icon={sortOrder === 'asc' ? faSortUp : faSortDown} /> : ''}
       </Icon>
     )
   }
@@ -245,19 +248,19 @@ export const UiDataTableEditable = ({
 						>
 						 {/* <a href="" onClick={e => handleSort(e, column)}> */}
              {rowHover ? (
-              <a 
+              <a
                 onClick={e => handleSort(e, column)}>
                   {column.label || column.key}
                   {headingIcon(column)}
               </a>
-              ) : 
+              ) :
               (
-              <p 
+              <p
                 onClick={e => handleSort(e, column)}>
 				  {column.label || column.key}
 				  {headingIcon(column)}
 			  </p>)}
-              
+
 						</Table.Heading>
 						</Table.Row>
 					  ))}
@@ -317,14 +320,14 @@ export const UiDataTableEditable = ({
                 >
                  { /* <a href="" onClick={e => handleSort(e, column)}> </a> */ }
                  {rowHover ? (
-              <a 
+              <a
                 onClick={e => handleSort(e, column)}>
                   {column.label || column.key}
                   {headingIcon(column)}
               </a>
-              ) : 
+              ) :
               (
-              <p 
+              <p
                 onClick={e => handleSort(e, column)}>
 				  {column.label || column.key}
 				  {headingIcon(column)}
