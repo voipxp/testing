@@ -17,7 +17,7 @@ function controller(BulkImportService, $scope) {
   ctrl.updateUserName = updateUserName
   ctrl.userNameAction = 'manual'
   ctrl.passwordAction = 'auto'
-  ctrl.newPassword = '{{ generateSipPassword }}' 
+  ctrl.newPassword = '{{ generateSipPassword }}'
 
   function onSelectUsers(event) {
     ctrl.data = event
@@ -49,10 +49,12 @@ function controller(BulkImportService, $scope) {
         serviceProviderId: user.serviceProviderId,
 		    phoneNumber: user.phoneNumber,
         userName: ctrl.userName,
-        newPassword: ctrl.newPassword
+        newPassword: ctrl.newPassword,
+        rebuildDevice: ctrl.rebuildDevice ? "true" : "false",
+        resetDevice: ctrl.resetDevice ? "true" : "false"
       }
     })
-    // console.log(JSON.stringify(data, null, 2))
+    console.log(JSON.stringify(data, null, 2))
     BulkImportService.open(data)
   }
 }
