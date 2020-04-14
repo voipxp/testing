@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { UiCard, UiInputCheckbox, UiListItem, UiLoading, UiDataTable } from '@/components/ui'
-import { Button, Select, Input } from 'rbx'
-import groupDomainAPI from '@/api/groups/domains'
-import { useAlerts } from '@/store/alerts'
+import { UiCard, UiInputCheckbox } from '@/components/ui'
 import _ from 'lodash'
-
+import { useAcl } from '@/utils'
 
 export const BulkCloneOptions = (props) => {
   const cloneOptions = [
@@ -20,8 +17,13 @@ export const BulkCloneOptions = (props) => {
       value: true
     },
     {
+      name: 'networkClassOfService',
+      label: 'Network Class of Service',
+      value: true
+    },
+    {
       name: 'EnterpriseVoiceVPN',
-      label: 'enterpriseVoiceVPN',
+      label: 'Enterprise Voice VPN',
       value: true
     },
     {
@@ -36,7 +38,15 @@ export const BulkCloneOptions = (props) => {
     }
   ]
 
-  const [options, setOptions] = React.useState([...cloneOptions])
+  const acl = useAcl()
+  const isSystem = acl.hasSystem()
+
+  const newCloneOptions = cloneOptions.filter( option => {
+    if(option.name === 'networkClassOfService' && !isSystem) return false
+    return true
+  })
+
+  const [options, setOptions] = useState([...newCloneOptions])
 
   useEffect( () => {
     props.handleOptions(options)

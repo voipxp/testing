@@ -30,12 +30,14 @@ export const AssignGroupServices = ({
 
   useEffect(() => {
     if(isTaskCreated) createTask();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTaskCreated]);
 
 	const createTask = () => {
 		prepareImportData().then((data) => {
       Promise.all([BulkImportService.handleFileData(data, localStorageKey)]).then( (data) => {
         alertSuccess('Task is created Successfully.')
+        setIsTaskCreated(false)
         setDisableNextButton(false)
       })
       .catch( (error) => {

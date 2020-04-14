@@ -329,6 +329,7 @@ const tagInputClicked = (elNane) => {
         <UiSection title ="User ID Template">
 
         <Field.Body>
+        <p>
         <UiButton
           style={{height:'35px'}}
           color="link"
@@ -336,53 +337,56 @@ const tagInputClicked = (elNane) => {
           size="small"
           onClick={() => tagInputClicked('userId')}
         />
-          <Control style = {{width: '52rem' }}>
-            <Input
-              type="text"
-              placeholder="User ID"
+        </p>
+        <p style = {{flexGrow: '1', flexShrink: '1'}}>
+          <Input
+            type="text"
+            placeholder="User ID"
+            onChange={handleInput}
+            name="userId"
+            value={form.userId}
+          />
+        </p>
+        <p>
+          <Tag color="link" size="medium">
+            @
+          </Tag>
+        </p>
+        <p>
+          <Select.Container>
+            <Select
+              value={form.domain}
               onChange={handleInput}
-              name="userId"
-              value={form.userId}
-            />
-          </Control>
-          <Control>
-            <Tag color="link" size="medium">
-              @
-            </Tag>
-          </Control>
-          <Control style = {{width: '25rem' , marginBottom:'1rem'}}>
-              <Select.Container>
-                <Select
-                  value={form.domain}
-                  onChange={handleInput}
-                  name="domain"
-                  style = {{width: '15rem' , marginBottom:'1rem'}}
-                >
-                  {
-                    domains &&
-                    domains.default ? (
-                      <Select.Option
-                        key={domains.default}
-                        value={domains.default}
-                      >
-                        {domains.default}
+              name="domain"
+              style = {{width: '15rem' , marginBottom:'1rem'}}
+            >
+              {
+                domains &&
+                domains.default ? (
+                  <Select.Option
+                    key={domains.default}
+                    value={domains.default}
+                  >
+                    {domains.default}
+                  </Select.Option>
+                ) : null}
+                { domains.domains && domains.domains.map(domain =>
+                      domains.default !== domain ? (
+                      <Select.Option key={domain} value={domain}>
+                        {domain}
                       </Select.Option>
-                    ) : null}
-                    { domains.domains && domains.domains.map(domain =>
-                         domains.default !== domain ? (
-                          <Select.Option key={domain} value={domain}>
-                            {domain}
-                          </Select.Option>
-                        ) : null
-                         )
-                    }
-                  </Select>
-                </Select.Container>
-              </Control>
+                    ) : null
+                      )
+                }
+              </Select>
+            </Select.Container>
+          </p>
+
           </Field.Body>
         </UiSection>
       </UiCard>
 {/*password */}
+      <br />
       <UiCard title='User Passwords'>
         <UiFormField label="Do you want to assign passwords?">
           <Radio
@@ -391,7 +395,7 @@ const tagInputClicked = (elNane) => {
             name ="password"
             checked={form.password === templates.password}
             onChange={handleInput}
-          />Auto-Generate Passwords<br/>
+          />  Auto-Generate Passwords<br/>
 
           <Radio
             type="radio"
@@ -399,7 +403,7 @@ const tagInputClicked = (elNane) => {
             name ="password"
             checked={form.password === "null"}
             onChange={handleInput}
-          />Leave Blank
+          />  Leave Blank
         </UiFormField>
 
         <UiFormField label="Do you want to assign passcodes?">
@@ -409,7 +413,7 @@ const tagInputClicked = (elNane) => {
             checked={form.passcode === templates.passcode}
             name ="passcode"
             onChange={handleInput}
-          /> Auto-Generate Passcodes<br/>
+          />  Auto-Generate Passcodes<br/>
 
           <Radio
             type="radio"
@@ -417,9 +421,10 @@ const tagInputClicked = (elNane) => {
             checked={form.passcode === 'null'}
             name ="passcode"
             onChange={handleInput}
-          /> Leave Blank
+          />  Leave Blank
         </UiFormField>
       </UiCard>
+      <br />
 {/* end password */}
 
 {/* User Names */}
@@ -493,6 +498,7 @@ const tagInputClicked = (elNane) => {
           </UiFormField>
          </UiSection>
         </UiCard>
+        <br />
               {/* end User Names */}
 
               {/* User Number */}
@@ -506,14 +512,14 @@ const tagInputClicked = (elNane) => {
             checked={form.phoneNumberAction === "skip"}
             name="phoneNumberAction"
             onChange={handleNumberInput}
-          />Leave Blank<br/>
+          />  Leave Blank<br/>
           <Radio type="radio"
             value="select"
             checked={form.phoneNumberAction === "select"}
             name ="phoneNumberAction"
             onChange={handleNumberInput}
             // onClick = {() => setSelectNumber(true)}
-          />Select From Available Phone Numbers
+          />  Select From Available Phone Numbers
         </UiFormField>
         <UiFormField label="Do you want to set Extensions?">
           <Radio
@@ -522,14 +528,14 @@ const tagInputClicked = (elNane) => {
             checked={form.extension === ""}
             name ="extension"
             onChange={handleInput}
-          /> Leave Blank<br/>
+          />  Leave Blank<br/>
           <Radio
               type="radio"
               value="extensionRange"
               checked={form.extension === "extensionRange"}
               name ="extension"
               onChange={handleNumberInput}
-          /> Add Extension Range <br/>
+          />  Add Extension Range <br/>
 
           {
             extensions.map((el, index) => (
@@ -541,7 +547,7 @@ const tagInputClicked = (elNane) => {
                   checked={form.extension === el.template}
                   name ="extension"
                   onChange={handleInput}
-                /> Last {el.length} Digits of Phone Number <br/>
+                />  Last {el.length} Digits of Phone Number <br/>
               </p>
             ) )
           }
@@ -554,7 +560,7 @@ const tagInputClicked = (elNane) => {
             checked={form.callingLineIdPhoneNumber === ""}
             onChange={handleInput}
             name="callingLineIdPhoneNumber"
-          />Leave Blank<br/>
+          />  Leave Blank<br/>
 
           <Radio
             type="radio"
@@ -562,7 +568,7 @@ const tagInputClicked = (elNane) => {
             checked={form.callingLineIdPhoneNumber === templates.callingLineIdPhoneNumber}
             onChange={handleInput}
             name ="callingLineIdPhoneNumber"
-          />Set to Phone Number
+          />  Set to Phone Number
         </UiFormField>
 
         <UiFormField label="Do you want to set Activate the phone numbers?">
@@ -572,7 +578,7 @@ const tagInputClicked = (elNane) => {
             checked={form.activatePhoneNumber === "true"}
             name="activatePhoneNumber"
             onChange={handleInput}
-          />Activate Numbers<br/>
+          />  Activate Numbers<br/>
 
           <Radio
             type="radio"
@@ -580,10 +586,10 @@ const tagInputClicked = (elNane) => {
             checked={form.activatePhoneNumber === "false"}
             name ="activatePhoneNumber"
             onChange={handleInput}
-          />Do Not Activate Numbers
+          />  Do Not Activate Numbers
         </UiFormField>
       </UiCard>
-
+      <br />
 {/* end User Number */}
 
 {/* User Device*/}
@@ -666,6 +672,7 @@ const tagInputClicked = (elNane) => {
 
           </UiSection>
         </UiCard>
+        <br />
   {/* end user Device*/}
 
   {/* User Device*/}
@@ -750,6 +757,7 @@ const tagInputClicked = (elNane) => {
             </UiFormField>
           </UiSection>
         </UiCard>
+        <br />
   {/* end user Device*/}
   {/* User Names */}
         <UiCard title='User Contact Information'>
@@ -821,6 +829,7 @@ const tagInputClicked = (elNane) => {
             </UiFormField>
           </UiSection>
         </UiCard>
+        <br />
   {/* end User Names */}
   {/* User Names */}
         <UiCard title='User Address'>
@@ -900,6 +909,7 @@ const tagInputClicked = (elNane) => {
             </UiFormField>
           </UiSection>
         </UiCard>
+        <br />
           {/* end User Names */}
       </UiSection>
     </>

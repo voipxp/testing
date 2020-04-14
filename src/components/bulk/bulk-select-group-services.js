@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import { Input } from 'rbx'
 import { UiCardModal, UiLoading, UiDataTable, UiFormField, UiCard, UiInputCheckbox, UiCheckbox } from '@/components/ui'
 import groupServicesApi from '@/api/group-services'
 import { useAsync } from 'react-async-hook'
+import _ from 'lodash'
 
 const columns = [
   {
@@ -48,15 +49,16 @@ export const BulkSelectGroupServices = ({
   const [form, setForm] = useState({...initialForm})
   const [selectedServices, setSelectedServices] = useState([])
   const [editSettings, setEditSettings] = useState(false)
+  const [services, setServices] = useState([])
 
   const filterServices = (services) => {
     return services.map( service => {
-          if(service.limited === "Limited") service.limited = service.quantity
-          return service
-        })
+      if(service.limited === "Limited") service.limited = service.quantity
+      return service
+    })
   }
 
-  const {result, error, loading, execute} = useAsync(
+  const {loading} = useAsync(
     () => groupServicesApi.show(groupId, serviceProviderId)
     .then((services) => {
         return services["groupServices"]
@@ -64,9 +66,29 @@ export const BulkSelectGroupServices = ({
     .then((services) => {
       return filterServices(services)
     })
+    .then( (services) => {
+      console.log(services)
+      return setServices(services)
+    })
     ,[]
   )
-  const services = result || []
+
+  const updateServices = () => {
+    const tempServices = selectedServices.map( (service => service.serviceName) )
+    const newServices = services.map( service => {
+      if(_.includes(tempServices, service.serviceName)) {
+        service['quantity'] = form.quantity
+        service['authorized'] = form.authorized
+        service['assigned'] = form.assigned
+        if(!form.isUnlimited) {
+          service.limited = service.quantity
+        }
+        else service.limited = "Unlimited"
+    }
+      return service
+    })
+    setServices(newServices)
+  }
 
   if(loading) return <UiLoading />
 
@@ -87,6 +109,7 @@ export const BulkSelectGroupServices = ({
     const services = editServices()
     setData(services)
     setEditSettings(false)
+    updateServices()
   }
 
   const editServices = () => {
@@ -158,7 +181,7 @@ export const BulkSelectGroupServices = ({
     { (editSettings && selectedServices.length > 0) ? serviceSettingModal : null}
      <UiDataTable
         columns={columns}
-        rows={services || []}
+        rows={services}
         rowKey="serviceName"
         pageSize={50}
         showSelect={showSelect}

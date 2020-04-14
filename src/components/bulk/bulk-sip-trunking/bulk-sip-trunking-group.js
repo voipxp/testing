@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { UiCard, UiCardModal, UiButton, UiLoading, UiDataTable } from '@/components/ui'
+import { UiCard, UiCardModal, UiButton } from '@/components/ui'
 import { Button } from 'rbx'
 import { BulkCloneGroupAllControl } from '../bulk-group-clone/bulk-clone-group-all-control'
-// import { BulkSelectServiceProviderId } from '../bulk-select-service-provider-id'
 import { BulkSelectGroupId } from '../bulk-select-group-id'
 import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
 import { useAlerts } from '@/store/alerts'
-import { prototype } from 'clipboard'
-
 
 export const BulkSipTrunkingGroup = ({
 	initialData={},
@@ -19,11 +16,10 @@ export const BulkSipTrunkingGroup = ({
   const { serviceProviderId, sourceServiceProviderId } = initialData
   const sourceSPId = (sourceServiceProviderId && sourceServiceProviderId!== '') ? sourceServiceProviderId : serviceProviderId
 
-  const { alertSuccess, alertDanger, alertWarning } = useAlerts()
+  const { alertDanger } = useAlerts()
   const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
   const [cloneGroupClicked, setCloneGroupClicked] = React.useState(false)
-  const [selectedServiceProviderId, setSelectedGroupId] = React.useState('')
 
   const setStateTaskData = (data) => {
     setTaskData(data)
@@ -31,8 +27,6 @@ export const BulkSipTrunkingGroup = ({
 
   const selectGroupId = (spRow) => {
     const groupId = spRow.groupId
-    setSelectedGroupId(groupId)
-
     const tempData = { ...initialData }
     tempData['groupId'] = groupId
     tempData['sourceGroupId'] = ''
