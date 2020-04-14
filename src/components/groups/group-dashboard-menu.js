@@ -4,17 +4,17 @@ import {
 import { GroupUserServiceSettings } from './group-user-service-settings'
 import { GroupServiceSettings } from './group-service-settings'
 import { GroupReportSettings } from './group-report-settings'
+import { GroupDepartments } from './group-departments'
 export const dashboardMenu = [
   {
     label: 'Dashboard',
     items: [
-      {
+	{
         name: 'Departments',
         path: 'departments',
-        angularComponent: 'groupDepartments',
+        component: GroupDepartments,
 		policy: 'departmentRead',
-        hasLevel: 'Group',
-		module : true
+        hasLevel: 'Group'
 	  },
       {
 	    name: 'Administrators',
@@ -23,17 +23,6 @@ export const dashboardMenu = [
 	    hasLevel: 'Group',
         module: true
       },
-      
-	  /*
-      {
-        name: 'Administrators',
-        path: 'groupAdmins',
-        policy: 'profileRead',
-        component: GroupAdmins,
-        hasLevel: 'Group'
-      },
-	  */
-	   
       {
         name: 'Business Profile',
         path: 'profile',
@@ -44,21 +33,20 @@ export const dashboardMenu = [
 		name: 'Users',
         path: 'users',
         angularComponent: 'groupUsers'
-		//component : GroupUserService
       },
 	   {
 		name: 'Reports',
         path: 'reports',
         component: GroupReportSettings
       },
-	  ]
+	]
   },
   {
     label: 'Services',
     items: [
 	    {
         name: 'Group Services',
-        path: 'group-service',
+        path: 'groupService',
         component: GroupServiceSettings,
         serviceType: 'groupServices'
       }, 
@@ -183,45 +171,5 @@ export const dashboardMenu = [
 		module: true
       }
     ]
-  }/* ,
-  {
-    label: 'Reports',
-    items: [
-      {
-      name: 'Auto Receptionist',
-      path: 'autoAttendant',
-      angularComponent: 'autoAttendantCallRecords',
-      hasLevel: 'Group',
-      hasModuleRead: 'Auto Attendant Report'
-      },
-      {
-      name: 'Call Center Agent Report',
-      path: 'callCenter',
-      angularComponent: 'groupCallCenterCallRecords',
-      hasLevel: 'Group',
-      hasModuleRead: 'Premium Call Records'
-      },
-      {
-      name: 'Premium Call Records',
-      path: 'groupPremiumCallReport',
-      angularComponent: 'groupCallRecordIndex',
-      hasLevel: 'Group',
-      hasModuleRead: 'Premium Call Records'
-      },
-      {
-      name: 'User Call Report',
-      path: 'userCallReport',
-      angularComponent: 'groupUserCallReportIndex',
-      hasLevel: 'Group',
-      hasModuleRead: 'Premium Call Records'
-      },
-      {
-      name: 'User Report',
-      path: 'usersReport',
-      angularComponent: 'usersReport',
-      hasLevel: 'Group',
-      hasModuleRead: 'User Report'
-      } 
-	  ]
-	} */
+  } 
 ]

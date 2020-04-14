@@ -32,7 +32,8 @@ export const groupServiceRoutes = [
     hasModuleRead: 'Call Center',
     path: 'callCenters',
 	hasModuleRead: 'Call Center',
-    services: ['Call Center']
+    services: ['Call Center'],
+	module:'Call Center'
   },
   {
 	 component: GroupCallPark,
