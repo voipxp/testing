@@ -54,7 +54,7 @@ function controller(BulkImportService, $scope) {
         resetDevice: ctrl.resetDevice ? "true" : "false"
       }
     })
-    console.log(JSON.stringify(data, null, 2))
+
     BulkImportService.open(data)
   }
 }
