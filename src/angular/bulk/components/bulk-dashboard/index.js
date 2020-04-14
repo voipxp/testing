@@ -33,6 +33,7 @@ function controller(BulkTaskService, $location, ServiceProviderPolicyService, AC
       if (service.task === 'user.create' && !ctrl.canCreateUser) return false
       if (service.task === 'user.delete' && !ctrl.canCreateUser) return false
       if (service.task === 'bulk.sip.trunking' && !ACL.has('Reseller')) return false
+      if (service.task === 'bulk.sip.trunking.upload' && !ACL.has('Reseller')) return false
 
       /* temporarily hiding the task*/
       if (service.task === 'service.provider.bulk.clone') return false
@@ -45,6 +46,7 @@ function controller(BulkTaskService, $location, ServiceProviderPolicyService, AC
       if (service.task === 'group.dns.assign') return false
       if (service.task === 'group.dns.unassign') return false
       if (service.task === 'user.password.update') return false
+      if (service.task === 'group.device.create') return false
 
       return true
     }))
