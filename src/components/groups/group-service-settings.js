@@ -37,7 +37,7 @@ export const GroupServiceSettings = ({ history, match }) => {
 
   const hideService = () => {
     loadGroupServices( groupId, serviceProviderId )
-	history.goBack()
+    history.push(`/groups/${serviceProviderId}/${groupId}/groupService`)
   }
   /*
   turn our array of routes into a filtered list of components,

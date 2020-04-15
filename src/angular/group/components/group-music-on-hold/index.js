@@ -80,7 +80,7 @@ function controller(Alert, GroupMusicOnHoldService, Route, $location, ACL) {
     if( ACL.is('Group Department') ) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
     } else if(ACL.is('Group')){
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupService')
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupService/musicOnHold')
     } else {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
     }

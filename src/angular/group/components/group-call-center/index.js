@@ -104,7 +104,7 @@ function controller(
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
     } else if(ACL.is('Group')) {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId,'groupService')
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId,'groupService/callCenters')
     } else {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
     }
