@@ -5,10 +5,11 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallParkGroup', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<', name: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
+  'ACL',
   'Alert',
   'GroupCallParkService',
   'GroupCallParkGroupService',
@@ -17,6 +18,7 @@ controller.$inject = [
   '$location'
 ]
 function controller(
+  ACL,
   Alert,
   GroupCallParkService,
   GroupCallParkGroupService,
@@ -33,9 +35,9 @@ function controller(
   ctrl.select = select
   ctrl.onSelect = onSelect
   ctrl.selectUsers = selectUsers
-
+  ctrl.back = back
   function onInit() {
-    ctrl.name = $location.search().name || ctrl.name
+    ctrl.name = $location.search().name
     ctrl.loading = true
     loadGroup()
       .catch(Alert.notify.danger)
@@ -154,12 +156,17 @@ function controller(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'groupService',
         'callPark',
-        'group',
-        name
-      )
+        'group'
+      ).search({ name: name })
     } else {
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPark')
+    }
+  }
+  function back() {
+     if(ACL.is('Group')){
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupService')
+    }else{
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPark')
     }
   }

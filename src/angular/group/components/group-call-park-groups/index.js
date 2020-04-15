@@ -56,21 +56,12 @@ function controller(Alert, GroupCallParkGroupService, Route) {
   }
 
   function open(group) { 
-    // Route.open(
-    //   'groups',
-    //   ctrl.serviceProviderId,
-    //   ctrl.groupId,
-    //   'callPark',
-    //   'group'
-    // ).search({ name: group.name })
-    var name = (group && group.name) || group
     Route.open(
       'groups',
       ctrl.serviceProviderId,
       ctrl.groupId,
       'callPark',
-      'group',
-      name
-    )
+      'group'
+    ).search({ name: group.name })
   }
 }

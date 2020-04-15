@@ -100,7 +100,7 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/callPark/group/:name',
+    path: '/groups/:serviceProviderId/:groupId/callPark/group',
     angularComponent: 'groupCallParkGroup',
     hasLevel: 'Group',
     hasModuleRead: 'Call Park'
