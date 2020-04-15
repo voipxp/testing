@@ -108,11 +108,13 @@ function controller(
 
   function open(department) {
     if(!ctrl.canUpdate) return
-    var name = (department && department.name) || department
-    ///
-   // $location.path(`groups/${ctrl.serviceProviderId}/${ctrl.groupId}/departments/department/${name}`)   
-    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'departments', 'department', name)
-     
-     
+    Route.open(
+      'groups',
+      ctrl.serviceProviderId,
+      ctrl.groupId,
+      'departments',
+      'department'
+    ).search({ name: department.name })
   }
+  
 }

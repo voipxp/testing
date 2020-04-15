@@ -111,7 +111,7 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/departments/department/:name',
+    path: '/groups/:serviceProviderId/:groupId/departments/department',
     angularComponent: 'groupDepartment',
     hasLevel: 'Group'
   },
