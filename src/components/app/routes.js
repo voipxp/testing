@@ -106,7 +106,7 @@ export const routes = [
     hasModuleRead: 'Call Park'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/schedules/schedule/:name/:type',
+    path: '/groups/:serviceProviderId/:groupId/schedules/schedule',
     angularComponent: 'groupSchedule',
     hasLevel: 'Group'
   },

@@ -4,7 +4,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupSchedule', {
   template,
   controller,
-  bindings: { serviceProviderId: '<', groupId: '<', name: '<', type: '<' }
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = ['ACL','Alert', 'GroupScheduleService', 'Route', '$location']
@@ -15,8 +15,8 @@ function controller(ACL, Alert, GroupScheduleService, Route, $location) {
   ctrl.edit = edit
 
   function onInit() {
-    ctrl.type = ctrl.type ? ctrl.type : $location.search().type 
-    ctrl.name = ctrl.name ? ctrl.name : $location.search().name
+    ctrl.type = $location.search().type 
+    ctrl.name = $location.search().name
     ctrl.loading = true
     loadSchedule()
       .catch(Alert.notify.danger)

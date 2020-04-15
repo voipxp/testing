@@ -57,17 +57,6 @@ function controller(ACL,Alert, GroupScheduleService, Route) {
   }
 
   function open(schedule) {
-    if(ACL.is('Group')){
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'schedules',
-        'schedule',
-        schedule.name,
-        schedule.type
-      )
-    }else{
       Route.open(
         'groups',
         ctrl.serviceProviderId,
@@ -78,6 +67,5 @@ function controller(ACL,Alert, GroupScheduleService, Route) {
         name: schedule.name,
         type: schedule.type
       })
-    }
-  }
+   }
 }
