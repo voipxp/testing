@@ -15,8 +15,6 @@ export const AssignGroupServices = ({
   const { serviceProviderId, groupId, sourceServiceProviderId, sourceGroupId } = initialData
   const newServiceProviderId = (sourceServiceProviderId && sourceServiceProviderId!== '') ? sourceServiceProviderId : serviceProviderId
   const newGroupId = (sourceGroupId && sourceGroupId!=='') ? sourceGroupId : groupId
-  // const serviceProviderId = 'reseler-sp'
-  // const groupId = 'test007R'
   const { alertSuccess, alertDanger } = useAlerts()
   const [taskData, setTaskData] = React.useState([])
   const [isTaskCreated, setIsTaskCreated] = React.useState(false)
@@ -39,6 +37,7 @@ export const AssignGroupServices = ({
         alertSuccess('Task is created Successfully.')
         setIsTaskCreated(false)
         setDisableNextButton(false)
+        setShowSelect(false)
       })
       .catch( (error) => {
         alertDanger( error || 'Data Import Error' )
