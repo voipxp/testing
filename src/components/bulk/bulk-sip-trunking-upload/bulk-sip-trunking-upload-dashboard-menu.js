@@ -35,7 +35,7 @@ export const menu = [
   },
   {
     name: 'Group Device Create',
-    task: 'group.device.create',
+    task: 'group.device.upsert',
     localStorageKey: 'GroupDeviceCreateWiz',
     component: BulkSipTrunkingUploadTask
   },
