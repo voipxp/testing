@@ -31,6 +31,12 @@ export const routes = [
     isPaasAdmin: true
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
+    angularComponent: 'groupMusicOnHold',
+    hasLevel: 'Group',
+    hasModuleRead: 'Music On Hold'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/incoming',
     angularComponent: 'groupIncomingCallingPlan',
     hasLevel: 'Group'
@@ -60,7 +66,7 @@ export const routes = [
     angularComponent: 'groupOutgoingCallingPlanAuthorizationCodes',
     hasLevel: 'Group'
   },
-  {
+ {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/transfer',
     angularComponent: 'groupOutgoingCallingPlanTransferNumbers',
     hasLevel: 'Group'
@@ -109,14 +115,7 @@ export const routes = [
     angularComponent: 'groupDepartment',
     hasLevel: 'Group'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance/:departmentName/:isEnterpriseDepartment',
-    angularComponent: 'groupMusicOnHold',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Music On Hold'
-  },
-  
-  {
+ {
     path: '/groups/:serviceProviderId/:groupId/trunkGroups/trunkGroup',
     angularComponent: 'groupTrunkGroup',
     hasLevel: 'Group Department',
