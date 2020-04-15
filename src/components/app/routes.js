@@ -83,9 +83,9 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/groupService/autoAttendants/autoAttendant/:serviceUserId',
+    path: '/groups/:serviceProviderId/:groupId/autoAttendants/autoAttendant',
     angularComponent: 'autoAttendant',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Auto Attendant'
   },
   {
@@ -419,12 +419,6 @@ export const routes = [
     path: '/groups/:serviceProviderId/:groupId/autoAttendants',
     angularComponent: 'autoAttendants',
     hasLevel: 'Group',
-    hasModuleRead: 'Auto Attendant'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/autoAttendants/autoAttendant',
-    angularComponent: 'autoAttendant',
-    hasLevel: 'Group Department',
     hasModuleRead: 'Auto Attendant'
   },
   {

@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('autoAttendant', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' , serviceUserId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
@@ -31,7 +31,7 @@ function controller(
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.serviceUserId = $location.search().serviceUserId || ctrl.serviceUserId
+  ctrl.serviceUserId = $location.search().serviceUserId
   ctrl.back = back
   ctrl.update = update
   ctrl.destroy = destroy
@@ -125,9 +125,11 @@ console.log(ctrl)
 
   function back() {
     if(ACL.is('Group Department')) {
-      Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'autoAttendants')
-    } else {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'autoAttendants')
+      Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
+    } else if(ACL.is('Group')){
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupService')
+    }else{
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
     }
   }
 }

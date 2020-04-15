@@ -79,26 +79,13 @@ function controller(
   }
 
   function open(autoAttendant) {
-    if(ACL.is('Group')){
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'groupService',
-        'autoAttendants',
-        'autoAttendant',
-        autoAttendant.serviceUserId
-      )
-    }else{
-      Route.open(
+    Route.open(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
         'autoAttendants',
         'autoAttendant'
       ).search({ serviceUserId: autoAttendant.serviceUserId })
-    }
-    
   }
 
   function toggle(service) {
