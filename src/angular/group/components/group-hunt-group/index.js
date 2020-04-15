@@ -4,7 +4,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupHuntGroup', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<', serviceUserId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<'}
 })
 
 controller.$inject = [
@@ -38,7 +38,7 @@ function controller(
   ctrl.updateWeight = updateWeight
 
   function onInit() {
-    ctrl.serviceUserId = ctrl.serviceUserId ? ctrl.serviceUserId : $location.search().serviceUserId
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     return $q
       .all([loadHuntGroup(), Module.load()])

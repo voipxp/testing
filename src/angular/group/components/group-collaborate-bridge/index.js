@@ -4,7 +4,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupCollaborateBridge', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' , serviceUserId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = ['Alert', 'GroupCollaborateService', 'Route', '$location']
@@ -19,7 +19,7 @@ function controller(Alert, GroupCollaborateService, Route, $location) {
   ctrl.back = back
 
   function onInit() {
-    ctrl.serviceUserId = $location.search().serviceUserId || ctrl.serviceUserId
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     loadBridge()
       .catch(Alert.notify.danger)

@@ -87,19 +87,17 @@ function controller(
   }
 
   function open(huntgroup) {
-     
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'huntGroups',
-        'huntGroup',
-        huntgroup.serviceUserId
-      )
-    } 
-    
-   
-
+    Route.open(
+      'groups',
+      ctrl.serviceProviderId,
+      ctrl.groupId,
+      'huntGroups',
+      'huntGroup'
+    ).search({
+      serviceUserId: huntgroup.serviceUserId
+    })
+  } 
+  
   function add() {
     $scope.$broadcast('groupHuntGroupCreate:load')
   }

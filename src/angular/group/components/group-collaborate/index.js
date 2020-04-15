@@ -106,25 +106,14 @@ function controller(ACL, Alert, GroupCollaborateService, Route, $q) {
   }
 
   function onClick(bridge) {
-    if(ACL.is('Group')){
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'groupService',
-        'collaborate',
-        'bridge',
-        bridge.serviceUserId
-      ) 
-    }else{ 
-      Route.open(
+     Route.open(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
         'collaborate',
         'bridge'
       ).search({ serviceUserId: bridge.serviceUserId })
-    }
+    
   }
 
   function open(user) {

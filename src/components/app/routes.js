@@ -128,24 +128,28 @@ export const routes = [
     hasModuleRead: 'Group Paging'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/groupService/collaborate/bridge/:serviceUserId',
+    path: '/groups/:serviceProviderId/:groupId/collaborate/bridge',
     angularComponent: 'groupCollaborateBridge',
-    hasLevel: 'Group',
-    hasModuleRead: 'Collaborate - Audio'
+    hasLevel: 'Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/meetMe/bridge/:serviceUserId',
+    path: '/groups/:serviceProviderId/:groupId/meetMe/bridge',
     angularComponent: 'groupMeetMeBridge',
-    hasLevel: 'Group Department',
+    hasLevel: 'Group',
     hasModuleRead: 'Meet-Me Conferencing'
   },
-  {
+  /*{
     path: '/groups/:serviceProviderId/:groupId/huntGroups/huntGroup/:serviceUserId',
     angularComponent: 'groupHuntGroup',
     hasLevel: 'Group Department',
     hasModuleRead: 'Hunt Group'
+  },*/
+  {
+    path: '/groups/:serviceProviderId/:groupId/huntGroups/huntGroup',
+    angularComponent: 'groupHuntGroup',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Hunt Group'
   },
-
   {
     path: '/groups/:serviceProviderId/:groupId/groupService/callPickup/group/:name',
     angularComponent: 'groupCallPickup',
@@ -334,60 +338,9 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Group Calling Plans'
   },
-  // {
-  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/incoming',
-  //   angularComponent: 'groupIncomingCallingPlan',
-  //   hasLevel: 'Group'
-  // },
-  // {
-  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/outgoing',
-  //   angularComponent: 'groupOutgoingCallingPlan',
-  //   hasLevel: 'Group'
-  // },
-  // {
-  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/outgoing/users',
-  //   angularComponent: 'groupOutgoingCallingPlanUsers',
-  //   hasLevel: 'Group'
-  // },
-  // {
-  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPlan',
-  //   angularComponent: 'groupOutgoingCallingPlanDigitPlan',
-  //   hasLevel: 'Group'
-  // },
-  // {
-  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPlan',
-  //   angularComponent: 'groupOutgoingCallingPlanPinholeDigitPlan',
-  //   hasLevel: 'Group'
-  // },
-  // {
-  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/codes',
-  //   angularComponent: 'groupOutgoingCallingPlanAuthorizationCodes',
-  //   hasLevel: 'Group'
-  // },
-  // {
-  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/transfer',
-  //   angularComponent: 'groupOutgoingCallingPlanTransferNumbers',
-  //   hasLevel: 'Group'
-  // },
-  // {
-  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPatterns',
-  //   angularComponent: 'groupCallingPlanDigitPatterns',
-  //   hasLevel: 'Group'
-  // },
-  // {
-  //   path:
-  //     '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPatterns',
-  //   angularComponent: 'groupOutgoingCallingPlanPinholeDigitPatterns',
-  //   hasLevel: 'Group'
-  // },
   {
     path: '/groups/:serviceProviderId/:groupId/collaborate',
     angularComponent: 'groupCollaborate',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/collaborate/bridge',
-    angularComponent: 'groupCollaborateBridge',
     hasLevel: 'Group'
   },
   {
@@ -486,12 +439,6 @@ export const routes = [
     hasModuleRead: 'Series Completion'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/groupService/callPickup/group',
-    angularComponent: 'groupCallPickup',
-    hasLevel: 'Group',
-    hasModuleRead: 'Call Pickup'
-  },
-  {
     path: '/groups/:serviceProviderId/:groupId/callPark',
     angularComponent: 'groupCallPark',
     hasLevel: 'Group',
@@ -544,12 +491,6 @@ export const routes = [
     path: '/groups/:serviceProviderId/:groupId/huntGroups',
     angularComponent: 'groupHuntGroups',
     hasLevel: 'Group',
-    hasModuleRead: 'Hunt Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/huntGroups/huntGroup',
-    angularComponent: 'groupHuntGroup',
-    hasLevel: 'Group Department',
     hasModuleRead: 'Hunt Group'
   },
   {

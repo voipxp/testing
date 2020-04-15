@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupMeetMeBridge', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<', serviceUserId:'<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
@@ -42,7 +42,7 @@ function controller(
   }
 
   function onInit() {
-    //ctrl.serviceUserId = $location.search().serviceUserId
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     return loadBridge()
       .catch(Alert.notify.danger)
