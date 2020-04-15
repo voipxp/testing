@@ -33,7 +33,7 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
     angularComponent: 'groupMusicOnHold',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Music On Hold'
   },
   {
