@@ -145,15 +145,21 @@ export const routes = [
     hasModuleRead: 'Hunt Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/groupService/callPickup/group/:name',
+    path: '/groups/:serviceProviderId/:groupId/callPickup/group',
     angularComponent: 'groupCallPickup',
     hasLevel: 'Group',
     hasModuleRead: 'Call Pickup'
   },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/groupService/callPickup/group/:name',
+  //   angularComponent: 'groupCallPickup',
+  //   hasLevel: 'Group',
+  //   hasModuleRead: 'Call Pickup'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter',
     angularComponent: 'groupCallCenter',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Call Center'
   },
   {
