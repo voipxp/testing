@@ -1,7 +1,3 @@
-import {
-  GroupSpeedDial8,
-  GroupSeriesCompletion
-} from '@/components/groups'
 export const groupReportRoutes = [
   {
       name: 'Auto Receptionist',
@@ -36,7 +32,8 @@ export const groupReportRoutes = [
       path: 'usersReport',
       angularComponent: 'usersReport',
       hasLevel: 'Group',
-      hasModuleRead: 'User Report'
+      hasModuleRead: 'User Report',
+	  module: 'User Report'
       } 
 ]
  

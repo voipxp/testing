@@ -1,10 +1,10 @@
-import {
-  GroupCommunicationBarring
-} from '@/components/groups'
 import { GroupUserServiceSettings } from './group-user-service-settings'
 import { GroupServiceSettings } from './group-service-settings'
 import { GroupReportSettings } from './group-report-settings'
 import { GroupDepartments } from './group-departments'
+import {GroupPhoneListWithDirecotorySettings} from './group-phone-list-with-directory-settings'
+import {GroupCommunicationSettings} from './group-communication-settings'
+
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -39,6 +39,16 @@ export const dashboardMenu = [
         path: 'reports',
         component: GroupReportSettings
       },
+	  {
+		name: 'Phone List And Directory',
+        path: 'phoneListWithDirectory',
+        component: GroupPhoneListWithDirecotorySettings
+      },
+	  {
+		name: 'Communication ',
+        path: 'communication',
+        component: GroupCommunicationSettings
+      },
 	]
   },
   {
@@ -64,18 +74,16 @@ export const dashboardMenu = [
         name: 'Announcements',
         path: 'announcements',
         angularComponent: 'groupAnnouncements',
-        version: '20',
-        module: true
+        version: '20'
       },
 	  
       {
         name: 'Bulk Provisioning',
         path: 'bulk',
 		angularComponent: 'bulkDashboard',
-		hasLevel: 'Group Department',
-        module: true
+		hasLevel: 'Group Department'
       },
-	  {
+	 /* {
         name: 'Comm Barring',
         path: 'groupCommunicationBarring',
 		component: GroupCommunicationBarring,
@@ -87,27 +95,24 @@ export const dashboardMenu = [
         angularComponent: 'groupCommunicationBarringAuthorizationCodes',
         hasLevel: 'Group',
         module: true
-	  },
+	  }, 
 	  {
         name: 'Custom Directory',
         path: 'customContactDirectories' ,
 		angularComponent: 'groupCustomContactDirectories',
-		hasLevel: 'Group',
-        module: true
+		hasLevel: 'Group'
       },
 	  {
         name: 'Common Phone List',
         path: 'phoneList',
 		angularComponent: 'groupCommonPhoneList',
-		hasLevel: 'Group',
-        module: true
-      },
+		hasLevel: 'Group'
+      },*/
       {
         name: 'Calling Plans',
         path:  'callingPlans', 
 		angularComponent: 'groupCallingPlans',
-		hasLevel: 'Group',
-        module: true
+		hasLevel: 'Group'
       },
 	  {
         name: 'Call Processing Policy',
@@ -116,13 +121,13 @@ export const dashboardMenu = [
 		hasLevel: 'Group',
         module: true
       },
-      {
+      /*{
         name: 'Directory',
         path: 'directory',
 		angularComponent: 'groupPhoneDirectory',
 		hasLevel: 'Group',
         module: true 
-      },
+      },*/
       {
         
         name: 'Feature Access Codes',
