@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupPagingGroup', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<', serviceUserId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = ['ACL', 'Alert', 'Route', 'GroupPagingGroupService', '$location']
@@ -17,7 +17,7 @@ function controller(ACL, Alert, Route, GroupPagingGroupService, $location) {
   ctrl.update = update
 
   function activate() {
-    // ctrl.serviceUserId = $location.search().serviceUserId
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     return loadInstance()
       .catch(Alert.notify.danger)

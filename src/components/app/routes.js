@@ -89,8 +89,7 @@ export const routes = [
     hasModuleRead: 'Auto Attendant'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
+    path:'/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
     angularComponent: 'groupFlexibleSeatingHost',
     hasLevel: 'Group Department',
     hasModuleRead: 'Flexible Seating Guest'
@@ -123,7 +122,7 @@ export const routes = [
     hasModuleRead: 'Trunk Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/paging/group/:serviceUserId',
+    path: '/groups/:serviceProviderId/:groupId/paging/group',
     angularComponent: 'groupPagingGroup',
     hasLevel: 'Group Department',
     hasModuleRead: 'Group Paging'
@@ -467,12 +466,6 @@ export const routes = [
     hasModuleRead: 'Group Paging'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/paging/group',
-    angularComponent: 'groupPagingGroup',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Group Paging'
-  },
-  {
     path: '/groups/:serviceProviderId/:groupId/huntGroups',
     angularComponent: 'groupHuntGroups',
     hasLevel: 'Group',
@@ -632,13 +625,6 @@ export const routes = [
     path: '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts',
     angularComponent: 'groupFlexibleSeatingHosts',
     hasLevel: 'Group',
-    hasModuleRead: 'Flexible Seating Guest'
-  },
-  {
-    path:
-      '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
-    angularComponent: 'groupFlexibleSeatingHost',
-    hasLevel: 'Group Department',
     hasModuleRead: 'Flexible Seating Guest'
   },
   {
