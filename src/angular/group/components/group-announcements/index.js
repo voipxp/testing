@@ -41,18 +41,7 @@ function controller(ACL, Alert, GroupAnnouncementService, $scope, Route) {
   }
 
   function open(announcement) {
-    if(ACL.is('Group')){
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'announcements',
-        'announcement',
-        announcement.name,
-        announcement.mediaType
-      ) 
-    }else{
-      Route.open(
+     Route.open(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
@@ -62,7 +51,6 @@ function controller(ACL, Alert, GroupAnnouncementService, $scope, Route) {
         name: announcement.name,
         mediaType: announcement.mediaType
       }) 
-    }
   }
 
   function add() {

@@ -95,7 +95,7 @@ export const routes = [
     hasModuleRead: 'Flexible Seating Guest'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/announcements/announcement/:name/:mediaType',
+    path: '/groups/:serviceProviderId/:groupId/announcements/announcement',
     angularComponent: 'groupAnnouncement',
     hasLevel: 'Group'
   },
@@ -326,11 +326,6 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/announcements',
     angularComponent: 'groupAnnouncements',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/announcements/announcement',
-    angularComponent: 'groupAnnouncement',
     hasLevel: 'Group'
   },
   {
