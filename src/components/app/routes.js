@@ -115,8 +115,9 @@ export const routes = [
     hasLevel: 'Group Department',
     hasModuleRead: 'Music On Hold'
   },
+  
   {
-    path: '/groups/:serviceProviderId/:groupId/trunkGroups/trunkGroup/:trunkName',
+    path: '/groups/:serviceProviderId/:groupId/trunkGroups/trunkGroup',
     angularComponent: 'groupTrunkGroup',
     hasLevel: 'Group Department',
     hasModuleRead: 'Trunk Group'
@@ -470,12 +471,6 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Trunk Group'
   },
-  /*{
-    path: '/groups/:serviceProviderId/:groupId/trunkGroups/trunkGroup',
-    angularComponent: 'groupTrunkGroup',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Trunk Group'
-  }, */
   {
     path: '/groups/:serviceProviderId/:groupId/paging',
     angularComponent: 'groupPagingGroups',

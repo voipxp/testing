@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupTrunkGroup', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' , trunkName: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = ['ACL', '$location', 'Alert', 'GroupTrunkGroupService', 'Route']
@@ -16,7 +16,7 @@ function controller(ACL, $location, Alert, GroupTrunkGroupService, Route) {
   ctrl.destroy = destroy
   ctrl.back = back
   function onInit() {
-    // ctrl.trunkName = $location.search().trunkName
+    ctrl.trunkName = $location.search().trunkName
     ctrl.loading = true
     loadTrunk()
       .then(loadTrunks)
