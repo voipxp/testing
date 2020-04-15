@@ -20,7 +20,7 @@ import {
   
 export const groupServiceRoutes = [
   {
-	name :'Auto Attendant',
+	name :'Auto Receptionist',
     component: GroupAutoAttendants,
     hasModuleRead: 'Auto Attendant',
     path: 'autoAttendants',
