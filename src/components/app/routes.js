@@ -70,9 +70,9 @@ export const routes = [
     hasModuleRead: 'Collaborate - Audio'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/groupService/huntGroups/huntGroup/:serviceUserId',
+    path: '/groups/:serviceProviderId/:groupId/huntGroups/huntGroup/:serviceUserId',
     angularComponent: 'groupHuntGroup',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Hunt Group'
   },
 

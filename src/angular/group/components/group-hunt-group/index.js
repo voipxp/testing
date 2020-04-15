@@ -107,8 +107,10 @@ function controller(
   function back() {
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
-    } else {
+    } else if(ACL.is('Grou')){
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupService')
+    }else{
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
     }
   }
 }

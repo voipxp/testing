@@ -30,14 +30,14 @@ export const GroupServiceSettings = ({ history, match }) => {
   const { hasGroupService } = useGroupServicePermissions()
   //const { userViewableServices } = useUserServicePermissions(serviceProviderId,groupId)
   const { loadGroupServices } = useGroupServices(groupId, serviceProviderId)
-
+ 
   const showService = service => {
-    history.push(`${match.url}/${service.path}`)
+   history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-    //loadGroupServices( groupId, serviceProviderId )
-    history.goBack()
+    loadGroupServices( groupId, serviceProviderId )
+	history.goBack()
   }
   /*
   turn our array of routes into a filtered list of components,

@@ -87,29 +87,18 @@ function controller(
   }
 
   function open(huntgroup) {
-    if(ACL.is('Group')){
+     
       Route.open(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'groupService',
         'huntGroups',
         'huntGroup',
         huntgroup.serviceUserId
       )
-    }else{
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'huntGroups',
-        'huntGroup'
-      ).search({
-        serviceUserId: huntgroup.serviceUserId
-      })
-    }
+    } 
     
-  }
+   
 
   function add() {
     $scope.$broadcast('groupHuntGroupCreate:load')
