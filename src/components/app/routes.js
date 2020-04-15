@@ -150,12 +150,6 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Call Pickup'
   },
-  // {
-  //   path: '/groups/:serviceProviderId/:groupId/groupService/callPickup/group/:name',
-  //   angularComponent: 'groupCallPickup',
-  //   hasLevel: 'Group',
-  //   hasModuleRead: 'Call Pickup'
-  // },
   {
     path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter',
     angularComponent: 'groupCallCenter',

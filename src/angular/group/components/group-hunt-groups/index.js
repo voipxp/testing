@@ -34,7 +34,7 @@ function controller(
   ctrl.add = add
   ctrl.onCreate = onCreate
   ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
-
+console.log(ctrl)
   function onInit() {
     ctrl.loading = true
     return $q
