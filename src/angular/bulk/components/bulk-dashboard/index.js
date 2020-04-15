@@ -47,6 +47,7 @@ function controller(BulkTaskService, $location, ServiceProviderPolicyService, AC
       if (service.task === 'group.dns.unassign') return false
       if (service.task === 'user.password.update') return false
       if (service.task === 'group.device.create') return false
+      if (service.task === 'group.device.upsert') return false
 
       return true
     }))

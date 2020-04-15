@@ -73,26 +73,27 @@ const prepareImportData = () => {
     const tasks = []
 
       const task = {
-        "task": 'group.device.create',
-        "deviceType": taskData.deviceType,
+        "task": "group.device.upsert",
+        "allowAccessDeviceUpdate": false,
+        "deviceLevel": "group",
         "deviceName": taskData.deviceName,
-        "accessDeviceEndpoint.accessDevice.deviceType": taskData.deviceType,
-        "accessDeviceEndpoint.accessDevice.deviceName": taskData.deviceName,
-        "accessDeviceEndpoint.accessDevice.protocol": taskData.protocol,
-        "accessDeviceEndpoint.accessDevice.netAddress": taskData.netAddress,
-        "accessDeviceEndpoint.accessDevice.port": taskData.port,
-        "accessDeviceEndpoint.accessDevice.outboundProxyServerNetAddress": taskData.outboundProxyServerNetAddress,
-        "accessDeviceEndpoint.accessDevice.stunServerNetAddress": taskData.stunServerNetAddress,
-        "accessDeviceEndpoint.accessDevice.macAddress": taskData.macAddress,
-        "accessDeviceEndpoint.accessDevice.serialNumber": taskData.serialNumber,
-        "accessDeviceEndpoint.accessDevice.description": taskData.description,
-        "accessDeviceEndpoint.accessDevice.physicalLocation": taskData.physicalLocation,
-        "accessDeviceEndpoint.accessDevice.transportProtocol": taskData.transportProtocol,
+        "deviceType": taskData.deviceType,
+        "protocol": taskData.protocol,
+        "netAddress": taskData.netAddress,
+        "port": taskData.port,
+        "outboundProxyServerNetAddress": taskData.outboundProxyServerNetAddress,
+        "stunServerNetAddress": taskData.stunServerNetAddress,
+        "macAddress": taskData.macAddress,
+        "serialNumber": taskData.serialNumber,
+        "description": taskData.description,
+        "physicalLocation": taskData.physicalLocation,
+        "transportProtocol": taskData.transportProtocol,
+        "useCustomUserNamePassword": false
       }
 
       if(taskData.credentials === 'custom') {
-        task["accessDeviceEndpoint.accessDevice.accessDeviceCredentials.userName"] = taskData.userName
-        task["accessDeviceEndpoint.accessDevice.accessDeviceCredentials.password"] = taskData.password
+        task["accessDeviceCredentials.userName"] = taskData.userName
+        task["accessDeviceCredentials.password"] = taskData.password
       }
       task['serviceProviderId'] = initialData.serviceProviderId
       task['groupId'] = initialData.groupId

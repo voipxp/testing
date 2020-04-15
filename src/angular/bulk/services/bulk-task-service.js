@@ -349,6 +349,43 @@ function BulkTaskService() {
     },
     /* Group Device */
     {
+      task: 'group.device.upsert',
+      name: 'Group Device Upsert',
+      description: 'Group Device Upsert',
+      required: ['serviceProviderId', 'groupId', 'deviceType', 'deviceName'],
+      example: [
+        {
+            "task": "group.device.upsert",
+            "allowAccessDeviceUpdate": 'boolean',
+            "deviceLevel": "string",
+            "serviceProviderId": "string",
+            "groupId": "string",
+            "deviceName": "string",
+            "deviceType": "string",
+            "protocol": "string",
+            "netAddress": "IP_ADDRESS",
+            "port": "number",
+            "outboundProxyServerNetAddress": "IP_ADDRESS",
+            "stunServerNetAddress": "IP_ADDRESS",
+            "macAddress": "HEXA_DECIMAL",
+            "serialNumber": "number",
+            "description": "string",
+            "physicalLocation": "string",
+            "transportProtocol": "string",
+            "mobilityManagerProvisioningURL": "string",
+            "mobilityManagerProvisioningUserName": "string",
+            "mobilityManagerProvisioningPassword": "string",
+            "mobilityManagerDefaultOriginatingServiceKey": "string",
+            "mobilityManagerDefaultTerminatingServiceKey": "string",
+            "useCustomUserNamePassword": 'boolean',
+            "accessDeviceCredentials": {
+                "userName": "string",
+                "password": "string"
+            }
+        }
+      ]
+    },
+    {
       task: 'group.device.create',
       name: 'Group Device Create',
       description: 'Group Device Create',
