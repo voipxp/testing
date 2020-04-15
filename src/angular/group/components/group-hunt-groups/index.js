@@ -87,15 +87,28 @@ function controller(
   }
 
   function open(huntgroup) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'huntGroups',
-      'huntGroup'
-    ).search({
-      serviceUserId: huntgroup.serviceUserId
-    })
+    if(ACL.is('Group')){
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'groupService',
+        'huntGroups',
+        'huntGroup',
+        huntgroup.serviceUserId
+      )
+    }else{
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'huntGroups',
+        'huntGroup'
+      ).search({
+        serviceUserId: huntgroup.serviceUserId
+      })
+    }
+    
   }
 
   function add() {
