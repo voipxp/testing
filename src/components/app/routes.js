@@ -89,9 +89,10 @@ export const routes = [
     hasModuleRead: 'Auto Attendant'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/groupService/flexibleSeatingHosts/flexibleSeatingHost/:serviceUserId',
+    path:
+      '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
     angularComponent: 'groupFlexibleSeatingHost',
-    hasLevel: 'Group',
+    hasLevel: 'Group Department',
     hasModuleRead: 'Flexible Seating Guest'
   },
   {

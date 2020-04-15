@@ -174,26 +174,14 @@ function controller(
   }
 
   function open(flexibleSeatingHost) {
-    if(ACL.is('Group')){
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'groupService',
-        'flexibleSeatingHosts',
-        'flexibleSeatingHost',
-        flexibleSeatingHost.serviceUserId
-      )
-      }else{
-        Route.open(
-          'groups',
-          ctrl.serviceProviderId,
-          ctrl.groupId,
-          'flexibleSeatingHosts',
-          'flexibleSeatingHost'
-        ).search({ serviceUserId:flexibleSeatingHost.serviceUserId })
-      }
-    }
+    Route.open(
+      'groups',
+      ctrl.serviceProviderId,
+      ctrl.groupId,
+      'flexibleSeatingHosts',
+      'flexibleSeatingHost'
+    ).search({ serviceUserId: flexibleSeatingHost.serviceUserId })
+  }
     
 
   function toggle(service) {
