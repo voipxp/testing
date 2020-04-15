@@ -22,8 +22,9 @@ function controller(Route, Session, ACL) {
         ctrl.serviceProviderId,
         groupId,
         'meetMe',
-        'bridge'
-      ).search({ serviceUserId: bridgeId })
+        'bridge',
+        bridgeId
+      ) 
     } else {
       Route.open('groups', ctrl.serviceProviderId, groupId, 'meetMe')
     }

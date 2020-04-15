@@ -27,8 +27,9 @@ function controller(Route, $scope, ACL) {
         ctrl.serviceProviderId,
         ctrl.groupId,
         'trunkGroups',
-        'trunkGroup'
-      ).search({ trunkName: trunkName })
+        'trunkGroup',
+        trunkName
+      )
     } else {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'trunkGroups')
     }

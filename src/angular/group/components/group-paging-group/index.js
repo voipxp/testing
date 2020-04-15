@@ -5,19 +5,19 @@ import template from './index.html'
 angular.module('odin.group').component('groupPagingGroup', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<', serviceUserId: '<' }
 })
 
-controller.$inject = ['Alert', 'Route', 'GroupPagingGroupService', '$location']
-function controller(Alert, Route, GroupPagingGroupService, $location) {
+controller.$inject = ['ACL', 'Alert', 'Route', 'GroupPagingGroupService', '$location']
+function controller(ACL, Alert, Route, GroupPagingGroupService, $location) {
   var ctrl = this
   ctrl.$onInit = activate
   ctrl.open = open
-
+  ctrl.back = back
   ctrl.update = update
 
   function activate() {
-    ctrl.serviceUserId = $location.search().serviceUserId
+    // ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     return loadInstance()
       .catch(Alert.notify.danger)
@@ -61,5 +61,15 @@ function controller(Alert, Route, GroupPagingGroupService, $location) {
       'paging',
       serviceUserId
     )
+  }
+  
+  function back() {
+    if(ACL.is('Group Department')) {
+      Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'paging')
+    } else if(ACL.is('Group')){
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupService')
+    }else{
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupPagingGroups')
+    }
   }
 }

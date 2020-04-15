@@ -19,7 +19,8 @@ function controller(Route, ACL) {
       ctrl.serviceProviderId,
       ctrl.groupId,
       'paging',
-      'group'
-    ).search({ serviceUserId: serviceUserId })
+      'group',
+      serviceUserId
+    )
   }
 }

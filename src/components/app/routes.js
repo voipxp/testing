@@ -64,10 +64,34 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance/:departmentName/:isEnterpriseDepartment',
+    angularComponent: 'groupMusicOnHold',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Music On Hold'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/trunkGroups/trunkGroup/:trunkName',
+    angularComponent: 'groupTrunkGroup',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Trunk Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/paging/group/:serviceUserId',
+    angularComponent: 'groupPagingGroup',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Group Paging'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/groupService/collaborate/bridge/:serviceUserId',
     angularComponent: 'groupCollaborateBridge',
     hasLevel: 'Group',
     hasModuleRead: 'Collaborate - Audio'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/meetMe/bridge/:serviceUserId',
+    angularComponent: 'groupMeetMeBridge',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Meet-Me Conferencing'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/huntGroups/huntGroup/:serviceUserId',
@@ -452,12 +476,12 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Trunk Group'
   },
-  {
+  /*{
     path: '/groups/:serviceProviderId/:groupId/trunkGroups/trunkGroup',
     angularComponent: 'groupTrunkGroup',
     hasLevel: 'Group Department',
     hasModuleRead: 'Trunk Group'
-  },
+  }, */
   {
     path: '/groups/:serviceProviderId/:groupId/paging',
     angularComponent: 'groupPagingGroups',
@@ -489,21 +513,9 @@ export const routes = [
     hasModuleRead: 'Meet-Me Conferencing'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/meetMe/bridge',
-    angularComponent: 'groupMeetMeBridge',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Meet-Me Conferencing'
-  },
-  {
     path: '/groups/:serviceProviderId/:groupId/musicOnHold',
     angularComponent: 'groupMusicOnHoldIndex',
     hasLevel: 'Group',
-    hasModuleRead: 'Music On Hold'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
-    angularComponent: 'groupMusicOnHold',
-    hasLevel: 'Group Department',
     hasModuleRead: 'Music On Hold'
   },
   {

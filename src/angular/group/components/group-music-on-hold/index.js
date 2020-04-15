@@ -5,7 +5,7 @@ import { useAcl } from '@/utils'
 angular.module('odin.group').component('groupMusicOnHold', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' , departmentName: '<', isEnterpriseDepartment: '<'}
 })
 
 controller.$inject = ['Alert', 'GroupMusicOnHoldService', 'Route', '$location', 'ACL']
@@ -17,8 +17,8 @@ function controller(Alert, GroupMusicOnHoldService, Route, $location, ACL) {
   ctrl.back = back
 
   function onInit() {
-    ctrl.departmentName = $location.search().departmentName
-    ctrl.isEnterpriseDepartment = $location.search().isEnterpriseDepartment
+    //ctrl.departmentName = $location.search().departmentName
+    //ctrl.isEnterpriseDepartment = $location.search().isEnterpriseDepartment
     ctrl.title = ctrl.departmentName || 'Group'
     ctrl.loading = true
     loadMoh()
@@ -79,6 +79,8 @@ function controller(Alert, GroupMusicOnHoldService, Route, $location, ACL) {
   function back() {
     if( ACL.is('Group Department') ) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
+    } else if(ACL.is('Group')){
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupService')
     } else {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
     }

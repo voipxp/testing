@@ -5,18 +5,18 @@ import template from './index.html'
 angular.module('odin.group').component('groupTrunkGroup', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' , trunkName: '<' }
 })
 
-controller.$inject = ['$location', 'Alert', 'GroupTrunkGroupService', 'Route']
-function controller($location, Alert, GroupTrunkGroupService, Route) {
+controller.$inject = ['ACL', '$location', 'Alert', 'GroupTrunkGroupService', 'Route']
+function controller(ACL, $location, Alert, GroupTrunkGroupService, Route) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.update = update
   ctrl.destroy = destroy
-
+  ctrl.back = back
   function onInit() {
-    ctrl.trunkName = $location.search().trunkName
+    // ctrl.trunkName = $location.search().trunkName
     ctrl.loading = true
     loadTrunk()
       .then(loadTrunks)
@@ -113,4 +113,15 @@ function controller($location, Alert, GroupTrunkGroupService, Route) {
           })
       })
   }
+
+  function back() {
+    if(ACL.is('Group Department')) {
+      Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'trunkGroups')
+    } else if(ACL.is('Group')){
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupService')
+    }else{
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'trunkGroups')
+    }
+  }
+
 }

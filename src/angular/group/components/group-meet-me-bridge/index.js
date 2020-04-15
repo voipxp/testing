@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupMeetMeBridge', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<', serviceUserId:'<' }
 })
 
 controller.$inject = [
@@ -42,7 +42,7 @@ function controller(
   }
 
   function onInit() {
-    ctrl.serviceUserId = $location.search().serviceUserId
+    //ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     return loadBridge()
       .catch(Alert.notify.danger)
@@ -110,6 +110,8 @@ function controller(
   function open(groupId) {
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, groupId, 'meetMe')
+    }else if(ACL.is('Group')){
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupService')
     } else {
       Route.open('groups', ctrl.serviceProviderId, groupId, 'meetMe')
     }

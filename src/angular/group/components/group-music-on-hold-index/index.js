@@ -88,11 +88,10 @@ function controller(
       ctrl.serviceProviderId,
       ctrl.groupId,
       'musicOnHold',
-      'instance'
-    ).search({
-      departmentName: department.name,
-      isEnterpriseDepartment: department.isEnterpriseDepartment
-    })
+      'instance',
+      department.name,
+      department.isEnterpriseDepartment
+    )
   }
 
   function add() {
