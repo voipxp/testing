@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallCenter', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<',serviceUserId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
@@ -34,7 +34,7 @@ function controller(
   ctrl.hasPermission = hasPermission
   ctrl.back = back
   function activate() {
-    ctrl.serviceUserId = $location.search().serviceUserId || ctrl.serviceUserId
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
     ctrl.hasBasicBounced = ACL.hasVersion('20')
     ctrl.hasMonitoring = Module.read('Call Center Monitoring')
@@ -103,8 +103,10 @@ function controller(
   function back() {
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
-    } else {
+    } else if(ACL.is('Group')) {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId,'groupService')
+    } else {
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
     }
   }
 }

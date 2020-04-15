@@ -81,18 +81,6 @@ function controller(
 
   function open(object) { 
     var serviceUserId = (object && object.serviceUserId) || object
-    if(ACL.is('Group')){
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'groupService',
-        'callCenters',
-        'callCenter',
-        serviceUserId
-      )
-    }
-    else{
       Route.open(
         'groups',
         ctrl.serviceProviderId,
@@ -100,7 +88,7 @@ function controller(
         'callCenters',
         'callCenter'
       ).search({ serviceUserId })
-    }
+    
   }
 
   function add() {

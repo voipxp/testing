@@ -138,12 +138,6 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Meet-Me Conferencing'
   },
-  /*{
-    path: '/groups/:serviceProviderId/:groupId/huntGroups/huntGroup/:serviceUserId',
-    angularComponent: 'groupHuntGroup',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Hunt Group'
-  },*/
   {
     path: '/groups/:serviceProviderId/:groupId/huntGroups/huntGroup',
     angularComponent: 'groupHuntGroup',
@@ -157,8 +151,9 @@ export const routes = [
     hasModuleRead: 'Call Pickup'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/groupService/callCenters/callCenter/:serviceUserId',
+    path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter',
     angularComponent: 'groupCallCenter',
+    hasLevel: 'Group',
     hasModuleRead: 'Call Center'
   },
   {
