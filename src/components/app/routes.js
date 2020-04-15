@@ -155,6 +155,19 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
+    path:
+      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
+    angularComponent: 'enterpriseEnterpriseTrunk',
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'Trunk Group'
+  },
+  {
+    path: '/serviceProviders/:serviceProviderId/meetMe',
+    angularComponent: 'serviceProviderMeetMe',
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'Meet-Me Conferencing'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/devices',
     angularComponent: 'groupDevices',
     hasLevel: 'Group'
@@ -633,19 +646,6 @@ export const routes = [
     angularComponent: 'enterpriseEnterpriseTrunks',
     hasLevel: 'Service Provider',
     hasModuleRead: 'Trunk Group'
-  },
-  {
-    path:
-      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
-    angularComponent: 'enterpriseEnterpriseTrunk',
-    hasLevel: 'Service Provider',
-    hasModuleRead: 'Trunk Group'
-  },
-  {
-    path: '/serviceProviders/:serviceProviderId/meetMe',
-    angularComponent: 'serviceProviderMeetMe',
-    hasLevel: 'Service Provider',
-    hasModuleRead: 'Meet-Me Conferencing'
   },
   {
     path: '/serviceProviders/:serviceProviderId/numbers',
