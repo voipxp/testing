@@ -508,7 +508,7 @@ export const routes = [
     hasModuleRead: 'Premium Call Records'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/reports/usersReport/users',
+    path: '/groups/:serviceProviderId/:groupId/reports/users',
     angularComponent: 'usersReport',
     hasLevel: 'Group',
     hasModuleRead: 'User Report'
