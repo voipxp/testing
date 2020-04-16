@@ -23,15 +23,14 @@ export const GroupServiceSettings = ({ history, match }) => {
   const showService = service => {
    history.push(`${match.url}/${service.path}`)
   }
-
+/*
   const { data: result, isLoading } = useQuery(
     'anonymous-call-rejection',
     () => groupServicesApi.available(groupId, serviceProviderId)
   )  
   
-  const loadGroupServices = result || {}
-
-console.log(loadGroupServices)
+  const loadGroupServices = result || {} */
+ 
   const columns = [
     {
       key: 'name',
@@ -44,8 +43,7 @@ console.log(loadGroupServices)
   ]
 
   const hideService = () => {
-    loadGroupServices( groupId, serviceProviderId )
-    history.push(`/groups/${serviceProviderId}/${groupId}/group-service`)
+   history.push(`/groups/${serviceProviderId}/${groupId}/group-service`)
   }
   /*
   turn our array of routes into a filtered list of components,

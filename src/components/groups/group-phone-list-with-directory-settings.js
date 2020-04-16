@@ -43,7 +43,7 @@ export const GroupPhoneListWithDirecotorySettings = ({ history, match }) => {
 
   // The base view when no sub-component picked
   const GroupServiceList = () => (
-    <UiCard title="Reports">
+    <UiCard title="Phone List And Directory">
       <UiDataTable
         columns={columns}
         rows={services}

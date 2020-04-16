@@ -43,7 +43,7 @@ export const GroupCommunicationSettings = ({ history, match }) => {
 
   // The base view when no sub-component picked
   const GroupServiceList = () => (
-    <UiCard title="Reports">
+    <UiCard title="Comm Barring">
       <UiDataTable
         columns={columns}
         rows={services}
