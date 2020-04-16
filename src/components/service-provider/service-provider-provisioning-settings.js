@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiDataTable } from '@/components/ui'
-import { useModulePermissions, useUserServicePermissions } from '@/utils'
+import { useModulePermissions } from '@/utils'
 import { AngularComponent } from '@/components/angular-component' 
 import { ProvisioningRoutes } from './service-provider-provisioning-routes'
 
@@ -17,13 +17,14 @@ const columns = [
 
 export const ProvisioningRouteSettings  = ({ history, match }) => {
   const { getModule } = useModulePermissions()
-
+  const {serviceProviderId} = match.params
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-    history.goBack()
+	  history.push(`/groups/${serviceProviderId}/provisioning`)
+    //history.goBack()
   }
    
   const services = React.useMemo(() => {

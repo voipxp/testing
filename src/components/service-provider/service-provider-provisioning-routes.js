@@ -1,43 +1,31 @@
-import { Audits, Audit } from '@/components/audits'
-import { Imports, Import } from '@/components/imports'
-import { Exports, Export } from '@/components/exports'
+//import { Audits, Audit } from '@/components/audits'
+import { Imports } from '@/components/imports'
+import { Exports } from '@/components/exports'
+import { ServiceProviderAudits } from './service-provider-audits'
 export const ProvisioningRoutes = [
-		{
-         
-        name: 'Audit (beta)',
-        module: 'Audit',
-        exact: true,
-		component: Audits,
-		hasLevel: 'Service Provider'
+       {
+        path: 'audits',
+        name: 'Audits (beta)',
+        component: ServiceProviderAudits,
+        hasLevel: 'Service Provider',
+        isBreadcrumb: false
       },
+		 
       {
          
         name: 'Import (beta)',
-        module: 'Import',
 		path: 'imports',
 		exact: true,
 		component: Imports,
 		hasLevel: 'Service Provider'
       },
-	  {
-		path: '/imports/:id',
-		component: Import,
-		hasLevel: 'Service Provider'
-	  },
       {
         name: 'Export (beta)',
-        module: 'Export',
         path: 'exports',
 		exact: true,
 		component: Exports,
 		hasLevel: 'Service Provider'
       },
-	  {
-		path: '/exports/:id',
-		component: Export,
-		hasLevel: 'Service Provider'
-	  },
-	  
       {
         name: 'Bulk Provisioning',
         path: 'bulk',
@@ -45,13 +33,13 @@ export const ProvisioningRoutes = [
 		hasLevel: 'Group Department',
 		hasModuleRead: 'Provisioning'
 	  },
-      {
+	  {
          
-        name: 'Delete Service Provider',
-        path:  'delete' ,
-		angularComponent: 'serviceProviderDelete',
-        acl: 'Reseller',
-		hasLevel: 'Reseller'
+        name: 'Group Services',
+        path:  'groupServices',
+		angularComponent: 'serviceProviderServices',
+		hasLevel: 'Service Provider',
+		serviceType: 'groupServices'
       },
       {
          
@@ -60,19 +48,13 @@ export const ProvisioningRoutes = [
 		angularComponent: 'serviceProviderNumbers',
         hasLevel: 'Service Provider'		
       },
-      {
-        name: 'Devices',
-        path:  'devices',
-        acl: 'Reseller',
-		angularComponent: 'serviceProviderDevices',
-		hasLevel: 'Reseller'
-
-      },
+      
       {
          
         name: 'Service Packs',
         path:  'servicePacks' ,
-        module: 'Service Packs'
+        angularComponent: 'serviceProviderServicePacks',
+		hasLevel: 'Service Provider'
       },
       {
         name: 'User Services',
@@ -80,15 +62,8 @@ export const ProvisioningRoutes = [
 		angularComponent: 'serviceProviderServices',
 		hasLevel: 'Service Provider',
 		serviceType: 'userServices'		
-      },
-      {
-         
-        name: 'Group Services',
-        path:  'groupServices',
-		angularComponent: 'serviceProviderServices',
-		hasLevel: 'Service Provider',
-		serviceType: 'groupServices'
-      },
+      } 
+      
 ]
 
  

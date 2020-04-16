@@ -155,6 +155,11 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
+    path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
+    angularComponent: 'serviceProviderServicePack',
+    hasLevel: 'Service Provider'
+  },
+  {
     path:
       '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
     angularComponent: 'enterpriseEnterpriseTrunk',
@@ -677,11 +682,6 @@ export const routes = [
   {
     path: '/serviceProviders/:serviceProviderId/servicePacks',
     angularComponent: 'serviceProviderServicePacks',
-    hasLevel: 'Service Provider'
-  },
-  {
-    path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
-    angularComponent: 'serviceProviderServicePack',
     hasLevel: 'Service Provider'
   },
   {
