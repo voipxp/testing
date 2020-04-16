@@ -51,7 +51,7 @@ export const groupServiceRoutes = [
           hasLevel: 'Group'
         },
         {
-          name :'Collaborate - Audio',
+          name :'Collaborate',
           path: 'collaborate',
           component: GroupCollaborate,
           hasModuleRead: 'Collaborate - Audio',
@@ -63,7 +63,7 @@ export const groupServiceRoutes = [
           path: 'flexible-seating-hosts',
           component: GroupFlexibleSeatingHosts,
           hasModuleRead: 'Flexible Seating Host',
-          services: ['Flexible Seating Hosts'],
+          services: ['Flexible Seating Guest'],
           hasLevel: 'Group'
         },
         {

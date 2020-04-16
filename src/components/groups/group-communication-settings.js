@@ -33,8 +33,8 @@ export const GroupCommunicationSettings = ({ history, match }) => {
     }, {})
     // filter out ones not in our map or missing read perms
     const filtered = GroupCommunication.map(service => {  
-        const route = allowedServices[service.hasModuleRead]
-        const module = getModule(route)
+        const route = allowedServices[service.name]
+        const module = getModule(service.hasModuleRead)
         return { ...module, ...service, path: service.path }
       })
     // remove dups such as Shared Call Appearance
