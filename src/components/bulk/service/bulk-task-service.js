@@ -1,10 +1,9 @@
-import angular from 'angular'
+import { useCallback } from 'react'
 import _ from 'lodash'
 
-angular.module('odin.bulk').factory('BulkTaskService', BulkTaskService)
 
-function BulkTaskService() {
-  var index = [
+const bulkTaskServices =
+  [
     // Clone Enterprise
     {
       task: 'bulk.sip.trunking',
@@ -12,7 +11,7 @@ function BulkTaskService() {
       description: 'Bulk Sip Trunking',
       required: []
     },
-	{
+    {
       task: 'bulk.sip.trunking.upload',
       name: 'Bulk Sip Trunking Upload',
       description: 'Bulk Sip Trunking Upload',
@@ -23,7 +22,10 @@ function BulkTaskService() {
       name: 'Clone Enterprise',
       description: 'Clone Enterprise in bulk',
       hasLevel: 'Reseller',
-      required: ['source.serviceProviderId', 'destination.serviceProviderId'],
+      required: [
+        'source.serviceProviderId',
+        'destination.serviceProviderId'
+      ],
       example: [
         {
           task: 'service.provider.bulk.clone',
@@ -89,67 +91,75 @@ function BulkTaskService() {
       name: 'Group Device Tag Modify',
       description: 'Group Device Tag Modify',
       hasLevel: 'Group',
-      required: ['serviceProviderId', 'groupId', 'deviceName'],
+      required: [
+        'serviceProviderId',
+        'groupId',
+		    'deviceName'
+      ],
       example: [
-        {
-          task: 'group.device.tag.modify',
-          serviceProviderId: 'string',
-          groupId: 'string',
-          deviceName: 'string',
-          tags: [
-            {
-              tagName: 'string',
-              tagValue: 'string'
-            },
-            {
-              tagName: 'string',
-              tagValue: 'string'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      task: 'trunk.group.call.capacity',
-      name: 'Trunk Group Call Capacity',
-      description: 'Trunk Group Call Capacity',
-      hasLevel: 'Service Provider',
-      required: ['serviceProviderId'],
-      example: [
-        {
-          'task': 'trunk.group.call.capacity',
-          'serviceProviderId': 'string',
-          'groupId': 'string',
-          'serviceProvider.maxActiveCalls': 'number',
-          'serviceProvider.burstingMaxActiveCalls': 'number',
-          'group.maxActiveCalls': 'number',
-          'group.burstingMaxActiveCalls': 'number'
-        }
-      ]
+      {
+        task: 'group.device.tag.modify',
+        serviceProviderId: 'string',
+        groupId: 'string',
+        deviceName: 'string',
+            tags: [
+                {
+                  tagName: "string",
+                    tagValue: "string"
+                },
+                {
+                  tagName: "string",
+                    tagValue: "string"
+                }
+            ]
+      }]
+  },
+  {
+    task: 'trunk.group.call.capacity',
+    name: 'Trunk Group Call Capacity',
+    description: 'Trunk Group Call Capacity',
+    hasLevel: 'Service Provider',
+    required: [
+      'serviceProviderId'
+    ],
+    example: [
+      {
+        'task': 'trunk.group.call.capacity',
+        'serviceProviderId': 'string',
+        'groupId': 'string',
+        "serviceProvider.maxActiveCalls": "number",
+        "serviceProvider.burstingMaxActiveCalls": "number",
+        'group.maxActiveCalls': 'number',
+        'group.burstingMaxActiveCalls': 'number',
+      }
+    ]
     },
     {
       task: 'group.services.update',
       name: 'Group Services Update',
       description: 'Group Services Update',
       hasLevel: 'Group',
-      required: ['serviceProviderId', 'groupId'],
+      required: [
+        'serviceProviderId',
+        'groupId'
+      ],
       example: [
-        {
-          task: 'group.services.update',
-          serviceProviderId: 'string',
-          groupId: 'string',
-          userServices: [
+      {
+        "task": "group.services.update",
+        "serviceProviderId": "string",
+        "groupId": "string",
+        "userServices": [
             {
-              serviceName: 'string',
-              authorized: 'boolean',
-              assigned: 'boolean',
-              quantity: 'number',
-              licensed: 'boolean',
-              userAssignable: 'boolean',
-              isUnlimited: 'boolean'
+                "serviceName": "string",
+                "authorized": "boolean",
+                "assigned": "boolean",
+                "quantity": "number",
+                "licensed": "boolean",
+                "userAssignable": "boolean",
+                "isUnlimited": "boolean"
             }
-          ],
-          groupServices: [
+        ],
+        "groupServices": [
             {
               tagName: 'string',
               tagValue: 'string'
@@ -168,7 +178,10 @@ function BulkTaskService() {
       name: 'Group Dns Assign',
       description: 'Group Dns Assign',
       hasLevel: 'Reseller',
-      required: ['serviceProviderId', 'groupId'],
+      required: [
+        'serviceProviderId',
+        'groupId'
+      ],
       example: [
         {
           task: 'group.dns.assign',
@@ -192,7 +205,10 @@ function BulkTaskService() {
       name: 'Group Dns UnAssign',
       description: 'Group Dns UnAssign',
       hasLevel: 'Reseller',
-      required: ['serviceProviderId', 'groupId'],
+      required: [
+        'serviceProviderId',
+        'groupId'
+      ],
       example: [
         {
           task: 'group.dns.unassign',
@@ -257,15 +273,23 @@ function BulkTaskService() {
         }
       ]
     },
-    // Group Trunk Group
+
+    // Delete this when testing is complete
     {
-      task: 'group.trunk.group',
+      task: 'enterprise.trunk.enterprise',
+      name: 'enterprise Trunk enterprise',
+      description: 'Enterprise Trunk enterprise',
+      required: ['name', 'serviceProviderId']
+    },
+
+    {
+      task: 'group.trunk.group.create',
       name: 'Group Trunk Group',
       description: 'Group Trunk Group',
       required: ['serviceProviderId', 'groupId', 'name', 'maxActiveCalls'],
       example: [
         {
-          task: 'group.trunk.group',
+          task: 'group.trunk.group.create',
           serviceProviderId: 'string',
           groupId: 'string',
           name: 'string',
@@ -330,83 +354,157 @@ function BulkTaskService() {
         }
       ]
     },
-    /* Group Device */
+
     {
-      task: 'group.device.upsert',
-      name: 'Group Device Upsert',
-      description: 'Group Device Upsert',
-      required: ['serviceProviderId', 'groupId', 'deviceType', 'deviceName'],
+      task: 'group.trunk.group.update',
+      name: 'Group Trunk Group Update',
+      description: 'Group Trunk Group Update',
+      required: ['serviceProviderId', 'groupId', 'name'],
       example: [
         {
-            "task": "group.device.upsert",
-            "allowAccessDeviceUpdate": 'boolean',
-            "deviceLevel": "string",
+        "task": "group.trunk.group.update",
+        "pilotUserId": "string",
+        "department": {
             "serviceProviderId": "string",
             "groupId": "string",
-            "deviceName": "string",
-            "deviceType": "string",
-            "protocol": "string",
-            "netAddress": "IP_ADDRESS",
-            "port": "number",
-            "outboundProxyServerNetAddress": "IP_ADDRESS",
-            "stunServerNetAddress": "IP_ADDRESS",
-            "macAddress": "HEXA_DECIMAL",
-            "serialNumber": "number",
-            "description": "string",
-            "physicalLocation": "string",
-            "transportProtocol": "string",
-            "mobilityManagerProvisioningURL": "string",
-            "mobilityManagerProvisioningUserName": "string",
-            "mobilityManagerProvisioningPassword": "string",
-            "mobilityManagerDefaultOriginatingServiceKey": "string",
-            "mobilityManagerDefaultTerminatingServiceKey": "string",
-            "useCustomUserNamePassword": 'boolean',
-            "accessDeviceCredentials": {
-                "userName": "string",
-                "password": "string"
-            }
-        }
+            "name": "string"
+        },
+        "accessDevice": {
+            "deviceLevel": "string",
+            "deviceName": "string"
+        },
+        "maxActiveCalls": 'number',
+        "maxIncomingCalls": 'number',
+        "maxOutgoingCalls": 'number',
+        "enableBursting": 'boolean',
+        "capacityExceededTrapInitialCalls": 'number',
+        "capacityExceededTrapOffsetCalls": 'number',
+        "invitationTimeout": 'number',
+        "requireAuthentication": 'boolean',
+        "sipAuthenticationUserName": "string",
+        "trunkGroupIdentity": "string",
+        "allowTerminationToTrunkGroupIdentity": 'boolean',
+        "allowTerminationToDtgIdentity": 'boolean',
+        "includeTrunkGroupIdentity": 'boolean',
+        "includeDtgIdentity": 'boolean',
+        "includeTrunkGroupIdentityForNetworkCalls": 'boolean',
+        "includeOtgIdentityForNetworkCalls": 'boolean',
+        "enableNetworkAddressIdentity": 'boolean',
+        "allowUnscreenedCalls": 'boolean',
+        "allowUnscreenedEmergencyCalls": 'boolean',
+        "pilotUserCallingLineIdentityForExternalCallsPolicy": "No Calls",
+        "pilotUserChargeNumberPolicy": "No Calls",
+        "routeToPeeringDomain": 'boolean',
+        "prefixEnabled": 'boolean',
+        "statefulReroutingEnabled": 'boolean',
+        "sendContinuousOptionsMessage": 'boolean',
+        "continuousOptionsSendingIntervalSeconds": 'number',
+        "failureOptionsSendingIntervalSeconds": 'number',
+        "failureThresholdCounter": 'number',
+        "successThresholdCounter": 'number',
+        "inviteFailureThresholdCounter": 'number',
+        "inviteFailureThresholdWindowSeconds": 'number',
+        "trunkGroupState": "Available",
+        "pilotUserCallingLineAssertedIdentityPolicy": "Unscreened Originating Calls",
+        "useSystemCallingLineAssertedIdentityPolicy": 'boolean',
+        "totalActiveIncomingCalls": 'number',
+        "totalActiveOutgoingCalls": 'number',
+        "pilotUserCallOptimizationPolicy": "Optimize For User Services",
+        "clidSourceForScreenedCallsPolicy": "Profile Name Profile Number",
+        "useSystemCLIDSourceForScreenedCallsPolicy": 'boolean',
+        "userLookupPolicy": "Basic",
+        "useSystemUserLookupPolicy": 'boolean',
+        "pilotUserCallingLineIdentityForEmergencyCallsPolicy": "No Calls",
+        "implicitRegistrationSetSupportPolicy": "Disabled",
+        "useSystemImplicitRegistrationSetSupportPolicy": 'boolean',
+        "sipIdentityForPilotAndProxyTrunkModesPolicy": "User",
+        "useSystemSIPIdentityForPilotAndProxyTrunkModesPolicy": 'boolean',
+        "useSystemSupportConnectedIdentityPolicy": 'boolean',
+        "supportConnectedIdentityPolicy": "Disabled",
+        "useSystemOptionsMessageResponseStatusCodes": 'boolean',
+        "serviceProviderId": "string",
+        "groupId": "string",
+        "name": "string"
+      }
       ]
-    },
-    {
-      task: 'group.device.create',
-      name: 'Group Device Create',
-      description: 'Group Device Create',
-      required: ['deviceType', 'deviceName'],
-      example: [
-        {
-          task: 'group.device.create',
-          serviceProviderId: 'string',
-          groupId: 'string',
-          allowAccessDeviceUpdate: 'boolean',
-          deviceType: 'string',
-          deviceName: 'string',
-          accessDeviceEndpoint:{
-            linePort: 'string',
-            accessDevice: {
-              deviceType: 'string',
-              deviceName: 'string',
-              deviceLevel: 'string',
-              protocol: 'string',
-              netAddress: 'string',
-              port: 'string',
-              outboundProxyServerNetAddress: 'string',
-              stunServerNetAddress: 'string',
-              macAddress: 'string',
-              serialNumber: 'string',
-              description: 'string',
-              physicalLocation: 'string',
-              transportProtocol: 'string',
-              useCustomUserNamePassword: 'string',
-              accessDeviceCredentials: {
-                userName: 'string',
-                password: 'string'
-              }
+  },
+  /* Group Device */
+  {
+    task: 'group.device.upsert',
+    name: 'Group Device Upsert',
+    description: 'Group Device Upsert',
+    required: ['serviceProviderId', 'groupId', 'deviceType', 'deviceName'],
+    example: [
+      {
+          "task": "group.device.upsert",
+          "allowAccessDeviceUpdate": 'boolean',
+          "deviceLevel": "string",
+          "serviceProviderId": "string",
+          "groupId": "string",
+          "deviceName": "string",
+          "deviceType": "string",
+          "protocol": "string",
+          "netAddress": "IP_ADDRESS",
+          "port": "number",
+          "outboundProxyServerNetAddress": "IP_ADDRESS",
+          "stunServerNetAddress": "IP_ADDRESS",
+          "macAddress": "HEXA_DECIMAL",
+          "serialNumber": "number",
+          "description": "string",
+          "physicalLocation": "string",
+          "transportProtocol": "string",
+          "mobilityManagerProvisioningURL": "string",
+          "mobilityManagerProvisioningUserName": "string",
+          "mobilityManagerProvisioningPassword": "string",
+          "mobilityManagerDefaultOriginatingServiceKey": "string",
+          "mobilityManagerDefaultTerminatingServiceKey": "string",
+          "useCustomUserNamePassword": 'boolean',
+          "accessDeviceCredentials": {
+              "userName": "string",
+              "password": "string"
+          }
+      }
+    ]
+  },
+  {
+    task: 'group.device.create',
+    name: 'Group Device Create',
+    description: 'Group Device Create',
+    required: ['deviceType', 'deviceName'],
+    example: [
+      {
+        task: 'group.device.create',
+        serviceProviderId: 'string',
+        groupId: 'string',
+        allowAccessDeviceUpdate: 'boolean',
+        deviceType: 'string',
+        deviceName: 'string',
+        accessDeviceEndpoint:{
+          linePort: 'string',
+          accessDevice: {
+            deviceType: 'string',
+            deviceName: 'string',
+            deviceLevel: 'string',
+            protocol: 'string',
+            netAddress: 'string',
+            port: 'string',
+            outboundProxyServerNetAddress: 'string',
+            stunServerNetAddress: 'string',
+            macAddress: 'string',
+            serialNumber: 'string',
+            description: 'string',
+            physicalLocation: 'string',
+            transportProtocol: 'string',
+            useCustomUserNamePassword: 'string',
+            accessDeviceCredentials: {
+              userName: 'string',
+              password: 'string'
             }
           }
         }
-      ]
-    },
+      }
+    ]
+  },
     // User Create
     {
       task: 'user.create',
@@ -604,26 +702,11 @@ function BulkTaskService() {
           userId: 'userId',
           userName: 'string',
           newPassword: 'string',
-          rebuildDevice: 'boolean',
-          resetDevice: 'boolean'
+          resetDevice: 'boolean',
+          rebuildDevice: 'boolean'
         }
       ]
     },
-    // User Integrated IMP
-    {
-      task: 'user.integrated.imp.update',
-      name: 'User Integrated IMP',
-      description: 'Set users Integrated IMP',
-      required: ['userId'],
-      example: [
-        {
-          task: 'user.integrated.imp.update',
-          userId: 'userId',
-          isActive: false
-        }
-      ]
-    },
-
     // User UC-One
     {
       task: 'user.ucone.update',
@@ -639,9 +722,11 @@ function BulkTaskService() {
     }
   ]
 
-  return { index: index, get: get }
-
-  function get(task) {
-    return _.find(index, { task: task })
+  const get = (task) => {
+    return _.find(bulkTaskServices, { task: task })
   }
-}
+
+export const BulkTaskService = {
+    bulkTaskServices: bulkTaskServices,
+    getTaskDetails : get
+  }

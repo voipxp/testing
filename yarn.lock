@@ -1830,13 +1830,6 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-query@^0.3.0":
-  version "0.3.9"
-  resolved "https://registry.yarnpkg.com/@types/react-query/-/react-query-0.3.9.tgz#44632be07f89b17129f0382d69ffaf7f0672a2ad"
-  integrity sha512-di5EVtAy/3q95AdtbZWk2jo2yjKw+9AJDWnEllUaS/s5Zctvh1wppiMOZ+cUs3yR2V4xY6qwD5rQ7pP+fUC6/A==
-  dependencies:
-    "@types/react" "*"
-
 "@types/react-syntax-highlighter@11.0.2":
   version "11.0.2"
   resolved "https://registry.yarnpkg.com/@types/react-syntax-highlighter/-/react-syntax-highlighter-11.0.2.tgz#a2e3ff657d7c47813f80ca930f3d959c31ec51e3"
@@ -9323,7 +9316,7 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
-papaparse@^5.0.0:
+papaparse@^5.0.0, papaparse@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.1.1.tgz#1da66a039f80e2db43a1226b0bf44106451e9a2d"
   integrity sha512-KPkW4GNQxunmYTeJIjHFrvilcNuHBWrfgbyvmagEmfGOA4hnP1WIkPbv4yABhj1Nam3as4w+7MBiI27BntwqVg==
@@ -10437,6 +10430,18 @@ react-clientside-effect@^1.2.2:
   dependencies:
     "@babel/runtime" "^7.0.0"
 
+react-csv-reader@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-csv-reader/-/react-csv-reader-3.0.2.tgz#4939cd90579a93502f902a40f30e00e0840cc12d"
+  integrity sha512-sagZ+Wzxl/zWF8KJXfxbYYSdljTsi4vMs+9ytnzdf4XjJhnkLukhLudV3sPHNPckRxCGmW42ofCyQ49xk8bihw==
+  dependencies:
+    papaparse "^5.1.1"
+
+react-csv@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-csv/-/react-csv-2.0.1.tgz#5b21d2170f705285d25476a0e28de7f8cab7f0ff"
+  integrity sha512-GK2MVXvEQW1PxaDja2Ksyb487Ae8jC8Kq70vrqwl1KFQojQleK2q/nDxeExe8482jAVLOE+w1qCCZN5Gu5ekKA==
+
 react-dev-utils@^9.0.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-9.1.0.tgz#3ad2bb8848a32319d760d0a84c56c14bdaae5e81"
@@ -10598,12 +10603,10 @@ react-popper@^1.3.6:
     typed-styles "^0.0.7"
     warning "^4.0.2"
 
-react-query@^0.3.24:
-  version "0.3.27"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-0.3.27.tgz#f59073e1f457db1c37057d145c966847b2dae954"
-  integrity sha512-d0f8DM4DyF0MGm8jezpE+irBectEDwbY83ZRCTCDQh/OQ/bZVdXOfz5t8QWx8AsTjzjjGFURdnNnsTnxVHpARg==
-  dependencies:
-    "@types/react-query" "^0.3.0"
+react-query@^1.0.28:
+  version "1.0.28"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-1.0.28.tgz#c8d2ef8b86ac7c521d51793538739f5d80eb1493"
+  integrity sha512-QMgw8wSgZyIbciH2UbpXKb+TuFR3/PC+oU1r3al9hlK3nZIn9r87LGE1n+K0ridSPXl3Zl0yJcuoP/OnaTTZmQ==
 
 react-redux@^7.1.0-alpha.5:
   version "7.2.0"
