@@ -30,7 +30,6 @@ function controller(
   ctrl.$onInit = onInit
   ctrl.open = open
   ctrl.edit = edit
-  ctrl.back = back
   ctrl.quantity = function(value) {
     return value === -1 ? 'Unlimited' : value
   }
@@ -75,7 +74,7 @@ function controller(
         'servicePack'
       ).search({ servicePackName })
     } else {
-      Route.open('serviceProviders', ctrl.serviceProviderId, 'servicePacks')
+      Route.open('serviceProviders', ctrl.serviceProviderId, 'provisioning/service-packs')
     }
   }
 
@@ -151,12 +150,5 @@ function controller(
         Alert.spinner.close()
       })
   }
-
-  function back() {
-    if(ACL.is('Service Provider')) {
-      Route.open('serviceProviders', ctrl.serviceProviderId, 'provisioning/servicePacks')
-    }else{
-      Route.open('serviceProviders', ctrl.serviceProviderId, 'servicePacks')
-    }
-  }
+ 
 }

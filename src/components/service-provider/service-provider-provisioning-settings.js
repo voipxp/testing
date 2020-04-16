@@ -17,13 +17,13 @@ const columns = [
 
 export const ProvisioningRouteSettings  = ({ history, match }) => {
   const { getModule } = useModulePermissions()
-  const {serviceProviderId} = match.params
+  const {serviceProviderId } = match.params
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-	  history.push(`/groups/${serviceProviderId}/provisioning`)
+	  history.push(`/serviceProviders/${serviceProviderId}/provisioning`)
     //history.goBack()
   }
    

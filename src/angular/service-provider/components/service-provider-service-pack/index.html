@@ -1,15 +1,10 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
-  module="$ctrl.module"
->
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId">
   <pbs-breadcrumb
     title="'Service Packs'"
-    ng-click="$ctrl.back()"
+    ng-click="$ctrl.open()"
   ></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.servicePackName"></pbs-breadcrumb>
 </pbs-navigation>
-
 <pbs-tabs size="large">
   <pbs-tab label="Details">
     <pbs-spinner loading="$ctrl.loading">
