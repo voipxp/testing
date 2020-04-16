@@ -165,7 +165,7 @@ function controller(
   }
   function back() {
      if(ACL.is('Group')){
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupService/callPark')
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'group-service/call-park')
     }else{
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPark')
     }

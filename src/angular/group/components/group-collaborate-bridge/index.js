@@ -85,7 +85,7 @@ function controller(ACL, Alert, GroupCollaborateService, Route, $location) {
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'collaborate')
     } else if(ACL.is('Group')){
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId,'groupService/collaborate')
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId,'group-service/collaborate')
     }else{
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'collaborate')
     }

@@ -1,39 +1,38 @@
 export const groupReportRoutes = [
-  {
+    {
       name: 'Auto Receptionist',
-      path: 'autoAttendant',
+      path: 'auto-attendant',
       angularComponent: 'autoAttendantCallRecords',
-      hasLevel: 'Group',
-      hasModuleRead: 'Auto Attendant Report'
-      },
-      {
+      hasModuleRead: 'Auto Attendant Report',
+      hasLevel: 'Group'
+    },
+    {
       name: 'Call Center Agent Report',
       path: 'callCenter',
       angularComponent: 'groupCallCenterCallRecords',
-      hasLevel: 'Group',
-      hasModuleRead: 'Premium Call Records'
-      },
-      {
+      hasModuleRead: 'Premium Call Records',
+      hasLevel: 'Group'
+    },
+    {
       name: 'Premium Call Records',
-      path: 'groupPremiumCallReport',
+      path: 'group-premium-callReport',
       angularComponent: 'groupCallRecordIndex',
-      hasLevel: 'Group',
-      hasModuleRead: 'Premium Call Records'
-      },
-      {
+      hasModuleRead: 'Premium Call Records',
+      hasLevel: 'Group'
+    },
+    {
       name: 'User Call Report',
       path: 'userCallReport',
       angularComponent: 'groupUserCallReportIndex',
-      hasLevel: 'Group',
-      hasModuleRead: 'Premium Call Records'
-      },
-      {
+      hasModuleRead: 'Premium Call Records',
+      hasLevel: 'Group'
+    },
+    {
       name: 'User Report',
       path: 'usersReport',
       angularComponent: 'usersReport',
       hasLevel: 'Group',
-      hasModuleRead: 'User Report',
-	  module: 'User Report'
-      } 
+      hasModuleRead: 'User Report'
+    } 
 ]
  

@@ -121,7 +121,7 @@ function controller(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'groupService/flexibleSeatingHosts'
+        'group-service/flexible-seating-hosts'
       )
     } else {
       Route.open(

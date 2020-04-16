@@ -118,7 +118,7 @@ function controller(ACL, $location, Alert, GroupTrunkGroupService, Route) {
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'trunkGroups')
     } else if(ACL.is('Group')){
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupService/trunkGroups')
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'group-service/trunk-groups')
     }else{
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'trunkGroups')
     }

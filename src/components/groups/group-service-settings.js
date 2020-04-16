@@ -37,7 +37,7 @@ export const GroupServiceSettings = ({ history, match }) => {
 
   const hideService = () => {
     loadGroupServices( groupId, serviceProviderId )
-    history.push(`/groups/${serviceProviderId}/${groupId}/groupService`)
+    history.push(`/groups/${serviceProviderId}/${groupId}/group-service`)
   }
   /*
   turn our array of routes into a filtered list of components,
@@ -60,7 +60,7 @@ export const GroupServiceSettings = ({ history, match }) => {
     // filter out ones not in our map or missing read perms
     const filtered = groupServiceRoutes.map(service => {
         const route = allowedServices[service.services]
-        const module = getModule(route.hasModuleRead)
+        const module = getModule(service.hasModuleRead)
         return { ...module, ...service, path: route.path }
       })
     // remove dups such as Shared Call Appearance

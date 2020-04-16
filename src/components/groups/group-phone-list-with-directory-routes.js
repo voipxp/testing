@@ -1,24 +1,24 @@
 export const GroupPhoneListWithDirecotory = [
       {
         name: 'Custom Directory',
-        path: 'customContactDirectories' ,
-		angularComponent: 'groupCustomContactDirectories',
-		hasLevel: 'Group',
-        hasModuleRead : 'Custom Directory'
+        path: 'custom-contact-directories' ,
+		    angularComponent: 'groupCustomContactDirectories',
+        hasModuleRead : 'Custom Directory',
+        hasLevel: 'Group'
       },
-	  {
+	    {
         name: 'Common Phone List',
-        path: 'phoneList',
-		angularComponent: 'groupCommonPhoneList',
-		hasLevel: 'Group',
-        hasModuleRead : 'Common Phone List'
+        path: 'phone-list',
+		    angularComponent: 'groupCommonPhoneList',
+        hasModuleRead : 'Common Phone List',
+        hasLevel: 'Group'
       },
       {
         name: 'Directory',
         path: 'directory',
-		angularComponent: 'groupPhoneDirectory',
-		hasLevel: 'Group',
-        hasModuleRead :  'Directory'
+        angularComponent: 'groupPhoneDirectory',
+        hasModuleRead :  'Directory',
+		    hasLevel: 'Group',
       }
 ]
  

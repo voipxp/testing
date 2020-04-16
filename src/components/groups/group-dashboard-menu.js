@@ -9,172 +9,133 @@ export const dashboardMenu = [
   {
     label: 'Dashboard',
     items: [
-	{
-        name: 'Departments',
-        path: 'departments',
-        component: GroupDepartments,
-		policy: 'departmentRead',
-        hasLevel: 'Group'
-	  },
-      {
-	    name: 'Administrators',
-	    path: 'admins',
-	    angularComponent: 'groupAdmins',
-	    hasLevel: 'Group',
-        module: true
-      },
-      {
-        name: 'Business Profile',
-        path: 'profile',
-        angularComponent: 'groupProfile',
-        policy: 'profileRead',
-      },
-       {
-		name: 'Users',
-        path: 'users',
-        angularComponent: 'groupUsers'
-      },
-	   {
-		name: 'Reports',
-        path: 'reports',
-        component: GroupReportSettings
-      },
-	  {
-		name: 'Phone List And Directory',
-        path: 'phoneListWithDirectory',
-        component: GroupPhoneListWithDirecotorySettings
-      },
-	  {
-		name: 'Communication ',
-        path: 'communication',
-        component: GroupCommunicationSettings
-      },
-	]
+        {
+          name: 'Departments',
+          path: 'departments',
+          component: GroupDepartments,
+          policy: 'departmentRead',
+          hasLevel: 'Group'
+        },
+        {
+          name: 'Administrators',
+          path: 'admins',
+          angularComponent: 'groupAdmins',
+          hasLevel: 'Group',
+          module: true
+        },
+        {
+          name: 'Business Profile',
+          path: 'profile',
+          angularComponent: 'groupProfile',
+          policy: 'profileRead',
+        },
+        {
+          name: 'Users',
+          path: 'users',
+          angularComponent: 'groupUsers'
+        },
+        {
+          name: 'Reports',
+          path: 'reports',
+          component: GroupReportSettings
+        },
+        {
+          name: 'Phone List And Directory',
+          path: 'phone-list-directory',
+          component: GroupPhoneListWithDirecotorySettings
+        },
+        {
+          name: 'Communication ',
+          path: 'communication',
+          component: GroupCommunicationSettings
+        },
+      ]
   },
   {
     label: 'Services',
     items: [
-	    {
-        name: 'Group Services',
-        path: 'groupService',
-        component: GroupServiceSettings,
-        serviceType: 'groupServices'
-      }, 
-      {
-        path: 'user-service',
-        name: 'User Services',
-        component: GroupUserServiceSettings
-      }
-    ]
+        {
+          name: 'Group Services',
+          path: 'group-service',
+          component: GroupServiceSettings,
+          serviceType: 'groupServices'
+        }, 
+        {
+          path: 'user-service',
+          name: 'User Services',
+          component: GroupUserServiceSettings
+        }
+      ]
   },
   {
     label: 'Management',
     items: [
-      {
-        name: 'Announcements',
-        path: 'announcements',
-        angularComponent: 'groupAnnouncements',
-        version: '20'
-      },
-	  
-      {
-        name: 'Bulk Provisioning',
-        path: 'bulk',
-		angularComponent: 'bulkDashboard',
-		hasLevel: 'Group Department'
-      },
-	 /* {
-        name: 'Comm Barring',
-        path: 'groupCommunicationBarring',
-		component: GroupCommunicationBarring,
-        isBreadcrumb: false		
-      },
-	  { 
-        name: 'Comm Barring Auth Codes',
-        path:  'groupCommunicationBarringAuthorizationCodes',
-        angularComponent: 'groupCommunicationBarringAuthorizationCodes',
-        hasLevel: 'Group',
-        module: true
-	  }, 
-	  {
-        name: 'Custom Directory',
-        path: 'customContactDirectories' ,
-		angularComponent: 'groupCustomContactDirectories',
-		hasLevel: 'Group'
-      },
-	  {
-        name: 'Common Phone List',
-        path: 'phoneList',
-		angularComponent: 'groupCommonPhoneList',
-		hasLevel: 'Group'
-      },*/
-      {
-        name: 'Calling Plans',
-        path:  'callingPlans', 
-		angularComponent: 'groupCallingPlans',
-		hasLevel: 'Group'
-      },
-	  {
-        name: 'Call Processing Policy',
-        path:  'callProcessingPolicy' ,
-		angularComponent: 'groupCallProcessingPolicy',
-		hasLevel: 'Group',
-        module: true
-      },
-      /*{
-        name: 'Directory',
-        path: 'directory',
-		angularComponent: 'groupPhoneDirectory',
-		hasLevel: 'Group',
-        module: true 
-      },*/
-      {
-        
-        name: 'Feature Access Codes',
-        path:  'featureAccessCodes',
-        angularComponent: 'groupFeatureAccessCodes',
-        hasLevel: 'Group',
-        hasModuleRead: 'Group Feature Access Codes',
-        module: true
-      },
-      {
-        name: 'Intercept Group',
-        path: 'intercept' ,
-        angularComponent: 'groupIntercept',
-		hasLevel: 'Group',
-        hasModuleRead: 'Intercept Group',
-        module: true
-      },
-	  {
-        name: 'Network Class of Service',
-        path:  'networkclassofservices',
-		angularComponent: 'groupNetworkClassOfServices',
-		hasLevel: 'Group',
-        module: true
-	  },
-      {
-        name: 'Schedules',
-        path: 'schedules',
-		angularComponent: 'groupSchedules',
-		hasLevel: 'Group',
-        module: true
-      },
-      {
-        name: 'Viewable Packs',
-        path: 'viewablePacks',
-        angularComponent: 'groupViewablePacksIndex',
-        hasLevel: 'Group',
-        hasModuleRead: 'Viewable Service Packs',
-        module: true
-      },
-      { 
-        name: 'VDM',
-        path:  'vdm',
-		angularComponent: 'vdmDashboard',
-		hasLevel: 'Group',
-		hasModuleRead: 'VDM',
-		module: true
-      }
+        {
+          name: 'Announcements',
+          path: 'announcements',
+          angularComponent: 'groupAnnouncements',
+          version: '20'
+        },
+        {
+          name: 'Bulk Provisioning',
+          path: 'bulk',
+          angularComponent: 'bulkDashboard',
+          hasLevel: 'Group Department'
+        }, 
+        {
+          name: 'Calling Plans',
+          path:  'calling-plans', 
+          angularComponent: 'groupCallingPlans',
+          hasLevel: 'Group'
+        },
+	      {
+          name: 'Call Processing Policy',
+          path:  'call-processing-policy' ,
+          angularComponent: 'groupCallProcessingPolicy',
+          hasLevel: 'Group'
+        },
+        {
+          name: 'Feature Access Codes',
+          path:  'feature-access-codes',
+          angularComponent: 'groupFeatureAccessCodes',
+          hasLevel: 'Group',
+          hasModuleRead: 'Group Feature Access Codes'
+        },
+        {
+          name: 'Intercept Group',
+          path: 'intercept' ,
+          angularComponent: 'groupIntercept',
+          hasLevel: 'Group',
+          hasModuleRead: 'Intercept Group',
+          module:'Intercept Group'
+        },
+        {
+          name: 'Network Class of Service',
+          path:  'network-class-of-services',
+          angularComponent: 'groupNetworkClassOfServices',
+          hasLevel: 'Group',
+          hasModuleRead: 'Network Class of Service'
+        },
+        {
+          name: 'Schedules',
+          path: 'schedules',
+		      angularComponent: 'groupSchedules',
+		      hasLevel: 'Group'
+        },
+        {
+          name: 'Viewable Packs',
+          path: 'viewablePacks',
+          angularComponent: 'groupViewablePacksIndex',
+          hasLevel: 'Group',
+          hasModuleRead: 'Viewable Service Packs'
+        },
+        { 
+          name: 'VDM',
+          path:  'vdm',
+          angularComponent: 'vdmDashboard',
+          hasLevel: 'Group',
+          hasModuleRead: 'VDM'
+        }
     ]
   } 
 ]
