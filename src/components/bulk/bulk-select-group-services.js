@@ -12,8 +12,12 @@ const columns = [
     label: 'Service'
   },
   {
+    key: 'allowed',
+    label: 'Allowed'
+  },
+  {
     key: 'limited',
-    label: 'Limited'
+    label: 'Limit'
   },
   {
     key: 'usage',
@@ -54,6 +58,11 @@ export const BulkSelectGroupServices = ({
   const filterServices = (services) => {
     return services.map( service => {
       if(service.limited === "Limited") service.limited = service.quantity
+      else if(service.limited === "none") {
+        service.quantity = -1
+        service.limited = "-"
+      }
+      if(service.allowed === -1) service.allowed = "Unlimited"
       return service
     })
   }
@@ -77,16 +86,19 @@ export const BulkSelectGroupServices = ({
     const tempServices = selectedServices.map( (service => service.serviceName) )
     const newServices = services.map( service => {
       if(_.includes(tempServices, service.serviceName)) {
-        service['quantity'] = form.quantity
         service['authorized'] = form.authorized
         service['assigned'] = form.assigned
-        if(!form.isUnlimited) {
-          service.limited = service.quantity
+        if(service.limited !== '-') {
+          service['quantity'] = form.quantity
+          if(!form.isUnlimited) {
+            service.limited = service.quantity
+          }
+          else service.limited = "Unlimited"
         }
-        else service.limited = "Unlimited"
     }
       return service
     })
+    
     setServices(newServices)
   }
 
@@ -119,10 +131,13 @@ export const BulkSelectGroupServices = ({
       tempService['authorized'] = form.authorized
       tempService['assigned'] = form.assigned
       tempService['isUnlimited'] = form.isUnlimited
+      tempService['quantity'] = service.quantity
       tempService['licensed'] = true
       tempService['userAssignable'] = true
-      if(form.isUnlimited) tempService['quantity'] = 1
-      else tempService['quantity'] = form.quantity
+      if(service.limited !== '-') {
+        if(form.isUnlimited) tempService['quantity'] = -1
+        else tempService['quantity'] = form.quantity
+      }
 
       return tempService
     })

@@ -604,8 +604,8 @@ function BulkTaskService() {
           userId: 'userId',
           userName: 'string',
           newPassword: 'string',
-          resetDevice: 'boolean',
-          rebuildDevice: 'boolean'
+          rebuildDevice: 'boolean',
+          resetDevice: 'boolean'
         }
       ]
     },
