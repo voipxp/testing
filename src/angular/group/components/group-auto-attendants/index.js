@@ -36,7 +36,9 @@ function controller(
   ctrl.toggle = toggle
   ctrl.clone = clone
   ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
-
+  ctrl.myObj = {
+    "margin" : "1px "
+}
   function onInit() {
     ctrl.loading = true
     return $q
@@ -59,7 +61,7 @@ function controller(
   }
 
 	function loadModule() {
-		if(ACL.is('Group Department')) {
+		if( ACL.is('Group Department') || ACL.is('Group') ) {
 			return Module.show('Auto Attendant').then(function(data) {
 			  ctrl.module = data
 			})
@@ -78,12 +80,12 @@ function controller(
 
   function open(autoAttendant) {
     Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'autoAttendants',
-      'autoAttendant'
-    ).search({ serviceUserId: autoAttendant.serviceUserId })
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'autoAttendants',
+        'autoAttendant'
+      ).search({ serviceUserId: autoAttendant.serviceUserId })
   }
 
   function toggle(service) {

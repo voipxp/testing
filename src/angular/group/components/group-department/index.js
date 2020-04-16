@@ -6,7 +6,6 @@ angular.module('odin.group').component('groupDepartment', {
   controller,
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
-
 controller.$inject = ['Route', '$location']
 function controller(Route, $location) {
   var ctrl = this

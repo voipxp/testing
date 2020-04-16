@@ -11,6 +11,7 @@ controller.$inject = ['Alert', 'GroupPhoneDirectoryService', 'ACL']
 function controller(Alert, GroupPhoneDirectoryService, ACL) {
   var ctrl = this
   ctrl.$onInit = onInit
+  ctrl.isGroupAdmin = ACL.is('Group')
   ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
   ctrl.columns = [
     {
