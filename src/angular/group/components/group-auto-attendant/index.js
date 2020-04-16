@@ -126,7 +126,9 @@ console.log(ctrl)
   function back() {
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'autoAttendants')
-    } else {
+    } else if(ACL.is('Group')){
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'group-service/auto-attendants')
+    }else{
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'autoAttendants')
     }
   }

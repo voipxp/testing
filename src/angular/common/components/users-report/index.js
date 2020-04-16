@@ -9,6 +9,7 @@ angular.module('odin.common').component('usersReport', {
 })
 
 controller.$inject = [
+  'ACL',
   'Alert',
   'GroupUserReportService',
   'Route',
@@ -17,6 +18,7 @@ controller.$inject = [
   '$location'
 ]
 function controller(
+  ACL,
   Alert,
   GroupUserReportService,
   Route,
@@ -28,7 +30,7 @@ function controller(
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
   ctrl.download = download
-
+  ctrl.isGroupAdmin = ACL.is('Group')
   ctrl.columns = [
     {
       key: 'userId',

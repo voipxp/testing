@@ -1,7 +1,7 @@
 <pbs-navigation
   service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
-  hide-navigation="$ctrl.isGroupDepartmentAdmin"
+  hide-navigation="($ctrl.isGroupDepartmentAdmin) || ($ctrl.isGroupAdmin)"
 >
   <pbs-breadcrumb title="'Directory'"></pbs-breadcrumb>
 </pbs-navigation>
