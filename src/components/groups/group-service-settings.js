@@ -59,9 +59,9 @@ export const GroupServiceSettings = ({ history, match }) => {
     }, {})
     // filter out ones not in our map or missing read perms
     const filtered = groupServiceRoutes.map(service => {
-        const route = allowedServices[service.services]
+       // const route = allowedServices[service.name]
         const module = getModule(service.hasModuleRead)
-        return { ...module, ...service, path: route.path }
+        return { ...module, ...service, path: service.path }
       })
     // remove dups such as Shared Call Appearance
     return uniqBy(filtered, 'name')

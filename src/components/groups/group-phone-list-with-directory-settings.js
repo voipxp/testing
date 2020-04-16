@@ -17,13 +17,14 @@ const columns = [
 
 export const GroupPhoneListWithDirecotorySettings = ({ history, match }) => {
   const { getModule } = useModulePermissions()
-
+ const {serviceProviderId , groupId } = match.params
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-    history.goBack()
+	history.push(`/groups/${serviceProviderId}/${groupId}/phone-list-directory`)
+    //history.goBack()
   }
    
   const services = React.useMemo(() => {
@@ -43,7 +44,7 @@ export const GroupPhoneListWithDirecotorySettings = ({ history, match }) => {
 
   // The base view when no sub-component picked
   const GroupServiceList = () => (
-    <UiCard title="Reports">
+    <UiCard title="Phone List And Directory">
       <UiDataTable
         columns={columns}
         rows={services}
