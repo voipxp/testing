@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
-import { UiClose, UiCard, UiDataTable } from '@/components/ui' 
+import { UiClose, UiCard, UiDataTable } from '@/components/ui'
+import { useModulePermissions } from '@/utils'
 import { useGroupServices } from '@/store/group-services'
 //import { useUserAssignedServices } from '@/store/user-assigned-services'
 import { AngularComponent } from '@/components/angular-component'
@@ -11,39 +12,32 @@ import {
 	useGroupServicePermissions
 } from '@/utils'
 
-import { useQuery, setQueryData } from 'react-query'
 /* eslint-disable react/display-name */
-import groupServicesApi from '@/api/group-services'
+const columns = [
+  {
+    key: 'name',
+    label: 'Name'
+  },
+  {
+    key: 'description',
+    label: 'Description'
+  }
+]
 
 export const GroupServiceSettings = ({ history, match }) => {
   const { serviceProviderId,groupId } = match.params
+  const { getModule } = useModulePermissions()
   const { hasGroupService } = useGroupServicePermissions()
   //const { userViewableServices } = useUserServicePermissions(serviceProviderId,groupId)
- // const { loadGroupServices } = useGroupServices(groupId, serviceProviderId)
+  const { loadGroupServices } = useGroupServices(groupId, serviceProviderId)
+ 
   const showService = service => {
    history.push(`${match.url}/${service.path}`)
   }
-/*
-  const { data: result, isLoading } = useQuery(
-    'anonymous-call-rejection',
-    () => groupServicesApi.available(groupId, serviceProviderId)
-  )  
-  
-  const loadGroupServices = result || {} */
- 
-  const columns = [
-    {
-      key: 'name',
-      label: 'Name'
-    },
-    {
-      key: 'description',
-      label: 'Description'
-    }
-  ]
 
   const hideService = () => {
-   history.push(`/groups/${serviceProviderId}/${groupId}/group-service`)
+    loadGroupServices( groupId, serviceProviderId )
+    history.push(`/groups/${serviceProviderId}/${groupId}/group-service`)
   }
   /*
   turn our array of routes into a filtered list of components,
@@ -65,13 +59,13 @@ export const GroupServiceSettings = ({ history, match }) => {
     }, {})
     // filter out ones not in our map or missing read perms
     const filtered = groupServiceRoutes.map(service => {
-        const route = allowedServices[service.services]
-        //const module = getModule(route.hasModuleRead)
-        return { ...service, path: route.path }
+       // const route = allowedServices[service.name]
+        const module = getModule(service.hasModuleRead)
+        return { ...module, ...service, path: service.path }
       })
     // remove dups such as Shared Call Appearance
     return uniqBy(filtered, 'name')
-  }, [hasGroupService])
+  }, [getModule, hasGroupService])
 
   // The base view when no sub-component picked
   const GroupServiceList = () => (

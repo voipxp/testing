@@ -17,13 +17,14 @@ const columns = [
 
 export const GroupCommunicationSettings = ({ history, match }) => {
   const { getModule } = useModulePermissions()
-
+  const { serviceProviderId,groupId } = match.params
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-    history.goBack()
+	history.push(`/groups/${serviceProviderId}/${groupId}/comm-barring`)
+   // history.goBack()
   }
    
   const services = React.useMemo(() => {
