@@ -17,14 +17,16 @@ export const ProvisioningRoutes = [
 		path: 'imports',
 		exact: true,
 		component: Imports,
-		hasLevel: 'Service Provider'
+    hasLevel: 'Service Provider',
+    isBreadcrumb: false
       },
       {
         name: 'Export (beta)',
         path: 'exports',
 		exact: true,
 		component: Exports,
-		hasLevel: 'Service Provider'
+    hasLevel: 'Service Provider',
+    isBreadcrumb: false
       },
       {
         name: 'Bulk Provisioning',

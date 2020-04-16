@@ -46,7 +46,7 @@ export const dashboardMenu = [
     items: [
 		{
 		  name: 'Enterprise Trunk',
-		  path: 'enterpriseTrunks',
+		  path: 'enterprise-trunks',
 		  angularComponent: 'enterpriseEnterpriseTrunks',
 		  hasLevel: 'Service Provider',
 		  hasModuleRead: 'Trunk Group',
@@ -54,7 +54,7 @@ export const dashboardMenu = [
         },
 	    {
 		  name: 'Meet-Me Conferencing',
-		  path: 'meetMe',
+		  path: 'meet-me',
 		  angularComponent: 'serviceProviderMeetMe',
 		  hasLevel: 'Service Provider',
           hasModuleRead: 'Meet-Me Conferencing',
@@ -74,7 +74,7 @@ export const dashboardMenu = [
       
       { 
 		name: 'Network Class of Service',
-        path:  'networkClassOfServices' ,
+        path:  'network-class-of-services' ,
 		angularComponent: 'serviceProviderNetworkClassOfServices',
 		hasLevel: 'Service Provider'
       },
