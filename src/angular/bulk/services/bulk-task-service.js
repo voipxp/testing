@@ -23,10 +23,7 @@ function BulkTaskService() {
       name: 'Clone Enterprise',
       description: 'Clone Enterprise in bulk',
       hasLevel: 'Reseller',
-      required: [
-        'source.serviceProviderId',
-        'destination.serviceProviderId'
-      ],
+      required: ['source.serviceProviderId', 'destination.serviceProviderId'],
       example: [
         {
           task: 'service.provider.bulk.clone',
@@ -92,75 +89,67 @@ function BulkTaskService() {
       name: 'Group Device Tag Modify',
       description: 'Group Device Tag Modify',
       hasLevel: 'Group',
-      required: [
-        'serviceProviderId',
-        'groupId',
-		    'deviceName'
-      ],
+      required: ['serviceProviderId', 'groupId', 'deviceName'],
       example: [
-      {
-        task: 'group.device.tag.modify',
-        serviceProviderId: 'string',
-        groupId: 'string',
-        deviceName: 'string',
-            tags: [
-                {
-                  tagName: "string",
-                    tagValue: "string"
-                },
-                {
-                  tagName: "string",
-                    tagValue: "string"
-                }
-            ]
-      }]
-  },
-  {
-    task: 'trunk.group.call.capacity',
-    name: 'Trunk Group Call Capacity',
-    description: 'Trunk Group Call Capacity',
-    hasLevel: 'Service Provider',
-    required: [
-      'serviceProviderId'
-    ],
-    example: [
-      {
-        'task': 'trunk.group.call.capacity',
-        'serviceProviderId': 'string',
-        'groupId': 'string',
-        "serviceProvider.maxActiveCalls": "number",
-        "serviceProvider.burstingMaxActiveCalls": "number",
-        'group.maxActiveCalls': 'number',
-        'group.burstingMaxActiveCalls': 'number',
-      }
-    ]
+        {
+          task: 'group.device.tag.modify',
+          serviceProviderId: 'string',
+          groupId: 'string',
+          deviceName: 'string',
+          tags: [
+            {
+              tagName: 'string',
+              tagValue: 'string'
+            },
+            {
+              tagName: 'string',
+              tagValue: 'string'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      task: 'trunk.group.call.capacity',
+      name: 'Trunk Group Call Capacity',
+      description: 'Trunk Group Call Capacity',
+      hasLevel: 'Service Provider',
+      required: ['serviceProviderId'],
+      example: [
+        {
+          'task': 'trunk.group.call.capacity',
+          'serviceProviderId': 'string',
+          'groupId': 'string',
+          'serviceProvider.maxActiveCalls': 'number',
+          'serviceProvider.burstingMaxActiveCalls': 'number',
+          'group.maxActiveCalls': 'number',
+          'group.burstingMaxActiveCalls': 'number'
+        }
+      ]
     },
     {
       task: 'group.services.update',
       name: 'Group Services Update',
       description: 'Group Services Update',
       hasLevel: 'Group',
-      required: [
-        'serviceProviderId',
-        'groupId'
-      ],
+      required: ['serviceProviderId', 'groupId'],
       example: [
-      {
-        "task": "group.services.update",
-        "serviceProviderId": "string",
-        "groupId": "string",
-        "userServices": [
+        {
+          task: 'group.services.update',
+          serviceProviderId: 'string',
+          groupId: 'string',
+          userServices: [
             {
-                "serviceName": "string",
-                "authorized": "boolean",
-                "assigned": "boolean",
-                "quantity": "number",
-                "licensed": "boolean",
-                "userAssignable": "boolean",
-                "isUnlimited": "boolean"
+              serviceName: 'string',
+              authorized: 'boolean',
+              assigned: 'boolean',
+              quantity: 'number',
+              licensed: 'boolean',
+              userAssignable: 'boolean',
+              isUnlimited: 'boolean'
             }
-        ],
-        "groupServices": [
+          ],
+          groupServices: [
             {
               tagName: 'string',
               tagValue: 'string'
@@ -179,10 +168,7 @@ function BulkTaskService() {
       name: 'Group Dns Assign',
       description: 'Group Dns Assign',
       hasLevel: 'Reseller',
-      required: [
-        'serviceProviderId',
-        'groupId'
-      ],
+      required: ['serviceProviderId', 'groupId'],
       example: [
         {
           task: 'group.dns.assign',
@@ -206,10 +192,7 @@ function BulkTaskService() {
       name: 'Group Dns UnAssign',
       description: 'Group Dns UnAssign',
       hasLevel: 'Reseller',
-      required: [
-        'serviceProviderId',
-        'groupId'
-      ],
+      required: ['serviceProviderId', 'groupId'],
       example: [
         {
           task: 'group.dns.unassign',
@@ -621,11 +604,26 @@ function BulkTaskService() {
           userId: 'userId',
           userName: 'string',
           newPassword: 'string',
-          resetDevice: 'boolean',
-          rebuildDevice: 'boolean'
+          rebuildDevice: 'boolean',
+          resetDevice: 'boolean'
         }
       ]
     },
+    // User Integrated IMP
+    {
+      task: 'user.integrated.imp.update',
+      name: 'User Integrated IMP',
+      description: 'Set users Integrated IMP',
+      required: ['userId'],
+      example: [
+        {
+          task: 'user.integrated.imp.update',
+          userId: 'userId',
+          isActive: false
+        }
+      ]
+    },
+
     // User UC-One
     {
       task: 'user.ucone.update',

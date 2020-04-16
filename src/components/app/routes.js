@@ -129,6 +129,13 @@ export const routes = [
     hasModuleRead: 'Provisioning'
   },
   {
+    path: '/bulk/user.integrated.imp.update',
+    angularComponent: 'bulkUserIntegratedImpUpdate',
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
+  },
+
+  {
     path: '/events',
     angularComponent: 'odinEvents',
     isPaasAdmin: true
