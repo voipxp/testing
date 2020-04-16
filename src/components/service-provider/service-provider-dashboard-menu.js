@@ -1,5 +1,7 @@
 import { ReportRouteSettings } from './service-provider-report-settings'
-//import { ManagementRouteSettings } from './service-provider-management-settings'
+import { Imports } from '@/components/imports'
+import { Exports } from '@/components/exports'
+import { Audits } from '@/components/audits'
 import { ProvisioningRouteSettings  } from './service-provider-provisioning-settings'
 export const dashboardMenu = [
   {
@@ -33,6 +35,29 @@ export const dashboardMenu = [
 		name: 'Provisioning',
         path: 'provisioning',
         component: ProvisioningRouteSettings
+      },
+      {
+        path: 'audits',
+        name: 'Audits (beta)',
+        component: Audits,
+        hasLevel: 'Service Provider',
+        isBreadcrumb: false
+      },
+		 
+      {
+         
+      name: 'Import (beta)',
+		  path: 'imports',
+		  exact: true,
+		  component: Imports,
+		  hasLevel: 'Service Provider'
+      },
+      {
+        name: 'Export (beta)',
+        path: 'exports',
+		exact: true,
+		component: Exports,
+		hasLevel: 'Service Provider'
       },
 	  /*{
 		name: 'Management',
