@@ -18,8 +18,7 @@ function controller(ACL,BulkTaskService, $location, ServiceProviderPolicyService
   ctrl.openCsv = openCsv
   ctrl.canCreateUser = ServiceProviderPolicyService.userCreate()
   ctrl.services = filterByPolicy(BulkTaskService.index)
-
-if(ACL.is('Group')) ctrl.isGroupAdmin = true
+  if($location.url() ==='/bulk') ctrl.hideNave = true
 
   function open(service) {
     $location.path(`bulk/${service.task}`)
