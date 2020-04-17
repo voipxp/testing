@@ -364,7 +364,9 @@ function BulkTaskService() {
             "accessDeviceCredentials": {
                 "userName": "string",
                 "password": "string"
-            }
+            },
+            "rebuildDevice": "boolean",
+            "resetDevice": "boolean",
         }
       ]
     },
