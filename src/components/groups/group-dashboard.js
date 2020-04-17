@@ -15,8 +15,12 @@ export const GroupDashboard = ({ match }) => {
   const [loading, setLoading] = React.useState(false)
   const { hasVersion, hasLevel, isLevel } = useAcl()
   const { hasModuleRead } = useModulePermissions()
-  const breadcrumbText =  window.location.href.split("/").pop().replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })
-  const menuItems = breadcrumbText[0].toUpperCase() +  breadcrumbText.slice(1)
+  
+  const camelCasedTxt =  window.location.href.split("/").pop().replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })
+  const firstUpercaseLetters = camelCasedTxt.replace(/([A-Z])/g, ' $1').trim()
+  const breadcrumbNewItem = firstUpercaseLetters.charAt(0).toUpperCase() + firstUpercaseLetters.slice(1)
+   
+  // filter items we should not see
   const menu = React.useMemo(() => { 
     //setLoading(true)
     const filteredMenu = []
@@ -48,11 +52,8 @@ export const GroupDashboard = ({ match }) => {
  
       {serviceProviderId && groupId && (
         <>
-          <Breadcrumb.Item href={`#!/groups/${serviceProviderId}/${groupId}`}>
-            {groupId}
-          </Breadcrumb.Item>
           <Breadcrumb.Item href={`${window.location.href}`}>
-          {menuItems}
+          {breadcrumbNewItem}
           </Breadcrumb.Item>
         </>
       )}
