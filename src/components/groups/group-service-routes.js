@@ -92,7 +92,7 @@ export const groupServiceRoutes = [
         },
         {
           name :'Group Night Forwarding',
-          path: 'night-forwarding',
+          path: 'group-night-forwarding',
           component: GroupNightForwarding,
           hasModuleRead: 'Group Night Forwarding',
           services: ['Group Night Forwarding'],
@@ -100,7 +100,7 @@ export const groupServiceRoutes = [
         },
         {
           name :'Group Paging',
-          path: 'paging',
+          path: 'group-paging',
           component: GroupPagingGroups,
           hasModuleRead: 'Group Paging',
           services: ['Group Paging'],
@@ -134,7 +134,7 @@ export const groupServiceRoutes = [
           name :'Voice Messaging Group',
           component: GroupVoiceMessaging,
           hasModuleRead: 'Voice Messaging Group',
-          path: 'voiceMessaging',
+          path: 'voice-messaging-group',
           services: ['Voice Messaging Group'],
           hasLevel: 'Group'
         }
