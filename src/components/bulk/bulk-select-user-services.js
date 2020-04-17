@@ -5,32 +5,31 @@ import groupServicesApi from '@/api/group-services'
 import { useAsync } from 'react-async-hook'
 import _ from 'lodash'
 
-
 export const BulkSelectUserServices = ({
   serviceProviderId,
   groupId,
   selectUserService
 }) => {
   const [selectedUserServices, setSelectedUserServices] = useState([])
-  const {result, error, loading, execute} = useAsync(
-    () => groupServicesApi.show(groupId, serviceProviderId)
-    .then((result) => {
-      return result.userServices.filter(el => {
-        return el.authorized === true
-      })
-    })
-    ,[]
+  const { result, loading } = useAsync(
+    () =>
+      groupServicesApi.show(groupId, serviceProviderId).then(result => {
+        return result.userServices.filter(el => {
+          return el.authorized === true
+        })
+      }),
+    []
   )
-  const userServices = result && result || []
+  const userServices = (result && result) || []
 
-  const userServiceSelection = (row) => {
+  const userServiceSelection = row => {
     const services = [...selectedUserServices]
-    if( _.includes(services, row.serviceName) ) _.pull(services, row.serviceName)
+    if (_.includes(services, row.serviceName)) _.pull(services, row.serviceName)
     else services.push(row.serviceName)
     setSelectedUserServices([..._.uniq(services)])
   }
 
-  useEffect( () => {
+  useEffect(() => {
     selectUserService(selectedUserServices)
   }, [selectUserService, selectedUserServices])
 
@@ -42,7 +41,7 @@ export const BulkSelectUserServices = ({
     {
       key: 'assigned',
       label: 'Selected',
-    // eslint-disable-next-line react/display-name
+      // eslint-disable-next-line react/display-name
       render: row => {
         const assinged = _.includes(selectedUserServices, row.serviceName)
         return <UiCheckbox isChecked={assinged} />
@@ -50,18 +49,20 @@ export const BulkSelectUserServices = ({
     }
   ]
 
-if(loading) return <UiLoading />
+  if (loading) return <UiLoading />
   return (
     <>
-     <UiDataTable
+      <UiDataTable
         columns={columns}
         rows={userServices || []}
         rowKey="alias"
         pageSize={50}
-        onClick={(row) => {userServiceSelection(row)}}
-    />
+        onClick={row => {
+          userServiceSelection(row)
+        }}
+      />
     </>
-	)
+  )
 }
 
 BulkSelectUserServices.propTypes = {

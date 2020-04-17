@@ -1,25 +1,24 @@
-import React, { useState } from 'react'
-import { UiLoadingCard } from '@/components/ui'
+import React from 'react'
 import CSVReader from 'react-csv-reader'
 import _ from 'lodash'
 import { BulkTaskService } from '@/components/bulk'
 import { useAlerts } from '@/store/alerts'
-import { StorageService,UtilityService } from '@/utils'
+import { StorageService, UtilityService } from '@/utils'
 import { Button } from 'rbx'
 import PropTypes from 'prop-types'
 
 export const BulkUploadCsv = ({
-  localStorageKey='BulkImportService',
+  localStorageKey = 'BulkImportService',
   uploading,
-  finalStep,
+  finalStep
 }) => {
   const { alertDanger } = useAlerts()
   // const [loading, setLoading] = useState(false)
   const required = ['task']
 
   const handleFileData = (data, fileName) => {
-
-      transform(data).then(function(data) {
+    transform(data)
+      .then(function(data) {
         uploading(true)
         return addIndex(data)
       })
@@ -32,36 +31,37 @@ export const BulkUploadCsv = ({
       .then(function(data) {
         return StorageService.setStorage(localStorageKey, data)
       })
-      .finally( () => {
+      .finally(() => {
         uploading(false)
-        document.querySelector("#uploadCSV").value = '';
+        document.querySelector('#uploadCSV').value = ''
         finalStep()
       })
-      .catch( (error) => {
+      .catch(error => {
         uploading(false)
-        alertDanger( error || 'Data Import Error' )
+        alertDanger(error || 'Data Import Error')
       })
   }
 
   const parserOptions = {
     header: true,
     dynamicTyping: true,
-    skipEmptyLines: true,
+    skipEmptyLines: true
     //transformHeader: header => header.replace(/\W/g, "_")
   }
 
-  const transform = (data) => {
+  const transform = data => {
     return new Promise(function(resolve) {
       const response = _.isString(data)
-        // ? CsvService.import(data)
-        ? data : UtilityService.flatten(data)
+        ? // ? CsvService.import(data)
+          data
+        : UtilityService.flatten(data)
       resolve(response)
     })
   }
 
-  const clean = (data) => {
+  const clean = data => {
     return new Promise(function(resolve) {
-      data.map( user => {
+      data.map(user => {
         delete user.status
         delete user.error
         return user
@@ -70,7 +70,7 @@ export const BulkUploadCsv = ({
     })
   }
 
-  const addIndex = (data) => {
+  const addIndex = data => {
     return new Promise(function(resolve) {
       /* eslint-disable-next-line unicorn/no-for-loop */
       for (const [i, element] of data.entries()) {
@@ -80,41 +80,43 @@ export const BulkUploadCsv = ({
     })
   }
 
-const validate = (data) => {
+  const validate = data => {
     return new Promise(function(resolve, reject) {
-      if(_.castArray(data).length === 0) return reject("No Data Provided")
+      if (_.castArray(data).length === 0) return reject('No Data Provided')
       data.forEach(row => {
         const service = BulkTaskService.getTaskDetails(row.task)
-        if(!service) throw new Error(`Invalid task type ${row.task}`)
+        if (!service) throw new Error(`Invalid task type ${row.task}`)
         _.uniq(required.concat(service.required)).forEach(function(key) {
           if (!row[key]) {
             throw new Error(`Missing required key: ${key}`)
           }
         })
-      });
+      })
       resolve(data)
     })
-}
+  }
 
-    return (
-      <>
-        <CSVReader
-          onFileLoaded={handleFileData}
-          parserOptions={parserOptions}
-          inputStyle={{display:'none'}}
-          inputId="uploadCSV"
-        />
-        <Button
-          className="button ng-isolate-scope  has-text-right ng-scope" 
-          color="buttonColor file-cta"
-        > 
-          <span className="icon">
-            <i className="fas fa-upload"  ng-class="iconClass"></i>
-          </span>
-          <span color="buttonText" className="ng-binding" htmlFor="uploadCSV"><label htmlFor="uploadCSV">Upload Sheet </label></span>
-        </Button>
-      </>
-    )
+  return (
+    <>
+      <CSVReader
+        onFileLoaded={handleFileData}
+        parserOptions={parserOptions}
+        inputStyle={{ display: 'none' }}
+        inputId="uploadCSV"
+      />
+      <Button
+        className="button ng-isolate-scope  has-text-right ng-scope"
+        color="buttonColor file-cta"
+      >
+        <span className="icon">
+          <i className="fas fa-upload" ng-class="iconClass"></i>
+        </span>
+        <span color="buttonText" className="ng-binding" htmlFor="uploadCSV">
+          <label htmlFor="uploadCSV">Upload Sheet </label>
+        </span>
+      </Button>
+    </>
+  )
 }
 
 BulkUploadCsv.propTypes = {

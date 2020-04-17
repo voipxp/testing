@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { UiCard, UiLoading, UiDataTable } from '@/components/ui'
+import { UiLoading, UiDataTable } from '@/components/ui'
 import serviceProviderApi from '@/api/service-providers'
 import { useAsync } from 'react-async-hook'
-import { Button } from 'rbx'
 
 const columns = [
   {
@@ -20,25 +19,24 @@ const columns = [
   }
 ]
 
-export const BulkSelectServiceProviderId = (props) => {
-
-  const {result, error, loading, execute} = useAsync(
-    () => serviceProviderApi.list(),[]
-  )
+export const BulkSelectServiceProviderId = props => {
+  const { result, loading } = useAsync(() => serviceProviderApi.list(), [])
   const providers = result || []
 
-  if(loading) return <UiLoading />
+  if (loading) return <UiLoading />
   return (
     <>
       <UiDataTable
-          columns={columns}
-          rows={providers || []}
-          rowKey="serviceProviderId"
-          pageSize={50}
-          onClick={(spRow) => {props.selectSP(spRow)}}
+        columns={columns}
+        rows={providers || []}
+        rowKey="serviceProviderId"
+        pageSize={50}
+        onClick={spRow => {
+          props.selectSP(spRow)
+        }}
       />
     </>
-	)
+  )
 }
 
 BulkSelectServiceProviderId.propTypes = {

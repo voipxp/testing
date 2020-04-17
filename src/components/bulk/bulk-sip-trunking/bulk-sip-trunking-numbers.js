@@ -1,61 +1,61 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { UiCard, UiCardModal, UiButton, UiLoading, UiDataTable } from '@/components/ui'
+import { UiCard, UiCardModal, UiButton } from '@/components/ui'
 import { Button } from 'rbx'
 import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
 import { BulkAddNumbers } from '../bulk-add-numbers'
 import { BulkGroupNumbers } from '../bulk-group-numbers'
 import { useAlerts } from '@/store/alerts'
 
-
-export const BulkSipTrunkingNumbers = (props) => {
+export const BulkSipTrunkingNumbers = props => {
   const { serviceProviderId, groupId } = props.initialData
-  const { alertSuccess, alertDanger } = useAlerts()
+  const { alertDanger } = useAlerts()
   const [numbers, setNumbers] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
   // const [createNumberClicked, setCreateNumberClicked] = React.useState(false)
   const [add, setAdd] = React.useState(false)
   const [numbersArray, setNumbersArray] = React.useState([])
-  const setStateTaskData = (data) => {
+  const setStateTaskData = data => {
     setNumbers(data)
   }
 
-	const saveTask = () => {
-		setAdd(false)
-		prepareImportData().then((data) => {
-      Promise.all([BulkImportService.handleFileData(data, props.localStorageKey)]).then( (data) => {
-        props.setToNext()
-      })
-      .catch( (error) => {
-        alertDanger( error || 'Data Import Error' )
-      })
-		})
-	}
+  const saveTask = () => {
+    setAdd(false)
+    prepareImportData().then(data => {
+      Promise.all([
+        BulkImportService.handleFileData(data, props.localStorageKey)
+      ])
+        .then(data => {
+          props.setToNext()
+        })
+        .catch(error => {
+          alertDanger(error || 'Data Import Error')
+        })
+    })
+  }
 
-const prepareImportData = () => {
-  return Promise.all(prepareImport()).then( (data) => {
-    return data
-  })
-}
-	const prepareImport = () => {
-      const tasks = []
-        const task = {
-          task: 'group.dns.assign',
-          dns: numbers
-        }
-        task['serviceProviderId'] = serviceProviderId
-        task['groupId'] = groupId
-        props.handleWizData({...props.initialData, phoneNumbers : numbersArray})
-        tasks.push(task)
+  const prepareImportData = () => {
+    return Promise.all(prepareImport()).then(data => {
+      return data
+    })
+  }
+  const prepareImport = () => {
+    const tasks = []
+    const task = {
+      task: 'group.dns.assign',
+      dns: numbers
+    }
+    task['serviceProviderId'] = serviceProviderId
+    task['groupId'] = groupId
+    props.handleWizData({ ...props.initialData, phoneNumbers: numbersArray })
+    tasks.push(task)
 
-      return tasks
+    return tasks
   }
 
   const assignNumberModal = (
     <>
-      {
-        (add)
-        ?
+      {add ? (
         <UiCardModal
           title="Add Numbers in bulk"
           isOpen={add}
@@ -64,19 +64,16 @@ const prepareImportData = () => {
         >
           <BulkAddNumbers
             setData={setStateTaskData}
-            numbersArray={(numbers) => setNumbersArray(numbers)}
+            numbersArray={numbers => setNumbersArray(numbers)}
           />
         </UiCardModal>
-        :
-        null
-      }
-
+      ) : null}
     </>
   )
 
   return (
     <>
-      { (add) ? assignNumberModal : null}
+      {add ? assignNumberModal : null}
       <UiCard
         title="Numbers"
         buttons={
@@ -90,22 +87,23 @@ const prepareImportData = () => {
           </>
         }
       >
-      <BulkGroupNumbers
-        serviceProviderId={serviceProviderId}
-        groupId={groupId}
-      />
+        <BulkGroupNumbers
+          serviceProviderId={serviceProviderId}
+          groupId={groupId}
+        />
       </UiCard>
-      <div style={{marginTop: '20px'}}>
-        <Button style={{float: 'right'}}
-              color="link"
-              onClick={ props.setToNext}
-              disabled = { isNextBtnDisabled }
-            >
-              Next
+      <div style={{ marginTop: '20px' }}>
+        <Button
+          style={{ float: 'right' }}
+          color="link"
+          onClick={props.setToNext}
+          disabled={isNextBtnDisabled}
+        >
+          Next
         </Button>
       </div>
     </>
-	)
+  )
 }
 
 BulkSipTrunkingNumbers.propTypes = {

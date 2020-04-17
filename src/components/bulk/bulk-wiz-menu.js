@@ -1,18 +1,8 @@
-import React,{ useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Menu, Column } from 'rbx'
 import styled from 'styled-components'
-import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faTimes,
-  faCheck
-} from '@fortawesome/free-solid-svg-icons'
-import {
-  UiLoadingCard,
-} from '@/components/ui'
-import { Field, Control, Button, Input, Select, Icon } from 'rbx'
 
 const StyledMenu = styled.div`
   background-color: white;
@@ -26,10 +16,9 @@ export const BulkWizMenu = ({
   handleWizData,
   setMenu,
   wizardComplete,
-  disableNextItem=false
+  disableNextItem = false
 }) => {
-
-  useEffect( () => {
+  useEffect(() => {
     handleMenuItems()
   }, [])
 
@@ -39,10 +28,10 @@ export const BulkWizMenu = ({
     }
   }
 
-  const handleMenuItems = (index=0) => {
-    const newMenus = menu.map( (item, j) => {
-      if(disableNextItem) {
-        if(j > index) item.isDisabled = true
+  const handleMenuItems = (index = 0) => {
+    const newMenus = menu.map((item, j) => {
+      if (disableNextItem) {
+        if (j > index) item.isDisabled = true
         else item.isDisabled = false
       }
 
@@ -50,24 +39,24 @@ export const BulkWizMenu = ({
       return item
     })
 
-    if(menu[index]) menu[index]['active'] = true
-    else menu[menu.length-1]['active'] = true
+    if (menu[index]) menu[index]['active'] = true
+    else menu[menu.length - 1]['active'] = true
 
     setMenu(newMenus)
-}
+  }
 
-const setToNext = () => {
-  let activeIndex = 0;
-  menu.map( (item, j) => {
-    if( item.active ) activeIndex = j
-    return item
-  })
-  handleMenuItems(++activeIndex)
-}
+  const setToNext = () => {
+    let activeIndex = 0
+    menu.map((item, j) => {
+      if (item.active) activeIndex = j
+      return item
+    })
+    handleMenuItems(++activeIndex)
+  }
   const prepareMenuData = () => {
     let currentItem
-    menu.forEach( (item, i) => {
-      if(item.active) {
+    menu.forEach((item, i) => {
+      if (item.active) {
         currentItem = item
         return
       }
@@ -75,35 +64,33 @@ const setToNext = () => {
     return menuData(currentItem)
   }
 
-  const menuData = (currentItem) => {
+  const menuData = currentItem => {
     return (
       <>
-          {
-            currentItem ?
-            <currentItem.component
-              initialData={initialData}
-              handleWizData={handleWizData}
-              setToNext={setToNext}
-              complete={wizardComplete}
-              {...currentItem}
+        {currentItem ? (
+          <currentItem.component
+            initialData={initialData}
+            handleWizData={handleWizData}
+            setToNext={setToNext}
+            complete={wizardComplete}
+            {...currentItem}
           />
-          :
-          ""
-          }
-
+        ) : (
+          ''
+        )}
       </>
     )
   }
 
-	const prepareMenu = (section) => {
-		return (
+  const prepareMenu = section => {
+    return (
       <Menu.List>
-        {menu.map( (item, index) => {
+        {menu.map((item, index) => {
           return (
             <Menu.List.Item
               key={item.name + index}
               active={item.active}
-              disable='true'
+              disable="true"
               className={cx({ disabled: item.isDisabled && disableNextItem })}
               onClick={() => handleClick(item, index)}
             >
@@ -113,42 +100,34 @@ const setToNext = () => {
           )
         })}
       </Menu.List>
-		)
+    )
   }
 
-
   return (
-	    <>
-        <Column.Group>
-          <Column narrow>
-            <Menu as={StyledMenu}>
-                <React.Fragment>
-                  { prepareMenu() }
-                </React.Fragment>
-            </Menu>
-          </Column>
-          <Column style={{ overflow: 'auto' }}>
-              { prepareMenuData() }
-          </Column>
-        </Column.Group>
-      </>
+    <>
+      <Column.Group>
+        <Column narrow>
+          <Menu as={StyledMenu}>
+            <React.Fragment>{prepareMenu()}</React.Fragment>
+          </Menu>
+        </Column>
+        <Column style={{ overflow: 'auto' }}>{prepareMenuData()}</Column>
+      </Column.Group>
+    </>
   )
-
-
 }
-
 
 BulkWizMenu.propTypes = {
   menu: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        component: PropTypes.any,
-        active: PropTypes.bool
-      })
-    ).isRequired,
-    initialData: PropTypes.object,
-    handleWizData: PropTypes.func,
-    setMenu: PropTypes.func,
-    wizardComplete: PropTypes.func,
-    disableNextItem: PropTypes.bool
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      component: PropTypes.any,
+      active: PropTypes.bool
+    })
+  ).isRequired,
+  initialData: PropTypes.object,
+  handleWizData: PropTypes.func,
+  setMenu: PropTypes.func,
+  wizardComplete: PropTypes.func,
+  disableNextItem: PropTypes.bool
 }

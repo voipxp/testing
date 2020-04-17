@@ -4,7 +4,6 @@
   Generate a add extension range
 */
 import angular from 'angular'
-import _ from 'lodash'
 import template from './index.html'
 
 angular.module('odin.bulk').component('bulkAddExtensionRange', {
@@ -34,13 +33,12 @@ function controller(
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.validateNumber = /^\d+$/;
+  ctrl.validateNumber = /^\d+$/
 
   function onInit() {
     ctrl.modalId = HashService.guid()
     ctrl.range = ''
   }
-
 
   function open() {
     Alert.modal.open(ctrl.modalId, function(close) {
