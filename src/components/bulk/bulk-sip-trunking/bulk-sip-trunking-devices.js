@@ -67,13 +67,16 @@ export const BulkSipTrunkingDevices = ({
         "description": taskData.description,
         "physicalLocation": taskData.physicalLocation,
         "transportProtocol": taskData.transportProtocol,
-        "useCustomUserNamePassword": false
+        "rebuildDevice": taskData.rebuildDevice,
+        "resetDevice": taskData.resetDevice
       }
 
       if(taskData.credentials === 'custom') {
+        task["useCustomUserNamePassword"] = true
         task["accessDeviceCredentials.userName"] = taskData.userName
         task["accessDeviceCredentials.password"] = taskData.password
       }
+      else task["useCustomUserNamePassword"] = false
       task['serviceProviderId'] = initialData.serviceProviderId
       task['groupId'] = initialData.groupId
 

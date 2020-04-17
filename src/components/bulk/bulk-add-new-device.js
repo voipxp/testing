@@ -9,7 +9,8 @@ import GroupPasswordService from '@/api/groups/group-password-service'
 import {
   UiFormField,
   UiSection,
-  UiInputPassword
+  UiInputPassword,
+  UiInputCheckbox
 } from '@/components/ui'
 
 export const BulkAddNewDevice = (props) => {
@@ -30,7 +31,9 @@ const { serviceProviderId, groupId} = {...props}
     "serialNumber": '',
     "description": '',
     "physicalLocation": '',
-    "transportProtocol": ''
+    "transportProtocol": '',
+    "rebuildDevice": true,
+    "resetDevice": true
   }
   const [form, setForm] = useState({...initialForm})
   const [passwordRule, setPasswordRule] = useState({})
@@ -148,6 +151,21 @@ const { serviceProviderId, groupId} = {...props}
               </UiFormField>
             </> ):  null
         }
+
+        <UiSection title ="Rebuild and Reset Device ?">
+          <UiInputCheckbox
+            name="rebuildDevice"
+            label="Rebuild Device"
+            checked={form.rebuildDevice}
+            onChange={handleInput}
+          />
+          <UiInputCheckbox
+            name="resetDevice"
+            label="Reset Device"
+            checked={form.resetDevice}
+            onChange={handleInput}
+        />
+        </UiSection>
 
         <UiFormField label="Optional">
         <br></br>
