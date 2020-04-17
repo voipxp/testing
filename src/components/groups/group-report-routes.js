@@ -15,7 +15,7 @@ export const groupReportRoutes = [
     },
     {
       name: 'Premium Call Records',
-      path: 'group-premium-call-records',
+      path: 'premium-call-records',
       angularComponent: 'groupCallRecordIndex',
       hasModuleRead: 'Premium Call Records',
       hasLevel: 'Group'
