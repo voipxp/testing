@@ -1,17 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { UiLoadingCard, UiMenu } from '@/components/ui'
-import { AppBreadcrumb } from '@/components/app'
+import { Breadcrumb } from 'rbx'
 import { dashboardMenu } from './group-dashboard-menu'
 import { useModulePermissions, useAcl } from '@/utils'
+import styled from 'styled-components'
+const StyledBreadcrumb = styled.div`
+  margin-top: -2rem;
+  margin-bottom: 1rem;
+`
 
-
-export const GroupDashboard = ({ match }) => {
+export const GroupDashboard = ({ match }) => { 
+  const {serviceProviderId, groupId} = match.params
   const [loading, setLoading] = React.useState(false)
   const { hasVersion, hasLevel, isLevel } = useAcl()
   const { hasModuleRead } = useModulePermissions()
- 
-  // filter items we should not see
+  const breadcrumbText =  window.location.href.split("/").pop().replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })
+  const menuItems = breadcrumbText[0].toUpperCase() +  breadcrumbText.slice(1)
   const menu = React.useMemo(() => { 
     //setLoading(true)
     const filteredMenu = []
@@ -38,10 +43,25 @@ export const GroupDashboard = ({ match }) => {
 
   return (
     <>
-      <AppBreadcrumb />
+        <Breadcrumb as={StyledBreadcrumb}>
+      <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
+ 
+      {serviceProviderId && groupId && (
+        <>
+          <Breadcrumb.Item href={`#!/groups/${serviceProviderId}/${groupId}`}>
+            {groupId}
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href={`${window.location.href}`}>
+          {menuItems}
+          </Breadcrumb.Item>
+        </>
+      )}
+      </Breadcrumb>
       {loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
     </>
     
   )
  }
-GroupDashboard.propTypes = { match: PropTypes.object.isRequired }
+GroupDashboard.propTypes = {
+   match: PropTypes.object.isRequired
+  }
