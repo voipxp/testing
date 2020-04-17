@@ -47,16 +47,15 @@ export const GroupDashboard = ({ match }) => {
 
   return (
     <>
-        <Breadcrumb as={StyledBreadcrumb}>
-      <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
- 
-      {serviceProviderId && groupId && (
-        <>
-          <Breadcrumb.Item href={`${window.location.href}`}>
-          {breadcrumbNewItem}
-          </Breadcrumb.Item>
-        </>
-      )}
+      <Breadcrumb as={StyledBreadcrumb}>
+        <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
+          {serviceProviderId && groupId && (
+          <>
+            <Breadcrumb.Item href={`${window.location.href}`}>
+            {breadcrumbNewItem}
+            </Breadcrumb.Item>
+          </>
+        )}
       </Breadcrumb>
       {loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
     </>
