@@ -1,14 +1,14 @@
 export const GroupPhoneListWithDirecotory = [
       {
         name: 'Custom Directory',
-        path: 'custom-contact-directories' ,
+        path: 'custom-directory' ,
 		    angularComponent: 'groupCustomContactDirectories',
         hasModuleRead : 'Custom Directory',
         hasLevel: 'Group'
       },
 	    {
         name: 'Common Phone List',
-        path: 'phone-list',
+        path: 'common-phone-list',
 		    angularComponent: 'groupCommonPhoneList',
         hasModuleRead : 'Common Phone List',
         hasLevel: 'Group'

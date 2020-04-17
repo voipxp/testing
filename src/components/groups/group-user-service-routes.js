@@ -4,7 +4,7 @@ import {
 export const groupUserServiceRoutes = [
   {
     name: 'Call Forwarding Always',
-    path: 'callForwardingAlways',
+    path: 'call-forwarding-always',
     angularComponent: 'groupCallForwardingAlways',
     hasModuleRead: 'Call Forwarding Always',
     services: ['Call Forwarding Always'],
@@ -12,15 +12,15 @@ export const groupUserServiceRoutes = [
   }, 
   {
     name: 'Call Forwarding Busy',
+	path: 'call-forwarding-busy',
     angularComponent: 'groupCallForwardingBusy',
     hasModuleRead: 'Call Forwarding Busy',
-    path: 'callForwardingBusy',
     services: ['Call Forwarding Busy'],
     hasLevel: 'Group'
   },
   {
-    name: 'Call Forwarding Busy',
-    path: 'callForwardingNoAnswer',
+    name: 'Call Forwarding No Answer',
+    path: 'call-forwarding-no-answer',
     angularComponent: 'groupCallForwardingNoAnswer',
     hasModuleRead: 'Call Forwarding No Answer',
     services: ['Call Forwarding No Answer'],
@@ -28,7 +28,7 @@ export const groupUserServiceRoutes = [
   },
   {
     name : 'Call Forwarding Not Reachable',
-    path: 'callForwardingNotReachable',
+    path: 'call-forwarding-not-reachable',
     angularComponent: 'groupCallForwardingNotReachable',
     hasModuleRead: 'Call Forwarding Not Reachable',
     services: ['Call Forwarding Not Reachable'],
@@ -37,7 +37,7 @@ export const groupUserServiceRoutes = [
   {
     name: 'Calling Line ID Delivery Blocking',
     angularComponent: 'groupCallingLineIdDeliveryBlocking',
-    path: 'callingLineIdDeliveryBlocking',
+    path: 'calling-line-id-delivery-blocking',
     hasModuleRead: 'Calling Line ID Delivery Blocking',
     services: ['Calling Line ID Delivery Blocking'],
     hasLevel: 'Group'
@@ -45,7 +45,7 @@ export const groupUserServiceRoutes = [
   {
     name: 'Call Recording',
     angularComponent: 'groupCallRecording',
-    path: 'callRecording',
+    path: 'call-recording',
     hasModuleRead: 'Call Recording',
     services: ['Call Recording'],
     hasLevel: 'Group'
@@ -53,14 +53,14 @@ export const groupUserServiceRoutes = [
   {
     name: 'Hoteling Guest',
     angularComponent: 'groupHotelingGuest',
-    path: 'hotelingGuest',
+    path: 'hoteling-guest',
     hasModuleRead: 'Hoteling Guest',
     services: ['Hoteling Guest'],
     hasLevel: 'Group'
   },
   {
     name: 'Hoteling Host',
-    path: 'hotelingHost',
+    path: 'hoteling-host',
     angularComponent: 'groupHotelingHost',
     hasModuleRead: 'Hoteling Host',
     services: ['Hoteling Host'],
@@ -87,7 +87,7 @@ export const groupUserServiceRoutes = [
   {
     name: 'Voice Messaging User',
     angularComponent: 'groupVoiceMessagingUser',
-    path: 'voiceMessagingUser',
+    path: 'voice-messaging-user',
     hasModuleRead: 'Voice Messaging User',
     services: ['Voice Messaging User'],
     hasLevel: 'Group'
