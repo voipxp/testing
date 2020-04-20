@@ -4,13 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { useAlerts } from '@/store/alerts'
 import { useUi } from '@/store/ui'
-import { useSession } from '@/store/session'
 import { useUiTemplate } from '@/store/ui-template'
 import authApi from '@/api/auth'
 import PropTypes from 'prop-types'
 
 export const AppResetPassword = (props) => {
-  const { setSession } = useSession()
   const { showLoadingModal, hideLoadingModal } = useUi()
   const { alertSuccess, alertWarning, alertDanger } = useAlerts()
 
@@ -40,14 +38,13 @@ export const AppResetPassword = (props) => {
     }
     try {
       showLoadingModal()
-      const session = await authApi.tokenPassword(
+      await authApi.tokenPassword(
         form.password,
         form.newPassword1,
         form.username
       )
       props.resetPassword(false)
       alertSuccess('Password has been reset successfully!')
-      // await setSession(session)
     } catch (error) {
       alertDanger(error)
     } finally {

@@ -170,9 +170,16 @@ export const AppLogin = () => {
                 Login
               </Button>
             </form>
-            <Button style={{marginTop: '5px'}} color="link" fullwidth type="submit" onClick={resetPassword}>
+            {
+              !needsChange
+              ?
+              <Button style={{marginTop: '5px'}} color="link" fullwidth type="submit" onClick={resetPassword}>
                 Reset Password
-            </Button>
+              </Button>
+              :
+              null
+            }
+
           </Box>
         </Hero.Body>
 
