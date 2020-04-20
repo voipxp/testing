@@ -2,6 +2,9 @@ import { UserDashboard } from '@/components/users'
 import { DepartmentDashboard } from '@/components/departments'
 import { CreateAutoAttendant } from '@/components/autoAttendant'
 import {
+  ServiceProviderDashboard
+} from '@/components/service-provider'
+import {
   GroupCommunicationBarring,
   GroupSpeedDial8,
   GroupExtensionLength,
@@ -14,6 +17,8 @@ import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
+import { BulkSipTrunking } from '@/components/bulk'
+import { BulkSipTrunkingUpload } from '@/components/bulk/bulk-sip-trunking-upload/bulk-sip-trunking-upload'
 import { Exports, Export } from '@/components/exports'
 export const routes = [
   {
@@ -193,6 +198,18 @@ export const routes = [
     hasModuleRead: 'Provisioning'
   },
   {
+    path: '/bulk/bulk.sip.trunking',
+    component: BulkSipTrunking,
+    hasLevel: 'Reseller',
+    hasModuleRead: 'Provisioning'
+  },
+  {
+    path: '/bulk/bulk.sip.trunking.upload',
+    component: BulkSipTrunkingUpload,
+    hasLevel: 'Reseller',
+    hasModuleRead: 'Provisioning'
+  },
+  {
     path: '/bulk/user.create',
     angularComponent: 'bulkUserCreate',
     hasLevel: 'Group Department',
@@ -268,10 +285,23 @@ export const routes = [
     hasLevel: 'Group'
   }, */
   {
+    path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id',
+    angularComponent: 'vdmTemplate',
+    hasLevel: 'Group',
+    hasModuleRead: 'VDM'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id/device',
+    angularComponent: 'vdmDevice',
+    hasLevel: 'Group',
+    hasModuleRead: 'VDM'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId',
     component:  GroupDashboard,
     hasLevel: 'Group'
   },
+  
   {
     path: '/groups/:serviceProviderId/:groupId/profile',
     angularComponent: 'groupProfile',
@@ -281,6 +311,24 @@ export const routes = [
     path: '/groups/:serviceProviderId/:groupId/admins',
     angularComponent: 'groupAdmins',
     hasLevel: 'Group'
+  },
+  {
+    path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
+    angularComponent: 'serviceProviderServicePack',
+    hasLevel: 'Service Provider'
+  },
+  {
+    path:
+      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
+    angularComponent: 'enterpriseEnterpriseTrunk',
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'Trunk Group'
+  },
+  {
+    path: '/serviceProviders/:serviceProviderId/meetMe',
+    angularComponent: 'serviceProviderMeetMe',
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'Meet-Me Conferencing'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/devices',
@@ -623,7 +671,7 @@ export const routes = [
   },
   {
     path: '/serviceProviders/:serviceProviderId',
-    angularComponent: 'serviceProviderDashboard',
+    component: ServiceProviderDashboard,
     hasLevel: 'Group'
   },
   {
@@ -651,19 +699,6 @@ export const routes = [
     angularComponent: 'enterpriseEnterpriseTrunks',
     hasLevel: 'Service Provider',
     hasModuleRead: 'Trunk Group'
-  },
-  {
-    path:
-      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
-    angularComponent: 'enterpriseEnterpriseTrunk',
-    hasLevel: 'Service Provider',
-    hasModuleRead: 'Trunk Group'
-  },
-  {
-    path: '/serviceProviders/:serviceProviderId/meetMe',
-    angularComponent: 'serviceProviderMeetMe',
-    hasLevel: 'Service Provider',
-    hasModuleRead: 'Meet-Me Conferencing'
   },
   {
     path: '/serviceProviders/:serviceProviderId/numbers',
@@ -695,11 +730,6 @@ export const routes = [
   {
     path: '/serviceProviders/:serviceProviderId/servicePacks',
     angularComponent: 'serviceProviderServicePacks',
-    hasLevel: 'Service Provider'
-  },
-  {
-    path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
-    angularComponent: 'serviceProviderServicePack',
     hasLevel: 'Service Provider'
   },
   {
@@ -800,18 +830,7 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'VDM'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id',
-    angularComponent: 'vdmTemplate',
-    hasLevel: 'Group',
-    hasModuleRead: 'VDM'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id/device',
-    angularComponent: 'vdmDevice',
-    hasLevel: 'Group',
-    hasModuleRead: 'VDM'
-  },
+  
   {
     path: '/users/:serviceProviderId/:groupId/:userId',
     component: UserDashboard

@@ -12,18 +12,37 @@ angular.module('odin.group').component('groupCallingPlansNav', {
   }
 })
 
-controller.$inject = ['Route']
-function controller(Route) {
+controller.$inject = ['ACL','Route']
+function controller(ACL, Route) {
   var ctrl = this
   ctrl.open = open
 
-  function open(callingPlan) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'callingPlans',
-      callingPlan
-    ).hash(null)
+  function open(callingPlan) { 
+    if(ACL.is('Group')){
+      if(callingPlan){
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'calling-plans',
+          callingPlan
+        ).hash(null)
+      }else{
+        Route.open(
+          'groups',
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          'comm-barring/calling-plans'
+        ).hash(null)
+      }
+    }else{
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'callingPlans',
+        callingPlan
+      ).hash(null)
+    }
   }
 }

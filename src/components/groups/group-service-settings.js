@@ -67,7 +67,7 @@ const columns = [
   { name: 'Collaborate', description: 'Collaborate', path: 'collaborate' },
   { name: 'Flexible Seating Host', description: 'Flexible Seating Host' ,path: 'flexible-seating-hosts' },
   { name: 'Hunt Group', description: 'Hunt Group' ,path: 'hunt-groups'},
-  { name: 'Meet-Me Conferencing', description: 'Meet-Me Conferencing',path: 'meet-me' },
+  { name: 'Meet-Me Conferencing', description: 'Meet-Me Conferencing',path: 'meet-me-conferencing' },
   { name: 'Music On Hold', description: 'Music On Hold',path: 'music-on-hold' },
   { name: 'Group Night Forwarding', description: 'Group Night Forwarding',path: 'group-night-forwarding' },
   { name: 'Group Paging', description: 'Group Paging',path: 'group-paging' },

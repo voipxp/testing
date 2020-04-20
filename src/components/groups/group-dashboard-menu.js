@@ -38,17 +38,7 @@ export const dashboardMenu = [
           name: 'Reports',
           path: 'reports',
           component: GroupReportSettings
-        },
-        {
-          name: 'Phone List And Directory',
-          path: 'phone-list-directory',
-          component: GroupPhoneListWithDirecotorySettings
-        },
-        {
-          name: 'Communication ',
-          path: 'communication',
-          component: GroupCommunicationSettings
-        },
+        }
       ]
   },
   {
@@ -81,18 +71,17 @@ export const dashboardMenu = [
           path: 'bulk',
           angularComponent: 'bulkDashboard',
           hasLevel: 'Group Department'
-        }, 
-        {
-          name: 'Calling Plans',
-          path:  'calling-plans', 
-          angularComponent: 'groupCallingPlans',
-          hasLevel: 'Group'
         },
 	      {
           name: 'Call Processing Policy',
           path:  'call-processing-policy' ,
           angularComponent: 'groupCallProcessingPolicy',
           hasLevel: 'Group'
+        },
+        {
+          name: 'Comm Barring',
+          path: 'comm-barring',
+          component: GroupCommunicationSettings
         },
         {
           name: 'Feature Access Codes',
@@ -121,6 +110,11 @@ export const dashboardMenu = [
           path: 'schedules',
 		      angularComponent: 'groupSchedules',
 		      hasLevel: 'Group'
+        },
+        {
+          name: 'Phone List And Directory',
+          path: 'phone-list-directory',
+          component: GroupPhoneListWithDirecotorySettings
         },
         {
           name: 'Viewable Packs',

@@ -76,7 +76,7 @@ export const groupServiceRoutes = [
         },
         {
           name :'Meet-Me Conferencing',
-          path: 'meet-me',
+          path: 'meet-me-conferencing',
           component: GroupMeetMe,
           hasModuleRead: 'Meet-Me Conferencing',
           hasGroupService: ['Meet-Me Conferencing'],

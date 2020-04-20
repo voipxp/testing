@@ -17,13 +17,14 @@ const columns = [
 
 export const GroupCommunicationSettings = ({ history, match }) => {
   const { getModule } = useModulePermissions()
-
+  const { serviceProviderId,groupId } = match.params
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-    history.goBack()
+	history.push(`/groups/${serviceProviderId}/${groupId}/comm-barring`)
+   // history.goBack()
   }
    
   const services = React.useMemo(() => {
@@ -33,8 +34,8 @@ export const GroupCommunicationSettings = ({ history, match }) => {
     }, {})
     // filter out ones not in our map or missing read perms
     const filtered = GroupCommunication.map(service => {  
-        const route = allowedServices[service.hasModuleRead]
-        const module = getModule(route)
+        const route = allowedServices[service.name]
+        const module = getModule(service.hasModuleRead)
         return { ...module, ...service, path: service.path }
       })
     // remove dups such as Shared Call Appearance
@@ -43,7 +44,7 @@ export const GroupCommunicationSettings = ({ history, match }) => {
 
   // The base view when no sub-component picked
   const GroupServiceList = () => (
-    <UiCard title="Reports">
+    <UiCard title="Comm Barring">
       <UiDataTable
         columns={columns}
         rows={services}
