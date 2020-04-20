@@ -7,14 +7,14 @@ angular.module('odin.group').component('groupAnnouncements', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupAnnouncementService', '$scope', 'Route']
-function controller(Alert, GroupAnnouncementService, $scope, Route) {
+controller.$inject = ['ACL','Alert', 'GroupAnnouncementService', '$scope', 'Route']
+function controller(ACL, Alert, GroupAnnouncementService, $scope, Route) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
   ctrl.open = open
   ctrl.onUpdate = onUpdate
-
+ ctrl.isGroupAdmin = ACL.is('Group')
   function onInit() {
     ctrl.repository = { announcements: [] }
     ctrl.loading = true
@@ -41,16 +41,16 @@ function controller(Alert, GroupAnnouncementService, $scope, Route) {
   }
 
   function open(announcement) {
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'announcements',
-      'announcement'
-    ).search({
-      name: announcement.name,
-      mediaType: announcement.mediaType
-    })
+     Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'announcements',
+        'announcement'
+      ).search({
+        name: announcement.name,
+        mediaType: announcement.mediaType
+      }) 
   }
 
   function add() {

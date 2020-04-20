@@ -8,14 +8,14 @@ angular.module('odin.group').component('groupCustomContactDirectories', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupCustomContactDirectoryService', '$q']
-function controller(Alert, GroupCustomContactDirectoryService, $q) {
+controller.$inject = ['ACL','Alert', 'GroupCustomContactDirectoryService', '$q']
+function controller(ACL, Alert, GroupCustomContactDirectoryService, $q) {
   var ctrl = this
 
   ctrl.$onInit = onInit
   ctrl.edit = edit
   ctrl.add = add
-
+  ctrl.isGroupAdmin= ACL.is('Group')
   function onInit() {
     ctrl.loading = true
     $q.all([loadDirectories(), loadAvailableUsers()])

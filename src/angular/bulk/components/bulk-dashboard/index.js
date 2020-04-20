@@ -7,17 +7,19 @@ angular.module('odin.bulk').component('bulkDashboard', {
 })
 
 controller.$inject = [
+  'ACL',
   'BulkTaskService',
   '$location',
   'ServiceProviderPolicyService'
 ]
-function controller(BulkTaskService, $location, ServiceProviderPolicyService) {
+function controller(ACL,BulkTaskService, $location, ServiceProviderPolicyService) {
+
   var ctrl = this
   ctrl.open = open
   ctrl.openCsv = openCsv
   ctrl.canCreateUser = ServiceProviderPolicyService.userCreate()
   ctrl.services = filterByPolicy(BulkTaskService.index)
-
+  if($location.url() ==='/bulk') ctrl.hideNave = true
 
   function open(service) {
     $location.path(`bulk/${service.task}`)
@@ -31,6 +33,8 @@ function controller(BulkTaskService, $location, ServiceProviderPolicyService) {
     return (services = services.filter(service => {
       if (service.task === 'user.create' && !ctrl.canCreateUser) return false
       if (service.task === 'user.delete' && !ctrl.canCreateUser) return false
+      if (service.task === 'bulk.sip.trunking' && !ACL.has('Reseller')) return false
+      if (service.task === 'bulk.sip.trunking.upload' && !ACL.has('Reseller')) return false
 
       /* temporarily hiding the task*/
       if (service.task === 'service.provider.bulk.clone') return false
@@ -43,6 +47,8 @@ function controller(BulkTaskService, $location, ServiceProviderPolicyService) {
       if (service.task === 'group.dns.assign') return false
       if (service.task === 'group.dns.unassign') return false
       if (service.task === 'user.password.update') return false
+      if (service.task === 'group.device.create') return false
+      if (service.task === 'group.device.upsert') return false
 
       return true
     }))
