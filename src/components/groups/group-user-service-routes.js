@@ -3,82 +3,93 @@ import {
 } from '@/components/groups'
 export const groupUserServiceRoutes = [
   {
+    name: 'Call Forwarding Always',
+    path: 'call-forwarding-always',
     angularComponent: 'groupCallForwardingAlways',
-    module: 'Call Forwarding Always',
-    path: 'callForwardingAlways',
-    services: ['Call Forwarding Always'],
+    hasModuleRead: 'Call Forwarding Always',
+    hasGroupService: ['Call Forwarding Always'],
     hasLevel: 'Group'
   }, 
   {
+    name: 'Call Forwarding Busy',
+	path: 'call-forwarding-busy',
     angularComponent: 'groupCallForwardingBusy',
-    module: 'Call Forwarding Busy',
-    path: 'callForwardingBusy',
-    services: ['Call Forwarding Busy'],
+    hasModuleRead: 'Call Forwarding Busy',
+    hasGroupService: ['Call Forwarding Busy'],
     hasLevel: 'Group'
   },
   {
+    name: 'Call Forwarding No Answer',
+    path: 'call-forwarding-no-answer',
     angularComponent: 'groupCallForwardingNoAnswer',
-    module: 'Call Forwarding No Answer',
-    path: 'callForwardingNoAnswer',
-    services: ['Call Forwarding No Answer'],
+    hasModuleRead: 'Call Forwarding No Answer',
+    hasGroupService: ['Call Forwarding No Answer'],
     hasLevel: 'Group'
   },
   {
+    name : 'Call Forwarding Not Reachable',
+    path: 'call-forwarding-not-reachable',
     angularComponent: 'groupCallForwardingNotReachable',
-    module: 'Call Forwarding Not Reachable',
-    path: 'callForwardingNotReachable',
-    services: ['Call Forwarding Not Reachable'],
+    hasModuleRead: 'Call Forwarding Not Reachable',
+    hasGroupService: ['Call Forwarding Not Reachable'],
     hasLevel: 'Group'
   },
   {
+    name: 'Calling Line ID Delivery Blocking',
     angularComponent: 'groupCallingLineIdDeliveryBlocking',
-    module: 'Calling Line ID Delivery Blocking',
-    path: 'callingLineIdDeliveryBlocking',
-    services: ['Calling Line ID Delivery Blocking'],
+    path: 'calling-line-id-delivery-blocking',
+    hasModuleRead: 'Calling Line ID Delivery Blocking',
+    hasGroupService: ['Calling Line ID Delivery Blocking'],
     hasLevel: 'Group'
   },
   {
+    name: 'Call Recording',
     angularComponent: 'groupCallRecording',
-    module: 'Call Recording',
-    path: 'callRecording',
-    services: ['Call Recording'],
+    path: 'call-recording',
+    hasModuleRead: 'Call Recording',
+    hasGroupService: ['Call Recording'],
     hasLevel: 'Group'
   },
   {
+    name: 'Hoteling Guest',
     angularComponent: 'groupHotelingGuest',
-    module: 'Hoteling Guest',
-    path: 'hotelingGuest',
-    services: ['Hoteling Guest'],
+    path: 'hoteling-guest',
+    hasModuleRead: 'Hoteling Guest',
+    hasGroupService: ['Hoteling Guest'],
     hasLevel: 'Group'
   },
   {
+    name: 'Hoteling Host',
+    path: 'hoteling-host',
     angularComponent: 'groupHotelingHost',
-    module: 'Hoteling Host',
-    path: 'hotelingHost',
-    services: ['Hoteling Host'],
+    hasModuleRead: 'Hoteling Host',
+    hasGroupService: ['Hoteling Host'],
     hasLevel: 'Group'
   },
   {
-    angularComponent: 'groupOutgoingCallingPlanUsers',
-    module: 'Outgoing Calling Plan',
+    name: 'Outgoing Calling Plan',
     path: 'outgoing-users',
-    services: ['Outgoing Calling Plan'],
+    angularComponent: 'groupOutgoingCallingPlanUsers',
+    hasModuleRead: 'Outgoing Calling Plan',
+    hasGroupService: ['Outgoing Calling Plan'],
     hasLevel: 'Group',
-    hasModuleRead: 'Group Calling Plan'
+    hashasModuleReadRead: 'Group Calling Plan'
   },
   {
-    component: GroupSpeedDial8,
-    module: 'Speed Dial 8',
+    name: 'Speed Dial 8',
     path: 'speedDial8',
-    services: ['Speed Dial 8'],
+    component: GroupSpeedDial8,
+    hasModuleRead: 'Speed Dial 8',
+    hasGroupService: ['Speed Dial 8'],
     hasLevel: 'Group',
-	isBreadcrumb:false
+	  isBreadcrumb:false
   },
   {
+    name: 'Voice Messaging User',
     angularComponent: 'groupVoiceMessagingUser',
-    module: 'Voice Messaging User',
-    path: 'voiceMessagingUser',
-    services: ['Voice Messaging User'],
+    path: 'voice-messaging-user',
+    hasModuleRead: 'Voice Messaging User',
+    hasGroupService: ['Voice Messaging User'],
     hasLevel: 'Group'
   }
 ]
