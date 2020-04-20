@@ -5,7 +5,7 @@ import { AngularComponent } from '@/components/angular-component'
 export const GroupNightForwarding = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
   return (
-    <AngularComponent component="groupNightForwarding" module = {true} serviceProviderId={serviceProviderId} groupId = {groupId}/>
+    <AngularComponent component="groupNightForwarding" serviceProviderId={serviceProviderId} groupId = {groupId}/>
   )
 }
 

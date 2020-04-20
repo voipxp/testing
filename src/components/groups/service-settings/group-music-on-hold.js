@@ -5,7 +5,7 @@ import { AngularComponent } from '@/components/angular-component'
 export const GroupMusicOnHold = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
   return (
-    <AngularComponent component="groupMusicOnHoldIndex" module = {true} serviceProviderId={serviceProviderId} groupId = {groupId}/>
+    <AngularComponent component="groupMusicOnHoldIndex" serviceProviderId={serviceProviderId} groupId = {groupId}/>
   )
 }
 

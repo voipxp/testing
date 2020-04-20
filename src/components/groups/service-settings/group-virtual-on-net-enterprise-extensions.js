@@ -5,7 +5,7 @@ import { AngularComponent } from '@/components/angular-component'
 export const GroupVirtualOnNetEnterpriseExtensions = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
   return (
-    <AngularComponent component="groupVirtualOnNetEnterpriseExtensions" module = {true} serviceProviderId={serviceProviderId} groupId = {groupId}/>
+    <AngularComponent component="groupVirtualOnNetEnterpriseExtensions" serviceProviderId={serviceProviderId} groupId = {groupId}/>
   )
 }
 
