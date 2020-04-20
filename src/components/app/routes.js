@@ -313,24 +313,6 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-    path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
-    angularComponent: 'serviceProviderServicePack',
-    hasLevel: 'Service Provider'
-  },
-  {
-    path:
-      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
-    angularComponent: 'enterpriseEnterpriseTrunk',
-    hasLevel: 'Service Provider',
-    hasModuleRead: 'Trunk Group'
-  },
-  {
-    path: '/serviceProviders/:serviceProviderId/meetMe',
-    angularComponent: 'serviceProviderMeetMe',
-    hasLevel: 'Service Provider',
-    hasModuleRead: 'Meet-Me Conferencing'
-  },
-  {
     path: '/groups/:serviceProviderId/:groupId/devices',
     angularComponent: 'groupDevices',
     hasLevel: 'Group'
@@ -701,6 +683,19 @@ export const routes = [
     hasModuleRead: 'Trunk Group'
   },
   {
+    path:
+      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
+    angularComponent: 'enterpriseEnterpriseTrunk',
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'Trunk Group'
+  },
+  {
+    path: '/serviceProviders/:serviceProviderId/meetMe',
+    angularComponent: 'serviceProviderMeetMe',
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'Meet-Me Conferencing'
+  },
+  {
     path: '/serviceProviders/:serviceProviderId/numbers',
     angularComponent: 'serviceProviderNumbers',
     hasLevel: 'Service Provider'
@@ -730,6 +725,11 @@ export const routes = [
   {
     path: '/serviceProviders/:serviceProviderId/servicePacks',
     angularComponent: 'serviceProviderServicePacks',
+    hasLevel: 'Service Provider'
+  },
+  {
+    path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
+    angularComponent: 'serviceProviderServicePack',
     hasLevel: 'Service Provider'
   },
   {
