@@ -1,6 +1,7 @@
-import {
+/* import {
   GroupSpeedDial8
-} from '@/components/groups'
+} from '@/components/groups' */
+import {GroupSpeedDial8} from './group-speed-dial-8.js';
 export const groupUserServiceRoutes = [
   {
     name: 'Call Forwarding Always',

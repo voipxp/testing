@@ -1,6 +1,6 @@
 import {
   GroupSeriesCompletion
-} from '@/components/groups'
+} from '././group-series-completion'
 import {
   GroupAutoAttendants,
   GroupCallCenters,
