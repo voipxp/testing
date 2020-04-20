@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { UiLoading, UiDataTable, UiCheckbox, UiCard } from '@/components/ui'
+import { UiLoading, UiDataTable, UiCheckbox } from '@/components/ui'
 import { useAlerts } from '@/store/alerts'
 import groupNumberApi from '@/api/groups/numbers'
 /* eslint-disable react/display-name */
@@ -44,7 +44,7 @@ export const BulkGroupNumbers = ({ serviceProviderId, groupId }) => {
       {loading ? (
         <UiLoading />
       ) : (
-          <UiDataTable columns={columns} rows={users} rowKey="phoneNumbers" />
+        <UiDataTable columns={columns} rows={users} rowKey="phoneNumbers" />
       )}
     </>
   )

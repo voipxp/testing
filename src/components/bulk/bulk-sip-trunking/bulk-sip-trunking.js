@@ -7,58 +7,61 @@ import { StorageService } from '@/utils'
 import { Breadcrumb } from 'rbx'
 
 const initial = {
-  serviceProviderId: "",
-  groupId: "",
-  sourceServiceProviderId: "",
-  sourceGroupId: "",
-  enterpriseTrunkName: "",
-  groupTrunk: "",
-  phoneNumbers:[],
-  users:[]
+  serviceProviderId: '',
+  groupId: '',
+  sourceServiceProviderId: '',
+  sourceGroupId: '',
+  enterpriseTrunkName: '',
+  groupTrunk: '',
+  phoneNumbers: [],
+  users: []
 }
 
 export const BulkSipTrunking = () => {
-  const [sipTrunkShareableData, setSipTrunkShareableData] = React.useState({...initial})
-  const [menuTemp, setMenuTemp] = React.useState( [...menu] )
+  const [sipTrunkShareableData, setSipTrunkShareableData] = React.useState({
+    ...initial
+  })
+  const [menuTemp, setMenuTemp] = React.useState([...menu])
   const [prepareData, setPrepareData] = React.useState([])
   const [redirect, setRedirect] = React.useState(false)
 
-  const handleWizData = (data) => {
+  const handleWizData = data => {
     setSipTrunkShareableData(data)
   }
 
-  useEffect( () => {
-    menu.forEach( item => {
-     StorageService.clearStorage(item.localStorageKey)
+  useEffect(() => {
+    menu.forEach(item => {
+      StorageService.clearStorage(item.localStorageKey)
     })
   }, [menu])
 
-
-  useEffect( () => {
+  useEffect(() => {
     setPrepareData([])
   }, [sipTrunkShareableData])
 
-  const handleSetMenu = (menuData) => {
-      setMenuTemp(menuData)
+  const handleSetMenu = menuData => {
+    setMenuTemp(menuData)
   }
 
   const wizardComplete = () => {
     setRedirect(true)
   }
 
-	return <>
-    { redirect ? <Redirect to='/bulk' /> : null}
-    <AppBreadcrumb>
-      <Breadcrumb.Item href="#!/bulk">Bulk</Breadcrumb.Item>
-      <Breadcrumb.Item>SIP Trunking</Breadcrumb.Item>
-    </AppBreadcrumb>
-    <BulkWizMenu
-      menu={menuTemp}
-      initialData={sipTrunkShareableData}
-      handleWizData={handleWizData}
-      setMenu={(menuData) => handleSetMenu(menuData)}
-      wizardComplete={wizardComplete}
-      disableNextItem={true}
-    />
-  </>
+  return (
+    <>
+      {redirect ? <Redirect to="/bulk" /> : null}
+      <AppBreadcrumb>
+        <Breadcrumb.Item href="#!/bulk">Bulk</Breadcrumb.Item>
+        <Breadcrumb.Item>SIP Trunking</Breadcrumb.Item>
+      </AppBreadcrumb>
+      <BulkWizMenu
+        menu={menuTemp}
+        initialData={sipTrunkShareableData}
+        handleWizData={handleWizData}
+        setMenu={menuData => handleSetMenu(menuData)}
+        wizardComplete={wizardComplete}
+        disableNextItem={true}
+      />
+    </>
+  )
 }

@@ -1,52 +1,49 @@
-import React, { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useAlerts } from '@/store/alerts'
-import {TaskService} from '@/api/task/task-service'
+import { TaskService } from '@/api/task/task-service'
 import { BulkParseService } from '@/components/bulk'
 import { UtilityService } from '@/utils'
 import isFunction from 'lodash/isFunction'
 
-export const BulkImport = (
-  {
-  users=[],
+export const BulkImport = ({
+  users = [],
   task,
   action,
   deleteLocalStorage,
   onError,
   setTaskId
-  }
-) => {
+}) => {
   const { alertSuccess, alertDanger } = useAlerts()
   const canSetTaskId = isFunction(setTaskId)
   let taskId = ''
 
-  useEffect( () => {
+  useEffect(() => {
     submit(users)
   }, [])
 
-	const submit = (users) => {
-
-      validate(users)
+  const submit = users => {
+    validate(users)
       .then(function() {
         return stringToBoolean(users)
       })
       .then(function(result) {
         return queue(result)
       })
-      .then( (data) => {
+      .then(data => {
         return startReload(data)
       })
       .then(function() {
-        alertSuccess(task + " is successful")
+        alertSuccess(task + ' is successful')
         deleteLocalStorage(true)
       })
       .catch(function(error) {
         onError()
         alertDanger(error)
-        if(canSetTaskId) setTaskId(taskId)
+        if (canSetTaskId) setTaskId(taskId)
       })
   }
 
-  const validate = (users) => {
+  const validate = users => {
     return BulkParseService.bulkParse(users)
       .then(function(users) {
         return BulkParseService.validateBulk(users, action.required || [])
@@ -57,7 +54,7 @@ export const BulkImport = (
       })
   }
 
-  const stringToBoolean = (data) => {
+  const stringToBoolean = data => {
     // return new Promise(function(resolve) {
     //   return  resolve(data)
     // })
@@ -67,7 +64,6 @@ export const BulkImport = (
 
     const temp = data.map(stringToBooleanValue)
     return Promise.resolve([...temp])
-
   }
 
   function errors(task) {
@@ -93,32 +89,30 @@ export const BulkImport = (
     })
   }
 
-  const startReload = (task) => {
+  const startReload = task => {
     return new Promise(function(resolve, reject) {
-      const interval = setInterval( () => {
-          TaskService.show(task.id).then( (data) => {
-            if(data.status === 'completed') {
-              clearInterval(interval)
-              if(data.error) return reject(data.error)
-              else {
-                errors(data).then( (error) => {
-                  if(error) {
-                    return reject('There is ' + error)
-                  }
-                  else return resolve(data.type + " is successfully created.")
-                })
-              }
-            } else if(data.status === 'failed') {
-              clearInterval(interval)
-              return reject("Error in " + data.type)
+      const interval = setInterval(() => {
+        TaskService.show(task.id).then(data => {
+          if (data.status === 'completed') {
+            clearInterval(interval)
+            if (data.error) return reject(data.error)
+            else {
+              errors(data).then(error => {
+                if (error) {
+                  return reject('There is ' + error)
+                } else return resolve(data.type + ' is successfully created.')
+              })
             }
-          })
-      }
-      , 2000);
+          } else if (data.status === 'failed') {
+            clearInterval(interval)
+            return reject('Error in ' + data.type)
+          }
+        })
+      }, 2000)
     })
   }
 
-  const queue = (users) => {
+  const queue = users => {
     const taskTemp = {
       type: task,
       data: UtilityService.unflatten(users)
@@ -140,16 +134,14 @@ export const BulkImport = (
       })
   }
 
-  const stringToBooleanValue = (user) => {
+  const stringToBooleanValue = user => {
     const temp = {}
-    Object.keys(user).map( key => {
-        if( user[key] === "TRUE" || user[key] === "true" ) {
-          temp[key] = true
-        }
-        else if( user[key] === "FALSE" || user[key] === "false" ) {
-          temp[key] = false
-        }
-        else temp[key] = user[key]
+    Object.keys(user).map(key => {
+      if (user[key] === 'TRUE' || user[key] === 'true') {
+        temp[key] = true
+      } else if (user[key] === 'FALSE' || user[key] === 'false') {
+        temp[key] = false
+      } else temp[key] = user[key]
     })
 
     return temp

@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { UiCard, UiLoading, UiDataTable } from '@/components/ui'
+import { UiLoading, UiDataTable } from '@/components/ui'
 import { useAsync } from 'react-async-hook'
-import { Button } from 'rbx'
 import trunkSPApi from '@/api/service-providers-services/service-provider-enterprise-trunks-service'
 const columns = [
   {
@@ -20,29 +19,30 @@ const columns = [
 ]
 
 export const BulkSelectServiceProviderTrunk = ({
-  serviceProviderId='',
+  serviceProviderId = '',
   selectEntTrunk
 }) => {
   // const { serviceProviderId } = props
   // const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
 
-  const {result, error, loading, execute} = useAsync(
-    () => trunkSPApi.list(serviceProviderId),[]
+  const { result, loading } = useAsync(
+    () => trunkSPApi.list(serviceProviderId),
+    []
   )
   const providers = result || []
 
-  if(loading) return <UiLoading />
+  if (loading) return <UiLoading />
   return (
     <>
-     <UiDataTable
+      <UiDataTable
         columns={columns}
         rows={providers || []}
         rowKey="serviceProviderId"
         pageSize={50}
         onClick={selectEntTrunk}
-	 />
+      />
     </>
-	)
+  )
 }
 
 BulkSelectServiceProviderTrunk.propTypes = {

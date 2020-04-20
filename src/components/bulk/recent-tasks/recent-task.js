@@ -1,35 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { UiCard, UiListItem, UiLoading, UiDataTable, UiLoadingCard } from '@/components/ui'
-import { Button, Select, Input } from 'rbx'
-import groupDomainAPI from '@/api/groups/domains'
-import { useAlerts } from '@/store/alerts'
-import {TaskService} from '@/api/task/task-service'
+import { UiCard, UiDataTable, UiLoadingCard } from '@/components/ui'
+import { TaskService } from '@/api/task/task-service'
 import { useAsync } from 'react-async-hook'
 
-const RecentTask = (
-  {
-    id
-  }
-) => {
-  const {result, loading} = useAsync(() => TaskService.show(id)
-  , [id])
+const RecentTask = ({ id }) => {
+  const { result, loading } = useAsync(() => TaskService.show(id), [id])
 
-  const task = result && result.data || []
+  const task = (result && result.data) || []
 
-  if(loading) return <UiLoadingCard />
+  if (loading) return <UiLoadingCard />
 
   const errorKeys = [
-    {key: 'task', label: 'Type'},
-    {key: 'status', label: 'Status'},
-    {key: 'error', label: 'Error'}
+    { key: 'task', label: 'Type' },
+    { key: 'status', label: 'Status' },
+    { key: 'error', label: 'Error' }
   ]
 
   return (
-
-    <UiCard
-      title='Job Details'
-    >
+    <UiCard title="Job Details">
       <UiDataTable
         columns={errorKeys}
         rows={task || []}

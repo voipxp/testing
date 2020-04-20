@@ -19,25 +19,26 @@ const columns = [
   }
 ]
 
-export const BulkSelectGroupTrunk = (props) => {
-const { serviceProviderId, groupId } = props.initialData
-  const {result, error, loading, execute} = useAsync(
-    () => trunkGroupApi.list(serviceProviderId, groupId),[]
+export const BulkSelectGroupTrunk = props => {
+  const { serviceProviderId, groupId } = props.initialData
+  const { result, loading } = useAsync(
+    () => trunkGroupApi.list(serviceProviderId, groupId),
+    []
   )
   const groupTrunks = result || []
 
-  if(loading) return <UiLoading />
+  if (loading) return <UiLoading />
   return (
     <>
-     <UiDataTable
+      <UiDataTable
         columns={columns}
         rows={groupTrunks || []}
         rowKey="name"
         pageSize={50}
         onClick={props.selectGroupTrunk}
-    />
+      />
     </>
-	)
+  )
 }
 
 BulkSelectGroupTrunk.propTypes = {

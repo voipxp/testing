@@ -1,32 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { UiCard, UiCardModal, UiButton, UiLoading, UiDataTable } from '@/components/ui'
-import serviceProviderApi from '@/api/service-providers'
-import { useAsync } from 'react-async-hook'
+import { UiCard, UiCardModal, UiButton } from '@/components/ui'
 import { Button } from 'rbx'
-import { BulkEnterpriseCloneAllControls } from '../bulk-enterprise-clone/bulk-enterprise-clone-all-controls'
-// import { BulkSelectServiceProviderId } from '../bulk-select-service-provider-id'
-import { BulkSelectGroupId } from '../bulk-select-group-id'
 import { BulkSelectDevices } from '../bulk-select-devices'
 import { BulkAddNewDevice } from '../bulk-add-new-device'
 import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
 import { useAlerts } from '@/store/alerts'
-import { prototype } from 'clipboard'
-
-const columns = [
-  {
-    key: 'serviceProviderId',
-    label: 'serviceProviderId'
-  },
-  {
-    key: 'serviceProviderName',
-    label: 'serviceProviderName'
-  },
-  {
-    key: 'resellerId',
-    label: 'resellerId'
-  }
-]
 
 export const BulkSipTrunkingDevices = ({
   initialData={},
@@ -35,7 +14,7 @@ export const BulkSipTrunkingDevices = ({
   localStorageKey
 }) => {
 
-  const { alertSuccess, alertDanger, alertWarning } = useAlerts()
+  const { alertSuccess, alertDanger } = useAlerts()
 	const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
   const [add, setAdd] = React.useState(false)
@@ -63,11 +42,11 @@ export const BulkSipTrunkingDevices = ({
 		})
 	}
 
-const prepareImportData = () => {
-  return Promise.all(prepareImport()).then( (data) => {
-    return data
-  })
-}
+  const prepareImportData = () => {
+    return Promise.all(prepareImport()).then( (data) => {
+      return data
+    })
+  }
 
 	const prepareImport = () => {
     const tasks = []
@@ -88,13 +67,16 @@ const prepareImportData = () => {
         "description": taskData.description,
         "physicalLocation": taskData.physicalLocation,
         "transportProtocol": taskData.transportProtocol,
-        "useCustomUserNamePassword": false
+        "rebuildDevice": taskData.rebuildDevice,
+        "resetDevice": taskData.resetDevice
       }
 
       if(taskData.credentials === 'custom') {
+        task["useCustomUserNamePassword"] = true
         task["accessDeviceCredentials.userName"] = taskData.userName
         task["accessDeviceCredentials.password"] = taskData.password
       }
+      else task["useCustomUserNamePassword"] = false
       task['serviceProviderId'] = initialData.serviceProviderId
       task['groupId'] = initialData.groupId
 

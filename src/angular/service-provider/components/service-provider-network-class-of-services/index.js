@@ -90,6 +90,7 @@ function controller(
       Alert.modal.open('serviceProviderNetworkClassOfServiceModal', function(
         close
       ) {
+        if(_.isEmpty(ctrl.services)) ctrl.selected[0]['default'] = true /* set default to first element */
         assign(ctrl.selected, close)
       })
     })

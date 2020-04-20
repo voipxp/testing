@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Input , Select} from 'rbx'
 import { generatePassword } from '@/utils'
-
+import SystemSipAuthPasswordRulesService
+from '@/api/system/system-sip-auth-password-rules-service'
+import ServiceProviderSipAuthPasswordRulesService from '@/api/service-providers/service-provider-sip-auth-password-service.js'
+import { useAsync } from 'react-async-hook'
 import {
   UiInputCheckbox,
   UiFormField,
@@ -77,6 +80,7 @@ export const BulkAddTrunkGroup = (
   // clone group options
 
   const [form, setForm] = useState({...initialForm})
+  const [passwordRule, setPasswordRule] = useState({})
 
   const otherSettings = [
     {
@@ -130,6 +134,20 @@ export const BulkAddTrunkGroup = (
       value: form.routeToPeeringDomain
     }
   ]
+
+  useAsync(
+    () => ServiceProviderSipAuthPasswordRulesService.show(serviceProviderId)
+    .then((rules) => {
+      if (rules.useServiceProviderSettings === true) {
+        setPasswordRule(rules)
+      } else {
+        SystemSipAuthPasswordRulesService.show().then((rules) => {
+          setPasswordRule(rules)
+        })
+      }
+    })
+    ,[]
+  )
 
   useEffect( () => {
 	  setTaskData(form)
@@ -199,22 +217,6 @@ export const BulkAddTrunkGroup = (
               />
             </UiFormField>
 
-          {/* <UiFormField label="Department Name" horizontal>
-            { <Select.Container fullwidth>
-              <Select
-                value={form.department}
-                onChange={handleInput}
-                name="department"
-              >
-                <Select.Option
-                  key= ""
-                  value= "DepartmentName1"
-                >
-                  DepartmentName1
-                </Select.Option>
-              </Select>
-            </Select.Container> }
-          </UiFormField> */}
           <UiFormField label="Authentication" horizontal>
             <UiInputCheckbox
               name="requireAuthentication"
@@ -239,7 +241,7 @@ export const BulkAddTrunkGroup = (
                   name="sipAuthenticationPassword"
                   value={form.sipAuthenticationPassword}
                   onChange={handleInput}
-                  onGeneratePassword={generatePassword}
+                  onGeneratePassword={() => generatePassword(passwordRule)}
                 />
               </UiFormField>
             </> ):  null
