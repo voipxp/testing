@@ -112,7 +112,8 @@ export const groupServiceRoutes = [
           component: GroupSeriesCompletion,
           hasModuleRead: 'Series Completion',
           hasGroupService: ['Series Completion'],
-          hasLevel: 'Group'
+          hasLevel: 'Group',
+		  isBreadcrumb:false
         },
         {
           name :'Trunk Group',
