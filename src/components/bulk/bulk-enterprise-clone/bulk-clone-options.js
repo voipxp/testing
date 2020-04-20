@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { UiCard, UiInputCheckbox } from '@/components/ui'
-import _ from 'lodash'
 import { useAcl } from '@/utils'
 
-export const BulkCloneOptions = (props) => {
+export const BulkCloneOptions = props => {
   const cloneOptions = [
     {
       name: 'services',
@@ -41,51 +40,52 @@ export const BulkCloneOptions = (props) => {
   const acl = useAcl()
   const isSystem = acl.hasSystem()
 
-  const newCloneOptions = cloneOptions.filter( option => {
-    if(option.name === 'networkClassOfService' && !isSystem) return false
+  const newCloneOptions = cloneOptions.filter(option => {
+    if (option.name === 'networkClassOfService' && !isSystem) return false
     return true
   })
 
   const [options, setOptions] = useState([...newCloneOptions])
 
-  useEffect( () => {
+  useEffect(() => {
     props.handleOptions(options)
   }, [])
 
   const handleInput = (event, index) => {
-    const value = (event.target.type === "checkbox") ? event.target.checked : event.target.value
+    const value =
+      event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value
     const name = event.target.name
     const newOptions = [...options]
-    if(name !== "services" && name !== "servicePacks") {
+    if (name !== 'services' && name !== 'servicePacks') {
       newOptions[index]['value'] = value
       setOptions(newOptions)
       props.handleOptions(options)
     }
   }
 
-  const prepareOptions = (
-    options.map( (el, index) => {
-        return (
-          <li key={el.name} style={{padding: '10px'}}>
-            <UiInputCheckbox
-            key={el.name}
-					  name={el.name}
-					  label={el.label}
-					  checked={el.value}
-            onChange={(event) => handleInput(event, index)}
-					/>
-          </li>
-        )
-    } )
-  )
+  const prepareOptions = options.map((el, index) => {
+    return (
+      <li key={el.name} style={{ padding: '10px' }}>
+        <UiInputCheckbox
+          key={el.name}
+          name={el.name}
+          label={el.label}
+          checked={el.value}
+          onChange={event => handleInput(event, index)}
+        />
+      </li>
+    )
+  })
 
   return (
     <>
-     <UiCard title="Clone Options">
+      <UiCard title="Clone Options">
         <div className="field has-addons">
-          <ul>{ prepareOptions }</ul>
+          <ul>{prepareOptions}</ul>
         </div>
-     </UiCard>
+      </UiCard>
 
       {/* <div style={{marginTop: '20px'}}>
         <Button style={{float: 'right'}}
@@ -97,7 +97,7 @@ export const BulkCloneOptions = (props) => {
         </Button>
       </div> */}
     </>
-	)
+  )
 }
 
 BulkCloneOptions.propTypes = {

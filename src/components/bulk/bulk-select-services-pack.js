@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { UiLoading, UiDataTable, UiCheckbox } from '@/components/ui'
 import groupServicesApi from '@/api/group-services'
 import { useAsync } from 'react-async-hook'
-
+import _ from 'lodash'
 
 export const BulkSelectServicesPack = ({
   serviceProviderId,
@@ -11,25 +11,25 @@ export const BulkSelectServicesPack = ({
   selecServicePack
 }) => {
   const [selectedServicePacks, setSelectedServicePacks] = useState([])
-  const {result, error, loading, execute} = useAsync(
-    () => groupServicesApi.show(groupId, serviceProviderId)
-    .then((result) => {
-      return result.servicePackServices.filter(el => {
-        return el.authorized === true
-      })
-    })
-    ,[]
+  const { result, loading } = useAsync(
+    () =>
+      groupServicesApi.show(groupId, serviceProviderId).then(result => {
+        return result.servicePackServices.filter(el => {
+          return el.authorized === true
+        })
+      }),
+    []
   )
-  const userServices = result && result || []
+  const userServices = (result && result) || []
 
-  const userServiceSelection = (row) => {
+  const userServiceSelection = row => {
     const services = [...selectedServicePacks]
-    if( _.includes(services, row.serviceName) ) _.pull(services, row.serviceName)
+    if (_.includes(services, row.serviceName)) _.pull(services, row.serviceName)
     else services.push(row.serviceName)
     setSelectedServicePacks([..._.uniq(services)])
   }
 
-  useEffect( () => {
+  useEffect(() => {
     selecServicePack(selectedServicePacks)
   }, [selecServicePack, selectedServicePacks])
 
@@ -41,7 +41,7 @@ export const BulkSelectServicesPack = ({
     {
       key: 'assigned',
       label: 'Selected',
-    // eslint-disable-next-line react/display-name
+      // eslint-disable-next-line react/display-name
       render: row => {
         const assinged = _.includes(selectedServicePacks, row.serviceName)
         return <UiCheckbox isChecked={assinged} />
@@ -49,19 +49,20 @@ export const BulkSelectServicesPack = ({
     }
   ]
 
-
-if(loading) return <UiLoading />
+  if (loading) return <UiLoading />
   return (
     <>
-     <UiDataTable
+      <UiDataTable
         columns={columns}
         rows={userServices || []}
         rowKey="serviceName"
         pageSize={50}
-        onClick={(row) => {userServiceSelection(row)}}
-    />
+        onClick={row => {
+          userServiceSelection(row)
+        }}
+      />
     </>
-	)
+  )
 }
 
 BulkSelectServicesPack.propTypes = {

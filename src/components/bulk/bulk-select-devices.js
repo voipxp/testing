@@ -15,26 +15,27 @@ const columns = [
   }
 ]
 
-export const BulkSelectDevices = (props) => {
-const { serviceProviderId, groupId } = props.initialData
+export const BulkSelectDevices = props => {
+  const { serviceProviderId, groupId } = props.initialData
 
-  const {result, error, loading, execute} = useAsync(
-    () => GroupDeviceAPI.index(serviceProviderId, groupId, 'available'),[]
+  const { result, loading } = useAsync(
+    () => GroupDeviceAPI.index(serviceProviderId, groupId, 'available'),
+    []
   )
   const devices = result || []
 
-  if(loading) return <UiLoading />
+  if (loading) return <UiLoading />
   return (
     <>
-     <UiDataTable
+      <UiDataTable
         columns={columns}
         rows={devices || []}
         rowKey="deviceName"
         pageSize={50}
         onClick={props.selectGroupTrunk}
-    />
+      />
     </>
-	)
+  )
 }
 
 BulkSelectDevices.propTypes = {

@@ -2,17 +2,17 @@ import { api } from '..'
 
 const url = '/service-providers/passcode-rules'
 
-export const show = (serviceProviderId) => {
+export const show = serviceProviderId => {
   return api.get(url, {
-    params: { serviceProviderId, groupId }
+    params: { serviceProviderId }
   })
 }
 
 export const update = (serviceProviderId, object) => {
-	return api.put(url, object)
+  return api.put(url, object)
 }
 
 export default {
-	show,
-	update
+  show,
+  update
 }

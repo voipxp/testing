@@ -2,47 +2,40 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import callCapacityApi from '@/api/group-services/group-trunk-group-call-capacity-service'
 import { useAsync } from 'react-async-hook'
-import { Input , Select} from 'rbx'
-import {
-  UiFormField,
-  UiSection,
-  UiLoading
-} from '@/components/ui'
-import {
-  alertDanger
-} from '@/store/alerts'
+import { Input } from 'rbx'
+import { UiFormField, UiSection, UiLoading } from '@/components/ui'
+import { alertDanger } from '@/store/alerts'
 
-export const GroupTrunkGroupsCallCapacity = (
-  {
-    serviceProviderId,
-    groupId,
-    maxActiveCall,
-    maxBurstCall,
-    setData
-  }
-) => {
+export const GroupTrunkGroupsCallCapacity = ({
+  serviceProviderId,
+  groupId,
+  maxActiveCall,
+  maxBurstCall,
+  setData
+}) => {
   const initialForm = {
     maxActiveCalls: 0,
     burstingMaxActiveCalls: 0
   }
 
-  const [form, setForm] = useState({...initialForm})
-  const {result, error, pending, loading, execute} = useAsync(
-    () => callCapacityApi.show(serviceProviderId, groupId),[]
+  const [form, setForm] = useState({ ...initialForm })
+  const { result, error, loading } = useAsync(
+    () => callCapacityApi.show(serviceProviderId, groupId),
+    []
   )
-  if(error) alertDanger(error)
+  if (error) alertDanger(error)
 
-  useEffect( () => {
-    if( !loading && !error) {
+  useEffect(() => {
+    if (!loading && !error) {
       setForm(result)
     }
-  },[result, loading, error])
+  }, [result, loading, error])
 
   useEffect(() => {
     setData(form)
   }, [setData, form])
 
-  if(loading) return <UiLoading />
+  if (loading) return <UiLoading />
 
   function handleInput(event) {
     const target = event.target
@@ -55,7 +48,7 @@ export const GroupTrunkGroupsCallCapacity = (
   return (
     <>
       <UiSection>
-        <UiFormField label="Max Active Calls" horizontal >
+        <UiFormField label="Max Active Calls" horizontal>
           <Input
             type="number"
             onChange={handleInput}
@@ -69,10 +62,9 @@ export const GroupTrunkGroupsCallCapacity = (
               <strong> (Max: {maxActiveCall}) </strong>
             </small>
           }
-
         </UiFormField>
 
-        <UiFormField label="Max Bursting Calls" horizontal >
+        <UiFormField label="Max Bursting Calls" horizontal>
           <Input
             type="number"
             onChange={handleInput}
@@ -89,7 +81,7 @@ export const GroupTrunkGroupsCallCapacity = (
         </UiFormField>
       </UiSection>
     </>
-	)
+  )
 }
 
 GroupTrunkGroupsCallCapacity.propTypes = {

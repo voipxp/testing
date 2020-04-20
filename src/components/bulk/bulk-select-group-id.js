@@ -23,27 +23,27 @@ const columns = [
   }
 ]
 
-export const BulkSelectGroupId = ({
-  serviceProviderId='',
-  selectGroup
-}) => {
-  const {result, error, loading, execute} = useAsync(
-    () => groupApi.search({serviceProviderId: serviceProviderId}),[]
+export const BulkSelectGroupId = ({ serviceProviderId = '', selectGroup }) => {
+  const { result, loading } = useAsync(
+    () => groupApi.search({ serviceProviderId: serviceProviderId }),
+    []
   )
   const groups = result || []
 
-  if(loading) return <UiLoading />
+  if (loading) return <UiLoading />
   return (
     <>
-     <UiDataTable
+      <UiDataTable
         columns={columns}
         rows={groups || []}
         rowKey="groupId"
         pageSize={50}
-        onClick={(grpRow) => {selectGroup(grpRow)}}
-    />
+        onClick={grpRow => {
+          selectGroup(grpRow)
+        }}
+      />
     </>
-	)
+  )
 }
 
 BulkSelectGroupId.propTypes = {

@@ -92,7 +92,7 @@ export const UiDataTableEditable = ({
       return false
     })
     return orderBy(newItems, v => v[sortBy], sortOrder)
-  }, [rows, sortBy,search, sortOrder])
+  }, [rows, sortBy, search, sortOrder])
 
   const pager = React.useMemo(() => {
     return paginate(filteredItems.length, currentPage, pageSize)
@@ -167,138 +167,109 @@ export const UiDataTableEditable = ({
     if (column.key !== sortBy) return null
     return (
       <Icon size="small" align="left">
-       {shortIcon ? <FontAwesomeIcon icon={sortOrder === 'asc' ? faSortUp : faSortDown} /> : ''}
+        {shortIcon ? (
+          <FontAwesomeIcon icon={sortOrder === 'asc' ? faSortUp : faSortDown} />
+        ) : (
+          ''
+        )}
       </Icon>
     )
   }
 
   const onchange = (e, row, userIndex) => {
-		if(!canHandleDataChange) return
+    if (!canHandleDataChange) return
 
-		const value = e.target.value;
-		const tempData = [...rows]
-		tempData[userIndex]
-		= {
-		  ...tempData[userIndex],
-		  [row.key]: value
-		}
-		handleDataChange(tempData)
+    const value = e.target.value
+    const tempData = [...rows]
+    tempData[userIndex] = {
+      ...tempData[userIndex],
+      [row.key]: value
+    }
+    handleDataChange(tempData)
   }
 
-    const onchange_hor = (e, columnId, rowIndex) => {
-		if(!canHandleDataChange) return
+  const onchange_hor = (e, columnId, rowIndex) => {
+    if (!canHandleDataChange) return
 
-		const value = e.target.value;
-		const tempData = [...rows]
-		tempData[rowIndex]
-		= {
-		  ...tempData[rowIndex],
-		  [columnId.key]: value
-		}
-		handleDataChange(tempData)
+    const value = e.target.value
+    const tempData = [...rows]
+    tempData[rowIndex] = {
+      ...tempData[rowIndex],
+      [columnId.key]: value
+    }
+    handleDataChange(tempData)
   }
 
-  const isSearched = (object) => {
-    return Object.keys(object).some(key => object[key].includes(search))
-  }
+  // const isSearched = (object) => {
+  //   return Object.keys(object).some(key => object[key].includes(search))
+  // }
 
-  const prepareTableBody = columns.map( (column , rowIndex) => (
-       (
-        // if(!isSearched(pagedItems[])) {
-        //   return false
-        // }
-        <Table.Row key={column['key'] + rowIndex} onClick={() => handleClick(column)}>
-      {pagedItems.map( (pagedItem, columnIndex) => (
-
-      <Table.Cell
-        key={ rowIndex + columnIndex }
-        style={{ whiteSpace: 'nowrap' }}
-      >
-        {isFunction(pagedItem.render)
-        ? pagedItem.render(column)
-        : <input
-          type="text"
-          value={ get(pagedItem, column.key) || ''}
-          onChange={(e) => onchange(e, column, columnIndex)}
-          style={{ width: '100%' }}
-        /> }
-      </Table.Cell>
+  const prepareTableBody = columns.map((column, rowIndex) => (
+    // if(!isSearched(pagedItems[])) {
+    //   return false
+    // }
+    <Table.Row
+      key={column['key'] + rowIndex}
+      onClick={() => handleClick(column)}
+    >
+      {pagedItems.map((pagedItem, columnIndex) => (
+        <Table.Cell
+          key={rowIndex + columnIndex}
+          style={{ whiteSpace: 'nowrap' }}
+        >
+          {isFunction(pagedItem.render) ? (
+            pagedItem.render(column)
+          ) : (
+            <input
+              type="text"
+              value={get(pagedItem, column.key) || ''}
+              onChange={e => onchange(e, column, columnIndex)}
+              style={{ width: '100%' }}
+            />
+          )}
+        </Table.Cell>
       ))}
     </Table.Row>
-      )
-    ))
+  ))
 
   const prepareTableVertical = (
-	<WrappedTable>
-	  	  {
-			  <WrappedTableVerticalLeft style={{float: "left"}}>
-				<Table
-				  fullwidth
-				  bordered
-				  striped
-				  narrow
-				  className={cx({ tableHover: canClick || canSelect })}
-				>
-				<Table.Head>
-					  {columns.map( (column, index) => (
-					  <Table.Row key={column.key + index}>
-						<Table.Heading
-						  key={"head" + column.key + index}
-						  style={{ whiteSpace: 'nowrap' }}
-						>
-						 {/* <a href="" onClick={e => handleSort(e, column)}> */}
-             {rowHover ? (
-              <a
-                onClick={e => handleSort(e, column)}>
-                  {column.label || column.key}
-                  {headingIcon(column)}
-              </a>
-              ) :
-              (
-              <p
-                onClick={e => handleSort(e, column)}>
-				  {column.label || column.key}
-				  {headingIcon(column)}
-			  </p>)}
-
-						</Table.Heading>
-						</Table.Row>
-					  ))}
-
-				  </Table.Head>
-				</Table>
-			  </WrappedTableVerticalLeft>
-		  }
-		  <WrappedTableVerticalRight>
-			<Table
-			  fullwidth
-			  bordered
-			  striped
-			  narrow
-			  className={cx({ tableHover: canClick || canSelect })}
-			>
-
-				{
-					pagedItems.length === 0 ? (
-					<Table.Foot>
-					  <Table.Row>
-						<Table.Cell colSpan="100">No Data Found</Table.Cell>
-					  </Table.Row>
-					</Table.Foot>
-				  ) : (
-					<Table.Body>
-					  { prepareTableBody }
-					</Table.Body>
-				  )
-			  }
-
-			</Table>
-		  </WrappedTableVerticalRight>
-	  </WrappedTable>
-  )
-
-  const prepareTableHorizontal = (
-		<WrappedTable>
+    <WrappedTable>
+      {
+        <WrappedTableVerticalLeft style={{ float: 'left' }}>
+          <Table
+            fullwidth
+            bordered
+            striped
+            narrow
+            className={cx({ tableHover: canClick || canSelect })}
+          >
+            <Table.Head>
+              {columns.map((column, index) => (
+                <Table.Row key={column.key + index}>
+                  <Table.Heading
+                    key={'head' + column.key + index}
+                    style={{ whiteSpace: 'nowrap' }}
+                  >
+                    {/* <a href="" onClick={e => handleSort(e, column)}> */}
+                    {rowHover ? (
+                      <a onClick={e => handleSort(e, column)}>
+                        {column.label || column.key}
+                        {headingIcon(column)}
+                      </a>
+                    ) : (
+                      <p onClick={e => handleSort(e, column)}>
+                        {column.label || column.key}
+                        {headingIcon(column)}
+                      </p>
+                    )}
+                  </Table.Heading>
+                </Table.Row>
+              ))}
+            </Table.Head>
+          </Table>
+        </WrappedTableVerticalLeft>
+      }
+      <WrappedTableVerticalRight>
         <Table
           fullwidth
           bordered
@@ -306,75 +277,90 @@ export const UiDataTableEditable = ({
           narrow
           className={cx({ tableHover: canClick || canSelect })}
         >
-		  <Table.Head>
-            <Table.Row>
-              {canSelect && (
-                <Table.Heading textAlign="centered" onClick={handleSelectAll}>
-                  <UiInputCheckbox checked={allSelected} />
-                </Table.Heading>
-              )}
-              {columns.map(column => (
-                <Table.Heading
-                  key={column.key}
-                  style={{ whiteSpace: 'nowrap' }}
-                >
-                 { /* <a href="" onClick={e => handleSort(e, column)}> </a> */ }
-                 {rowHover ? (
-              <a
-                onClick={e => handleSort(e, column)}>
-                  {column.label || column.key}
-                  {headingIcon(column)}
-              </a>
-              ) :
-              (
-              <p
-                onClick={e => handleSort(e, column)}>
-				  {column.label || column.key}
-				  {headingIcon(column)}
-			  </p>)}
-                </Table.Heading>
-              ))}
-            </Table.Row>
-          </Table.Head>
-
-		  {pagedItems.length === 0 ? (
+          {pagedItems.length === 0 ? (
             <Table.Foot>
               <Table.Row>
                 <Table.Cell colSpan="100">No Data Found</Table.Cell>
               </Table.Row>
             </Table.Foot>
           ) : (
-            <Table.Body>
-              {pagedItems.map( (row , rowIndex) => (
-                <Table.Row key={row[rowKey]} onClick={() => handleClick(row)}>
-                  {canSelect && (
-                    <Table.Cell textAlign="centered">
-                      <UiInputCheckbox checked={isSelected(row)} />
-                    </Table.Cell>
-                  )}
-                  {columns.map( (column, columnIndex) => (
-                    <Table.Cell
-                      key={column.key}
-                      style={{ whiteSpace: 'nowrap' }}
-                    >
-                      {isFunction(column.render)
-                        ? column.render(row)
-                        : <Input
+            <Table.Body>{prepareTableBody}</Table.Body>
+          )}
+        </Table>
+      </WrappedTableVerticalRight>
+    </WrappedTable>
+  )
+
+  const prepareTableHorizontal = (
+    <WrappedTable>
+      <Table
+        fullwidth
+        bordered
+        striped
+        narrow
+        className={cx({ tableHover: canClick || canSelect })}
+      >
+        <Table.Head>
+          <Table.Row>
+            {canSelect && (
+              <Table.Heading textAlign="centered" onClick={handleSelectAll}>
+                <UiInputCheckbox checked={allSelected} />
+              </Table.Heading>
+            )}
+            {columns.map(column => (
+              <Table.Heading key={column.key} style={{ whiteSpace: 'nowrap' }}>
+                {/* <a href="" onClick={e => handleSort(e, column)}> </a> */}
+                {rowHover ? (
+                  <a onClick={e => handleSort(e, column)}>
+                    {column.label || column.key}
+                    {headingIcon(column)}
+                  </a>
+                ) : (
+                  <p onClick={e => handleSort(e, column)}>
+                    {column.label || column.key}
+                    {headingIcon(column)}
+                  </p>
+                )}
+              </Table.Heading>
+            ))}
+          </Table.Row>
+        </Table.Head>
+
+        {pagedItems.length === 0 ? (
+          <Table.Foot>
+            <Table.Row>
+              <Table.Cell colSpan="100">No Data Found</Table.Cell>
+            </Table.Row>
+          </Table.Foot>
+        ) : (
+          <Table.Body>
+            {pagedItems.map((row, rowIndex) => (
+              <Table.Row key={row[rowKey]} onClick={() => handleClick(row)}>
+                {canSelect && (
+                  <Table.Cell textAlign="centered">
+                    <UiInputCheckbox checked={isSelected(row)} />
+                  </Table.Cell>
+                )}
+                {columns.map((column, columnIndex) => (
+                  <Table.Cell key={column.key} style={{ whiteSpace: 'nowrap' }}>
+                    {isFunction(column.render) ? (
+                      column.render(row)
+                    ) : (
+                      <Input
                         type="text"
                         value={get(row, column.key) || ''}
-                        onChange={(e) => onchange_hor(e, column, rowIndex)}
+                        onChange={e => onchange_hor(e, column, rowIndex)}
                         style={{ width: '100%' }}
-						            />
-                      }
-                    </Table.Cell>
-                  ))}
-                </Table.Row>
-              ))}
-            </Table.Body>
-          )}
-
-        </Table>
-      </WrappedTable>
+                      />
+                    )}
+                  </Table.Cell>
+                ))}
+              </Table.Row>
+            ))}
+          </Table.Body>
+        )}
+      </Table>
+    </WrappedTable>
   )
 
   return (
@@ -413,9 +399,7 @@ export const UiDataTableEditable = ({
         </Field>
       )}
 
-	 {
-    verticalView ? prepareTableVertical : prepareTableHorizontal
-	 }
+      {verticalView ? prepareTableVertical : prepareTableHorizontal}
 
       <UiPagination
         align="right"
