@@ -20,12 +20,12 @@ const columns = [
     label: 'Name'
   },
   {
-    key: 'alias',
+    key: 'description' ,
     label: 'Description'
   }
 ]
 
-export const GroupServiceSettings = ({ history, match }) => {
+ export const GroupServiceSettings = ({ history, match }) => {
   const { serviceProviderId,groupId } = match.params
   const [loading, setLoading] = React.useState(false)
   const { getModule } = useModulePermissions()
@@ -59,6 +59,24 @@ export const GroupServiceSettings = ({ history, match }) => {
     path: 'some-service'
   }]
   */
+ const action = [
+  { name: 'Auto Attendant', description: 'Serves as an automated receptionist that answers the phone and provides a personalized message to callers.' ,path: 'auto-attendants'},
+  { name: 'Call Center', description: 'Call Center',path: 'call-centers' },
+  { name: 'Call Park', description: 'Call Park',path: 'call-park' },
+  { name: 'Call Pickup', description: 'Call Pickup',path: 'call-pickup' },
+  { name: 'Collaborate', description: 'Collaborate', path: 'collaborate' },
+  { name: 'Flexible Seating Host', description: 'Flexible Seating Host' ,path: 'flexible-seating-hosts' },
+  { name: 'Hunt Group', description: 'Hunt Group' ,path: 'hunt-groups'},
+  { name: 'Meet-Me Conferencing', description: 'Meet-Me Conferencing',path: 'meet-me' },
+  { name: 'Music On Hold', description: 'Music On Hold',path: 'music-on-hold' },
+  { name: 'Group Night Forwarding', description: 'Group Night Forwarding',path: 'group-night-forwarding' },
+  { name: 'Group Paging', description: 'Group Paging',path: 'group-paging' },
+  { name: 'Series Completion', description: 'Series Completion' ,path: 'series-completion' },
+  { name: 'Trunk Group', description: 'Trunk Group',path: 'trunk-groups'},
+  { name: 'Virtual On-Net Enterprise Extensions', description: 'Virtual On-Net Enterprise Extensions',path: 'virtual-on-net-enterprise-extensions', },
+  { name: 'Voice Messaging Group', description: 'Voice Messaging Group',path: 'voice-messaging-group' }
+]
+
   const services = React.useMemo(() => {
     if (!hasGroupService) return []
     // filter out ones not in our map or missing read perms
@@ -71,13 +89,13 @@ export const GroupServiceSettings = ({ history, match }) => {
           return false
         }
         const module = getModule(service.hasModuleRead)
-          return { ...module, ...service, path: service.path }
+        return { ...module, ...service, path: service.path }
       })
+     
     // remove dups such as Shared Call Appearance
     if(filtered.length > 1)  return uniqBy(filtered, 'name')
     
   }, [getModule, hasGroupService , hasLevel])
-
   // The base view when no sub-component picked
   const GroupServiceList = () => {
     return loading ? (
@@ -85,8 +103,8 @@ export const GroupServiceSettings = ({ history, match }) => {
     ) : (
         <UiCard title="Group Services">
           <UiDataTable
-            columns={columns}
-            rows={services.length > 1 && services || []}
+            columns={columns || [] }
+            rows={services.length > 1 && action || []}
             rowKey="name"
             pageSize={10}
             onClick={service => showService(service)}
