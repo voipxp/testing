@@ -9,7 +9,6 @@ export const BulkSipTrunkingAuthWizTask = props => {
   const onComplete = (obj) => {
     const isCompleted = obj.isCompleted
     props.whenTaskIsCompleted(props.name, isCompleted)
-    //if(isCompleted) props.complete()
   }
 
   const memoizedValue = useMemo(
@@ -33,7 +32,6 @@ export const BulkSipTrunkingAuthWizTask = props => {
           style={{ float: 'right' }}
           color="success"
           onClick={props.complete}
-          // disabled = { isNextBtnDisabled }
         >
           Done
         </Button>

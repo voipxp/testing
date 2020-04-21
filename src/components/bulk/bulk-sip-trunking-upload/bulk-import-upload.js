@@ -24,7 +24,7 @@ import {
     initialData,
     addUsers,
     expectedTaskType,
-    name
+    label
   }) => {
     const [users, setUsers] = useState([])
     const [keys, setKeys] = useState([])
@@ -254,7 +254,7 @@ import {
 
       {
         <UiCard
-          title={name}
+          title={label}
           buttons={
             <>
               <BulkUploadCsv
@@ -350,5 +350,5 @@ import {
     initialData: PropTypes.object,
     addUsers: PropTypes.bool,
     expectedTaskType: PropTypes.string,
-    name: PropTypes.string
+    label: PropTypes.string
   }
