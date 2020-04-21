@@ -9,6 +9,7 @@ export const BulkImport = ({
   users = [],
   task,
   action,
+  onTaskCompletion,
   deleteLocalStorage,
   onError,
   setTaskId
@@ -35,6 +36,7 @@ export const BulkImport = ({
       .then(function() {
         alertSuccess(task + ' is successful')
         deleteLocalStorage(true)
+        onTaskCompletion()
       })
       .catch(function(error) {
         onError()

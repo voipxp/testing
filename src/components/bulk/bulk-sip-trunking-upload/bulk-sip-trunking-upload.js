@@ -18,6 +18,14 @@ export const BulkSipTrunkingUpload = () => {
      setRedirect(true)
    }
 
+   const whenTaskIsCompleted = (task, isCompleted=true) => {
+    const tempMenu = menuTemp.map(menu => {
+      if(task === menu.name) menu.completed = isCompleted
+      return menu
+    })
+    setMenuTemp([...tempMenu])
+   }
+
    return <>
      { redirect ? <Redirect to='/bulk' /> : null}
      <AppBreadcrumb>
@@ -28,6 +36,7 @@ export const BulkSipTrunkingUpload = () => {
        menu={menuTemp}
        setMenu={(menuData) => handleSetMenu(menuData)}
        wizardComplete={wizardComplete}
+       whenTaskIsCompleted={whenTaskIsCompleted}
      />
    </>
 }

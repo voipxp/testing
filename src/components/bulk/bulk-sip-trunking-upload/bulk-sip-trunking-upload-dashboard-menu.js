@@ -4,73 +4,73 @@ import { BulkSipTrunkingAuthWizTask } from './bulk-sip-trunking-auth-wiz-task'
 
 export const menu = [
   {
-    name: 'Service Provider Clone Task',
+    name: 'service.provider.bulk.clone',
     task: 'service.provider.bulk.clone',
     localStorageKey: 'BulkSipServiceProviderWiz',
     component: BulkSipTrunkingUploadTask
   },
   {
-    name: 'Enterprise Trunk Task',
+    name: 'trunk.group.call.capacity (Enterprise)',
     task: 'trunk.group.call.capacity',
     localStorageKey: 'BulkSipTrunkingTrunkEnterpriseWiz',
     component: BulkSipTrunkingUploadTask
   },
   {
-    name: 'Group Clone Task',
+    name: 'group.bulk.clone',
     task: 'group.bulk.clone',
     localStorageKey: 'BulkSipTrunkingGroupWiz',
     component: BulkSipTrunkingUploadTask
   },
   {
-    name: 'Group Services Task',
+    name: 'group.services.update',
     task: 'group.services.update',
     localStorageKey: 'AssignGroupServicesWiz',
     component: BulkSipTrunkingUploadTask
   },
   {
-    name: 'Group Call Capacity Task',
+    name: 'trunk.group.call.capacity (Group)',
     task: 'trunk.group.call.capacity',
     localStorageKey: 'BulkSipTrunkingGroupCallCapacityWiz',
     component: BulkSipTrunkingUploadTask
   },
   {
-    name: 'Group Device Create',
+    name: 'group.device.upsert',
     task: 'group.device.upsert',
     localStorageKey: 'GroupDeviceCreateWiz',
     component: BulkSipTrunkingUploadTask
   },
   {
-    name: 'Group Trunk Task',
+    name: 'group.trunk.group.create',
     task: 'group.trunk.group.create',
     localStorageKey: 'BulkSelectGroupTrunkWiz',
     component: BulkSipTrunkingUploadTask
   },
   {
-    name: 'Assign Numbers Task',
+    name: 'group.dns.assign',
     task: 'group.dns.assign',
     localStorageKey: 'BulkSipTrunkingNumbersWiz',
     component: BulkSipTrunkingUploadTask
   },
   {
-    name: 'Users  Task',
+    name: 'user.create',
     task: 'user.create',
     localStorageKey: 'BulkSelectedUsersWiz',
     component: BulkSipTrunkingUploadTask
   },
   {
-    name: 'Trunk Groups Pilot User',
+    name: 'group.trunk.group.update',
     task: 'group.trunk.group.update',
     localStorageKey: 'BulkSipTrunkingTrunkPilotUserWiz',
     component: BulkSipTrunkingUploadTask
   },
   {
-    name: 'Users Services Task',
+    name: 'user.services.update',
     task: 'user.services.update',
     localStorageKey: 'BulkSipTrunkingUserServicesWiz',
     component: BulkSipTrunkingUploadTask
   },
   {
-    name: 'Sip Authentication Task',
+    name: 'user.authentication.update',
     task: 'user.authentication.update',
     localStorageKey: 'BulkSipTrunkingAuthenticationWiz',
     component: BulkSipTrunkingAuthWizTask
