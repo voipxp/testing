@@ -17,7 +17,7 @@ const columns = [
 
 export const ProvisioningRouteSettings  = ({ history, match }) => {
   const { getModule } = useModulePermissions()
-  const {serviceProviderId } = match.params
+  const {serviceProviderId , featurePath} = match.params
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
   }

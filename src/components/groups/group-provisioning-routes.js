@@ -30,7 +30,8 @@ export const ProvisioningRoutes = [
 		path: 'groupExtensionLength',
         component: GroupExtensionLength,
         hasLevel: 'Group',
-        isPaasAdmin: true
+        isPaasAdmin: true,
+		isBreadcrumb: false
       },
       {
         name: 'User Services',

@@ -29,6 +29,7 @@ export const ServiceProviderDashboard = ({ match }) => {
         if (item.hasVersion && !hasVersion(item.hasVersion)) {
           return false
         }
+        
         if (item.hasLevel && !hasLevel(item.hasLevel)) {
           return false
         }

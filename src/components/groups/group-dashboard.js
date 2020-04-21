@@ -61,6 +61,9 @@ export const GroupDashboard = ({ match }) => {
           <Breadcrumb.Item href={`#!/groups/${serviceProviderId}/${groupId}`}>
             {groupId}
           </Breadcrumb.Item>
+          <Breadcrumb.Item href={`${window.location.href}`}>
+            {breadcrumbNewItem}
+            </Breadcrumb.Item>
         </>
       ) :  (
           <>
