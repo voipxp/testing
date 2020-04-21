@@ -7,6 +7,18 @@ function BulkTaskService() {
   var index = [
     // Clone Enterprise
     {
+      task: 'bulk.sip.trunking',
+      name: 'Bulk Sip Trunking',
+      description: 'Bulk Sip Trunking',
+      required: []
+    },
+	{
+      task: 'bulk.sip.trunking.upload',
+      name: 'Bulk Sip Trunking Upload',
+      description: 'Bulk Sip Trunking Upload',
+      required: []
+    },
+    {
       task: 'service.provider.bulk.clone',
       name: 'Clone Enterprise',
       description: 'Clone Enterprise in bulk',
@@ -62,6 +74,8 @@ function BulkTaskService() {
             services: 'boolean',
             policy: 'boolean',
             schedule: 'boolean',
+            departments: 'boolean',
+            domains: 'boolean',
             outgoingCallingPlan: 'boolean',
             routingProfile: 'boolean'
           }
@@ -316,6 +330,85 @@ function BulkTaskService() {
         }
       ]
     },
+    /* Group Device */
+    {
+      task: 'group.device.upsert',
+      name: 'Group Device Upsert',
+      description: 'Group Device Upsert',
+      required: ['serviceProviderId', 'groupId', 'deviceType', 'deviceName'],
+      example: [
+        {
+            "task": "group.device.upsert",
+            "allowAccessDeviceUpdate": 'boolean',
+            "deviceLevel": "string",
+            "serviceProviderId": "string",
+            "groupId": "string",
+            "deviceName": "string",
+            "deviceType": "string",
+            "protocol": "string",
+            "netAddress": "IP_ADDRESS",
+            "port": "number",
+            "outboundProxyServerNetAddress": "IP_ADDRESS",
+            "stunServerNetAddress": "IP_ADDRESS",
+            "macAddress": "HEXA_DECIMAL",
+            "serialNumber": "number",
+            "description": "string",
+            "physicalLocation": "string",
+            "transportProtocol": "string",
+            "mobilityManagerProvisioningURL": "string",
+            "mobilityManagerProvisioningUserName": "string",
+            "mobilityManagerProvisioningPassword": "string",
+            "mobilityManagerDefaultOriginatingServiceKey": "string",
+            "mobilityManagerDefaultTerminatingServiceKey": "string",
+            "useCustomUserNamePassword": 'boolean',
+            "accessDeviceCredentials": {
+                "userName": "string",
+                "password": "string"
+            },
+            "rebuildDevice": "boolean",
+            "resetDevice": "boolean",
+        }
+      ]
+    },
+    {
+      task: 'group.device.create',
+      name: 'Group Device Create',
+      description: 'Group Device Create',
+      required: ['deviceType', 'deviceName'],
+      example: [
+        {
+          task: 'group.device.create',
+          serviceProviderId: 'string',
+          groupId: 'string',
+          allowAccessDeviceUpdate: 'boolean',
+          deviceType: 'string',
+          deviceName: 'string',
+          accessDeviceEndpoint:{
+            linePort: 'string',
+            accessDevice: {
+              deviceType: 'string',
+              deviceName: 'string',
+              deviceLevel: 'string',
+              protocol: 'string',
+              netAddress: 'string',
+              port: 'string',
+              outboundProxyServerNetAddress: 'string',
+              stunServerNetAddress: 'string',
+              macAddress: 'string',
+              serialNumber: 'string',
+              description: 'string',
+              physicalLocation: 'string',
+              transportProtocol: 'string',
+              useCustomUserNamePassword: 'string',
+              accessDeviceCredentials: {
+                userName: 'string',
+                password: 'string'
+              }
+            }
+          }
+        }
+      ]
+    },
     // User Create
     {
       task: 'user.create',
@@ -512,7 +605,9 @@ function BulkTaskService() {
           task: 'user.authentication.update',
           userId: 'userId',
           userName: 'string',
-          newPassword: 'string'
+          newPassword: 'string',
+          rebuildDevice: 'boolean',
+          resetDevice: 'boolean'
         }
       ]
     },
