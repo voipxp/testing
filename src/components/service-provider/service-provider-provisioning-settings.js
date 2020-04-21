@@ -18,8 +18,10 @@ const columns = [
 export const ProvisioningRouteSettings  = ({ history, match }) => {
   const { getModule } = useModulePermissions()
   const {serviceProviderId , featurePath} = match.params
-  const showService = service => {
-    history.push(`${match.url}/${service.path}`)
+  const showService = service => { 
+  if(service.path ==='audits' || service.path ==='exports' || service.path ==='imports' ) history.push(`/${service.path}`)
+  else history.push(`${match.url}/${service.path}`)
+     
   }
 
   const hideService = () => {
