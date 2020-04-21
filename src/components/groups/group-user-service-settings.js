@@ -21,7 +21,7 @@ const columns = [
     label: 'Name'
   },
   {
-    key: 'name',
+    key: 'description',
     label: 'Description'
   }
 ]
