@@ -14,7 +14,8 @@ export const ServiceProviderDashboard = ({ match }) => {
 
   const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
   const { hasModuleRead } = useModulePermissions()
-
+  const acl = useAcl()
+  const hasReseller = acl.hasReseller()
   const camelCasedTxt =  window.location.href.split("/").pop().replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })
   const firstUpercaseLetters = camelCasedTxt.replace(/([A-Z])/g, ' $1').trim()
   const breadcrumbNewItem = firstUpercaseLetters.charAt(0).toUpperCase() + firstUpercaseLetters.slice(1)
@@ -51,6 +52,19 @@ export const ServiceProviderDashboard = ({ match }) => {
    <>
       <Breadcrumb as={StyledBreadcrumb}>
         <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
+		
+		  {hasReseller && serviceProviderId && (
+        <>
+          <Breadcrumb.Item href="#!/serviceProviders">
+            Service Providers
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href={`#!/serviceProviders/${serviceProviderId}`}>
+            {serviceProviderId}
+          </Breadcrumb.Item>
+        </>
+      )}
+		
+		
           {serviceProviderId && (
           <>
             <Breadcrumb.Item href={`${window.location.href}`}>

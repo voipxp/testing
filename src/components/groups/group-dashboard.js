@@ -24,7 +24,7 @@ export const GroupDashboard = ({ match }) => {
   const hasServiceProvider = acl.hasServiceProvider()
   // filter items we should not see
   const menu = React.useMemo(() => { 
-    setLoading(true)
+  //  setLoading(true)
     const filteredMenu = []
     dashboardMenu.forEach(section => {
       const items = section.items.filter(item => {
@@ -51,7 +51,7 @@ export const GroupDashboard = ({ match }) => {
     <>
       <Breadcrumb as={StyledBreadcrumb}>
         <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
-		{hasServiceProvider && groupId && (
+		{hasServiceProvider && groupId  ? ( 
         <>
           <Breadcrumb.Item
             href={`#!/serviceProviders/${serviceProviderId}/groups`}
@@ -62,15 +62,15 @@ export const GroupDashboard = ({ match }) => {
             {groupId}
           </Breadcrumb.Item>
         </>
-      )}
-	  
-          {serviceProviderId && groupId && (
+      ) :  (
           <>
             <Breadcrumb.Item href={`${window.location.href}`}>
             {breadcrumbNewItem}
             </Breadcrumb.Item>
-          </>
-        )}
+          </> )
+           }
+	  
+          
       </Breadcrumb>
       {loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
     </>
