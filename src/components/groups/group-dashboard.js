@@ -20,8 +20,9 @@ export const GroupDashboard = ({ match }) => {
   const firstUpercaseLetters = camelCasedTxt.replace(/([A-Z])/g, ' $1').trim()
   const breadcrumbNewItem = firstUpercaseLetters.charAt(0).toUpperCase() + firstUpercaseLetters.slice(1)
    const acl = useAcl()
- // const hasGroup = acl.hasGroup()
+  const hasGroup = acl.hasGroup()
   const hasServiceProvider = acl.hasServiceProvider()
+  const hasReseller = acl.hasReseller()
   // filter items we should not see
   const menu = React.useMemo(() => { 
   //  setLoading(true)
@@ -51,6 +52,16 @@ export const GroupDashboard = ({ match }) => {
     <>
       <Breadcrumb as={StyledBreadcrumb}>
         <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
+		 {hasReseller && serviceProviderId && (
+        <>
+          <Breadcrumb.Item href="#!/serviceProviders">
+            Service Providers
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href={`#!/serviceProviders/${serviceProviderId}`}>
+            {serviceProviderId}
+          </Breadcrumb.Item>
+        </>
+      )}
 		{hasServiceProvider && groupId  ? ( 
         <>
           <Breadcrumb.Item
