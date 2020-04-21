@@ -35,8 +35,8 @@ export const dashboardMenu = [
           angularComponent: 'groupUsers'
         },
 		{
-          name: 'Provining',
-          path: 'provining',
+          name: 'Provisioning',
+          path: 'Provisioning',
           component: ProvisioningRouteSettings,
           hasLevel: 'Service Provider',
           module: true

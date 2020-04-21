@@ -51,10 +51,10 @@ export const ProvisioningRoutes = [
       },
       {
         name: 'Service Packs',
-		path: 'groupServices',
-        angularComponent: 'groupServices',
-    hasLevel: 'Service Provider',
-    serviceType: 'servicePackServices',
+		path: 'servicePackServices',
+		angularComponent: 'groupServices',
+		serviceType: 'servicePackServices',
+		hasLevel: 'Service Provider',
         isPaasAdmin: true
       },
       {
