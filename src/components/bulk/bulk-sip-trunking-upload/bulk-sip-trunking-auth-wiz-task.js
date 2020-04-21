@@ -6,14 +6,22 @@ import { BulkImportUpload } from '@/components/bulk/bulk-sip-trunking-upload/bul
 export const BulkSipTrunkingAuthWizTask = props => {
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
 
+  const onComplete = (obj) => {
+    const isCompleted = obj.isCompleted
+    props.whenTaskIsCompleted(props.name, isCompleted)
+    //if(isCompleted) props.complete()
+  }
+
   const memoizedValue = useMemo(
     () => (
       <BulkImportUpload
         {...props}
         expectedTaskType={props.task}
         setDisableNextButton={boolValue => setDisableNextButton(boolValue)}
+        onComplete={obj => onComplete(obj)}
       />
     ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [props]
   )
 
@@ -37,5 +45,8 @@ export const BulkSipTrunkingAuthWizTask = props => {
 BulkSipTrunkingAuthWizTask.propTypes = {
   localStorageKey: PropTypes.string,
   task: PropTypes.string,
-  complete: PropTypes.func
+  name: PropTypes.string,
+  complete: PropTypes.func,
+  whenTaskIsCompleted: PropTypes.func
+
 }
