@@ -8,29 +8,28 @@ export const dashboardMenu = [
       {
         name: 'Administrators',
         path:  'admins' ,
-		angularComponent: 'serviceProviderAdmins',
-		hasLevel: 'Service Provider'
+		    angularComponent: 'serviceProviderAdmins',
+		    hasLevel: 'Service Provider'
       },
-	  {
+	    {
         name: 'Business Profile',
         path: 'profile',
         angularComponent: 'serviceProviderProfile',
-		hasLevel: 'Service Provider'
+		    hasLevel: 'Service Provider'
       },
-	  {
+	    {
         name: 'Groups',
         path:  'groups' ,
-		angularComponent: 'serviceProviderGroupsIndex',
-		hasLevel: 'Service Provider'
+		    angularComponent: 'serviceProviderGroupsIndex',
+		    hasLevel: 'Service Provider'
       },
-        
-	  {
-		name: 'Reports',
+      {
+		    name: 'Reports',
         path: 'reports',
         component: ReportRouteSettings
       },
-	  {
-		name: 'Provisioning',
+	    {
+		  name: 'Provisioning',
         path: 'provisioning',
         component: ProvisioningRouteSettings
       },
