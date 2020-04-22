@@ -16,6 +16,8 @@ export const BulkImport = ({
 }) => {
   const { alertSuccess, alertDanger } = useAlerts()
   const canSetTaskId = isFunction(setTaskId)
+  const canOnTaskCompletion = isFunction(onTaskCompletion)
+
   let taskId = ''
 
   useEffect(() => {
@@ -36,7 +38,7 @@ export const BulkImport = ({
       .then(function() {
         alertSuccess(task + ' is successful')
         deleteLocalStorage(true)
-        onTaskCompletion()
+        if (canOnTaskCompletion) onTaskCompletion()
       })
       .catch(function(error) {
         onError()
