@@ -9,9 +9,8 @@ const StyledBreadcrumb = styled.div`
   margin-top: -2rem;
   margin-bottom: 1rem;
 `
-export const ServiceProviderDashboard = ({ match }) => {
+export const ServiceProviderDashboard = ({ match ,history }) => {
   const {  serviceProviderId  } = match.params
-
   const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
   const { hasModuleRead } = useModulePermissions()
   const acl = useAcl()
@@ -20,6 +19,8 @@ export const ServiceProviderDashboard = ({ match }) => {
   const firstUpercaseLetters = camelCasedTxt.replace(/([A-Z])/g, ' $1').trim()
   const breadcrumbNewItem = firstUpercaseLetters.charAt(0).toUpperCase() + firstUpercaseLetters.slice(1)
   
+  //if(service.path ==='branding') history.push(`/${service.path}`)
+  //else history.push(`${match.url}/${match.path}`)
   const loading = false
 
   const menu = React.useMemo(() => {
@@ -79,4 +80,7 @@ export const ServiceProviderDashboard = ({ match }) => {
   )
 }
 
-ServiceProviderDashboard.propTypes = { match: PropTypes.object.isRequired }
+ServiceProviderDashboard.propTypes = { 
+  match: PropTypes.object.isRequired,
+  history : PropTypes.object
+}
