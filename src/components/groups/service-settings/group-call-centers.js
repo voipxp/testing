@@ -5,7 +5,7 @@ import { AngularComponent } from '@/components/angular-component'
 export const GroupCallCenters = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
   return (
-    <AngularComponent component="groupCallCenters" module = 'Group Call Center' serviceProviderId={serviceProviderId} groupId = {groupId}/>
+    <AngularComponent component="groupCallCenters" serviceProviderId={serviceProviderId} groupId = {groupId}/>
   )
 }
 

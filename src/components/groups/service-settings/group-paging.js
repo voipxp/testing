@@ -5,7 +5,7 @@ import { AngularComponent } from '@/components/angular-component'
 export const GroupPagingGroups = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
   return (
-    <AngularComponent component="groupPagingGroups" module = {true} serviceProviderId={serviceProviderId} groupId = {groupId}/>
+    <AngularComponent component="groupPagingGroups" module = 'Group Paging' serviceProviderId={serviceProviderId} groupId = {groupId}/>
   )
 }
 
