@@ -285,6 +285,11 @@ export const routes = [
     hasLevel: 'Group'
   }, */
   {
+    path: '/groups/:serviceProviderId/:groupId/deviceTypes/deviceType',
+    angularComponent: 'groupDeviceType',
+    hasLevel: 'Group'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id',
     angularComponent: 'vdmTemplate',
     hasLevel: 'Group',
@@ -325,11 +330,6 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/deviceTypes',
     angularComponent: 'groupDeviceTypes',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/deviceTypes/deviceType',
-    angularComponent: 'groupDeviceType',
     hasLevel: 'Group'
   },
   {
