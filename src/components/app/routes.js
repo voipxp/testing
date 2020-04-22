@@ -10,7 +10,7 @@ import {
   GroupExtensionLength,
   GroupWebPolicy,
   GroupNumbers,
-  GroupSeriesCompletion,
+ // GroupSeriesCompletion,
   GroupDashboard
 } from '@/components/groups'
 import { SystemResellers } from '../system'
@@ -446,12 +446,12 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Call Pickup'
   },
-  {
+  /*{
     path: '/groups/:serviceProviderId/:groupId/seriesCompletion',
     component: GroupSeriesCompletion,
     hasLevel: 'Group',
     hasModuleRead: 'Series Completion'
-  },
+  },*/
   {
     path: '/groups/:serviceProviderId/:groupId/callPark',
     angularComponent: 'groupCallPark',
