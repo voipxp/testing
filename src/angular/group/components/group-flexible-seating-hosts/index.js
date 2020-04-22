@@ -115,7 +115,7 @@ function controller(
   }
 
 	function loadModule() {
-		if(ACL.is('Group Department') || ACL.is('Group')) {
+		if(ACL.is('Group Department') || ACL.is('Group') || ACL.is('Service Provider')) {
 			return Module.show('Flexible Seating Guest').then(function(data) {
 			  ctrl.module = data
 			})
