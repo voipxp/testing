@@ -5,7 +5,7 @@ import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiDataTable } from '@/components/ui'
 import { useModulePermissions } from '@/utils'
 import { AngularComponent } from '@/components/angular-component' 
-import { ProvisioningRoutes } from './service-provider-provisioning-routes'
+import { ProvisioningRoutes } from './group-provisioning-routes'
 
 /* eslint-disable react/display-name */
 const columns = [
@@ -17,17 +17,16 @@ const columns = [
 
 export const ProvisioningRouteSettings  = ({ history, match }) => {
   const { getModule } = useModulePermissions()
-  const {serviceProviderId , featurePath} = match.params
-  const showService = service => { 
-  if(service.path ==='audits' || service.path ==='exports' || service.path ==='imports' ) history.push(`/${service.path}`)
-  else history.push(`${match.url}/${service.path}`)
-     
+  const {serviceProviderId , groupId } = match.params
+  const showService = service => {
+    history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-	  history.push(`/serviceProviders/${serviceProviderId}/provisioning`)
+	  history.push(`groups/${serviceProviderId}/${groupId}/provisioning`)
     //history.goBack()
   }
+   
    
   const services = React.useMemo(() => {
     const allowedServices = ProvisioningRoutes.reduce((obj, route) => {
@@ -36,6 +35,21 @@ export const ProvisioningRouteSettings  = ({ history, match }) => {
     }, {})
     // filter out ones not in our map or missing read perms
     const filtered = ProvisioningRoutes.map(service => {  
+		/* if (service.hasVersion && !hasVersion(service.hasVersion)) {
+          return false
+        }
+        if (service.hasLevel && !hasLevel(service.hasLevel)) {
+          return false
+        }
+        if (service.isLevel && !isLevel(service.isLevel)) {
+          return false
+        }
+        if (service.isPaasAdmin && !isPaasAdmin()) {
+          return false
+        }
+        if (service.hasModuleRead && !hasModuleRead(service.hasModuleRead)) {
+          return false
+        } */
         const route = allowedServices[service.hasModuleRead]
         const module = getModule(route)
         return { ...module, ...service, path: service.path }

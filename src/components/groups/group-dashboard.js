@@ -19,10 +19,13 @@ export const GroupDashboard = ({ match }) => {
   const camelCasedTxt =  window.location.href.split("/").pop().replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })
   const firstUpercaseLetters = camelCasedTxt.replace(/([A-Z])/g, ' $1').trim()
   const breadcrumbNewItem = firstUpercaseLetters.charAt(0).toUpperCase() + firstUpercaseLetters.slice(1)
-   
+   const acl = useAcl()
+  const hasGroup = acl.hasGroup()
+  const hasServiceProvider = acl.hasServiceProvider()
+  const hasReseller = acl.hasReseller()
   // filter items we should not see
   const menu = React.useMemo(() => { 
-    //setLoading(true)
+  //  setLoading(true)
     const filteredMenu = []
     dashboardMenu.forEach(section => {
       const items = section.items.filter(item => {
@@ -49,13 +52,39 @@ export const GroupDashboard = ({ match }) => {
     <>
       <Breadcrumb as={StyledBreadcrumb}>
         <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
-          {serviceProviderId && groupId && (
+		 {hasReseller && serviceProviderId && (
+        <>
+          <Breadcrumb.Item href="#!/serviceProviders">
+            Service Providers
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href={`#!/serviceProviders/${serviceProviderId}`}>
+            {serviceProviderId}
+          </Breadcrumb.Item>
+        </>
+      )}
+		{hasServiceProvider && groupId  ? ( 
+        <>
+          <Breadcrumb.Item
+            href={`#!/serviceProviders/${serviceProviderId}/groups`}
+          >
+            Groups
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href={`#!/groups/${serviceProviderId}/${groupId}`}>
+            {groupId}
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href={`${window.location.href}`}>
+            {breadcrumbNewItem}
+            </Breadcrumb.Item>
+        </>
+      ) :  (
           <>
             <Breadcrumb.Item href={`${window.location.href}`}>
             {breadcrumbNewItem}
             </Breadcrumb.Item>
-          </>
-        )}
+          </> )
+           }
+	  
+          
       </Breadcrumb>
       {loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
     </>

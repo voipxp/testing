@@ -4,7 +4,7 @@ import { GroupReportSettings } from './group-report-settings'
 import { GroupDepartments } from './group-departments'
 import {GroupPhoneListWithDirecotorySettings} from './group-phone-list-with-directory-settings'
 import {GroupCommunicationSettings} from './group-communication-settings'
-
+import {ProvisioningRouteSettings} from './group-provisioning-settings'
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -23,7 +23,7 @@ export const dashboardMenu = [
           hasLevel: 'Group',
           module: true
         },
-        {
+		{
           name: 'Business Profile',
           path: 'profile',
           angularComponent: 'groupProfile',
@@ -33,6 +33,13 @@ export const dashboardMenu = [
           name: 'Users',
           path: 'users',
           angularComponent: 'groupUsers'
+        },
+		{
+          name: 'Provisioning',
+          path: 'Provisioning',
+          component: ProvisioningRouteSettings,
+          hasLevel: 'Service Provider',
+          module: true
         },
         {
           name: 'Reports',

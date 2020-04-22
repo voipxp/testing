@@ -38,7 +38,7 @@ export const ProvisioningRoutes = [
 	  {
          
         name: 'Group Services',
-        path:  'group-ervices',
+        path:  'group-services',
 		angularComponent: 'serviceProviderServices',
 		hasLevel: 'Service Provider',
 		serviceType: 'groupServices'
