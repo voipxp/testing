@@ -98,7 +98,7 @@ function controller(ACL, $location, Alert, GroupTrunkGroupService, Route) {
             if (_.isFunction(callback)) {
               callback()
             }
-            Route.open(
+            Route.open( 
               'groups',
               ctrl.serviceProviderId,
               ctrl.groupId,
