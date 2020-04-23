@@ -35,9 +35,6 @@ export const BulkSipTrunking = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-  }, [sipTrunkShareableData])
-
   const handleSetMenu = menuData => {
     setMenuTemp(menuData)
   }
