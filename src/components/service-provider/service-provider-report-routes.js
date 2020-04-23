@@ -1,14 +1,14 @@
 export const ReportRoutes = [
   {
 	  name: 'Trunk Call Capacity',
-	  path: 'call-capacity',
+	  path: 'callCapacity',
 	  angularComponent: 'serviceProviderTrunkGroupsCallCapacityReport',
 	  hasLevel: 'Service Provider',
 	  hasModuleRead: 'Trunk Call Capacity'
   },
   {
 	  name: 'User Report',
-	  path: 'user-report',
+	  path: 'userReport',
 	  angularComponent: 'usersReport',
 	  hasLevel: 'Service Provider',
       hasModuleRead: 'User Report'

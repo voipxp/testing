@@ -1,3 +1,9 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId">
+  <pbs-breadcrumb
+    title="'Trunk Call Capacity Report'"
+    ng-if="!$ctrl.isSp"
+  ></pbs-breadcrumb>
+</pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Trunk Call Capacity Report">
     <pbs-list>

@@ -11,12 +11,14 @@ angular
   })
 
 controller.$inject = [
+  'ACL',
   'Alert',
   'ServiceProviderTrunkGroupCallCapacityReportService',
   'Route',
   '$location'
 ]
 function controller(
+  ACL,
   Alert,
   ServiceProviderTrunkGroupCallCapacityReportService,
   Route,
@@ -27,7 +29,7 @@ function controller(
   ctrl.onClick = onClick
   ctrl.displayMax = displayMax
   ctrl.settings = {}
-
+  ctrl.isSp = ACL.is('Sevice Provider')
   ctrl.columns = [
     {
       key: 'groupId',

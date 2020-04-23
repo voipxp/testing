@@ -734,11 +734,6 @@ export const routes = [
     hasLevel: 'Service Provider'
   },
   {
-    path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
-    angularComponent: 'serviceProviderServicePack',
-    hasLevel: 'Service Provider'
-  },
-  {
     path: '/serviceProviders/:serviceProviderId/networkClassOfServices',
     angularComponent: 'serviceProviderNetworkClassOfServices',
     hasLevel: 'Service Provider'
