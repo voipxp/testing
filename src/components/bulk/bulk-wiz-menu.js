@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { UiCheckbox } from '@/components/ui'
-
 const StyledMenu = styled.div`
   background-color: white;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
@@ -17,8 +16,7 @@ export const BulkWizMenu = ({
   handleWizData,
   setMenu,
   wizardComplete,
-  whenTaskIsCompleted,
-  disableNextItem = false
+  whenTaskIsCompleted,  disableNextItem = false
 }) => {
   useEffect(() => {
     handleMenuItems()
@@ -76,8 +74,7 @@ export const BulkWizMenu = ({
             handleWizData={handleWizData}
             setToNext={setToNext}
             complete={wizardComplete}
-            whenTaskIsCompleted={whenTaskIsCompleted}
-            {...currentItem}
+			whenTaskIsCompleted={whenTaskIsCompleted}            {...currentItem}
           />
         ) : (
           ''
@@ -99,8 +96,7 @@ export const BulkWizMenu = ({
               onClick={() => handleClick(item, index)}
             >
               {/* <FontAwesomeIcon style={{color: 'green'}} icon={faCheck} />   */}
-              { item.completed ? <UiCheckbox isChecked={true} /> : null }&nbsp;
-              {item.name}
+			  { item.completed ? <UiCheckbox isChecked={true} /> : null }&nbsp;              {item.name}
             </Menu.List.Item>
           )
         })}
@@ -135,5 +131,4 @@ BulkWizMenu.propTypes = {
   setMenu: PropTypes.func,
   wizardComplete: PropTypes.func,
   disableNextItem: PropTypes.bool,
-  whenTaskIsCompleted: PropTypes.func
-}
+whenTaskIsCompleted: PropTypes.func}
