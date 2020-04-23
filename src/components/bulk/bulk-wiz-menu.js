@@ -3,7 +3,6 @@ import { Menu, Column } from 'rbx'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import { UiCheckbox } from '@/components/ui'
 
 const StyledMenu = styled.div`
   background-color: white;
@@ -17,7 +16,6 @@ export const BulkWizMenu = ({
   handleWizData,
   setMenu,
   wizardComplete,
-  whenTaskIsCompleted,
   disableNextItem = false
 }) => {
   useEffect(() => {
@@ -76,7 +74,6 @@ export const BulkWizMenu = ({
             handleWizData={handleWizData}
             setToNext={setToNext}
             complete={wizardComplete}
-            whenTaskIsCompleted={whenTaskIsCompleted}
             {...currentItem}
           />
         ) : (
@@ -99,7 +96,6 @@ export const BulkWizMenu = ({
               onClick={() => handleClick(item, index)}
             >
               {/* <FontAwesomeIcon style={{color: 'green'}} icon={faCheck} />   */}
-              { item.completed ? <UiCheckbox isChecked={true} /> : null }&nbsp;
               {item.name}
             </Menu.List.Item>
           )
@@ -134,6 +130,5 @@ BulkWizMenu.propTypes = {
   handleWizData: PropTypes.func,
   setMenu: PropTypes.func,
   wizardComplete: PropTypes.func,
-  disableNextItem: PropTypes.bool,
-  whenTaskIsCompleted: PropTypes.func
+  disableNextItem: PropTypes.bool
 }
