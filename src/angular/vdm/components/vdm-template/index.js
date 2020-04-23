@@ -8,6 +8,7 @@ angular.module('odin.vdm').component('vdmTemplate', {
 })
 
 controller.$inject = [
+  'ACL',
   'Alert',
   'Route',
   'VdmGroupTemplateService',
@@ -15,6 +16,7 @@ controller.$inject = [
   '$location'
 ]
 function controller(
+  ACL,
   Alert,
   Route,
   VdmGroupTemplateService,
@@ -39,9 +41,14 @@ function controller(
 
   function back() {
     if (ctrl.template.parentId) {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'vdm').search(
-        {}
-      )
+      if(ACL.is('Service Provider') || ACL.is('Group') ){
+        Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'vdm') 
+      }else {
+        Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'vdm').search(
+          {}
+        )
+      }
+      
     } else {
       Route.open('vdm').search({})
     }
