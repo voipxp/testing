@@ -113,7 +113,7 @@ export const AppResetPassword = (props) => {
                     <Control iconLeft>
                       <Input
                         type="password"
-                        placeholder="New Password"
+                        placeholder="Confirm New Password"
                         name="newPassword2"
                         onChange={handleInput}
                         value={form.newPassword2}
