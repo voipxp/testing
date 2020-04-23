@@ -41,18 +41,19 @@ import {
     const canBeforComplete = isFunction(beforComplete)
     const canOnLoad = isFunction(onLoad)
     const canOnComplete = isFunction(onComplete)
+    const canSetDisableNextButton = isFunction(setDisableNextButton)
     const { alertDanger } = useAlerts()
 
     const finalSteps = () => {
       setIsProcessing(false)
-      setDisableNextButton(false)
+      if (canSetDisableNextButton) setDisableNextButton(false)
       setIsTaskExist(false)
       setDeleteLocalStorage(false)
     }
 
     const onError = () => {
       setIsProcessing(false)
-      setDisableNextButton(true)
+      if (canSetDisableNextButton) setDisableNextButton(true)
       setImportTask(false)
     }
 
@@ -81,7 +82,7 @@ import {
 
     useEffect( () => {
       setLoading(true)
-      setDisableNextButton(true)
+      if (canSetDisableNextButton) setDisableNextButton(true)
       setImportTask(false)
       onInit()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -105,7 +106,7 @@ import {
     }
 
     const onInit = () => {
-      setDisableNextButton(true)
+      if (canSetDisableNextButton) setDisableNextButton(true)
       loadData()
       .then((data) => {
         return clean(data)

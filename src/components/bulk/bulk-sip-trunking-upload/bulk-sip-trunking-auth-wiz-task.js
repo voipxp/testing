@@ -4,14 +4,12 @@ import { Button } from 'rbx'
 import { BulkImportUpload } from '@/components/bulk/bulk-sip-trunking-upload/bulk-import-upload'
 
 export const BulkSipTrunkingAuthWizTask = props => {
-  const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
 
   const memoizedValue = useMemo(
     () => (
       <BulkImportUpload
         {...props}
         expectedTaskType={props.task}
-        setDisableNextButton={boolValue => setDisableNextButton(boolValue)}
       />
     ),
     [props]
@@ -25,7 +23,6 @@ export const BulkSipTrunkingAuthWizTask = props => {
           style={{ float: 'right' }}
           color="success"
           onClick={props.complete}
-          // disabled = { isNextBtnDisabled }
         >
           Done
         </Button>

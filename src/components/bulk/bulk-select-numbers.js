@@ -43,12 +43,13 @@ export const BulkSelectNumbers = ({
       return number
     })
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect( () => {
     const numbers = selected.map(el => el.number)
     setSelectedNumbers(numbers)
-  }, [available, selected])
+  }, [selected, setSelectedNumbers])
 
   return (
     <>
