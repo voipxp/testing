@@ -14,7 +14,8 @@ const onComplete = (obj) => {
       <BulkImportUpload
         {...props}
         expectedTaskType={props.task}
-		onComplete={obj => onComplete(obj)}      />
+        onComplete={obj => onComplete(obj)}
+      />
     ),
 	// eslint-disable-next-line react-hooks/exhaustive-deps    [props]
   )
