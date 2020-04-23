@@ -23,8 +23,7 @@ function controller(ACL, BrandingHostnameService, Route, Alert, Session) {
 
   function onInit() {
     ctrl.loading = true
-    ctrl.hideNav = Session.data('resellerId')
-    ctrl.isSp = ACL.is('Service Provider')
+    ctrl.hideNav = Session.data('resellerId') || ACL.is('Service Provider')
     loadHostnames()
       .catch(function(error) {
         Alert.notify.danger(error.data)
