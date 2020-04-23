@@ -103,7 +103,8 @@ export const dashboardMenu = [
           name: 'Group Web Policy',
           path:  'groupWebPolicy',
           component: GroupWebPolicy,
-          hasLevel: 'Service Provider'
+          hasLevel: 'Service Provider',
+          isBreadcrumb: false
         },
         {
           name: 'Intercept Group',
@@ -140,7 +141,7 @@ export const dashboardMenu = [
         },
         { 
           name: 'VDM',
-          path:  'VDM',
+          path:  'Vdm',
           angularComponent: 'vdmDashboard',
           hasLevel: 'Group',
           hasModuleRead: 'VDM'

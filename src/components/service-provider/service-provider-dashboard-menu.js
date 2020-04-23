@@ -8,28 +8,28 @@ export const dashboardMenu = [
       {
         name: 'Administrators',
         path:  'admins' ,
-		angularComponent: 'serviceProviderAdmins',
-		hasLevel: 'Service Provider'
+		    angularComponent: 'serviceProviderAdmins',
+		    hasLevel: 'Service Provider'
       },
 	    {
         name: 'Business Profile',
         path: 'profile',
         angularComponent: 'serviceProviderProfile',
-		hasLevel: 'Service Provider'
+		    hasLevel: 'Service Provider'
       },
 	    {
         name: 'Groups',
         path:  'groups' ,
-		angularComponent: 'serviceProviderGroupsIndex',
-		hasLevel: 'Service Provider'
+		    angularComponent: 'serviceProviderGroupsIndex',
+		    hasLevel: 'Service Provider'
       },
       {
-		name: 'Reports',
+		    name: 'Reports',
         path: 'reports',
         component: ReportRouteSettings
       },
 	  {
-		name: 'Provisioning',
+		    name: 'Provisioning',
         path: 'provisioning',
         component: ProvisioningRouteSettings
       },
@@ -45,20 +45,20 @@ export const dashboardMenu = [
     items: [
 		{
 		  name: 'Enterprise Trunk',
-		  path: 'enterprise-trunks',
+		  path: 'enterpriseTrunks',
 		  angularComponent: 'enterpriseEnterpriseTrunks',
 		  hasLevel: 'Service Provider',
 		  module: 'Trunk Group',
 		  isEnterprise: true
         },
 	    {
-		  name: 'Meet-Me Conferencing',
-		  path: 'meet-me-conferencing',
-		  angularComponent: 'serviceProviderMeetMe',
-		  hasLevel: 'Service Provider',
-      module: 'Meet-Me Conferencing',
-		  service: 'Meet-Me Conferencing'
-		}
+        name: 'Meet-Me Conferencing',
+        path: 'meetMeConferencing',
+        angularComponent: 'serviceProviderMeetMe',
+        hasLevel: 'Service Provider',
+        hasModuleRead: 'Meet-Me Conferencing',
+        module: 'Meet-Me Conferencing',
+      }
       ]
   },
   {
@@ -73,7 +73,7 @@ export const dashboardMenu = [
       
       { 
 		name: 'Network Class of Service',
-        path:  'network-class-of-services' ,
+        path:  'networkClassOfServices' ,
 		angularComponent: 'serviceProviderNetworkClassOfServices',
 		hasLevel: 'Service Provider'
       },

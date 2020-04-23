@@ -5,9 +5,9 @@ export const GroupCommunication = [
       {
         name: 'Comm Barring',
         path: 'comm-barring',
-		component: GroupCommunicationBarring,
+		    component: GroupCommunicationBarring,
         hasModuleRead :  'Comm Barring',
-		isBreadcrumb: false	
+		    isBreadcrumb: false	
       },
 	  { 
         name: 'Comm Barring Auth Codes',

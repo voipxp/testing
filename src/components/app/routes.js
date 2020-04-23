@@ -36,6 +36,12 @@ export const routes = [
     isPaasAdmin: true
   },
   {
+    path: '/serviceProviders/:serviceProviderId/reports/callCapacity',
+    angularComponent: 'serviceProviderTrunkGroupsCallCapacityReport',
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'User Report'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
     angularComponent: 'groupMusicOnHold',
     hasLevel: 'Group Department',
@@ -740,12 +746,6 @@ export const routes = [
   {
     path: '/serviceProviders/:serviceProviderId/reports/users',
     angularComponent: 'usersReport',
-    hasLevel: 'Service Provider',
-    hasModuleRead: 'User Report'
-  },
-  {
-    path: '/serviceProviders/:serviceProviderId/reports/callCapacity',
-    angularComponent: 'serviceProviderTrunkGroupsCallCapacityReport',
     hasLevel: 'Service Provider',
     hasModuleRead: 'User Report'
   },
