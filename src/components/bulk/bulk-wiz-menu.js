@@ -22,6 +22,7 @@ export const BulkWizMenu = ({
 }) => {
   useEffect(() => {
     handleMenuItems()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleClick = (item, index) => {

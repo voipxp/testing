@@ -22,6 +22,7 @@ export const BulkImport = ({
 
   useEffect(() => {
     submit(users)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const submit = users => {
@@ -140,7 +141,7 @@ export const BulkImport = ({
 
   const stringToBooleanValue = user => {
     const temp = {}
-    Object.keys(user).map(key => {
+    Object.keys(user).forEach(key => {
       if (user[key] === 'TRUE' || user[key] === 'true') {
         temp[key] = true
       } else if (user[key] === 'FALSE' || user[key] === 'false') {

@@ -35,6 +35,7 @@ export const BulkSipTrunkingUpload = () => {
       }
     })
     if(!_.isEqual(tempMenu, menuTemp)) setMenuTemp([...tempMenu])
+   // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [])
 
    return <>
