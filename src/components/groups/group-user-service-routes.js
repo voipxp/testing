@@ -18,7 +18,7 @@ import {
   GroupVirtualOnNetEnterpriseExtensions
 } from '@/components/groups/service-settings'
   
-export const groupServiceRoutes = [
+export const groupUserServiceRoutes = [
         {
           name :'Auto Receptionist',
           path: 'auto-attendants',
