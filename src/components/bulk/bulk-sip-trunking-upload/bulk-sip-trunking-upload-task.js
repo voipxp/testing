@@ -4,25 +4,19 @@ import { Button } from 'rbx'
 import { BulkImportUpload } from '@/components/bulk/bulk-sip-trunking-upload/bulk-import-upload'
 
 export const BulkSipTrunkingUploadTask = props => {
-  const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
 
-  const onComplete = (obj) => {
+const onComplete = (obj) => {
     const isCompleted = obj.isCompleted
     props.whenTaskIsCompleted(props.name, isCompleted)
     if(isCompleted) props.setToNext()
-  }
-
-  const memoizedValue = useMemo(
+  }  const memoizedValue = useMemo(
     () => (
       <BulkImportUpload
         {...props}
         expectedTaskType={props.task}
-        setDisableNextButton={boolValue => setDisableNextButton(boolValue)}
-        onComplete={obj => onComplete(obj)}
-      />
+		onComplete={obj => onComplete(obj)}      />
     ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [props]
+	// eslint-disable-next-line react-hooks/exhaustive-deps    [props]
   )
 
   return (
@@ -46,5 +40,4 @@ BulkSipTrunkingUploadTask.propTypes = {
   task: PropTypes.string,
   name: PropTypes.string,
   setToNext: PropTypes.func,
-  whenTaskIsCompleted: PropTypes.func
-}
+  whenTaskIsCompleted: PropTypes.func}

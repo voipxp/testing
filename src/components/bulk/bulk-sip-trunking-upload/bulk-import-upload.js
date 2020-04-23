@@ -24,8 +24,7 @@ import {
     initialData,
     addUsers,
     expectedTaskType,
-    label
-  }) => {
+	label  }) => {
     const [users, setUsers] = useState([])
     const [keys, setKeys] = useState([])
     const [task, setTask] = useState('')
@@ -42,18 +41,19 @@ import {
     const canBeforComplete = isFunction(beforComplete)
     const canOnLoad = isFunction(onLoad)
     const canOnComplete = isFunction(onComplete)
+    const canSetDisableNextButton = isFunction(setDisableNextButton)
     const { alertDanger } = useAlerts()
 
     const finalSteps = () => {
       setIsProcessing(false)
-      setDisableNextButton(false)
+      if (canSetDisableNextButton) setDisableNextButton(false)
       setIsTaskExist(false)
       setDeleteLocalStorage(false)
     }
 
     const onError = () => {
       setIsProcessing(false)
-      setDisableNextButton(true)
+      if (canSetDisableNextButton) setDisableNextButton(true)
       setImportTask(false)
     }
 
@@ -62,6 +62,7 @@ import {
         if(deleteLocalStorage) {
           StorageService.clearStorage(localStorageKey).then(function() {
             finalSteps()
+            if(canOnComplete) onComplete(users)
           })
         }
       }
@@ -72,7 +73,7 @@ import {
 
     useEffect( () => {
       if(canOnLoad) onLoad(users, (data) => setUsers(data))
-    }, [users, setUsers, onLoad, canOnLoad, onComplete])
+    }, [users, setUsers, onLoad, canOnLoad])
 
     useEffect( () => {
       if(taskId) setShowErrorModal(true)
@@ -81,7 +82,7 @@ import {
 
     useEffect( () => {
       setLoading(true)
-      setDisableNextButton(true)
+      if (canSetDisableNextButton) setDisableNextButton(true)
       setImportTask(false)
       onInit()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -105,7 +106,7 @@ import {
     }
 
     const onInit = () => {
-      setDisableNextButton(true)
+      if (canSetDisableNextButton) setDisableNextButton(true)
       loadData()
       .then((data) => {
         return clean(data)
@@ -120,6 +121,7 @@ import {
       .finally( (data) => {
         setIsTaskExist(true)
         setLoading(false)
+        // if(canComplete) onImportComplete(data[0])
       })
       .catch( (error) => {
         errorHandler(error)
@@ -233,11 +235,9 @@ import {
       })
     }
 
-    const onTaskCompletion = () => {
+const onTaskCompletion = () => {
       if(canOnComplete)  onComplete({'isCompleted': true})
-    }
-
-    return loading ? <UiLoading /> :
+    }    return loading ? <UiLoading /> :
     <>
       {
         ( importTask ) ?
@@ -246,8 +246,7 @@ import {
           task={task}
           action={action}
           deleteLocalStorage={ (boolValue) => setDeleteLocalStorage(boolValue) }
-          onTaskCompletion={onTaskCompletion}
-          onError={onError}
+onTaskCompletion={onTaskCompletion}          onError={onError}
           setTaskId={ (id) => setTaskId(id) }
         /> : null
       }
@@ -350,5 +349,4 @@ import {
     initialData: PropTypes.object,
     addUsers: PropTypes.bool,
     expectedTaskType: PropTypes.string,
-    label: PropTypes.string
-  }
+label: PropTypes.string  }

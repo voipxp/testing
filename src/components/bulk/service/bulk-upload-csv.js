@@ -23,10 +23,9 @@ export const BulkUploadCsv = ({
         return addIndex(data)
       })
       .then(function(data) {
-        return booleanTostring(data)
+return booleanTostring(data)
       })
-      .then(function(data) {
-        return clean(data)
+      .then(function(data) {        return clean(data)
       })
       .then(function(data) {
         return validate(data)
@@ -112,9 +111,7 @@ export const BulkUploadCsv = ({
       else temp[key] = user[key]
     })
     return temp
-  }
-
-  return (
+  }  return (
     <>
       <CSVReader
         onFileLoaded={handleFileData}
