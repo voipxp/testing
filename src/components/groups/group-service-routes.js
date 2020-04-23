@@ -21,7 +21,7 @@ import {
 export const groupServiceRoutes = [
         {
           name :'Auto Receptionist',
-          path: 'auto-attendants',
+          path: 'autoReceptionist',
           component: GroupAutoAttendants,
           hasModuleRead: 'Auto Attendant',
           hasGroupService: ['Auto Attendant'],
@@ -29,14 +29,14 @@ export const groupServiceRoutes = [
         },
         {
           name :'Call Center', 
-          path: 'call-centers', 
+          path: 'callCenters', 
           component: GroupCallCenters,
           hasModuleRead: 'Call Center',
           hasGroupService: ['Call Center - Basic', '	Call Center Monitoring', 'Call Center - Premium', 'Call Center - Standard']
         },
         {
           name :'Call Park',
-          path: 'call-park',
+          path: 'callPark',
           component: GroupCallPark,
           hasModuleRead: 'Call Park',
           hasGroupService: ['Call Park'],
@@ -44,7 +44,7 @@ export const groupServiceRoutes = [
         },
         {
           name :'Call Pickup',
-          path: 'call-pickup',
+          path: 'callPickup',
           component: GroupCallPickups,
           hasModuleRead: 'Call Pickup',
           hasGroupService: ['Call Pickup'],
@@ -60,7 +60,7 @@ export const groupServiceRoutes = [
         },
         {
           name :'Flexible Seating Host',
-          path: 'flexible-seating-hosts',
+          path: 'flexibleSeatingHosts',
           component: GroupFlexibleSeatingHosts,
           hasModuleRead: 'Flexible Seating Host',
           hasGroupService: ['Flexible Seating Guest'],
@@ -69,14 +69,14 @@ export const groupServiceRoutes = [
         {
           name :'Hunt Group',
           component: GroupHuntGroups,
-          path: 'hunt-groups',
+          path: 'huntGroups',
           hasModuleRead: 'Hunt Group',
           hasGroupService: ['Hunt Group'],
           hasLevel: 'Group',
         },
         {
           name :'Meet-Me Conferencing',
-          path: 'meet-me-conferencing',
+          path: 'meetMeConferencing',
           component: GroupMeetMe,
           hasModuleRead: 'Meet-Me Conferencing',
           hasGroupService: ['Meet-Me Conferencing'],
@@ -84,7 +84,7 @@ export const groupServiceRoutes = [
         },
         {
           name :'Music On Hold',
-          path: 'music-on-hold',
+          path: 'musicOnHold',
           component: GroupMusicOnHold,
           hasModuleRead: 'Music On Hold',
           hasGroupService: ['Music On Hold'],
@@ -92,7 +92,7 @@ export const groupServiceRoutes = [
         },
         {
           name :'Group Night Forwarding',
-          path: 'group-night-forwarding',
+          path: 'groupNightForwarding',
           component: GroupNightForwarding,
           hasModuleRead: 'Group Night Forwarding',
           hasGroupService: ['Group Night Forwarding'],
@@ -100,7 +100,7 @@ export const groupServiceRoutes = [
         },
         {
           name :'Group Paging',
-          path: 'group-paging',
+          path: 'groupPaging',
           component: GroupPagingGroups,
           hasModuleRead: 'Group Paging',
           hasGroupService: ['Group Paging'],
@@ -108,7 +108,7 @@ export const groupServiceRoutes = [
         },
         {
           name :'Series Completion',
-          path: 'series-completion',
+          path: 'seriesCompletion',
           component: GroupSeriesCompletion,
           hasModuleRead: 'Series Completion',
           hasGroupService: ['Series Completion'],
@@ -117,7 +117,7 @@ export const groupServiceRoutes = [
         },
         {
           name :'Trunk Group',
-          path: 'trunk-groups',
+          path: 'trunkGroups',
           component: GroupTrunkGroups,
           hasModuleRead: 'Trunk Group',
           hasGroupService: ['Trunk Group'],
@@ -125,7 +125,7 @@ export const groupServiceRoutes = [
         },
         {
           name :'Virtual On-Net Enterprise Extensions',
-          path: 'virtual-on-net-enterprise-extensions',
+          path: 'virtualOnNetEnterpriseExtensions',
           component: GroupVirtualOnNetEnterpriseExtensions,
           hasModuleRead: 'Virtual On-Net Enterprise Extensions',
           hasGroupService: ['Virtual On-Net Enterprise Extensions'],
@@ -133,9 +133,9 @@ export const groupServiceRoutes = [
         },
         {
           name :'Voice Messaging Group',
+          path: 'voiceMessagingGroup',
           component: GroupVoiceMessaging,
           hasModuleRead: 'Voice Messaging Group',
-          path: 'voice-messaging-group',
           hasGroupService: ['Voice Messaging Group'],
           hasLevel: 'Group'
         }

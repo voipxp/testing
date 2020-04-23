@@ -46,7 +46,7 @@ const columns = [
   }
 
   const hideService = () => { 
-    history.push(`/groups/${serviceProviderId}/${groupId}/group-service`)
+    history.push(`/groups/${serviceProviderId}/${groupId}/group-services`)
   }
   /*
   turn our array of routes into a filtered list of components,
@@ -60,21 +60,21 @@ const columns = [
   }]
   */
  const action = [
-  { name: 'Auto Attendant', description: 'Serves as an automated receptionist that answers the phone and provides a personalized message to callers.' ,path: 'auto-attendants'},
-  { name: 'Call Center', description: 'Call Center',path: 'call-centers' },
-  { name: 'Call Park', description: 'Call Park',path: 'call-park' },
-  { name: 'Call Pickup', description: 'Call Pickup',path: 'call-pickup' },
+  { name: 'Auto Attendant', description: 'Serves as an automated receptionist that answers the phone and provides a personalized message to callers.' ,path: 'autoReceptionist'},
+  { name: 'Call Center', description: 'Call Center',path: 'callCenters' },
+  { name: 'Call Park', description: 'Call Park',path: 'callPark' },
+  { name: 'Call Pickup', description: 'Call Pickup',path: 'callPickup' },
   { name: 'Collaborate', description: 'Collaborate', path: 'collaborate' },
-  { name: 'Flexible Seating Host', description: 'Flexible Seating Host' ,path: 'flexible-seating-hosts' },
-  { name: 'Hunt Group', description: 'Hunt Group' ,path: 'hunt-groups'},
-  { name: 'Meet-Me Conferencing', description: 'Meet-Me Conferencing',path: 'meet-me-conferencing' },
-  { name: 'Music On Hold', description: 'Music On Hold',path: 'music-on-hold' },
-  { name: 'Group Night Forwarding', description: 'Group Night Forwarding',path: 'group-night-forwarding' },
-  { name: 'Group Paging', description: 'Group Paging',path: 'group-paging' },
-  { name: 'Series Completion', description: 'Series Completion' ,path: 'series-completion' },
-  { name: 'Trunk Group', description: 'Trunk Group',path: 'trunk-groups'},
-  { name: 'Virtual On-Net Enterprise Extensions', description: 'Virtual On-Net Enterprise Extensions',path: 'virtual-on-net-enterprise-extensions', },
-  { name: 'Voice Messaging Group', description: 'Voice Messaging Group',path: 'voice-messaging-group' }
+  { name: 'Flexible Seating Host', description: 'Flexible Seating Host' ,path: 'flexibleSeatingHosts' },
+  { name: 'Hunt Group', description: 'Hunt Group' ,path: 'huntGroups'},
+  { name: 'Meet-Me Conferencing', description: 'Meet-Me Conferencing',path: 'meetMeConferencing' },
+  { name: 'Music On Hold', description: 'Music On Hold',path: 'musicOnHold' },
+  { name: 'Group Night Forwarding', description: 'Group Night Forwarding',path: 'groupNightForwarding' },
+  { name: 'Group Paging', description: 'Group Paging',path: 'groupPaging' },
+  { name: 'Series Completion', description: 'Series Completion' ,path: 'seriesCompletion' },
+  { name: 'Trunk Group', description: 'Trunk Group',path: 'trunkGroups'},
+  { name: 'Virtual On-Net Enterprise Extensions', description: 'Virtual On-Net Enterprise Extensions',path: 'virtualOnNetEnterpriseExtensions', },
+  { name: 'Voice Messaging Group', description: 'Voice Messaging Group',path: 'voiceMessagingGroup' }
 ]
 
   const services = React.useMemo(() => {

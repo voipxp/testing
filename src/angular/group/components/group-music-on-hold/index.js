@@ -89,10 +89,15 @@ function controller(Alert, GroupMusicOnHoldService, Route, $location, ACL) {
         ctrl.groupId,
         'musicOnHold'
       ) 
-    } else if(ACL.is('Group')){
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'group-service/music-on-hold')
-	}else {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
-    }
+    } else if(ACL.is('Group') || ACL.is('Service Provider' )){
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'group-services',
+        'musicOnHold'
+      )
+	    } else Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
+  
   }
 }

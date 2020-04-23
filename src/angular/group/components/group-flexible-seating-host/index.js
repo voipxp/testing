@@ -116,12 +116,13 @@ function controller(
         ctrl.groupId,
         'flexibleSeatingHosts'
       )
-    }else if(ACL.is('Group')) {
+    }else if(ACL.is('Group') || ACL.is('Service Provider') ) {
       Route.open(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'group-service/flexible-seating-hosts'
+        'group-services',
+        'flexibleSeatingHosts'
       )
     } else {
       Route.open(

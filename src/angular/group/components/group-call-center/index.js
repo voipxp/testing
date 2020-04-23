@@ -103,8 +103,14 @@ function controller(
   function back() {
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
-    } else if(ACL.is('Group')) {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId,'group-service/call-centers')
+    } else if(ACL.is('Group') || ACL.is('Service Provider')) {
+      Route.open(
+        'groups',
+         ctrl.serviceProviderId,
+          ctrl.groupId,
+          'group-services',
+          'callCenters'
+        )
     } else {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
     }

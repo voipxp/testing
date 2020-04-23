@@ -5,6 +5,8 @@ import { GroupDepartments } from './group-departments'
 import {GroupPhoneListWithDirecotorySettings} from './group-phone-list-with-directory-settings'
 import {GroupCommunicationSettings} from './group-communication-settings'
 import {ProvisioningRouteSettings} from './group-provisioning-settings'
+import {GroupWebPolicy} from './group-web-policy'
+
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -18,7 +20,7 @@ export const dashboardMenu = [
         },
         {
           name: 'Administrators',
-          path: 'admins',
+          path: 'administrators',
           angularComponent: 'groupAdmins',
           hasLevel: 'Group',
           module: true
@@ -53,12 +55,12 @@ export const dashboardMenu = [
     items: [
         {
           name: 'Group Services',
-          path: 'group-service',
+          path: 'group-services',
           component: GroupServiceSettings,
           serviceType: 'groupServices'
         }, 
         {
-          path: 'user-service',
+          path: 'user-services',
           name: 'User Services',
           component: GroupUserServiceSettings
         }
@@ -81,7 +83,7 @@ export const dashboardMenu = [
         },
 	      {
           name: 'Call Processing Policy',
-          path:  'call-processing-policy' ,
+          path:  'callProcessingPolicy' ,
           angularComponent: 'groupCallProcessingPolicy',
           hasLevel: 'Group'
         },
@@ -92,14 +94,20 @@ export const dashboardMenu = [
         },
         {
           name: 'Feature Access Codes',
-          path:  'feature-access-codes',
+          path:  'featureAccessCodes',
           angularComponent: 'groupFeatureAccessCodes',
           hasLevel: 'Group',
           hasModuleRead: 'Group Feature Access Codes'
         },
         {
+          name: 'Group Web Policy',
+          path:  'groupWebPolicy',
+          component: GroupWebPolicy,
+          hasLevel: 'Service Provider'
+        },
+        {
           name: 'Intercept Group',
-          path: 'intercept' ,
+          path: 'interceptGroup' ,
           angularComponent: 'groupIntercept',
           hasLevel: 'Group',
           hasModuleRead: 'Intercept Group',
@@ -107,7 +115,7 @@ export const dashboardMenu = [
         },
         {
           name: 'Network Class of Service',
-          path:  'network-class-of-services',
+          path:  'networkClassOfServices',
           angularComponent: 'groupNetworkClassOfServices',
           hasLevel: 'Group',
           hasModuleRead: 'Network Class of Service'
@@ -125,14 +133,14 @@ export const dashboardMenu = [
         },
         {
           name: 'Viewable Packs',
-          path: 'viewable-packs',
+          path: 'viewablePacks',
           angularComponent: 'groupViewablePacksIndex',
           hasLevel: 'Group',
           hasModuleRead: 'Viewable Service Packs'
         },
         { 
           name: 'VDM',
-          path:  'vdm',
+          path:  'VDM',
           angularComponent: 'vdmDashboard',
           hasLevel: 'Group',
           hasModuleRead: 'VDM'

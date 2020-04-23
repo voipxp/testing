@@ -164,8 +164,14 @@ function controller(
     }
   }
   function back() {
-     if(ACL.is('Group')){
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'group-service/call-park')
+     if(ACL.is('Group') || ACL.is('Service Provider') ){
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'group-services',
+        'callPark'
+      )
     }else{
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPark')
     }

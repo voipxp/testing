@@ -84,11 +84,16 @@ function controller(ACL, Alert, GroupCollaborateService, Route, $location) {
   function back() {
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'collaborate')
-    } else if(ACL.is('Group')){
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId,'group-service/collaborate')
-    }else{
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'collaborate')
-    }
+    } else if(ACL.is('Group') || ACL.is('Service Provider')) {
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'group-services',
+        'collaborate'
+      )
+    }else Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'collaborate')
+     
   }
 
 }

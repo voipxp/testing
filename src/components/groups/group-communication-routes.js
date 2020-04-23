@@ -11,14 +11,14 @@ export const GroupCommunication = [
       },
 	  { 
         name: 'Comm Barring Auth Codes',
-        path:  'comm-barring-auth-codes',
+        path:  'commBarringAuthCodes',
         angularComponent: 'groupCommunicationBarringAuthorizationCodes',
         hasLevel: 'Group',
         hasModuleRead : 'Comm Barring Auth Codes'
     },
     {
       name: 'Calling Plans',
-      path:  'calling-plans', 
+      path:  'callingPlans', 
       angularComponent: 'groupCallingPlans',
       hasLevel: 'Group'
     }

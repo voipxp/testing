@@ -18,7 +18,7 @@ function controller(ACL, Route) {
   ctrl.open = open
 
   function open(callingPlan) { 
-    if(ACL.is('Group')){
+    if(ACL.is('Group') || ACL.is('Service Provider')){
       if(callingPlan){
         Route.open(
           'groups',
@@ -32,7 +32,8 @@ function controller(ACL, Route) {
           'groups',
           ctrl.serviceProviderId,
           ctrl.groupId,
-          'comm-barring/calling-plans'
+          'comm-barring',
+          'callingPlans'
         ).hash(null)
       }
     }else{

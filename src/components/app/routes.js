@@ -285,6 +285,11 @@ export const routes = [
     hasLevel: 'Group'
   }, */
   {
+    path: '/groups/:serviceProviderId/:groupId/devices/:deviceName',
+    angularComponent: 'groupDevice',
+    hasLevel: 'Group'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/deviceTypes/deviceType',
     angularComponent: 'groupDeviceType',
     hasLevel: 'Group'
@@ -320,11 +325,6 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/devices',
     angularComponent: 'groupDevices',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/devices/:deviceName',
-    angularComponent: 'groupDevice',
     hasLevel: 'Group'
   },
   {
