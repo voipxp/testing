@@ -125,7 +125,7 @@ export const dashboardMenu = [
         },
         {
           name: 'Viewable Packs',
-          path: 'viewablePacks',
+          path: 'viewable-packs',
           angularComponent: 'groupViewablePacksIndex',
           hasLevel: 'Group',
           hasModuleRead: 'Viewable Service Packs'
