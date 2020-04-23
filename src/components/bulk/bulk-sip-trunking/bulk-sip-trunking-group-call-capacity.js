@@ -3,8 +3,11 @@ import PropTypes from 'prop-types'
 import { useAsync } from 'react-async-hook'
 import { UiCard, UiCardModal, UiButton, UiLoading } from '@/components/ui'
 import { Button } from 'rbx'
+// import { BulkSelectServiceProviderTrunk } from '../bulk-select-service-provider-trunk'
+// import { BulkAddEnterpriseTrunk } from '../bulk-add-enterprise-trunk'
 import callCapacityApi from '@/api/group-services/group-trunk-group-call-capacity-service'
 import { GroupTrunkGroupsCallCapacity } from '@/components/groups'
+
 import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
 import { useAlerts } from '@/store/alerts'
 
@@ -16,9 +19,12 @@ export const BulkSipTrunkingGroupCallCapacity = ({
 }) => {
   const { serviceProviderId, groupId } = initialData
   const spMaxActiveCalls = initialData['serviceProvider.maxActiveCalls']
-  const spBurstingMaxActiveCalls = initialData['serviceProvider.burstingMaxActiveCalls']
+  const spBurstingMaxActiveCalls =
+    initialData['serviceProvider.burstingMaxActiveCalls']
+
   const { alertDanger } = useAlerts()
   const [taskData, setTaskData] = React.useState({})
+  const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
   const [addTrunkClicked, setAddTrunkClicked] = React.useState(false)
   const [groupMaxActiveCalls, setGroupMaxActiveCalls] = React.useState(0)
   const [
@@ -75,7 +81,12 @@ export const BulkSipTrunkingGroupCallCapacity = ({
     task['serviceProviderId'] = initialData.serviceProviderId
     task['groupId'] = initialData.groupId
     tasks.push(task)
-
+    /*
+	  const tempInitData = {...initialData}
+	  tempInitData['serviceProvider.maxActiveCalls'] = taskData.maxActiveCalls
+	  tempInitData['serviceProvider.burstingMaxActiveCalls'] = taskData.burstingMaxActiveCalls
+	  handleWizData(tempInitData)
+	*/
     return tasks
   }
 
@@ -130,6 +141,7 @@ export const BulkSipTrunkingGroupCallCapacity = ({
           style={{ float: 'right' }}
           color="link"
           onClick={setToNext}
+          disabled={isNextBtnDisabled}
         >
           Next
         </Button>

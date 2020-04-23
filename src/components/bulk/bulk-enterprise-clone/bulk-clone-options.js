@@ -49,7 +49,6 @@ export const BulkCloneOptions = props => {
 
   useEffect(() => {
     props.handleOptions(options)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleInput = (event, index) => {
@@ -87,6 +86,16 @@ export const BulkCloneOptions = props => {
           <ul>{prepareOptions}</ul>
         </div>
       </UiCard>
+
+      {/* <div style={{marginTop: '20px'}}>
+        <Button style={{float: 'right'}}
+              color="success"
+              onClick={ props.complete}
+              disabled = { isNextBtnDisabled }
+            >
+              Save
+        </Button>
+      </div> */}
     </>
   )
 }

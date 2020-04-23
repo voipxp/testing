@@ -15,10 +15,12 @@ export const BulkSipTrunkingGroup = ({
 }) => {
   const { serviceProviderId, sourceServiceProviderId } = initialData
   const sourceSPId = (sourceServiceProviderId && sourceServiceProviderId!== '') ? sourceServiceProviderId : serviceProviderId
+
   const { alertDanger } = useAlerts()
   const [taskData, setTaskData] = React.useState({})
+  const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
   const [cloneGroupClicked, setCloneGroupClicked] = React.useState(false)
-  const isNextBtnDisabled = true
+
   const setStateTaskData = (data) => {
     setTaskData(data)
   }
@@ -51,6 +53,7 @@ const prepareImportData = () => {
 }
 	const prepareImport = () => {
       const tasks = []
+      // initialState.forEach(function(el, i) {
         const task = {
           task: 'group.bulk.clone',
           'source.serviceProviderId': taskData.sourceServiceProviderId || null,
@@ -69,12 +72,17 @@ const prepareImportData = () => {
 
         task['options'] = options
         tasks.push(task)
-        const tempData = { ...initialData }
-        tempData['groupId'] = taskData.destinationGroupId
-        tempData['sourceGroupId'] = taskData.sourceGroupId
-        /* Set to props which will be used in the next component, This is HOC */
-        handleWizData({...tempData })
-        return tasks
+      // })
+      /* Set to props which will be used in the next component, This is HOC */
+
+    const tempData = { ...initialData }
+    tempData['groupId'] = taskData.destinationGroupId
+    tempData['sourceGroupId'] = taskData.sourceGroupId
+    /* Set to props which will be used in the next component, This is HOC */
+    handleWizData({...tempData })
+    // handleWizData({...initialData, groupId: taskData.destinationGroupId })
+
+      return tasks
   }
 
   const cloneGroupModal = (

@@ -204,7 +204,7 @@ function controller(
   }
 
   function stringToBooleanValue(user) {
-    Object.keys(user).forEach( key => {
+    Object.keys(user).map( key => {
         if( user[key] === "TRUE" || user[key] === "true" ) {
           user[key] = true
         }

@@ -27,12 +27,20 @@ export const BulkSipTrunkingUsers = (props) => {
   const [taskData, setTaskData] = React.useState({})
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
   const [createUserClicked, setCreateUserClicked] = React.useState(false)
+  const [selectedItems, setSelectedItems] = React.useState({availableUser:[], selectedUser: []})
 
   const setStateTaskData = (data) => {
     setTaskData(data)
   }
+
   const settUsers = (usersData) => {
+    const temp = {
+      availableUser: usersData.availableUser,
+      selectedUser: usersData.selectedUser
+    }
+    setSelectedItems(temp)
     setDisableNextButton(false)
+    //setDisableNextButton(temp.selectedUser.length <= 0)
   }
 
 	const createTask = () => {
@@ -80,6 +88,9 @@ const prepareImportData = () => {
           address: taskData.address,
           domain: taskData.domain,
           endpointType: 'trunkAddressing',
+          // 'trunkAddressing.enterpriseTrunkName': taskData.trunkAddressing.enterpriseTrunkName,
+          // 'trunkAddressing.trunkGroupDeviceEndpoint.name': taskData.trunkAddressing.trunkGroupDeviceEndpoint.name,
+          // 'trunkAddressing.trunkGroupDeviceEndpoint.linePort': taskData.trunkAddressing.trunkGroupDeviceEndpoint.linePort,
           allowAccessDeviceUpdate: taskData.allowAccessDeviceUpdate
         }
 
@@ -147,6 +158,8 @@ const prepareImportData = () => {
         }
       >
       <BulkSelectUserId
+        // serviceProviderId = {props.initialData.serviceProviderId}
+        // groupId = {props.initialData.groupId}
         serviceProviderId = {serviceProviderId}
         groupId = {groupId}
         settUsers={settUsers}

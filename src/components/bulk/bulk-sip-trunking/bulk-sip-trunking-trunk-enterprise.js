@@ -4,6 +4,7 @@ import { useAsync } from 'react-async-hook'
 import { UiCard, UiCardModal, UiButton, UiLoading } from '@/components/ui'
 import { Button } from 'rbx'
 import { BulkSelectServiceProviderTrunk } from '../bulk-select-service-provider-trunk'
+// import { BulkAddEnterpriseTrunk } from '../bulk-add-enterprise-trunk'
 import { ServiceProviderTrunkGroupsCallCapacity } from '@/components/service-provider'
 import callCapacityApi from '@/api/service-providers-services/service-provider-trunk-group-call-capacity-service'
 import { BulkImportService } from '@/components/bulk/service/bulk-import-service'
@@ -18,6 +19,7 @@ export const BulkSipTrunkingTrunkEnterprise = ({
   const { serviceProviderId } = initialData
   const { alertDanger } = useAlerts()
   const [taskData, setTaskData] = React.useState({})
+  const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
   const [addTrunkClicked, setAddTrunkClicked] = React.useState(false)
   const [spMaxActiveCalls, setSpMaxActiveCalls] = React.useState(0)
   const [
@@ -33,19 +35,22 @@ export const BulkSipTrunkingTrunkEnterprise = ({
     if (!loading && !error) {
       setSpMaxActiveCalls(result.maxActiveCalls)
       setSpBurstingMaxActiveCalls(result.burstingMaxActiveCalls)
+
+      // const tempInitData = {...initialData}
+      // tempInitData['serviceProvider.maxActiveCalls'] = result.maxActiveCalls
+      // tempInitData['serviceProvider.burstingMaxActiveCalls'] = result.burstingMaxActiveCalls
+      // handleWizData(tempInitData)
     }
   }, [result, loading, error])
 
   useEffect(() => {
-    if (initialData['serviceProvider.maxActiveCalls'] !== spMaxActiveCalls ||
-        initialData['serviceProvider.burstingMaxActiveCalls'] !== spBurstingMaxActiveCalls
-    ) {
-      const tempInitData = { ...initialData }
-      tempInitData['serviceProvider.maxActiveCalls'] = spMaxActiveCalls
-      tempInitData['serviceProvider.burstingMaxActiveCalls'] = spBurstingMaxActiveCalls
-      handleWizData(tempInitData)
-    }
-  }, [spMaxActiveCalls, spBurstingMaxActiveCalls, handleWizData, initialData])
+    const tempInitData = { ...initialData }
+    tempInitData['serviceProvider.maxActiveCalls'] = spMaxActiveCalls
+    tempInitData[
+      'serviceProvider.burstingMaxActiveCalls'
+    ] = spBurstingMaxActiveCalls
+    handleWizData(tempInitData)
+  }, [spMaxActiveCalls, spBurstingMaxActiveCalls])
 
   if (loading) return <UiLoading />
 
@@ -86,6 +91,13 @@ export const BulkSipTrunkingTrunkEnterprise = ({
       'task': 'trunk.group.call.capacity',
       'serviceProvider.maxActiveCalls': taskData.maxActiveCalls,
       'serviceProvider.burstingMaxActiveCalls': taskData.burstingMaxActiveCalls
+      // "name": taskData.name,
+      // "maxRerouteAttempts": taskData.maxRerouteAttempts,
+      // "exhaustionAction": taskData.exhaustionAction,
+      // "forwardTo": taskData.forwardTo,
+      // "routingType": taskData.routingType,
+      // "maxReroutesInPriority": taskData.maxReroutesInPriority,
+      // "orderingAlgorithm": taskData.orderingAlgorithm
     }
     task['serviceProviderId'] = initialData.serviceProviderId
 
@@ -145,6 +157,7 @@ export const BulkSipTrunkingTrunkEnterprise = ({
           style={{ float: 'right' }}
           color="link"
           onClick={setToNext}
+          disabled={isNextBtnDisabled}
         >
           Next
         </Button>

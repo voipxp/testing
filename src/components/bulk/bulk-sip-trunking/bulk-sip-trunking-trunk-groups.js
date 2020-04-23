@@ -13,8 +13,10 @@ export const BulkSipTrunkingTrunkGroups = ({
   handleWizData,
   localStorageKey
 }) => {
+
   const { alertSuccess, alertDanger } = useAlerts()
 	const [taskData, setTaskData] = React.useState({})
+  const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
   const [add, setAdd] = React.useState(false)
 
   const setTaskDataHandler = (data) => {
@@ -152,6 +154,7 @@ const prepareImportData = () => {
         <Button style={{float: 'right'}}
               color="link"
               onClick={ setToNext}
+              disabled = { isNextBtnDisabled }
             >
               Next
         </Button>

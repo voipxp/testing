@@ -11,6 +11,8 @@ export const BulkSipTrunkingNumbers = props => {
   const { serviceProviderId, groupId } = props.initialData
   const { alertDanger } = useAlerts()
   const [numbers, setNumbers] = React.useState({})
+  const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
+  // const [createNumberClicked, setCreateNumberClicked] = React.useState(false)
   const [add, setAdd] = React.useState(false)
   const [numbersArray, setNumbersArray] = React.useState([])
   const setStateTaskData = data => {
@@ -95,6 +97,7 @@ export const BulkSipTrunkingNumbers = props => {
           style={{ float: 'right' }}
           color="link"
           onClick={props.setToNext}
+          disabled={isNextBtnDisabled}
         >
           Next
         </Button>

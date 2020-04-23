@@ -13,9 +13,10 @@ export const BulkSipTrunkingDevices = ({
   handleWizData,
   localStorageKey
 }) => {
+
   const { alertSuccess, alertDanger } = useAlerts()
 	const [taskData, setTaskData] = React.useState({})
-  const isNextBtnDisabled = true
+  const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
   const [add, setAdd] = React.useState(false)
 
   const setTaskDataHandler = (data) => {
@@ -129,7 +130,8 @@ export const BulkSipTrunkingDevices = ({
         <Button style={{float: 'right'}}
               color="link"
               onClick={ setToNext}
-			        disabled = { isNextBtnDisabled }            >
+              disabled = { isNextBtnDisabled }
+            >
               Next
         </Button>
       </div>

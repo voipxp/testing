@@ -22,6 +22,7 @@ export const BulkSipTrunking = () => {
     ...initial
   })
   const [menuTemp, setMenuTemp] = React.useState([...menu])
+  const [prepareData, setPrepareData] = React.useState([])
   const [redirect, setRedirect] = React.useState(false)
 
   const handleWizData = data => {
@@ -29,11 +30,14 @@ export const BulkSipTrunking = () => {
   }
 
   useEffect(() => {
-    menuTemp.forEach(item => {
+    menu.forEach(item => {
       StorageService.clearStorage(item.localStorageKey)
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [menu])
+
+  useEffect(() => {
+    setPrepareData([])
+  }, [sipTrunkShareableData])
 
   const handleSetMenu = menuData => {
     setMenuTemp(menuData)

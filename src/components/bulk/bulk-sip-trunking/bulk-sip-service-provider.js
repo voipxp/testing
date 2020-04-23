@@ -15,7 +15,7 @@ export const BulkSipServiceProvider = ({
 }) => {
   const { alertDanger } = useAlerts()
   const [taskData, setTaskData] = React.useState({})
-  const isNextBtnDisabled = true
+  const [isNextBtnDisabled, setDisableNextButton] = React.useState(true)
   const [cloneEnterpriseClicked, setCloneEnterpriseClicked] = React.useState(
     false
   )

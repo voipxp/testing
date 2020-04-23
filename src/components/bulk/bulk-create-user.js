@@ -186,7 +186,7 @@ export const BulkCreateUser = ({
 
   useEffect(() => {
     setTaskData(form)
-  }, [form, setTaskData])
+  }, [form])
 
   useEffect(() => {
     const tempForm = { ...form }

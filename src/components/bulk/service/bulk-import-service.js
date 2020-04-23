@@ -1,3 +1,6 @@
+//import { UiLoadingCard, UiMenu } from '@/components/ui'
+// import CSVReader from 'react-csv-reader'
+// import styled from 'styled-components'
 import _ from 'lodash'
 import { BulkTaskService } from '@/components/bulk'
 import { StorageService, UtilityService } from '@/utils'
@@ -77,7 +80,7 @@ const booleanTostring = data => {
 }
 
 const booleanTostringValue = user => {
-  Object.keys(user).forEach(key => {
+  Object.keys(user).map(key => {
     user[key] =
       user[key] === null || user[key] === '' || user[key] === undefined
         ? ''
