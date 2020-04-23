@@ -4,16 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { useAlerts } from '@/store/alerts'
 import { useUi } from '@/store/ui'
-import { useSession } from '@/store/session'
 import { useUiTemplate } from '@/store/ui-template'
-import groupWebPolicy from '@/api/group-web-policy'
 import authApi from '@/api/auth'
-import { AppResetPassword } from '@/components/app'
+import PropTypes from 'prop-types'
 
-export const AppLogin = () => {
-  const { setSession } = useSession()
+export const AppResetPassword = (props) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
-  const { alertWarning, alertDanger } = useAlerts()
+  const { alertSuccess, alertWarning, alertDanger } = useAlerts()
 
   const { template } = useUiTemplate()
   const { pageLoginMessage } = template
@@ -25,43 +22,14 @@ export const AppLogin = () => {
     newPassword1: '',
     newPassword2: ''
   })
-  const [needsChange, setNeedsChange] = React.useState(false)
-  const [valid, setValid] = React.useState(false)
-
-  const [needResetPassword, setNeedResetPassword] = React.useState(false)
 
   function handleSubmit(e) {
     e.preventDefault()
-    needsChange ? changePassword() : login()
+    changePassword()
   }
 
   function handleInput(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
-    /* wrapped in a setTimeout to handle autofill */
-    setTimeout(() => setValid(formRef.current.checkValidity()), 0)
-  }
-
-  async function login() {
-    try {
-      showLoadingModal()
-      const session = await authApi.token(form.username, form.password)
-
-      if(session.loginType === 'Group Department') {
-        session.policy = await groupWebPolicy.showWithToken(session.serviceProviderId, session.groupId, session.token)
-      }
-
-      await setSession(session)
-    } catch (error) {
-      if (error.status === 402) {
-        alertWarning(error)
-        setNeedsChange(true)
-        setValid(false)
-      } else {
-        alertDanger(error)
-      }
-    } finally {
-      hideLoadingModal()
-    }
   }
 
   async function changePassword() {
@@ -70,34 +38,29 @@ export const AppLogin = () => {
     }
     try {
       showLoadingModal()
-      const session = await authApi.tokenPassword(
+      await authApi.tokenPassword(
         form.password,
         form.newPassword1,
         form.username
       )
-      await setSession(session)
+      props.resetPassword(false)
+      alertSuccess('Password has been reset successfully!')
     } catch (error) {
       alertDanger(error)
     } finally {
       hideLoadingModal()
     }
   }
-  const resetPassword = () => {
-    setNeedResetPassword(true)
-  }
 
   return (
-    needResetPassword
-    ?
-    <AppResetPassword resetPassword={(boolVal) => setNeedResetPassword(boolVal)}/>
-    :
     <div id="pbs-login">
       <Hero color="link" size="fullheight">
         <Hero.Body textAlign="centered">
           <Box style={{ width: '400px', margin: 'auto' }}>
             <img src="/api/v2/ui/images/imageLoginLogo.png" alt="logo" />
             <form onSubmit={handleSubmit} ref={formRef}>
-              <Field>
+                <>
+                <Field>
                 <Control iconLeft>
                   <Input
                     type="text"
@@ -130,8 +93,6 @@ export const AppLogin = () => {
                 </Control>
               </Field>
 
-              {needsChange && (
-                <>
                   <Field>
                     <Control iconLeft>
                       <Input
@@ -152,7 +113,7 @@ export const AppLogin = () => {
                     <Control iconLeft>
                       <Input
                         type="password"
-                        placeholder="New Password"
+                        placeholder="Confirm New Password"
                         name="newPassword2"
                         onChange={handleInput}
                         value={form.newPassword2}
@@ -164,22 +125,16 @@ export const AppLogin = () => {
                     </Control>
                   </Field>
                 </>
-              )}
-
-              <Button color="link" fullwidth type="submit" disabled={!valid}>
-                Login
-              </Button>
-            </form>
-            {
-              !needsChange
-              ?
-              <Button style={{marginTop: '5px'}} color="link" fullwidth type="submit" onClick={resetPassword}>
+              <Button color="link" fullwidth type="submit">
                 Reset Password
               </Button>
-              :
-              null
-            }
-
+              <Button style={{marginTop: '5px'}}
+                onClick={() => props.resetPassword(false)}
+                color="link" fullwidth
+                type="submit">
+                Go to Login Page
+              </Button>
+            </form>
           </Box>
         </Hero.Body>
 
@@ -195,4 +150,8 @@ export const AppLogin = () => {
       </Hero>
     </div>
   )
+}
+
+AppResetPassword.propTypes = {
+  resetPassword: PropTypes.func
 }

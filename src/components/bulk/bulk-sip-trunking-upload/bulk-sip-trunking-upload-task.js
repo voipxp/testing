@@ -6,14 +6,22 @@ import { BulkImportUpload } from '@/components/bulk/bulk-sip-trunking-upload/bul
 export const BulkSipTrunkingUploadTask = props => {
   const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
 
+  const onComplete = (obj) => {
+    const isCompleted = obj.isCompleted
+    props.whenTaskIsCompleted(props.name, isCompleted)
+    if(isCompleted) props.setToNext()
+  }
+
   const memoizedValue = useMemo(
     () => (
       <BulkImportUpload
         {...props}
         expectedTaskType={props.task}
         setDisableNextButton={boolValue => setDisableNextButton(boolValue)}
+        onComplete={obj => onComplete(obj)}
       />
     ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [props]
   )
 
@@ -25,7 +33,6 @@ export const BulkSipTrunkingUploadTask = props => {
           style={{ float: 'right' }}
           color="link"
           onClick={props.setToNext}
-          // disabled = { isNextBtnDisabled }
         >
           Next
         </Button>
@@ -37,5 +44,7 @@ export const BulkSipTrunkingUploadTask = props => {
 BulkSipTrunkingUploadTask.propTypes = {
   localStorageKey: PropTypes.string,
   task: PropTypes.string,
-  setToNext: PropTypes.func
+  name: PropTypes.string,
+  setToNext: PropTypes.func,
+  whenTaskIsCompleted: PropTypes.func
 }
