@@ -74,7 +74,8 @@ export const BulkWizMenu = ({
             handleWizData={handleWizData}
             setToNext={setToNext}
             complete={wizardComplete}
-			whenTaskIsCompleted={whenTaskIsCompleted}            {...currentItem}
+			      whenTaskIsCompleted={whenTaskIsCompleted}
+            {...currentItem}
           />
         ) : (
           ''
@@ -95,8 +96,8 @@ export const BulkWizMenu = ({
               className={cx({ disabled: item.isDisabled && disableNextItem })}
               onClick={() => handleClick(item, index)}
             >
-              {/* <FontAwesomeIcon style={{color: 'green'}} icon={faCheck} />   */}
-			  { item.completed ? <UiCheckbox isChecked={true} /> : null }&nbsp;              {item.name}
+			        { item.completed ? <UiCheckbox isChecked={true} /> : null }&nbsp;
+              {item.name}
             </Menu.List.Item>
           )
         })}
@@ -131,4 +132,5 @@ BulkWizMenu.propTypes = {
   setMenu: PropTypes.func,
   wizardComplete: PropTypes.func,
   disableNextItem: PropTypes.bool,
-whenTaskIsCompleted: PropTypes.func}
+  whenTaskIsCompleted: PropTypes.func
+}
