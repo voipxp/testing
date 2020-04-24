@@ -36,13 +36,10 @@ export const BulkSipTrunkingAuthentication = ({
 
   const [form, setForm] = useState({ ...initialForm })
   const { serviceProviderId, groupId } = initialData
-  const [isNextBtnDisabled, setDisableNextButton] = useState(false)
   const [isUserName, setUserNameVisible] = useState(false)
   const [isPasswordVisible, setPasswordVisible] = useState(false)
   const { alertSuccess, alertDanger } = useAlerts()
-  const [tagBundleTemplateClick, setTagBundleTemplateClick] = React.useState(
-    false
-  )
+  const [tagBundleTemplateClick, setTagBundleTemplateClick] = React.useState(false)
   const [selectedTagInput, setSelectedTagInput] = React.useState('')
 
   const handleInput = event => {
@@ -268,7 +265,6 @@ onKeyPress={handleKeyDown}
           style={{ float: 'right' }}
           color="link"
           onClick={handleTask}
-          disabled={isNextBtnDisabled}
         >
           Next
         </Button>

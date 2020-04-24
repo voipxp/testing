@@ -76,7 +76,6 @@ export const BulkSelectGroupServices = ({
       return filterServices(services)
     })
     .then( (services) => {
-      console.log(services)
       return setServices(services)
     })
     ,[]
@@ -98,7 +97,7 @@ export const BulkSelectGroupServices = ({
     }
       return service
     })
-    
+
     setServices(newServices)
   }
 
