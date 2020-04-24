@@ -9,13 +9,15 @@ export const BulkImport = ({
   users = [],
   task,
   action,
-onTaskCompletion,  deleteLocalStorage,
+  onTaskCompletion,
+  deleteLocalStorage,
   onError,
   setTaskId
 }) => {
   const { alertSuccess, alertDanger } = useAlerts()
   const canSetTaskId = isFunction(setTaskId)
-const canOnTaskCompletion = isFunction(onTaskCompletion)  let taskId = ''
+  const canOnTaskCompletion = isFunction(onTaskCompletion)
+  let taskId = ''
 
   useEffect(() => {
     submit(users)
@@ -36,7 +38,8 @@ const canOnTaskCompletion = isFunction(onTaskCompletion)  let taskId = ''
       .then(function() {
         alertSuccess(task + ' is successful')
         deleteLocalStorage(true)
-if (canOnTaskCompletion) onTaskCompletion()      })
+        if (canOnTaskCompletion) onTaskCompletion()
+      })
       .catch(function(error) {
         onError()
         alertDanger(error)

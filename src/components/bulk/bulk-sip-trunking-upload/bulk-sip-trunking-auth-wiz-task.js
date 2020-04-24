@@ -8,7 +8,9 @@ export const BulkSipTrunkingAuthWizTask = props => {
  const onComplete = (obj) => {
     const isCompleted = obj.isCompleted
     props.whenTaskIsCompleted(props.name, isCompleted)
-  }  const memoizedValue = useMemo(
+  }
+
+  const memoizedValue = useMemo(
     () => (
       <BulkImportUpload
         {...props}
@@ -16,7 +18,8 @@ export const BulkSipTrunkingAuthWizTask = props => {
         onComplete={obj => onComplete(obj)}
       />
     ),
-// eslint-disable-next-line react-hooks/exhaustive-deps    [props]
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  [props]
   )
 
   return (

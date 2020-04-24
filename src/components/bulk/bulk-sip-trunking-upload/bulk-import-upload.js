@@ -62,7 +62,7 @@ import {
         if(deleteLocalStorage) {
           StorageService.clearStorage(localStorageKey).then(function() {
             finalSteps()
-            if(canOnComplete) onComplete(users)
+           // if(canOnComplete) onComplete(users)
           })
         }
       }
@@ -235,9 +235,11 @@ import {
       })
     }
 
-const onTaskCompletion = () => {
+    const onTaskCompletion = () => {
       if(canOnComplete)  onComplete({'isCompleted': true})
-    }    return loading ? <UiLoading /> :
+    }
+
+    return loading ? <UiLoading /> :
     <>
       {
         ( importTask ) ?
@@ -246,7 +248,8 @@ const onTaskCompletion = () => {
           task={task}
           action={action}
           deleteLocalStorage={ (boolValue) => setDeleteLocalStorage(boolValue) }
-onTaskCompletion={onTaskCompletion}          onError={onError}
+          onTaskCompletion={onTaskCompletion}
+          onError={onError}
           setTaskId={ (id) => setTaskId(id) }
         /> : null
       }
@@ -349,4 +352,5 @@ onTaskCompletion={onTaskCompletion}          onError={onError}
     initialData: PropTypes.object,
     addUsers: PropTypes.bool,
     expectedTaskType: PropTypes.string,
-label: PropTypes.string  }
+    label: PropTypes.string
+  }

@@ -36,6 +36,7 @@ export const BulkSipTrunkingUpload = () => {
     if(!_.isEqual(tempMenu, menuTemp)) setMenuTemp([...tempMenu])
    // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [])
+
    return <>
      { redirect ? <Redirect to='/bulk' /> : null}
      <AppBreadcrumb>
@@ -43,9 +44,10 @@ export const BulkSipTrunkingUpload = () => {
       <Breadcrumb.Item>SIP Trunking Upload</Breadcrumb.Item>
     </AppBreadcrumb>
      <BulkWizMenu
-       menu={menuTemp}
-       setMenu={(menuData) => handleSetMenu(menuData)}
-       wizardComplete={wizardComplete}
-		whenTaskIsCompleted={whenTaskIsCompleted}     />
+        menu={menuTemp}
+        setMenu={(menuData) => handleSetMenu(menuData)}
+        wizardComplete={wizardComplete}
+		    whenTaskIsCompleted={whenTaskIsCompleted}
+      />
    </>
 }
