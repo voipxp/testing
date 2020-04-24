@@ -7,7 +7,7 @@ export const dashboardMenu = [
     items: [
       {
         name: 'Administrators',
-        path:  'admins' ,
+        path:  'Administrators' ,
 		    angularComponent: 'serviceProviderAdmins',
 		    hasLevel: 'Service Provider'
       },
