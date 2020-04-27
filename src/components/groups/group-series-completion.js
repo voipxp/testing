@@ -48,6 +48,8 @@ export const GroupSeriesCompletion = ({ match }) => {
         serviceProviderId,
         groupId
       )
+
+      console.log(avaliableUsersList)
       setAvailableUser(avaliableUsersList)
       setAllAvailableUser(avaliableUsersList)
       const data = await apiSeriesCompletion.show(serviceProviderId, groupId)

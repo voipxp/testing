@@ -3,7 +3,7 @@ import { DepartmentDashboard } from '@/components/departments'
 import { CreateAutoAttendant } from '@/components/autoAttendant'
 import {
   ServiceProviderAddDomains
-} from '@/components/service-providers'
+} from '@/components/service-provider'
 import {
   GroupCommunicationBarring,
   GroupSpeedDial8,
@@ -12,7 +12,7 @@ import {
   GroupNumbers,
   GroupSeriesCompletion
 } from '@/components/groups'
-import { SystemResellers } from '../system'
+import { SystemResellers,SystemDomains } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
@@ -166,6 +166,11 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/admins',
     angularComponent: 'groupAdmins',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/addDomains',
+    angularComponent: 'groupAddDomains',
     hasLevel: 'Group'
   },
   {
@@ -754,6 +759,11 @@ export const routes = [
     path: '/system/dn',
     angularComponent: 'systemDn',
     hasLevel: 'Provisioning'
+  },
+  {
+    path: '/system/domains',
+    component: SystemDomains,
+    hasLevel: 'System'
   },
   {
     path: '/system/collaborate',
