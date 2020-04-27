@@ -3,7 +3,7 @@ import { Menu, Column } from 'rbx'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-
+import { UiCheckbox } from '@/components/ui'
 const StyledMenu = styled.div`
   background-color: white;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
@@ -16,10 +16,11 @@ export const BulkWizMenu = ({
   handleWizData,
   setMenu,
   wizardComplete,
-  disableNextItem = false
+  whenTaskIsCompleted,  disableNextItem = false
 }) => {
   useEffect(() => {
     handleMenuItems()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleClick = (item, index) => {
@@ -73,6 +74,7 @@ export const BulkWizMenu = ({
             handleWizData={handleWizData}
             setToNext={setToNext}
             complete={wizardComplete}
+			      whenTaskIsCompleted={whenTaskIsCompleted}
             {...currentItem}
           />
         ) : (
@@ -94,7 +96,7 @@ export const BulkWizMenu = ({
               className={cx({ disabled: item.isDisabled && disableNextItem })}
               onClick={() => handleClick(item, index)}
             >
-              {/* <FontAwesomeIcon style={{color: 'green'}} icon={faCheck} />   */}
+			        { item.completed ? <UiCheckbox isChecked={true} /> : null }&nbsp;
               {item.name}
             </Menu.List.Item>
           )
@@ -129,5 +131,6 @@ BulkWizMenu.propTypes = {
   handleWizData: PropTypes.func,
   setMenu: PropTypes.func,
   wizardComplete: PropTypes.func,
-  disableNextItem: PropTypes.bool
+  disableNextItem: PropTypes.bool,
+  whenTaskIsCompleted: PropTypes.func
 }

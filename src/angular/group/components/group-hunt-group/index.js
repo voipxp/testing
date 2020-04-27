@@ -4,7 +4,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupHuntGroup', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<'}
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
@@ -107,9 +107,7 @@ function controller(
   function back() {
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
-    } else if(ACL.is('Group')){
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'group-service/hunt-groups')
-    }else{
+    } else {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
     }
   }

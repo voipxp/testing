@@ -1,19 +1,8 @@
-<!--<group-trunk-group-navigation
+<group-trunk-group-navigation
   module="$ctrl.module"
   service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
-></group-trunk-group-navigation> -->
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
-  module="$ctrl.module"
->
-  <pbs-breadcrumb
-    title="$ctrl.module.name"
-    ng-click="$ctrl.back()"
-  ></pbs-breadcrumb>
-  <pbs-breadcrumb title="$ctrl.trunkName"></pbs-breadcrumb>
-</pbs-navigation>
+></group-trunk-group-navigation>
 
 <pbs-menu delay="true">
   <pbs-menu-section label="Settings">

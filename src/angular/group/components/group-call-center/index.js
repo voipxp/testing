@@ -32,7 +32,7 @@ function controller(
   ctrl.updateProfile = updateProfile
   ctrl.destroy = destroy
   ctrl.hasPermission = hasPermission
-  ctrl.back = back
+
   function activate() {
     ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
@@ -98,15 +98,5 @@ function controller(
 
   function hasPermission(attribute) {
     return GroupCallCenterService.hasPermission(ctrl.center, attribute)
-  }
-
-  function back() {
-    if(ACL.is('Group Department')) {
-      Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
-    } else if(ACL.is('Group')) {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId,'group-service/call-centers')
-    } else {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
-    }
   }
 }

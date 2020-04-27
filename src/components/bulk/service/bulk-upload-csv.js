@@ -23,6 +23,9 @@ export const BulkUploadCsv = ({
         return addIndex(data)
       })
       .then(function(data) {
+        return booleanTostring(data)
+      })
+      .then(function(data) {
         return clean(data)
       })
       .then(function(data) {
@@ -96,6 +99,20 @@ export const BulkUploadCsv = ({
     })
   }
 
+  const booleanTostring = (users) => {
+    const temp = users.map(booleanTostringValue)
+    return Promise.resolve([...temp])
+  }
+
+  const booleanTostringValue = user => {
+    const temp = {}
+    Object.keys(user).forEach(key => {
+      if (user[key] === true) temp[key] = 'true'
+      else if (user[key] === false) temp[key] = 'false'
+      else temp[key] = user[key]
+    })
+    return temp
+  }
   return (
     <>
       <CSVReader

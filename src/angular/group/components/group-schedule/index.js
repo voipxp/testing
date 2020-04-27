@@ -7,15 +7,15 @@ angular.module('odin.group').component('groupSchedule', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['ACL','Alert', 'GroupScheduleService', 'Route', '$location']
-function controller(ACL, Alert, GroupScheduleService, Route, $location) {
+controller.$inject = ['Alert', 'GroupScheduleService', 'Route', '$location']
+function controller(Alert, GroupScheduleService, Route, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.back = back
   ctrl.edit = edit
 
   function onInit() {
-    ctrl.type = $location.search().type 
+    ctrl.type = $location.search().type
     ctrl.name = $location.search().name
     ctrl.loading = true
     loadSchedule()
@@ -82,28 +82,16 @@ function controller(ACL, Alert, GroupScheduleService, Route, $location) {
     Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'schedules')
   }
 
-   function open(schedule) {
-    if(ACL.is('Group')){
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'schedules',
-        'schedule',
-        schedule.newName,
-        schedule.type
-      )
-    }else{
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'schedules',
-        'schedule'
-      ).search({
-        name: schedule.newName,
+  function open(schedule) {
+    return Route.open(
+      'groups',
+      ctrl.serviceProviderId,
+      ctrl.groupId,
+      'schedules',
+      'schedule'
+    ).search({
+      name: schedule.newName,
       type: schedule.type
-      })
-    }
+    })
   }
 }

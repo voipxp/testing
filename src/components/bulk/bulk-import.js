@@ -9,16 +9,19 @@ export const BulkImport = ({
   users = [],
   task,
   action,
+  onTaskCompletion,
   deleteLocalStorage,
   onError,
   setTaskId
 }) => {
   const { alertSuccess, alertDanger } = useAlerts()
   const canSetTaskId = isFunction(setTaskId)
+  const canOnTaskCompletion = isFunction(onTaskCompletion)
   let taskId = ''
 
   useEffect(() => {
     submit(users)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const submit = users => {
@@ -35,6 +38,7 @@ export const BulkImport = ({
       .then(function() {
         alertSuccess(task + ' is successful')
         deleteLocalStorage(true)
+        if (canOnTaskCompletion) onTaskCompletion()
       })
       .catch(function(error) {
         onError()
@@ -55,13 +59,6 @@ export const BulkImport = ({
   }
 
   const stringToBoolean = data => {
-    // return new Promise(function(resolve) {
-    //   return  resolve(data)
-    // })
-    // return Promise.all(data.map(stringToBooleanValue)).then(function() {
-    //   return data
-    // })
-
     const temp = data.map(stringToBooleanValue)
     return Promise.resolve([...temp])
   }
@@ -117,17 +114,14 @@ export const BulkImport = ({
       type: task,
       data: UtilityService.unflatten(users)
     }
-    // Alert.spinner.open()
     return TaskService.create(taskTemp)
       .then(function(data) {
         taskId = data.id
         alertSuccess('Import Queued: ' + data.id)
-        // Route.open('bulk')
         return data
       })
       .finally(function(data) {
         return data
-        // Alert.spinner.close()
       })
       .catch(function(error) {
         alertDanger(error.data)
@@ -136,7 +130,7 @@ export const BulkImport = ({
 
   const stringToBooleanValue = user => {
     const temp = {}
-    Object.keys(user).map(key => {
+    Object.keys(user).forEach(key => {
       if (user[key] === 'TRUE' || user[key] === 'true') {
         temp[key] = true
       } else if (user[key] === 'FALSE' || user[key] === 'false') {

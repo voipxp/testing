@@ -8,6 +8,7 @@ import { useSession } from '@/store/session'
 import { useUiTemplate } from '@/store/ui-template'
 import groupWebPolicy from '@/api/group-web-policy'
 import authApi from '@/api/auth'
+import { AppResetPassword } from '@/components/app'
 
 export const AppLogin = () => {
   const { setSession } = useSession()
@@ -26,6 +27,8 @@ export const AppLogin = () => {
   })
   const [needsChange, setNeedsChange] = React.useState(false)
   const [valid, setValid] = React.useState(false)
+
+  const [needResetPassword, setNeedResetPassword] = React.useState(false)
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -79,8 +82,15 @@ export const AppLogin = () => {
       hideLoadingModal()
     }
   }
+  const resetPassword = () => {
+    setNeedResetPassword(true)
+  }
 
   return (
+    needResetPassword
+    ?
+    <AppResetPassword resetPassword={(boolVal) => setNeedResetPassword(boolVal)}/>
+    :
     <div id="pbs-login">
       <Hero color="link" size="fullheight">
         <Hero.Body textAlign="centered">
@@ -160,6 +170,16 @@ export const AppLogin = () => {
                 Login
               </Button>
             </form>
+            {
+              !needsChange
+              ?
+              <Button style={{marginTop: '5px'}} color="link" fullwidth type="submit" onClick={resetPassword}>
+                Reset Password
+              </Button>
+              :
+              null
+            }
+
           </Box>
         </Hero.Body>
 

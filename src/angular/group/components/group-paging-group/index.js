@@ -8,12 +8,12 @@ angular.module('odin.group').component('groupPagingGroup', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['ACL', 'Alert', 'Route', 'GroupPagingGroupService', '$location']
-function controller(ACL, Alert, Route, GroupPagingGroupService, $location) {
+controller.$inject = ['Alert', 'Route', 'GroupPagingGroupService', '$location']
+function controller(Alert, Route, GroupPagingGroupService, $location) {
   var ctrl = this
   ctrl.$onInit = activate
   ctrl.open = open
-  ctrl.back = back
+
   ctrl.update = update
 
   function activate() {
@@ -61,15 +61,5 @@ function controller(ACL, Alert, Route, GroupPagingGroupService, $location) {
       'paging',
       serviceUserId
     )
-  }
-  
-  function back() {
-    if(ACL.is('Group Department')) {
-      Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'paging')
-    } else if(ACL.is('Group')){
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'group-service/paging')
-    }else{
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupPagingGroups')
-    }
   }
 }

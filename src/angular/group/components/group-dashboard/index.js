@@ -37,6 +37,7 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
     _cards.forEach(GroupDashboardService.prepareCard)
     ctrl.cards = _cards
   }
+
   // always return a new set
   function cards() {
     var route = Route.path('groups', ctrl.serviceProviderId, ctrl.groupId)

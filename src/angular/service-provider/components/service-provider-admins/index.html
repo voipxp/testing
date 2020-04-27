@@ -1,3 +1,6 @@
+<pbs-navigation service-provider-id="$ctrl.serviceProviderId">
+  <pbs-breadcrumb title="'Administrators'"></pbs-breadcrumb>
+</pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Administrators">
     <pbs-block-buttons ng-if="$ctrl.canUpdate">
@@ -225,9 +228,8 @@
           ></pbs-input-select>
         </pbs-form-field-horizontal>
 
-        <pbs-form-field-horizontal
-          label="Number Activation"
-          ng-if="!$ctrl.isResellerAdmin"
+        <pbs-form-field-horizontal label="Number Activation"
+          ng-if='!$ctrl.isResellerAdmin'
         >
           <pbs-input-select
             ng-model="$ctrl.editPolicies.numberActivationAccess"

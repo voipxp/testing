@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupFlexibleSeatingHost', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<', hideNavigation: '<'}
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
@@ -115,13 +115,6 @@ function controller(
         ctrl.serviceProviderId,
         ctrl.groupId,
         'flexibleSeatingHosts'
-      )
-    }else if(ACL.is('Group')) {
-      Route.open(
-        'groups',
-        ctrl.serviceProviderId,
-        ctrl.groupId,
-        'group-service/flexible-seating-hosts'
       )
     } else {
       Route.open(

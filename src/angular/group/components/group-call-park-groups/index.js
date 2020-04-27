@@ -55,7 +55,7 @@ function controller(Alert, GroupCallParkGroupService, Route) {
       .finally(Alert.spinner.close)
   }
 
-  function open(group) { 
+  function open(group) {
     Route.open(
       'groups',
       ctrl.serviceProviderId,

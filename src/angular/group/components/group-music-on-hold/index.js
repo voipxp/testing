@@ -4,7 +4,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupMusicOnHold', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<'}
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [
@@ -82,16 +82,14 @@ function controller(Alert, GroupMusicOnHoldService, Route, $location, ACL) {
   }
 
   function back() {
-	if (ACL.is('Group Department')) {	
+    if (ACL.is('Group Department')) {
       Route.open(
         'department',
         ctrl.serviceProviderId,
         ctrl.groupId,
         'musicOnHold'
-      ) 
-    } else if(ACL.is('Group')){
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'group-service/music-on-hold')
-	}else {
+      )
+    } else {
       Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
     }
   }

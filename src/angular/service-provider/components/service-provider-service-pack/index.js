@@ -9,7 +9,6 @@ angular.module('odin.serviceProvider').component('serviceProviderServicePack', {
 })
 
 controller.$inject = [
-  'ACL',
   'Alert',
   'ServiceProviderServicePackService',
   'Route',
@@ -18,7 +17,6 @@ controller.$inject = [
   '$location'
 ]
 function controller(
-  ACL,
   Alert,
   ServiceProviderServicePackService,
   Route,
@@ -30,6 +28,7 @@ function controller(
   ctrl.$onInit = onInit
   ctrl.open = open
   ctrl.edit = edit
+
   ctrl.quantity = function(value) {
     return value === -1 ? 'Unlimited' : value
   }
@@ -74,7 +73,7 @@ function controller(
         'servicePack'
       ).search({ servicePackName })
     } else {
-      Route.open('serviceProviders', ctrl.serviceProviderId, 'provisioning/service-packs')
+      Route.open('serviceProviders', ctrl.serviceProviderId, 'servicePacks')
     }
   }
 
@@ -150,5 +149,4 @@ function controller(
         Alert.spinner.close()
       })
   }
- 
 }
