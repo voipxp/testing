@@ -96,6 +96,8 @@ function BulkTaskService() {
           serviceProviderId: 'string',
           groupId: 'string',
           deviceName: 'string',
+          rebuildDevice: 'boolean',
+          resetDevice: 'boolean',
           tags: [
             {
               tagName: 'string',
