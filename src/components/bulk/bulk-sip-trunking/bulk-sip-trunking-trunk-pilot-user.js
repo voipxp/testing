@@ -8,7 +8,6 @@ import { BulkSipTrunkingTrunkPilotUserTask } from './tasks/bulk-sip-trunking-tru
 
 export const BulkSipTrunkingTrunkPilotUser = props => {
   const { serviceProviderId, groupId, groupTrunk, users } = props.initialData
-
   const alluser = []
   users.forEach(userId => {
     alluser.push({ userId: userId })
@@ -18,20 +17,19 @@ export const BulkSipTrunkingTrunkPilotUser = props => {
   const [selectedUser, setSelectedUser] = useState([])
   const [taskIsCreated, setTaskIsCreated] = useState(false)
   const { alertSuccess, alertDanger } = useAlerts()
-  const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
 
   const createTask = () => {
     prepareImportData().then(data => {
       Promise.all([
         BulkImportService.handleFileData(data, props.localStorageKey)
       ])
-        .then(data => {
-          setTaskIsCreated(true)
-          alertSuccess('Task has been created successfully.')
-        })
-        .catch(error => {
-          alertDanger(error || 'Data Import Error')
-        })
+      .then(data => {
+        setTaskIsCreated(true)
+        alertSuccess('Task has been created successfully.')
+      })
+      .catch(error => {
+        alertDanger(error || 'Data Import Error')
+      })
     })
   }
 
@@ -61,11 +59,6 @@ export const BulkSipTrunkingTrunkPilotUser = props => {
     } else props.setToNext()
   }
 
-  // useEffect( () => {
-  //   if(selectedUser.length > 1) alertWarning( 'Only one user can be selected for Pilot User' )
-  //   setDisableNextButton(selectedUser.length > 1)
-  // }, [selectedUser, alertWarning])
-
   return (
     <>
       {taskIsCreated ? (
@@ -83,7 +76,6 @@ export const BulkSipTrunkingTrunkPilotUser = props => {
             selectedUser={selectedUser}
             setSelectedUser={selectedItem => setSelectedUser(selectedItem)}
             rowKey="userId"
-            //canSelect={selectedUser.length === 0}
           />
 
           <div style={{ marginTop: '20px' }}>
@@ -91,7 +83,6 @@ export const BulkSipTrunkingTrunkPilotUser = props => {
               style={{ float: 'right' }}
               color="link"
               onClick={handleTask}
-              disabled={isNextBtnDisabled}
             >
               Next
             </Button>
