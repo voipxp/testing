@@ -1,6 +1,6 @@
 {
   "name": "odin-web",
-  "version": "5.5.5",
+  "version": "5.8.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -53,6 +53,8 @@
     "rbx": "^2.2.0",
     "react": ">=15",
     "react-async-hook": "^3.6.1",
+    "react-csv": "^2.0.1",
+    "react-csv-reader": "^3.0.2",
     "react-ga": "^2.5.7",
     "react-hot-loader": "^4.8.4",
     "react-query": "^0.3.24",

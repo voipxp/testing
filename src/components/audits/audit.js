@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import { useAsync } from 'react-async-hook'
 import { useAlerts } from '@/store/alerts'
 import auditApi from '@/api/audits'
-import exportApi from '@/api/exports'
 import settingsApi from '@/api/settings'
 import { AppBreadcrumb } from '@/components/app'
-import { Breadcrumb, Column, Input, Select } from 'rbx'
-import axios from 'axios'
+import { Breadcrumb, Input, Select } from 'rbx'
 import {
   UiCard,
   UiButton,
@@ -37,7 +35,6 @@ const columns = [
 
 export const Audit = ({ history, match, isBreadcrumb = true }) => {
   const id = match.params.id
-  const formRef = React.useRef()
   const { alertDanger, alertSuccess } = useAlerts()
   const [showModal, setShowModal] = useState(false)
   const [showExportModal, setShowExportModal] = useState(false)
@@ -45,17 +42,11 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
   const [data, setData] = useState('')
   const [serviceType, setServiceType] = useState('')
   const [form, setForm] = useState({})
-  const [export2, setExport2] = useState({})
   const [endpoints, setEndpoints] = useState([])
-  const [formValid, setFormValid] = React.useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const KEY = 'exports'
 
   const { result, error, loading } = useAsync(() => auditApi.json(id), [id])
-
-  React.useEffect(() => {
-    if (formRef.current) setFormValid(formRef.current.checkValidity())
-  }, [form])
 
   if (error) alertDanger(error)
   const audit = result || {}
@@ -86,6 +77,8 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         endpoint: '',
         bwksUserId: '',
         bwksPassword: '',
+        currentServiceProviderId: audit[0].serviceProviderId,
+        currentGroupId: audit[0].groupId,
         serviceProviderId: audit[0].serviceProviderId,
         groupId: audit[0].groupId,
         password: '',
@@ -121,22 +114,6 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
       passcode: form.passcode
     })
     try {
-      const iResult = exportApi.create({
-        endpoint: form.endpoint,
-        auditId: id,
-        username: form.bwksUserId,
-        password: form.bwksPassword,
-        encryption: 'plain',
-        serviceProviderId: audit[0].serviceProviderId,
-        groupId: audit[0].groupId,
-        options: {
-          password: form.password,
-          sipAuthenticationPassword: form.sipAuthenticationPassword,
-          groupMailServerPassword: form.groupMailServerPassword,
-          passcode: form.passcode
-        }
-      })
-      setExport2(iResult)
       alertSuccess('Export sent successfully to ' + form.endpoint)
     } catch (error_) {
       setShowExportModal(true)
@@ -294,23 +271,45 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
                 required
               />
             </UiFormField>
-            <UiFormField label="Service Provider Id" horizontal>
+            <UiFormField label="Current Service Provider Id" horizontal>
+              <Input
+                type="text"
+                name="currentServiceProviderId"
+                value={form.currentServiceProviderId}
+                onChange={handleInput}
+                placeholder="Service Provider Id"
+                required
+                disabled
+              />
+            </UiFormField>
+            <UiFormField label="Current Group Id" horizontal>
+              <Input
+                type="text"
+                name="currentGroupId"
+                value={form.currentGroupId}
+                onChange={handleInput}
+                placeholder="Group Id"
+                required
+                disabled
+              />
+            </UiFormField>
+            <UiFormField label="New Service Provider Id" horizontal>
               <Input
                 type="text"
                 name="serviceProviderId"
                 value={form.serviceProviderId}
                 onChange={handleInput}
-                placeholder="Service Provider Id"
+                placeholder="New Service Provider Id"
                 required
               />
             </UiFormField>
-            <UiFormField label="Group Id" horizontal>
+            <UiFormField label="New Group Id" horizontal>
               <Input
                 type="text"
                 name="groupId"
                 value={form.groupId}
                 onChange={handleInput}
-                placeholder="Group Id"
+                placeholder="New Group Id"
                 required
               />
             </UiFormField>

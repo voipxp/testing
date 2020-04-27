@@ -1,0 +1,28 @@
+<pbs-navigation>
+  <pbs-breadcrumb title="'Bulk'" href="'#!/bulk'"></pbs-breadcrumb>
+  <pbs-breadcrumb title="'Update User Integrated IMP'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<bulk-selected-users
+  users="$ctrl.data.users"
+  ng-click="$ctrl.data.users = []"
+></bulk-selected-users>
+
+<bulk-select-users-dashboard
+  ng-show="$ctrl.data.users.length < 1"
+  on-select="$ctrl.onSelectUsers($event)"
+></bulk-select-users-dashboard>
+
+<pbs-block title="Update Integrated IMP" ng-if="$ctrl.data.users.length > 0">
+  <pbs-form>
+    <pbs-form-field label="Update Integrated IMP">
+      <pbs-input-checkbox
+        label="Enable Integrated IMP"
+        ng-model="$ctrl.isActive"
+      ></pbs-input-checkbox>
+    </pbs-form-field>
+  </pbs-form>
+  <div class="margin-top has-text-right">
+    <pbs-button-next ng-click="$ctrl.complete()"></pbs-button-next>
+  </div>
+</pbs-block>
