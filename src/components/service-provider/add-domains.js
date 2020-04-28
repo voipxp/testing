@@ -3,10 +3,15 @@ import { Input, Button, Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
 import apiSpDomain from '@/api/service-providers/service-provider-add-domains-service'
+
+import apiSystemDomain from '@/api/system/domains'
 import { orderBy } from 'natural-orderby'
 import { hideLoadingModal } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
 import { useAsync } from 'react-async-hook'
+
+import _ from 'lodash'
+
 import {
   UiButton,
   UiCard,
@@ -15,6 +20,7 @@ import {
   UiFormField,
   UiLoadingCard,
   UiSection,
+  UiListItem,
   UiSelectableTable
 } from '@/components/ui'
 
@@ -24,59 +30,94 @@ export const ServiceProviderAddDomains = ({ match }) => {
   const { alertSuccess, alertDanger } = useAlerts()
   const [loading, setLoading] = useState(true)
   const [showLoading, setShowLoading] = useState(false)
-  const [groupSeriesCompletion, setGroupSeriesCompletion] = useState([])
+  const [sPDomains, setSPDomains] = useState([])
   const [showModal, setShowModal] = useState(false)
   const initialForm = {
-    isCreate: true,
     serviceProviderId: serviceProviderId,
-    name: '',
-    newName: '',
-    users: []
+    default: '',
+    domains: [] 
   }
   const [form, setForm] = useState({ ...initialForm })
   const [selectedUserForm, setSelectedUserForm] = useState({ ...initialForm })
   const [availableUser, setAvailableUser] = useState([])
   const [selectedUser, setSelectedUser] = useState([])
   const [allAvailableUser, setAllAvailableUser] = useState([])
+  
+  const [makeDefaultDoaminName, setMakeDefaultDoaminName] = useState('')
+
   const [showConfirm, setShowConfirm] = useState(false)
   const [canSelectedUser, setCanSelectedUser] = useState(true)
-  const seriesCompletionNames = []
+  const serviceProviderDomains = []
 
-
-  useAsync(
-    () =>
-    apiSpDomain.load(serviceProviderId).then(domains => {
-      setGroupSeriesCompletion(domains)
-       
-      }),
+  const domainNames = []
+  const { result, execute } = useAsync(
+    () => apiSystemDomain.load(),
     []
-  ) 
- 
-  const seriesCompletionName = groupSeriesCompletion && groupSeriesCompletion.domains || []
- 
+  )
+   
+  const domainsResult = (result && result.domains) || []
+  if(domainsResult.length > 0){
+  const sortedValuesSystemDomain = orderBy(
+    domainsResult,
+    shortedValue => shortedValue
+  )
+  // eslint-disable-next-line array-callback-return
+  sortedValuesSystemDomain.map(function(el) {
+    domainNames.push({
+      "domains": el
+    })
+  })
+
+}
+   
+useAsync(
+  () =>
+  apiSpDomain.load(serviceProviderId).then(domains => {
+    setSPDomains(domains)
+      
+    }),
+  []
+) 
+  
+  const sPDomain = sPDomains && sPDomains.domains || []
+  const defaultDomain = ( sPDomains && sPDomains.default )
+  form['default'] = defaultDomain
   const sortedValues = orderBy(
-    seriesCompletionName,
+    sPDomain,
     shortedValue => shortedValue
   )
   // eslint-disable-next-line array-callback-return
   sortedValues.map(function(el) {
-    seriesCompletionNames.push({
-      names: el
+    serviceProviderDomains.push({
+      domains: el
     })
   })
 
-  if(canSelectedUser){ 
-    //setLoading(true)
-    if (seriesCompletionNames.length > 0) {
+
+  function editUser() { 
+    form['domains'] = selectedUser
+    // form['domains'] = selectedUser
+    setForm({ ...initialForm })
+    setSelectedUserForm(form)
+    update(form)
+  }
+
+
+  if(canSelectedUser){  
+    if ((serviceProviderDomains.length > 0) && (domainNames.length>0)) {
+      _.pullAllWith(domainNames, serviceProviderDomains, _.isEqual)
+      //  console.log('dddddddddddddddddddddddddddddddddddddddd')
+      console.log(domainNames);
+      setAvailableUser(domainNames)
       setCanSelectedUser(false)
-     // setLoading(false)
-      setAvailableUser(seriesCompletionNames)
-     // setSelectedUser(seriesCompletionNames)
+     // setSelectedUser(serviceProviderDomains)
       
     }
   }
 
-
+  const columns = [
+    { key: 'domains', label: 'Domain Name' }
+  ]
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
@@ -96,27 +137,17 @@ export const ServiceProviderAddDomains = ({ match }) => {
     setShowModal(false)
   } */
 
+
+  async function onSelect(rows) {
+    setMakeDefaultDoaminName(rows.domains)
+    setLoading(false)
+
+  }
+
   function edit() {
     setShowModal(true)
-  }
-
-  function editUser() {
-    form['users'] = selectedUser
-    setForm({ ...form }) 
-  }
+  } 
  
-
-  function save() {
-    setLoading(false)
-  //  form.isCreate ? create(form) : update(form)
-  }
-
-  const handleKeyDown = e => { 
-    if ( e.key === "Enter" ) {
-      e.preventDefault()
-      save()
-    }
-  }
   
   const remove = () => {
     setLoading(true)
@@ -124,7 +155,26 @@ export const ServiceProviderAddDomains = ({ match }) => {
    // destroy(form)
   }
 
-   
+  async function update(profile) {  
+    try {
+      await apiSpDomain.create(profile)
+      form['name'] = profile.newName
+      form['newName'] = profile.newName
+      setShowModal(false)
+      setForm(form)
+     // setSelectedUserForm(form)
+    //  await loadSeriesCompletions()
+      setCanSelectedUser(true)
+      
+      alertSuccess('Domains Updated')
+    } catch (error) {
+      alertDanger(error)
+      setShowModal(true)
+    } finally {
+      setLoading(false)
+      hideLoadingModal()
+    }
+  } 
   if (showLoading) return <UiLoadingCard />
   return (
     <>
@@ -132,35 +182,29 @@ export const ServiceProviderAddDomains = ({ match }) => {
         <Breadcrumb.Item>Domains</Breadcrumb.Item>
       </AppBreadcrumb>
       <UiCard
-        title="Domains"
+        title="Assign Domains"
         buttons={
           <UiButton 
           color="link"
-          icon="add" 
+          icon="edit" 
           size="small"
           onClick={add} />
         }
-      >
-
-            <UiSelectableTable
-              title="Domains List"
-              availableUser={availableUser}
-              setAvailableUser={availableItem =>
-                setAvailableUser(availableItem)
-              }
-              selectedUser={selectedUser}
-              setSelectedUser={selectedItem => setSelectedUser(selectedItem)}
-              rowKey="names"
-              showMoveBtn={true}
-            />
-
-            <Button.Group align="right" style={{ margin: '1rem 0rem' }}>
-              <Button color="success" onClick={editUser}>
-                Save
-              </Button>
-            </Button.Group>
-         
-      </UiCard>
+      > 
+       <UiListItem label="Default Domain">
+          {defaultDomain}
+        </UiListItem>
+         <UiDataTable
+          columns={columns}
+          rows={serviceProviderDomains}
+          rowKey="domains"
+          hideSearch={false}
+          onClick={onSelect}
+          showSelect={true}
+          pageSize={5}
+        />  
+      <br />
+</UiCard> 
       <UiCardModal
             title="Please Confirm"
             isOpen={showConfirm}
@@ -181,39 +225,19 @@ export const ServiceProviderAddDomains = ({ match }) => {
         }
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
-        onSave={save}
+        onSave={editUser}
       >
-        <form>
-          {form.isCreate ? (
-            <>
-              <UiSection>
-                <UiFormField label="Domain Name" horizontal>
-                  <Input
-                    type="text"
-                    name="names"
-                    value={form.names}
-                    onKeyPress={handleKeyDown}
-                    onChange={handleInput}
-                  />
-                </UiFormField>
-              </UiSection>
-            </>
-          ) : (
-            <>
-              <UiSection>
-                <UiFormField label="Group Name" horizontal>
-                  <Input
-                    type="text"
-                    name="newName"
-                    value={form.newName}
-                    onKeyPress={handleKeyDown}
-                    onChange={handleInput}
-                  />
-                </UiFormField>
-              </UiSection>
-            </>
-          )}
-        </form>
+       <UiSelectableTable
+              title="Asssign Domains List"
+              availableUser={availableUser}
+              setAvailableUser={availableItem =>
+                setAvailableUser(availableItem)
+              }
+              selectedUser={selectedUser}
+              setSelectedUser={selectedItem => setSelectedUser(selectedItem)}
+              rowKey="domains"
+              showMoveBtn={true}
+            />
       </UiCardModal>
     
     </>

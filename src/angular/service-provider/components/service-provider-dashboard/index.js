@@ -69,8 +69,8 @@ function controller(Alert, ServiceProviderDashboardService, Route, ACL) {
       },
       {
         type: 'management',
-        name: 'Add Domains',
-        path: route('addDomains')
+        name: 'Assign Domains',
+        path: route('assignDomain')
       },
       {
         type: 'service',

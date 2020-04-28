@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-//import apiResellerAdmins from '@/api/reseller-admins'
-import apiGroupDomain from '@/api/system/domains'
+import apiSystemDomain from '@/api/system/domains'
 import { useUi } from '@/store/ui'
 import PropTypes from 'prop-types'
 import { Input , Breadcrumb } from 'rbx'
@@ -14,7 +13,8 @@ import {
   UiCardModal,
   UiDataTable,
   UiFormField,
-  UiLoadingCard
+  UiLoadingCard,
+  UiListItem
 } from '@/components/ui'
 import { useSession } from '@/store/session'
 import { Redirect } from 'react-router-dom'
@@ -23,9 +23,7 @@ export const SystemDomains = ({ match }) => {
   const initialForm = {
     isCreate: true, 
     domain: ''
-  }
-  const { session, clearSession } = useSession()
-  //const { resellerId } = match.params
+  }  
   const { alertSuccess, alertDanger, alertWarning } = useAlerts()
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState(initialForm)
@@ -33,11 +31,11 @@ export const SystemDomains = ({ match }) => {
   const [showModal, setShowModal] = useState(false)
   const domainNames = []
   const { result, error, loading, execute } = useAsync(
-    () => apiGroupDomain.load(),
+    () => apiSystemDomain.load(),
     []
   )
   const domainsResult = (result && result.domains) || []
-
+  const defaultDomain  = (result && result.default)
   const sortedValues = orderBy(
     domainsResult,
     shortedValue => shortedValue
@@ -85,7 +83,7 @@ export const SystemDomains = ({ match }) => {
   async function create(domain) {
     showLoadingModal()
     try {
-      await apiGroupDomain.create(domain)
+      await apiSystemDomain.create(domain)
       alertSuccess('Domain Created')
       setShowModal(false)
       hideLoadingModal()
@@ -99,7 +97,7 @@ export const SystemDomains = ({ match }) => {
   async function destroy(domain) {
     showLoadingModal()
     try {
-      await apiGroupDomain.destroy(form)
+      await apiSystemDomain.destroy(form)
       alertWarning('Admin Deleted')
       setShowModal(false)
       hideLoadingModal()
@@ -109,12 +107,6 @@ export const SystemDomains = ({ match }) => {
       hideLoadingModal()
     }
   }
-
-  const logout = () => {
-    clearSession()
-    return <Redirect to='/' />
-  }
-
   return (
     <>
     <AppBreadcrumb>
@@ -126,6 +118,10 @@ export const SystemDomains = ({ match }) => {
           <UiButton color="link" icon="add" size="small" onClick={add} />
         }
       >
+        <UiListItem label="Default Domain">
+          {defaultDomain}
+        </UiListItem>
+
         <UiDataTable
           columns={columns}
           rows={domainNames}

@@ -1,7 +1,12 @@
 import { api } from '..'
- 
+  
+ const url = '/service-providers/domains'
 export function load( serviceProviderId ) {
-	return api.get('service-providers/domains', { params: { serviceProviderId } })
+	return api.get(url, { params: { serviceProviderId } })
 } 
 
-export default { load }
+export function create(params) {
+	return api.post( url , params )
+  }
+
+export default { load , create }
