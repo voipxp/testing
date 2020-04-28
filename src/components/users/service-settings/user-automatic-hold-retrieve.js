@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-automatic-hold-retrieve-service'
 import {
   UiButton,
@@ -28,25 +28,25 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
     'user-automatic-hold-retrieve',
     () => api.show(userId)
   )
-  
+
   const userServiceData = result || {}
   const options = api.options || {}
 
   if (error) alertDanger(error)
-  if (isLoading) return <UiLoadingCard /> 
-  
+  if (isLoading) return <UiLoadingCard />
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
     setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     if( form.recallTimerSeconds > options.recallTimerSeconds.maximum || form.recallTimerSeconds < options.recallTimerSeconds.minimum ){
 		  alertDanger('Automatic Hold/Retrieve Value ' + options.recallTimerSeconds.minimum + ' and Maximum Value ' + options.recallTimerSeconds.maximum)
@@ -60,7 +60,7 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
     showLoadingModal()
     try {
       const newAutomaticHoldRetrive = await api.update(formData)
-      setQueryData(['user-automatic-hold-retrieve'], newAutomaticHoldRetrive, {
+      queryCache.setQueryData(['user-automatic-hold-retrieve'], newAutomaticHoldRetrive, {
         shouldRefetch: true
       })
       alertSuccess('Automatic Hold/Retrieve Updated')
@@ -103,7 +103,7 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
               checked={form.isActive}
               onChange={handleInput}
             />
-            <UiFormField label="Recall Timer (seconds)">  
+            <UiFormField label="Recall Timer (seconds)">
               <Input
                 type="number"
                 name="recallTimerSeconds"

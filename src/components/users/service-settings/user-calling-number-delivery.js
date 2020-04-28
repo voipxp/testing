@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-calling-number-delivery-service'
 import {
   UiButton,
@@ -21,7 +21,7 @@ export const UserCallingNumberDelivery = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
    const { data: result, isLoading, error } = useQuery(
     'user-calling-number-delivery',
     () => api.show(userId)
@@ -29,20 +29,20 @@ export const UserCallingNumberDelivery = ({ match }) => {
   const userServiceData = result || {}
 
   if (error) alertDanger(error)
-  if (isLoading) return <UiLoadingCard /> 
- 
+  if (isLoading) return <UiLoadingCard />
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -51,7 +51,7 @@ export const UserCallingNumberDelivery = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const newUserCallingNumberDelivery = await api.update(formData)
-      setQueryData(['user-calling-number-delivery'], newUserCallingNumberDelivery, {
+      queryCache.setQueryData(['user-calling-number-delivery'], newUserCallingNumberDelivery, {
         shouldRefetch: true
 		 })
       alertSuccess('Calling Number Delivery Updated')
@@ -62,7 +62,7 @@ export const UserCallingNumberDelivery = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
 
   return (
     <>

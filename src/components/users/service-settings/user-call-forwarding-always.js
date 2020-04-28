@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-always-service'
 import {
   UiButton,
@@ -23,7 +23,7 @@ export const UserCallForwardingAlways = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'user-call-forwarding-always',
     () => api.show(userId)
@@ -31,7 +31,7 @@ export const UserCallForwardingAlways = ({ match }) => {
 
   const userServiceData = result || {}
   const options = api.options || {}
-  
+
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
 
@@ -41,12 +41,12 @@ export const UserCallForwardingAlways = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
    function save() {
 		if((form.isActive === true) && ((form.forwardToPhoneNumber === undefined ) || (form.forwardToPhoneNumber === "" ) )){
         alertDanger('The Call Forwarding Always Service Required Phone Number')
@@ -58,13 +58,12 @@ export const UserCallForwardingAlways = ({ match }) => {
 		  }
     update(form)
   }
-  
+
   async function update(formData) {
     showLoadingModal()
     try {
       const newUserCallForwardingAlways = await api.update(formData)
-       
-      setQueryData(['user-call-forwarding-always'], newUserCallForwardingAlways, {
+      queryCache.setQueryData(['user-call-forwarding-always'], newUserCallForwardingAlways, {
         shouldRefetch: true
       })
       alertSuccess('Call Forwarding Always Updated')
@@ -111,15 +110,15 @@ export const UserCallForwardingAlways = ({ match }) => {
               checked={form.isActive}
               onChange={handleInput}
             />
-			
+
             <UiInputCheckbox
               name="isRingSplashActive"
               label="Is Ring Splash Active"
               checked={form.isRingSplashActive}
               onChange={handleInput}
             />
-			
-			      <UiFormField label="Forward To">  
+
+			      <UiFormField label="Forward To">
               <Input
                 type="text"
                 name="forwardToPhoneNumber"
