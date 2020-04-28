@@ -50,7 +50,7 @@ export const ServiceProviderAddDomains = ({ match }) => {
   const serviceProviderDomains = []
 
   const domainNames = []
-  const { result, execute } = useAsync(
+  const { result, loading:loadingDomains , execute } = useAsync(
     () => apiSystemDomain.load(),
     []
   )
@@ -92,25 +92,23 @@ useAsync(
       domains: el
     })
   })
-
-
-  function editUser() { 
-    form['domains'] = selectedUser
-    // form['domains'] = selectedUser
+  
+  function editUser() {
+    const domainStringVal = [];
+    _.forEach(selectedUser, function(value) {
+      domainStringVal.push(value.domains)
+    });
+    form['domains'] = domainStringVal
     setForm({ ...initialForm })
     setSelectedUserForm(form)
     update(form)
   }
 
-
   if(canSelectedUser){  
     if ((serviceProviderDomains.length > 0) && (domainNames.length>0)) {
       _.pullAllWith(domainNames, serviceProviderDomains, _.isEqual)
-      //  console.log('dddddddddddddddddddddddddddddddddddddddd')
-      console.log(domainNames);
       setAvailableUser(domainNames)
       setCanSelectedUser(false)
-     // setSelectedUser(serviceProviderDomains)
       
     }
   }
@@ -175,7 +173,7 @@ useAsync(
       hideLoadingModal()
     }
   } 
-  if (showLoading) return <UiLoadingCard />
+  if (loadingDomains) return <UiLoadingCard />
   return (
     <>
       <AppBreadcrumb>
@@ -218,17 +216,13 @@ useAsync(
           </UiCardModal>
       <br />
       <UiCardModal
-        title={
-          form.isCreate
-            ? 'Add Domains'
-            : `Edit Domains : ${selectedUserForm.name}`
-        }
+        title='Domains'
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={editUser}
       >
        <UiSelectableTable
-              title="Asssign Domains List"
+              title="Available Domains"
               availableUser={availableUser}
               setAvailableUser={availableItem =>
                 setAvailableUser(availableItem)
