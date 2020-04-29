@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { Input, Button, Breadcrumb } from 'rbx'
+import React, { useState } from 'react'
+import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
 import apiSpDomain from '@/api/service-providers/service-provider-add-domains-service'
-
 import apiSystemDomain from '@/api/system/domains'
 import { orderBy } from 'natural-orderby'
 import { hideLoadingModal } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
 import { useAsync } from 'react-async-hook'
-
 import _ from 'lodash'
 
 import {
@@ -17,19 +15,15 @@ import {
   UiCard,
   UiCardModal,
   UiDataTable,
-  UiFormField,
   UiLoadingCard,
-  UiSection,
   UiListItem,
   UiSelectableTable
 } from '@/components/ui'
 
 export const ServiceProviderAddDomains = ({ match }) => {
   const { serviceProviderId } = match.params
-
   const { alertSuccess, alertDanger } = useAlerts()
   const [loading, setLoading] = useState(true)
-  const [showLoading, setShowLoading] = useState(false)
   const [sPDomains, setSPDomains] = useState([])
   const [showModal, setShowModal] = useState(false)
   const initialForm = {
@@ -38,12 +32,8 @@ export const ServiceProviderAddDomains = ({ match }) => {
     domains: [] 
   }
   const [form, setForm] = useState({ ...initialForm })
-  const [selectedUserForm, setSelectedUserForm] = useState({ ...initialForm })
   const [availableUser, setAvailableUser] = useState([])
   const [selectedUser, setSelectedUser] = useState([])
-  const [allAvailableUser, setAllAvailableUser] = useState([])
-  
-  const [makeDefaultDoaminName, setMakeDefaultDoaminName] = useState('')
 
   const [showConfirm, setShowConfirm] = useState(false)
   const [canSelectedUser, setCanSelectedUser] = useState(true)
@@ -93,20 +83,20 @@ useAsync(
     })
   })
   
-  function editUser() {
+  function editUser() { 
     const domainStringVal = [];
     _.forEach(selectedUser, function(value) {
       domainStringVal.push(value.domains)
     });
     form['domains'] = domainStringVal
     setForm({ ...initialForm })
-    setSelectedUserForm(form)
     update(form)
   }
 
   if(canSelectedUser){  
     if ((serviceProviderDomains.length > 0) && (domainNames.length>0)) {
-      _.pullAllWith(domainNames, serviceProviderDomains, _.isEqual)
+     _.pullAllWith(domainNames, serviceProviderDomains, _.isEqual)
+      setSelectedUser(serviceProviderDomains)
       setAvailableUser(domainNames)
       setCanSelectedUser(false)
       
@@ -116,37 +106,15 @@ useAsync(
   const columns = [
     { key: 'domains', label: 'Domain Name' }
   ]
-  function handleInput(event) {
-    const target = event.target
-    const value = target.type === 'checkbox' ? target.checked : target.value
-    const name = target.name
-    setForm({ ...form, [name]: value })
-  }
- 
-
+   
   function add() {
     setForm({ ...initialForm })
     setShowModal(true)
   }
-/*
-  function onCancel() {
-    setLoading(true)
-    setForm({ ...selectedUserForm })
-    setShowModal(false)
-  } */
-
-
   async function onSelect(rows) {
-    setMakeDefaultDoaminName(rows.domains)
     setLoading(false)
 
   }
-
-  function edit() {
-    setShowModal(true)
-  } 
- 
-  
   const remove = () => {
     setLoading(true)
     setShowConfirm(false)
@@ -155,15 +123,8 @@ useAsync(
 
   async function update(profile) {  
     try {
-      await apiSpDomain.create(profile)
-      form['name'] = profile.newName
-      form['newName'] = profile.newName
-      setShowModal(false)
-      setForm(form)
-     // setSelectedUserForm(form)
-    //  await loadSeriesCompletions()
-      setCanSelectedUser(true)
-      
+      await apiSpDomain.update(profile)
+      await execute() 
       alertSuccess('Domains Updated')
     } catch (error) {
       alertDanger(error)
@@ -230,7 +191,7 @@ useAsync(
               selectedUser={selectedUser}
               setSelectedUser={selectedItem => setSelectedUser(selectedItem)}
               rowKey="domains"
-              showMoveBtn={true}
+              showMoveBtn={false}
             />
       </UiCardModal>
     
