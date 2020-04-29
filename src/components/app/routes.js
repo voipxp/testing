@@ -13,7 +13,7 @@ import {
  // GroupSeriesCompletion,
   GroupDashboard
 } from '@/components/groups'
-import { SystemResellers } from '../system'
+import { SystemResellers, SystemDashboard } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
@@ -34,6 +34,12 @@ export const routes = [
     path: '/branding/:hostnameId',
     angularComponent: 'brandingHostname',
     isPaasAdmin: true
+  },
+  
+  {
+    path: '/system/networkClassOfServices/networkClassOfService',
+    angularComponent: 'systemNetworkClassOfService',
+    hasLevel: 'System'
   },
   {
     path: '/serviceProviders/:serviceProviderId/reports/callCapacity',
@@ -751,7 +757,7 @@ export const routes = [
   },
   {
     path: '/system',
-    angularComponent: 'systemDashboard',
+    component: SystemDashboard,
     hasLevel: 'Provisioning'
   },
   {
@@ -777,11 +783,6 @@ export const routes = [
   {
     path: '/system/networkClassOfServices',
     angularComponent: 'systemNetworkClassOfServices',
-    hasLevel: 'System'
-  },
-  {
-    path: '/system/networkClassOfServices/networkClassOfService',
-    angularComponent: 'systemNetworkClassOfService',
     hasLevel: 'System'
   },
   {
