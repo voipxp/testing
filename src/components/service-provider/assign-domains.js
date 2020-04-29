@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
 import PropTypes from 'prop-types'
-import apiSpDomain from '@/api/service-providers/service-provider-add-domains-service'
+import apiSpDomain from '@/api/service-providers/service-provider-assign-domains-service'
 import apiSystemDomain from '@/api/system/domains'
 import { orderBy } from 'natural-orderby'
 import { hideLoadingModal } from '@/store/ui'
@@ -123,7 +123,7 @@ useAsync(
 
   async function update(profile) {  
     try {
-      await apiSpDomain.update(profile)
+      await apiSpDomain.create(profile)
       await execute() 
       alertSuccess('Domains Updated')
     } catch (error) {
