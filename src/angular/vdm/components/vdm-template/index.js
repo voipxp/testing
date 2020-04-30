@@ -40,17 +40,26 @@ function controller(
   }
 
   function back() {
-    if (ctrl.template.parentId) {
+    if (ctrl.template.parentId) { 
       if(ACL.is('Service Provider') || ACL.is('Group') ){
         Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'vdm') 
-      }else {
+      }
+      else if(ACL.is('System')){
+        Route.open('System','provisioning','vdm') 
+      }
+       else {
         Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'vdm').search(
           {}
         )
       }
       
     } else {
-      Route.open('vdm').search({})
+      if(ACL.is('Service Provider') || ACL.is('Group')){
+        Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'vdm') 
+      } else if(ACL.is('System')){
+        Route.open('System','provisioning','vdm') 
+      } else Route.open('vdm').search({})
+      
     }
   }
 
