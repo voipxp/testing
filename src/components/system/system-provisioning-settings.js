@@ -25,8 +25,8 @@ export const ProvisioningRouteSettings  = ({ history, match }) => {
   }
 
   const hideService = () => {
-	  history.push(`/system`)
-    //history.goBack()
+	//  history.push(`/system`)
+    history.goBack()
   }
    
   const services = React.useMemo(() => {
