@@ -1,7 +1,4 @@
- 
-import { ServiceProviderAudits } from './system-audits'
 export const ProvisioningRoutes = [
-       
       {
         name: 'Bulk Provisioning',
         path: 'bulk',

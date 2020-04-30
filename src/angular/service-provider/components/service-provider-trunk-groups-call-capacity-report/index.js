@@ -101,7 +101,7 @@ function controller(
   }
   function onClick(group) { 
     var returnTo = $location.url()
-    if(ACL.is('Service Provider')){
+    if(ACL.is('System') || ACL.is('Service Provider') || ACL.is('Group') ){
       Route.open(
         'groups',
         ctrl.serviceProviderId,

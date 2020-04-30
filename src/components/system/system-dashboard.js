@@ -9,8 +9,7 @@ const StyledBreadcrumb = styled.div`
   margin-top: -2rem;
   margin-bottom: 1rem;
 `
-export const SystemDashboard = ({ match ,history }) => {
-  const {  serviceProviderId  } = match.params
+export const SystemDashboard = ({ history }) => { 
   const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
   const { hasModuleRead } = useModulePermissions()
   const acl = useAcl()
@@ -54,20 +53,7 @@ export const SystemDashboard = ({ match ,history }) => {
    <>
       <Breadcrumb as={StyledBreadcrumb}>
         <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
-		
-		  {hasReseller && serviceProviderId && (
-        <>
-          <Breadcrumb.Item href="#!/serviceProviders">
-            Service Providers
-          </Breadcrumb.Item>
-          <Breadcrumb.Item href={`#!system`}>
-            {serviceProviderId}
-          </Breadcrumb.Item>
-        </>
-      )}
-		
-		
-          {serviceProviderId && (
+		    { hasReseller && (
           <>
             <Breadcrumb.Item href={`${window.location.href}`}>
             {breadcrumbNewItem}
@@ -80,7 +66,6 @@ export const SystemDashboard = ({ match ,history }) => {
   )
 }
 
-SystemDashboard.propTypes = { 
-  match: PropTypes.object.isRequired,
+SystemDashboard.propTypes = {
   history : PropTypes.object
 }
