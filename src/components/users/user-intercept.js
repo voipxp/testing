@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input, Select, Column } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-intercept'
 
 import {
@@ -68,7 +68,7 @@ export const UserIntercept = ({ match }) => {
     showLoadingModal()
     try {
       const newUserIntercept = await api.update(userIntercept)
-      setQueryData(['user-intercept'], newUserIntercept, {
+      queryCache.setQueryData(['user-intercept'], newUserIntercept, {
         shouldRefetch: true
       })
       alertSuccess('Intercept User Updated')

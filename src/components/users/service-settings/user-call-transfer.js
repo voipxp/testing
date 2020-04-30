@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-transfer-service'
 import {
   UiButton,
@@ -23,7 +23,7 @@ export const UserCallTransfer = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'user-call-tranfer',
     () => api.show(userId)
@@ -33,39 +33,39 @@ export const UserCallTransfer = ({ match }) => {
   const options = api.options || {}
 
   if (error) alertDanger(error)
-  if (isLoading) return <UiLoadingCard /> 
-  
+  if (isLoading) return <UiLoadingCard />
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
     setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
 	  if( form.recallNumberOfRings > options.recallNumberOfRings.maximum || form.recallNumberOfRings < options.recallNumberOfRings.minimum ){
 		  alertDanger('Number Of Rings Minimum Value ' + options.recallNumberOfRings.minimum + ' and Maximum Value ' + options.recallNumberOfRings.maximum)
 		  return false
 	  }
-	  
+
 	  if( form.busyCampOnSeconds > options.busyCampOnSeconds.maximum || form.busyCampOnSeconds < options.busyCampOnSeconds.minimum ){
 		  alertDanger('Enable Busy On Camp Seconds Minimum Value ' + options.busyCampOnSeconds.minimum + ' and Maximum Value ' + options.busyCampOnSeconds.maximum)
 		  return false
 	  }
-		  update(form)	
+		  update(form)
 	}
 
-  
+
   async function update(formData) {
     showLoadingModal()
     try {
       const newUserCallTransfer = await api.update(formData)
-      setQueryData(['user-call-tranfer'], newUserCallTransfer, {
+      queryCache.setQueryData(['user-call-tranfer'], newUserCallTransfer, {
         shouldRefetch: true
       })
       alertSuccess('Call Transfer Updated')
@@ -76,7 +76,7 @@ export const UserCallTransfer = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard
@@ -85,7 +85,7 @@ export const UserCallTransfer = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-	  
+
         <UiSection>
           <UiListItem label="Call Transfer Recall">
             <UiCheckbox isChecked={userServiceData.isRecallActive} />
@@ -140,7 +140,7 @@ export const UserCallTransfer = ({ match }) => {
               onChange={handleInput}
             />
 
-            <UiFormField label="Number Of Rings">  
+            <UiFormField label="Number Of Rings">
               <Input
                 type="number"
                 name="recallNumberOfRings"
@@ -149,7 +149,7 @@ export const UserCallTransfer = ({ match }) => {
                 onChange={handleInput}
               />
             </UiFormField>
-            <UiFormField label="Enable Busy On Camp Seconds">  
+            <UiFormField label="Enable Busy On Camp Seconds">
               <Input
                 type="number"
                 name="busyCampOnSeconds"
@@ -158,7 +158,7 @@ export const UserCallTransfer = ({ match }) => {
                 onChange={handleInput}
               />
             </UiFormField>
-            
+
           </UiSection>
         </form>
       </UiCardModal>

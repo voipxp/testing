@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Select } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery , setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-advice-of-charge-service'
 import {
   UiButton,
@@ -23,11 +23,11 @@ export const UserAdviceOfCharge = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const {data : userData, isLoading, error } =  useQuery(
     'user-AdviceOfCharge', () => api.show(userId)
   )
-  
+
   const userServiceData = userData || {}
   const aocTypes =  api.options.aocTypes || {}
 
@@ -40,12 +40,12 @@ export const UserAdviceOfCharge = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -54,7 +54,7 @@ export const UserAdviceOfCharge = ({ match }) => {
 	showLoadingModal()
     try {
 	  const updatedData = await api.update(formData)
-      setQueryData(['user-AdviceOfCharge'], updatedData, {
+    queryCache.setQueryData(['user-AdviceOfCharge'], updatedData, {
         shouldRefetch : true
         }
       )
@@ -98,7 +98,7 @@ export const UserAdviceOfCharge = ({ match }) => {
               checked={form.isActive}
               onChange={handleInput}
             />
-            <UiFormField label="Type"> 
+            <UiFormField label="Type">
               <Select.Container fullwidth>
                 <Select
                   value={form.aocType}

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-music-on-hold-service'
 import {
   UiButton,
@@ -51,7 +51,7 @@ export const UserMusicOnHold = ({ match }) => {
     showLoadingModal()
     try {
       const newMusicOnHold = await api.update(formData)
-      setQueryData('music-on-hold', newMusicOnHold, {
+      queryCache.setQueryData('music-on-hold', newMusicOnHold, {
         shouldRefetch: true
       })
       alertSuccess('Music On Hold Updated')

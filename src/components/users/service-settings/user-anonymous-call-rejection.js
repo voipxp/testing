@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-anonymous-call-rejection-service'
 import {
   UiButton,
@@ -21,14 +21,14 @@ export const UserAnonymousCallRejection = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'anonymous-call-rejection',
     () => api.show(userId)
-  )  
-  
+  )
+
   const userServiceData = result || {}
-   
+
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
 
@@ -38,12 +38,12 @@ export const UserAnonymousCallRejection = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -52,7 +52,7 @@ export const UserAnonymousCallRejection = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const newUserAnonymousCallRejection = await api.update(formData)
-        setQueryData(['anonymous-call-rejection'], newUserAnonymousCallRejection, {
+      queryCache.setQueryData(['anonymous-call-rejection'], newUserAnonymousCallRejection, {
         shouldRefetch: true
       })
 	    alertSuccess('Anonymous Call Rejection Updated')
