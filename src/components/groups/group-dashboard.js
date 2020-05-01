@@ -23,6 +23,8 @@ export const GroupDashboard = ({ match }) => {
   const hasGroup = acl.hasGroup()
   const hasServiceProvider = acl.hasServiceProvider()
   const hasReseller = acl.hasReseller()
+  const hasSystem = acl.hasSystem()
+  
   // filter items we should not see
   const menu = React.useMemo(() => { 
   //  setLoading(true)
@@ -52,6 +54,17 @@ export const GroupDashboard = ({ match }) => {
     <>
       <Breadcrumb as={StyledBreadcrumb}>
         <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
+        {hasSystem && serviceProviderId && (
+        <>
+          <Breadcrumb.Item href="#!/system/serviceProviders">
+            Service Providers
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href={`#!/serviceProviders/${serviceProviderId}`}>
+            {serviceProviderId}
+          </Breadcrumb.Item>
+        </>
+      )}
+
 		 {hasReseller && serviceProviderId && (
         <>
           <Breadcrumb.Item href="#!/serviceProviders">

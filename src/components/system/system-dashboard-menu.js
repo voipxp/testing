@@ -114,7 +114,7 @@ export const dashboardMenu = [
       },
 	  {
         name: 'Login History',
-        path: 'userLoginsha',
+        path: 'userLogin',
 		angularComponent: 'odinUserLoginIndex',
 		isPaasAdmin: false
       },
