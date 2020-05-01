@@ -9,7 +9,7 @@ export const dashboardMenu = [
       {
         name: 'Service Providers',
         path: 'serviceProviders',
-        angularComponent: 'serviceProvidersPanel',
+        angularComponent: 'serviceProviders',
         limitTo:10
       },
       {

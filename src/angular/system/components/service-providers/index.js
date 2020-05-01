@@ -32,7 +32,7 @@ function controller(
   ctrl.onCreate = onCreate
   ctrl.open = open
   ctrl.onPagination = onPagination
-  ctrl.back =  back
+
   function onInit() {
     ctrl.loading = true
     ctrl.hideNav =
@@ -70,9 +70,6 @@ function controller(
   }
 
   function open(serviceProvider) {
-    Route.open('System','serviceProviders', serviceProvider.serviceProviderId)
-  }
-  function back(){
-	  if(ACL.is('System')){ Route.open('System', 'serviceProviders') }
+    Route.open('serviceProviders', serviceProvider.serviceProviderId)
   }
 }

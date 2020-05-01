@@ -14,7 +14,8 @@ export const ServiceProviderDashboard = ({ match ,history }) => {
   const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
   const { hasModuleRead } = useModulePermissions()
   const acl = useAcl()
-  const hasReseller = acl.hasReseller()
+  const hasSystem = acl.hasSystem()
+  
   const camelCasedTxt =  window.location.href.split("/").pop().replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })
   const firstUpercaseLetters = camelCasedTxt.replace(/([A-Z])/g, ' $1').trim()
   const breadcrumbNewItem = firstUpercaseLetters.charAt(0).toUpperCase() + firstUpercaseLetters.slice(1)
@@ -55,9 +56,9 @@ export const ServiceProviderDashboard = ({ match ,history }) => {
       <Breadcrumb as={StyledBreadcrumb}>
         <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
 		
-		  {hasReseller && serviceProviderId && (
+		  {hasSystem && serviceProviderId && (
         <>
-          <Breadcrumb.Item href="#!/serviceProviders">
+          <Breadcrumb.Item href="#!/system/serviceProviders">
             Service Providers
           </Breadcrumb.Item>
           <Breadcrumb.Item href={`#!/serviceProviders/${serviceProviderId}`}>
@@ -65,15 +66,13 @@ export const ServiceProviderDashboard = ({ match ,history }) => {
           </Breadcrumb.Item>
         </>
       )}
-		
-		
-          {serviceProviderId && (
-          <>
-            <Breadcrumb.Item href={`${window.location.href}`}>
+		  {serviceProviderId && (
+        <>
+          <Breadcrumb.Item href={`${window.location.href}`}>
             {breadcrumbNewItem}
-            </Breadcrumb.Item>
-          </>
-        )}
+          </Breadcrumb.Item>
+        </>
+      )}
       </Breadcrumb>
       {loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
     </>
