@@ -1,4 +1,4 @@
-import { ProvisioningRouteSettings  } from './system-provisioning-settings'
+import { ReportRouteSettings  } from './system-report-settings'
 import { Audits, Audit } from '@/components/audits'
 import { Imports } from '@/components/imports'
 import { Exports } from '@/components/exports'
@@ -6,89 +6,74 @@ export const dashboardMenu = [
   {
     label: 'Dashboard',
     items: [
-	 {
-        name: 'Collaborate',
-		path: 'collaborate',
-		angularComponent: 'systemCollaborate',
-        acl: 'System',
-        hasLevel: 'System'
+      {
+        name: 'Service Providers',
+        path: 'serviceProviders',
+        angularComponent: 'serviceProvidersPanel',
+        limitTo:10
       },
-       {
-        name: 'Devices',
-		path: 'devices',
-		angularComponent: 'systemDevices',
-        acl: 'System',
-        hasLevel: 'System'
-      },
-	  {
-        name: 'DN Reports',
-		angularComponent: 'systemDn',
-        path: 'dn',
-		hasLevel: 'System'
-      },
-		{
-        name: 'License Reports',
-		angularComponent: 'systemLicensing',
-        path: 'systemLicensing',
-		hasLevel: 'System'
-      },
-	   
-	  {
-        name: 'Network Class of Services',
-		path: 'networkClassOfServices',
-		angularComponent: 'systemNetworkClassOfServices',
-        hasLevel: 'System'
-      },
+      {
+        name: 'Bulk Provisioning',
+        path: 'bulk',
+        angularComponent: 'bulkDashboard',
+        hasLevel: 'System',
+        hasModuleRead: 'Provisioning'
+	    },
+	     
+      { 
+        name: 'VDM',
+        path:  'vdm',
+        angularComponent: 'vdmDashboard',
+        hasLevel: 'Provisioning',
+        module: 'VDM'
+      } ,
+      
+	    
 	  
-	  {
-		name: 'Service Pack Utilization Report',
-		path: 'servicePackUtilizationReport',
-		angularComponent: 'systemServicePackUtilizationReport',
-		hasLevel: 'Provisioning',
-		hasModuleRead: 'User Report'
-	  },
-      {
-        name: 'Service Provider Report',
-        path: 'serviceProviderReport',
-		angularComponent: 'serviceProviderReport',
-		hasLevel: 'Provisioning',
-		hasModuleRead: 'User Report'
-      },
-      {
-        name: 'Service Utilization Report',
-        path: 'serviceUtilizationReport',
-		angularComponent: 'systemServiceUtilizationReport',
-		hasLevel: 'Provisioning',
-        hasModuleRead: 'User Report'
-      }, 
 	  ]
   },
   {
-    label: 'Provisioning',
+    label: 'Report',
     items: [
 		{ 
-		name: 'Provisioning',
-        path: 'provisioning',
-        component: ProvisioningRouteSettings,
-		hasLevel: 'Provisioning',
+		    name: 'report',
+        path: 'report',
+        component: ReportRouteSettings,
+		    hasLevel: 'Provisioning',
         hasLevel: 'System'
        
         }
       ]
   },
-  {
-    label: 'Service Providers',
+
+ {
+    label: 'Management',
     items: [
-		{
-		  name: 'Service Providers',
-		  path: 'serviceProviders',
-		  angularComponent: 'serviceProvidersPanel',
-		  limitTo:10
-        }
-      ]
+
+  {
+    name: 'Collaborate',
+    path: 'collaborate',
+    angularComponent: 'systemCollaborate',
+    acl: 'System',
+    hasLevel: 'System'
   },
- 
    {
+    name: 'Devices',
+    path: 'devices',
+    angularComponent: 'systemDevices',
+    acl: 'System',
+    hasLevel: 'System'
+  },
+  {
+    name: 'Network Class of Services',
+    path: 'networkClassOfServices',
+    angularComponent: 'systemNetworkClassOfServices',
+    hasLevel: 'System'
+  },
+    ]
+},
+
+  {
     label: 'Utilities',
     items: [
 	{

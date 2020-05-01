@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiDataTable } from '@/components/ui'
-import { useModulePermissions } from '@/utils'
+import { useModulePermissions, useUserServicePermissions } from '@/utils'
 import { AngularComponent } from '@/components/angular-component' 
-import { ProvisioningRoutes } from './system-provisioning-routes'
+import { ReportRoutes } from './system-report-routes'
 
 /* eslint-disable react/display-name */
 const columns = [
@@ -15,27 +15,24 @@ const columns = [
   }
 ]
 
-export const ProvisioningRouteSettings  = ({ history, match }) => {
+export const ReportRouteSettings = ({ history, match }) => {
   const { getModule } = useModulePermissions()
-  const {serviceProviderId , featurePath} = match.params
-  const showService = service => { 
-  if(service.path ==='audits' || service.path ==='exports' || service.path ==='imports' ) history.push(`/${service.path}`)
-  else history.push(`${match.url}/${service.path}`)
-     
+
+  const showService = service => {
+    history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-	//  history.push(`/system`)
     history.goBack()
   }
    
   const services = React.useMemo(() => {
-    const allowedServices = ProvisioningRoutes.reduce((obj, route) => {
-      ProvisioningRoutes.forEach(s => (obj[s] = route))
+    const allowedServices = ReportRoutes.reduce((obj, route) => {
+      ReportRoutes.forEach(s => (obj[s] = route))
       return obj
     }, {})
     // filter out ones not in our map or missing read perms
-    const filtered = ProvisioningRoutes.map(service => {  
+    const filtered = ReportRoutes.map(service => {  
         const route = allowedServices[service.hasModuleRead]
         const module = getModule(route)
         return { ...module, ...service, path: service.path }
@@ -46,7 +43,7 @@ export const ProvisioningRouteSettings  = ({ history, match }) => {
 
   // The base view when no sub-component picked
   const GroupServiceList = () => (
-    <UiCard title="Provisioning">
+    <UiCard title="Reports">
       <UiDataTable
         columns={columns}
         rows={services}
@@ -59,7 +56,7 @@ export const ProvisioningRouteSettings  = ({ history, match }) => {
   // render the clicked service
   const renderRoute = routeProps => {
     const path = routeProps.match.params.path
-    const route = Object.values(ProvisioningRoutes).find(r => r.path === path)
+    const route = Object.values(ReportRoutes).find(r => r.path === path)
     const { component, angularComponent, ...props } = route
     return (
       <>
@@ -81,7 +78,7 @@ export const ProvisioningRouteSettings  = ({ history, match }) => {
   )
 }
 
-ProvisioningRouteSettings.propTypes = {
+ReportRouteSettings.propTypes = {
   match: PropTypes.object,
   history: PropTypes.object
 }

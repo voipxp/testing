@@ -33,6 +33,22 @@ export const ProvisioningRoutes = [
         hasLevel: 'Group Department',
         hasModuleRead: 'Provisioning'
 	    },
+		{
+        name: 'Devices',
+        path:  'devices',
+        acl: 'Reseller',
+		angularComponent: 'serviceProviderDevices',
+		hasLevel: 'Reseller'
+
+      },
+		{
+         
+        name: 'Delete Service Provider',
+        path:  'delete' ,
+		angularComponent: 'serviceProviderDelete',
+        acl: 'Reseller',
+		hasLevel: 'Reseller'
+      },
 	    {
         name: 'Group Services',
         path:  'group-services',
