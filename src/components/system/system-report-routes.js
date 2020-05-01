@@ -1,4 +1,10 @@
 export const ReportRoutes = [
+		 /*{
+			name: 'Domains',
+			angularComponent: 'systemDn',
+			path: 'DnReports',
+			hasLevel: 'System'
+		}, */
 		{
 			name: 'DN Reports',
 			angularComponent: 'systemDn',
