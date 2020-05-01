@@ -36,7 +36,7 @@ export const dashboardMenu = [
     label: 'Report',
     items: [
 		{ 
-		    name: 'report',
+		    name: 'Report',
         path: 'report',
         component: ReportRouteSettings,
 		    hasLevel: 'Provisioning',
@@ -52,7 +52,7 @@ export const dashboardMenu = [
 
   {
     name: 'Collaborate',
-    path: 'collaborate',
+    path: 'systemCollaborate',
     angularComponent: 'systemCollaborate',
     acl: 'System',
     hasLevel: 'System'
@@ -114,7 +114,7 @@ export const dashboardMenu = [
       },
 	  {
         name: 'Login History',
-        path: 'logins',
+        path: 'userLoginsha',
 		angularComponent: 'odinUserLoginIndex',
 		isPaasAdmin: false
       },

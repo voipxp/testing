@@ -2,7 +2,7 @@ export const ReportRoutes = [
 		{
 			name: 'DN Reports',
 			angularComponent: 'systemDn',
-			path: 'dn',
+			path: 'DnReports',
 			hasLevel: 'System'
 		},
 		{
