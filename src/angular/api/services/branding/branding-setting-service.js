@@ -13,6 +13,7 @@ function BrandingSettingService($http, Route, $rootScope, $ngRedux) {
   return service
 
   function show(hostnameId) {
+console.log('setting servicehostnameId', hostnameId);
     return $http.get(url(), { params: { hostnameId } }).then(response => {
       return isEmpty(response.data) ? {} : response.data
     })

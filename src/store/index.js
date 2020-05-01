@@ -21,6 +21,7 @@ import { loadApplications, uiApplicationsReducer } from './ui-applications'
 import { loadModules, uiModulesReducer } from './ui-modules'
 import { loadSettings, uiSettingsReducer } from './ui-settings'
 import { loadTemplate, uiTemplateReducer } from './ui-template'
+import { loadEmail, uiEmailReducer } from './ui-email'
 import { parse, stringify } from 'query-string'
 import { autoAttendantReducer } from './auto-attendant'
 
@@ -41,6 +42,7 @@ export const store = configureStore({
     uiModules: uiModulesReducer,
     uiSettings: uiSettingsReducer,
     uiTemplate: uiTemplateReducer,
+    uiEmail: uiEmailReducer,
     autoAttendant: autoAttendantReducer,
 	groupServices: groupServicesReducer
   },
@@ -68,7 +70,8 @@ export const loadInitialState = async () => {
       store.dispatch(loadModules()),
       store.dispatch(loadApplications()),
       store.dispatch(loadTemplate()),
-      store.dispatch(loadSettings())
+      store.dispatch(loadSettings()),
+      store.dispatch(loadEmail())
     ])
   } catch (error) {
     await store.dispatch(clearSession())

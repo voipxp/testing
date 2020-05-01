@@ -40,6 +40,7 @@ function controller($timeout) {
   }
 
   function select(tab) {
+console.log('tab', tab);
     ctrl.tabs.forEach(function(_tab) {
       _tab.selected = false
     })
