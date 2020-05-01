@@ -1,24 +1,27 @@
 import angular from 'angular'
-import email from './index.html'
+import template from './index.html'
 
-angular.module('odin.branding').component('brandingEmails', {
-  email,
+angular.module('odin.branding').component('brandingEmail', {
+  template,
   controller,
   bindings: { hostnameId: '<' }
 })
+console.log('  111111  component branding email service');
 
 controller.$inject = [
   'BrandingEmailService',
   'Alert',
+  'UiEmailService',
   '$q'
 ]
-function controller(BrandingEmailService, Alert, $q) {
+function controller(BrandingEmailService, Alert, UiEmailService, $q) {
+console.log(' 22222 component branding email service');
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
 
   function onInit() {
-console.log('component email setting onIinit');
+console.log('333333 component email setting onIinit');
     ctrl.loading = true
     return $q
       .all([loadEmail()
@@ -33,6 +36,7 @@ console.log('component email setting onIinit');
   }
 
   function loadEmail() {
+console.log('444444 component email setting onIinit');
     return BrandingEmailService.index(ctrl.hostnameId).then(function(
       data
     ) {
@@ -87,6 +91,7 @@ console.log('component email setting onIinit');
     Alert.spinner.open()
     method(email)
       .then(loadEmail)
+      .then(UiEmailService.load)
       .then(function() {
         Alert.notify.success('Email Saved')
         callback()

@@ -5,13 +5,9 @@ angular
   .module('odin.api')
   .factory('BrandingEmailService', BrandingEmailService)
 
-BrandingEmailService.$inject = [
-  '$http',
-  'Route',
-  '$rootScope',
-  '$ngRedux'
-]
+BrandingEmailService.$inject = ['$http', 'Route', '$rootScope', '$ngRedux']
 function BrandingEmailService($http, Route, $rootScope, $ngRedux) {
+console.log('services branding email service');
   var service = { index, store, show, update, destroy }
   var url = Route.api('/branding/emails')
 
@@ -32,7 +28,7 @@ function BrandingEmailService($http, Route, $rootScope, $ngRedux) {
   }
 
   function show(id) {
-console.log('email serverice hostnameId', id);
+console.log('show email serverice hostnameId', id);
     return $http.get(url(), { params: { id } }).then(response => response.data)
   }
 

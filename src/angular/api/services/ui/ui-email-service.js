@@ -5,6 +5,7 @@ angular.module('odin.api').factory('UiEmailService', UiEmailService)
 
 UiEmailService.$inject = ['$http', 'Route', '$rootScope']
 function UiEmailService($http, Route, $rootScope) {
+console.log('ui-email-service UIEmailService');
   const url = Route.api('/ui/emails')
   let _data = {}
   const service = { load, data }
