@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery , setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-do-not-disturb-service'
 import {
   UiButton,
@@ -21,10 +21,10 @@ export const UserDoNotDisturb = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const {data: result , isLoading, error } = useQuery(
     'do-not-disturb',
-	  () => api.show(userId)		
+	  () => api.show(userId)
   )
 
   const userServiceData  =  result || {}
@@ -37,12 +37,12 @@ export const UserDoNotDisturb = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -51,7 +51,7 @@ export const UserDoNotDisturb = ({ match }) => {
     showLoadingModal()
     try {
       const newDoNotDisturb = await api.update(formData)
-      setQueryData(['do-not-disturb'], newDoNotDisturb, {
+      queryCache.setQueryData(['do-not-disturb'], newDoNotDisturb, {
         shouldRefetch: true
       })
       alertSuccess('Do Not Disturb Updated')
@@ -62,7 +62,7 @@ export const UserDoNotDisturb = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard
