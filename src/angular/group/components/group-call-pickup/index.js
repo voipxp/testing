@@ -9,19 +9,20 @@ angular.module('odin.group').component('groupCallPickup', {
 })
 
 controller.$inject = [
+  'ACL',
   'Alert',
   'GroupCallPickupService',
   'Route',
   'Module',
   '$location'
 ]
-function controller(Alert, GroupCallPickupService, Route, Module, $location) {
+function controller(ACL, Alert, GroupCallPickupService, Route, Module, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
   ctrl.edit = edit
   ctrl.users = users
-
+  ctrl.back = back
   function onInit() {
     ctrl.name = $location.search().name
     ctrl.loading = true
@@ -138,4 +139,21 @@ function controller(Alert, GroupCallPickupService, Route, Module, $location) {
       .catch(Alert.notify.danger)
       .finally(Alert.spinner.close)
   }
+
+  function back() { 
+    if(ACL.is('Group Department')) {
+      Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'callPickup')
+    } else if(ACL.is('Group') || ACL.is('Service Provider') ){
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'group-services',
+        'callPickup'
+        )
+    }else{
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPickup')
+    }
+  }
+
 }
