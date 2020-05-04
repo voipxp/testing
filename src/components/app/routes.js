@@ -10,8 +10,8 @@ import {
   GroupExtensionLength,
   GroupWebPolicy,
   GroupNumbers,
- // GroupSeriesCompletion,
- SharedCallAppearancesReport,
+  //GroupSeriesCompletion,
+  SharedCallAppearancesReport,
   GroupDashboard
 } from '@/components/groups'
 import { SystemResellers, SystemDashboard } from '../system'
@@ -443,13 +443,19 @@ export const routes = [
     angularComponent: 'groupVoiceMessagingUser',
     hasLevel: 'Group'
   },
+  
   {
     path: '/groups/:serviceProviderId/:groupId/departments',
     angularComponent: 'groupDepartments',
     hasLevel: 'Group'
   },
   {
-    path:
+	path: '/groups/:serviceProviderId/:groupId/departments/department',
+    angularComponent: 'groupDepartment',
+    hasLevel: 'Group'
+  },
+  {
+   path:
       '/groups/:serviceProviderId/:groupId/groupCommunicationBarringAuthorizationCodes',
     angularComponent: 'groupCommunicationBarringAuthorizationCodes',
     hasLevel: 'Group'

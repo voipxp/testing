@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-busy-service'
 import {
   UiButton,
@@ -23,14 +23,14 @@ export const UserCallForwardingBusy = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'user-call-forwarding-busy',
-	() => api.show(userId)		
+	() => api.show(userId)
   )
   const userServiceData = result || {}
   const options = api.options || {}
-  
+
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
 
@@ -40,12 +40,12 @@ export const UserCallForwardingBusy = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
    function save() {
 		if((form.isActive === true) && ((form.forwardToPhoneNumber === undefined ) || (form.forwardToPhoneNumber === "" ) )){
       alertDanger('The Call Forwarding Always Service Required Phone Number')
@@ -62,8 +62,7 @@ export const UserCallForwardingBusy = ({ match }) => {
     showLoadingModal()
     try {
       const newCallForwardingBusy = await api.update(formData)
-      
-      setQueryData(['user-call-forwarding-busy'], newCallForwardingBusy, {
+      queryCache.setQueryData(['user-call-forwarding-busy'], newCallForwardingBusy, {
         shouldRefetch: true
       })
       alertSuccess('Call Forwarding Busy Updated')
@@ -83,7 +82,7 @@ export const UserCallForwardingBusy = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-	  
+
         <UiSection>
           <UiListItem label="Is Active">
             <UiCheckbox isChecked={userServiceData.isActive} />
@@ -107,8 +106,8 @@ export const UserCallForwardingBusy = ({ match }) => {
               checked={form.isActive}
               onChange={handleInput}
             />
-        
-            <UiFormField label="Forward To">  
+
+            <UiFormField label="Forward To">
               <Input
                 type="text"
                 name="forwardToPhoneNumber"

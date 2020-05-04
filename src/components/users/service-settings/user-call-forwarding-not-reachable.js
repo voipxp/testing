@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-not-reachable-service'
 import {
   UiButton,
@@ -23,12 +23,12 @@ export const UserCallForwardingNotReachable = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-   
+
   const { data: result, isLoading, error } = useQuery(
     'user-call-forwarding-not-reachable',
     () => api.show(userId)
   )
- 
+
   const userServiceData = result || {}
   const options =  api.options || {}
 
@@ -41,19 +41,19 @@ export const UserCallForwardingNotReachable = ({ match }) => {
     const name = target.name
     setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
-  
+
+
   function save() {
     if((form.isActive === true) && ((form.forwardToPhoneNumber === undefined ) || (form.forwardToPhoneNumber === "" ) )){
       alertDanger('The Call Forwarding Not Reachable Service Required Phone Number')
       return false
 		}
-		
+
 		if( (form.isActive === true) && (( form.forwardToPhoneNumber.length > options.forwardToPhoneNumber.maximum ) || (form.forwardToPhoneNumber.length < options.forwardToPhoneNumber.minimum) )){
       alertDanger('Number Used For Outgoing Call Digits ' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
       return false
@@ -65,9 +65,9 @@ export const UserCallForwardingNotReachable = ({ match }) => {
 	  showLoadingModal()
     try {
 		const newUserCFNR = await api.update(formData)
-      setQueryData(['user-call-forwarding-not-reachable'], newUserCFNR, {
-        shouldRefetch: true
-      })
+    queryCache.setQueryData(['user-call-forwarding-not-reachable'], newUserCFNR, {
+      shouldRefetch: true
+    })
 	  alertSuccess('Call Forwarding Not Reachable Updated')
       setShowModal(false)
     } catch (error_) {
@@ -109,7 +109,7 @@ export const UserCallForwardingNotReachable = ({ match }) => {
               checked={form.isActive}
               onChange={handleInput}
             />
-			      <UiFormField label="Forward To">  
+			      <UiFormField label="Forward To">
               <Input
                 type = "text"
                 name = "forwardToPhoneNumber"
