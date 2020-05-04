@@ -57,7 +57,7 @@ const columns = [
   }
 ]
 
-export const SharedCallAppearancesReport = ({ match }) => {
+export const GroupSharedCallAppearancesReport = ({ match }) => {
   const { alertDanger } = useAlerts()
   const { serviceProviderId, groupId } = match.params
   const [scaReports, setScaReports] = React.useState([])
@@ -98,19 +98,19 @@ export const SharedCallAppearancesReport = ({ match }) => {
   return (
     <>
       <AppBreadcrumb>
-        <Breadcrumb.Item>Shared Call Appearances Report</Breadcrumb.Item>
+        <Breadcrumb.Item>User Shared Call Appearances</Breadcrumb.Item>
       </AppBreadcrumb>
       {loading ? (
         <UiLoading />
       ) : (
         <UiCard
-          title="Shared Call Appearances"
+          title="User Shared Call Appearances"
           buttons={
           <>
           <CSVLink
             data={scaReports}
             headers={columns}
-            filename={"sca.csv"}>
+            filename={"user-shared-call-appearances.csv"}>
           <UiButton
               color="link"
               icon="download"
@@ -130,6 +130,6 @@ export const SharedCallAppearancesReport = ({ match }) => {
   )
 }
 
-SharedCallAppearancesReport.propTypes = {
+GroupSharedCallAppearancesReport.propTypes = {
   match: PropTypes.object.isRequired
 }

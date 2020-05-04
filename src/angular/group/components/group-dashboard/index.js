@@ -279,6 +279,12 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         path: route('callRecords', 'callCenter')
       },
       {
+        type: 'report',
+        name: 'User Shared Call Appearances',
+        service: 'Shared Call Appearance',
+        path: route('sharedCallAppearancesReport')
+      },
+      {
         type: 'provisioning',
         name: 'Assign Numbers',
         path: route('assignNumbers'),
@@ -401,12 +407,6 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         name: 'Speed Dial 8',
         service: 'Speed Dial 8',
         path: route('speedDial8')
-      },
-      {
-        type: 'user',
-        name: 'Shared Call Appearances Report',
-        service: 'Shared Call Appearance',
-        path: route('sharedCallAppearancesReport')
       }
     ]
   }
