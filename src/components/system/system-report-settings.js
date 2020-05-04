@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiDataTable } from '@/components/ui'
-import { useModulePermissions, useUserServicePermissions } from '@/utils'
+import { useModulePermissions, useAcl } from '@/utils'
 import { AngularComponent } from '@/components/angular-component' 
 import { ReportRoutes } from './system-report-routes'
 
@@ -16,7 +16,8 @@ const columns = [
 ]
 
 export const ReportRouteSettings = ({ history, match }) => {
-  const { getModule } = useModulePermissions()
+  const { getModule , hasModuleRead } = useModulePermissions()
+  const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
 
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
@@ -33,13 +34,26 @@ export const ReportRouteSettings = ({ history, match }) => {
     }, {})
     // filter out ones not in our map or missing read perms
     const filtered = ReportRoutes.map(service => {  
-        const route = allowedServices[service.hasModuleRead]
-        const module = getModule(route)
-        return { ...module, ...service, path: service.path }
-      })
+      if (service.hasVersion && !hasVersion(service.hasVersion)) {
+        return false
+      }
+      if (service.hasLevel && !hasLevel(service.hasLevel)) {
+        return false
+      }
+      if (service.isLevel && !isLevel(service.isLevel)) {
+        return false
+      }
+      if (service.isPaasAdmin && !isPaasAdmin()) {
+        return false
+      }
+       
+      const route = allowedServices[service.hasModuleRead]
+      const module = getModule(route)
+      return { ...module, ...service, path: service.path }
+    })
     // remove dups such as Shared Call Appearance
     return uniqBy(filtered, 'name')
-  }, [getModule])
+  }, [getModule,hasLevel, hasModuleRead, hasVersion, isLevel, isPaasAdmin ])
 
   // The base view when no sub-component picked
   const GroupServiceList = () => (

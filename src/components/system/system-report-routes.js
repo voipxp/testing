@@ -37,6 +37,6 @@ export const ReportRoutes = [
 		    angularComponent: 'systemServiceUtilizationReport',
 		    hasLevel: 'Provisioning',
         	hasModuleRead: 'User Report'
-        },
+        }
 ]
  

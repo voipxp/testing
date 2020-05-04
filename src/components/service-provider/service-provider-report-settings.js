@@ -33,6 +33,7 @@ export const ReportRouteSettings = ({ history, match }) => {
     }, {})
     // filter out ones not in our map or missing read perms
     const filtered = ReportRoutes.map(service => {  
+       
       if (service.hasVersion && !hasVersion(service.hasVersion)) {
         return false
       }
@@ -40,7 +41,7 @@ export const ReportRouteSettings = ({ history, match }) => {
         return false
       }
       if (service.isLevel && !isLevel(service.isLevel)) {
-        return false
+        return false  
       }
       if (service.isPaasAdmin && !isPaasAdmin()) {
         return false
@@ -48,9 +49,10 @@ export const ReportRouteSettings = ({ history, match }) => {
       if (service.hasModuleRead && !hasModuleRead(service.hasModuleRead)) {
         return false
       }
-      const route = allowedServices[service.hasModuleRead]
-      const module = getModule(route)
-      return { ...module, ...service, path: service.path }
+       
+     const route = allowedServices[service.hasModuleRead]
+     const module = getModule(route)
+      return { module, ...service, path: service.path }
     })
     // remove dups such as Shared Call Appearance
     return uniqBy(filtered, 'name')
