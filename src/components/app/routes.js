@@ -8,7 +8,7 @@ import {
   GroupWebPolicy,
   GroupNumbers,
   GroupSeriesCompletion,
-  SharedCallAppearancesReport
+  GroupSharedCallAppearancesReport
 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
@@ -529,9 +529,9 @@ export const routes = [
   },
   {
     path: '/groups/:serviceProviderId/:groupId/sharedCallAppearancesReport',
-    component: SharedCallAppearancesReport,
+    component: GroupSharedCallAppearancesReport,
     hasLevel: 'Group',
-    hasModuleRead: 'Viewable Service Packs'
+    hasModuleRead: 'Shared Call Appearance'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/services/group',
