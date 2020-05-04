@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiDataTable } from '@/components/ui'
-import { useModulePermissions, useAcl } from '@/utils' 
+import { useModulePermissions, useAcl } from '@/utils'
 import { AngularComponent } from '@/components/angular-component' 
-import { ProvisioningRoutes } from './service-provider-provisioning-routes'
+import { ProvisioningRoutes } from './group-provisioning-routes'
 
 /* eslint-disable react/display-name */
 const columns = [
@@ -18,17 +18,16 @@ const columns = [
 export const ProvisioningRouteSettings  = ({ history, match }) => {
   const { getModule , hasModuleRead } = useModulePermissions()
   const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
-  const {serviceProviderId } = match.params
-  const showService = service => { 
-  if(service.path ==='audits' || service.path ==='exports' || service.path ==='imports' ) history.push(`/${service.path}`)
-  else history.push(`${match.url}/${service.path}`)
-     
+  const {serviceProviderId , groupId } = match.params
+  const showService = service => {
+    history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-	  history.push(`/serviceProviders/${serviceProviderId}/provisioning`)
+	  history.push(`groups/${serviceProviderId}/${groupId}/provisioning`)
     //history.goBack()
   }
+   
    
   const services = React.useMemo(() => {
     const allowedServices = ProvisioningRoutes.reduce((obj, route) => {
@@ -37,7 +36,7 @@ export const ProvisioningRouteSettings  = ({ history, match }) => {
     }, {})
     // filter out ones not in our map or missing read perms
     const filtered = ProvisioningRoutes.map(service => {  
-      if (service.hasVersion && !hasVersion(service.hasVersion)) {
+		  if (service.hasVersion && !hasVersion(service.hasVersion)) {
         return false
       }
       if (service.hasLevel && !hasLevel(service.hasLevel)) {

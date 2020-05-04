@@ -65,7 +65,7 @@ function controller(ACL, Alert, Route, GroupPagingGroupService, $location) {
   
   function back() {
     if(ACL.is('Group Department')) Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'paging')
-    else if(ACL.is('Group') || ACL.is('Service Provider') ) {
+    else if(ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System') ) {
       Route.open(
         'groups',
         ctrl.serviceProviderId,

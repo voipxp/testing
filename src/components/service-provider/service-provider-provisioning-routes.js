@@ -42,12 +42,9 @@ export const ProvisioningRoutes = [
 
       },
 		{
-         
         name: 'Delete Service Provider',
-        path:  'delete' ,
-		angularComponent: 'serviceProviderDelete',
-        acl: 'Reseller',
-		hasLevel: 'Reseller'
+        path: 'delete',
+        hasLevel: 'Reseller'
       },
 	    {
         name: 'Group Services',

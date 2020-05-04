@@ -2,13 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { UiLoadingCard, UiMenu } from '@/components/ui'
 import { Breadcrumb } from 'rbx'
-import { withRouter } from 'react-router-dom'
 import { AppBreadcrumb } from '@/components/app'
 import { dashboardMenu } from './service-provider-dashboard-menu'
 import { useModulePermissions, useAcl } from '@/utils' 
 
   export const ServiceProviderDashboard = ({ match }) => {
-    const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
+  const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
   const { hasModuleRead } = useModulePermissions()
   const camelCasedTxt =  window.location.href.split("/").pop().replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })
   const firstUpercaseLetters = camelCasedTxt.replace(/([A-Z])/g, ' $1').trim()

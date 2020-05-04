@@ -57,7 +57,7 @@ function controller(
   }
 
 	function loadModule() {
-		if(ACL.is('Group Department') || ACL.is('Group') || ACL.is('Service Provider') ) {
+		if(ACL.is('Group Department') || ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System') ) {
 			return Module.show('Call Center').then(function(data) {
 			  ctrl.module = data
 			})

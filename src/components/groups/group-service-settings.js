@@ -28,9 +28,9 @@ const columns = [
  export const GroupServiceSettings = ({ history, match }) => {
   const { serviceProviderId,groupId } = match.params
   const [loading, setLoading] = React.useState(false)
-  const { getModule } = useModulePermissions()
+  const { getModule , hasModuleRead } = useModulePermissions()
   const { hasGroupService } = useGroupServicePermissions()
-  const {  hasLevel } = useAcl()
+  const {  hasLevel, hasVersion } = useAcl()
   //const { userViewableServices } = useUserServicePermissions(serviceProviderId,groupId)
   const { loadGroupServices } = useGroupServices(groupId, serviceProviderId)
  
@@ -82,12 +82,20 @@ const columns = [
     // filter out ones not in our map or missing read perms
       const filtered = groupServiceRoutes.map(service => {
        //const route = allowedServices[service.name]
-       if (service.hasLevel && !hasLevel(service.hasLevel)) {
-        return false
-      }
+        if (service.hasLevel && !hasLevel(service.hasLevel)) {
+          return false
+        }
         if (service.hasGroupService && !hasGroupService(service.hasGroupService)) {
           return false
         }
+        if (service.hasModuleRead && hasModuleRead(service.hasModuleRead)) {
+          return false
+        }
+
+        if (service.hasVersion && !hasVersion(service.hasVersion)) {
+          return false
+        }
+
         const module = getModule(service.hasModuleRead)
         return { ...module, ...service, path: service.path }
       })
@@ -95,7 +103,7 @@ const columns = [
     // remove dups such as Shared Call Appearance
     if(filtered.length > 1)  return uniqBy(filtered, 'name')
     
-  }, [getModule, hasGroupService , hasLevel])
+  }, [getModule, hasGroupService , hasLevel , hasModuleRead, hasVersion ])
   // The base view when no sub-component picked
   const GroupServiceList = () => {
     return loading ? (

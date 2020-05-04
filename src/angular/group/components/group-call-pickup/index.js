@@ -143,7 +143,7 @@ function controller(ACL, Alert, GroupCallPickupService, Route, Module, $location
   function back() { 
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'callPickup')
-    } else if(ACL.is('Group') || ACL.is('Service Provider') ){
+    } else if(ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System') ){
       Route.open(
         'groups',
         ctrl.serviceProviderId,

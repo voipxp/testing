@@ -12,7 +12,7 @@ function controller(Route, GroupServiceService, Module,ACL) {
   var ctrl = this
   ctrl.open = open
   ctrl.$onInit = onInit
-  ctrl.hideNav  = ACL.is('Group') || ACL.is('Service Provider')
+  ctrl.hideNav  = ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System')
   function onInit() {
     Module.show('Outgoing Calling Plan').then(function(module) {
       ctrl.module = module

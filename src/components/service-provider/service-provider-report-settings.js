@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiDataTable } from '@/components/ui'
-import { useModulePermissions, useAcl } from '@/utils' 
+import { useModulePermissions , useAcl } from '@/utils'
 import { AngularComponent } from '@/components/angular-component' 
-import { ProvisioningRoutes } from './service-provider-provisioning-routes'
+import { ReportRoutes } from './service-provider-report-routes'
 
 /* eslint-disable react/display-name */
 const columns = [
@@ -15,28 +15,24 @@ const columns = [
   }
 ]
 
-export const ProvisioningRouteSettings  = ({ history, match }) => {
+export const ReportRouteSettings = ({ history, match }) => {
   const { getModule , hasModuleRead } = useModulePermissions()
   const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
-  const {serviceProviderId } = match.params
-  const showService = service => { 
-  if(service.path ==='audits' || service.path ==='exports' || service.path ==='imports' ) history.push(`/${service.path}`)
-  else history.push(`${match.url}/${service.path}`)
-     
+  const showService = service => {
+    history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-	  history.push(`/serviceProviders/${serviceProviderId}/provisioning`)
-    //history.goBack()
+    history.goBack()
   }
    
   const services = React.useMemo(() => {
-    const allowedServices = ProvisioningRoutes.reduce((obj, route) => {
-      ProvisioningRoutes.forEach(s => (obj[s] = route))
+    const allowedServices = ReportRoutes.reduce((obj, route) => {
+      ReportRoutes.forEach(s => (obj[s] = route))
       return obj
     }, {})
     // filter out ones not in our map or missing read perms
-    const filtered = ProvisioningRoutes.map(service => {  
+    const filtered = ReportRoutes.map(service => {  
       if (service.hasVersion && !hasVersion(service.hasVersion)) {
         return false
       }
@@ -58,11 +54,11 @@ export const ProvisioningRouteSettings  = ({ history, match }) => {
     })
     // remove dups such as Shared Call Appearance
     return uniqBy(filtered, 'name')
-  }, [getModule,hasLevel, hasModuleRead, hasVersion, isLevel, isPaasAdmin ])
+  }, [getModule, hasLevel, hasModuleRead, hasVersion, isLevel, isPaasAdmin ])
 
   // The base view when no sub-component picked
   const GroupServiceList = () => (
-    <UiCard title="Provisioning">
+    <UiCard title="Reports">
       <UiDataTable
         columns={columns}
         rows={services}
@@ -75,7 +71,7 @@ export const ProvisioningRouteSettings  = ({ history, match }) => {
   // render the clicked service
   const renderRoute = routeProps => {
     const path = routeProps.match.params.path
-    const route = Object.values(ProvisioningRoutes).find(r => r.path === path)
+    const route = Object.values(ReportRoutes).find(r => r.path === path)
     const { component, angularComponent, ...props } = route
     return (
       <>
@@ -97,7 +93,7 @@ export const ProvisioningRouteSettings  = ({ history, match }) => {
   )
 }
 
-ProvisioningRouteSettings.propTypes = {
+ReportRouteSettings.propTypes = {
   match: PropTypes.object,
   history: PropTypes.object
 }

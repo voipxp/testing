@@ -38,7 +38,7 @@ function controller(
   ctrl.edit = edit
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
-  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
+  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department') || ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System')
 
   ctrl.columns = [
     {
