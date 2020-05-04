@@ -110,7 +110,7 @@ export const GroupSharedCallAppearancesReport = ({ match }) => {
           <CSVLink
             data={scaReports}
             headers={columns}
-            filename={"sca.csv"}>
+            filename={"user-shared-call-appearances.csv"}>
           <UiButton
               color="link"
               icon="download"
