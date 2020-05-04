@@ -98,13 +98,13 @@ export const SharedCallAppearancesReport = ({ match }) => {
   return (
     <>
       <AppBreadcrumb>
-        <Breadcrumb.Item>Shared Call Appearances Report</Breadcrumb.Item>
+        <Breadcrumb.Item>User Shared Call Appearances</Breadcrumb.Item>
       </AppBreadcrumb>
       {loading ? (
         <UiLoading />
       ) : (
         <UiCard
-          title="Shared Call Appearances"
+          title="User Shared Call Appearances"
           buttons={
           <>
           <CSVLink
