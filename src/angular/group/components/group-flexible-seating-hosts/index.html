@@ -2,11 +2,12 @@
   service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
   module="$ctrl.module"
-  hide-navigation="$ctrl.isGroupDepartmentAdmin"
+  hide-navigation="true"
 >
   <pbs-breadcrumb title="'Flexible Seating Hosts'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
+<pbs-block title="Settings">
   <pbs-tabs>
     <pbs-tab label="Flexible Seating Host">
       <pbs-block title="Flexible Seating Hosts">
@@ -84,6 +85,7 @@
       </pbs-block>
     </pbs-tab>
   </pbs-tabs>
+  </pbs-block>
 </pbs-spinner>
 <pbs-modal id="editUserFlexibleSeatingGuest" title="Edit {{ $ctrl.editTitle }}">
   <pbs-form>

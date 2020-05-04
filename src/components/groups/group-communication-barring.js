@@ -19,7 +19,7 @@ import {
   UiFormField
 } from '@/components/ui'
 
-export const GroupCommunicationBarring = ({ match }) => {
+export const GroupCommunicationBarring = ({ match , isBreadcrumb = true }) => { 
   const { serviceProviderId, groupId } = match.params
   const { alertSuccess, alertDanger } = useAlerts()
   const [loading, setLoading] = useState(true)
@@ -78,9 +78,11 @@ export const GroupCommunicationBarring = ({ match }) => {
   }
   return (
     <>
+	{isBreadcrumb && (
       <AppBreadcrumb>
         <Breadcrumb.Item>Communication Barring</Breadcrumb.Item>
       </AppBreadcrumb>
+	)}
       {loading ? (
         <UiLoadingCard />
       ) : (
@@ -143,5 +145,6 @@ export const GroupCommunicationBarring = ({ match }) => {
   )
 }
 GroupCommunicationBarring.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  isBreadcrumb: PropTypes.bool
 }
