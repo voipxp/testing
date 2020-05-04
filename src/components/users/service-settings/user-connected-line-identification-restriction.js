@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery , setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-connected-line-identification-restriction-service'
 import {
   UiButton,
@@ -24,26 +24,26 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
 
   const { data: result, isLoading, error } = useQuery(
     'user-connectedLIne-Identif-Restrict',
-	  () => api.show(userId)		
+	  () => api.show(userId)
   )
 
   const userServiceData  =  result || {}
 
   if( error ) alertDanger( error )
   if( isLoading ) return <UiLoadingCard/>
- 
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -52,7 +52,7 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
     showLoadingModal()
     try {
       const newConnectedLineIdentificationRestrict = await api.update(formData)
-      setQueryData(['user-connectedLIne-Identif-Restrict'], newConnectedLineIdentificationRestrict, {
+      queryCache.setQueryData(['user-connectedLIne-Identif-Restrict'], newConnectedLineIdentificationRestrict, {
         shouldRefetch: true
       })
       alertSuccess('Connected Line Identification Restriction Updated')
@@ -63,7 +63,7 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard
@@ -76,7 +76,7 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
           <UiListItem label="Enable">
             <UiCheckbox isChecked={userServiceData.isActive} />
           </UiListItem>
-           
+
         </UiSection>
       </UiCard>
       <UiCardModal
