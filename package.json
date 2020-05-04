@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --mode development --hot --open --client-log-level debug",
+    "start": "webpack-dev-server --mode development --hot --open",
     "build": "webpack --mode production",
     "prettier": "prettier \"src/**/*\" -l",
     "format": "yarn prettier --write",

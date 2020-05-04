@@ -28,33 +28,27 @@ function controller($timeout) {
   ctrl.select = select
 
   function onInit() {
-console.log('inpbs-tabs onInit');
     ctrl.tabs = []
   }
 
   function add(tab) {
     ctrl.tabs.push(tab)
-console.log('inpbs-tabs add ctrl', ctrl);
   }
 
   function remove(tab) {
     _.remove(ctrl.tabs, tab)
-console.log('inpbs-tabs remove ctrl', ctrl);
   }
 
   function select(tab) {
-console.log('tab early', tab);
     ctrl.tabs.forEach(function(_tab) {
       _tab.selected = false
     })
     $timeout(function() {
       tab.selected = true
     }, 1)
-console.log('tab later', tab);
   }
 
   ctrl.$postLink = function() {
-console.log('tab cntrl.postLink', ctrl);
     $timeout(function() {
       select(ctrl.tabs[0])
     }, 5)

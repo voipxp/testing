@@ -6,4 +6,3 @@ angular.module('odin.common').component('pbsModuleDescription', {
   controller: function() {},
   bindings: { module: '<' }
 })
-console.log('in pbs-module-description')

@@ -6,11 +6,9 @@ angular.module('odin.branding').component('brandingSettings', {
   controller,
   bindings: { hostnameId: '<' }
 })
-console.log('  11111111 component branding setting service');
 
 controller.$inject = ['BrandingSettingService', 'Alert', 'UiSettingService']
 function controller(BrandingSettingService, Alert, UiSettingService) {
-console.log('22222 component branding setting service');
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -21,7 +19,6 @@ console.log('22222 component branding setting service');
   ctrl.fields.checkbox = [{ key: 'editCLID', label: 'Manual CLID Editing' }]
 
   function onInit() {
-console.log(' 333333 component branding setting onIinit');
     ctrl.loading = true
     loadSetting()
       .catch(Alert.notify.danger)
@@ -31,7 +28,6 @@ console.log(' 333333 component branding setting onIinit');
   }
 
   function loadSetting() {
-console.log(' 444444 component branding setting onIinit');
     return BrandingSettingService.show(ctrl.hostnameId).then(function(data) {
       ctrl.settings = data
     })

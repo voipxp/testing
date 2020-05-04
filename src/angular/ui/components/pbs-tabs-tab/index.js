@@ -16,7 +16,6 @@ angular.module('odin.ui').component('pbsTab', {
 
 function controller() {
   var ctrl = this
-console.log('  ^^^^^^^^^^^^^^  in pbs-tabs-tab control ctrl', ctrl);
   ctrl.$onInit = onInit
   ctrl.$onDestroy = onDestroy
   ctrl.shouldLoad = shouldLoad
@@ -34,7 +33,6 @@ console.log('  ^^^^^^^^^^^^^^  in pbs-tabs-tab control ctrl', ctrl);
   }
 
   function shouldLoad() {
-console.log('in pbs-tabs-tab shouldLoad ctrl.tab', ctrl.tab);
     // always show if selected
     if (ctrl.tab.selected) return true
     // if delay is implicitly set to false then show

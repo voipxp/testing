@@ -21,4 +21,3 @@ angular.module('odin.ui').component('pbsBlock', {
     }
   }
 })
-console.log('in pbs-block')

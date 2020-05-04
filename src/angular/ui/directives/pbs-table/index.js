@@ -3,7 +3,6 @@ import angular from 'angular'
 angular.module('odin.ui').directive('pbsTable', pbsTable)
 
 function pbsTable() {
-console.log('in pbsTable directive')
   return {
     restrict: 'A',
     link: function(scope, element) {

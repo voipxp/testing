@@ -5,7 +5,6 @@ angular.module('odin.api').factory('UiSettingService', UiSettingService)
 
 UiSettingService.$inject = ['$http', 'Route', '$rootScope']
 function UiSettingService($http, Route, $rootScope) {
-console.log('ui-setting-service UISettingService');
   const url = Route.api('/ui/settings')
   let _data = {}
   const service = { load, data }

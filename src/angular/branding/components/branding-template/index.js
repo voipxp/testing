@@ -6,10 +6,9 @@ angular.module('odin.branding').component('brandingTemplate', {
   controller,
   bindings: { hostnameId: '<' }
 })
-console.log(' 1111 component branding-template ')
+
 controller.$inject = ['BrandingTemplateService', 'Alert', 'UiTemplateService']
 function controller(BrandingTemplateService, Alert, UiTemplateService) {
-console.log(' 22222 component branding-template controler')
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit

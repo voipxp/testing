@@ -6,7 +6,6 @@ angular.module('odin.branding').component('brandingEmail', {
   controller,
   bindings: { hostnameId: '<' }
 })
-console.log('  111111  component branding email service');
 
 controller.$inject = [
   'BrandingEmailService',
@@ -15,13 +14,11 @@ controller.$inject = [
   '$q'
 ]
 function controller(BrandingEmailService, Alert, UiEmailService, $q) {
-console.log(' 22222 component branding email service');
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
 
   function onInit() {
-console.log('333333 component email setting onIinit');
     ctrl.loading = true
     return $q
       .all([loadEmail()
@@ -36,7 +33,6 @@ console.log('333333 component email setting onIinit');
   }
 
   function loadEmail() {
-console.log('444444 component email setting onIinit');
     return BrandingEmailService.index(ctrl.hostnameId).then(function(
       data
     ) {

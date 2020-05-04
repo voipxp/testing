@@ -16,7 +16,6 @@ angular.module('odin.ui').component('pbsMenuItem', {
 
 function controller() {
   const ctrl = this
-console.log('in pbs-menu-item control ctrl', ctrl);
   ctrl.$onInit = onInit
   ctrl.$onDestroy = onDestroy
   ctrl.shouldLoad = shouldLoad

@@ -8,13 +8,11 @@ angular
 
 BrandingSettingService.$inject = ['$http', 'Route', '$rootScope', '$ngRedux']
 function BrandingSettingService($http, Route, $rootScope, $ngRedux) {
-console.log('services branding setting service');
   var service = { show, update }
   var url = Route.api('/branding/settings')
   return service
 
   function show(hostnameId) {
-console.log('setting servicehostnameId', hostnameId);
     return $http.get(url(), { params: { hostnameId } }).then(response => {
       return isEmpty(response.data) ? {} : response.data
     })
