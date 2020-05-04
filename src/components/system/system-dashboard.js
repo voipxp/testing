@@ -3,17 +3,12 @@ import PropTypes from 'prop-types'
 import { UiLoadingCard, UiMenu } from '@/components/ui'
 import { Breadcrumb } from 'rbx'
 import { dashboardMenu } from './system-dashboard-menu'
-import { useModulePermissions, useAcl } from '@/utils'
-import styled from 'styled-components'
-const StyledBreadcrumb = styled.div`
-  margin-top: -2rem;
-  margin-bottom: 1rem;
-`
+import { useModulePermissions, useAcl } from '@/utils' 
+
+import { AppBreadcrumb } from '@/components/app'
 export const SystemDashboard = ({ history }) => { 
   const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
   const { hasModuleRead } = useModulePermissions()
-  const acl = useAcl()
-  const hasReseller = acl.hasReseller()
   const camelCasedTxt =  window.location.href.split("/").pop().replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })
   const firstUpercaseLetters = camelCasedTxt.replace(/([A-Z])/g, ' $1').trim()
   const breadcrumbNewItem = firstUpercaseLetters.charAt(0).toUpperCase() + firstUpercaseLetters.slice(1)
@@ -51,16 +46,9 @@ export const SystemDashboard = ({ history }) => {
 
   return (
    <>
-      <Breadcrumb as={StyledBreadcrumb}>
-        <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
-		    { hasReseller && (
-          <>
-            <Breadcrumb.Item href={`${window.location.href}`}>
-            {breadcrumbNewItem}
-            </Breadcrumb.Item>
-          </>
-        )}
-      </Breadcrumb>
+      <AppBreadcrumb>
+        <Breadcrumb.Item> {breadcrumbNewItem}</Breadcrumb.Item>
+      </AppBreadcrumb> 
       {loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
     </>
   )

@@ -302,6 +302,13 @@ export const routes = [
     hasLevel: 'Group'
   }, */
   {
+    path:
+      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
+    angularComponent: 'enterpriseEnterpriseTrunk',
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'Trunk Group'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/devices/:deviceName',
     angularComponent: 'groupDevice',
     hasLevel: 'Group'
@@ -696,13 +703,6 @@ export const routes = [
   {
     path: '/serviceProviders/:serviceProviderId/enterpriseTrunks',
     angularComponent: 'enterpriseEnterpriseTrunks',
-    hasLevel: 'Service Provider',
-    hasModuleRead: 'Trunk Group'
-  },
-  {
-    path:
-      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
-    angularComponent: 'enterpriseEnterpriseTrunk',
     hasLevel: 'Service Provider',
     hasModuleRead: 'Trunk Group'
   },
