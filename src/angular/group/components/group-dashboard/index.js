@@ -401,6 +401,12 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         name: 'Speed Dial 8',
         service: 'Speed Dial 8',
         path: route('speedDial8')
+      },
+      {
+        type: 'user',
+        name: 'Shared Call Appearances Report',
+        service: 'Shared Call Appearance',
+        path: route('sharedCallAppearancesReport')
       }
     ]
   }
