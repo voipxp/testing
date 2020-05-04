@@ -13,10 +13,8 @@ export const BulkSipTrunkingTrunkGroups = ({
   handleWizData,
   localStorageKey
 }) => {
-
   const { alertSuccess, alertDanger } = useAlerts()
 	const [taskData, setTaskData] = React.useState({})
-  const [isNextBtnDisabled, setDisableNextButton] = React.useState(false)
   const [add, setAdd] = React.useState(false)
 
   const setTaskDataHandler = (data) => {
@@ -80,6 +78,8 @@ const prepareImportData = () => {
         "pilotUserChargeNumberPolicy": taskData.pilotUserChargeNumberPolicy,
         "prefixEnabled": taskData.prefixEnabled,
         "requireAuthentication": taskData.requireAuthentication,
+        "sipAuthenticationUserName": taskData.sipAuthenticationUserName,
+        "sipAuthenticationPassword": taskData.sipAuthenticationPassword,
         "routeToPeeringDomain": taskData.routeToPeeringDomain,
         "sendContinuousOptionsMessage": taskData.sendContinuousOptionsMessage,
         "statefulReroutingEnabled": taskData.statefulReroutingEnabled,
@@ -97,14 +97,7 @@ const prepareImportData = () => {
 
       task["accessDevice.deviceName"] = taskData.accessDevice.accessDeviceName
       task["accessDevice.deviceLevel"] = "Group"
-
-      if(taskData.prefixEnabled) {
-        task["prefix"] = taskData.prefix
-      }
-      if(taskData.requireAuthentication) {
-        task["sipAuthenticationUserName"] = taskData.sipAuthenticationUserName
-        task["sipAuthenticationPassword"] = taskData.sipAuthenticationPassword
-      }
+      if (taskData.prefixEnabled) task["prefix"] = taskData.prefix
       task['serviceProviderId'] = initialData.serviceProviderId
       task['groupId'] = initialData.groupId
 
@@ -159,7 +152,6 @@ const prepareImportData = () => {
         <Button style={{float: 'right'}}
               color="link"
               onClick={ setToNext}
-              disabled = { isNextBtnDisabled }
             >
               Next
         </Button>

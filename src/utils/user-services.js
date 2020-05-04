@@ -21,7 +21,6 @@ const hasUserService = (service, assigned, viewable, loginType) => {
 }
 
 export const useUserServicePermissions = userId => {
-  
   const { session, userViewableServices, userAssignedServices } = useSelector(
     state => ({
       session: state.session,

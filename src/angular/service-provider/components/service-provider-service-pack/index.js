@@ -30,6 +30,7 @@ function controller(
   ctrl.$onInit = onInit
   ctrl.open = open
   ctrl.edit = edit
+
   ctrl.quantity = function(value) {
     return value === -1 ? 'Unlimited' : value
   }
@@ -155,5 +156,4 @@ function controller(
         Alert.spinner.close()
       })
   }
- 
 }

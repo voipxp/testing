@@ -110,7 +110,7 @@ function controller(
   function open(groupId) {
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, groupId, 'meetMe')
-    }else if(ACL.is('Group') || ACL.is('Service Provider')) {
+    }else if(ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System') ) {
       Route.open(
         'groups',
         ctrl.serviceProviderId,

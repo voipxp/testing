@@ -1,57 +1,52 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
-  title="Flexible Seating Host"
-  hide-navigation="false"
->
-  <pbs-breadcrumb ng-click="$ctrl.back()" title="'Flexible Seating Hosts'">
-  </pbs-breadcrumb>
-  <pbs-breadcrumb title="$ctrl.serviceUserId"></pbs-breadcrumb>
-</pbs-navigation>
-
-<virtual-user-menu
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
-  user-id="$ctrl.serviceUserId"
-  module="$ctrl.module"
->
-  <pbs-menu-item label="Number and Device">
-    <group-flexible-seating-host-service-instance-profile
-      flexible-seating-host="$ctrl.flexibleSeatingHost"
-      service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-      service-user-id="$ctrl.serviceUserId"
-      on-update="$ctrl.onUpdateProfile($event)"
-      on-delete="$ctrl.onDeleteProfile($event)"
-      loading="$ctrl.loading"
-      read-only="!$ctrl.module.permissions.update"
-    ></group-flexible-seating-host-service-instance-profile>
-    <group-flexible-seating-host-device
-      service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-      flexible-seating-host="$ctrl.flexibleSeatingHost"
-      service-user-id="$ctrl.serviceUserId"
-      pbs-margin-top
-    ></group-flexible-seating-host-device>
-  </pbs-menu-item>
-  <pbs-menu-item label="Guest Association">
-    <group-flexible-seating-host-guest-association
-      service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-      service-user-id="$ctrl.serviceUserId"
-      on-update="$ctrl.onUpdateProfile($event)"
-      loading="$ctrl.loading"
-      read-only="!$ctrl.module.permissions.update"
-    ></group-flexible-seating-host-guest-association>
-  </pbs-menu-item>
-  <pbs-menu-item label="Routing Policies">
-    <group-flexible-seating-host-routing-policies
-      service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-      service-user-id="$ctrl.serviceUserId"
-      on-update="$ctrl.onUpdateProfile($event)"
-      loading="$ctrl.loading"
-      read-only="!$ctrl.module.permissions.update"
-    ></group-flexible-seating-host-routing-policies>
-  </pbs-menu-item>
-</virtual-user-menu>
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Hoteling Host Users">
+    <pbs-block-buttons>
+      <pbs-button-compact-cogs
+        ng-click="$ctrl.showSelect = !$ctrl.showSelect"
+      ></pbs-button-compact-cogs>
+    </pbs-block-buttons>
+    <pbs-data-table
+      order-by="user.userId"
+      columns="$ctrl.columns"
+      items="$ctrl.users"
+      show-select="$ctrl.showSelect"
+      is-compact="true"
+      is-bordered="true"
+      is-striped="true"
+      limit-to="25"
+      on-select="$ctrl.onSelect($event)"
+      on-click="$ctrl.onClick($event)"
+    ></pbs-data-table>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editUserHotelingHost" title="Edit {{ $ctrl.editTitle }}">
+  <pbs-form>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editSettings.isActive"
+      label="Is Active"
+    ></pbs-input-checkbox>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editSettings.removeGuestAssociation"
+      label="Remove Guest Association"
+    ></pbs-input-checkbox>
+    <pbs-input-checkbox
+      ng-model="$ctrl.editSettings.enforceAssociationLimit"
+      label="Enforce Association Limit"
+    ></pbs-input-checkbox>
+    <pbs-form-field-horizontal label="Enforce Association Limit Hours">
+      <input
+        type="number"
+        class="input"
+        ng-model="$ctrl.editSettings.associationLimitHours"
+        min="{{ $ctrl.options.minAssociationLimitHours }}"
+        max="{{ $ctrl.options.maxAssociationLimitHours }}"
+      />
+    </pbs-form-field-horizontal>
+    <pbs-form-field-horizontal label="Access Level">
+      <pbs-input-select
+        ng-model="$ctrl.editSettings.accessLevel"
+        ng-options="x for x in $ctrl.options.accessLevels"
+      ></pbs-input-select>
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>

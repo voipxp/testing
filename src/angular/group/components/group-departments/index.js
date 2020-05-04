@@ -1,35 +1,26 @@
 import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
-import { useAcl } from '@/utils'
-
 
 angular.module('odin.group').component('groupDepartments', {
   template,
   controller,
-  bindings: { serviceProviderId: '<', groupId: '<', hideNavigation: '<'}
-  
+  bindings: { serviceProviderId: '<', groupId: '<' }
 })
- 
+
 controller.$inject = [
-  'ACL',
   'Alert',
   'GroupDepartmentService',
   'Route',
   'GroupPolicyService',
-  '$q',
-  'Module',
-  '$location'
+  '$q'
 ]
 function controller(
-  ACL,
   Alert,
   GroupDepartmentService,
   Route,
   GroupPolicyService,
-  $q,
-  Module,
-  $location
+  $q
 ) {
   var ctrl = this
 
@@ -116,5 +107,4 @@ function controller(
       'department'
     ).search({ name: department.name })
   }
-  
 }

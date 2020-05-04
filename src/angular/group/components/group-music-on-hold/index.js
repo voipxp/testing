@@ -4,7 +4,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupMusicOnHold', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<'}
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
 controller.$inject = [

@@ -17,7 +17,6 @@ function controller(Alert, GroupCommonPhoneListService, CsvService, ACL) {
   ctrl.add = add
   ctrl.csv = csv
   ctrl.upload = upload
-  ctrl.isGroupAdmin = ACL.is('Group')
   ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
 
   function onPagination(event) {

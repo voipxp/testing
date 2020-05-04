@@ -164,7 +164,7 @@ function controller(
     }
   }
   function back() {
-     if(ACL.is('Group') || ACL.is('Service Provider') ){
+     if(ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System') ){
       Route.open(
         'groups',
         ctrl.serviceProviderId,
