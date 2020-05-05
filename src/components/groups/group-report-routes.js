@@ -1,6 +1,5 @@
-import {
-  GroupNumbers
-} from './group-numbers'
+import { GroupNumbers } from './group-numbers'
+import { GroupSharedCallAppearancesReport } from './group-shared-call-appearances-report'
 export const groupReportRoutes = [
     {
       name: 'Auto Receptionist',
@@ -13,7 +12,6 @@ export const groupReportRoutes = [
       name: 'Call Center Agent Report',
       path: 'call-center-agent-report',
       angularComponent: 'groupCallCenterCallRecords',
-      hasModuleRead: 'Premium Call Records',
       hasLevel: 'Group'
     },
     {
@@ -27,22 +25,26 @@ export const groupReportRoutes = [
       name: 'Premium Call Records',
       path: 'premium-call-records',
       angularComponent: 'groupCallRecordIndex',
-      hasModuleRead: 'Premium Call Records',
       hasLevel: 'Group'
     },
     {
       name: 'User Call Report',
       path: 'user-call-report',
       angularComponent: 'groupUserCallReportIndex',
-      hasModuleRead: 'Premium Call Records',
       hasLevel: 'Group'
     },
     {
       name: 'User Report',
       path: 'users-report',
       angularComponent: 'usersReport',
+      hasLevel: 'Group'
+    },
+    {
+      name: 'sharedCallAppearancesReport',
+      path: 'sharedCallAppearancesReport',
+      component: GroupSharedCallAppearancesReport,
       hasLevel: 'Group',
-      hasModuleRead: 'User Report'
-    } 
+      isBreadcrumb: false
+    }
 ]
  

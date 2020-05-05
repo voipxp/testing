@@ -11,7 +11,7 @@ import {
   GroupWebPolicy,
   GroupNumbers,
   //GroupSeriesCompletion,
-  SharedCallAppearancesReport,
+  //SharedCallAppearancesReport,
   GroupDashboard
 } from '@/components/groups'
 import { SystemResellers, SystemDashboard } from '../system'
@@ -599,12 +599,6 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/viewablePacks',
     angularComponent: 'groupViewablePacksIndex',
-    hasLevel: 'Group',
-    hasModuleRead: 'Viewable Service Packs'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/sharedCallAppearancesReport',
-    component: SharedCallAppearancesReport,
     hasLevel: 'Group',
     hasModuleRead: 'Viewable Service Packs'
   },
