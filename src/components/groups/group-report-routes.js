@@ -40,7 +40,7 @@ export const groupReportRoutes = [
       hasLevel: 'Group'
     },
     {
-      name: 'sharedCallAppearancesReport',
+      name: 'Shared Call Appearances Report',
       path: 'sharedCallAppearancesReport',
       component: GroupSharedCallAppearancesReport,
       hasLevel: 'Group',
