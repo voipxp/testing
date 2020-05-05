@@ -27,6 +27,51 @@ const columns = [
     label: 'Phone Number'
   },
   {
+    key: "inTrunkGroup",
+    label: 'In Trunk Group',
+    render: row => <UiCheckbox isChecked={row.inTrunkGroup} />
+  },
+  {
+    key: "phoneNumberActivated",
+    label: 'Phone Number Activated',
+    render: row => <UiCheckbox isChecked={row.phoneNumberActivated} />
+  },
+  {
+    key: "applicationId",
+    label: 'Application Id'
+  },
+  {
+    key: "applicationVersion",
+    label: 'Application Version'
+  },
+  {
+    key: "deviceOsType",
+    label: 'Device Os Type'
+  },
+  {
+    key: "registrationDate",
+    label: 'Registration Date'
+  }
+]
+
+const csvColumns = [
+  {
+    key: "userId",
+    label: 'User Id'
+  },
+  {
+    key: "lastName",
+    label: 'Last Name'
+  },
+  {
+    key: "firstName",
+    label: 'First Name'
+  },
+  {
+    key: "phoneNumber",
+    label: 'Phone Number'
+  },
+  {
     key: "extension",
     label: 'Extension'
   },
@@ -40,13 +85,11 @@ const columns = [
   },
   {
     key: "inTrunkGroup",
-    label: 'In Trunk Group',
-    render: row => <UiCheckbox isChecked={row.inTrunkGroup} />
+    label: 'In Trunk Group'
   },
   {
     key: "phoneNumberActivated",
-    label: 'Phone Number Activated',
-    render: row => <UiCheckbox isChecked={row.phoneNumberActivated} />
+    label: 'Phone Number Activated'
   },
   {
     key: "registrationId",
@@ -71,6 +114,10 @@ const columns = [
   {
     key: "events",
     label: 'Events'
+  },
+  {
+    key: "token",
+    label: 'Token'
   }
 ]
 
@@ -126,7 +173,7 @@ export const GroupPushNotificationRegistration = ({ match }) => {
           <>
           <CSVLink
             data={pushNReports}
-            headers={columns}
+            headers={csvColumns}
             filename={"pushNotificationRegistration.csv"}>
             <UiButton
                 color="link"
