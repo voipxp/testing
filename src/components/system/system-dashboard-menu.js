@@ -36,7 +36,7 @@ export const dashboardMenu = [
     label: 'Report',
     items: [
 		{ 
-		    name: 'Report',
+		    name: 'Reports',
         path: 'report',
         component: ReportRouteSettings,
 		    hasLevel: 'Provisioning',
