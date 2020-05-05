@@ -16,8 +16,6 @@ import {
   UiLoadingCard,
   UiListItem
 } from '@/components/ui'
-import { useSession } from '@/store/session'
-import { Redirect } from 'react-router-dom'
 
 export const SystemDomains = ({ match }) => {
   const initialForm = {
@@ -94,11 +92,14 @@ export const SystemDomains = ({ match }) => {
     }
   } 
 
-  async function destroy(domain) {
+  async function destroy() { 
     showLoadingModal()
     try {
-      await apiSystemDomain.destroy(form)
-      alertWarning('Admin Deleted')
+      const domain = form.domain
+      await apiSystemDomain.destroy(
+        domain
+        )
+      alertWarning('Domain  Deleted')
       setShowModal(false)
       hideLoadingModal()
       await execute()
