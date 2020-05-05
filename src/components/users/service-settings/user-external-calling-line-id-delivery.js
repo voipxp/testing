@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery , setQueryData} from 'react-query'
+import { useQuery, queryCache} from 'react-query'
 import api from '@/api/user-services-settings/user-external-calling-line-id-delivery-service'
 import {
   UiButton,
@@ -13,7 +13,7 @@ import {
   UiListItem,
   UiLoadingCard,
   UiSection
-  
+
 } from '@/components/ui'
 
 export const UserExternalCallingLineIdDelivery = ({ match }) => {
@@ -22,12 +22,12 @@ export const UserExternalCallingLineIdDelivery = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const {data: result , isLoading, error } = useQuery(
     'user-external-clid-delivery',
-	  () => api.show(userId)		
+	  () => api.show(userId)
   )
-  
+
   const userServiceData  =  result || {}
 
   if(error) alertDanger(error)
@@ -39,12 +39,12 @@ export const UserExternalCallingLineIdDelivery = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -53,7 +53,7 @@ export const UserExternalCallingLineIdDelivery = ({ match }) => {
     showLoadingModal()
     try {
       const newExternalClidDelivery = await api.update(formData)
-      setQueryData(['user-external-clid-delivery'], newExternalClidDelivery, {
+      queryCache.setQueryData(['user-external-clid-delivery'], newExternalClidDelivery, {
         shouldRefetch: true
       })
       alertSuccess(' External Calling Line ID Delivery Updated')
@@ -64,7 +64,7 @@ export const UserExternalCallingLineIdDelivery = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard

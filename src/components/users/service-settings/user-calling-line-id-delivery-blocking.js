@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-calling-line-id-delivery-blocking-service'
 import {
   UiButton,
@@ -21,12 +21,12 @@ export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'user-calling-line-id-blocking',
     () => api.show(userId)
   )
-  
+
   const userServiceData = result || {}
 
   if (error) alertDanger(error)
@@ -38,12 +38,12 @@ export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -52,7 +52,7 @@ export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
     showLoadingModal()
     try {
       const newUserCallingLineIdBlocking = await api.update(formData)
-      setQueryData(['user-calling-line-id-blocking'], newUserCallingLineIdBlocking, {
+      queryCache.setQueryData(['user-calling-line-id-blocking'], newUserCallingLineIdBlocking, {
         shouldRefetch: true
       })
       alertSuccess('Calling Line ID Delivery Blocking Updated')

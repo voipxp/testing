@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-barge-in-exempt-service'
 import {
   UiButton,
@@ -21,7 +21,7 @@ export const UserBargeInExempt = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
  const { data: result, isLoading, error } = useQuery(
     'user-barge-in-exempt',
     () => api.show(userId)
@@ -31,19 +31,19 @@ export const UserBargeInExempt = ({ match }) => {
 
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
-  
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -52,7 +52,7 @@ export const UserBargeInExempt = ({ match }) => {
     showLoadingModal()
     try {
       const newUserBargeInExempt = await api.update(formData)
-      setQueryData(['user-barge-in-exempt'], newUserBargeInExempt, {
+      queryCache.setQueryData(['user-barge-in-exempt'], newUserBargeInExempt, {
         shouldRefetch: true
       })
       alertSuccess('Barge In Exempt Updated')
@@ -63,7 +63,7 @@ export const UserBargeInExempt = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard

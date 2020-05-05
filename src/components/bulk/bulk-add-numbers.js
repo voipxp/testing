@@ -14,6 +14,7 @@ export const BulkAddNumbers = ({ setData, numbersArray }) => {
 
   useEffect(() => {
     bulkAssignNumbers(numbers)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numbers])
 
   useEffect(() => {

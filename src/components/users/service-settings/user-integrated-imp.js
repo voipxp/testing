@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery , setQueryData} from 'react-query'
+import { useQuery, queryCache} from 'react-query'
 import api from '@/api/user-services-settings/user-integrated-imp-service'
 import {
   UiButton,
@@ -12,7 +12,7 @@ import {
   UiInputCheckbox,
   UiListItem,
   UiLoadingCard,
-  UiSection 
+  UiSection
 } from '@/components/ui'
 
 export const UserIntegratedImp = ({ match }) => {
@@ -21,29 +21,29 @@ export const UserIntegratedImp = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-   
+
   const {data: result , isLoading, error } = useQuery(
     'user-integrated',
-	() => api.show(userId)		
+	() => api.show(userId)
   )
-  
+
   const userServiceData  =  result || {}
 
   if(error) alertDanger(error)
   if(isLoading) return <UiLoadingCard />
-  
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -52,7 +52,7 @@ export const UserIntegratedImp = ({ match }) => {
     showLoadingModal()
     try {
       const newIntegrated = await api.update(formData)
-      setQueryData(['user-integrated'], newIntegrated, {
+      queryCache.setQueryData(['user-integrated'], newIntegrated, {
         shouldRefetch: true
       })
       alertSuccess('Integrated IMP Updated')
@@ -63,7 +63,7 @@ export const UserIntegratedImp = ({ match }) => {
       hideLoadingModal()
     }
   }
-   
+
   return (
     <>
       <UiCard

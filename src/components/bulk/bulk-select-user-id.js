@@ -6,7 +6,6 @@ import userApi from '@/api/users'
 
 export const BulkSelectUserId = props => {
   const { serviceProviderId, groupId } = props
-  //const [isNextBtnDisabled, setDisableNextButton] = useState(false)
   const [availableUser, setAvailableUser] = useState([])
   const [selectedUser, setSelectedUser] = useState([])
   const { alertDanger } = useAlerts()
@@ -20,27 +19,12 @@ export const BulkSelectUserId = props => {
         setLoading(false)
       } catch (error) {
         setLoading(false)
-        //alertDanger(error)
       }
     }
     fetchUsers()
   }, [alertDanger, serviceProviderId, groupId])
 
-  useEffect(() => {
-    props.settUsers({
-      availableUser: availableUser,
-      selectedUser: selectedUser
-    })
-  }, [availableUser, selectedUser])
-
   if (loading) return <UiLoading />
-
-  // const handleUsers = () => {
-  //   const tempData = {...props.initialData, 'users': selectedUser}
-  //   props.handleWizData(tempData)
-  //   // setDisableNextButton(false)
-  //   props.setToNext()
-  // }
 
   return (
     <>
@@ -57,8 +41,6 @@ export const BulkSelectUserId = props => {
 }
 
 BulkSelectUserId.propTypes = {
-  // initialData: PropTypes.object.isRequired,
-  //handleWizData: PropTypes.func.isRequired,
   serviceProviderId: PropTypes.string,
   groupId: PropTypes.string,
   setToNext: PropTypes.func,
