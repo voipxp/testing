@@ -57,7 +57,7 @@
     "react-csv-reader": "^3.0.2",
     "react-ga": "^2.5.7",
     "react-hot-loader": "^4.8.4",
-    "react-query": "^0.3.24",
+    "react-query": "1.2.9",
     "react-redux": "^7.1.0-alpha.5",
     "react-router-dom": "^5.0.0",
     "react-transition-group": "^4.0.0",

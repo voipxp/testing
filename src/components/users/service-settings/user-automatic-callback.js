@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-automatic-callback-service'
 import {
   UiButton,
@@ -21,29 +21,29 @@ export const UserAutomaticCallback = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'user-automatic-callback',
     () => api.show(userId)
-  )  
+  )
 
   const userServiceData = result || {}
-   
+
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
-  
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -52,7 +52,7 @@ export const UserAutomaticCallback = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const newUserAutomaticCallback = await api.update(formData)
-			setQueryData(['user-automatic-callback'], newUserAutomaticCallback, {
+			queryCache.setQueryData(['user-automatic-callback'], newUserAutomaticCallback, {
 			shouldRefetch: true
 		 })
       alertSuccess('Automatic Callback Updated')

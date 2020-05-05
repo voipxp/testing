@@ -8,13 +8,13 @@ angular.module('odin.group').component('groupTrunkGroup', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['$location', 'Alert', 'GroupTrunkGroupService', 'Route']
-function controller($location, Alert, GroupTrunkGroupService, Route) {
+controller.$inject = ['ACL', '$location', 'Alert', 'GroupTrunkGroupService', 'Route']
+function controller(ACL, $location, Alert, GroupTrunkGroupService, Route) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.update = update
   ctrl.destroy = destroy
-
+  ctrl.back = back
   function onInit() {
     ctrl.trunkName = $location.search().trunkName
     ctrl.loading = true
@@ -98,7 +98,7 @@ function controller($location, Alert, GroupTrunkGroupService, Route) {
             if (_.isFunction(callback)) {
               callback()
             }
-            Route.open(
+            Route.open( 
               'groups',
               ctrl.serviceProviderId,
               ctrl.groupId,
@@ -113,4 +113,21 @@ function controller($location, Alert, GroupTrunkGroupService, Route) {
           })
       })
   }
+
+  function back() {
+    if(ACL.is('Group Department')) {
+      Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'trunkGroups')
+    } else if(ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System') ){
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'group-services',
+        'trunkGroups'
+      )
+    }else{
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'trunkGroups')
+    }
+  }
+
 }
