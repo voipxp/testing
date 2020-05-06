@@ -23,7 +23,7 @@ function controller(
   var ctrl = this
   ctrl.download = download
   ctrl.upload = upload
-  ctrl.services = BulkTaskService.index
+  ctrl.services = filterServices(BulkTaskService.index)
 
   function download(service) {
     CsvService.export(service.example)
@@ -37,5 +37,14 @@ function controller(
 
   function upload(file) {
     BulkImportService.open(file.content)
+  }
+
+  function filterServices(service) {
+    return service.filter(service => {
+      return (
+        service.task !== "bulk.sip.trunking" &&
+        service.task !== "bulk.sip.trunking.upload"
+      )
+    })
   }
 }

@@ -280,9 +280,15 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
       },
       {
         type: 'report',
-        name: 'User Push Notification Registration',
-        path: route('pushNotificationRegistration')
+        name: 'User Shared Call Appearances',
+        service: 'Shared Call Appearance',
+        path: route('sharedCallAppearancesReport')
       },
+      {
+		    type: 'report',
+        name: 'User Push Notification Registration',
+        path: route('pushNotificationRegistration')		
+	    },
       {
         type: 'provisioning',
         name: 'Assign Numbers',
@@ -406,12 +412,6 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         name: 'Speed Dial 8',
         service: 'Speed Dial 8',
         path: route('speedDial8')
-      },
-      {
-        type: 'user',
-        name: 'Shared Call Appearances Report',
-        service: 'Shared Call Appearance',
-        path: route('sharedCallAppearancesReport')
       }
     ]
   }
