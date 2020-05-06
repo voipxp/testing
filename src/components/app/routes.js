@@ -8,7 +8,8 @@ import {
   GroupWebPolicy,
   GroupNumbers,
   GroupSeriesCompletion,
-  GroupSharedCallAppearancesReport
+  GroupSharedCallAppearancesReport,
+  GroupPushNotificationRegistration
 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
@@ -532,6 +533,11 @@ export const routes = [
     component: GroupSharedCallAppearancesReport,
     hasLevel: 'Group',
     hasModuleRead: 'Shared Call Appearance'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/pushNotificationRegistration',
+    component: GroupPushNotificationRegistration,
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/services/group',
