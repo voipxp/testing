@@ -113,7 +113,6 @@ export const BulkUploadCsv = ({
     })
     return temp
   }
-
   return (
     <>
       <CSVReader

@@ -8,7 +8,9 @@ import {
   GroupWebPolicy,
   GroupNumbers,
   GroupSeriesCompletion,
-  GroupDevices
+  GroupDevices,
+  GroupSharedCallAppearancesReport,
+  GroupPushNotificationRegistration
 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
@@ -339,8 +341,7 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/groupCommunicationBarringAuthorizationCodes',
+    path: '/groups/:serviceProviderId/:groupId/groupCommunicationBarringAuthorizationCodes',
     angularComponent: 'groupCommunicationBarringAuthorizationCodes',
     hasLevel: 'Group'
   },
@@ -527,6 +528,17 @@ export const routes = [
     angularComponent: 'groupViewablePacksIndex',
     hasLevel: 'Group',
     hasModuleRead: 'Viewable Service Packs'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/sharedCallAppearancesReport',
+    component: GroupSharedCallAppearancesReport,
+    hasLevel: 'Group',
+    hasModuleRead: 'Shared Call Appearance'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/pushNotificationRegistration',
+    component: GroupPushNotificationRegistration,
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/services/group',

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-no-answer-service'
 import {
   UiButton,
@@ -23,31 +23,31 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'user-call-forwarding-no-ans',
-	  () => api.show(userId)		
+	  () => api.show(userId)
   )
   const userServiceData = result || {}
   const options = api.options || {}
 
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
-   
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
-    
+
     if((form.isActive === true) && ((form.forwardToPhoneNumber === undefined ) || (form.forwardToPhoneNumber === "" ) )){
       alertDanger('The Call Forwarding No Answer Service Required Phone Number')
       return false
@@ -56,20 +56,19 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
 			  alertDanger('Number Used For Outgoing Call Digits ' + options.forwardToPhoneNumber.minimum + ' and Maximum Value ' + options.forwardToPhoneNumber.maximum)
 			  return false
 		  }
-    
+
     if( form.numberOfRings > options.numberOfRings.maximum || form.numberOfRings < options.numberOfRings.minimum ){
 		  alertDanger('Number Of Rings Minimum Value ' + options.numberOfRings.minimum + ' and Maximum Value ' + options.numberOfRings.maximum)
 		  return false
     }
     update(form)
   }
-  
+
   async function update(formData) {
     showLoadingModal()
     try {
       const newCallForwardingNoAns = await api.update(formData)
-      
-      setQueryData(['user-call-forwarding-no-ans'], newCallForwardingNoAns, {
+      queryCache.setQueryData(['user-call-forwarding-no-ans'], newCallForwardingNoAns, {
         shouldRefetch: true
       })
       alertSuccess('Call Forwarding No Answer Updated')
@@ -80,7 +79,7 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
       hideLoadingModal()
     }
   }
- 
+
   return (
     <>
       <UiCard
@@ -96,7 +95,7 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
           <UiListItem label="Forward to Phone Number">
             {userServiceData.forwardToPhoneNumber}
           </UiListItem>
-        
+
           <UiListItem label="Number of Rings">
             { userServiceData.numberOfRings }
           </UiListItem>
@@ -117,8 +116,8 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
               checked={form.isActive}
               onChange={handleInput}
             />
-			
-            <UiFormField label="Forward To">  
+
+            <UiFormField label="Forward To">
               <Input
                 type="text"
                 name="forwardToPhoneNumber"
@@ -127,8 +126,8 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
                 onChange = {handleInput}
               />
 			      </UiFormField>
-			 
-			      <UiFormField label="Number Of Rings">  
+
+			      <UiFormField label="Number Of Rings">
               <Input
                 type="number"
                 name="numberOfRings"

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import groupExtensionLengthApi from '@/api/group-extension-length'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 
 import {
   UiCard,
@@ -62,7 +62,7 @@ export const GroupExtensionLength = ({ match }) => {
         groupId,
         extension
       )
-      setQueryData(['groupExtensionLength'], newGroupExentionLength, {
+      queryCache.setQueryData(['groupExtensionLength'], newGroupExentionLength, {
         shouldRefetch: true
       })
       alertSuccess('Extension Length Updated')
