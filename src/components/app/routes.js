@@ -7,7 +7,8 @@ import {
   GroupExtensionLength,
   GroupWebPolicy,
   GroupNumbers,
-  GroupSeriesCompletion
+  GroupSeriesCompletion,
+  GroupDevices
 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
@@ -166,13 +167,13 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/devices',
-    angularComponent: 'groupDevices',
+    path: '/groups/:serviceProviderId/:groupId/devices/:deviceName',
+    angularComponent: 'groupDevice',
     hasLevel: 'Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/devices/:deviceName',
-    angularComponent: 'groupDevice',
+    path: '/groups/:serviceProviderId/:groupId/devices',
+    component: GroupDevices,
     hasLevel: 'Group'
   },
   {
