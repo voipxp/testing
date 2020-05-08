@@ -117,7 +117,7 @@ export const Export = ({ history, match, isBreadcrumb = true }) => {
               columns={columns}
               rows={export2}
               rowKey="id"
-              pageSize={20}
+              pageSize={25}
               onClick={open}
             />
           </UiCard>
