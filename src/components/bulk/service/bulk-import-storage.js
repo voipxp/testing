@@ -289,7 +289,7 @@ import {
               columns={keys}
               rows={users}
               rowKey="index"
-              pageSize={20}
+              pageSize={25}
               handleDataChange={handleDataChange}
             />
             :

@@ -52,7 +52,7 @@ export const GroupSeriesCompletion = ({ match }) => {
       setAllAvailableUser(avaliableUsersList)
       const data = await apiSeriesCompletion.show(serviceProviderId, groupId)
       setGroupSeriesCompletion(data)
-      
+
     } catch (error) {
       alertDanger(error)
     } finally {
@@ -64,8 +64,8 @@ export const GroupSeriesCompletion = ({ match }) => {
     setLoading(true)
     loadSeriesCompletions()
   }, [alertDanger, loadSeriesCompletions])
-  
-  
+
+
   const seriesCompletionName = groupSeriesCompletion.names || []
   const sortGroupCompletionName = React.useMemo(() => {
     const sortedValues = orderBy(
@@ -113,7 +113,7 @@ export const GroupSeriesCompletion = ({ match }) => {
   if (canSelectedUser) {
     if (seriesCompletionNames.length > 0) {
       setCanSelectedUser(false)
-      form.name ? 
+      form.name ?
         getGroupDetails(
           serviceProviderId,
           groupId,
@@ -121,7 +121,7 @@ export const GroupSeriesCompletion = ({ match }) => {
         ) :
         getGroupDetails(
           serviceProviderId,
-          groupId, 
+          groupId,
           sortGroupCompletionName[0].names
         )
     }
@@ -139,7 +139,7 @@ export const GroupSeriesCompletion = ({ match }) => {
   async function onSelect(rows) {
     setLoading(true)
     getGroupDetails(
-      serviceProviderId, 
+      serviceProviderId,
       groupId,
       rows.names
     )
@@ -192,13 +192,13 @@ export const GroupSeriesCompletion = ({ match }) => {
     form.isCreate ? create(form) : update(form)
   }
 
-  const handleKeyDown = e => { 
+  const handleKeyDown = e => {
     if ( e.key === "Enter" ) {
       e.preventDefault()
       save()
     }
   }
-  
+
   const remove = () => {
     setLoading(true)
     setShowConfirm(false)
@@ -222,7 +222,7 @@ export const GroupSeriesCompletion = ({ match }) => {
     }
   }
 
-  async function update(profile) { 
+  async function update(profile) {
     try {
       await apiSeriesCompletion.update(profile)
       form['name'] = profile.newName
@@ -232,7 +232,7 @@ export const GroupSeriesCompletion = ({ match }) => {
       setSelectedUserForm(form)
       await loadSeriesCompletions()
       setCanSelectedUser(true)
-      
+
       alertSuccess('Series Completion Updated')
     } catch (error) {
       alertDanger(error)
@@ -252,9 +252,9 @@ export const GroupSeriesCompletion = ({ match }) => {
       <UiCard
         title="Series Completion"
         buttons={
-          <UiButton 
+          <UiButton
           color="link"
-          icon="add" 
+          icon="add"
           size="small"
           onClick={add} />
         }
@@ -266,8 +266,8 @@ export const GroupSeriesCompletion = ({ match }) => {
           hideSearch={false}
           onClick={onSelect}
           showSelect={true}
-          pageSize={5}
-        /> 
+          pageSize={25}
+        />
       </UiCard>
       <br />
       <UiCardModal
@@ -312,21 +312,21 @@ export const GroupSeriesCompletion = ({ match }) => {
           )}
         </form>
       </UiCardModal>
-  
+
       {!canSelectedUser ? (
         <>
-         
+
           { loading ? (
             <UiLoadingCard />
           ) : (
-             
+
             <UiCard
                 title={`Series Completion Group Name : ${selectedUserForm.newName}`}
                 buttons={
                   <UiButton color="link" icon="edit" size="small" onClick={edit} />
                 }
             >
-          
+
             <UiSelectableTable
               title="Users"
               availableUser={availableUser}
@@ -338,7 +338,7 @@ export const GroupSeriesCompletion = ({ match }) => {
               rowKey="userId"
               showMoveBtn={true}
             />
-           
+
             <Button.Group align="right" style={{ margin: '1rem 0rem' }}>
               <Button color="danger" onClick={() => setShowConfirm(true)}>
                 Delete
@@ -347,8 +347,8 @@ export const GroupSeriesCompletion = ({ match }) => {
                 Save
               </Button>
             </Button.Group>
-          </UiCard> 
-          )}   
+          </UiCard>
+          )}
           <UiCardModal
             title="Please Confirm"
             isOpen={showConfirm}
@@ -361,7 +361,7 @@ export const GroupSeriesCompletion = ({ match }) => {
             </blockquote>
           </UiCardModal>
         </>
-       
+
       ) : (
         ''
       )}
