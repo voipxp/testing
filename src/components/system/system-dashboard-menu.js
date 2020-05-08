@@ -7,19 +7,18 @@ export const dashboardMenu = [
     label: 'Dashboard',
     items: [
       {
-        name: 'Service Providers',
-        path: 'serviceProviders',
-        angularComponent: 'serviceProviders',
-        limitTo:10
-      },
-      {
         name: 'Bulk Provisioning',
         path: 'bulk',
         angularComponent: 'bulkDashboard',
         hasLevel: 'System',
         hasModuleRead: 'Provisioning'
 	    },
-	     
+      {
+        name: 'Service Providers',
+        path: 'serviceProviders',
+        angularComponent: 'serviceProviders',
+        limitTo:10
+      },
       { 
         name: 'VDM',
         path:  'vdm',

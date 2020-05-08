@@ -12,24 +12,24 @@ export const dashboardMenu = [
     label: 'Dashboard',
     items: [
         {
-          name: 'Departments',
-          path: 'departments',
-          component: GroupDepartments,
-          policy: 'departmentRead',
-          hasLevel: 'Group'
-        },
-        {
           name: 'Administrators',
           path: 'administrators',
           angularComponent: 'groupAdmins',
           hasLevel: 'Group',
           module: true
         },
-		{
+		    {
           name: 'Business Profile',
           path: 'profile',
           angularComponent: 'groupProfile',
           policy: 'profileRead',
+        },
+        {
+          name: 'Departments',
+          path: 'departments',
+          component: GroupDepartments,
+          policy: 'departmentRead',
+          hasLevel: 'Group'
         },
         {
           name: 'Users',
