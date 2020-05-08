@@ -609,6 +609,11 @@ export const routes = [
   //   hasLevel: 'Group',
   //   hasModuleRead: 'Shared Call Appearance'
   // },
+ /* {
+    path: '/groups/:serviceProviderId/:groupId/pushNotificationRegistration',
+    component: GroupPushNotificationRegistration,
+    hasLevel: 'Group'
+  },*/
   {
     path: '/groups/:serviceProviderId/:groupId/services/group',
     angularComponent: 'groupServices',

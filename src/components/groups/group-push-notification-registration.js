@@ -165,7 +165,7 @@ export const GroupPushNotificationRegistration = ({ match , isBreadcrumb = true 
       <AppBreadcrumb>
         <Breadcrumb.Item>User Push Notification Registration</Breadcrumb.Item>
       </AppBreadcrumb>
-	 )}
+	 )} 
       {loading ? (
         <UiLoading />
       ) : (
@@ -198,5 +198,5 @@ export const GroupPushNotificationRegistration = ({ match , isBreadcrumb = true 
 
 GroupPushNotificationRegistration.propTypes = {
   match: PropTypes.object.isRequired,
-  isBreadcrumb : PropTypes.bool 
+  isBreadcrumb : PropTypes.bool
 }
