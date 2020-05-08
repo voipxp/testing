@@ -51,7 +51,8 @@ export const groupReportRoutes = [
       name: 'Push Notification Registration',
       path: 'pushNotificationRegistration',
       component: GroupPushNotificationRegistration,
-      hasLevel: 'Group'
+      hasLevel: 'Group',
+	  isBreadcrumb: false
     },
 ]
  
