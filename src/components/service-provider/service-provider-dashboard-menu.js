@@ -23,16 +23,17 @@ export const dashboardMenu = [
 		    angularComponent: 'serviceProviderGroupsIndex',
 		    hasLevel: 'Service Provider'
       },
-      {
-		    name: 'Reports',
-        path: 'reports',
-        component: ReportRouteSettings
-      },
 	  {
 		    name: 'Provisioning',
         path: 'provisioning',
         component: ProvisioningRouteSettings
       },
+      {
+		    name: 'Reports',
+        path: 'reports',
+        component: ReportRouteSettings
+      },
+	  
 	  /*{
 		name: 'Management',
         path: 'management',
