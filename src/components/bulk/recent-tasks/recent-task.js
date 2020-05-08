@@ -23,7 +23,7 @@ const RecentTask = ({ id }) => {
         columns={errorKeys}
         rows={task || []}
         rowKey="index"
-        pageSize={20}
+        pageSize={25}
       />
     </UiCard>
   )

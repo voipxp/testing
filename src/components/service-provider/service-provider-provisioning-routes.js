@@ -44,6 +44,7 @@ export const ProvisioningRoutes = [
 		{
         name: 'Delete Service Provider',
         path: 'delete',
+		angularComponent: 'serviceProviderDelete',
         hasLevel: 'Reseller'
       },
 	    {

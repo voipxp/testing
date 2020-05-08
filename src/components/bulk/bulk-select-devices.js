@@ -31,7 +31,7 @@ export const BulkSelectDevices = props => {
         columns={columns}
         rows={devices || []}
         rowKey="deviceName"
-        pageSize={50}
+        pageSize={25}
         onClick={props.selectGroupTrunk}
       />
     </>

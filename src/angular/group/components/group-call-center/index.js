@@ -100,10 +100,12 @@ function controller(
     return GroupCallCenterService.hasPermission(ctrl.center, attribute)
   }
 
-  function back() {
+  function back() {  
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'callCenters')
-    } else if(ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System') ) {
+    }
+    if(($location.url() ==='/serviceProviders') && ACL.is('System')) Route.open('System','serviceProviders')
+    else if(ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System') ) {
       Route.open(
         'groups',
          ctrl.serviceProviderId,
