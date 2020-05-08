@@ -1,5 +1,6 @@
 import { GroupNumbers } from './group-numbers'
 import { GroupSharedCallAppearancesReport } from './group-shared-call-appearances-report'
+import { GroupPushNotificationRegistration } from './group-push-notification-registration'
 export const groupReportRoutes = [
     {
       name: 'Auto Receptionist',
@@ -45,6 +46,11 @@ export const groupReportRoutes = [
       component: GroupSharedCallAppearancesReport,
       hasLevel: 'Group',
       isBreadcrumb: false
-    }
+    },
+    {
+      path: '/groups/:serviceProviderId/:groupId/pushNotificationRegistration',
+      component: GroupPushNotificationRegistration,
+      hasLevel: 'Group'
+    },
 ]
  
