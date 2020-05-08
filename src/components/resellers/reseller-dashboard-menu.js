@@ -14,26 +14,31 @@ export const dashboardMenu = [
   {
     label: 'Dashboard',
     items: [
-      {
-        path: 'service-providers',
-        name: 'Service Providers',
-        component: ResellerServiceProviders
+	  {
+        path: 'admins',
+        name: 'Administrators',
+        component: ResellerAdmins
       },
       {
         path: 'profile',
         name: 'Business Profile',
         component: ResellerProfile
       },
-      {
-        path: 'admins',
-        name: 'Administrators',
-        component: ResellerAdmins
+	  {
+        path: 'service-providers',
+        name: 'Service Providers',
+        component: ResellerServiceProviders
       }
     ]
   },
   {
     label: 'Reports',
     items: [
+	  {
+        path: 'dn-report',
+        name: 'DN Report',
+        component: ResellerDnReport
+      },
       {
         path: 'service-provider-report',
         name: 'Service Provider Report',
@@ -48,29 +53,24 @@ export const dashboardMenu = [
         path: 'service-utilization-report',
         name: 'Service Utilization',
         component: ResellerServiceUtilizationReport
-      },
-      {
-        path: 'dn-report',
-        name: 'DN Report',
-        component: ResellerDnReport
       }
     ]
   },
   {
     label: 'Provisioning',
     items: [
-      {
-        path: 'delete-reseller',
-        name: 'Delete Reseller',
-        component: ResellerDelete,
-        hasLevel: 'Provisioning'
-      },
-      {
+	  {
         path: 'audits',
         name: 'Audits (beta)',
         component: ResellerAudits,
         hasLevel: 'Reseller',
         isBreadcrumb: false
+      },
+      {
+        path: 'delete-reseller',
+        name: 'Delete Reseller',
+        component: ResellerDelete,
+        hasLevel: 'Provisioning'
       },
       {
         path: 'exports',
@@ -98,10 +98,17 @@ export const dashboardMenu = [
         isLevel: 'Reseller',
         isPaasAdmin: true
       },
-      {
+	  {
         path: 'events',
         name: 'Event History',
         angularComponent: 'odinEvents',
+        isLevel: 'Reseller',
+        isPaasAdmin: true
+      },
+	  {
+        path: 'settings',
+        name: 'Settings',
+        angularComponent: 'odinSettings',
         isLevel: 'Reseller',
         isPaasAdmin: true
       },
@@ -109,13 +116,6 @@ export const dashboardMenu = [
         path: 'webhooks',
         name: 'Webhook History',
         angularComponent: 'odinWebhooks',
-        isLevel: 'Reseller',
-        isPaasAdmin: true
-      },
-      {
-        path: 'settings',
-        name: 'Settings',
-        angularComponent: 'odinSettings',
         isLevel: 'Reseller',
         isPaasAdmin: true
       }
