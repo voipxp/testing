@@ -130,7 +130,7 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
             rows={result}
             rowKey="id"
             onClick={open}
-            pageSize={40}
+            pageSize={25}
           />
         </UiCard>
       )}
