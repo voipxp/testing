@@ -16,7 +16,7 @@ import {
 } from '@/components/groups'
 import { SystemResellers, SystemDashboard } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
-import { Audits, Audit } from '@/components/audits'
+import { Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
 import { BulkSipTrunking } from '@/components/bulk'
 import { BulkSipTrunkingUpload } from '@/components/bulk/bulk-sip-trunking-upload/bulk-sip-trunking-upload'
@@ -41,7 +41,7 @@ export const routes = [
     angularComponent: 'serviceProviderServicePack',
     hasLevel: 'Service Provider'
   },
-  
+
   {
     path: '/system/networkClassOfServices/networkClassOfService',
     angularComponent: 'systemNetworkClassOfService',
@@ -336,7 +336,7 @@ export const routes = [
     component:  GroupDashboard,
     hasLevel: 'Group'
   },
-  
+
   {
     path: '/groups/:serviceProviderId/:groupId/profile',
     angularComponent: 'groupProfile',
@@ -443,7 +443,7 @@ export const routes = [
     angularComponent: 'groupVoiceMessagingUser',
     hasLevel: 'Group'
   },
-  
+
   {
     path: '/groups/:serviceProviderId/:groupId/departments',
     angularComponent: 'groupDepartments',
@@ -838,7 +838,7 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'VDM'
   },
-  
+
   {
     path: '/users/:serviceProviderId/:groupId/:userId',
     component: UserDashboard
@@ -876,12 +876,6 @@ export const routes = [
     hasLevel: 'Reseller'
   },
   {
-    path: '/audits',
-    exact: true,
-    component: Audits,
-    hasLevel: 'Service Provider'
-  },
-  {
     path: '/audits/:id',
     component: Audit,
     hasLevel: 'Service Provider'
@@ -913,3 +907,4 @@ export const routes = [
     component: DepartmentDashboard
   }
 ]
+
