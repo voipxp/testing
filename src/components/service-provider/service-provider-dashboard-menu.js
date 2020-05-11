@@ -1,6 +1,8 @@
 import { ReportRouteSettings } from './service-provider-report-settings'
 //import { ManagementRouteSettings } from './service-provider-management-settings'
 import { ProvisioningRouteSettings  } from './service-provider-provisioning-settings'
+import { ServiceProviderUsers  } from './service-provider-users'
+
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -11,29 +13,34 @@ export const dashboardMenu = [
 		    angularComponent: 'serviceProviderAdmins',
 		    hasLevel: 'Service Provider'
       },
-	    {
+	  {
         name: 'Business Profile',
         path: 'profile',
         angularComponent: 'serviceProviderProfile',
-		    hasLevel: 'Service Provider'
+		hasLevel: 'Service Provider'
       },
 	    {
         name: 'Groups',
         path:  'groups' ,
-		    angularComponent: 'serviceProviderGroupsIndex',
-		    hasLevel: 'Service Provider'
+		angularComponent: 'serviceProviderGroupsIndex',
+		hasLevel: 'Service Provider'
       },
 	  {
-		    name: 'Provisioning',
+		name: 'Provisioning',
         path: 'provisioning',
         component: ProvisioningRouteSettings
       },
       {
-		    name: 'Reports',
+		name: 'Reports',
         path: 'reports',
         component: ReportRouteSettings
       },
-	  
+	  {
+		name: 'Users',
+        path: 'users',
+        component: ServiceProviderUsers,
+        isBreadcrumb : false
+      }
 	  /*{
 		name: 'Management',
         path: 'management',
