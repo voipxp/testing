@@ -16,6 +16,7 @@ controller.$inject = [
   'Route',
   'ServiceProviderPolicyService',
   'GroupWebPolicyService',
+  'ServiceProviderUsersService',
   '$q',
   'ACL'
 ]
@@ -27,6 +28,7 @@ function controller(
   Route,
   ServiceProviderPolicyService,
   GroupWebPolicyService,
+  ServiceProviderUsersService,
   $q,
   ACL
 ) {
@@ -121,17 +123,27 @@ function controller(
     //   .finally(function() {
     //     ctrl.loading = false
     //   })
-  }
+  } 
 
-  function loadUsers(extended) {
-    return UserService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      extended
-    ).then(function(data) {
-      if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
-      ctrl.users = data
-    })
+    function loadUsers(extended) { 
+      if(ACL.has('Group') && ctrl.groupId !=='undefined') { 
+        return UserService.index(
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          extended
+        ).then(function(data) {
+          if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
+          ctrl.users = data
+        })
+      }else { 
+        return ServiceProviderUsersService.index( 
+          ctrl.serviceProviderId,
+          extended
+        ).then(function(data) {
+          if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
+          ctrl.users = data
+        })
+      }
   }
 
   function add() {
@@ -147,8 +159,42 @@ function controller(
     })
   }
 
+
+  function onClick(user) {
+    var returnTo = $location.url()
+    if(ACL.has('Group') && ctrl.groupId !=='undefined') { 
+      Route.open(
+         'users',
+         user.serviceProviderId,
+         user.groupId,
+         user.userId
+       ).search({ returnTo: returnTo })
+    }else{
+      Route.open(
+      'users',
+      user.serviceProviderId,
+      user.userId
+    ).search({ returnTo: returnTo })
+   }
+    
+  }
+
   function open(user) {
-    Route.open('users', ctrl.serviceProviderId, ctrl.groupId, user.userId)
+    if(ACL.has('Group') && ctrl.groupId !=='undefined') {  
+      Route.open(
+        'users',
+        user.serviceProviderId,
+        user.groupId,
+        user.userId
+      )
+    }else{
+      Route.open(
+        'users',
+        user.serviceProviderId,
+        user.userId
+      )
+    }
+  //  Route.open('users', ctrl.serviceProviderId, ctrl.groupId, user.userId)
   }
 
   function onCreate(event) {

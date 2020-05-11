@@ -108,7 +108,11 @@ export const dashboardMenu = [
         path: 'reports',
         component: ReportRouteSettings
       },
-
+      {
+        name: 'Users',
+        path: 'users',
+        angularComponent: 'groupUsers'
+      },
 	  /*{
 		name: 'Management',
         path: 'management',
