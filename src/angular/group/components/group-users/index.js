@@ -164,24 +164,23 @@ function controller(
     var returnTo = $location.url()
     if(ACL.has('Group') && ctrl.groupId !=='undefined') { 
       Route.open(
-        'users',
-        user.serviceProviderId,
-        user.groupId,
-        user.userId
-      ).search({ returnTo: returnTo })
+         'users',
+         user.serviceProviderId,
+         user.groupId,
+         user.userId
+       ).search({ returnTo: returnTo })
     }else{
       Route.open(
-        'users',
-        'serviceProviders',
-        user.serviceProviderId,
-        user.userId
-      ).search({ returnTo: returnTo })
-    }
+      'users',
+      user.serviceProviderId,
+      user.userId
+    ).search({ returnTo: returnTo })
+   }
     
   }
 
-  function open(user) { 
-    if(ACL.has('Group') && ctrl.groupId !=='undefined') { 
+  function open(user) {
+    if(ACL.has('Group') && ctrl.groupId !=='undefined') {  
       Route.open(
         'users',
         user.serviceProviderId,
@@ -191,7 +190,6 @@ function controller(
     }else{
       Route.open(
         'users',
-        'serviceProviders',
         user.serviceProviderId,
         user.userId
       )

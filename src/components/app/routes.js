@@ -856,7 +856,7 @@ export const routes = [
     component: UserDashboard
   },
   {
-    path: '/users/serviceProviders/:serviceProviderId/:userId',
+    path: '/users/:serviceProviderId/:userId',
     component: UserDashboard,
 	hasLevel: 'Service Provider',
   },
