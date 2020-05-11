@@ -1,10 +1,17 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Breadcrumb } from 'rbx'
+import { Breadcrumb, Button } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
-import { UiLoading, UiDataTable, UiCheckbox, UiCard } from '@/components/ui'
+import {
+  UiLoading,
+  UiDataTable,
+  UiCheckbox,
+  UiCard,
+  UiButton
+} from '@/components/ui'
 import { useAlerts } from '@/store/alerts'
 import groupNumberApi from '@/api/groups/numbers'
+import { CSVLink } from 'react-csv'
 /* eslint-disable react/display-name */
 const columns = [
   { key: 'phoneNumbers', label: 'Phone Numbers' },
@@ -50,7 +57,16 @@ export const GroupNumbers = ({ match }) => {
       {loading ? (
         <UiLoading />
       ) : (
-        <UiCard title="Numbers">
+        <UiCard
+          title="Numbers"
+          buttons={
+            <>
+              <CSVLink data={users} filename={groupId + '-dns.csv'}>
+                <UiButton color="link" icon="download" size="small"></UiButton>
+              </CSVLink>
+            </>
+          }
+        >
           <UiDataTable columns={columns} rows={users} rowKey="phoneNumbers" />
         </UiCard>
       )}
