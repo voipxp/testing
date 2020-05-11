@@ -6,7 +6,7 @@ import _ from 'lodash'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import { UiLoading } from '@/components/ui'
 import { AngularComponent } from '@/components/angular-component'
-import { Icon } from 'rbx'
+import { Button, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronDown,
@@ -34,8 +34,9 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
     const path = routeProps.match.params.path
     let route
     for (const section of menu) {
-      if( _.size(activeSubMenu) && section.items[activeSubMenu.index]) {
+      if( _.size(activeSubMenu) && section.items[activeSubMenu.index] && section.items[activeSubMenu.index].subMenus) {
         route = section.items[activeSubMenu.index].subMenus.find(el => el.path === path)
+        if(!route) route = section.items.find(item => item.path === path)
       }
       else route = section.items.find(item => item.path === path)
       if (route) break
@@ -111,7 +112,7 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                     return (
                       <>
                         {
-                          item.subMenus   /* If item has submenu */
+                          item.subMenus
                           ?
                           <Menu.List.Item
                             key={item.path}
@@ -127,11 +128,11 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                           </Menu.List.Item>
                           :
                           <Menu.List.Item
-                            key={item.path}
-                            active={isActive(item)}
-                            href={`#!${path}`}
-                          >
-                            {item.name}
+                          key={item.path}
+                          active={isActive(item)}
+                          href={`#!${path}`}
+                        >
+                          {item.name}
                         </Menu.List.Item>
                         }
                       </>
