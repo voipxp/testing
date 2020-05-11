@@ -126,7 +126,7 @@ function controller(
   } 
 
     function loadUsers(extended) { 
-      if(ACL.is('Group') && ctrl.groupId !=='undefined') { 
+      if(ACL.has('Group') && ctrl.groupId !=='undefined') { 
         return UserService.index(
           ctrl.serviceProviderId,
           ctrl.groupId,
@@ -162,40 +162,40 @@ function controller(
 
   function onClick(user) {
     var returnTo = $location.url()
-    if(ACL.is('Group') && ctrl.groupId !=='undefined') { 
+    if(ACL.has('Group') && ctrl.groupId !=='undefined') { 
       Route.open(
-         'users',
-         'serviceProviders',
-         user.serviceProviderId,
-         user.userId
-       ).search({ returnTo: returnTo })
-   }else{
+        'users',
+        user.serviceProviderId,
+        user.groupId,
+        user.userId
+      ).search({ returnTo: returnTo })
+    }else{
       Route.open(
-      'users',
-      user.serviceProviderId,
-      user.groupId,
-      user.userId
-    ).search({ returnTo: returnTo })
-   }
+        'users',
+        'serviceProviders',
+        user.serviceProviderId,
+        user.userId
+      ).search({ returnTo: returnTo })
+    }
     
   }
 
   function open(user) { 
-    if(ACL.is('Group') && ctrl.groupId !=='undefined') { 
+    if(ACL.has('Group') && ctrl.groupId !=='undefined') { 
       Route.open(
-         'users',
-         'serviceProviders',
-         user.serviceProviderId,
-         user.userId
-       )
+        'users',
+        user.serviceProviderId,
+        user.groupId,
+        user.userId
+      )
     }else{
       Route.open(
-      'users',
-      user.serviceProviderId,
-      user.groupId,
-      user.userId
-    )
-   }
+        'users',
+        'serviceProviders',
+        user.serviceProviderId,
+        user.userId
+      )
+    }
   //  Route.open('users', ctrl.serviceProviderId, ctrl.groupId, user.userId)
   }
 
