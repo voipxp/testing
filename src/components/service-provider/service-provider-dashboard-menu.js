@@ -38,7 +38,7 @@ export const dashboardMenu = [
 	  {
 		name: 'Users',
         path: 'users',
-        component: ServiceProviderUsers,
+        angularComponent: 'groupUsers',
         isBreadcrumb : false
       }
 	  /*{

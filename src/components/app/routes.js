@@ -856,6 +856,11 @@ export const routes = [
     component: UserDashboard
   },
   {
+    path: '/users/serviceProviders/:serviceProviderId/:userId',
+    component: UserDashboard,
+	hasLevel: 'Service Provider',
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/groupExtensionLength',
     component: GroupExtensionLength
   },
