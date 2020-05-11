@@ -7,19 +7,18 @@ export const dashboardMenu = [
     label: 'Dashboard',
     items: [
       {
-        name: 'Service Providers',
-        path: 'serviceProviders',
-        angularComponent: 'serviceProviders',
-        limitTo:10
-      },
-      {
         name: 'Bulk Provisioning',
         path: 'bulk',
         angularComponent: 'bulkDashboard',
         hasLevel: 'System',
         hasModuleRead: 'Provisioning'
 	    },
-	     
+      {
+        name: 'Service Providers',
+        path: 'serviceProviders',
+        angularComponent: 'serviceProviders',
+        limitTo:10
+      },
       { 
         name: 'VDM',
         path:  'vdm',
@@ -27,21 +26,16 @@ export const dashboardMenu = [
         hasLevel: 'Provisioning',
         module: 'VDM'
       } ,
-      
-	    
-	  
-	  ]
+    ]
   },
   {
     label: 'Report',
     items: [
-		{ 
-		    name: 'Reports',
-        path: 'report',
-        component: ReportRouteSettings,
-		    hasLevel: 'Provisioning',
-        hasLevel: 'System'
-       
+        { 
+          name: 'Reports',
+          path: 'report',
+          component: ReportRouteSettings,
+          hasLevel: 'Provisioning'
         }
       ]
   },
@@ -49,30 +43,28 @@ export const dashboardMenu = [
  {
     label: 'Management',
     items: [
-
-  {
-    name: 'Collaborate',
-    path: 'systemCollaborate',
-    angularComponent: 'systemCollaborate',
-    acl: 'System',
-    hasLevel: 'System'
-  },
-   {
-    name: 'Devices',
-    path: 'devices',
-    angularComponent: 'systemDevices',
-    acl: 'System',
-    hasLevel: 'System'
-  },
-  {
-    name: 'Network Class of Services',
-    path: 'networkClassOfServices',
-    angularComponent: 'systemNetworkClassOfServices',
-    hasLevel: 'System'
-  },
+      {
+        name: 'Collaborate',
+        path: 'systemCollaborate',
+        angularComponent: 'systemCollaborate',
+        acl: 'System',
+        hasLevel: 'System'
+      },
+      {
+        name: 'Devices',
+        path: 'devices',
+        angularComponent: 'systemDevices',
+        acl: 'System',
+        hasLevel: 'System'
+      },
+      {
+        name: 'Network Class of Services',
+        path: 'networkClassOfServices',
+        angularComponent: 'systemNetworkClassOfServices',
+        hasLevel: 'System'
+      },
     ]
-},
-
+  },
   {
     label: 'Utilities',
     items: [

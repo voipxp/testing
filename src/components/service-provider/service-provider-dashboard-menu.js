@@ -26,11 +26,6 @@ export const dashboardMenu = [
 		    angularComponent: 'serviceProviderGroupsIndex',
 		    hasLevel: 'Service Provider'
       },
-      {
-		    name: 'Reports',
-        path: 'reports',
-        component: ReportRouteSettings
-      },
 	  {
 		    name: 'Provisioning',
         // path: 'provisioning',
@@ -108,6 +103,12 @@ export const dashboardMenu = [
          }
    ]
       },
+      {
+		    name: 'Reports',
+        path: 'reports',
+        component: ReportRouteSettings
+      },
+	  
 	  /*{
 		name: 'Management',
         path: 'management',

@@ -12,6 +12,19 @@ export const dashboardMenu = [
     label: 'Dashboard',
     items: [
         {
+          name: 'Administrators',
+          path: 'administrators',
+          angularComponent: 'groupAdmins',
+          hasLevel: 'Group',
+          module: true
+        },
+		    {
+          name: 'Business Profile',
+          path: 'profile',
+          angularComponent: 'groupProfile',
+          policy: 'profileRead',
+        },
+        {
           name: 'Departments',
           path: 'departments',
           component: GroupDepartments,
@@ -19,24 +32,6 @@ export const dashboardMenu = [
           hasLevel: 'Group'
         },
         {
-          name: 'Administrators',
-          path: 'administrators',
-          angularComponent: 'groupAdmins',
-          hasLevel: 'Group',
-          module: true
-        },
-		{
-          name: 'Business Profile',
-          path: 'profile',
-          angularComponent: 'groupProfile',
-          policy: 'profileRead',
-        },
-        {
-          name: 'Users',
-          path: 'users',
-          angularComponent: 'groupUsers'
-        },
-		{
           name: 'Provisioning',
           path: 'Provisioning',
           component: ProvisioningRouteSettings,
@@ -47,7 +42,12 @@ export const dashboardMenu = [
           name: 'Reports',
           path: 'reports',
           component: GroupReportSettings
-        }
+        },
+		{
+          name: 'Users',
+          path: 'users',
+          angularComponent: 'groupUsers'
+        },
       ]
   },
   {
@@ -121,16 +121,16 @@ export const dashboardMenu = [
           hasLevel: 'Group',
           hasModuleRead: 'Network Class of Service'
         },
+		{
+          name: 'Phone List And Directory',
+          path: 'phone-list-directory',
+          component: GroupPhoneListWithDirecotorySettings
+        },
         {
           name: 'Schedules',
           path: 'schedules',
 		      angularComponent: 'groupSchedules',
 		      hasLevel: 'Group'
-        },
-        {
-          name: 'Phone List And Directory',
-          path: 'phone-list-directory',
-          component: GroupPhoneListWithDirecotorySettings
         },
         {
           name: 'Viewable Packs',

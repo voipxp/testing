@@ -30,7 +30,7 @@ export const BulkSelectServiceProviderId = props => {
         columns={columns}
         rows={providers || []}
         rowKey="serviceProviderId"
-        pageSize={50}
+        pageSize={25}
         onClick={spRow => {
           props.selectSP(spRow)
         }}
