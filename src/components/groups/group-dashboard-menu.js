@@ -6,7 +6,7 @@ import {GroupPhoneListWithDirecotorySettings} from './group-phone-list-with-dire
 import {GroupCommunicationSettings} from './group-communication-settings'
 import {ProvisioningRouteSettings} from './group-provisioning-settings'
 import {GroupWebPolicy} from './group-web-policy'
-
+import { GroupAssignDomains } from './group-assign-domains'
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -75,6 +75,13 @@ export const dashboardMenu = [
           angularComponent: 'groupAnnouncements',
           version: '20'
         },
+		{
+		  name: 'Assign Domain',
+		  path: 'assignDomain',
+		  component: GroupAssignDomains,
+		  hasLevel: 'Group',
+		  isBreadcrumb: false
+		},
         {
           name: 'Bulk Provisioning',
           path: 'bulk',
@@ -92,7 +99,7 @@ export const dashboardMenu = [
           path: 'comm-barring',
           component: GroupCommunicationSettings
         },
-        {
+		{
           name: 'Feature Access Codes',
           path:  'featureAccessCodes',
           angularComponent: 'groupFeatureAccessCodes',

@@ -2,6 +2,7 @@ import { ReportRouteSettings  } from './system-report-settings'
 import { Audits, Audit } from '@/components/audits'
 import { Imports } from '@/components/imports'
 import { Exports } from '@/components/exports'
+import { SystemDomains } from './system-domains'
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -57,6 +58,13 @@ export const dashboardMenu = [
         acl: 'System',
         hasLevel: 'System'
       },
+	  {
+		name: 'Domains',
+		component: SystemDomains,
+		path: 'domains',
+		hasLevel: 'System',
+		isBreadcrumb: false
+	  },
       {
         name: 'Network Class of Services',
         path: 'networkClassOfServices',

@@ -4,6 +4,7 @@ import { ReportRouteSettings } from './service-provider-report-settings'
 import { Imports } from '@/components/imports'
 import { Exports } from '@/components/exports'
 import { ServiceProviderAudits } from './service-provider-audits'
+import { ServiceProviderAssignDomains } from './service-provider-assign-domains'
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -144,6 +145,13 @@ export const dashboardMenu = [
   {
     label: 'Management',
     items: [
+	  {
+		name: 'Assign Domains',
+		component: ServiceProviderAssignDomains,
+		path: 'assignDomains',
+		hasLevel: 'Service Provider',
+		isBreadcrumb: false
+	  },
       {
         name: 'Directory',
         path:  'directory',
