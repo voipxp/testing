@@ -27,7 +27,7 @@ const columns = [
   }
 ]
 
-export const GroupNumbers = ({ match }) => {
+export const GroupNumbers = ({ match , isBreadcrumb = true }) => {
   const { alertDanger } = useAlerts()
   const { serviceProviderId, groupId } = match.params
   const [users, setUsers] = React.useState([])
@@ -51,9 +51,9 @@ export const GroupNumbers = ({ match }) => {
 
   return (
     <>
-      <AppBreadcrumb>
+	{ isBreadcrumb && ( <AppBreadcrumb>
         <Breadcrumb.Item>Numbers</Breadcrumb.Item>
-      </AppBreadcrumb>
+</AppBreadcrumb> )}
       {loading ? (
         <UiLoading />
       ) : (
@@ -75,5 +75,6 @@ export const GroupNumbers = ({ match }) => {
 }
 
 GroupNumbers.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  isBreadcrumb : PropTypes.bool 
 }

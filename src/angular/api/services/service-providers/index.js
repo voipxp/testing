@@ -21,4 +21,5 @@ import './service-provider-service'
 import './service-provider-sip-auth-password-rules-service'
 import './service-provider-trunk-group-call-capacity-report-service'
 import './service-provider-trunk-group-call-capacity-service'
+import './service-provider-users-service'
 

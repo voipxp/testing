@@ -82,15 +82,22 @@ function controller(Alert, GroupMusicOnHoldService, Route, $location, ACL) {
   }
 
   function back() {
-    if (ACL.is('Group Department')) {
+	if (ACL.is('Group Department')) {	
       Route.open(
         'department',
         ctrl.serviceProviderId,
         ctrl.groupId,
         'musicOnHold'
+      ) 
+    } else if(ACL.is('Group') || ACL.is('Service Provider' ) || ACL.is('System' ) ){
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'group-services',
+        'musicOnHold'
       )
-    } else {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
-    }
+	    } else Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'musicOnHold')
+  
   }
 }
