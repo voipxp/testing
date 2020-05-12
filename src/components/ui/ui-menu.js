@@ -154,12 +154,12 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                       >
                         <>
                           {item.icon && (
-                            <Icon class="is-left">
+                            <Icon align="left" style={{ marginRight: '4px' }}>
                               <FontAwesomeIcon icon={icons[item.icon]} />
                             </Icon>
                           )}
                         </>
-                        <span>&nbsp;&nbsp;{item.name}</span>
+                        <span align="right">{item.name}</span>
                       </Menu.List.Item>
                     )
                   })}
