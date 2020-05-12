@@ -1,17 +1,95 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Menu, Column } from 'rbx'
-import _ from 'lodash'
+import { Menu, Column, Icon } from 'rbx'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import { UiLoading } from '@/components/ui'
 import { AngularComponent } from '@/components/angular-component'
-import { Button, Icon } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  faBell,
+  faBullseye,
+  faChartBar,
+  faChartPie,
+  faCheck,
+  faChevronLeft,
+  faChevronRight,
+  faClone,
+  faCog,
+  faCogs,
+  faDownload,
+  faExternalLinkAlt,
+  faInfo,
+  faLink,
+  faList,
+  faLock,
+  faPlus,
+  faSearch,
+  faSitemap,
+  faSync,
+  faTag,
+  faTimes,
+  faThList,
+  faTrash,
+  faPoo,
+  faUpload,
+  faUserPlus,
+  faUsers,
+  faWrench,
+  faVolumeUp,
+  faKey,
+  faHandshake,
+  faUserCog,
+  faUserClock,
+  faIdCard,
+  faIdBadge,
+  faPhone,
   faChevronDown,
   faChevronUp
 } from '@fortawesome/free-solid-svg-icons'
+const icons = {
+  add: faPlus,
+  bell: faBell,
+  bulk: faSitemap,
+  cancel: faTimes,
+  check: faCheck,
+  clone: faClone,
+  cogs: faCogs,
+  cog: faCog,
+  delete: faTrash,
+  device: faWrench,
+  download: faDownload,
+  edit: faCog,
+  info: faInfo,
+  left: faChevronLeft,
+  link: faLink,
+  list: faList,
+  lock: faLock,
+  open: faExternalLinkAlt,
+  right: faChevronRight,
+  poo: faPoo,
+  search: faSearch,
+  select: faUserPlus,
+  sync: faSync,
+  tag: faTag,
+  target: faBullseye,
+  upload: faUpload,
+  users: faUsers,
+  audio: faVolumeUp,
+  password: faKey,
+  handshake: faHandshake,
+  usercog: faUserCog,
+  userclock: faUserClock,
+  idcard: faIdCard,
+  idbadge: faIdBadge,
+  phone: faPhone,
+  chartPie: faChartPie,
+  chartBar: faChartBar,
+  thList: faThList,
+  down: faChevronDown,
+  up: faChevronUp
+}
+
 const StyledMenu = styled.div`
   background-color: white;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
@@ -89,7 +167,14 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
               active={isActive(subMenu)}
               href={`#!${subMenuPath}`}
             >
-              {subMenu.name}
+            <>
+              {subMenu.icon && (
+                <Icon class="is-left">
+                  <FontAwesomeIcon icon={icons[subMenu.icon]} />
+                </Icon>
+              )}
+            </>
+            <span>&nbsp;&nbsp;{subMenu.name}</span>
             </Menu.List.Item>
           )
         })
@@ -123,7 +208,7 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                           >
                             {item.name}
                             <Icon style={{float: 'right'}}>
-                              <FontAwesomeIcon icon={isActiveSubMenu(index) ? faChevronUp : faChevronDown} />
+                              <FontAwesomeIcon icon={isActiveSubMenu(index) ? icons['up'] : icons['down']} />
                             </Icon>
                           </Menu.List.Item>
                           :
@@ -132,7 +217,14 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                           active={isActive(item)}
                           href={`#!${path}`}
                         >
-                          {item.name}
+                          <>
+                            {item.icon && (
+                              <Icon class="is-left">
+                                <FontAwesomeIcon icon={icons[item.icon]} />
+                              </Icon>
+                            )}
+                          </>
+                          <span>&nbsp;&nbsp;{item.name}</span>
                         </Menu.List.Item>
                         }
                       </>
