@@ -1,10 +1,90 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Menu, Column } from 'rbx'
+import { Menu, Column, Icon } from 'rbx'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import { UiLoading } from '@/components/ui'
 import { AngularComponent } from '@/components/angular-component'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faBell,
+  faBullseye,
+  faChartBar,
+  faChartPie,
+  faCheck,
+  faChevronLeft,
+  faChevronRight,
+  faClone,
+  faCog,
+  faCogs,
+  faDownload,
+  faExternalLinkAlt,
+  faInfo,
+  faLink,
+  faList,
+  faLock,
+  faPlus,
+  faSearch,
+  faSitemap,
+  faSync,
+  faTag,
+  faTimes,
+  faThList,
+  faTrash,
+  faPoo,
+  faUpload,
+  faUserPlus,
+  faUsers,
+  faWrench,
+  faVolumeUp,
+  faKey,
+  faHandshake,
+  faUserCog,
+  faUserClock,
+  faIdCard,
+  faIdBadge,
+  faPhone
+} from '@fortawesome/free-solid-svg-icons'
+const icons = {
+  add: faPlus,
+  bell: faBell,
+  bulk: faSitemap,
+  cancel: faTimes,
+  check: faCheck,
+  clone: faClone,
+  cogs: faCogs,
+  cog: faCog,
+  delete: faTrash,
+  device: faWrench,
+  download: faDownload,
+  edit: faCog,
+  info: faInfo,
+  left: faChevronLeft,
+  link: faLink,
+  list: faList,
+  lock: faLock,
+  open: faExternalLinkAlt,
+  right: faChevronRight,
+  poo: faPoo,
+  search: faSearch,
+  select: faUserPlus,
+  sync: faSync,
+  tag: faTag,
+  target: faBullseye,
+  upload: faUpload,
+  users: faUsers,
+  audio: faVolumeUp,
+  password: faKey,
+  handshake: faHandshake,
+  usercog: faUserCog,
+  userclock: faUserClock,
+  idcard: faIdCard,
+  idbadge: faIdBadge,
+  phone: faPhone,
+  chartPie: faChartPie,
+  chartBar: faChartBar,
+  thList: faThList
+}
 
 const StyledMenu = styled.div`
   background-color: white;
@@ -72,7 +152,14 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                         active={isActive(item)}
                         href={`#!${path}`}
                       >
-                        {item.name}
+                        <>
+                          {item.icon && (
+                            <Icon class="is-left">
+                              <FontAwesomeIcon icon={icons[item.icon]} />
+                            </Icon>
+                          )}
+                        </>
+                        <span>&nbsp;&nbsp;{item.name}</span>
                       </Menu.List.Item>
                     )
                   })}

@@ -7,6 +7,13 @@
       class="panel-block"
       ng-repeat="number in $ctrl.settings.phoneNumbers | orderBy:'phoneNumber' track by number.phoneNumber"
     >
+      <span class="panel-icon is-left">
+        <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+      </span>
+      <span class="panel-icon is-right">
+        <i class="fas fa-forward" aria-hidden="true"></i>
+      </span>
+
       <pbs-input-switch
         label="{{ number.phoneNumber }}"
         ng-model="number.isActive"
@@ -14,11 +21,18 @@
         ng-disabled="$ctrl.loadingNumber[number.phoneNumber]"
       ></pbs-input-switch>
     </div>
+
     <a
       class="panel-block"
       ng-click="$ctrl.edit()"
       ng-if="$ctrl.settings.phoneNumbers.length < 1"
     >
+      <span class="panel-icon is-left">
+        <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+      </span>
+      <span class="panel-icon is-right">
+        <i class="fas fa-forward" aria-hidden="true"></i>
+      </span>
       <p>Setup Numbers</p>
     </a>
   </nav>
