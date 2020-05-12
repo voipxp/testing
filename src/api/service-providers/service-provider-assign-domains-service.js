@@ -5,8 +5,8 @@ export function load( serviceProviderId ) {
 	return api.get(url, { params: { serviceProviderId } })
 } 
 
-export function create(params) {
-	return api.post( url , params )
+export function update(params) {
+	return api.put( url , params )
   }
 
-export default { load , create }
+export default { load , update }
