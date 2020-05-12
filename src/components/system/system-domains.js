@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import apiSystemDomain from '@/api/system/domains'
+import apiSystemDomain from '@/api/system/system-domain-service'
 import { useUi } from '@/store/ui'
 import PropTypes from 'prop-types'
 import { Input , Breadcrumb } from 'rbx'
@@ -17,7 +17,7 @@ import {
   UiListItem
 } from '@/components/ui'
 
-export const SystemDomains = ({ match }) => {
+export const SystemDomains = ({ match , isBreadcrumb = true }) => {
   const initialForm = {
     isCreate: true, 
     domain: ''
@@ -99,7 +99,7 @@ export const SystemDomains = ({ match }) => {
       await apiSystemDomain.destroy(
         domain
         )
-      alertWarning('Domain  Deleted')
+	  alertSuccess('Domains Deleted')
       setShowModal(false)
       hideLoadingModal()
       await execute()
@@ -110,9 +110,11 @@ export const SystemDomains = ({ match }) => {
   }
   return (
     <>
-    <AppBreadcrumb>
-        <Breadcrumb.Item>Domains</Breadcrumb.Item>
-      </AppBreadcrumb>
+		{(isBreadcrumb &&
+		<AppBreadcrumb>
+			<Breadcrumb.Item>Domains</Breadcrumb.Item>
+		</AppBreadcrumb>
+	  )}
       <UiCard
         title="Domains"
         buttons={
@@ -168,5 +170,6 @@ export const SystemDomains = ({ match }) => {
   )
 }
 SystemDomains.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  isBreadcrumb : PropTypes.bool
 }

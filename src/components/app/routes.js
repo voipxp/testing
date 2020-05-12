@@ -2,7 +2,7 @@ import { UserDashboard } from '@/components/users'
 import { DepartmentDashboard } from '@/components/departments'
 import { CreateAutoAttendant } from '@/components/autoAttendant'
 import {
-  ServiceProviderAddDomains
+  ServiceProviderAssignDomains
 } from '@/components/service-provider'
 import {
   GroupCommunicationBarring,
@@ -10,7 +10,8 @@ import {
   GroupExtensionLength,
   GroupWebPolicy,
   GroupNumbers,
-  GroupSeriesCompletion
+  GroupSeriesCompletion,
+  GroupAssignDomains
 } from '@/components/groups'
 import { SystemResellers,SystemDomains } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
@@ -169,8 +170,8 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/addDomains',
-    angularComponent: 'groupAddDomains',
+    path: '/groups/:serviceProviderId/:groupId/assignDomains',
+    component: GroupAssignDomains,
     hasLevel: 'Group'
   },
   {
@@ -648,8 +649,8 @@ export const routes = [
     hasLevel: 'Service Provider'
   },
   {
-    path: '/serviceProviders/:serviceProviderId/assignDomain',
-    component: ServiceProviderAddDomains,
+    path: '/serviceProviders/:serviceProviderId/assignDomains',
+    component: ServiceProviderAssignDomains,
     hasLevel: 'Service Provider'
   },
   {
