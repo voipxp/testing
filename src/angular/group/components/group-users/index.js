@@ -41,7 +41,6 @@ function controller(
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
   ctrl.isGroupDepartmentAdmin = ACL.is('Group Department') || ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System')
-
   ctrl.columns = [
     {
       key: 'userId',
@@ -88,6 +87,7 @@ function controller(
         GroupWebPolicyService.load()
       ])
       .then(function() {
+        ctrl.isAddGroup =  ctrl.groupId ? true : false 
         ctrl.canCLIDUpdate = true
         ctrl.canPNUpdate = true
         ctrl.canCreate = true
@@ -132,7 +132,7 @@ function controller(
           ctrl.groupId,
           extended
         ).then(function(data) {
-          if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
+          if (ACL.is('System') || ACL.is('Group Department') || ACL.is('Service Provider') || ACL.is('Group') ) data = ACL.filterByDepartment(data)
           ctrl.users = data
         })
       }else { 
@@ -140,7 +140,7 @@ function controller(
           ctrl.serviceProviderId,
           extended
         ).then(function(data) {
-          if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
+          if (ACL.is('System') || ACL.is('Group Department') || ACL.is('Service Provider') || ACL.is('Group') ) data = ACL.filterByDepartment(data)
           ctrl.users = data
         })
       }
