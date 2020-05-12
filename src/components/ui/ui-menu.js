@@ -86,8 +86,8 @@ const icons = {
   chartPie: faChartPie,
   chartBar: faChartBar,
   thList: faThList,
-  arrowDown: faChevronDown,
-  arrowUp: faChevronUp
+  down: faChevronDown,
+  up: faChevronUp
 }
 
 const StyledMenu = styled.div`
@@ -168,9 +168,9 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
               href={`#!${subMenuPath}`}
             >
             <>
-              {item.icon && (
+              {subMenu.icon && (
                 <Icon class="is-left">
-                  <FontAwesomeIcon icon={icons[item.icon]} />
+                  <FontAwesomeIcon icon={icons[subMenu.icon]} />
                 </Icon>
               )}
             </>
@@ -208,7 +208,7 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                           >
                             {item.name}
                             <Icon style={{float: 'right'}}>
-                              <FontAwesomeIcon icon={isActiveSubMenu(index) ? icons['arrowUp'] : icons['arrowDown']} />
+                              <FontAwesomeIcon icon={isActiveSubMenu(index) ? icons['up'] : icons['down']} />
                             </Icon>
                           </Menu.List.Item>
                           :
