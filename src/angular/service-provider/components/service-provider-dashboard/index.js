@@ -68,6 +68,11 @@ function controller(Alert, ServiceProviderDashboardService, Route, ACL) {
         path: route('networkClassOfServices')
       },
       {
+        type: 'management',
+        name: 'Assign Domains',
+        path: route('assignDomains')
+      },
+      {
         type: 'service',
         service: 'Meet-Me Conferencing',
         path: route('meetMe')
