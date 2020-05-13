@@ -24,7 +24,8 @@ export const dashboardMenu = [
         name: 'Groups',
         path:  'groups' ,
 		    angularComponent: 'serviceProviderGroupsIndex',
-		    hasLevel: 'Service Provider'
+        hasLevel: 'Service Provider',
+        default: true
       },
 	  {
 		    name: 'Provisioning',

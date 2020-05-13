@@ -140,13 +140,21 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
 
   // select the first route from the first section
   const renderDefault = () => {
-    const section = menu[0]
-    let route = ''
-    if(section && section.items[0].subMenus) {
-      setActiveSubMenu({index: 0})
-      route = section.items[0].subMenus[0]
+    let route
+    for (const section of menu) {
+      route = section.items.find(item => item.default)
+      if (route) break
     }
-    else route = section && section.items[0]
+
+    if(!route) {
+      const section = menu[0]
+      if(section && section.items[0].subMenus) {
+        setActiveSubMenu({index: 0})
+        route = section.items[0].subMenus[0]
+      }
+      else route = section && section.items[0]
+    }
+
     return route ? (
       <Redirect to={`${match.url}/${route.path}`} />
     ) : (
@@ -259,6 +267,7 @@ UiMenuBase.propTypes = {
           path: PropTypes.string,
           component: PropTypes.any,
           angularComponent: PropTypes.string,
+          default: PropTypes.bool,
           subMenus: PropTypes.arrayOf(
             PropTypes.shape({
               name: PropTypes.string.isRequired,

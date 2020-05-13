@@ -17,9 +17,10 @@ export const dashboardMenu = [
         name: 'Service Providers',
         path: 'serviceProviders',
         angularComponent: 'serviceProviders',
-        limitTo:10
+        limitTo:10,
+        default: true
       },
-      { 
+      {
         name: 'VDM',
         path:  'vdm',
         angularComponent: 'vdmDashboard',
@@ -31,7 +32,7 @@ export const dashboardMenu = [
   {
     label: 'Report',
     items: [
-        { 
+        {
           name: 'Reports',
           path: 'report',
           component: ReportRouteSettings,
