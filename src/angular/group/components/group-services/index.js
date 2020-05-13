@@ -37,7 +37,7 @@ function controller(
   ctrl.clone = clone
   ctrl.onClone = onInit
   ctrl.toggleUnlimited = toggleUnlimited
-console.log(ctrl)
+
   ctrl.quantity = function(value) {
     return value === -1 ? 'Unlimited' : value
   }

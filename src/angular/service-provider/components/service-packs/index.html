@@ -1,17 +1,15 @@
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Service Pack Settings">
-    <pbs-tabs>
-      <pbs-tab label="Service Packs">
-        <service-packs-list></service-packs-list>
-      </pbs-tab>
-      <pbs-tab label="Utilization">
-        <service-packs-utilization></service-packs-utilization>
-      </pbs-tab>
-      <pbs-tab label="Service Usage">
-        <service-packs-service-usage></service-packs-service-usage>
-      </pbs-tab>
-    </pbs-tabs>
-  </pbs-block>
+  <pbs-tabs>
+    <pbs-tab label="Service Packs">
+      <service-packs-list></service-packs-list>
+    </pbs-tab>
+    <pbs-tab label="Utilization">
+      <service-packs-utilization></service-packs-utilization>
+    </pbs-tab>
+    <pbs-tab label="Service Usage">
+      <service-packs-service-usage></service-packs-service-usage>
+    </pbs-tab>
+  </pbs-tabs>
 </pbs-spinner>
 
 <service-packs-create on-update="$ctrl.onCreate($event)"></service-packs-create>

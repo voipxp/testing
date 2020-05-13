@@ -6,8 +6,8 @@ angular.module('odin.branding').component('brandingHostnames', {
   controller
 })
 
-controller.$inject = ['ACL', 'BrandingHostnameService', 'Route', 'Alert', 'Session']
-function controller(ACL, BrandingHostnameService, Route, Alert, Session) {
+controller.$inject = ['BrandingHostnameService', 'Route', 'Alert', 'Session']
+function controller(BrandingHostnameService, Route, Alert, Session) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
@@ -23,7 +23,8 @@ function controller(ACL, BrandingHostnameService, Route, Alert, Session) {
 
   function onInit() {
     ctrl.loading = true
-    ctrl.hideNav = Session.data('resellerId') || ACL.is('Service Provider') || ACL.is('System')
+    ctrl.hideNav = Session.data('resellerId')
+
     loadHostnames()
       .catch(function(error) {
         Alert.notify.danger(error.data)

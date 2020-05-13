@@ -2,117 +2,127 @@ import angular from 'angular'
 import _ from 'lodash'
 import template from './index.html'
 
-angular.module('odin.group').component('groupHotelingHost', {
+angular.module('odin.group').component('groupFlexibleSeatingHost', {
   template,
   controller,
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserHotelingHostService']
-function controller(Alert, UserHotelingHostService) {
+controller.$inject = [
+  'Alert',
+  'GroupFlexibleSeatingHostService',
+  'Route',
+  '$q',
+  'GroupPolicyService',
+  '$location',
+  'ACL'
+]
+function controller(
+  Alert,
+  GroupFlexibleSeatingHostService,
+  Route,
+  $q,
+  GroupPolicyService,
+  $location,
+  ACL
+) {
   var ctrl = this
   ctrl.$onInit = onInit
-  ctrl.onClick = onClick
-  ctrl.onSelect = onSelect
-  ctrl.options = UserHotelingHostService.options
-
-  ctrl.columns = [
-    {
-      key: 'user.userId',
-      label: 'User ID'
-    },
-    {
-      key: 'user.firstName',
-      label: 'First Name'
-    },
-    {
-      key: 'user.lastName',
-      label: 'Last Name'
-    },
-    {
-      key: 'user.phoneNumber',
-      label: 'Phone Number'
-    },
-    {
-      key: 'data.isActive',
-      label: 'Active',
-      type: 'boolean',
-      align: 'centered'
-    },
-    {
-      key: 'data.enableAssociationLimit',
-      label: 'Enable Limit',
-      type: 'boolean',
-      align: 'centered'
-    },
-    {
-      key: 'data.associationLimitHours',
-      label: 'Limit Hours'
-    },
-    {
-      key: 'data.accessLevel',
-      label: 'Access Level'
-    }
-  ]
-
+  ctrl.back = back
+  ctrl.update = update
+  ctrl.destroy = destroy
+  ctrl.onUpdateProfile = onUpdateProfile
+  ctrl.onDeleteProfile = onDeleteProfile
+  ctrl.showReporting = false
   function onInit() {
+    ctrl.serviceUserId = $location.search().serviceUserId
     ctrl.loading = true
-    return load()
+    return $q
+      .all([loadGroupFlexibleSeatingHost(), GroupPolicyService.load()])
+      .then(function() {
+        ctrl.canRead = GroupPolicyService.enhancedServiceRead()
+        ctrl.canUpdate = GroupPolicyService.enhancedServiceCreate()
+        ctrl.canCreate = GroupPolicyService.enhancedServiceCreate()
+        ctrl.canDelete = GroupPolicyService.enhancedServiceCreate()
+      })
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
       })
   }
 
-  function load() {
-    return UserHotelingHostService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId
-    ).then(function(data) {
-      ctrl.users = _.filter(data, function(item) {
-        return _.get(item, 'service.assigned')
-      })
-    })
+  function loadGroupFlexibleSeatingHost() {
+    return GroupFlexibleSeatingHostService.show(ctrl.serviceUserId).then(
+      function(data) {
+        ctrl.flexibleSeatingHost = data
+      }
+    )
   }
 
-  function onClick(event) {
-    ctrl.editSettings = angular.copy(event.data)
-    ctrl.editTitle = event.user.userId
-    Alert.modal.open('editUserHotelingHost', function(close) {
-      update(event.user.userId, ctrl.editSettings, close)
-    })
-  }
-
-  function onSelect(event) {
-    var users = _.map(event, 'user')
-    ctrl.editSettings = {}
-    ctrl.editTitle = users.length + ' Users'
-    Alert.modal.open('editUserHotelingHost', function(close) {
-      bulk({ data: ctrl.editSettings, users: users }, close)
-    })
-  }
-
-  function update(userId, settings, callback) {
+  function update(flexibleSeatingHost, callback) {
     Alert.spinner.open()
-    UserHotelingHostService.update(userId, settings)
-      .then(load)
+    return GroupFlexibleSeatingHostService.update(flexibleSeatingHost)
+      .then(loadGroupFlexibleSeatingHost)
       .then(function() {
-        Alert.notify.success('User Settings Updated')
+        Alert.notify.success('Flexible Seating Host Saved')
         callback()
       })
-      .catch(Alert.notify.danger)
-      .finally(Alert.spinner.close)
+      .catch(function(error) {
+        Alert.notify.danger(error)
+      })
+      .finally(function() {
+        Alert.spinner.close()
+      })
   }
 
-  function bulk(data, callback) {
+  function destroy(callback) {
     Alert.spinner.open()
-    UserHotelingHostService.bulk(data)
-      .then(load)
+    GroupFlexibleSeatingHostService.destroy(ctrl.serviceUserId)
       .then(function() {
-        Alert.notify.success('Bulk Settings Updated')
-        callback()
+        Alert.notify.success('Flexbile Seating Host Removed')
+        if (_.isFunction(callback)) {
+          callback()
+        }
+        return back()
       })
-      .catch(Alert.notify.danger)
-      .finally(Alert.spinner.close)
+      .catch(function(error) {
+        Alert.notify.danger(error)
+      })
+      .finally(function() {
+        Alert.spinner.close()
+      })
+  }
+
+  function onUpdateProfile(event) {
+    var flexibleSeatingHost = angular.copy(ctrl.flexibleSeatingHost)
+    flexibleSeatingHost = event.flexibleSeatingHost
+    update(flexibleSeatingHost, event.callback)
+  }
+  function onDeleteProfile(event) {
+    var flexibleSeatingHost = angular.copy(ctrl.flexibleSeatingHost)
+    flexibleSeatingHost = event.flexibleSeatingHost
+    Alert.confirm
+      .open('Are you sure you want to delete host?')
+      .then(function() {
+        destroy(flexibleSeatingHost, event.callback)
+      })
+  }
+
+  function back() {
+    if(ACL.is('Group Department')) {
+      Route.open(
+        'department',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'flexibleSeatingHosts'
+      )
+    } else {
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'flexibleSeatingHosts'
+      )
+    }
   }
 }

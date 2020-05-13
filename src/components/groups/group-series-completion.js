@@ -17,7 +17,7 @@ import {
   UiSelectableTable
 } from '@/components/ui'
 
-export const GroupSeriesCompletion = ({ match , isBreadcrumb = true}) => {
+export const GroupSeriesCompletion = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
 
   const { alertSuccess, alertDanger } = useAlerts()
@@ -246,11 +246,9 @@ export const GroupSeriesCompletion = ({ match , isBreadcrumb = true}) => {
   if (showLoading) return <UiLoadingCard />
   return (
     <>
-     {isBreadcrumb && (
       <AppBreadcrumb>
-        <Breadcrumb.Item>Speed Dial 8</Breadcrumb.Item>
+        <Breadcrumb.Item>Series Completion</Breadcrumb.Item>
       </AppBreadcrumb>
-	)}
       <UiCard
         title="Series Completion"
         buttons={
@@ -371,6 +369,5 @@ export const GroupSeriesCompletion = ({ match , isBreadcrumb = true}) => {
   )
 }
 GroupSeriesCompletion.propTypes = {
-  match: PropTypes.object.isRequired,
-  isBreadcrumb : PropTypes.bool
+  match: PropTypes.object.isRequired
 }

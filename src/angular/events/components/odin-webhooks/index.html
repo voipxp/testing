@@ -1,3 +1,7 @@
+<pbs-navigation ng-if="!$ctrl.hideNav">
+  <pbs-breadcrumb title="'Webhooks'"></pbs-breadcrumb>
+</pbs-navigation>
+
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Recent Webhooks ({{ $ctrl.recent }})">
     <pbs-block-buttons>

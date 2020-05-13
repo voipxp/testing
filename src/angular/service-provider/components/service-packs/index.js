@@ -63,22 +63,13 @@ function controller(
     )
   }
 
-  function open(servicePackName) { 
-    if (servicePackName) {
-      Route.open(
-        'serviceProviders',
-        ctrl.serviceProviderId,
-        'servicePacks',
-        'servicePack'
-      ).search({ servicePackName })
-    } else {
-      Route.open(
-        'serviceProviders',
-         ctrl.serviceProviderId,
-          'provisioning',
-          'service-packs'
-          )
-    }
+  function open(servicePackName) {
+    Route.open(
+      'serviceProviders',
+      ctrl.serviceProviderId,
+      'servicePacks',
+      'servicePack'
+    ).search({ servicePackName })
   }
 
   function add() {

@@ -1,9 +1,10 @@
 <pbs-navigation
   service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
-  hide-navigation="true"
+  module="$ctrl.module"
+  hide-navigation="$ctrl.isGroupDepartmentAdmin"
 >
-  <pbs-breadcrumb title="'Announcements'"></pbs-breadcrumb>
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block module="$ctrl.module">

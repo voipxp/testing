@@ -4,6 +4,9 @@
       <nav class="panel">
         <p class="panel-heading">Feature Quick Set</p>
         <div class="panel-block" ng-if="$ctrl.has('Call Forwarding Always')">
+          <span class="panel-icon is-left" has-text-success>
+            <i class="fas fa-phone" aria-hidden="true"></i>
+          </span>
           <user-call-forwarding-always
             show-quick="true"
             service-provider-id="$ctrl.serviceProviderId"
@@ -13,6 +16,9 @@
           </user-call-forwarding-always>
         </div>
         <div class="panel-block" ng-if="$ctrl.has('Call Forwarding Busy')">
+          <span class="panel-icon is-left">
+            <i class="fas fa-phone-volume" aria-hidden="true"></i>
+          </span>
           <user-call-forwarding-busy
             show-quick="true"
             service-provider-id="$ctrl.serviceProviderId"
@@ -21,6 +27,9 @@
           ></user-call-forwarding-busy>
         </div>
         <div class="panel-block" ng-if="$ctrl.has('Call Forwarding No Answer')">
+          <span class="panel-icon is-left">
+            <i class="fas fa-phone-slash" aria-hidden="true"></i>
+          </span>
           <user-call-forwarding-no-answer
             show-quick="true"
             service-provider-id="$ctrl.serviceProviderId"
@@ -29,6 +38,9 @@
           ></user-call-forwarding-no-answer>
         </div>
         <div class="panel-block" ng-if="$ctrl.has('Do Not Disturb')">
+          <span class="panel-icon is-left">
+            <i class="fas fa-user-slash" aria-hidden="true"></i>
+          </span>
           <user-do-not-disturb
             show-quick="true"
             service-provider-id="$ctrl.serviceProviderId"
@@ -37,6 +49,9 @@
           ></user-do-not-disturb>
         </div>
         <div class="panel-block" ng-if="$ctrl.has('Remote Office')">
+          <span class="panel-icon is-left">
+            <i class="fas fa-laptop-house" aria-hidden="true"></i>
+          </span>
           <user-remote-office
             show-quick="true"
             service-provider-id="$ctrl.serviceProviderId"

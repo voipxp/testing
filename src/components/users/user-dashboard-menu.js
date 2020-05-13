@@ -10,13 +10,15 @@ export const dashboardMenu = [
         path: 'basic-call-logs',
         name: 'Basic Call Logs',
         angularComponent: 'userBasicCallLogs',
-        hasUserService: ['Basic Call Logs']
+        hasUserService: ['Basic Call Logs'],
+        icon: 'thList'
       },
       {
         path: 'call-records',
         name: 'Call Records',
         angularComponent: 'userCallRecordDashboard',
-        hasModuleRead: 'Premium Call Records'
+        hasModuleRead: 'Premium Call Records',
+        icon: 'chartBar'
       },
       {
         path: 'feature-quick-set',
@@ -29,7 +31,8 @@ export const dashboardMenu = [
           'Do Not Disturb',
           'Remote Office',
           'BroadWorks Anywhere'
-        ]
+        ],
+        icon: 'cog'
       }
     ]
   },
@@ -40,44 +43,52 @@ export const dashboardMenu = [
         path: 'announcements',
         name: 'Announcements',
         angularComponent: 'userAnnouncements',
-        hasVersion: '20'
+        hasVersion: '20',
+        icon: 'audio'
       },
       {
         path: 'meet-me-conferences',
         name: 'Meet-Me Conferences',
         angularComponent: 'userMeetMeConferencingConferences',
-        hasModuleRead: 'Meet-Me Conferencing'
+        hasModuleRead: 'Meet-Me Conferencing',
+        icon: 'handshake'
       },
       {
         path: 'passwords',
         name: 'Passwords',
-        angularComponent: 'userPasswords'
+        angularComponent: 'userPasswords',
+        icon: 'password'
       },
       {
         path: 'service-settings',
         name: 'Service Settings',
-        component: UserServiceSettings
+        component: UserServiceSettings,
+        icon: 'usercog'
       },
       {
         path: 'user-schedules',
         name: 'User Schedules',
-        angularComponent: 'userSchedules'
+        angularComponent: 'userSchedules',
+        icon: 'userclock'
       },
       {
         path: 'user-alternate-user-ids',
         name: 'Alternate User ID',
         component: UserAlternateUserId,
-        hasVersion: '20'
+        hasVersion: '20',
+        icon: 'idbadge'
       },
       {
         path: 'user-registration',
         name: 'User Registration',
-        component: UserRegistration
+        component: UserRegistration,
+        icon: 'phone'
       },
       {
         path: 'user-profile',
         name: 'User Profile',
-        angularComponent: 'userProfile'
+        angularComponent: 'userProfile',
+        icon: 'idcard'
       }
     ]
   },

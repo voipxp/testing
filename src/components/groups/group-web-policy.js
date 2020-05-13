@@ -15,7 +15,7 @@ import {
   UiFormField
  } from '@/components/ui'
 
-export const GroupWebPolicy = ({ match , isBreadcrumb = true }) => {
+export const GroupWebPolicy = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
   const { alertSuccess, alertDanger } = useAlerts()
   const [loading, setLoading] = useState(true)
@@ -68,11 +68,9 @@ export const GroupWebPolicy = ({ match , isBreadcrumb = true }) => {
   }
   return (
     <>
-    {( isBreadcrumb && 
       <AppBreadcrumb>
         <Breadcrumb.Item>Group Web Policies</Breadcrumb.Item>
       </AppBreadcrumb>
-    )}
       {loading ? (
         <UiLoadingCard />
       ) : (
@@ -318,6 +316,5 @@ export const GroupWebPolicy = ({ match , isBreadcrumb = true }) => {
   )
 }
 GroupWebPolicy.propTypes = {
-  match: PropTypes.object.isRequired,
-  isBreadcrumb : PropTypes.bool
+  match: PropTypes.object.isRequired
 }

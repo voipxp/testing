@@ -105,8 +105,10 @@ function controller(
   }
 
   function back() {
-    if(ACL.is('Group Department')) Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
-    else if(ACL.is('Group') || ACL.is('Service Provider')) Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'group-services','huntGroups')
-    else Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
+    if(ACL.is('Group Department')) {
+      Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
+    } else {
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'huntGroups')
+    }
   }
 }

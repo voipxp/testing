@@ -1,80 +1,79 @@
-<pbs-block title="System Licensing">
-  <pbs-tabs>
-    <pbs-tab label="Details">
-      <pbs-spinner loading="$ctrl.loading">
-        <pbs-block title="Details">
-          <pbs-list>
-            <pbs-list-item label="License Strictness">
-              {{ $ctrl.licensing.licenseStrictness }}
-            </pbs-list-item>
-            <pbs-list-item label="Group User Limit">
-              {{ $ctrl.licensing.groupUserlimit }}
-            </pbs-list-item>
-            <pbs-list-item label="Trunk Users">
-              {{ $ctrl.licensing.numberOfTrunkUsers }}
-            </pbs-list-item>
-            <pbs-list-item label="Host IDs">
-              {{ $ctrl.licensing.hostIds.length }}
-            </pbs-list-item>
-            <pbs-list-item
-              label="{{ hostId }}"
-              nested="true"
-              ng-repeat="hostId in $ctrl.licensing.hostIds"
-            >
-            </pbs-list-item>
-            <pbs-list-item label="Licenses">
-              {{ $ctrl.licensing.licenses.length }}
-            </pbs-list-item>
-            <pbs-list-item
-              label="{{ license }}"
-              nested="true"
-              ng-repeat="license in $ctrl.licensing.licenses"
-            >
-            </pbs-list-item>
-          </pbs-list>
-        </pbs-block>
-      </pbs-spinner>
-    </pbs-tab>
-    <pbs-tab label="Licenses">
-      <pbs-spinner loading="$ctrl.loading">
-        <pbs-block title="Licenses">
-          <pbs-block-buttons>
-            <pbs-button-compact-download
-              title="Download"
-              ng-click="$ctrl.download()"
-            ></pbs-button-compact-download>
-          </pbs-block-buttons>
-          <table pbs-table>
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Name</th>
-                <th>Licensed</th>
-                <th>Used</th>
-                <th>Available</th>
-                <th>Hosted Users</th>
-                <th>Trunk Users</th>
-                <th>Expiration</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                ng-repeat="license in $ctrl.licenses | orderBy:['type','name']"
-              >
-                <td>{{ license.type }}</td>
-                <td>{{ license.name }}</td>
-                <td>{{ license.licensed }}</td>
-                <td>{{ license.used }}</td>
-                <td>{{ license.available }}</td>
-                <td>{{ license.usedByHostedUsers }}</td>
-                <td>{{ license.usedByTrunkUsers }}</td>
-                <td>{{ license.expirationDate }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </pbs-block>
-      </pbs-spinner>
-    </pbs-tab>
-  </pbs-tabs>
-  <pbs-block></pbs-block
-></pbs-block>
+<pbs-navigation>
+  <pbs-breadcrumb title="'System Licensing'"></pbs-breadcrumb>
+</pbs-navigation>
+
+<pbs-tabs>
+  <pbs-tab label="Details">
+    <pbs-spinner loading="$ctrl.loading">
+      <pbs-block title="Details">
+        <pbs-list>
+          <pbs-list-item label="License Strictness">
+            {{ $ctrl.licensing.licenseStrictness }}
+          </pbs-list-item>
+          <pbs-list-item label="Group User Limit">
+            {{ $ctrl.licensing.groupUserlimit }}
+          </pbs-list-item>
+          <pbs-list-item label="Trunk Users">
+            {{ $ctrl.licensing.numberOfTrunkUsers }}
+          </pbs-list-item>
+          <pbs-list-item label="Host IDs">
+            {{ $ctrl.licensing.hostIds.length }}
+          </pbs-list-item>
+          <pbs-list-item
+            label="{{ hostId }}"
+            nested="true"
+            ng-repeat="hostId in $ctrl.licensing.hostIds"
+          >
+          </pbs-list-item>
+          <pbs-list-item label="Licenses">
+            {{ $ctrl.licensing.licenses.length }}
+          </pbs-list-item>
+          <pbs-list-item
+            label="{{ license }}"
+            nested="true"
+            ng-repeat="license in $ctrl.licensing.licenses"
+          >
+          </pbs-list-item>
+        </pbs-list>
+      </pbs-block>
+    </pbs-spinner>
+  </pbs-tab>
+  <pbs-tab label="Licenses">
+    <pbs-spinner loading="$ctrl.loading">
+      <pbs-block title="Licenses">
+        <pbs-block-buttons>
+          <pbs-button-compact-download
+            title="Download"
+            ng-click="$ctrl.download()"
+          ></pbs-button-compact-download>
+        </pbs-block-buttons>
+        <table pbs-table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Name</th>
+              <th>Licensed</th>
+              <th>Used</th>
+              <th>Available</th>
+              <th>Hosted Users</th>
+              <th>Trunk Users</th>
+              <th>Expiration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="license in $ctrl.licenses | orderBy:['type','name']">
+              <td>{{ license.type }}</td>
+              <td>{{ license.name }}</td>
+              <td>{{ license.licensed }}</td>
+              <td>{{ license.used }}</td>
+              <td>{{ license.available }}</td>
+              <td>{{ license.usedByHostedUsers }}</td>
+              <td>{{ license.usedByTrunkUsers }}</td>
+              <td>{{ license.expirationDate }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </pbs-block>
+    </pbs-spinner>
+  </pbs-tab>
+</pbs-tabs>

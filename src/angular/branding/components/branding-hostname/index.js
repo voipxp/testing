@@ -7,10 +7,10 @@ angular.module('odin.branding').component('brandingHostname', {
   bindings: { hostnameId: '<', onDeleteHostname: '&' }
 })
 
-controller.$inject = ['ACL', 'Route', 'Session']
-function controller(ACL, Route, Session) {
+controller.$inject = ['Route', 'Session']
+function controller(Route, Session) {
   var ctrl = this
-  ctrl.hideNav = Session.data('resellerId') || ACL.is('Service Provider') || ACL.is('System') 
+  ctrl.hideNav = Session.data('resellerId')
 
   ctrl.hostname = 'Loading...'
   ctrl.onUpdate = onUpdate

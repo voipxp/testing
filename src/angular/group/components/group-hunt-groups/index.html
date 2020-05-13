@@ -2,9 +2,9 @@
   service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
   module="$ctrl.module"
-  hide-navigation="true"
+  hide-navigation="$ctrl.isGroupDepartmentAdmin"
 >
-  <pbs-breadcrumb title="$ctrl.module"></pbs-breadcrumb>
+  <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block module="$ctrl.module">

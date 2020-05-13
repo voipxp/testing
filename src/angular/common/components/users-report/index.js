@@ -51,6 +51,10 @@ function controller(
       label: 'Phone'
     },
     {
+      key: 'callingLineIdPhoneNumber',
+      label: 'CLID'
+    },
+    {
       key: 'extension',
       label: 'Extension'
     },
@@ -115,6 +119,7 @@ function controller(
           lastName: user.lastName || '',
           firstName: user.firstName || '',
           phoneNumber: user.phoneNumber || '',
+          callingLineIdPhoneNumber: user.callingLineIdPhoneNumber || '',
           extension: user.extension || '',
           phoneNumberActivated: !!user.phoneNumberActivated,
           inTrunkGroup: !!user.inTrunkGroup,

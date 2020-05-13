@@ -1,11 +1,10 @@
 <pbs-navigation
   service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
-  module="$ctrl.module"
 >
   <pbs-breadcrumb
-    title="$ctrl.module.name"
-    ng-click="$ctrl.back()"
+    module="$ctrl.module"
+    ng-click="$ctrl.open()"
   ></pbs-breadcrumb>
   <pbs-breadcrumb title="$ctrl.name"></pbs-breadcrumb>
 </pbs-navigation>

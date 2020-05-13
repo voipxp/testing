@@ -7,12 +7,12 @@ angular.module('odin.group').component('groupOutgoingCallingPlanUsers', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Route', 'GroupServiceService', 'Module','ACL']
-function controller(Route, GroupServiceService, Module,ACL) {
+controller.$inject = ['Route', 'GroupServiceService', 'Module']
+function controller(Route, GroupServiceService, Module) {
   var ctrl = this
   ctrl.open = open
   ctrl.$onInit = onInit
-  ctrl.hideNav  = ACL.is('Group') || ACL.is('Service Provider')
+
   function onInit() {
     Module.show('Outgoing Calling Plan').then(function(module) {
       ctrl.module = module

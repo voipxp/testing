@@ -16,7 +16,7 @@ import {
   UiCardModal
 } from '@/components/ui'
 
-export const GroupExtensionLength = ({ match , isBreadcrumb = true }) => {
+export const GroupExtensionLength = ({ match }) => {
   const initialForm = {
     minExtensionLength: '',
     maxExtensionLength: '',
@@ -75,11 +75,9 @@ export const GroupExtensionLength = ({ match , isBreadcrumb = true }) => {
   }
   return (
     <>
-	{isBreadcrumb && (
       <AppBreadcrumb>
         <Breadcrumb.Item>Group Extension Length</Breadcrumb.Item>
       </AppBreadcrumb>
-	)}
       <>
         <UiCard
           title="Group Extension Length"
@@ -173,6 +171,5 @@ export const GroupExtensionLength = ({ match , isBreadcrumb = true }) => {
   )
 }
 GroupExtensionLength.propTypes = {
-  match: PropTypes.object.isRequired,
-  isBreadcrumb : PropTypes.bool
+  match: PropTypes.object.isRequired
 }
