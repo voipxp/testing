@@ -26,7 +26,8 @@ import {
   faUpload,
   faUserPlus,
   faUsers,
-  faWrench
+  faWrench,
+  faBackward
 } from '@fortawesome/free-solid-svg-icons'
 
 const icons = {
@@ -53,7 +54,8 @@ const icons = {
   tag: faTag,
   target: faBullseye,
   upload: faUpload,
-  users: faUsers
+  users: faUsers,
+  backward: faBackward
 }
 
 /**
