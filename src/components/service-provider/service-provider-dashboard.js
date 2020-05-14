@@ -39,11 +39,13 @@ import { useModulePermissions, useAcl } from '@/utils'
     dashboardMenu.forEach(section => {
       const items = []
       section.items.forEach(item => {
-        if (item.subMenus) {
-          item.subMenus = item.subMenus.filter( subMenuTtem => filterItems(subMenuTtem))
+        if(filterItems(item)) {
+          if (item.subMenus) {
+            item.subMenus = item.subMenus.filter( subMenuTtem => filterItems(subMenuTtem))
+          }
           items.push(item)
         }
-        else if(filterItems(item)) items.push(item)
+        // else if(filterItems(item)) items.push(item)
       })
       if (items.length > 0) filteredMenu.push({ label: section.label, items})
     })
