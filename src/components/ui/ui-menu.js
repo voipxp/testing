@@ -5,6 +5,7 @@ import { Menu, Column, Icon } from 'rbx'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import { UiLoading } from '@/components/ui'
 import { AngularComponent } from '@/components/angular-component'
+import { useUiTemplate } from '@/store/ui-template'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faBell,
@@ -101,6 +102,7 @@ const StyledMenu = styled.div`
  * UiMenu relies on react-router for navigation and must be within a Router context.
  */
 export const UiMenuBase = ({ match, location, menu = [] }) => {
+  const { template } = useUiTemplate()
   const renderRoute = routeProps => {
     const path = routeProps.match.params.path
     let route
@@ -124,12 +126,37 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
     )
   }
 
-  // select the first route from the first section
+  // set route based on branding template User Landing Page
+  // if not set in branding template, feature-quick-set be used
+  // if branding template not set and user doens't have feature-quick-set, his first menu item will be used
   const renderDefault = () => {
+    const defaultUserLandingPage = 'feature-quick-set'
+    let userLandingPage = ''
+    let pageToCheck = ''
+    let pageFound = false;
+    let featureQuickSetFound = false;
+    let atLeastOneLandingPage = false;
     const section = menu[0]
-    const route = section && section.items[0]
-    return route ? (
-      <Redirect to={`${match.url}/${route.path}`} />
+    pageToCheck = defaultUserLandingPage
+    if (template.userLandingPage) {
+      pageToCheck = template.userLandingPage
+    }
+    // Loop through all the menu items that user is able to see
+    section.items.forEach(function (availableUserLandingPage, index) {
+      atLeastOneLandingPage = true
+      if (availableUserLandingPage.path == pageToCheck) {
+        userLandingPage = availableUserLandingPage.path
+        pageFound = true
+      }
+      if (availableUserLandingPage == defaultUserLandingPage) {
+        featureQuickSetFound = true;
+      }
+    });
+    if (!pageFound && !featureQuickSetFound && atLeastOneLandingPage) {
+      userLandingPage = section.items[0]['path'];
+    }
+    return userLandingPage ? (
+      <Redirect to={`${match.url}/${userLandingPage}`} />
     ) : (
       <UiLoading />
     )

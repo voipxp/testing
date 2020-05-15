@@ -31,12 +31,15 @@ function controller(BrandingTemplateService, Alert, UiTemplateService) {
   ]
   ctrl.fields.select = [
     { key: 'userLandingPage', label: 'User Landing Page', options: 'userLandingPageOptions'},
-    { key: 'groupDepartmentLandingPage', label: 'Group Department Landing Page', options: 'groupDepartmentLandingPageOptions'},
-    { key: 'gropuLandingPage', label: 'Group Landing Page', options: 'gropuLandingPageOptions'},
-    { key: 'serviceProviderLandingPage', label: 'Service Provider Landing Page', options: 'serviceProviderLandingPageOptions'},
-    { key: 'resellerLandingPage', label: 'Reseller Landing Page', options: 'resellerLandingPageOptions'},
-    { key: 'provisioningLandingPage', label: 'Provisioning Landing Page', options: 'provisioningLandingPageOptions'},
-    { key: 'systemLandingPage', label: 'System Landing Page', options: 'systmeLandingPageOptions'}
+    /*
+    * Add these back when these settings are needed
+    */
+    // { key: 'groupDepartmentLandingPage', label: 'Group Department Landing Page', options: 'groupDepartmentLandingPageOptions'},
+    // { key: 'gropuLandingPage', label: 'Group Landing Page', options: 'gropuLandingPageOptions'},
+    // { key: 'serviceProviderLandingPage', label: 'Service Provider Landing Page', options: 'serviceProviderLandingPageOptions'},
+    // { key: 'resellerLandingPage', label: 'Reseller Landing Page', options: 'resellerLandingPageOptions'},
+    // { key: 'provisioningLandingPage', label: 'Provisioning Landing Page', options: 'provisioningLandingPageOptions'},
+    // { key: 'systemLandingPage', label: 'System Landing Page', options: 'systmeLandingPageOptions'}
   ]
 
   function onInit() {

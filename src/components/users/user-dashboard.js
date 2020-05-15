@@ -5,6 +5,7 @@ import { AppBreadcrumb } from '@/components/app'
 import { useUserAssignedServices } from '@/store/user-assigned-services'
 import { useUserViewableServices } from '@/store/user-viewable-services'
 import { useUserServices } from '@/store/user-services'
+import { useUiTemplate } from '@/store/ui-template'
 import { useUser } from '@/store/user'
 import {
   useUserServicePermissions,
@@ -19,6 +20,7 @@ export const UserDashboard = ({ match }) => {
   const { hasVersion, hasLevel } = useAcl()
   const { hasUserService } = useUserServicePermissions(userId)
   const { hasModuleRead } = useModulePermissions()
+  const { loadTemplate } = useUiTemplate()
 
   const { loadUserAssignedServices } = useUserAssignedServices(userId)
   const { loadUserViewableServices } = useUserViewableServices(userId)
@@ -31,7 +33,8 @@ export const UserDashboard = ({ match }) => {
       loadUserAssignedServices(userId),
       loadUserViewableServices(userId),
       loadUserServices(userId),
-      loadUser(userId)
+      loadUser(userId),
+      loadTemplate(),
     ]).then(() => setLoading(false))
   }, [
     loadUser,
