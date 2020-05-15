@@ -1,7 +1,8 @@
 import { GroupNumbers } from './group-numbers'
 import { GroupSharedCallAppearancesReport } from './group-shared-call-appearances-report'
 import { GroupPushNotificationRegistration } from './group-push-notification-registration'
-export const groupReportRoutes = [
+export const groupReportRoutes = {
+  callReports: [
     {
       name: 'Auto Receptionist',
       path: 'auto-attendant',
@@ -16,13 +17,6 @@ export const groupReportRoutes = [
       hasLevel: 'Group'
     },
     {
-      name: 'Numbers',
-      path: 'numbers',
-      component: GroupNumbers,
-      hasLevel: 'Service Provider',
-      isBreadcrumb: false
-    },
-    {
       name: 'Premium Call Records',
       path: 'premium-call-records',
       angularComponent: 'groupCallRecordIndex',
@@ -33,12 +27,15 @@ export const groupReportRoutes = [
       path: 'user-call-report',
       angularComponent: 'groupUserCallReportIndex',
       hasLevel: 'Group'
-    },
+    }
+  ],
+  utilizationReports: [
     {
-      name: 'User Report',
-      path: 'users-report',
-      angularComponent: 'usersReport',
-      hasLevel: 'Group'
+      name: 'Numbers',
+      path: 'numbers',
+      component: GroupNumbers,
+      hasLevel: 'Service Provider',
+      isBreadcrumb: false
     },
     {
       name: 'Shared Call Appearances Report',
@@ -52,7 +49,13 @@ export const groupReportRoutes = [
       path: 'pushNotificationRegistration',
       component: GroupPushNotificationRegistration,
       hasLevel: 'Group',
-	  isBreadcrumb: false
+      isBreadcrumb: false
     },
-]
- 
+    {
+      name: 'User Report',
+      path: 'users-report',
+      angularComponent: 'usersReport',
+      hasLevel: 'Group'
+    }
+  ]
+}
