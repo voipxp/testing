@@ -14,6 +14,19 @@ export const dashboardMenu = [
     label: 'Dashboard',
     items: [
       {
+        name: 'Administrators',
+        path: 'administrators',
+        angularComponent: 'groupAdmins',
+        hasLevel: 'Group',
+        module: true
+      },
+      {
+        name: 'Business Profile',
+        path: 'profile',
+        angularComponent: 'groupProfile',
+        policy: 'profileRead',
+      },
+      {
           name: 'Departments',
           path: 'departments',
           component: GroupDepartments,
@@ -24,19 +37,6 @@ export const dashboardMenu = [
           name: 'Users',
           path: 'users',
           angularComponent: 'groupUsers'
-        },
-        {
-          name: 'Administrators',
-          path: 'administrators',
-          angularComponent: 'groupAdmins',
-          hasLevel: 'Group',
-          module: true
-        },
-		    {
-          name: 'Business Profile',
-          path: 'profile',
-          angularComponent: 'groupProfile',
-          policy: 'profileRead',
         }
       ]
   },
