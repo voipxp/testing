@@ -133,9 +133,9 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
     const defaultUserLandingPage = 'feature-quick-set'
     let userLandingPage = ''
     let pageToCheck = ''
-    let pageFound = false;
-    let featureQuickSetFound = false;
-    let atLeastOneLandingPage = false;
+    let pageFound = false
+    let featureQuickSetFound = false
+    let atLeastOneLandingPage = false
     const section = menu[0]
     pageToCheck = defaultUserLandingPage
     if (template.userLandingPage) {
@@ -149,11 +149,13 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
         pageFound = true
       }
       if (availableUserLandingPage == defaultUserLandingPage) {
-        featureQuickSetFound = true;
+        featureQuickSetFound = true
       }
     });
     if (!pageFound && !featureQuickSetFound && atLeastOneLandingPage) {
-      userLandingPage = section.items[0]['path'];
+      userLandingPage = section.items[0]['path']
+    } else {
+      userLandingPage = 'user-profile'
     }
     return userLandingPage ? (
       <Redirect to={`${match.url}/${userLandingPage}`} />
