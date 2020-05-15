@@ -20,7 +20,8 @@ controller.$inject = [
   'CsvService',
   'DownloadService',
   '$scope',
-  'ServiceProviderPolicyService'
+  'ServiceProviderPolicyService',
+  '$window'
 ]
 function controller(
   Alert,
@@ -35,7 +36,8 @@ function controller(
   CsvService,
   DownloadService,
   $scope,
-  ServiceProviderPolicyService
+  ServiceProviderPolicyService,
+  $window
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -43,6 +45,7 @@ function controller(
   ctrl.submit = submit
   ctrl.highlight = highlight
   ctrl.canCreateUser = ServiceProviderPolicyService.userCreate()
+  ctrl.goBack = goBack
 
   function onInit() {
     ctrl.loading = true
@@ -216,4 +219,7 @@ function controller(
     return user
   }
 
+  function goBack() {
+    $window.history.back()
+  }
 }

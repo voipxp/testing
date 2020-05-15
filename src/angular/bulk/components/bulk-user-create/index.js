@@ -7,8 +7,8 @@ angular.module('odin.bulk').component('bulkUserCreate', {
   controller
 })
 
-controller.$inject = ['BulkImportService', '$location', 'Session']
-function controller(BulkImportService, $location, Session) {
+controller.$inject = ['BulkImportService', '$location', '$window', 'Session']
+function controller(BulkImportService, $location, $window, Session) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.wizardReady = wizardReady
@@ -17,6 +17,7 @@ function controller(BulkImportService, $location, Session) {
   ctrl.onUpdateServiceProviderId = onUpdateServiceProviderId
   ctrl.onUpdateGroupId = onUpdateGroupId
   ctrl.onUpdate = onUpdate
+  ctrl.goBack = goBack
 
   function onInit() {
     ctrl.data = {}
@@ -124,4 +125,8 @@ function controller(BulkImportService, $location, Session) {
     // console.log(JSON.stringify(ctrl.data, null, 2))
     ctrl.wizard.next()
   }
+  function goBack() {
+    $window.history.back()
+  }
+
 }

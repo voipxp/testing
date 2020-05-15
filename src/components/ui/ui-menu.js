@@ -177,12 +177,14 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
             >
             <>
               {subMenu.icon && (
+                <>
                 <Icon class="is-left">
                   <FontAwesomeIcon icon={icons[subMenu.icon]} />
-                </Icon>
+                </Icon><span>&nbsp;&nbsp;</span>
+                </>
               )}
             </>
-            <span>&nbsp;&nbsp;{subMenu.name}</span>
+            {subMenu.name}
             </Menu.List.Item>
           )
         })
@@ -216,7 +218,7 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                           >
                             {item.name}
                             <Icon style={{float: 'right'}}>
-                              <FontAwesomeIcon icon={isActiveSubMenu(index) ? icons['up'] : icons['down']} />
+                              <FontAwesomeIcon icon={isActiveSubMenu(index) ? icons['down'] : icons['right']} />
                             </Icon>
                           </Menu.List.Item>
                           :
@@ -227,12 +229,14 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                         >
                           <>
                             {item.icon && (
+                              <>
                               <Icon class="is-left">
                                 <FontAwesomeIcon icon={icons[item.icon]} />
-                              </Icon>
+                              </Icon><span>&nbsp;&nbsp;</span>
+                              </>
                             )}
                           </>
-                          <span>&nbsp;&nbsp;{item.name}</span>
+                          {item.name}
                         </Menu.List.Item>
                         }
                       </>

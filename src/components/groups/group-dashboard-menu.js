@@ -1,16 +1,30 @@
 import { GroupUserServiceSettings } from './group-user-service-settings'
 import { GroupServiceSettings } from './group-service-settings'
-import { GroupReportSettings } from './group-report-settings'
 import { GroupDepartments } from './group-departments'
 import {GroupPhoneListWithDirecotorySettings} from './group-phone-list-with-directory-settings'
 import {GroupCommunicationSettings} from './group-communication-settings'
-import {ProvisioningRouteSettings} from './group-provisioning-settings'
 import {GroupWebPolicy} from './group-web-policy'
+import {
+  GroupExtensionLength
+} from './group-extension-length'
+import { groupReportRoutes } from './group-report-routes'
 
 export const dashboardMenu = [
   {
     label: 'Dashboard',
     items: [
+      {
+          name: 'Departments',
+          path: 'departments',
+          component: GroupDepartments,
+          policy: 'departmentRead',
+          hasLevel: 'Group'
+        },
+        {
+          name: 'Users',
+          path: 'users',
+          angularComponent: 'groupUsers'
+        },
         {
           name: 'Administrators',
           path: 'administrators',
@@ -23,31 +37,7 @@ export const dashboardMenu = [
           path: 'profile',
           angularComponent: 'groupProfile',
           policy: 'profileRead',
-        },
-        {
-          name: 'Departments',
-          path: 'departments',
-          component: GroupDepartments,
-          policy: 'departmentRead',
-          hasLevel: 'Group'
-        },
-        {
-          name: 'Provisioning',
-          path: 'Provisioning',
-          component: ProvisioningRouteSettings,
-          hasLevel: 'Service Provider',
-          module: true
-        },
-        {
-          name: 'Reports',
-          path: 'reports',
-          component: GroupReportSettings
-        },
-		{
-          name: 'Users',
-          path: 'users',
-          angularComponent: 'groupUsers'
-        },
+        }
       ]
   },
   {
@@ -58,7 +48,7 @@ export const dashboardMenu = [
           path: 'group-services',
           component: GroupServiceSettings,
           serviceType: 'groupServices'
-        }, 
+        },
         {
           path: 'user-services',
           name: 'User Services',
@@ -67,6 +57,118 @@ export const dashboardMenu = [
       ]
   },
   {
+    label: 'PROVISIONING',
+    items: [
+	{
+        name: 'Bulk Provisioning',
+        path: 'bulk-provisioning',
+        subMenus: [
+          {
+            name: 'Bulk Wizards',
+            path: 'bulk-wizards',
+            angularComponent: 'bulkDashboard',
+            hasLevel: 'Group Department',
+            hasModuleRead: 'Provisioning'
+          },
+          {
+            name: 'Bulk Templates',
+            path: 'bulk-Templates',
+            angularComponent: 'bulkCsv',
+            hasLevel: 'Group',
+            hasModuleRead: 'Provisioning'
+          },
+          {
+            name: 'Recent Tasks',
+            path: 'recent-tasks',
+            angularComponent: 'bulkTasksIndex',
+            hasLevel: 'Group',
+            hasModuleRead: 'Provisioning'
+          }
+        ]
+      },
+      {
+        name: 'Resources',
+        subMenus: [
+          {
+               name: 'Assign Numbers',
+               path: 'groupNumbers',
+               angularComponent: 'groupNumbers',
+               hasLevel: 'Service Provider',
+               isPaasAdmin: true
+             },
+       {
+
+               name: 'Device Configuration',
+               path: 'groupDeviceTypes',
+               angularComponent: 'groupDeviceTypes',
+               hasLevel: 'Group',
+               isPaasAdmin: true
+             },
+                    {
+               name: 'Devices',
+               path: 'groupDevices',
+               angularComponent: 'groupDevices',
+               hasLevel: 'Group',
+               isPaasAdmin: true
+             },
+       {
+               name: 'Group Extension Length',
+               path: 'groupExtensionLength',
+               component: GroupExtensionLength,
+               hasLevel: 'Group',
+               isPaasAdmin: true,
+               isBreadcrumb: false
+             },
+       {
+               name: 'Group Services',
+               path: 'groupServices',
+               angularComponent: 'groupServices',
+               hasLevel: 'Service Provider',
+               serviceType: 'groupServices',
+               isPaasAdmin: true
+             },
+       {
+               name: 'Service Packs',
+               path: 'servicePacks',
+               angularComponent: 'groupServices',
+               serviceType: 'servicePackServices',
+               hasLevel: 'Service Provider',
+               isPaasAdmin: true
+             },
+       {
+               name: 'User Services',
+               path: 'userServices',
+               angularComponent: 'groupServices',
+               hasLevel: 'Service Provider',
+               serviceType: 'userServices',
+               isPaasAdmin: true
+             },
+       {
+               name: 'Delete Group',
+               path:  'groupDelete' ,
+               angularComponent: 'groupDelete',
+               hasLevel: 'Service Provider',
+               serviceProviderPolicy: 'groupDelete',
+               isPaasAdmin: true
+             }
+        ]
+      }
+	]
+},
+{
+  label: 'REPORTS',
+  items: [
+{
+      name: 'Call Reports',
+      subMenus: groupReportRoutes.callReports
+    },
+  {
+      name: 'Utilization Reports',
+      subMenus: groupReportRoutes.utilizationReports
+    }
+]
+},
+  {
     label: 'Management',
     items: [
         {
@@ -74,12 +176,6 @@ export const dashboardMenu = [
           path: 'announcements',
           angularComponent: 'groupAnnouncements',
           version: '20'
-        },
-        {
-          name: 'Bulk Provisioning',
-          path: 'bulk',
-          angularComponent: 'bulkDashboard',
-          hasLevel: 'Group Department'
         },
 	      {
           name: 'Call Processing Policy',
@@ -139,7 +235,7 @@ export const dashboardMenu = [
           hasLevel: 'Group',
           hasModuleRead: 'Viewable Service Packs'
         },
-        { 
+        {
           name: 'VDM',
           path:  'vdm',
           angularComponent: 'vdmDashboard',
@@ -147,5 +243,5 @@ export const dashboardMenu = [
           hasModuleRead: 'VDM'
         }
     ]
-  } 
+  }
 ]
