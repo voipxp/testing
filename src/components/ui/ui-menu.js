@@ -142,16 +142,16 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
       pageToCheck = template.userLandingPage
     }
     // Loop through all the menu items that user is able to see
-    section.items.forEach(function (availableUserLandingPage, index) {
+    section.items.forEach(function(availableUserLandingPage, index) {
       atLeastOneLandingPage = true
-      if (availableUserLandingPage.path == pageToCheck) {
+      if (availableUserLandingPage.path === pageToCheck) {
         userLandingPage = availableUserLandingPage.path
         pageFound = true
       }
-      if (availableUserLandingPage == defaultUserLandingPage) {
+      if (availableUserLandingPage === defaultUserLandingPage) {
         featureQuickSetFound = true
       }
-    });
+    })
     if (!pageFound && !featureQuickSetFound) {
       if ( atLeastOneLandingPage) {
         userLandingPage = section.items[0]['path']
