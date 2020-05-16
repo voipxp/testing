@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData} from 'react-query'
+import { useQuery, queryCache} from 'react-query'
 import api from '@/api/user-services-settings/user-internal-calling-line-id-delivery-service'
 import {
   UiButton,
@@ -53,7 +53,7 @@ export const UserInternalCallingLineIdDelivery = ({ match }) => {
 	showLoadingModal()
     try {
 		  const newInternalCallingLIneIdDelivery = await api.update(formData)
-      setQueryData(
+      queryCache.setQueryData(
         'internal-calling-line-id-delivery',
         newInternalCallingLIneIdDelivery,{
           shouldRefetch: true

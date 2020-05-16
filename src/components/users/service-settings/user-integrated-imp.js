@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery , setQueryData} from 'react-query'
+import { useQuery, queryCache} from 'react-query'
 import api from '@/api/user-services-settings/user-integrated-imp-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
-  UiSection,
-  UiListItem
+  UiListItem,
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserIntegratedImp = ({ match }) => {
@@ -51,7 +51,7 @@ export const UserIntegratedImp = ({ match }) => {
     showLoadingModal()
     try {
       const newIntegrated = await api.update(formData)
-      setQueryData(['user-integrated'], newIntegrated, {
+      queryCache.setQueryData(['user-integrated'], newIntegrated, {
         shouldRefetch: true
       })
       alertSuccess('Integrated IMP Updated')

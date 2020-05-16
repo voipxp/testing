@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery , setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-do-not-disturb-service'
 import {
   UiButton,
@@ -50,7 +50,7 @@ export const UserDoNotDisturb = ({ match }) => {
     showLoadingModal()
     try {
       const newDoNotDisturb = await api.update(formData)
-      setQueryData(['do-not-disturb'], newDoNotDisturb, {
+      queryCache.setQueryData(['do-not-disturb'], newDoNotDisturb, {
         shouldRefetch: true
       })
       alertSuccess('Do Not Disturb Updated')

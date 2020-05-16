@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import {useQuery, setQueryData} from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-music-on-hold-service'
 import {
   UiButton,
@@ -12,7 +12,7 @@ import {
   UiInputCheckbox,
   UiListItem,
   UiLoadingCard,
-  UiSection,
+  UiSection
 } from '@/components/ui'
 
 export const UserMusicOnHold = ({ match }) => {
@@ -22,9 +22,8 @@ export const UserMusicOnHold = ({ match }) => {
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
 
-  const {data : result , isLoading, error } = useQuery(
-    'music-on-hold',
-    ()=>api.show(userId)
+  const { data: result, isLoading, error } = useQuery('music-on-hold', () =>
+    api.show(userId)
   )
 
   const userServiceData =  result || {}
@@ -51,12 +50,10 @@ export const UserMusicOnHold = ({ match }) => {
   async function update(formData) {
 	showLoadingModal()
     try {
-    const newMusicOnHold = await api.update(formData)
-    setQueryData(
-      'music-on-hold',newMusicOnHold,{
-        shouldRefetch:true
-      }
-    )
+      const newMusicOnHold = await api.update(formData)
+      queryCache.setQueryData('music-on-hold', newMusicOnHold, {
+        shouldRefetch: true
+      })
       alertSuccess('Music On Hold Updated')
       setShowModal(false)
     } catch (error_) {

@@ -3,18 +3,18 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Select } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery , setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-advice-of-charge-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
+  UiFormField,
   UiInputCheckbox,
-  UiSection,
   UiListItem,
-  UiFormField
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserAdviceOfCharge = ({ match }) => {
@@ -54,7 +54,7 @@ export const UserAdviceOfCharge = ({ match }) => {
 	showLoadingModal()
     try {
 	  const updatedData = await api.update(formData)
-      setQueryData(['user-AdviceOfCharge'], updatedData, {
+    queryCache.setQueryData(['user-AdviceOfCharge'], updatedData, {
         shouldRefetch : true
         }
       )

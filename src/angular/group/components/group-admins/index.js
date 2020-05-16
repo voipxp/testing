@@ -16,7 +16,8 @@ controller.$inject = [
   'GroupPolicyService',
   'ServiceProviderPasswordService',
   '$q',
-  'Session'
+  'Session',
+  'ACL'
 ]
 function controller(
   Alert,
@@ -26,7 +27,8 @@ function controller(
   GroupPolicyService,
   ServiceProviderPasswordService,
   $q,
-  Session
+  Session,
+  ACL
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -38,7 +40,6 @@ function controller(
   ctrl.onSelect = onSelect
   ctrl.toggleSelect = toggleSelect
   ctrl.policies = GroupAdminPolicyService.options.policies
-
   ctrl.columns = [
     {
       key: 'userId',
@@ -121,7 +122,8 @@ function controller(
     })
   }
 
-  function onClick(admin) {
+  function onClick(admin) { 
+    ctrl.isPoliciesDisabled = ACL.is('Group')
     if (!ctrl.canUpdate) return
     ctrl.editAdmin = angular.copy(admin)
     Alert.spinner.open()

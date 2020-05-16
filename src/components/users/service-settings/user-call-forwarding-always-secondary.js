@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-always-secondary-service'
 import {
   UiButton,
@@ -63,7 +63,7 @@ export const UserCallForwardingAlwaysSecondary = ({ match }) => {
     showLoadingModal()
     try {
       const newCallForwardingAlwaysSecondary = await api.update(formData)
-      setQueryData(['user-call-forwarding-always-secondary'], newCallForwardingAlwaysSecondary, {
+      queryCache.setQueryData(['user-call-forwarding-always-secondary'], newCallForwardingAlwaysSecondary, {
         shouldRefetch: true
       })
       alertSuccess('Call Forwarding Always Secondary Updated')

@@ -179,6 +179,10 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
       },
       {
         type: 'service',
+        service: 'Series Completion',
+        path: route('seriesCompletion')
+      },{
+        type: 'service',
         service: 'Collaborate - Audio',
         name: 'Collaborate',
         path: route('collaborate')
@@ -274,6 +278,17 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         service: 'Call Center',
         path: route('callRecords', 'callCenter')
       },
+      {
+        type: 'report',
+        name: 'User Shared Call Appearances',
+        service: 'Shared Call Appearance',
+        path: route('sharedCallAppearancesReport')
+      },
+      {
+		    type: 'report',
+        name: 'User Push Notification Registration',
+        path: route('pushNotificationRegistration')		
+	    },
       {
         type: 'provisioning',
         name: 'Assign Numbers',

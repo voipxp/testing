@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-calling-name-retrieval-service'
 import {
   UiButton,
@@ -51,7 +51,7 @@ export const UserCallingNameRetrieval = ({ match }) => {
     showLoadingModal()
     try {
       const newUserCallingNameRetrieval = await api.update(formData)
-      setQueryData(['user-calling-name-retrieval'], newUserCallingNameRetrieval, {
+      queryCache.setQueryData(['user-calling-name-retrieval'], newUserCallingNameRetrieval, {
         shouldRefetch: true
       })
       alertSuccess('Calling Name Retrieval Updated')

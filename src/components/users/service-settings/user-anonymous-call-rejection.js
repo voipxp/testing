@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-anonymous-call-rejection-service'
 import {
   UiButton,
@@ -52,7 +52,7 @@ export const UserAnonymousCallRejection = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const newUserAnonymousCallRejection = await api.update(formData)
-        setQueryData(['anonymous-call-rejection'], newUserAnonymousCallRejection, {
+      queryCache.setQueryData(['anonymous-call-rejection'], newUserAnonymousCallRejection, {
         shouldRefetch: true
       })
 	    alertSuccess('Anonymous Call Rejection Updated')

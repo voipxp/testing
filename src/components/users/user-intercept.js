@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input, Select, Column } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-intercept'
 
 import {
@@ -24,9 +24,8 @@ export const UserIntercept = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const { data: result, loading, error, refetch } = useQuery(
-    'user-intercept',
-    () => api.show(userId)
+  const { data: result, loading, error } = useQuery('user-intercept', () =>
+    api.show(userId)
   )
 
   const userUserIntercept = result || {}
@@ -69,8 +68,7 @@ export const UserIntercept = ({ match }) => {
     showLoadingModal()
     try {
       const newUserIntercept = await api.update(userIntercept)
-      console.log('newUserIntercept', newUserIntercept)
-      setQueryData(['user-intercept'], newUserIntercept, {
+      queryCache.setQueryData(['user-intercept'], newUserIntercept, {
         shouldRefetch: true
       })
       alertSuccess('Intercept User Updated')

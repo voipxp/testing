@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-calling-number-delivery-service'
 import {
   UiButton,
@@ -51,7 +51,7 @@ export const UserCallingNumberDelivery = ({ match }) => {
 	  showLoadingModal()
     try {
 		  const newUserCallingNumberDelivery = await api.update(formData)
-      setQueryData(['user-calling-number-delivery'], newUserCallingNumberDelivery, {
+      queryCache.setQueryData(['user-calling-number-delivery'], newUserCallingNumberDelivery, {
         shouldRefetch: true
 		 })
       alertSuccess('Calling Number Delivery Updated')

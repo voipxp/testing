@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery , setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-connected-line-identification-restriction-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
+  UiListItem,
+  UiLoadingCard,
   UiSection,
-  UiListItem
 } from '@/components/ui'
 
 export const UserConnectedLineIdentificationRestriction = ({ match }) => {
@@ -50,7 +50,7 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
     showLoadingModal()
     try {
       const newConnectedLineIdentificationRestrict = await api.update(formData)
-      setQueryData(['user-connectedLIne-Identif-Restrict'], newConnectedLineIdentificationRestrict, {
+      queryCache.setQueryData(['user-connectedLIne-Identif-Restrict'], newConnectedLineIdentificationRestrict, {
         shouldRefetch: true
       })
       alertSuccess('Connected Line Identification Restriction Updated')

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery , setQueryData} from 'react-query'
+import { useQuery, queryCache} from 'react-query'
 import api from '@/api/user-services-settings/user-directed-call-pickup-with-barge-in-service'
 import {
   UiButton,
@@ -51,7 +51,7 @@ export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
     showLoadingModal()
     try {
       const newDirectCallPickupWithBargeIn = await api.update(formData)
-      setQueryData(['user-direct-call-pickup-with-bargeIn'], newDirectCallPickupWithBargeIn, {
+      queryCache.setQueryData(['user-direct-call-pickup-with-bargeIn'], newDirectCallPickupWithBargeIn, {
         shouldRefetch: true
       })
       alertSuccess('Directed Call Pickup with Barge-in Updated')

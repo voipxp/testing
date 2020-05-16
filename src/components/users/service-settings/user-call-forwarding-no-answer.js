@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-no-answer-service'
 import {
   UiButton,
@@ -68,8 +68,7 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
     showLoadingModal()
     try {
       const newCallForwardingNoAns = await api.update(formData)
-      
-      setQueryData(['user-call-forwarding-no-ans'], newCallForwardingNoAns, {
+      queryCache.setQueryData(['user-call-forwarding-no-ans'], newCallForwardingNoAns, {
         shouldRefetch: true
       })
       alertSuccess('Call Forwarding No Answer Updated')

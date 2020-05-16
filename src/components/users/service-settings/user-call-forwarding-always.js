@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-always-service'
 import {
   UiButton,
@@ -63,8 +63,7 @@ export const UserCallForwardingAlways = ({ match }) => {
     showLoadingModal()
     try {
       const newUserCallForwardingAlways = await api.update(formData)
-       
-      setQueryData(['user-call-forwarding-always'], newUserCallForwardingAlways, {
+      queryCache.setQueryData(['user-call-forwarding-always'], newUserCallForwardingAlways, {
         shouldRefetch: true
       })
       alertSuccess('Call Forwarding Always Updated')

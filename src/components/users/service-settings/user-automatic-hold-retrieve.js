@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-automatic-hold-retrieve-service'
 import {
   UiButton,
@@ -60,7 +60,7 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
     showLoadingModal()
     try {
       const newAutomaticHoldRetrive = await api.update(formData)
-      setQueryData(['user-automatic-hold-retrieve'], newAutomaticHoldRetrive, {
+      queryCache.setQueryData(['user-automatic-hold-retrieve'], newAutomaticHoldRetrive, {
         shouldRefetch: true
       })
       alertSuccess('Automatic Hold/Retrieve Updated')

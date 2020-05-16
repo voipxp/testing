@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux'
 import { useCallback } from 'react'
-import _ from 'lodash'
 
 const hasLevel = (loginType, requiredType) => {
   const types = {
@@ -32,11 +31,11 @@ const hasVersion = (current, required) => {
 }
 
 const hasPolicy = (policies, allowed_policy) => {
-    return (policies[allowed_policy] !== "None")
+  return policies[allowed_policy] !== 'None'
 }
 
 const is = (loginType, type) => {
-  return (loginType === type)
+  return loginType === type
 }
 
 export const useAcl = () => {
@@ -48,7 +47,10 @@ export const useAcl = () => {
     hasLevel: useCallback(level => hasLevel(loginType, level), [loginType]),
     hasUser: useCallback(() => hasUser(loginType, 'Group'), [loginType]),
     hasGroup: useCallback(() => hasGroup(loginType, 'Group'), [loginType]),
-    hasGroupDepartment: useCallback(() => hasGroupDepartment(loginType, 'Group Department'), [loginType]),
+    hasGroupDepartment: useCallback(
+      () => hasGroupDepartment(loginType, 'Group Department'),
+      [loginType]
+    ),
     hasServiceProvider: useCallback(
       () => hasServiceProvider(loginType, 'ServiceProvider'),
       [loginType]
@@ -64,7 +66,10 @@ export const useAcl = () => {
     hasVersion: useCallback(version => hasVersion(softwareVersion, version), [
       softwareVersion
     ]),
-    hasPolicy: useCallback( allowed_policy => hasPolicy(policy, allowed_policy), [policy]),
-    is: useCallback( type => is(loginType, type), [loginType])
+    hasPolicy: useCallback(
+      allowed_policy => hasPolicy(policy, allowed_policy),
+      [policy]
+    ),
+    is: useCallback(type => is(loginType, type), [loginType])
   }
 }

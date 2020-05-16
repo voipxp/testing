@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-transfer-service'
 import {
   UiButton,
@@ -65,7 +65,7 @@ export const UserCallTransfer = ({ match }) => {
     showLoadingModal()
     try {
       const newUserCallTransfer = await api.update(formData)
-      setQueryData(['user-call-tranfer'], newUserCallTransfer, {
+      queryCache.setQueryData(['user-call-tranfer'], newUserCallTransfer, {
         shouldRefetch: true
       })
       alertSuccess('Call Transfer Updated')

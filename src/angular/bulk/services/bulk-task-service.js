@@ -7,14 +7,23 @@ function BulkTaskService() {
   var index = [
     // Clone Enterprise
     {
+      task: 'bulk.sip.trunking',
+      name: 'Bulk Sip Trunking',
+      description: 'Bulk Sip Trunking',
+      required: []
+    },
+	{
+      task: 'bulk.sip.trunking.upload',
+      name: 'Bulk Sip Trunking Upload',
+      description: 'Bulk Sip Trunking Upload',
+      required: []
+    },
+    {
       task: 'service.provider.bulk.clone',
       name: 'Clone Enterprise',
       description: 'Clone Enterprise in bulk',
       hasLevel: 'Reseller',
-      required: [
-        'source.serviceProviderId',
-        'destination.serviceProviderId'
-      ],
+      required: ['source.serviceProviderId', 'destination.serviceProviderId'],
       example: [
         {
           task: 'service.provider.bulk.clone',
@@ -65,6 +74,8 @@ function BulkTaskService() {
             services: 'boolean',
             policy: 'boolean',
             schedule: 'boolean',
+            departments: 'boolean',
+            domains: 'boolean',
             outgoingCallingPlan: 'boolean',
             routingProfile: 'boolean'
           }
@@ -78,146 +89,69 @@ function BulkTaskService() {
       name: 'Group Device Tag Modify',
       description: 'Group Device Tag Modify',
       hasLevel: 'Group',
-      required: [
-        'serviceProviderId',
-        'groupId',
-		    'deviceName'
-      ],
+      required: ['serviceProviderId', 'groupId', 'deviceName'],
       example: [
-      {
-        task: 'group.device.tag.modify',
-        serviceProviderId: 'string',
-        groupId: 'string',
-        deviceName: 'string',
-            tags: [
-                {
-                  tagName: "string",
-                    tagValue: "string"
-                },
-                {
-                  tagName: "string",
-                    tagValue: "string"
-                }
-            ]
-      }]
-  },
-  {
-    task: 'group.trunk.group',
-    name: 'Group Trunk Group',
-    description: 'Group Trunk Group',
-    hasLevel: 'Group',
-    required: [
-      'serviceProviderId',
-      'groupId',
-      'name',
-      'maxActiveCalls'
-    ],
-    example: [
-      {
-        task: "group.trunk.group",
-        serviceProviderId: "string",
-        groupId: "string",
-        name: "string",
-        allowTerminationToDtgIdentity: "boolean",
-        allowTerminationToTrunkGroupIdentity: "boolean",
-        allowUnscreenedCalls: "boolean",
-        allowUnscreenedEmergencyCalls: "boolean",
-        capacityExceededTrapInitialCalls: "number",
-        capacityExceededTrapOffsetCalls: "number",
-        clidSourceForScreenedCallsPolicy: "Profile Name Profile Number | Received Name Profile Number | Received Name Received Number",
-        continuousOptionsSendingIntervalSeconds: "30",
-        enableBursting: "FALSE",
-        enableNetworkAddressIdentity: "boolean",
-        failureOptionsSendingIntervalSeconds: "10",
-        failureThresholdCounter: "number",
-        includeDtgIdentity: "boolean",
-        includeOtgIdentityForNetworkCalls: "boolean",
-        includeTrunkGroupIdentity: "boolean",
-        includeTrunkGroupIdentityForNetworkCalls: "boolean",
-        invitationTimeout: "number",
-        inviteFailureThresholdCounter: "number",
-        inviteFailureThresholdWindowSeconds: "30",
-        pilotUserCallOptimizationPolicy: "Optimize For User Services | Optimize For High Call Volume",
-        pilotUserCallingLineAssertedIdentityPolicy: "All Originating Calls | Unscreened Originating Calls",
-        pilotUserCallingLineIdentityForEmergencyCallsPolicy: "No Calls | All Originating Calls | Unscreened Originating Calls",
-        pilotUserCallingLineIdentityForExternalCallsPolicy: "No Calls |All Originating Calls | Unscreened Originating Calls",
-        pilotUserChargeNumberPolicy: "No Calls | All Originating Calls | Unscreened Originating Calls",
-        prefixEnabled: "boolean",
-        prefix: "number",
-        requireAuthentication: "boolean",
-        routeToPeeringDomain: "boolean",
-        peeringDomain: "string",
-        sendContinuousOptionsMessage: "boolean",
-        statefulReroutingEnabled: "boolean",
-        successThresholdCounter: "number",
-        useSystemCLIDSourceForScreenedCallsPolicy: "boolean",
-        useSystemCallingLineAssertedIdentityPolicy: "boolean",
-        useSystemUserLookupPolicy: "boolean",
-        userLookupPolicy: "Basic | Extended",
-        maxActiveCalls: "number",
-        maxIncomingCalls: "number",
-        maxOutgoingCalls: "number",
-        accessDevice: {
-          staticRegistrationCapable: "boolean",
-          useDomain: "boolean",
-          staticLineOrdering: "boolean",
-          serviceProviderId: "string",
-          groupId: "string",
-          deviceName: "string",
-          deviceLevel: "System | Service Provider | Group"
-        },
-        sipAuthenticationUserName: "string",
-        sipAuthenticationPassword: "string",
-        trunkGroupIdentity: "string@domain",
-        otgDtgIdentity: "string"
-    }]
-  },
-  {
-    task: 'trunk.group.call.capacity',
-    name: 'Trunk Group Call Capacity',
-    description: 'Trunk Group Call Capacity',
-    hasLevel: 'Service Provider',
-    required: [
-      'serviceProviderId'
-    ],
-    example: [
-      {
-        'task': 'trunk.group.call.capacity',
-        'serviceProviderId': 'string',
-        'groupId': 'string',
-        "serviceProvider.maxActiveCalls": "number",
-        "serviceProvider.burstingMaxActiveCalls": "number",
-        'group.maxActiveCalls': 'number',
-        'group.burstingMaxActiveCalls': 'number',
-      }
-    ]
+        {
+          task: 'group.device.tag.modify',
+          serviceProviderId: 'string',
+          groupId: 'string',
+          deviceName: 'string',
+          rebuildDevice: 'boolean',
+          resetDevice: 'boolean',
+          tags: [
+            {
+              tagName: 'string',
+              tagValue: 'string'
+            },
+            {
+              tagName: 'string',
+              tagValue: 'string'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      task: 'trunk.group.call.capacity',
+      name: 'Trunk Group Call Capacity',
+      description: 'Trunk Group Call Capacity',
+      hasLevel: 'Service Provider',
+      required: ['serviceProviderId'],
+      example: [
+        {
+          'task': 'trunk.group.call.capacity',
+          'serviceProviderId': 'string',
+          'groupId': 'string',
+          'serviceProvider.maxActiveCalls': 'number',
+          'serviceProvider.burstingMaxActiveCalls': 'number',
+          'group.maxActiveCalls': 'number',
+          'group.burstingMaxActiveCalls': 'number'
+        }
+      ]
     },
     {
       task: 'group.services.update',
       name: 'Group Services Update',
       description: 'Group Services Update',
       hasLevel: 'Group',
-      required: [
-        'serviceProviderId',
-        'groupId'
-      ],
+      required: ['serviceProviderId', 'groupId'],
       example: [
-      {
-        "task": "group.services.update",
-        "serviceProviderId": "string",
-        "groupId": "string",
-        "userServices": [
+        {
+          task: 'group.services.update',
+          serviceProviderId: 'string',
+          groupId: 'string',
+          userServices: [
             {
-                "serviceName": "string",
-                "authorized": "boolean",
-                "assigned": "boolean",
-                "quantity": "number",
-                "licensed": "boolean",
-                "userAssignable": "boolean",
-                "isUnlimited": "boolean"
+              serviceName: 'string',
+              authorized: 'boolean',
+              assigned: 'boolean',
+              quantity: 'number',
+              licensed: 'boolean',
+              userAssignable: 'boolean',
+              isUnlimited: 'boolean'
             }
-        ],
-        "groupServices": [
+          ],
+          groupServices: [
             {
               tagName: 'string',
               tagValue: 'string'
@@ -236,10 +170,7 @@ function BulkTaskService() {
       name: 'Group Dns Assign',
       description: 'Group Dns Assign',
       hasLevel: 'Reseller',
-      required: [
-        'serviceProviderId',
-        'groupId'
-      ],
+      required: ['serviceProviderId', 'groupId'],
       example: [
         {
           task: 'group.dns.assign',
@@ -263,10 +194,7 @@ function BulkTaskService() {
       name: 'Group Dns UnAssign',
       description: 'Group Dns UnAssign',
       hasLevel: 'Reseller',
-      required: [
-        'serviceProviderId',
-        'groupId'
-      ],
+      required: ['serviceProviderId', 'groupId'],
       example: [
         {
           task: 'group.dns.unassign',
@@ -401,6 +329,85 @@ function BulkTaskService() {
           sipAuthenticationPassword: 'string',
           trunkGroupIdentity: 'string@domain',
           otgDtgIdentity: 'string'
+        }
+      ]
+    },
+    /* Group Device */
+    {
+      task: 'group.device.upsert',
+      name: 'Group Device Upsert',
+      description: 'Group Device Upsert',
+      required: ['serviceProviderId', 'groupId', 'deviceType', 'deviceName'],
+      example: [
+        {
+            "task": "group.device.upsert",
+            "allowAccessDeviceUpdate": 'boolean',
+            "deviceLevel": "string",
+            "serviceProviderId": "string",
+            "groupId": "string",
+            "deviceName": "string",
+            "deviceType": "string",
+            "protocol": "string",
+            "netAddress": "IP_ADDRESS",
+            "port": "number",
+            "outboundProxyServerNetAddress": "IP_ADDRESS",
+            "stunServerNetAddress": "IP_ADDRESS",
+            "macAddress": "HEXA_DECIMAL",
+            "serialNumber": "number",
+            "description": "string",
+            "physicalLocation": "string",
+            "transportProtocol": "string",
+            "mobilityManagerProvisioningURL": "string",
+            "mobilityManagerProvisioningUserName": "string",
+            "mobilityManagerProvisioningPassword": "string",
+            "mobilityManagerDefaultOriginatingServiceKey": "string",
+            "mobilityManagerDefaultTerminatingServiceKey": "string",
+            "useCustomUserNamePassword": 'boolean',
+            "accessDeviceCredentials": {
+                "userName": "string",
+                "password": "string"
+            },
+            "rebuildDevice": "boolean",
+            "resetDevice": "boolean",
+        }
+      ]
+    },
+    {
+      task: 'group.device.create',
+      name: 'Group Device Create',
+      description: 'Group Device Create',
+      required: ['deviceType', 'deviceName'],
+      example: [
+        {
+          task: 'group.device.create',
+          serviceProviderId: 'string',
+          groupId: 'string',
+          allowAccessDeviceUpdate: 'boolean',
+          deviceType: 'string',
+          deviceName: 'string',
+          accessDeviceEndpoint:{
+            linePort: 'string',
+            accessDevice: {
+              deviceType: 'string',
+              deviceName: 'string',
+              deviceLevel: 'string',
+              protocol: 'string',
+              netAddress: 'string',
+              port: 'string',
+              outboundProxyServerNetAddress: 'string',
+              stunServerNetAddress: 'string',
+              macAddress: 'string',
+              serialNumber: 'string',
+              description: 'string',
+              physicalLocation: 'string',
+              transportProtocol: 'string',
+              useCustomUserNamePassword: 'string',
+              accessDeviceCredentials: {
+                userName: 'string',
+                password: 'string'
+              }
+            }
+          }
         }
       ]
     },
@@ -600,10 +607,27 @@ function BulkTaskService() {
           task: 'user.authentication.update',
           userId: 'userId',
           userName: 'string',
-          newPassword: 'string'
+          newPassword: 'string',
+          rebuildDevice: 'boolean',
+          resetDevice: 'boolean'
         }
       ]
     },
+    // User Integrated IMP
+    {
+      task: 'user.integrated.imp.update',
+      name: 'User Integrated IMP',
+      description: 'Set users Integrated IMP',
+      required: ['userId'],
+      example: [
+        {
+          task: 'user.integrated.imp.update',
+          userId: 'userId',
+          isActive: false
+        }
+      ]
+    },
+
     // User UC-One
     {
       task: 'user.ucone.update',

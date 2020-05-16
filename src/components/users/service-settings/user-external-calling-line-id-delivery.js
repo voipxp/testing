@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery , setQueryData} from 'react-query'
+import { useQuery, queryCache} from 'react-query'
 import api from '@/api/user-services-settings/user-external-calling-line-id-delivery-service'
 import {
   UiButton,
@@ -52,7 +52,7 @@ export const UserExternalCallingLineIdDelivery = ({ match }) => {
     showLoadingModal()
     try {
       const newExternalClidDelivery = await api.update(formData)
-      setQueryData(['user-external-clid-delivery'], newExternalClidDelivery, {
+      queryCache.setQueryData(['user-external-clid-delivery'], newExternalClidDelivery, {
         shouldRefetch: true
       })
       alertSuccess(' External Calling Line ID Delivery Updated')

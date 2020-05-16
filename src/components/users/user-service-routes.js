@@ -32,7 +32,8 @@ import {
   UserInternalCallingLineIdDelivery,
   UserMusicOnHold,
   UserOutlookInteration,
-  UserRemoteOffice
+  UserRemoteOffice,
+  UserBusyLampField
 } from '@/components/users/service-settings'
 export const userServiceRoutes = [
   {
@@ -90,7 +91,7 @@ export const userServiceRoutes = [
     services: ['BroadWorks Mobility']
   },
   {
-    angularComponent: 'userBusyLampField',
+    component: UserBusyLampField,
     module: 'Busy Lamp Field',
     path: 'busy-lamp-field',
     services: ['Busy Lamp Field']

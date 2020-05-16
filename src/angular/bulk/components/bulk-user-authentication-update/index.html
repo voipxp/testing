@@ -69,6 +69,17 @@
         is-required="true"
       ></bulk-tag-input>
     </pbs-form-field-horizontal>
+    <pbs-form-section
+      >Do you want to Rebuild and Reset Device?</pbs-form-section
+    >
+    <pbs-input-checkbox
+      ng-model="$ctrl.rebuildDevice"
+      label="Rebuild Device"
+    ></pbs-input-checkbox>
+    <pbs-input-checkbox
+      ng-model="$ctrl.resetDevice"
+      label="Reset Device"
+    ></pbs-input-checkbox>
   </pbs-form>
   <div class="margin-top has-text-right">
     <pbs-button-next

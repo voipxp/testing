@@ -73,7 +73,7 @@ export const dashboardMenu = [
         isBreadcrumb: false
       },
       {
-        path: 'audits',
+        path: 'exports',
         name: 'Exports (beta)',
         component: ResellerExports,
         hasLevel: 'Reseller',

@@ -6,12 +6,17 @@ import {
   GroupSpeedDial8,
   GroupExtensionLength,
   GroupWebPolicy,
-  GroupNumbers
+  GroupNumbers,
+  GroupSeriesCompletion,
+  GroupSharedCallAppearancesReport,
+  GroupPushNotificationRegistration
 } from '@/components/groups'
 import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
+import { BulkSipTrunking } from '@/components/bulk'
+import { BulkSipTrunkingUpload } from '@/components/bulk/bulk-sip-trunking-upload/bulk-sip-trunking-upload'
 import { Exports, Export } from '@/components/exports'
 
 export const routes = [
@@ -66,6 +71,18 @@ export const routes = [
     hasModuleRead: 'Provisioning'
   },
   {
+    path: '/bulk/bulk.sip.trunking',
+    component: BulkSipTrunking,
+    hasLevel: 'Reseller',
+    hasModuleRead: 'Provisioning'
+  },
+  {
+    path: '/bulk/bulk.sip.trunking.upload',
+    component: BulkSipTrunkingUpload,
+    hasLevel: 'Reseller',
+    hasModuleRead: 'Provisioning'
+  },
+  {
     path: '/bulk/user.create',
     angularComponent: 'bulkUserCreate',
     hasLevel: 'Group Department',
@@ -113,6 +130,13 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Provisioning'
   },
+  {
+    path: '/bulk/user.integrated.imp.update',
+    angularComponent: 'bulkUserIntegratedImpUpdate',
+    hasLevel: 'Group',
+    hasModuleRead: 'Provisioning'
+  },
+
   {
     path: '/events',
     angularComponent: 'odinEvents',
@@ -316,8 +340,7 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/groupCommunicationBarringAuthorizationCodes',
+    path: '/groups/:serviceProviderId/:groupId/groupCommunicationBarringAuthorizationCodes',
     angularComponent: 'groupCommunicationBarringAuthorizationCodes',
     hasLevel: 'Group'
   },
@@ -343,6 +366,12 @@ export const routes = [
     angularComponent: 'groupCallPickups',
     hasLevel: 'Group',
     hasModuleRead: 'Call Pickup'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/seriesCompletion',
+    component: GroupSeriesCompletion,
+    hasLevel: 'Group',
+    hasModuleRead: 'Series Completion'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/callPickup/group',
@@ -498,6 +527,17 @@ export const routes = [
     angularComponent: 'groupViewablePacksIndex',
     hasLevel: 'Group',
     hasModuleRead: 'Viewable Service Packs'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/sharedCallAppearancesReport',
+    component: GroupSharedCallAppearancesReport,
+    hasLevel: 'Group',
+    hasModuleRead: 'Shared Call Appearance'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/pushNotificationRegistration',
+    component: GroupPushNotificationRegistration,
+    hasLevel: 'Group'
   },
   {
     path: '/groups/:serviceProviderId/:groupId/services/group',
@@ -842,7 +882,7 @@ export const routes = [
     hasLevel: 'Service Provider'
   },
   {
-    path: '/imports/:id',
+    path: '/exports/:id',
     component: Export,
     hasLevel: 'Service Provider'
   },

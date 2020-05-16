@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-busy-service'
 import {
   UiButton,
@@ -62,8 +62,7 @@ export const UserCallForwardingBusy = ({ match }) => {
     showLoadingModal()
     try {
       const newCallForwardingBusy = await api.update(formData)
-      
-      setQueryData(['user-call-forwarding-busy'], newCallForwardingBusy, {
+      queryCache.setQueryData(['user-call-forwarding-busy'], newCallForwardingBusy, {
         shouldRefetch: true
       })
       alertSuccess('Call Forwarding Busy Updated')

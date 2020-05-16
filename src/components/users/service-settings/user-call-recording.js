@@ -3,18 +3,18 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input, Select} from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-recording-service'
 import {
-  UiCard,
-  UiLoadingCard,
   UiButton,
+  UiCard,
   UiCardModal,
   UiCheckbox,
   UiInputCheckbox,
-  UiSection,
+  UiFormField,
   UiListItem,
-  UiFormField
+  UiLoadingCard,
+  UiSection
 } from '@/components/ui'
 
 export const UserCallRecording = ({ match }) => {
@@ -30,9 +30,9 @@ export const UserCallRecording = ({ match }) => {
   )
   const userServiceData = result || {}
   const options = api.options || {}
-  const recordingCallOptions = api.options.recordingCallOptions || {}
-  const pauseResumeNotification = api.options.pauseResumeNotification || {}
-  
+  const recordingCallOptions =    options.recordingCallOptions || {}
+  const pauseResumeNotification = options.pauseResumeNotification || {}
+
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
 
@@ -60,7 +60,7 @@ export const UserCallRecording = ({ match }) => {
     showLoadingModal()
     try {
       const newCallRecording = await api.update(formData)
-      setQueryData(['user-call-recording'], newCallRecording, {
+      queryCache.setQueryData(['user-call-recording'], newCallRecording, {
         shouldRefetch: true
       })
       alertSuccess('Call Recording Updated')

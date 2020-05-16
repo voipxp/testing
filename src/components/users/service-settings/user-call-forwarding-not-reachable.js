@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-not-reachable-service'
 import {
   UiButton,
@@ -65,9 +65,9 @@ export const UserCallForwardingNotReachable = ({ match }) => {
 	  showLoadingModal()
     try {
 		const newUserCFNR = await api.update(formData)
-      setQueryData(['user-call-forwarding-not-reachable'], newUserCFNR, {
-        shouldRefetch: true
-      })
+    queryCache.setQueryData(['user-call-forwarding-not-reachable'], newUserCFNR, {
+      shouldRefetch: true
+    })
 	  alertSuccess('Call Forwarding Not Reachable Updated')
       setShowModal(false)
     } catch (error_) {

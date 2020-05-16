@@ -45,8 +45,10 @@ function controller(
   }
 
   var aliasMap = {
-    'Client License 17': 'BroadTouch Business Communicator Mobile - Video',
-    'Client License 18': 'BroadTouch Business Communicator Desktop - Video'
+    'Client License 17': 'BroadTouch Business Communicator Mobile - Video'
+    // code commented for issue #203
+    /*,
+    'Client License 18': 'BroadTouch Business Communicator Desktop - Video'*/
   }
 
   function onInit() {
@@ -88,6 +90,10 @@ function controller(
   // analyze service will take care of updating it
   function loadRequiredServices() {
     var services = UcOneService.services(ctrl.endpoints)
+    const index = services.indexOf('Client License 18')
+    if (index > -1) {
+      services.splice(index, 1);
+    } 
     ctrl.requiredServices = services.map(function(service) {
       return {
         serviceName: service,
