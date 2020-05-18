@@ -150,25 +150,40 @@ const subMenuDefaultShouldOpen = () => {
     }
     setActiveSubMenuArr(arr)
   }
-  
+
+  const getDefaultPath= () => {
+    let path
+    for (const section of menu) {
+      const tempItem = section.items.find(item => item.default)
+      if (tempItem) {
+        path = tempItem.path
+        break
+      }
+    }
+
+    if(!path) {       /* If no menu set as default */
+      const section = menu[0]
+      if(section && section.items[0].subMenus) {    /* If has submenu */
+        path = section.items[0].subMenus[0]['path']
+      }
+      else path = section.items[0]['path']
+    }
+
+    return path
+  }
+
   // set route based on branding template User Landing Page
   // if not set in branding template, feature-quick-set be used
   // if branding template not set and user doens't have feature-quick-set, his first menu item will be used
   const renderDefault = () => {
-	subMenuDefaultShouldOpen()
+	  subMenuDefaultShouldOpen()
     const defaultUserLandingPage = 'feature-quick-set'
     let userLandingPage = ''
     let pageToCheck = ''
     let pageFound = false
     let featureQuickSetFound = false
     let atLeastOneLandingPage = false
-	
-	for (const section of menu) {
-      const tempItem = section.items.find(item => item.default)
-      userLandingPage = tempItem.path
-	  if (userLandingPage) break
-    }
-	
+
     const section = menu[0]
     pageToCheck = defaultUserLandingPage
     if (template.userLandingPage) {
@@ -186,7 +201,7 @@ const subMenuDefaultShouldOpen = () => {
       }
     })
     if (!pageFound && !featureQuickSetFound && atLeastOneLandingPage) {
-      userLandingPage = section.items[0]['path']
+      userLandingPage = getDefaultPath()
     }
     return userLandingPage ? (
       <Redirect to={`${match.url}/${userLandingPage}`} />
