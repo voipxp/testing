@@ -200,8 +200,12 @@ const subMenuDefaultShouldOpen = () => {
         featureQuickSetFound = true
       }
     })
-    if (!pageFound && !featureQuickSetFound && atLeastOneLandingPage) {
-      userLandingPage = getDefaultPath()
+    if (!pageFound && !featureQuickSetFound) {
+      if ( atLeastOneLandingPage) {
+        userLandingPage = getDefaultPath()
+      } else {
+        userLandingPage = 'user-profile'
+      }
     }
     return userLandingPage ? (
       <Redirect to={`${match.url}/${userLandingPage}`} />
