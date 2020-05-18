@@ -21,27 +21,29 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
+
   const { data: result, isLoading, error } = useQuery(
     'user-connectedLIne-Identif-Restrict',
-	() => api.show(userId)		
+	  () => api.show(userId)
   )
+
   const userServiceData  =  result || {}
 
   if( error ) alertDanger( error )
   if( isLoading ) return <UiLoadingCard/>
- 
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -61,7 +63,7 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard
@@ -74,7 +76,7 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
           <UiListItem label="Enable">
             <UiCheckbox isChecked={userServiceData.isActive} />
           </UiListItem>
-           
+
         </UiSection>
       </UiCard>
       <UiCardModal

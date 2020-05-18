@@ -21,7 +21,7 @@ export const UserCallWaiting = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'user-call-wating',
     () => api.show(userId)
@@ -29,7 +29,7 @@ export const UserCallWaiting = ({ match }) => {
   const userServiceData = result || {}
 
   if (error) alertDanger(error)
-  if (isLoading) return <UiLoadingCard /> 
+  if (isLoading) return <UiLoadingCard />
 
   function handleInput(event) {
     const target = event.target
@@ -37,16 +37,16 @@ export const UserCallWaiting = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
-  
+
   async function update(formData) {
     showLoadingModal()
     try {
@@ -62,7 +62,7 @@ export const UserCallWaiting = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard
@@ -71,7 +71,7 @@ export const UserCallWaiting = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-	  
+
         <UiSection>
           <UiListItem label="Is Active">
             <UiCheckbox isChecked={userServiceData.isActive} />

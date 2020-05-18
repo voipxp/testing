@@ -13,7 +13,7 @@ import {
   UiListItem,
   UiLoadingCard,
   UiSection
-  
+
 } from '@/components/ui'
 
 export const UserInternalCallingLineIdDelivery = ({ match }) => {
@@ -22,7 +22,7 @@ export const UserInternalCallingLineIdDelivery = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const {data:result , isLoading, error} = useQuery(
     'internal-calling-line-id-delivery',
     ()=>api.show(userId)
@@ -39,12 +39,12 @@ export const UserInternalCallingLineIdDelivery = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -67,7 +67,7 @@ export const UserInternalCallingLineIdDelivery = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard

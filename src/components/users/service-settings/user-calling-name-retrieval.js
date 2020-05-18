@@ -21,7 +21,7 @@ export const UserCallingNameRetrieval = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'user-calling-name-retrieval',
     () => api.show(userId)
@@ -29,24 +29,24 @@ export const UserCallingNameRetrieval = ({ match }) => {
   const userServiceData = result || {}
 
   if (error) alertDanger(error)
-  if (isLoading) return <UiLoadingCard /> 
- 
+  if (isLoading) return <UiLoadingCard />
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
- 
+
   async function update(formData) {
     showLoadingModal()
     try {
@@ -62,7 +62,7 @@ export const UserCallingNameRetrieval = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard

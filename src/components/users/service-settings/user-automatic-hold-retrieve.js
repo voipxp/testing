@@ -28,25 +28,25 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
     'user-automatic-hold-retrieve',
     () => api.show(userId)
   )
-  
+
   const userServiceData = result || {}
   const options = api.options || {}
 
   if (error) alertDanger(error)
-  if (isLoading) return <UiLoadingCard /> 
-  
+  if (isLoading) return <UiLoadingCard />
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
     setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     if( form.recallTimerSeconds > options.recallTimerSeconds.maximum || form.recallTimerSeconds < options.recallTimerSeconds.minimum ){
 		  alertDanger('Automatic Hold/Retrieve Value ' + options.recallTimerSeconds.minimum + ' and Maximum Value ' + options.recallTimerSeconds.maximum)
@@ -103,7 +103,7 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
               checked={form.isActive}
               onChange={handleInput}
             />
-            <UiFormField label="Recall Timer (seconds)">  
+            <UiFormField label="Recall Timer (seconds)">
               <Input
                 type="number"
                 name="recallTimerSeconds"

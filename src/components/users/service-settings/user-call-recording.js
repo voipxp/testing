@@ -23,10 +23,10 @@ export const UserCallRecording = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-   
+
   const { data: result, isLoading, error } = useQuery(
     'user-call-recording',
-	() => api.show(userId)		
+	() => api.show(userId)
   )
   const userServiceData = result || {}
   const options = api.options || {}
@@ -42,17 +42,17 @@ export const UserCallRecording = ({ match }) => {
     const name = target.name
     setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
-  function save() { 
+
+  function save() {
     if( form.recordCallRepeatWarningToneTimerSeconds > options.recordCallRepeatWarningToneTimerSeconds.maximum || form.recordCallRepeatWarningToneTimerSeconds < options.recordCallRepeatWarningToneTimerSeconds.minimum ){
 		  alertDanger('Repeat Warning Tone Timer Seconds Minimum Value ' + options.recordCallRepeatWarningToneTimerSeconds.minimum + ' and Maximum Value ' + options.recordCallRepeatWarningToneTimerSeconds.maximum)
 		  return false
-    } 
+    }
     update(form)
   }
 
@@ -80,7 +80,7 @@ export const UserCallRecording = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-	  
+
         <UiSection>
           <UiListItem label="Record Call">
             {userServiceData.recordingOption}
@@ -91,14 +91,14 @@ export const UserCallRecording = ({ match }) => {
           <UiListItem label="Enable Call Recording Announcement">
             <UiCheckbox isChecked={userServiceData.enableCallRecordingAnnouncement} />
           </UiListItem>
-          
+
           <UiListItem label="Enable Record Call Repeat Warning Tone">
             <UiCheckbox isChecked={userServiceData.enableRecordCallRepeatWarningTone} />
           </UiListItem>
           <UiListItem label="Record Call Repeat Warning Tone Timer Seconds">
             {userServiceData.recordCallRepeatWarningToneTimerSeconds}
           </UiListItem>
-          
+
           <UiListItem label="Enable Voice Mail Recording">
             <UiCheckbox isChecked={userServiceData.enableVoiceMailRecording} />
           </UiListItem>
@@ -112,7 +112,7 @@ export const UserCallRecording = ({ match }) => {
       >
         <form>
           <UiSection title="Setting">
-            <UiFormField label="Record Call"> 
+            <UiFormField label="Record Call">
               <Select.Container fullwidth>
                 <Select
                   value={form.recordingOption}
@@ -131,7 +131,7 @@ export const UserCallRecording = ({ match }) => {
               </Select.Container>
             </UiFormField>
 
-            <UiFormField label="Pause Resume Notification"> 
+            <UiFormField label="Pause Resume Notification">
               <Select.Container fullwidth>
                 <Select
                   value={form.pauseResumeNotification}
@@ -162,7 +162,7 @@ export const UserCallRecording = ({ match }) => {
               checked={form.enableRecordCallRepeatWarningTone}
               onChange={handleInput}
             />
-            <UiFormField label="Repeat Warning Tone Timer Seconds">  
+            <UiFormField label="Repeat Warning Tone Timer Seconds">
               <Input
                 type="number"
                 name="recordCallRepeatWarningToneTimerSeconds"

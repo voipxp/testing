@@ -21,14 +21,14 @@ export const UserAnonymousCallRejection = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'anonymous-call-rejection',
     () => api.show(userId)
-  )  
-  
+  )
+
   const userServiceData = result || {}
-   
+
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
 
@@ -38,12 +38,12 @@ export const UserAnonymousCallRejection = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }

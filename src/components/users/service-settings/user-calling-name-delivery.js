@@ -21,29 +21,29 @@ export const UserCallingNameDelivery = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'user-calling-delivery',
     () => api.show(userId)
   )
-  
+
   const userServiceData = result || {}
 
   if (error) alertDanger(error)
-  if (isLoading) return <UiLoadingCard /> 
- 
+  if (isLoading) return <UiLoadingCard />
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -72,7 +72,7 @@ export const UserCallingNameDelivery = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-	  
+
         <UiSection>
           <UiListItem label="External Calling Name Delivery">
             <UiCheckbox isChecked={userServiceData.isActiveForExternalCalls} />

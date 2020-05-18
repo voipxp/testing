@@ -23,11 +23,11 @@ export const UserAdviceOfCharge = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const {data : userData, isLoading, error } =  useQuery(
     'user-AdviceOfCharge', () => api.show(userId)
   )
-  
+
   const userServiceData = userData || {}
   const aocTypes =  api.options.aocTypes || {}
 
@@ -40,12 +40,12 @@ export const UserAdviceOfCharge = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -98,7 +98,7 @@ export const UserAdviceOfCharge = ({ match }) => {
               checked={form.isActive}
               onChange={handleInput}
             />
-            <UiFormField label="Type"> 
+            <UiFormField label="Type">
               <Select.Container fullwidth>
                 <Select
                   value={form.aocType}

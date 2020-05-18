@@ -21,28 +21,28 @@ export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const {data: result , isLoading, error } = useQuery(
     'user-direct-call-pickup-with-bargeIn',
-	() => api.show(userId)		
+	() => api.show(userId)
   )
   const userServiceData  =  result || {}
 
   if( error ) alertDanger( error )
   if( isLoading ) return <UiLoadingCard/>
- 
+
   function handleInput(event) {
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -78,7 +78,7 @@ export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
           <UiListItem label="Automatic Target Selection">
             <UiCheckbox isChecked={userServiceData.enableAutomaticTargetSelection} />
           </UiListItem>
-           
+
         </UiSection>
       </UiCard>
       <UiCardModal
@@ -86,7 +86,7 @@ export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={save}
-        
+
       >
         <form>
           <UiSection title="Enable">

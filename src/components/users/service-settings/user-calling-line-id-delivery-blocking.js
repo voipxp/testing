@@ -21,12 +21,12 @@ export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'user-calling-line-id-blocking',
     () => api.show(userId)
   )
-  
+
   const userServiceData = result || {}
 
   if (error) alertDanger(error)
@@ -38,12 +38,12 @@ export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }

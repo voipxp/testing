@@ -21,11 +21,12 @@ export const UserDoNotDisturb = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const {data: result , isLoading, error } = useQuery(
     'do-not-disturb',
-	() => api.show(userId)		
+	  () => api.show(userId)
   )
+
   const userServiceData  =  result || {}
 
   if( error ) alertDanger( error )
@@ -36,12 +37,12 @@ export const UserDoNotDisturb = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -61,7 +62,7 @@ export const UserDoNotDisturb = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard

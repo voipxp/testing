@@ -23,7 +23,7 @@ export const UserCallForwardingAlways = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'user-call-forwarding-always',
     () => api.show(userId)
@@ -31,7 +31,7 @@ export const UserCallForwardingAlways = ({ match }) => {
 
   const userServiceData = result || {}
   const options = api.options || {}
-  
+
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
 
@@ -41,12 +41,12 @@ export const UserCallForwardingAlways = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
    function save() {
 		if((form.isActive === true) && ((form.forwardToPhoneNumber === undefined ) || (form.forwardToPhoneNumber === "" ) )){
         alertDanger('The Call Forwarding Always Service Required Phone Number')
@@ -58,7 +58,7 @@ export const UserCallForwardingAlways = ({ match }) => {
 		  }
     update(form)
   }
-  
+
   async function update(formData) {
     showLoadingModal()
     try {
@@ -110,15 +110,15 @@ export const UserCallForwardingAlways = ({ match }) => {
               checked={form.isActive}
               onChange={handleInput}
             />
-			
+
             <UiInputCheckbox
               name="isRingSplashActive"
               label="Is Ring Splash Active"
               checked={form.isRingSplashActive}
               onChange={handleInput}
             />
-			
-			      <UiFormField label="Forward To">  
+
+			      <UiFormField label="Forward To">
               <Input
                 type="text"
                 name="forwardToPhoneNumber"
