@@ -29,6 +29,18 @@ function controller(BrandingTemplateService, Alert, UiTemplateService) {
     { key: 'imageLoginLogo', label: 'Login Logo' },
     { key: 'imageIcon', label: 'Icon Image' }
   ]
+  ctrl.fields.select = [
+    { key: 'userLandingPage', label: 'User Landing Page', options: 'userLandingPageOptions'},
+    /*
+    * Add these back when these settings are needed
+    */
+    // { key: 'groupDepartmentLandingPage', label: 'Group Department Landing Page', options: 'groupDepartmentLandingPageOptions'},
+    // { key: 'gropuLandingPage', label: 'Group Landing Page', options: 'gropuLandingPageOptions'},
+    // { key: 'serviceProviderLandingPage', label: 'Service Provider Landing Page', options: 'serviceProviderLandingPageOptions'},
+    // { key: 'resellerLandingPage', label: 'Reseller Landing Page', options: 'resellerLandingPageOptions'},
+    // { key: 'provisioningLandingPage', label: 'Provisioning Landing Page', options: 'provisioningLandingPageOptions'},
+    // { key: 'systemLandingPage', label: 'System Landing Page', options: 'systmeLandingPageOptions'}
+  ]
 
   function onInit() {
     ctrl.loading = true
@@ -56,6 +68,10 @@ function controller(BrandingTemplateService, Alert, UiTemplateService) {
     ctrl.editField = angular.copy(field)
     ctrl.editField.value = ctrl.template[field.key]
     ctrl.editField.type = type
+    ctrl.editField.options = []
+    if (type == 'select') {
+      ctrl.editField.options = ctrl.template[field.options]
+    }
     var id = 'editBrandingTemplate-' + type
     Alert.modal.open(id, function(close) {
       update(ctrl.editField, close)

@@ -5,6 +5,7 @@ import { Menu, Column, Icon } from 'rbx'
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import { UiLoading } from '@/components/ui'
 import { AngularComponent } from '@/components/angular-component'
+import { useUiTemplate } from '@/store/ui-template'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import _ from 'lodash'
 import {
@@ -107,6 +108,7 @@ const StyledMenu = styled.div`
  * UiMenu relies on react-router for navigation and must be within a Router context.
  */
 export const UiMenuBase = ({ match, location, menu = [] }) => {
+  const { template } = useUiTemplate()
   const [activeSubMenuArr, setActiveSubMenuArr] = React.useState([])
 
   const renderRoute = routeProps => {
@@ -139,7 +141,7 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
     )
   }
 
-  const subMenuDefaultShouldOpen = () => {
+const subMenuDefaultShouldOpen = () => {
     const arr = []
     for (const section of menu) {
       section.items.forEach((item, index) => {
@@ -148,27 +150,46 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
     }
     setActiveSubMenuArr(arr)
   }
-
-  // select the default route
+  
+  // set route based on branding template User Landing Page
+  // if not set in branding template, feature-quick-set be used
+  // if branding template not set and user doens't have feature-quick-set, his first menu item will be used
   const renderDefault = () => {
-    let route
-
-    subMenuDefaultShouldOpen()
-    for (const section of menu) {
-      route = section.items.find(item => item.default)
-      if (route) break
+	subMenuDefaultShouldOpen()
+    const defaultUserLandingPage = 'feature-quick-set'
+    let userLandingPage = ''
+    let pageToCheck = ''
+    let pageFound = false
+    let featureQuickSetFound = false
+    let atLeastOneLandingPage = false
+	
+	for (const section of menu) {
+      const tempItem = section.items.find(item => item.default)
+      userLandingPage = tempItem.path
+	  if (userLandingPage) break
     }
-
-    if(!route) {
-      const section = menu[0]
-      if(section && section.items[0].subMenus) {
-        route = section.items[0].subMenus[0]
+	
+    const section = menu[0]
+    pageToCheck = defaultUserLandingPage
+    if (template.userLandingPage) {
+      pageToCheck = template.userLandingPage
+    }
+    // Loop through all the menu items that user is able to see
+    section.items.forEach(function(availableUserLandingPage, index) {
+      atLeastOneLandingPage = true
+      if (availableUserLandingPage.path === pageToCheck) {
+        userLandingPage = availableUserLandingPage.path
+        pageFound = true
       }
-      else route = section && section.items[0]
+      if (availableUserLandingPage === defaultUserLandingPage) {
+        featureQuickSetFound = true
+      }
+    })
+    if (!pageFound && !featureQuickSetFound && atLeastOneLandingPage) {
+      userLandingPage = section.items[0]['path']
     }
-
-    return route ? (
-      <Redirect to={`${match.url}/${route.path}`} />
+    return userLandingPage ? (
+      <Redirect to={`${match.url}/${userLandingPage}`} />
     ) : (
       <UiLoading />
     )
@@ -199,11 +220,11 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                 <>
                 <Icon class="is-left">
                   <FontAwesomeIcon icon={icons[subMenu.icon]} />
-                </Icon><span>&nbsp;&nbsp;</span>
+                </Icon>
                 </>
               )}
             </>
-            {subMenu.name}
+            <span align="right">{subMenu.name}</span>
             </Menu.List.Item>
           )
         })
@@ -251,11 +272,11 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                               <>
                               <Icon class="is-left">
                                 <FontAwesomeIcon icon={icons[item.icon]} />
-                              </Icon><span>&nbsp;&nbsp;</span>
+                              </Icon>
                               </>
                             )}
                           </>
-                          {item.name}
+                          <span align="right">{item.name}</span>
                         </Menu.List.Item>
                         }
                       </>
