@@ -1,0 +1,27 @@
+<pbs-spinner loading="$ctrl.loading">
+  <nav class="panel margin-top">
+    <p class="panel-heading hover" ng-click="$ctrl.edit()">
+      Resources
+    </p>
+    <div
+      class="panel-block"
+      ng-repeat="resource in $ctrl.resources | orderBy:'name' track by resource.id"
+    >
+      <span class="panel-icon is-left">
+        <img
+          ng-src="{{ $ctrl.imageSource(resource.imageIcon) }}"
+          class="template-image"
+          style="max-width: 22px; max-height: 22px;"
+        />
+      </span>
+      <span class="is-right">
+        <a href="{{resource.url}}" target="_blank" ng-if="resource.window">
+          <p>{{resource.name}}</p>
+        </a>
+        <a href="{{resource.url}}" ng-if="!resource.window">
+          <p>{{resource.name}}</p>
+        </a>
+      </span>
+    </div>
+  </nav>
+</pbs-spinner>

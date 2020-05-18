@@ -27,7 +27,8 @@ export const dashboardMenu = [
 	  {
         path: 'service-providers',
         name: 'Service Providers',
-        component: ResellerServiceProviders
+        component: ResellerServiceProviders,
+        default: true
       }
     ]
   },

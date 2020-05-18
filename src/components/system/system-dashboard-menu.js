@@ -1,5 +1,5 @@
 import { ReportRouteSettings  } from './system-report-settings'
-import { Audits, Audit } from '@/components/audits'
+import { Audits } from '@/components/audits'
 import { Imports } from '@/components/imports'
 import { Exports } from '@/components/exports'
 export const dashboardMenu = [
@@ -26,7 +26,7 @@ export const dashboardMenu = [
         angularComponent: 'vdmDashboard',
         hasLevel: 'Provisioning',
         module: 'VDM'
-      } ,
+      }
     ]
   },
   {
