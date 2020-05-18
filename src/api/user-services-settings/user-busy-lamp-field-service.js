@@ -7,7 +7,7 @@ export function show(userId) {
 
 
 export function users(userId) {
-  return api.get('users', { params: { userId } })
+  return api.get('/users/busy-lamp-field/users', { params: { userId } })
 }
 
 /**
@@ -16,8 +16,8 @@ The response json gor get and param for update is a json of the format:
 
 */
 
-export function update(userId, object) { 
-  return api.put('users/busy-lamp-field', object)
+export function update(params) { 
+  return api.put('users/busy-lamp-field', params)
 }
 
 export default { show, users, update }

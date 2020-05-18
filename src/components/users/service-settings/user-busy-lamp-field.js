@@ -6,6 +6,7 @@ import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-busy-lamp-field-service'
 import groupDomainAPI from '@/api/groups/domains'
 import { useAsync } from 'react-async-hook'
+import _ from 'lodash'
 import {
   UiButton,
   UiCard,
@@ -40,13 +41,14 @@ export const UserBusyLampField = ({ match }) => {
   const [selectedUser, setSelectedUser] = useState([])
   const [isModUri, setIsModUri] = useState(false)
   const [domains, setDomainsData] = React.useState({})
+  const [isUsers, isSetUsers] = React.useState(true)
   const { data: result, isLoading, error } = useQuery(
     'user-busy-lamp-field',
     () => api.show(userId)
   )
 
   const { data: userListData } = useQuery(
-    'users',
+    'busy-lamp-available-users',
     () => api.users(userId)
   )
 
@@ -57,17 +59,15 @@ export const UserBusyLampField = ({ match }) => {
       }),
     []
   )
-  // const { data: domainsData } = useQuery(
-  //   'domains',
-  //   () => api.domains(groupId, serviceProviderId)
-  // )
   /*get usersList */
-  const userServiceData = result || {}
- const useList = userServiceData.users || []
-
- const selectedUsers = userListData || []
- console.log('fffffffff')
- console.log(selectedUsers)
+ const userServiceData = result || {}
+ const busyFiledLampAssignedUsers = userServiceData.users || []
+ const busyFiledLampAvailableUsers = (userListData && userListData.users) || []
+ 
+ if(isUsers && busyFiledLampAvailableUsers.length > 0 ){
+   isSetUsers(false)
+   setAvailableUser(busyFiledLampAvailableUsers)
+  }  
   if (error) alertDanger(error)
   if (isLoading) return <UiLoadingCard />
   
@@ -78,40 +78,62 @@ export const UserBusyLampField = ({ match }) => {
 	  setForm({ ...form, [name]: value })
   }
   
-  function edit() {
-      var split = userServiceData.listURI.split('@')
-      var prefix = split[0]
-      var domain = split[1]
-      userServiceData['listURI'] = prefix
-      userServiceData['domains'] = domain
-      setIsModUri(true)
-      setShowModal(true)
-      setForm({ ...userServiceData })
-  }
-
-  function editUsers() {
-    setIsModUri(false)
+  function edit() { 
+    let prefix =''
+    let domain = ''
+    if(userServiceData.listURI){
+      const split = userServiceData.listURI.split('@')
+      prefix = split[0]
+      domain = split[1]
+    }
+    const listUrl   = prefix ? prefix : form['listURI']
+    const domainURI = domain ? domain : domains.default
+    const enableCallParkNotification = userServiceData.enableCallParkNotification ? true : false
+    const initialForm = {
+      listURI: listUrl,
+      domain:domainURI,
+      enableCallParkNotification: enableCallParkNotification,
+      userId: userId
+    }
+    setForm({...initialForm })
+    setIsModUri(true)
     setShowModal(true)
   }
   
-  function save() { 
-    const initialForm = {
-      listURI: form['listURI']+'@'+form['domains'],
-      enableCallParkNotification: form['enableCallParkNotification'],
-      userId: userId  
-    }
-    //form['listURI'] = form['listURI']+'@'+form['domains']
-     update(initialForm)
+  function editUsers() {
+    _.pullAllWith(availableUser, selectedUser , _.isEqual)
+      setSelectedUser(selectedUser)
+      setAvailableUser(availableUser)
+       const formWithMonitorUser = {
+          listURI: userServiceData.listURI,
+          enableCallParkNotification: userServiceData.enableCallParkNotification,
+          userId: userId
+        }
+      setForm({...formWithMonitorUser })
+      setIsModUri(false)
+      setShowModal(true)
+  }
+  
+  function save() {   
+    if(isModUri){
+      form['listURI'] = form['listURI']+'@'+form['domain']
+    } 
+    form['users'] = selectedUser 
+    update(form)
   }
 
   async function update(formData) {
     showLoadingModal()
     try {
-      const newUserCallingNameRetrieval = await api.update(userId, formData)
-      queryCache.setQueryData(['user-busy-lamp-field'], newUserCallingNameRetrieval, {
+      const newUserBusyLampFiledListURI = await api.update(formData)
+      queryCache.setQueryData(['user-busy-lamp-field'],newUserBusyLampFiledListURI, {
         shouldRefetch: true
       })
-      alertSuccess('Busy Lamp Field Updated Successfully')
+      queryCache.setQueryData(['busy-lamp-available-users'], newUserBusyLampFiledListURI, {
+        shouldRefetch: true
+      })
+
+      alertSuccess('Setting Updated')
       setShowModal(false)
     } catch (error_) {
       alertDanger(error_)
@@ -120,7 +142,6 @@ export const UserBusyLampField = ({ match }) => {
     }
   }
   
-
   return (
     <>
       <UiCard
@@ -147,8 +168,11 @@ export const UserBusyLampField = ({ match }) => {
       >
 	      <UiDataTable
           columns={columns}
-          rows={useList}
+          rows={busyFiledLampAssignedUsers}
           rowKey="userId"
+          hideSearch={false}
+          onClick={editUsers}
+          showSelect={true}
           pageSize={25}
         />
       </UiCard>
@@ -157,81 +181,83 @@ export const UserBusyLampField = ({ match }) => {
         title={ 
           isModUri ?
            'Edit Settings' : 
-           'Edit Users'}
+           'Edit Users'
+        }
         isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={save}
       >
         <form>
-        {isModUri ? (
-		      <UiSection title="General Settings">
-             <Input
-                    style={{ width: '5em' }}
-                    type="text"
-                    name="listURI"
-                    onChange={handleInput}
-                    value={
-                      form.listURI
-                    }
-                    // eslint-disable-next-line react/jsx-no-duplicate-props
-                    style={{ width: '25rem' }}
-                  />
-                  <Tag color="link" size="medium">
-                    @
-                  </Tag>
-                  <Select.Container>
-                    <Select
-                      value={form.domains}
-                      onChange={handleInput}
-                      name="domains"
-                      style={{ width: '25rem', marginBottom: '1rem' }}
-                    >
-                      {domains && domains.default ? (
-                        <Select.Option
-                          key={domains.default}
-                          value={domains.default}
-                        >
-                          {domains.default}
-                        </Select.Option>
-                      ) : null}
-                      {domains.domains &&
-                        domains.domains.map(domain =>
-                          domains.default !== domain ? (
-                            <Select.Option key={domain} value={domain}>
-                              {domain}
-                            </Select.Option>
-                          ) : null
-                        )}
-                    </Select>
-                  </Select.Container>
-              <UiSection title="Other Settings"> 
-                <UiInputCheckbox
-                  name="enableCallParkNotification"
-                  label="Enable Call Park Notification"
-                  checked={form.enableCallParkNotification}
+          {isModUri ? (
+            <UiSection title="General Settings">
+              <Input
+                  style={{ width: '5em' }}
+                  type="text"
+                  name="listURI"
                   onChange={handleInput}
+                  value={
+                    form.listURI
+                  }
+                  // eslint-disable-next-line react/jsx-no-duplicate-props
+                  style={{ width: '25rem' }}
+                />
+                <Tag color="link" size="medium">
+                  @
+                </Tag>
+                <Select.Container>
+                  <Select
+                    value={form.domains}
+                    onChange={handleInput}
+                    name="domains"
+                    style={{ width: '25rem', marginBottom: '1rem' }}
+                  >
+                    {domains && domains.default ? (
+                      <Select.Option
+                        key={domains.default}
+                        value={domains.default}
+                      >
+                        {domains.default}
+                      </Select.Option>
+                    ) : null}
+                    {domains.domains &&
+                      domains.domains.map(domain =>
+                        domains.default !== domain ? (
+                          <Select.Option key={domain} value={domain}>
+                            {domain}
+                          </Select.Option>
+                        ) : null
+                      )}
+                  </Select>
+                </Select.Container>
+                <br/>
+                <br/>
+                <UiSection title="Other Settings"> 
+                  <UiInputCheckbox
+                    name="enableCallParkNotification"
+                    label="Enable Call Park Notification"
+                    checked={form.enableCallParkNotification}
+                    onChange={handleInput}
+                  />
+              </UiSection>
+            </UiSection>
+          ):(
+            <>
+              <UiSection title="General Settings">
+                <UiSelectableTable
+                  title="Users"
+                  availableUser={availableUser}
+                  setAvailableUser={availableItem =>
+                    setAvailableUser(availableItem)
+                  }
+                  selectedUser={selectedUser}
+                  setSelectedUser={selectedItem => setSelectedUser(selectedItem)}
+                  rowKey="userId"
+                  showMoveBtn={true}
                 />
             </UiSection>
-			    </UiSection>
-        ):(
-          <>
-		        <UiSection title="General Settings">
-              <UiSelectableTable
-                title="Users"
-                availableUser={availableUser}
-                setAvailableUser={availableItem =>
-                  setAvailableUser(availableItem)
-                }
-                selectedUser={selectedUser}
-                setSelectedUser={selectedItem => setSelectedUser(selectedItem)}
-                rowKey="userId"
-                showMoveBtn={true}
-              />
-			    </UiSection>
-          </>
-        )}
-
-			  </form>
+            </>
+          )}
+        </form>
       </UiCardModal>
     </>
   )
