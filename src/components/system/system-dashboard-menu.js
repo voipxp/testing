@@ -1,4 +1,4 @@
-import { ReportRouteSettings  } from './system-report-settings'
+import { ReportRouteSettings } from './system-report-settings'
 import { Audits } from '@/components/audits'
 import { Imports } from '@/components/imports'
 import { Exports } from '@/components/exports'
@@ -12,17 +12,17 @@ export const dashboardMenu = [
         angularComponent: 'bulkDashboard',
         hasLevel: 'System',
         hasModuleRead: 'Provisioning'
-	    },
+      },
       {
         name: 'Service Providers',
         path: 'serviceProviders',
         angularComponent: 'serviceProviders',
-        limitTo:10,
+        limitTo: 10,
         default: true
       },
       {
         name: 'VDM',
-        path:  'vdm',
+        path: 'vdm',
         angularComponent: 'vdmDashboard',
         hasLevel: 'Provisioning',
         module: 'VDM'
@@ -32,16 +32,16 @@ export const dashboardMenu = [
   {
     label: 'Report',
     items: [
-        {
-          name: 'Reports',
-          path: 'report',
-          component: ReportRouteSettings,
-          hasLevel: 'Provisioning'
-        }
-      ]
+      {
+        name: 'Reports',
+        path: 'report',
+        component: ReportRouteSettings,
+        hasLevel: 'Provisioning'
+      }
+    ]
   },
 
- {
+  {
     label: 'Management',
     items: [
       {
@@ -63,15 +63,15 @@ export const dashboardMenu = [
         path: 'networkClassOfServices',
         angularComponent: 'systemNetworkClassOfServices',
         hasLevel: 'System'
-      },
+      }
     ]
   },
   {
     label: 'Utilities',
     items: [
-	{
+      {
         path: 'audits',
-        name: 'Audits (beta)',
+        name: 'Audits',
         component: Audits,
         isBreadcrumb: false
       },
@@ -89,27 +89,27 @@ export const dashboardMenu = [
         hasLevel: 'System',
         isPaasAdmin: true
       },
-	  {
-        name: 'Export (beta)',
+      {
+        name: 'Migrate',
         path: 'exports',
         exact: true,
         component: Exports,
         hasLevel: 'System',
         isBreadcrumb: false
       },
-	  {
-        name: 'Import (beta)',
+      {
+        name: 'Import',
         path: 'imports',
         exact: true,
         component: Imports,
         hasLevel: 'System',
         isBreadcrumb: false
       },
-	  {
+      {
         name: 'Login History',
         path: 'userLogin',
-		angularComponent: 'odinUserLoginIndex',
-		isPaasAdmin: false
+        angularComponent: 'odinUserLoginIndex',
+        isPaasAdmin: false
       },
       {
         path: 'settings',
@@ -118,13 +118,13 @@ export const dashboardMenu = [
         hasLevel: 'Service Provider',
         isPaasAdmin: true
       },
-	  {
+      {
         path: 'webhooks',
         name: 'Webhook History',
         angularComponent: 'odinWebhooks',
         hasLevel: 'System',
         isPaasAdmin: true
-      },
+      }
     ]
   }
 ]

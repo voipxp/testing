@@ -40,7 +40,7 @@ function controller(Alert, HashService, SettingService, $q, EventService) {
       events: [],
       key: HashService.key()
     }
-    ctrl.modalTitle = 'New Export Endpoint'
+    ctrl.modalTitle = 'New Migration Endpoint'
     Alert.modal.open('editExportEndpoint', function(close) {
       if (!ctrl.hasHeader) delete ctrl.editEndpoint.header
       create(ctrl.editEndpoint, close)

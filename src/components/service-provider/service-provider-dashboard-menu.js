@@ -137,13 +137,13 @@ export const dashboardMenu = [
     items: [
       {
         path: 'audits',
-        name: 'Audits (beta)',
+        name: 'Audits',
         component: ServiceProviderAudits,
         hasLevel: 'Service Provider',
         isBreadcrumb: false
       },
       {
-        name: 'Import (beta)',
+        name: 'Import',
         path: 'imports',
         exact: true,
         component: Imports,
@@ -151,7 +151,7 @@ export const dashboardMenu = [
         isBreadcrumb: false
       },
       {
-        name: 'Export (beta)',
+        name: 'Migrate',
         path: 'exports',
         exact: true,
         component: Exports,
