@@ -152,8 +152,12 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
         featureQuickSetFound = true
       }
     })
-    if (!pageFound && !featureQuickSetFound && atLeastOneLandingPage) {
-      userLandingPage = section.items[0]['path']
+    if (!pageFound && !featureQuickSetFound) {
+      if ( atLeastOneLandingPage) {
+        userLandingPage = section.items[0]['path']
+      } else {
+        userLandingPage = 'user-profile'
+      }
     }
     return userLandingPage ? (
       <Redirect to={`${match.url}/${userLandingPage}`} />
