@@ -196,7 +196,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
               columns={columns}
               rows={audit}
               rowKey="id"
-              pageSize={20}
+              pageSize={25}
               onClick={open}
             />
           </UiCard>

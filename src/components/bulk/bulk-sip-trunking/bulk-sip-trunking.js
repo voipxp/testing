@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { menu } from './bulk-sip-trunking-dashboard-menu'
 import { BulkWizMenu } from '@/components/bulk'
-import { Redirect } from 'react-router-dom'
-import { AppBreadcrumb } from '@/components/app'
 import { StorageService } from '@/utils'
 import { Breadcrumb } from 'rbx'
+import { AppBreadcrumb } from '@/components/app'
+import { withRouter } from 'react-router'
+import PropTypes from 'prop-types'
 
 const initial = {
   serviceProviderId: '',
@@ -17,7 +18,7 @@ const initial = {
   users: []
 }
 
-export const BulkSipTrunking = () => {
+export const BulkSipTrunkingBase = ({ history }) => {
   const [sipTrunkShareableData, setSipTrunkShareableData] = React.useState({
     ...initial
   })
@@ -45,11 +46,12 @@ export const BulkSipTrunking = () => {
 
   return (
     <>
-      {redirect ? <Redirect to="/bulk" /> : null}
+      {redirect ? history.goBack() : null}
       <AppBreadcrumb>
-        <Breadcrumb.Item href="#!/bulk">Bulk</Breadcrumb.Item>
+        <Breadcrumb.Item onClick={() => history.goBack()}>Bulk</Breadcrumb.Item>
         <Breadcrumb.Item>SIP Trunking</Breadcrumb.Item>
       </AppBreadcrumb>
+
       <BulkWizMenu
         menu={menuTemp}
         initialData={sipTrunkShareableData}
@@ -61,3 +63,9 @@ export const BulkSipTrunking = () => {
     </>
   )
 }
+
+BulkSipTrunkingBase.propTypes = {
+  history: PropTypes.object
+}
+
+export const BulkSipTrunking = withRouter(BulkSipTrunkingBase)
