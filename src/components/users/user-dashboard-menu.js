@@ -109,16 +109,16 @@ export const dashboardMenu = [
         hasModuleRead: 'Provisioning',
         hasLevel: 'Group Department'
       },
+	  {
+        path: 'device-endpoint',
+        name: 'Device Endpoint',
+        angularComponent: 'userDevice',
+        hasLevel: 'Group Department'
+      },
       {
         path: 'phone-number',
         name: 'Phone Number',
         angularComponent: 'userAddresses',
-        hasLevel: 'Group Department'
-      },
-      {
-        path: 'device-endpoint',
-        name: 'Device Endpoint',
-        angularComponent: 'userDevice',
         hasLevel: 'Group Department'
       },
       {

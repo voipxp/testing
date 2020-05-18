@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react'
 import { menu } from './bulk-sip-trunking-upload-dashboard-menu'
 import { BulkWizMenu } from '@/components/bulk/bulk-wiz-menu'
-import { Redirect } from 'react-router-dom'
-import { AppBreadcrumb } from '@/components/app'
 import { Breadcrumb } from 'rbx'
+import { AppBreadcrumb } from '@/components/app'
+import PropTypes from 'prop-types'
 import _ from 'lodash'
-export const BulkSipTrunkingUpload = () => {
+import { withRouter } from 'react-router'
 
+export const BulkSipTrunkingUploadBase = ({ history }) => {
    const [menuTemp, setMenuTemp] = React.useState( [...menu] )
    const [redirect, setRedirect] = React.useState(false)
 
@@ -38,11 +39,12 @@ export const BulkSipTrunkingUpload = () => {
    }, [])
 
    return <>
-     { redirect ? <Redirect to='/bulk' /> : null}
+     { redirect ? history.goBack() : null}
      <AppBreadcrumb>
-      <Breadcrumb.Item href="#!/bulk">Bulk</Breadcrumb.Item>
-      <Breadcrumb.Item>SIP Trunking Upload</Breadcrumb.Item>
-    </AppBreadcrumb>
+        <Breadcrumb.Item onClick={() => history.goBack()}>Bulk</Breadcrumb.Item>
+        <Breadcrumb.Item>SIP Trunking Upload</Breadcrumb.Item>
+     </AppBreadcrumb>
+
      <BulkWizMenu
         menu={menuTemp}
         setMenu={(menuData) => handleSetMenu(menuData)}
@@ -51,3 +53,9 @@ export const BulkSipTrunkingUpload = () => {
       />
    </>
 }
+
+BulkSipTrunkingUploadBase.propTypes = {
+  history: PropTypes.object
+}
+
+export const BulkSipTrunkingUpload = withRouter(BulkSipTrunkingUploadBase)

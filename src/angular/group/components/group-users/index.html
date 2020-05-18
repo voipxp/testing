@@ -1,14 +1,6 @@
-<pbs-navigation
-  service-provider-id="$ctrl.serviceProviderId"
-  group-id="$ctrl.groupId"
-  hide-navigation="$ctrl.isGroupDepartmentAdmin"
->
-  <pbs-breadcrumb title="'Users'"></pbs-breadcrumb>
-</pbs-navigation>
-
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Users">
-    <pbs-block-buttons ng-if="$ctrl.canCreate">
+    <pbs-block-buttons ng-if="$ctrl.canCreate && $ctrl.isAddGroup">
       <pbs-button-compact-add
         ng-click="$ctrl.add()"
         title="Add User"

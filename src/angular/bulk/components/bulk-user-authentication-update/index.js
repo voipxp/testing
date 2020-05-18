@@ -6,8 +6,8 @@ angular.module('odin.bulk').component('bulkUserAuthenticationUpdate', {
   controller
 })
 
-controller.$inject = ['BulkImportService', '$scope']
-function controller(BulkImportService, $scope) {
+controller.$inject = ['BulkImportService', '$scope', '$window']
+function controller(BulkImportService, $scope, $window) {
   var ctrl = this
   ctrl.onSelectUsers = onSelectUsers
   ctrl.canComplete = canComplete
@@ -18,6 +18,7 @@ function controller(BulkImportService, $scope) {
   ctrl.userNameAction = 'manual'
   ctrl.passwordAction = 'auto'
   ctrl.newPassword = '{{ generateSipPassword }}'
+  ctrl.goBack = goBack
 
   function onSelectUsers(event) {
     ctrl.data = event
@@ -56,5 +57,9 @@ function controller(BulkImportService, $scope) {
     })
 
     BulkImportService.open(data)
+  }
+
+  function goBack() {
+    $window.history.back()
   }
 }

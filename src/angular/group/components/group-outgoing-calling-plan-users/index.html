@@ -2,6 +2,7 @@
   service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
   module="$ctrl.module"
+  hide-navigation="$ctrl.hideNav"
 >
   <pbs-breadcrumb
     title="'Calling Plans'"
@@ -13,33 +14,35 @@
   ></pbs-breadcrumb>
   <pbs-breadcrumb title="'Users'"></pbs-breadcrumb>
 </pbs-navigation>
-<pbs-tabs delay="true">
-  <pbs-tab label="Originating">
-    <group-outgoing-calling-plan-originating-users
-      service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-    >
-    </group-outgoing-calling-plan-originating-users>
-  </pbs-tab>
-  <pbs-tab label="Initiating Forwards">
-    <group-outgoing-calling-plan-redirecting-users
-      service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-    >
-    </group-outgoing-calling-plan-redirecting-users>
-  </pbs-tab>
-  <pbs-tab label="Being Forwarded">
-    <group-outgoing-calling-plan-redirected-users
-      service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-    >
-    </group-outgoing-calling-plan-redirected-users>
-  </pbs-tab>
-  <pbs-tab label="Call Me Now" ng-if="$ctrl.hasCallMeNow">
-    <group-outgoing-calling-plan-call-me-now-users
-      service-provider-id="$ctrl.serviceProviderId"
-      group-id="$ctrl.groupId"
-    >
-    </group-outgoing-calling-plan-call-me-now-users>
-  </pbs-tab>
-</pbs-tabs>
+<pbs-block title="Calling Plans ">
+  <pbs-tabs delay="true">
+    <pbs-tab label="Originating">
+      <group-outgoing-calling-plan-originating-users
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+      >
+      </group-outgoing-calling-plan-originating-users>
+    </pbs-tab>
+    <pbs-tab label="Initiating Forwards">
+      <group-outgoing-calling-plan-redirecting-users
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+      >
+      </group-outgoing-calling-plan-redirecting-users>
+    </pbs-tab>
+    <pbs-tab label="Being Forwarded">
+      <group-outgoing-calling-plan-redirected-users
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+      >
+      </group-outgoing-calling-plan-redirected-users>
+    </pbs-tab>
+    <pbs-tab label="Call Me Now" ng-if="$ctrl.hasCallMeNow">
+      <group-outgoing-calling-plan-call-me-now-users
+        service-provider-id="$ctrl.serviceProviderId"
+        group-id="$ctrl.groupId"
+      >
+      </group-outgoing-calling-plan-call-me-now-users>
+    </pbs-tab>
+  </pbs-tabs>
+</pbs-block>

@@ -121,7 +121,7 @@ const csvColumns = [
   }
 ]
 
-export const GroupPushNotificationRegistration = ({ match }) => {
+export const GroupPushNotificationRegistration = ({ match , isBreadcrumb = true }) => {
   const { alertDanger } = useAlerts()
   const { serviceProviderId, groupId } = match.params
   const [pushNReports, setPushNReports] = React.useState([])
@@ -161,9 +161,11 @@ export const GroupPushNotificationRegistration = ({ match }) => {
 
   return (
     <>
+	{(isBreadcrumb && 
       <AppBreadcrumb>
         <Breadcrumb.Item>User Push Notification Registration</Breadcrumb.Item>
       </AppBreadcrumb>
+	 )} 
       {loading ? (
         <UiLoading />
       ) : (
@@ -195,5 +197,6 @@ export const GroupPushNotificationRegistration = ({ match }) => {
 }
 
 GroupPushNotificationRegistration.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  isBreadcrumb : PropTypes.bool
 }

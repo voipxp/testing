@@ -34,7 +34,7 @@ export const BulkSelectGroupTrunk = props => {
         columns={columns}
         rows={groupTrunks || []}
         rowKey="name"
-        pageSize={50}
+        pageSize={25}
         onClick={props.selectGroupTrunk}
       />
     </>
