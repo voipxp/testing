@@ -2,9 +2,6 @@ import { UserDashboard } from '@/components/users'
 import { DepartmentDashboard } from '@/components/departments'
 import { CreateAutoAttendant } from '@/components/autoAttendant'
 import {
-  ServiceProviderAssignDomains
-} from '@/components/service-provider'
-import {
   GroupCommunicationBarring,
   GroupSpeedDial8,
   GroupExtensionLength,
@@ -12,10 +9,9 @@ import {
   GroupNumbers,
   GroupSeriesCompletion,
   GroupSharedCallAppearancesReport,
-  GroupPushNotificationRegistration,
-  GroupAssignDomains
+  GroupPushNotificationRegistration
 } from '@/components/groups'
-import { SystemResellers,SystemDomains } from '../system'
+import { SystemResellers } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { Audits, Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
@@ -169,11 +165,6 @@ export const routes = [
   {
     path: '/groups/:serviceProviderId/:groupId/admins',
     angularComponent: 'groupAdmins',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/assignDomains',
-    component: GroupAssignDomains,
     hasLevel: 'Group'
   },
   {
@@ -587,11 +578,6 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/networkclassofservices',
-    angularComponent: 'groupNetworkClassOfServices',
-    hasLevel: 'Group'
-  },
-  {
     path: '/groups/:serviceProviderId/:groupId/callProcessingPolicy',
     angularComponent: 'groupCallProcessingPolicy',
     hasLevel: 'Group'
@@ -658,11 +644,6 @@ export const routes = [
   {
     path: '/serviceProviders/:serviceProviderId/admins',
     angularComponent: 'serviceProviderAdmins',
-    hasLevel: 'Service Provider'
-  },
-  {
-    path: '/serviceProviders/:serviceProviderId/assignDomains',
-    component: ServiceProviderAssignDomains,
     hasLevel: 'Service Provider'
   },
   {
@@ -767,11 +748,6 @@ export const routes = [
     path: '/system/dn',
     angularComponent: 'systemDn',
     hasLevel: 'Provisioning'
-  },
-  {
-    path: '/system/domains',
-    component: SystemDomains,
-    hasLevel: 'System'
   },
   {
     path: '/system/collaborate',
