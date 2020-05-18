@@ -36,7 +36,8 @@ export const dashboardMenu = [
         {
           name: 'Users',
           path: 'users',
-          angularComponent: 'groupUsers'
+          angularComponent: 'groupUsers',
+          default: true
         }
       ]
   },
