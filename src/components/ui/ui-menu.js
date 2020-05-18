@@ -233,7 +233,7 @@ const subMenuDefaultShouldOpen = () => {
             <>
               {subMenu.icon && (
                 <>
-                <Icon class="is-left">
+                <Icon align="left" style={{ marginRight: '4px' }}>
                   <FontAwesomeIcon icon={icons[subMenu.icon]} />
                 </Icon>
                 </>
@@ -285,7 +285,7 @@ const subMenuDefaultShouldOpen = () => {
                           <>
                             {item.icon && (
                               <>
-                              <Icon class="is-left">
+                              <Icon align="left" style={{ marginRight: '4px' }}>
                                 <FontAwesomeIcon icon={icons[item.icon]} />
                               </Icon>
                               </>
