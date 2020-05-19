@@ -6,8 +6,8 @@ angular.module('odin.bulk').component('bulkUserServicesUpdate', {
   controller
 })
 
-controller.$inject = ['BulkImportService', '$scope']
-function controller(BulkImportService, $scope) {
+controller.$inject = ['BulkImportService', '$scope', '$window']
+function controller(BulkImportService, $scope, $window) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.select = select
@@ -20,7 +20,7 @@ function controller(BulkImportService, $scope) {
     userServices: 'User Services',
     servicePackServices: 'Service Packs'
   }
-
+  ctrl.goBack = goBack
   ctrl.data = { users: [] }
 
   function onSelectUsers(event) {
@@ -78,5 +78,9 @@ function controller(BulkImportService, $scope) {
     })
     // console.log(JSON.stringify(data, null, 2))
     BulkImportService.open(data)
+  }
+
+  function goBack() {
+    $window.history.back()
   }
 }

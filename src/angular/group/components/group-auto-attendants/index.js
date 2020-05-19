@@ -59,11 +59,9 @@ function controller(
   }
 
 	function loadModule() {
-		if(ACL.is('Group Department') || ACL.is('Group') || ACL.is('ServiceProvider') || ACL.is('System')) {
 			return Module.show('Auto Attendant').then(function(data) {
 			  ctrl.module = data
 			})
-		}
 	}
 
   function loadAutoAttendants() {
