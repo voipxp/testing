@@ -132,7 +132,7 @@ function controller(
           ctrl.groupId,
           extended
         ).then(function(data) {
-          if (ACL.is('System') || ACL.is('Group Department') || ACL.is('Service Provider') || ACL.is('Group') ) data = ACL.filterByDepartment(data)
+          if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
           ctrl.users = data
         })
       }else {
@@ -140,7 +140,7 @@ function controller(
           ctrl.serviceProviderId,
           extended
         ).then(function(data) {
-          if (ACL.is('System') || ACL.is('Group Department') || ACL.is('Service Provider') || ACL.is('Group') ) data = ACL.filterByDepartment(data)
+          if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
           ctrl.users = data
         })
       }
@@ -157,26 +157,6 @@ function controller(
       groupId: ctrl.groupId,
       returnTo: returnTo
     })
-  }
-
-
-  function onClick(user) {
-    var returnTo = $location.url()
-    if(ACL.has('Group') && ctrl.groupId !=='undefined') {
-      Route.open(
-         'users',
-         user.serviceProviderId,
-         user.groupId,
-         user.userId
-       ).search({ returnTo: returnTo })
-    }else{
-      Route.open(
-      'users',
-      user.serviceProviderId,
-      user.userId
-    ).search({ returnTo: returnTo })
-   }
-
   }
 
   function open(user) {
