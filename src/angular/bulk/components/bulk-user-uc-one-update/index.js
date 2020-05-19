@@ -6,13 +6,13 @@ angular.module('odin.bulk').component('bulkUserUcOneUpdate', {
   controller
 })
 
-controller.$inject = ['BulkImportService']
-function controller(BulkImportService) {
+controller.$inject = ['BulkImportService', '$window']
+function controller(BulkImportService, $window) {
   var ctrl = this
   ctrl.wizardReady = wizardReady
   ctrl.wizardComplete = wizardComplete
   ctrl.onUpdate = onUpdate
-
+  ctrl.goBack = goBack
   ctrl.onSelectUsers = onSelectUsers
   ctrl.data = { users: [] }
 
@@ -59,5 +59,9 @@ function controller(BulkImportService) {
 
   function next() {
     ctrl.wizard.next()
+  }
+
+  function goBack() {
+    $window.history.back()
   }
 }

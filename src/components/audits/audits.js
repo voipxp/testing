@@ -113,7 +113,7 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
     <>
       {isBreadcrumb && (
         <AppBreadcrumb>
-          <Breadcrumb.Item>Audits (beta)</Breadcrumb.Item>
+          <Breadcrumb.Item>Audits</Breadcrumb.Item>
         </AppBreadcrumb>
       )}
       {loading ? (
@@ -130,7 +130,7 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
             rows={result}
             rowKey="id"
             onClick={open}
-            pageSize={40}
+            pageSize={25}
           />
         </UiCard>
       )}

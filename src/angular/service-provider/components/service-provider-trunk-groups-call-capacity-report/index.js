@@ -11,12 +11,14 @@ angular
   })
 
 controller.$inject = [
+  'ACL',
   'Alert',
   'ServiceProviderTrunkGroupCallCapacityReportService',
   'Route',
   '$location'
 ]
 function controller(
+  ACL,
   Alert,
   ServiceProviderTrunkGroupCallCapacityReportService,
   Route,
@@ -27,7 +29,8 @@ function controller(
   ctrl.onClick = onClick
   ctrl.displayMax = displayMax
   ctrl.settings = {}
-
+  ctrl.isSp = ACL.is('Sevice Provider')
+  ctrl.back = back
   ctrl.columns = [
     {
       key: 'groupId',
@@ -96,13 +99,35 @@ function controller(
       return data
     })
   }
-  function onClick(group) {
+  function onClick(group) { 
     var returnTo = $location.url()
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      group.groupId,
-      'trunkGroups'
-    ).search({ returnTo: returnTo })
+    if(ACL.is('System') || ACL.is('Service Provider') || ACL.is('Group') ){
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        group.groupId,
+        'group-services',
+        'trunkGroups'
+      )
+    } else {
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        group.groupId,
+        'trunkGroups'
+      ).search({ returnTo: returnTo })
+    }
+    
+  }
+
+  function back(){
+    if(ACL.is('Service Provider')){
+      Route.open(
+        'serviceProviders',
+         ctrl.serviceProviderId,
+        'Reports'
+      )
+       
+    }
   }
 }

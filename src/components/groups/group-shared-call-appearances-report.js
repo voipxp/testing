@@ -57,7 +57,7 @@ const columns = [
   }
 ]
 
-export const GroupSharedCallAppearancesReport = ({ match }) => {
+export const GroupSharedCallAppearancesReport = ({ match , isBreadcrumb = true }) => {
   const { alertDanger } = useAlerts()
   const { serviceProviderId, groupId } = match.params
   const [scaReports, setScaReports] = React.useState([])
@@ -97,9 +97,9 @@ export const GroupSharedCallAppearancesReport = ({ match }) => {
 
   return (
     <>
-      <AppBreadcrumb>
+	{ isBreadcrumb && (<AppBreadcrumb>
         <Breadcrumb.Item>User Shared Call Appearances</Breadcrumb.Item>
-      </AppBreadcrumb>
+	</AppBreadcrumb> ) }
       {loading ? (
         <UiLoading />
       ) : (
@@ -131,5 +131,6 @@ export const GroupSharedCallAppearancesReport = ({ match }) => {
 }
 
 GroupSharedCallAppearancesReport.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  isBreadcrumb : PropTypes.bool
 }

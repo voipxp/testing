@@ -78,8 +78,8 @@ export const Export = ({ history, match, isBreadcrumb = true }) => {
     <>
       {isBreadcrumb && (
         <AppBreadcrumb>
-          <Breadcrumb.Item href="/#!/exports">Exports</Breadcrumb.Item>
-          <Breadcrumb.Item>Export {id}</Breadcrumb.Item>
+          <Breadcrumb.Item href="/#!/exports">Migrations</Breadcrumb.Item>
+          <Breadcrumb.Item>Migration {id}</Breadcrumb.Item>
         </AppBreadcrumb>
       )}
 
@@ -87,7 +87,7 @@ export const Export = ({ history, match, isBreadcrumb = true }) => {
         <UiLoadingCard />
       ) : (
         <>
-          <UiCard title={`Export ${id}`}>
+          <UiCard title={`Migration ${id}`}>
             <div className="columns">
               <div className="column">
                 <UiListItem label="Service Provider">
@@ -117,7 +117,7 @@ export const Export = ({ history, match, isBreadcrumb = true }) => {
               columns={columns}
               rows={export2}
               rowKey="id"
-              pageSize={20}
+              pageSize={25}
               onClick={open}
             />
           </UiCard>
