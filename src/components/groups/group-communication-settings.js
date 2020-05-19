@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiDataTable } from '@/components/ui'
 import { useModulePermissions } from '@/utils'
-import { AngularComponent } from '@/components/angular-component' 
+import { AngularComponent } from '@/components/angular-component'
 import { GroupCommunication } from './group-communication-routes'
 
 /* eslint-disable react/display-name */
@@ -26,15 +26,10 @@ export const GroupCommunicationSettings = ({ history, match }) => {
 	history.push(`/groups/${serviceProviderId}/${groupId}/comm-barring`)
    // history.goBack()
   }
-   
+
   const services = React.useMemo(() => {
-    const allowedServices = GroupCommunication.reduce((obj, route) => {
-      GroupCommunication.forEach(s => (obj[s] = route))
-      return obj
-    }, {})
     // filter out ones not in our map or missing read perms
-    const filtered = GroupCommunication.map(service => {  
-        const route = allowedServices[service.name]
+    const filtered = GroupCommunication.map(service => {
         const module = getModule(service.hasModuleRead)
         return { ...module, ...service, path: service.path }
       })

@@ -49,11 +49,9 @@ function controller(Alert, GroupTrunkGroupService, GroupPolicyService, $q, ACL, 
   // }
 
 	function loadModule() {
-		if(ACL.is('Group Department')) {
-			return Module.show('Trunk Group').then(function(data) {
-			  ctrl.module = data
-			})
-		}
+    return Module.show('Trunk Group').then(function(data) {
+      ctrl.module = data
+    })
 	}
 
   function loadTrunks() {

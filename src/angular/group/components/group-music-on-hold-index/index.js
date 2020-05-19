@@ -45,11 +45,9 @@ function controller(
   }
 
   function loadModule() {
-		if(ACL.is('Group Department')) {
 			return Module.show('Music On Hold').then(function(data) {
         ctrl.module = data
 			})
-		}
   }
 
   function loadMusicOnHold() {

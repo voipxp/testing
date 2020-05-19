@@ -115,11 +115,9 @@ function controller(
   }
 
 	function loadModule() {
-		if(ACL.is('Group Department') || ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System') ) {
 			return Module.show('Flexible Seating Guest').then(function(data) {
 			  ctrl.module = data
 			})
-		}
 	}
 
   function onChangeHost(item) {
@@ -182,7 +180,7 @@ function controller(
       'flexibleSeatingHost'
     ).search({ serviceUserId: flexibleSeatingHost.serviceUserId })
   }
-    
+
 
   function toggle(service) {
     service.isLoading = true
