@@ -57,11 +57,6 @@ function controller(Route, SystemDashboardService, Alert, ACL) {
         name: 'DN Reports',
         path: route('system', 'dn')
       },
-	  {
-        type: 'system',
-        name: 'Domains',
-        path: route('system', 'domains')
-      },
       {
         type: 'system',
         name: 'Service Provider Report',

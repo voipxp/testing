@@ -8,4 +8,3 @@ export * from './group-series-completion'
 export * from './group-trunk-groups-call-capacity'
 export * from './group-shared-call-appearances-report'
 export * from './group-push-notification-registration'
- 
