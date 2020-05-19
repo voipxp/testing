@@ -34,10 +34,11 @@ export const UserDashboard = ({ match }) => {
       loadUserViewableServices(userId),
       loadUserServices(userId),
       loadUser(userId),
-      loadTemplate(),
+      loadTemplate()
     ]).then(() => setLoading(false))
   }, [
     loadUser,
+    loadTemplate,
     loadUserAssignedServices,
     loadUserServices,
     loadUserViewableServices,

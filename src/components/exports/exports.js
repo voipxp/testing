@@ -110,14 +110,14 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
     <>
       {isBreadcrumb && (
         <AppBreadcrumb>
-          <Breadcrumb.Item>Exports (beta)</Breadcrumb.Item>
+          <Breadcrumb.Item>Migrate</Breadcrumb.Item>
         </AppBreadcrumb>
       )}
       {loading ? (
         <UiLoadingCard />
       ) : (
         <UiCard
-          title="Recent Exports"
+          title="Recent Migrations"
           // buttons={
           //   <UiButton color="link" icon="add" size="small" onClick={add} />
           // }
@@ -143,7 +143,7 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
         ''
       )}
       <UiCardModal
-        title={'Start Export'}
+        title={'Start Migration'}
         onCancel={onCancel}
         isOpen={showModal}
         onSave={save}
@@ -169,7 +169,7 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
               <Field>
                 <Control>
                   <UiButton fullwidth static>
-                    Export Options
+                    Migrate Options
                   </UiButton>
                 </Control>
               </Field>

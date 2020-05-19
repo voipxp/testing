@@ -30,10 +30,14 @@ function controller(BrandingTemplateService, Alert, UiTemplateService) {
     { key: 'imageIcon', label: 'Icon Image' }
   ]
   ctrl.fields.select = [
-    { key: 'userLandingPage', label: 'User Landing Page', options: 'userLandingPageOptions'},
+    {
+      key: 'userLandingPage',
+      label: 'User Landing Page',
+      options: 'userLandingPageOptions'
+    }
     /*
-    * Add these back when these settings are needed
-    */
+     * Add these back when these settings are needed
+     */
     // { key: 'groupDepartmentLandingPage', label: 'Group Department Landing Page', options: 'groupDepartmentLandingPageOptions'},
     // { key: 'gropuLandingPage', label: 'Group Landing Page', options: 'gropuLandingPageOptions'},
     // { key: 'serviceProviderLandingPage', label: 'Service Provider Landing Page', options: 'serviceProviderLandingPageOptions'},
@@ -69,7 +73,7 @@ function controller(BrandingTemplateService, Alert, UiTemplateService) {
     ctrl.editField.value = ctrl.template[field.key]
     ctrl.editField.type = type
     ctrl.editField.options = []
-    if (type == 'select') {
+    if (type === 'select') {
       ctrl.editField.options = ctrl.template[field.options]
     }
     var id = 'editBrandingTemplate-' + type

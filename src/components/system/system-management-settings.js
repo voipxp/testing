@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiDataTable } from '@/components/ui'
-import { useModulePermissions, useUserServicePermissions } from '@/utils'
-import { AngularComponent } from '@/components/angular-component' 
+import { useModulePermissions } from '@/utils'
+import { AngularComponent } from '@/components/angular-component'
 import { ManagementRoutes } from './system-management-routes'
 
 /* eslint-disable react/display-name */
@@ -25,18 +25,18 @@ export const ManagementRouteSettings = ({ history, match }) => {
   const hideService = () => {
     history.goBack()
   }
-   
+
   const services = React.useMemo(() => {
     const allowedServices = ManagementRoutes.reduce((obj, route) => {
       ManagementRoutes.forEach(s => (obj[s] = route))
       return obj
     }, {})
     // filter out ones not in our map or missing read perms
-    const filtered = ManagementRoutes.map(service => {  
-        const route = allowedServices[service.hasModuleRead]
-        const module = getModule(route)
-        return { ...module, ...service, path: service.path }
-      })
+    const filtered = ManagementRoutes.map(service => {
+      const route = allowedServices[service.hasModuleRead]
+      const module = getModule(route)
+      return { ...module, ...service, path: service.path }
+    })
     // remove dups such as Shared Call Appearance
     return uniqBy(filtered, 'name')
   }, [getModule])

@@ -14,7 +14,7 @@ export const dashboardMenu = [
   {
     label: 'Dashboard',
     items: [
-	  {
+      {
         path: 'admins',
         name: 'Administrators',
         component: ResellerAdmins
@@ -24,7 +24,7 @@ export const dashboardMenu = [
         name: 'Business Profile',
         component: ResellerProfile
       },
-	  {
+      {
         path: 'service-providers',
         name: 'Service Providers',
         component: ResellerServiceProviders,
@@ -35,7 +35,7 @@ export const dashboardMenu = [
   {
     label: 'Reports',
     items: [
-	  {
+      {
         path: 'dn-report',
         name: 'DN Report',
         component: ResellerDnReport
@@ -60,9 +60,9 @@ export const dashboardMenu = [
   {
     label: 'Provisioning',
     items: [
-	  {
+      {
         path: 'audits',
-        name: 'Audits (beta)',
+        name: 'Audits',
         component: ResellerAudits,
         hasLevel: 'Reseller',
         isBreadcrumb: false
@@ -75,14 +75,14 @@ export const dashboardMenu = [
       },
       {
         path: 'exports',
-        name: 'Exports (beta)',
+        name: 'Migrate',
         component: ResellerExports,
         hasLevel: 'Reseller',
         isBreadcrumb: false
       },
       {
         path: 'imports',
-        name: 'Imports (beta)',
+        name: 'Imports',
         component: ResellerImports,
         hasLevel: 'Reseller',
         isBreadcrumb: false
@@ -99,14 +99,14 @@ export const dashboardMenu = [
         isLevel: 'Reseller',
         isPaasAdmin: true
       },
-	  {
+      {
         path: 'events',
         name: 'Event History',
         angularComponent: 'odinEvents',
         isLevel: 'Reseller',
         isPaasAdmin: true
       },
-	  {
+      {
         path: 'settings',
         name: 'Settings',
         angularComponent: 'odinSettings',

@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
 import { UiClose, UiCard, UiDataTable } from '@/components/ui'
 import { useModulePermissions, useAcl } from '@/utils'
-import { AngularComponent } from '@/components/angular-component' 
+import { AngularComponent } from '@/components/angular-component'
 import { ReportRoutes } from './system-report-routes'
 
 /* eslint-disable react/display-name */
@@ -16,7 +16,7 @@ const columns = [
 ]
 
 export const ReportRouteSettings = ({ history, match }) => {
-  const { getModule , hasModuleRead } = useModulePermissions()
+  const { getModule, hasModuleRead } = useModulePermissions()
   const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
 
   const showService = service => {
@@ -26,14 +26,14 @@ export const ReportRouteSettings = ({ history, match }) => {
   const hideService = () => {
     history.goBack()
   }
-   
+
   const services = React.useMemo(() => {
     const allowedServices = ReportRoutes.reduce((obj, route) => {
       ReportRoutes.forEach(s => (obj[s] = route))
       return obj
     }, {})
     // filter out ones not in our map or missing read perms
-    const filtered = ReportRoutes.map(service => {  
+    const filtered = ReportRoutes.map(service => {
       if (service.hasVersion && !hasVersion(service.hasVersion)) {
         return false
       }
@@ -46,14 +46,14 @@ export const ReportRouteSettings = ({ history, match }) => {
       if (service.isPaasAdmin && !isPaasAdmin()) {
         return false
       }
-       
+
       const route = allowedServices[service.hasModuleRead]
       const module = getModule(route)
       return { ...module, ...service, path: service.path }
     })
     // remove dups such as Shared Call Appearance
     return uniqBy(filtered, 'name')
-  }, [getModule,hasLevel, hasModuleRead, hasVersion, isLevel, isPaasAdmin ])
+  }, [getModule, hasLevel, hasVersion, isLevel, isPaasAdmin])
 
   // The base view when no sub-component picked
   const GroupServiceList = () => (
