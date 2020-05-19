@@ -132,7 +132,7 @@ function controller(
           ctrl.groupId,
           extended
         ).then(function(data) {
-          if (ACL.is('System') || ACL.is('Group Department') || ACL.is('Service Provider') || ACL.is('Group') ) data = ACL.filterByDepartment(data)
+          if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
           ctrl.users = data
         })
       }else { 
@@ -140,7 +140,7 @@ function controller(
           ctrl.serviceProviderId,
           extended
         ).then(function(data) {
-          if (ACL.is('System') || ACL.is('Group Department') || ACL.is('Service Provider') || ACL.is('Group') ) data = ACL.filterByDepartment(data)
+          if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
           ctrl.users = data
         })
       }
