@@ -4,11 +4,9 @@ import { UserIntercept } from './user-intercept'
 import {
   UserAdviceOfCharge,
   UserAnonymousCallRejection,
-  UserAuthentication,
   UserAutomaticCallback,
   UserAutomaticCallHoldRetrieve,
   UserBargeInExempt,
-  UserBroadWorksMobility,
   UserCallForwardingAlways,
   UserCallForwardingAlwaysSecondary,
   UserCallForwardingBusy,
@@ -25,15 +23,9 @@ import {
   UserDirectedCallPickupWithBargeIn,
   UserDoNotDisturb,
   UserExternalCallingLineIdDelivery,
-  UserGroupNightForwarding,
-  UserHotelingGuest,
-  UserHotelingHost,
   UserIntegratedImp,
   UserInternalCallingLineIdDelivery,
-  UserMusicOnHold,
-  UserOutlookInteration,
-  UserRemoteOffice,
-  UserBusyLampField
+  UserMusicOnHold
 } from '@/components/users/service-settings'
 export const userServiceRoutes = [
   {
@@ -55,7 +47,7 @@ export const userServiceRoutes = [
     services: ['Anonymous Call Rejection']
   },
   {
-    component: UserAuthentication,
+    angularComponent: 'userAuthentication',
     module: 'Authentication',
     path: 'authentication',
     services: ['Authentication']
@@ -85,13 +77,13 @@ export const userServiceRoutes = [
     services: ['BroadWorks Anywhere']
   },
   {
-    component: UserBroadWorksMobility,
+    angularComponent: 'userBroadWorksMobility',
     module: 'BroadWorks Mobility',
     path: 'broadworks-mobility',
     services: ['BroadWorks Mobility']
   },
   {
-    component: UserBusyLampField,
+    angularComponent: 'userBusyLampField',
     module: 'Busy Lamp Field',
     path: 'busy-lamp-field',
     services: ['Busy Lamp Field']
@@ -239,19 +231,19 @@ export const userServiceRoutes = [
     services: ['Flexible Seating Guest']
   },
   {
-    component: UserGroupNightForwarding,
+    angularComponent: 'userGroupNightForwarding',
     module: 'Group Night Forwarding',
     path: 'group-night-forwarding',
     services: ['Group Night Forwarding']
   },
   {
-    component: UserHotelingGuest,
+    angularComponent: 'userHotelingGuest',
     module: 'Hoteling Guest',
     path: 'hoteling-guest',
     services: ['Hoteling Guest']
   },
   {
-    component: UserHotelingHost,
+    angularComponent: 'userHotelingHost',
     module: 'Hoteling Host',
     path: 'hoteling-host',
     services: ['Hoteling Host']
@@ -275,13 +267,13 @@ export const userServiceRoutes = [
     services: ['Meet-Me Conferencing']
   },
   {
-    angularComponent: 'userMusicOnHold',
+    component: UserMusicOnHold,
     module: 'Music On Hold User',
     path: 'music-on-hold-user',
     services: ['Music On Hold User']
   },
   {
-    component: UserOutlookInteration,
+    angularComponent: 'userOutlookIntegration',
     module: 'Outlook Integration',
     path: 'outlook-integration',
     services: ['Outlook Integration']
@@ -305,7 +297,7 @@ export const userServiceRoutes = [
     services: ['Push to Talk']
   },
   {
-    component: UserRemoteOffice,
+    angularComponent: 'userRemoteOffice',
     module: 'Remote Office',
     path: 'remote-office',
     services: ['Remote Office']
