@@ -6,7 +6,7 @@ import { GroupCommunicationSettings } from './group-communication-settings'
 import { GroupWebPolicy } from './group-web-policy'
 import { GroupExtensionLength } from './group-extension-length'
 import { groupReportRoutes } from './group-report-routes'
-import { GroupAssignDomains } from './group-assign-domains'
+
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -171,13 +171,6 @@ export const dashboardMenu = [
         angularComponent: 'groupAnnouncements',
         version: '20'
       },
-      {
-        name: 'Assign Domain',
-        path: 'assignDomain',
-        component: GroupAssignDomains,
-        hasLevel: 'Group',
-        isBreadcrumb: false
-		  },
       {
         name: 'Call Processing Policy',
         path: 'callProcessingPolicy',

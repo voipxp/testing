@@ -1,14 +1,9 @@
 import { api } from '..'
  
-const url = 'groups/domains' 
 export const domains = (groupId, serviceProviderId) => {
-  return api.get( url, {
+  return api.get('groups/domains', {
     params: { groupId, serviceProviderId }
   })
 }
 
-export function update(params) {
-	return api.put( url, params )
-}
-
-export default { domains , update }
+export default { domains }
