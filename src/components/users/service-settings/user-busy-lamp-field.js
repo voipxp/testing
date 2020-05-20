@@ -5,21 +5,21 @@ import { useAlerts } from '@/store/alerts'
 import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-busy-lamp-field-service'
 import groupDomainAPI from '@/api/groups/domains'
-import { useAsync } from 'react-async-hook'
 import _ from 'lodash'
 import {
   UiButton,
   UiCard,
   UiCardModal,
   UiCheckbox,
+  UiDataTable,
   UiInputCheckbox,
   UiListItem,
   UiLoadingCard,
   UiSection,
-  UiDataTable,
   UiSelectableTable
 } from '@/components/ui'
 import { Input , Select, Tag } from 'rbx'
+
 const columns = [
   { key: 'firstName', label: 'First Name' },
   { key: 'lastName', label: 'Last Name' },
@@ -40,36 +40,29 @@ export const UserBusyLampField = ({ match }) => {
   const [availableUser, setAvailableUser] = useState([])
   const [selectedUser, setSelectedUser] = useState([])
   const [isModUri, setIsModUri] = useState(false)
-  const [domains, setDomainsData] = React.useState({})
-  const [isUsers, isSetUsers] = React.useState(true)
+
   const { data: result, isLoading, error } = useQuery(
     'user-busy-lamp-field',
     () => api.show(userId)
   )
 
-  const { data: userListData } = useQuery(
+  const { data: userListData , isLoading : loadingUsers } = useQuery(
     'busy-lamp-available-users',
     () => api.users(userId)
   )
 
-  useAsync(
-    () =>
-      groupDomainAPI.domains(groupId, serviceProviderId).then(domains => {
-        setDomainsData(domains)
-      }),
-    []
+  const { data: groupDomains } = useQuery(
+    'group-domains',
+    () => groupDomainAPI.domains(groupId, serviceProviderId)
   )
+   
   /*get usersList */
  const userServiceData = result || {}
  const busyFiledLampAssignedUsers = userServiceData.users || []
  const busyFiledLampAvailableUsers = (userListData && userListData.users) || []
- 
- if(isUsers && busyFiledLampAvailableUsers.length > 0 ){
-   isSetUsers(false)
-   setAvailableUser(busyFiledLampAvailableUsers)
-  }  
-  if (error) alertDanger(error)
-  if (isLoading) return <UiLoadingCard />
+ const domains =  groupDomains || {}
+  if ( error ) alertDanger( error )
+  if ( isLoading ) return <UiLoadingCard />
   
   function handleInput(event) {
     const target = event.target
@@ -89,36 +82,42 @@ export const UserBusyLampField = ({ match }) => {
     const listUrl   = prefix ? prefix : form['listURI']
     const domainURI = domain ? domain : domains.default
     const enableCallParkNotification = userServiceData.enableCallParkNotification ? true : false
+    
     const initialForm = {
       listURI: listUrl,
       domain:domainURI,
       enableCallParkNotification: enableCallParkNotification,
-      userId: userId
+      userId: userId,
+      users:busyFiledLampAssignedUsers
     }
+
     setForm({...initialForm })
     setIsModUri(true)
     setShowModal(true)
   }
   
-  function editUsers() {
-    _.pullAllWith(availableUser, selectedUser , _.isEqual)
-      setSelectedUser(selectedUser)
-      setAvailableUser(availableUser)
+  function editUsers() { 
+    const rowSelectedUser = form['users'] ? form['users'] : busyFiledLampAssignedUsers
+    const rowsAvailableUser = form['availableUser'] ? form['availableUser'] : busyFiledLampAvailableUsers
+    _.pullAllWith(rowsAvailableUser , rowSelectedUser , _.isEqual)
+      setSelectedUser(rowSelectedUser)
+      setAvailableUser(rowsAvailableUser)
        const formWithMonitorUser = {
           listURI: userServiceData.listURI,
           enableCallParkNotification: userServiceData.enableCallParkNotification,
           userId: userId
-        }
+        } 
       setForm({...formWithMonitorUser })
       setIsModUri(false)
       setShowModal(true)
   }
   
-  function save() {   
+  function save() { 
     if(isModUri){
       form['listURI'] = form['listURI']+'@'+form['domain']
     } 
-    form['users'] = selectedUser 
+    form['users'] = selectedUser
+    form['availableUser'] = availableUser 
     update(form)
   }
 
@@ -136,6 +135,10 @@ export const UserBusyLampField = ({ match }) => {
       alertSuccess('Setting Updated')
       setShowModal(false)
     } catch (error_) {
+      if(isModUri) {
+        const splitChr = form['listURI'].split('@')
+        form['listURI'] = splitChr[0]
+      }
       alertDanger(error_)
     } finally {
       hideLoadingModal()
@@ -163,18 +166,27 @@ export const UserBusyLampField = ({ match }) => {
       <UiCard
         title="Monitored Users"
         buttons={
-          <UiButton color="link" icon="edit" size="small" onClick={editUsers} />
+          <UiButton
+           color="link"
+            icon="edit"
+            size="small"
+            onClick={editUsers}
+         />
         }
       >
-	      <UiDataTable
-          columns={columns}
-          rows={busyFiledLampAssignedUsers}
-          rowKey="userId"
-          hideSearch={false}
-          onClick={editUsers}
-          showSelect={true}
-          pageSize={25}
-        />
+        { loadingUsers ? ( <UiLoadingCard /> )
+          : ( 
+            <UiDataTable
+              columns={columns}
+              rows={busyFiledLampAssignedUsers}
+              rowKey="userId"
+              hideSearch={false}
+              onClick={editUsers}
+              showSelect={true}
+              pageSize={25}
+            />
+          )
+        }
       </UiCard>
       
       <UiCardModal
@@ -206,9 +218,9 @@ export const UserBusyLampField = ({ match }) => {
                 </Tag>
                 <Select.Container>
                   <Select
-                    value={form.domains}
+                    value={form.domain}
                     onChange={handleInput}
-                    name="domains"
+                    name="domain"
                     style={{ width: '25rem', marginBottom: '1rem' }}
                   >
                     {domains && domains.default ? (

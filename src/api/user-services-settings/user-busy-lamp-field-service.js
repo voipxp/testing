@@ -12,7 +12,7 @@ export function users(userId) {
 
 /**
 The response json gor get and param for update is a json of the format:
-{isActive:true/false,recallTimerSeconds: 20, userId: <valueOfUserId>, }
+{listURI:busyFieldLamp@odinweb.com,enableCallParkNotification: true/false,users:[], userId: <valueOfUserId>, }
 
 */
 
