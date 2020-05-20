@@ -16,7 +16,7 @@ const columns = [
 ]
 
 export const ReportRouteSettings = ({ history, match }) => {
-  const { getModule, hasModuleRead } = useModulePermissions()
+  const { getModule } = useModulePermissions()
   const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
 
   const showService = service => {

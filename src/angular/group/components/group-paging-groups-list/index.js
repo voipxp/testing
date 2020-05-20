@@ -17,7 +17,7 @@ function controller(Alert, GroupPagingGroupService, $scope, ACL, Module, $q) {
   function activate() {
     ctrl.open = ctrl.parent.open
     ctrl.loading = true
-	
+
 	return $q
       .all([
         loadInstances(),
@@ -27,17 +27,15 @@ function controller(Alert, GroupPagingGroupService, $scope, ACL, Module, $q) {
       .finally(function() {
         ctrl.loading = false
       })
-	  
+
   }
 
 	function loadModule() {
-		if(ACL.is('Group Department')) {
 			return Module.show('Group Paging').then(function(data) {
 			  ctrl.module = data
 			})
-		}
 	}
-	
+
   function loadInstances() {
     return GroupPagingGroupService.index(
       ctrl.parent.serviceProviderId,

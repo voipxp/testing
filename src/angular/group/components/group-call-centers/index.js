@@ -57,11 +57,9 @@ function controller(
   }
 
 	function loadModule() {
-		if(ACL.is('Group Department') || ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System') ) {
 			return Module.show('Call Center').then(function(data) {
 			  ctrl.module = data
 			})
-		}
 	}
 
   function loadCallCenters() {
@@ -79,7 +77,7 @@ function controller(
     open(center.serviceUserId)
   }
 
-  function open(object) { 
+  function open(object) {
     var serviceUserId = (object && object.serviceUserId) || object
       Route.open(
         'groups',
@@ -88,7 +86,7 @@ function controller(
         'callCenters',
         'callCenter'
       ).search({ serviceUserId })
-    
+
   }
 
   function add() {

@@ -16,7 +16,8 @@ controller.$inject = [
   'Route',
   '$location',
   '$timeout',
-  'BulkImportService'
+  'BulkImportService',
+  '$window'
 ]
 function controller(
   Alert,
@@ -26,7 +27,8 @@ function controller(
   Route,
   $location,
   $timeout,
-  BulkImportService
+  BulkImportService,
+  $window
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -40,6 +42,7 @@ function controller(
   ctrl.retryTask = retryTask
   ctrl.retryJobs = retryJobs
   ctrl.status = status
+  ctrl.goBack = goBack
 
   var reload
 
@@ -146,5 +149,9 @@ function controller(
       return job.status !== 'completed'
     })
     retry(notCompleted)
+  }
+
+  function goBack() {
+    $window.history.back()
   }
 }

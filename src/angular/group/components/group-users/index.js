@@ -87,7 +87,7 @@ function controller(
         GroupWebPolicyService.load()
       ])
       .then(function() {
-        ctrl.isAddGroup =  ctrl.groupId ? true : false 
+        ctrl.isAddGroup =  ctrl.groupId ? true : false
         ctrl.canCLIDUpdate = true
         ctrl.canPNUpdate = true
         ctrl.canCreate = true
@@ -123,24 +123,24 @@ function controller(
     //   .finally(function() {
     //     ctrl.loading = false
     //   })
-  } 
+  }
 
-    function loadUsers(extended) { 
-      if(ACL.has('Group') && ctrl.groupId !=='undefined') { 
+    function loadUsers(extended) {
+      if(ACL.has('Group') && ctrl.groupId !=='undefined') {
         return UserService.index(
           ctrl.serviceProviderId,
           ctrl.groupId,
           extended
         ).then(function(data) {
-          if (ACL.is('System') || ACL.is('Group Department') || ACL.is('Service Provider') || ACL.is('Group') ) data = ACL.filterByDepartment(data)
+          if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
           ctrl.users = data
         })
-      }else { 
-        return ServiceProviderUsersService.index( 
+      }else {
+        return ServiceProviderUsersService.index(
           ctrl.serviceProviderId,
           extended
         ).then(function(data) {
-          if (ACL.is('System') || ACL.is('Group Department') || ACL.is('Service Provider') || ACL.is('Group') ) data = ACL.filterByDepartment(data)
+          if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
           ctrl.users = data
         })
       }
@@ -159,28 +159,8 @@ function controller(
     })
   }
 
-
-  function onClick(user) {
-    var returnTo = $location.url()
-    if(ACL.has('Group') && ctrl.groupId !=='undefined') { 
-      Route.open(
-         'users',
-         user.serviceProviderId,
-         user.groupId,
-         user.userId
-       ).search({ returnTo: returnTo })
-    }else{
-      Route.open(
-      'users',
-      user.serviceProviderId,
-      user.userId
-    ).search({ returnTo: returnTo })
-   }
-    
-  }
-
   function open(user) {
-    if(ACL.has('Group') && ctrl.groupId !=='undefined') {  
+    if(ACL.has('Group') && ctrl.groupId !=='undefined') {
       Route.open(
         'users',
         user.serviceProviderId,

@@ -16,7 +16,7 @@ function controller(Alert, GroupMeetMeConferencingBridgeService, $scope, ACL, Mo
 
   function activate() {
     ctrl.loading = true
-	
+
 	return $q
       .all([
         loadBridges(),
@@ -42,11 +42,9 @@ function controller(Alert, GroupMeetMeConferencingBridgeService, $scope, ACL, Mo
   }
 
 	function loadModule() {
-		if(ACL.is('Group Department')) {
 			return Module.show('Meet-Me Conferencing').then(function(data) {
 			  ctrl.module = data
 			})
-		}
 	}
 
   function add() {

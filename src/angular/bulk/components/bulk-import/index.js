@@ -172,7 +172,8 @@ function controller(
     return TaskService.create(task)
       .then(function(data) {
         Alert.notify.success('Import Queued: ' + data.id)
-        Route.open('bulk')
+        // Route.open('bulk')
+        goBack()
       })
       .catch(function(error) {
         return $q.reject(error.data)
