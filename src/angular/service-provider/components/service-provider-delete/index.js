@@ -7,8 +7,8 @@ angular.module('odin.serviceProvider').component('serviceProviderDelete', {
   bindings: { serviceProviderId: '<' }
 })
 
-controller.$inject = ['Alert', 'ServiceProviderService', 'Route', 'Session']
-function controller(Alert, ServiceProviderService, Route, Session) {
+controller.$inject = ['ACL','Alert', 'ServiceProviderService', 'Route', 'Session']
+function controller(ACL, Alert, ServiceProviderService, Route, Session) {
   var ctrl = this
   ctrl.remove = remove
 
@@ -34,8 +34,8 @@ function controller(Alert, ServiceProviderService, Route, Session) {
   function back() {
     if (Session.data('resellerId')) {
       Route.open('resellers', Session.data('resellerId'), 'service-providers')
-    } else {
-      Route.open('serviceProviders')
+    } else if(ACL.is('System')) {
+      Route.open('system','serviceProviders')
+    }else Route.open('serviceProviders',ctrl.serviceProviderId)
     }
   }
-}
