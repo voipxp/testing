@@ -7,22 +7,8 @@ export const dashboardMenu = [
     label: 'Dashboard',
     items: [
       {
-        path: 'basic-call-logs',
-        name: 'Basic Call Logs',
-        angularComponent: 'userBasicCallLogs',
-        hasUserService: ['Basic Call Logs'],
-        icon: 'thList'
-      },
-      {
-        path: 'call-records',
-        name: 'Call Records',
-        angularComponent: 'userCallRecordDashboard',
-        hasModuleRead: 'Premium Call Records',
-        icon: 'chartBar'
-      },
-      {
         path: 'feature-quick-set',
-        name: 'Feature Quick Set',
+        name: 'Home',
         angularComponent: 'userQuickSet',
         hasUserService: [
           'Call Forwarding Always',
@@ -32,7 +18,21 @@ export const dashboardMenu = [
           'Remote Office',
           'BroadWorks Anywhere'
         ],
-        icon: 'cog'
+        icon: 'home'
+      },
+      {
+        path: 'basic-call-logs',
+        name: 'Basic Call History',
+        angularComponent: 'userBasicCallLogs',
+        hasUserService: ['Basic Call Logs'],
+        icon: 'thList'
+      },
+      {
+        path: 'call-records',
+        name: 'Premium Call History',
+        angularComponent: 'userCallRecordDashboard',
+        hasModuleRead: 'Premium Call Records',
+        icon: 'chartBar'
       }
     ]
   },
@@ -109,7 +109,7 @@ export const dashboardMenu = [
         hasModuleRead: 'Provisioning',
         hasLevel: 'Group Department'
       },
-	  {
+      {
         path: 'device-endpoint',
         name: 'Device Endpoint',
         angularComponent: 'userDevice',

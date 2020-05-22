@@ -22,6 +22,7 @@ import {
   faDownload,
   faExternalLinkAlt,
   faInfo,
+  faHome,
   faLink,
   faList,
   faLock,
@@ -62,6 +63,7 @@ const icons = {
   device: faWrench,
   download: faDownload,
   edit: faCog,
+  home: faHome,
   info: faInfo,
   left: faChevronLeft,
   link: faLink,
@@ -96,7 +98,7 @@ const StyledMenu = styled.div`
   background-color: white;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   padding: 1rem;
-  min-width: 280px
+  min-width: 280px;
 `
 
 /**
@@ -116,9 +118,10 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
     let route
     for (const section of menu) {
       route = section.items.find(item => item.path === path)
-      if(!route) {
-        for(const item of section.items) {
-          if(item.subMenus) route = item.subMenus.find(subMenu => subMenu.path === path)
+      if (!route) {
+        for (const item of section.items) {
+          if (item.subMenus)
+            route = item.subMenus.find(subMenu => subMenu.path === path)
           if (route) break
         }
       }
@@ -141,17 +144,17 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
     )
   }
 
-const subMenuDefaultShouldOpen = () => {
+  const subMenuDefaultShouldOpen = () => {
     const arr = []
     for (const section of menu) {
       section.items.forEach((item, index) => {
-        if(item.subMenus) arr.push(item.name)
+        if (item.subMenus) arr.push(item.name)
       })
     }
     setActiveSubMenuArr(arr)
   }
 
-  const getDefaultPath= () => {
+  const getDefaultPath = () => {
     let path
     for (const section of menu) {
       const tempItem = section.items.find(item => item.default)
@@ -161,12 +164,13 @@ const subMenuDefaultShouldOpen = () => {
       }
     }
 
-    if(!path) {       /* If no menu set as default */
+    if (!path) {
+      /* If no menu set as default */
       const section = menu[0]
-      if(section && section.items[0].subMenus) {    /* If has submenu */
+      if (section && section.items[0].subMenus) {
+        /* If has submenu */
         path = section.items[0].subMenus[0]['path']
-      }
-      else path = section.items[0]['path']
+      } else path = section.items[0]['path']
     }
 
     return path
@@ -176,7 +180,7 @@ const subMenuDefaultShouldOpen = () => {
   // if not set in branding template, feature-quick-set be used
   // if branding template not set and user doens't have feature-quick-set, his first menu item will be used
   const renderDefault = () => {
-	  subMenuDefaultShouldOpen()
+    subMenuDefaultShouldOpen()
     const defaultUserLandingPage = 'feature-quick-set'
     let userLandingPage = ''
     let pageToCheck = ''
@@ -201,7 +205,7 @@ const subMenuDefaultShouldOpen = () => {
       }
     })
     if (!pageFound && !featureQuickSetFound) {
-      if ( atLeastOneLandingPage) {
+      if (atLeastOneLandingPage) {
         userLandingPage = getDefaultPath()
       } else {
         userLandingPage = 'user-profile'
@@ -216,40 +220,43 @@ const subMenuDefaultShouldOpen = () => {
 
   const isActiveSubMenu = itemName => _.includes(activeSubMenuArr, itemName)
 
-  const toggleSubMenu = (itemName) => {
+  const toggleSubMenu = itemName => {
     let temp = [...activeSubMenuArr]
-    if(_.includes(activeSubMenuArr, itemName)) temp = temp.filter(el => el !== itemName)
+    if (_.includes(activeSubMenuArr, itemName))
+      temp = temp.filter(el => el !== itemName)
     else temp.push(itemName)
     setActiveSubMenuArr(temp)
   }
 
   const drawSubMenu = (item, index) => {
-    return <>
+    return (
+      <>
         <Menu.List key={index}>
-        {isActiveSubMenu(item.name) && item.subMenus.map(subMenu => {
-          const subMenuPath = `${match.url}/${subMenu.path}`
-          return (
-            <Menu.List.Item
-              key={subMenu.path}
-              active={isActive(subMenu)}
-              href={`#!${subMenuPath}`}
-            >
-            <>
-              {subMenu.icon && (
-                <>
-                <Icon align="left" style={{ marginRight: '4px' }}>
-                  <FontAwesomeIcon icon={icons[subMenu.icon]} />
-                </Icon>
-                </>
-              )}
-            </>
-            <span align="right">{subMenu.name}</span>
-            </Menu.List.Item>
-          )
-        })
-        }
+          {isActiveSubMenu(item.name) &&
+            item.subMenus.map(subMenu => {
+              const subMenuPath = `${match.url}/${subMenu.path}`
+              return (
+                <Menu.List.Item
+                  key={subMenu.path}
+                  active={isActive(subMenu)}
+                  href={`#!${subMenuPath}`}
+                >
+                  <>
+                    {subMenu.icon && (
+                      <>
+                        <Icon align="left" style={{ marginRight: '4px' }}>
+                          <FontAwesomeIcon icon={icons[subMenu.icon]} />
+                        </Icon>
+                      </>
+                    )}
+                  </>
+                  <span align="right">{subMenu.name}</span>
+                </Menu.List.Item>
+              )
+            })}
         </Menu.List>
       </>
+    )
   }
 
   return (
@@ -261,43 +268,48 @@ const subMenuDefaultShouldOpen = () => {
               <React.Fragment key={section.label}>
                 <Menu.Label>{section.label}</Menu.Label>
                 <Menu.List>
-                  {section.items.map( (item, index) => {
+                  {section.items.map((item, index) => {
                     const path = `${match.url}/${item.path}`
                     return (
                       <>
-                        {
-                          item.subMenus
-                          ?
+                        {item.subMenus ? (
                           <Menu.List.Item
                             key={item.path}
                             onClick={() => toggleSubMenu(item.name)}
-                            menu={
-                              drawSubMenu(item, index)
-                            }
+                            menu={drawSubMenu(item, index)}
                           >
                             {item.name}
-                            <Icon style={{float: 'right'}}>
-                              <FontAwesomeIcon icon={isActiveSubMenu(item.name) ? icons['down'] : icons['right']} />
+                            <Icon style={{ float: 'right' }}>
+                              <FontAwesomeIcon
+                                icon={
+                                  isActiveSubMenu(item.name)
+                                    ? icons['down']
+                                    : icons['right']
+                                }
+                              />
                             </Icon>
                           </Menu.List.Item>
-                          :
+                        ) : (
                           <Menu.List.Item
-                          key={item.path}
-                          active={isActive(item)}
-                          href={`#!${path}`}
-                        >
-                          <>
-                            {item.icon && (
-                              <>
-                              <Icon align="left" style={{ marginRight: '4px' }}>
-                                <FontAwesomeIcon icon={icons[item.icon]} />
-                              </Icon>
-                              </>
-                            )}
-                          </>
-                          <span align="right">{item.name}</span>
-                        </Menu.List.Item>
-                        }
+                            key={item.path}
+                            active={isActive(item)}
+                            href={`#!${path}`}
+                          >
+                            <>
+                              {item.icon && (
+                                <>
+                                  <Icon
+                                    align="left"
+                                    style={{ marginRight: '4px' }}
+                                  >
+                                    <FontAwesomeIcon icon={icons[item.icon]} />
+                                  </Icon>
+                                </>
+                              )}
+                            </>
+                            <span align="right">{item.name}</span>
+                          </Menu.List.Item>
+                        )}
                       </>
                     )
                   })}
@@ -336,7 +348,7 @@ UiMenuBase.propTypes = {
               name: PropTypes.string.isRequired,
               path: PropTypes.string.isRequired,
               component: PropTypes.any,
-              angularComponent: PropTypes.string,
+              angularComponent: PropTypes.string
             })
           )
         })

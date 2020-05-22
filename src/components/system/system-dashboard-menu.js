@@ -10,7 +10,7 @@ export const dashboardMenu = [
         name: 'Bulk Provisioning',
         path: 'bulk',
         angularComponent: 'bulkDashboard',
-        hasLevel: 'System',
+        hasLevel: 'Provisioning',
         hasModuleRead: 'Provisioning'
       },
       {
@@ -24,7 +24,7 @@ export const dashboardMenu = [
         name: 'VDM',
         path: 'vdm',
         angularComponent: 'vdmDashboard',
-        hasLevel: 'Provisioning',
+        hasLevel: 'System',
         module: 'VDM'
       }
     ]
@@ -86,7 +86,7 @@ export const dashboardMenu = [
         path: 'events',
         name: 'Event History',
         angularComponent: 'odinEvents',
-        hasLevel: 'System',
+        hasLevel: 'Provisioning',
         isPaasAdmin: true
       },
       {
@@ -94,7 +94,7 @@ export const dashboardMenu = [
         path: 'exports',
         exact: true,
         component: Exports,
-        hasLevel: 'System',
+        hasLevel: 'Provisioning',
         isBreadcrumb: false
       },
       {
@@ -102,7 +102,7 @@ export const dashboardMenu = [
         path: 'imports',
         exact: true,
         component: Imports,
-        hasLevel: 'System',
+        hasLevel: 'Provisioning',
         isBreadcrumb: false
       },
       {
@@ -122,7 +122,7 @@ export const dashboardMenu = [
         path: 'webhooks',
         name: 'Webhook History',
         angularComponent: 'odinWebhooks',
-        hasLevel: 'System',
+        hasLevel: 'Provisioning',
         isPaasAdmin: true
       }
     ]

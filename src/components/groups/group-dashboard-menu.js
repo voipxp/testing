@@ -94,6 +94,35 @@ export const dashboardMenu = [
         ]
       },
       {
+        name: 'Licensing',
+        subMenus: [
+          {
+            name: 'Group Services',
+            path: 'groupServices',
+            angularComponent: 'groupServices',
+            hasLevel: 'Service Provider',
+            serviceType: 'groupServices',
+            isPaasAdmin: true
+          },
+          {
+            name: 'Service Pack Services',
+            path: 'servicePacks',
+            angularComponent: 'groupServices',
+            serviceType: 'servicePackServices',
+            hasLevel: 'Service Provider',
+            isPaasAdmin: true
+          },
+          {
+            name: 'User Services',
+            path: 'userServices',
+            angularComponent: 'groupServices',
+            hasLevel: 'Service Provider',
+            serviceType: 'userServices',
+            isPaasAdmin: true
+          }
+        ]
+      },
+      {
         name: 'Resources',
         subMenus: [
           {
@@ -124,30 +153,6 @@ export const dashboardMenu = [
             hasLevel: 'Group',
             isPaasAdmin: true,
             isBreadcrumb: false
-          },
-          {
-            name: 'Group Licenses',
-            path: 'groupServices',
-            angularComponent: 'groupServices',
-            hasLevel: 'Service Provider',
-            serviceType: 'groupServices',
-            isPaasAdmin: true
-          },
-          {
-            name: 'Service Pack Licenses',
-            path: 'servicePacks',
-            angularComponent: 'groupServices',
-            serviceType: 'servicePackServices',
-            hasLevel: 'Service Provider',
-            isPaasAdmin: true
-          },
-          {
-            name: 'User Licenses',
-            path: 'userServices',
-            angularComponent: 'groupServices',
-            hasLevel: 'Service Provider',
-            serviceType: 'userServices',
-            isPaasAdmin: true
           },
           {
             name: 'Delete Group',
