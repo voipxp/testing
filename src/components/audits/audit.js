@@ -151,7 +151,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
     <>
       {isBreadcrumb && (
         <AppBreadcrumb>
-          <Breadcrumb.Item href="/#!/audits">Audits</Breadcrumb.Item>
+          <Breadcrumb.Item onClick={() => history.goBack()}>Audits</Breadcrumb.Item>
           <Breadcrumb.Item>Audit {id}</Breadcrumb.Item>
         </AppBreadcrumb>
       )}
