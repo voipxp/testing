@@ -59,6 +59,31 @@ export const dashboardMenu = [
         ]
       },
       {
+        name: 'Licensing',
+        subMenus: [
+          {
+            name: 'Group Services',
+            path: 'group-services',
+            angularComponent: 'serviceProviderServices',
+            hasLevel: 'Service Provider',
+            serviceType: 'groupServices'
+          },
+          {
+            name: 'Service Pack Services',
+            path: 'service-packs',
+            angularComponent: 'serviceProviderServicePacks',
+            hasLevel: 'Service Provider'
+          },
+          {
+            name: 'User Services',
+            path: 'user-services',
+            angularComponent: 'serviceProviderServices',
+            hasLevel: 'Service Provider',
+            serviceType: 'userServices'
+          }
+        ]
+      },
+      {
         name: 'Resources',
         //path: 'Resources',
         subMenus: [
@@ -76,30 +101,10 @@ export const dashboardMenu = [
             hasLevel: 'Reseller'
           },
           {
-            name: 'Group Services',
-            path: 'group-services',
-            angularComponent: 'serviceProviderServices',
-            hasLevel: 'Service Provider',
-            serviceType: 'groupServices'
-          },
-          {
             name: 'Numbers',
             path: 'numbers',
             angularComponent: 'serviceProviderNumbers',
             hasLevel: 'Service Provider'
-          },
-          {
-            name: 'Service Packs',
-            path: 'service-packs',
-            angularComponent: 'serviceProviderServicePacks',
-            hasLevel: 'Service Provider'
-          },
-          {
-            name: 'User Services',
-            path: 'user-services',
-            angularComponent: 'serviceProviderServices',
-            hasLevel: 'Service Provider',
-            serviceType: 'userServices'
           }
         ]
       }
