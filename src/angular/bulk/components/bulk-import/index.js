@@ -21,7 +21,8 @@ controller.$inject = [
   'DownloadService',
   '$scope',
   'ServiceProviderPolicyService',
-  '$window'
+  '$window',
+  '$location'
 ]
 function controller(
   Alert,
@@ -37,7 +38,8 @@ function controller(
   DownloadService,
   $scope,
   ServiceProviderPolicyService,
-  $window
+  $window,
+  $location
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -63,7 +65,6 @@ function controller(
         ctrl.loading = false
       })
       .catch(function(error) {
-        console.log(error)
         Alert.notify.warning(error || 'Data Error')
       })
   }
@@ -128,7 +129,6 @@ function controller(
         return queue(ctrl.users)
       })
       .catch(function(error) {
-        console.log(error)
         Alert.notify.danger(error)
       })
   }
@@ -139,7 +139,6 @@ function controller(
         return BulkParseService.validate(users, ctrl.action.required || [])
       })
       .catch(function(error) {
-        console.log(error)
         return $q.reject('Data Error: ' + error)
       })
   }
@@ -172,8 +171,8 @@ function controller(
     return TaskService.create(task)
       .then(function(data) {
         Alert.notify.success('Import Queued: ' + data.id)
-        // Route.open('bulk')
-        goBack()
+        var returnTo = $location.search().returnTo
+        $location.path(modifyLastDirectoryPartOfUrl(returnTo, 'recent-tasks')).search({}).hash(null)
       })
       .catch(function(error) {
         return $q.reject(error.data)
@@ -222,5 +221,13 @@ function controller(
 
   function goBack() {
     $window.history.back()
+  }
+
+  function modifyLastDirectoryPartOfUrl(theUrl, lastDir)
+  {
+      var the_arr = theUrl.split('/');
+      the_arr.pop();
+      var url = the_arr.join('/') ;
+      return url + '/' + lastDir
   }
 }
