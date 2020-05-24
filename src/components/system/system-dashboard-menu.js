@@ -7,13 +7,6 @@ export const dashboardMenu = [
     label: 'Dashboard',
     items: [
       {
-        name: 'Bulk Provisioning',
-        path: 'bulk',
-        angularComponent: 'bulkDashboard',
-        hasLevel: 'Provisioning',
-        hasModuleRead: 'Provisioning'
-      },
-      {
         name: 'Service Providers',
         path: 'serviceProviders',
         angularComponent: 'serviceProviders',
@@ -26,6 +19,67 @@ export const dashboardMenu = [
         angularComponent: 'vdmDashboard',
         hasLevel: 'System',
         module: 'VDM'
+      }
+    ]
+  },
+  {
+    label: 'PROVISIONING',
+    items: [
+      {
+        name: 'Bulk Provisioning',
+        // path: 'bulk-provisioning',
+        hasLevel: 'Provisioning',
+        hasModuleRead: 'Provisioning',
+        subMenus: [
+          {
+            name: 'Bulk Wizards',
+            path: 'bulk-wizards',
+            angularComponent: 'bulkDashboard',
+            hasLevel: 'Provisioning',
+            hasModuleRead: 'Provisioning'
+          },
+          {
+            name: 'Bulk Templates',
+            path: 'bulk-Templates',
+            angularComponent: 'bulkCsv',
+            hasLevel: 'Provisioning',
+            hasModuleRead: 'Provisioning'
+          },
+          {
+            name: 'Recent Tasks',
+            path: 'recent-tasks',
+            angularComponent: 'bulkTasksIndex',
+            hasLevel: 'Provisioning',
+            hasModuleRead: 'Provisioning'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    label: 'AIM',
+    items: [
+      {
+        path: 'audits',
+        name: 'Audits',
+        component: Audits,
+        isBreadcrumb: false
+      },
+      {
+        name: 'Import',
+        path: 'imports',
+        exact: true,
+        component: Imports,
+        hasLevel: 'Provisioning',
+        isBreadcrumb: false
+      },
+      {
+        name: 'Migrate',
+        path: 'exports',
+        exact: true,
+        component: Exports,
+        hasLevel: 'Provisioning',
+        isBreadcrumb: false
       }
     ]
   },
@@ -70,12 +124,6 @@ export const dashboardMenu = [
     label: 'Utilities',
     items: [
       {
-        path: 'audits',
-        name: 'Audits',
-        component: Audits,
-        isBreadcrumb: false
-      },
-      {
         path: 'branding',
         name: 'Branding',
         angularComponent: 'brandingHostnames',
@@ -88,22 +136,6 @@ export const dashboardMenu = [
         angularComponent: 'odinEvents',
         hasLevel: 'Provisioning',
         isPaasAdmin: true
-      },
-      {
-        name: 'Migrate',
-        path: 'exports',
-        exact: true,
-        component: Exports,
-        hasLevel: 'Provisioning',
-        isBreadcrumb: false
-      },
-      {
-        name: 'Import',
-        path: 'imports',
-        exact: true,
-        component: Imports,
-        hasLevel: 'Provisioning',
-        isBreadcrumb: false
       },
       {
         name: 'Login History',
