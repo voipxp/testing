@@ -34,15 +34,13 @@ function controller(ACL,Alert, GroupDeviceTypeService, Route, $location) {
   }
 
   function back() {
-    if(ACL.is('Service Provider')){
+    if(ctrl.deviceType){
       Route.open(
         'groups',
          ctrl.serviceProviderId, 
          ctrl.groupId,
-         'Provisioning',
          'groupDeviceTypes'
       )
     }else  Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'deviceTypes')
-   
-  }
+ }
 }

@@ -12,7 +12,7 @@ export const groupUserServiceRoutes = [
   }, 
   {
     name: 'Call Forwarding Busy',
-	path: 'callForwardingBusy',
+	  path: 'callForwardingBusy',
     angularComponent: 'groupCallForwardingBusy',
     hasModuleRead: 'Call Forwarding Busy',
     hasGroupService: ['Call Forwarding Busy'],
@@ -72,8 +72,7 @@ export const groupUserServiceRoutes = [
     angularComponent: 'groupOutgoingCallingPlanUsers',
     hasModuleRead: 'Outgoing Calling Plan',
     hasGroupService: ['Outgoing Calling Plan'],
-    hasLevel: 'Group',
-    hasModuleReadRead: 'Group Calling Plan'
+    hasLevel: 'Group'
   },
   {
     name: 'Speed Dial 8',

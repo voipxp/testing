@@ -2,14 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
-import { UiClose, UiCard, UiDataTable, UiLoading } from '@/components/ui'
-import { useGroupServices } from '@/store/group-services'
-//import { useUserAssignedServices } from '@/store/user-assigned-services'
+import { UiClose, UiCard, UiDataTable, UiLoadingCard } from '@/components/ui'
 import { AngularComponent } from '@/components/angular-component'
 import { groupServiceRoutes } from './group-service-routes'
+import api  from '@/api/group-services'
+import { useQuery } from 'react-query'
 import {
-  useGroupServicePermissions,
-  useAcl,
   useModulePermissions
 } from '@/utils'
 
@@ -27,19 +25,13 @@ const columns = [
 
 export const GroupServiceSettings = ({ history, match }) => {
   const { serviceProviderId, groupId } = match.params
-  const [loading, setLoading] = React.useState(false)
   const { getModule, hasModuleRead } = useModulePermissions()
-  const { hasGroupService } = useGroupServicePermissions()
-  const { hasLevel, hasVersion } = useAcl()
-  //const { userViewableServices } = useUserServicePermissions(serviceProviderId,groupId)
-  const { loadGroupServices } = useGroupServices(groupId, serviceProviderId)
-
-  React.useEffect(() => {
-    setLoading(true)
-    Promise.all([loadGroupServices(groupId, serviceProviderId)]).then(() =>
-      setLoading(false)
-    )
-  }, [serviceProviderId, groupId, loadGroupServices])
+  const { data: result, isLoading } = useQuery(
+    'groups-available-services',
+	  () => api.available(groupId , serviceProviderId)
+  )
+  
+  const hasAvailableGroupService  =  result || []
 
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
@@ -59,97 +51,48 @@ export const GroupServiceSettings = ({ history, match }) => {
     path: 'some-service'
   }]
   */
-  const action = [
-    {
-      name: 'Auto Attendant',
-      description:
-        'Serves as an automated receptionist that answers the phone and provides a personalized message to callers.',
-      path: 'autoReceptionist'
-    },
-    { name: 'Call Center', description: 'Call Center', path: 'callCenters' },
-    { name: 'Call Park', description: 'Call Park', path: 'callPark' },
-    { name: 'Call Pickup', description: 'Call Pickup', path: 'callPickup' },
-    { name: 'Collaborate', description: 'Collaborate', path: 'collaborate' },
-    {
-      name: 'Flexible Seating Host',
-      description: 'Flexible Seating Host',
-      path: 'flexibleSeatingHosts'
-    },
-    { name: 'Hunt Group', description: 'Hunt Group', path: 'huntGroups' },
-    {
-      name: 'Meet-Me Conferencing',
-      description: 'Meet-Me Conferencing',
-      path: 'meetMeConferencing'
-    },
-    {
-      name: 'Music On Hold',
-      description: 'Music On Hold',
-      path: 'musicOnHold'
-    },
-    {
-      name: 'Group Night Forwarding',
-      description: 'Group Night Forwarding',
-      path: 'groupNightForwarding'
-    },
-    { name: 'Group Paging', description: 'Group Paging', path: 'groupPaging' },
-    {
-      name: 'Series Completion',
-      description: 'Series Completion',
-      path: 'seriesCompletion'
-    },
-    { name: 'Trunk Group', description: 'Trunk Group', path: 'trunkGroups' },
-    {
-      name: 'Virtual On-Net Enterprise Extensions',
-      description: 'Virtual On-Net Enterprise Extensions',
-      path: 'virtualOnNetEnterpriseExtensions'
-    },
-    {
-      name: 'Voice Messaging Group',
-      description: 'Voice Messaging Group',
-      path: 'voiceMessagingGroup'
-    }
-  ]
+   const services = React.useMemo(() => {
+    const allowedServices = groupServiceRoutes.reduce((obj, route) => {
+      route.hasGroupService.forEach(s => (obj[s] = route))
+      return obj
+    }, {})
 
-  const services = React.useMemo(() => {
-    if (!hasGroupService) return []
-    // filter out ones not in our map or missing read perms
-    const filtered = groupServiceRoutes.map(service => {
-      //const route = allowedServices[service.name]
-      if (service.hasLevel && !hasLevel(service.hasLevel)) {
-        return false
-      }
-      if (
-        service.hasGroupService &&
-        !hasGroupService(service.hasGroupService)
-      ) {
-        return false
-      }
-      if (service.hasModuleRead && !hasModuleRead(service.hasModuleRead)) {
-        return false
-      }
-
-      if (service.hasVersion && !hasVersion(service.hasVersion)) {
-        return false
-      }
-
-      const module = getModule(service.hasModuleRead)
-      return { ...module, ...service, path: service.path }
-    })
-
-    // remove dups such as Shared Call Appearance
-    if (filtered.length > 1) return uniqBy(filtered, 'name')
-  }, [getModule, hasGroupService, hasLevel, hasModuleRead, hasVersion])
+    const filtered = hasAvailableGroupService
+      .filter(service => {
+        const route = allowedServices[service]
+        return route && route.hasModuleRead && hasModuleRead(route.hasModuleRead)
+      }).map(service => {
+          const route = allowedServices[service]
+          const module = getModule(route.hasModuleRead)
+          return { ...module, ...service, path: route.path }
+        })
+      // remove dups such as Shared Call Appearance
+      return uniqBy(filtered, 'name')
+  }, [getModule, hasModuleRead, hasAvailableGroupService])
   // The base view when no sub-component picked
+
+  /* changes service name/description for Flexible Seating Guest to Flexible Seating Hosts */
+  
+  services.forEach(function(service) {
+    const matchDesc = service.description
+    if ( "Flexible Seating Guest" === matchDesc )
+      service.description = service.name = "Flexible Seating Hosts"
+    if ( "Collaborate - Audio" === matchDesc ) 
+      service.description = service.name = "Collaborate"
+    if ( ( "Auto Attendant" || "Auto Attendant - Video" || "Auto Attendant - Standard" ) === matchDesc ) 
+      service.description = service.name = "Auto Receptionist"
+  });
+  
   const GroupServiceList = () => {
-    return loading ? (
-      <UiLoading />
+    return isLoading ? (
+      <UiLoadingCard />
     ) : (
       <UiCard title="Group Services">
         <UiDataTable
-          columns={columns || []}
-          rows={(services.length > 1 && action) || []}
+          columns={columns}
+          rows={services}
           rowKey="name"
-          pageSize={10}
+          pageSize={25}
           onClick={service => showService(service)}
         />
       </UiCard>
