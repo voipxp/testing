@@ -24,9 +24,11 @@ export const groupServiceRoutes = [
           path: 'autoReceptionist',
           component: GroupAutoAttendants,
           hasModuleRead: 'Auto Attendant',
-          hasGroupService: ['Auto Attendant'],
+          hasGroupService: ['Auto Attendant','Auto Attendant - Video','Auto Attendant - Standard'],
           hasLevel: 'Group'
         },
+
+
         {
           name :'Call Center', 
           path: 'callCenters', 
