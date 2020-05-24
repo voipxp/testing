@@ -40,7 +40,6 @@ function controller(
   ctrl.edit = edit
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
-  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department') || ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System')
   ctrl.columns = [
     {
       key: 'userId',
@@ -116,17 +115,11 @@ function controller(
       .finally(function() {
         ctrl.loading = false
       })
-    // loadUsers()
-    //   .catch(function(error) {
-    //     Alert.notify.danger(error)
-    //   })
-    //   .finally(function() {
-    //     ctrl.loading = false
-    //   })
+    
   }
 
     function loadUsers(extended) {
-      if(ACL.has('Group') && ctrl.groupId !=='undefined') {
+      if( ctrl.groupId ) {
         return UserService.index(
           ctrl.serviceProviderId,
           ctrl.groupId,
@@ -160,7 +153,7 @@ function controller(
   }
 
   function open(user) {
-    if(ACL.has('Group') && ctrl.groupId !=='undefined') {
+    if( user.groupId ) {
       Route.open(
         'users',
         user.serviceProviderId,

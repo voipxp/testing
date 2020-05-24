@@ -49,7 +49,8 @@ function BulkImportService(
         return StorageService.set(localStorageKey, users)
       })
       .then(function() {
-        return $location.path('bulk/import').search({})
+        var returnTo = $location.search().returnTo ? $location.search().returnTo : $location.url()
+        return $location.path('bulk/import').search({ returnTo: returnTo })
       })
       .catch(function(error) {
         Alert.notify.danger(error || 'Data Import Error')

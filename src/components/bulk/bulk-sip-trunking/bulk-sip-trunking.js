@@ -6,6 +6,7 @@ import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
+import { UrlOperations } from '@/utils'
 
 const initial = {
   serviceProviderId: '',
@@ -18,12 +19,12 @@ const initial = {
   users: []
 }
 
-export const BulkSipTrunkingBase = ({ history }) => {
+export const BulkSipTrunkingBase = ({ history, location }) => {
+  const searchParams = new URLSearchParams(location.search)
   const [sipTrunkShareableData, setSipTrunkShareableData] = React.useState({
     ...initial
   })
   const [menuTemp, setMenuTemp] = React.useState([...menu])
-  const [redirect, setRedirect] = React.useState(false)
 
   const handleWizData = data => {
     setSipTrunkShareableData(data)
@@ -41,12 +42,13 @@ export const BulkSipTrunkingBase = ({ history }) => {
   }
 
   const wizardComplete = () => {
-    setRedirect(true)
+    history.push(
+      UrlOperations.modifyLastDirectoryPartOfUrl(searchParams.get('returnTo'), 'recent-tasks')
+    )
   }
 
   return (
     <>
-      {redirect ? history.goBack() : null}
       <AppBreadcrumb>
         <Breadcrumb.Item onClick={() => history.goBack()}>Bulk</Breadcrumb.Item>
         <Breadcrumb.Item>SIP Trunking</Breadcrumb.Item>
@@ -65,7 +67,8 @@ export const BulkSipTrunkingBase = ({ history }) => {
 }
 
 BulkSipTrunkingBase.propTypes = {
-  history: PropTypes.object
+  history: PropTypes.object,
+  location: PropTypes.object
 }
 
 export const BulkSipTrunking = withRouter(BulkSipTrunkingBase)

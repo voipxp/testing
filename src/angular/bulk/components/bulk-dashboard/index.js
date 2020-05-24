@@ -22,7 +22,8 @@ function controller(ACL,BulkTaskService, $location, ServiceProviderPolicyService
   if($location.url() ==='/bulk') ctrl.hideNave = true
 
   function open(service) {
-    $location.path(`bulk/${service.task}`)
+    var returnTo = $location.url()
+    $location.path(`bulk/${service.task}`).search({ returnTo: returnTo })
   }
 
   function openCsv() {
