@@ -2,13 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import uniqBy from 'lodash/uniqBy'
-import { UiClose, UiCard, UiDataTable, UiLoading } from '@/components/ui'
-import { useGroupServices } from '@/store/group-services'
-//import { useUserAssignedServices } from '@/store/user-assigned-services'
-
+import { UiClose, UiCard, UiDataTable, UiLoadingCard } from '@/components/ui'
 import { AngularComponent } from '@/components/angular-component'
 import { groupUserServiceRoutes } from './group-user-service-routes'
-import { useGroupServicePermissions, useModulePermissions } from '@/utils'
+import api  from '@/api/group-services'
+import { useQuery } from 'react-query'
+import {
+  useModulePermissions
+} from '@/utils'
 
 /* eslint-disable react/display-name */
 const columns = [
@@ -24,25 +25,19 @@ const columns = [
 
 export const GroupUserServiceSettings = ({ history, match }) => {
   const { serviceProviderId, groupId } = match.params
-  const [loading, setLoading] = React.useState(false)
-  const { getModule } = useModulePermissions()
-  const { hasGroupService } = useGroupServicePermissions()
-  //const { userViewableServices } = useUserServicePermissions(serviceProviderId,groupId)
-  const { loadGroupServices } = useGroupServices(groupId, serviceProviderId)
-
-  React.useEffect(() => {
-    setLoading(true)
-    Promise.all([loadGroupServices(groupId, serviceProviderId)]).then(() =>
-      setLoading(false)
-    )
-  }, [serviceProviderId, groupId, loadGroupServices])
-
+  const { getModule, hasModuleRead } = useModulePermissions()
+  const { data: result, isLoading } = useQuery(
+    'groups-available-services',
+	  () => api.available(groupId , serviceProviderId)
+  )
+  
+  const hasAvailableGroupService  =  result || []
   const showService = service => {
     history.push(`${match.url}/${service.path}`)
   }
 
   const hideService = () => {
-    history.goBack()
+    history.push(`/groups/${serviceProviderId}/${groupId}/user-services`)
   }
   /*
   turn our array of routes into a filtered list of components,
@@ -55,36 +50,37 @@ export const GroupUserServiceSettings = ({ history, match }) => {
     path: 'some-service'
   }]
   */
-  const services = React.useMemo(() => {
-    if (!hasGroupService) return []
-    // filter out ones not in our map or missing read perms
-    const filtered = groupUserServiceRoutes.map(service => {
-      //const route = allowedServices[service.name]
-      if (
-        service.hasGroupService &&
-        !hasGroupService(service.hasGroupService)
-      ) {
-        return false
-      } else {
-        const module = getModule(service.hasModuleRead)
-        return { ...module, ...service, path: service.path }
-      }
-    })
-    // remove dups such as Shared Call Appearance
-    if (filtered.length > 1) return uniqBy(filtered, 'name')
-  }, [getModule, hasGroupService])
+   const services = React.useMemo(() => {
+    const allowedServices = groupUserServiceRoutes.reduce((obj, route) => {
+      route.hasGroupService.forEach(s => (obj[s] = route))
+      return obj
+    }, {})
 
+    const filtered = hasAvailableGroupService
+      .filter(service => {
+        const route = allowedServices[service]
+        return route && route.hasModuleRead && hasModuleRead(route.hasModuleRead)
+      }).map(service => {
+          const route = allowedServices[service]
+          const module = getModule(route.hasModuleRead)
+          return { ...module, ...service, path: route.path }
+        })
+      // remove dups such as Shared Call Appearance
+      return uniqBy(filtered, 'name')
+  }, [getModule, hasModuleRead, hasAvailableGroupService])
   // The base view when no sub-component picked
+
+  /* changes service name/description for Flexible Seating Guest to Flexible Seating Hosts */
   const GroupServiceList = () => {
-    return loading ? (
-      <UiLoading />
+    return isLoading ? (
+      <UiLoadingCard />
     ) : (
       <UiCard title="User Services">
         <UiDataTable
           columns={columns}
-          rows={(services.length > 1 && services) || []}
+          rows={services}
           rowKey="name"
-          pageSize={10}
+          pageSize={25}
           onClick={service => showService(service)}
         />
       </UiCard>
@@ -93,9 +89,7 @@ export const GroupUserServiceSettings = ({ history, match }) => {
   // render the clicked service
   const renderRoute = routeProps => {
     const path = routeProps.match.params.path
-    const route = Object.values(groupUserServiceRoutes).find(
-      r => r.path === path
-    )
+    const route = Object.values(groupUserServiceRoutes).find(r => r.path === path)
     const { component, angularComponent, ...props } = route
     return (
       <>
