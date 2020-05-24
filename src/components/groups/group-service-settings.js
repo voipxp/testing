@@ -72,17 +72,12 @@ export const GroupServiceSettings = ({ history, match }) => {
   // The base view when no sub-component picked
 
   /* changes service name/description for Flexible Seating Guest to Flexible Seating Hosts */
-  const newContent = {
-    "description":"Flexible Seating Guest",
-    "newDescription":"Flexible Seating Hosts",
-    "newName":"Flexible Seating Hosts"
-  }
   
-  services.forEach(function(item) {
-    if (newContent.description === item.description) {
-      item.description = newContent.newDescription
-      item.name        = newContent.newName
-    }
+  services.forEach(function(service) {
+    if ( "Flexible Seating Guest" === service.description )
+      service.description = service.name = "Flexible Seating Hosts"
+    if ( "Collaborate - Audio" === service.description ) 
+      service.description = service.name = "Collaborate"
   });
   
   const GroupServiceList = () => {
