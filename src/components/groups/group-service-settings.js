@@ -74,10 +74,13 @@ export const GroupServiceSettings = ({ history, match }) => {
   /* changes service name/description for Flexible Seating Guest to Flexible Seating Hosts */
   
   services.forEach(function(service) {
-    if ( "Flexible Seating Guest" === service.description )
+    const matchDesc = service.description
+    if ( "Flexible Seating Guest" === matchDesc )
       service.description = service.name = "Flexible Seating Hosts"
-    if ( "Collaborate - Audio" === service.description ) 
+    if ( "Collaborate - Audio" === matchDesc ) 
       service.description = service.name = "Collaborate"
+    if ( ( "Auto Attendant" || "Auto Attendant - Video" || "Auto Attendant - Standard" ) === matchDesc ) 
+      service.description = service.name = "Auto Receptionist"
   });
   
   const GroupServiceList = () => {
