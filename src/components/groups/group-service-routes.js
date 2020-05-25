@@ -24,15 +24,18 @@ export const groupServiceRoutes = [
           path: 'autoReceptionist',
           component: GroupAutoAttendants,
           hasModuleRead: 'Auto Attendant',
-          hasGroupService: ['Auto Attendant'],
+          hasGroupService: ['Auto Attendant','Auto Attendant - Video','Auto Attendant - Standard'],
           hasLevel: 'Group'
         },
+
+
         {
           name :'Call Center', 
           path: 'callCenters', 
           component: GroupCallCenters,
           hasModuleRead: 'Call Center',
-          hasGroupService: ['Call Center - Basic', '	Call Center Monitoring', 'Call Center - Premium', 'Call Center - Standard']
+          hasGroupService: ['Call Center - Basic', 'Call Center Monitoring', 'Call Center - Premium', 'Call Center - Standard'],
+          hasLevel: 'Group'
         },
         {
           name :'Call Park',
@@ -62,7 +65,7 @@ export const groupServiceRoutes = [
           name :'Flexible Seating Host',
           path: 'flexibleSeatingHosts',
           component: GroupFlexibleSeatingHosts,
-          hasModuleRead: 'Flexible Seating Host',
+          hasModuleRead: 'Flexible Seating Guest',
           hasGroupService: ['Flexible Seating Guest'],
           hasLevel: 'Group'
         },

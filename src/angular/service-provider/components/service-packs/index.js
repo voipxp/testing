@@ -74,9 +74,8 @@ function controller(
     } else {
       Route.open(
         'serviceProviders',
-         ctrl.serviceProviderId,
-          'provisioning',
-          'service-packs'
+        ctrl.serviceProviderId,
+        'service-packs'
           )
     }
   }

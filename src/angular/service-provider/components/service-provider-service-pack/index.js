@@ -78,7 +78,6 @@ function controller(
       Route.open(
         'serviceProviders',
          ctrl.serviceProviderId,
-          'provisioning',
           'service-packs'
           )
     }

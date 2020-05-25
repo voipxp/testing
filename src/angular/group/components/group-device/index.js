@@ -10,14 +10,11 @@ angular.module('odin.group').component('groupDevice', {
 controller.$inject = ['ACL', 'Alert', 'Route', '$location']
 function controller(ACL, Alert, Route, $location) {
   this.back = () => {
-    if(ACL.is('Service Provider')){
-      Route.open(
-        'groups',
-        this.serviceProviderId, 
-         this.groupId,
-         'Provisioning',
-         'groupDevices'
-      )
-    }else  Route.open('groups', this.serviceProviderId, this.groupId, 'devices')
+    Route.open(
+      'groups',
+      this.serviceProviderId, 
+       this.groupId,
+       'groupDevices'
+    )
   }
 }
