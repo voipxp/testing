@@ -149,13 +149,6 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
 
   return (
     <>
-      {isBreadcrumb && (
-        <AppBreadcrumb>
-          <Breadcrumb.Item onClick={() => history.goBack()}>Audits</Breadcrumb.Item>
-          <Breadcrumb.Item>Audit {id}</Breadcrumb.Item>
-        </AppBreadcrumb>
-      )}
-
       {loading ? (
         <UiLoadingCard />
       ) : (
