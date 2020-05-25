@@ -229,10 +229,24 @@ export const dashboardMenu = [
       },
       {
         name: 'Viewable Packs',
-        path: 'viewablePacks',
-        angularComponent: 'groupViewablePacksIndex',
-        hasLevel: 'Group',
-        hasModuleRead: 'Viewable Service Packs'
+        subMenus: [
+         {
+            name: 'Users',
+            path: 'virtualPacks',
+            angularComponent: 'groupViewablePackUsers',
+            hasLevel: 'Group',
+            hasModuleRead: 'Viewable Service Packs',
+            packName : 'user'
+          },
+          {
+            name: 'viewable Packs',
+            path: 'viewablePacks',
+            angularComponent: 'groupViewablePackUsers',
+            hasLevel: 'Group',
+            hasModuleRead: 'Viewable Service Packs',
+            packName : 'viewablePacks'
+          }
+        ]
       },
       {
         name: 'VDM',
