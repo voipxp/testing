@@ -157,7 +157,7 @@ export const dashboardMenu = [
       },
       {
         name: 'Migrate',
-        path: 'exports',
+        path: 'migrations',
         exact: true,
         component: Exports,
         hasLevel: 'Service Provider',
