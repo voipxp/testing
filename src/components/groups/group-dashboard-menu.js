@@ -38,14 +38,14 @@ export const dashboardMenu = [
         default: true
       },
       {
-        name: 'Group Settings',
+        name: 'Group Services',
         path: 'group-services',
         component: GroupServiceSettings,
         serviceType: 'groupServices'
       },
       {
         path: 'user-services',
-        name: 'User Settings',
+        name: 'User Bulk Services',
         component: GroupUserServiceSettings
       }
     ]
@@ -230,13 +230,13 @@ export const dashboardMenu = [
       {
         name: 'Viewable Packs',
         subMenus: [
-         {
+          {
             name: 'Users',
             path: 'virtualPacks',
             angularComponent: 'groupViewablePackUsers',
             hasLevel: 'Group',
             hasModuleRead: 'Viewable Service Packs',
-            packName : 'user'
+            packName: 'user'
           },
           {
             name: 'viewable Packs',
@@ -244,7 +244,7 @@ export const dashboardMenu = [
             angularComponent: 'groupViewablePackUsers',
             hasLevel: 'Group',
             hasModuleRead: 'Viewable Service Packs',
-            packName : 'viewablePacks'
+            packName: 'viewablePacks'
           }
         ]
       },
