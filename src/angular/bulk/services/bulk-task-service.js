@@ -12,7 +12,7 @@ function BulkTaskService() {
       description: 'Bulk Sip Trunking',
       required: []
     },
-	{
+    {
       task: 'bulk.sip.trunking.upload',
       name: 'Bulk Sip Trunking Upload',
       description: 'Bulk Sip Trunking Upload',
@@ -167,8 +167,8 @@ function BulkTaskService() {
     // Group Dns Assign
     {
       task: 'group.dns.assign',
-      name: 'Group Dns Assign',
-      description: 'Group Dns Assign',
+      name: 'Group DNs Assign',
+      description: 'Group DNs Assign',
       hasLevel: 'Reseller',
       required: ['serviceProviderId', 'groupId'],
       example: [
@@ -191,8 +191,8 @@ function BulkTaskService() {
     // Group Dns Unassign
     {
       task: 'group.dns.unassign',
-      name: 'Group Dns UnAssign',
-      description: 'Group Dns UnAssign',
+      name: 'Group DNs UnAssign',
+      description: 'Group DNs UnAssign',
       hasLevel: 'Reseller',
       required: ['serviceProviderId', 'groupId'],
       example: [
@@ -336,39 +336,39 @@ function BulkTaskService() {
     {
       task: 'group.device.upsert',
       name: 'Group Device Upsert',
-      description: 'Group Device Upsert',
+      description: 'Group Device Insert and/or Update',
       required: ['serviceProviderId', 'groupId', 'deviceType', 'deviceName'],
       example: [
         {
-            "task": "group.device.upsert",
-            "allowAccessDeviceUpdate": 'boolean',
-            "deviceLevel": "string",
-            "serviceProviderId": "string",
-            "groupId": "string",
-            "deviceName": "string",
-            "deviceType": "string",
-            "protocol": "string",
-            "netAddress": "IP_ADDRESS",
-            "port": "number",
-            "outboundProxyServerNetAddress": "IP_ADDRESS",
-            "stunServerNetAddress": "IP_ADDRESS",
-            "macAddress": "HEXA_DECIMAL",
-            "serialNumber": "number",
-            "description": "string",
-            "physicalLocation": "string",
-            "transportProtocol": "string",
-            "mobilityManagerProvisioningURL": "string",
-            "mobilityManagerProvisioningUserName": "string",
-            "mobilityManagerProvisioningPassword": "string",
-            "mobilityManagerDefaultOriginatingServiceKey": "string",
-            "mobilityManagerDefaultTerminatingServiceKey": "string",
-            "useCustomUserNamePassword": 'boolean',
-            "accessDeviceCredentials": {
-                "userName": "string",
-                "password": "string"
-            },
-            "rebuildDevice": "boolean",
-            "resetDevice": "boolean",
+          task: 'group.device.upsert',
+          allowAccessDeviceUpdate: 'boolean',
+          deviceLevel: 'string',
+          serviceProviderId: 'string',
+          groupId: 'string',
+          deviceName: 'string',
+          deviceType: 'string',
+          protocol: 'string',
+          netAddress: 'IP_ADDRESS',
+          port: 'number',
+          outboundProxyServerNetAddress: 'IP_ADDRESS',
+          stunServerNetAddress: 'IP_ADDRESS',
+          macAddress: 'HEXA_DECIMAL',
+          serialNumber: 'number',
+          description: 'string',
+          physicalLocation: 'string',
+          transportProtocol: 'string',
+          mobilityManagerProvisioningURL: 'string',
+          mobilityManagerProvisioningUserName: 'string',
+          mobilityManagerProvisioningPassword: 'string',
+          mobilityManagerDefaultOriginatingServiceKey: 'string',
+          mobilityManagerDefaultTerminatingServiceKey: 'string',
+          useCustomUserNamePassword: 'boolean',
+          accessDeviceCredentials: {
+            userName: 'string',
+            password: 'string'
+          },
+          rebuildDevice: 'boolean',
+          resetDevice: 'boolean'
         }
       ]
     },
@@ -385,7 +385,7 @@ function BulkTaskService() {
           allowAccessDeviceUpdate: 'boolean',
           deviceType: 'string',
           deviceName: 'string',
-          accessDeviceEndpoint:{
+          accessDeviceEndpoint: {
             linePort: 'string',
             accessDevice: {
               deviceType: 'string',
