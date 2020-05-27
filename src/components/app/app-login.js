@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,7 +9,6 @@ import { useSession } from '@/store/session'
 import { useUiTemplate } from '@/store/ui-template'
 import groupWebPolicy from '@/api/group-web-policy'
 import authApi from '@/api/auth'
-import { AppResetPassword } from '@/components/app'
 
 export const AppLogin = () => {
   const { setSession } = useSession()
@@ -27,8 +27,6 @@ export const AppLogin = () => {
   })
   const [needsChange, setNeedsChange] = React.useState(false)
   const [valid, setValid] = React.useState(false)
-
-  const [needResetPassword, setNeedResetPassword] = React.useState(false)
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -82,15 +80,9 @@ export const AppLogin = () => {
       hideLoadingModal()
     }
   }
-  const resetPassword = () => {
-    setNeedResetPassword(true)
-  }
+
 
   return (
-    needResetPassword
-    ?
-    <AppResetPassword resetPassword={(boolVal) => setNeedResetPassword(boolVal)}/>
-    :
     <div id="pbs-login">
       <Hero color="link" size="fullheight">
         <Hero.Body textAlign="centered">
@@ -173,9 +165,14 @@ export const AppLogin = () => {
             {
               !needsChange
               ?
-              <Button style={{marginTop: '5px'}} color="link" fullwidth type="submit" onClick={resetPassword}>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              <a href='/#!/resetPassword'>
                 Reset Password
-              </Button>
+              </a>
+              <a href='/#!/forgotPassword'>
+                Forgot Password?
+              </a>
+              </div>
               :
               null
             }

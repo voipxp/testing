@@ -1,52 +1,58 @@
 import React from 'react'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { useAlerts } from '@/store/alerts'
 import { useUi } from '@/store/ui'
 import { useUiTemplate } from '@/store/ui-template'
-import authApi from '@/api/auth'
+import resetPasswordApi from '@/api/reset-password'
 import PropTypes from 'prop-types'
+import ReCAPTCHA from "react-google-recaptcha";
 
-export const AppResetPassword = ({ match, history }) => {
+export const AppForgotPassword = ({ match, history }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
-  const { alertSuccess, alertWarning, alertDanger } = useAlerts()
+  const { alertSuccess, alertDanger } = useAlerts()
 
   const { template } = useUiTemplate()
   const { pageLoginMessage } = template
 
   const formRef = React.useRef()
+  const [valid, setValid] = React.useState(false)
+  const [gRecaptchaResponse, setGRecaptchaResponse] = React.useState('')
+
   const [form, setForm] = React.useState({
     username: '',
-    password: '',
-    newPassword1: '',
-    newPassword2: ''
+    email: ''
   })
-
-  const goToLoginPage = () => history.push('/')
 
   function handleSubmit(e) {
     e.preventDefault()
-    changePassword()
+    submitForm()
   }
 
   function handleInput(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  async function changePassword() {
-    if (form.newPassword1 !== form.newPassword2) {
-      return alertWarning('New Passwords Do Not Match')
-    }
+  function onReCaptchaChange(value) {
+    if(value) setValid(true)
+    else setValid(false)
+    setGRecaptchaResponse(value)
+  }
+
+  async function submitForm() {
+    if(!gRecaptchaResponse) return false
     try {
       showLoadingModal()
-      await authApi.tokenPassword(
-        form.password,
-        form.newPassword1,
-        form.username
+      const resetRes = await resetPasswordApi.sendResetPasswordLink(
+        {
+          'userId': form.username,
+          'email': form.email,
+          'g-recaptcha-response': gRecaptchaResponse
+        }
       )
-      alertSuccess('Password has been reset successfully!')
-      goToLoginPage()
+      if(resetRes.status === 'success') alertSuccess(resetRes.message)
+      else alertDanger(resetRes.error)
     } catch (error) {
       alertDanger(error)
     } finally {
@@ -82,59 +88,34 @@ export const AppResetPassword = ({ match, history }) => {
               <Field>
                 <Control iconLeft>
                   <Input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
+                    type="text"
+                    placeholder="Email"
+                    name="email"
                     onChange={handleInput}
-                    value={form.password}
+                    value={form.email}
                     required
                   />
                   <Icon size="small" align="left">
-                    <FontAwesomeIcon icon={faLock} />
+                    <FontAwesomeIcon icon={faEnvelope} />
                   </Icon>
                 </Control>
               </Field>
 
-                  <Field>
-                    <Control iconLeft>
-                      <Input
-                        type="password"
-                        placeholder="New Password"
-                        name="newPassword1"
-                        onChange={handleInput}
-                        value={form.newPassword1}
-                        required
-                      />
-                      <Icon size="small" align="left">
-                        <FontAwesomeIcon icon={faLock} />
-                      </Icon>
-                    </Control>
-                  </Field>
-
-                  <Field>
-                    <Control iconLeft>
-                      <Input
-                        type="password"
-                        placeholder="Confirm New Password"
-                        name="newPassword2"
-                        onChange={handleInput}
-                        value={form.newPassword2}
-                        required
-                      />
-                      <Icon size="small" align="left">
-                        <FontAwesomeIcon icon={faLock} />
-                      </Icon>
-                    </Control>
-                  </Field>
-                </>
-              <Button color="link" fullwidth type="submit">
-                Reset Password
+              <Field style={{paddingBottom:'20px'}}>
+                <ReCAPTCHA
+                  sitekey="6LeYru8UAAAAAFgdMxLYZklkMIdxDF4xeK7n6XAu"
+                  onChange={onReCaptchaChange}
+                />
+              </Field>
+              </>
+              <Button color="link" fullwidth type="submit" disabled={!valid}>
+                Submit
               </Button>
-              <div style={{display: 'flex', justifyContent: 'center'}}>
+              <Field>
                 <a href='/#!/'>
                   Go to Login Page
                 </a>
-              </div>
+              </Field>
             </form>
           </Box>
         </Hero.Body>
@@ -153,7 +134,7 @@ export const AppResetPassword = ({ match, history }) => {
   )
 }
 
-AppResetPassword.propTypes = {
+AppForgotPassword.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 }
