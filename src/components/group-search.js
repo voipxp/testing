@@ -59,7 +59,7 @@ export const GroupSearch = ({ onSelect }) => {
         columns={columns}
         rows={result || []}
         rowKey="groupId"
-        pageSize={50}
+        pageSize={25}
         onClick={onSelect}
       />
     )

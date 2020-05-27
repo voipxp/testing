@@ -110,7 +110,7 @@ export const Imports = ({ history, match, isBreadcrumb = true }) => {
     <>
       {isBreadcrumb && (
         <AppBreadcrumb>
-          <Breadcrumb.Item>Imports (beta)</Breadcrumb.Item>
+          <Breadcrumb.Item>Imports</Breadcrumb.Item>
         </AppBreadcrumb>
       )}
       {loading ? (
@@ -127,7 +127,7 @@ export const Imports = ({ history, match, isBreadcrumb = true }) => {
             rows={result}
             rowKey="id"
             onClick={open}
-            pageSize={20}
+            pageSize={25}
           />
         </UiCard>
       )}

@@ -56,7 +56,7 @@ export const BulkSelectUserServices = ({
         columns={columns}
         rows={userServices || []}
         rowKey="alias"
-        pageSize={50}
+        pageSize={25}
         onClick={row => {
           userServiceSelection(row)
         }}

@@ -1,14 +1,13 @@
-<pbs-navigation ng-if="!$ctrl.hideNav">
-  <pbs-breadcrumb title="'Settings'"></pbs-breadcrumb>
-</pbs-navigation>
-<pbs-tabs>
-  <pbs-tab label="Webhooks">
-    <odin-settings-webhooks></odin-settings-webhooks>
-  </pbs-tab>
-  <pbs-tab label="Callbacks" ng-if="$ctrl.isProvisioning">
-    <odin-settings-callbacks></odin-settings-callbacks>
-  </pbs-tab>
-  <pbs-tab label="Exports">
-    <odin-settings-exports></odin-settings-exports>
-  </pbs-tab>
-</pbs-tabs>
+<pbs-block title="Settings">
+  <pbs-tabs>
+    <pbs-tab label="Webhooks">
+      <odin-settings-webhooks></odin-settings-webhooks>
+    </pbs-tab>
+    <pbs-tab label="Callbacks" ng-if="$ctrl.isProvisioning">
+      <odin-settings-callbacks></odin-settings-callbacks>
+    </pbs-tab>
+    <pbs-tab label="Migration">
+      <odin-settings-exports></odin-settings-exports>
+    </pbs-tab>
+  </pbs-tabs>
+</pbs-block>

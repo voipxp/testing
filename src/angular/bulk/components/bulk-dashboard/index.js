@@ -7,21 +7,23 @@ angular.module('odin.bulk').component('bulkDashboard', {
 })
 
 controller.$inject = [
+  'ACL',
   'BulkTaskService',
   '$location',
-  'ServiceProviderPolicyService',
-  'ACL',
+  'ServiceProviderPolicyService'
 ]
-function controller(BulkTaskService, $location, ServiceProviderPolicyService, ACL) {
+function controller(ACL,BulkTaskService, $location, ServiceProviderPolicyService) {
+
   var ctrl = this
   ctrl.open = open
   ctrl.openCsv = openCsv
   ctrl.canCreateUser = ServiceProviderPolicyService.userCreate()
   ctrl.services = filterByPolicy(BulkTaskService.index)
-
+  if($location.url() ==='/bulk') ctrl.hideNave = true
 
   function open(service) {
-    $location.path(`bulk/${service.task}`)
+    var returnTo = $location.url()
+    $location.path(`bulk/${service.task}`).search({ returnTo: returnTo })
   }
 
   function openCsv() {

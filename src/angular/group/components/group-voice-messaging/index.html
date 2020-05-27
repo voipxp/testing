@@ -2,9 +2,11 @@
   service-provider-id="$ctrl.serviceProviderId"
   group-id="$ctrl.groupId"
   module="$ctrl.module"
+  hide-navigation="true"
 >
   <pbs-breadcrumb module="$ctrl.module"></pbs-breadcrumb>
 </pbs-navigation>
+<pbs-block title="Settings">
 <pbs-tabs>
   <pbs-tab label="Voice Messaging">
     <group-voice-messaging-details
@@ -21,3 +23,4 @@
     ></group-voice-messaging-portal>
   </pbs-tab>
 </pbs-tabs>
+<pbs-block>

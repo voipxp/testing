@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData } from 'react-query'
+import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-waiting-service'
 import {
   UiButton,
@@ -21,7 +21,7 @@ export const UserCallWaiting = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const { data: result, isLoading, error } = useQuery(
     'user-call-wating',
     () => api.show(userId)
@@ -29,7 +29,7 @@ export const UserCallWaiting = ({ match }) => {
   const userServiceData = result || {}
 
   if (error) alertDanger(error)
-  if (isLoading) return <UiLoadingCard /> 
+  if (isLoading) return <UiLoadingCard />
 
   function handleInput(event) {
     const target = event.target
@@ -37,21 +37,21 @@ export const UserCallWaiting = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
-  
+
   async function update(formData) {
     showLoadingModal()
     try {
       const newUserCallWating = await api.update(formData)
-      setQueryData(['user-call-wating'], newUserCallWating, {
+      queryCache.setQueryData(['user-call-wating'], newUserCallWating, {
         shouldRefetch: true
       })
       alertSuccess('Call Waiting Updated')
@@ -62,7 +62,7 @@ export const UserCallWaiting = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard
@@ -71,7 +71,7 @@ export const UserCallWaiting = ({ match }) => {
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
       >
-	  
+
         <UiSection>
           <UiListItem label="Is Active">
             <UiCheckbox isChecked={userServiceData.isActive} />

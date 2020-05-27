@@ -38,7 +38,7 @@ export const BulkSelectServiceProviderTrunk = ({
         columns={columns}
         rows={providers || []}
         rowKey="serviceProviderId"
-        pageSize={50}
+        pageSize={25}
         onClick={selectEntTrunk}
       />
     </>

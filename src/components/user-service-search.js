@@ -114,7 +114,7 @@ export const UserServiceSearch = ({ onSelect }) => {
           columns={columns}
           rows={users}
           rowKey="userId"
-          pageSize={50}
+          pageSize={25}
           onClick={onSelect}
         />
       ))}
