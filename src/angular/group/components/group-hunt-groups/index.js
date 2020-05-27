@@ -55,11 +55,9 @@ function controller(
   }
 
 	function loadModule() {
-		if(ACL.is('Group Department')) {
 			return Module.show('Hunt Group').then(function(data) {
 			  ctrl.module = data
 			})
-		}
 	}
 
   function loadHuntGroups() {

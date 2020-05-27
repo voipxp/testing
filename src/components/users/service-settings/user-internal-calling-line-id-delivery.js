@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
-import { useQuery, setQueryData} from 'react-query'
+import { useQuery, queryCache} from 'react-query'
 import api from '@/api/user-services-settings/user-internal-calling-line-id-delivery-service'
 import {
   UiButton,
@@ -13,7 +13,7 @@ import {
   UiListItem,
   UiLoadingCard,
   UiSection
-  
+
 } from '@/components/ui'
 
 export const UserInternalCallingLineIdDelivery = ({ match }) => {
@@ -22,7 +22,7 @@ export const UserInternalCallingLineIdDelivery = ({ match }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const [form, setForm] = useState({})
   const [showModal, setShowModal] = useState(false)
-  
+
   const {data:result , isLoading, error} = useQuery(
     'internal-calling-line-id-delivery',
     ()=>api.show(userId)
@@ -39,12 +39,12 @@ export const UserInternalCallingLineIdDelivery = ({ match }) => {
     const name = target.name
 	  setForm({ ...form, [name]: value })
   }
-  
+
   function edit() {
     setForm({ ...userServiceData })
     setShowModal(true)
   }
-  
+
   function save() {
     update(form)
   }
@@ -53,7 +53,7 @@ export const UserInternalCallingLineIdDelivery = ({ match }) => {
 	showLoadingModal()
     try {
 		  const newInternalCallingLIneIdDelivery = await api.update(formData)
-      setQueryData(
+      queryCache.setQueryData(
         'internal-calling-line-id-delivery',
         newInternalCallingLIneIdDelivery,{
           shouldRefetch: true
@@ -67,7 +67,7 @@ export const UserInternalCallingLineIdDelivery = ({ match }) => {
       hideLoadingModal()
     }
   }
-  
+
   return (
     <>
       <UiCard

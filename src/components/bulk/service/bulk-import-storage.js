@@ -5,9 +5,10 @@ import PropTypes from 'prop-types'
 import { BulkParseService, BulkImport } from '@/components/bulk'
 import { StorageService } from '@/utils'
 import { Button } from 'rbx'
-import { UiLoading } from '@/components/ui'
+import { UiLoading, UiCardModal } from '@/components/ui'
 import { CSVLink } from "react-csv"
 import { BulkUploadCsv } from "./bulk-upload-csv"
+import RecentTask from '@/components/bulk/recent-tasks/recent-task'
 import {
   UiDataTableEditable,
   UiCard
@@ -25,6 +26,7 @@ import {
     const [users, setUsers] = useState([])
     const [keys, setKeys] = useState([])
     const [task, setTask] = useState('')
+    const [taskId, setTaskId] = useState('')
     const [fileName, setFileName] = useState('')
     const [loading, setLoading]= useState(true)
     const [action, setAction] = useState({})
@@ -33,6 +35,7 @@ import {
     const [deleteLocalStorage, setDeleteLocalStorage] = useState(false)
     const [isProcessing, setIsProcessing] = useState(false)
     const [loadingTable, setLoadingTable] = useState(false)
+    const [showErrorModal, setShowErrorModal] = useState(false)
 
     const canBeforComplete = isFunction(beforComplete)
     const canOnLoad = isFunction(onLoad)
@@ -68,6 +71,10 @@ import {
     useEffect( () => {
       if(canOnLoad) onLoad(users, (data) => setUsers(data))
     }, [users, setUsers, onLoad, canOnLoad])
+
+    useEffect( () => {
+      if(taskId) setShowErrorModal(true)
+    }, [taskId])
 
     useEffect( () => {
       setLoading(true)
@@ -228,6 +235,7 @@ import {
           action={action}
           deleteLocalStorage={ (boolValue) => setDeleteLocalStorage(boolValue) }
           onError={onError}
+          setTaskId={ (id) => setTaskId(id) }
         /> : null
       }
 
@@ -289,12 +297,30 @@ import {
               columns={keys}
               rows={users}
               rowKey="index"
-              pageSize={20}
+              pageSize={25}
               handleDataChange={handleDataChange}
             />
             :
             <label>No Pending Task available !</label>
           )
+        }
+
+        {   /* Task Error Modal */
+          taskId
+          ?
+            <div>
+            <UiCardModal
+              title="Task Details"
+              isOpen={showErrorModal}
+              onCancel={() => setShowErrorModal(false)}
+            >
+            <RecentTask
+              id={taskId}
+            />
+            </UiCardModal>
+            </div>
+          :
+          null
         }
         </UiCard>
       }

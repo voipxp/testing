@@ -1,13 +1,13 @@
-<pbs-navigation>
+<pbs-navigation ng-show="$ctrl.hideNave">
   <pbs-breadcrumb title="'Bulk'"></pbs-breadcrumb>
 </pbs-navigation>
 <pbs-block title="Bulk Wizards">
-  <pbs-block-buttons>
+  <!-- <pbs-block-buttons>
     <pbs-button-compact-upload
       title="CSV Uploads"
       ng-click="$ctrl.openCsv()"
     ></pbs-button-compact-upload>
-  </pbs-block-buttons>
+  </pbs-block-buttons> -->
   <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
   <table pbs-table>
     <thead>
@@ -40,4 +40,4 @@
     </tbody>
   </table>
 </pbs-block>
-<bulk-tasks limit="5" pbs-margin-top></bulk-tasks>
+<!-- <bulk-tasks limit="5" pbs-margin-top></bulk-tasks> -->

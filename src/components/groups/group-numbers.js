@@ -2,9 +2,16 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
-import { UiLoading, UiDataTable, UiCheckbox, UiCard } from '@/components/ui'
+import {
+  UiLoading,
+  UiDataTable,
+  UiCheckbox,
+  UiCard,
+  UiButton
+} from '@/components/ui'
 import { useAlerts } from '@/store/alerts'
 import groupNumberApi from '@/api/groups/numbers'
+import { CSVLink } from 'react-csv'
 /* eslint-disable react/display-name */
 const columns = [
   { key: 'phoneNumbers', label: 'Phone Numbers' },
@@ -20,7 +27,7 @@ const columns = [
   }
 ]
 
-export const GroupNumbers = ({ match }) => {
+export const GroupNumbers = ({ match, isBreadcrumb = true }) => {
   const { alertDanger } = useAlerts()
   const { serviceProviderId, groupId } = match.params
   const [users, setUsers] = React.useState([])
@@ -44,13 +51,24 @@ export const GroupNumbers = ({ match }) => {
 
   return (
     <>
-      <AppBreadcrumb>
-        <Breadcrumb.Item>Numbers</Breadcrumb.Item>
-      </AppBreadcrumb>
+      {isBreadcrumb && (
+        <AppBreadcrumb>
+          <Breadcrumb.Item>Numbers</Breadcrumb.Item>
+        </AppBreadcrumb>
+      )}
       {loading ? (
         <UiLoading />
       ) : (
-        <UiCard title="Numbers">
+        <UiCard
+          title="Numbers"
+          buttons={
+            <>
+              <CSVLink data={users} filename={groupId + '-dns.csv'}>
+                <UiButton color="link" icon="download" size="small"></UiButton>
+              </CSVLink>
+            </>
+          }
+        >
           <UiDataTable columns={columns} rows={users} rowKey="phoneNumbers" />
         </UiCard>
       )}
@@ -59,5 +77,6 @@ export const GroupNumbers = ({ match }) => {
 }
 
 GroupNumbers.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  isBreadcrumb: PropTypes.bool
 }

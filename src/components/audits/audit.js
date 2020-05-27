@@ -114,7 +114,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
       passcode: form.passcode
     })
     try {
-      alertSuccess('Export sent successfully to ' + form.endpoint)
+      alertSuccess('Migration sent successfully to ' + form.endpoint)
     } catch (error_) {
       setShowExportModal(true)
       alertDanger(error_)
@@ -149,13 +149,6 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
 
   return (
     <>
-      {isBreadcrumb && (
-        <AppBreadcrumb>
-          <Breadcrumb.Item href="/#!/audits">Audits</Breadcrumb.Item>
-          <Breadcrumb.Item>Audit {id}</Breadcrumb.Item>
-        </AppBreadcrumb>
-      )}
-
       {loading ? (
         <UiLoadingCard />
       ) : (
@@ -196,7 +189,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
               columns={columns}
               rows={audit}
               rowKey="id"
-              pageSize={20}
+              pageSize={25}
               onClick={open}
             />
           </UiCard>
@@ -213,7 +206,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         <UiLoadingModal isOpen={showLoading} />
       ) : (
         <UiCardModal
-          title={`Export Audit ${form.groupId} (${form.id})`}
+          title={`Migration Audit ${form.groupId} (${form.id})`}
           onCancel={() => setShowExportModal(false)}
           // onSave={uploadExport}
           onSave={
@@ -226,7 +219,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
               ? () => setShowConfirm(true)
               : null
           }
-          saveText="Export"
+          saveText="Migrate"
           isOpen={showExportModal}
         >
           <form>
@@ -369,7 +362,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         isOpen={showConfirm}
         onCancel={() => setShowConfirm(false)}
         onSave={uploadExport}
-        saveText="Export"
+        saveText="Migrate"
       >
         <blockquote>
           Are you sure you want to upload this audit {form.id} {form.groupId}?

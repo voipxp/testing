@@ -37,7 +37,7 @@ export const BulkSelectGroupId = ({ serviceProviderId = '', selectGroup }) => {
         columns={columns}
         rows={groups || []}
         rowKey="groupId"
-        pageSize={50}
+        pageSize={25}
         onClick={grpRow => {
           selectGroup(grpRow)
         }}

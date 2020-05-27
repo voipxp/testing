@@ -45,7 +45,7 @@ export const UiDataTable = ({
   columns,
   rowKey,
   rows = [],
-  pageSize = 10,
+  pageSize = 25,
   showSelect = false,
   hideSearch = false,
   onClick,

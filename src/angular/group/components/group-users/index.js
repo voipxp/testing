@@ -16,6 +16,7 @@ controller.$inject = [
   'Route',
   'ServiceProviderPolicyService',
   'GroupWebPolicyService',
+  'ServiceProviderUsersService',
   '$q',
   'ACL'
 ]
@@ -27,6 +28,7 @@ function controller(
   Route,
   ServiceProviderPolicyService,
   GroupWebPolicyService,
+  ServiceProviderUsersService,
   $q,
   ACL
 ) {
@@ -38,8 +40,6 @@ function controller(
   ctrl.edit = edit
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
-  ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
-
   ctrl.columns = [
     {
       key: 'userId',
@@ -86,6 +86,7 @@ function controller(
         GroupWebPolicyService.load()
       ])
       .then(function() {
+        ctrl.isAddGroup =  ctrl.groupId ? true : false
         ctrl.canCLIDUpdate = true
         ctrl.canPNUpdate = true
         ctrl.canCreate = true
@@ -114,24 +115,28 @@ function controller(
       .finally(function() {
         ctrl.loading = false
       })
-    // loadUsers()
-    //   .catch(function(error) {
-    //     Alert.notify.danger(error)
-    //   })
-    //   .finally(function() {
-    //     ctrl.loading = false
-    //   })
+    
   }
 
-  function loadUsers(extended) {
-    return UserService.index(
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      extended
-    ).then(function(data) {
-      if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
-      ctrl.users = data
-    })
+    function loadUsers(extended) {
+      if( ctrl.groupId ) {
+        return UserService.index(
+          ctrl.serviceProviderId,
+          ctrl.groupId,
+          extended
+        ).then(function(data) {
+          if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
+          ctrl.users = data
+        })
+      }else {
+        return ServiceProviderUsersService.index(
+          ctrl.serviceProviderId,
+          extended
+        ).then(function(data) {
+          if (ACL.is('Group Department')) data = ACL.filterByDepartment(data)
+          ctrl.users = data
+        })
+      }
   }
 
   function add() {
@@ -148,7 +153,21 @@ function controller(
   }
 
   function open(user) {
-    Route.open('users', ctrl.serviceProviderId, ctrl.groupId, user.userId)
+    if( user.groupId ) {
+      Route.open(
+        'users',
+        user.serviceProviderId,
+        user.groupId,
+        user.userId
+      )
+    }else{
+      Route.open(
+        'users',
+        user.serviceProviderId,
+        user.userId
+      )
+    }
+  //  Route.open('users', ctrl.serviceProviderId, ctrl.groupId, user.userId)
   }
 
   function onCreate(event) {

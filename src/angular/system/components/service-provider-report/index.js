@@ -12,14 +12,16 @@ controller.$inject = [
   'ServiceProviderReportsService',
   'Route',
   '$location',
-  'Session'
+  'Session',
+  'ACL'
 ]
 function controller(
   Alert,
   ServiceProviderReportsService,
   Route,
   $location,
-  Session
+  Session,
+  ACL
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -54,7 +56,7 @@ function controller(
   ]
   function onInit() {
     ctrl.loading = true
-    ctrl.hideNav = Session.data('resellerId')
+    ctrl.hideNav = Session.data('resellerId') || ACL.is('System')
     loadServiceProviderReport()
       .catch(function(error) {
         Alert.notify.danger(error)

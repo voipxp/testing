@@ -279,6 +279,17 @@ function controller(Alert, GroupDashboardService, Route, $location, ACL) {
         path: route('callRecords', 'callCenter')
       },
       {
+        type: 'report',
+        name: 'User Shared Call Appearances',
+        service: 'Shared Call Appearance',
+        path: route('sharedCallAppearancesReport')
+      },
+      {
+		    type: 'report',
+        name: 'User Push Notification Registration',
+        path: route('pushNotificationRegistration')		
+	    },
+      {
         type: 'provisioning',
         name: 'Assign Numbers',
         path: route('assignNumbers'),
