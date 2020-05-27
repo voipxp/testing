@@ -14,6 +14,8 @@ import {
   UiCardModal,
   UiInputCheckbox
 } from '@/components/ui'
+import { Export } from '@/components/exports'
+import { Switch, Route } from 'react-router-dom'
 
 const EXPORT_LIMIT = 500
 
@@ -65,7 +67,7 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
     setForm({ ...form, [name]: value })
   }
 
-  const open = ({ id }) => history.push(`/exports/${id}`)
+  const open = ({ id }) => history.push(`${match.url}/${id}`)
   const show = group => {
     setForm({ ...form, ...group })
     setInitialized(false)
@@ -106,8 +108,8 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
     }
   }
 
-  return (
-    <>
+  const exportView =
+<>
       {isBreadcrumb && (
         <AppBreadcrumb>
           <Breadcrumb.Item>Migrate</Breadcrumb.Item>
@@ -220,6 +222,13 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
         </form>
       </UiCardModal>
     </>
+
+
+  return (
+    <Switch>
+    <Route path={`${match.path}/:id`} exact component={Export} />
+    <Route render = {() => exportView}/>
+  </Switch>
   )
 }
 
