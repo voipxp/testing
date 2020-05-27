@@ -81,19 +81,19 @@ function controller(Alert, ServiceProviderDashboardService, Route, ACL) {
       },
       {
         type: 'provisioning',
-        name: 'Audit (beta)',
+        name: 'Audit',
         module: 'Audit',
         path: '/audits'
       },
       {
         type: 'provisioning',
-        name: 'Import (beta)',
+        name: 'Import',
         module: 'Import',
         path: '/imports'
       },
       {
         type: 'provisioning',
-        name: 'Export (beta)',
+        name: 'Migrate',
         module: 'Export',
         path: '/exports'
       },

@@ -13,7 +13,8 @@ controller.$inject = [
   '$scope',
   'Route',
   'Session',
-  '$location'
+  '$location',
+  'ACL'
 ]
 function controller(
   Alert,
@@ -21,7 +22,8 @@ function controller(
   $scope,
   Route,
   Session,
-  $location
+  $location,
+  ACL
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -34,7 +36,8 @@ function controller(
   function onInit() {
     ctrl.loading = true
     ctrl.hideNav =
-      Session.data('resellerId') || $location.path().startsWith('/resellers')
+      ( Session.data('resellerId') || $location.path().startsWith('/resellers') )
+	  || ( ACL.is('System') && !$location.path().startsWith('/serviceProviders') )
     loadServiceProviders()
       .catch(function(error) {
         Alert.notify.danger(error)

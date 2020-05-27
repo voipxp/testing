@@ -28,7 +28,7 @@ export const AppBreadcrumbBase = ({ match, children }) => {
           <Breadcrumb.Item href="#!/system/resellers">
             Resellers
           </Breadcrumb.Item>
-          <Breadcrumb.Item href={`#!/resellers/${resellerId}`}>
+          <Breadcrumb.Item href={`#!/system/resellers/${resellerId}`}>
             {resellerId}
           </Breadcrumb.Item>
         </>
@@ -36,7 +36,7 @@ export const AppBreadcrumbBase = ({ match, children }) => {
 
       {hasReseller && serviceProviderId && (
         <>
-          <Breadcrumb.Item href="#!/serviceProviders">
+          <Breadcrumb.Item href="#!/system/serviceProviders">
             Service Providers
           </Breadcrumb.Item>
           <Breadcrumb.Item href={`#!/serviceProviders/${serviceProviderId}`}>

@@ -78,7 +78,7 @@ export const Import = ({ history, match, isBreadcrumb = true }) => {
     <>
       {isBreadcrumb && (
         <AppBreadcrumb>
-          <Breadcrumb.Item href="/#!/imports">Imports</Breadcrumb.Item>
+          <Breadcrumb.Item onClick={() => history.goBack()}>Imports</Breadcrumb.Item>
           <Breadcrumb.Item>Import {id}</Breadcrumb.Item>
         </AppBreadcrumb>
       )}
@@ -117,7 +117,7 @@ export const Import = ({ history, match, isBreadcrumb = true }) => {
               columns={columns}
               rows={import2}
               rowKey="id"
-              pageSize={20}
+              pageSize={25}
               onClick={open}
             />
           </UiCard>

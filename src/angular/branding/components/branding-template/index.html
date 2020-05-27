@@ -51,6 +51,13 @@
           />
         </td>
       </tr>
+      <tr
+        ng-repeat="field in $ctrl.fields.select"
+        ng-click="$ctrl.edit('select', field)"
+      >
+        <td>{{ field.label }}</td>
+        <td>{{ $ctrl.template[field.key] }}</td>
+      </tr>
     </table>
   </pbs-block>
 </pbs-spinner>
@@ -105,4 +112,14 @@
       ng-if="$ctrl.editField.type === 'image'"
     />
   </div>
+</pbs-modal>
+<pbs-modal id="editBrandingTemplate-select" title="{{ $ctrl.editField.label }}">
+  <pbs-form>
+    <select
+      pbs-input-select
+      ng-model="$ctrl.editField.value"
+      ng-options="x for x in $ctrl.editField.options"
+    >
+    </select>
+  </pbs-form>
 </pbs-modal>

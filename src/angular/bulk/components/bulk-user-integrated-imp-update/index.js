@@ -6,13 +6,14 @@ angular.module('odin.bulk').component('bulkUserIntegratedImpUpdate', {
   controller
 })
 
-controller.$inject = ['BulkImportService', '$scope']
-function controller(BulkImportService, $scope) {
+controller.$inject = ['BulkImportService', '$scope', '$window']
+function controller(BulkImportService, $scope, $window) {
   var ctrl = this
   ctrl.isActive = false
   ctrl.onSelectUsers = onSelectUsers
   ctrl.complete = complete
   ctrl.data = { users: [] }
+  ctrl.goBack = goBack
 
   function onSelectUsers(event) {
     ctrl.data = event
@@ -29,5 +30,9 @@ function controller(BulkImportService, $scope) {
       }
     })
     BulkImportService.open(data)
+  }
+
+  function goBack() {
+    $window.history.back()
   }
 }

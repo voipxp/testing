@@ -8,8 +8,12 @@ angular.module('odin.user').component('userQuickSet', {
   bindings: { serviceProviderId: '<', groupId: '<', userId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserPermissionService']
-function controller(Alert, UserPermissionService) {
+controller.$inject = [
+  'Alert',
+  'UserPermissionService',
+  'BrandingResourceService'
+]
+function controller(Alert, UserPermissionService, BrandingResourceService) {
   var ctrl = this
   ctrl.$onInit = onInit
 
@@ -20,6 +24,7 @@ function controller(Alert, UserPermissionService) {
         ctrl.has = permission.read
       })
       .then(loadPermissions)
+      .then(loadResources)
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
@@ -37,5 +42,12 @@ function controller(Alert, UserPermissionService) {
     ctrl.showQuick = _.find(quickActions, function(service) {
       return ctrl.has(service)
     })
+  }
+  function loadResources() {
+    return BrandingResourceService.hostname(window.location.hostname).then(
+      function(data) {
+        ctrl.resources = data
+      }
+    )
   }
 }

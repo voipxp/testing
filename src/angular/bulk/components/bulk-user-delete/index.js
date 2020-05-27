@@ -6,12 +6,13 @@ angular.module('odin.bulk').component('bulkUserDelete', {
   controller
 })
 
-controller.$inject = ['BulkImportService']
-function controller(BulkImportService) {
+controller.$inject = ['BulkImportService', '$window']
+function controller(BulkImportService, $window) {
   var ctrl = this
   ctrl.complete = complete
   ctrl.onSelectUsers = onSelectUsers
   ctrl.data = { users: [] }
+  ctrl.goBack = goBack
 
   function onSelectUsers(event) {
     ctrl.data = event
@@ -29,4 +30,9 @@ function controller(BulkImportService) {
     // console.log(JSON.stringify(data, null, 2))
     BulkImportService.open(data)
   }
+
+  function goBack() {
+    $window.history.back()
+  }
+
 }

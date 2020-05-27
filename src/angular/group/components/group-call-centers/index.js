@@ -34,6 +34,7 @@ function controller(
   ctrl.$onInit = activate
   ctrl.toggle = toggle
   ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
+  ctrl.isAdminGroup = ACL.is('Group')
 
   function activate() {
     //ctrl.canCreate = ctrl.module.permissions.create
@@ -56,11 +57,9 @@ function controller(
   }
 
 	function loadModule() {
-		if(ACL.is('Group Department')) {
 			return Module.show('Call Center').then(function(data) {
 			  ctrl.module = data
 			})
-		}
 	}
 
   function loadCallCenters() {
@@ -80,13 +79,14 @@ function controller(
 
   function open(object) {
     var serviceUserId = (object && object.serviceUserId) || object
-    Route.open(
-      'groups',
-      ctrl.serviceProviderId,
-      ctrl.groupId,
-      'callCenters',
-      'callCenter'
-    ).search({ serviceUserId })
+      Route.open(
+        'groups',
+        ctrl.serviceProviderId,
+        ctrl.groupId,
+        'callCenters',
+        'callCenter'
+      ).search({ serviceUserId })
+
   }
 
   function add() {
