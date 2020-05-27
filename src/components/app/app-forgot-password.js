@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { useAlerts } from '@/store/alerts'
 import { useUi } from '@/store/ui'
-import { useUiTemplate } from '@/store/ui-template'
 import resetPasswordApi from '@/api/reset-password'
 import PropTypes from 'prop-types'
 import ReCAPTCHA from "react-google-recaptcha";
@@ -13,9 +12,6 @@ const ReCAPTCHA_SITE_KEY = "6LeYru8UAAAAAFgdMxLYZklkMIdxDF4xeK7n6XAu"
 export const AppForgotPassword = ({ match, history }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const { alertSuccess, alertDanger } = useAlerts()
-
-  const { template } = useUiTemplate()
-  const { pageLoginMessage } = template
 
   const formRef = React.useRef()
   const [valid, setValid] = useState(false)
@@ -136,16 +132,6 @@ export const AppForgotPassword = ({ match, history }) => {
             </form>
           </Box>
         </Hero.Body>
-
-        {pageLoginMessage && (
-          <Hero.Foot>
-            <Message radiusless>
-              <Message.Body textAlign="centered">
-                {pageLoginMessage}
-              </Message.Body>
-            </Message>
-          </Hero.Foot>
-        )}
       </Hero>
     </div>
   )

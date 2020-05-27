@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { useAlerts } from '@/store/alerts'
 import { useUi } from '@/store/ui'
-import { useUiTemplate } from '@/store/ui-template'
 import resetPasswordApi from '@/api/reset-password'
 import PropTypes from 'prop-types'
 
@@ -12,8 +11,6 @@ export const AppNewPassword = ({ match, history }) => {
   const { email, token } = match.params
   const { showLoadingModal, hideLoadingModal } = useUi()
   const { alertSuccess, alertDanger, alertWarning } = useAlerts()
-  const { template } = useUiTemplate()
-  const { pageLoginMessage } = template
   const formRef = React.useRef()
   const [canSubmit, setCanSubmit] = React.useState(false)
   const [form, setForm] = React.useState({
@@ -136,16 +133,6 @@ export const AppNewPassword = ({ match, history }) => {
             </form>
           </Box>
         </Hero.Body>
-
-        {pageLoginMessage && (
-          <Hero.Foot>
-            <Message radiusless>
-              <Message.Body textAlign="centered">
-                {pageLoginMessage}
-              </Message.Body>
-            </Message>
-          </Hero.Foot>
-        )}
       </Hero>
     </div>
   )
