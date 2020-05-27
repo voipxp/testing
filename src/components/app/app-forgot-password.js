@@ -51,6 +51,7 @@ export const AppForgotPassword = ({ match, history }) => {
       if(resetRes.status === 'success') {
         setSuccessMessage(resetRes.message)
         alertSuccess(resetRes.message)
+        setForm({ ...form, username: '', email: '' })
       }
       else {
         alertDanger(resetRes.error)
