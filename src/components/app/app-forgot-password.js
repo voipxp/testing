@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -8,6 +8,7 @@ import { useUiTemplate } from '@/store/ui-template'
 import resetPasswordApi from '@/api/reset-password'
 import PropTypes from 'prop-types'
 import ReCAPTCHA from "react-google-recaptcha";
+const ReCAPTCHA_SITE_KEY = "6LeYru8UAAAAAFgdMxLYZklkMIdxDF4xeK7n6XAu"
 
 export const AppForgotPassword = ({ match, history }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
@@ -17,10 +18,10 @@ export const AppForgotPassword = ({ match, history }) => {
   const { pageLoginMessage } = template
 
   const formRef = React.useRef()
-  const [valid, setValid] = React.useState(false)
-  const [gRecaptchaResponse, setGRecaptchaResponse] = React.useState('')
-
-  const [form, setForm] = React.useState({
+  const [valid, setValid] = useState(false)
+  const [gRecaptchaResponse, setGRecaptchaResponse] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
+  const [form, setForm] = useState({
     username: '',
     email: ''
   })
@@ -51,10 +52,17 @@ export const AppForgotPassword = ({ match, history }) => {
           'g-recaptcha-response': gRecaptchaResponse
         }
       )
-      if(resetRes.status === 'success') alertSuccess(resetRes.message)
-      else alertDanger(resetRes.error)
+      if(resetRes.status === 'success') {
+        setSuccessMessage(resetRes.message)
+        alertSuccess(resetRes.message)
+      }
+      else {
+        alertDanger(resetRes.error)
+        setSuccessMessage('')
+      }
     } catch (error) {
       alertDanger(error)
+      setSuccessMessage('')
     } finally {
       hideLoadingModal()
     }
@@ -66,6 +74,15 @@ export const AppForgotPassword = ({ match, history }) => {
         <Hero.Body textAlign="centered">
           <Box style={{ width: '400px', margin: 'auto' }}>
             <img src="/api/v2/ui/images/imageLoginLogo.png" alt="logo" />
+            {
+              successMessage && (
+              <Message radiusless color="success">
+                <Message.Body textAlign="centered">
+                  {successMessage}
+                </Message.Body>
+              </Message>
+              )
+            }
             <form onSubmit={handleSubmit} ref={formRef}>
                 <>
                 <Field>
@@ -103,7 +120,7 @@ export const AppForgotPassword = ({ match, history }) => {
 
               <Field style={{paddingBottom:'20px'}}>
                 <ReCAPTCHA
-                  sitekey="6LeYru8UAAAAAFgdMxLYZklkMIdxDF4xeK7n6XAu"
+                  sitekey={ ReCAPTCHA_SITE_KEY }
                   onChange={onReCaptchaChange}
                 />
               </Field>
