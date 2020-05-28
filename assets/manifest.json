@@ -21,5 +21,6 @@
     "script/double-rainbow.js",
     "script/main.js",
     "templates/"
-  ]
+  ],
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://ssl.google-analytics.com https://www.google-analytics.com https://www.google.com/recaptcha/api.js; object-src 'self'"
 }
