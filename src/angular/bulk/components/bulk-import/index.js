@@ -172,7 +172,7 @@ function controller(
       .then(function(data) {
         Alert.notify.success('Import Queued: ' + data.id)
         var returnTo = $location.search().returnTo
-        $location.path(modifyLastDirectoryPartOfUrl(returnTo, 'recent-tasks')).search({}).hash(null)
+        $location.path(modifyLastDirectoryPartOfUrl(returnTo, 'recentTasks')).search({}).hash(null)
       })
       .catch(function(error) {
         return $q.reject(error.data)
