@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.serviceProvider').component('serviceProviderServicePack', {
   template,
   controller,
-  bindings: { serviceProviderId: '<' }
+  bindings: { serviceProviderId: '<', servicePackName: '<' }
 })
 
 controller.$inject = [
@@ -40,7 +40,7 @@ function controller(
   }
 
   function onInit() {
-    ctrl.servicePackName = $location.search().servicePackName
+    //ctrl.servicePackName = $location.search().servicePackName
     ctrl.loading = true
     $q.all([loadServicePack(), loadPermissions()])
       .catch(function(error) {
@@ -66,19 +66,19 @@ function controller(
     })
   }
 
-  function open(servicePackName) { 
+  function open(servicePackName) {
     if (servicePackName) {
       Route.open(
         'serviceProviders',
         ctrl.serviceProviderId,
         'servicePacks',
-        'servicePack'
-      ).search({ servicePackName })
+        servicePackName
+      )
     } else {
       Route.open(
         'serviceProviders',
          ctrl.serviceProviderId,
-          'service-packs'
+          'servicePacks'
           )
     }
   }

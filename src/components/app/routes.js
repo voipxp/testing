@@ -37,11 +37,11 @@ export const routes = [
     angularComponent: 'brandingHostname',
     isPaasAdmin: true
   },
- {
-    path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
-    angularComponent: 'serviceProviderServicePack',
-    hasLevel: 'Service Provider'
-  },
+//  {
+//     path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
+//     angularComponent: 'serviceProviderServicePack',
+//     hasLevel: 'Service Provider'
+//   },
 
   // {
   //   path: '/system/networkClassOfServices/networkClassOfService',

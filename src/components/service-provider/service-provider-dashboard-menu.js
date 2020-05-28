@@ -3,6 +3,7 @@ import { Imports } from '@/components/imports'
 import { Exports } from '@/components/exports'
 import { ServiceProviderAudits } from './service-provider-audits'
 import { BulkTasksIndex } from '@/components/bulk'
+import { ServiceProviderServicePacksIndex } from '@/components/service-provider/service-provider-service-packs-index'
 
 export const dashboardMenu = [
   {
@@ -69,8 +70,8 @@ export const dashboardMenu = [
           },
           {
             name: 'Service Pack Services',
-            path: 'service-packs',
-            angularComponent: 'serviceProviderServicePacks',
+            path: 'servicePacks',
+            component: ServiceProviderServicePacksIndex,
             hasLevel: 'Service Provider'
           },
           {
