@@ -23,5 +23,5 @@
     "templates/"
   ],
   "permissions": ["https://www.google.com/recaptcha/api.js"],
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://ssl.google-analytics.com https://www.google-analytics.com https://www.google.com/recaptcha/api.js; object-src 'self'"
+  "content_security_policy": "default-src 'self' script-src 'nonce-rand0m1shValue' img-src www.gstatic.com frame-src www.google.com object-src 'none' base-uri 'none'"
 }
