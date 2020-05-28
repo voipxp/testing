@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import { AngularComponent } from '@/components/angular-component'
 import { UiCard } from '@/components/ui'
 
-export const ServiceProviderServicePacksIndex = ({ match }) => {
+export const ServiceProviderServicePacksIndex = ({ match, ...props }) => {
   const serviceProviderServicePackRender = () => {
     return (
       <UiCard title="">
@@ -23,7 +23,10 @@ export const ServiceProviderServicePacksIndex = ({ match }) => {
         />
         <Route
           render={() => (
-            <AngularComponent component="serviceProviderServicePacks" />
+            <AngularComponent
+              component="serviceProviderServicePacks"
+              { ...props }
+              />
           )}
         />
       </Switch>
