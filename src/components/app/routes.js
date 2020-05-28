@@ -198,12 +198,12 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Provisioning'
   },
-  {
-    path: '/bulk/tasks/:id',
-    angularComponent: 'bulkTask',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Provisioning'
-  },
+  // {
+  //   path: '/bulk/tasks/:id',
+  //   angularComponent: 'bulkTask',
+  //   hasLevel: 'Group Department',
+  //   hasModuleRead: 'Provisioning'
+  // },
   {
     path: '/bulk/users',
     angularComponent: 'bulkUsers',

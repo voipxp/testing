@@ -30,7 +30,7 @@ export const BulkSipTrunkingUploadBase = ({ history, location }) => {
 
   const goToRecentTask = () => {
     history.push(
-      UrlOperations.modifyLastDirectoryPartOfUrl(searchParams.get('returnTo'), 'recent-tasks')
+      UrlOperations.modifyLastDirectoryPartOfUrl(searchParams.get('returnTo'), 'recentTasks')
     )
   }
 

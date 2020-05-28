@@ -6,6 +6,7 @@ import { GroupCommunicationSettings } from './group-communication-settings'
 import { GroupWebPolicy } from './group-web-policy'
 import { GroupExtensionLength } from './group-extension-length'
 import { groupReportRoutes } from './group-report-routes'
+import { BulkTasksIndex } from '@/components/bulk'
 
 export const dashboardMenu = [
   {
@@ -86,8 +87,8 @@ export const dashboardMenu = [
           },
           {
             name: 'Recent Tasks',
-            path: 'recent-tasks',
-            angularComponent: 'bulkTasksIndex',
+            path: 'recentTasks',
+            component: BulkTasksIndex,
             hasLevel: 'Group',
             hasModuleRead: 'Provisioning'
           }
