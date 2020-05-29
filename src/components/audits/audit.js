@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useAsync } from 'react-async-hook'
 import { useAlerts } from '@/store/alerts'
 import auditApi from '@/api/audits'
+import exportApi from '@/api/exports'
 import settingsApi from '@/api/settings'
 import { Input, Select } from 'rbx'
 import {
@@ -43,6 +44,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
   const [form, setForm] = useState({})
   const [endpoints, setEndpoints] = useState([])
   const [showConfirm, setShowConfirm] = useState(false)
+  const [setExport2] = useState({})
   const KEY = 'exports'
 
   const { result, error, loading } = useAsync(() => auditApi.json(id), [id])
@@ -113,6 +115,24 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
       passcode: form.passcode
     })
     try {
+      const iResult = exportApi.create({
+        endpoint: form.endpoint,
+        auditId: id,
+        username: form.bwksUserId,
+        password: form.bwksPassword,
+        encryption: 'plain',
+        serviceProviderId: audit[0].serviceProviderId,
+        groupId: audit[0].groupId,
+        options: {
+          password: form.password,
+          sipAuthenticationPassword: form.sipAuthenticationPassword,
+          groupMailServerPassword: form.groupMailServerPassword,
+          passcode: form.passcode,
+          serviceProviderId: form.serviceProviderId,
+          groupId: form.groupId
+        }
+      })
+      setExport2(iResult)
       alertSuccess('Migration sent successfully to ' + form.endpoint)
     } catch (error_) {
       setShowExportModal(true)
