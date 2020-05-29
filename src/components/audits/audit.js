@@ -5,8 +5,7 @@ import { useAlerts } from '@/store/alerts'
 import auditApi from '@/api/audits'
 import exportApi from '@/api/exports'
 import settingsApi from '@/api/settings'
-import { AppBreadcrumb } from '@/components/app'
-import { Breadcrumb, Input, Select } from 'rbx'
+import { Input, Select } from 'rbx'
 import {
   UiCard,
   UiButton,
@@ -36,7 +35,7 @@ const columns = [
 
 export const Audit = ({ history, match, isBreadcrumb = true }) => {
   const id = match.params.id
-  const formRef = React.useRef()
+  // const formRef = React.useRef()
   const { alertDanger, alertSuccess } = useAlerts()
   const [showModal, setShowModal] = useState(false)
   const [showExportModal, setShowExportModal] = useState(false)
@@ -44,16 +43,16 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
   const [data, setData] = useState('')
   const [serviceType, setServiceType] = useState('')
   const [form, setForm] = useState({})
-  const [export2, setExport2] = useState({})
+  // const [export2, setExport2] = useState({})
   const [endpoints, setEndpoints] = useState([])
-  const [formValid, setFormValid] = React.useState(false)
+  // const [formValid, setFormValid] = React.useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const KEY = 'exports'
 
   const { result, error, loading } = useAsync(() => auditApi.json(id), [id])
 
   React.useEffect(() => {
-    if (formRef.current) setFormValid(formRef.current.checkValidity())
+    //if (formRef.current) setFormValid(formRef.current.checkValidity())
   }, [form])
 
   if (error) alertDanger(error)
@@ -122,7 +121,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
       passcode: form.passcode
     })
     try {
-      const iResult = exportApi.create({
+      exportApi.create({
         endpoint: form.endpoint,
         auditId: id,
         username: form.bwksUserId,
@@ -139,9 +138,8 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
           groupId: form.groupId
         }
       })
-      setExport2('iResult', iResult)
-      console.log('iResuult')
-      alertSuccess('Export sent successfully to ' + form.endpoint)
+      //setExport2('iResult', iResult)
+      alertSuccess('Migration sent successfully to ' + form.endpoint)
     } catch (error_) {
       setShowExportModal(true)
       alertDanger(error_)
@@ -176,13 +174,6 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
 
   return (
     <>
-      {isBreadcrumb && (
-        <AppBreadcrumb>
-          <Breadcrumb.Item href="/#!/audits">Audits</Breadcrumb.Item>
-          <Breadcrumb.Item>Audit {id}</Breadcrumb.Item>
-        </AppBreadcrumb>
-      )}
-
       {loading ? (
         <UiLoadingCard />
       ) : (
@@ -223,7 +214,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
               columns={columns}
               rows={audit}
               rowKey="id"
-              pageSize={20}
+              pageSize={25}
               onClick={open}
             />
           </UiCard>
@@ -240,7 +231,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         <UiLoadingModal isOpen={showLoading} />
       ) : (
         <UiCardModal
-          title={`Export Audit ${form.groupId} (${form.id})`}
+          title={`Migration Audit ${form.groupId} (${form.id})`}
           onCancel={() => setShowExportModal(false)}
           // onSave={uploadExport}
           onSave={
@@ -253,7 +244,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
               ? () => setShowConfirm(true)
               : null
           }
-          saveText="Export"
+          saveText="Migrate"
           isOpen={showExportModal}
         >
           <form>
@@ -396,7 +387,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         isOpen={showConfirm}
         onCancel={() => setShowConfirm(false)}
         onSave={uploadExport}
-        saveText="Export"
+        saveText="Migrate"
       >
         <blockquote>
           Are you sure you want to upload this audit {form.id} {form.groupId}?
