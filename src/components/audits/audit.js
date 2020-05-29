@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import { useAsync } from 'react-async-hook'
 import { useAlerts } from '@/store/alerts'
 import auditApi from '@/api/audits'
+import exportApi from '@/api/exports'
 import settingsApi from '@/api/settings'
-import { Input, Select } from 'rbx'
+import { AppBreadcrumb } from '@/components/app'
+import { Breadcrumb, Input, Select } from 'rbx'
 import {
   UiCard,
   UiButton,
@@ -34,6 +36,7 @@ const columns = [
 
 export const Audit = ({ history, match, isBreadcrumb = true }) => {
   const id = match.params.id
+  const formRef = React.useRef()
   const { alertDanger, alertSuccess } = useAlerts()
   const [showModal, setShowModal] = useState(false)
   const [showExportModal, setShowExportModal] = useState(false)
@@ -41,11 +44,17 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
   const [data, setData] = useState('')
   const [serviceType, setServiceType] = useState('')
   const [form, setForm] = useState({})
+  const [export2, setExport2] = useState({})
   const [endpoints, setEndpoints] = useState([])
+  const [formValid, setFormValid] = React.useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const KEY = 'exports'
 
   const { result, error, loading } = useAsync(() => auditApi.json(id), [id])
+
+  React.useEffect(() => {
+    if (formRef.current) setFormValid(formRef.current.checkValidity())
+  }, [form])
 
   if (error) alertDanger(error)
   const audit = result || {}
@@ -113,7 +122,26 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
       passcode: form.passcode
     })
     try {
-      alertSuccess('Migration sent successfully to ' + form.endpoint)
+      const iResult = exportApi.create({
+        endpoint: form.endpoint,
+        auditId: id,
+        username: form.bwksUserId,
+        password: form.bwksPassword,
+        encryption: 'plain',
+        serviceProviderId: audit[0].serviceProviderId,
+        groupId: audit[0].groupId,
+        options: {
+          password: form.password,
+          sipAuthenticationPassword: form.sipAuthenticationPassword,
+          groupMailServerPassword: form.groupMailServerPassword,
+          passcode: form.passcode,
+          serviceProviderId: form.serviceProviderId,
+          groupId: form.groupId
+        }
+      })
+      setExport2('iResult', iResult)
+      console.log('iResuult')
+      alertSuccess('Export sent successfully to ' + form.endpoint)
     } catch (error_) {
       setShowExportModal(true)
       alertDanger(error_)
@@ -148,6 +176,13 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
 
   return (
     <>
+      {isBreadcrumb && (
+        <AppBreadcrumb>
+          <Breadcrumb.Item href="/#!/audits">Audits</Breadcrumb.Item>
+          <Breadcrumb.Item>Audit {id}</Breadcrumb.Item>
+        </AppBreadcrumb>
+      )}
+
       {loading ? (
         <UiLoadingCard />
       ) : (
@@ -188,7 +223,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
               columns={columns}
               rows={audit}
               rowKey="id"
-              pageSize={25}
+              pageSize={20}
               onClick={open}
             />
           </UiCard>
@@ -205,7 +240,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         <UiLoadingModal isOpen={showLoading} />
       ) : (
         <UiCardModal
-          title={`Migration Audit ${form.groupId} (${form.id})`}
+          title={`Export Audit ${form.groupId} (${form.id})`}
           onCancel={() => setShowExportModal(false)}
           // onSave={uploadExport}
           onSave={
@@ -218,7 +253,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
               ? () => setShowConfirm(true)
               : null
           }
-          saveText="Migrate"
+          saveText="Export"
           isOpen={showExportModal}
         >
           <form>
@@ -361,7 +396,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
         isOpen={showConfirm}
         onCancel={() => setShowConfirm(false)}
         onSave={uploadExport}
-        saveText="Migrate"
+        saveText="Export"
       >
         <blockquote>
           Are you sure you want to upload this audit {form.id} {form.groupId}?
