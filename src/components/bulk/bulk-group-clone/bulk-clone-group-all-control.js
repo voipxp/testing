@@ -185,8 +185,10 @@ export const BulkCloneGroupAllControl = ({
 
         <UiFormField label="Clone Options">
           {cloneGroupOptions.map(el => {
+            const disabled = el.name === 'services'
             return (
               <UiInputCheckbox
+                disabled = {disabled}
                 key={el.name}
                 name={el.name}
                 label={el.label}
