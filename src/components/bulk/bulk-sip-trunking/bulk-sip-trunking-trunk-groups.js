@@ -13,6 +13,8 @@ export const BulkSipTrunkingTrunkGroups = ({
   handleWizData,
   localStorageKey
 }) => {
+  const { serviceProviderId, sourceServiceProviderId } = initialData
+  const sourceSPId = (sourceServiceProviderId && sourceServiceProviderId!== '') ? sourceServiceProviderId : serviceProviderId
   const { alertSuccess, alertDanger } = useAlerts()
 	const [taskData, setTaskData] = React.useState({})
   const [add, setAdd] = React.useState(false)
@@ -98,7 +100,7 @@ const prepareImportData = () => {
       task["accessDevice.deviceName"] = taskData.accessDevice.accessDeviceName
       task["accessDevice.deviceLevel"] = "Group"
       if (taskData.prefixEnabled) task["prefix"] = taskData.prefix
-      task['serviceProviderId'] = initialData.serviceProviderId
+      task['serviceProviderId'] = serviceProviderId
       task['groupId'] = initialData.groupId
 
       tasks.push(task)
@@ -119,7 +121,7 @@ const prepareImportData = () => {
       >
         <BulkAddTrunkGroup
          setTaskData={setTaskDataHandler}
-         serviceProviderId={initialData.serviceProviderId}
+         serviceProviderId={sourceSPId}
          groupId={initialData.groupId}
          deviceName={initialData.deviceName}
         />
