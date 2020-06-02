@@ -130,7 +130,7 @@ export const dashboardMenu = [
             name: 'Assign Numbers',
             path: 'groupNumbers',
             angularComponent: 'groupNumbers',
-            hasLevel: 'Service Provider',
+            hasLevel: 'Group',
             isPaasAdmin: true
           },
           {
