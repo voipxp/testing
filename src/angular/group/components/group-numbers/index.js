@@ -60,6 +60,7 @@ function controller(
   function onInit() {
     ctrl.loading = true
     ctrl.isProvisioning = ACL.has('Reseller')
+    ctrl.isServiceProvider = ACL.has('Service Provider')
     loadNumbers()
       .catch(Alert.notify.danger)
       .finally(function() {
