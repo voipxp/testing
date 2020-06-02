@@ -32,8 +32,9 @@ function controller(
   ctrl.onSelect = onSelect
   ctrl.onClick = onClick
   ctrl.editTitle = {}
+  ctrl.isServiceProvider = ACL.has('Service Provider')
   ctrl.actions = ['Unassign Numbers', 'Activate Numbers', 'Deactivate Numbers']
-
+  ctrl.editItems = ctrl.isServiceProvider ? ['Unassign Numbers', 'Activate Numbers', 'Deactivate Numbers'] : ['Activate Numbers', 'Deactivate Numbers']
   ctrl.columns = [
     {
       key: 'min',
@@ -60,7 +61,6 @@ function controller(
   function onInit() {
     ctrl.loading = true
     ctrl.isProvisioning = ACL.has('Reseller')
-    ctrl.isServiceProvider = ACL.has('Service Provider')
     loadNumbers()
       .catch(Alert.notify.danger)
       .finally(function() {
