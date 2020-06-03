@@ -25,7 +25,7 @@ export const dashboardMenu = [
         name: 'Auto Attendant',
         angularComponent: 'autoAttendants',
         hasModuleRead: 'Auto Attendant',
-        hasGroupService: ['Auto Attendant']
+        hasGroupService: ['Auto Attendant', 'Auto Attendant - Standard']
       },
       {
         path: 'callCenters',
