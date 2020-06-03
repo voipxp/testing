@@ -13,6 +13,7 @@ controller.$inject = [
   'ServiceProviderNumberService',
   'GroupNumberService',
   'NumberService',
+  'GroupPolicyService',
   'ACL'
 ]
 function controller(
@@ -20,6 +21,7 @@ function controller(
   ServiceProviderNumberService,
   GroupNumberService,
   NumberService,
+  GroupPolicyService,
   ACL
 ) {
   var ctrl = this
@@ -33,6 +35,8 @@ function controller(
   ctrl.onClick = onClick
   ctrl.editTitle = {}
   ctrl.isServiceProvider = ACL.has('Service Provider')
+  ctrl.canUpdate = true
+  ctrl.canRead = true
   ctrl.actions = ['Unassign Numbers', 'Activate Numbers', 'Deactivate Numbers']
   ctrl.editItems = ctrl.isServiceProvider ? ['Unassign Numbers', 'Activate Numbers', 'Deactivate Numbers'] : ['Activate Numbers', 'Deactivate Numbers']
   ctrl.columns = [
@@ -61,6 +65,11 @@ function controller(
   function onInit() {
     ctrl.loading = true
     ctrl.isProvisioning = ACL.has('Reseller')
+    if(!ctrl.isServiceProvider) {
+      ctrl.canUpdate = GroupPolicyService.numberActivationUpdate()
+      ctrl.canRead = GroupPolicyService.numberActivationRead()
+    }
+
     loadNumbers()
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -108,6 +117,7 @@ function controller(
   }
 
   function onClick(number) {
+    if(!ctrl.canUpdate) return
     var numbers = NumberService.expand(number)
     ctrl.editNumbers = {
       available: _.filter(numbers, function(_number) {
