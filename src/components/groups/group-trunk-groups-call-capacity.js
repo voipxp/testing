@@ -88,6 +88,6 @@ GroupTrunkGroupsCallCapacity.propTypes = {
   serviceProviderId: PropTypes.string.isRequired,
   setData: PropTypes.func,
   groupId: PropTypes.string,
-  maxActiveCall: PropTypes.string,
+  maxActiveCall: PropTypes.any,
   maxBurstCall: PropTypes.string
 }

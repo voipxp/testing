@@ -18,6 +18,15 @@
         <td>{{ $ctrl.template[field.key] }}</td>
       </tr>
       <tr
+        ng-repeat="field in $ctrl.fields.password"
+        ng-click="$ctrl.edit('password', field)"
+      >
+        <td>{{ field.label }}</td>
+        <td>
+          {{ $ctrl.template[field.key] ? '********' : '' }}
+        </td>
+      </tr>
+      <tr
         ng-repeat="field in $ctrl.fields.color"
         ng-click="$ctrl.edit('color', field)"
       >
@@ -72,6 +81,13 @@
   <pbs-form>
     <pbs-form-field label="{{ $ctrl.editField.label }}">
       <input type="text" class="input" ng-model="$ctrl.editField.value" />
+    </pbs-form-field>
+  </pbs-form>
+</pbs-modal>
+<pbs-modal id="editEmailTemplate-password" title="{{ $ctrl.editField.label }}">
+  <pbs-form>
+    <pbs-form-field label="{{ $ctrl.editField.label }}">
+      <input type="password" class="input" ng-model="$ctrl.editField.value"/>
     </pbs-form-field>
   </pbs-form>
 </pbs-modal>
