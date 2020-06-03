@@ -2,18 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { UiLoadingCard, UiMenu } from '@/components/ui'
 import { dashboardMenu } from './group-dashboard-menu'
-import { useModulePermissions, useAcl } from '@/utils'
+import { useModulePermissions, useAcl, UrlOperations } from '@/utils'
 import { AppBreadcrumb } from '@/components/app'
 import { Breadcrumb } from 'rbx'
-export const GroupDashboard = ({ match }) => {
+export const GroupDashboard = ({ match, history }) => {
   const [loading] = React.useState(false)
   const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
   const { hasModuleRead } = useModulePermissions()
-
-  const camelCasedTxt =  window.location.href.split("/").pop().replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })
-  const firstUpercaseLetters = camelCasedTxt.replace(/([A-Z])/g, ' $1').trim()
-  const breadcrumbNewItem = firstUpercaseLetters.charAt(0).toUpperCase() + firstUpercaseLetters.slice(1)
- // filter items we should not see
+  const breadcrumbs = UrlOperations.getBreadcrumbItems(match.url, history.location.pathname) || []
 
   const menu = React.useMemo(() => {
     const filterItems = (item) => {
@@ -55,12 +51,17 @@ export const GroupDashboard = ({ match }) => {
   return (
     <>
       <AppBreadcrumb>
-        <Breadcrumb.Item> {breadcrumbNewItem}</Breadcrumb.Item>
+        {breadcrumbs.map(el => (
+          <Breadcrumb.Item href={el.href} key={el.label}>
+            {el.label}
+          </Breadcrumb.Item>
+        ))}
       </AppBreadcrumb>
       {loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
     </>
   )
  }
 GroupDashboard.propTypes = {
-   match: PropTypes.object.isRequired
-  }
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object
+}

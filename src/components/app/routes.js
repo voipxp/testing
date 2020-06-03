@@ -37,17 +37,17 @@ export const routes = [
     angularComponent: 'brandingHostname',
     isPaasAdmin: true
   },
- {
-    path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
-    angularComponent: 'serviceProviderServicePack',
-    hasLevel: 'Service Provider'
-  },
+//  {
+//     path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
+//     angularComponent: 'serviceProviderServicePack',
+//     hasLevel: 'Service Provider'
+//   },
 
-  {
-    path: '/system/networkClassOfServices/networkClassOfService',
-    angularComponent: 'systemNetworkClassOfService',
-    hasLevel: 'System'
-  },
+  // {
+  //   path: '/system/networkClassOfServices/networkClassOfService',
+  //   angularComponent: 'systemNetworkClassOfService',
+  //   hasLevel: 'System'
+  // },
   {
     path: '/serviceProviders/:serviceProviderId/reports/callCapacity',
     angularComponent: 'serviceProviderTrunkGroupsCallCapacityReport',
@@ -198,12 +198,12 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Provisioning'
   },
-  {
-    path: '/bulk/tasks/:id',
-    angularComponent: 'bulkTask',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Provisioning'
-  },
+  // {
+  //   path: '/bulk/tasks/:id',
+  //   angularComponent: 'bulkTask',
+  //   hasLevel: 'Group Department',
+  //   hasModuleRead: 'Provisioning'
+  // },
   {
     path: '/bulk/users',
     angularComponent: 'bulkUsers',
@@ -892,11 +892,11 @@ export const routes = [
     component: ResellerDashboard,
     hasLevel: 'Reseller'
   },
-  {
-    path: '/audits/:id',
-    component: Audit,
-    hasLevel: 'Service Provider'
-  },
+  // {
+  //   path: '/audits/:id',
+  //   component: Audit,
+  //   hasLevel: 'Service Provider'
+  // },
   {
     path: '/imports',
     exact: true,
@@ -908,6 +908,7 @@ export const routes = [
     component: Import,
     hasLevel: 'Service Provider'
   },
+/*
   {
     path: '/exports',
     exact: true,
@@ -919,6 +920,7 @@ export const routes = [
     component: Export,
     hasLevel: 'Service Provider'
   },
+*/
   {
     path: '/department/:serviceProviderId/:groupId',
     component: DepartmentDashboard

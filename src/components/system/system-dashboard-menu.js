@@ -2,6 +2,9 @@ import { ReportRouteSettings } from './system-report-settings'
 import { Audits } from '@/components/audits'
 import { Imports } from '@/components/imports'
 import { Exports } from '@/components/exports'
+import { SystemNetworkClassOfServicesIndex } from '@/components/system/system-network-class-of-services-index'
+import { BulkTasksIndex } from '@/components/bulk'
+
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -47,8 +50,8 @@ export const dashboardMenu = [
           },
           {
             name: 'Recent Tasks',
-            path: 'recent-tasks',
-            angularComponent: 'bulkTasksIndex',
+            path: 'recentTasks',
+            component: BulkTasksIndex,
             hasLevel: 'Provisioning',
             hasModuleRead: 'Provisioning'
           }
@@ -75,7 +78,7 @@ export const dashboardMenu = [
       },
       {
         name: 'Migrate',
-        path: 'exports',
+        path: 'migrations',
         exact: true,
         component: Exports,
         hasLevel: 'Provisioning',
@@ -115,7 +118,7 @@ export const dashboardMenu = [
       {
         name: 'Network Class of Services',
         path: 'networkClassOfServices',
-        angularComponent: 'systemNetworkClassOfServices',
+        component: SystemNetworkClassOfServicesIndex,
         hasLevel: 'System'
       }
     ]

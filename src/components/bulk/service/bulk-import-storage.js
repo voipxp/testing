@@ -88,6 +88,14 @@ import {
       let tempName = task
       if(tempName === "trunk.group.call.capacity" && (users && users[0]['groupId']) ) tempName = 'group-' + tempName
       else if(tempName === "trunk.group.call.capacity" && (users && !users[0]['groupId'])) tempName = 'enterprise-' + tempName
+
+      /* Prefix  serviceProviderId */
+      if(users[0]) {
+        let spId
+        if(users[0]['serviceProviderId']) spId = users[0]['serviceProviderId']
+        else if(users[0]['destination.serviceProviderId']) spId = users[0]['destination.serviceProviderId']
+        if(spId) tempName = `${spId}.${tempName}`
+      }
       setFileName(tempName)
     }, [task, users])
 
