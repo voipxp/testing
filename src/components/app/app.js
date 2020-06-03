@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Route, Switch } from 'react-router-dom'
 import { Section } from 'rbx'
 import { AngularComponent } from '@/components/angular-component'
 import { UiLoadingPage } from '@/components/ui'
@@ -8,10 +9,13 @@ import { useSession } from '@/store/session'
 import {
   AppAlerts,
   AppFooter,
+  AppForgotPassword,
   AppLoadingModal,
   AppLogin,
   AppNavbar,
-  AppRoutes
+  AppNewPassword,
+  AppRoutes,
+  AppResetPassword
 } from '@/components/app'
 
 const Wrapper = styled.div`
@@ -37,7 +41,16 @@ export const App = () => {
           <AppFooter />
         </>
       ) : (
-        <AppLogin />
+        <Switch>
+          {/* This is change password */}
+          <Route path='/resetPassword' component={AppResetPassword}/>
+          {/* This is part of forget password */}
+          <Route path='/passwordreset/:email/:token' component={AppNewPassword}/>
+          {/* This is part of forget password */}
+          <Route path='/forgotPassword' component={AppForgotPassword}/>
+          {/* Go To Login Page */}
+          <Route path='/' component={AppLogin}/>
+        </Switch>
       )}
       <AngularComponent component="pbsConfirmModal" />
       <AppLoadingModal />

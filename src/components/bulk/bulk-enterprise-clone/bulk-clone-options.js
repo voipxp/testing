@@ -67,9 +67,11 @@ export const BulkCloneOptions = props => {
   }
 
   const prepareOptions = options.map((el, index) => {
+    const disabled = el.name === 'services' || el.name === 'servicePacks'
     return (
       <li key={el.name} style={{ padding: '10px' }}>
         <UiInputCheckbox
+          disabled = {disabled}
           key={el.name}
           name={el.name}
           label={el.label}

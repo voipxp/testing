@@ -1,4 +1,5 @@
 import './branding-application-service'
+import './branding-email-service'
 import './branding-hostname-service'
 import './branding-module-service'
 import './branding-resource-service'
