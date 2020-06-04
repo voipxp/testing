@@ -21,7 +21,8 @@ export const dashboardMenu = [
         path: 'vdm',
         angularComponent: 'vdmDashboard',
         hasLevel: 'System',
-        module: 'VDM'
+        module: 'VDM',
+        hasModuleRead: 'VDM'
       }
     ]
   },
