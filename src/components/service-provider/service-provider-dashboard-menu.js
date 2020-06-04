@@ -95,6 +95,13 @@ export const dashboardMenu = [
             hasLevel: 'Reseller'
           },
           {
+            name: 'Routing Profile',
+            path: 'routingProfile',
+            angularComponent: 'serviceProviderRoutingProfile',
+            hasLevel: 'Service Provider',
+            module: 'Routing Profile'
+          },
+          {
             name: 'Delete Service Provider',
             path: 'delete',
             angularComponent: 'serviceProviderDelete',
