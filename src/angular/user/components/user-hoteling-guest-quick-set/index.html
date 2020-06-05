@@ -1,0 +1,9 @@
+<pbs-form-field label="Hot Desking">
+  <pbs-input-switch
+    label="N/A"
+    ng-label="$ctrl.settings.forwardToPhoneNumber"
+    ng-model="$ctrl.settings.isActive"
+    ng-change="$ctrl.toggle()"
+    ng-disabled="$ctrl.loading"
+  ></pbs-input-switch>
+</pbs-form-field>
