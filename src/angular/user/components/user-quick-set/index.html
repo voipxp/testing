@@ -59,6 +59,17 @@
             user-id="$ctrl.userId"
           ></user-remote-office>
         </div>
+        <div class="panel-block" ng-if="$ctrl.has('Hoteling Guest')">
+          <span class="panel-icon is-left">
+            <i class="fas fa-briefcase" aria-hidden="true"></i>
+          </span>
+          <user-hoteling-guest
+            show-quick="true"
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            user-id="$ctrl.userId"
+          ></user-hoteling-guest>
+        </div>
       </nav>
     </pbs-column>
     <pbs-column>
