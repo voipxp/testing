@@ -9,4 +9,3 @@ dist/
 node_modules/
 stats.json
 .vscode/
-/src/components/groups/service-settings/group-service-settings.js

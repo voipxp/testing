@@ -9,8 +9,8 @@ angular.module('odin.bulk').component('bulkTasks', {
   }
 })
 
-controller.$inject = ['TaskService', 'Alert', 'Route', '$timeout']
-function controller(TaskService, Alert, Route, $timeout) {
+controller.$inject = ['TaskService', 'Alert', 'Route', '$timeout', '$location']
+function controller(TaskService, Alert, Route, $timeout, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.$onDestroy = stopReload
@@ -19,9 +19,6 @@ function controller(TaskService, Alert, Route, $timeout) {
   ctrl.searchStatus = {}
 
   var defaultLimit = 50
-
-  var route = 'bulk/tasks'
-
   var reload
 
   function onInit() {
@@ -73,6 +70,7 @@ function controller(TaskService, Alert, Route, $timeout) {
   }
 
   function open(task) {
-    Route.open(route, task && task.id)
+    var currentUrl = $location.path()
+    $location.path(currentUrl + '/' + task.id).replace()
   }
 }

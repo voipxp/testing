@@ -6,6 +6,7 @@ import { GroupCommunicationSettings } from './group-communication-settings'
 import { GroupWebPolicy } from './group-web-policy'
 import { GroupExtensionLength } from './group-extension-length'
 import { groupReportRoutes } from './group-report-routes'
+import { BulkTasksIndex } from '@/components/bulk'
 
 export const dashboardMenu = [
   {
@@ -38,14 +39,14 @@ export const dashboardMenu = [
         default: true
       },
       {
-        name: 'Group Settings',
+        name: 'Group Services',
         path: 'group-services',
         component: GroupServiceSettings,
         serviceType: 'groupServices'
       },
       {
         path: 'user-services',
-        name: 'User Settings',
+        name: 'User Bulk Services',
         component: GroupUserServiceSettings
       }
     ]
@@ -86,8 +87,8 @@ export const dashboardMenu = [
           },
           {
             name: 'Recent Tasks',
-            path: 'recent-tasks',
-            angularComponent: 'bulkTasksIndex',
+            path: 'recentTasks',
+            component: BulkTasksIndex,
             hasLevel: 'Group',
             hasModuleRead: 'Provisioning'
           }
@@ -129,7 +130,7 @@ export const dashboardMenu = [
             name: 'Assign Numbers',
             path: 'groupNumbers',
             angularComponent: 'groupNumbers',
-            hasLevel: 'Service Provider',
+            hasLevel: 'Group',
             isPaasAdmin: true
           },
           {
@@ -146,6 +147,15 @@ export const dashboardMenu = [
             hasLevel: 'Group',
             isPaasAdmin: true
           },
+          {
+            name: 'Routing Profile',
+            path: 'routingProfile',
+            angularComponent: 'groupRoutingProfile',
+            hasLevel: 'Service Provider',
+            isPaasAdmin: true,
+            module: 'Routing Profile'
+          },
+
           {
             name: 'Group Extension Length',
             path: 'groupExtensionLength',
@@ -229,10 +239,24 @@ export const dashboardMenu = [
       },
       {
         name: 'Viewable Packs',
-        path: 'viewablePacks',
-        angularComponent: 'groupViewablePacksIndex',
-        hasLevel: 'Group',
-        hasModuleRead: 'Viewable Service Packs'
+        subMenus: [
+          {
+            name: 'Users',
+            path: 'virtualPacks',
+            angularComponent: 'groupViewablePackUsers',
+            hasLevel: 'Group',
+            hasModuleRead: 'Viewable Service Packs',
+            packName: 'user'
+          },
+          {
+            name: 'viewable Packs',
+            path: 'viewablePacks',
+            angularComponent: 'groupViewablePackUsers',
+            hasLevel: 'Group',
+            hasModuleRead: 'Viewable Service Packs',
+            packName: 'viewablePacks'
+          }
+        ]
       },
       {
         name: 'VDM',

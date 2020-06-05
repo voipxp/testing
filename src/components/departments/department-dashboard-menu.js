@@ -6,14 +6,14 @@ export const dashboardMenu = [
         path: 'users',
         name: 'Users',
         angularComponent: 'groupUsers',
-        hasModuleRead: 'Department User',
+        //hasModuleRead: 'Department User',
         hasPolicy: 'departmentAdminUserAccess'
       },
 	    {
         path: 'change-password',
         name: 'Change Password ',
         angularComponent: 'departmentChangePassword',
-        hasModuleRead: 'Department Change Password'
+        // hasModuleRead: 'Department Change Password'
       }
     ]
   },
@@ -25,7 +25,7 @@ export const dashboardMenu = [
         name: 'Auto Attendant',
         angularComponent: 'autoAttendants',
         hasModuleRead: 'Auto Attendant',
-        hasGroupService: ['Auto Attendant']
+        hasGroupService: ['Auto Attendant', 'Auto Attendant - Standard']
       },
       {
         path: 'callCenters',

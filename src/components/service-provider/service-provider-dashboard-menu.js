@@ -1,10 +1,10 @@
 import { ReportRouteSettings } from './service-provider-report-settings'
-//import { ManagementRouteSettings } from './service-provider-management-settings'
-// import { ProvisioningRouteSettings  } from './service-provider-provisioning-settings'
 import { Imports } from '@/components/imports'
 import { Exports } from '@/components/exports'
 import { ServiceProviderAudits } from './service-provider-audits'
-// import { BulkDashBoardMenu } from '@/components/bulk'
+import { BulkTasksIndex } from '@/components/bulk'
+import { ServiceProviderServicePacksIndex } from '@/components/service-provider/service-provider-service-packs-index'
+
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -51,8 +51,8 @@ export const dashboardMenu = [
           },
           {
             name: 'Recent Tasks',
-            path: 'recent-tasks',
-            angularComponent: 'bulkTasksIndex',
+            path: 'recentTasks',
+            component: BulkTasksIndex,
             hasLevel: 'Group',
             hasModuleRead: 'Provisioning'
           }
@@ -70,8 +70,8 @@ export const dashboardMenu = [
           },
           {
             name: 'Service Pack Services',
-            path: 'service-packs',
-            angularComponent: 'serviceProviderServicePacks',
+            path: 'servicePacks',
+            component: ServiceProviderServicePacksIndex,
             hasLevel: 'Service Provider'
           },
           {
@@ -93,6 +93,13 @@ export const dashboardMenu = [
             acl: 'Reseller',
             angularComponent: 'serviceProviderDevices',
             hasLevel: 'Reseller'
+          },
+          {
+            name: 'Routing Profile',
+            path: 'routingProfile',
+            angularComponent: 'serviceProviderRoutingProfile',
+            hasLevel: 'Service Provider',
+            module: 'Routing Profile'
           },
           {
             name: 'Delete Service Provider',
@@ -157,7 +164,7 @@ export const dashboardMenu = [
       },
       {
         name: 'Migrate',
-        path: 'exports',
+        path: 'migrations',
         exact: true,
         component: Exports,
         hasLevel: 'Service Provider',
