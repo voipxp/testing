@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.user').component('userHotelingGuest', {
   template,
   controller,
-  bindings: { userId: '<' }
+  bindings: { userId: '<', showQuick: '<' }
 })
 
 controller.$inject = ['$q', 'Alert', 'UserHotelingGuestService', 'Module']
@@ -13,6 +13,7 @@ function controller($q, Alert, UserHotelingGuestService, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
+  ctrl.toggle = toggle
   ctrl.availableUsers = {}
   ctrl.userDescription = userDescription
   ctrl.options = UserHotelingGuestService.options
@@ -90,6 +91,25 @@ function controller($q, Alert, UserHotelingGuestService, Module) {
       })
       .finally(function() {
         Alert.spinner.close()
+      })
+  }
+
+  function toggle() {
+    ctrl.loading = true
+    UserHotelingGuestService.update(ctrl.userId, ctrl.settings)
+      // .then(loadSettings)
+      .then(function(data) {
+        ctrl.settings = data
+      })
+      .then(function() {
+        Alert.notify.success('Hoteling Guest Updated')
+      })
+      .catch(function(error) {
+        ctrl.settings.isActive = !ctrl.settings.isActive
+        Alert.notify.danger(error)
+      })
+      .finally(function() {
+        ctrl.loading = false
       })
   }
 }

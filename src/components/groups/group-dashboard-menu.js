@@ -130,7 +130,7 @@ export const dashboardMenu = [
             name: 'Assign Numbers',
             path: 'groupNumbers',
             angularComponent: 'groupNumbers',
-            hasLevel: 'Service Provider',
+            hasLevel: 'Group',
             isPaasAdmin: true
           },
           {
@@ -147,6 +147,15 @@ export const dashboardMenu = [
             hasLevel: 'Group',
             isPaasAdmin: true
           },
+          {
+            name: 'Routing Profile',
+            path: 'routingProfile',
+            angularComponent: 'groupRoutingProfile',
+            hasLevel: 'Service Provider',
+            isPaasAdmin: true,
+            module: 'Routing Profile'
+          },
+
           {
             name: 'Group Extension Length',
             path: 'groupExtensionLength',

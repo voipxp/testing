@@ -19,14 +19,17 @@ function controller(Alert, BrandingEmailService) {
     { key: 'mailDriver', label: 'Mail Driver' },
     { key: 'mailHost', label: 'Mail Host' },
     { key: 'mailPort', label: 'Mail Port' },
-    { key: 'mailUsername', label: 'Mail Username' },
-    { key: 'mailPassword', label: 'Mail Password' },
+    // { key: 'mailPassword', label: 'Mail Password' },
     { key: 'mailEncryption', label: 'Mail Encryption' },
     { key: 'mailWebPortalUrl', label: 'Mail Port Url' },
     { key: 'mailTokenRevokeMinutes', label: 'Mail Token Revoke Minutes' },
     { key: 'mailSubject', label: 'Mail Subject' },
     { key: 'mailFromAddress', label: 'Mail From Address' },
-    { key: 'mailFromName', label: 'Mail From Name' }
+    { key: 'mailFromName', label: 'Mail From Name' },
+    { key: 'mailUsername', label: 'Mail Username' }
+  ]
+  ctrl.fields.password = [
+    { key: 'mailPassword', label: 'Mail Password' },
   ]
 
   function onInit() {
