@@ -102,15 +102,17 @@ function controller(ACL, Alert, GroupCallPickupService, Route, Module, $location
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'callPickup',
-        'group'
-      ).search({ name: name })
+        'group-services',
+        'callPickups',
+        name
+      ).search({ module: ctrl.module })
     } else {
       return Route.open(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'callPickup'
+        'group-services',
+        'callPickups'
       )
     }
   }
@@ -156,10 +158,10 @@ function controller(ACL, Alert, GroupCallPickupService, Route, Module, $location
         ctrl.serviceProviderId,
         ctrl.groupId,
         'group-services',
-        'callPickup'
+        'callPickups'
         )
     }else{
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPickup')
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'group-services', 'callPickups')
     }
   }
 
