@@ -30,7 +30,7 @@ export const GroupServiceSettings = ({ history, match }) => {
     'groups-available-services',
 	  () => api.available(groupId , serviceProviderId)
   )
-  
+
   const hasAvailableGroupService  =  result || []
 
   const showService = service => {
@@ -72,17 +72,17 @@ export const GroupServiceSettings = ({ history, match }) => {
   // The base view when no sub-component picked
 
   /* changes service name/description for Flexible Seating Guest to Flexible Seating Hosts */
-  
+
   services.forEach(function(service) {
     const matchDesc = service.description
     if ( "Flexible Seating Guest" === matchDesc )
       service.description = service.name = "Flexible Seating Hosts"
-    if ( "Collaborate - Audio" === matchDesc ) 
+    if ( "Collaborate - Audio" === matchDesc )
       service.description = service.name = "Collaborate"
-    if ( ( "Auto Attendant" || "Auto Attendant - Video" || "Auto Attendant - Standard" ) === matchDesc ) 
+    if ( ( "Auto Attendant" || "Auto Attendant - Video" || "Auto Attendant - Standard" ) === matchDesc )
       service.description = service.name = "Auto Receptionist"
   });
-  
+
   const GroupServiceList = () => {
     return isLoading ? (
       <UiLoadingCard />
@@ -117,6 +117,8 @@ export const GroupServiceSettings = ({ history, match }) => {
 
   return (
     <Switch>
+      {/* When individual row item gets clicked */}
+      <Route path={`${match.path}/:path/:name`} exact render={renderRoute} />
       <Route path={`${match.path}/:path`} exact render={renderRoute} />
       <Route render={GroupServiceList} />
     </Switch>

@@ -10,18 +10,12 @@ import {
   GroupExtensionLength,
   GroupWebPolicy,
   GroupNumbers,
-  //GroupSeriesCompletion,
-  //SharedCallAppearancesReport,
-  //GroupPushNotificationRegistration
   GroupDashboard
 } from '@/components/groups'
 import { SystemResellers, SystemDashboard } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
-import { Audit } from '@/components/audits'
-import { Imports, Import } from '@/components/imports'
 import { BulkSipTrunking } from '@/components/bulk'
 import { BulkSipTrunkingUpload } from '@/components/bulk/bulk-sip-trunking-upload/bulk-sip-trunking-upload'
-import { Exports, Export } from '@/components/exports'
 export const routes = [
   {
     path: '/account',
@@ -168,12 +162,12 @@ export const routes = [
     hasLevel: 'Group Department',
     hasModuleRead: 'Hunt Group'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callPickup/group',
-    angularComponent: 'groupCallPickup',
-    hasLevel: 'Group',
-    hasModuleRead: 'Call Pickup'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/callPickup/group',
+  //   angularComponent: 'groupCallPickup',
+  //   hasLevel: 'Group',
+  //   hasModuleRead: 'Call Pickup'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter',
     angularComponent: 'groupCallCenter',
@@ -472,12 +466,12 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Auto Attendant'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callPickup',
-    angularComponent: 'groupCallPickups',
-    hasLevel: 'Group',
-    hasModuleRead: 'Call Pickup'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/callPickup',
+  //   angularComponent: 'groupCallPickups',
+  //   hasLevel: 'Group',
+  //   hasModuleRead: 'Call Pickup'
+  // },
   /*{
     path: '/groups/:serviceProviderId/:groupId/seriesCompletion',
     component: GroupSeriesCompletion,
@@ -897,6 +891,7 @@ export const routes = [
   //   component: Audit,
   //   hasLevel: 'Service Provider'
   // },
+  /*
   {
     path: '/imports',
     exact: true,
@@ -908,6 +903,7 @@ export const routes = [
     component: Import,
     hasLevel: 'Service Provider'
   },
+  */
 /*
   {
     path: '/exports',
