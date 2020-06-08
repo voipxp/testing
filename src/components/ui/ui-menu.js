@@ -114,6 +114,7 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
   const [activeSubMenuArr, setActiveSubMenuArr] = React.useState([])
 
   const renderRoute = routeProps => {
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth' })
     const path = routeProps.match.params.path
     let route
     for (const section of menu) {
