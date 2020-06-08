@@ -1,23 +1,25 @@
 import angular from 'angular'
 import template from './index.html'
 
-angular.module('odin.group').component('groupRoutingProfile', {
-  template,
-  controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
-})
+angular
+  .module('odin.serviceProvider')
+  .component('serviceProviderRoutingProfile', {
+    template,
+    controller,
+    bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+  })
 
 controller.$inject = [
   '$q',
   'Alert',
   'SystemRoutingProfileService',
-  'GroupRoutingProfileService'
+  'ServiceProviderRoutingProfileService'
 ]
 function controller(
   $q,
   Alert,
   SystemRoutingProfileService,
-  GroupRoutingProfileService
+  ServiceProviderRoutingProfileService
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -27,7 +29,7 @@ function controller(
   function onInit() {
     ctrl.loading = true
     return $q
-      .all([loadSystemRoutingProfiles(), loadGroupRoutingProfile()])
+      .all([loadSystemRoutingProfiles(), loadServiceProviderRoutingProfile()])
       .then(function() {})
       .catch(Alert.notify.danger)
       .finally(function() {
@@ -41,10 +43,9 @@ function controller(
     })
   }
 
-  function loadGroupRoutingProfile() {
-    return GroupRoutingProfileService.show(
-      ctrl.serviceProviderId,
-      ctrl.groupId
+  function loadServiceProviderRoutingProfile() {
+    return ServiceProviderRoutingProfileService.show(
+      ctrl.serviceProviderId
     ).then(function(data) {
       ctrl.settings = data
     })
@@ -52,7 +53,7 @@ function controller(
 
   function edit() {
     ctrl.editSettings = angular.copy(ctrl.settings)
-    Alert.modal.open('editGroupRoutingProfileModal', function(close) {
+    Alert.modal.open('editServiceProviderRoutingProfileModal', function(close) {
       update(ctrl.editSettings, close)
     })
   }
@@ -60,13 +61,11 @@ function controller(
   function update(settings, callback) {
     Alert.spinner.open()
     settings.serviceProviderId = ctrl.serviceProviderId
-    settings.groupId = ctrl.groupId
-    GroupRoutingProfileService.update(
+    ServiceProviderRoutingProfileService.update(
       ctrl.serviceProviderId,
-      ctrl.groupId,
       ctrl.editSettings.routingProfile
     )
-      .then(loadGroupRoutingProfile)
+      .then(loadServiceProviderRoutingProfile)
       .then(function() {
         Alert.notify.success('Settings Updated')
         callback()
