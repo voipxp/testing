@@ -8,13 +8,14 @@ import { groupServiceRoutes } from './group-service-routes'
 import api  from '@/api/group-services'
 import { useQuery } from 'react-query'
 import {
+  useAcl,
   useModulePermissions
 } from '@/utils'
 
 /* eslint-disable react/display-name */
 const columns = [
   {
-    key: 'name',
+    key: 'service',
     label: 'Name'
   },
   {
@@ -26,11 +27,11 @@ const columns = [
 export const GroupServiceSettings = ({ history, match }) => {
   const { serviceProviderId, groupId } = match.params
   const { getModule, hasModuleRead } = useModulePermissions()
+  const { hasPolicy } = useAcl()
   const { data: result, isLoading } = useQuery(
     'groups-available-services',
 	  () => api.available(groupId , serviceProviderId)
   )
-
   const hasAvailableGroupService  =  result || []
 
   const showService = service => {
@@ -60,28 +61,20 @@ export const GroupServiceSettings = ({ history, match }) => {
     const filtered = hasAvailableGroupService
       .filter(service => {
         const route = allowedServices[service]
-        return route && route.hasModuleRead && hasModuleRead(route.hasModuleRead)
+        if(!route) return false
+        if(route && route.hasModuleRead && !hasModuleRead(route.hasModuleRead)) return false
+        if(route && route.hasPolicy && !hasPolicy(route.hasPolicy)) return false
+        return true
       }).map(service => {
           const route = allowedServices[service]
           const module = getModule(route.hasModuleRead)
-          return { ...module, ...service, path: route.path }
+          return { ...module, ...service, path: route.path, service: route.name || module.alias}
         })
       // remove dups such as Shared Call Appearance
-      return uniqBy(filtered, 'name')
-  }, [getModule, hasModuleRead, hasAvailableGroupService])
+      return uniqBy(filtered, 'service')
+  }, [getModule, hasModuleRead, hasAvailableGroupService, hasPolicy])
   // The base view when no sub-component picked
 
-  /* changes service name/description for Flexible Seating Guest to Flexible Seating Hosts */
-
-  services.forEach(function(service) {
-    const matchDesc = service.description
-    if ( "Flexible Seating Guest" === matchDesc )
-      service.description = service.name = "Flexible Seating Hosts"
-    if ( "Collaborate - Audio" === matchDesc )
-      service.description = service.name = "Collaborate"
-    if ( ( "Auto Attendant" || "Auto Attendant - Video" || "Auto Attendant - Standard" ) === matchDesc )
-      service.description = service.name = "Auto Receptionist"
-  });
 
   const GroupServiceList = () => {
     return isLoading ? (
@@ -91,7 +84,7 @@ export const GroupServiceSettings = ({ history, match }) => {
         <UiDataTable
           columns={columns}
           rows={services}
-          rowKey="name"
+          rowKey="service"
           pageSize={25}
           onClick={service => showService(service)}
         />

@@ -148,6 +148,15 @@ export const dashboardMenu = [
             isPaasAdmin: true
           },
           {
+            name: 'Routing Profile',
+            path: 'routingProfile',
+            angularComponent: 'groupRoutingProfile',
+            hasLevel: 'Service Provider',
+            isPaasAdmin: true,
+            module: 'Routing Profile'
+          },
+
+          {
             name: 'Group Extension Length',
             path: 'groupExtensionLength',
             component: GroupExtensionLength,
