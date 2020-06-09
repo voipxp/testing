@@ -228,6 +228,10 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
     setActiveSubMenuArr(temp)
   }
 
+  const onMenuItemClick = () => {
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth' })
+  }
+
   const drawSubMenu = (item, index) => {
     return (
       <>
@@ -240,6 +244,7 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                   key={subMenu.path}
                   active={isActive(subMenu)}
                   href={`#!${subMenuPath}`}
+                  onClick={onMenuItemClick}
                 >
                   <>
                     {subMenu.icon && (
@@ -294,6 +299,7 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
                             key={item.path}
                             active={isActive(item)}
                             href={`#!${path}`}
+                            onClick={onMenuItemClick}
                           >
                             <>
                               {item.icon && (
