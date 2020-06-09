@@ -82,11 +82,10 @@
 
 <div ng-show="$ctrl.showQuick">
   <label class="label hover" ng-click="$ctrl.edit()">
-    <a href="">Call Forward To Voicemail Always</a>
+    <a href="">Forward All Calls To Voicemail</a>
   </label>
   <pbs-input-switch
-    ng-label="$ctrl.messaging.transferPhoneNumber || 'N/A'"
-    ng-model="$ctrl.messaging.isActive"
+    ng-model="$ctrl.messaging.alwaysRedirectToVoiceMail"
     ng-change="$ctrl.toggle()"
     ng-disabled="$ctrl.loading"
   ></pbs-input-switch>
