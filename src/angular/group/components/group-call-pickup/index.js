@@ -105,7 +105,7 @@ function controller(ACL, Alert, GroupCallPickupService, Route, Module, $location
         'group-services',
         'callPickups',
         name
-      ).search({ module: ctrl.module })
+      )
     } else {
       return Route.open(
         'groups',

@@ -7,20 +7,27 @@ angular.module('odin.group').component('groupCallPickups', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupCallPickupService', 'Route', '$location']
-function controller(Alert, GroupCallPickupService, Route, $location) {
+controller.$inject = ['Alert', 'GroupCallPickupService', 'Route', '$location', 'Module']
+function controller(Alert, GroupCallPickupService, Route, $location, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.open = open
   ctrl.add = add
 
   function onInit() {
+    loadModule()
     ctrl.loading = true
     loadGroups()
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
       })
+  }
+
+  function loadModule() {
+    return Module.show("Call Pickup").then(function(data) {
+      ctrl.module = data
+    })
   }
 
   function loadGroups() {
@@ -62,6 +69,6 @@ function controller(Alert, GroupCallPickupService, Route, $location) {
       'group-services',
       'callPickups',
       group.name
-    ).search({module: ctrl.module})
+    )
   }
 }

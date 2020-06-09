@@ -4,13 +4,10 @@ import PropTypes from 'prop-types'
 import { useAcl } from '@/utils'
 import { withRouter } from 'react-router'
 import { Breadcrumb } from 'rbx'
-import { AppHelp } from '@/components/app'
 
 const StyledBreadcrumb = styled.div`
   margin-top: -2rem;
   margin-bottom: 1rem;
-  display: flex;
-  justify-content: space-between;
 `
 export const AppBreadcrumbBase = ({ match, children }) => {
   const { serviceProviderId, groupId, resellerId, userId } = match.params
@@ -23,88 +20,76 @@ export const AppBreadcrumbBase = ({ match, children }) => {
   const isGroupDepartment = acl.is('Group Department')
 
   return (
-    <>
-      <StyledBreadcrumb>
-        <div>
-          <Breadcrumb>
-            <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
+    <Breadcrumb as={StyledBreadcrumb}>
+      <Breadcrumb.Item href="#!/">Dashboard</Breadcrumb.Item>
 
-            {hasProvisioning && resellerId && (
-              <>
-                <Breadcrumb.Item href="#!/system/resellers">
-                  Resellers
-                </Breadcrumb.Item>
-                <Breadcrumb.Item href={`#!/system/resellers/${resellerId}`}>
-                  {resellerId}
-                </Breadcrumb.Item>
-              </>
-            )}
+      {hasProvisioning && resellerId && (
+        <>
+          <Breadcrumb.Item href="#!/system/resellers">
+            Resellers
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href={`#!/system/resellers/${resellerId}`}>
+            {resellerId}
+          </Breadcrumb.Item>
+        </>
+      )}
 
-            {hasReseller && serviceProviderId && (
-              <>
-                <Breadcrumb.Item href="#!/system/serviceProviders">
-                  Service Providers
-                </Breadcrumb.Item>
-                <Breadcrumb.Item
-                  href={`#!/serviceProviders/${serviceProviderId}`}
-                >
-                  {serviceProviderId}
-                </Breadcrumb.Item>
-              </>
-            )}
+      {hasReseller && serviceProviderId && (
+        <>
+          <Breadcrumb.Item href="#!/system/serviceProviders">
+            Service Providers
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href={`#!/serviceProviders/${serviceProviderId}`}>
+            {serviceProviderId}
+          </Breadcrumb.Item>
+        </>
+      )}
 
-            {hasServiceProvider && groupId && (
-              <>
-                <Breadcrumb.Item
-                  href={`#!/serviceProviders/${serviceProviderId}/groups`}
-                >
-                  Groups
-                </Breadcrumb.Item>
-                <Breadcrumb.Item
-                  href={`#!/groups/${serviceProviderId}/${groupId}`}
-                >
-                  {groupId}
-                </Breadcrumb.Item>
-              </>
-            )}
+      {hasServiceProvider && groupId && (
+        <>
+          <Breadcrumb.Item
+            href={`#!/serviceProviders/${serviceProviderId}/groups`}
+          >
+            Groups
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href={`#!/groups/${serviceProviderId}/${groupId}`}>
+            {groupId}
+          </Breadcrumb.Item>
+        </>
+      )}
 
-            {hasGroup && userId && (
-              <>
-                <Breadcrumb.Item
-                  href={`#!/groups/${serviceProviderId}/${groupId}/users`}
-                >
-                  Users
-                </Breadcrumb.Item>
-                <Breadcrumb.Item
-                  href={`#!/users/${serviceProviderId}/${groupId}/${userId}`}
-                >
-                  {userId}
-                </Breadcrumb.Item>
-              </>
-            )}
+      {hasGroup && userId && (
+        <>
+          <Breadcrumb.Item
+            href={`#!/groups/${serviceProviderId}/${groupId}/users`}
+          >
+            Users
+          </Breadcrumb.Item>
+          <Breadcrumb.Item
+            href={`#!/users/${serviceProviderId}/${groupId}/${userId}`}
+          >
+            {userId}
+          </Breadcrumb.Item>
+        </>
+      )}
 
-            {isGroupDepartment && hasGroupDepartment && userId && (
-              <>
-                <Breadcrumb.Item
-                  href={`#!/department/${serviceProviderId}/${groupId}/users`}
-                >
-                  Users
-                </Breadcrumb.Item>
-                <Breadcrumb.Item
-                  href={`#!/users/${serviceProviderId}/${groupId}/${userId}`}
-                >
-                  {userId}
-                </Breadcrumb.Item>
-              </>
-            )}
-            {children}
-          </Breadcrumb>
-        </div>
-        <div>
-          <AppHelp />
-        </div>
-      </StyledBreadcrumb>
-    </>
+      {isGroupDepartment && hasGroupDepartment && userId && (
+        <>
+          <Breadcrumb.Item
+            href={`#!/department/${serviceProviderId}/${groupId}/users`}
+          >
+            Users
+          </Breadcrumb.Item>
+          <Breadcrumb.Item
+            href={`#!/users/${serviceProviderId}/${groupId}/${userId}`}
+          >
+            {userId}
+          </Breadcrumb.Item>
+        </>
+      )}
+
+      {children}
+    </Breadcrumb>
   )
 }
 

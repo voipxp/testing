@@ -2,14 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { useModulePermissions } from '@/utils'
+import _ from 'lodash'
 
-export const AppHelpBase = ({ match, history }) => {
+export const AppHelpBase = ({ match, history, module='' }) => {
   const [showHelp, setShowHelp] = React.useState(false)
+
+  /*
   const search = history.location.search
   const params = new URLSearchParams(search)
   const moduleName = params.get('module')
   const { getModule } = useModulePermissions()
   const module = getModule(moduleName)
+  */
+ const { getModule } = useModulePermissions()
+
+  const thisModule = _.isString(module) ? getModule(module) : module
 
   const quickHelp = () => {
     return (
@@ -20,7 +27,7 @@ export const AppHelpBase = ({ match, history }) => {
         <div className="quickview-body">
           <div className="quickview-block" style={{ padding: '1rem' }}>
             <p className="subtitle">
-              {module.alias}
+              {thisModule.alias}
               <button
                 className="button is-small is-pulled-right"
                 onClick={() => setShowHelp(!showHelp)}
@@ -30,11 +37,11 @@ export const AppHelpBase = ({ match, history }) => {
                 </span>
               </button>
             </p>
-            <p>{module.description}</p>
+            <p>{thisModule.description}</p>
             {
-              module.url &&
+              thisModule.url &&
               <div className="large-margin-top">
-                <a href={module.url}
+                <a href={thisModule.url}
                 target="_blank"
                 rel="noreferrer noopener"
                 >
@@ -50,7 +57,7 @@ export const AppHelpBase = ({ match, history }) => {
 
   return (
     <>
-      {module && (
+      {thisModule && (
         <React.Fragment>
           <div className="is-grouped is-pulled-right">
             <button
@@ -71,7 +78,8 @@ export const AppHelpBase = ({ match, history }) => {
 
 AppHelpBase.propTypes = {
   match: PropTypes.object,
-  history: PropTypes.object
+  history: PropTypes.object,
+  module: PropTypes.any
 }
 
 export const AppHelp = withRouter(AppHelpBase)
