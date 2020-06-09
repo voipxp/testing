@@ -48,12 +48,12 @@ export const routes = [
     hasLevel: 'Service Provider',
     hasModuleRead: 'User Report'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
-    angularComponent: 'groupMusicOnHold',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Music On Hold'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
+  //   angularComponent: 'groupMusicOnHold',
+  //   hasLevel: 'Group Department',
+  //   hasModuleRead: 'Music On Hold'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/incoming',
     angularComponent: 'groupIncomingCallingPlan',
@@ -145,11 +145,11 @@ export const routes = [
     hasLevel: 'Group Department',
     hasModuleRead: 'Group Paging'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/collaborate/bridge',
-    angularComponent: 'groupCollaborateBridge',
-    hasLevel: 'Group'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/collaborate/bridge',
+  //   angularComponent: 'groupCollaborateBridge',
+  //   hasLevel: 'Group'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/meetMe/bridge',
     angularComponent: 'groupMeetMeBridge',
@@ -378,11 +378,13 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Group Calling Plans'
   },
+/*
   {
     path: '/groups/:serviceProviderId/:groupId/collaborate',
     angularComponent: 'groupCollaborate',
     hasLevel: 'Group'
   },
+*/
   {
     path: '/groups/:serviceProviderId/:groupId/anonymousCallRejection',
     angularComponent: 'groupAnonymousCallRejection',
@@ -527,12 +529,14 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Meet-Me Conferencing'
   },
+/*
   {
     path: '/groups/:serviceProviderId/:groupId/musicOnHold',
     angularComponent: 'groupMusicOnHoldIndex',
     hasLevel: 'Group',
     hasModuleRead: 'Music On Hold'
   },
+*/
   {
     path: '/groups/:serviceProviderId/:groupId/voiceMessaging',
     angularComponent: 'groupVoiceMessaging',
