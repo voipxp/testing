@@ -58,7 +58,7 @@ function controller(
       Route.open(
         'system',
         'networkClassOfServices',
-        'networkClassOfService'
+        name
       ).search({ name })
     } else {
       Route.open('system', 'networkClassOfServices')

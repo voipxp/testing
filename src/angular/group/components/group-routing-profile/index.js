@@ -52,7 +52,7 @@ function controller(
 
   function edit() {
     ctrl.editSettings = angular.copy(ctrl.settings)
-    Alert.modal.open('editGroupRoutingProfiletModal', function(close) {
+    Alert.modal.open('editGroupRoutingProfileModal', function(close) {
       update(ctrl.editSettings, close)
     })
   }

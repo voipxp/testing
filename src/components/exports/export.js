@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import { useAsync } from 'react-async-hook'
 import { useAlerts } from '@/store/alerts'
 import api from '@/api/exports'
-import { AppBreadcrumb } from '@/components/app'
-import { Breadcrumb } from 'rbx'
 import {
   UiCard,
   UiButton,
@@ -76,18 +74,11 @@ export const Export = ({ history, match, isBreadcrumb = true }) => {
 
   return (
     <>
-      {isBreadcrumb && (
-        <AppBreadcrumb>
-          <Breadcrumb.Item href="/#!/exports">Exports</Breadcrumb.Item>
-          <Breadcrumb.Item>Export {id}</Breadcrumb.Item>
-        </AppBreadcrumb>
-      )}
-
       {loading ? (
         <UiLoadingCard />
       ) : (
         <>
-          <UiCard title={`Export ${id}`}>
+          <UiCard title={`Migration ${id}`}>
             <div className="columns">
               <div className="column">
                 <UiListItem label="Service Provider">
@@ -117,7 +108,7 @@ export const Export = ({ history, match, isBreadcrumb = true }) => {
               columns={columns}
               rows={export2}
               rowKey="id"
-              pageSize={20}
+              pageSize={25}
               onClick={open}
             />
           </UiCard>

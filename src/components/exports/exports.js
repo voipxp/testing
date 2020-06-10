@@ -14,6 +14,8 @@ import {
   UiCardModal,
   UiInputCheckbox
 } from '@/components/ui'
+import { Export } from '@/components/exports'
+import { Switch, Route } from 'react-router-dom'
 
 const EXPORT_LIMIT = 500
 
@@ -65,7 +67,7 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
     setForm({ ...form, [name]: value })
   }
 
-  const open = ({ id }) => history.push(`/exports/${id}`)
+  const open = ({ id }) => history.push(`${match.url}/${id}`)
   const show = group => {
     setForm({ ...form, ...group })
     setInitialized(false)
@@ -106,18 +108,18 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
     }
   }
 
-  return (
-    <>
+  const exportView =
+<>
       {isBreadcrumb && (
         <AppBreadcrumb>
-          <Breadcrumb.Item>Exports (beta)</Breadcrumb.Item>
+          <Breadcrumb.Item>Migrate</Breadcrumb.Item>
         </AppBreadcrumb>
       )}
       {loading ? (
         <UiLoadingCard />
       ) : (
         <UiCard
-          title="Recent Exports"
+          title="Recent Migrations"
           // buttons={
           //   <UiButton color="link" icon="add" size="small" onClick={add} />
           // }
@@ -127,7 +129,7 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
             rows={result}
             rowKey="id"
             onClick={open}
-            pageSize={20}
+            pageSize={25}
           />
         </UiCard>
       )}
@@ -143,7 +145,7 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
         ''
       )}
       <UiCardModal
-        title={'Start Export'}
+        title={'Start Migration'}
         onCancel={onCancel}
         isOpen={showModal}
         onSave={save}
@@ -169,7 +171,7 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
               <Field>
                 <Control>
                   <UiButton fullwidth static>
-                    Export Options
+                    Migrate Options
                   </UiButton>
                 </Control>
               </Field>
@@ -220,6 +222,13 @@ export const Exports = ({ history, match, isBreadcrumb = true }) => {
         </form>
       </UiCardModal>
     </>
+
+
+  return (
+    <Switch>
+    <Route path={`${match.path}/:id`} exact component={Export} />
+    <Route render = {() => exportView}/>
+  </Switch>
   )
 }
 

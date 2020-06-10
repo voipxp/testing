@@ -5,10 +5,11 @@ import template from './index.html'
 angular.module('odin.serviceProvider').component('serviceProviderServicePack', {
   template,
   controller,
-  bindings: { serviceProviderId: '<' }
+  bindings: { serviceProviderId: '<', servicePackName: '<' }
 })
 
 controller.$inject = [
+  'ACL',
   'Alert',
   'ServiceProviderServicePackService',
   'Route',
@@ -17,6 +18,7 @@ controller.$inject = [
   '$location'
 ]
 function controller(
+  ACL,
   Alert,
   ServiceProviderServicePackService,
   Route,
@@ -38,7 +40,7 @@ function controller(
   }
 
   function onInit() {
-    ctrl.servicePackName = $location.search().servicePackName
+    //ctrl.servicePackName = $location.search().servicePackName
     ctrl.loading = true
     $q.all([loadServicePack(), loadPermissions()])
       .catch(function(error) {
@@ -70,10 +72,14 @@ function controller(
         'serviceProviders',
         ctrl.serviceProviderId,
         'servicePacks',
-        'servicePack'
-      ).search({ servicePackName })
+        servicePackName
+      )
     } else {
-      Route.open('serviceProviders', ctrl.serviceProviderId, 'servicePacks')
+      Route.open(
+        'serviceProviders',
+         ctrl.serviceProviderId,
+          'servicePacks'
+          )
     }
   }
 

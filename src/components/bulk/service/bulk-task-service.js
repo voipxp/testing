@@ -163,8 +163,8 @@ const bulkTaskServices = [
   // Group Dns Assign
   {
     task: 'group.dns.assign',
-    name: 'Group Dns Assign',
-    description: 'Group Dns Assign',
+    name: 'Group DNs Assign',
+    description: 'Group DNs Assign',
     hasLevel: 'Reseller',
     required: ['serviceProviderId', 'groupId'],
     example: [
@@ -187,8 +187,8 @@ const bulkTaskServices = [
   // Group Dns Unassign
   {
     task: 'group.dns.unassign',
-    name: 'Group Dns UnAssign',
-    description: 'Group Dns UnAssign',
+    name: 'Group DNs UnAssign',
+    description: 'Group DNs UnAssign',
     hasLevel: 'Reseller',
     required: ['serviceProviderId', 'groupId'],
     example: [
@@ -415,7 +415,7 @@ const bulkTaskServices = [
   {
     task: 'group.device.upsert',
     name: 'Group Device Upsert',
-    description: 'Group Device Upsert',
+    description: 'Group Device Insert and/or Update',
     required: ['serviceProviderId', 'groupId', 'deviceType', 'deviceName'],
     example: [
       {

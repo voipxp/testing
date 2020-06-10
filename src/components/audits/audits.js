@@ -14,7 +14,8 @@ import {
   UiCardModal,
   UiInputCheckbox
 } from '@/components/ui'
-
+import { Switch, Route } from 'react-router-dom'
+import { Audit } from '@/components/audits'
 const AUDIT_LIMIT = 5000
 
 const columns = [
@@ -65,7 +66,8 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
     setForm({ ...form, [name]: value })
   }
 
-  const open = ({ id }) => history.push(`/audits/${id}`)
+  const open = ({ id }) => history.push(`${match.url}/${id}`)
+
   function add() {
     setShowModal(true)
   }
@@ -109,120 +111,126 @@ export const Audits = ({ history, match, isBreadcrumb = true }) => {
     }
   }
 
+  const auditsView =
+  <>
+  {isBreadcrumb && (
+    <AppBreadcrumb>
+      <Breadcrumb.Item>Audits</Breadcrumb.Item>
+    </AppBreadcrumb>
+  )}
+  {loading ? (
+    <UiLoadingCard />
+  ) : (
+    <UiCard
+      title="Recent Audits"
+      buttons={
+        <UiButton color="link" icon="add" size="small" onClick={add} />
+      }
+    >
+      <UiDataTable
+        columns={columns}
+        rows={result}
+        rowKey="id"
+        onClick={open}
+        pageSize={25}
+      />
+    </UiCard>
+  )}
+  {initialized ? (
+    <UiCardModal
+      isOpen={initialized}
+      onCancel={onCancel}
+      title={'Select Group'}
+    >
+      <GroupSearch onSelect={show}></GroupSearch>
+    </UiCardModal>
+  ) : (
+    ''
+  )}
+  <UiCardModal
+    title={'Start Backup'}
+    onCancel={onCancel}
+    isOpen={showModal}
+    onSave={save}
+    isLoading={showLoading}
+  >
+    <form>
+      <Column.Group>
+        <Column>
+          <Field>
+            <Control>
+              <UiButton fullwidth static>
+                Service Provider Id
+              </UiButton>
+            </Control>
+          </Field>
+          <Field>
+            <Control>
+              <UiButton fullwidth static>
+                Group Id
+              </UiButton>
+            </Control>
+          </Field>
+          <Field>
+            <Control>
+              <UiButton fullwidth static>
+                Audit Options
+              </UiButton>
+            </Control>
+          </Field>
+        </Column>
+        <Column>
+          <Field>
+            <Control>
+              <Input
+                type="string"
+                name="serviceProviderId"
+                value={form.serviceProviderId}
+                onChange={handleInput}
+                placeholder="Service Provider Id"
+                disabled={true}
+              />
+            </Control>
+          </Field>
+          <Field>
+            <Control>
+              <Input
+                type="string"
+                name="groupId"
+                value={form.groupId}
+                onChange={handleInput}
+                onClick={handleClick}
+                placeholder="Group Id"
+              />
+            </Control>
+          </Field>
+          <Field>
+            <Control>
+              {audits.map(audit => {
+                return (
+                  <UiInputCheckbox
+                    key={audit}
+                    name={audit}
+                    label={audit}
+                    // checked={form[audit] ? true : false}
+                    checked={form[audit]}
+                    onChange={handleInput}
+                  />
+                )
+              })}
+            </Control>
+          </Field>
+        </Column>
+      </Column.Group>
+    </form>
+  </UiCardModal>
+</>
+
   return (
-    <>
-      {isBreadcrumb && (
-        <AppBreadcrumb>
-          <Breadcrumb.Item>Audits (beta)</Breadcrumb.Item>
-        </AppBreadcrumb>
-      )}
-      {loading ? (
-        <UiLoadingCard />
-      ) : (
-        <UiCard
-          title="Recent Audits"
-          buttons={
-            <UiButton color="link" icon="add" size="small" onClick={add} />
-          }
-        >
-          <UiDataTable
-            columns={columns}
-            rows={result}
-            rowKey="id"
-            onClick={open}
-            pageSize={40}
-          />
-        </UiCard>
-      )}
-      {initialized ? (
-        <UiCardModal
-          isOpen={initialized}
-          onCancel={onCancel}
-          title={'Select Group'}
-        >
-          <GroupSearch onSelect={show}></GroupSearch>
-        </UiCardModal>
-      ) : (
-        ''
-      )}
-      <UiCardModal
-        title={'Start Backup'}
-        onCancel={onCancel}
-        isOpen={showModal}
-        onSave={save}
-        isLoading={showLoading}
-      >
-        <form>
-          <Column.Group>
-            <Column>
-              <Field>
-                <Control>
-                  <UiButton fullwidth static>
-                    Service Provider Id
-                  </UiButton>
-                </Control>
-              </Field>
-              <Field>
-                <Control>
-                  <UiButton fullwidth static>
-                    Group Id
-                  </UiButton>
-                </Control>
-              </Field>
-              <Field>
-                <Control>
-                  <UiButton fullwidth static>
-                    Audit Options
-                  </UiButton>
-                </Control>
-              </Field>
-            </Column>
-            <Column>
-              <Field>
-                <Control>
-                  <Input
-                    type="string"
-                    name="serviceProviderId"
-                    value={form.serviceProviderId}
-                    onChange={handleInput}
-                    placeholder="Service Provider Id"
-                    disabled={true}
-                  />
-                </Control>
-              </Field>
-              <Field>
-                <Control>
-                  <Input
-                    type="string"
-                    name="groupId"
-                    value={form.groupId}
-                    onChange={handleInput}
-                    onClick={handleClick}
-                    placeholder="Group Id"
-                  />
-                </Control>
-              </Field>
-              <Field>
-                <Control>
-                  {audits.map(audit => {
-                    return (
-                      <UiInputCheckbox
-                        key={audit}
-                        name={audit}
-                        label={audit}
-                        // checked={form[audit] ? true : false}
-                        checked={form[audit]}
-                        onChange={handleInput}
-                      />
-                    )
-                  })}
-                </Control>
-              </Field>
-            </Column>
-          </Column.Group>
-        </form>
-      </UiCardModal>
-    </>
+    <Switch>
+      <Route path={`${match.path}/:id`} exact component={Audit} />
+      <Route render = {() => auditsView}/>
+    </Switch>
   )
 }
 

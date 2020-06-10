@@ -1,3 +1,4 @@
+export * from './bulk-tasks-index'
 export * from './bulk-sip-trunking/bulk-sip-trunking'
 export * from './bulk-select-service-provider-id'
 export * from './bulk-select-service-provider-trunk'

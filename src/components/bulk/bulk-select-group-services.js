@@ -197,7 +197,7 @@ export const BulkSelectGroupServices = ({
         columns={columns}
         rows={services}
         rowKey="serviceName"
-        pageSize={50}
+        pageSize={25}
         showSelect={showSelect}
         onSelect={(items) => {handleServices(items)}}
     />

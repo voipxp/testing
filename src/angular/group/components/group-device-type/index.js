@@ -7,8 +7,8 @@ angular.module('odin.group').component('groupDeviceType', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupDeviceTypeService', 'Route', '$location']
-function controller(Alert, GroupDeviceTypeService, Route, $location) {
+controller.$inject = ['ACL','Alert', 'GroupDeviceTypeService', 'Route', '$location']
+function controller(ACL,Alert, GroupDeviceTypeService, Route, $location) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.back = back
@@ -34,6 +34,13 @@ function controller(Alert, GroupDeviceTypeService, Route, $location) {
   }
 
   function back() {
-    Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'deviceTypes')
-  }
+    if(ctrl.deviceType){
+      Route.open(
+        'groups',
+         ctrl.serviceProviderId, 
+         ctrl.groupId,
+         'groupDeviceTypes'
+      )
+    }else  Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'deviceTypes')
+ }
 }

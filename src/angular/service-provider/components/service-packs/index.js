@@ -64,12 +64,20 @@ function controller(
   }
 
   function open(servicePackName) {
-    Route.open(
-      'serviceProviders',
-      ctrl.serviceProviderId,
-      'servicePacks',
-      'servicePack'
-    ).search({ servicePackName })
+    if (servicePackName) {
+      Route.open(
+        'serviceProviders',
+        ctrl.serviceProviderId,
+        'servicePacks',
+        servicePackName
+      )
+    } else {
+      Route.open(
+        'serviceProviders',
+        ctrl.serviceProviderId,
+        'servicePack'
+      )
+    }
   }
 
   function add() {

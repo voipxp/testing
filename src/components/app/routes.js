@@ -2,24 +2,27 @@ import { UserDashboard } from '@/components/users'
 import { DepartmentDashboard } from '@/components/departments'
 import { CreateAutoAttendant } from '@/components/autoAttendant'
 import {
+  ServiceProviderDashboard
+} from '@/components/service-provider'
+import {
   GroupCommunicationBarring,
   GroupSpeedDial8,
   GroupExtensionLength,
   GroupWebPolicy,
   GroupNumbers,
-  GroupSeriesCompletion,
-  GroupDevices,
-  GroupSharedCallAppearancesReport,
-  GroupPushNotificationRegistration
+  //GroupSeriesCompletion,
+  //SharedCallAppearancesReport,
+  //GroupPushNotificationRegistration
+  GroupDashboard
+  GroupDevices
 } from '@/components/groups'
-import { SystemResellers } from '../system'
+import { SystemResellers, SystemDashboard } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
-import { Audits, Audit } from '@/components/audits'
+import { Audit } from '@/components/audits'
 import { Imports, Import } from '@/components/imports'
 import { BulkSipTrunking } from '@/components/bulk'
 import { BulkSipTrunkingUpload } from '@/components/bulk/bulk-sip-trunking-upload/bulk-sip-trunking-upload'
 import { Exports, Export } from '@/components/exports'
-
 export const routes = [
   {
     path: '/account',
@@ -34,6 +37,149 @@ export const routes = [
     path: '/branding/:hostnameId',
     angularComponent: 'brandingHostname',
     isPaasAdmin: true
+  },
+//  {
+//     path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
+//     angularComponent: 'serviceProviderServicePack',
+//     hasLevel: 'Service Provider'
+//   },
+
+  // {
+  //   path: '/system/networkClassOfServices/networkClassOfService',
+  //   angularComponent: 'systemNetworkClassOfService',
+  //   hasLevel: 'System'
+  // },
+  {
+    path: '/serviceProviders/:serviceProviderId/reports/callCapacity',
+    angularComponent: 'serviceProviderTrunkGroupsCallCapacityReport',
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'User Report'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
+    angularComponent: 'groupMusicOnHold',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Music On Hold'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/callingPlans/incoming',
+    angularComponent: 'groupIncomingCallingPlan',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/callingPlans/outgoing',
+    angularComponent: 'groupOutgoingCallingPlan',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/callingPlans/outgoing/users',
+    angularComponent: 'groupOutgoingCallingPlanUsers',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPlan',
+    angularComponent: 'groupOutgoingCallingPlanDigitPlan',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPlan',
+    angularComponent: 'groupOutgoingCallingPlanPinholeDigitPlan',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/callingPlans/codes',
+    angularComponent: 'groupOutgoingCallingPlanAuthorizationCodes',
+    hasLevel: 'Group'
+  },
+ {
+    path: '/groups/:serviceProviderId/:groupId/callingPlans/transfer',
+    angularComponent: 'groupOutgoingCallingPlanTransferNumbers',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPatterns',
+    angularComponent: 'groupCallingPlanDigitPatterns',
+    hasLevel: 'Group'
+  },
+  {
+    path:
+      '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPatterns',
+    angularComponent: 'groupOutgoingCallingPlanPinholeDigitPatterns',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/autoAttendants/autoAttendant',
+    angularComponent: 'autoAttendant',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Auto Attendant'
+  },
+  {
+    path:'/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
+    angularComponent: 'groupFlexibleSeatingHost',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Flexible Seating Guest'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/announcements/announcement',
+    angularComponent: 'groupAnnouncement',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/callPark/group',
+    angularComponent: 'groupCallParkGroup',
+    hasLevel: 'Group',
+    hasModuleRead: 'Call Park'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/schedules/schedule',
+    angularComponent: 'groupSchedule',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/departments/department',
+    angularComponent: 'groupDepartment',
+    hasLevel: 'Group'
+  },
+ {
+    path: '/groups/:serviceProviderId/:groupId/trunkGroups/trunkGroup',
+    angularComponent: 'groupTrunkGroup',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Trunk Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/paging/group',
+    angularComponent: 'groupPagingGroup',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Group Paging'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/collaborate/bridge',
+    angularComponent: 'groupCollaborateBridge',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/meetMe/bridge',
+    angularComponent: 'groupMeetMeBridge',
+    hasLevel: 'Group',
+    hasModuleRead: 'Meet-Me Conferencing'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/huntGroups/huntGroup',
+    angularComponent: 'groupHuntGroup',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Hunt Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/callPickup/group',
+    angularComponent: 'groupCallPickup',
+    hasLevel: 'Group',
+    hasModuleRead: 'Call Pickup'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter',
+    angularComponent: 'groupCallCenter',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Call Center'
   },
   {
     path: '/bulk',
@@ -53,12 +199,12 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Provisioning'
   },
-  {
-    path: '/bulk/tasks/:id',
-    angularComponent: 'bulkTask',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Provisioning'
-  },
+  // {
+  //   path: '/bulk/tasks/:id',
+  //   angularComponent: 'bulkTask',
+  //   hasLevel: 'Group Department',
+  //   hasModuleRead: 'Provisioning'
+  // },
   {
     path: '/bulk/users',
     angularComponent: 'bulkUsers',
@@ -153,11 +299,46 @@ export const routes = [
     angularComponent: 'odinWebhooks',
     isPaasAdmin: true
   },
-  {
+  /*{
     path: '/groups/:serviceProviderId/:groupId',
     angularComponent: 'groupDashboard',
     hasLevel: 'Group'
+  }, */
+  {
+    path:
+      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
+    angularComponent: 'enterpriseEnterpriseTrunk',
+    hasLevel: 'Service Provider',
+    hasModuleRead: 'Trunk Group'
   },
+  {
+    path: '/groups/:serviceProviderId/:groupId/devices/:deviceName',
+    angularComponent: 'groupDevice',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/deviceTypes/deviceType',
+    angularComponent: 'groupDeviceType',
+    hasLevel: 'Group'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id',
+    angularComponent: 'vdmTemplate',
+    hasLevel: 'Group',
+    hasModuleRead: 'VDM'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id/device',
+    angularComponent: 'vdmDevice',
+    hasLevel: 'Group',
+    hasModuleRead: 'VDM'
+  },
+  {
+    path: '/groups/:serviceProviderId/:groupId',
+    component:  GroupDashboard,
+    hasLevel: 'Group'
+  },
+
   {
     path: '/groups/:serviceProviderId/:groupId/profile',
     angularComponent: 'groupProfile',
@@ -184,11 +365,6 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/deviceTypes/deviceType',
-    angularComponent: 'groupDeviceType',
-    hasLevel: 'Group'
-  },
-  {
     path: '/groups/:serviceProviderId/:groupId/directory',
     angularComponent: 'groupPhoneDirectory',
     hasLevel: 'Group'
@@ -209,70 +385,14 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/announcements/announcement',
-    angularComponent: 'groupAnnouncement',
-    hasLevel: 'Group'
-  },
-  {
     path: '/groups/:serviceProviderId/:groupId/callingPlans',
     angularComponent: 'groupCallingPlans',
     hasLevel: 'Group',
     hasModuleRead: 'Group Calling Plans'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/incoming',
-    angularComponent: 'groupIncomingCallingPlan',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/outgoing',
-    angularComponent: 'groupOutgoingCallingPlan',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/outgoing/users',
-    angularComponent: 'groupOutgoingCallingPlanUsers',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPlan',
-    angularComponent: 'groupOutgoingCallingPlanDigitPlan',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPlan',
-    angularComponent: 'groupOutgoingCallingPlanPinholeDigitPlan',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/codes',
-    angularComponent: 'groupOutgoingCallingPlanAuthorizationCodes',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/transfer',
-    angularComponent: 'groupOutgoingCallingPlanTransferNumbers',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPatterns',
-    angularComponent: 'groupCallingPlanDigitPatterns',
-    hasLevel: 'Group'
-  },
-  {
-    path:
-      '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPatterns',
-    angularComponent: 'groupOutgoingCallingPlanPinholeDigitPatterns',
-    hasLevel: 'Group'
-  },
-  {
     path: '/groups/:serviceProviderId/:groupId/collaborate',
     angularComponent: 'groupCollaborate',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/collaborate/bridge',
-    angularComponent: 'groupCollaborateBridge',
     hasLevel: 'Group'
   },
   {
@@ -330,18 +450,20 @@ export const routes = [
     angularComponent: 'groupVoiceMessagingUser',
     hasLevel: 'Group'
   },
+
   {
     path: '/groups/:serviceProviderId/:groupId/departments',
     angularComponent: 'groupDepartments',
     hasLevel: 'Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/departments/department',
+	path: '/groups/:serviceProviderId/:groupId/departments/department',
     angularComponent: 'groupDepartment',
     hasLevel: 'Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/groupCommunicationBarringAuthorizationCodes',
+   path:
+      '/groups/:serviceProviderId/:groupId/groupCommunicationBarringAuthorizationCodes',
     angularComponent: 'groupCommunicationBarringAuthorizationCodes',
     hasLevel: 'Group'
   },
@@ -357,29 +479,17 @@ export const routes = [
     hasModuleRead: 'Auto Attendant'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/autoAttendants/autoAttendant',
-    angularComponent: 'autoAttendant',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Auto Attendant'
-  },
-  {
     path: '/groups/:serviceProviderId/:groupId/callPickup',
     angularComponent: 'groupCallPickups',
     hasLevel: 'Group',
     hasModuleRead: 'Call Pickup'
   },
-  {
+  /*{
     path: '/groups/:serviceProviderId/:groupId/seriesCompletion',
     component: GroupSeriesCompletion,
     hasLevel: 'Group',
     hasModuleRead: 'Series Completion'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callPickup/group',
-    angularComponent: 'groupCallPickup',
-    hasLevel: 'Group',
-    hasModuleRead: 'Call Pickup'
-  },
+  },*/
   {
     path: '/groups/:serviceProviderId/:groupId/callPark',
     angularComponent: 'groupCallPark',
@@ -412,21 +522,9 @@ export const routes = [
     hasModuleRead: 'Trunk Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/trunkGroups/trunkGroup',
-    angularComponent: 'groupTrunkGroup',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Trunk Group'
-  },
-  {
     path: '/groups/:serviceProviderId/:groupId/paging',
     angularComponent: 'groupPagingGroups',
     hasLevel: 'Group',
-    hasModuleRead: 'Group Paging'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/paging/group',
-    angularComponent: 'groupPagingGroup',
-    hasLevel: 'Group Department',
     hasModuleRead: 'Group Paging'
   },
   {
@@ -436,33 +534,15 @@ export const routes = [
     hasModuleRead: 'Hunt Group'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/huntGroups/huntGroup',
-    angularComponent: 'groupHuntGroup',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Hunt Group'
-  },
-  {
     path: '/groups/:serviceProviderId/:groupId/meetMe',
     angularComponent: 'groupMeetMe',
     hasLevel: 'Group',
     hasModuleRead: 'Meet-Me Conferencing'
   },
   {
-    path: '/groups/:serviceProviderId/:groupId/meetMe/bridge',
-    angularComponent: 'groupMeetMeBridge',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Meet-Me Conferencing'
-  },
-  {
     path: '/groups/:serviceProviderId/:groupId/musicOnHold',
     angularComponent: 'groupMusicOnHoldIndex',
     hasLevel: 'Group',
-    hasModuleRead: 'Music On Hold'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
-    angularComponent: 'groupMusicOnHold',
-    hasLevel: 'Group Department',
     hasModuleRead: 'Music On Hold'
   },
   {
@@ -529,17 +609,17 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Viewable Service Packs'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/sharedCallAppearancesReport',
-    component: GroupSharedCallAppearancesReport,
-    hasLevel: 'Group',
-    hasModuleRead: 'Shared Call Appearance'
-  },
-  {
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/sharedCallAppearancesReport',
+  //   component: GroupSharedCallAppearancesReport,
+  //   hasLevel: 'Group',
+  //   hasModuleRead: 'Shared Call Appearance'
+  // },
+ /* {
     path: '/groups/:serviceProviderId/:groupId/pushNotificationRegistration',
     component: GroupPushNotificationRegistration,
     hasLevel: 'Group'
-  },
+  },*/
   {
     path: '/groups/:serviceProviderId/:groupId/services/group',
     angularComponent: 'groupServices',
@@ -621,15 +701,8 @@ export const routes = [
     hasModuleRead: 'Flexible Seating Guest'
   },
   {
-    path:
-      '/groups/:serviceProviderId/:groupId/flexibleSeatingHosts/flexibleSeatingHost',
-    angularComponent: 'groupFlexibleSeatingHost',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Flexible Seating Guest'
-  },
-  {
     path: '/serviceProviders/:serviceProviderId',
-    angularComponent: 'serviceProviderDashboard',
+    component: ServiceProviderDashboard,
     hasLevel: 'Group'
   },
   {
@@ -655,13 +728,6 @@ export const routes = [
   {
     path: '/serviceProviders/:serviceProviderId/enterpriseTrunks',
     angularComponent: 'enterpriseEnterpriseTrunks',
-    hasLevel: 'Service Provider',
-    hasModuleRead: 'Trunk Group'
-  },
-  {
-    path:
-      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
-    angularComponent: 'enterpriseEnterpriseTrunk',
     hasLevel: 'Service Provider',
     hasModuleRead: 'Trunk Group'
   },
@@ -704,11 +770,6 @@ export const routes = [
     hasLevel: 'Service Provider'
   },
   {
-    path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
-    angularComponent: 'serviceProviderServicePack',
-    hasLevel: 'Service Provider'
-  },
-  {
     path: '/serviceProviders/:serviceProviderId/networkClassOfServices',
     angularComponent: 'serviceProviderNetworkClassOfServices',
     hasLevel: 'Service Provider'
@@ -720,19 +781,13 @@ export const routes = [
     hasModuleRead: 'User Report'
   },
   {
-    path: '/serviceProviders/:serviceProviderId/reports/callCapacity',
-    angularComponent: 'serviceProviderTrunkGroupsCallCapacityReport',
-    hasLevel: 'Service Provider',
-    hasModuleRead: 'User Report'
-  },
-  {
     path: '/settings',
     angularComponent: 'odinSettings',
     isPaasAdmin: true
   },
   {
     path: '/system',
-    angularComponent: 'systemDashboard',
+    component: SystemDashboard,
     hasLevel: 'Provisioning'
   },
   {
@@ -758,11 +813,6 @@ export const routes = [
   {
     path: '/system/networkClassOfServices',
     angularComponent: 'systemNetworkClassOfServices',
-    hasLevel: 'System'
-  },
-  {
-    path: '/system/networkClassOfServices/networkClassOfService',
-    angularComponent: 'systemNetworkClassOfService',
     hasLevel: 'System'
   },
   {
@@ -806,21 +856,15 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'VDM'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id',
-    angularComponent: 'vdmTemplate',
-    hasLevel: 'Group',
-    hasModuleRead: 'VDM'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id/device',
-    angularComponent: 'vdmDevice',
-    hasLevel: 'Group',
-    hasModuleRead: 'VDM'
-  },
+
   {
     path: '/users/:serviceProviderId/:groupId/:userId',
     component: UserDashboard
+  },
+  {
+    path: '/users/:serviceProviderId/:userId',
+    component: UserDashboard,
+	hasLevel: 'Service Provider',
   },
   {
     path: '/groups/:serviceProviderId/:groupId/groupExtensionLength',
@@ -854,17 +898,11 @@ export const routes = [
     component: ResellerDashboard,
     hasLevel: 'Reseller'
   },
-  {
-    path: '/audits',
-    exact: true,
-    component: Audits,
-    hasLevel: 'Service Provider'
-  },
-  {
-    path: '/audits/:id',
-    component: Audit,
-    hasLevel: 'Service Provider'
-  },
+  // {
+  //   path: '/audits/:id',
+  //   component: Audit,
+  //   hasLevel: 'Service Provider'
+  // },
   {
     path: '/imports',
     exact: true,
@@ -876,6 +914,7 @@ export const routes = [
     component: Import,
     hasLevel: 'Service Provider'
   },
+/*
   {
     path: '/exports',
     exact: true,
@@ -887,8 +926,10 @@ export const routes = [
     component: Export,
     hasLevel: 'Service Provider'
   },
+*/
   {
     path: '/department/:serviceProviderId/:groupId',
     component: DepartmentDashboard
   }
 ]
+
