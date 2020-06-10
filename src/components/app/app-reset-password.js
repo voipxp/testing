@@ -1,5 +1,5 @@
 import React from 'react'
-import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
+import { Hero, Box, Field, Control, Icon, Button, Input } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { useAlerts } from '@/store/alerts'

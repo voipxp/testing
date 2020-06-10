@@ -7,12 +7,19 @@ angular.module('odin.group').component('groupMeetMePorts', {
   require: { parent: '^groupMeetMe' }
 })
 
-controller.$inject = ['Alert', 'GroupMeetMeConferencingPortService']
-function controller(Alert, GroupMeetMeConferencingPortService) {
+controller.$inject = ['Alert', 'GroupMeetMeConferencingPortService', 'Module']
+function controller(Alert, GroupMeetMeConferencingPortService, Module) {
   var ctrl = this
 
   ctrl.edit = edit
   ctrl.$onInit = activate
+  loadModule()
+
+  function loadModule() {
+    return Module.show("Meet-Me Conferencing").then(function(data) {
+      ctrl.module = data
+    })
+  }
 
   function activate() {
     ctrl.loading = true

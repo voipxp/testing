@@ -75,6 +75,7 @@ export const GroupServiceSettings = ({ history, match }) => {
   }, [getModule, hasModuleRead, hasAvailableGroupService, hasPolicy])
   // The base view when no sub-component picked
 
+
   const GroupServiceList = () => {
     return isLoading ? (
       <UiLoadingCard />
@@ -109,6 +110,8 @@ export const GroupServiceSettings = ({ history, match }) => {
 
   return (
     <Switch>
+      {/* When individual row item gets clicked */}
+      <Route path={`${match.path}/:path/:name`} exact render={renderRoute} />
       <Route path={`${match.path}/:path`} exact render={renderRoute} />
       <Route render={GroupServiceList} />
     </Switch>

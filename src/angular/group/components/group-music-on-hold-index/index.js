@@ -85,6 +85,7 @@ function controller(
       'groups',
       ctrl.serviceProviderId,
       ctrl.groupId,
+      'group-services',
       'musicOnHold',
       'instance'
     ).search({

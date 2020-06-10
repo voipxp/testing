@@ -10,18 +10,12 @@ import {
   GroupExtensionLength,
   GroupWebPolicy,
   GroupNumbers,
-  //GroupSeriesCompletion,
-  //SharedCallAppearancesReport,
-  //GroupPushNotificationRegistration
   GroupDashboard
 } from '@/components/groups'
 import { SystemResellers, SystemDashboard } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
-import { Audit } from '@/components/audits'
-import { Imports, Import } from '@/components/imports'
 import { BulkSipTrunking } from '@/components/bulk'
 import { BulkSipTrunkingUpload } from '@/components/bulk/bulk-sip-trunking-upload/bulk-sip-trunking-upload'
-import { Exports, Export } from '@/components/exports'
 export const routes = [
   {
     path: '/account',
@@ -54,12 +48,12 @@ export const routes = [
     hasLevel: 'Service Provider',
     hasModuleRead: 'User Report'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
-    angularComponent: 'groupMusicOnHold',
-    hasLevel: 'Group Department',
-    hasModuleRead: 'Music On Hold'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
+  //   angularComponent: 'groupMusicOnHold',
+  //   hasLevel: 'Group Department',
+  //   hasModuleRead: 'Music On Hold'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/incoming',
     angularComponent: 'groupIncomingCallingPlan',
@@ -151,11 +145,11 @@ export const routes = [
     hasLevel: 'Group Department',
     hasModuleRead: 'Group Paging'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/collaborate/bridge',
-    angularComponent: 'groupCollaborateBridge',
-    hasLevel: 'Group'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/collaborate/bridge',
+  //   angularComponent: 'groupCollaborateBridge',
+  //   hasLevel: 'Group'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/meetMe/bridge',
     angularComponent: 'groupMeetMeBridge',
@@ -168,12 +162,12 @@ export const routes = [
     hasLevel: 'Group Department',
     hasModuleRead: 'Hunt Group'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callPickup/group',
-    angularComponent: 'groupCallPickup',
-    hasLevel: 'Group',
-    hasModuleRead: 'Call Pickup'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/callPickup/group',
+  //   angularComponent: 'groupCallPickup',
+  //   hasLevel: 'Group',
+  //   hasModuleRead: 'Call Pickup'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/callCenters/callCenter',
     angularComponent: 'groupCallCenter',
@@ -384,11 +378,13 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Group Calling Plans'
   },
+/*
   {
     path: '/groups/:serviceProviderId/:groupId/collaborate',
     angularComponent: 'groupCollaborate',
     hasLevel: 'Group'
   },
+*/
   {
     path: '/groups/:serviceProviderId/:groupId/anonymousCallRejection',
     angularComponent: 'groupAnonymousCallRejection',
@@ -472,12 +468,12 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Auto Attendant'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callPickup',
-    angularComponent: 'groupCallPickups',
-    hasLevel: 'Group',
-    hasModuleRead: 'Call Pickup'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/callPickup',
+  //   angularComponent: 'groupCallPickups',
+  //   hasLevel: 'Group',
+  //   hasModuleRead: 'Call Pickup'
+  // },
   /*{
     path: '/groups/:serviceProviderId/:groupId/seriesCompletion',
     component: GroupSeriesCompletion,
@@ -533,12 +529,14 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Meet-Me Conferencing'
   },
+/*
   {
     path: '/groups/:serviceProviderId/:groupId/musicOnHold',
     angularComponent: 'groupMusicOnHoldIndex',
     hasLevel: 'Group',
     hasModuleRead: 'Music On Hold'
   },
+*/
   {
     path: '/groups/:serviceProviderId/:groupId/voiceMessaging',
     angularComponent: 'groupVoiceMessaging',
@@ -897,6 +895,7 @@ export const routes = [
   //   component: Audit,
   //   hasLevel: 'Service Provider'
   // },
+  /*
   {
     path: '/imports',
     exact: true,
@@ -908,6 +907,7 @@ export const routes = [
     component: Import,
     hasLevel: 'Service Provider'
   },
+  */
 /*
   {
     path: '/exports',

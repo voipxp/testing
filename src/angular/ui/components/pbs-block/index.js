@@ -14,7 +14,7 @@ import './index.css'
 angular.module('odin.ui').component('pbsBlock', {
   template,
   transclude: { buttons: '?pbsBlockButtons' },
-  bindings: { title: '@', module: '<' },
+  bindings: { title: '@', module: '<', helpModule: '<' },
   controller: function() {
     this.$onChanges = function() {
       this.name = _.get(this.module, 'alias', this.title)
