@@ -188,8 +188,8 @@ export const dashboardMenu = [
         version: '20'
       },
 	  {
-        name: 'Assign Domains',
-        path: 'assignDomains',
+        name: 'Domains',
+        path: 'domains',
         component: GroupAssignDomains,
         hasLevel: 'Group',
         isBreadcrumb: false
