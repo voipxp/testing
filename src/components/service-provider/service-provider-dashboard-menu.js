@@ -151,7 +151,8 @@ export const dashboardMenu = [
         path: 'audits',
         name: 'Audits',
         component: ServiceProviderAudits,
-        hasLevel: 'Service Provider',
+        hasLevel: 'Reseller',
+        module: 'Audit',
         isBreadcrumb: false
       },
       {
@@ -159,7 +160,8 @@ export const dashboardMenu = [
         path: 'imports',
         exact: true,
         component: Imports,
-        hasLevel: 'Service Provider',
+        hasLevel: 'Reseller',
+        module: 'Import',
         isBreadcrumb: false
       },
       {
@@ -167,7 +169,8 @@ export const dashboardMenu = [
         path: 'migrations',
         exact: true,
         component: Exports,
-        hasLevel: 'Service Provider',
+        hasLevel: 'Reseller',
+        module: 'Export',
         isBreadcrumb: false
       }
     ]
