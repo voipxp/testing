@@ -88,7 +88,6 @@ export const ServiceProviderAssignDomains = ({ match, isBreadcrumb = true }) => 
       setSelectedUser(serviceProviderDomains)
       setAvailableUser(domainNames)
       setCanSelectedUser(false)
-      
     }
   }
 
@@ -105,11 +104,13 @@ export const ServiceProviderAssignDomains = ({ match, isBreadcrumb = true }) => 
     showLoadingModal()
     try {
       await apiSpDomain.update(profile)
+      alertSuccess('Domains Updated')
       await execute()
       await domainExecute()
-      alertSuccess('Domains Updated')
+      setCanSelectedUser(false)
     } catch (error) {
       alertDanger(error)
+      setShowModal(true)
     } finally {
       hideLoadingModal()
       setShowModal(false)
