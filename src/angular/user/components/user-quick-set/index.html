@@ -3,6 +3,20 @@
     <pbs-column ng-if="$ctrl.showQuick">
       <nav class="panel">
         <p class="panel-heading">User Call Handling</p>
+        <!--code for voice mail-->
+        <div class="panel-block" ng-if="$ctrl.has('Voice Messaging User')">
+          <span class="panel-icon is-left" has-text-success>
+            <i class="fas fa-voicemail" aria-hidden="true"></i>
+          </span>
+          <user-voice-messaging
+            show-quick="true"
+            service-provider-id="$ctrl.serviceProviderId"
+            group-id="$ctrl.groupId"
+            user-id="$ctrl.userId"
+          >
+          </user-voice-messaging>
+        </div>
+        <!-- end code for voice mail-->
         <div class="panel-block" ng-if="$ctrl.has('Call Forwarding Always')">
           <span class="panel-icon is-left" has-text-success>
             <i class="fas fa-phone" aria-hidden="true"></i>
@@ -61,7 +75,7 @@
         </div>
         <div class="panel-block" ng-if="$ctrl.has('Hoteling Guest')">
           <span class="panel-icon is-left">
-            <i class="fas fa-briefcasee" aria-hidden="true"></i>
+            <i class="fas fa-briefcase" aria-hidden="true"></i>
           </span>
           <user-hoteling-guest
             show-quick="true"

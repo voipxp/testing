@@ -7,14 +7,21 @@ angular.module('odin.group').component('groupNightForwarding', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupNightForwardingService']
-function controller(Alert, GroupNightForwardingService) {
+controller.$inject = ['Alert', 'GroupNightForwardingService', 'Module']
+function controller(Alert, GroupNightForwardingService, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
   ctrl.options = GroupNightForwardingService.options
 
+  function loadModule() {
+    return Module.show("Group Night Forwarding").then(function(data) {
+      ctrl.module = data
+    })
+  }
+
   function onInit() {
+    loadModule()
     ctrl.loading = true
     return load()
       .catch(Alert.notify.danger)
