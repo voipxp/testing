@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { UiCard, UiCardModal, UiButton, UiLoading } from '@/components/ui'
 import {
@@ -6,8 +6,6 @@ import {
   AddNewDevice
 } from '@/components/groups'
 import { useAlerts } from '@/store/alerts'
-import { AppBreadcrumb } from '@/components/app'
-import { Breadcrumb } from 'rbx'
 
 export const GroupDevices = ({ match, history }) => {
 const { alertSuccess, alertDanger } = useAlerts()
@@ -30,6 +28,10 @@ const addDevice = async () => {
   }
 }
 
+const setDeviceInfo = useCallback(deviceInfo => {
+  setDevice(deviceInfo)
+}, [])
+
 const addNewDeviceModal = (
   <>
     <UiCardModal
@@ -41,7 +43,7 @@ const addNewDeviceModal = (
     <AddNewDevice
       serviceProviderId={serviceProviderId}
       groupId={groupId}
-      setDevice={setDevice}
+      setDevice={setDeviceInfo}
     />
     </UiCardModal>
   </>
@@ -62,9 +64,6 @@ if(loading) {
   return (
     <>
     { newDeviceClicked ? addNewDeviceModal : null}
-    <AppBreadcrumb>
-        <Breadcrumb.Item>Devices</Breadcrumb.Item>
-      </AppBreadcrumb>
     <UiCard
         title="Devices"
         buttons={

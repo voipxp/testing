@@ -29,6 +29,7 @@ export const UpdateDevice = ({
   const [passwordRule, setPasswordRule] = useState({})
   const [needToConfirm, setNeedToConfirm] = useState(false)
   const canSetUpdateDevice = _.isFunction(setUpdateDevice)
+  const canReloadData = _.isFunction(reloadData)
 
   useAsync(
     () => GroupDeviceAPI.show(serviceProviderId, groupId, deviceName)
@@ -58,7 +59,7 @@ export const UpdateDevice = ({
 
     if(name === 'userName') tempForm['accessDeviceCredentials']['userName'] = value
     if(name === 'password') tempForm['accessDeviceCredentials']['password'] = value
-    if(name === 'port') tempForm['numberOfPorts']['quantity'] = value
+    //if(name === 'port') tempForm['numberOfPorts']['quantity'] = value
     else tempForm[name] = value
     setForm({...tempForm})
   }
@@ -69,7 +70,7 @@ export const UpdateDevice = ({
       const device = form
       await GroupDeviceAPI.update(serviceProviderId, groupId, device)
       alertSuccess('Device Updated')
-      reloadData()
+      if(canReloadData) reloadData()
       setUpdateDevice(false)
       setLoading(false)
     } catch (error) {
@@ -85,7 +86,7 @@ export const UpdateDevice = ({
       alertSuccess('Device Deleted')
       setUpdateDevice(false)
       setLoading(false)
-      reloadData()
+      if(canReloadData) reloadData()
     } catch (error) {
       alertDanger(error)
       setLoading(false)

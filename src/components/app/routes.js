@@ -13,7 +13,7 @@ import {
   //GroupSeriesCompletion,
   //SharedCallAppearancesReport,
   //GroupPushNotificationRegistration
-  GroupDashboard
+  GroupDashboard,
   GroupDevices
 } from '@/components/groups'
 import { SystemResellers, SystemDashboard } from '../system'

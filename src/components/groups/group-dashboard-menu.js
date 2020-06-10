@@ -7,6 +7,7 @@ import { GroupWebPolicy } from './group-web-policy'
 import { GroupExtensionLength } from './group-extension-length'
 import { groupReportRoutes } from './group-report-routes'
 import { BulkTasksIndex } from '@/components/bulk'
+import { GroupDevices } from '@/components/groups/group-devices'
 
 export const dashboardMenu = [
   {
@@ -143,7 +144,7 @@ export const dashboardMenu = [
           {
             name: 'Devices',
             path: 'groupDevices',
-            angularComponent: 'groupDevices',
+            component: GroupDevices,
             hasLevel: 'Group',
             isPaasAdmin: true
           },
