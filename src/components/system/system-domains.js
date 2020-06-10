@@ -194,7 +194,7 @@ async function create(domain) {
         onDelete={remove}
       >
        <blockquote>
-              Are you sure you want to Remove Domain ?
+              Are you sure you want to Remove Domains ?
             </blockquote>
       </UiCardModal>
     </>

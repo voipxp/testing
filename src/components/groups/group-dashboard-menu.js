@@ -8,6 +8,7 @@ import { GroupExtensionLength } from './group-extension-length'
 import { groupReportRoutes } from './group-report-routes'
 import { BulkTasksIndex } from '@/components/bulk'
 import { GroupAssignDomains } from './group-assign-domains'
+
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -19,13 +20,6 @@ export const dashboardMenu = [
         hasLevel: 'Group',
         module: true
       },
-	  {
-        name: 'Assign Domains',
-        path: 'assignDomains',
-        component: GroupAssignDomains,
-        hasLevel: 'Group',
-        isBreadcrumb: false
-	  },
       {
         name: 'Business Profile',
         path: 'profile',
@@ -193,6 +187,13 @@ export const dashboardMenu = [
         angularComponent: 'groupAnnouncements',
         version: '20'
       },
+	  {
+        name: 'Assign Domains',
+        path: 'assignDomains',
+        component: GroupAssignDomains,
+        hasLevel: 'Group',
+        isBreadcrumb: false
+	  },
       {
         name: 'Call Processing Policy',
         path: 'callProcessingPolicy',
