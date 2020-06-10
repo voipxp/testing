@@ -107,7 +107,7 @@ export const ServiceProviderAssignDomains = ({ match, isBreadcrumb = true }) => 
       alertSuccess('Domains Updated')
       await execute()
       await domainExecute()
-      setCanSelectedUser(false)
+      setCanSelectedUser(true)
     } catch (error) {
       alertDanger(error)
       setShowModal(true)
