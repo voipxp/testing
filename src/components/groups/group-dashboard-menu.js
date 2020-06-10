@@ -75,7 +75,7 @@ export const dashboardMenu = [
             name: 'Bulk Wizards',
             path: 'bulk-wizards',
             angularComponent: 'bulkDashboard',
-            hasLevel: 'Group Department',
+            hasLevel: 'Group',
             hasModuleRead: 'Provisioning'
           },
           {
@@ -190,12 +190,14 @@ export const dashboardMenu = [
         name: 'Call Processing Policy',
         path: 'callProcessingPolicy',
         angularComponent: 'groupCallProcessingPolicy',
+        module: 'Group Call Processing Policy',
         hasLevel: 'Group'
       },
       {
         name: 'Comm Barring',
         path: 'comm-barring',
-        component: GroupCommunicationSettings
+        component: GroupCommunicationSettings,
+        module: 'Communication Barring User-Control'
       },
       {
         name: 'Feature Access Codes',
@@ -223,8 +225,7 @@ export const dashboardMenu = [
         name: 'Network Class of Service',
         path: 'networkClassOfServices',
         angularComponent: 'groupNetworkClassOfServices',
-        hasLevel: 'Group',
-        hasModuleRead: 'Network Class of Service'
+        hasLevel: 'Group'
       },
       {
         name: 'Phone List And Directory',
@@ -235,7 +236,7 @@ export const dashboardMenu = [
         name: 'Schedules',
         path: 'schedules',
         angularComponent: 'groupSchedules',
-        hasLevel: 'Group'
+        hasLevel: 'Service Provider'
       },
       {
         name: 'Viewable Packs',
