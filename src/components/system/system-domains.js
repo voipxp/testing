@@ -92,10 +92,10 @@ async function create(domain) {
    showLoadingModal()
     try {
       await apiSystemDomain.create(domain)
-      alertSuccess('Domain Created')
       setShowModal(false)
       hideLoadingModal()
       await execute()
+      alertSuccess('Domain Created')
     } catch (error_) {
       alertDanger(error_)
       hideLoadingModal()

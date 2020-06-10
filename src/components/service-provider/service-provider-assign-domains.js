@@ -105,9 +105,9 @@ export const ServiceProviderAssignDomains = ({ match, isBreadcrumb = true }) => 
     showLoadingModal()
     try {
       await apiSpDomain.update(profile)
-      alertSuccess('Domains Updated')
       await execute()
       await domainExecute()
+      alertSuccess('Domains Updated')
     } catch (error) {
       alertDanger(error)
     } finally {
