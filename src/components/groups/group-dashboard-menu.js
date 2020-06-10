@@ -187,17 +187,18 @@ export const dashboardMenu = [
         angularComponent: 'groupAnnouncements',
         version: '20'
       },
-	  {
+      {
         name: 'Domains',
         path: 'domains',
         component: GroupAssignDomains,
         hasLevel: 'Group',
         isBreadcrumb: false
-	  },
+      },
       {
         name: 'Call Processing Policy',
         path: 'callProcessingPolicy',
         angularComponent: 'groupCallProcessingPolicy',
+        hasModuleRead: 'Group Call Processing Policy',
         module: 'Group Call Processing Policy',
         hasLevel: 'Group'
       },
@@ -205,7 +206,7 @@ export const dashboardMenu = [
         name: 'Comm Barring',
         path: 'comm-barring',
         component: GroupCommunicationSettings,
-        module: 'Communication Barring User-Control'
+        hasModuleRead: 'Communication Barring User-Control'
       },
       {
         name: 'Feature Access Codes',
