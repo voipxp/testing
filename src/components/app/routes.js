@@ -14,6 +14,7 @@ import {
   //SharedCallAppearancesReport,
   //GroupPushNotificationRegistration
   GroupDashboard
+  GroupDevices
 } from '@/components/groups'
 import { SystemResellers, SystemDashboard } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
@@ -349,8 +350,13 @@ export const routes = [
     hasLevel: 'Group'
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/devices/:deviceName',
+    angularComponent: 'groupDevice',
+    hasLevel: 'Group'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId/devices',
-    angularComponent: 'groupDevices',
+    component: GroupDevices,
     hasLevel: 'Group'
   },
   {
