@@ -4,7 +4,7 @@ import { Exports } from '@/components/exports'
 import { ServiceProviderAudits } from './service-provider-audits'
 import { BulkTasksIndex } from '@/components/bulk'
 import { ServiceProviderServicePacksIndex } from '@/components/service-provider/service-provider-service-packs-index'
-
+import { ServiceProviderAssignDomains } from './service-provider-assign-domains'
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -178,6 +178,13 @@ export const dashboardMenu = [
   {
     label: 'Management',
     items: [
+	  {
+        name: 'Assign Domains',
+        component: ServiceProviderAssignDomains,
+        path: 'assignDomains',
+        hasLevel: 'Service Provider',
+        isBreadcrumb: false
+	  },
       {
         name: 'Administrators',
         path: 'Administrators',

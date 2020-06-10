@@ -7,6 +7,7 @@ import { GroupWebPolicy } from './group-web-policy'
 import { GroupExtensionLength } from './group-extension-length'
 import { groupReportRoutes } from './group-report-routes'
 import { BulkTasksIndex } from '@/components/bulk'
+import { GroupAssignDomains } from './group-assign-domains'
 
 export const dashboardMenu = [
   {
@@ -186,6 +187,13 @@ export const dashboardMenu = [
         angularComponent: 'groupAnnouncements',
         version: '20'
       },
+	  {
+        name: 'Domains',
+        path: 'domains',
+        component: GroupAssignDomains,
+        hasLevel: 'Group',
+        isBreadcrumb: false
+	  },
       {
         name: 'Call Processing Policy',
         path: 'callProcessingPolicy',
