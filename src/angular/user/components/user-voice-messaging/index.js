@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.user').component('userVoiceMessaging', {
   template,
   controller,
-  bindings: { userId: '=', readOnly: '<' }
+  bindings: { userId: '=', readOnly: '<',showQuick: '<' }
 })
 
 controller.$inject = ['Alert', 'UserVoiceMessagingService']
@@ -17,7 +17,7 @@ function controller(Alert, UserVoiceMessagingService) {
   ctrl.edit = edit
   ctrl.update = update
   ctrl.$onInit = activate
-
+  ctrl.toggle = toggle
   function activate() {
     ctrl.loading = true
     return loadVoiceMessaging()
@@ -41,6 +41,25 @@ function controller(Alert, UserVoiceMessagingService) {
     Alert.modal.open('editUserVoiceMessaging', function(close) {
       return update(close)
     })
+  }
+
+  function toggle() {
+    ctrl.loading = true
+    UserVoiceMessagingService.update(ctrl.userId, ctrl.messaging)
+      // .then(loadSettings)
+      .then(function(data) {
+        ctrl.settings = data
+      })
+      .then(function() {
+        Alert.notify.success('Voice Messaging Updated')
+      })
+      .catch(function(error) {
+        ctrl.messaging.isActive = !ctrl.messaging.isActive
+        Alert.notify.danger(error)
+      })
+      .finally(function() {
+        ctrl.loading = false
+      })
   }
 
   function update(callback) {

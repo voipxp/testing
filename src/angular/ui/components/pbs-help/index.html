@@ -1,0 +1,40 @@
+<button
+  class="button is-small"
+  ng-click="$ctrl.showHelp = !$ctrl.showHelp"
+  ng-if="$ctrl.module.description || $ctrl.module.url"
+>
+  <span class="icon">
+	<i class="fas fa-info"></i>
+  </span>
+</button>
+
+<div class="quickview" ng-class="{'is-active': $ctrl.showHelp}">
+  <header class="quickview-header">
+    <p class="title">Quick Help</p>
+  </header>
+  <div class="quickview-body">
+    <div class="quickview-block" style="padding: 1rem">
+      <p class="subtitle">
+        {{ $ctrl.module.alias }}
+        <button
+          class="button is-small is-pulled-right"
+          ng-click="$ctrl.showHelp = false"
+        >
+          <span class="icon">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+      </p>
+      <p>{{ $ctrl.module.description }}</p>
+      <div class="large-margin-top" ng-show="$ctrl.module.url">
+        <a
+          href=""
+          ng-href="{{ $ctrl.module.url }}"
+          target="_blank"
+          rel="noreferrer noopener"
+          >More Information</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

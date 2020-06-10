@@ -18,6 +18,18 @@
       on-click="$ctrl.onClick($event)"
     ></pbs-data-table>
   </pbs-block>
+
+  <div ng-show="$ctrl.showQuick">
+    <label class="label hover" ng-click="$ctrl.edit()">
+      <a href="">Call Forward Always</a>
+    </label>
+    <pbs-input-switch
+      ng-label="$ctrl.settings.forwardToPhoneNumber || 'N/A'"
+      ng-model="$ctrl.settings.isActive"
+      ng-change="$ctrl.toggle()"
+      ng-disabled="$ctrl.loading"
+    ></pbs-input-switch>
+  </div>
 </pbs-spinner>
 <pbs-modal id="editUserVoiceMessagingUser" title="Edit {{ $ctrl.editTitle }}">
   <pbs-form>

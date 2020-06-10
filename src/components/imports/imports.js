@@ -14,7 +14,8 @@ import {
   UiCardModal,
   UiInputCheckbox
 } from '@/components/ui'
-
+import { Switch, Route } from 'react-router-dom'
+import { Import } from '@/components/imports'
 const IMPORT_LIMIT = 500
 
 const columns = [
@@ -65,7 +66,7 @@ export const Imports = ({ history, match, isBreadcrumb = true }) => {
     setForm({ ...form, [name]: value })
   }
 
-  const open = ({ id }) => history.push(`/imports/${id}`)
+  const open = ({ id }) => history.push(`${match.url}/${id}`)
   const show = group => {
     setForm({ ...form, ...group })
     setInitialized(false)
@@ -106,8 +107,8 @@ export const Imports = ({ history, match, isBreadcrumb = true }) => {
     }
   }
 
-  return (
-    <>
+  const importsView =
+  <>
       {isBreadcrumb && (
         <AppBreadcrumb>
           <Breadcrumb.Item>Imports</Breadcrumb.Item>
@@ -220,6 +221,12 @@ export const Imports = ({ history, match, isBreadcrumb = true }) => {
         </form>
       </UiCardModal>
     </>
+
+  return (
+    <Switch>
+    <Route path={`${match.path}/:id`} exact component={Import} />
+    <Route render = {() => importsView}/>
+  </Switch>
   )
 }
 

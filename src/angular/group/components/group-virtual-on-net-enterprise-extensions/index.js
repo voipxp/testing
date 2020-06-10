@@ -13,13 +13,15 @@ controller.$inject = [
   'Alert',
   'GroupVirtualOnNetEnterpriseExtensionsService',
   'SystemVirtualOnNetEnterpriseExtensionsService',
-  '$q'
+  '$q',
+  'Module'
 ]
 function controller(
   Alert,
   GroupVirtualOnNetEnterpriseExtensionsService,
   SystemVirtualOnNetEnterpriseExtensionsService,
-  $q
+  $q,
+  Module
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -28,7 +30,14 @@ function controller(
 
   ctrl.options = GroupVirtualOnNetEnterpriseExtensionsService.options
 
+  function loadModule() {
+    return Module.show("Virtual On-Net Enterprise Extensions").then(function(data) {
+      ctrl.module = data
+    })
+  }
+
   function onInit() {
+    loadModule()
     ctrl.loading = true
     $q.all([load(), loadSystem()])
       .catch(function(error) {
