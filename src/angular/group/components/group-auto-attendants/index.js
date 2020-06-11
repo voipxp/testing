@@ -57,7 +57,7 @@ function controller(
     //     ctrl.loading = false
     //   })
   }
-
+  
 	function loadModule() {
 			return Module.show('Auto Attendant').then(function(data) {
 			  ctrl.module = data
@@ -65,9 +65,25 @@ function controller(
   }
   
   function loadModuleAABuilder() {
-    return Module.show('Visual AA Builder').then(function(data) {
-       ctrl.moduleBuilder = data
-      })
+    return Module.show('Visual AA Builder').then(function(data) { 
+      if(ACL.is('System')){
+        ctrl.canCreateAA = true
+      } else if(ACL.is('Provisioning')){
+        ctrl.canCreateAA = true
+      } else if(ACL.is('Service Provider')){
+        ctrl.canCreateAA = true
+      } else if(ACL.is('Group')){
+        ctrl.moduleBuilder = data 
+        ctrl.canCreateAA = true
+      } else if(ACL.is('Group Department')){
+        ctrl.canCreateAA = true
+      }else if(ACL.is('User')){
+        ctrl.canCreateAA = true
+      }else{
+        ctrl.canCreateAA = false
+      }
+      ctrl.moduleBuilder = data 
+    })
   } 
 
   function loadAutoAttendants() {
