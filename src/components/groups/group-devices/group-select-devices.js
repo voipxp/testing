@@ -5,7 +5,6 @@ import { useAsync } from 'react-async-hook'
 import GroupDeviceAPI from '@/api/groups/group-device-service'
 import { generatePath } from "react-router";
 import { UpdateDevice } from '@/components/groups'
-import _ from 'lodash'
 
 export const GroupSelectDevices = (
 {
