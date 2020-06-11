@@ -4,7 +4,7 @@ import { Imports } from '@/components/imports'
 import { Exports } from '@/components/exports'
 import { SystemNetworkClassOfServicesIndex } from '@/components/system/system-network-class-of-services-index'
 import { BulkTasksIndex } from '@/components/bulk'
-
+import { SystemDomains } from './system-domains'
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -116,6 +116,13 @@ export const dashboardMenu = [
         acl: 'System',
         hasLevel: 'System'
       },
+	  {
+		name: 'Domains',
+		component: SystemDomains,
+		path: 'domains',
+		hasLevel: 'System',
+		isBreadcrumb: false
+	  },
       {
         name: 'Network Class of Services',
         path: 'networkClassOfServices',
