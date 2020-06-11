@@ -40,7 +40,7 @@ function controller(
   function onInit() {
     ctrl.loading = true
     return $q
-      .all([loadAutoAttendants(), GroupPolicyService.load(), loadModule()])
+      .all([loadAutoAttendants(), GroupPolicyService.load(), loadModule(), loadModuleAABuilder()])
       .then(function() {
         ctrl.canCreate = GroupPolicyService.enhancedServiceCreate()
       })
@@ -62,7 +62,18 @@ function controller(
 			return Module.show('Auto Attendant').then(function(data) {
 			  ctrl.module = data
 			})
-	}
+  }
+  
+  function loadModuleAABuilder() {
+    if(ACL.is('Reseller')){
+      ctrl.canCreateAA = false
+    } else{
+      ctrl.canCreateAA = true
+    }
+    return Module.show('Visual AA Builder').then(function(data) { 
+      ctrl.moduleBuilder = data 
+    })
+  } 
 
   function loadAutoAttendants() {
     return GroupAutoAttendantService.index(
