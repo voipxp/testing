@@ -328,7 +328,7 @@ export const UpdateDevice = ({
 UpdateDevice.propTypes = {
   serviceProviderId: PropTypes.string,
   groupId: PropTypes.string,
-  deviceName: PropTypes.string,
+  deviceName: PropTypes.any,
   updateDevice: PropTypes.bool,
   setUpdateDevice: PropTypes.func,
   reloadData: PropTypes.func

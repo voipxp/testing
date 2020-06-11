@@ -22,7 +22,6 @@ export const GroupSelectDevices = (
   const editDeviceInfo = (deviceInfo) => {
     setUpdateDevice(true)
     setDeviceUpdatedDetails({...deviceInfo})
-    console.log(deviceInfo.deviceName)
   }
 
   const editButton = (row) => {
@@ -56,6 +55,10 @@ export const GroupSelectDevices = (
     {
       key: 'macAddress',
       label: 'MAC'
+    },
+    {
+      key: 'netAddress',
+      label: 'IP Address'
     },
     {
       key: 'status',
