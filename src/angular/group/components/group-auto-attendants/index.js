@@ -65,23 +65,22 @@ function controller(
   }
   
   function loadModuleAABuilder() {
+    if(ACL.is('System')){
+      ctrl.canCreateAA = true
+    } else if(ACL.is('Provisioning')){
+      ctrl.canCreateAA = true
+    } else if(ACL.is('Service Provider')){
+      ctrl.canCreateAA = true
+    } else if(ACL.is('Group')){
+      ctrl.canCreateAA = true
+    } else if(ACL.is('Group Department')){
+      ctrl.canCreateAA = true
+    } else if(ACL.is('User')){
+      ctrl.canCreateAA = true
+    } else{
+      ctrl.canCreateAA = false
+    }
     return Module.show('Visual AA Builder').then(function(data) { 
-      if(ACL.is('System')){
-        ctrl.canCreateAA = true
-      } else if(ACL.is('Provisioning')){
-        ctrl.canCreateAA = true
-      } else if(ACL.is('Service Provider')){
-        ctrl.canCreateAA = true
-      } else if(ACL.is('Group')){
-        ctrl.moduleBuilder = data 
-        ctrl.canCreateAA = true
-      } else if(ACL.is('Group Department')){
-        ctrl.canCreateAA = true
-      }else if(ACL.is('User')){
-        ctrl.canCreateAA = true
-      }else{
-        ctrl.canCreateAA = false
-      }
       ctrl.moduleBuilder = data 
     })
   } 
