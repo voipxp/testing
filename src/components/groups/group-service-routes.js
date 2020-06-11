@@ -45,7 +45,7 @@ export const groupServiceRoutes = [
         },
         {
           service :'Call Pickup',
-          path: 'callPickup',
+          path: 'callPickups',
           component: GroupCallPickups,
           hasModuleRead: 'Call Pickup',
           hasGroupService: ['Call Pickup'],

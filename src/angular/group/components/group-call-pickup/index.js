@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallPickup', {
   template,
   controller,
-  bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
+  bindings: { module: '<', serviceProviderId: '<', groupId: '<', name: '<' }
 })
 
 controller.$inject = [
@@ -24,13 +24,20 @@ function controller(ACL, Alert, GroupCallPickupService, Route, Module, $location
   ctrl.users = users
   ctrl.back = back
   function onInit() {
-    ctrl.name = $location.search().name
+    //ctrl.name = $location.search().name
+    loadModule()
     ctrl.loading = true
     loadGroup()
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
       })
+  }
+
+  function loadModule() {
+    return Module.show("Call Pickup").then(function(data) {
+      ctrl.module = data
+    })
   }
 
   function loadGroup() {
@@ -95,15 +102,17 @@ function controller(ACL, Alert, GroupCallPickupService, Route, Module, $location
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'callPickup',
-        'group'
-      ).search({ name: name })
+        'group-services',
+        'callPickups',
+        name
+      )
     } else {
       return Route.open(
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'callPickup'
+        'group-services',
+        'callPickups'
       )
     }
   }
@@ -140,7 +149,7 @@ function controller(ACL, Alert, GroupCallPickupService, Route, Module, $location
       .finally(Alert.spinner.close)
   }
 
-  function back() { 
+  function back() {
     if(ACL.is('Group Department')) {
       Route.open('department', ctrl.serviceProviderId, ctrl.groupId, 'callPickup')
     } else if(ACL.is('Group') || ACL.is('Service Provider') || ACL.is('System') ){
@@ -149,10 +158,10 @@ function controller(ACL, Alert, GroupCallPickupService, Route, Module, $location
         ctrl.serviceProviderId,
         ctrl.groupId,
         'group-services',
-        'callPickup'
+        'callPickups'
         )
     }else{
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'callPickup')
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'group-services', 'callPickups')
     }
   }
 
