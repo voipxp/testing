@@ -65,20 +65,10 @@ function controller(
   }
   
   function loadModuleAABuilder() {
-    if(ACL.is('System')){
-      ctrl.canCreateAA = true
-    } else if(ACL.is('Provisioning')){
-      ctrl.canCreateAA = true
-    } else if(ACL.is('Service Provider')){
-      ctrl.canCreateAA = true
-    } else if(ACL.is('Group')){
-      ctrl.canCreateAA = true
-    } else if(ACL.is('Group Department')){
-      ctrl.canCreateAA = true
-    } else if(ACL.is('User')){
-      ctrl.canCreateAA = true
-    } else{
+    if(ACL.is('Reseller')){
       ctrl.canCreateAA = false
+    } else{
+      ctrl.canCreateAA = true
     }
     return Module.show('Visual AA Builder').then(function(data) { 
       ctrl.moduleBuilder = data 
