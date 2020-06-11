@@ -40,7 +40,7 @@ function controller(
   function onInit() {
     ctrl.loading = true
     return $q
-      .all([loadAutoAttendants(), GroupPolicyService.load(), loadModule()])
+      .all([loadAutoAttendants(), GroupPolicyService.load(), loadModule(), loadModuleAABuilder()])
       .then(function() {
         ctrl.canCreate = GroupPolicyService.enhancedServiceCreate()
       })
@@ -62,7 +62,13 @@ function controller(
 			return Module.show('Auto Attendant').then(function(data) {
 			  ctrl.module = data
 			})
-	}
+  }
+  
+  function loadModuleAABuilder() {
+    return Module.show('Visual AA Builder').then(function(data) {
+       ctrl.moduleBuilder = data
+      })
+  } 
 
   function loadAutoAttendants() {
     return GroupAutoAttendantService.index(
