@@ -25,6 +25,7 @@ const addDevice = async () => {
     setNewDeviceClicked(false)
   } catch (error) {
     alertDanger(error)
+    setLoading(false)
   }
 }
 

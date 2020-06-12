@@ -25,10 +25,9 @@ export const AddNewDevice = ({
     "deviceName": '',
     "deviceLevel": 'Group',
     "useCustomUserNamePassword": false,
-    "password": '',
     "accessDeviceCredentials": {
       "userName": '',
-      "protocol": ''
+      "password": ''
     },
     "netAddress": '',
     "port": '',
@@ -165,7 +164,7 @@ export const AddNewDevice = ({
             name ="useCustomUserNamePassword"
             checked={form.useCustomUserNamePassword === false}
             onChange={handleInput}
-          />Use Identity/Device Profile Type Credentials<br/>
+          /> Use Identity/Device Profile Type Credentials<br/>
 
           <Radio
             type="radio"
@@ -173,7 +172,7 @@ export const AddNewDevice = ({
             name ="useCustomUserNamePassword"
             checked={form.useCustomUserNamePassword === true}
             onChange={handleInput}
-          />Use Custom Credentials
+          /> Use Custom Credentials
         </UiFormField>
 
           {/* show if authentication is not set or value true */}
@@ -183,14 +182,14 @@ export const AddNewDevice = ({
                 <Input
                   type="text"
                   name="userName"
-                  value={form.userName}
+                  value={form.accessDeviceCredentials.userName}
                   onChange={handleInput}
                 />
               </UiFormField>
               <UiFormField label="Password" horizontal>
                 <UiInputPassword
                   name="password"
-                  value={form.password}
+                  value={form.accessDeviceCredentials.password}
                   onChange={handleInput}
                   onGeneratePassword={() => generatePassword(passwordRule) }
                 />
