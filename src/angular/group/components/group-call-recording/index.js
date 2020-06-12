@@ -8,8 +8,8 @@ angular.module('odin.group').component('groupCallRecording', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserCallRecordingService']
-function controller(Alert, UserCallRecordingService) {
+controller.$inject = ['Alert', 'UserCallRecordingService', '$q', 'Module']
+function controller(Alert, UserCallRecordingService, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
@@ -41,7 +41,8 @@ function controller(Alert, UserCallRecordingService) {
 
   function onInit() {
     ctrl.loading = true
-    return load()
+    return $q
+      .all([load(),loadModule()])
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
@@ -56,6 +57,12 @@ function controller(Alert, UserCallRecordingService) {
       ctrl.users = _.filter(data, function(item) {
         return _.get(item, 'service.assigned')
       })
+    })
+  }
+
+  function loadModule() {
+    return Module.show('Call Recording').then(function(data) {
+      ctrl.module = data
     })
   }
 

@@ -333,11 +333,15 @@ export const routes = [
     hasModuleRead: 'VDM'
   },
   {
+    path: '/groups/:serviceProviderId/:groupId/autoAttendants/visual',
+    component: CreateAutoAttendant,
+    hasModuleRead: 'Visual AA Builder'
+  },
+  {
     path: '/groups/:serviceProviderId/:groupId',
     component:  GroupDashboard,
     hasLevel: 'Group'
   },
-
   {
     path: '/groups/:serviceProviderId/:groupId/profile',
     angularComponent: 'groupProfile',
@@ -880,11 +884,6 @@ export const routes = [
     path: '/groups/:serviceProviderId/:groupId/groupWebPolicy',
     component: GroupWebPolicy,
     hasLevel: 'Service Provider'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/autoAttendants/visual',
-    component: CreateAutoAttendant,
-    hasModuleRead: 'Visual AA Builder'
   },
   {
     path: '/system/resellers',

@@ -8,8 +8,8 @@ angular.module('odin.group').component('groupCallForwardingNoAnswer', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserCallForwardingNoAnswerService']
-function controller(Alert, UserCallForwardingNoAnswerService) {
+controller.$inject = ['Alert', 'UserCallForwardingNoAnswerService', '$q', 'Module']
+function controller(Alert, UserCallForwardingNoAnswerService, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
@@ -51,7 +51,8 @@ function controller(Alert, UserCallForwardingNoAnswerService) {
 
   function onInit() {
     ctrl.loading = true
-    return load()
+    return $q
+      .all([load(),loadModule()])
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
@@ -66,6 +67,12 @@ function controller(Alert, UserCallForwardingNoAnswerService) {
       ctrl.users = _.filter(data, function(item) {
         return _.get(item, 'service.assigned')
       })
+    })
+  }
+
+  function loadModule() {
+    return Module.show('Call Forwarding No Answer').then(function(data) {
+      ctrl.module = data
     })
   }
 
