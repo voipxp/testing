@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Breadcrumb } from 'rbx'
-import { AppBreadcrumb } from '@/components/app'
+import { AppBreadcrumb , AppHelp } from '@/components/app'
 import PropTypes from 'prop-types'
 import { useUi } from '@/store/ui'
 import { Field, Input, Column, Control } from 'rbx'
@@ -157,6 +157,7 @@ export const GroupSpeedDial8 = ({ match , isBreadcrumb = true}) => {
       ) : (
         <UiCard
           title="Bulk Speed Dial 8"
+          helpModule={<AppHelp module='Speed Dial 8'/>}
           buttons={
             rows.length > 0 && (
               <UiButton

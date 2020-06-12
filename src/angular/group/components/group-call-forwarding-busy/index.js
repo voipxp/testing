@@ -8,8 +8,8 @@ angular.module('odin.group').component('groupCallForwardingBusy', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserCallForwardingBusyService']
-function controller(Alert, UserCallForwardingBusyService) {
+controller.$inject = ['Alert', 'UserCallForwardingBusyService', '$q', 'Module']
+function controller(Alert, UserCallForwardingBusyService, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
@@ -47,7 +47,8 @@ function controller(Alert, UserCallForwardingBusyService) {
 
   function onInit() {
     ctrl.loading = true
-    return load()
+    return $q
+      .all([load(),loadModule()])
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
@@ -65,6 +66,12 @@ function controller(Alert, UserCallForwardingBusyService) {
     })
   }
 
+  function loadModule() {
+    return Module.show('Call Forwarding Busy').then(function(data) {
+      ctrl.module = data
+    })
+  }
+  
   function onClick(event) {
     ctrl.editSettings = angular.copy(event.data)
     ctrl.editTitle = event.user.userId
