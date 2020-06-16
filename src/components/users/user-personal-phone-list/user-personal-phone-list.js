@@ -94,7 +94,7 @@ const deletePhoneConfirmModal = (
       onDelete={deletePhone}
     >
       <blockquote>
-        Are you sure you want to delete this phone {selectedPhone.name}?
+        Are you sure you want to delete this phone {selectedPhone.name} ?
       </blockquote>
     </UiCardModal>
 )
@@ -102,7 +102,7 @@ const deletePhoneConfirmModal = (
 const updatePhoneModal = (
   <>
     <UiCardModal
-      title="New Phone"
+      title={`Edit (${selectedPhone.name})`}
       isOpen={updatePhone}
       onDelete={() => setShowConfirm(true)}
       onCancel={() => setUpdatePhone(false)}
