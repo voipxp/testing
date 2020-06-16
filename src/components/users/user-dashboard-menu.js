@@ -16,7 +16,8 @@ export const dashboardMenu = [
           'Call Forwarding No Answer',
           'Do Not Disturb',
           'Remote Office',
-          'BroadWorks Anywhere'
+          'BroadWorks Anywhere',
+          'Voice Messaging User'
         ],
         icon: 'home'
       },
