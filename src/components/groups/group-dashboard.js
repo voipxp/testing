@@ -5,11 +5,27 @@ import { dashboardMenu } from './group-dashboard-menu'
 import { useModulePermissions, useAcl, UrlOperations } from '@/utils'
 import { AppBreadcrumb } from '@/components/app'
 import { Breadcrumb } from 'rbx'
+import _ from 'lodash'
+
 export const GroupDashboard = ({ match, history }) => {
   const [loading] = React.useState(false)
   const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
   const { hasModuleRead } = useModulePermissions()
+  const [navigation, setNavigation] = React.useState([])
+
+  const params = new URLSearchParams(history.location.search)
+  const navigate = params.get('navigate')
   const breadcrumbs = UrlOperations.getBreadcrumbItems(match.url, history.location.pathname) || []
+
+  React.useEffect(() => {
+    /*  If we found  'navigate' in search params then breadcrumb will be
+        same and 'navigate' will be added to next to the older breadcrumb.
+        e.g. 'old breadcrumb / navigate'
+    */
+    if(!_.isEqual(navigation, breadcrumbs)) {
+      if(!navigate) setNavigation(breadcrumbs)
+    }
+  }, [breadcrumbs, navigation, navigate])
 
   const menu = React.useMemo(() => {
     const filterItems = (item) => {
@@ -41,7 +57,6 @@ export const GroupDashboard = ({ match, history }) => {
           }
           items.push(item)
         }
-        // else if(filterItems(item)) items.push(item)
       })
       if (items.length > 0) filteredMenu.push({ label: section.label, items})
     })
@@ -51,11 +66,17 @@ export const GroupDashboard = ({ match, history }) => {
   return (
     <>
       <AppBreadcrumb>
-        {breadcrumbs.map(el => (
+        {navigation.map(el => (
           <Breadcrumb.Item href={el.href} key={el.label}>
             {el.label}
           </Breadcrumb.Item>
         ))}
+        {
+          navigate &&
+          <Breadcrumb.Item>
+            {navigate}
+          </Breadcrumb.Item>
+        }
       </AppBreadcrumb>
       {loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
     </>
