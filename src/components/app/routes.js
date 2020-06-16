@@ -128,11 +128,11 @@ export const routes = [
     angularComponent: 'groupSchedule',
     hasLevel: 'Group'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/departments/department',
-    angularComponent: 'groupDepartment',
-    hasLevel: 'Group'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/departments/department',
+  //   angularComponent: 'groupDepartment',
+  //   hasLevel: 'Group'
+  // },
  {
     path: '/groups/:serviceProviderId/:groupId/trunkGroups/trunkGroup',
     angularComponent: 'groupTrunkGroup',
