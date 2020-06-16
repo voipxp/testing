@@ -245,7 +245,7 @@ export const dashboardMenu = [
         name: 'Schedules',
         path: 'schedules',
         angularComponent: 'groupSchedules',
-        hasLevel: 'Service Provider'
+        hasLevel: 'Group'
       },
       {
         name: 'Viewable Packs',
