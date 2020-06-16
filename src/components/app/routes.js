@@ -2,7 +2,8 @@ import { UserDashboard } from '@/components/users'
 import { DepartmentDashboard } from '@/components/departments'
 import { CreateAutoAttendant } from '@/components/autoAttendant'
 import {
-  ServiceProviderDashboard
+  ServiceProviderDashboard,
+  ServiceProviderOdinSupport
 } from '@/components/service-provider'
 import {
   GroupCommunicationBarring,
@@ -290,6 +291,11 @@ export const routes = [
   {
     path: '/webhooks',
     angularComponent: 'odinWebhooks',
+    isPaasAdmin: true
+  },
+  {
+    path: '/support',
+    component: 'OdinSupport',
     isPaasAdmin: true
   },
   /*{

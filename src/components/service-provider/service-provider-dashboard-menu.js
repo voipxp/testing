@@ -4,6 +4,7 @@ import { Exports } from '@/components/exports'
 import { ServiceProviderAudits } from './service-provider-audits'
 import { BulkTasksIndex } from '@/components/bulk'
 import { ServiceProviderServicePacksIndex } from '@/components/service-provider/service-provider-service-packs-index'
+import { ServiceProviderOdinSupport } from '@/components/service-provider/service-provider-odin-support'
 import { ServiceProviderAssignDomains } from './service-provider-assign-domains'
 export const dashboardMenu = [
   {
@@ -235,6 +236,12 @@ export const dashboardMenu = [
         angularComponent: 'odinWebhooks',
         hasLevel: 'Service Provider',
         isPaasAdmin: true
+      },
+      {
+        name: 'Support',
+        path: 'support',
+        component: ServiceProviderOdinSupport,
+        hasLevel: 'Service Provider'
       }
     ]
   }
