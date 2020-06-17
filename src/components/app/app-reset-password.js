@@ -1,19 +1,15 @@
 import React from 'react'
-import { Hero, Box, Field, Control, Icon, Button, Input, Message } from 'rbx'
+import { Hero, Box, Field, Control, Icon, Button, Input } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { useAlerts } from '@/store/alerts'
 import { useUi } from '@/store/ui'
-import { useUiTemplate } from '@/store/ui-template'
 import authApi from '@/api/auth'
 import PropTypes from 'prop-types'
 
-export const AppResetPassword = (props) => {
+export const AppResetPassword = ({ match, history }) => {
   const { showLoadingModal, hideLoadingModal } = useUi()
   const { alertSuccess, alertWarning, alertDanger } = useAlerts()
-
-  const { template } = useUiTemplate()
-  const { pageLoginMessage } = template
 
   const formRef = React.useRef()
   const [form, setForm] = React.useState({
@@ -22,6 +18,8 @@ export const AppResetPassword = (props) => {
     newPassword1: '',
     newPassword2: ''
   })
+
+  const goToLoginPage = () => history.push('/')
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -43,8 +41,8 @@ export const AppResetPassword = (props) => {
         form.newPassword1,
         form.username
       )
-      props.resetPassword(false)
       alertSuccess('Password has been reset successfully!')
+      goToLoginPage()
     } catch (error) {
       alertDanger(error)
     } finally {
@@ -128,30 +126,20 @@ export const AppResetPassword = (props) => {
               <Button color="link" fullwidth type="submit">
                 Reset Password
               </Button>
-              <Button style={{marginTop: '5px'}}
-                onClick={() => props.resetPassword(false)}
-                color="link" fullwidth
-                type="submit">
-                Go to Login Page
-              </Button>
+              <div style={{display: 'flex', justifyContent: 'center'}}>
+                <a href='/#!/'>
+                  Go to Login Page
+                </a>
+              </div>
             </form>
           </Box>
         </Hero.Body>
-
-        {pageLoginMessage && (
-          <Hero.Foot>
-            <Message radiusless>
-              <Message.Body textAlign="centered">
-                {pageLoginMessage}
-              </Message.Body>
-            </Message>
-          </Hero.Foot>
-        )}
       </Hero>
     </div>
   )
 }
 
 AppResetPassword.propTypes = {
-  resetPassword: PropTypes.func
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 }

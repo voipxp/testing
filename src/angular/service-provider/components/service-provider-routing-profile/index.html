@@ -1,0 +1,30 @@
+<pbs-spinner loading="$ctrl.loading">
+  <pbs-block title="Settings">
+    <pbs-block-buttons>
+      <pbs-button-compact-edit
+        title="Edit Settings"
+        ng-click="$ctrl.edit()"
+        if-module-update="$ctrl.module"
+      >
+      </pbs-button-compact-edit>
+    </pbs-block-buttons>
+
+    <pbs-list>
+      <pbs-list-section></pbs-list-section>
+      <pbs-list-item label="Routing Profile">
+        {{ $ctrl.settings.routingProfile }}
+      </pbs-list-item>
+    </pbs-list>
+  </pbs-block>
+</pbs-spinner>
+<pbs-modal id="editServiceProviderRoutingProfileModal" title="Edit Settings">
+  <pbs-form>
+    <pbs-form-field-horizontal label="Routing Profile">
+      <pbs-input-select
+        ng-model="$ctrl.editSettings.routingProfile"
+        ng-options="opt for opt in $ctrl.options.routingProfiles"
+      >
+      </pbs-input-select>
+    </pbs-form-field-horizontal>
+  </pbs-form>
+</pbs-modal>

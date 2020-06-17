@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Input, Button, Breadcrumb } from 'rbx'
-import { AppBreadcrumb } from '@/components/app'
+import { AppBreadcrumb, AppHelp } from '@/components/app'
 import PropTypes from 'prop-types'
 import apiSeriesCompletion from '@/api/group-settings-services/group-series-completion-service'
 import { orderBy } from 'natural-orderby'
@@ -253,6 +253,7 @@ export const GroupSeriesCompletion = ({ match , isBreadcrumb = true}) => {
 	)}
       <UiCard
         title="Series Completion"
+        helpModule={<AppHelp module='Series Completion'/>}
         buttons={
           <UiButton
           color="link"

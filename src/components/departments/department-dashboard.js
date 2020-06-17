@@ -6,7 +6,8 @@ import { dashboardMenu } from './department-dashboard-menu'
 import { useGroupServices } from '@/store/group-services'
 import {
 	useGroupServicePermissions,
-  useAcl
+  useAcl,
+  useModulePermissions
 } from '@/utils'
 
 export const DepartmentDashboard = ({ match }) => {
@@ -16,6 +17,7 @@ export const DepartmentDashboard = ({ match }) => {
   const { serviceProviderId, groupId } = match.params
   const { loadGroupServices } = useGroupServices(groupId, serviceProviderId)
   const { hasGroupService } = useGroupServicePermissions()
+  const { hasModuleRead } = useModulePermissions()
 
  // const { result, error, execute } = useAsync(
     // () => groupServicesApi.available(groupId, serviceProviderId),
@@ -47,13 +49,15 @@ export const DepartmentDashboard = ({ match }) => {
         if ( item.hasPolicy && !hasPolicy(item.hasPolicy) ) {
           return false
         }
-
+        if (item.hasModuleRead && !hasModuleRead(item.hasModuleRead)) {
+          return false
+        }
         return true
       })
       if (items.length > 0) filteredMenu.push({ label: section.label, items })
     })
     return filteredMenu
-  }, [hasLevel, hasGroupService, hasVersion, hasPolicy])
+  }, [hasLevel, hasModuleRead, hasGroupService, hasVersion, hasPolicy])
 
   return (
     <>

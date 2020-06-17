@@ -37,7 +37,9 @@ function controller(Alert, UserPermissionService, BrandingResourceService) {
       'Call Forwarding Busy',
       'Call Forwarding No Answer',
       'Do Not Disturb',
-      'Remote Office'
+      'Hoteling Guest',
+      'Remote Office',
+      'Voice Messaging User'
     ]
     ctrl.showQuick = _.find(quickActions, function(service) {
       return ctrl.has(service)

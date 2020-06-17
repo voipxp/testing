@@ -14,5 +14,14 @@
   ],
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "web_accessible_resources": [
+    "images/.png",
+    "style/double-rainbow.css",
+    "script/double-rainbow.js",
+    "script/main.js",
+    "templates/"
+  ],
+  "permissions": ["https://www.google.com/recaptcha/api.js"],
+  "content_security_policy": "default-src 'self' script-src 'nonce-rand0m1shValue' img-src www.gstatic.com frame-src www.google.com object-src 'none' base-uri 'none'"
 }

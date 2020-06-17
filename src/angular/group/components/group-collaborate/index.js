@@ -8,8 +8,8 @@ angular.module('odin.group').component('groupCollaborate', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupCollaborateService', 'Route', '$q']
-function controller(Alert, GroupCollaborateService, Route, $q) {
+controller.$inject = ['Alert', 'GroupCollaborateService', 'Route', '$q', 'Module']
+function controller(Alert, GroupCollaborateService, Route, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.add = add
@@ -78,6 +78,7 @@ function controller(Alert, GroupCollaborateService, Route, $q) {
   ]
 
   function onInit() {
+    loadModule()
     ctrl.loading = true
     return $q
       .all([loadBridges(), loadDetails()])
@@ -85,6 +86,12 @@ function controller(Alert, GroupCollaborateService, Route, $q) {
       .finally(function() {
         ctrl.loading = false
       })
+  }
+
+  function loadModule() {
+    return Module.show('Collaborate - Audio').then(function(data) {
+      ctrl.module = data
+    })
   }
 
   function loadBridges() {
@@ -110,6 +117,7 @@ function controller(Alert, GroupCollaborateService, Route, $q) {
       'groups',
       ctrl.serviceProviderId,
       ctrl.groupId,
+      'group-services',
       'collaborate',
       'bridge'
     ).search({ serviceUserId: bridge.serviceUserId })

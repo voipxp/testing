@@ -1,4 +1,4 @@
-<pbs-spinner loading="$ctrl.loading">
+<pbs-spinner loading="$ctrl.loading" ng-show="!$ctrl.showQuick">
   <pbs-block module="$ctrl.module">
     <pbs-block-buttons if-module-update="$ctrl.module">
       <pbs-button-compact-edit
@@ -25,6 +25,16 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
+<div ng-show="$ctrl.showQuick">
+  <label class="label hover" ng-click="$ctrl.edit()">
+    <a href="">Hoteling Guest</a>
+  </label>
+  <pbs-input-switch
+    ng-model="$ctrl.settings.isActive"
+    ng-change="$ctrl.toggle()"
+    ng-disabled="$ctrl.loading"
+  ></pbs-input-switch>
+</div>
 <pbs-modal id="editUserHotelingGuest" title="Edit Settings">
   <pbs-form>
     <pbs-form-field label="General Settings">

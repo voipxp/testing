@@ -8,8 +8,8 @@ angular.module('odin.group').component('groupCallingLineIdDeliveryBlocking', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserCallingLineIdDeliveryBlockingService']
-function controller(Alert, UserCallingLineIdDeliveryBlockingService) {
+controller.$inject = ['Alert', 'UserCallingLineIdDeliveryBlockingService', '$q', 'Module']
+function controller(Alert, UserCallingLineIdDeliveryBlockingService, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
@@ -42,7 +42,8 @@ function controller(Alert, UserCallingLineIdDeliveryBlockingService) {
 
   function onInit() {
     ctrl.loading = true
-    return load()
+    return $q
+      .all([load(),loadModule()])
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
@@ -57,6 +58,12 @@ function controller(Alert, UserCallingLineIdDeliveryBlockingService) {
       ctrl.users = _.filter(data, function(item) {
         return _.get(item, 'service.assigned')
       })
+    })
+  }
+
+  function loadModule() {
+    return Module.show('Calling Line ID Delivery Blocking').then(function(data) {
+      ctrl.module = data
     })
   }
 

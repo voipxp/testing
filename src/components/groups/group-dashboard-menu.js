@@ -7,6 +7,7 @@ import { GroupWebPolicy } from './group-web-policy'
 import { GroupExtensionLength } from './group-extension-length'
 import { groupReportRoutes } from './group-report-routes'
 import { BulkTasksIndex } from '@/components/bulk'
+import { GroupAssignDomains } from './group-assign-domains'
 
 export const dashboardMenu = [
   {
@@ -75,7 +76,7 @@ export const dashboardMenu = [
             name: 'Bulk Wizards',
             path: 'bulk-wizards',
             angularComponent: 'bulkDashboard',
-            hasLevel: 'Group Department',
+            hasLevel: 'Group',
             hasModuleRead: 'Provisioning'
           },
           {
@@ -130,7 +131,7 @@ export const dashboardMenu = [
             name: 'Assign Numbers',
             path: 'groupNumbers',
             angularComponent: 'groupNumbers',
-            hasLevel: 'Service Provider',
+            hasLevel: 'Group',
             isPaasAdmin: true
           },
           {
@@ -147,6 +148,15 @@ export const dashboardMenu = [
             hasLevel: 'Group',
             isPaasAdmin: true
           },
+          {
+            name: 'Routing Profile',
+            path: 'routingProfile',
+            angularComponent: 'groupRoutingProfile',
+            hasLevel: 'Service Provider',
+            isPaasAdmin: true,
+            module: 'Routing Profile'
+          },
+
           {
             name: 'Group Extension Length',
             path: 'groupExtensionLength',
@@ -178,15 +188,25 @@ export const dashboardMenu = [
         version: '20'
       },
       {
+        name: 'Domains',
+        path: 'domains',
+        component: GroupAssignDomains,
+        hasLevel: 'Group',
+        isBreadcrumb: false
+      },
+      {
         name: 'Call Processing Policy',
         path: 'callProcessingPolicy',
         angularComponent: 'groupCallProcessingPolicy',
+        hasModuleRead: 'Group Call Processing Policy',
+        module: 'Group Call Processing Policy',
         hasLevel: 'Group'
       },
       {
         name: 'Comm Barring',
         path: 'comm-barring',
-        component: GroupCommunicationSettings
+        component: GroupCommunicationSettings,
+        hasModuleRead: 'Communication Barring User-Control'
       },
       {
         name: 'Feature Access Codes',
@@ -214,8 +234,7 @@ export const dashboardMenu = [
         name: 'Network Class of Service',
         path: 'networkClassOfServices',
         angularComponent: 'groupNetworkClassOfServices',
-        hasLevel: 'Group',
-        hasModuleRead: 'Network Class of Service'
+        hasLevel: 'Group'
       },
       {
         name: 'Phone List And Directory',

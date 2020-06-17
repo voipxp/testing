@@ -1,6 +1,7 @@
 import { UserServiceSettings } from './user-service-settings'
 import { UserAlternateUserId } from './user-alternate-user-id'
 import { UserRegistration } from './user-registration'
+import { UserPersonalPhoneList } from '@/components/users/user-personal-phone-list'
 
 export const dashboardMenu = [
   {
@@ -16,7 +17,8 @@ export const dashboardMenu = [
           'Call Forwarding No Answer',
           'Do Not Disturb',
           'Remote Office',
-          'BroadWorks Anywhere'
+          'BroadWorks Anywhere',
+          'Voice Messaging User'
         ],
         icon: 'home'
       },
@@ -89,7 +91,13 @@ export const dashboardMenu = [
         name: 'User Profile',
         angularComponent: 'userProfile',
         icon: 'idcard'
-      }
+      },
+      {
+        path: 'user-personal-phone-list',
+        name: 'User Personal Phone List',
+        component: UserPersonalPhoneList,
+        icon: 'list'
+      },
     ]
   },
   {

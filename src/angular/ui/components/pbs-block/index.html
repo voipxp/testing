@@ -2,7 +2,11 @@
   <header class="card-header">
     <p class="card-header-title">
       {{ $ctrl.name }}
+      &nbsp;&nbsp;
+      <pbs-help module="$ctrl.helpModule">
+      </pbs-help>
     </p>
+
     <span ng-transclude="buttons" class="card-header-icon"></span>
   </header>
   <div class="card-content" ng-transclude></div>
