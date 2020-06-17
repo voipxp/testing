@@ -124,11 +124,13 @@ export const routes = [
     hasLevel: 'Group',
     hasModuleRead: 'Call Park'
   },
+/*
   {
     path: '/groups/:serviceProviderId/:groupId/schedules/schedule',
     angularComponent: 'groupSchedule',
     hasLevel: 'Group'
   },
+*/
   // {
   //   path: '/groups/:serviceProviderId/:groupId/departments/department',
   //   angularComponent: 'groupDepartment',
@@ -595,16 +597,16 @@ export const routes = [
     hasLevel: 'Group Department',
     hasModuleRead: 'Call Center'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/schedules',
-    angularComponent: 'groupSchedules',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/schedules/schedule',
-    angularComponent: 'groupSchedule',
-    hasLevel: 'Group'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/schedules',
+  //   angularComponent: 'groupSchedules',
+  //   hasLevel: 'Group'
+  // },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/schedules/schedule',
+  //   angularComponent: 'groupSchedule',
+  //   hasLevel: 'Group'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/viewablePacks',
     angularComponent: 'groupViewablePacksIndex',

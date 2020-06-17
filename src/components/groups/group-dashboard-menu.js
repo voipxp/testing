@@ -7,6 +7,7 @@ import { GroupWebPolicy } from './group-web-policy'
 import { GroupExtensionLength } from './group-extension-length'
 import { groupReportRoutes } from './group-report-routes'
 import { BulkTasksIndex } from '@/components/bulk'
+import { GroupSchedulesIndex } from '@/components/groups/group-schedules-index'
 import { GroupAssignDomains } from './group-assign-domains'
 
 export const dashboardMenu = [
@@ -244,7 +245,7 @@ export const dashboardMenu = [
       {
         name: 'Schedules',
         path: 'schedules',
-        angularComponent: 'groupSchedules',
+        component: GroupSchedulesIndex,
         hasLevel: 'Group'
       },
       {
