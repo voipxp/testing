@@ -28,9 +28,7 @@ function controller(Alert, BrandingEmailService) {
     { key: 'mailFromName', label: 'Mail From Name' },
     { key: 'mailUsername', label: 'Mail Username' }
   ]
-  ctrl.fields.password = [
-    { key: 'mailPassword', label: 'Mail Password' },
-  ]
+  ctrl.fields.password = [{ key: 'mailPassword', label: 'Mail Password' }]
 
   function onInit() {
     ctrl.loading = true
@@ -63,14 +61,14 @@ function controller(Alert, BrandingEmailService) {
     })
   }
 
-  function validateMailHost(email) {
-    const other = ctrl.emails.find(app => app.mailHost === email.mailHost)
-    if (other && other.id !== email.id) {
-      Alert.notify.warning('MailHost is already taken')
-      return false
-    }
-    return true
-  }
+  // function validateMailHost(email) {
+  //   const other = ctrl.emails.find(app => app.mailHost === email.mailHost)
+  //   if (other && other.id !== email.id) {
+  //     Alert.notify.warning('MailHost is already taken')
+  //     return false
+  //   }
+  //   return true
+  // }
 
   function update(field, callback) {
     console.log('field', field)
