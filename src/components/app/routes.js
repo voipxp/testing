@@ -303,13 +303,13 @@ export const routes = [
     angularComponent: 'groupDashboard',
     hasLevel: 'Group'
   }, */
-  {
-    path:
-      '/serviceProviders/:serviceProviderId/enterpriseTrunks/enterpriseTrunk',
-    angularComponent: 'enterpriseEnterpriseTrunk',
-    hasLevel: 'Service Provider',
-    hasModuleRead: 'Trunk Group'
-  },
+  // {
+  //   path:
+  //     '/serviceProviders/:serviceProviderId/enterpriseTrunks/:trunkName',
+  //   angularComponent: 'enterpriseEnterpriseTrunk',
+  //   hasLevel: 'Service Provider',
+  //   hasModuleRead: 'Trunk Group'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/devices/:deviceName',
     angularComponent: 'groupDevice',

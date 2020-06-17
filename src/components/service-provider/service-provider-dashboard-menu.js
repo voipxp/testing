@@ -4,7 +4,7 @@ import { Exports } from '@/components/exports'
 import { ServiceProviderAudits } from './service-provider-audits'
 import { BulkTasksIndex } from '@/components/bulk'
 import { ServiceProviderServicePacksIndex } from '@/components/service-provider/service-provider-service-packs-index'
-
+import { EnterpriseEnterpriseTrunksIndex } from '@/components/service-provider'
 export const dashboardMenu = [
   {
     label: 'Dashboard',
@@ -116,7 +116,8 @@ export const dashboardMenu = [
       {
         name: 'Enterprise Trunk',
         path: 'enterpriseTrunks',
-        angularComponent: 'enterpriseEnterpriseTrunks',
+        component: EnterpriseEnterpriseTrunksIndex,
+        //angularComponent: 'enterpriseEnterpriseTrunks',
         hasLevel: 'Service Provider',
         module: 'Trunk Group',
         isEnterprise: true
