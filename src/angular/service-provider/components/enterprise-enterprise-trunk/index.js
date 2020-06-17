@@ -12,9 +12,10 @@ controller.$inject = [
   '$location',
   'Route',
   'Alert',
-  'EnterpriseEnterpriseTrunkService'
+  'EnterpriseEnterpriseTrunkService',
+  'Module'
 ]
-function controller($location, Route, Alert, EnterpriseEnterpriseTrunkService) {
+function controller($location, Route, Alert, EnterpriseEnterpriseTrunkService, Module) {
   var ctrl = this
   ctrl.$onInit = activate
   ctrl.update = update
@@ -32,7 +33,14 @@ function controller($location, Route, Alert, EnterpriseEnterpriseTrunkService) {
       })
   }
 
+  function loadModule() {
+    return Module.show(ctrl.module).then(function(data) {
+      ctrl.module = data
+    })
+  }
+
   function loadTrunk() {
+    loadModule()
     return EnterpriseEnterpriseTrunkService.show(
       ctrl.serviceProviderId,
       ctrl.trunkName
