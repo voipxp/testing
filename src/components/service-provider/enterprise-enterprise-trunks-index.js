@@ -10,10 +10,7 @@ export const EnterpriseEnterpriseTrunksIndex = ({ match, ...props }) => {
       <UiCard title="">
         <AngularComponent
           component={'enterpriseEnterpriseTrunk'}
-          // hasLevel= 'Service Provider'
-          // hasModuleRead= 'Trunk Group'
-          { ...props }
-  // {...match}
+          {...props}
         />
       </UiCard>
     )
@@ -30,9 +27,9 @@ export const EnterpriseEnterpriseTrunksIndex = ({ match, ...props }) => {
         <Route
           render={() => (
             <AngularComponent
-            component="enterpriseEnterpriseTrunks"
-            { ...props }
-		    />
+              component="enterpriseEnterpriseTrunks"
+              {...props}
+            />
           )}
         />
       </Switch>

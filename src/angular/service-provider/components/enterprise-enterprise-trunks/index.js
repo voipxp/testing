@@ -52,7 +52,7 @@ function controller(Route, Alert, EnterpriseEnterpriseTrunkService, $scope) {
         ctrl.serviceProviderId,
         'enterpriseTrunks',
         'enterpriseTrunk'
-      ).search({ trunkName })
+      ).search({ trunkName, navigate: trunkName})
     } else {
       Route.open('serviceProviders', ctrl.serviceProviderId, 'enterpriseTrunks')
     }
