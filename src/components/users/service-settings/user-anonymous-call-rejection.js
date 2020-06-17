@@ -4,6 +4,7 @@ import { useUi } from '@/store/ui'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-anonymous-call-rejection-service'
+import { AppHelp } from '@/components/app'
 import {
   UiButton,
   UiCard,
@@ -68,6 +69,7 @@ export const UserAnonymousCallRejection = ({ match }) => {
     <>
       <UiCard
         title="Anonymous Call Rejection"
+		helpModule={<AppHelp module='Anonymous Call Rejection'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

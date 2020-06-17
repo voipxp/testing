@@ -14,6 +14,7 @@ import {
   UiLoadingCard,
   UiSection
 } from '@/components/ui'
+import { AppHelp } from '@/components/app'
 
 export const UserCallingNameDelivery = ({ match }) => {
   const { userId } = match.params
@@ -68,6 +69,7 @@ export const UserCallingNameDelivery = ({ match }) => {
     <>
       <UiCard
         title="Calling Name Delivery"
+		helpModule={<AppHelp module='Calling Name Delivery'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

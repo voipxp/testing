@@ -5,6 +5,7 @@ import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-not-reachable-service'
+import { AppHelp } from '@/components/app'
 import {
   UiButton,
   UiCard,
@@ -81,6 +82,7 @@ export const UserCallForwardingNotReachable = ({ match }) => {
     <>
       <UiCard
         title="Call Forwarding Not Reachable"
+		helpModule={<AppHelp module='Call Forwarding Not Reachable'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
