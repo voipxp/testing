@@ -8,8 +8,8 @@ angular.module('odin.group').component('groupHotelingHost', {
   bindings: { module: '<', serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserHotelingHostService']
-function controller(Alert, UserHotelingHostService) {
+controller.$inject = ['Alert', 'UserHotelingHostService', '$q', 'Module']
+function controller(Alert, UserHotelingHostService, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.onClick = onClick
@@ -57,7 +57,8 @@ function controller(Alert, UserHotelingHostService) {
 
   function onInit() {
     ctrl.loading = true
-    return load()
+    return $q
+      .all([load(),loadModule()])
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
@@ -72,6 +73,12 @@ function controller(Alert, UserHotelingHostService) {
       ctrl.users = _.filter(data, function(item) {
         return _.get(item, 'service.assigned')
       })
+    })
+  }
+
+  function loadModule() {
+    return Module.show('Hoteling Host').then(function(data) {
+      ctrl.module = data
     })
   }
 

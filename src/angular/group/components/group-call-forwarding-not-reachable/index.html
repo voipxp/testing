@@ -1,5 +1,8 @@
 <pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Call Forwarding Not Reachable Users">
+  <pbs-block
+    title="Call Forwarding Not Reachable Users"
+    help-module="$ctrl.module"
+  >
     <pbs-block-buttons>
       <pbs-button-compact-cogs
         ng-click="$ctrl.showSelect = !$ctrl.showSelect"

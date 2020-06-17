@@ -39,7 +39,7 @@ export const CreateAutoAttendant = ({ match }) => {
     <StyledDiv>
       <AppBreadcrumb>
         <Breadcrumb.Item
-          href={`#!/groups/${serviceProviderId}/${groupId}/autoAttendants/`}
+          href={`#!/groups/${serviceProviderId}/${groupId}/group-services/autoReceptionist`}
         >
           Auto Attendant
         </Breadcrumb.Item>

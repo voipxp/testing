@@ -23,7 +23,7 @@
       <pbs-button-compact-visual
         title="Create Auto Attendant"
         ng-click="$ctrl.visual()"
-        if-module-create="'Visual AA Builder'"
+        ng-if="$ctrl.moduleBuilder.permissions.create && $ctrl.canCreateAA"
       ></pbs-button-compact-visual>
     </pbs-block-buttons>
     <pbs-table-search ng-model="$ctrl.search"></pbs-table-search>
