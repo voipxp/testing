@@ -4,11 +4,11 @@ import { Switch, Route } from 'react-router-dom'
 import { AngularComponent } from '@/components/angular-component'
 import { UiCard } from '@/components/ui'
 
-export const GroupAnnouncementsIndex = ({ match }) => {
+export const GroupAnnouncementsIndex = ({ match, ...props }) => {
   const rendergroupAnnouncement = () => {
     return (
 		<UiCard title="">
-			<AngularComponent component={'groupAnnouncement'} />
+			<AngularComponent component={'groupAnnouncement'} {...props} />
 		</UiCard>
     )
   }
@@ -23,7 +23,7 @@ export const GroupAnnouncementsIndex = ({ match }) => {
         />
         <Route
           render={() => (
-            <AngularComponent component="groupAnnouncements" />
+            <AngularComponent component="groupAnnouncements" {...props} />
           )}
         />
       </Switch>
