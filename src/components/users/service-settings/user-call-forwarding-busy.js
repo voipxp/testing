@@ -5,6 +5,7 @@ import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-busy-service'
+import { AppHelp } from '@/components/app'
 import {
   UiButton,
   UiCard,
@@ -78,6 +79,7 @@ export const UserCallForwardingBusy = ({ match }) => {
     <>
       <UiCard
         title="Call Forwarding Busy"
+		helpModule={<AppHelp module='Call Forwarding Busy'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

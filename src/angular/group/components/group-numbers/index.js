@@ -14,7 +14,9 @@ controller.$inject = [
   'GroupNumberService',
   'NumberService',
   'GroupPolicyService',
-  'ACL'
+  'ACL',
+  'CsvService',
+  'DownloadService'
 ]
 function controller(
   Alert,
@@ -22,7 +24,9 @@ function controller(
   GroupNumberService,
   NumberService,
   GroupPolicyService,
-  ACL
+  ACL,
+  CsvService,
+  DownloadService
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -39,6 +43,7 @@ function controller(
   ctrl.canRead = true
   ctrl.actions = ['Unassign Numbers', 'Activate Numbers', 'Deactivate Numbers']
   ctrl.editItems = ctrl.isServiceProvider ? ['Unassign Numbers', 'Activate Numbers', 'Deactivate Numbers'] : ['Activate Numbers', 'Deactivate Numbers']
+  ctrl.download = download
   ctrl.columns = [
     {
       key: 'min',
@@ -300,4 +305,24 @@ function controller(
       .catch(Alert.notify.danger)
       .finally(Alert.spinner.close)
   }
+
+  function download() { 
+    ctrl.downloadNumbers =  _.map(ctrl.numbers, function(number) { 
+    return  {
+        'Range Start' : "=\"" + number.min + "\"",
+        'Range End'   : "=\"" + number.max + "\"",
+        'Assigned'    : number.assigned,
+        'Activated'   : number.activated
+      }
+    })
+    var filename = 'assignNumbers.csv'
+    CsvService.export(ctrl.downloadNumbers)
+      .then(function(data) {
+        DownloadService.download(data, filename)
+      })
+      .catch(function(error) {
+        Alert.notify.danger(error)
+      })
+  }
+
 }

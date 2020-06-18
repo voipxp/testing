@@ -14,6 +14,7 @@ import {
   UiLoadingCard,
   UiSection,
 } from '@/components/ui'
+import { AppHelp } from '@/components/app'
 
 export const UserConnectedLineIdentificationRestriction = ({ match }) => {
   const { userId } = match.params
@@ -68,6 +69,7 @@ export const UserConnectedLineIdentificationRestriction = ({ match }) => {
     <>
       <UiCard
         title="Connected Line Identification Restriction"
+		helpModule={<AppHelp module='Connected Line Identification Restriction'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

@@ -5,6 +5,7 @@ import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-always-secondary-service'
+import { AppHelp } from '@/components/app'
 import {
   UiButton,
   UiCard,
@@ -79,6 +80,7 @@ export const UserCallForwardingAlwaysSecondary = ({ match }) => {
     <>
       <UiCard
         title="Call Forwarding Always Secondary"
+		helpModule={<AppHelp module='Call Forwarding Always Secondary'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

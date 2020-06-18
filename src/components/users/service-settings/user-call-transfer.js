@@ -16,6 +16,7 @@ import {
   UiLoadingCard,
   UiSection
 } from '@/components/ui'
+import { AppHelp } from '@/components/app'
 
 export const UserCallTransfer = ({ match }) => {
   const { userId } = match.params
@@ -81,6 +82,7 @@ export const UserCallTransfer = ({ match }) => {
     <>
       <UiCard
         title="Call Transfer"
+		helpModule={<AppHelp module='Call Transfer'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
