@@ -16,6 +16,7 @@ import {
   UiLoadingCard,
   UiSection
 } from '@/components/ui'
+import { AppHelp } from '@/components/app'
 
 export const UserCallRecording = ({ match }) => {
   const { userId } = match.params
@@ -76,6 +77,7 @@ export const UserCallRecording = ({ match }) => {
     <>
       <UiCard
         title="Call Recording"
+		helpModule={<AppHelp module='Call Recording'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

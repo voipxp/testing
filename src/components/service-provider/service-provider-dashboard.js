@@ -6,6 +6,7 @@ import { AppBreadcrumb } from '@/components/app'
 import { UrlOperations } from '@/utils'
 import { dashboardMenu } from './service-provider-dashboard-menu'
 import { useModulePermissions, useAcl } from '@/utils'
+import _ from 'lodash'
 
 export const ServiceProviderDashboard = ({ match, history }) => {
   const { hasVersion, hasLevel, isLevel, isPaasAdmin } = useAcl()
@@ -14,7 +15,8 @@ export const ServiceProviderDashboard = ({ match, history }) => {
 
   const params = new URLSearchParams(history.location.search)
   const navigate = params.get('navigate')
-  const breadcrumbs = UrlOperations.getBreadcrumbItems(match.url, history.location.pathname) || []
+  const breadcrumbs =
+    UrlOperations.getBreadcrumbItems(match.url, history.location.pathname) || []
   const loading = false
 
   React.useEffect(() => {
@@ -22,8 +24,8 @@ export const ServiceProviderDashboard = ({ match, history }) => {
         same and 'navigate' will be added to next to the older breadcrumb.
         e.g. 'old breadcrumb / navigate'
     */
-    if(!_.isEqual(navigation, breadcrumbs)) {
-      if(!navigate) setNavigation(breadcrumbs)
+    if (!_.isEqual(navigation, breadcrumbs)) {
+      if (!navigate) setNavigation(breadcrumbs)
     }
   }, [breadcrumbs, navigation, navigate])
 
@@ -74,12 +76,7 @@ export const ServiceProviderDashboard = ({ match, history }) => {
             {el.label}
           </Breadcrumb.Item>
         ))}
-        {
-          navigate &&
-          <Breadcrumb.Item>
-            {navigate}
-          </Breadcrumb.Item>
-        }
+        {navigate && <Breadcrumb.Item>{navigate}</Breadcrumb.Item>}
       </AppBreadcrumb>
       {loading ? <UiLoadingCard /> : <UiMenu menu={menu} />}
     </>

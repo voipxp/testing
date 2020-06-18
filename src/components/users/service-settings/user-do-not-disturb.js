@@ -14,6 +14,7 @@ import {
   UiLoadingCard,
   UiSection
 } from '@/components/ui'
+import { AppHelp } from '@/components/app'
 
 export const UserDoNotDisturb = ({ match }) => {
   const { userId } = match.params
@@ -67,6 +68,7 @@ export const UserDoNotDisturb = ({ match }) => {
     <>
       <UiCard
         title="Do Not Disturb"
+		helpModule={<AppHelp module='Do Not Disturb'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

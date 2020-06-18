@@ -8,8 +8,8 @@ angular.module('odin.user').component('userPrivacy', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserPrivacyService', '$q']
-function controller(Alert, UserPrivacyService, $q) {
+controller.$inject = ['Alert', 'UserPrivacyService', '$q', 'Module']
+function controller(Alert, UserPrivacyService, $q, Module) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.edit = edit
@@ -76,7 +76,7 @@ function controller(Alert, UserPrivacyService, $q) {
   }
 
   function loadData() {
-    return $q.all([loadSettings(), loadAvailable()])
+    return $q.all([loadSettings(), loadAvailable(), loadModule()])
   }
 
   function loadAvailable() {
@@ -88,6 +88,12 @@ function controller(Alert, UserPrivacyService, $q) {
   function loadSettings() {
     return UserPrivacyService.show(ctrl.userId).then(function(data) {
       ctrl.settings = data
+    })
+  }
+
+  function loadModule() {
+    return Module.show('Privacy').then(function(data) {
+      ctrl.module = data
     })
   }
 

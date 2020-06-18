@@ -4,16 +4,11 @@ import { UiLoading, UiDataTable } from '@/components/ui'
 import { useAsync } from 'react-async-hook'
 import UserPersonalPhoneListAPI from '@/api/users/user-personal-phone-list'
 
-export const UserPersonalPhoneListSelect = (
-{
-  userId,
-  setSelectedPhone
-}
-) => {
+export const UserPersonalPhoneListSelect = ({ userId, setSelectedPhone }) => {
   const columns = [
     {
       key: 'name',
-      label: 'Name',
+      label: 'Name'
     },
     {
       key: 'phoneNumber',
@@ -21,11 +16,11 @@ export const UserPersonalPhoneListSelect = (
     }
   ]
 
-const { result, loading } = useAsync(
-    () => UserPersonalPhoneListAPI.show(userId)
-	.then((result) => {
-		return result.entries
-	}),
+  const { result, loading } = useAsync(
+    () =>
+      UserPersonalPhoneListAPI.show(userId).then(result => {
+        return result.entries
+      }),
     []
   )
 
@@ -40,7 +35,7 @@ const { result, loading } = useAsync(
         rows={phoneList || []}
         rowKey="name"
         pageSize={25}
-        onClick={(phone) => setSelectedPhone(phone)}
+        onClick={phone => setSelectedPhone(phone)}
       />
     </>
   )

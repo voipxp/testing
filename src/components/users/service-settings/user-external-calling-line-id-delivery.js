@@ -15,6 +15,7 @@ import {
   UiSection
 
 } from '@/components/ui'
+import { AppHelp } from '@/components/app'
 
 export const UserExternalCallingLineIdDelivery = ({ match }) => {
   const { userId } = match.params
@@ -69,6 +70,7 @@ export const UserExternalCallingLineIdDelivery = ({ match }) => {
     <>
       <UiCard
         title="External Calling Line ID Delivery"
+		helpModule={<AppHelp module='External Calling Line ID Delivery'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

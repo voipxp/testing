@@ -8,8 +8,8 @@ angular.module('odin.user').component('userVoiceMessaging', {
   bindings: { userId: '=', readOnly: '<',showQuick: '<' }
 })
 
-controller.$inject = ['Alert', 'UserVoiceMessagingService']
-function controller(Alert, UserVoiceMessagingService) {
+controller.$inject = ['Alert', 'UserVoiceMessagingService', 'Module', '$q']
+function controller(Alert, UserVoiceMessagingService, Module, $q) {
   var ctrl = this
 
   ctrl.options = UserVoiceMessagingService.options
@@ -20,7 +20,8 @@ function controller(Alert, UserVoiceMessagingService) {
   ctrl.toggle = toggle
   function activate() {
     ctrl.loading = true
-    return loadVoiceMessaging()
+    return $q.all([loadVoiceMessaging(), loadModule()])
+    
       .catch(function(error) {
         Alert.notify.danger(error)
       })
@@ -33,6 +34,12 @@ function controller(Alert, UserVoiceMessagingService) {
     return UserVoiceMessagingService.show(ctrl.userId).then(function(data) {
       ctrl.messaging = data
       return data
+    })
+  }
+
+  function loadModule() {
+    return Module.show('Voice Messaging User').then(function(data) {
+      ctrl.module = data
     })
   }
 

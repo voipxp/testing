@@ -5,6 +5,7 @@ import { Input} from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-automatic-hold-retrieve-service'
+import { AppHelp } from '@/components/app'
 import {
   UiButton,
   UiCard,
@@ -76,6 +77,7 @@ export const UserAutomaticCallHoldRetrieve = ({ match }) => {
     <>
       <UiCard
         title="Automatic Hold/Retrieve"
+		helpModule={<AppHelp module='Automatic Hold/Retrieve'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
