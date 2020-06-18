@@ -9,6 +9,9 @@ import { groupReportRoutes } from './group-report-routes'
 import { BulkTasksIndex } from '@/components/bulk'
 import { GroupSchedulesIndex } from '@/components/groups/group-schedules-index'
 import { GroupAssignDomains } from './group-assign-domains'
+import { GroupDeviceTypesIndex } from '@/components/groups/group-device-types-index'
+import { GroupDevicesIndex } from '@/components/groups/group-devices-index'
+import { GroupAnnouncementsIndex } from '@/components/groups/group-announcements-index'
 
 export const dashboardMenu = [
   {
@@ -138,14 +141,14 @@ export const dashboardMenu = [
           {
             name: 'Device Configuration',
             path: 'groupDeviceTypes',
-            angularComponent: 'groupDeviceTypes',
+            component: GroupDeviceTypesIndex,
             hasLevel: 'Group',
             isPaasAdmin: true
           },
           {
             name: 'Devices',
             path: 'groupDevices',
-            angularComponent: 'groupDevices',
+            component: GroupDevicesIndex,
             hasLevel: 'Group',
             isPaasAdmin: true
           },
@@ -185,7 +188,7 @@ export const dashboardMenu = [
       {
         name: 'Announcements',
         path: 'announcements',
-        angularComponent: 'groupAnnouncements',
+        component: GroupAnnouncementsIndex,
         version: '20'
       },
       {
