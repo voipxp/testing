@@ -307,7 +307,7 @@ function controller(
   }
 
   function download() { 
-    ctrl.downloadsss =  _.map(ctrl.numbers, function(number) { 
+    ctrl.downloadNumbers =  _.map(ctrl.numbers, function(number) { 
     return  {
         'Range Start' : "=\"" + number.min + "\"",
         'Range End'   : "=\"" + number.max + "\"",
@@ -316,7 +316,7 @@ function controller(
       }
     })
     var filename = 'assignNumbers.csv'
-    CsvService.export(ctrl.downloadsss)
+    CsvService.export(ctrl.downloadNumbers)
       .then(function(data) {
         DownloadService.download(data, filename)
       })
