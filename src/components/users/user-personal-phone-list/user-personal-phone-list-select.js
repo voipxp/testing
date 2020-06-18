@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { UiLoading, UiDataTable } from '@/components/ui'
 import { useAsync } from 'react-async-hook'
 import UserPersonalPhoneListAPI from '@/api/users/user-personal-phone-list'
-import _ from 'lodash'
 
 export const UserPersonalPhoneListSelect = (
 {

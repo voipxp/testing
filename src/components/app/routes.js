@@ -2,8 +2,7 @@ import { UserDashboard } from '@/components/users'
 import { DepartmentDashboard } from '@/components/departments'
 import { CreateAutoAttendant } from '@/components/autoAttendant'
 import {
-  ServiceProviderDashboard,
-  ServiceProviderOdinSupport
+  ServiceProviderDashboard
 } from '@/components/service-provider'
 import {
   GroupCommunicationBarring,
