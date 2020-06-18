@@ -113,11 +113,13 @@ export const routes = [
     hasLevel: 'Group Department',
     hasModuleRead: 'Flexible Seating Guest'
   },
+  /*
   {
     path: '/groups/:serviceProviderId/:groupId/announcements/announcement',
     angularComponent: 'groupAnnouncement',
     hasLevel: 'Group'
   },
+  */
   {
     path: '/groups/:serviceProviderId/:groupId/callPark/group',
     angularComponent: 'groupCallParkGroup',

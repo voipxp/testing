@@ -11,6 +11,7 @@ import { GroupSchedulesIndex } from '@/components/groups/group-schedules-index'
 import { GroupAssignDomains } from './group-assign-domains'
 import { GroupDeviceTypesIndex } from '@/components/groups/group-device-types-index'
 import { GroupDevicesIndex } from '@/components/groups/group-devices-index'
+import { GroupAnnouncementsIndex } from '@/components/groups/group-announcements-index'
 
 export const dashboardMenu = [
   {
@@ -187,7 +188,7 @@ export const dashboardMenu = [
       {
         name: 'Announcements',
         path: 'announcements',
-        angularComponent: 'groupAnnouncements',
+        component: GroupAnnouncementsIndex,
         version: '20'
       },
       {

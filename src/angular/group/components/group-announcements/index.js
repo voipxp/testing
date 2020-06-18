@@ -49,7 +49,8 @@ function controller(Alert, GroupAnnouncementService, $scope, Route) {
       'announcement'
     ).search({
       name: announcement.name,
-      mediaType: announcement.mediaType
+      mediaType: announcement.mediaType,
+      navigate: `${announcement.name} (${announcement.mediaType})`
     })
   }
 
