@@ -44,7 +44,7 @@ function controller(Alert, GroupDeviceService, $scope, Route) {
       'groups',
       ctrl.serviceProviderId,
       ctrl.groupId,
-      'devices',
+      'groupDevices',
       device.deviceName
     )
   }

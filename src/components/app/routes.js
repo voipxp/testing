@@ -312,16 +312,16 @@ export const routes = [
   //   hasLevel: 'Service Provider',
   //   hasModuleRead: 'Trunk Group'
   // },
-  {
-    path: '/groups/:serviceProviderId/:groupId/devices/:deviceName',
-    angularComponent: 'groupDevice',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/deviceTypes/deviceType',
-    angularComponent: 'groupDeviceType',
-    hasLevel: 'Group'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/devices/:deviceName',
+  //   angularComponent: 'groupDevice',
+  //   hasLevel: 'Group'
+  // },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/deviceTypes/deviceType',
+  //   angularComponent: 'groupDeviceType',
+  //   hasLevel: 'Group'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id',
     angularComponent: 'vdmTemplate',
