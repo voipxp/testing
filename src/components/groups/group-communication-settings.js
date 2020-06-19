@@ -7,8 +7,8 @@ import { useModulePermissions } from '@/utils'
 import { AngularComponent } from '@/components/angular-component'
 import { GroupCommunication } from './group-communication-routes'
 import {
-  GroupCallingPlansIndex
-} from '@/components/groups/group-calling-plans-index'
+  GroupCallingPlansRoutes
+} from '@/components/groups/group-calling-plans-routes'
 
 /* eslint-disable react/display-name */
 const columns = [
@@ -71,7 +71,7 @@ export const GroupCommunicationSettings = ({ history, match }) => {
 
   const renderChild = routeProps => {
     return (
-      <GroupCallingPlansIndex {...routeProps}/>
+      <GroupCallingPlansRoutes {...routeProps}/>
     )
   }
 

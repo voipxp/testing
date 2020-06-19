@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import { AngularComponent } from '@/components/angular-component'
 
-export const GroupCallingPlansIndex = ({ match }) => {
+export const GroupCallingPlansRoutes = ({ match }) => {
   const path = match.params.path
 
   const getComponent = (path) => {
@@ -38,7 +38,7 @@ export const GroupCallingPlansIndex = ({ match }) => {
   )
 }
 
-GroupCallingPlansIndex.propTypes = {
+GroupCallingPlansRoutes.propTypes = {
   history: PropTypes.object,
   match: PropTypes.object
 }
