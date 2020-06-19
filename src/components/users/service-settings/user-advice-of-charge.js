@@ -5,6 +5,7 @@ import { Select } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-advice-of-charge-service'
+import { AppHelp } from '@/components/app'
 import {
   UiButton,
   UiCard,
@@ -71,6 +72,7 @@ export const UserAdviceOfCharge = ({ match }) => {
     <>
       <UiCard
         title="Advice Of Charge"
+		helpModule={<AppHelp module='Advice Of Charge'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
@@ -86,7 +88,7 @@ export const UserAdviceOfCharge = ({ match }) => {
       </UiCard>
       <UiCardModal
         title={`Edit Advice Of Charge`}
-        isOpen={showModal}
+		isOpen={showModal}
         onCancel={() => setShowModal(false)}
         onSave={save}
       >

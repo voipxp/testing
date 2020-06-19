@@ -5,6 +5,7 @@ import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-always-service'
+import { AppHelp } from '@/components/app'
 import {
   UiButton,
   UiCardModal,
@@ -79,6 +80,7 @@ export const UserCallForwardingAlways = ({ match }) => {
     <>
       <UiCard
         title="Call Forwarding Always"
+		helpModule={<AppHelp module='Call Forwarding Always'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

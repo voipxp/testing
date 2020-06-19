@@ -111,7 +111,7 @@ export const UserPersonalPhoneListAdd = ({
             </UiFormField>
             <UiFormField label="Phone Number" horizontal >
               <Input
-                type="number"
+                type="text"
                 onChange={handleInput}
                 name="phoneNumber"
                 value={form.entries.phoneNumber}

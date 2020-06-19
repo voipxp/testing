@@ -11,6 +11,7 @@ import {
   UiButton,
   UiCardModal
 } from '@/components/ui'
+import { AppHelp } from '@/components/app'
 
 export const UserSpeedDial8 = ({ match }) => {
   const { userId } = match.params
@@ -89,7 +90,10 @@ export const UserSpeedDial8 = ({ match }) => {
 
   return (
     <>
-      <UiCard title="Speed Dial 8">
+      <UiCard 
+	  title="Speed Dial 8"
+	  helpModule={<AppHelp module='Speed Dial 8'/>}
+	  >
         <UiDataTable
           columns={columns}
           rows={userSpeedDial8.speedCodes}
