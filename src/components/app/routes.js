@@ -85,12 +85,12 @@ export const routes = [
     hasLevel: 'Group'
   },
   */
+/*
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/codes',
     angularComponent: 'groupOutgoingCallingPlanAuthorizationCodes',
     hasLevel: 'Group'
   },
-/*
  {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/transfer',
     angularComponent: 'groupOutgoingCallingPlanTransferNumbers',
