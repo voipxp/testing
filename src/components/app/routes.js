@@ -54,52 +54,52 @@ export const routes = [
   //   hasLevel: 'Group Department',
   //   hasModuleRead: 'Music On Hold'
   // },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/incoming',
-    angularComponent: 'groupIncomingCallingPlan',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/outgoing',
-    angularComponent: 'groupOutgoingCallingPlan',
-    hasLevel: 'Group'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/incoming',
+  //   angularComponent: 'groupIncomingCallingPlan',
+  //   hasLevel: 'Group'
+  // },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/outgoing',
+  //   angularComponent: 'groupOutgoingCallingPlan',
+  //   hasLevel: 'Group'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/outgoing/users',
     angularComponent: 'groupOutgoingCallingPlanUsers',
     hasLevel: 'Group'
   },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPlan',
-    angularComponent: 'groupOutgoingCallingPlanDigitPlan',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPlan',
-    angularComponent: 'groupOutgoingCallingPlanPinholeDigitPlan',
-    hasLevel: 'Group'
-  },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPlan',
+  //   angularComponent: 'groupOutgoingCallingPlanDigitPlan',
+  //   hasLevel: 'Group'
+  // },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPlan',
+  //   angularComponent: 'groupOutgoingCallingPlanPinholeDigitPlan',
+  //   hasLevel: 'Group'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/codes',
     angularComponent: 'groupOutgoingCallingPlanAuthorizationCodes',
     hasLevel: 'Group'
   },
- {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/transfer',
-    angularComponent: 'groupOutgoingCallingPlanTransferNumbers',
-    hasLevel: 'Group'
-  },
-  {
-    path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPatterns',
-    angularComponent: 'groupCallingPlanDigitPatterns',
-    hasLevel: 'Group'
-  },
-  {
-    path:
-      '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPatterns',
-    angularComponent: 'groupOutgoingCallingPlanPinholeDigitPatterns',
-    hasLevel: 'Group'
-  },
+//  {
+//     path: '/groups/:serviceProviderId/:groupId/callingPlans/transfer',
+//     angularComponent: 'groupOutgoingCallingPlanTransferNumbers',
+//     hasLevel: 'Group'
+//   },
+  // {
+  //   path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPatterns',
+  //   angularComponent: 'groupCallingPlanDigitPatterns',
+  //   hasLevel: 'Group'
+  // },
+  // {
+  //   path:
+  //     '/groups/:serviceProviderId/:groupId/callingPlans/pinholeDigitPatterns',
+  //   angularComponent: 'groupOutgoingCallingPlanPinholeDigitPatterns',
+  //   hasLevel: 'Group'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/autoAttendants/autoAttendant',
     angularComponent: 'autoAttendant',
