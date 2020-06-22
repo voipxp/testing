@@ -6,6 +6,9 @@ import { UiClose, UiCard, UiDataTable } from '@/components/ui'
 import { useModulePermissions } from '@/utils'
 import { AngularComponent } from '@/components/angular-component'
 import { GroupCommunication } from './group-communication-routes'
+import {
+  GroupCallingPlansRoutes
+} from '@/components/groups/group-calling-plans-routes'
 
 /* eslint-disable react/display-name */
 const columns = [
@@ -66,9 +69,16 @@ export const GroupCommunicationSettings = ({ history, match }) => {
     )
   }
 
+  const renderChild = routeProps => {
+    return (
+      <GroupCallingPlansRoutes {...routeProps}/>
+    )
+  }
+
   return (
     <Switch>
       <Route path={`${match.path}/:path`} exact render={renderRoute} />
+      <Route path={`${match.path}/:path/:path`} exact render={renderChild} />
       <Route render={GroupServiceList} />
     </Switch>
   )

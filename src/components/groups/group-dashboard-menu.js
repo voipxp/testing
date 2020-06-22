@@ -12,6 +12,7 @@ import { GroupAssignDomains } from './group-assign-domains'
 import { GroupDeviceTypesIndex } from '@/components/groups/group-device-types-index'
 import { GroupDevicesIndex } from '@/components/groups/group-devices-index'
 import { GroupAnnouncementsIndex } from '@/components/groups/group-announcements-index'
+import { VdmDashboardIndex } from '@/components/vdm'
 
 export const dashboardMenu = [
   {
@@ -275,7 +276,7 @@ export const dashboardMenu = [
       {
         name: 'VDM',
         path: 'vdm',
-        angularComponent: 'vdmDashboard',
+        component: VdmDashboardIndex,
         hasLevel: 'Group',
         hasModuleRead: 'VDM'
       }

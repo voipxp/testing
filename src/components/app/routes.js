@@ -29,29 +29,34 @@ export const routes = [
     angularComponent: 'brandingHostname',
     isPaasAdmin: true
   },
-  //  {
-  //     path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
-  //     angularComponent: 'serviceProviderServicePack',
-  //     hasLevel: 'Service Provider'
-  //   },
 
-  // {
-  //   path: '/system/networkClassOfServices/networkClassOfService',
-  //   angularComponent: 'systemNetworkClassOfService',
-  //   hasLevel: 'System'
-  // },
+/*
+   {
+      path: '/serviceProviders/:serviceProviderId/servicePacks/servicePack',
+      angularComponent: 'serviceProviderServicePack',
+      hasLevel: 'Service Provider'
+    },
+
+  {
+    path: '/system/networkClassOfServices/networkClassOfService',
+    angularComponent: 'systemNetworkClassOfService',
+    hasLevel: 'System'
+  },
+*/
+
   {
     path: '/serviceProviders/:serviceProviderId/reports/callCapacity',
     angularComponent: 'serviceProviderTrunkGroupsCallCapacityReport',
     hasLevel: 'Service Provider',
     hasModuleRead: 'User Report'
   },
-  // {
-  //   path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
-  //   angularComponent: 'groupMusicOnHold',
-  //   hasLevel: 'Group Department',
-  //   hasModuleRead: 'Music On Hold'
-  // },
+  /*
+  {
+    path: '/groups/:serviceProviderId/:groupId/musicOnHold/instance',
+    angularComponent: 'groupMusicOnHold',
+    hasLevel: 'Group Department',
+    hasModuleRead: 'Music On Hold'
+  },
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/incoming',
     angularComponent: 'groupIncomingCallingPlan',
@@ -62,11 +67,13 @@ export const routes = [
     angularComponent: 'groupOutgoingCallingPlan',
     hasLevel: 'Group'
   },
+  */
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/outgoing/users',
     angularComponent: 'groupOutgoingCallingPlanUsers',
     hasLevel: 'Group'
   },
+  /*
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/digitPlan',
     angularComponent: 'groupOutgoingCallingPlanDigitPlan',
@@ -77,12 +84,14 @@ export const routes = [
     angularComponent: 'groupOutgoingCallingPlanPinholeDigitPlan',
     hasLevel: 'Group'
   },
+  */
+/*
   {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/codes',
     angularComponent: 'groupOutgoingCallingPlanAuthorizationCodes',
     hasLevel: 'Group'
   },
-  {
+ {
     path: '/groups/:serviceProviderId/:groupId/callingPlans/transfer',
     angularComponent: 'groupOutgoingCallingPlanTransferNumbers',
     hasLevel: 'Group'
@@ -98,6 +107,7 @@ export const routes = [
     angularComponent: 'groupOutgoingCallingPlanPinholeDigitPatterns',
     hasLevel: 'Group'
   },
+*/
   {
     path: '/groups/:serviceProviderId/:groupId/autoAttendants/autoAttendant',
     angularComponent: 'autoAttendant',
@@ -322,12 +332,14 @@ export const routes = [
   //   angularComponent: 'groupDeviceType',
   //   hasLevel: 'Group'
   // },
+  /*
   {
     path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id',
     angularComponent: 'vdmTemplate',
     hasLevel: 'Group',
     hasModuleRead: 'VDM'
   },
+  */
   {
     path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id/device',
     angularComponent: 'vdmDevice',
@@ -848,12 +860,12 @@ export const routes = [
     hasLevel: 'Provisioning',
     hasModuleRead: 'VDM'
   },
-  {
-    path: '/vdm/templates/:id',
-    angularComponent: 'vdmTemplate',
-    hasLevel: 'Provisioning',
-    hasModuleRead: 'VDM'
-  },
+  // {
+  //   path: '/vdm/templates/:id',
+  //   angularComponent: 'vdmTemplate',
+  //   hasLevel: 'Provisioning',
+  //   hasModuleRead: 'VDM'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/vdm',
     angularComponent: 'vdmDashboard',
