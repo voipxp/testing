@@ -12,7 +12,8 @@ controller.$inject = [
   'Route',
   'VdmSystemTemplateService',
   'VdmGroupTemplateService',
-  '$scope'
+  '$scope',
+  'Module'
 ]
 
 function controller(
@@ -20,7 +21,8 @@ function controller(
   Route,
   VdmSystemTemplateService,
   VdmGroupTemplateService,
-  $scope
+  $scope,
+  Module
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -37,6 +39,10 @@ function controller(
       .finally(function() {
         ctrl.loading = false
       })
+
+    Module.show('VDM').then(function(module) {
+      ctrl.module = module
+    })
   }
 
   function isGroup() {
@@ -123,10 +129,11 @@ function controller(
         'vdm',
         'templates',
         template.id
-      ).search({ name: template.name })
+      ).search({ name: template.name, navigate: template.name })
     } else {
-      Route.open('vdm', 'templates', template.id).search({
-        name: template.name
+      Route.open('system', 'vdm', 'templates', template.id).search({
+        name: template.name,
+        navigate: template.name
       })
     }
   }

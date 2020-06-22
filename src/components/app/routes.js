@@ -332,12 +332,14 @@ export const routes = [
   //   angularComponent: 'groupDeviceType',
   //   hasLevel: 'Group'
   // },
+  /*
   {
     path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id',
     angularComponent: 'vdmTemplate',
     hasLevel: 'Group',
     hasModuleRead: 'VDM'
   },
+  */
   {
     path: '/groups/:serviceProviderId/:groupId/vdm/templates/:id/device',
     angularComponent: 'vdmDevice',
@@ -858,12 +860,12 @@ export const routes = [
     hasLevel: 'Provisioning',
     hasModuleRead: 'VDM'
   },
-  {
-    path: '/vdm/templates/:id',
-    angularComponent: 'vdmTemplate',
-    hasLevel: 'Provisioning',
-    hasModuleRead: 'VDM'
-  },
+  // {
+  //   path: '/vdm/templates/:id',
+  //   angularComponent: 'vdmTemplate',
+  //   hasLevel: 'Provisioning',
+  //   hasModuleRead: 'VDM'
+  // },
   {
     path: '/groups/:serviceProviderId/:groupId/vdm',
     angularComponent: 'vdmDashboard',
