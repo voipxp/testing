@@ -12,7 +12,8 @@ import {
   UiSection,
   UiInputPassword,
   UiLoading,
-  UiCardModal
+  UiCardModal,
+  UiLoadingModal
 } from '@/components/ui'
 
 export const UpdateDevice = ({
@@ -307,14 +308,7 @@ export const UpdateDevice = ({
   )
 
   if(loading) {
-    return (
-      <UiCardModal
-        isOpen={loading}
-        onCancel={() => setUpdateDevice(false)}
-      >
-        <UiLoading />
-      </UiCardModal>
-    )
+    return <UiLoadingModal isOpen={loading} />
   }
 
   return (

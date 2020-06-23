@@ -73,7 +73,7 @@ const { result, loading, execute } = useAsync(
       })
       return newDevice
     }),
-    []
+    [serviceProviderId, groupId]
   )
 
   const devices = result || []

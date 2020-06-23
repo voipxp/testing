@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { UiCard, UiCardModal, UiButton, UiLoading } from '@/components/ui'
+import { UiCard, UiCardModal, UiButton, UiLoadingModal } from '@/components/ui'
 import {
   GroupSelectDevices,
   AddNewDevice
@@ -51,15 +51,7 @@ const addNewDeviceModal = (
 )
 
 if(loading) {
-  return (
-    <UiCardModal
-      title=""
-      isOpen={loading}
-      onCancel={() => setLoading(false)}
-    >
-      <UiLoading />
-    </UiCardModal>
-  )
+  return <UiLoadingModal isOpen={loading} />
 }
 
   return (
