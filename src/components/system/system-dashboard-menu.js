@@ -7,11 +7,19 @@ import { SystemNetworkClassOfServicesIndex } from '@/components/system/system-ne
 import { BulkTasksIndex } from '@/components/bulk'
 import { SystemDomains } from './system-domains'
 import { VdmDashboardIndex } from '@/components/vdm'
-
+import { SystemResellers } from '@/components/system'
 export const dashboardMenu = [
   {
     label: 'Dashboard',
     items: [
+      {
+        name: 'Resellers',
+        path: 'resellers',
+        component: SystemResellers,
+        limitTo: 10,
+        hasLevel: 'Provisioning',
+        hasVersion: '22'
+      },
       {
         name: 'Service Providers',
         path: 'serviceProviders',
