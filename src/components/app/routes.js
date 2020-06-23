@@ -10,7 +10,7 @@ import {
   GroupNumbers,
   GroupDashboard
 } from '@/components/groups'
-import { SystemResellers, SystemDashboard } from '../system'
+import { SystemDashboard } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { BulkSipTrunking } from '@/components/bulk'
 import { BulkSipTrunkingUpload } from '@/components/bulk/bulk-sip-trunking-upload/bulk-sip-trunking-upload'

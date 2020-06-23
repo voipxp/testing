@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import apiResellers from '@/api/resellers'
-import { AppBreadcrumb } from '@/components/app'
-import { Breadcrumb } from 'rbx'
 import { useUi } from '@/store/ui'
 import PropTypes from 'prop-types'
 import { useAlerts } from '@/store/alerts'
