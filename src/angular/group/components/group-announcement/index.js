@@ -36,7 +36,7 @@ function controller(
   ctrl.onDelete = onDelete
   ctrl.download = download
   ctrl.announcementUrl = Session.data('announcementUrl')
-  
+
   function onInit() {
     ctrl.name = $location.search().name
     ctrl.mediaType = $location.search().mediaType
@@ -83,7 +83,7 @@ function controller(
         ctrl.groupId,
         'announcements',
         'announcement'
-      ).search({ name: name, mediaType: mediaType })
+      ).search({ name: name, mediaType: mediaType, navigate: `${name} (${mediaType})` })
     } else {
       return Route.open(
         'groups',

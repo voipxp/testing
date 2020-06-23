@@ -7,8 +7,13 @@ import { GroupWebPolicy } from './group-web-policy'
 import { GroupExtensionLength } from './group-extension-length'
 import { groupReportRoutes } from './group-report-routes'
 import { BulkTasksIndex } from '@/components/bulk'
+import { GroupSchedulesIndex } from '@/components/groups/group-schedules-index'
 import { GroupAssignDomains } from './group-assign-domains'
 import { GroupDevices } from '@/components/groups/group-devices'
+import { GroupDeviceTypesIndex } from '@/components/groups/group-device-types-index'
+import { GroupDevicesIndex } from '@/components/groups/group-devices-index'
+import { GroupAnnouncementsIndex } from '@/components/groups/group-announcements-index'
+import { VdmDashboardIndex } from '@/components/vdm'
 
 export const dashboardMenu = [
   {
@@ -138,7 +143,7 @@ export const dashboardMenu = [
           {
             name: 'Device Configuration',
             path: 'groupDeviceTypes',
-            angularComponent: 'groupDeviceTypes',
+            component: GroupDeviceTypesIndex,
             hasLevel: 'Group',
             isPaasAdmin: true
           },
@@ -185,7 +190,7 @@ export const dashboardMenu = [
       {
         name: 'Announcements',
         path: 'announcements',
-        angularComponent: 'groupAnnouncements',
+        component: GroupAnnouncementsIndex,
         version: '20'
       },
       {
@@ -245,8 +250,8 @@ export const dashboardMenu = [
       {
         name: 'Schedules',
         path: 'schedules',
-        angularComponent: 'groupSchedules',
-        hasLevel: 'Service Provider'
+        component: GroupSchedulesIndex,
+        hasLevel: 'Group'
       },
       {
         name: 'Viewable Packs',
@@ -272,7 +277,7 @@ export const dashboardMenu = [
       {
         name: 'VDM',
         path: 'vdm',
-        angularComponent: 'vdmDashboard',
+        component: VdmDashboardIndex,
         hasLevel: 'Group',
         hasModuleRead: 'VDM'
       }

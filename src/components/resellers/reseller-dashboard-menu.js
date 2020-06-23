@@ -5,6 +5,7 @@ import { ResellerServiceProviders } from './reseller-service-providers'
 import { ResellerServiceProviderReport } from './reseller-service-provider-report'
 import { ResellerServicePackUtilizationReport } from './reseller-service-pack-utilization-report'
 import { ResellerServiceUtilizationReport } from './reseller-service-utilization-report'
+import { ServiceProviderOdinSupport } from '../service-provider/service-provider-odin-support'
 import { ResellerDnReport } from './reseller-dn-report'
 import { ResellerAudits } from './reseller-audits'
 import { ResellerExports } from './reseller-exports'
@@ -119,6 +120,12 @@ export const dashboardMenu = [
         angularComponent: 'odinWebhooks',
         isLevel: 'Reseller',
         isPaasAdmin: true
+      },
+      {
+        name: 'Support',
+        path: 'support',
+        component: ServiceProviderOdinSupport,
+        hasLevel: 'Service Provider'
       }
     ]
   }

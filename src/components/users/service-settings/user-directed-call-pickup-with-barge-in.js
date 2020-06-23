@@ -14,6 +14,7 @@ import {
   UiListItem,
   UiSection,
 } from '@/components/ui'
+import { AppHelp } from '@/components/app'
 
 export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
   const { userId } = match.params
@@ -67,6 +68,7 @@ export const UserDirectedCallPickupWithBargeIn = ({ match }) => {
     <>
       <UiCard
         title="Directed Call Pickup with Barge-in"
+		helpModule={<AppHelp module='Directed Call Pickup with Barge-in'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

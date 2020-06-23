@@ -37,11 +37,11 @@ function controller(Alert, GroupDeviceTypeService, Route) {
         'groups',
         ctrl.serviceProviderId,
         ctrl.groupId,
-        'deviceTypes',
+        'groupDeviceTypes',
         'deviceType'
-      ).search({ deviceType })
+      ).search({ deviceType, navigate: deviceType })
     } else {
-      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'deviceTypes')
+      Route.open('groups', ctrl.serviceProviderId, ctrl.groupId, 'groupDeviceTypes')
     }
   }
 }

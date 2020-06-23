@@ -95,8 +95,9 @@ function controller(Route, GroupPermissionService, Alert) {
       'groups',
       ctrl.serviceProviderId,
       ctrl.groupId,
+      'comm-barring',
       'callingPlans',
       plan.path
-    )
+    ).search({navigate: plan.name})
   }
 }
