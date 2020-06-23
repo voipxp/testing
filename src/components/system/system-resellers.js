@@ -75,10 +75,6 @@ export const SystemResellers = ({ match, history }) => {
 
   return (
     <>
-      <AppBreadcrumb>
-        <Breadcrumb.Item>Resellers</Breadcrumb.Item>
-      </AppBreadcrumb>
-
       {loading ? (
         <UiLoadingCard />
       ) : (

@@ -899,11 +899,13 @@ export const routes = [
     component: GroupWebPolicy,
     hasLevel: 'Service Provider'
   },
+  /*
   {
     path: '/system/resellers',
     component: SystemResellers,
     hasLevel: 'Provisioning'
   },
+  */
   {
     path: '/resellers/:resellerId',
     component: ResellerDashboard,
