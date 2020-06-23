@@ -5,6 +5,7 @@ import { Input } from 'rbx'
 import { useAlerts } from '@/store/alerts'
 import { useQuery, queryCache } from 'react-query'
 import api from '@/api/user-services-settings/user-call-forwarding-no-answer-service'
+import { AppHelp } from '@/components/app'
 import {
   UiButton,
   UiCard,
@@ -84,6 +85,7 @@ export const UserCallForwardingNoAnswer = ({ match }) => {
     <>
       <UiCard
         title="Call Forwarding No Answer"
+		helpModule={<AppHelp module='Call Forwarding No Answer'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

@@ -7,14 +7,15 @@ angular.module('odin.user').component('userCollaborateBridge', {
   bindings: { userId: '<' }
 })
 
-controller.$inject = ['Alert', 'UserCollaborateService']
-function controller(Alert, UserCollaborateService) {
+controller.$inject = ['Alert', 'UserCollaborateService', 'Module', '$q' ]
+function controller(Alert, UserCollaborateService, Module , $q) {
   var ctrl = this
   ctrl.$onInit = onInit
 
   function onInit() {
     ctrl.loading = true
-    loadBridge()
+    //loadBridge()
+    $q.all([loadBridge(), loadModule()])
       .catch(Alert.notify.danger)
       .finally(function() {
         ctrl.loading = false
@@ -26,4 +27,11 @@ function controller(Alert, UserCollaborateService) {
       ctrl.bridge = data
     })
   }
+
+  function loadModule() {
+    return Module.show('Collaborate - Audio').then(function(data) {
+      ctrl.module = data
+    })
+  }
+
 }

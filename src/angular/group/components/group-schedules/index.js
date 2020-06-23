@@ -65,7 +65,8 @@ function controller(Alert, GroupScheduleService, Route) {
       'schedule'
     ).search({
       name: schedule.name,
-      type: schedule.type
+      type: schedule.type,
+      navigate: schedule.name
     })
   }
 }

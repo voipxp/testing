@@ -1,15 +1,16 @@
 import {
   GroupCommunicationBarring
 } from '@/components/groups'
+
 export const GroupCommunication = [
       {
         name: 'Comm Barring',
         path: 'comm-barring',
 		    component: GroupCommunicationBarring,
         hasModuleRead :  'Comm Barring',
-		    isBreadcrumb: false	
+		    isBreadcrumb: false
       },
-	  { 
+	  {
         name: 'Comm Barring Auth Codes',
         path:  'commBarringAuthCodes',
         angularComponent: 'groupCommunicationBarringAuthorizationCodes',
@@ -18,9 +19,9 @@ export const GroupCommunication = [
     },
     {
       name: 'Calling Plans',
-      path:  'callingPlans', 
+      path:  'callingPlans',
       angularComponent: 'groupCallingPlans',
       hasLevel: 'Group'
     }
 ]
- 
+

@@ -14,6 +14,7 @@ import {
   UiLoadingCard,
   UiSection
 } from '@/components/ui'
+import { AppHelp } from '@/components/app'
 
 export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
   const { userId } = match.params
@@ -68,6 +69,7 @@ export const UserCallingLineIdDeliveryBlocking = ({ match }) => {
     <>
       <UiCard
         title="Calling Line ID Delivery Blocking"
+		helpModule={<AppHelp module='Calling Line ID Delivery Blocking'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }
