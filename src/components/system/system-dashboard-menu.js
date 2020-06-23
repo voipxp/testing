@@ -17,7 +17,8 @@ export const dashboardMenu = [
         path: 'resellers',
         component: SystemResellers,
         limitTo: 10,
-        hasLevel: 'Provisioning'
+        hasLevel: 'Provisioning',
+        hasVersion: '22'
       },
       {
         name: 'Service Providers',
