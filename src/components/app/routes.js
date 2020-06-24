@@ -11,7 +11,7 @@ import {
   GroupDashboard,
   GroupDevices
 } from '@/components/groups'
-import { SystemResellers, SystemDashboard } from '../system'
+import { SystemDashboard } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import { BulkSipTrunking } from '@/components/bulk'
 import { BulkSipTrunkingUpload } from '@/components/bulk/bulk-sip-trunking-upload/bulk-sip-trunking-upload'
@@ -905,11 +905,13 @@ export const routes = [
     component: GroupWebPolicy,
     hasLevel: 'Service Provider'
   },
+  /*
   {
     path: '/system/resellers',
     component: SystemResellers,
     hasLevel: 'Provisioning'
   },
+  */
   {
     path: '/resellers/:resellerId',
     component: ResellerDashboard,
