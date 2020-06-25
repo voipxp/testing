@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { UiLoading, UiDataTable, UiButton, UiCardModal } from '@/components/ui'
+import { UiLoading, UiDataTable, UiCardModal } from '@/components/ui'
 import { useAsync } from 'react-async-hook'
 import GroupDeviceAPI from '@/api/groups/group-device-service'
 import { generatePath } from 'react-router'

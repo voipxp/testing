@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
 import { Input, Navbar } from 'rbx'
 import { useAsync } from 'react-async-hook'
 import { useAlerts } from '@/store/alerts'
