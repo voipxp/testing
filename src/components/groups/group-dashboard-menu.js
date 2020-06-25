@@ -150,7 +150,7 @@ export const dashboardMenu = [
           {
             name: 'Devices',
             path: 'groupDevices',
-            component: GroupDevices,
+            component: GroupDevicesIndex,
             hasLevel: 'Group',
             isPaasAdmin: true
           },

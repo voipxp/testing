@@ -146,7 +146,7 @@ export const UpdateDevice = ({
             name ="useCustomUserNamePassword"
             checked={form.useCustomUserNamePassword === false}
             onChange={handleInput}
-          />Use Identity/Device Profile Type Credentials<br/>
+          /> Use Identity/Device Profile Type Credentials<br/>
 
           <Radio
             type="radio"
@@ -154,7 +154,7 @@ export const UpdateDevice = ({
             name ="useCustomUserNamePassword"
             checked={form.useCustomUserNamePassword === true}
             onChange={handleInput}
-          />Use Custom Credentials
+          /> Use Custom Credentials
         </UiFormField>
 
           {/* show if authentication is not set or value true */}
