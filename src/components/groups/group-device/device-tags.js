@@ -179,6 +179,7 @@ export const DeviceTags = ({ serviceProviderId, groupId, deviceName }) => {
           title="Please Confirm"
           isOpen={deviceOperation}
           onSave={processDeviceOperation}
+          saveText="Yes, I'm sure"
           onCancel={() => setDeviceOperation('')}
         >
           <p>{`Are you sure you want to  ${deviceOperation} this device?`}</p>
