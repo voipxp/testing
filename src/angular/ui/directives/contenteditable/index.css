@@ -6,3 +6,7 @@
   border: 1px solid black;
   cursor: text;
 }
+
+[contenteditable] {
+  height: 33px;
+}

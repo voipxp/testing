@@ -71,6 +71,7 @@ function controller(TaskService, Alert, Route, $timeout, $location) {
 
   function open(task) {
     var currentUrl = $location.path()
-    $location.path(currentUrl + '/' + task.id).replace()
+    var returnTo = $location.url()
+    $location.path(currentUrl + '/' + task.id).replace().search({ returnTo: returnTo })
   }
 }
