@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
 import { AngularComponent } from '@/components/angular-component'
 import { UiCard } from '@/components/ui'
+import { GroupDevices } from '@/components/groups/group-devices'
 
-export const GroupDevicesIndex = ({ match, ...props }) => {
+export const GroupDevicesIndex = ({ match, history, ...props }) => {
   const renderGroupDevices = () => {
     return (
 		<UiCard title="">
@@ -23,7 +24,11 @@ export const GroupDevicesIndex = ({ match, ...props }) => {
         />
         <Route
           render={() => (
-            <AngularComponent component="groupDevices" {...props} />
+            <GroupDevices
+            match={match}
+            history={history}
+            {...props}
+            />
           )}
         />
       </Switch>
