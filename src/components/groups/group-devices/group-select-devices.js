@@ -9,11 +9,14 @@ import { DeviceTags } from '@/components/groups/group-device'
 import { Navbar } from 'rbx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { CSVLink } from 'react-csv'
+import _ from 'lodash'
 
 export const GroupSelectDevices = ({
   serviceProviderId,
   groupId,
   history,
+  setDownloadCsvRef,
   refresh
 }) => {
   const [needEdit, setNeedEdit] = useState(false)
@@ -21,6 +24,8 @@ export const GroupSelectDevices = ({
   const [deviceUpdatedDetails, setDeviceUpdatedDetails] = useState({})
 
   const [showTags, setShowTags] = useState(false)
+  const exportRef = React.useRef()
+  if (_.isFunction(setDownloadCsvRef)) setDownloadCsvRef(exportRef)
 
   const editDeviceInfo = deviceInfo => {
     setDeviceUpdatedDetails({ ...deviceInfo })
@@ -29,7 +34,7 @@ export const GroupSelectDevices = ({
   const editButton = row => {
     return (
       <Navbar.Item
-        style={{width: '30px'}}
+        style={{ width: '30px' }}
         dropdown
         onMouseEnter={() => setNeedEdit(true)}
         onMouseLeave={() => setNeedEdit(false)}
@@ -73,6 +78,49 @@ export const GroupSelectDevices = ({
     {
       key: 'status',
       label: 'Status'
+    }
+  ]
+
+  const csvColumns = [
+    {
+      key: 'serviceProviderId',
+      label: 'serviceProviderId'
+    },
+    {
+      key: 'groupId',
+      label: 'groupId'
+    },
+    {
+      key: 'deviceName',
+      label: 'deviceName'
+    },
+    {
+      key: 'deviceType',
+      label: 'deviceType'
+    },
+    {
+      key: 'availablePorts',
+      label: 'availablePorts'
+    },
+    {
+      key: 'netAddress',
+      label: 'netAddress'
+    },
+    {
+      key: 'status',
+      label: 'status'
+    },
+    {
+      key: 'version',
+      label: 'version'
+    },
+    {
+      key: 'macAddress',
+      label: 'macAddress'
+    },
+    {
+      key: 'deviceLevel',
+      label: 'deviceLevel'
     }
   ]
 
@@ -137,6 +185,14 @@ export const GroupSelectDevices = ({
     <>
       {updateDeviceModal}
       {showTags && tagsModal}
+      <CSVLink
+        ref={exportRef}
+        headers={csvColumns}
+        data={devices}
+        filename={`${serviceProviderId}_${groupId}_devices-${new Date().toJSON()}.csv`}
+        target="_blank"
+      />
+
       <UiDataTable
         columns={columns}
         rows={devices || []}
@@ -152,5 +208,6 @@ GroupSelectDevices.propTypes = {
   serviceProviderId: PropTypes.string.isRequired,
   groupId: PropTypes.string.isRequired,
   history: PropTypes.object,
+  setDownloadCsvRef: PropTypes.func,
   refresh: PropTypes.func
 }

@@ -13,6 +13,7 @@ const { serviceProviderId, groupId } = match.params
 const [newDeviceClicked, setNewDeviceClicked] = useState(false)
 const [device, setDevice] = useState({})
 const [loading, setLoading] = useState(false)
+const [downloadCsvRef, setDownloadCsvRef] = useState(React.useRef())
 
 const addDevice = async () => {
   const newDeviceDetail = device.deviceData
@@ -67,6 +68,12 @@ if(loading) {
               size="small"
               onClick={() => setNewDeviceClicked(true)}
             />
+            <UiButton
+              color="link"
+              icon="download"
+              size="small"
+              onClick={() => downloadCsvRef.current.link.click()}
+            />
           </>
         }
       >
@@ -74,6 +81,7 @@ if(loading) {
         serviceProviderId={serviceProviderId}
         groupId={groupId}
         history={history}
+        setDownloadCsvRef={setDownloadCsvRef}
       />
       </UiCard>
     </>
