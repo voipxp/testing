@@ -189,7 +189,7 @@ export const GroupSelectDevices = ({
         ref={exportRef}
         headers={csvColumns}
         data={devices}
-        filename={`${serviceProviderId}_${groupId}_devices.csv`}
+        filename={`${serviceProviderId}_${groupId}_devices-${new Date().toJSON()}.csv`}
         target="_blank"
       />
 
