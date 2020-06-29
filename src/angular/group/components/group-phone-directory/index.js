@@ -64,8 +64,8 @@ function controller(Alert, GroupPhoneDirectoryService, ACL, CsvService, Download
   function download() {
     var now = new Date()
     var filename =
-      ctrl.serviceProviderId + ctrl.groupId + '-directory-' + now.toJSON() + '.csv'
-    CsvService.export(ctrl.users)
+      ctrl.serviceProviderId + '-' + ctrl.groupId + '-directory-' + now.toJSON() + '.csv'
+      CsvService.export(ctrl.users)
       .then(function(data) {
         DownloadService.download(data, filename)
       })
