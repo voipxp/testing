@@ -10,6 +10,7 @@ const StyledBreadcrumb = styled.div`
   margin-bottom: 1rem;
 `
 export const AppBreadcrumbBase = ({ match, children }) => {
+  Object.keys(match.params).map(el => match.params[el] = decodeURIComponent(match.params[el])) /* decode URI */
   const { serviceProviderId, groupId, resellerId, userId } = match.params
   const acl = useAcl()
   const hasGroup = acl.hasGroup()
