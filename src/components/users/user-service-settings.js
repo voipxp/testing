@@ -88,6 +88,7 @@ export const UserServiceSettings = ({ history, match }) => {
 
   // render the clicked service
   const renderRoute = routeProps => {
+    Object.keys(routeProps.match.params).map(el => routeProps.match.params[el] = decodeURIComponent(routeProps.match.params[el])) /* decode URI Params */
     const path = routeProps.match.params.path
     const route = Object.values(userServiceRoutes).find(r => r.path === path)
     const { component, angularComponent, ...props } = route

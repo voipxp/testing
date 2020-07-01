@@ -114,6 +114,7 @@ export const UiMenuBase = ({ match, location, menu = [] }) => {
   const [activeSubMenuArr, setActiveSubMenuArr] = React.useState([])
 
   const renderRoute = routeProps => {
+    Object.keys(routeProps.match.params).map(el => routeProps.match.params[el] = decodeURIComponent(routeProps.match.params[el])) /* decode URI Params */
     const path = routeProps.match.params.path
     let route
     for (const section of menu) {
