@@ -18,7 +18,9 @@ controller.$inject = [
   'GroupWebPolicyService',
   'ServiceProviderUsersService',
   '$q',
-  'ACL'
+  'ACL',
+  'CsvService',
+  'DownloadService'
 ]
 function controller(
   Alert,
@@ -30,7 +32,9 @@ function controller(
   GroupWebPolicyService,
   ServiceProviderUsersService,
   $q,
-  ACL
+  ACL,
+  CsvService,
+  DownloadService
 ) {
   var ctrl = this
   ctrl.$onInit = onInit
@@ -40,6 +44,8 @@ function controller(
   ctrl.edit = edit
   ctrl.onClick = onClick
   ctrl.onSelect = onSelect
+  ctrl.download = download
+
   ctrl.columns = [
     {
       key: 'userId',
@@ -115,7 +121,7 @@ function controller(
       .finally(function() {
         ctrl.loading = false
       })
-    
+
   }
 
     function loadUsers(extended) {
@@ -214,5 +220,18 @@ function controller(
       })
       .catch(Alert.notify.danger)
       .finally(Alert.spinner.close)
+  }
+
+  function download() {
+    var now = new Date()
+    var filename =
+      ctrl.serviceProviderId + '-' + ctrl.groupId + '-users-' + now.toJSON() + '.csv'
+      CsvService.export(ctrl.users)
+      .then(function(data) {
+        DownloadService.download(data, filename)
+      })
+      .catch(function(error) {
+        Alert.notify.danger(error)
+      })
   }
 }
