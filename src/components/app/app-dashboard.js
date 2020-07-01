@@ -22,7 +22,7 @@ export const AppDashboard = () => {
       route = `/groups/${serviceProviderId}/${groupId}`
       break
     case 'User':
-      route = `/users/${serviceProviderId}/${groupId}/${userId}`
+      route = `/users/${serviceProviderId}/${groupId}/${encodeURIComponent(userId)}`
       break
     case 'Group Department':
       route = `/department/${serviceProviderId}/${groupId}`
