@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { UiCard, UiCardModal, UiButton, UiLoading } from '@/components/ui'
+import { UiCard, UiCardModal, UiButton, UiLoadingModal } from '@/components/ui'
 import {
   GroupSelectDevices,
   AddNewDevice
@@ -13,6 +13,7 @@ const { serviceProviderId, groupId } = match.params
 const [newDeviceClicked, setNewDeviceClicked] = useState(false)
 const [device, setDevice] = useState({})
 const [loading, setLoading] = useState(false)
+const [downloadCsvRef, setDownloadCsvRef] = useState(React.useRef())
 
 const addDevice = async () => {
   const newDeviceDetail = device.deviceData
@@ -51,15 +52,7 @@ const addNewDeviceModal = (
 )
 
 if(loading) {
-  return (
-    <UiCardModal
-      title=""
-      isOpen={loading}
-      onCancel={() => setLoading(false)}
-    >
-      <UiLoading />
-    </UiCardModal>
-  )
+  return <UiLoadingModal isOpen={loading} />
 }
 
   return (
@@ -75,6 +68,12 @@ if(loading) {
               size="small"
               onClick={() => setNewDeviceClicked(true)}
             />
+            <UiButton
+              color="link"
+              icon="download"
+              size="small"
+              onClick={() => downloadCsvRef.current.link.click()}
+            />
           </>
         }
       >
@@ -82,6 +81,7 @@ if(loading) {
         serviceProviderId={serviceProviderId}
         groupId={groupId}
         history={history}
+        setDownloadCsvRef={setDownloadCsvRef}
       />
       </UiCard>
     </>

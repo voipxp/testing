@@ -12,7 +12,8 @@ import {
   UiSection,
   UiInputPassword,
   UiLoading,
-  UiCardModal
+  UiCardModal,
+  UiLoadingModal
 } from '@/components/ui'
 
 export const UpdateDevice = ({
@@ -145,7 +146,7 @@ export const UpdateDevice = ({
             name ="useCustomUserNamePassword"
             checked={form.useCustomUserNamePassword === false}
             onChange={handleInput}
-          />Use Identity/Device Profile Type Credentials<br/>
+          /> Use Identity/Device Profile Type Credentials<br/>
 
           <Radio
             type="radio"
@@ -153,7 +154,7 @@ export const UpdateDevice = ({
             name ="useCustomUserNamePassword"
             checked={form.useCustomUserNamePassword === true}
             onChange={handleInput}
-          />Use Custom Credentials
+          /> Use Custom Credentials
         </UiFormField>
 
           {/* show if authentication is not set or value true */}
@@ -307,14 +308,7 @@ export const UpdateDevice = ({
   )
 
   if(loading) {
-    return (
-      <UiCardModal
-        isOpen={loading}
-        onCancel={() => setUpdateDevice(false)}
-      >
-        <UiLoading />
-      </UiCardModal>
-    )
+    return <UiLoadingModal isOpen={loading} />
   }
 
   return (

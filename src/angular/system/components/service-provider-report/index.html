@@ -6,6 +6,12 @@
 </pbs-navigation>
 <pbs-spinner loading="$ctrl.loading">
   <pbs-block title="Service Provider Report">
+    <pbs-block-buttons>
+      <pbs-button-compact-download
+        text="Download CSV"
+        ng-click="$ctrl.download()"
+      ></pbs-button-compact-download>
+    </pbs-block-buttons>
     <pbs-data-table
       columns="$ctrl.columns"
       items="$ctrl.items"
