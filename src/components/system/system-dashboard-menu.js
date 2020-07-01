@@ -2,13 +2,24 @@ import { ReportRouteSettings } from './system-report-settings'
 import { Audits } from '@/components/audits'
 import { Imports } from '@/components/imports'
 import { Exports } from '@/components/exports'
+import { ServiceProviderOdinSupport } from '@/components/service-provider/service-provider-odin-support'
 import { SystemNetworkClassOfServicesIndex } from '@/components/system/system-network-class-of-services-index'
 import { BulkTasksIndex } from '@/components/bulk'
-
+import { SystemDomains } from './system-domains'
+import { VdmDashboardIndex } from '@/components/vdm'
+import { SystemResellers } from '@/components/system'
 export const dashboardMenu = [
   {
     label: 'Dashboard',
     items: [
+      {
+        name: 'Resellers',
+        path: 'resellers',
+        component: SystemResellers,
+        limitTo: 10,
+        hasLevel: 'Provisioning',
+        hasVersion: '22'
+      },
       {
         name: 'Service Providers',
         path: 'serviceProviders',
@@ -19,7 +30,8 @@ export const dashboardMenu = [
       {
         name: 'VDM',
         path: 'vdm',
-        angularComponent: 'vdmDashboard',
+        // angularComponent: 'vdmDashboard',
+        component: VdmDashboardIndex,
         hasLevel: 'System',
         module: 'VDM',
         hasModuleRead: 'VDM'
@@ -116,6 +128,13 @@ export const dashboardMenu = [
         acl: 'System',
         hasLevel: 'System'
       },
+	  {
+		name: 'Domains',
+		component: SystemDomains,
+		path: 'domains',
+		hasLevel: 'System',
+		isBreadcrumb: false
+	  },
       {
         name: 'Network Class of Services',
         path: 'networkClassOfServices',
@@ -160,6 +179,12 @@ export const dashboardMenu = [
         angularComponent: 'odinWebhooks',
         hasLevel: 'Provisioning',
         isPaasAdmin: true
+      },
+      {
+        name: 'Support',
+        path: 'support',
+        component: ServiceProviderOdinSupport,
+        hasLevel: 'Service Provider'
       }
     ]
   }

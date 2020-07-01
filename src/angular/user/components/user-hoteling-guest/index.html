@@ -1,5 +1,5 @@
 <pbs-spinner loading="$ctrl.loading" ng-show="!$ctrl.showQuick">
-  <pbs-block module="$ctrl.module">
+  <pbs-block module="$ctrl.module" help-module="$ctrl.module">
     <pbs-block-buttons if-module-update="$ctrl.module">
       <pbs-button-compact-edit
         title="Edit Hoteling Guest"
@@ -30,7 +30,6 @@
     <a href="">Hoteling Guest</a>
   </label>
   <pbs-input-switch
-    ng-label="$ctrl.settings.forwardToPhoneNumber || 'N/A'"
     ng-model="$ctrl.settings.isActive"
     ng-change="$ctrl.toggle()"
     ng-disabled="$ctrl.loading"

@@ -7,12 +7,13 @@ angular.module('odin.group').component('groupPhoneDirectory', {
   bindings: { serviceProviderId: '<', groupId: '<' }
 })
 
-controller.$inject = ['Alert', 'GroupPhoneDirectoryService', 'ACL']
-function controller(Alert, GroupPhoneDirectoryService, ACL) {
+controller.$inject = ['Alert', 'GroupPhoneDirectoryService', 'ACL', 'CsvService', 'DownloadService']
+function controller(Alert, GroupPhoneDirectoryService, ACL, CsvService, DownloadService) {
   var ctrl = this
   ctrl.$onInit = onInit
   ctrl.isGroupAdmin = ACL.is('Group')
   ctrl.isGroupDepartmentAdmin = ACL.is('Group Department')
+  ctrl.download = download
   ctrl.columns = [
     {
       key: 'name',
@@ -58,5 +59,18 @@ function controller(Alert, GroupPhoneDirectoryService, ACL) {
     ).then(function(data) {
       ctrl.users = data
     })
+  }
+
+  function download() {
+    var now = new Date()
+    var filename =
+      ctrl.serviceProviderId + '-' + ctrl.groupId + '-directory-' + now.toJSON() + '.csv'
+      CsvService.export(ctrl.users)
+      .then(function(data) {
+        DownloadService.download(data, filename)
+      })
+      .catch(function(error) {
+        Alert.notify.danger(error)
+      })
   }
 }

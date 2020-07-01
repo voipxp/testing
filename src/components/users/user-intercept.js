@@ -17,6 +17,7 @@ import {
   UiListItem,
   UiFormField
 } from '@/components/ui'
+import { AppHelp } from '@/components/app'
 
 export const UserIntercept = ({ match }) => {
   const { userId } = match.params
@@ -68,7 +69,7 @@ export const UserIntercept = ({ match }) => {
     showLoadingModal()
     try {
       const newUserIntercept = await api.update(userIntercept)
-      queryCache.setQueryData(['user-intercept'], newUserIntercept, {
+        queryCache.setQueryData(['user-intercept'], newUserIntercept, {
         shouldRefetch: true
       })
       alertSuccess('Intercept User Updated')
@@ -84,6 +85,7 @@ export const UserIntercept = ({ match }) => {
     <>
       <UiCard
         title="Intercept User"
+		    helpModule={<AppHelp module='Intercept User'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

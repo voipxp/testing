@@ -7,6 +7,12 @@ import { GroupWebPolicy } from './group-web-policy'
 import { GroupExtensionLength } from './group-extension-length'
 import { groupReportRoutes } from './group-report-routes'
 import { BulkTasksIndex } from '@/components/bulk'
+import { GroupSchedulesIndex } from '@/components/groups/group-schedules-index'
+import { GroupAssignDomains } from './group-assign-domains'
+import { GroupDeviceTypesIndex } from '@/components/groups/group-device-types-index'
+import { GroupDevicesIndex } from '@/components/groups/group-devices-index'
+import { GroupAnnouncementsIndex } from '@/components/groups/group-announcements-index'
+import { VdmDashboardIndex } from '@/components/vdm'
 
 export const dashboardMenu = [
   {
@@ -75,7 +81,7 @@ export const dashboardMenu = [
             name: 'Bulk Wizards',
             path: 'bulk-wizards',
             angularComponent: 'bulkDashboard',
-            hasLevel: 'Group Department',
+            hasLevel: 'Group',
             hasModuleRead: 'Provisioning'
           },
           {
@@ -136,14 +142,14 @@ export const dashboardMenu = [
           {
             name: 'Device Configuration',
             path: 'groupDeviceTypes',
-            angularComponent: 'groupDeviceTypes',
+            component: GroupDeviceTypesIndex,
             hasLevel: 'Group',
             isPaasAdmin: true
           },
           {
             name: 'Devices',
             path: 'groupDevices',
-            angularComponent: 'groupDevices',
+            component: GroupDevicesIndex,
             hasLevel: 'Group',
             isPaasAdmin: true
           },
@@ -183,19 +189,29 @@ export const dashboardMenu = [
       {
         name: 'Announcements',
         path: 'announcements',
-        angularComponent: 'groupAnnouncements',
+        component: GroupAnnouncementsIndex,
         version: '20'
+      },
+      {
+        name: 'Domains',
+        path: 'domains',
+        component: GroupAssignDomains,
+        hasLevel: 'Group',
+        isBreadcrumb: false
       },
       {
         name: 'Call Processing Policy',
         path: 'callProcessingPolicy',
         angularComponent: 'groupCallProcessingPolicy',
+        hasModuleRead: 'Group Call Processing Policy',
+        module: 'Group Call Processing Policy',
         hasLevel: 'Group'
       },
       {
         name: 'Comm Barring',
         path: 'comm-barring',
-        component: GroupCommunicationSettings
+        component: GroupCommunicationSettings,
+        hasModuleRead: 'Communication Barring User-Control'
       },
       {
         name: 'Feature Access Codes',
@@ -223,8 +239,7 @@ export const dashboardMenu = [
         name: 'Network Class of Service',
         path: 'networkClassOfServices',
         angularComponent: 'groupNetworkClassOfServices',
-        hasLevel: 'Group',
-        hasModuleRead: 'Network Class of Service'
+        hasLevel: 'Group'
       },
       {
         name: 'Phone List And Directory',
@@ -234,7 +249,7 @@ export const dashboardMenu = [
       {
         name: 'Schedules',
         path: 'schedules',
-        angularComponent: 'groupSchedules',
+        component: GroupSchedulesIndex,
         hasLevel: 'Group'
       },
       {
@@ -261,7 +276,7 @@ export const dashboardMenu = [
       {
         name: 'VDM',
         path: 'vdm',
-        angularComponent: 'vdmDashboard',
+        component: VdmDashboardIndex,
         hasLevel: 'Group',
         hasModuleRead: 'VDM'
       }

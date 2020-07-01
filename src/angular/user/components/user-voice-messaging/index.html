@@ -1,5 +1,9 @@
-<pbs-spinner loading="$ctrl.loading">
-  <pbs-block title="Voice Messaging" class="margin-top">
+<pbs-spinner loading="$ctrl.loading" ng-show="!$ctrl.showQuick">
+  <pbs-block
+    title="Voice Messaging"
+    class="margin-top"
+    help-module="$ctrl.module"
+  >
     <pbs-block-buttons>
       <pbs-button-compact-edit
         title="Edit Voice Messaging"
@@ -79,6 +83,18 @@
     </pbs-list>
   </pbs-block>
 </pbs-spinner>
+
+<div ng-show="$ctrl.showQuick">
+  <label class="label hover" ng-click="$ctrl.edit()">
+    <a href="">Forward All Calls To Voicemail</a>
+  </label>
+  <pbs-input-switch
+    ng-model="$ctrl.messaging.alwaysRedirectToVoiceMail"
+    ng-change="$ctrl.toggle()"
+    ng-disabled="$ctrl.loading"
+  ></pbs-input-switch>
+</div>
+
 <pbs-modal id="editUserVoiceMessaging" title="Edit Voice Messaging">
   <form>
     <pbs-input-checkbox

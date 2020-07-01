@@ -10,11 +10,17 @@ angular.module('odin.group').component('groupMusicOnHoldSettings', {
   }
 })
 
-controller.$inject = ['Alert', 'ACL']
-function controller(Alert, ACL) {
+controller.$inject = ['Alert', 'ACL', 'Module']
+function controller(Alert, ACL, Module) {
   var ctrl = this
   ctrl.edit = edit
+  loadModule()
 
+  function loadModule() {
+    return Module.show('Music On Hold').then(function(data) {
+      ctrl.parent.module = data
+    })
+}
   function edit() {
     ctrl.editMoh = angular.copy(ctrl.moh)
     var onDelete = null

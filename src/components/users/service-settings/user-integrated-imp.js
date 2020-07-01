@@ -14,6 +14,7 @@ import {
   UiLoadingCard,
   UiSection
 } from '@/components/ui'
+import { AppHelp } from '@/components/app'
 
 export const UserIntegratedImp = ({ match }) => {
   const { userId } = match.params
@@ -68,6 +69,7 @@ export const UserIntegratedImp = ({ match }) => {
     <>
       <UiCard
         title="Integrated IMP"
+		helpModule={<AppHelp module='Integrated IMP'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

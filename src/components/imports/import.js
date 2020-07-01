@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import { useAsync } from 'react-async-hook'
 import { useAlerts } from '@/store/alerts'
 import api from '@/api/imports'
-import { AppBreadcrumb } from '@/components/app'
-import { Breadcrumb } from 'rbx'
 import {
   UiCard,
   UiButton,
@@ -76,13 +74,6 @@ export const Import = ({ history, match, isBreadcrumb = true }) => {
 
   return (
     <>
-      {isBreadcrumb && (
-        <AppBreadcrumb>
-          <Breadcrumb.Item onClick={() => history.goBack()}>Imports</Breadcrumb.Item>
-          <Breadcrumb.Item>Import {id}</Breadcrumb.Item>
-        </AppBreadcrumb>
-      )}
-
       {loading ? (
         <UiLoadingCard />
       ) : (

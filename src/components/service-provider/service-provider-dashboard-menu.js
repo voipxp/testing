@@ -4,6 +4,9 @@ import { Exports } from '@/components/exports'
 import { ServiceProviderAudits } from './service-provider-audits'
 import { BulkTasksIndex } from '@/components/bulk'
 import { ServiceProviderServicePacksIndex } from '@/components/service-provider/service-provider-service-packs-index'
+import { EnterpriseEnterpriseTrunksIndex } from '@/components/service-provider'
+import { ServiceProviderOdinSupport } from '@/components/service-provider/service-provider-odin-support'
+import { ServiceProviderAssignDomains } from './service-provider-assign-domains'
 
 export const dashboardMenu = [
   {
@@ -123,7 +126,8 @@ export const dashboardMenu = [
       {
         name: 'Enterprise Trunk',
         path: 'enterpriseTrunks',
-        angularComponent: 'enterpriseEnterpriseTrunks',
+        component: EnterpriseEnterpriseTrunksIndex,
+        //angularComponent: 'enterpriseEnterpriseTrunks',
         hasLevel: 'Service Provider',
         module: 'Trunk Group',
         isEnterprise: true
@@ -151,7 +155,8 @@ export const dashboardMenu = [
         path: 'audits',
         name: 'Audits',
         component: ServiceProviderAudits,
-        hasLevel: 'Service Provider',
+        hasLevel: 'Reseller',
+        module: 'Audit',
         isBreadcrumb: false
       },
       {
@@ -159,7 +164,8 @@ export const dashboardMenu = [
         path: 'imports',
         exact: true,
         component: Imports,
-        hasLevel: 'Service Provider',
+        hasLevel: 'Reseller',
+        module: 'Import',
         isBreadcrumb: false
       },
       {
@@ -167,7 +173,8 @@ export const dashboardMenu = [
         path: 'migrations',
         exact: true,
         component: Exports,
-        hasLevel: 'Service Provider',
+        hasLevel: 'Reseller',
+        module: 'Export',
         isBreadcrumb: false
       }
     ]
@@ -175,6 +182,13 @@ export const dashboardMenu = [
   {
     label: 'Management',
     items: [
+	  {
+        name: 'Assign Domains',
+        component: ServiceProviderAssignDomains,
+        path: 'assignDomains',
+        hasLevel: 'Service Provider',
+        isBreadcrumb: false
+	  },
       {
         name: 'Administrators',
         path: 'Administrators',
@@ -225,6 +239,12 @@ export const dashboardMenu = [
         angularComponent: 'odinWebhooks',
         hasLevel: 'Service Provider',
         isPaasAdmin: true
+      },
+      {
+        name: 'Support',
+        path: 'support',
+        component: ServiceProviderOdinSupport,
+        hasLevel: 'Service Provider'
       }
     ]
   }

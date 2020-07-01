@@ -261,7 +261,7 @@ export const Audit = ({ history, match, isBreadcrumb = true }) => {
                   <Select.Option value="Please select...">
                     {'Please select...'}
                   </Select.Option>
-                  {endpoints.map(searchType => (
+                  {endpoints && endpoints.map(searchType => (
                     <Select.Option key={searchType.key} value={searchType.url}>
                       {searchType.name}
                     </Select.Option>

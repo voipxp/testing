@@ -14,6 +14,7 @@ import {
   UiLoadingCard,
   UiSection
 } from '@/components/ui'
+import { AppHelp } from '@/components/app'
 
 export const UserMusicOnHold = ({ match }) => {
   const { userId } = match.params
@@ -67,6 +68,7 @@ export const UserMusicOnHold = ({ match }) => {
     <>
       <UiCard
         title="Music On Hold User"
+		helpModule={<AppHelp module='Music On Hold'/>}
         buttons={
           <UiButton color="link" icon="edit" size="small" onClick={edit} />
         }

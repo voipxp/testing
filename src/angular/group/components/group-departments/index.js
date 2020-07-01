@@ -105,6 +105,6 @@ function controller(
       ctrl.groupId,
       'departments',
       'department'
-    ).search({ name: department.name })
+    ).search({ name: department.name, navigate: department.name })
   }
 }
