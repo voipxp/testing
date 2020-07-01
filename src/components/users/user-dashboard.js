@@ -16,7 +16,8 @@ import { dashboardMenu } from './user-dashboard-menu'
 
 export const UserDashboard = ({ match }) => {
   const [loading, setLoading] = React.useState(true)
-  const { userId } = match.params
+  let { userId } = match.params
+  userId = decodeURIComponent(userId)   /* decode URI */
   const { hasVersion, hasLevel } = useAcl()
   const { hasUserService } = useUserServicePermissions(userId)
   const { hasModuleRead } = useModulePermissions()

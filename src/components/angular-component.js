@@ -28,7 +28,8 @@ export const AngularComponentBase = ({
     setTimeout(() => {
       destroyScope()
       const element = kebabCase(component)
-      const matchParams = match.params || {}
+      Object.keys(match.params).map(el => match.params[el] = decodeURIComponent(match.params[el])) /* decode URI */
+      const matchParams = match.params  || {}
       const params = { ...props, ...matchParams }
       const attrs = Object.keys(params).map(key => `${kebabCase(key)}="${key}"`)
       const template = `<${element} ${attrs.join(' ')}></${element}>`
