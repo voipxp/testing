@@ -20,10 +20,9 @@ export const BulkUserPasswordUpdatePassword = ({
   handleWizData
 }) => {
   const handleTask = () => {
-      createTask()
-      .then(() => {
-        complete()
-      })
+    createTask().then(() => {
+      complete()
+    })
   }
 
   const initialForm = {
@@ -44,12 +43,18 @@ export const BulkUserPasswordUpdatePassword = ({
   const [isPasscodeVisible, setPasscodeVisible] = useState(false)
   const [isAuthPasswordVisible, setAuthPasswordVisible] = useState(false)
   const { alertSuccess, alertDanger } = useAlerts()
-  const [tagBundleTemplateClick, setTagBundleTemplateClick] = React.useState(false)
+  const [tagBundleTemplateClick, setTagBundleTemplateClick] = React.useState(
+    false
+  )
   const [selectedTagInput, setSelectedTagInput] = React.useState('')
   const [disableBtn, setDisableBtn] = useState(true)
 
   useEffect(() => {
-    const disableBtn = form.newPassword && form.newPasscode && form.userName && form.newAuthPassword
+    const disableBtn =
+      form.newPassword &&
+      form.newPasscode &&
+      form.userName &&
+      form.newAuthPassword
     setDisableBtn(!disableBtn)
   }, [form])
 
@@ -69,15 +74,15 @@ export const BulkUserPasswordUpdatePassword = ({
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 
-    if(name === 'passwordAction') {
+    if (name === 'passwordAction') {
       setPasswordVisible(value === 'manual')
       tempForm['newPassword'] = value === 'manual' ? '' : value
     }
-    if(name === 'passcodeAction') {
+    if (name === 'passcodeAction') {
       setPasscodeVisible(value === 'manual')
-      tempForm['newPasscode'] = value === 'manual' ? '': value
+      tempForm['newPasscode'] = value === 'manual' ? '' : value
     }
-    if(name === 'authPasswordAction') {
+    if (name === 'authPasswordAction') {
       setAuthPasswordVisible(value === 'manual')
       tempForm['newAuthPassword'] = value === 'manual' ? '' : value
     }
@@ -88,7 +93,7 @@ export const BulkUserPasswordUpdatePassword = ({
 
   const prepareImport = () => {
     const tasks = []
-    users.forEach(( (el, index) => {
+    users.forEach((el, index) => {
       const task = {
         task: 'user.passwords.update',
         userId: el.userId,
@@ -103,15 +108,17 @@ export const BulkUserPasswordUpdatePassword = ({
         groupId: groupId
       }
       tasks.push(task)
-    }))
+    })
 
     return tasks
   }
 
   const createTask = () => {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       prepareImportData().then(data => {
-        Promise.all([BulkImportService.handleFileData(data, 'BulkImportService')])
+        Promise.all([
+          BulkImportService.handleFileData(data, 'BulkImportService')
+        ])
           .then(data => {
             alertSuccess('Task is created Successfully.')
             return resolve('success')
@@ -163,28 +170,6 @@ export const BulkUserPasswordUpdatePassword = ({
     <>
       {tagBundleTemplateClick ? selectTagModal : null}
       <UiCard title="Passwords Update">
-        <UiSection title="Set the Username">
-            <UiFormField
-              style={{ flexGrow: '1', flexShrink: '1' }}
-              label="Username" horizontal
-            >
-                <UiButton
-                  style={{ height: '35px', width: '5%' }}
-                  color="link"
-                  icon="tag"
-                  size="small"
-                  onClick={() => tagInputClicked('userName')}
-                />
-                <Input
-                  style={{ width: '92%' }}
-                  type="text"
-                  name="userName"
-                  value={form.userName}
-                  onChange={handleInput}
-                />
-            </UiFormField>
-        </UiSection>
-
         <UiSection title="Do you want to set the Password ? ">
           <Radio
             type="radio"
@@ -192,7 +177,8 @@ export const BulkUserPasswordUpdatePassword = ({
             name="passwordAction"
             checked={form.passwordAction === '{{ generatePassword }}'}
             onChange={handleInputRadio}
-          /> Auto-Generate Password
+          />{' '}
+          Auto-Generate Password
           <br />
           <Radio
             type="radio"
@@ -200,33 +186,35 @@ export const BulkUserPasswordUpdatePassword = ({
             name="passwordAction"
             checked={form.passwordAction === 'manual'}
             onChange={handleInputRadio}
-          /> Enter Password
+          />{' '}
+          Enter Password
           <br />
           <br />
           {isPasswordVisible && (
             <UiFormField
               style={{ flexGrow: '1', flexShrink: '1' }}
-              label="Password" horizontal
+              label="Password"
+              horizontal
             >
-                <UiButton
-                  style={{ height: '35px', width: '5%' }}
-                  color="link"
-                  icon="tag"
-                  size="small"
-                  onClick={() => tagInputClicked('newPassword')}
-                />
+              <UiButton
+                style={{ height: '35px', width: '5%' }}
+                color="link"
+                icon="tag"
+                size="small"
+                onClick={() => tagInputClicked('newPassword')}
+              />
               <Input
-                  style={{ width: '92%' }}
-                  type="text"
-                  name="newPassword"
-                  value={form.newPassword}
-                  onChange={handleInput}
-                />
+                style={{ width: '92%' }}
+                type="text"
+                name="newPassword"
+                value={form.newPassword}
+                onChange={handleInput}
+              />
             </UiFormField>
           )}
         </UiSection>
 
-      {/* Passcode */}
+        {/* Passcode */}
         <UiSection title="Do you want to set the Passcode ?">
           <Radio
             type="radio"
@@ -234,7 +222,8 @@ export const BulkUserPasswordUpdatePassword = ({
             name="passcodeAction"
             checked={form.passcodeAction === '{{ generatePasscode }}'}
             onChange={handleInputRadio}
-          /> Auto-Generate Passcode
+          />{' '}
+          Auto-Generate Passcode
           <br />
           <Radio
             type="radio"
@@ -242,33 +231,58 @@ export const BulkUserPasswordUpdatePassword = ({
             name="passcodeAction"
             checked={form.passcodeAction === 'manual'}
             onChange={handleInputRadio}
-          /> Enter Passcode
+          />{' '}
+          Enter Passcode
           <br />
           <br />
           {isPasscodeVisible && (
             <UiFormField
               style={{ flexGrow: '1', flexShrink: '1' }}
-              label="Passcode" horizontal
+              label="Passcode"
+              horizontal
             >
-                <UiButton
-                  style={{ height: '35px', width: '5%' }}
-                  color="link"
-                  icon="tag"
-                  size="small"
-                  onClick={() => tagInputClicked('newPasscode')}
-                />
+              <UiButton
+                style={{ height: '35px', width: '5%' }}
+                color="link"
+                icon="tag"
+                size="small"
+                onClick={() => tagInputClicked('newPasscode')}
+              />
               <Input
-                  style={{ width: '92%' }}
-                  type="text"
-                  name="newPasscode"
-                  value={form.newPasscode}
-                  onChange={handleInput}
-                />
+                style={{ width: '92%' }}
+                type="text"
+                name="newPasscode"
+                value={form.newPasscode}
+                onChange={handleInput}
+              />
             </UiFormField>
           )}
         </UiSection>
 
         {/* AuthenticationPassword */}
+        <UiSection title="Authentication Username">
+          <UiFormField
+            style={{ flexGrow: '1', flexShrink: '1' }}
+            label="Username"
+            horizontal
+          >
+            <UiButton
+              style={{ height: '35px', width: '5%' }}
+              color="link"
+              icon="tag"
+              size="small"
+              onClick={() => tagInputClicked('userName')}
+            />
+            <Input
+              style={{ width: '92%' }}
+              type="text"
+              name="userName"
+              value={form.userName}
+              onChange={handleInput}
+            />
+          </UiFormField>
+        </UiSection>
+
         <UiSection title="Do you want to set the Authentication Password ?">
           <Radio
             type="radio"
@@ -276,7 +290,8 @@ export const BulkUserPasswordUpdatePassword = ({
             name="authPasswordAction"
             checked={form.authPasswordAction === '{{ generateSipPassword }}'}
             onChange={handleInputRadio}
-          /> Auto-Generate Authentication Password
+          />{' '}
+          Auto-Generate Authentication Password
           <br />
           <Radio
             type="radio"
@@ -284,28 +299,30 @@ export const BulkUserPasswordUpdatePassword = ({
             name="authPasswordAction"
             checked={form.authPasswordAction === 'manual'}
             onChange={handleInputRadio}
-          /> Enter Authentication Password
+          />{' '}
+          Enter Authentication Password
           <br />
           <br />
           {isAuthPasswordVisible && (
             <UiFormField
               style={{ flexGrow: '1', flexShrink: '1' }}
-              label="Authentication Password" horizontal
+              label="Authentication Password"
+              horizontal
             >
-                <UiButton
-                  style={{ height: '35px', width: '5%' }}
-                  color="link"
-                  icon="tag"
-                  size="small"
-                  onClick={() => tagInputClicked('newAuthPassword')}
-                />
+              <UiButton
+                style={{ height: '35px', width: '5%' }}
+                color="link"
+                icon="tag"
+                size="small"
+                onClick={() => tagInputClicked('newAuthPassword')}
+              />
               <Input
-                  style={{ width: '92%' }}
-                  type="text"
-                  name="newAuthPassword"
-                  value={form.newAuthPassword}
-                  onChange={handleInput}
-                />
+                style={{ width: '92%' }}
+                type="text"
+                name="newAuthPassword"
+                value={form.newAuthPassword}
+                onChange={handleInput}
+              />
             </UiFormField>
           )}
         </UiSection>
