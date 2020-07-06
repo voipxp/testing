@@ -20,7 +20,7 @@ export const BulkUserPasscodeUpdatePasscode = ({
     passcodeAction: '{{ generatePasscode }}',
     passcode: '{{ generatePasscode }}'
   }
-  const { alertSuccess, alertDanger } = useAlerts()
+  const { alertDanger } = useAlerts()
   const [form, setForm] = useState({ ...initialForm })
   const { users, serviceProviderId, groupId } = initialData
   const [isPasscodeVisible, setPasscodeVisible] = useState(false)
