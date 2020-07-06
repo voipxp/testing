@@ -11,7 +11,6 @@ import {
   UiCardModal,
   UiInputCheckbox
 } from '@/components/ui'
-
 import { useAlerts } from '@/store/alerts'
 
 export const BulkUserPasswordUpdatePassword = ({

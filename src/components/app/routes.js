@@ -15,7 +15,8 @@ import { SystemDashboard } from '../system'
 import { ResellerDashboard } from '@/components/resellers'
 import {
   BulkSipTrunking,
-  BulkUserPasswordIndex
+  BulkUserPasswordIndex,
+  BulkUserPasscodeIndex
 } from '@/components/bulk'
 import { BulkSipTrunkingUpload } from '@/components/bulk/bulk-sip-trunking-upload/bulk-sip-trunking-upload'
 export const routes = [
@@ -243,7 +244,11 @@ export const routes = [
     path: '/bulk/user.passwords.update',
     component: BulkUserPasswordIndex,
     hasLevel: 'Group'
-    // hasModuleRead: 'Provisioning'
+  },
+  {
+    path: '/bulk/user.portal.passcode.update',
+    component: BulkUserPasscodeIndex,
+    hasLevel: 'Group'
   },
   {
     path: '/bulk/user.create',

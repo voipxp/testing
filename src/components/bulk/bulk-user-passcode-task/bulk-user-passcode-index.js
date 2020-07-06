@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { menu } from './bulk-user-password-menu'
+import { menu } from './bulk-user-passcode-menu'
 import { BulkWizMenu } from '@/components/bulk'
 import { Breadcrumb } from 'rbx'
 import { AppBreadcrumb } from '@/components/app'
@@ -12,13 +12,13 @@ const initial = {
   users: []
 }
 
-export const BulkUserPasswordIndexBase = ({ history, location }) => {
+export const BulkUserPasscodeIndexBase = ({ history, location }) => {
   const searchParams = new URLSearchParams(location.search)
-  const [userPasswordShareableData, setUserPasswordShareableData] = useState({ ...initial })
+  const [userShareableData, setUserShareableData] = useState({ ...initial })
   const [menuTemp, setMenuTemp] = useState([...menu])
 
   const handleWizData = useCallback(data => {
-    setUserPasswordShareableData(data)
+    setUserShareableData(data)
   }, [])
 
   const handleSetMenu = menuData => {
@@ -52,12 +52,12 @@ export const BulkUserPasswordIndexBase = ({ history, location }) => {
     <>
       <AppBreadcrumb>
         <Breadcrumb.Item onClick={() => history.goBack()}>Bulk</Breadcrumb.Item>
-        <Breadcrumb.Item>User Password</Breadcrumb.Item>
+        <Breadcrumb.Item>User Passcode</Breadcrumb.Item>
       </AppBreadcrumb>
 
       <BulkWizMenu
         menu={menuTemp}
-        initialData={userPasswordShareableData}
+        initialData={userShareableData}
         handleWizData={handleWizData}
         setMenu={menuData => handleSetMenu(menuData)}
         wizardComplete={wizardComplete}
@@ -68,9 +68,9 @@ export const BulkUserPasswordIndexBase = ({ history, location }) => {
   )
 }
 
-BulkUserPasswordIndexBase.propTypes = {
+BulkUserPasscodeIndexBase.propTypes = {
   history: PropTypes.object,
   location: PropTypes.object
 }
 
-export const BulkUserPasswordIndex = withRouter(BulkUserPasswordIndexBase)
+export const BulkUserPasscodeIndex = withRouter(BulkUserPasscodeIndexBase)

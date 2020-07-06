@@ -711,7 +711,7 @@ const bulkTaskServices = [
     name: 'User Passwords Update',
     description:
       'Manage User Password, Passcode, AuthenticationPassword, Rebuild and Reset Device ',
-    required: ['userId'],
+    required: ['userId', 'newPassword', 'newPasscode', 'userName', 'newAuthenticationPassword'],
     example: [
       {
         task: 'user.passwords.update',
@@ -722,6 +722,21 @@ const bulkTaskServices = [
         newAuthenticationPassword: 'string',
         rebuildDevice: 'boolean',
         resetDevice: 'boolean'
+      }
+    ]
+  },
+  //user portal passcode
+  {
+    task: 'user.portal.passcode.update',
+    name: 'User Portal Passcode Update',
+    description:
+      'Manage User Portal Passcode',
+    required: ['userId', 'passcode'],
+    example: [
+      {
+        task: '',
+        userId: 'userId',
+        passcode: 'string',
       }
     ]
   }
