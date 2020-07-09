@@ -20,6 +20,7 @@
     </pbs-list>
 
     <group-call-center-audio-settings-view
+      ng-if="$ctrl.centerType !== 'Standard'"
       service="$ctrl.service"
       user-id="$ctrl.serviceUserId"
     ></group-call-center-audio-settings-view>
@@ -45,6 +46,7 @@
   </pbs-form-field-horizontal>
 
   <group-call-center-audio-settings-edit
+    ng-if="$ctrl.centerType !== 'Standard'"
     service="$ctrl.editService"
     user-id="$ctrl.serviceUserId"
   ></group-call-center-audio-settings-edit>

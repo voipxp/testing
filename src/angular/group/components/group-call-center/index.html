@@ -117,6 +117,7 @@
     ></group-call-center-overflow>
     <group-call-center-stranded-call
       service-user-id="$ctrl.serviceUserId"
+      center-type="$ctrl.center.type"
       ng-if="$ctrl.center.type && $ctrl.center.type !== 'Basic'"
       pbs-margin-bottom
     ></group-call-center-stranded-call>

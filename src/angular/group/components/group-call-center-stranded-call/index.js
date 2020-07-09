@@ -5,7 +5,7 @@ import template from './index.html'
 angular.module('odin.group').component('groupCallCenterStrandedCall', {
   template,
   controller,
-  bindings: { serviceUserId: '<' }
+  bindings: { serviceUserId: '<', centerType: '<'}
 })
 
 controller.$inject = ['GroupCallCenterStrandedCallService', 'Alert', 'Module']
@@ -53,8 +53,17 @@ function controller(GroupCallCenterStrandedCallService, Alert, Module) {
     )
   }
 
+  function createStandardData(editService) {
+    return {
+      serviceUserId : editService.serviceUserId,
+      action: editService.action,
+      transferPhoneNumber: editService.transferPhoneNumber
+    }
+  }
+
   function edit() {
     ctrl.editService = angular.copy(ctrl.service)
+    if(ctrl.centerType === "Standard") ctrl.editService = createStandardData(ctrl.editService)
     Alert.modal.open('editGroupCallCenterStrandedCall', function onSave(close) {
       update(ctrl.editService, close)
     })
