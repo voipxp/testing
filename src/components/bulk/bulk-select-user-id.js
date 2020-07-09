@@ -5,7 +5,7 @@ import { useAlerts } from '@/store/alerts'
 import userApi from '@/api/users'
 
 export const BulkSelectUserId = props => {
-  const { serviceProviderId, groupId } = props
+  const { serviceProviderId, groupId, settUsers } = props
   const [availableUser, setAvailableUser] = useState([])
   const [selectedUser, setSelectedUser] = useState([])
   const { alertDanger } = useAlerts()
@@ -23,6 +23,10 @@ export const BulkSelectUserId = props => {
     }
     fetchUsers()
   }, [alertDanger, serviceProviderId, groupId])
+
+  useEffect(() => {
+    settUsers(selectedUser)
+  }, [settUsers, selectedUser])
 
   if (loading) return <UiLoading />
 

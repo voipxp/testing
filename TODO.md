@@ -5,3 +5,4 @@ TODO
   - perhaps move to dot-prop with regular ES6
     - dlv, dset https://github.com/developit/dlv
   - replace rest with es6?
+  - namespace builds

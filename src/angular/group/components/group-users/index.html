@@ -17,6 +17,11 @@
         if-module-update="'Provisioning'"
         on-select="$ctrl.edit($event)"
       ></pbs-button-dropdown>
+      <pbs-button-compact-download
+        text="Download CSV"
+        title="Export Users"
+        ng-click="$ctrl.download()"
+      ></pbs-button-compact-download>
     </pbs-block-buttons>
 
     <pbs-data-table
